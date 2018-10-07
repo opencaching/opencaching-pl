@@ -130,6 +130,9 @@ $translations = array(
     'map_movingType' => 'Mobilna',
     'map_owncacheType' => 'Owncache',
     'map_incorectMapParams' => 'Niepoprawne dane wejsciowe!',
+    'map_circle150mMode' => 'Okrąg o promieniu 150m dla danej lokalizacji',
+    'map_searchResultsMode' => 'Mapa przedstawia wyniki wyszukiwania',
+
 
     'ready_to_find' => 'gotowe do szukania',
     'other_options' => 'Pozostałe opcje',

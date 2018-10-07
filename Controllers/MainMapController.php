@@ -133,7 +133,7 @@ class MainMapController extends BaseController
             $mapCenter = Coordinates::FromCoordsFactory(
                 floatval($_GET['lat']), floatval($_GET['lon']));
             if(!$mapCenter) {
-                $this->mapJsParams->displayInfo = tr('map_incorectMapParams');
+                $mapModel->setInfoMessage(tr('map_incorectMapParams'));
             }else{
                 $zoom = intval($_GET['zoom']);
             }
@@ -146,8 +146,9 @@ class MainMapController extends BaseController
             $mapCenter = Coordinates::FromCoordsFactory(
                 floatval($_GET['lat']), floatval($_GET['lon']));
             if(!$mapCenter) {
-                $this->mapJsParams->displayInfo = tr('map_incorectMapParams');
+                $mapModel->setInfoMessage(tr('map_incorectMapParams'));
             }else{
+                $this->mapJsParams->dontSaveFilters = true;
                 $zoom = 14;
             }
 
@@ -156,22 +157,26 @@ class MainMapController extends BaseController
 
             $mapCenter = Coordinates::FromCoordsFactory(
                 floatval($_GET['lat']), floatval($_GET['lon']));
-
             if(!$mapCenter) {
-                $this->mapJsParams->displayInfo = tr('map_incorectMapParams');
+                $mapModel->setInfoMessage(tr('map_incorectMapParams'));
             }else{
                 $zoom = 17;
                 $this->mapJsParams->circle150m = true;
+                $this->mapJsParams->dontSaveFilters = true;
+
+                $mapModel->setInfoMessage(tr('map_circle150mMode'));
             }
         } else if( isset($_GET['searchdata'], $_GET['bbox']) ) {
+
             // searchData + bbox mode
             if(!preg_match(MainMapAjaxController::SEARCHDATA_REGEX, $_GET['searchdata']) ||
                !preg_match(MainMapAjaxController::BBOX_REGEX, $_GET['bbox']) ){
                 // searchData error!
-                $this->mapJsParams->displayInfo = tr('map_incorectMapParams');
-
+                   $mapModel->setInfoMessage(tr('map_incorectMapParams'));
             } else {
                 $this->mapJsParams->searchData = $_GET['searchdata'];
+                $this->mapJsParams->dontSaveFilters = true;
+                $mapModel->setInfoMessage(tr('map_searchResultsMode'));
 
                 list($swLon, $swLat, $neLon, $neLat) = explode('|', $_GET['bbox']);
 
@@ -180,6 +185,7 @@ class MainMapController extends BaseController
 
                 $mapModel->setStartExtent($swCoord, $neCoord);
             }
+
         } else if(isset($_GET['cs'])){
             // only given geopath
             $geoPath = CacheSet::fromCacheSetIdFactory($_GET['cs']);
@@ -187,15 +193,17 @@ class MainMapController extends BaseController
             $this->view->setVar('cacheSet', $geoPath);
 
             if(!$geoPath){
-                $this->mapJsParams->displayInfo = tr('map_incorectMapParams');
+                $mapModel->setInfoMessage(tr('map_incorectMapParams'));
             }else{
                 $this->mapJsParams->cacheSetId = $geoPath->getId();
+                $this->mapJsParams->dontSaveFilters = true;
+
                 $mapCenter = $geoPath->getCoordinates();
                 $zoom = 14;
             }
         } else {
             // default mode: map at user home coods
-            $this->view->setVar('savedUserPrefs', $savedUserPrefs->getJsonValues());
+            $this->mapJsParams->initUserPrefs = $savedUserPrefs->getValues();
 
             $mapCenter = $user->getHomeCoordinates();
             $zoom = 11; //default zoom for user-home coords
@@ -216,7 +224,9 @@ class MainMapController extends BaseController
     }
 }
 
-
+/**
+ * MainMap params used in JS
+ */
 class MainMapJsParams
 {
     public $mapId = 'mainMap';          // id of the map div (in tpl)
@@ -231,6 +241,5 @@ class MainMapJsParams
     public $cacheSetId = null;          // id of geopath to display on map
 
     public $initUserPrefs = null;       // user preferences object
-
-    public $displayInfo = null;         // info displayed to user
+    public $dontSaveFilters = false;    // skip saving user filter setting at server
 }

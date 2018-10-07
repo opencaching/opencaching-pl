@@ -106,10 +106,9 @@ class MainMapAjaxController extends BaseController
             die(); // zoom is too large
         }
 
-        $this->searchParams['x'] = intval($x);    // x-index of tile
-        $this->searchParams['y'] = intval($y);    // y-index of tile
-        $this->searchParams['z'] = intval($zoom); // zoom of the tile
-
+        $this->searchParams['x'] = $x;    // x-index of tile
+        $this->searchParams['y'] = $y;    // y-index of tile
+        $this->searchParams['z'] = $zoom; // zoom of the tile
 
         if ($searchData = $this->getSearchDataParam()) {
             // searchData = set of caches - the rest of caches are excluded

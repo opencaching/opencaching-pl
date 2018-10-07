@@ -44,7 +44,7 @@ function getOcTailSource(params, addRandomParam) {
   var ocTileUrl = '/MainMapAjax/getMapTile/{x}/{y}/{z}/'+params.userId;
 
   // collect filter params, search data etc.
-  urlParamsArr = getCommonUrlParams();
+  urlParamsArr = getCommonUrlParams(params);
 
   if ( addRandomParam != undefined ) {
     t = new Date();
@@ -65,7 +65,7 @@ function getOcTailSource(params, addRandomParam) {
 
 }
 
-function getCommonUrlParams(){
+function getCommonUrlParams(params){
   urlParamsArr = [];
 
   if ( params.searchData ) {
@@ -167,7 +167,7 @@ function mapClickInit(params) {
    * @param coords - OL coords of click
    * @param skipFilters boolean - if set filters are skiped
    */
-  var _getPopupDataUrl = function(coords, skipFilters=null) {
+  var _getPopupDataUrl = function(coords) {
 
     var url='/MainMapAjax/getPopupData/';
 
@@ -180,25 +180,23 @@ function mapClickInit(params) {
     // add userId param
     url += '/' + params.userId;
 
-    if(!skipFilters){
-      // collect filter params, search data etc.
-      urlParamsArr = getCommonUrlParams();
-      if(urlParamsArr.length > 0){
-        url += '?' + urlParamsArr.join('&');
-      }
+    // collect filter params, search data etc.
+    urlParamsArr = getCommonUrlParams(params);
+    if(urlParamsArr.length > 0){
+      url += '?' + urlParamsArr.join('&');
     }
 
     return url;
   }
 
-  var onLeftClickFunc = function(coords, skipFilters=null) {
+  var onLeftClickFunc = function(coords) {
 
     _abortPreviousRequests();
 
     _displayClickMarker(coords);
 
     pendingClickRequest = jQuery.ajax({
-      url: _getPopupDataUrl(coords, skipFilters),
+      url: _getPopupDataUrl(coords),
     });
 
     pendingClickRequest.always( function() {
@@ -274,7 +272,7 @@ function mapClickInit(params) {
   })
 
   if(params.openPopupAtCenter){
-    onLeftClickFunc(map.getView().getCenter(), true);
+    onLeftClickFunc(map.getView().getCenter());
   }
 
 }
@@ -305,19 +303,21 @@ function dumpFiltersToJson() {
 
 function initFilter(params) {
 
-  // set filter values saved at server side
-  $.each(params.initUserPrefs.filters, function(key, val) {
+  // check if we have saved filters state
+  if(params.initUserPrefs){
+    // set filter values saved at server side
+    $.each(params.initUserPrefs.filters, function(key, val) {
 
-    var el = $("#mapFilters #"+key);
-    if (el.is("input[type=checkbox]")) {
-      el.prop('checked', val);
-    } else if (el.is("select")) {
-      el.val(val);
-    } else {
-      console.error('Unknown saved element?!:'+key+":"+val);
-    }
-  });
-
+      var el = $("#mapFilters #"+key);
+      if (el.is("input[type=checkbox]")) {
+        el.prop('checked', val);
+      } else if (el.is("select")) {
+        el.val(val);
+      } else {
+        console.error('Unknown saved element?!:'+key+":"+val);
+      }
+    });
+  }
   /**
    * Filters changed - ocLayer should be refreshed
    */
@@ -364,7 +364,11 @@ function addLayerChangeCallback(params){
 
 function saveUserSettings(params) {
 
-  let json = {
+  if(params.dontSaveFilters){
+    return;
+  }
+
+  var json = {
       "filters": dumpFiltersToJson(),
       "map": DynamicMapServices.getSelectedLayerName(params.mapId),
   };
@@ -440,10 +444,10 @@ function initControls(params){
   // add 150m circle at given coords
   if ( params.circle150m ) {
 
-    let center = map.getView().getCenter();
+    var center = map.getView().getCenter();
 
     var circle = new ol.Feature({
-      geometry: new ol.geom.Circle(center, 150),
+      geometry: new ol.geom.Circle(center, 300),
     });
 
     var initCordsText = CoordinatesUtil.toWGS84(map, circle.getGeometry().getCenter());
@@ -457,7 +461,8 @@ function initControls(params){
             text: new ol.style.Text({
               text: initCordsText,
               offsetY: 30,
-              backgroundFill: new ol.style.Fill({color: DynamicMapServices.styler.bgColor}),
+              backgroundFill: new ol.style.Fill(
+                  {color: DynamicMapServices.styler.bgColor}),
               padding: [5,5,5,5],
               scale: 1.2,
             }),
