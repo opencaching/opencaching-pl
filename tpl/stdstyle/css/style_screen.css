@@ -1314,3 +1314,19 @@ div.currentuser-log {
 .cachelog-line2 {
     clear: both;
 }
+
+#unsupportedBrowserWarning {
+  display: none;
+  position: fixed;
+  top: 5px;
+  right: 15%;
+  width: 65%;
+  margin: 20px;
+  color: #222;
+  background-color:#eee;
+  z-index: 100;
+  text-align: center;
+  font-size: 0.9rem;
+  padding: 20px;
+  border: 5px solid red;
+}

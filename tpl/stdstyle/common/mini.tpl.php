@@ -49,6 +49,7 @@
   {cachemap_header}
 </head>
 <body{bodyMod}>
+  <?php $view->callChunk('unsupportedBrowsersWarning'); ?>
 
   {template}
 

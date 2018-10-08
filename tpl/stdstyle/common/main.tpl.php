@@ -31,7 +31,6 @@ global $tpl_subtitle;
 
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
 
-
   <?php if ($view->_showVideoBanner) {
     foreach($view->_topBannerVideo as $videoPath) { ?>
       <link rel="prefetch" href="<?=$videoPath?>">
@@ -41,6 +40,7 @@ global $tpl_subtitle;
   <?php foreach( $view->getLocalCss() as $css ) { ?>
       <link rel="stylesheet" type="text/css" href="<?=$css?>">
   <?php } //foreach-css ?>
+
 
   <?php foreach ( $view->getHeaderChunks() as $chunkName => $args ) {?>
     <!-- load chunk $chunkName -->
@@ -78,6 +78,9 @@ global $tpl_subtitle;
 </head>
 
 <body {bodyMod} class="<?=$view->backgroundSeason?>">
+  <?php $view->callChunk('unsupportedBrowsersWarning'); ?>
+
+
   <div id="overall">
     <div class="page-container-1">
       <div class="seasonalBackground left <?=$view->backgroundSeason?>">&nbsp;</div>

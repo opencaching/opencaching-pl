@@ -2810,5 +2810,13 @@ $translations = array(
     'log_filter_type_any' => 'Dowolny',
     'log_filter_author' => 'Autor',
     'log_filter_author_any' => 'Ktokolwiek',
-    'log_filter_author_currentuser' => 'Ja'
+    'log_filter_author_currentuser' => 'Ja',
+
+
+    'main_unsuportedBrowserHead' => 'Twoja przeglądarka prawdopodobnie nie pozwoli naszej stronie działać poprawnie!',
+    'main_unsuportedBrowserWarn' => 'Wydaje się, że Twoja przeglądarka jest przestarzała i nie wspiera nowoczesych technologi'.
+                                    'i prawdopodobnie nie będzie wyświetlać naszej strony poprawnie.',
+    'main_unsuportedBrowserSolution' => 'Zaktualizuj swoją przeglądarkę lub zainstaluj jedną z nowoczesnych, darmowych przeglądarek jak choćby:',
+
+    'main_unsuportedBrowserBtn' => 'Rozumiem i chcę kontynuować mimo to',
 );

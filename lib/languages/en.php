@@ -2807,5 +2807,12 @@ $translations = array(
     'log_filter_type_any' => 'Any',
     'log_filter_author' => 'Author',
     'log_filter_author_any' => 'Anyone',
-    'log_filter_author_currentuser' => 'Me'
+    'log_filter_author_currentuser' => 'Me',
+
+    'main_unsuportedBrowserHead' => 'Your browser will not allow to display this page correctly!',
+    'main_unsuportedBrowserWarn' => 'Your browser seems to not support modern technologies '.
+                                     'what can makes our page to display incorrectly.',
+    'main_unsuportedBrowserSolution' => 'Upgrade your browser or download one of many free modern browsers like:',
+
+    'main_unsuportedBrowserBtn' => 'I understand and want to continue dispite of it.',
 );
