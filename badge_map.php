@@ -63,8 +63,7 @@ while ($r = $db->dbResultFetch($stmt)) {
 fclose($f);
 
 tpl_redirect(SimpleRouter::getLink(MainMapController::class, 'fullscreen') .
-    "?userid=$userid&searchdata=$hash" .
-    "&fromlat=$minlat&fromlon=$minlon&tolat=$maxlat&tolon=$maxlon");
+    "?userid=$userid&searchdata=$hash&bbox=$minlon|$minlat|$maxlon|$maxlat");
 
 
 function getCachesList($positions){
