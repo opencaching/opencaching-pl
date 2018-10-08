@@ -113,6 +113,10 @@ $translations = array(
     'moving' => 'Mobilna',
     'podcast' => 'Podcast',
     'owncache' => 'Owncache',
+
+    'ignored' => 'ignorowane',
+    'founds' => 'znalezione',
+
     'map_excludeCaches' => 'Ukryj skrzynki',
     'map_excludeIgnored' => 'ignorowane',
     'map_excludeNotYetFound' => 'jeszcze nieznalezione',
@@ -129,6 +133,10 @@ $translations = array(
     'map_quizType' => 'Quiz',
     'map_movingType' => 'Mobilna',
     'map_owncacheType' => 'Owncache',
+    'map_incorectMapParams' => 'Niepoprawne dane wejsciowe!',
+    'map_circle150mMode' => 'Okrąg o promieniu 150m dla danej lokalizacji',
+    'map_searchResultsMode' => 'Mapa przedstawia wyniki wyszukiwania',
+
 
     'ready_to_find' => 'gotowe do szukania',
     'other_options' => 'Pozostałe opcje',

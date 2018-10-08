@@ -113,6 +113,10 @@ $translations = array(
     'moving' => 'Mobilă',
     'podcast' => 'Podcast',
     'owncache' => 'Geocutie personală',
+
+    'ignored' => 'ignorate',
+    'founds' => 'găsiri',
+
     'map_excludeCaches' => 'Ascunde geocutii',
     'map_excludeIgnored' => 'ignorate',
     'map_excludeNotYetFound' => 'încă negăsite',

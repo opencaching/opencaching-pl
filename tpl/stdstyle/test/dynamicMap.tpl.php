@@ -19,7 +19,7 @@
   <div id="drawingMapCanvas"></div>
 
    <!-- map-chunk start -->
-  <?php $view->callChunk('dynamicMap/dynamicMap', $view->emptyMap, "drawingMapCanvas");?>
+  <?php $view->callChunk('dynamicMap/dynamicMap', $view->drawMap, "drawingMapCanvas");?>
   <!-- map-chunk end -->
 
   <div>

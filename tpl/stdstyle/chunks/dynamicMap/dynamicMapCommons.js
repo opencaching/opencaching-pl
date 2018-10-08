@@ -19,7 +19,6 @@ function dynamicMapEntryPoint( params ) {
           ),
       zoom: params.mapStartZoom,
     }),
-
     controls: ol.control.defaults({
       attributionOptions:
       { // attribution can't be display in custom control :( -
@@ -35,6 +34,15 @@ function dynamicMapEntryPoint( params ) {
     ),
   });
 
+  if(params.startExtent){
+    // fit map to given extent
+    var ex = params.startExtent;
+    var sw = ol.proj.fromLonLat([ex.sw.lon, ex.sw.lat]);
+    var ne = ol.proj.fromLonLat([ex.ne.lon, ex.ne.lat]);
+
+    params.map.getView().fit([sw[0], sw[1], ne[0], ne[1]], { nearest:true });
+  }
+
   // init layer switcher
   layerSwitcherInit(params);
 
@@ -49,6 +57,9 @@ function dynamicMapEntryPoint( params ) {
 
   // init mouse position coords
   cordsUnderCursorInit(params);
+
+  // init infoMessage control
+  infoMessageInit(params);
 
   // initialize markers on map
   loadMarkers(params);
@@ -305,6 +316,29 @@ function cordsUnderCursorInit(params) {
     default:
       params.curPos.coordsFormat = CoordinatesUtil.FORMAT.DEG_MIN;
     }
+  });
+
+}
+
+function infoMessageInit(params) {
+
+  var $infoMsgId = params.prefix+'_infoMsg';
+
+  $msgDiv = $('<div id="'+$infoMsgId+'" class="ol-control dynamicMap_infoMsg"></div>');
+  $closeBtn = $('<div class="dynamicMap_infoMsgClose">✖</div>');
+  $msgDiv.append($closeBtn);
+
+  params.map.addControl( new ol.control.Control( { element: $msgDiv[0] } ));
+
+  if( params.infoMessage ){
+    $msgDiv.prepend(params.infoMessage);
+    $msgDiv.show();
+  }else{
+    $msgDiv.hide(0);
+  }
+
+  $closeBtn.click(function(){
+    $('#'+$infoMsgId).hide();
   });
 
 }

@@ -14,6 +14,10 @@ use lib\Objects\User\UserPreferences\UserPreferences;
 
 class MainMapAjaxController extends BaseController
 {
+    const RATING_REGEX = '/^[1-4]-[1-5]|X$/';
+    const SEARCHDATA_REGEX = '/^[a-f0-9]{6,32}/';
+    const GEOPATH_ID_REGEX = '/^[0-9]+(\|[0-9]+)*$/';
+    const BBOX_REGEX = '/^(\d+\.?\d*\|){3}\d+\.?\d*$/';
 
     private $searchParams = [];
 
@@ -36,7 +40,12 @@ class MainMapAjaxController extends BaseController
         // map is only for logged users
         $this->checkUserLoggedAjax();
 
-        $cache = $this->getCache($userId, $bboxStr);
+        if(!preg_match(self::BBOX_REGEX, $bboxStr)){
+            $this->ajaxErrorResponse('Incorrect bbox!', 500);
+            exit;
+        }
+
+        $cache = $this->getCache( intval($userId), $bboxStr);
 
         if(is_null($cache)){
             $this->ajaxJsonResponse(null);
@@ -101,7 +110,6 @@ class MainMapAjaxController extends BaseController
         $this->searchParams['y'] = $y;    // y-index of tile
         $this->searchParams['z'] = $zoom; // zoom of the tile
 
-
         if ($searchData = $this->getSearchDataParam()) {
             // searchData = set of caches - the rest of caches are excluded
             $this->loadSearchData($searchData);
@@ -110,7 +118,7 @@ class MainMapAjaxController extends BaseController
         $this->parseUrlSearchParams(); // parse filter params
 
         // Get OKAPI's response and display it. Add proper Cache-Control headers.
-        Facade::service_display('services/caches/map/tile', $userId, $this->searchParams);
+        Facade::service_display('services/caches/map/tile', intval($userId), $this->searchParams);
     }
 
     public function saveMapSettingsAjax()
@@ -239,7 +247,7 @@ class MainMapAjaxController extends BaseController
     private function getSearchDataParam()
     {
         if ( isset($_GET['searchdata']) &&
-            preg_match('/^[a-f0-9]{6,32}/', $_GET['searchdata'])){
+            preg_match(self::SEARCHDATA_REGEX, $_GET['searchdata'])){
 
             return $_GET['searchdata'];
 
@@ -313,7 +321,7 @@ class MainMapAjaxController extends BaseController
         }
 
         // min_score - convert to OKAPI's "rating" filter
-        if ( isset($_GET['rating']) && preg_match('/^[1-4]-[1-5]|X$/', $_GET['rating']) ){
+        if ( isset($_GET['rating']) && preg_match(self::RATING_REGEX, $_GET['rating']) ){
             $this->searchParams['rating'] = $_GET['rating'];
         }
 
@@ -336,7 +344,7 @@ class MainMapAjaxController extends BaseController
 
         // powertrail_ids (only caches from powerTrails with id) - convert to OKAPI's "powertrail_ids" param.
         if ( isset($_GET['csId']) &&
-             preg_match('/^[0-9]+(\|[0-9]+)*$/', $_GET['csId']) ) {
+             preg_match(self::GEOPATH_ID_REGEX, $_GET['csId']) ) {
 
                 $this->searchParams['powertrail_ids'] = $_GET['csId'];
         }

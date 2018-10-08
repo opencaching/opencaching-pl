@@ -27,7 +27,8 @@
                title="<?=tr('map_refresh')?>" alt="<?=tr('map_refresh')?>">
         </div>
     </div>
-    <div id="mapCanvasEmbeded"></div>
+
+    <div id="mainMap" class="mapCanvasEmbeded"></div>
 
 
     <div id="mapFilters" class="mapFiltersEmbeded">
@@ -35,10 +36,8 @@
     </div>
 </div>
 
-
-
 <!-- map-chunk start -->
-  <?php $view->callChunk('dynamicMap/dynamicMap', $view->mapModel, "mapCanvasEmbeded");?>
+  <?php $view->callChunk('dynamicMap/dynamicMap', $view->mapModel, "mainMap");?>
 <!-- map-chunk end -->
 
 <script id="mainMapPopupTpl" type="text/x-handlebars-template">
@@ -46,20 +45,7 @@
 </script>
 
 <script>
-var params = {
-    mapId: "mapCanvasEmbeded",
-    isFullScreenMap: false,
-    openPopupAtCenter: <?=isset($view->openPopup)?"true":"false"?>,
-    circle150m: <?=isset($view->circle150m)?"true":"false"?>,
-    userId: "<?=$view->mapUserId?>",
-    userName: "<?=$view->mapUserName?>",
-    searchData: <?=isset($view->searchData)?'"'.$view->searchData.'"':"null"?>,
-    cacheSetId: <?=isset($view->cacheSetId)?$view->cacheSetId:"null"?>,
-    initUserPrefs: <?=$view->savedUserPrefs?>,
-  };
-
   $(function() {
-    mainMapEntryPoint(params);
+    mainMapEntryPoint(<?=$view->mapParams?>);
   });
-
 </script>

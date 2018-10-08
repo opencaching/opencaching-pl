@@ -114,6 +114,9 @@ $translations = array(
     'podcast' => 'Podcast',
     'owncache' => 'Owncache',
 
+    'ignored' => 'ignored',
+    'founds' => 'found',
+
     'map_excludeCaches' => 'Hide caches',
     'map_excludeIgnored' => 'Ignored',
     'map_excludeNotYetFound' => 'Not yet found',
@@ -131,6 +134,10 @@ $translations = array(
     'map_quizType' => 'Puzzle',
     'map_movingType' => 'Moving',
     'map_owncacheType' => 'Owncache',
+    'map_incorectMapParams' => 'Incorrect map params - default map is presented!',
+    'map_circle150mMode' => 'Circle with radius 150m for given location',
+    'map_searchResultsMode' => 'Map presents only the results of geocaches search query',
+
 
     'ready_to_find' => 'Ready to be found',
     'other_options' => 'Other options',
