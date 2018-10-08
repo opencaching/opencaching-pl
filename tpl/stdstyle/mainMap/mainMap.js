@@ -391,7 +391,7 @@ function saveUserSettings(params) {
 function initFullScreenMapControls(params) {
     var map = DynamicMapServices.getMapObject(params.mapId);
 
-    let filtersDiv = $('#mapFilters');
+    var filtersDiv = $('#mapFilters');
     filtersDiv.toggle(false); // to be sure filters are hidden now
 
     // add filters as map control
@@ -505,8 +505,8 @@ function initControls(params){
 
     movement.on('translateend', function(evt){
 
-      let circle = evt.features.pop();
-      let coords = CoordinatesUtil.toWGS84(map, circle.getGeometry().getCenter());
+      var circle = evt.features.pop();
+      var coords = CoordinatesUtil.toWGS84(map, circle.getGeometry().getCenter());
 
       var style = circle.getStyle();
       var text = style[0].getText();

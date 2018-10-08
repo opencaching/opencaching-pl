@@ -100,7 +100,7 @@ function layerSwitcherInit( params ) {
   // init switcher change callback
   switcherDropdown.change(function(evt) {
 
-    let selectedLayerName = switcherDropdown.val();
+    var selectedLayerName = switcherDropdown.val();
 
     params.map.getLayers().forEach(function(layer) {
         // first skip OC-internal layers (prefix oc_)
@@ -156,9 +156,9 @@ function gpsLocatorInit(params) {
 
 function mapZoomControlsInit(params) {
 
-  let zoomDiv = $('<div class="ol-control dynamicMap_mapZoom"></div>');
-  let zoomIn = $('<img src="/images/icons/plus.svg" alt="+">');
-  let zoomOut = $('<img src="/images/icons/minus.svg" alt="-">');
+  var zoomDiv = $('<div class="ol-control dynamicMap_mapZoom"></div>');
+  var zoomIn = $('<img src="/images/icons/plus.svg" alt="+">');
+  var zoomOut = $('<img src="/images/icons/minus.svg" alt="-">');
 
   zoomDiv.append(zoomIn);
   zoomDiv.append(zoomOut);
@@ -185,9 +185,9 @@ function mapZoomControlsInit(params) {
 
 function compassControlInit(params) {
 
-  let compassDiv = $('<div class="ol-control dynamicMap_compassDiv"></div>');
-  let compass = $('<img src="/images/icons/arrow.svg" alt="+">');
-  //let compass = $('<span class="dynamicMap_compass">⇧</span>');
+  var compassDiv = $('<div class="ol-control dynamicMap_compassDiv"></div>');
+  var compass = $('<img src="/images/icons/arrow.svg" alt="+">');
+  //var compass = $('<span class="dynamicMap_compass">⇧</span>');
   compassDiv.append(compass);
 
   params.map.addControl(new ol.control.Control(
@@ -201,7 +201,7 @@ function compassControlInit(params) {
   });
 
   params.map.on('moveend', function (evt){
-    let roatation = evt.map.getView().getRotation()
+    var roatation = evt.map.getView().getRotation()
     compass.css('transform', 'rotate('+roatation+'rad)');
   });
 
@@ -587,7 +587,7 @@ var DynamicMapServices = {
 
     map = this.getMapObject(mapId);
 
-    let visibleLayers = [];
+    var visibleLayers = [];
     map.getLayers().forEach(function(layer){
 
       if ( !OcLayerServices.isOcInternalLayer(layer)
