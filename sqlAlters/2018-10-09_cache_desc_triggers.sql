@@ -1,5 +1,7 @@
+-- 2018-10-09
+-- @author: kojoty
 
--- triggers updates column cache.desc_languages with the list of available description tranlsations 
+-- triggers for cache_desc table update
 
 DELIMITER ;;
 
