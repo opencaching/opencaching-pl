@@ -636,7 +636,7 @@ if (isset($_POST['submitform'])) {
 
         if ($needs_approvement) {
             $sel_status = 4;
-            $activation_date = 'NULL';
+            $activation_date = null;
         } else {
             if (($hidden_date > $today) && ($sel_type != 6)) {
                 $sel_status = 2; // currently not available
