@@ -17,7 +17,7 @@ class MainMapAjaxController extends BaseController
     const RATING_REGEX = '/^[1-4]-[1-5]|X$/';
     const SEARCHDATA_REGEX = '/^[a-f0-9]{6,32}/';
     const GEOPATH_ID_REGEX = '/^[0-9]+(\|[0-9]+)*$/';
-    const BBOX_REGEX = '/^(\d+\.?\d*\|){3}\d+\.?\d*$/';
+    const BBOX_REGEX = '/^(-?\d+\.?\d*\|){3}-?\d+\.?\d*$/';
 
     private $searchParams = [];
 
