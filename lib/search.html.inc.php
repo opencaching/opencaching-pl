@@ -4,6 +4,7 @@ use Utils\Database\OcDb;
 use Utils\Gis\Gis;
 use Utils\Uri\Uri;
 use Utils\Uri\OcCookie;
+use lib\Objects\Coordinates\Coordinates;
 
 /**
  * This script is used (can be loaded) by /search.php
@@ -387,7 +388,7 @@ for ($i = 0; $i < $dbcSearch->rowCount($s); $i ++) {
         $tmpline = str_replace('{lat}', tr('to_see_coords'), $tmpline);
     } else {
         if ($CalcCoordinates) {
-            $tmpline = str_replace('{long}', htmlspecialchars(help_lonToDegreeStr($caches_record['longitude'])), $tmpline);
+            $tmpline = str_replace('{long}', htmlspecialchars(Coordinates::donNotUse_lonToDegreeStr($caches_record['longitude'])), $tmpline);
             if ($caches_record['coord_modified'] == true) {
                 $tmpline = str_replace('{mod_cord_style}', 'style="color:orange;" alt ="' . $tr_Coord_have_been_modified . '" title="' . $tr_Coord_have_been_modified . '"', $tmpline);
                 $tmpline = str_replace('{mod_suffix}', '[F]', $tmpline);
@@ -395,7 +396,7 @@ for ($i = 0; $i < $dbcSearch->rowCount($s); $i ++) {
                 $tmpline = str_replace('{mod_cord_style}', '', $tmpline);
                 $tmpline = str_replace('{mod_suffix}', '', $tmpline);
             }
-            $tmpline = str_replace('{lat}', htmlspecialchars(help_latToDegreeStr($caches_record['latitude'])), $tmpline);
+            $tmpline = str_replace('{lat}', htmlspecialchars(Coordinates::donNotUse_latToDegreeStr($caches_record['latitude'])), $tmpline);
         }
     }
     ;

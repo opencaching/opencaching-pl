@@ -1,6 +1,7 @@
 <?php
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
+use lib\Objects\Coordinates\Coordinates;
 /**
  * This script is used (can be loaded) by /search.php
  */
@@ -197,10 +198,10 @@ while($r = XDb::xFetchArray($stmt) ) {
     $thisline = $xmlLine;
 
     $lat = sprintf('%01.5f', $r['latitude']);
-    $thisline = str_replace('{lat}', help_latToDegreeStr($lat), $thisline);
+    $thisline = str_replace('{lat}', Coordinates::donNotUse_latToDegreeStr($lat), $thisline);
 
     $lon = sprintf('%01.5f', $r['longitude']);
-    $thisline = str_replace('{lon}', help_lonToDegreeStr($lon), $thisline);
+    $thisline = str_replace('{lon}', Coordinates::donNotUse_lonToDegreeStr($lon), $thisline);
 
     $time = date('d.m.Y', strtotime($r['date_hidden']));
     $thisline = str_replace('{time}', $time, $thisline);

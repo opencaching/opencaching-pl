@@ -296,7 +296,7 @@ class UserAuthorization extends BaseObject
     private static function getUserIdFromOcSession($sessionId){
         $db = self::db();
         $stmt = $db->multiVariableQuery(
-            "SELECT *, TIMESTAMPDIFF(SECOND, last_login, NOW()) AS lastTouch
+            "SELECT user_id, permanent, TIMESTAMPDIFF(SECOND, last_login, NOW()) AS lastTouch
              FROM sys_sessions WHERE uuid = :1 LIMIT 1", $sessionId);
 
         $row = $db->dbResultFetchOneRowOnly($stmt);
