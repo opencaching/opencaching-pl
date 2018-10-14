@@ -21,6 +21,7 @@ function mainMapEntryPoint(params){
   // init the rest of mainMap controls
   initControls(params);
 
+  initSearch(params);
 }
 
 function addOCTileLayer(params) {
@@ -409,7 +410,7 @@ function initFullScreenMapControls(params) {
 
 }
 
-function initControls(params){
+function initControls(params) {
   var map = DynamicMapServices.getMapObject(params.mapId);
 
   // add mainMap custom icons
@@ -516,6 +517,135 @@ function initControls(params){
     });
   }
 
+}
+
+function initSearch(params) {
+
+    var map = DynamicMapServices.getMapObject(params.mapId);
+    // add mainMap custom icons
+    map.addControl(new ol.control.Control(
+        {
+            element: $("#mainMapSearch")[0],
+        }
+    ));
+
+    var _place;
+    var compiledSearchResultTpl = null;
+
+    var search = $('#mainMapSearch');
+    var searchToggle = $('#searchToggle');
+    var searchTrigger = $('#searchTrigger');
+    var inputSearch = $('#searchInput');
+    var resultsDiv = $("#searchResults");
+
+    search.hide();
+
+
+    $('#filtersToggle').click(function() {
+        closeSearch();
+    });
+
+    searchToggle.click(function(e) {
+        $('#mapFilters').hide();
+        search.is(":visible") ? closeSearch() : _openSearch();
+    });
+
+    searchTrigger.click(function() {
+        if (inputSearch.val().length > 0) {
+            _executeSearch();
+        }
+    });
+
+    inputSearch.keyup(function() {
+        _enableSearchTrigger(inputSearch.val().length > 0);
+    });
+
+    inputSearch.keypress(function(e) {
+        if (e.which == 13 && inputSearch.val().length > 0) {
+            _executeSearch();
+        }
+    });
+
+    var _enableSearchTrigger = function(enable) {
+        if (enable) {
+            searchTrigger.removeClass('disabled');
+        } else {
+            searchTrigger.addClass('disabled');
+        }
+    }
+
+    var _executeSearch = function() {
+        resultsDiv.empty();
+        _place = inputSearch.val();
+        _getLocalizationByPlace();
+    }
+
+    var _getLocalizationByPlace = function() {
+        $.ajax({
+            type: 'get',
+            dataType: 'json',
+            url: "/MainMapAjax/getPlaceLocalization/"+_place,
+            success: function(data) {
+                _displayResults(data);
+            },
+            error: function(error) {
+                _displayError(error);
+            },
+        });
+    }
+
+    var _displayError = function(error) {
+        resultsDiv.append("<div class='error'>" + tr.map_error + "</div>");
+    }
+
+    var _displayResults = function(data) {
+
+        // load results
+        if (!compiledSearchResultTpl) {
+            var searchResultTpl = $("#mainMapSearchResultTpl").html();
+            var compiledSearchResultTpl = Handlebars.compile(searchResultTpl);
+        }
+
+        if (data.length > 0) {
+            data.forEach(function (entry) {
+                var result = compiledSearchResultTpl(entry);
+                var resultDiv = $(result);
+                resultDiv.click(function () {
+                    _applySelectedPlace(entry);
+                });
+                resultsDiv.append(resultDiv);
+            });
+        } else {
+            resultsDiv.append("<div class='error'>" + tr.map_searchEmpty + _place + "</div>");
+        }
+    }
+
+    var _applySelectedPlace = function(result) {
+        _adjustMap(result);
+        closeSearch();
+    }
+
+    var _adjustMap = function(result) {
+        var bbox = result.bbox;
+        var sw = ol.proj.fromLonLat([bbox[0], bbox[1]]);
+        var ne = ol.proj.fromLonLat([bbox[2], bbox[3]]);
+        map.getView().fit([sw[0], sw[1], ne[0], ne[1]], {nearest: true});
+    }
+
+    var _resetInput = function() {
+        resultsDiv.empty();
+        inputSearch.val('');
+    }
+
+    var _openSearch = function() {
+        search.show();
+    }
+
+    var closeSearch = function() {
+        search.hide();
+        _resetInput();
+        _enableSearchTrigger(false);
+    }
 }
 
 

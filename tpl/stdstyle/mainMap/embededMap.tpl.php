@@ -13,6 +13,9 @@
 <div class="content2-container">
 
     <div style="display:none">
+        <!--
+            invisible container with map controls prepared to be applied later to the map
+        -->
 
         <div id="mainMapControls" class="ol-control">
           <!--
@@ -25,6 +28,16 @@
 
           <img id="refreshButton" src="/images/icons/refresh.svg"
                title="<?=tr('map_refresh')?>" alt="<?=tr('map_refresh')?>">
+
+          <img id="searchToggle" src="/images/icons/search.svg"
+               title="<?=tr('map_search')?>" alt="<?=tr('map_search')?>">
+
+        </div>
+
+        <div id="mainMapSearch" class="ol-control">
+            <input id="searchInput" type="text" placeholder="<?=tr('map_searchPlacePlaceholder')?>">
+            <span id="searchTrigger" class="searchTrigger disabled btn btn-sm btn-primary"><?=tr('map_searchTrigger')?></span>
+            <div id="searchResults"></div>
         </div>
     </div>
 
@@ -44,8 +57,19 @@
   <?=$view->callSubTpl("/mainMap/mainMapPopup")?>
 </script>
 
+<script id="mainMapSearchResultTpl" type="text/x-handlebars-template">
+  <?=$view->callSubTpl("/mainMap/mainMapSearchResult")?>
+</script>
+
 <script>
   $(function() {
     mainMapEntryPoint(<?=$view->mapParams?>);
   });
+</script>
+
+<script>
+    var tr = {
+        'map_error': '<?=tr('map_error')?>',
+        'map_searchEmpty': '<?=tr('map_searchEmpty')?>',
+    };
 </script>

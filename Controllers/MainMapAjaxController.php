@@ -1,6 +1,7 @@
 <?php
 namespace Controllers;
 
+use lib\Objects\Coordinates\GeoCode;
 use okapi\Facade;
 use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\User\UserPreferences\MainMapSettings;
@@ -119,6 +120,15 @@ class MainMapAjaxController extends BaseController
 
         // Get OKAPI's response and display it. Add proper Cache-Control headers.
         Facade::service_display('services/caches/map/tile', intval($userId), $this->searchParams);
+    }
+
+    public function getPlaceLocalization($place) {
+        try {
+            $placesDetails = GeoCode::fromOpenRouteService($place);
+            $this->ajaxJsonResponse($placesDetails);
+        } catch (\Exception $e) {
+            $this->ajaxErrorResponse($e->getMessage(), 500);
+        }
     }
 
     public function saveMapSettingsAjax()
