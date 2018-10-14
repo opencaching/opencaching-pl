@@ -521,6 +521,12 @@ function initControls(params) {
 
 function initSearch(params) {
 
+    if (!params.isSearchEnabled) {
+        $('#searchToggle').hide();
+        console.log("Main map search disabled.");
+        return;
+    }
+
     var map = DynamicMapServices.getMapObject(params.mapId);
     // add mainMap custom icons
     map.addControl(new ol.control.Control(

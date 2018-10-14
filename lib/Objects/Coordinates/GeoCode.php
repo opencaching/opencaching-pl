@@ -18,7 +18,19 @@ class GeoCode
     private function __construct()
     {}
 
-    /*
+    /**
+     * function provides information whether any geocode service is available or not
+     *
+     */
+    public static function isGeocodeServiceAvailable() {
+        $config = OcConfig::instance();
+        $config->getMapConfig();
+        $ors_key = $config->getMapConfig()['keys']['OpenRouteService'];
+
+        return !empty($ors_key);
+    }
+
+    /**
      * @throws Exception if there is some problem with fetching data from OpenRouteService
      */
     public static function fromOpenRouteService($place) {

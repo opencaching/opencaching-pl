@@ -1,6 +1,7 @@
 <?php
 namespace Controllers;
 
+use lib\Objects\Coordinates\GeoCode;
 use Utils\Uri\Uri;
 use lib\Objects\User\UserPreferences\MainMapSettings;
 use lib\Objects\User\UserPreferences\UserPreferences;
@@ -118,7 +119,7 @@ class MainMapController extends BaseController
         $this->mapJsParams->userId = $user->getUserId();
         $this->mapJsParams->username = $user->getUserName();
 
-
+        $this->mapJsParams->isSearchEnabled = GeoCode::isGeocodeServiceAvailable();
         $mapModel = new DynamicMapModel();
 
         // load previously saved map settings
@@ -242,4 +243,6 @@ class MainMapJsParams
 
     public $initUserPrefs = null;       // user preferences object
     public $dontSaveFilters = false;    // skip saving user filter setting at server
+
+    public $isSearchEnabled = false;    // condition to show search controls
 }
