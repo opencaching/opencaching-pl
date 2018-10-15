@@ -23,25 +23,7 @@ $map['jsConfig'] = "
             attributions: \"&copy; Mapa z <a href='http://ump.waw.pl/' target='_blank'>UMP-pcPL</a>\",
         })
     }),
-/*
-    Bing maps disabled...
-    
-    BingMap: new ol.layer.Tile ({
-        source: new ol.source.BingMaps({
-            key: '{Key-BingMap}',
-            imagerySet: 'Road',
-            maxZoom: 19
-        })
-    }),
 
-    BingSatelite: new ol.layer.Tile ({
-        source: new ol.source.BingMaps({
-            key: '{Key-BingMap}',
-            imagerySet: 'Aerial',
-            maxZoom: 19
-        })
-    }),
-*/
     Topo: new ol.layer.Tile ({
         source: new ol.source.TileWMS({
             url: 'http://mapy.geoportal.gov.pl:80/wss/service/img/guest/TOPO/MapServer/WmsServer',
@@ -101,31 +83,3 @@ $map['jsConfig'] = "
     }),
 }
 ";
-
-/**
- * Bing map key is set in node-local config file
- */
-// Bing maps disabled
-// $map['keys']['BingMap'] = 'NEEDS-TO-BE-SET-IN-LOCAL-CONFIG-FILE';
-
-
-/**
- * This is function which is called to inject keys from "local" config
- * to default node-configurations map configs.
- *
- * Here this is only a simple stub.
- *
- * @param array complete configureation merged from default + node-default + local configs
- * @return true on success
- */
-$map['keyInjectionCallback'] = function(array &$mapConfig){
-
-    // change string {Key-BingMap} to proper key value
-
-    $mapConfig['jsConfig'] = str_replace(
-        '{Key-BingMap}',
-        $mapConfig['keys']['BingMap'],
-        $mapConfig['jsConfig']);
-
-    return true;
-};
