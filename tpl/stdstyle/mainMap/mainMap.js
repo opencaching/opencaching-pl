@@ -552,7 +552,7 @@ function initSearch(params) {
     });
 
     searchToggle.click(function(e) {
-        $('#mapFilters').hide();
+        $('.mapFiltersFullScreen').hide();
         search.is(":visible") ? closeSearch() : _openSearch();
     });
 
