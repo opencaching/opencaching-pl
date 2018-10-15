@@ -20,6 +20,12 @@ $map = [];
  */
 $map['keys'] = [];
 
+/*
+ * This variable should contain api_key created for https://openrouteservice.org
+ * DO NOT add your key to this file - add it in your map.local.php file
+ */
+$map['keys']['OpenRouteService'] = '';
+
 /**
  * $map['jsConfig'] constains JS code with configuration for openlayers
  * This is very simple config - OSM map only.

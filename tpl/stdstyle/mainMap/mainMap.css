@@ -3,7 +3,7 @@
   width: 100%; 
   height: 100%; 
   position: absolute; 
-  top: 0px;
+  top: 0;
 }
 
 .mapCanvasEmbeded {
@@ -26,6 +26,63 @@
   width: 25px;
   height: 25px;
   margin: 5px;
+  vertical-align: top;
+  cursor: pointer;
+}
+
+#mainMapSearch {
+  top: 60px;
+  left: 20px;
+  padding: 5px;
+  background-color: rgba(255,255,255,.4);
+}
+
+#mainMapSearch img {
+  width: 25px;
+  height: 25px;
+  margin: 5px;
+  vertical-align: top;
+  cursor: pointer;
+}
+
+#mainMapSearch,
+#mainMapSearch input {
+  color: #808080;
+  font-size: 12px;
+}
+
+#mainMapSearch > .searchTrigger,
+#mainMapSearch > input {
+  vertical-align: middle;
+}
+
+.searchTrigger.disabled,
+.searchTrigger.disabled:hover {
+  cursor: inherit;
+  background-color: #cccccc;
+  border-color: #aaaaaa;
+  color: #666666;
+}
+
+#mainMapSearch input {
+  box-sizing: border-box;
+  height: 22px;
+  width: 128px;
+  margin: 5px 0;
+  padding: 1px 5px;
+  border: 1px solid #808080;
+  border-radius: 5px;
+  background-color: transparent;
+}
+
+#mainMapSearch .error,
+#mainMapSearch .searchResult {
+  padding: 5px;
+  margin: 5px;
+}
+
+#mainMapSearch .searchResult {
+  cursor: pointer;
 }
 
 .mapFiltersFullScreen {

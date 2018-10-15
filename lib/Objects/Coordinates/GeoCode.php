@@ -2,6 +2,10 @@
 
 namespace lib\Objects\Coordinates;
 
+use lib\Objects\OcConfig\OcConfig;
+use Utils\Debug\Debug;
+use Exception;
+
 class GeoCode
 {
 
@@ -13,6 +17,90 @@ class GeoCode
     //
     private function __construct()
     {}
+
+    /**
+     * function provides information whether any geocode service is available or not
+     *
+     */
+    public static function isGeocodeServiceAvailable() {
+        $config = OcConfig::instance();
+        $config->getMapConfig();
+        $ors_key = $config->getMapConfig()['keys']['OpenRouteService'];
+
+        return !empty($ors_key);
+    }
+
+    /**
+     * @throws Exception if there is some problem with fetching data from OpenRouteService
+     */
+    public static function fromOpenRouteService($place) {
+
+        $config = OcConfig::instance();
+        $config->getMapConfig();
+        $ors_key = $config->getMapConfig()['keys']['OpenRouteService'];
+
+        if(empty($ors_key)) {
+            Debug::errorLog("No api_key for OpenRouteService in configuration. Check /Config/map.default.php");
+            return null;
+        }
+
+        $input = urlencode($place);
+        $url = "https://api.openrouteservice.org/geocode/search?api_key=$ors_key&text=$input";
+        $data = @file_get_contents($url);
+
+        if (!$data) {
+            Debug::errorLog("Problem with fetching data from ".$url);
+            throw new Exception("Problem with fetching data from OpenRouteService");
+            return;
+        }
+
+        $resp = json_decode($data);
+
+        // response
+        $results = [];
+
+        if(!empty($resp) && isset($resp->features) && is_array($resp->features)) {
+            foreach($resp->features as $feature) {
+                $result = new GeoCodeServiceResult();
+
+                // skip incorrect feature
+                if(!isset($feature->bbox, $feature->properties)
+                    || !is_array($feature->bbox)
+                    || !is_object($feature->properties)) {
+                    continue;
+                }
+
+                // skip useless feature
+                // according to OpenRouteService documentation localadmin means 'local administrative boundaries'
+                // it seems to have very narrow bbox though, not quite suitable
+                if(isset($feature->properties->layer) && $feature->properties->layer == 'localadmin') {
+                    continue;
+                }
+
+                $result->bbox = $feature->bbox;
+
+                if(isset($feature->properties->name)) {
+                    $result->name = $feature->properties->name;
+                }
+
+                if(isset($feature->properties->layer)) {
+                    $result->layer = $feature->properties->layer;
+                }
+
+                if(isset($feature->properties->country_a)) {
+                    $result->countryCode = $feature->properties->country_a;
+                }
+
+                if(isset($feature->properties->region)) {
+                    $result->region = $feature->properties->region;
+                }
+
+                array_push($results, $result);
+            }
+        }
+
+        return $results;
+    }
 
     /**
      * Reverse geocoder based on Google Geocoding API
@@ -138,4 +226,12 @@ class GeoCode
         return $country.$separator.$adm;
 
     }
+}
+
+class GeoCodeServiceResult {
+    public $name;
+    public $layer;
+    public $countryCode;
+    public $region;
+    public $bbox;
 }
