@@ -5,6 +5,7 @@ use Utils\Database\XDb;
 use lib\Objects\GeoCache\PrintList;
 use Utils\Text\TextConverter;
 use Utils\Uri\OcCookie;
+use lib\Objects\Coordinates\Coordinates;
 
 //prepare the templates and include all neccessary
 if (!isset($rootpath)) $rootpath = '';
@@ -1816,7 +1817,7 @@ function outputUniidSelectionForm($uniSql, $urlparams)
         $thislocation = mb_ereg_replace('{parentlocations}', $locString, $thislocation);
 
         // determine coordinates
-        $coordString = help_latToDegreeStr($r['lat']) . ' ' . help_lonToDegreeStr($r['lon']);
+        $coordString = Coordinates::donNotUse_latToDegreeStr($r['lat']) . ' ' . Coordinates::donNotUse_lonToDegreeStr($r['lon']);
         $thislocation = mb_ereg_replace('{coords}', htmlspecialchars($coordString, ENT_COMPAT, 'UTF-8'), $thislocation);
 
         if ($r['olduni'] != 0)
@@ -1921,7 +1922,7 @@ function outputLocidSelectionForm($locSql, $urlparams)
         $r['loc_id'] = $r['loc_id'] + 0;
         $rsCoords = XDb::xSql('SELECT `lon`, `lat` FROM `geodb_coordinates` WHERE loc_id=' . $r['loc_id'] . ' LIMIT 1');
         if ($rCoords = XDb::xFetchArray($rsCoords))
-            $coordString = help_latToDegreeStr($rCoords['lat']) . ' ' . help_lonToDegreeStr($rCoords['lon']);
+            $coordString = Coordinates::donNotUse_latToDegreeStr($rCoords['lat']) . ' ' . Coordinates::donNotUse_lonToDegreeStr($rCoords['lon']);
         else
             $coordString = '[keine Koordinaten vorhanden]';
 
