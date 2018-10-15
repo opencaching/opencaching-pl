@@ -874,7 +874,6 @@ $translations = array(
     'cache_picture_intro' => 'UWAGA! Użytkownik musi dbać o to, aby publikowane przez niego w Serwisie treści/zdjęcia nie naruszały obowiązującego prawa oraz przepisów <a href="{wiki_link_rules}">Regulaminu OC PL</a>. W szczególności publikowane przez Użytkownika treści/zdjęcia nie mogą naruszać praw autorskich osób trzecich. Użytkownik odpowiedzialny jest bezpośrednio przed posiadaczami praw autorskich za wszelkie związane naruszenia w zakresie tych praw publikowanymi przez niego w Serwisie obrazków/zdjęć. <br/><br/>Umieszczaj tylko istotne obrazki związane ze skrzynką. Nie rób fotoalbumu okolicy.',
     'spoiler_info' => 'Nie pokazuj miniatury (SPOILER) - użyj tej opcji, jeśli wgrywasz zdjęcie, na którym pokazane jest miejsce ukrycia skrzynki. <br>Dopiero jak ktoś kliknie na SPOILER, pokaże mu się wgrany obrazek.',
     'dont_show' => 'Nie pokazuj tego obrazka.',
-    'pictures_intro' => 'Akceptowane formaty: {picallowedformats} - dla zdjęć rekomendowany format JPG .<br />Maksymalna dozwolona wielkość pliku {maxpicsizeMB} MB. Zalecane wymiary obrazków: {maxpicresolution} pikseli. <br />Po potwierdzeniu przetwarzanie może potrwać dłuższą chwilę.',
     'add_new_picture' => 'Dodanie nowego obrazka dla skrzynki',
     'gallery' => 'Zobacz galerię',
     'gallery_short' => 'Galeria',
@@ -2824,5 +2823,16 @@ $translations = array(
     'log_filter_type_any' => 'Dowolny',
     'log_filter_author' => 'Autor',
     'log_filter_author_any' => 'Ktokolwiek',
-    'log_filter_author_currentuser' => 'Ja'
+    'log_filter_author_currentuser' => 'Ja',
+
+    'upload_clickOrDropFile' => 'Przesuń plik tutaj lub kliknij by wybrać plik',
+    'upload_allowedTypesOfFile' => 'dozwolone typy plików',
+    'upload_maxFileSize' => 'maksymalny rozmiar pliku',
+    'upload_allowedNumberOfFiles' => 'maksymalna liczba plików',
+    'upload_improperFileSize' => 'Pominięty, nieprawidłowy rozmiar!',
+    'upload_improperFileType' => 'Pominięty, nieprawidłowy typ!',
+    'upload_startUpload' => 'Rozpocznij przesyłanie',
+
+    'pictures_intro' => 'Akceptowane formaty: {picallowedformats} - dla zdjęć rekomendowany format JPG .<br />Maksymalna dozwolona wielkość pliku {maxpicsizeMB} MB. Zalecane wymiary obrazków: {maxpicresolution} pikseli. <br />Po potwierdzeniu przetwarzanie może potrwać dłuższą chwilę.',
+
 );

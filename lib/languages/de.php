@@ -849,7 +849,6 @@ $translations = array(
     'cache_picture_intro' => 'HINWEIS! Du musstsich darum kümmern, um  von ihm in der Website veröffentlichten Inhalte werden / Fotos nicht gegen geltende Gesetze und Vorschriften <a href="{wiki_link_rules_en}"> Regeln OC UK </ a>. Insbesondere veröffentlicht die User Inhalte / Bilder dürfen nicht gegen das Urheberrecht Dritter. Sie sind verantwortlich direkt gegen die Copyright-Inhaber für daraus resultierende Verletzung solcher Rechte durch ihn auf die Seite Bilder / Fotos veröffentlicht. Setzen <br/> nur relevante Bild mit dem Fall verbunden. Tun Sie das nicht Fotoalbum herum.',
     'spoiler_info' => 'nicht zeigen Thumbnails (SPOILER) - Verwenden diese Option, wenn das Bild hochladen, um das Versteck ist in der Box gezeigt. Fotos bis jemand auf SPOILER zeigt er ein Bild hochgeladen.',
     'dont_show' => 'nicht zeigen dieses Bild.',
-    'pictures_intro' => 'Permitted image formats: {picallowedformats}. JPG works best for photos.<br />Maximum allowed size is {maxpicsizeMB} MB. Recommended resolution: {maxpicresolution} pixels.',
     'add_new_picture' => 'Hinzufügen ein neues Bild für Cache',
     'gallery' => 'Galerie anzeigen',
     'gallery_short' => 'Galerie',
@@ -2784,5 +2783,9 @@ $translations = array(
     'log_filter_type_any' => 'Any', /* EN */
     'log_filter_author' => 'Author', /* EN */
     'log_filter_author_any' => 'Anyone', /* EN */
-    'log_filter_author_currentuser' => 'Me' /* EN */
+    'log_filter_author_currentuser' => 'Me', /* EN */
+
+    'pictures_intro' => 'Permitted image formats: {picallowedformats}. JPG works best for photos.<br />Maximum allowed size is {maxpicsizeMB} MB. Recommended resolution: {maxpicresolution} pixels.',
+
+
 );

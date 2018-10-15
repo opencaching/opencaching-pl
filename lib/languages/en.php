@@ -875,7 +875,6 @@ $translations = array(
     'cache_picture_intro' => ' You should own the copyright and upload only pictures relevant to the cache',
     'spoiler_info' => 'Do not display thumbnail (SPOILER) - use this option if the picture shows the location of the cache.<br> The picture will only be shown when SPOILER is clicked.',
     'dont_show' => 'Don\'t show this picture',
-    'pictures_intro' => 'Permitted image formats: {picallowedformats}. JPG works best for photos.<br />Maximum allowed size is {maxpicsizeMB} MB. Recommended resolution: {maxpicresolution} pixels.',
     'add_new_picture' => 'Adding a new picture to the cache.',
     'gallery' => 'Show gallery',
     'gallery_short' => 'Gallery',
@@ -2821,5 +2820,16 @@ $translations = array(
     'log_filter_type_any' => 'Any',
     'log_filter_author' => 'Author',
     'log_filter_author_any' => 'Anyone',
-    'log_filter_author_currentuser' => 'Me'
+    'log_filter_author_currentuser' => 'Me',
+
+    'upload_clickOrDropFile' => 'Drop file here or click to select file',
+    'upload_allowedTypesOfFile' => 'allowed type of file',
+    'upload_maxFileSize' => 'max file size',
+    'upload_allowedNumberOfFiles' => 'max files to upload at once',
+    'upload_improperFileSize' => 'Skipped, improper file size!',
+    'upload_improperFileType' => 'Skipped, improper file type!',
+    'upload_startUpload' => 'Start upload',
+
+    'pictures_intro' => 'Permitted image formats: {picallowedformats}. JPG works best for photos.<br />Maximum allowed size is {maxpicsizeMB} MB. Recommended resolution: {maxpicresolution} pixels.',
+
 );

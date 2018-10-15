@@ -20,14 +20,15 @@ return function ($inputName, $accepted, $maxFileSize=0) {
     <div class="form-group">
         <div class="input-group input-group-sm">
             <label class="input-group-addon btn btn-primary">
-                <span ><?= tr('newcache_choose_file') ?></span>
-                <input id="<?=$inputName?>" name="<?=$inputName?>" class="form-upload" type="file" size="30" accept="<?= $accepted?>"/>
+                <span><?= tr('newcache_choose_file') ?></span>
+                <input id="<?=$inputName?>" name="<?=$inputName?>"
+                       class="form-upload" type="file" size="30" accept="<?= $accepted?>"/>
             </label>
-            <input id="<?=$inputName?>_fileName" class="form-control" placeholder="<?= tr('newcache_no_file') ?>" disabled="disabled" />
+            <input id="<?=$inputName?>_fileName" class="form-control"
+                   placeholder="<?= tr('newcache_no_file') ?>" disabled="disabled" />
         </div>
     </div>
     <script>
-            console.log("helo");
         document.getElementById("<?=$inputName?>").onchange = function () {
             var str = this.value;
             var output = str.split("\\").pop();

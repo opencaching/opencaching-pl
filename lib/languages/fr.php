@@ -875,7 +875,6 @@ $translations = array(
     'cache_picture_intro' => ' Vous devez posséder les droits d\'auteur et téléverser uniquement des images relatives a la cache',
     'spoiler_info' => 'Ne pas afficher la vignette (SPOILER) - utilisez cette option si l\'image montre l\'emplacement de la cache.<br>La photo n\'apparaîtra que lorsque l\'utilisateur cliquera sur le SPOILER.',
     'dont_show' => 'Ne pas afficher cette photo',
-    'pictures_intro' => 'Formats d\'image permis : {picallowedformats}. JPG fonctionne mieux pour les photos.<br />La taille maximale autorisée est de {maxpicsizeMB} mégaoctets. Résolution recommandée : {maxpicresolution} pixels.',
     'add_new_picture' => 'Ajout d\'une nouvelle image à la cache.',
     'gallery' => 'Voir la galerie',
     'gallery_short' => 'Galerie',
@@ -2821,5 +2820,8 @@ $translations = array(
     'log_filter_type_any' => 'Tous',
     'log_filter_author' => 'Auteur',
     'log_filter_author_any' => 'Tout le monde',
-    'log_filter_author_currentuser' => 'Moi'
+    'log_filter_author_currentuser' => 'Moi',
+
+    'pictures_intro' => 'Formats d\'image permis : {picallowedformats}. JPG fonctionne mieux pour les photos.<br />La taille maximale autorisée est de {maxpicsizeMB} mégaoctets. Résolution recommandée : {maxpicresolution} pixels.',
+
 );

@@ -862,7 +862,6 @@ $translations = array(
     'cache_picture_intro' => 'Trebuie să fii autorul acestei imagini sau să ai dreptul să o foloseşti. Te rugăm să încarci strict numai imagini relevante despre geocutie.',
     'spoiler_info' => 'Nu afişa previzualizare (SPOILER) - Foloseşte aceasta opţiune pentru a indica ascunzătoarea geocutiei.<br> Această imagine va fi afişată atunci când se dă click pe &quot;<b>SPOILER</b>&quot;.',
     'dont_show' => 'Nu afişa această imagine',
-    'pictures_intro' => 'Formatele de imagine acceptate: {picallowedformats}. JPG este optim pentru fotografii.<br />Mărime fişier maximă: {maxpicsizeMB} MB. Rezoluţie recomandată: {maxpicresolution} pixeli.',
     'add_new_picture' => 'Adaugă o imagine la geocutia:',
     'gallery' => 'Show gallery***',
     'gallery_short' => 'Gallery***',
@@ -2799,5 +2798,9 @@ $translations = array(
     'log_filter_type_any' => 'Any', /* EN */
     'log_filter_author' => 'Author', /* EN */
     'log_filter_author_any' => 'Anyone', /* EN */
-    'log_filter_author_currentuser' => 'Me' /* EN */
+    'log_filter_author_currentuser' => 'Me', /* EN */
+
+
+    'pictures_intro' => 'Formatele de imagine acceptate: {picallowedformats}. JPG este optim pentru fotografii.<br />Mărime fişier maximă: {maxpicsizeMB} MB. Rezoluţie recomandată: {maxpicresolution} pixeli.',
+
 );

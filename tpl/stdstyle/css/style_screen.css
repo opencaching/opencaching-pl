@@ -8,17 +8,17 @@ body                { font-size: 62.5%; line-height: 1.42857143; margin: 0px aut
                     }
                       
 .page-container-1 {
-	width: 970px;
-	margin: 0px auto;
-	padding: 0px;
-	background-color:#ffffff;
-	border: solid 1px rgb(100,100,100);
-	position: relative;
+  width: 970px;
+  margin: 0px auto;
+  padding: 0px;
+  background-color:#ffffff;
+  border: solid 1px rgb(100,100,100);
+  position: relative;
 }
 
 .popup-container {
-	padding: 15px;
-	background-color: #fff;
+  padding: 15px;
+  background-color: #fff;
 }
 
 body.summer { background-color: #feec98; }
@@ -61,122 +61,122 @@ tr.highlighted > td {border-width:2px;}
 /* 2.1 - Topline                     */
 /*-----------------------------------*/
 .topline-container {
-	width: 100%;
-	height: 32px;
-	font-size: 1em;
+  width: 100%;
+  height: 32px;
+  font-size: 1em;
 }
 
 .topline-container div, form {
-	display: inline-block;
-	vertical-align: middle;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .topline-logo {
-	margin: 3px 8px;
+  margin: 3px 8px;
 }
 
 .topline-logo img {
-	max-width: 26px;
-	max-height: 26px;
+  max-width: 26px;
+  max-height: 26px;
 }
 
 .topline-sitename {
-	font-size: 1.8em;
+  font-size: 1.8em;
 }
 
 .topline-buttons {
-	float: right;
-	margin-right: 10px;
-	position: relative;
+  float: right;
+  margin-right: 10px;
+  position: relative;
 }
 
 .topline-btn-wide {
-	padding: 1px 10px !important;
+  padding: 1px 10px !important;
 }
 
 .topline-dropdown-icon {
-	max-width: 8px;
-	height: 8px;
-	padding: 4px 0px !important;
+  max-width: 8px;
+  height: 8px;
+  padding: 4px 0px !important;
 }
 
 .topline-dropdown-content {
-	display: none !important;
-	position: absolute;
-	top: 27px;
-	cursor: pointer;
-	background-color: white;
-	width: 252px;
-	font-size: 12px;
-	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-	border: 1px solid #ccc;
-	border-radius: 5px;
-	z-index: 999;
+  display: none !important;
+  position: absolute;
+  top: 27px;
+  cursor: pointer;
+  background-color: white;
+  width: 252px;
+  font-size: 12px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  z-index: 999;
 }
 .topline-dropdown-content div {
-	color: black;
-	padding: 4px 10px;
-	display: block;
+  color: black;
+  padding: 4px 10px;
+  display: block;
 }
 
 .topline-dropdown-content div:hover {
-	background-color: rgb(156,186,214);
+  background-color: rgb(156,186,214);
 }
 
 .topline-dropdown-show {
-	display: block !important;
+  display: block !important;
 }
 
 .topline-buffer {
-	width: 10px;
+  width: 10px;
 }
 
 .top-video-container {
-	width: 970px;
-	height: 180px;
-	margin: 0px;
-	padding: 0px;
-	position: relative;
+  width: 970px;
+  height: 180px;
+  margin: 0px;
+  padding: 0px;
+  position: relative;
 }
 
 .top-video-container video {
-	width: 970px;
-	margin: 0px;
-	padding: 0px;
+  width: 970px;
+  margin: 0px;
+  padding: 0px;
 }
 
 .top-video-slider {
-	position: absolute;
-	top: -180px;
-	width: 970px;
-	height: 0px;
-	line-height: 180px;
-	color: white;
-	text-shadow: 2px 2px 4px #000000;
-	text-align: center;
-	font-size: 3em;
+  position: absolute;
+  top: -180px;
+  width: 970px;
+  height: 0px;
+  line-height: 180px;
+  color: white;
+  text-shadow: 2px 2px 4px #000000;
+  text-align: center;
+  font-size: 3em;
 }
 
 /*--------------------------*/
 /* 2.2 - Navigation - Flags */
 /*--------------------------*/
 .bottom-flags {
-	display: inline;
-	margin: 0px 10px;
+  display: inline;
+  margin: 0px 10px;
 }
 
 .bottom-flags img {
-	height: 20px;
-	border: 1px solid #bfbfbf;
+  height: 20px;
+  border: 1px solid #bfbfbf;
 }
 
 .bottom-page-container {
-	display: block;
-	vertical-align: middle;
-	text-align: center;
-	margin-top: 10px;
-	margin-left: auto;
-	margin-right: auto;
+  display: block;
+  vertical-align: middle;
+  text-align: center;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /*-----------------------------------*/
@@ -580,13 +580,17 @@ table.bs-table td > a:hover {
     cursor: pointer;
 }
 .btn::-moz-focus-inner {
-	border: 0;
+  border: 0;
 }
 a.btn {
     text-decoration: none;
 }
 
 /* button variant*/
+.btn.btn-disabled {
+    opacity: 0.5;
+}
+
 .btn.btn-default {
     color: #333;
     background-color: #fff;
@@ -749,8 +753,8 @@ a.transparent::-moz-focus-inner {
 }
 
 .form > label {
-	font-size: 14px;
-	padding: 4px;
+  font-size: 14px;
+  padding: 4px;
 }
 
 .form-group-sm .form-control {
@@ -1224,31 +1228,31 @@ sub {
 
 /* Bootstrap text colors */
 .text-color-primary {
-	color: #007bff !important;
+  color: #007bff !important;
 }
 
 .text-color-secondary {
-	color: #6c757d !important;
+  color: #6c757d !important;
 }
 
 .text-color-success {
-	color: #28a745 !important;
+  color: #28a745 !important;
 }
 
 .text-color-warning {
-	color: #ffc107 !important;
+  color: #ffc107 !important;
 }
 
 .text-color-danger {
-	color: #dc3545 !important;
+  color: #dc3545 !important;
 }
 
 .text-color-info {
-	color: #17a2b8 !important;
+  color: #17a2b8 !important;
 }
 
 .text-color-dark {
-	color: #343a40 !important;
+  color: #343a40 !important;
 }
 
 .element-even {
@@ -1257,20 +1261,20 @@ sub {
 
 .icon6
 {
-	max-width: 6px;
-	max-height: 6px;
+  max-width: 6px;
+  max-height: 6px;
 }
 
 .icon16
 {
-	width: 16px;
-	height: 16px;
+  width: 16px;
+  height: 16px;
 }
 
 .icon22
 {
-	max-width: 22px;
-	max-height: 22px;
+  max-width: 22px;
+  max-height: 22px;
 }
 
 .icon32
@@ -1280,7 +1284,7 @@ sub {
 }
 
 .tab-text {
-	padding-left: 1.6em;
+  padding-left: 1.6em;
 }
 
 .currentuser-activity-logs-tooltip {
@@ -1310,10 +1314,11 @@ div.currentuser-log {
 }
 
 .avatar-image {
-	width: 25px;
-	height: 25px;
-	border-radius: 50%;
-	background-size: cover;
-	background-position: center;
-	background-repeat: no-repeat;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
+
