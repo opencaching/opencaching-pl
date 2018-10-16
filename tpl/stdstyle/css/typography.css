@@ -1,0 +1,9 @@
+@font-face {
+    font-family: OpenSans;
+    src: url(/assets/fonts/open_sans/opensans-regular.ttf);
+}
+
+@font-face {
+    font-family: SourceCodePro;
+    src: url(/assets/fonts/source_code_pro/sourcecodepro-regular.ttf);
+}
