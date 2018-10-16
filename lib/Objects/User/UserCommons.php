@@ -28,6 +28,6 @@ class UserCommons extends BaseObject
 
     public static function getDefaultAvatarUrl()
     {
-        return '/tpl/stdstyle/images/misc/defaultAvatar.svg';
+        return '/images/avatars/defaultAvatar.svg';
     }
 }
