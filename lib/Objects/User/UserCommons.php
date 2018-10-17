@@ -25,4 +25,9 @@ class UserCommons extends BaseObject
             unlink(OcConfig::instance()->getDynamicFilesPath() . 'images/statpics/statpic' . $userId . '.jpg');
         }
     }
+
+    public static function getDefaultAvatarUrl()
+    {
+        return '/images/avatars/defaultAvatar.svg';
+    }
 }

@@ -1308,3 +1308,12 @@ div.currentuser-log {
 .cachelog-line2 {
     clear: both;
 }
+
+.avatar-image {
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}

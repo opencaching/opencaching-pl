@@ -483,6 +483,17 @@ class User extends UserCommons
     }
 
     /**
+     * Returns URL of user's avatar
+     * Will be developed in the future
+     *
+     * @return string
+     */
+    public function getAvatarUrl()
+    {
+        return self::getDefaultAvatarUrl();
+    }
+
+    /**
      * @return boolean
      */
     public function getIsAdmin()
