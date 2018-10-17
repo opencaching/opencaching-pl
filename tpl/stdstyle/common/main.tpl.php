@@ -31,11 +31,6 @@ global $tpl_subtitle;
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
   <link rel="stylesheet" type="text/css" href="/tpl/stdstyle/css/typography.css">
 
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
-
-
-
   <?php if ($view->_showVideoBanner) {
     foreach($view->_topBannerVideo as $videoPath) { ?>
       <link rel="prefetch" href="<?=$videoPath?>">

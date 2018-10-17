@@ -4,7 +4,7 @@ div#overall         { min-width: 970px; width: 100%; overflow: hidden; }
 
 body                { font-size: 62.5%; line-height: 1.42857143; margin: 0px auto; 
                       padding: 0px; background-color: #cccccc;
-                      font-family: 'Open Sans', OpenSans, sans-serif;
+                      font-family: OpenSans, sans-serif;
                     }
                       
 .page-container-1 {
