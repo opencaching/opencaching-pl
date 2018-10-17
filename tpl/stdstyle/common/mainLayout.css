@@ -44,8 +44,7 @@ div.seasonalBackground.spring{ background-image: url(/images/css/spring.jpg);}
 
 #headerOcLogo { padding: 3px 0px 3px 5px; }
 #headerOcLogo a, a:hover { text-decoration: none; }
-#headerOcLogo div { 
-  font-family: "trebuchet ms", arial, sans serif;
+#headerOcLogo div {
   /*overflow: hidden;*/
   color: #323232;
 }

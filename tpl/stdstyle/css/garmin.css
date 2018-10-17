@@ -3,7 +3,6 @@
 #garminDisplay {
     font-size:11px;
     font-weight: bold;
-    font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
     color: #000000;
     text-align: left;
     margin: 0 0 1em 0;
@@ -16,7 +15,6 @@
 #garminDisplay input {
     font-size:10px;
     font-weight: bold;
-    font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
     color:#ffffff;
     height:18px;
     background-color: #005E9D;
@@ -31,7 +29,6 @@
 #garminDisplay select {
     font-size:10px;
     font-weight: bold;
-    font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
     background-color: #666699;
     color: #ffffff;
 }

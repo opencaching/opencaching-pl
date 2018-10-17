@@ -1,13 +1,11 @@
-
-img                 { vertical-align:middle; border-width:0px;border-style:none; }
-
+img                 { vertical-align:middle; border-width:0px; border-style:none; }
 
 div#overall         { min-width: 970px; width: 100%; overflow: hidden; }
 
-
 body                { font-size: 62.5%; line-height: 1.42857143; margin: 0px auto; 
-                      padding: 0px; background-color: #cccccc; 
-                      font-family: arial, sans-serif, Tahoma, Verdana;}
+                      padding: 0px; background-color: #cccccc;
+                      font-family: OpenSans, sans-serif;
+                    }
                       
 .page-container-1 {
 	width: 970px;
@@ -207,7 +205,7 @@ tr.highlighted > td {border-width:2px;}
 /*----------------------------*/
 /* 2.4 - Navigation - horizontal menu bar */
 /*----------------------------*/
-#nav2                               { clear: both; margin: 0px; padding: 0px; font-family: verdana, arial, sans serif; font-size: 1.0em;}
+#nav2                               { clear: both; margin: 0px; padding: 0px; font-size: 1.0em; letter-spacing: 1px;}
 #nav2 ul                            { float: left; width: 970px; margin: 0px; padding: 0px; background-color: #7FA2CA; font-weight: bold; box-sizing: border-box;}
 #nav2 li                            { display: inline; list-style: none; margin: 0px; padding: 0px;}
 #nav2 a:hover                       { background-color: #52769E;}
@@ -293,10 +291,10 @@ h5 { margin: 0px 0px 0.2em 0px; font-weight: bold; font-size: 130%;}
 h6 { margin: 0px 0px 0.2em 0px;font-weight: bold; font-style: italic; font-size: 130%;}
 
 /* Paragraphs */
-p  { margin: 0px 0px 0.5em 0px; padding: 0px; line-height: 1.3em; font-family: arial, sans serif; font-size: 12px; }
+p  { margin: 0px 0px 0.5em 0px; padding: 0px; line-height: 1.3em; font-size: 12px; }
 
 /* Lists */
-ul.indent        { margin: 0px 0px 7px 15px; padding: 0px 0px 0px 15px; list-style-type: disc; font-family: arial; font-size: 120%;}
+ul.indent        { margin: 0px 0px 7px 15px; padding: 0px 0px 0px 15px; list-style-type: disc; font-size: 120%;}
 ol               { margin: 0px 0px 0px 9px; padding: 0px 0px 0px 25px; list-style-type: decimal; list-style-position: outside; font-size: 120%;}
 ul.tick          { list-style-image: url('/tpl/stdstyle/images/free_icons/tick.png'); }
 
@@ -944,7 +942,6 @@ tooltip {
     border: 1px solid #7ba2d2;
     background: #e4f5fa;
     color: #000;
-    u
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
 }
@@ -981,7 +978,6 @@ span.user_aktywnosc
 {
     color: #000000;
     font-weight: normal;
-    font-family: verdana;
     font-size: 80%;
 }
 
@@ -992,7 +988,6 @@ div.viewcache_log-content {
     overflow-wrap: break-word;
 }
 div.viewcache_log-content * {
-    font-family: arial, sans serif;
     line-height: 1.3em;
     font-size: 12px;
 }
@@ -1016,7 +1011,6 @@ form#register label     { text-align: right; width: 14em; padding-right: 20px; d
 form#register div       { margin: 7px 0 5px 0; }
 
 form, input, textarea, button {
-    font-family: Arial, Tahoma, Verdana;
     font-size: 8pt;
 }
 
@@ -1209,7 +1203,7 @@ td.myr{
 
 /* override google maps font to default ones */
 div.gm-style {
-    font-family: "arial", sans-serif, "Tahoma", "Verdana";
+    font-family: 'Open Sans', sans-serif;
 }
 
 .show-more {

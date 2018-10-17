@@ -89,7 +89,6 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 
 .commentHead{
     padding-top: 5px;
-    font-family: verdana;
     font-size: 13px;
     padding-left: 10px;
     background-color: #FFFFFF; background-repeat: repeat-y;
@@ -115,7 +114,6 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 .linearBg1 {
     height: 25px;
     color: #E7E5DC;
-    font-family: verdana;
     font-size: 12px;
     font-weight: bold;
     padding-left:8px;
@@ -140,14 +138,12 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
     background: -o-linear-gradient(left, #2F2727, #1a82f7);
 }
 .userActions {
-    font-family: verdana;
     font-size: 9px;
 }
 .inlineTd{
     padding:15px;
 }
 .ptTd{
-    font-family: verdana;
     font-size: 12px;
     text-align:center;
 }
@@ -174,7 +170,6 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
     border:1px solid #337fed;
     display:inline-block;
     color:#ffffff !important;
-    font-family:arial;
     font-size:11px;
     font-weight:normal;
     padding:0px 16px;
@@ -205,7 +200,6 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
     border:1px solid #337fed;
     display:inline-block;
     color:#ffffff !important;
-    font-family:verdana;
     font-size:10px;
     font-weight:normal;
     padding:0px 2.5px;
@@ -235,7 +229,6 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
     border:1px solid #666666;
     display:inline-block;
     color:#ffffff !important;
-    font-family:verdana;
     font-size:10px;
     font-weight:normal;
     padding:0px 2.5px;
@@ -264,7 +257,6 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 .tooltip:hover span {
     border-radius: 5px 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;
     box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1); -webkit-box-shadow: 5px 5px rgba(0, 0, 0, 0.1); -moz-box-shadow: 5px 5px rgba(0, 0, 0, 0.1);
-    font-family: Calibri, Tahoma, Geneva, sans-serif;
     position: absolute; left: 1em; top: 2em; z-index: 99;
     margin-left: 0; width: 250px;
 }
@@ -273,7 +265,7 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
     float: left; position: absolute;
 }
 .tooltip:hover em {
-    font-family: Candara, Tahoma, Geneva, sans-serif; font-size: 1.2em; font-weight: bold;
+    font-size: 1.2em; font-weight: bold;
     display: block; padding: 0.2em 0 0.6em 0;
 }
 .classic { padding: 0.8em 1em; }
