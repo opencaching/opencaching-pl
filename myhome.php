@@ -3,6 +3,7 @@
 use Utils\Database\XDb;
 use lib\Objects\User\User;
 use Utils\Text\TextConverter;
+use lib\Objects\User\UserStats;
 
 //prepare the templates and include all neccessary
 if (!isset($rootpath))
@@ -18,7 +19,7 @@ if ($error == false) {
     } else {
 
         if ($usr['admin'])
-            tpl_set_var('reports', "<b>" . tr('administrating_oc') . ":</b><br />[<a href='viewreports.php'>" . tr('view_reports') . "</a>]");
+            tpl_set_var('reports', "<b>" . tr('administrating_oc') . ":</b><br>[<a href='viewreports.php'>" . tr('view_reports') . "</a>]");
         else
             tpl_set_var('reports', '');
 
@@ -35,7 +36,7 @@ if ($error == false) {
         $user = new User(array('userId' => $userid));
         $hidden_count=$user->getHiddenGeocachesCount();
         $founds_count=$user->getFoundGeocachesCount();
-        $events_count=$user->getEventsAttendsCount();
+        $events_count=UserStats::getEventsAttendsCount($user->getUserId());
         $notfounds_count=$user->getNotFoundGeocachesCount();
         $log_notes_count=$user->getLogNotesCount();
 

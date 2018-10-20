@@ -6,7 +6,6 @@ use Utils\Generators\Uuid;
 use lib\Objects\Coordinates\Coordinates;
 use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\OcConfig\OcConfig;
-use lib\Objects\PowerTrail\PowerTrail;
 
 /**
  * Description of user
@@ -36,12 +35,6 @@ class User extends UserCommons
     /** @var boolean */
     private $newCachesNoLimit = null;
 
-    /** @var $powerTrailCompleted \ArrayObject() */
-    private $powerTrailCompleted = null;
-
-    /** @var $powerTrailOwed \ArrayObject() */
-    private $powerTrailOwed = null;
-
     /** @var $geocaches \ArrayObject() */
     private $geocaches = null;
 
@@ -53,8 +46,6 @@ class User extends UserCommons
 
     /** @var $geocachesBlocked \ArrayObject() */
     private $geocachesBlocked = null;
-
-    private $eventsAttendsCount = null;
 
     private $dateCreated;
     private $description;
@@ -677,22 +668,6 @@ class User extends UserCommons
             return true;
         }
         return false;
-    }
-
-    /**
-     * @return integer
-     */
-    public function getEventsAttendsCount()
-    {
-        if ($this->eventsAttendsCount == null) {
-            $this->eventsAttendsCount =
-                $this->db->simpleQueryValue(
-                    "SELECT COUNT(*) events_count
-                    FROM cache_logs
-                    WHERE user_id=".$this->userId."
-                        AND type=7 AND deleted=0", 0);
-        }
-        return $this->eventsAttendsCount;
     }
 
     /**

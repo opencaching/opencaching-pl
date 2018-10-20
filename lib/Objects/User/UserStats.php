@@ -3,6 +3,7 @@ namespace lib\Objects\User;
 
 use lib\Objects\BaseObject;
 use lib\Objects\PowerTrail\PowerTrail;
+use lib\Objects\GeoCache\GeoCacheLog;
 
 class UserStats extends BaseObject
 {
@@ -13,7 +14,7 @@ class UserStats extends BaseObject
     }
 
     /**
-     * Returns all GeoPaths completed by $userid
+     * Returns all GeoPaths completed by $userId
      *
      * @param integer $userId
      * @return \ArrayObject
@@ -43,7 +44,7 @@ class UserStats extends BaseObject
     }
 
     /**
-     * Returns all GeoPaths owned by $userid
+     * Returns all GeoPaths owned by $userId
      *
      * @param integer $userId
      * @return \ArrayObject
@@ -67,6 +68,21 @@ class UserStats extends BaseObject
         return $geoPathsOwned;
     }
 
-
+    /**
+     * Returns all events attended by $userId
+     *
+     * @param integer $userId
+     * @return integer
+     */
+    public static function getEventsAttendsCount($userId)
+    {
+        return self::db()->multiVariableQueryValue(
+            "SELECT COUNT(*)
+            FROM `cache_logs`
+            WHERE `user_id`= :1
+                AND type = :2
+                AND deleted=0",
+            0, (int) $userId, GeoCacheLog::LOGTYPE_ATTENDED);
+    }
 
 }
