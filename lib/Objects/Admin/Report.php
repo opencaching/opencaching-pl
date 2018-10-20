@@ -7,6 +7,7 @@ use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\GeoCache\GeoCacheLogCommons;
 use lib\Objects\OcConfig\OcConfig;
 use lib\Objects\User\User;
+use lib\Objects\GeoCache\GeoCacheLog;
 
 class Report extends BaseObject
 {
@@ -522,6 +523,42 @@ class Report extends BaseObject
     }
 
     /**
+     * Changes cache status to $newStatus
+     * Inserts new cache log and report log
+     *
+     * @param integer $newStatus
+     * @return boolean
+     */
+    public function changeCacheStatus($newStatus)
+    {
+        if (! $this->dataLoaded) {
+            return false;
+        }
+
+        // Update status of the cache
+        $this->getCache()->updateStatus($newStatus);
+
+        // Insert cache log
+        $logText = tr(GeoCacheLog::translationKey4CacheStatus($newStatus)) . ' (' . tr('admin_reports_lbl_report') . ' #' . $this->getId() . ')';
+        GeoCacheLog::newLog(
+            $this->getCache()->getCacheId(),
+            $this->getCurrentUser()->getUserId(),
+            GeoCacheLog::LOGTYPE_ADMINNOTE,
+            $logText);
+
+        // Insert report log
+        $logId = ReportLog::addLog(
+            $this->getId(),
+            ReportLog::TYPE_CHANGE_CACHE_STATUS,
+            $newStatus);
+
+        // Send notification e-mail about chache status change
+        $this->sendWatchEmails($logId);
+
+        return true;
+    }
+
+    /**
      * Adds $submittedNote as note to the report
      *
      * @param string $submittedNote
@@ -863,4 +900,26 @@ class Report extends BaseObject
         $n->loadFromDbRow($dbRow);
         return $n;
     }
+
+    /**
+     * Factory
+     *
+     * @param integer $reportIdId
+     * @return Report|null
+     */
+    public static function fromIdFactory($reportId)
+    {
+        $obj = new self();
+        try {
+            $obj->loadById($reportId);
+            if ($obj->isDataLoaded()) {
+                return $obj;
+            } else {
+                return null;
+            }
+        } catch (\Exception $e) {
+            return null;
+        }
+    }
+
 }

@@ -86,6 +86,25 @@ function changeLeader(reportId) {
 			});
 }
 
+function changeCacheStatus(reportId) {
+	var status = document.getElementById("cacheStatusSelectCtrl").value;
+	var inform = document.getElementById("cache-status");
+	inform.innerHTML = "<img src=\"/tpl/stdstyle/images/loader/spinning-circles.svg\" class=\"report-watch-img\">";
+	$
+			.ajax({
+				type : "get",
+				url : "/admin_reports.php?action=changeCacheStatus&ajax=true&id="
+						+ reportId + "&status=" + status,
+				error : function(xhr) {
+					inform.innerHTML = "<img src=\"/images/redcross.gif\" class=\"report-watch-img\">";
+					console.log("changeCacheStatus error: " + xhr.responseText);
+				},
+				success : function(data) {
+					inform.innerHTML = data.message;
+				}
+			});
+}
+
 function enableEmail() {
 	document.getElementById("report-email-row").style = "";
 	document.getElementById("report-note-row").style = "display: none;";

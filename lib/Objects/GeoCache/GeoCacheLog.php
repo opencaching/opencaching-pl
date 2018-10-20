@@ -2,6 +2,7 @@
 namespace lib\Objects\GeoCache;
 
 use lib\Objects\User\User;
+use Utils\Generators\Uuid;
 
 class GeoCacheLog extends GeoCacheLogCommons
 {
@@ -433,6 +434,31 @@ class GeoCacheLog extends GeoCacheLogCommons
             SET `deleted` = :1
             WHERE `id` = :2',
             $this->getDeleted(), $this->getId());
+    }
+
+    /**
+     * Inserts new log into the DB
+     * If empty/null $date, current datetime will be used
+     *
+     * @param integer $cacheId
+     * @param integer $userId
+     * @param integer $logType
+     * @param string $text
+     * @param \DateTime $date
+     */
+    public static function newLog($cacheId, $userId, $logType, $text, \DateTime $date = null)
+    {
+        if (is_null($date)) {
+            $date = new \DateTime();
+        }
+        $uuid = Uuid::create();
+
+        self::db()->multiVariableQuery(
+            'INSERT INTO `cache_logs`
+                (`cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `last_modified`, `uuid`, `date_created`, `node`)
+            VALUES (:1 , :2, :3, :4, :5 , 2, 1, NOW(), :6, NOW(), :7)',
+            $cacheId, $userId, $logType, $date->format(self::OcConfig()->getDbDateTimeFormat()), $text, $uuid, self::OcConfig()->getOcNodeId()
+            );
     }
 
     /**

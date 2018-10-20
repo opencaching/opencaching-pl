@@ -1259,6 +1259,7 @@ $translations = array(
     'admin_reports_tpl_poll' => '{user} a créé le sondage',
     'admin_reports_tpl_pollcancel' => '{user} a abandonné le sondage',
     'admin_reports_tpl_log' => '{user} a ajouté une note sur la cache signalée',
+    'admin_reports_tpl_changecachestatus' => '{user} changed cache status to', /* EN */
     'admin_reports_mail_subjwatch' => 'Activité dans le rapport - {cachename} ({cachewp})',
     'admin_reports_mail_subjleader' => 'Vous êtes le nouveau responsable du signalement #{reportid} - {cachename} ({cachewp})',
     'admin_reports_mail_subjlook' => 'Visualiser le signalement #{reportid} - {cachename} ({cachewp})',

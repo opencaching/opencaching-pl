@@ -4,6 +4,7 @@ namespace lib\Objects\Admin;
 use lib\Objects\BaseObject;
 use lib\Objects\User\User;
 use lib\Objects\OcConfig\OcConfig;
+use lib\Objects\GeoCache\GeoCache;
 
 class ReportLog extends BaseObject
 {
@@ -37,6 +38,9 @@ class ReportLog extends BaseObject
 
     // User x added OC Team log to the cache
     const TYPE_CACHELOG_ADD = 9;
+
+    // User x changed cache status to y
+    const TYPE_CHANGE_CACHE_STATUS = 10;
 
     /**
      * Id of ReportLog
@@ -203,6 +207,7 @@ class ReportLog extends BaseObject
             return null;
         }
         $content = '';
+        $header = '';
         switch ($this->type) {
             case self::TYPE_NOTE:
                 $header = tr('admin_reports_tpl_note') . ':';
@@ -266,6 +271,9 @@ class ReportLog extends BaseObject
             case self::TYPE_CACHELOG_ADD:
                 $header = tr('admin_reports_tpl_log') . ':';
                 $content = $this->content;
+                break;
+            case self::TYPE_CHANGE_CACHE_STATUS:
+                $header = tr('admin_reports_tpl_changecachestatus') . ': ' . tr(GeoCache::CacheStatusTranslationKey($this->content));
                 break;
         }
         $header = mb_ereg_replace('{user}', $this->getUser()->getUserName(), $header);
@@ -354,7 +362,8 @@ class ReportLog extends BaseObject
             self::TYPE_MAILTO_BOTH,
             self::TYPE_POLL,
             self::TYPE_POLL_CANCEL,
-            self::TYPE_CACHELOG_ADD
+            self::TYPE_CACHELOG_ADD,
+            self::TYPE_CHANGE_CACHE_STATUS
         ]);
     }
 
