@@ -9,7 +9,7 @@ body {
     color:Black;
     margin:0 0 0 0;
     background-color:#eeeeee;
-    font-family: sans serif;
+    font-family: 'Open Sans', sans-serif;
 }
 
 a {
@@ -32,7 +32,6 @@ a:hover {
 #content
 {
     padding-left:1ex;
-    font-family:verdana,arial,helvetica,helv,sans-serif;
     font-size:small;
     letter-spacing:0px;
     line-height:3ex;
@@ -42,7 +41,6 @@ a:hover {
 
 #content h1
 {
-    font-family:sans-serif;
     font-size:small;
     text-align:justify;
 }
@@ -50,7 +48,6 @@ a:hover {
 
 #content h2
 {
-    font-family:sans-serif;
     font-size:small;
     text-align:justify;
 }
@@ -71,7 +68,6 @@ a:hover {
 
 .navilevel2n
 {
-    font-family:sans-serif;
     font-size:small;
     padding-left:1ex;
     padding-right:1ex;
@@ -118,7 +114,6 @@ td {
 {
     line-height:3ex;
     border:1px solid #666666;
-    font-family:sans-serif;
     font-size:small;
     padding-left:1ex;
     padding-right:1ex;
@@ -167,14 +162,12 @@ td.header
     vertical-align:bottom;
     padding-left:5px; padding-right:5px;
     border: 0px;
-    font-family: verdana,sans-serif;
 }
 
 td.header-small {   background-color:#E6E2E6;
                     height:22px;
                     vertical-align : middle;
                     padding-left:5px; padding-right:5px;
-                    font-family: verdana,sans-serif;
                     font-weight: bold;}
 
 /* for normal contents the next two definitions should have the same attributes */

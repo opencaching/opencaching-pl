@@ -101,7 +101,6 @@ div#viewcache-map { width: 185px; height: 190px; float: right;}
 
 div#viewcache-description {
 	max-width: 100%;
-	font-family: arial, sans serif;
 	line-height: 1.3em;
 	font-size: 12px;
 }
@@ -112,7 +111,6 @@ div#viewcache-description img {
 div#viewcache-description>p,
 div#viewcache-description>ul {
 	font-size: 12px;
-	font-family: arial, sans serif;
 }
 
 div#viewcache-description>ol {
@@ -154,7 +152,7 @@ div.viewcache-pictureblock span.title   { display: block; max-width: 175px; padd
   width:200px;
   text-align:right;
   float:right;
-  font-family: 'Courier New', FreeMono, Monospace;
+  font-family: 'Source Code Pro', SourceCodePro, monospace;
   font-size: 12px;
 }
 

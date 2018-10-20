@@ -91,7 +91,7 @@ class SimpleRouter
         list($ctrlName, $actionName, $params) = self::parse();
 
         // create controller object
-        $ctrl = new $ctrlName();
+        $ctrl = new $ctrlName($actionName);
 
         // check if controller/action is ready to be call by router
         if( !is_a($ctrl, self::CTRL_BASE_CLASS) ||
@@ -103,7 +103,7 @@ class SimpleRouter
             $actionName = self::ERROR_ACTION;
             $params = ['Requested action not found',403];
 
-            $ctrl = new $ctrlName();
+            $ctrl = new $ctrlName($actionName);
         }
 
         call_user_func_array(array($ctrl, $actionName), $params);

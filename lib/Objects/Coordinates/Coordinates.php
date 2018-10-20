@@ -74,6 +74,7 @@ class Coordinates
         return $coords;
     }
 
+
     /**
      * Load this class data based on data from DB
      *
@@ -339,7 +340,53 @@ class Coordinates
         }
     }
 
+    /**
+     * @deprecated
+     *
+     * This is old-school method moved from common.inc.php
+     * It will be removed - DO NOT USE IT!
+     *
+     * decimal longitude to string E/W hhh°mm.mmm
+     *
+     * @param unknown $lon
+     */
+    public static function donNotUse_lonToDegreeStr ($lon) {
+        if ($lon < 0) {
+            $retval = 'W ';
+            $lon = -$lon;
+        } else {
+            $retval = 'E ';
+        }
 
+        $retval = $retval . sprintf("%02d", floor($lon)) . '° ';
+        $lon = $lon - floor($lon);
+        $retval = $retval . sprintf("%06.3f", round($lon * 60, 3)) . '\'';
+
+        return $retval;
+    }
+
+    /**
+     * @deprecated
+     *
+     * This is old-school method moved from common.inc.php
+     * It will be removed - DO NOT USE IT!
+     *
+     * decimal latitude to string N/S hh°mm.mmm
+     *
+     * @param unknown $lon
+     */
+    public static function donNotUse_latToDegreeStr ($lat) {
+        if ($lat < 0) {
+            $retval = 'S ';
+            $lat = -$lat;
+        } else {
+            $retval = 'N ';
+        }
+        $retval = $retval . sprintf("%02d", floor($lat)) . '° ';
+        $lat = $lat - floor($lat);
+        $retval = $retval . sprintf("%06.3f", round($lat * 60, 3)) . '\'';
+        return $retval;
+    }
 
 }
 

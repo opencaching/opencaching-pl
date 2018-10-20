@@ -10,6 +10,7 @@ use Utils\Database\OcDb;
 use Utils\Text\Rot13;
 use lib\Objects\GeoCache\GeoCacheCommons;
 use lib\Objects\GeoCache\CacheNote;
+use lib\Objects\Coordinates\Coordinates;
 
 global $content, $bUseZip, $hide_coords, $usr, $lang, $dbcSearch;
 
@@ -207,10 +208,10 @@ if( $usr || !$hide_coords ) {
         $thisline = $txtLine;
 
         $lat = sprintf('%01.5f', $r['latitude']);
-        $thisline = str_replace('{lat}', help_latToDegreeStr($lat), $thisline);
+        $thisline = str_replace('{lat}', Coordinates::donNotUse_latToDegreeStr($lat), $thisline);
 
         $lon = sprintf('%01.5f', $r['longitude']);
-        $thisline = str_replace('{lon}', help_lonToDegreeStr($lon), $thisline);
+        $thisline = str_replace('{lon}', Coordinates::donNotUse_lonToDegreeStr($lon), $thisline);
 
         $time = date('d.m.Y', strtotime($r['date_hidden']));
         $thisline = str_replace('{{time}}', $time, $thisline);

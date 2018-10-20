@@ -20,7 +20,6 @@ class View {
     private $_loadJQuery = false;
     private $_loadJQueryUI = false;
     private $_loadTimepicker = false;
-    private $_loadGMapApi = false;
     private $_loadFancyBox = false;
 
     private $_localCss = [];    // page-local css styles loaded from controller
@@ -158,12 +157,6 @@ class View {
         $this->_loadJQuery = true; // fancyBox needs jQuery!
     }
 
-    public function loadGMapApi($callback = null)
-    {
-        $this->_loadGMapApi = true;
-        $this->setVar('GMapApiCallback', $callback);
-    }
-
     /**
      * Returns true if GA key is set in config (what means that GA is enabled)
      */
@@ -194,12 +187,6 @@ class View {
     {
         return $this->_loadFancyBox;
     }
-
-    public function isGMapApiEnabled()
-    {
-        return $this->_loadGMapApi;
-    }
-
 
     private function error($message)
     {
@@ -263,7 +250,6 @@ class View {
         $this->_showGdprPage = $state;
         if ($state) {
             $this->_googleAnalyticsKey = '';
-            $this->_loadGMapApi = false;
             $this->_loadJQuery = false;
             $this->_loadJQueryUI = false;
             $this->_loadTimepicker = false;

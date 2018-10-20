@@ -14,7 +14,7 @@ use lib\Objects\ChunkModels\DynamicMap\CacheSetMarkerModel;
 use lib\Objects\CacheSet\CacheSetCommon;
 use lib\Objects\User\User;
 use Utils\Uri\SimpleRouter;
-use Controllers\CacheMapController;
+use Controllers\MainMapController;
 
 /**
  *  powerTrail.php
@@ -329,7 +329,7 @@ if ($error == false) {
 
                 $ptId = $powerTrail->getId();
                 $view->setVar('fullScreenMapPtLink',
-                    SimpleRouter::getLink(CacheMapController::class, 'fullScreen') . "?pt=$ptId");
+                    SimpleRouter::getLink(MainMapController::class, 'fullScreen') . "?cs=$ptId");
 
                 $mapModel = new DynamicMapModel();
 

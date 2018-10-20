@@ -952,8 +952,8 @@ if ($error == false) {
                         while($wp_record = XDb::xFetchArray($wp_rs)){
                             $tmpline1 = $wpline;
 
-                            $coords_lat = mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_latToDegreeStr($wp_record['latitude']), ENT_COMPAT, 'UTF-8'));
-                            $coords_lon = mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_lonToDegreeStr($wp_record['longitude']), ENT_COMPAT, 'UTF-8'));
+                            $coords_lat = mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(Coordinates::donNotUse_latToDegreeStr($wp_record['latitude']), ENT_COMPAT, 'UTF-8'));
+                            $coords_lon = mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(Coordinates::donNotUse_lonToDegreeStr($wp_record['longitude']), ENT_COMPAT, 'UTF-8'));
 
                             $tmpline1 = mb_ereg_replace('{wp_icon}', htmlspecialchars($wp_record['wp_icon'], ENT_COMPAT, 'UTF-8'), $tmpline1);
                             $tmpline1 = mb_ereg_replace('{type}', htmlspecialchars($wp_record['wp_type'], ENT_COMPAT, 'UTF-8'), $tmpline1);

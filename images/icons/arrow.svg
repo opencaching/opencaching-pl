@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.2"
+   width="65.01mm"
+   height="65.01mm"
+   viewBox="0 0 6501 6501"
+   preserveAspectRatio="xMidYMid"
+   fill-rule="evenodd"
+   stroke-width="28.222"
+   stroke-linejoin="round"
+   xml:space="preserve"
+   id="svg91"
+   sodipodi:docname="arrow.svg"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"><metadata
+   id="metadata95"><rdf:RDF><cc:Work
+       rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
+         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /></cc:Work></rdf:RDF></metadata><sodipodi:namedview
+   pagecolor="#ffffff"
+   bordercolor="#666666"
+   borderopacity="1"
+   objecttolerance="10"
+   gridtolerance="10"
+   guidetolerance="10"
+   inkscape:pageopacity="0"
+   inkscape:pageshadow="2"
+   inkscape:window-width="1366"
+   inkscape:window-height="705"
+   id="namedview93"
+   showgrid="false"
+   inkscape:zoom="0.96049323"
+   inkscape:cx="122.85355"
+   inkscape:cy="122.85355"
+   inkscape:window-x="-8"
+   inkscape:window-y="-8"
+   inkscape:window-maximized="1"
+   inkscape:current-layer="g89" />
+ <defs
+   class="ClipPathGroup"
+   id="defs8" />
+ <defs
+   class="TextShapeIndex"
+   id="defs12" />
+ <defs
+   class="EmbeddedBulletChars"
+   id="defs44" />
+ <defs
+   class="TextEmbeddedBitmaps"
+   id="defs46" />
+ <g
+   id="g51">
+  <g
+   id="id2"
+   class="Master_Slide">
+   <g
+   id="bg-id2"
+   class="Background" />
+   <g
+   id="bo-id2"
+   class="BackgroundObjects" />
+  </g>
+ </g>
+ <g
+   class="SlideGroup"
+   id="g89">
+  
+ <g
+   id="g985"><g
+     class="Page"
+     id="g83">
+      <g
+   class="com.sun.star.drawing.PolyPolygonShape"
+   id="g56">
+       <g
+   id="id3">
+        <rect
+   class="BoundingBox"
+   x="0"
+   y="0"
+   width="6505"
+   height="6504"
+   id="rect53"
+   style="fill:none;stroke:none" />
+       </g>
+      </g>
+      <g
+   class="com.sun.star.drawing.ClosedBezierShape"
+   id="g63">
+       <g
+   id="id4">
+        <rect
+   class="BoundingBox"
+   x="0"
+   y="0"
+   width="6503"
+   height="6503"
+   id="rect58"
+   style="fill:none;stroke:none" />
+        <path
+   d="M 1166,125 C 645,125 125,645 125,1166 v 4169 c 0,521 520,1042 1041,1042 h 4169 c 521,0 1042,-521 1042,-1042 V 1166 C 6377,645 5856,125 5335,125 Z"
+   id="path60"
+   inkscape:connector-curvature="0"
+   style="fill:none;stroke:#808080;stroke-width:250;stroke-linejoin:round" />
+       </g>
+      </g>
+      <g
+   class="com.sun.star.drawing.PolyPolygonShape"
+   id="g68">
+       <g
+   id="id5">
+        <rect
+   class="BoundingBox"
+   x="751"
+   y="876"
+   width="5006"
+   height="5004"
+   id="rect65"
+   style="fill:none;stroke:none" />
+       </g>
+      </g>
+      <g
+   class="com.sun.star.drawing.CustomShape"
+   id="g81">
+       <g
+   id="id6">
+        <rect
+   class="BoundingBox"
+   x="1549"
+   y="599"
+   width="3404"
+   height="5304"
+   id="rect70"
+   style="fill:none;stroke:none" />
+        
+        
+        <path
+   d="M 1550,600 Z"
+   id="path76"
+   inkscape:connector-curvature="0"
+   style="fill:none;stroke:#808080" />
+        <path
+   d="M 4951,5901 Z"
+   id="path78"
+   inkscape:connector-curvature="0"
+   style="fill:none;stroke:#808080" />
+       </g>
+      </g>
+     </g><path
+     d="M 1592.5549,5471.4802 3250.5002,1029.5272 4908.4451,5471.4802 3250.5002,3990.8291 Z"
+     id="path2"
+     style="fill:#9e9e9e;fill-opacity:1;fill-rule:evenodd;stroke:#808080;stroke-width:255.85614014;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+     inkscape:connector-curvature="0" /></g></g>
+</svg>

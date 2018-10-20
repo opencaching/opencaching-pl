@@ -523,8 +523,7 @@ if ($error == false) {
             }
         } else {
             // no such log or log marked as deleted
-            header('HTTP/1.0 404 not found');
-            include('./error_pages/404.html');
+            echo "no_such_log...?!";
             die();
         }
     }

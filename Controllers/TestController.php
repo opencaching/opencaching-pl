@@ -287,10 +287,14 @@ class TestController extends BaseController
         $this->view->setVar('mapModel', $mapModel);
 
 
-        // and one more map... this should stay empty for now
-        // it is used in drawing example as well
+        // and one more map...
         $emptyMap = new DynamicMapModel();
+        $emptyMap->setInfoMessage('Just empty map...');
         $this->view->setVar('emptyMap', $emptyMap);
+
+        // and model for drawing
+        $drawMap = new DynamicMapModel();
+        $this->view->setVar('drawMap', $drawMap);
 
         $this->view->buildView();
     }

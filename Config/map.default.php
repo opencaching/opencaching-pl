@@ -1,5 +1,4 @@
 <?php
-use Controllers\CacheMapController;
 
 /**
  * This is simple configuration of maps in the OC code
@@ -22,6 +21,15 @@ $map = [];
 $map['keys'] = [];
 
 /**
+ * This variable should contain api_key created for https://openrouteservice.org
+ * DO NOT add your key to this file - add it in your map.local.php file.
+ *
+ * OpenRouteService is used to search (geocode) on MainMap - without the key search is disabled.
+ *
+ */
+$map['keys']['OpenRouteService'] = '';
+
+/**
  * $map['jsConfig'] constains JS code with configuration for openlayers
  * This is very simple config - OSM map only.
  *
@@ -36,13 +44,20 @@ $map['jsConfig'] = "
 ";
 
 /**
- * This is function which is called to inject keys from "local" config
- * to default node-configurations map configs.
+ * This is function which is called to inject keys from "local" config (map.local.php)
+ * to default node-configurations map config (for example map.pl.php).
  *
  * Here this is only a simple stub.
+ *
  *
  * @param array complete configureation merged from default + node-default + local configs
  * @return true on success
  */
-$map['keyInjectionCallback'] = function(array $mapConfig){ return true; };
+$map['keyInjectionCallback'] = function (array $mapConfig) {
+
+    // example:
+    // $mapConfig['jsConfig'] = str_replace('{NICE-MAP-KEY}', $mapConfig['keys']['NiceMap'], $mapConfig['jsConfig']);
+
+    return true;
+};
 

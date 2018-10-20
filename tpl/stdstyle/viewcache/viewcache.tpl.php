@@ -5,6 +5,7 @@ use lib\Objects\GeoCache\GeoCacheLogCommons;
 use Utils\Uri\SimpleRouter;
 use Utils\Text\UserInputFilter;
 use Utils\Text\Formatter;
+use Controllers\MainMapController;
 ?>
 <link rel="stylesheet" href="tpl/stdstyle/css/lightTooltip.css">
 
@@ -455,7 +456,8 @@ use Utils\Text\Formatter;
 
             <?php if ($view->isUserAuthorized || $view->alwaysShowCoords) { ?>
               <div class="img-shadow">
-                <a data-fancybox data-type="iframe" data-src="<?=SimpleRouter::getLink('CacheMap', 'mini')?>?lat=<?=$view->geoCache->getCoordinates()->getLatitude()?>&lon=<?=$view->geoCache->getCoordinates()->getLongitude()?>&inputZoom=14" href="javascript:;">
+                <a data-fancybox data-type="iframe"
+                   data-src="<?=SimpleRouter::getLink(MainMapController::class, 'fullScreen')?>?lat=<?=$view->geoCache->getCoordinates()->getLatitude()?>&lon=<?=$view->geoCache->getCoordinates()->getLongitude()?>&openPopup" href="javascript:;">
                   <img src="<?=$view->mapImgLink?>" alt="<?=tr('map')?>" title="<?=tr('map')?>">
                  </a>
               </div>

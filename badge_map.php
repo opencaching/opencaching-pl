@@ -2,6 +2,8 @@
 
 use lib\Controllers\MeritBadgeController;
 use Utils\Database\OcDb;
+use Utils\Uri\SimpleRouter;
+use Controllers\MainMapController;
 
 require_once('./lib/common.inc.php');
 
@@ -60,7 +62,8 @@ while ($r = $db->dbResultFetch($stmt)) {
 }
 fclose($f);
 
-tpl_redirect("cachemap3.php?userid=$userid&searchdata=$hash&fromlat=$minlat&fromlon=$minlon&tolat=$maxlat&tolon=$maxlon");
+tpl_redirect(SimpleRouter::getLink(MainMapController::class, 'fullscreen') .
+    "?userid=$userid&searchdata=$hash&bbox=$minlon|$minlat|$maxlon|$maxlat");
 
 
 function getCachesList($positions){
