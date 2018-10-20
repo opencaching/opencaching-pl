@@ -801,7 +801,7 @@ function buildGeocacheHtml(GeoCache $geocache, $html)
 {
     $ocConfig = OcConfig::instance();
     $html = mb_ereg_replace('{cacheimage}', '<img src="'.$geocache->getCacheIcon().'" width="16">', $html);
-    $html = mb_ereg_replace('{cachestatus}', htmlspecialchars(tr($geocache->getStatusTranslationIdentifier()), ENT_COMPAT, 'UTF-8'), $html);
+    $html = mb_ereg_replace('{cachestatus}', htmlspecialchars(tr($geocache->getStatusTranslationKey()), ENT_COMPAT, 'UTF-8'), $html);
     $html = mb_ereg_replace('{cacheid}', htmlspecialchars(urlencode($geocache->getCacheId()), ENT_COMPAT, 'UTF-8'), $html);
     if ($geocache->getDateActivate() === null) {
         $html = mb_ereg_replace('{date}', tr('no_time_indicated'), $html);
