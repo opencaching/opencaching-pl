@@ -61,11 +61,16 @@ var currentLogEntriesLimit = 10;
 var logEntryUnderExecution = false;
 
 $(window).scroll(function (event) {
-    // in most browsers win.scrollTop + win.height == document.height for pages
-    // scrolled to bottom of the page but sometimes NOT! (at leas at Chrome Mobile)
-    if($(window).scrollTop() + $(window).height() > $(document).height() - 200) {
-        loadLogEntries();
-    }
+  // in most browsers win.scrollTop + win.height == document.height for pages
+  // scrolled to bottom of the page but sometimes NOT! (at leas at Chrome Mobile)
+
+  var scrollTop = document.documentElement.scrollTop;
+  var widowHeight = window.innerHeight;
+  var documentHeight = document.documentElement.offsetHeight;
+
+  if( scrollTop + widowHeight > documentHeight - 200) {
+    loadLogEntries();
+  }
 });
 
 /* contains functions to be called after every part of log entries is loaded */
