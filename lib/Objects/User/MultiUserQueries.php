@@ -130,7 +130,7 @@ class MultiUserQueries extends BaseObject
                 AND type <> ".GeoCache::TYPE_EVENT."
             AND status IN ($cacheActiveStatusList)
             GROUP BY user_id
-            HAVING recos > $guideGotRecommendations");
+            HAVING recos >= $guideGotRecommendations");
 
         $result = [];
         while($row = $db->dbResultFetch($s)){

@@ -15,6 +15,7 @@ use Utils\Uri\OcCookie;
 use lib\Controllers\MeritBadgeController;
 use Utils\Text\Formatter;
 use lib\Objects\Admin\AdminNoteSet;
+use lib\Objects\User\UserStats;
 
 const ADMINNOTES_PER_PAGE = 10;
 
@@ -230,11 +231,11 @@ if ($usr == false) {
 
         if ($checkGeoPaths) {
         //geoPaths medals
-            $content .= buildPowerTrailIcons($user->getPowerTrailCompleted());
+            $content .= buildPowerTrailIcons(UserStats::getGeoPathsCompleted($user->getUserId()));
             $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('pt140') . '</span>:&nbsp;<strong>' . powerTrailBase::getUserPoints($user_id) . '</strong> (' . tr('pt093') . ' ' . powerTrailBase::getPoweTrailCompletedCountByUser($user_id) . ')</p>';
             $pointsEarnedForPlacedCaches = powerTrailBase::getOwnerPoints($user_id);
 
-            $content .= buildPowerTrailIcons($user->getPowerTrailOwed());
+            $content .= buildPowerTrailIcons(UserStats::getGeoPathsOwned($user->getUserId()));
             $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('pt224') . '</span>:&nbsp;<strong>' . $pointsEarnedForPlacedCaches['totalPoints'] . '</strong></p>';
         }
     }
@@ -801,7 +802,7 @@ function buildGeocacheHtml(GeoCache $geocache, $html)
 {
     $ocConfig = OcConfig::instance();
     $html = mb_ereg_replace('{cacheimage}', '<img src="'.$geocache->getCacheIcon().'" width="16">', $html);
-    $html = mb_ereg_replace('{cachestatus}', htmlspecialchars(tr($geocache->getStatusTranslationIdentifier()), ENT_COMPAT, 'UTF-8'), $html);
+    $html = mb_ereg_replace('{cachestatus}', htmlspecialchars(tr($geocache->getStatusTranslationKey()), ENT_COMPAT, 'UTF-8'), $html);
     $html = mb_ereg_replace('{cacheid}', htmlspecialchars(urlencode($geocache->getCacheId()), ENT_COMPAT, 'UTF-8'), $html);
     if ($geocache->getDateActivate() === null) {
         $html = mb_ereg_replace('{date}', tr('no_time_indicated'), $html);

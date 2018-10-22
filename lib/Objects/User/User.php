@@ -6,7 +6,6 @@ use Utils\Generators\Uuid;
 use lib\Objects\Coordinates\Coordinates;
 use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\OcConfig\OcConfig;
-use lib\Objects\PowerTrail\PowerTrail;
 
 /**
  * Description of user
@@ -36,12 +35,6 @@ class User extends UserCommons
     /** @var boolean */
     private $newCachesNoLimit = null;
 
-    /** @var $powerTrailCompleted \ArrayObject() */
-    private $powerTrailCompleted = null;
-
-    /** @var $powerTrailOwed \ArrayObject() */
-    private $powerTrailOwed = null;
-
     /** @var $geocaches \ArrayObject() */
     private $geocaches = null;
 
@@ -53,8 +46,6 @@ class User extends UserCommons
 
     /** @var $geocachesBlocked \ArrayObject() */
     private $geocachesBlocked = null;
-
-    private $eventsAttendsCount = null;
 
     private $dateCreated;
     private $description;
@@ -521,46 +512,6 @@ class User extends UserCommons
         return $this->rulesConfirmed;
     }
 
-    /**
-     * get all PowerTrails user completed
-     * @return \ArrayObject
-     */
-    public function getPowerTrailCompleted()
-    {
-        if ($this->powerTrailCompleted === null) {
-            $this->powerTrailCompleted = new \ArrayObject();
-            $queryPtList = 'SELECT * FROM `PowerTrail` WHERE `id` IN (SELECT `PowerTrailId` FROM `PowerTrail_comments` WHERE `commentType` =2 AND `deleted` =0 AND `userId` =:1 ORDER BY `logDateTime` DESC)';
-            $stmt = $this->db->multiVariableQuery($queryPtList, $this->userId);
-            $ptList = $this->db->dbResultFetchAll($stmt);
-
-            foreach ($ptList as $ptRow) {
-                $this->powerTrailCompleted->append(new PowerTrail(array('dbRow' => $ptRow)));
-            }
-        }
-        return $this->powerTrailCompleted;
-    }
-
-    /**
-     * get all PowerTrails user own
-     * @return \ArrayObject
-     */
-    public function getPowerTrailOwed()
-    {
-        if ($this->powerTrailOwed === null) {
-            $this->powerTrailOwed = new \ArrayObject();
-
-            $stmt = $this->db->multiVariableQuery(
-                "SELECT `PowerTrail`.* FROM `PowerTrail`, PowerTrail_owners WHERE  PowerTrail_owners.userId = :1 AND PowerTrail_owners.PowerTrailId = PowerTrail.id",
-                $this->userId);
-
-            $ptList = $this->db->dbResultFetchAll( $stmt );
-            foreach ($ptList as $ptRow) {
-                $this->powerTrailOwed->append(new PowerTrail(array('dbRow' => $ptRow)));
-            }
-        }
-        return $this->powerTrailOwed;
-    }
-
     public function getGeocaches()
     {
         if ($this->geocaches === null) {
@@ -586,8 +537,6 @@ class User extends UserCommons
         }
         return $this->geocaches;
     }
-
-
 
     public function appendNotPublishedGeocache(GeoCache $geocache)
     {
@@ -719,22 +668,6 @@ class User extends UserCommons
             return true;
         }
         return false;
-    }
-
-    /**
-     * @return integer
-     */
-    public function getEventsAttendsCount()
-    {
-        if ($this->eventsAttendsCount == null) {
-            $this->eventsAttendsCount =
-                $this->db->simpleQueryValue(
-                    "SELECT COUNT(*) events_count
-                    FROM cache_logs
-                    WHERE user_id=".$this->userId."
-                        AND type=7 AND deleted=0", 0);
-        }
-        return $this->eventsAttendsCount;
     }
 
     /**

@@ -1288,6 +1288,7 @@ $translations = array(
     'admin_reports_tpl_poll' => '{user} maakte een poll',
     'admin_reports_tpl_pollcancel' => '{user} annuleerde de poll',
     'admin_reports_tpl_log' => '{user} heeft een log aan gemelde cache toegevoegd',
+    'admin_reports_tpl_changecachestatus' => '{user} changed cache status to', /* EN */
     'admin_reports_mail_subjwatch' => 'Aktiviteit in melding - {cachename} ({cachewp})',
     'admin_reports_mail_subjleader' => 'Je bent nu behandelaar van de melding - {cachename} ({cachewp})',
     'admin_reports_mail_subjlook' => 'Bekijk de melding - {cachename} ({cachewp})',

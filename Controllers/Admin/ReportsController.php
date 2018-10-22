@@ -13,6 +13,7 @@ use lib\Objects\Admin\ReportWatches;
 use lib\Objects\ChunkModels\PaginationModel;
 use lib\Objects\User\User;
 use lib\Objects\Admin\ReportCommons;
+use lib\Objects\GeoCache\GeoCache;
 
 class ReportsController extends BaseController
 {
@@ -87,6 +88,9 @@ class ReportsController extends BaseController
                     exit();
                 case 'watchOff':
                     $this->turnWatchReportOffAjax();
+                    exit();
+                case 'changeCacheStatus':
+                    $this->changeCacheStatusAjax();
                     exit();
                 case 'changeStatus':
                     $this->changeStatusAjax();
@@ -175,6 +179,29 @@ class ReportsController extends BaseController
         } else {
             $this->ajaxSuccessResponse($report->getUserLeader()->getUserName());
         }
+        exit();
+    }
+
+    private function changeCacheStatusAjax()
+    {
+        // Security and parameters validation
+        $this->checkSecurity(true);
+        $this->paramAjaxCheck('id');
+        $this->reportIdAjaxCheck($_REQUEST['id']);
+        $this->paramAjaxCheck('status');
+        $newStatus = $_REQUEST['status'];
+        if (! in_array($newStatus, GeoCache::CacheStatusArray())) {
+            $this->ajaxErrorResponse('Invalid new cache status', 400);
+            exit();
+        }
+
+        $report = Report::fromIdFactory($_REQUEST['id']);
+        if ($newStatus != $report->getCache()->getStatus())
+        {
+            $report->changeCacheStatus($newStatus);
+        }
+
+        $this->ajaxSuccessResponse(tr($report->getCache()->getStatusTranslationKey()));
         exit();
     }
 

@@ -91,6 +91,7 @@ class GuideController extends BaseController
     private function getTruncatedDescription($description)
     {
         $result = "";
+        $description = strip_tags($description);
         if (mb_strlen($description) > self::MAX_DSCR_LEN) {
             $result = mb_substr($description, 0, self::MAX_DSCR_LEN - 5)
                 . "(...)";

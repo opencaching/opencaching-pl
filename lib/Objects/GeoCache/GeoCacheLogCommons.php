@@ -107,6 +107,29 @@ class GeoCacheLogCommons extends BaseObject
         }
     }
 
+    /**
+     * Returns translation key for cache log if chache changed status
+     *
+     * @param integer $status
+     * @return string
+     */
+    public static function translationKey4CacheStatus($status)
+    {
+        switch ($status) {
+            case GeoCache::STATUS_READY:
+                return 'ready_to_search';
+            case GeoCache::STATUS_UNAVAILABLE:
+                return 'temporarily_unavailable';
+            case GeoCache::STATUS_ARCHIVED:
+                return 'archived_cache';
+            case GeoCache::STATUS_BLOCKED:
+                return 'blocked_by_octeam';
+            default:
+                Debug::errorLog("Unknown cache status: $status");
+                return '';
+        }
+
+    }
 
     /**
      * There are many places where log text is displayed as a tooltip

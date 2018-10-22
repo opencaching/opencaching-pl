@@ -1288,6 +1288,7 @@ $translations = array(
     'admin_reports_tpl_poll' => '{user} created the poll',
     'admin_reports_tpl_pollcancel' => '{user} cancelled the poll',
     'admin_reports_tpl_log' => '{user} added a log to the reported cache',
+    'admin_reports_tpl_changecachestatus' => '{user} changed cache status to',
     'admin_reports_mail_subjwatch' => 'Activity in the report - {cachename} ({cachewp})',
     'admin_reports_mail_subjleader' => 'You are new leader of the report #{reportid} - {cachename} ({cachewp})',
     'admin_reports_mail_subjlook' => 'Look to the report #{reportid} - {cachename} ({cachewp})',

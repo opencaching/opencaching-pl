@@ -1126,12 +1126,6 @@ class GeoCache extends GeoCacheCommons
         return $this->uuid;
     }
 
-    public function getStatusTranslationIdentifier()
-    {
-        $statuses = $this->dictionary->getCacheStatuses();
-        return $statuses[$this->status]['translation'];
-    }
-
     /**
      * This function is moved from clicompatbase
      * @param int $cacheid
@@ -1621,6 +1615,25 @@ class GeoCache extends GeoCacheCommons
         if ($oldAltitude != $newAltitude) {
             $this->cacheAddtitions->updateAltitude($newAltitude);
         }
+    }
+
+    public function updateStatus($newStatus)
+    {
+        // Status validation
+        if (! in_array($newStatus, self::CacheStatusArray())) {
+            return false;
+        }
+
+        $this->status = $newStatus;
+
+        $this->db->multiVariableQuery(
+            'UPDATE `caches`
+            SET `status` = :1
+            WHERE `cache_id` = :2',
+            $newStatus, $this->getCacheId()
+            );
+
+        return true;
     }
 
     /**

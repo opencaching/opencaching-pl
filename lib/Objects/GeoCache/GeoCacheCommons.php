@@ -1,7 +1,6 @@
 <?php
 namespace lib\Objects\GeoCache;
 
-use Utils\DateTime\Year;
 use lib\Objects\BaseObject;
 
 /**
@@ -79,9 +78,10 @@ class GeoCacheCommons extends BaseObject {
         parent::__construct();
     }
 
-    public static function CacheTypeTranslationKey($type){
+    public static function CacheTypeTranslationKey($type)
+    {
 
-        switch($type){
+        switch ($type) {
             case self::TYPE_TRADITIONAL:    return self::TYPE_TRADITIONAL_TR_KEY;
             case self::TYPE_OTHERTYPE:      return self::TYPE_OTHERTYPE_TR_KEY;
             case self::TYPE_MULTICACHE:     return self::TYPE_MULTICACHE_TR_KEY;
@@ -95,9 +95,9 @@ class GeoCacheCommons extends BaseObject {
         }
     }
 
-    public static function CacheStatusTranslationKey($type){
-
-        switch($type){
+    public static function CacheStatusTranslationKey($type)
+    {
+        switch ($type) {
             case self::STATUS_READY:            return self::STATUS_READY_TR_KEY;
             case self::STATUS_UNAVAILABLE:      return self::STATUS_UNAVAILABLE_TR_KEY;
             case self::STATUS_ARCHIVED:         return self::STATUS_ARCHIVED_TR_KEY;
@@ -106,6 +106,7 @@ class GeoCacheCommons extends BaseObject {
             case self::STATUS_BLOCKED:          return self::STATUS_BLOCKED_TR_KEY;
         }
     }
+
     /**
      * Returns the cache size key based on size numeric identifier
      *
@@ -144,6 +145,22 @@ class GeoCacheCommons extends BaseObject {
         );
     }
 
+    /**
+     * Returns array of all cache statuses
+     *
+     * @return integer[]
+     */
+    public static function CacheStatusArray()
+    {
+        return [
+            self::STATUS_READY,
+            self::STATUS_UNAVAILABLE,
+            self::STATUS_ARCHIVED,
+            self::STATUS_WAITAPPROVERS,
+            self::STATUS_NOTYETAVAILABLE,
+            self::STATUS_BLOCKED
+        ];
+    }
 
     /**
      * Returns TypeId of the cache based on OKAPI description
@@ -231,7 +248,6 @@ class GeoCacheCommons extends BaseObject {
         }
     }
 
-
     /**
      * Retrurn cache icon based on its type and status
      *
@@ -267,7 +283,7 @@ class GeoCacheCommons extends BaseObject {
         }
 
         $logStatusPart = ''; //part of icon name represents status for user based on logs
-        switch($logStatus){
+        switch ($logStatus) {
             case GeoCacheLog::LOGTYPE_FOUNDIT:
                 $logStatusPart = '-found';
                 break;
@@ -320,9 +336,9 @@ class GeoCacheCommons extends BaseObject {
                 break;
         }
 
-        if($fileNameOnly){
+        if ($fileNameOnly) {
             return $typePart . $statusPart . $logStatusPart . '.png';
-        }else{
+        } else {
             return self::ICON_PATH . $typePart . $statusPart . $logStatusPart . '.png';
         }
     }
@@ -367,7 +383,8 @@ class GeoCacheCommons extends BaseObject {
      * @param unknown $score
      * @return string|mixed
      */
-    public static function ScoreNameTranslation($score){
+    public static function ScoreNameTranslation($score)
+    {
 
         $ratingNum = self::ScoreAsRatingNum($score);
         return tr(self::CacheRatingTranslationKey($ratingNum));
@@ -387,7 +404,7 @@ class GeoCacheCommons extends BaseObject {
      */
     public static function CacheRatingTranslationKey($ratingId)
     {
-        switch($ratingId){
+        switch($ratingId) {
             case 1: return 'rating_poor';
             case 2: return 'rating_mediocre';
             case 3: return 'rating_avarage';
@@ -426,9 +443,10 @@ class GeoCacheCommons extends BaseObject {
 
     /**
      * This function provides abbreviation for cache type
-     * @param unknown $type
+     * @param integer $type
      */
-    public static function Type2Letter($type){
+    public static function Type2Letter($type)
+    {
         $type = (int) $type;
         switch ($type) {
             case self::TYPE_OTHERTYPE:
@@ -451,7 +469,8 @@ class GeoCacheCommons extends BaseObject {
         }
     }
 
-    public static function GetCacheUrlByWp($ocWaypoint){
+    public static function GetCacheUrlByWp($ocWaypoint)
+    {
         return '/viewcache.php?wp=' . $ocWaypoint;
     }
 }

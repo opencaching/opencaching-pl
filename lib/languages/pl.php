@@ -1292,6 +1292,7 @@ $translations = array(
     'admin_reports_tpl_poll' => '{user} utworzył(a) głosowanie',
     'admin_reports_tpl_pollcancel' => '{user} unieważnił głosowanie',
     'admin_reports_tpl_log' => '{user} dodał(a) log do zgłaszanej skrzynki',
+    'admin_reports_tpl_changecachestatus' => '{user} zmienił status kesza na',
     'admin_reports_mail_subjwatch' => 'Aktywność w zgłoszeniu - {cachename} ({cachewp})',
     'admin_reports_mail_subjleader' => 'Jesteś liderem zgłoszenia - {cachename} ({cachewp})',
     'admin_reports_mail_subjlook' => 'Zobacz do zgłoszenia - {cachename} ({cachewp})',

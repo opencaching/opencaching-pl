@@ -29,7 +29,7 @@
                 <img src="/tpl/stdstyle/images/free_icons/email.png" alt="mailTo">
             </div>
             <div class="dynamicMap_mapPopup-tableCell">
-                <a class="links" href="/UserProfile/mailTo/{{user_id}}" target="_blank"><?=tr('guides_sendemail')?></a>
+                <a class="links" href="/UserProfile/mailTo/{{userId}}" target="_blank"><?=tr('guides_sendemail')?></a>
             </div>
         </div>
     </div>

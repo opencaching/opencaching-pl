@@ -1,6 +1,6 @@
 <?php
+use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\GeoCache\GeoCacheLogCommons;
-use lib\Objects\GeoCache\GeoCacheCommons;
 use lib\Objects\Admin\ReportEmailTemplate;
 use lib\Objects\Admin\ReportPoll;
 use lib\Objects\Admin\ReportCommons;
@@ -99,7 +99,7 @@ use Utils\Text\Formatter;
         <img src="<?=$view->report->getCache()->getCacheIcon($view->user)?>" height=20 alt="">
         <a href="<?=$view->report->getCache()->getCacheUrl()?>" class="links" target="_blank"><?=$view->report->getCache()->getCacheName()?> (<?=$view->report->getCache()->getWaypointId()?>)</a><br>
         <?=$view->report->getCache()->getCacheLocationObj()->getLocationDesc(' &gt; ')?><br>
-        <?php if ($view->report->getCache()->getCacheType() == GeoCacheCommons::TYPE_EVENT) { ?>
+        <?php if ($view->report->getCache()->getCacheType() == GeoCache::TYPE_EVENT) { ?>
             <img src="/tpl/stdstyle/images/log/16x16-attend.png" class="icon16" alt="{{attendends}}"> x<?=$view->report->getCache()->getFounds()?>
             <img src="/tpl/stdstyle/images/log/16x16-will_attend.png" class="icon16" alt="{{will_attend}}"> x<?=$view->report->getCache()->getNotFounds()?>
             <img src="/tpl/stdstyle/images/log/16x16-note.png" class="icon16" alt="{{note}}"> x<?=$view->report->getCache()->getNotesCount()?>
@@ -130,7 +130,25 @@ use Utils\Text\Formatter;
     </tr>
     <tr>
       <td class="content-title-noshade" style="text-align: right;">{{status_label}}</td>
-      <td><?=tr($view->report->getCache()->getStatusTranslationKey())?></td>
+      <td>
+        <select name="cacheNewStatus" class="form-control input200" id="cacheStatusSelectCtrl">
+          <?php
+          foreach (GeoCache::CacheStatusArray() as $status) {
+              if ($status == $view->report->getCache()->getStatus()) {
+                  ?>
+                  <option value=<?=$status?> selected><?=tr(GeoCache::CacheStatusTranslationKey($status))?></option>
+                  <?php
+              } elseif ($status != GeoCache::STATUS_NOTYETAVAILABLE && $status != GeoCache::STATUS_WAITAPPROVERS) {
+                  ?>
+                  <option value=<?=$status?>><?=tr(GeoCache::CacheStatusTranslationKey($status))?></option>
+                  <?php
+              }
+          }
+          ?>
+        </select>
+        <button type="button" class="btn btn-default" onclick="changeCacheStatus(<?=$view->report->getId()?>)"><?=tr('admin_reports_btn_change')?></button>
+        (<span class="report-strong" id="cache-status"><?=tr($view->report->getCache()->getStatusTranslationKey())?></span>)
+      </td>
     </tr>
     <tr>
       <td class="content-title-noshade" style="text-align: right;">{{type}}</td>
