@@ -8,11 +8,11 @@
 
 $bannerTxt = [
     "Największy na świecie niekomercyjny serwis geocachingowy",
-    "Geościeżki - skupiające wiele keszy",
-    "Ponad 500 Geościeżek w Polsce!",
+    "GeoŚcieżki - skupiające wiele keszy",
+    "Ponad 500 GeoŚcieżek w Polsce!",
     "Pełne statystyki, GPXy, wszystko za free!",
     "Powiadomienia mailem o nowych keszach i logach",
     "Centrum Obsługi Geokeszera wybierane przez Społeczność",
-    "100% funkcjonalności dostępne jest bezpłatnie",
+    "100% funkcjonalności dostępne bezpłatnie",
     "Liberalne zasady publikacji keszy",
 ];
