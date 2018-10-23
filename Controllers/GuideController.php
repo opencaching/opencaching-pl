@@ -7,6 +7,7 @@ use lib\Objects\User\MultiUserQueries;
 use lib\Objects\ChunkModels\DynamicMap\GuideMarkerModel;
 use lib\Objects\User\User;
 use Utils\Cache\OcMemCache;
+use Utils\Text\Formatter;
 
 class GuideController extends BaseController
 {
@@ -61,8 +62,9 @@ class GuideController extends BaseController
                 $marker->lon = $row['longitude'];
                 $marker->userId = $row['user_id'];
                 $marker->username = $row['username'];
-                $marker->userDesc = $this->getTruncatedDescription(
-                    $row['description']
+                $marker->userDesc = Formatter::truncateText(
+                    strip_tags($row['description']),
+                    self::MAX_DSCR_LEN
                 );
                 $marker->recCount = $row['recomendations'];
                 return $marker;
@@ -80,24 +82,4 @@ class GuideController extends BaseController
 
     }
 
-    /**
-     * Truncates description to be at least MAX_DSCR_LEN, ending it with
-     * ellipsis '(...)' if description is longer than MAX_DSCR_LEN.
-     *
-     * @param string $description Description to truncate
-     *
-     * @return string truncated description
-     */
-    private function getTruncatedDescription($description)
-    {
-        $result = "";
-        $description = strip_tags($description);
-        if (mb_strlen($description) > self::MAX_DSCR_LEN) {
-            $result = mb_substr($description, 0, self::MAX_DSCR_LEN - 5)
-                . "(...)";
-        } else {
-            $result = mb_substr($description, 0, self::MAX_DSCR_LEN);
-        }
-        return $result;
-    }
 }
