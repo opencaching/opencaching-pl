@@ -18,6 +18,11 @@ BEGIN
     IF @nullUserIdIps = 0 THEN
         ALTER TABLE `cache_visits2` MODIFY `user_id_ip` VARCHAR(15) NOT NULL DEFAULT '' COMMENT 'user_id or used IP address';
     END IF;
+    --
+    -- Displays 'OK' as the Result if the column default has been modified to empty string
+    -- or 'Not OK' if the column default remains NULL
+    --
+    SELECT CONCAT(IFNULL(COLUMN_DEFAULT, 'Not '), 'OK') AS Result FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='cache_visits2' AND COLUMN_NAME='user_id_ip';
 END;;
 
 DELIMITER ;
@@ -26,9 +31,4 @@ CALL make_cache_visits2_more_strict;
 
 DROP PROCEDURE IF EXISTS make_cache_visits2_more_strict;
 
---
--- Displays 'OK' as the Result if the column default has been modified to empty string
--- or 'Not OK' if the column default remains NULL
---
-SELECT CONCAT(IFNULL(COLUMN_DEFAULT, 'Not '), 'OK') AS Result FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='cache_visits2' AND COLUMN_NAME='user_id_ip';
 
