@@ -2,6 +2,7 @@
 use Utils\Database\XDb;
 use Utils\Text\Formatter;
 use Utils\Text\Validator;
+use lib\Objects\OcConfig\OcConfig;
 
 // prepare the templates and include all neccessary
 if (! isset($rootpath)) {
@@ -16,6 +17,7 @@ if ($usr == false) {
     $target = urlencode(tpl_get_current_page());
     tpl_redirect('login.php?target=' . $target);
 } else {
+    $guidesConfig = OcConfig::instance()->getGuidesConfig();
     tpl_set_var('desc_updated', '');
     tpl_set_var('displayGeoPathSection', displayGeoPathSection('table'));
     if (isset($_POST['description'])) {
@@ -24,13 +26,13 @@ if ($usr == false) {
         tpl_set_var('desc_updated', "<font color='green'>" . tr('desc_updated') . "</font>");
     }
 
-    $tplname = 'myprofile';
+    tpl_set_tplname('myprofile');
     $using_permantent_login_message = tr('no_auto_logout');
 
     // check user can set as Geocaching guide
     // Number of recommendations
     $nrecom = $db->multiVariableQueryValue("SELECT SUM(topratings) as nrecom FROM caches WHERE `caches`.`user_id`= :1", 0, $usr['userid']);
-    if ($nrecom >= 20) {
+    if ($nrecom >= $guidesConfig['guideGotRecommendations']) {
         tpl_set_var('guide_start', '');
         tpl_set_var('guide_end', '');
     } else {
@@ -77,11 +79,10 @@ if ($usr == false) {
     if (isset($_REQUEST['action'])) {
         $action = $_REQUEST['action'];
         if ($action == 'change') { // display the change form
-            $tplname = 'myprofile_change';
-            $no_answer = tr('no_choice');
+            tpl_set_tplname('myprofile_change');
             $error_username_not_ok = '<span class="errormsg">' . tr('username_incorrect') . '</span>';
             $error_username_exists = '<span class="errormsg">' . tr('username_exists') . '</span>';
-            if ($nrecom >= 20) {
+            if ($nrecom >= $guidesConfig['guideGotRecommendations']) {
                 tpl_set_var('guide_start', '');
                 tpl_set_var('guide_end', '');
             } else {
@@ -194,7 +195,7 @@ if ($usr == false) {
                             $usr['username'] = $username;
                         }
 
-                        $tplname = 'myprofile';
+                        tpl_set_tplname('myprofile');
                     }
                 }
             } else { // display form

@@ -78,4 +78,25 @@ class Formatter
     {
         return self::date($datetime, true);
     }
+
+    /**
+     * Truncates $text to be at least $length, ending it with
+     * ellipsis '(...)' if description is longer than $length.
+     *
+     * @param string $text Text to truncate
+     * @param integer $length Max length of text
+     * @return string
+     */
+    public static function truncateText($text, $length)
+    {
+        $result = "";
+        if (mb_strlen($text) > $length) {
+            $result = mb_substr($text, 0, $length - 5)
+            . "(...)";
+        } else {
+            $result = mb_substr($text, 0, $length);
+        }
+        return $result;
+    }
+
 }

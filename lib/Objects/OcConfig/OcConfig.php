@@ -55,6 +55,7 @@ final class OcConfig extends ConfigReader
     private $mailSubjectPrefixForReviewers;
     private $enableCacheAccessLogs;
     private $minumumAge;
+    private $meritBadgesEnabled;
 
     private $dbUser;
     private $dbPass;
@@ -134,6 +135,7 @@ final class OcConfig extends ConfigReader
         $this->mailSubjectPrefixForReviewers = $subject_prefix_for_reviewers_mails;
         $this->enableCacheAccessLogs = $enable_cache_access_logs;
         $this->minumumAge = $config['limits']['minimum_age'];
+        $this->meritBadgesEnabled = $config['meritBadges'];
 
         if (isset($config['mapsConfig']) && is_array($config['mapsConfig'])) {
             $this->mapsConfig = $config['mapsConfig'];
@@ -264,6 +266,11 @@ final class OcConfig extends ConfigReader
     public function getMinumumAge()
     {
         return $this->minumumAge;
+    }
+
+    public function isMeritBadgesEnabled()
+    {
+        return $this->meritBadgesEnabled;
     }
 
     protected function getMapsConfig()
