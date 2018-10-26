@@ -22,8 +22,8 @@ class Okapi
     public static $server;
 
     /* These two get replaced in automatically deployed packages. */
-    private static $version_number = 1732;
-    private static $git_revision = '5b2c8b0d30f3eefc10f955d6759f5071538747c6';
+    private static $version_number = 1733;
+    private static $git_revision = 'e7a5904eaad16e3369579b9efc792d8cb31250ac';
 
     private static $okapi_vars = null;
 
@@ -1127,7 +1127,7 @@ class Okapi
          */
 
         $html = preg_replace(
-            "~\b(src|href)=([\"'])(?![a-z0-9_-]+:)~",
+            "~\b(src|href)=([\"'])(?![a-z0-9_-]+:|//)~",
             "$1=$2".Settings::get("SITE_URL"),
             $html
         );
