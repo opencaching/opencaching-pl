@@ -6,8 +6,5 @@
  *
  */
 
-$guides = [
-    'guideActivePeriod' => 90,
-    'guideGotRecommendations' => 3,
-];
+$guides['guideGotRecommendations'] = 3;
 
