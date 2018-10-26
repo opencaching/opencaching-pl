@@ -304,14 +304,13 @@ $gpxAttribID[40] = '111';   $gpxAttribName[40] = 'Quick cache';               //
 $gpxAttribID[41] = '6';     $gpxAttribName[41] = 'Recommended for kids';      // (59)     NL PL US
 $gpxAttribID[42] = '62.0';  $gpxAttribName[42] = 'All seasons';               // DE UK
 $gpxAttribID[43] = '112';   $gpxAttribName[43] = 'GeoHotel';                  //       RO NL PL
-                                                                              // DE UK
 $gpxAttribID[44] = '24';    $gpxAttribName[44] = 'Wheelchair accessible';     //       RO NL PL US
 $gpxAttribID[45] = '40';    $gpxAttribName[45] = 'Stealth required';          //       RO NL
-$gpxAttribID[46] = '51';    $gpxAttribName[46] = 'Special tool required';     // UK    RO         
+$gpxAttribID[46] = '51';    $gpxAttribName[46] = 'Special tool required';     // DE UK RO
 $gpxAttribID[47] = '147';   $gpxAttribName[47] = 'Compass required';          // DE UK RO NL PL
 $gpxAttribID[48] = '113';   $gpxAttribName[48] = 'Bring your own pen';        //       RO NL PL US
-$gpxAttribID[49] = '149';   $gpxAttribName[49] = 'Magnetic';                  //       RO NL PL US       
-$gpxAttribID[50] = '114';   $gpxAttribName[50] = 'Audio file';                //       RO NL PL       
+$gpxAttribID[49] = '149';   $gpxAttribName[49] = 'Magnetic';                  //       RO NL PL US
+$gpxAttribID[50] = '114';   $gpxAttribName[50] = 'Audio file';                //       RO NL PL
 $gpxAttribID[51] = '115';   $gpxAttribName[51] = 'Offset cache';              //       RO    PL US
 $gpxAttribID[52] = '60';    $gpxAttribName[52] = 'Wireless Beacon';           //       RO NL PL US
 $gpxAttribID[53] = '116';   $gpxAttribName[53] = 'USB Dead Drop cache';       //       RO NL PL
@@ -327,7 +326,7 @@ $gpxAttribID[60] = '119';   $gpxAttribName[60] = 'Hidden in natural surroundings
 $gpxAttribID[61] = '120';   $gpxAttribName[61] = 'Historic site';             //       RO NL PL US
 $gpxAttribID[62] = '54';    $gpxAttribName[62] = 'Abandoned structure';       //          NL
 $gpxAttribID[80] = '13.0';  $gpxAttribName[80] = 'Only available at specified times';
-                                                                              // 39          PL US
+                                                                              // 39    RO    PL US
 $gpxAttribID[81] = '121';   $gpxAttribName[81] = 'You may need a shovel';     //       RO NL PL
 $gpxAttribID[82] = '44';    $gpxAttribName[82] = 'Flashlignt required';       // 48 UK RO NL PL US
 $gpxAttribID[83] = '51';    $gpxAttribName[83] = 'Special tool required';     // 46       NL PL US
