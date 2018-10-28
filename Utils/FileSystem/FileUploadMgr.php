@@ -6,38 +6,11 @@ use lib\Objects\ChunkModels\UploadModel;
 use RuntimeException;
 use Utils\Generators\Uuid;
 
+/**
+ * This class is a generic handler for file uploading
+ */
 class FileUploadMgr
 {
-    /**
-     * Returns maximum upload size allowed by php.ini configuration
-     * Values checked - returns minimum from:
-     *  - upload_max_filesize
-     *  - post_max_size
-     *  - memory_limit
-     *  - file_uploads (should be On)
-     * @return boolean|
-     */
-    public static function getPhpUploadSizeLimit() {
-        static $max_size = -1;
-
-        if ($max_size < 0) {
-            // Start with post_max_size.
-            $post_max_size = parse_size(ini_get('post_max_size'));
-            if ($post_max_size > 0) {
-                $max_size = $post_max_size;
-            }
-
-            // If upload_max_size is less, then reduce. Except if upload_max_size is
-            // zero, which indicates no limit.
-            $upload_max = parse_size(ini_get('upload_max_filesize'));
-            if ($upload_max > 0 && $upload_max < $max_size) {
-                $max_size = $upload_max;
-            }
-        }
-        return $max_size;
-    }
-
-
     /**
      * Handle upload of files based on description in upload model
      * If error occured files are not properly uploaded!

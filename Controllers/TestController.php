@@ -302,6 +302,9 @@ class TestController extends BaseController
     }
 
 
+    /**
+     * This is test of file upload with UploadChunk
+     */
     public function upload()
     {
         $this->redirectNotLoggedUsers();
@@ -313,22 +316,24 @@ class TestController extends BaseController
         $this->view->addHeaderChunk('upload/upload');
         $this->view->addHeaderChunk('handlebarsJs');
 
+
+        // prepare Upload Model
         /** @var UploadModel */
         $uploadModel = UploadModel::TestTxtUploadFactory();
-
-        $this->view->setVar('logImgModelJson', $uploadModel->getJsonParams());
-
+        $this->view->setVar('uploadModelJson', $uploadModel->getJsonParams());
 
         $this->view->buildView();
-
     }
 
+    /**
+     * This is test of server-side actions for file upload with UploadChunk
+     */
     public function uploadAjax()
     {
         // only logged users can test
         $this->checkUserLoggedAjax();
 
-        // prepare upload model
+        // use the same upload model
         $uploadModel = UploadModel::TestTxtUploadFactory();
 
         // save uploaded files
@@ -338,13 +343,17 @@ class TestController extends BaseController
         if(!is_array($newFiles)){
           // something goes wrong - error returned!
           $this->ajaxErrorResponse($newFiles, 500);
+          exit;
         }
 
-        // build proper url to uploaded files
+        // FileUploadMgr returns array of new files saved in given directory on server
+        // any specific actions can be done in this moment - for example DB update
+
+        // add correct url to uploaded files before return to browser
         $uploadModel->addUrlBaseToNewFilesArray($newFiles);
 
+        // return to browser the list of files saved on server
         $this->ajaxJsonResponse($newFiles);
-
     }
 
     /**
