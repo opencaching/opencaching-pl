@@ -4,6 +4,13 @@ namespace lib\Objects\ChunkModels;
 
 use lib\Objects\OcConfig\OcConfig;
 
+/**
+ * This is model of file upload operation.
+ * The main purpose of it is to store in one place parameters of upload used in process of uploads.
+ * This params can be used both at browser and server side.
+ *
+ * See /test/upload for example of useage of it.
+ */
 class UploadModel {
 
   const MIME_IMAGE = 'image/*';
@@ -61,7 +68,7 @@ class UploadModel {
       return $obj;
   }
 
-
+  // add more upload configurations like TestTxtUploadFactory here...
 
   public function addUrlBaseToNewFilesArray(array &$newFiles){
       array_walk($newFiles, function(&$file, $key, $urlBase) { $file = $urlBase.'/'.$file; }, $this->getBaseUrl());
@@ -97,6 +104,4 @@ class DialogContent
     public $title = null;
     public $preWarning = null;
     public $preInfo = null;
-
-
 }

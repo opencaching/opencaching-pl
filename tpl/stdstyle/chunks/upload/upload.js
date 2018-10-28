@@ -1,4 +1,15 @@
+/**
+  ocUpload takes two params:
+   - params json - see UploadModel
+   - callback function
 
+  on end of upload callback will be called with JSON param:
+    {
+      success: true|false,                // true on success | false on error
+      message: 'error-description',       // tech. error description in english (usually not for end-user) (only on fail)
+      newfiles: ['fileA','fileB','fileC'] // list of urls to new files saved on server (only on success)
+    }
+*/
 function ocUpload(params, callback) {
 
   var uploadInstance = {
@@ -153,7 +164,7 @@ function ocUpload(params, callback) {
 
       // error occured
       if(previewEntryData.error){
-        previewEntryData.src = '/images/actions/ignore.svg';
+        previewEntryData.src = '/images/icons/attention.svg';
         this.loadPreviewEntry(previewEntryData);
         return;
       }
@@ -170,7 +181,7 @@ function ocUpload(params, callback) {
         }
         reader.readAsDataURL(file);
       } else { // non-image file
-        previewEntryData.src = '/images/actions/list-add.svg';
+        previewEntryData.src = '/images/icons/plus.svg';
         this.loadPreviewEntry(previewEntryData);
       }
     },
@@ -259,6 +270,7 @@ function ocUpload(params, callback) {
 
       // when sending done
       xhr.addEventListener("load", function(e){
+
         if (xhr.readyState === xhr.DONE) {
           if (xhr.status === 200) {
             console.log(xhr.response);
@@ -272,25 +284,20 @@ function ocUpload(params, callback) {
           }
         }
 
-        console.log('state:',xhr.readyState);
-
         console.error('strange - request not done?!')
         _this.returnFail('request not done');
       });
 
       // when error occured on sending
       xhr.addEventListener("error", function(e){
-        console.error(e);
-        //TODO
-        console.log('on error',xhr.response )
-        _this.returnFail(xhr.response);
+        console.error('XHR upload error!', e);
+        _this.returnFail('Upload error!');
       });
 
       // call on sending abort
       xhr.addEventListener("abort", function(e){
-        // TODO
-        console.log('on abort',xhr.response )
-        _this.returnFail(xhr.response);
+        console.log('XHR aborted');
+        _this.returnFail('Upload aborted');
       });
 
       xhr.open("POST", params.submitUrl);
@@ -319,7 +326,7 @@ function ocUpload(params, callback) {
     returnFail: function(msg) {
       this.container.remove();
       callback({
-        status: false,
+        success: false,
         message: msg,
       });
     },
@@ -327,10 +334,8 @@ function ocUpload(params, callback) {
     returnSuccess: function(files) {
       this.container.remove();
       callback({
-        status: true,
-        message: "OK",
-        filesNumber: files.length,
-        filesArr: files,
+        success: true,
+        newFiles: files,
       });
     },
 

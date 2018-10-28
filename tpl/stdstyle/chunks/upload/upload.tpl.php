@@ -1,7 +1,13 @@
 <?php
-
 use Utils\Uri\Uri;
 
+/**
+ * UploadChunk is a simple browser-side plugin to handle file upload dialog
+ * with drag&drop support, progress bar etc.
+ *
+ * See /test/upload for example of usage.
+ *
+ */
 return function () {
 
   $chunkCss = Uri::getLinkWithModificationTime('/tpl/stdstyle/chunks/upload/upload.css');
