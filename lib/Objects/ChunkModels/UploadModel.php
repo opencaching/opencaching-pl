@@ -9,6 +9,7 @@ class UploadModel {
   const MIME_IMAGE = 'image/*';
   const MIME_AUDIO = 'audio/*';
   const MIME_ANYFILE = 'image/*|audio/*|application/*|video/*|text/*';
+  const MIME_TEXT = 'text/*';
 
   // public data send in JSON to browser
 
@@ -52,8 +53,8 @@ class UploadModel {
       $obj = new self();
       $obj->dialog->title = "TestUploadHeader";
       $obj->dialog->preWarning = "This is just test of the upload. Only small txt files are allowed";
-      $obj->allowedTypesRegex = self::MIME_ANYFILE;
-      $obj->maxFileSize = 100 * 1024 * 1024;  //1MB
+      $obj->allowedTypesRegex = self::MIME_TEXT;
+      $obj->maxFileSize = 1 * 1024 * 1024;  //1MB
       $obj->maxFilesNumber = 2;
       $obj->submitUrl = '/test/uploadAjax';
       $obj->setDirAtServer('/tmp/test/upload');
