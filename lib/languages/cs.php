@@ -978,7 +978,6 @@ $translations = array(
     'cache_picture_intro' => ' You should own the copyrights and upload only pictures relevant to the cache',
     'spoiler_info' => 'Do not display thumbnail (SPOILER) - Use this option if the picture shows the location of the cache.<br> The picture will only be shown when SPOILER is clicked.',
     'dont_show' => 'Don\'t show this picture',
-    'pictures_intro' => 'Permitted image formats: {picallowedformats}. JPG works best for photos.<br />Maximum allowed size is {maxpicsizeMB} MB. Recommended resolution: {maxpicresolution} pixels.',
     'add_new_picture' => 'Adding a new picture to the cache.',
     'gallery' => 'Zobrazit galerii',
     'gallery_short' => 'Galerie',
@@ -2374,5 +2373,8 @@ $translations = array(
 
     'myNotes_removeConfirmation' => 'Chcete smazat tuto poznámku?',
     'myNotes_modCacheCoords' => 'User coordinates (WGS84)',
+
+
+    'pictures_intro' => 'Permitted image formats: {picallowedformats}. JPG works best for photos.<br />Maximum allowed size is {maxpicsizeMB} MB. Recommended resolution: {maxpicresolution} pixels.',
 
 );

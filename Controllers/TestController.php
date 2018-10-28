@@ -8,6 +8,7 @@ use Utils\Text\UserInputFilter;
 use Utils\Uri\Uri;
 use lib\Objects\User\UserPreferences\UserPreferences;
 use lib\Objects\User\UserPreferences\TestUserPref;
+use lib\Objects\ChunkModels\UploadModel;
 use lib\Objects\ChunkModels\DynamicMap\CacheMarkerModel;
 use lib\Objects\ChunkModels\DynamicMap\CacheWithLogMarkerModel;
 use lib\Objects\ChunkModels\DynamicMap\DynamicMapModel;
@@ -21,6 +22,7 @@ use lib\Objects\GeoCache\GeoCacheLog;
 use Utils\Text\Formatter;
 use Utils\Uri\OcCookie;
 use lib\Objects\Coordinates\Coordinates;
+use Utils\FileSystem\FileUploadMgr;
 
 class TestController extends BaseController
 {
@@ -300,6 +302,51 @@ class TestController extends BaseController
     }
 
 
+    public function upload()
+    {
+        $this->redirectNotLoggedUsers();
+
+        $this->view->setTemplate('test/upload');
+        $this->view->loadJQuery();
+
+
+        $this->view->addHeaderChunk('upload/upload');
+        $this->view->addHeaderChunk('handlebarsJs');
+
+        /** @var UploadModel */
+        $uploadModel = UploadModel::TestTxtUploadFactory();
+
+        $this->view->setVar('logImgModelJson', $uploadModel->getJsonParams());
+
+
+        $this->view->buildView();
+
+    }
+
+    public function uploadAjax()
+    {
+        // only logged users can test
+        $this->checkUserLoggedAjax();
+
+        // prepare upload model
+        $uploadModel = UploadModel::TestTxtUploadFactory();
+
+        // save uploaded files
+        $newFiles = FileUploadMgr::processFileUpload($uploadModel);
+
+        // check the upload status
+        if(!is_array($newFiles)){
+          // something goes wrong - error returned!
+          $this->ajaxErrorResponse($newFiles, 500);
+        }
+
+        // build proper url to uploaded files
+        $uploadModel->addUrlBaseToNewFilesArray($newFiles);
+
+        $this->ajaxJsonResponse($newFiles);
+
+    }
+
     /**
      * This method test the cookie work
      */
@@ -342,7 +389,6 @@ class TestController extends BaseController
 
         $this->view->buildView();
     }
-
 
     private function alreadyRegistered()
     {

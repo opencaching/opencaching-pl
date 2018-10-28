@@ -367,7 +367,7 @@ class View {
 
     /**
      * Build template and display page.
-     * @param string|cont $layoutTemplate - base template to use
+     * @param string $layoutTemplate - base template to use
      */
     public function display($layoutTemplate = null)
     {

@@ -875,7 +875,6 @@ $translations = array(
     'cache_picture_intro' => ' Dit dient een eigen afbeelding te zijn die met de cache te maken heeft. Is de afbeelding correct geroteerd?',
     'spoiler_info' => 'Toon geen voorbeeld (SPOILER) - Gebruik deze optie wanneer de afbeelding de locatie van de cache weergeeft.<br> De afbeelding wordt alleen getoont als op SPOILER geklikt wordt.',
     'dont_show' => 'Verberg deze afbeelding',
-    'pictures_intro' => 'Toegestane formaten: {picallowedformats}. JPG is het beste voor foto\'s.<br />Maximum grootte {maxpicsizeMB} MB. Aanbevolen resolutie: {maxpicresolution} pixels.',
     'add_new_picture' => 'Voeg nieuwe afbeelding toe aan cache',
     'gallery' => 'Toon galerij',
     'gallery_short' => 'Galerij',
@@ -2821,5 +2820,8 @@ $translations = array(
     'log_filter_type_any' => 'Elke',
     'log_filter_author' => 'Schrijver',
     'log_filter_author_any' => 'Iedereen',
-    'log_filter_author_currentuser' => 'Mijzelf'
+    'log_filter_author_currentuser' => 'Mijzelf',
+
+    'pictures_intro' => 'Toegestane formaten: {picallowedformats}. JPG is het beste voor foto\'s.<br />Maximum grootte {maxpicsizeMB} MB. Aanbevolen resolutie: {maxpicresolution} pixels.',
+
 );
