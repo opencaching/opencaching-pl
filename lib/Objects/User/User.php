@@ -25,6 +25,7 @@ class User extends UserCommons
     private $hiddenGeocachesCount;
     private $logNotesCount;
     private $email;
+    private $role;
 
     /** @var $homeCoordinates Coordinates */
     private $homeCoordinates;
@@ -292,6 +293,9 @@ class User extends UserCommons
                     break;
                 case 'notify_radius':
                     $this->notifyRadius = $value;
+                    break;
+                case 'role':
+                    $this->role = $value;
                     break;
                 case 'admin':
                     $this->isAdmin = boolval($value);
