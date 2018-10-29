@@ -1287,7 +1287,7 @@ $translations = array(
     'admin_reports_tpl_poll' => '{user} maakte een poll',
     'admin_reports_tpl_pollcancel' => '{user} annuleerde de poll',
     'admin_reports_tpl_log' => '{user} heeft een log aan gemelde cache toegevoegd',
-    'admin_reports_tpl_changecachestatus' => '{user} changed cache status to', /* EN */
+    'admin_reports_tpl_changecachestatus' => '{user} veranderde status naar',
     'admin_reports_mail_subjwatch' => 'Aktiviteit in melding - {cachename} ({cachewp})',
     'admin_reports_mail_subjleader' => 'Je bent nu behandelaar van de melding - {cachename} ({cachewp})',
     'admin_reports_mail_subjlook' => 'Bekijk de melding - {cachename} ({cachewp})',
@@ -2821,6 +2821,14 @@ $translations = array(
     'log_filter_author' => 'Schrijver',
     'log_filter_author_any' => 'Iedereen',
     'log_filter_author_currentuser' => 'Mijzelf',
+
+    'upload_clickOrDropFile' => 'Sleep bestand hierheen of klik om bestand te selecteren',
+    'upload_allowedTypesOfFile' => 'toegestane bestandsoort',
+    'upload_maxFileSize' => 'maximale bestandsgrootte',
+    'upload_allowedNumberOfFiles' => 'maximaal aantal bestanden per upload',
+    'upload_improperFileSize' => 'Overgeslagen, onjuiste bestandsgrootte!',
+    'upload_improperFileType' => 'Overgeslagen, onjuiste bestandsoort!',
+    'upload_startUpload' => 'Beginnen met uploaden',
 
     'pictures_intro' => 'Toegestane formaten: {picallowedformats}. JPG is het beste voor foto\'s.<br />Maximum grootte {maxpicsizeMB} MB. Aanbevolen resolutie: {maxpicresolution} pixels.',
 
