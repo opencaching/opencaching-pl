@@ -589,6 +589,7 @@ a.btn {
 /* button variant*/
 .btn.btn-disabled {
     opacity: 0.5;
+    cursor: default;
 }
 
 .btn.btn-default {
@@ -603,7 +604,8 @@ a.btn {
     border-color: #adadad;
 }
 
-.btn.btn-primary {
+.btn.btn-primary,
+.btn.btn-primary.btn-disabled:hover {
     color: #fff;
     background-color: #337ab7;
     border-color: #2e6da4;
@@ -615,7 +617,8 @@ a.btn {
     border-color: #204d74;
 }
 
-.btn.btn-success {
+.btn.btn-success,
+.btn.btn-success.btn-disabled:hover {
     color: #fff;
     background-color: #5cb85c;
     border-color: #4cae4c;
@@ -627,18 +630,21 @@ a.btn {
     border-color: #398439;
 }
 
-.btn.btn-danger {
+.btn.btn-danger,
+.btn.btn-danger.btn-disabled:hover {
     color: #fff;
     background-color: #d9534f;
     border-color: #d43f3a;
 }
 
-.btn.btn-danger:hover {
+.btn.btn-danger:hover,
+.btn.btn-danger.btn-disabled:hover {
     color: #fff;
     background-color: #c9302c;
     border-color: #ac2925;
 }
-.btn-info {
+.btn-info,
+.btn.btn-info.btn-disabled:hover {
     color: #fff;
     background-color: #5bc0de;
     border-color: #46b8da;

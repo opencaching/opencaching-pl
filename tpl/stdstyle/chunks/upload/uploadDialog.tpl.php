@@ -21,16 +21,16 @@
            {{#if allowedTypesRegex}}accept="{{allowedTypesRegex}}"{{/if}}/>
 
     <div id="upload_dragFileBox">
-      <div><h3><?=tr('upload_clickOrDropFile')?></h3></div>
-      <div>
+      <h3><?=tr('upload_clickOrDropFile')?></h3>
+      <div class="info">
           {{#if multiplyFilesAllowed}}
-          <?=tr('upload_allowedNumberOfFiles')?>: {{maxFilesNumber}}<br/>
+          <div><?=tr('upload_allowedNumberOfFiles')?>: <span class="limit">{{maxFilesNumber}}</span></div>
           {{/if}}
 
           {{#if allowedTypesRegex}}
-          <?=tr('upload_allowedTypesOfFile')?>: {{allowedTypesRegex}}<br/>
+          <div><?=tr('upload_allowedTypesOfFile')?>:</div><div><span class="limit">{{allowedTypesRegex}}</span></div>
           {{/if}}
-          <?=tr('upload_maxFileSize')?>: {{formattedMaxFileSize}}
+          <div><?=tr('upload_maxFileSize')?>: <span class="limit">{{formattedMaxFileSize}}</span></div>
       </div>
     </div>
 

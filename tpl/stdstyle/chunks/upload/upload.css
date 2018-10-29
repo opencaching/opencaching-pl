@@ -1,3 +1,6 @@
+#upload_boxParent > div {
+  margin: 10px auto;
+}
 
 #upload_container {
   position:fixed;
@@ -7,6 +10,7 @@
   height: 100%;
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
   z-index: 100;
+  color: rgb(75,75,75);
 }
 
 
@@ -24,8 +28,6 @@
   text-align: center;
 
   padding: 5px 20px;
-  
-  box-shadow: 10px 10px 5px grey;
   z-index: 101;
 }
 
@@ -39,19 +41,18 @@
 #upload_box {
   display: inline-block;
   text-align: center;
+  width: 100%;
 }
 
 #upload_progressBar {
   display: none;
-  background-color: grey;
+  background-color: rgba(221, 221, 221, 0.6);
   height: 10px;
-  width: 300px;
   text-align: left;
 }
 
 #upload_progressDone {
-  display: inline-block;
-  background-color: blue;
+  background-color: #337ab7;
   width: 0;
   height: 10px;
 }
@@ -62,40 +63,53 @@
   flex-direction: column;
   justify-content: space-between;
   
-  width: 90%;
-  
   min-height: 200px;
   min-width: 300px;
   
   font-weight: bold;
   text-align: center;
-  padding: 1em 0;
-  margin: 1em 0;
+  padding: 1em;
+  margin: 1em auto;
   color: #555;
-  border: 2px dashed #555;
+  border: 2px dashed #ddd;
   border-radius: 7px;
-  cursor: default;
+  cursor: pointer;
 }
 
-#upload_dragFileBox.hover
-{
-  color: #f00;
-  border-color: #f00;
-  border-style: solid;
-  box-shadow: inset 0 3px 4px #888;
+.info {
+  font-weight: normal;
+  margin: 0 auto;
+  max-width: 90%;
+  text-align: left;
+}
+
+.info .limit {
+  font-weight: bold;
+}
+
+#upload_dragFileBox.dragover {
+  border-color: #337ab7;
+}
+
+#upload_dragFileBox.dragover > h3 {
+  color: #2e6da4;
 }
 
 #upload_fileInput {
   display: none;
 }
 
-
-
-
 .upload_previewEntry {
+  padding: 4px 0;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
+}
+
+.upload_previewEntry:hover {
+  background-color: rgba(221, 221, 221, 0.5);
+  background: linear-gradient(to right, transparent, rgba(221, 221, 221, 0.5));
 }
 
 .upload_previewEntry .upload_previewEntryData {
@@ -103,9 +117,15 @@
   flex-direction: row;
 }
 
-.upload_previewEntry img {
-  width: 30px;
-  max-height: 45px;
+.upload_previewImg {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.upload_previewImg img {
+  width: 24px;
+  height: 24px;
 }
 
 .upload_previewEntry .upload_previewProps {
