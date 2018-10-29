@@ -1,3 +1,6 @@
+#upload_boxParent > div {
+  margin: 10px auto;
+}
 
 #upload_container {
   position:fixed;
@@ -39,6 +42,7 @@
 #upload_box {
   display: inline-block;
   text-align: center;
+  width: 100%;
 }
 
 #upload_progressBar {
@@ -62,19 +66,17 @@
   flex-direction: column;
   justify-content: space-between;
   
-  width: 90%;
-  
   min-height: 200px;
   min-width: 300px;
   
   font-weight: bold;
   text-align: center;
   padding: 1em 0;
-  margin: 1em 0;
+  margin: 1em auto;
   color: #555;
-  border: 2px dashed #555;
+  border: 2px dashed #ddd;
   border-radius: 7px;
-  cursor: default;
+  cursor: pointer;
 }
 
 #upload_dragFileBox.hover

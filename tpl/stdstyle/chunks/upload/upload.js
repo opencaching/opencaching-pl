@@ -324,7 +324,7 @@ function ocUpload(params, callback) {
     },
 
     returnFail: function(msg) {
-      this.container.remove();
+     // this.container.remove();
       callback({
         success: false,
         message: msg,
@@ -332,7 +332,7 @@ function ocUpload(params, callback) {
     },
 
     returnSuccess: function(files) {
-      this.container.remove();
+//      this.container.remove();
       callback({
         success: true,
         newFiles: files,
