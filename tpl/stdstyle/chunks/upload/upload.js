@@ -103,12 +103,12 @@ function ocUpload(params, callback) {
     },
 
     /**
-     * Handle hover over uploadBox
+     * Handle dragover over uploadBox
      */
     fileDragHover: function(e){
       e.stopPropagation();
       e.preventDefault();
-      e.target.className = (e.type == "dragover" ? "hover" : "");
+      e.target.className = (e.type == "dragover" ? "dragover" : "");
     },
 
     /**
@@ -116,7 +116,7 @@ function ocUpload(params, callback) {
      */
     fileAttached: function(e){
 
-      // cancel event and hover styling
+      // cancel event and dragover styling
       this.fileDragHover(e);
 
       // fetch FileList object
@@ -324,7 +324,7 @@ function ocUpload(params, callback) {
     },
 
     returnFail: function(msg) {
-     // this.container.remove();
+      this.container.remove();
       callback({
         success: false,
         message: msg,
@@ -332,7 +332,7 @@ function ocUpload(params, callback) {
     },
 
     returnSuccess: function(files) {
-//      this.container.remove();
+      this.container.remove();
       callback({
         success: true,
         newFiles: files,

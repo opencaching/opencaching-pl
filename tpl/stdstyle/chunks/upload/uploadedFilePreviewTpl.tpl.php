@@ -2,7 +2,7 @@
 
 <div class="upload_previewEntry" data-filename="{{file.name}}">
   <div class="upload_previewEntryData">
-      <div><img class="" src="{{src}}"></div>
+      <div class="upload_previewImg"><img src="{{src}}"></div>
       <div class="upload_previewProps">
         <b>{{file.name}}</b> ({{size}})
         {{#if error}}
