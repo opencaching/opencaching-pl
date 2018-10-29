@@ -23,7 +23,7 @@ if(isset($_REQUEST['commentTxt'])) {
 }
 
 // check if user is owner of selected power Trail
-if($ptAPI::checkIfUserIsPowerTrailOwner($usr['userid'], $powerTrailId) == 1 || (isset($usr['admin']) && $usr['admin']== 1)) {
+if($ptAPI::checkIfUserIsPowerTrailOwner($usr['userid'], $powerTrailId) == 1 || (isset($usr['admin']) && $usr['admin'])) {
     switch ($newStatus) {
         case PowerTrail::STATUS_OPEN: // publish
             $commentType = 3;

@@ -66,7 +66,7 @@ if ($error == false) {
                         $allok = false;
                     else {
 
-                        if ($r['user_id'] != $usr['userid'] && $usr['admin'] == false)
+                        if ($r['user_id'] != $usr['userid'] && !$usr['admin'])
                             $allok = false;
 
                         $cacheid = $r['cache_id'];
@@ -98,7 +98,7 @@ if ($error == false) {
                         tpl_set_var('cacheid', $r['cache_id']);
                         tpl_set_var('pictypedesc', $pictypedesc_cache);
 
-                        if ($r['user_id'] != $usr['userid'] && $usr['admin'] == false)
+                        if ($r['user_id'] != $usr['userid'] && !$usr['admin'])
                             $allok = false;
                     }
 

@@ -181,7 +181,7 @@ class MainLayoutController extends BaseController
                 $this->getMenu(OcConfig::MENU_CUSTOM_USER));
 
 
-            if ($this->loggedUser->isAdmin()) {
+            if ($this->loggedUser->hasOcTeamRole()) {
                 $this->view->setVar('_isAdmin', true);
                 $this->view->setVar('_adminMenu',
                     $this->getMenu(OcConfig::MENU_ADMIN_PREFIX));

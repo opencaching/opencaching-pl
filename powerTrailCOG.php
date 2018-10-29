@@ -15,7 +15,7 @@ if ($error == false) {
     if ($usr['userid'] == 9067) {
 
     } else {
-        if (!(isset($usr['admin']) && $usr['admin'] == 1)) {
+        if (!(isset($usr['admin']) && $usr['admin'])) {
             print tr('pt236');
             exit;
         }

@@ -21,7 +21,7 @@ if (($cache->getStatus() == GeoCache::STATUS_WAITAPPROVERS
         || $cache->getStatus() == GeoCache::STATUS_BLOCKED)
     && ($app->getLoggedUser() === null
         || ($app->getLoggedUser()->getUserId() != $cache->getOwnerId()
-            && ! $app->getLoggedUser()->getIsAdmin()))) {
+            && ! $app->getLoggedUser()->hasOcTeamRole()))) {
     $view->redirect('/');
     exit();
 }

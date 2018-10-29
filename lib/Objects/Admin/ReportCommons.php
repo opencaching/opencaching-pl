@@ -3,6 +3,7 @@ namespace lib\Objects\Admin;
 
 use lib\Objects\BaseObject;
 use lib\Objects\User\User;
+use lib\Objects\User\MultiUserQueries;
 
 class ReportCommons extends BaseObject
 {
@@ -244,7 +245,7 @@ class ReportCommons extends BaseObject
         }
         $query .= ' ORDER BY `reports`.`id` DESC LIMIT :limit OFFSET :offset';
         $stmt = self::db()->paramQuery($query, $params);
-        
+
         return self::db()->dbFetchAllAsObjects($stmt, function ($row) {
             return Report::fromDbRowFactory($row);
         });
@@ -316,7 +317,7 @@ class ReportCommons extends BaseObject
         }
         return self::db()->paramQueryValue($query, 0, $params);
     }
-    
+
     /**
      * Returns Report[] of reports watched by $user
      *
@@ -343,12 +344,12 @@ class ReportCommons extends BaseObject
         $params['offset']['value'] = $offset;
         $params['offset']['data_type'] = 'integer';
         $stmt = self::db()->paramQuery($query, $params);
-        
+
         return self::db()->dbFetchAllAsObjects($stmt, function ($row) {
             return Report::fromDbRowFactory($row);
         });
     }
-    
+
     /**
      * Returns count of watched reports by $user
      *
@@ -371,7 +372,7 @@ class ReportCommons extends BaseObject
      * Generators of allowed types/status etc.
      * arrays
      */
-    
+
     /**
      * Returns array of alloved/valid report types
      *
@@ -430,27 +431,10 @@ class ReportCommons extends BaseObject
         ];
     }
 
-    /**
-     * Returns array of admin users.
-     * Array consist of user_id and username
-     *
-     * @return array
-     */
-    public static function getOcTeamArray()
-    {
-        $query = '
-            SELECT `user_id`, `username`
-            FROM `user`
-            WHERE `admin` = 1 AND `is_active_flag` = 1
-            ORDER BY username';
-        $stmt = self::db()->simpleQuery($query);
-        return self::db()->dbResultFetchAll($stmt);
-    }
-
     /*
      * Generators of translation keys / class names
      */
-    
+
     /**
      * Returns translation key for given report type
      *
@@ -496,7 +480,7 @@ class ReportCommons extends BaseObject
                 return 'admin_reports_all';
         }
     }
-    
+
     /**
      * Returns translation key for given "virtual" user type
      *
@@ -542,7 +526,7 @@ class ReportCommons extends BaseObject
     /*
      * Generators of <option> lists
      */
-    
+
     /**
      * Generates <option></option> list of all types of reports
      *
@@ -613,7 +597,7 @@ class ReportCommons extends BaseObject
                 $result .= '>' . tr(self::ReportUserTranslationKey($user)) . '</option>';
             }
         }
-        $users = self::getOcTeamArray();
+        $users = MultiUserQueries::getOcTeamMembersArray();
         foreach ($users as $user) {
             $result .= '<option value="' . $user['user_id'] . '"';
             if ($user['user_id'] == $default) {
@@ -623,5 +607,5 @@ class ReportCommons extends BaseObject
         }
         return $result;
     }
-    
+
 }

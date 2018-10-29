@@ -14,9 +14,9 @@ class User extends UserCommons
 {
 
     private $userId;
-    private $isAdmin = false;
     private $isGuide;
     private $userName;
+    private $role;
 
     private $foundGeocachesCount;
     /** @var int */
@@ -25,7 +25,6 @@ class User extends UserCommons
     private $hiddenGeocachesCount;
     private $logNotesCount;
     private $email;
-    private $role;
 
     /** @var $homeCoordinates Coordinates */
     private $homeCoordinates;
@@ -78,7 +77,7 @@ class User extends UserCommons
 
     const COMMON_COLLUMNS = "user_id, username, founds_count, notfounds_count,
                        hidden_count, latitude, longitude,
-                       email, admin, guru, verify_all, rules_confirmed,
+                       email, role, guru, verify_all, rules_confirmed,
                        notify_radius, watchmail_mode, watchmail_day,
                        watchmail_hour, notify_caches, notify_logs,
                        is_active_flag, stat_ban, description, activation_code,
@@ -297,9 +296,6 @@ class User extends UserCommons
                 case 'role':
                     $this->role = $value;
                     break;
-                case 'admin':
-                    $this->isAdmin = boolval($value);
-                    break;
                 case 'guru':
                     $this->isGuide = boolval($value);
                     break;
@@ -488,17 +484,29 @@ class User extends UserCommons
         return self::getDefaultAvatarUrl();
     }
 
-    /**
-     * @return boolean
-     */
-    public function getIsAdmin()
+    public function hasOcTeamRole()
     {
-        return $this->isAdmin;
+        return self::hasRole(self::ROLE_OC_TEAM);
     }
 
-    public function isAdmin()
+    public function hasAdvUserRole()
     {
-        return $this->isAdmin;
+        return self::hasRole(self::ROLE_ADV_USER);
+    }
+
+    public function hasNewsPublisherRole()
+    {
+        return self::hasRole(self::ROLE_NEWS_PUBLISHER);
+    }
+
+    public function hasSysAdminRole()
+    {
+        return self::hasRole(self::ROLE_SYS_ADMIN);
+    }
+
+    public function hasRole($roleId)
+    {
+        return in_array(self::getRoleName($roleId), explode(',', $this->role));
     }
 
     public function getIsGuide()

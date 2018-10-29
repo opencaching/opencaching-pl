@@ -83,7 +83,7 @@ if ($usr == false) {
     $ddays = $database->dbResultFetchOneRowOnly($s);
 
     $user = User::fromUserIdFactory($user_id,
-        "user_id, admin, guru, hidden_count, founds_count, is_active_flag, email, password, log_notes_count,
+        "user_id, role, guru, hidden_count, founds_count, is_active_flag, email, password, log_notes_count,
          notfounds_count, username, last_login, date_created, description");
 
     if (is_null($user)) {
@@ -117,7 +117,7 @@ if ($usr == false) {
         $pinfo = "Przewodnik";
     }
 
-    if ($user->isAdmin()) {
+    if ($user->hasOcTeamRole()) {
         $pimage = 'admins';
         $pinfo = "OC Team user";
     }

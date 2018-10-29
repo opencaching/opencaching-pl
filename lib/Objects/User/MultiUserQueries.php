@@ -142,4 +142,16 @@ class MultiUserQueries extends BaseObject
 
     }
 
+
+    public static function getOcTeamMembersArray()
+    {
+        $query = "
+            SELECT user_id, username
+            FROM user
+            WHERE role & ".User::ROLE_OC_TEAM.">0 AND is_active_flag = 1
+            ORDER BY username";
+        $stmt = self::db()->simpleQuery($query);
+        return self::db()->dbResultFetchAll($stmt);
+    }
+
 }

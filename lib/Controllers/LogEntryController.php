@@ -13,6 +13,7 @@ use lib\Objects\GeoCache\GeoCache;
 use okapi\Facade;
 use lib\Objects\Coordinates\Coordinates;
 use Utils\EventHandler\EventHandler;
+use lib\Objects\User\User;
 
 class LogEntryController
 {
@@ -46,7 +47,7 @@ class LogEntryController
             return false;
         }
 
-        if (( $log->getUser()->getUserId() === $loggedUser->getUserId()) || ($log->getGeoCache()->getOwner()->getUserId() == $loggedUser->getUserId()) || $loggedUser->getIsAdmin()) {
+        if (( $log->getUser()->getUserId() === $loggedUser->getUserId()) || ($log->getGeoCache()->getOwner()->getUserId() == $loggedUser->getUserId()) || $loggedUser->hasOcTeamRole()) {
             if($log->getUser()->getUserId() !== $loggedUser->getUserId()){
                 EmailSender::sendRemoveLogNotification(__DIR__ . '/../../tpl/stdstyle/email/removed_log.email.html',
                     $log, $loggedUser);
@@ -337,6 +338,7 @@ class LogEntryController
         } else {
             $showOneLogSql = '';
         }
+
         return  "SELECT `cache_logs`.`user_id` `userid`, $showDeletedLogsSql
             `cache_logs`.`id` `logid`,
             `cache_logs`.`date` `date`,
@@ -351,14 +353,14 @@ class LogEntryController
             `cache_logs`.`date_created` AS `date_created`,
             `user`.`username` `username`,
             `user`.`user_id` `user_id`,
-            `user`.`admin` `admin`,
+            `user`.role&".User::ROLE_OC_TEAM.">0 AS `admin`,
             `user`.`hidden_count` AS    `ukryte`,
             `user`.`founds_count` AS    `znalezione`,
             `user`.`notfounds_count` AS `nieznalezione`,
             `u2`.`username` AS `del_by_username`,
-            `u2`.`admin` AS `del_by_admin`,
+            `u2`.role&".User::ROLE_OC_TEAM.">0 AS `del_by_admin`,
             `u3`.`username` AS `edit_by_username`,
-            `u3`.`admin` AS `edit_by_admin`,
+            `u3`.role&".User::ROLE_OC_TEAM.">0 AS `edit_by_admin`,
             `log_types`.`icon_small` `icon_small`,
             `cache_moved`.`longitude` AS `mobile_longitude`,
             `cache_moved`.`latitude` AS `mobile_latitude`,
