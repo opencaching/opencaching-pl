@@ -10,15 +10,7 @@ session_start();
 
 ob_start();
 
-if (!isset($rootpath)){
-    if(isset($GLOBALS['rootpath'])){
-        $rootpath =  $GLOBALS['rootpath'];
-    }else{
-        $rootpath = "./";
-    }
-}
-
-require_once($rootpath . 'lib/settingsGlue.inc.php');
+require_once(__DIR__.'/settingsGlue.inc.php');
 
 // TODO: kojoty: it should be removed after config refactoring
 // now if common.inc.php is not loaded in global context settings are not accessible
@@ -29,14 +21,13 @@ $GLOBALS['site_name'] = $site_name;
 $GLOBALS['contact_mail'] = $contact_mail;
 $GLOBALS['pagetitle'] = $pagetitle;
 
-require_once($rootpath . 'lib/language.inc.php');     // main translation funcs
-require_once($rootpath . 'lib/common_tpl_funcs.php'); // template engine
+require_once(__DIR__.'/language.inc.php');     // main translation funcs
+require_once(__DIR__.'/common_tpl_funcs.php'); // template engine
 
 // yepp, we will use UTF-8
 mb_internal_encoding('UTF-8');
 mb_regex_encoding('UTF-8');
 mb_language('uni');
-
 
 if (php_sapi_name() != "cli") { // this is not neccesarry for command-line scripts...
 
@@ -47,7 +38,7 @@ if (php_sapi_name() != "cli") { // this is not neccesarry for command-line scrip
     //site in service?
     if ($site_in_service == false) {
         header('Content-type: text/html; charset=utf-8');
-        $page_content = file_get_contents($rootpath . 'html/outofservice.tpl.php');
+        $page_content = file_get_contents(__DIR__.'/../html/outofservice.tpl.php');
         die($page_content);
     }
 
@@ -55,18 +46,17 @@ if (php_sapi_name() != "cli") { // this is not neccesarry for command-line scrip
 
     initTemplateSystem();
     initTranslations();
-
 }
 
 function initTemplateSystem(){
 
-    global $rootpath, $style;
+    global $style;
 
     // set up the style path
     // TODO: in fact we have only one style: stdstyle
     // so we can drop it in future
     if (!isset($GLOBALS['stylepath'])){
-        $GLOBALS['stylepath'] = $rootpath . 'tpl/' . $style;
+        $GLOBALS['stylepath'] = __DIR__.'/../tpl/'.$style;
     }
 
     // create global view variable (used in templates)
