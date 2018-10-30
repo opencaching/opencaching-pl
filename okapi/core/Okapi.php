@@ -22,8 +22,8 @@ class Okapi
     public static $server;
 
     /* These two get replaced in automatically deployed packages. */
-    private static $version_number = 1738;
-    private static $git_revision = 'b8a407c9c053390130059cab3b85101fc573dad0';
+    private static $version_number = 1739;
+    private static $git_revision = '9b46a60bfdc8b3ecf42fd8652daa14b4e2fb3673';
 
     private static $okapi_vars = null;
 
@@ -952,6 +952,12 @@ class Okapi
         throw new \Exception("Method cache_type_name2id called with unsupported cache ".
             "type name '$name'. You should not allow users to submit caches ".
             "of non-primary type.");
+    }
+
+    public static function is_known_cache_type($name)
+    {
+        return array_key_exists($name, self::$cache_types['oc.pl']) ||
+               array_key_exists($name, self::$cache_types['oc.de']);
     }
 
     /** E.g. 2 => 'Traditional'. For unknown ids returns "Other". */
