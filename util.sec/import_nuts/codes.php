@@ -2,7 +2,6 @@
 
 use Utils\Database\XDb;
 
-$rootpath = "../../";
 require('../../lib/common.inc.php');
 
 $NUTS_AT_CSV_FILE = $argv[1];

@@ -5,19 +5,12 @@ use lib\Objects\ApplicationContainer;
 use lib\Objects\Coordinates\NutsLocation;
 
 
-if (! isset($rootpath))
-    $rootpath = '';
-
 // include template handling
-require_once ($rootpath . 'lib/common.inc.php');
-require_once ($rootpath . 'lib/calculation.inc.php');
-require_once ($rootpath . 'lib/cache_icon.inc.php');
-require_once ($stylepath . '/lib/icons.inc.php');
+require_once ('./lib/common.inc.php');
+require_once ('./lib/calculation.inc.php');
+require_once ('./lib/cache_icon.inc.php');
+require_once ('./lib/icons.inc.php');
 
-if ($error) {
-    // TODO:
-    exit;
-}
 
 // user logged in?
 if ($usr == false) {

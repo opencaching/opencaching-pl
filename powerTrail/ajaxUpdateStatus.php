@@ -4,7 +4,6 @@ use Utils\Database\OcDb;
 use lib\Objects\PowerTrail\PowerTrail;
 use Utils\Generators\Uuid;
 
-$rootpath = __DIR__.'/../';
 require_once __DIR__.'/../lib/common.inc.php';
 
 if(!isset($usr['userid'])){

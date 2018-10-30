@@ -4,8 +4,6 @@ use lib\Objects\ApplicationContainer;
 use lib\Controllers\PowerTrailController;
 
 
-
-$rootpath = __DIR__.'/../';
 require_once __DIR__.'/../lib/common.inc.php';
 
 $appContainer = ApplicationContainer::Instance();

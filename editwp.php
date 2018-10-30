@@ -66,7 +66,7 @@ if ($error == false) {
 
 
                 $tplname = 'editwp';
-                require_once($rootpath . 'lib/caches.inc.php');
+                require_once('./lib/caches.inc.php');
                 require($stylepath . '/newcache.inc.php');
 
                 $wp_type = isset($_POST['type']) ? $_POST['type'] : $wp_record['type'];

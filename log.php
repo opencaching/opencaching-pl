@@ -18,8 +18,6 @@ use Utils\EventHandler\EventHandler;
 /*
  * todo: create and set up 4 template selector with wybor_WE wybor_NS.
  */
-
-global $rootpath;
 require_once('./lib/common.inc.php');
 
 $user = ApplicationContainer::Instance()->getLoggedUser();
@@ -35,7 +33,7 @@ $tplname = 'log_cache';
 $view->loadJquery();
 
 
-require_once($rootpath . 'lib/caches.inc.php');
+require_once('./lib/caches.inc.php');
 require($stylepath . '/rating.inc.php');
 
 if(!isset($_REQUEST['cacheid'])){
@@ -285,7 +283,7 @@ if (isset($_POST['submit']) && !isset($_POST['version2'])) {
 
 
 // check input
-require_once($rootpath . 'lib/class.inputfilter.php');
+require_once('./lib/class.inputfilter.php');
 $myFilter = new InputFilter($allowedtags, $allowedattr, 0, 0, 1);
 $log_text = $myFilter->process($log_text);
 

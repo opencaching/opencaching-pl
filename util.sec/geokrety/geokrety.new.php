@@ -21,8 +21,7 @@ use okapi\Facade;
 
  * ************************************************************************* */
 
-$rootpath = '../../';
-require_once($rootpath . 'lib/ClassPathDictionary.php');
+require_once(__DIR__.'/../../lib/ClassPathDictionary.php');
 
 Facade::disable_error_handling();
 

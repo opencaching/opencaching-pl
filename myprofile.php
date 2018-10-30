@@ -4,10 +4,6 @@ use Utils\Text\Formatter;
 use Utils\Text\Validator;
 use lib\Objects\OcConfig\OcConfig;
 
-// prepare the templates and include all neccessary
-if (! isset($rootpath)) {
-    $rootpath = '';
-}
 require_once ('./lib/common.inc.php');
 
 $db = XDb::instance();

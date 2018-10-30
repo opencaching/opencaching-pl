@@ -1,7 +1,6 @@
 <?php
 
 use Utils\Database\XDb;
-$rootpath = '../';
 
 require_once __DIR__ . '/../lib/ClassPathDictionary.php';
 

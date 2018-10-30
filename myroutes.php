@@ -1,8 +1,6 @@
 <?php
 
 use Utils\Database\XDb;
-//prepare the templates and include all neccessary
-global $rootpath;
 
 require_once('./lib/common.inc.php');
 
@@ -30,7 +28,7 @@ if ($error == false) {
             do{
                 $desc = $routes_record['desc'];
                 if ($desc != '') {
-                    require_once($rootpath . 'lib/class.inputfilter.php');
+                    require_once('./lib/class.inputfilter.php');
                     $myFilter = new InputFilter($allowedtags, $allowedattr, 0, 0, 1);
                     $desc = $myFilter->process($desc);
                 }

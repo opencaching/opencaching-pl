@@ -1,7 +1,8 @@
 <?php
 use Utils\Database\OcDb;
-$rootpath = __DIR__.'/../';
+
 require_once __DIR__.'/../lib/common.inc.php';
+
 if(!isset($_SESSION['user_id'])){
     print 'no hacking please!';
     exit;

@@ -14,7 +14,6 @@ use Utils\Generators\TextGen;
  *
  * works via Ajax call.
  */
-$rootpath = __DIR__ . '/../';
 require_once __DIR__ . '/../lib/common.inc.php';
 
 if (!isset($_SESSION['user_id'])) {

@@ -9,11 +9,8 @@ use Utils\Text\UserInputFilter;
 use lib\Objects\OcConfig\OcConfig;
 use lib\Objects\Coordinates\Coordinates;
 
-//prepare the templates and include all neccessary
-if (!isset($rootpath))
-    $rootpath = '';
-
 require_once('./lib/common.inc.php');
+
 if ($error == false) {
 //Preprocessing
     //set here the template to process

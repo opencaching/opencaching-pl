@@ -3,14 +3,12 @@
 use Utils\Database\XDb;
 use lib\Objects\GeoCache\GeoCacheLog;
 
-global $lang, $usr, $rootpath, $dateFormat;
-
-if (!isset($rootpath))
-    $rootpath = '';
+global $lang, $usr, $dateFormat;
 
 //include template handling
-require_once($rootpath . 'lib/common.inc.php');
-require_once($rootpath . 'lib/cache_icon.inc.php');
+require_once('./lib/common.inc.php');
+require_once('./lib/cache_icon.inc.php');
+
 //  require_once($stylepath . '/lib/icons.inc.php');
 //Preprocessing
 if ($error == false) {

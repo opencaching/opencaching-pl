@@ -3,8 +3,8 @@
 use Libs\JpGraph\JpGraphLoader;
 use Utils\Database\XDb;
 
-$rootpath = '../';
-require('../lib/common.inc.php');
+require(__DIR__.'/../lib/common.inc.php');
+
 global $lang;
 
 

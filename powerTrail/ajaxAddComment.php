@@ -4,8 +4,6 @@ use lib\Objects\User\User;
 use lib\Objects\PowerTrail\PowerTrail;
 use lib\Controllers\PowerTrailController;
 
-
-$rootpath = __DIR__.'/../';
 require_once __DIR__.'/../lib/common.inc.php';
 
 if(!isset($_SESSION['user_id'])){

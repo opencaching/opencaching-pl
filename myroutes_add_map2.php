@@ -1,8 +1,7 @@
 <?php
 
 use Utils\Database\XDb;
-//prepare the templates and include all neccessary
-$rootpath = "./";
+
 global $googlemap_key;
 
 require_once ('./lib/common.inc.php');

@@ -1,7 +1,7 @@
 <?php
 
 use Utils\Database\XDb;
-global $lang, $rootpath, $dateFormat;
+global $lang, $dateFormat;
 
 
 //prepare the templates and include all neccessary

@@ -2,8 +2,7 @@
 
 use Utils\Database\OcDb;
 
-$rootpath = __DIR__ . DIRECTORY_SEPARATOR;
-require_once $rootpath . 'lib/common.inc.php';
+require_once './lib/common.inc.php';
 
 $db = OcDb::instance();
 $countryCode = addslashes($_REQUEST['countryCode']);

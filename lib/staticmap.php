@@ -26,15 +26,7 @@
  *
  */
 
-
-//error_reporting(0);
-//ini_set('display_errors', 'off');
-if (!isset($rootpath))
-    $rootpath = '../';
-
-require_once ($rootpath . 'lib/settingsGlue.inc.php');
-
-
+require_once (__DIR__.'/settingsGlue.inc.php');
 
 Class staticMapLite
 {

@@ -4,7 +4,6 @@ use lib\Objects\PowerTrail\PowerTrail;
 use lib\Objects\GeoCache\GeoCache;
 use Utils\Uri\Uri;
 
-$rootpath = __DIR__ . DIRECTORY_SEPARATOR;
 require_once './lib/common.inc.php';
 
 if ($error == false) {

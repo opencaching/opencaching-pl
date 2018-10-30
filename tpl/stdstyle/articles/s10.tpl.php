@@ -11,13 +11,6 @@ use Utils\Database\XDb;
     <tr>
         <td>
             <?php
-            global $rootpath;
-
-            if (!isset($rootpath))
-                $rootpath = './';
-
-            //include template handling
-            require_once($rootpath . 'lib/common.inc.php');
             if (isset($_REQUEST['region'])) {
                 $region = $_REQUEST['region'];
             }

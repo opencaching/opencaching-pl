@@ -20,10 +20,7 @@ use lib\Objects\User\UserStats;
 
 const ADMINNOTES_PER_PAGE = 10;
 
-//prepare the templates and include all neccessary
-if (!isset($rootpath)) {
-    $rootpath = '';
-}
+
 require_once ('./lib/common.inc.php');
 
 //user logged in?

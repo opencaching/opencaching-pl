@@ -18,8 +18,7 @@
 header('Content-Type: text/plain');
 set_time_limit(0);
 
-$rootpath = '../../';
-require_once($rootpath . 'lib/search.inc.php');
+require_once(__DIR__.'/../../lib/search.inc.php');
 
 /* begin search index rebuild */
 

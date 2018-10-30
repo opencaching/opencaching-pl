@@ -4,12 +4,10 @@ use Utils\Database\OcDb;
 use lib\Objects\GeoCache\GeoCacheLog;
 
 global $dateFormat;
-if (!isset($rootpath))
-    $rootpath = '';
 
 //include template handling
-require_once ($rootpath . 'lib/common.inc.php');
-require_once($stylepath . '/lib/icons.inc.php');
+require_once ('./lib/common.inc.php');
+require_once ($stylepath . '/lib/icons.inc.php');
 
 //get the news
 $tplname = 'newlogs';

@@ -7,9 +7,6 @@ use Utils\Text\TextConverter;
 use Utils\Uri\OcCookie;
 use lib\Objects\Coordinates\Coordinates;
 
-//prepare the templates and include all neccessary
-if (!isset($rootpath)) $rootpath = '';
-
 require_once('./lib/common.inc.php');
 require_once('./lib/search.inc.php');
 require_once('./lib/search-signatures.inc.php');
@@ -53,7 +50,7 @@ if ($usr == false) {
         $tplname = 'search';
         $view->loadJQueryUI();
         require($stylepath . '/search.inc.php');
-        require($rootpath . 'lib/caches.inc.php');
+        require(__DIR__.'/lib/caches.inc.php');
 
         sanitize($_REQUEST);
 
@@ -590,7 +587,7 @@ if ($usr == false) {
                     {
                         if ($locid == 0)
                         {
-                            require_once($rootpath . 'lib/search.inc.php');
+                            require_once(__DIR__.'/lib/search.inc.php');
 
                             $ort = trim($options['ort']);
                             $simpletexts = search_text2sort($ort);
@@ -912,7 +909,7 @@ if ($usr == false) {
                 }
                 elseif ($options['searchtype'] == 'byfulltext')
                 {
-                    require_once($rootpath . 'lib/ftsearch.inc.php');
+                    require_once(__DIR__.'/lib/ftsearch.inc.php');
 
                     $fulltext = $options['fulltext'];
                     $hashes = ftsearch_hash($fulltext);
@@ -1127,7 +1124,7 @@ if ($usr == false) {
             }
 
             //go to final output preparation
-            if (!file_exists($rootpath . 'lib/search.' . mb_strtolower($options['output']) . '.inc.php'))
+            if (!file_exists(__DIR__.'/lib/search.' . mb_strtolower($options['output']) . '.inc.php'))
             {
                 tpl_set_var('tplname', $tplname);
                 $tplname = 'error';
@@ -1136,7 +1133,7 @@ if ($usr == false) {
             else
             {
                 //process and output the search result
-                require($rootpath . 'lib/search.' . mb_strtolower($options['output']) . '.inc.php');
+                require(__DIR__.'/lib/search.' . mb_strtolower($options['output']) . '.inc.php');
                 exit;
             }
         }

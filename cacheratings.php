@@ -4,7 +4,7 @@ use Utils\Database\XDb;
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
 require_once('./lib/cache_icon.inc.php');
-require_once($rootpath . 'lib/caches.inc.php');
+require_once('./lib/caches.inc.php');
 require_once($stylepath . '/lib/icons.inc.php');
 
 global $usr;

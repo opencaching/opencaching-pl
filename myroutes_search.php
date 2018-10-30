@@ -7,14 +7,12 @@ use okapi\Facade;
 use okapi\core\Exception\BadRequest;
 use lib\Objects\GeoCache\CacheNote;
 
-global $rootpath;
-
 require_once('./lib/common.inc.php');
-require_once($rootpath . 'lib/export.inc.php');
-require_once($rootpath . 'lib/format.gpx.inc.php');
-require_once($rootpath . 'lib/calculation.inc.php');
+require_once('./lib/export.inc.php');
+require_once('./lib/format.gpx.inc.php');
+require_once('./lib/calculation.inc.php');
 require_once('./lib/cache_icon.inc.php');
-require_once($rootpath . 'lib/caches.inc.php');
+require_once('./lib/caches.inc.php');
 require_once($stylepath . '/lib/icons.inc.php');
 global $content, $bUseZip, $usr, $config;
 global $default_lang, $cache_attrib_jsarray_line, $cache_attrib_img_line;
@@ -808,7 +806,7 @@ if (isset($_POST['submit_gpx'])) {
     $bUseZip = false;
     if ($bUseZip == true) {
         $content = '';
-        require_once($rootpath . 'lib/phpzip/ss_zip.class.php');
+        require_once('./lib/phpzip/ss_zip.class.php');
         $phpzip = new ss_zip('', 6);
     }
 

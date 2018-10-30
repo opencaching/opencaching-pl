@@ -4,8 +4,7 @@
  */
 use Controllers\Cron\WatchlistController;
 
-$rootpath = __DIR__ . '/../../';
-require_once ($rootpath . 'lib/common.inc.php');
+require_once (__DIR__.'/../../lib/common.inc.php');
 
 // Watchlist processing controller instantiation and execution
 (new WatchlistController())->index();

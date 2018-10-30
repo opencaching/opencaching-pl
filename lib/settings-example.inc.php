@@ -7,10 +7,6 @@ require __DIR__ . '/settingsDefault.inc.php';
 // define timezone (newer versions of PHP require it)
 date_default_timezone_set('Europe/Warsaw');
 
-//relative path to the root directory
-if (!isset($rootpath))
-    $rootpath = './';
-
 // country-id of the running node: pl|ro|nl...
 $config['ocNode'] = 'pl';
 

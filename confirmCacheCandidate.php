@@ -1,10 +1,7 @@
 <?php
 
 use Utils\Database\OcDb;
-//confirmCacheCandidate.php
-//prepare the templates and include all neccessary
-if (!isset($rootpath))
-    $rootpath = './';
+
 require_once('./lib/common.inc.php');
 
 $no_tpl_build = false;

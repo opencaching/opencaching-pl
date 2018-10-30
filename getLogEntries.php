@@ -9,8 +9,6 @@ use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\OcConfig\OcConfig;
 use lib\Objects\Coordinates\Coordinates;
 
-$rootpath = "./";
-
 require_once('./lib/common.inc.php');
 require($stylepath . '/lib/icons.inc.php');
 require($stylepath . '/viewcache.inc.php');

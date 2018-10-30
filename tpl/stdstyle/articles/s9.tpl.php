@@ -10,11 +10,7 @@ use Utils\Database\XDb;
 <table class="table" width="760" style="line-height: 1.6em; font-size: 10px;">
     <tr><td>
             <?php
-            global $lang, $rootpath;
-            if (!isset($rootpath))
-                $rootpath = './';
-            //include template handling
-            require_once($rootpath . 'lib/common.inc.php');
+
             if (isset($_REQUEST['region'])) {
                 $region = $_REQUEST['region'];
             }

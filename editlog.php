@@ -40,7 +40,7 @@ if ($error == false) {
         if ($log_record) {
 
             require($stylepath . '/editlog.inc.php');
-            require_once($rootpath . 'lib/caches.inc.php');
+            require_once('./lib/caches.inc.php');
             require($stylepath . '/rating.inc.php');
 
             if ($log_record['node'] != $oc_nodeid) {
@@ -136,7 +136,7 @@ if ($error == false) {
                 }
 
                 // check input
-                require_once($rootpath . 'lib/class.inputfilter.php');
+                require_once('./lib/class.inputfilter.php');
                 $myFilter = new InputFilter($allowedtags, $allowedattr, 0, 0, 1);
                 $log_text = $myFilter->process($log_text);
 

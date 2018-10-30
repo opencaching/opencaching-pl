@@ -98,7 +98,7 @@ if ($error == false) {
                     break;
 
                 case 'bmp':
-                    require($rootpath . 'lib/imagebmp.inc.php');
+                    require('./lib/imagebmp.inc.php');
                     $im = imagecreatefrombmp($picdir . '/' . $filename);
                     break;
             }

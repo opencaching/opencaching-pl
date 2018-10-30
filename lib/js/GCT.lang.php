@@ -1,7 +1,6 @@
 <?php
 
-$rootpath = '../../';
-require_once $rootpath . 'lib/common.inc.php';
+require_once __DIR__.'/../common.inc.php';
 
 header("Content-Type: text/javascript");
 

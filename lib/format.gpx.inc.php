@@ -1,7 +1,6 @@
 <?php
 
-global $rootpath;
-require_once($rootpath . 'lib/common.inc.php');
+require_once(__DIR__.'/common.inc.php');
 
 $gpxHead = '<?xml version="1.0" encoding="utf-8"?>
 <gpx xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"

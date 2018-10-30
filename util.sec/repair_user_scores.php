@@ -1,7 +1,7 @@
 <?php
 
 use Utils\Database\OcDb;
-$rootpath = '../';
+
 require_once __DIR__ . '/../lib/ClassPathDictionary.php';
 
 class RepairUserScores

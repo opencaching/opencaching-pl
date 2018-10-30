@@ -2,7 +2,6 @@
 
 use Utils\Database\XDb;
 
-$rootpath = '../';
 header('Content-type: text/html; charset=utf-8');
 require('../lib/common.inc.php');
 

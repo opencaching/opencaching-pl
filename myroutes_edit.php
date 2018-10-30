@@ -2,7 +2,7 @@
 
 use Utils\Database\XDb;
 //prepare the templates and include all neccessary
-global $rootpath, $googlemap_key;
+global $googlemap_key;
 require_once('./lib/common.inc.php');
 
 //Preprocessing

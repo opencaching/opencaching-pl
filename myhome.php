@@ -5,9 +5,6 @@ use lib\Objects\User\User;
 use Utils\Text\TextConverter;
 use lib\Objects\User\UserStats;
 
-//prepare the templates and include all neccessary
-if (!isset($rootpath))
-    global $rootpath;
 require_once('./lib/common.inc.php');
 
 //Preprocessing

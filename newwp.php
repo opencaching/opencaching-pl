@@ -66,7 +66,7 @@ if ($error == false) {
             if ($cache_record['user_id'] == $usr['userid'] || $usr['admin']) {
                 $tplname = 'newwp';
 
-                require_once($rootpath . 'lib/caches.inc.php');
+                require_once('./lib/caches.inc.php');
                 require_once($stylepath . '/newcache.inc.php');
                 //set template replacements
                 tpl_set_var('lon_message', '');

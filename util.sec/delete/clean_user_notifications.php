@@ -18,7 +18,6 @@ if (php_sapi_name() != "cli") {
     exit(1);
 }
 
-$rootpath = __DIR__ . '/../../';
 require_once __DIR__ . '/../../lib/common.inc.php';
 
 $db = OcDb::instance();

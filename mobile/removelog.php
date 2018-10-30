@@ -4,8 +4,6 @@ use lib\Controllers\LogEntryController;
 use okapi\Facade;
 
 require_once("./lib/common.inc.php");
-$GLOBALS['rootpath'] ='../';
-
 
 if (isset($_SESSION['user_id'])) {
 

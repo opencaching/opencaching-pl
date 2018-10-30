@@ -28,7 +28,7 @@ use Controllers\MainMapController;
  *
  */
 // variables required by opencaching.pl
-global $lang, $rootpath, $usr, $absolute_server_URI;
+global $lang, $usr, $absolute_server_URI;
 
 //prepare the templates and include all neccessary
 require_once('lib/common.inc.php');
