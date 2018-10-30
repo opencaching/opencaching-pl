@@ -645,6 +645,7 @@ function initSearch(params) {
 
     var _openSearch = function() {
         search.show();
+        inputSearch.focus();
     }
 
     var closeSearch = function() {
