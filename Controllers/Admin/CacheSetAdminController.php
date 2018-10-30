@@ -21,7 +21,7 @@ class CacheSetAdminController extends BaseController
 
         /* !!!temporary disabled for tests:
 
-        if(!$this->loggedUser->isAdmin()){
+        if(!$this->loggedUser->hasOcTeamRole()){
             $this->view->redirect('/');
             exit;
         }

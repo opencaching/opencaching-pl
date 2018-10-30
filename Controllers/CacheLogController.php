@@ -68,7 +68,7 @@ class CacheLogController extends BaseController
         if (is_null($log)) {
             $this->ajaxErrorResponse('Incorrect logId', 400);
         }
-        if (! $this->loggedUser->isAdmin()) {
+        if (! $this->loggedUser->hasOcTeamRole()) {
             $this->ajaxErrorResponse('User is not authorized to revert log', 401);
         }
         if (! $log->canBeReverted()) {

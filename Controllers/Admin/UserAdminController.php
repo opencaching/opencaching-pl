@@ -237,7 +237,7 @@ class UserAdminController extends BaseController
     {
         // Check if user is logged and is admin
         $this->redirectNotLoggedUsers();
-        if (! $this->loggedUser->isAdmin() || is_null($this->viewedUser = User::fromUserIdFactory($userId))) {
+        if (! $this->loggedUser->hasOcTeamRole() || is_null($this->viewedUser = User::fromUserIdFactory($userId))) {
             $this->view->redirect('/');
         }
     }

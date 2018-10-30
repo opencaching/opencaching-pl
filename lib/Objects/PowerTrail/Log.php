@@ -120,7 +120,7 @@ class Log
         if($this->id){
             ddd('TODO');
         } else {
-            if($this->type === self::TYPE_ADD_WARNING && $this->user->getIsAdmin() === false){
+            if($this->type === self::TYPE_ADD_WARNING && $this->user->hasOcTeamRole() === false){
                 return false; /* regular user is not allowed to add entry of this type */
             }
             $query = 'INSERT INTO `PowerTrail_comments`

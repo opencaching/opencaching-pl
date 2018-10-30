@@ -51,7 +51,7 @@ class ViewCacheController extends BaseController
                 ) &&
                 (
                     $this->loggedUser == null ||
-                    ( $this->loggedUser->getUserId() != $this->geocache->getOwnerId() && !$this->loggedUser->isAdmin() )
+                    ( $this->loggedUser->getUserId() != $this->geocache->getOwnerId() && !$this->loggedUser->hasOcTeamRole() )
                 )
             ) ||
             (
@@ -59,7 +59,7 @@ class ViewCacheController extends BaseController
                 (
                     $this->loggedUser == null ||
                     (
-                        !$this->loggedUser->isAdmin() && !$this->loggedUser->isGuide() &&
+                        !$this->loggedUser->hasOcTeamRole() && !$this->loggedUser->isGuide() &&
                         $this->loggedUser->getUserId() != $this->geocache->getOwnerId()
                     )
                 )
@@ -109,8 +109,8 @@ class ViewCacheController extends BaseController
 
         $this->view->setVar('geoCache', $this->geocache);
         $this->view->setVar('isUserAuthorized', is_object($this->loggedUser) );
-        $this->view->setVar('isAdminAuthorized', $this->loggedUser && $this->loggedUser->isAdmin() );
-        $this->view->setVar('displayPrePublicationAccessInfo', $this->loggedUser && $this->loggedUser->isAdmin() );
+        $this->view->setVar('isAdminAuthorized', $this->loggedUser && $this->loggedUser->hasOcTeamRole() );
+        $this->view->setVar('displayPrePublicationAccessInfo', $this->loggedUser && $this->loggedUser->hasOcTeamRole() );
 
         $this->view->setVar('ownerId', $this->geocache->getOwner()->getUserId());
         $this->view->setVar('ownerName', htmlspecialchars($this->geocache->getOwner()->getUserName()));
@@ -223,7 +223,7 @@ class ViewCacheController extends BaseController
     private function processOcTeamComments()
     {
 
-        if ($this->loggedUser && $this->loggedUser->isAdmin()) {
+        if ($this->loggedUser && $this->loggedUser->hasOcTeamRole()) {
 
             if ( isset($_POST['rr_comment']) && !empty($_POST['rr_comment']) ) {
 
@@ -280,7 +280,7 @@ class ViewCacheController extends BaseController
                 $show_ignore = false;
                 $show_watch = false;
             } else {
-                $show_edit = $this->loggedUser->isAdmin();
+                $show_edit = $this->loggedUser->hasOcTeamRole();
 
                 if ($this->geocache->getStatus() == GeoCache::STATUS_WAITAPPROVERS) {
                     // skip watching/ignoring for non-published caches
@@ -434,7 +434,7 @@ class ViewCacheController extends BaseController
         }
 
         $displayDeletedLogs = true;
-        if ( $this->loggedUser && $this->loggedUser->isAdmin() || !$this->geocache->hasDeletedLog() ) {
+        if ( $this->loggedUser && $this->loggedUser->hasOcTeamRole() || !$this->geocache->hasDeletedLog() ) {
             $showDeletedLogsDisplayLink = false; //admin always see deleted logs
 
         } else {
@@ -680,7 +680,7 @@ class ViewCacheController extends BaseController
 
         if ($this->loggedUser &&
         ($this->loggedUser->getUserId() == $this->geocache->getOwnerId() ||
-        $this->loggedUser->isAdmin() ||
+        $this->loggedUser->hasOcTeamRole() ||
         $this->loggedUser->isGuide() ||
         $this->loggedUser->getFoundGeocachesCount() >= $config['otherSites_minfinds'])) {
             $this->view->setVar('otherSitesListing', $this->geocache->getFullOtherWaypointsList() );

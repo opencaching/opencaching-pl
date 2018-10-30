@@ -3,6 +3,7 @@
 use Utils\Database\XDb;
 use lib\Objects\Admin\AdminNote;
 use Utils\Generators\Uuid;
+use lib\Objects\User\User;
 
 global $bgcolor1, $bgcolor2;
 
@@ -97,10 +98,9 @@ function getAssignedUserId($cacheid)
 
 function assignUserToCase($userid, $cacheid)
 {
-    // check if user is in RR
-    if( 0 == XDb::xMultiVariableQueryValue(
-        "SELECT COUNT(user_id) FROM user WHERE admin = 1 AND user_id = :1 ", 0, $userid)){
-
+    // check if user is in OC Team Member
+    $user = User::fromUserIdFactory($userid);
+    if (!$user || !$user->hasOcTeamRole()) {
         return false;
     }
 

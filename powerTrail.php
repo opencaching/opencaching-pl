@@ -266,7 +266,7 @@ if ($error == false) {
 
             $userIsOwner = $powerTrail->isUserOwner($usr['userid']);
             if ($powerTrail->getStatus() == 1 || $userIsOwner ||
-                ($appContainer->getLoggedUser() !== null && $appContainer->getLoggedUser()->getIsAdmin())) {
+                ($appContainer->getLoggedUser() !== null && $appContainer->getLoggedUser()->hasOcTeamRole())) {
 
                 $ptTypesArr = powerTrailBase::getPowerTrailTypes();
                 $ptStatusArr = \lib\Controllers\PowerTrailController::getPowerTrailStatus();
@@ -551,7 +551,7 @@ function displayPtCommentsSelector($htmlid, PowerTrail $powerTrail, $selectedId 
             continue;
         }
 
-        if($id === \lib\Objects\PowerTrail\Log::TYPE_ADD_WARNING && $appContainer->getLoggedUser()->getIsAdmin() === false){
+        if($id === \lib\Objects\PowerTrail\Log::TYPE_ADD_WARNING && !$appContainer->getLoggedUser()->hasOcTeamRole()){
             continue;
         }
 

@@ -51,12 +51,12 @@ if(
     (
         ( $geoCache->getStatus() == GeoCache::STATUS_NOTYETAVAILABLE ||
           $geoCache->getStatus() == GeoCache::STATUS_BLOCKED ) &&
-        $user->getUserId() != $geoCache->getOwnerId() && !$user->isAdmin()
+        $user->getUserId() != $geoCache->getOwnerId() && !$user->hasOcTeamRole()
     ) ||
 
     (
         $geoCache->getStatus() == GeoCache::STATUS_WAITAPPROVERS &&
-        !$user->isAdmin() && !$user->isGuide() &&
+        !$user->hasOcTeamRole() && !$user->isGuide() &&
         $user->getUserId() != $geoCache->getOwnerId()
     )
 ){
@@ -669,7 +669,7 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
 
 
             //3 = Write a note;
-            if ($user->isAdmin() && $geoCache->getStatus() == GeoCache::STATUS_WAITAPPROVERS){
+            if ($user->hasOcTeamRole() && $geoCache->getStatus() == GeoCache::STATUS_WAITAPPROVERS){
                 $logtypeoptions .= '<option selected="selected" value="3">' . tr('lxg08') . '</option>' . "\n";
             } else {
                 $logtypeoptions .= '<option value="3">' . tr('lxg08') . '</option>' . "\n";
@@ -689,7 +689,7 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
             $logtypeoptions .= '<option value="6">' . tr('made_service') . '</option>' . "\n";
 
             //12 = OC Team Comment
-            if ($user->isAdmin()) {
+            if ($user->hasOcTeamRole()) {
                 $logtypeoptions .= '<option value="12">' . tr('lxg11') . '</option>' . "\n";
             }
 
@@ -756,7 +756,7 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
                     continue;
                 }
             }
-            if ($user->isAdmin()) {
+            if ($user->hasOcTeamRole()) {
                 if ($type['id'] == 1 || $type['id'] == 2 || $type['id'] == 4 ||
                     $type['id'] == 5 || $type['id'] == 9 || $type['id'] == 10 || $type['id'] == 11) {
                     continue;
@@ -770,7 +770,7 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
             }
         } else {
             if ($geoCache->getCacheType() == GeoCache::TYPE_MOVING) {
-                if ($user->isAdmin()) {
+                if ($user->hasOcTeamRole()) {
                     // skip will attend/attended if the cache no event
                     if ($type['id'] == 7 || $type['id'] == 8 || $type['id'] == 9 || $type['id'] == 10 || $type['id'] == 11) {
                         continue;
@@ -782,7 +782,7 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
                 }
             } else {
                 // skip will attend/attended/Moved  if the cache no event and Mobile
-                if ($user->isAdmin()) {
+                if ($user->hasOcTeamRole()) {
                     if ($type['id'] == 4 || $type['id'] == 7 || $type['id'] == 8 || $type['id'] == 9 || $type['id'] == 10 || $type['id'] == 11) {
                         continue;
                     }

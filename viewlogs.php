@@ -169,7 +169,7 @@ if ($error == false) {
         } else if (isset($_SESSION["showdel"])) {
             $showDel = $_SESSION["showdel"];
         }
-        if ($usr['admin'] == 1 || $logid) {
+        if ($usr['admin'] || $logid) {
             $showhidedel_link = ""; //no need to hide/show deletion icon for COG (they always see deletions) or this is single log call
         } else {
             $del_count = $dbc->multiVariableQueryValue("SELECT count(*) number FROM `cache_logs` WHERE `deleted`=1 and `cache_id`=:1", 0, $cache_id);

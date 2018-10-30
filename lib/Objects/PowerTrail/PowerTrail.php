@@ -615,7 +615,7 @@ class PowerTrail extends BaseObject
         if ($this->activeGeocacheCount < \powerTrailBase::minimumCacheCount()) {
             return false;
         }
-        if ($this->status === self::STATUS_CLOSED && !$this->getCurrentUser()->isAdmin()) {
+        if ($this->status === self::STATUS_CLOSED && !$this->getCurrentUser()->hasOcTeamRole()) {
             return false;
         }
         return true;

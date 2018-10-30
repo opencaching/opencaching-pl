@@ -191,7 +191,7 @@ class UserAuthorization extends BaseObject
         $usr['email'] = $user->getEmail();
         $usr['latitude'] = $user->getHomeCoordinates()->getLatitude();
         $usr['longitude'] = $user->getHomeCoordinates()->getLongitude();
-        $usr['admin'] = $user->isAdmin();
+        $usr['admin'] = $user->hasOcTeamRole();
 
     }
 

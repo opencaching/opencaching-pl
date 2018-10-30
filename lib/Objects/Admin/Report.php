@@ -6,6 +6,7 @@ use lib\Objects\BaseObject;
 use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\GeoCache\GeoCacheLogCommons;
 use lib\Objects\OcConfig\OcConfig;
+use lib\Objects\User\MultiUserQueries;
 use lib\Objects\User\User;
 use lib\Objects\GeoCache\GeoCacheLog;
 
@@ -498,7 +499,7 @@ class Report extends BaseObject
         if (! $silent) {
             // Send notification about new status
             if ($this->status == ReportCommons::STATUS_LOOK_HERE) {
-                $userlist = ReportCommons::getOcTeamArray();
+                $userlist = MultiUserQueries::getOcTeamMembersArray();
                 foreach ($userlist as $user) { // Send mails to all OC Team members
                     if ($user['user_id'] != $this->userIdLastChange) { // Don't notify logged user
                         $usr = new User(['userId' => $user['user_id']]);
@@ -633,7 +634,7 @@ class Report extends BaseObject
         if ($this->status != ReportCommons::STATUS_LOOK_HERE) {
             $this->changeStatus(ReportCommons::STATUS_LOOK_HERE, true);
         }
-        $userlist = ReportCommons::getOcTeamArray();
+        $userlist = MultiUserQueries::getOcTeamMembersArray();
         foreach ($userlist as $user) { // Send mails to all OC Team members
             if ($user['user_id'] != $this->userIdLastChange) { // Don't notify logged user
                 ReportEmailSender::sendNewPoll(new ReportPoll(['pollId' => $pollId]), new User(['userId' => $user['user_id']]));

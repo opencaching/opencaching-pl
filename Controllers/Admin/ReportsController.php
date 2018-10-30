@@ -11,6 +11,7 @@ use lib\Objects\Admin\ReportLog;
 use lib\Objects\Admin\ReportPoll;
 use lib\Objects\Admin\ReportWatches;
 use lib\Objects\ChunkModels\PaginationModel;
+use lib\Objects\User\MultiUserQueries;
 use lib\Objects\User\User;
 use lib\Objects\Admin\ReportCommons;
 use lib\Objects\GeoCache\GeoCache;
@@ -42,7 +43,7 @@ class ReportsController extends BaseController
                 $this->redirectToLoginPage();
             }
             exit();
-        } elseif (! $this->loggedUser->isAdmin()) {
+        } elseif (! $this->loggedUser->hasOcTeamRole()) {
             if (isset($_REQUEST['ajax'])) {
                 $this->ajaxErrorResponse('User is not admin', 401);
             } else {
@@ -164,7 +165,7 @@ class ReportsController extends BaseController
         $this->paramAjaxCheck('leader');
         if ($_REQUEST['leader'] != ReportCommons::USER_NOBODY) {
             $usr = new User(['userId' => $_REQUEST['leader']]);
-            if (! $usr->isAdmin()) {
+            if (! $usr->hasOcTeamRole()) {
                 unset($usr);
                 $this->ajaxErrorResponse('Invalid new leader', 400);
                 exit();
@@ -425,7 +426,7 @@ class ReportsController extends BaseController
         $this->checkReportId();
         $this->checkParam('pollid');
         $voterlist = ReportPoll::getVotersArray($_REQUEST['pollid']);
-        $userlist = ReportCommons::getOcTeamArray();
+        $userlist = MultiUserQueries::getOcTeamMembersArray();
         foreach ($userlist as $user) {
             if (! in_array($user['user_id'], $voterlist) && $user['user_id'] != $this->loggedUser->getUserId()) {
                 ReportEmailSender::sendNewPoll(new ReportPoll(['pollId' => $_REQUEST['pollid']]), new User(['userId' => $user['user_id']]), true);

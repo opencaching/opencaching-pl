@@ -7,6 +7,7 @@ use lib\Objects\Admin\Report;
 use lib\Objects\Admin\ReportCommons;
 use lib\Objects\Admin\ReportEmailSender;
 use lib\Objects\GeoCache\GeoCache;
+use lib\Objects\User\MultiUserQueries;
 use lib\Objects\User\User;
 
 class ReportCacheController extends BaseController
@@ -106,7 +107,7 @@ class ReportCacheController extends BaseController
                 } else {
                     ReportEmailSender::sendReport2OCTMail2CO($cacheOwner, $report);
                     ReportEmailSender::sendReport2OCTMail2S($this->loggedUser, $report);
-                    $userlist = ReportCommons::getOcTeamArray();
+                    $userlist = MultiUserQueries::getOcTeamMembersArray();
                     foreach ($userlist as $user) { // Send mails to all OC Team members
                         ReportEmailSender::sendReport2OCTMail2OCTeam(new User([
                             'userId' => $user['user_id']
