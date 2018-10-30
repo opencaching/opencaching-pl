@@ -9,10 +9,10 @@ use Utils\Text\UserInputFilter;
 use lib\Objects\OcConfig\OcConfig;
 use lib\Objects\Coordinates\Coordinates;
 
-require_once('./lib/common.inc.php');
+require_once (__DIR__.'/lib/common.inc.php');
 
 if ($error == false) {
-//Preprocessing
+
     //set here the template to process
     $tplname = 'viewlogs';
 
@@ -20,9 +20,9 @@ if ($error == false) {
     $view->loadFancyBox();
 
     tpl_set_var('viewcache_js', Uri::getLinkWithModificationTime("tpl/stdstyle/viewcache/viewcache.js"));
-    require($stylepath . '/lib/icons.inc.php');
-    require($stylepath . '/viewcache.inc.php');
-    require($stylepath . '/viewlogs.inc.php');
+    require (__DIR__.'/tpl/stdstyle/lib/icons.inc.php');
+    require (__DIR__.'/tpl/stdstyle/viewcache.inc.php');
+    require (__DIR__.'/tpl/stdstyle/viewlogs.inc.php');
 
     global $usr;
     $view->setVar('isUserAuthorized', $usr != false);
@@ -205,7 +205,7 @@ if ($error == false) {
             'enableLogsFiltering',
             !empty($logfilterConfig['enable_logs_filtering'])
         );
-        $tmpSrcLog = file_get_contents($stylepath . '/viewcache_log.tpl.php');
+        $tmpSrcLog = file_get_contents('./tpl/stdstyle/viewcache_log.tpl.php');
 
         foreach ($logEneries as $record) {
             $record['text_listing'] = ucfirst(tr('logType' . $record['type'])); //add new attrib 'text_listing based on translation (instead of query as before)'

@@ -2,7 +2,7 @@
 
 use Utils\Database\XDb;
 
-require_once('./lib/common.inc.php');
+require_once (__DIR__.'/lib/common.inc.php');
 
 //Preprocessing
 if ($error == false) {
@@ -28,7 +28,7 @@ if ($error == false) {
             do{
                 $desc = $routes_record['desc'];
                 if ($desc != '') {
-                    require_once('./lib/class.inputfilter.php');
+                    require_once(__DIR__.'/lib/class.inputfilter.php');
                     $myFilter = new InputFilter($allowedtags, $allowedattr, 0, 0, 1);
                     $desc = $myFilter->process($desc);
                 }

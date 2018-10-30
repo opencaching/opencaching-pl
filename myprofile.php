@@ -4,7 +4,7 @@ use Utils\Text\Formatter;
 use Utils\Text\Validator;
 use lib\Objects\OcConfig\OcConfig;
 
-require_once ('./lib/common.inc.php');
+require_once (__DIR__.'/lib/common.inc.php');
 
 $db = XDb::instance();
 $description = "";

@@ -1,10 +1,9 @@
 <?php
 
 use Utils\Database\XDb;
-//prepare the templates and include all neccessary
-require_once('./lib/common.inc.php');
 
-//Preprocessing
+require_once (__DIR__.'/lib/common.inc.php');
+
 if ($error == false) {
     //user logged in?
     if ($usr == false) {
@@ -12,7 +11,7 @@ if ($error == false) {
         tpl_redirect('login.php?target=' . $target);
     } else {
         $tplname = 'removepic'; // gibt es nicht ...
-        require_once($stylepath . '/removepic.inc.php');
+        require_once (__DIR__.'/tpl/stdstyle/removepic.inc.php');
 
         $uuid = isset($_REQUEST['uuid']) ? $_REQUEST['uuid'] : '';
 

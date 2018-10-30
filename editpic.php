@@ -2,7 +2,7 @@
 
 use Utils\Database\XDb;
 //prepare the templates and include all neccessary
-require_once('./lib/common.inc.php');
+require_once(__DIR__.'/lib/common.inc.php');
 
 $message = false;
 
@@ -17,7 +17,7 @@ if ($error == false) {
         $view = tpl_getView();
         $view->setVar('maxPicSize',  $config['limits']['image']['filesize'] * 1024 * 1024);
 
-        require_once($stylepath . '/editpic.inc.php');
+        require_once(__DIR__.'/tpl/stdstyle/editpic.inc.php');
 
         $uuid = isset($_REQUEST['uuid']) ? $_REQUEST['uuid'] : 0;
         if (!$uuid)

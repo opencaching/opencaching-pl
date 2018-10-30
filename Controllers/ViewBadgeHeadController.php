@@ -80,8 +80,7 @@ class ViewBadgeHeadController extends BaseController{
     }
 
     private function preapareCode(){
-        global $stylepath;
-        $this->sCode = file_get_contents($stylepath . '/badge_head.tpl.php');
+        $this->sCode = file_get_contents(__DIR__.'/../tpl/stdstyle/badge_head.tpl.php');
         $this->sCode = tpl_do_translate($this->sCode);
     }
 

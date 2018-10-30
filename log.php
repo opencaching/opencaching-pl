@@ -18,7 +18,7 @@ use Utils\EventHandler\EventHandler;
 /*
  * todo: create and set up 4 template selector with wybor_WE wybor_NS.
  */
-require_once('./lib/common.inc.php');
+require_once (__DIR__.'/lib/common.inc.php');
 
 $user = ApplicationContainer::Instance()->getLoggedUser();
 if (!$user) {
@@ -33,8 +33,8 @@ $tplname = 'log_cache';
 $view->loadJquery();
 
 
-require_once('./lib/caches.inc.php');
-require($stylepath . '/rating.inc.php');
+require_once(__DIR__.'/lib/caches.inc.php');
+require(__DIR__.'/tpl/stdstyle/rating.inc.php');
 
 if(!isset($_REQUEST['cacheid'])){
     tpl_errorMsg('log_cache', "No cacheid param!");
@@ -283,7 +283,7 @@ if (isset($_POST['submit']) && !isset($_POST['version2'])) {
 
 
 // check input
-require_once('./lib/class.inputfilter.php');
+require_once(__DIR__.'/lib/class.inputfilter.php');
 $myFilter = new InputFilter($allowedtags, $allowedattr, 0, 0, 1);
 $log_text = $myFilter->process($log_text);
 

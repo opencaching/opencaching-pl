@@ -2,15 +2,15 @@
 
 use Utils\Database\XDb;
 use lib\Objects\GeoCache\GeoCacheLog;
-//prepare the templates and include all neccessary
-require_once('./lib/common.inc.php');
-require_once('./lib/cache_icon.inc.php');
+
+require_once (__DIR__.'/lib/common.inc.php');
+require_once (__DIR__.'/lib/cache_icon.inc.php');
 
 //Preprocessing
 if ($error == false) {
     //get the news
     $tplname = 'newevents';
-    require($stylepath . '/newcaches.inc.php');
+    require(__DIR__.'/tpl/stdstyle/newcaches.inc.php');
 
     $startat = isset($_REQUEST['startat']) ? $_REQUEST['startat'] : 0;
     $startat = $startat + 0;

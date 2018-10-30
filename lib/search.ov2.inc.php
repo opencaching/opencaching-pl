@@ -10,7 +10,7 @@ global $content, $bUseZip, $hide_coords, $usr, $dbcSearch;
 
 set_time_limit(1800);
 
-require_once ('lib/calculation.inc.php');
+require_once (__DIR__.'/../lib/calculation.inc.php');
 
 $cacheTypeText[1] = 'Unknown Cache';
 $cacheTypeText[2] = 'Traditional Cache';

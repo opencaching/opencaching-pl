@@ -10,7 +10,7 @@ global $content, $usr, $hide_coords, $lang, $dbcSearch;
 
 set_time_limit(1800);
 
-require_once ('lib/calculation.inc.php');
+require_once (__DIR__.'/../lib/calculation.inc.php');
 
 
 if ($usr || !$hide_coords) {

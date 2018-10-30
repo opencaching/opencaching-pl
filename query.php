@@ -4,8 +4,8 @@ use Utils\Database\XDb;
 use Utils\Database\OcDb;
 use Utils\Generators\Uuid;
 
-require('./lib/common.inc.php');
-require($stylepath . '/query.inc.php');
+require(__DIR__.'/lib/common.inc.php');
+require(__DIR__.'/tpl/stdstyle/query.inc.php');
 
 if ($error == false) {
     $action = isset($_REQUEST['action']) ? $_REQUEST['action'] : 'view';

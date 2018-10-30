@@ -3,13 +3,11 @@
 
 function icon_log_type($icon_small, $text)
 {
-    global $stylepath;
-    return "<img src='$stylepath/images/$icon_small' class='icon16' alt='$text' title='$text'>";
+    return "<img src='/tpl/stdstyle/images/$icon_small' class='icon16' alt='$text' title='$text'>";
 }
 
 function icon_cache_status($status, $text)
 {
-    global $stylepath;
     switch ($status) {
         case 1: $icon = "log/16x16-go.png";
             break;
@@ -27,13 +25,12 @@ function icon_cache_status($status, $text)
         default: $icon = "log/16x16-go.png";
             break;
     }
-    return "<img src='$stylepath/images/$icon' class='icon16' alt='$text' title='$text'>";
+    return "<img src='/tpl/stdstyle/images/$icon' class='icon16' alt='$text' title='$text'>";
 }
 
 
 function icon_rating($founds, $topratings)
 {
-    global $stylepath;
     global $rating_text;
     global $not_rated;
 
@@ -67,11 +64,10 @@ function icon_geopath_small($ptID, $ptImg, $ptName, $ptType, $pt_cache_intro_tr,
       $pt_cache_intro_tr =  translated tooltip into ("This cache belongs to..")
       $pt_icon_title_tr = translate attr. for icon ALT and NAME
      */
-    global $stylepath;
     $poweTrailMarkers = powerTrailBase::getPowerTrailTypes();
 
     if ($ptImg == '')
-        $ptImg = $stylepath . '/images/blue/powerTrailGenericLogo.png';
+        $ptImg = '/tpl/stdstyle/images/blue/powerTrailGenericLogo.png';
     // for testing use: $ptImg = 'ocpl-dynamic-files/images/uploads/powerTrailLogoId13.png';
     $PT_tip = $pt_cache_intro_tr . '<BR>';
     $PT_tip.='<table width=\'99%\'>';
@@ -107,13 +103,12 @@ function getPtIconByType($ptType){
 
 //function icon_rating($founds, $topratings)
 //{
-//  global $stylepath;
 //  global $rating_text;
 //  global $not_rated;
 //
 //  if ($founds < 3)
 //  {
-//      $icon = sprintf("$stylepath/images/rating/rat-%d.gif", 0);
+//      $icon = sprintf("/tpl/stdstyle/images/rating/rat-%d.gif", 0);
 //      $text = $not_rated;
 //  }
 //  else
@@ -121,7 +116,7 @@ function getPtIconByType($ptType){
 //      $rating = round($topratings/$founds*100, 0);
 //      $ratpic = ceil($topratings/$founds*5);
 //
-//      $icon = sprintf("$stylepath/images/rating/rat-%d.gif", $ratpic);
+//      $icon = sprintf("/tpl/stdstyle/images/rating/rat-%d.gif", $ratpic);
 //      $text = mb_ereg_replace('{rating}', $rating, $rating_text);
 //  }
 //

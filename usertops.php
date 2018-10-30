@@ -3,8 +3,8 @@
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
 
-require('./lib/common.inc.php');
-require($stylepath . '/usertops.inc.php');
+require (__DIR__.'/lib/common.inc.php');
+require (__DIR__.'/tpl/stdstyle/usertops.inc.php');
 
 if ($error == false) {
     $userid = isset($_REQUEST['userid']) ? $_REQUEST['userid'] + 0 : 0;

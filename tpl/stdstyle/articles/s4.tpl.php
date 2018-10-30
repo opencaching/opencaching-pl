@@ -1,7 +1,5 @@
 <?php
 use Utils\Database\XDb;
-
-    require_once('./lib/common.inc.php');
 ?>
 
 <div class="content2-container">

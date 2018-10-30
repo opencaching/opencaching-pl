@@ -114,14 +114,14 @@ function assignUserToCase($userid, $cacheid)
 function notifyOwner($cacheid, $msgType)
 {
     // msgType - 0 = cache accepted, 1 = cache declined (=archived)
-    global $stylepath, $usr, $octeam_email, $site_name, $absolute_server_URI, $octeamEmailsSignature, $oc_nodeid;
+    global $usr, $octeam_email, $site_name, $absolute_server_URI, $octeamEmailsSignature, $oc_nodeid;
     $user_id = getCacheOwnerId($cacheid);
 
     $cachename = getCachename($cacheid);
     if ($msgType == 0) {
-        $email_content = file_get_contents($stylepath . '/email/activated_cache.email');
+        $email_content = file_get_contents('./tpl/stdstyle/email/activated_cache.email');
     } else {
-        $email_content = file_get_contents($stylepath . '/email/archived_cache.email');
+        $email_content = file_get_contents('./tpl/stdstyle/email/archived_cache.email');
     }
     $email_headers = "Content-Type: text/plain; charset=utf-8\r\n";
     $email_headers .= "From: $site_name <$octeam_email>\r\n";
@@ -176,8 +176,8 @@ function notifyOwner($cacheid, $msgType)
     }
 }
 
-//prepare the templates and include all neccessary
-require_once('./lib/common.inc.php');
+require_once (__DIR__.'/lib/common.inc.php');
+
 $tplname = 'viewpendings';
 $content = '';
 // tylko dla członków COG

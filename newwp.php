@@ -1,8 +1,9 @@
 <?php
 
 use Utils\Database\XDb;
-//prepare the templates and include all neccessary
-require_once('./lib/common.inc.php');
+
+require_once (__DIR__.'/lib/common.inc.php');
+
 $no_tpl_build = false;
 //Preprocessing
 if ($error == false) {
@@ -66,8 +67,9 @@ if ($error == false) {
             if ($cache_record['user_id'] == $usr['userid'] || $usr['admin']) {
                 $tplname = 'newwp';
 
-                require_once('./lib/caches.inc.php');
-                require_once($stylepath . '/newcache.inc.php');
+                require_once(__DIR__.'/lib/caches.inc.php');
+                require_once(__DIR__.'/tpl/stdstyle/newcache.inc.php');
+
                 //set template replacements
                 tpl_set_var('lon_message', '');
                 tpl_set_var('lat_message', '');

@@ -4,7 +4,7 @@ use Utils\View\View;
 use Utils\Uri\Uri;
 
 
-require_once('./lib/common.inc.php');
+require_once(__DIR__.'/lib/common.inc.php');
 
 set_tpl_subtitle('Geocache Difficulty Rating System');
 

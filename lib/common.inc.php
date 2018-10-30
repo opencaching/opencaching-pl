@@ -16,7 +16,6 @@ require_once(__DIR__.'/settingsGlue.inc.php');
 // now if common.inc.php is not loaded in global context settings are not accessible
 $GLOBALS['config'] = $config;
 $GLOBALS['lang'] = $lang;
-$GLOBALS['style'] = $style;
 $GLOBALS['site_name'] = $site_name;
 $GLOBALS['contact_mail'] = $contact_mail;
 $GLOBALS['pagetitle'] = $pagetitle;
@@ -50,15 +49,6 @@ if (php_sapi_name() != "cli") { // this is not neccesarry for command-line scrip
 
 function initTemplateSystem(){
 
-    global $style;
-
-    // set up the style path
-    // TODO: in fact we have only one style: stdstyle
-    // so we can drop it in future
-    if (!isset($GLOBALS['stylepath'])){
-        $GLOBALS['stylepath'] = __DIR__.'/../tpl/'.$style;
-    }
-
     // create global view variable (used in templates)
     // TODO: it should be moved to context..
     $GLOBALS['view'] = new View();
@@ -81,7 +71,6 @@ function initTemplateSystem(){
 
     tpl_set_var('title', htmlspecialchars($GLOBALS['pagetitle'], ENT_COMPAT, 'UTF-8'));
     tpl_set_var('lang', $GLOBALS['lang']);
-    tpl_set_var('style', $GLOBALS['style']);
     tpl_set_var('bodyMod', '');
     tpl_set_var('cachemap_header', '');
     tpl_set_var('htmlheaders', '');

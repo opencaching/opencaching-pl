@@ -22,8 +22,8 @@
 
 ob_start();
 
-require_once ("./lib/cs2cs.inc.php");
-require_once ('./lib/calculation.inc.php');
+require_once (__DIR__."/../lib/cs2cs.inc.php");
+require_once (__DIR__.'/../lib/calculation.inc.php');
 
 set_time_limit(1800);
 global $content, $bUseZip, $hide_coords, $usr, $dbcSearch;

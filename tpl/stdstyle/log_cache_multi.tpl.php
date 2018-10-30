@@ -1,7 +1,5 @@
 <?php
 
-require_once('./lib/common.inc.php');
-
 function get_icon_for_status($status)
 {
     $typyStatusow = get_log_types_from_database();

@@ -14,10 +14,6 @@ $config['ocNode'] = 'pl';
 if (!isset($lang))
     $lang = 'pl';
 
-//default used style
-if (!isset($style))
-    $style = 'stdstyle';
-
 //pagetitle
 if (!isset($pagetitle))
     $pagetitle = 'Geocaching Opencaching Polska';

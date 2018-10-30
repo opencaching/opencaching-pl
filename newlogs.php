@@ -5,13 +5,12 @@ use lib\Objects\GeoCache\GeoCacheLog;
 
 global $dateFormat;
 
-//include template handling
-require_once ('./lib/common.inc.php');
-require_once ($stylepath . '/lib/icons.inc.php');
+require_once (__DIR__.'/lib/common.inc.php');
+require_once (__DIR__.'/tpl/stdstyle/lib/icons.inc.php');
 
 //get the news
 $tplname = 'newlogs';
-require ($stylepath . '/newlogs.inc.php');
+require (__DIR__.'/tpl/stdstyle/newlogs.inc.php');
 $LOGS_PER_PAGE = 50;
 $PAGES_LISTED = 10;
 

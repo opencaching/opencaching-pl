@@ -10,7 +10,7 @@ use okapi\Facade;
 use Utils\EventHandler\EventHandler;
 
 //prepare the templates and include all neccessary
-require_once('./lib/common.inc.php');
+require_once(__DIR__.'/lib/common.inc.php');
 global $usr, $config;
 
 //Preprocessing
@@ -39,9 +39,9 @@ if ($error == false) {
         $log_record = XDb::xFetchArray($log_rs);
         if ($log_record) {
 
-            require($stylepath . '/editlog.inc.php');
-            require_once('./lib/caches.inc.php');
-            require($stylepath . '/rating.inc.php');
+            require(__DIR__.'/tpl/stdstyle/editlog.inc.php');
+            require_once(__DIR__.'/lib/caches.inc.php');
+            require(__DIR__.'/tpl/stdstyle/rating.inc.php');
 
             if ($log_record['node'] != $oc_nodeid) {
                 tpl_errorMsg('editlog', $error_wrong_node);

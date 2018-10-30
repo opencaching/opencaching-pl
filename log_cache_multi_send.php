@@ -1,6 +1,6 @@
 <?php
 
-require_once('./lib/common.inc.php');
+require_once (__DIR__.'/lib/common.inc.php');
 
 $no_tpl_build = false;
 if ($usr == false) {

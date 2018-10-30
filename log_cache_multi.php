@@ -91,14 +91,13 @@ if (isset($_POST['submitDownloadGpx'])) {
     }
 }
 
-// //
-require_once('./lib/common.inc.php');
+require_once (__DIR__.'/lib/common.inc.php');
 
 $no_tpl_build = false;
 if ($usr == false || (!isset($_FILES['userfile']) && !isset($_SESSION['log_cache_multi_data']))) {
     tpl_redirect('log_cache_multi_send.php');
 } else {
-    require_once('./lib/caches.inc.php');
+    require_once(__DIR__.'/lib/caches.inc.php');
 
     $tplname = 'log_cache_multi';
     $myHtml = "";

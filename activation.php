@@ -5,7 +5,7 @@
 use Utils\Uri\SimpleRouter;
 use Utils\Database\OcDb;
 
-require_once('./lib/common.inc.php');
+require_once(__DIR__.'/lib/common.inc.php');
 
 $uuid = (isset($_REQUEST['user'])) ? $_REQUEST['user'] : null;
 $code = (isset($_REQUEST['code'])) ? $_REQUEST['code'] : null;

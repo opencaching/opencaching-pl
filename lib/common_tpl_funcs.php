@@ -150,7 +150,7 @@ function set_tpl_subtitle($title)
 function tpl_BuildTemplate($minitpl = false, $noCommonTemplate=false)
 {
     //template handling vars
-    global $stylepath, $tplname, $vars, $lang, $config, $usr;
+    global $tplname, $vars, $lang, $config, $usr;
 
     // object
     /** @var View $view */
@@ -164,15 +164,15 @@ function tpl_BuildTemplate($minitpl = false, $noCommonTemplate=false)
 
     //load main template
     if ($minitpl){
-        $sCode = file_get_contents($stylepath . '/common/mini.tpl.php');
+        $sCode = file_get_contents(__DIR__.'/../tpl/stdstyle/common/mini.tpl.php');
     }else if ($noCommonTemplate){
         $sCode = '{template}';
     }else if (isset($_REQUEST['print']) && $_REQUEST['print'] == 'y'){
-        $sCode = file_get_contents($stylepath . '/common/main_print.tpl.php');
+        $sCode = file_get_contents(__DIR__.'/../tpl/stdstyle/common/main_print.tpl.php');
     }else if (isset($_REQUEST['popup']) && $_REQUEST['popup'] == 'y'){
-        $sCode = file_get_contents($stylepath . '/common/popup.tpl.php');
+        $sCode = file_get_contents(__DIR__.'/../tpl/stdstyle/common/popup.tpl.php');
     }else {
-        $sCode = file_get_contents($stylepath . '/common/main.tpl.php');
+        $sCode = file_get_contents(__DIR__.'/../tpl/stdstyle/common/main.tpl.php');
     }
 
     //global css files:
@@ -181,7 +181,7 @@ function tpl_BuildTemplate($minitpl = false, $noCommonTemplate=false)
     $view->setVar('backgroundSeason', $view->getSeasonCssName());
 
     //does template exist?
-    if (!file_exists($stylepath . '/' . $tplname . '.tpl.php')) {
+    if (!file_exists(__DIR__.'/../tpl/stdstyle/' . $tplname . '.tpl.php')) {
         //set up the error template
         $error = true;
         tpl_set_var('error_msg', "Page not found");
@@ -190,7 +190,7 @@ function tpl_BuildTemplate($minitpl = false, $noCommonTemplate=false)
     }
 
     //read the template
-    $sTemplate = file_get_contents($stylepath . '/' . $tplname . '.tpl.php');
+    $sTemplate = file_get_contents(__DIR__.'/../tpl/stdstyle/' . $tplname . '.tpl.php');
     $sCode = mb_ereg_replace('{template}', $sTemplate, $sCode);
 
 

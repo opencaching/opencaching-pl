@@ -129,7 +129,7 @@ else
                 <td align="right">
 
                     <?php
-                        include("tpl/stdstyle/articles/userfilter.php");
+                        include(__DIR__."/userfilter.php");
                     ?>
 
                 </td>
@@ -141,14 +141,14 @@ else
         <br>
 
         <?php
-            include("tpl/stdstyle/articles/mypositionandcharts.php");
+            include(__DIR__."/mypositionandcharts.php");
         ?>
 
         <br>
 
     </div> <!-- End of GCT-div -->
 
-    <?php include ("t102.php"); ?>
+    <?php include (__DIR__."/../../../lib/t102.php"); ?>
 
 
 </div>

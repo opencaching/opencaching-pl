@@ -2,7 +2,7 @@
 
 // logbook generator...
 
-require_once('./lib/common.inc.php');
+require_once (__DIR__.'/lib/common.inc.php');
 
 //user logged in?
 if ($usr == false) {

@@ -4,7 +4,7 @@
 use lib\Controllers\MeritBadgeController;
 use Controllers\ViewBadgeHeadController;
 
-require_once('./lib/common.inc.php');
+require_once(__DIR__.'/lib/common.inc.php');
 
 
 global $content_table, $config, $dateFormat;
@@ -28,7 +28,7 @@ $meritBadgeCtrl = new \lib\Controllers\MeritBadgeController;
 $head= (new ViewBadgeHeadController())->index();
 
 $tplname = 'badge_positions_list';
-   
+
 
 $content = "";
 
@@ -39,28 +39,28 @@ foreach( $positionsMeritBadge as $onePositionBadge ){
 
     $cacheName = str_replace("'", "-", $onePositionBadge->getName());
     $cacheName = str_replace("\"", " ", $cacheName);
-    
+
     $cacheNameRef = '<a href="viewcache.php?cacheid={cacheId}">{cacheName}<a>';
     $cacheNameRef = str_replace('{cacheId}', $onePositionBadge->getId(), $cacheNameRef );
     $cacheNameRef = str_replace('{cacheName}', $cacheName, $cacheNameRef );
-    
+
     $ownId = $onePositionBadge->getOwnerId();
-    
+
     $userName = str_replace("'", "-", $onePositionBadge->getOwnerName());
     $userName = str_replace("\"", " ", $userName);
-    
+
     $userNameRef = '<a href="viewprofile.php?userid={userId}">{userName}<a>';
     $userNameRef = str_replace('{userId}', $ownId, $userNameRef );
     $userNameRef = str_replace('{userName}', $userName, $userNameRef );
-    
+
     $typeIcon ='<img src="{src}" />';
-    $typeIcon = str_replace( "{src}", 
-            $cacheTypesIcons[$onePositionBadge->getType()]['iconSet'][1]['iconSmallFound'], 
+    $typeIcon = str_replace( "{src}",
+            $cacheTypesIcons[$onePositionBadge->getType()]['iconSet'][1]['iconSmallFound'],
             $typeIcon );
-    
+
     $date = date($dateFormat, strtotime($onePositionBadge->getGainDate()));
     $dateSort = date("y.m.d", strtotime($onePositionBadge->getGainDate()));
-    
+
     $content .=  "
     gct.addEmptyRow();
     gct.addToLastRow( 0, '$typeIcon' );

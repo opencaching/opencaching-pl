@@ -49,8 +49,7 @@ class ViewBadgeShowPositionsController extends BaseController{
     }
 
     private function prepareCode(){
-        global $stylepath;
-        $this->sCode = file_get_contents($stylepath . '/badge_show_positions.tpl.php');
+        $this->sCode = file_get_contents(__DIR__.'/../tpl/stdstyle/badge_show_positions.tpl.php');
         $this->sCode = tpl_do_translate($this->sCode);
     }
 

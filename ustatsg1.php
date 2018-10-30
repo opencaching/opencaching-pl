@@ -3,7 +3,7 @@
 use Utils\Database\XDb;
 use Utils\View\View;
 
-require_once('./lib/common.inc.php');
+require_once (__DIR__.'/lib/common.inc.php');
 
 //user logged in?
 if ($usr == false) {

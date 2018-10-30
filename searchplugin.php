@@ -2,9 +2,10 @@
 
 use Utils\Database\XDb;
 use Utils\Text\TextConverter;
-//prepare the templates and include all neccessary
-require_once('./lib/common.inc.php');
-require($stylepath . '/searchplugin.inc.php');
+
+require_once(__DIR__.'/lib/common.inc.php');
+require(__DIR__.'/tpl/stdstyle/searchplugin.inc.php');
+
 $ocWP = strtolower($GLOBALS['oc_waypoint']);
 // initialize
 $keyword_name = 'name';

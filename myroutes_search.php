@@ -7,13 +7,14 @@ use okapi\Facade;
 use okapi\core\Exception\BadRequest;
 use lib\Objects\GeoCache\CacheNote;
 
-require_once('./lib/common.inc.php');
-require_once('./lib/export.inc.php');
-require_once('./lib/format.gpx.inc.php');
-require_once('./lib/calculation.inc.php');
-require_once('./lib/cache_icon.inc.php');
-require_once('./lib/caches.inc.php');
-require_once($stylepath . '/lib/icons.inc.php');
+require_once (__DIR__.'/lib/common.inc.php');
+require_once (__DIR__.'/lib/export.inc.php');
+require_once (__DIR__.'/lib/format.gpx.inc.php');
+require_once (__DIR__.'/lib/calculation.inc.php');
+require_once (__DIR__.'/lib/cache_icon.inc.php');
+require_once (__DIR__.'/lib/caches.inc.php');
+require_once (__DIR__.'/tpl/stdstyle/lib/icons.inc.php');
+
 global $content, $bUseZip, $usr, $config;
 global $default_lang, $cache_attrib_jsarray_line, $cache_attrib_img_line;
 global $lang, $dateFormat, $googlemap_key;
@@ -806,7 +807,7 @@ if (isset($_POST['submit_gpx'])) {
     $bUseZip = false;
     if ($bUseZip == true) {
         $content = '';
-        require_once('./lib/phpzip/ss_zip.class.php');
+        require_once(__DIR__.'/lib/phpzip/ss_zip.class.php');
         $phpzip = new ss_zip('', 6);
     }
 

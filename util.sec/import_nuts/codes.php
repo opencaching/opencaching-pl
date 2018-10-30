@@ -2,7 +2,7 @@
 
 use Utils\Database\XDb;
 
-require('../../lib/common.inc.php');
+require(__DIR__.'/../../lib/common.inc.php');
 
 $NUTS_AT_CSV_FILE = $argv[1];
 

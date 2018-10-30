@@ -2,9 +2,6 @@
 <div style="line-height: 1.8em; font-size: 13px;">
 
     <?php
-//prepare the templates and include all neccessary
-    require_once('./lib/common.inc.php');
-
     if ($usr['admin']) {
         echo '<br/><img src="graphs/COGstat.php" alt="" title="" align="middle" /><br/><br/>';
     }

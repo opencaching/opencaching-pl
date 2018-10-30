@@ -31,9 +31,9 @@ use Utils\View\View;
 global $lang, $usr;
 
 //prepare the templates and include all neccessary
-require_once './lib/common.inc.php';
-require_once './modules/openchecker/pagination_class.php';
-require_once './modules/openchecker/openchecker_classes.php';
+require_once (__DIR__.'/lib/common.inc.php');
+require_once (__DIR__.'/modules/openchecker/pagination_class.php');
+require_once (__DIR__.'/modules/openchecker/openchecker_classes.php');
 
 if ($usr == false) {
     // not logged in, go to login page

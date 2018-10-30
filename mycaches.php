@@ -7,9 +7,9 @@ use lib\Objects\GeoCache\GeoCacheLog;
 global $lang, $usr, $dateFormat;
 
 //include template handling
-require_once('./lib/common.inc.php');
-require_once('./lib/cache_icon.inc.php');
-require_once($stylepath . '/lib/icons.inc.php');
+require_once (__DIR__.'/lib/common.inc.php');
+require_once (__DIR__.'/lib/cache_icon.inc.php');
+require_once (__DIR__.'/tpl/stdstyle/lib/icons.inc.php');
 
 //Preprocessing
 if ($error == false) {
@@ -28,7 +28,7 @@ if ($error == false) {
         }
         //get the news
         $tplname = 'mycaches';
-        require($stylepath . '/newlogs.inc.php');
+        require(__DIR__.'/tpl/stdstyle/newlogs.inc.php');
 
         if (XDb::xContainsColumn('cache_status', $lang))
             $lang_db = $lang;

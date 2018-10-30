@@ -6,10 +6,9 @@ use lib\Objects\GeoCache\GeoCacheLog;
 global $lang, $usr, $dateFormat;
 
 //include template handling
-require_once('./lib/common.inc.php');
-require_once('./lib/cache_icon.inc.php');
+require_once (__DIR__.'/lib/common.inc.php');
+require_once (__DIR__.'/lib/cache_icon.inc.php');
 
-//  require_once($stylepath . '/lib/icons.inc.php');
 //Preprocessing
 if ($error == false) {
     //user logged in?
@@ -27,7 +26,7 @@ if ($error == false) {
 
         //get the news
         $tplname = 'mycaches_logs';
-        require($stylepath . '/newlogs.inc.php');
+        require(__DIR__.'/tpl/stdstyle/newlogs.inc.php');
 
         $user_record['username'] = XDb::xMultiVariableQueryValue(
             "SELECT  username FROM user WHERE user_id= :1 LIMIT 1", '-noname-', $user_id);

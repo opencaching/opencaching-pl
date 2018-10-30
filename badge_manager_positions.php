@@ -1,6 +1,6 @@
 <?php
 
-require_once('./lib/common.inc.php');
+require_once(__DIR__.'/lib/common.inc.php');
 
 if ($usr == false) {
     $target = urlencode(tpl_get_current_page());
@@ -24,8 +24,8 @@ if ( isset($_REQUEST['showNotGained']))
 
 if ( isset($_REQUEST['showGained']))
     $show .="Y";
-        
-    
+
+
 if ($sel_pos == "l" ) //list
     tpl_redirect("badge_positions_list.php?user_id=$userid&badge_id=$badge_id");
 

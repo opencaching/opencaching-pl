@@ -2,9 +2,9 @@
 
 use Utils\Database\XDb;
 
-global $googlemap_key;
+require_once (__DIR__.'/lib/common.inc.php');
 
-require_once ('./lib/common.inc.php');
+global $googlemap_key;
 
 //Preprocessing
 if ($error == false) {

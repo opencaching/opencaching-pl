@@ -4,8 +4,8 @@ use Utils\Database\XDb;
 use lib\Objects\GeoCache\GeoCache;
 use Utils\Generators\Uuid;
 use Utils\Text\UserInputFilter;
-//prepare the templates and include all neccessary
-require_once('./lib/common.inc.php');
+
+require_once (__DIR__.'/lib/common.inc.php');
 
 //Preprocessing
 if ($error == false) {

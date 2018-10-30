@@ -5,7 +5,7 @@ use lib\Objects\User\User;
 use Utils\Text\TextConverter;
 use lib\Objects\User\UserStats;
 
-require_once('./lib/common.inc.php');
+require_once (__DIR__.'/lib/common.inc.php');
 
 //Preprocessing
 if ($error == false) {
@@ -20,8 +20,8 @@ if ($error == false) {
         else
             tpl_set_var('reports', '');
 
-        require($stylepath . '/myhome.inc.php');
-        require($stylepath . '/lib/icons.inc.php');
+        require(__DIR__.'/tpl/stdstyle/myhome.inc.php');
+        require(__DIR__.'/tpl/stdstyle/lib/icons.inc.php');
 
         $tplname = 'myhome';
         tpl_set_var('username', htmlspecialchars($usr['username'], ENT_COMPAT, 'UTF-8'));

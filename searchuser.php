@@ -3,10 +3,9 @@
 use Utils\Database\OcDb;
 use Utils\Database\XDb;
 use Utils\Text\TextConverter;
-//prepare the templates and include all neccessary
-require_once('./lib/common.inc.php');
 
-//Preprocessing
+require_once(__DIR__.'/lib/common.inc.php');
+
 if ($error == false) {
     //user logged in?
     if ($usr == false) {

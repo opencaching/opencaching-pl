@@ -1,7 +1,5 @@
 <?php
 
-require_once('./lib/common.inc.php');
-
 $content_table = '
 
 <table class="Badge-div-table" width="770px">

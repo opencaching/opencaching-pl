@@ -1,7 +1,7 @@
 <?php
 
 use Utils\Database\OcDb;
-require_once __DIR__ . '/lib/ClassPathDictionary.php';
+require_once __DIR__.'/lib/ClassPathDictionary.php';
 
 $userId = (int) $_REQUEST['id'];
 $database = OcDb::instance();

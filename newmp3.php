@@ -3,8 +3,7 @@
 use Utils\Database\XDb;
 use Utils\Generators\Uuid;
 
-//prepare the templates and include all neccessary
-require_once('./lib/common.inc.php');
+require_once (__DIR__.'/lib/common.inc.php');
 
 //Preprocessing
 if ($error == false) {
@@ -17,7 +16,7 @@ if ($error == false) {
         $view = tpl_getView();
         $view->setVar('maxMp3Size', $maxmp3size);
 
-        require_once($stylepath . '/newmp3.inc.php');
+        require_once('./tpl/stdstyle/newmp3.inc.php');
 
         $objectid = isset($_REQUEST['objectid']) ? $_REQUEST['objectid'] : 0;
         $type = isset($_REQUEST['type']) ? $_REQUEST['type'] : -1;

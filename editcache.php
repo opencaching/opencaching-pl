@@ -8,7 +8,7 @@ use lib\Objects\Coordinates\Coordinates;
 use Utils\EventHandler\EventHandler;
 use lib\Objects\GeoCache\GeoCacheLog;
 
-require_once('./lib/common.inc.php');
+require_once(__DIR__.'/lib/common.inc.php');
 
 function build_drop_seq($item_row, $selected_seq, $max_drop, $thisid, $drop_type)
 {
@@ -77,8 +77,8 @@ if ($error == false) {
         if ($cache_record = $dbc->dbResultFetch($s)) {
 
             if ($cache_record['user_id'] == $usr['userid'] || $usr['admin']) {
-                require_once('./lib/caches.inc.php');
-                require($stylepath . '/editcache.inc.php');
+                require_once(__DIR__.'/lib/caches.inc.php');
+                require(__DIR__.'/tpl/stdstyle/editcache.inc.php');
                 //here we read all used information from the form if submitted, otherwise from DB
                 // wihout virtuals and webcams
                 if (isset($_POST['type'])) {

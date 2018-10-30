@@ -2,8 +2,7 @@
 
 use Utils\Database\OcDb;
 
-//prepare the templates and include all neccessary
-require_once('./lib/common.inc.php');
+require_once (__DIR__.'/lib/common.inc.php');
 
 //Preprocessing
 if ($error == false) {
@@ -13,7 +12,7 @@ if ($error == false) {
         tpl_redirect('login.php?target=' . $target);
     } else {
 
-        include($stylepath . '/myignores.inc.php');
+        include(__DIR__.'/tpl/stdstyle/myignores.inc.php');
         $tplname = 'myignores';
         tpl_set_var('title_text', $title_text);
 

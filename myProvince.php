@@ -6,10 +6,10 @@ use lib\Objects\Coordinates\NutsLocation;
 
 
 // include template handling
-require_once ('./lib/common.inc.php');
-require_once ('./lib/calculation.inc.php');
-require_once ('./lib/cache_icon.inc.php');
-require_once ('./lib/icons.inc.php');
+require_once (__DIR__.'/lib/common.inc.php');
+require_once (__DIR__.'/lib/calculation.inc.php');
+require_once (__DIR__.'/lib/cache_icon.inc.php');
+require_once (__DIR__.'/lib/icons.inc.php');
 
 
 // user logged in?

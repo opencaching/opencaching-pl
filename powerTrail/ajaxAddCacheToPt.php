@@ -294,7 +294,7 @@ function addCacheToCacheCandidate($cacheId, $ptId)
         "INSERT INTO `PowerTrail_cacheCandidate`(`PowerTrailId`, `cacheId`, `link`, `date`) VALUES (:1,:2,:3,NOW())",
         $ptId, $cacheId, $linkCode);
 
-    require_once 'sendEmailCacheCandidate.php';
+    require_once __DIR__.'/sendEmailCacheCandidate.php';
     emailCacheOwner($ptId, $cacheId, $linkCode);
     print 'cache added as cache candidate';
     exit;

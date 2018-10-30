@@ -17,25 +17,18 @@ use Utils\Uri\SimpleRouter;
 use Controllers\MainMapController;
 
 /**
- *  powerTrail.php
- *  ------------------------------------------------------------------------------------------------
  *  Power Trails in opencaching
  *  this is display file. for API check dir powerTrail
- *  ------------------------------------------------------------------------------------------------
- *  @author: Andrzej 'Łza' Woźniak [wloczynutka[on]gmail.com]
- *
- *
- *
  */
-// variables required by opencaching.pl
+
 global $lang, $usr, $absolute_server_URI;
 
-//prepare the templates and include all neccessary
-require_once('lib/common.inc.php');
+require_once (__DIR__.'/lib/common.inc.php');
+
 $ocConfig = OcConfig::instance();
 $appContainer = ApplicationContainer::Instance();
 
-require_once('lib/cache.php');
+require_once(__DIR__.'/lib/cache.php');
 
 $_SESSION['powerTrail']['userFounds'] = $usr['userFounds'];
 

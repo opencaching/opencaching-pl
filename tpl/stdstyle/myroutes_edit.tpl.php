@@ -2,8 +2,7 @@
 use Utils\Database\XDb;
 use Utils\Uri\Uri;
 
-require_once('./lib/common.inc.php');
-require_once('./lib/class.polylineEncoder.php');
+require_once(__DIR__.'/../../lib/class.polylineEncoder.php');
 
 $route_id = $_REQUEST['routeid'];
 

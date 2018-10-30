@@ -1,7 +1,7 @@
 <?php
 use Controllers\UserWatchedCachesController;
 
-require_once ('./lib/common.inc.php');
+require_once (__DIR__.'/lib/common.inc.php');
 
 $ctrl = new UserWatchedCachesController();
 

@@ -5,7 +5,7 @@
  * settings.inc.php file (e.g. $config['debugDB'] = true;).
  */
 
-require_once __dir__ . '/cache.php';
+require_once (__DIR__.'/cache.php');
 
 // default site name
 $site_name = 'OpenCaching.???';
