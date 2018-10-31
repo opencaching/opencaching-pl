@@ -1,5 +1,7 @@
 <?php
 
+namespace Libs\PolylineEncoder;
+
 /**
  * PolylineEncoder based on Mark McClure's Javascript PolylineEncoder
  * and Jim Hribar's PHP version. All nicely melted into a proper PHP5 class.
@@ -182,5 +184,3 @@ class PolylineEncoder
     }
 
 }
-
-?>

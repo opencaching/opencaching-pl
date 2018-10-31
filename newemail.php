@@ -18,7 +18,7 @@ if ($error == false) {
         $tplname = 'newemail';
 
         //load language specific variables
-        require_once('./tpl/stdstyle/' . $tplname . '.inc.php');
+        require_once(__DIR__.'/tpl/stdstyle/' . $tplname . '.inc.php');
 
         tpl_set_var('new_email', '');
         tpl_set_var('message', '');

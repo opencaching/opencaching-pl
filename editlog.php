@@ -136,7 +136,7 @@ if ($error == false) {
                 }
 
                 // check input
-                require_once('./lib/class.inputfilter.php');
+                require_once(__DIR__.'/lib/class.inputfilter.php');
                 $myFilter = new InputFilter($allowedtags, $allowedattr, 0, 0, 1);
                 $log_text = $myFilter->process($log_text);
 
