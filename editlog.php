@@ -8,6 +8,7 @@ use lib\Controllers\LogEntryController;
 use lib\Controllers\MeritBadgeController;
 use okapi\Facade;
 use Utils\EventHandler\EventHandler;
+use Utils\Text\InputFilter;
 
 //prepare the templates and include all neccessary
 require_once(__DIR__.'/lib/common.inc.php');
@@ -136,10 +137,7 @@ if ($error == false) {
                 }
 
                 // check input
-                require_once(__DIR__.'/lib/class.inputfilter.php');
-                $myFilter = new InputFilter($allowedtags, $allowedattr, 0, 0, 1);
-                $log_text = $myFilter->process($log_text);
-
+                $log_text = InputFilter::cleanupUserInput($log_text);
 
                 //validate date
                 $date_not_ok = true;

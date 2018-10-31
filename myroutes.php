@@ -1,6 +1,7 @@
 <?php
 
 use Utils\Database\XDb;
+use Utils\Text\InputFilter;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
@@ -28,9 +29,7 @@ if ($error == false) {
             do{
                 $desc = $routes_record['desc'];
                 if ($desc != '') {
-                    require_once(__DIR__.'/lib/class.inputfilter.php');
-                    $myFilter = new InputFilter($allowedtags, $allowedattr, 0, 0, 1);
-                    $desc = $myFilter->process($desc);
+                    $desc = InputFilter::cleanupUserInput($desc);
                 }
                 $routes .= '<div class="listitems">';
                 $routes .= '<table border="0" class="myr"><tr><td style="margin-left:3px;width:75px;" class="myr">' . $routes_record['name'] . '</td><td width="2" style="border-right:solid thin #7fa2ca"></td>
