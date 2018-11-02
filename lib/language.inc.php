@@ -13,17 +13,16 @@ $language = array();
 function initTranslations()
 {
     global $lang, $language;
-    $result = false;
 
     //language changed?
-    if(isset($_REQUEST['lang'])){
+    if (isset($_REQUEST['lang'])) {
         $lang = $_REQUEST['lang'];
     } else {
         $lang = OcCookie::getOrDefault('lang', $lang);
     }
 
     //check if $lang is supported by site
-    if(!I18n::isTranslationSupported($lang)){
+    if (!I18n::isTranslationSupported($lang)) {
         // requested language is not supported - display error...
         tpl_set_tplname('error/langNotSupported');
         header("HTTP/1.0 404 Not Found");
@@ -50,7 +49,7 @@ function load_language_file($lang)
 {
     global $language;
     $languageFilename = __DIR__ . "/languages/" . $lang.'.php';
-    if(!file_exists($languageFilename)){
+    if (!file_exists($languageFilename)) {
         return false;
     }
     include ($languageFilename);
@@ -66,7 +65,8 @@ function postProcessTr(&$ref)
         return $ref;
 }
 
-function getFailoverTranslation($str) {
+function getFailoverTranslation($str)
+{
     global $language;
     $result = null;
     if (!isset($language[FAILOVER_LANGUAGE])) {
@@ -81,7 +81,8 @@ function getFailoverTranslation($str) {
     return $result;
 }
 
-function getTranslation($str, $lang) {
+function getTranslation($str, $lang)
+{
     global $language;
     $result = null;
 
@@ -100,15 +101,15 @@ function getTranslation($str, $lang) {
  * Return tranlated string
  *
  * @param string $str - translation key
- * @param array $args - arguments to insert into string (see vsprinf for details)
+ * @param array $args - arguments to insert into string (see vsprintf for details)
  * @return string - localized string
  */
 function tr($str, array $args = null)
 {
     global $language, $lang;
-    if(is_null($args)){
+    if (is_null($args)) {
         return getTranslation($str, $lang);
-    }else{
+    } else {
         return vsprintf(getTranslation($str, $lang), $args);
     }
 }
@@ -125,7 +126,8 @@ function tr2($str, $lang)
 }
 
 // returns true if given traslation is available
-function tr_available($str){
+function tr_available($str)
+{
 
     global $language, $lang;
 
