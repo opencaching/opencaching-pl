@@ -96,8 +96,7 @@ if ($usr == false) {
     if ((date('m') == 4) and ( date('d') == 1)) {
         tpl_set_var('username', tr('primaAprilis1'));
     }
-    tpl_set_var('registered', TextConverter::fixPlMonth(strftime(
-        $GLOBALS['config']['dateformat'], strtotime($user->getDateCreated()))));
+    tpl_set_var('registered', Formatter::date($user->getDateCreated()));
 
     $description = $user->getDescription();
 
