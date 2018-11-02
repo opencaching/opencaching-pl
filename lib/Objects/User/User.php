@@ -498,7 +498,7 @@ class User extends UserCommons
 
     public function hasNewsPublisherRole()
     {
-        return self::hasRole(self::ROLE_NEWS_PUBLISHER);
+        return self::hasRole(self::ROLE_NEWS_PUBLISHER) || self::hasRole(self::ROLE_OC_TEAM);
     }
 
     public function hasSysAdminRole()
