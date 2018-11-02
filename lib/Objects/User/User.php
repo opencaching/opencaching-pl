@@ -47,7 +47,9 @@ class User extends UserCommons
     /** @var $geocachesBlocked \ArrayObject() */
     private $geocachesBlocked = null;
 
+    /** @var \DateTime */
     private $dateCreated;
+
     private $description;
 
     /** @var \DateTime */
@@ -76,7 +78,7 @@ class User extends UserCommons
     private $activationCode;
 
     const COMMON_COLLUMNS = "user_id, username, founds_count, notfounds_count,
-                       hidden_count, latitude, longitude,
+                       log_notes_count, hidden_count, latitude, longitude,
                        email, role, guru, verify_all, rules_confirmed,
                        notify_radius, watchmail_mode, watchmail_day,
                        watchmail_hour, notify_caches, notify_logs,
@@ -300,7 +302,7 @@ class User extends UserCommons
                     $this->isGuide = boolval($value);
                     break;
                 case 'log_notes_count':
-                    $this->logNotesCount = $value;
+                    $this->logNotesCount = (int) $value;
                     break;
                 case 'verify_all':
                     $this->verifyAll = boolval($value);
@@ -312,7 +314,7 @@ class User extends UserCommons
                     $this->rulesConfirmed = boolval($value);
                     break;
                 case 'date_created':
-                    $this->dateCreated = $value;
+                    $this->dateCreated = new \DateTime($value);
                     break;
                 case 'description':
                     $this->description = $value;
@@ -706,6 +708,9 @@ class User extends UserCommons
         return $this->logNotesCount;
     }
 
+    /**
+     * @return \DateTime
+     */
     public function getDateCreated()
     {
         return $this->dateCreated;
