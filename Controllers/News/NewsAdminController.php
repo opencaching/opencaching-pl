@@ -106,7 +106,7 @@ class NewsAdminController extends BaseController
 
     private function checkUserIsAdmin()
     {
-        if (! $this->isUserLogged() || ! $this->loggedUser->hasOcTeamRole()) {
+        if (! $this->isUserLogged() || ! $this->loggedUser->hasNewsPublisherRole()) {
             $this->view->redirect('/');
             exit();
         }
