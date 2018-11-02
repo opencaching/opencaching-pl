@@ -511,11 +511,6 @@ class User extends UserCommons
         return in_array(self::getRoleName($roleId), explode(',', $this->role));
     }
 
-    public function getIsGuide()
-    {
-        return $this->isGuide;
-    }
-
     public function isGuide()
     {
         return $this->isGuide;
