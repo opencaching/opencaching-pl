@@ -2789,6 +2789,7 @@ $translations = array(
     'startPage_latestTitledCaches' => 'Latest awarded geocaches',
     'startPage_validAt' => 'Valid at',
 
+    'userRecommendations' => 'Recommended by %s',
     'myRecommendations' => 'My recommendations',
     'myRecommendations_status' => 'Status',
     'myRecommendations_cacheName' => 'Geocache',

@@ -2,7 +2,7 @@
 <div class="content2-container">
 
     <div class="content2-pagetitle">
-      <?=tr('my_recommendations')?>
+      <?=$view->pageTitle?>
     </div>
 
     <?php if($view->rowCount > 0) { ?>

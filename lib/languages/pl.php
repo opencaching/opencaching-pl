@@ -2792,6 +2792,7 @@ $translations = array(
     'startPage_latestTitledCaches' => 'Ostatnio wyróżnione',
     'startPage_validAt' => 'Aktualność',
 
+    'userRecommendations' => 'Rekomendowane przez %s',
     'myRecommendations' => 'Moje rekomendacje',
     'myRecommendations_status' => 'Status',
     'myRecommendations_cacheName' => 'Skrzynka',

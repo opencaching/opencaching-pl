@@ -14,6 +14,7 @@ use lib\Objects\ChunkModels\ListOfCaches\ListOfCachesModel;
 use lib\Objects\ChunkModels\PaginationModel;
 use lib\Objects\GeoCache\CacheRecommendation;
 use lib\Objects\GeoCache\MultiLogStats;
+use lib\Objects\User\User;
 use Utils\Uri\Uri;
 
 class MyRecommendationsController extends BaseController
@@ -28,9 +29,11 @@ class MyRecommendationsController extends BaseController
         return true;
     }
 
-    public function index()
-    {
+    public function index () {
+        $this->recommendations();
+    }
 
+    public function recommendations($userId = null) {
         if(!$this->isUserLogged()){
             $this->redirectToLoginPage();
             exit;
@@ -52,7 +55,30 @@ class MyRecommendationsController extends BaseController
         $this->view->addLocalJs(
             Uri::getLinkWithModificationTime('/tpl/stdstyle/js/lightPopup/lightPopup.js'));
 
+        if ($userId == null || $userId == $this->loggedUser->getUserId()) {
+            $this->myRecommendations();
+        } else {
+            $this->userRecommendations($userId);
+        }
+    }
 
+    private function userRecommendations($userId) {
+        if (is_null($user = User::fromUserIdFactory($userId))) {
+            $this->displayCommonErrorPageAndExit('no such user');
+        }
+        $this->view->setVar('pageTitle', tr('userRecommendations', [$user->getUserName()]));
+        $this->recommendationsTable($userId, false);
+    }
+
+    private function myRecommendations()
+    {
+        $this->view->setVar('pageTitle', tr('my_recommendations'));
+        $this->recommendationsTable($this->loggedUser->getUserId(), true);
+    }
+
+    private function recommendationsTable($userId, $isRemovingAllowed)
+    {
+        $this->view->setVar('pageTitle', tr('my_recommendations'));
 
         $rowCount = CacheRecommendation::getCountOfUserRecommendations($this->loggedUser->getUserId());
         $this->view->setVar('rowCount', $rowCount);
@@ -86,15 +112,17 @@ class MyRecommendationsController extends BaseController
                     ];
                 }));
 
-            $model->addColumn(new Column_OnClickActionIcon(tr('myRecommendations_actionRemove'),
-                function($row) {
-                    return [
-                        'icon' => '/tpl/stdstyle/images/log/16x16-trash.png',
-                        'onClick' => "removeRecommendation(this, {$row['cache_id']})",
-                        'title' => tr('myRecommendations_removeRecommendation')
-                    ];
-                }
-            ));
+            if ($isRemovingAllowed) {
+                $model->addColumn(new Column_OnClickActionIcon(tr('myRecommendations_actionRemove'),
+                    function ($row) {
+                        return [
+                            'icon' => '/tpl/stdstyle/images/log/16x16-trash.png',
+                            'onClick' => "removeRecommendation(this, {$row['cache_id']})",
+                            'title' => tr('myRecommendations_removeRecommendation')
+                        ];
+                    }
+                ));
+            }
 
             $pagination = new PaginationModel(50); //per-page number of caches
             $pagination->setRecordsCount($rowCount);
@@ -102,7 +130,7 @@ class MyRecommendationsController extends BaseController
             $model->setPaginationModel($pagination);
 
             $model->addDataRows( self::completeDataRows(
-                    $this->loggedUser->getUserId(), $queryLimit, $queryOffset));
+                    $userId, $queryLimit, $queryOffset));
 
             $this->view->setVar('listCacheModel', $model);
         }
@@ -142,67 +170,5 @@ class MyRecommendationsController extends BaseController
 
         return $results;
     }
-
-
-/*    private function completeDataRows($userId, $limit=null, $offset=null)
-    {
-        $cacheIds = CacheNote::getCachesIdsForNotesAndModCoords($userId, $limit, $offset);
-
-        $result = array_fill_keys($cacheIds, []);
-
-        // fill notes
-        foreach (CacheNote::getNotesByCacheIds($cacheIds, $userId) as $note){
-            $result[ $note['cache_id'] ]['noteTxt'] = $note['desc'];
-        }
-
-        // fill mod-coords
-        foreach ( UserCacheCoords::getCoordsByCacheIds($cacheIds, $userId) as $coord){
-            $result[ $coord['cache_id'] ]['coords'] =
-                Coordinates::FromCoordsFactory($coord['lat'], $coord['lot']);
-
-            $result[ $coord['cache_id'] ]['coordsDate'] = $coord['date'];
-        }
-
-        // fill caches data
-        $cacheFields = ['cache_id', 'name', 'type', 'status', 'wp_oc'];
-        foreach ( MultiCacheStats::getGeocachesById($cacheIds, $cacheFields) as $c){
-            foreach($cacheFields as $col){
-                $result[ $c['cache_id'] ][$col] = $c[$col];
-            }
-        }
-
-        // find last logs
-        $logFields = ['id','text','type','user_id','date'];
-        foreach( MultiLogStats::getLastLogForEachCache($cacheIds) as $log) {
-            foreach($logFields as $col){
-                $result[ $log['cache_id'] ]['llog_'.$col] = $log[$col];
-            }
-        }
-
-        // find cache status for user (found/not-found)
-        foreach ( MultiLogStats::getStatusForUser($userId, $cacheIds) as $s){
-            $result[ $s['cache_id']] ['user_sts'] = $s['type'];
-        }
-
-        // find necessary-users
-        $userIds = [];
-        foreach ($result as $r){
-            if (isset($r['llog_user_id'])){
-                $userIds[$r['cache_id']] = $r['llog_user_id'];
-            }
-        }
-
-        $userNames = MultiUserQueries::GetUserNamesForListOfIds($userIds);
-        foreach ($result as &$r){
-            if (isset($r['llog_user_id'])){
-                $r['llog_userName'] = $userNames[$r['llog_user_id']];
-            }
-        }
-
-        return $result;
-    }*/
-
-
-
 }
 

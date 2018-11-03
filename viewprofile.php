@@ -1,5 +1,6 @@
 <?php
 
+use Controllers\MyRecommendationsController;
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
 use lib\Objects\PowerTrail\PowerTrail;
@@ -340,11 +341,11 @@ if ($usr == false) {
         if ($recomendf == 0) {
             $content .= '</p>';
         } else {
-            if ($usr['userid'] == $user_id)
-                $link_togo = "mytop5.php";
-            else
-                $link_togo = "usertops.php?userid=$user_id";
-
+            if ($usr['userid'] == $user_id) {
+                $link_togo = SimpleRouter::getLink(MyRecommendationsController::class, 'recommendations');
+            } else {
+                $link_togo = SimpleRouter::getLink(MyRecommendationsController::class, 'recommendations', $user_id);
+            }
             $content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt=""> [<a class="links" href="' . $link_togo . '">' . tr('show') . '</a>]</p>';
         }
 
