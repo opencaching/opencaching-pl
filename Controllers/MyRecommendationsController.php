@@ -78,8 +78,6 @@ class MyRecommendationsController extends BaseController
 
     private function recommendationsTable($userId, $isRemovingAllowed)
     {
-        $this->view->setVar('pageTitle', tr('my_recommendations'));
-
         $rowCount = CacheRecommendation::getCountOfUserRecommendations($this->loggedUser->getUserId());
         $this->view->setVar('rowCount', $rowCount);
 
@@ -161,7 +159,7 @@ class MyRecommendationsController extends BaseController
     }
 
     private function completeDataRows($userId, $limit=null, $offset=null) {
-        $results = CacheRecommendation::getCachesRecommendedByUser($userId);
+        $results = CacheRecommendation::getCachesRecommendedByUser($userId, $limit, $offset);
 
         // find cache status for user (found/not-found)
         foreach ( MultiLogStats::getStatusForUser($userId, array_keys($results)) as $s) {

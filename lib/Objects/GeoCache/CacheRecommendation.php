@@ -14,14 +14,17 @@ class CacheRecommendation extends BaseObject
      * @param $userId
      * @return \Utils\Database\all
      */
-    public static function getCachesRecommendedByUser($userId)
+    public static function getCachesRecommendedByUser($userId, $limit, $offset)
     {
+        $db = self::db();
+        list($limit, $offset) = $db->quoteLimitOffset($limit, $offset);
         $stmt = self::db()->multiVariableQuery(
             "SELECT c.cache_id, c.name, c.type, c.user_id, c.status, c.wp_oc, u.username, u.user_id
             FROM cache_rating AS cr, caches AS c, user AS u
             WHERE cr.cache_id = c.cache_id
             AND c.user_id = u.user_id
-            AND cr.user_id = :1 ORDER BY c.name ASC", $userId);
+            AND cr.user_id = :1 ORDER BY c.name ASC
+            LIMIT $offset, $limit", $userId);
 
         return self::db()->dbResultFetchAllAsDict($stmt, function($row) {
             return [$row['cache_id'], $row];
