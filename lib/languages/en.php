@@ -2789,6 +2789,15 @@ $translations = array(
     'startPage_latestTitledCaches' => 'Latest awarded geocaches',
     'startPage_validAt' => 'Valid at',
 
+    'myRecommendations' => 'My recommendations',
+    'myRecommendations_status' => 'Status',
+    'myRecommendations_cacheName' => 'Geocache',
+    'myRecommendations_cacheOwner' => 'Owner',
+    'myRecommendations_actionRemove' => 'Remove recommendation',
+    'myRecommendations_removeRecommendation' => 'Click here to remove recommendation',
+    'myRecommendations_recommendationRemovingSuccess' => 'Recommendation removed',
+    'myRecommendations_recommendationRemovingError' => 'Recommendation removing failed',
+    'myRecommendations_emptyList' => 'No recommendations found',
 
     'myNotes_title' => 'My notes',
     'myNotes_lastLogEntry' => 'Last log entry',

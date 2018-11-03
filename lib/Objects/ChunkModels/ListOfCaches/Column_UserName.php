@@ -2,14 +2,14 @@
 
 namespace lib\Objects\ChunkModels\ListOfCaches;
 
-class Column_CacheName extends AbstractColumn {
+class Column_UserName extends AbstractColumn {
 
     protected function getChunkName()
     {
-        return "listOfCaches/cacheNameColumn";
+        return "listOfCaches/userNameColumn";
     }
 
-    public function getCssClass(){
+    public function getCssClass() {
         return 'left';
     }
 }

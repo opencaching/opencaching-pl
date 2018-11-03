@@ -190,5 +190,4 @@ class MultiCacheStats extends BaseObject
             return GeoCache::fromCacheIdFactory($row['cache_id']);
         });
     }
-
 }

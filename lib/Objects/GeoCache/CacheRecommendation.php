@@ -1,124 +1,67 @@
 <?php
 namespace lib\Objects\GeoCache;
 
+use lib\Controllers\MeritBadgeController;
 use lib\Objects\BaseObject;
+use okapi\Facade;
 
-class CacheNote extends BaseObject
+class CacheRecommendation extends BaseObject
 {
     /**
-     * Returns user note for given cache
      *
-     * @param int $userId
-     * @param int $cacheId
-     * @return string
+     * Returns recommended caches for given user
+     *
+     * @param $userId
+     * @return \Utils\Database\all
      */
-    public static function getNote($userId, $cacheId)
+    public static function getCachesRecommendedByUser($userId)
     {
-        return self::db()->multiVariableQueryValue(
-            "SELECT `desc` FROM cache_notes
-            WHERE cache_id = :1 AND user_id = :2
-            LIMIT 1", '', $cacheId, $userId);
+        $stmt = self::db()->multiVariableQuery(
+            "SELECT c.cache_id, c.name, c.type, c.user_id, c.status, c.wp_oc, u.username, u.user_id
+            FROM cache_rating AS cr, caches AS c, user AS u
+            WHERE cr.cache_id = c.cache_id
+            AND c.user_id = u.user_id
+            AND cr.user_id = :1 ORDER BY c.name ASC", $userId);
+
+        return self::db()->dbResultFetchAllAsDict($stmt, function($row) {
+            return [$row['cache_id'], $row];
+        });
     }
 
     /**
-     * Save given user note to DB
-     *
-     * @param int $userId
-     * @param int $cacheId
-     * @param string $noteContent
-     */
-    public static function storeNote($userId, $cacheId, $noteContent)
-    {
-        //TODO: Table cache_notes should have index on cache_id/user_id instead of autoincrement index!
-        //      Then it could be possible to use INSERT ... ON DUPLICATE KEY UPDATE Syntax
-        //      DELETE old coords to be sure there is no duplicates...
-        self::deleteNote($userId, $cacheId);
-
-        $noteContent = htmlspecialchars($noteContent, ENT_COMPAT, 'UTF-8');
-
-        self::db()->multiVariableQuery(
-            "INSERT INTO cache_notes
-                (cache_id, user_id, `desc`, date)
-            VALUES(:1, :2, :3, NOW() );",
-            $cacheId, $userId, $noteContent);
-    }
-
-    /**
-     * Delete selected user note
+     * Delete selected user recommendation
      *
      * @param int $userId
      * @param int $cacheId
      */
-    public static function deleteNote($userId, $cacheId)
+    public static function deleteRecommendation($userId, $cacheId)
     {
-        //TODO: add LIMIT 1 after note_id removig
+        $stmt = self::db()->multiVariableQuery(
+            "DELETE FROM cache_rating
+             WHERE cache_id = :1 AND user_id = :2 LIMIT 1", $cacheId, $userId);
 
-        self::db()->multiVariableQuery(
-            "DELETE FROM cache_notes
-             WHERE cache_id = :1 AND user_id = :2", $cacheId, $userId);
+        if($stmt->rowCount() > 0) {
+            if (self::OcConfig()->isMeritBadgesEnabled()) {
+                $ctrlMeritBadge = new MeritBadgeController;
+                $ctrlMeritBadge->updateTriggerCacheAuthor($cacheId);
+            }
+
+            // Notify OKAPI's replicate module of the change.
+            // Details: https://github.com/opencaching/okapi/issues/265
+            Facade::schedule_user_entries_check($cacheId, $userId);
+            Facade::disable_error_handling();
+        }
     }
 
     /**
-     * Returns the count of caches which has at least one of:
-     *  - user custom coords (mod_coords)
-     *  - user note
-     * @param int $userId
+     * Returns the count of recommendations given by the user
+     * @param $userId
      * @return int count
      */
-    public static function getCountOfUserNotesAndModCoords($userId)
-    {
+    public static function getCountOfUserRecommendations($userId) {
         return self::db()->multiVariableQueryValue(
-            "SELECT COUNT(*) FROM (
-                SELECT cache_id FROM cache_notes WHERE user_id = :1
-                UNION
-                SELECT cache_id FROM cache_mod_cords WHERE user_id = :1
-            ) x", 0, $userId);
-    }
-
-    /**
-     * Returns array of cache-ids which
-     *  - has custom coords (mod_coords) for current user
-     *  - has note for current user
-     * ordered by cache name and with limit/offset
-     *
-     * @param int $userId
-     * @param int|null $limit
-     * @param int|null $offset
-     * @return array
-     */
-    public static function getCachesIdsForNotesAndModCoords(
-        $userId, $limit=null, $offset=null)
-    {
-        $db = self::db();
-
-        list($limit, $offset) = $db->quoteLimitOffset($limit, $offset);
-
-        $stmt = $db->multiVariableQuery(
-            "SELECT cache_id FROM (
-                SELECT cache_id FROM cache_notes WHERE user_id = :1
-                UNION
-                SELECT cache_id FROM cache_mod_cords WHERE user_id = :1
-            ) x LEFT JOIN caches USING (cache_id)
-            ORDER BY caches.name
-            LIMIT $limit OFFSET $offset", $userId);
-
-        return $db->dbFetchOneColumnArray($stmt, 'cache_id');
-    }
-
-    public static function getNotesByCacheIds(array $cacheIds, $userId)
-    {
-        if(empty($cacheIds)){
-            return [];
-        }
-        $db = self::db();
-
-        $cacheIdsStr = $db->quoteString( implode(',', $cacheIds) );
-
-        $rs = $db->multiVariableQuery(
-                "SELECT * FROM cache_notes
-                WHERE user_id = :1 AND cache_id IN ($cacheIdsStr)", $userId);
-
-        return $db->dbResultFetchAll($rs);
+            "SELECT COUNT(cache_id) FROM cache_rating 
+                    WHERE user_id = :1", 0, $userId);
     }
 
 }

@@ -21,7 +21,6 @@ use lib\Objects\GeoCache\MultiCacheStats;
 use lib\Objects\GeoCache\MultiLogStats;
 use lib\Objects\User\MultiUserQueries;
 use lib\Objects\ChunkModels\ListOfCaches\Column_SimpleText;
-use Utils\Debug\Debug;
 
 class CacheNotesController extends BaseController
 {
@@ -75,7 +74,14 @@ class CacheNotesController extends BaseController
                         'user_sts' => isset($row['user_sts'])?$row['user_sts']:null,
                     ];
             }));
-            $model->addColumn(new Column_CacheName(tr('myNotes_cacheName')));
+            $model->addColumn(new Column_CacheName(tr('myNotes_cacheName'),
+                function($row) {
+                    return [
+                        'cacheWp' => $row['wp_oc'],
+                        'cacheName' => $row['name'],
+                        'cacheStatus' => $row['status'],
+                    ];
+                }));
             $model->addColumn(new Column_CacheLastLog(tr('myNotes_lastLogEntry'),
                 function($row){
                     if(isset($row['llog_id'])){

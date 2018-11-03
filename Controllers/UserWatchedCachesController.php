@@ -120,7 +120,14 @@ class UserWatchedCachesController extends BaseController
             $model = new ListOfCachesModel();
 
             $model->addColumn(new Column_CacheTypeIcon(tr('usrWatch_status')));
-            $model->addColumn(new Column_CacheName(tr('usrWatch_watchedCache')));
+            $model->addColumn(new Column_CacheName(tr('usrWatch_watchedCache'),
+                function($row) {
+                    return [
+                        'cacheWp' => $row['wp_oc'],
+                        'cacheName' => $row['name'],
+                        'cacheStatus' => $row['status'],
+                    ];
+                }));
             $model->addColumn(new Column_CacheLastLog(tr('usrWatch_lastLog'),
                 function($row){
                     return [

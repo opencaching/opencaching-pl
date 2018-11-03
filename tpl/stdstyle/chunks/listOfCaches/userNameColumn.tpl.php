@@ -1,19 +1,18 @@
 <?php
 
-use lib\Objects\GeoCache\GeoCacheCommons;
+use lib\Objects\User\UserCommons;
 
 /**
-	This is column which displays cache name.
+	This is column which displays user name.
   $date arg has to contains:
-    - wp_oc - OC waypoint for example: OP1234
-    - name - name of teh cache
+    - userId - user identifier
+    - userName - user nickname
 */
 
-return function (array $data){
-
+return function (array $data) {
 ?>
-    <a href="<?=GeoCacheCommons::GetCacheUrlByWp($data['wp_oc'])?>" target=”_blank”>
-      <?=$data['name']?>
+    <a href="<?=UserCommons::GetUserProfileUrl($data['userId'])?>" target=”_blank”>
+      <?=$data['userName']?>
     </a>
 <?php
 };

@@ -3,29 +3,20 @@
 namespace Controllers;
 
 /**
- * This controller handles recommndations list view
+ * This controller handles recommendations list view
  */
 
-use lib\Objects\ChunkModels\ListOfCaches\Column_UserName;
-use lib\Objects\GeoCache\CacheRecommendation;
-use Utils\Uri\Uri;
-use lib\Objects\ChunkModels\PaginationModel;
-use lib\Objects\ChunkModels\ListOfCaches\Column_CacheLastLog;
 use lib\Objects\ChunkModels\ListOfCaches\Column_CacheName;
 use lib\Objects\ChunkModels\ListOfCaches\Column_CacheTypeIcon;
-use lib\Objects\ChunkModels\ListOfCaches\Column_EllipsedText;
 use lib\Objects\ChunkModels\ListOfCaches\Column_OnClickActionIcon;
+use lib\Objects\ChunkModels\ListOfCaches\Column_UserName;
 use lib\Objects\ChunkModels\ListOfCaches\ListOfCachesModel;
-use lib\Objects\GeoCache\CacheNote;
-use lib\Objects\GeoCache\UserCacheCoords;
-use lib\Objects\Coordinates\Coordinates;
-use lib\Objects\GeoCache\MultiCacheStats;
+use lib\Objects\ChunkModels\PaginationModel;
+use lib\Objects\GeoCache\CacheRecommendation;
 use lib\Objects\GeoCache\MultiLogStats;
-use lib\Objects\User\MultiUserQueries;
-use lib\Objects\ChunkModels\ListOfCaches\Column_SimpleText;
-use Utils\Debug\Debug;
+use Utils\Uri\Uri;
 
-class RecommendationsController extends BaseController
+class MyRecommendationsController extends BaseController
 {
     public function __construct()
     {
@@ -45,12 +36,12 @@ class RecommendationsController extends BaseController
             exit;
         }
 
-        $this->view->setTemplate('recommendations/recommendations');
+        $this->view->setTemplate('myRecommendations/myRecommendations');
         $this->view->addLocalCss(
-            Uri::getLinkWithModificationTime('/tpl/stdstyle/cacheNotes/cacheNotes.css'));
+            Uri::getLinkWithModificationTime('/tpl/stdstyle/myRecommendations/myRecommendations.css'));
 
         $this->view->addLocalJs(
-            Uri::getLinkWithModificationTime('/tpl/stdstyle/cacheNotes/cacheNotes.js'));
+            Uri::getLinkWithModificationTime('/tpl/stdstyle/myRecommendations/myRecommendations.js'));
 
         $this->view->addLocalCss('/tpl/stdstyle/css/lightTooltip.css');
         $this->view->loadJQuery();
@@ -63,13 +54,13 @@ class RecommendationsController extends BaseController
 
 
 
-        $rowCount = CacheNote::getCountOfUserNotesAndModCoords($this->loggedUser->getUserId());
+        $rowCount = CacheRecommendation::getCountOfUserRecommendations($this->loggedUser->getUserId());
         $this->view->setVar('rowCount', $rowCount);
 
-        if($rowCount > 0){
+        if ($rowCount > 0) {
             $model = new ListOfCachesModel();
 
-            $model->addColumn(new Column_CacheTypeIcon(tr('myNotes_status'),
+            $model->addColumn(new Column_CacheTypeIcon(tr('myRecommendations_status'),
                 function($row){
                     return [
                         'type' => $row['type'],
@@ -77,8 +68,17 @@ class RecommendationsController extends BaseController
                         'user_sts' => isset($row['user_sts'])?$row['user_sts']:null,
                     ];
             }));
-            $model->addColumn(new Column_CacheName(tr('myNotes_cacheName')));
-            $model->addColumn(new Column_UserName('owner',
+            $model->addColumn(new Column_CacheName(tr('myRecommendations_cacheName'),
+                function($row) {
+                    return [
+                        'cacheWp' => $row['wp_oc'],
+                        'cacheName' => $row['name'],
+                        'cacheStatus' => $row['status'],
+                        'isStatusAware' => true,
+                    ];
+                }));
+
+            $model->addColumn(new Column_UserName(tr('myRecommendations_cacheOwner'),
                 function($row) {
                     return [
                         'userId' => $row['user_id'],
@@ -86,12 +86,12 @@ class RecommendationsController extends BaseController
                     ];
                 }));
 
-            $model->addColumn(new Column_OnClickActionIcon(tr('myNotes_removeNote'),
+            $model->addColumn(new Column_OnClickActionIcon(tr('myRecommendations_actionRemove'),
                 function($row) {
                     return [
                         'icon' => '/tpl/stdstyle/images/log/16x16-trash.png',
                         'onClick' => "removeRecommendation(this, {$row['cache_id']})",
-                        'title' => tr('myNotes_removeNote')
+                        'title' => tr('myRecommendations_removeRecommendation')
                     ];
                 }
             ));
@@ -127,14 +127,13 @@ class RecommendationsController extends BaseController
             exit;
         }
 
-        d('delete');
         CacheRecommendation::deleteRecommendation( $this->loggedUser->getUserId(), $cacheId);
         $this->ajaxSuccessResponse();
 
     }
 
     private function completeDataRows($userId, $limit=null, $offset=null) {
-        $results = MultiCacheStats::getCachesRecommendedByUser($userId);
+        $results = CacheRecommendation::getCachesRecommendedByUser($userId);
 
         // find cache status for user (found/not-found)
         foreach ( MultiLogStats::getStatusForUser($userId, array_keys($results)) as $s) {
