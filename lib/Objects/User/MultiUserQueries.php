@@ -6,7 +6,6 @@ use lib\Objects\GeoCache\GeoCacheLog;
 use lib\Objects\GeoCache\GeoCacheLogCommons;
 use lib\Objects\GeoCache\GeoCacheCommons;
 use lib\Objects\GeoCache\GeoCache;
-use lib\Objects\OcConfig\OcConfig;
 
 /**
  * This class should contains mostly static, READ-ONLY queries
