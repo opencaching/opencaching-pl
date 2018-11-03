@@ -2074,7 +2074,6 @@ $translations = array(
     'search_kml_06' => 'z',
     'search_kml_07' => 'Teren:',
     'search_kml_08' => 'Status:',
-    'mytop5_1' => 'Czy na pewno chcesz usunąć tę rekomendację?',
 
     'usrWatch_title' => 'Obserwowane skrzynki',
     'usrWatch_mapTitle' => 'Mapa obserwowanych skrzynek',

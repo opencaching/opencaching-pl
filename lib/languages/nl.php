@@ -2070,7 +2070,6 @@ $translations = array(
     'search_kml_06' => 'van',
     'search_kml_07' => 'Terrein:',
     'search_kml_08' => 'Status:',
-    'mytop5_1' => 'Moet deze aanbeveling werkelijk verwijderd worden?',
 
     'usrWatch_title' => 'Gevolgde caches',
     'usrWatch_mapTitle' => 'Kaart van gevolgde caches',
