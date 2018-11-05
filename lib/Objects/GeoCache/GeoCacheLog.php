@@ -2,13 +2,18 @@
 namespace lib\Objects\GeoCache;
 
 use lib\Objects\User\User;
+use Utils\Email\EmailSender;
 use Utils\Generators\Uuid;
+use Exception;
+use lib\Controllers\MeritBadgeController;
+use okapi\Facade;
 
 class GeoCacheLog extends GeoCacheLogCommons
 {
 
     private $id;
     private $geoCache;
+    private $userId;
     private $user;
     private $type;
     private $date;
@@ -58,10 +63,15 @@ class GeoCacheLog extends GeoCacheLogCommons
      */
     public function getUser()
     {
-        if (!($this->user instanceof User)) {
-            $this->user = new User(array('userId' => $this->user));
+        if (!$this->user) {
+            $this->user = new User(array('userId' => $this->userId));
         }
         return $this->user;
+    }
+
+    public function getUserId()
+    {
+        return $this->userId;
     }
 
     public function getType()
@@ -217,7 +227,8 @@ class GeoCacheLog extends GeoCacheLogCommons
 
     public function setUser($userId)
     {
-        $this->user = $userId;
+        $this->userId = $userId;
+        $this->user = null;
         return $this;
     }
 
@@ -423,18 +434,7 @@ class GeoCacheLog extends GeoCacheLogCommons
         return true;
     }
 
-    /**
-     * Reverts (undeletes) log
-     */
-    public function revertLog()
-    {
-        $this->setDeleted(false);
-        $this->db->multiVariableQuery(
-            'UPDATE `cache_logs`
-            SET `deleted` = :1
-            WHERE `id` = :2',
-            $this->getDeleted(), $this->getId());
-    }
+
 
     /**
      * Inserts new log into the DB
@@ -500,4 +500,94 @@ class GeoCacheLog extends GeoCacheLogCommons
             return self::fromDbRowFactory($row);
         });
     }
+
+
+
+    /**
+     * Remove current log
+     */
+    public function removeLog()
+    {
+        // check if current user is allowed to remove the log
+        if($this->getUserId() != $this->getCurrentUser()->getUserId() &&
+           $this->getGeoCache()->getOwnerId() != $this->getCurrentUser()->getUserId() &&
+           !$this->getCurrentUser()->hasOcTeamRole()) {
+
+            // logged user is not an author of the log && not the owner of cache and not OCTeam
+            throw new Exception("User not authorize to remove this log");
+        }
+
+        $this->db->multiVariableQuery(
+            "UPDATE cache_logs
+            SET deleted=1, del_by_user_id=:1 , last_modified=NOW(), last_deleted=NOW()
+            WHERE id=:2 LIMIT 1", $this->getCurrentUser()->getUserId(), $this->getId());
+
+
+        if ($this->getType() == self::LOGTYPE_MOVED) {
+            MobileCacheMove::updateMovesOnLogRemove($this);
+        }
+
+        $this->getCurrentUser()->recalculateAndUpdateStats();
+
+
+        if ($this->getType() == self::LOGTYPE_FOUNDIT ||
+            $this->getType() == self::LOGTYPE_ATTENDED) {
+
+            // remove cache from users top caches, because the found log was deleted for some reason
+            $this->db->multiVariableQuery(
+                "DELETE FROM cache_rating WHERE user_id=:1 AND cache_id=:2",
+                $this->getUserId(), $this->getGeoCache()->getCacheId());
+
+            // Notify OKAPI's replicate module of the change.
+            // Details: https://github.com/opencaching/okapi/issues/265
+            Facade::schedule_user_entries_check($this->getGeoCache()->getCacheId(), $this->getUserId());
+            Facade::disable_error_handling();
+
+
+            GeoCacheScore::updateScoreOnLogRemove($this);
+
+            if ( self::OcConfig()->isMeritBadgesEnabled() ){
+                $ctrlMeritBadge = new MeritBadgeController;
+                $ctrlMeritBadge->updateTriggerLogCache($this->getGeoCache()->getCacheId(), $this->getCurrentUser()->getUserId() );
+                $ctrlMeritBadge->updateTriggerTitledCache($this->getGeoCache()->getCacheId(), $this->getCurrentUser()->getUserId());
+                $ctrlMeritBadge->updateTriggerCacheAuthor($this->getGeoCache()->getCacheId());
+            }
+        }
+
+        $this->getGeoCache()->recalculateCacheStats();
+
+        // trigger log-author statpic update
+        User::deleteStatpic($this->getUserId());
+
+        if($this->getUserId() !== $this->getCurrentUser()->getUserId()){
+            EmailSender::sendRemoveLogNotification($this, $this->getCurrentUser());
+        }
+    }
+
+    /**
+     * Reverts (undeletes) log
+     */
+    public function revertLog()
+    {
+        if (!$this->getCurrentUser()->hasOcTeamRole()) {
+            throw new Exception('User is not authorized to revert log');
+        }
+
+        if (!$this->canBeReverted()) {
+            throw new Exception('This log cannot be reverted');
+        }
+
+        $this->setDeleted(false);
+        $this->db->multiVariableQuery(
+            'UPDATE cache_logs SET deleted=:1 WHERE id=:2',
+            $this->getDeleted(), $this->getId());
+
+        $this->getGeoCache()->recalculateCacheStats();
+
+        // trigger log-author statpic update
+        User::deleteStatpic($this->getUserId());
+
+        $this->getCurrentUser()->recalculateAndUpdateStats();
+    }
+
 }

@@ -1,13 +1,13 @@
 <?php
 namespace Controllers;
 
+use Exception;
 use lib\Controllers\LogEntryController;
 use lib\Objects\GeoCache\GeoCacheLog;
 use Utils\EventHandler\EventHandler;
 use Utils\Uri\Uri;
 use lib\Objects\ChunkModels\DynamicMap\DynamicMapModel;
 use lib\Objects\GeoCache\MultiLogStats;
-use lib\Objects\ChunkModels\DynamicMap\CacheWithLogMarkerModel;
 use lib\Objects\ChunkModels\DynamicMap\LogMarkerModel;
 use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\User\MultiUserQueries;
@@ -31,28 +31,33 @@ class CacheLogController extends BaseController
         // there is nothing to do here yet...
     }
 
-    public function removeLog()
+    /**
+     * Remove cache log
+     * Called via AJAX like /CacheLog/removeLogAjax/{logid}
+     *
+     * @param int $logId
+     */
+    public function removeLogAjax($logId)
     {
-        if (! $this->loggedUser) {
-            echo "User not authorized!";
-            return;
+        $this->checkUserLoggedAjax();
+
+        if(!$logId || !is_numeric($logId)){
+            $this->ajaxErrorResponse('Improper logId', 400);
         }
 
-        if (!isset($_REQUEST['logid'])) {
-            echo "Remove unknown log?!";
-            return;
+        $log = GeoCacheLog::fromLogIdFactory($logId);
+        if(!$log){
+            $this->ajaxErrorResponse('Incorrect logId', 400);
         }
 
-        $logId = intval($_REQUEST['logid']);
+        try{
+            $log->removeLog();
+        }catch (Exception $ex){
+            $this->ajaxErrorResponse('Can\'t remove log', 400);
+            exit;
+        }
 
-        $logEntryController = new LogEntryController();
-        $result = $logEntryController->removeLogById($logId);
-
-        echo json_encode( array (
-            'removeLogResult' => $result,
-            'errors' => $logEntryController->getErrors())
-            );
-
+        $this->ajaxSuccessResponse();
     }
 
     /**
@@ -64,21 +69,20 @@ class CacheLogController extends BaseController
     public function revertLogAjax($logId)
     {
         $this->checkUserLoggedAjax();
+
         $log = GeoCacheLog::fromLogIdFactory($logId);
-        if (is_null($log)) {
+        if (!$log) {
             $this->ajaxErrorResponse('Incorrect logId', 400);
         }
-        if (! $this->loggedUser->hasOcTeamRole()) {
-            $this->ajaxErrorResponse('User is not authorized to revert log', 401);
+
+        try{
+            $log->revertLog();
+        }catch (Exception $ex){
+            $this->ajaxErrorResponse('Can\'t revert log', 400);
+            exit;
         }
-        if (! $log->canBeReverted()) {
-            $this->ajaxErrorResponse('This log cannot be reverted', 400);
-        }
-        $log->revertLog();
-        $log->getGeoCache()->recalculateCacheStats();
-        $log->getUser()->recalculateAndUpdateStats();
-        EventHandler::logRemove($log);
-        $this->ajaxSuccessResponse('OK');
+
+        $this->ajaxSuccessResponse();
     }
 
     /**

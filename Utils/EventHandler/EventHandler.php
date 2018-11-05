@@ -24,11 +24,6 @@ class EventHandler
         User::deleteStatpic($userId);
     }
 
-    public static function logRemove(GeoCacheLog $log)
-    {
-        User::deleteStatpic($log->getUser()->getUserId());
-    }
-
     // Old
     public static function event_change_log_type($userId)
     {

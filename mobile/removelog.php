@@ -2,6 +2,7 @@
 use Utils\Database\XDb;
 use lib\Controllers\LogEntryController;
 use okapi\Facade;
+use lib\Objects\GeoCache\MobileCacheMove;
 
 require_once("./lib/common.inc.php");
 
@@ -83,7 +84,7 @@ if (isset($_SESSION['user_id'])) {
                 case 4:
                     $query = "DELETE FROM `cache_moved` WHERE `log_id`= " . $id . " LIMIT 1";
                     XDb::xSql($query);
-                    LogEntryController::recalculateMobileMovesByCacheId($cache_id);
+                    MobileCacheMove::recalculateMobileMovesByCacheId($cache_id);
                     break;
             }
 
