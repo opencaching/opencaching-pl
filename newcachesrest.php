@@ -1,19 +1,19 @@
 <?php
 
 use Utils\Database\XDb;
-global $lang, $rootpath, $dateFormat;
+global $lang, $dateFormat;
 
 
 //prepare the templates and include all neccessary
-require_once('./lib/common.inc.php');
-require_once('./lib/cache_icon.inc.php');
-require_once($stylepath . '/lib/icons.inc.php');
+require_once (__DIR__.'/lib/common.inc.php');
+require_once (__DIR__.'/lib/cache_icon.inc.php');
+require_once (__DIR__.'/tpl/stdstyle/lib/icons.inc.php');
 
 //Preprocessing
 if ($error == false) {
     //get the news
     $tplname = 'newcachesrest';
-    require('tpl/stdstyle/newcachesrest.inc.php');
+    require(__DIR__.'/tpl/stdstyle/newcachesrest.inc.php');
 
     $content = '';
     $cache_country = '';

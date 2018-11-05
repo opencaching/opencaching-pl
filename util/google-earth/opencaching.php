@@ -7,9 +7,8 @@ use Utils\Database\OcDb;
 
 global $usr;
 
-$rootpath = '../../';
-require_once($rootpath . 'lib/common.inc.php');
-require_once($rootpath . 'lib/export.inc.php');
+require_once(__DIR__.'/../../lib/common.inc.php');
+require_once(__DIR__.'/../../lib/export.inc.php');
 
 header('Content-Type: application/vnd.google-earth.kml; charset=utf8');
 header('Content-Disposition: attachment; filename="opencaching.kml"');

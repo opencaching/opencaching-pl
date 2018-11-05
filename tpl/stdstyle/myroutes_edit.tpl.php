@@ -1,8 +1,8 @@
 <?php
 use Utils\Database\XDb;
-global $rootpath;
-require_once('./lib/common.inc.php');
-require_once('./lib/class.polylineEncoder.php');
+use Utils\Uri\Uri;
+use Libs\PolylineEncoder\PolylineEncoder;
+
 $route_id = $_REQUEST['routeid'];
 
 $rscp = XDb::xSql("SELECT `lat` ,`lon`
@@ -26,7 +26,7 @@ $polyline = $encoder->encode($points);
 <script src="/lib/jsts/attache.array.min.js"></script>
 <script src="/lib/jsts/javascript.util.js"></script>
 <script src="/lib/jsts/jsts.0.13.2.js"></script>
-<script src="/lib/js/myroutes_map.<?= date("YmdHis", filemtime($rootpath . 'lib/js/myroutes_map.js')) ?>.js"></script>
+<script src="<?=Uri::getLinkWithModificationTime('/lib/js/myroutes_map.js')?>"></script>
 <script>
 //<![CDATA[
 

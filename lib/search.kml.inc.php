@@ -8,8 +8,8 @@ ob_start();
 use Utils\Database\XDb;
 
 global $absolute_server_URI, $bUseZip, $usr, $hide_coords, $lang, $dbcSearch, $queryFilter;
-require_once ($rootpath . 'lib/format.kml.inc.php');
-require_once ($rootpath . 'lib/calculation.inc.php');
+require_once (__DIR__.'/format.kml.inc.php');
+require_once (__DIR__.'/calculation.inc.php');
 
 set_time_limit(1800);
 
@@ -132,7 +132,7 @@ if ($usr || ! $hide_coords) {
     $bUseZip = $bUseZip || (isset($_REQUEST['zip']) && ($_REQUEST['zip'] == '1'));
     // $bUseZip = false;
     if ($bUseZip == true) {
-        require_once ($rootpath . 'lib/phpzip/ss_zip.class.php');
+        require_once (__DIR__.'/phpzip/ss_zip.class.php');
         $phpzip = new ss_zip('', 6);
     }
 

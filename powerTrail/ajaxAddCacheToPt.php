@@ -14,7 +14,6 @@ use Utils\Generators\TextGen;
  *
  * works via Ajax call.
  */
-$rootpath = __DIR__ . '/../';
 require_once __DIR__ . '/../lib/common.inc.php';
 
 if (!isset($_SESSION['user_id'])) {
@@ -295,7 +294,7 @@ function addCacheToCacheCandidate($cacheId, $ptId)
         "INSERT INTO `PowerTrail_cacheCandidate`(`PowerTrailId`, `cacheId`, `link`, `date`) VALUES (:1,:2,:3,NOW())",
         $ptId, $cacheId, $linkCode);
 
-    require_once 'sendEmailCacheCandidate.php';
+    require_once __DIR__.'/sendEmailCacheCandidate.php';
     emailCacheOwner($ptId, $cacheId, $linkCode);
     print 'cache added as cache candidate';
     exit;

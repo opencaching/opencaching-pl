@@ -9,21 +9,14 @@
     <tr>
         <td>
 <?php
-
 use Utils\Database\XDb;
-global $lang, $rootpath;
+global $lang;
 
-if (!isset($rootpath))
-    $rootpath = './';
+$userscount = XDb::xSimpleQueryValue(
+    'SELECT COUNT( DISTINCT user_id) FROM cache_logs WHERE type=1 AND `deleted`=0', 0);
 
-    //include template handling
-    require_once($rootpath . 'lib/common.inc.php');
-
-    $userscount = XDb::xSimpleQueryValue(
-        'SELECT COUNT( DISTINCT user_id) FROM cache_logs WHERE type=1 AND `deleted`=0', 0);
-
-    $cachelogscount = XDb::xSimpleQueryValue(
-        'SELECT COUNT(*) FROM `cache_logs` WHERE type=1 AND `deleted`=0', 0);
+$cachelogscount = XDb::xSimpleQueryValue(
+    'SELECT COUNT(*) FROM `cache_logs` WHERE type=1 AND `deleted`=0', 0);
 
     echo '<center><table width="97%" border="0"><tr><td align="center"><center><b>' . tr('ranking_by_number_of_finds') . '</b><br />' . tr('total_amount_loggers');
     echo $userscount;

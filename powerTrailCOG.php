@@ -4,8 +4,7 @@ use lib\Objects\PowerTrail\PowerTrail;
 use lib\Objects\GeoCache\GeoCache;
 use Utils\Uri\Uri;
 
-$rootpath = __DIR__ . DIRECTORY_SEPARATOR;
-require_once './lib/common.inc.php';
+require_once (__DIR__.'/lib/common.inc.php');
 
 if ($error == false) {
     $tplname = 'powerTrailCOG';

@@ -1,15 +1,10 @@
 #!/usr/bin/php -q
 <?php
 
-$opt['rootpath'] = '../../../';
-
 // chdir to proper directory (needed for cronjobs)
 //  chdir(substr(realpath($_SERVER['PHP_SELF']), 0, strrpos(realpath($_SERVER['PHP_SELF']), '/')));
-require('../lib/common.inc.php');
+require(__DIR__.'/../lib/common.inc.php');
 sql('USE `ocpl`');
-
-// require($opt['rootpath'] . 'lib2/cli.inc.php');
-// require('../lib2/logic/coordinate.class.php'); //TOOD: ???
 
 $nXMin = 5.5;
 $nXMax = 15.5;

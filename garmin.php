@@ -62,7 +62,7 @@ function convert($str)
     return $str;
 }
 
-require_once('./lib/common.inc.php');
+require_once (__DIR__.'/lib/common.inc.php');
 
 $tplname = 'garmin';
 

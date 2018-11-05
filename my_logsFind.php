@@ -2,15 +2,11 @@
 
 use Utils\Database\XDb;
 use lib\Objects\GeoCache\GeoCacheLog;
-global $lang, $rootpath, $dateFormat;
+global $lang, $dateFormat;
 
-if (!isset($rootpath))
-    $rootpath = '';
+require_once (__DIR__.'/lib/common.inc.php');
+require_once (__DIR__.'/lib/cache_icon.inc.php');
 
-//include template handling
-require_once($rootpath . 'lib/common.inc.php');
-require_once($rootpath . 'lib/cache_icon.inc.php');
-//  require_once($stylepath . '/lib/icons.inc.php');
 //Preprocessing
 if ($error == false) {
     //user logged in?
@@ -31,7 +27,7 @@ if ($error == false) {
         //get the news
         $tplname = 'my_logs';
         tpl_set_var('latest_logs_cache', tr('found_caches'));
-        require($stylepath . '/newlogs.inc.php');
+        require(__DIR__.'/tpl/stdstyle/newlogs.inc.php');
 
         $username = XDb::xMultiVariableQueryValue(
             "SELECT username FROM user WHERE user_id= :1 LIMIT 1", '', $user_id);

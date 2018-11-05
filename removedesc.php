@@ -3,10 +3,9 @@
 use Utils\Database\XDb;
 use lib\Objects\GeoCache\GeoCache;
 use Utils\I18n\Languages;
-//prepare the templates and include all neccessary
-require_once('./lib/common.inc.php');
 
-//Preprocessing
+require_once (__DIR__.'/lib/common.inc.php');
+
 if ($error == false) {
     //cacheid
     $cache_id = 0;
@@ -39,7 +38,7 @@ if ($error == false) {
                 if ($desc_record = XDb::xFetchArray($desc_rs)) {
 
                     XDb::xFreeResults($desc_rs);
-                    require($stylepath . '/removedesc.inc.php');
+                    require(__DIR__.'/tpl/stdstyle/removedesc.inc.php');
 
                     if ($remove_commit == 1) {
                         //add to removed_objects

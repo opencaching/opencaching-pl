@@ -7,14 +7,11 @@ use Utils\Text\TextConverter;
 use Utils\Uri\OcCookie;
 use lib\Objects\Coordinates\Coordinates;
 
-//prepare the templates and include all neccessary
-if (!isset($rootpath)) $rootpath = '';
-
-require_once('./lib/common.inc.php');
-require_once('./lib/search.inc.php');
-require_once('./lib/search-signatures.inc.php');
-require_once('./lib/export.inc.php');
-require_once('./lib/calculation.inc.php');
+require_once (__DIR__.'/lib/common.inc.php');
+require_once (__DIR__.'/lib/search.inc.php');
+require_once (__DIR__.'/lib/search-signatures.inc.php');
+require_once (__DIR__.'/lib/export.inc.php');
+require_once (__DIR__.'/lib/calculation.inc.php');
 
 global $dbcSearch, $lang, $TestStartTime, $usr;
 
@@ -52,8 +49,8 @@ if ($usr == false) {
 
         $tplname = 'search';
         $view->loadJQueryUI();
-        require($stylepath . '/search.inc.php');
-        require($rootpath . 'lib/caches.inc.php');
+        require(__DIR__.'/tpl/stdstyle/search.inc.php');
+        require(__DIR__.'/lib/caches.inc.php');
 
         sanitize($_REQUEST);
 
@@ -590,7 +587,7 @@ if ($usr == false) {
                     {
                         if ($locid == 0)
                         {
-                            require_once($rootpath . 'lib/search.inc.php');
+                            require_once(__DIR__.'/lib/search.inc.php');
 
                             $ort = trim($options['ort']);
                             $simpletexts = search_text2sort($ort);
@@ -912,7 +909,7 @@ if ($usr == false) {
                 }
                 elseif ($options['searchtype'] == 'byfulltext')
                 {
-                    require_once($rootpath . 'lib/ftsearch.inc.php');
+                    require_once(__DIR__.'/lib/ftsearch.inc.php');
 
                     $fulltext = $options['fulltext'];
                     $hashes = ftsearch_hash($fulltext);
@@ -1127,7 +1124,7 @@ if ($usr == false) {
             }
 
             //go to final output preparation
-            if (!file_exists($rootpath . 'lib/search.' . mb_strtolower($options['output']) . '.inc.php'))
+            if (!file_exists(__DIR__.'/lib/search.' . mb_strtolower($options['output']) . '.inc.php'))
             {
                 tpl_set_var('tplname', $tplname);
                 $tplname = 'error';
@@ -1136,7 +1133,7 @@ if ($usr == false) {
             else
             {
                 //process and output the search result
-                require($rootpath . 'lib/search.' . mb_strtolower($options['output']) . '.inc.php');
+                require(__DIR__.'/lib/search.' . mb_strtolower($options['output']) . '.inc.php');
                 exit;
             }
         }
@@ -1173,12 +1170,12 @@ if ($usr == false) {
 
 function outputSearchForm($options)
 {
-    global $stylepath, $usr, $error_plz, $error_locidnocoords, $error_ort, $error_noort, $error_nofulltext;
+    global $usr, $error_plz, $error_locidnocoords, $error_ort, $error_noort, $error_nofulltext;
     global $default_lang, $search_all_countries, $cache_attrib_jsarray_line, $cache_attrib_img_line;
     global $lang, $config;
 
     //simple mode (only one easy filter)
-    $filters = file_get_contents($stylepath . '/search.simple.tpl.php');
+    $filters = file_get_contents('./tpl/stdstyle/search.simple.tpl.php');
     tpl_set_var('filters', $filters, false);
     tpl_set_var('formmethod', 'get');
 
@@ -1513,8 +1510,8 @@ function outputSearchForm($options)
 
 
         $hidden_css = "position: absolute; visibility: hidden;";
-        $cachetype_options .= '<img id="cachetype_' . htmlspecialchars($record['id'], ENT_COMPAT, 'UTF-8') . '"    src="' . htmlspecialchars($stylepath . "/images/" . $cachetype_icon   , ENT_COMPAT, 'UTF-8') . '" title="' . htmlspecialchars($record[$lang_db], ENT_COMPAT, 'UTF-8') . '" alt="' . htmlspecialchars($record[$lang_db], ENT_COMPAT, 'UTF-8') . '" onmousedown="javascript:switchCacheType(\'cachetype_' . htmlspecialchars($record['id'], ENT_COMPAT, 'UTF-8') . '\')" style="cursor: pointer;'.$icon_hidden.'" />';
-        $cachetype_options .= '<img id="cachetype_' . htmlspecialchars($record['id'], ENT_COMPAT, 'UTF-8') . '_bw" src="' . htmlspecialchars($stylepath . "/images/" . $cachetype_icon_bw, ENT_COMPAT, 'UTF-8') . '" title="' . htmlspecialchars($record[$lang_db], ENT_COMPAT, 'UTF-8') . '" alt="' . htmlspecialchars($record[$lang_db], ENT_COMPAT, 'UTF-8') . '" onmousedown="javascript:switchCacheType(\'cachetype_' . htmlspecialchars($record['id'], ENT_COMPAT, 'UTF-8') . '\')" style="cursor: pointer;'.$icon_bw_hidden.'" />';
+        $cachetype_options .= '<img id="cachetype_' . htmlspecialchars($record['id'], ENT_COMPAT, 'UTF-8') . '"    src="' . htmlspecialchars("/tpl/stdstyle/images/" . $cachetype_icon   , ENT_COMPAT, 'UTF-8') . '" title="' . htmlspecialchars($record[$lang_db], ENT_COMPAT, 'UTF-8') . '" alt="' . htmlspecialchars($record[$lang_db], ENT_COMPAT, 'UTF-8') . '" onmousedown="javascript:switchCacheType(\'cachetype_' . htmlspecialchars($record['id'], ENT_COMPAT, 'UTF-8') . '\')" style="cursor: pointer;'.$icon_hidden.'" />';
+        $cachetype_options .= '<img id="cachetype_' . htmlspecialchars($record['id'], ENT_COMPAT, 'UTF-8') . '_bw" src="' . htmlspecialchars("/tpl/stdstyle/images/" . $cachetype_icon_bw, ENT_COMPAT, 'UTF-8') . '" title="' . htmlspecialchars($record[$lang_db], ENT_COMPAT, 'UTF-8') . '" alt="' . htmlspecialchars($record[$lang_db], ENT_COMPAT, 'UTF-8') . '" onmousedown="javascript:switchCacheType(\'cachetype_' . htmlspecialchars($record['id'], ENT_COMPAT, 'UTF-8') . '\')" style="cursor: pointer;'.$icon_bw_hidden.'" />';
         if ($i == 2) { $cachetype_options .= '&nbsp;&nbsp;&nbsp;'; }
         $cachetype_options .= "\n";
     }
@@ -1687,12 +1684,12 @@ function attr_image($tpl, $options, $id, $textlong, $iconlarge, $iconno, $iconun
 
 function outputUniidSelectionForm($uniSql, $urlparams)
 {
-    global $tplname, $locline, $stylepath, $bgcolor1, $bgcolor2, $gns_countries;
+    global $tplname, $locline, $bgcolor1, $bgcolor2, $gns_countries;
     global $next_img, $prev_img, $last_img, $first_img;
     global $next_img_inactive, $prev_img_inactive, $last_img_inactive, $first_img_inactive;
     global $secondlocationname;
 
-    require_once($stylepath . '/selectlocid.inc.php');
+    require_once(__DIR__.'/tpl/stdstyle/selectlocid.inc.php');
 
     unset($urlparams['queryid']);
     unset($urlparams['locid']);
@@ -1859,9 +1856,9 @@ function outputUniidSelectionForm($uniSql, $urlparams)
 
 function outputLocidSelectionForm($locSql, $urlparams)
 {
-    global $tplname, $locline, $stylepath, $bgcolor1, $bgcolor2;
+    global $tplname, $locline, $bgcolor1, $bgcolor2;
 
-    require_once($stylepath . '/selectlocid.inc.php');
+    require_once(__DIR__.'/tpl/stdstyle/selectlocid.inc.php');
 
     unset($urlparams['queryid']);
     unset($urlparams['locid']);

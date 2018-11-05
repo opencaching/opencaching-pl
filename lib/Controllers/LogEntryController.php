@@ -49,7 +49,7 @@ class LogEntryController
 
         if (( $log->getUser()->getUserId() === $loggedUser->getUserId()) || ($log->getGeoCache()->getOwner()->getUserId() == $loggedUser->getUserId()) || $loggedUser->hasOcTeamRole()) {
             if($log->getUser()->getUserId() !== $loggedUser->getUserId()){
-                EmailSender::sendRemoveLogNotification(__DIR__ . '/../../tpl/stdstyle/email/removed_log.email.html',
+                EmailSender::sendRemoveLogNotification(__DIR__.'/../../tpl/stdstyle/email/removed_log.email.html',
                     $log, $loggedUser);
             }
             $updateQuery = "UPDATE `cache_logs` SET deleted = 1, `del_by_user_id` = :1 , `last_modified`=NOW(), `last_deleted`=NOW() WHERE `cache_logs`.`id`=:2 LIMIT 1";

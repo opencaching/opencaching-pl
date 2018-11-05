@@ -1,7 +1,8 @@
 <?php
 
 use Utils\Database\XDb;
-require_once('./lib/common.inc.php');
+
+require_once (__DIR__.'/lib/common.inc.php');
 
 $uuid = isset($_REQUEST['uuid']) ? $_REQUEST['uuid'] : '';
 $debug = isset($_REQUEST['debug']) ? $_REQUEST['debug'] : 0;
@@ -19,7 +20,7 @@ $thumburl = $picurl . '/thumbs';
 // TODO: uuid (renderowany w HTMLu zawsze) zdradza adres obrazka
 
 if ($error == false) {
-    require_once($stylepath . '/thumbs.inc.php');
+    require_once(__DIR__.'/tpl/stdstyle/thumbs.inc.php');
 
     $rs = XDb::xSql(
         "SELECT `local`, `spoiler`, `url`, `thumb_last_generated`, `last_modified`, `unknown_format`, `uuid`, `thumb_url`
@@ -99,7 +100,7 @@ if ($error == false) {
                     break;
 
                 case 'bmp':
-                    require($rootpath . 'lib/imagebmp.inc.php');
+                    require(__DIR__.'/lib/imagebmp.inc.php');
                     $im = imagecreatefrombmp($picdir . '/' . $filename);
                     break;
             }

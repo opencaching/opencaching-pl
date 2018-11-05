@@ -8,9 +8,10 @@ use lib\Controllers\LogEntryController;
 use lib\Controllers\MeritBadgeController;
 use okapi\Facade;
 use Utils\EventHandler\EventHandler;
+use Utils\Text\InputFilter;
 
 //prepare the templates and include all neccessary
-require_once('./lib/common.inc.php');
+require_once(__DIR__.'/lib/common.inc.php');
 global $usr, $config;
 
 //Preprocessing
@@ -39,9 +40,9 @@ if ($error == false) {
         $log_record = XDb::xFetchArray($log_rs);
         if ($log_record) {
 
-            require($stylepath . '/editlog.inc.php');
-            require_once($rootpath . 'lib/caches.inc.php');
-            require($stylepath . '/rating.inc.php');
+            require(__DIR__.'/tpl/stdstyle/editlog.inc.php');
+            require_once(__DIR__.'/lib/caches.inc.php');
+            require(__DIR__.'/tpl/stdstyle/rating.inc.php');
 
             if ($log_record['node'] != $oc_nodeid) {
                 tpl_errorMsg('editlog', $error_wrong_node);
@@ -136,10 +137,7 @@ if ($error == false) {
                 }
 
                 // check input
-                require_once($rootpath . 'lib/class.inputfilter.php');
-                $myFilter = new InputFilter($allowedtags, $allowedattr, 0, 0, 1);
-                $log_text = $myFilter->process($log_text);
-
+                $log_text = InputFilter::cleanupUserInput($log_text);
 
                 //validate date
                 $date_not_ok = true;

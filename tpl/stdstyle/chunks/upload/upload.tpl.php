@@ -21,16 +21,14 @@ return function () {
 <script id="upload_chunkDialogTpl" type="text/x-handlebars-template">
   <?php
   // template for upload dialog popup
-  $load = __DIR__."/uploadDialog.tpl.php";
-  require($load);
+  require(__DIR__.'/uploadDialog.tpl.php');
   ?>
 </script>
 
 <script id="upload_filePreviewTpl" type="text/x-handlebars-template">
   <?php
   // template for upload preview entry
-  $load = __DIR__."/uploadedFilePreviewTpl.tpl.php";
-  require($load);
+  require(__DIR__.'/uploadedFilePreviewTpl.tpl.php');
   ?>
 </script>
 

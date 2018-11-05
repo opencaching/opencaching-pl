@@ -7,7 +7,8 @@ use Utils\Database\OcDb;
  */
 header('Content-type: text/html; charset=utf-8');
 
-require_once __DIR__ . '/lib/ClassPathDictionary.php';
+require_once (__DIR__.'/lib/ClassPathDictionary.php');
+
 $db = OcDb::instance();
 
 $query = "SELECT `date_hidden`

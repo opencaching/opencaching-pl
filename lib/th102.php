@@ -1,9 +1,7 @@
 <?php
 use Utils\Database\OcDb;
 
-$rootpath = "../";
-require_once('common.inc.php');
-
+require_once(__DIR__.'/common.inc.php');
 
 ?>
 <html>

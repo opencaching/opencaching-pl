@@ -1,15 +1,12 @@
 <?php
 
 use Utils\Database\XDb;
-global $lang, $rootpath;
+global $lang;
 $lang = 'en';
 
-if (!isset($rootpath))
-    $rootpath = '../';
-
 //include template handling
-require_once($rootpath . 'lib/common.inc.php');
-require_once($rootpath . 'lib/cache_icon.inc.php');
+require_once(__DIR__.'/../lib/common.inc.php');
+require_once(__DIR__.'/../lib/cache_icon.inc.php');
 
 $rs = XDb::xSql(" SELECT latitude, longitude, date_created FROM caches ORDER BY `date_created`");
 $im = imagecreatefromjpeg("mapa.jpg");

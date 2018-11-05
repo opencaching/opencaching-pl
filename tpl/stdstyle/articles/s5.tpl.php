@@ -7,14 +7,6 @@
 <?php
 use Utils\Database\XDb;
 
-global $lang, $rootpath;
-
-if (!isset($rootpath))
-    $rootpath = './';
-
-//include template handling
-require_once($rootpath . 'lib/common.inc.php');
-
 $tops = array();
 ?>
 

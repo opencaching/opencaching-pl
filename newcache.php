@@ -12,11 +12,7 @@ use lib\Objects\User\User;
 use Utils\Debug\Debug;
 use Utils\EventHandler\EventHandler;
 
-// prepare the templates and include all neccessary
-if (! isset($rootpath)) {
-    $rootpath = './';
-}
-require_once ('./lib/common.inc.php');
+require_once (__DIR__.'/lib/common.inc.php');
 
 $ocWP = $GLOBALS['oc_waypoint'];
 $no_tpl_build = false;
@@ -51,8 +47,8 @@ if (! $user->canCreateNewCache()) {
     exit();
 }
 
-require_once ($rootpath . '/lib/caches.inc.php');
-require_once ($stylepath . '/newcache.inc.php');
+require_once (__DIR__.'/lib/caches.inc.php');
+require_once (__DIR__.'/tpl/stdstyle/newcache.inc.php');
 
 $errors = false; // set if there was any errors
 

@@ -8,11 +8,10 @@ use Utils\Database\XDb;
   BBOX=2.38443,48.9322,27.7053,55.0289
  */
 
-$rootpath = '../../';
 header('Content-type: text/html; charset=utf-8');
-require($rootpath . 'lib/common.inc.php');
-require($rootpath . 'lib/export.inc.php');
-require_once($rootpath . 'lib/format.kml.inc.php');
+require(__DIR__.'/../../lib/common.inc.php');
+require(__DIR__.'/../../lib/export.inc.php');
+require_once(__DIR__.'/../../lib/format.kml.inc.php');
 
 $bbox = isset($_REQUEST['BBOX']) ? $_REQUEST['BBOX'] : '0,0,0,0';
 $abox = mb_split(',', $bbox);

@@ -40,8 +40,6 @@
 header('Content-Type: text/plain');
 set_time_limit(0);
 
-$rootpath = '../../';
-
 /* defaults */
 $importfiles = array("pl.txt", "pl_administrative_a.txt",
     "nl.txt", "nl_administrative_a.txt",

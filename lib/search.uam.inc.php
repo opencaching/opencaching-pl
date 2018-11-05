@@ -10,7 +10,7 @@ use Utils\Database\XDb;
 
 set_time_limit(1800);
 
-require_once ('./lib/calculation.inc.php');
+require_once (__DIR__.'/../lib/calculation.inc.php');
 
 global $content, $bUseZip, $hide_coords, $usr, $dbcSearch;
 
@@ -152,7 +152,7 @@ if ($usr || ! $hide_coords) {
     $bUseZip = false;
     if ($bUseZip == true) {
         $content = '';
-        require_once ($rootpath . 'lib/phpzip/ss_zip.class.php');
+        require_once (__DIR__.'/phpzip/ss_zip.class.php');
         $phpzip = new ss_zip('', 6);
     }
 

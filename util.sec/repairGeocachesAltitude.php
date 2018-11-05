@@ -3,7 +3,6 @@
 use lib\Objects\GeoCache\GeoCache;
 use Utils\Database\OcDb;
 
-$rootpath = __DIR__ . '/../';
 require_once __DIR__ . '/../lib/common.inc.php';
 
 

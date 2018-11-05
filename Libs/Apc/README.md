@@ -10,13 +10,6 @@ Current version of this file can be found here:
 * apc.conf.php is file which allow integration with OC configs. 
 
 
-# OC CONFIG:
-
-DO NOT CHANGE ANYTHING IN apc.php
-
-CHECK $config['apc'] in settingsDefault.inc.php for details about OC config for APC monitor
-
-
 # UPDATE:
 
 To update to current version just call (from within this directory):

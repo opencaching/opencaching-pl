@@ -87,7 +87,7 @@ class UserUtilsController extends BaseController
         $xd = 86 - ($qrCodeWidth / 2);
         $yd = 142 - ($qrCodeWidth / 2);
 
-        $ocBackgroundImg = imagecreatefromjpeg($GLOBALS['rootpath'] . '/images/' . $config['qrCodeLogo']);
+        $ocBackgroundImg = imagecreatefromjpeg(__DIR__.'/../images/' . $config['qrCodeLogo']);
 
         // merge both images
         imagecopymerge($ocBackgroundImg, $qrCodeImg, $xd, $yd, 0, 0, $qrCodeWidth, $qrCodeWidth, 100);

@@ -21,7 +21,7 @@ echo "gct.addChartOption('pagingSymbols', { prev: '" . tr('Prev1') . "', next: '
 echo "</script>";
 
 use Utils\Database\OcDb;
-require_once __DIR__ . '/ClassPathDictionary.php';
+require_once (__DIR__ . '/ClassPathDictionary.php');
 $sRok = "";
 $sMc = "";
 

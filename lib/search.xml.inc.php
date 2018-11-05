@@ -8,7 +8,7 @@ use lib\Objects\Coordinates\Coordinates;
 
 global $content, $bUseZip, $dbcSearch, $lang;
 
-require_once ('lib/calculation.inc.php');
+require_once (__DIR__.'/../lib/calculation.inc.php');
 
 $encoding = 'UTF-8';
 $distance_unit = 'km';

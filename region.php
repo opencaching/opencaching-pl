@@ -5,11 +5,9 @@ use lib\Objects\Coordinates\NutsLocation;
 use lib\Objects\ApplicationContainer;
 use lib\Objects\Coordinates\GeoCode;
 
-//prepare the templates and include all neccessary
-
 $tplname = 'region';
 
-require_once('./lib/common.inc.php');
+require_once (__DIR__.'/lib/common.inc.php');
 
 if(!ApplicationContainer::GetAuthorizedUser()){
     print "Not authorized!";

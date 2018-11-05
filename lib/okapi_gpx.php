@@ -10,7 +10,7 @@ use okapi\Facade;
 # Please note, that this file is NOT part of the official API. It may
 # stop working at any time.
 
-require_once __DIR__ . '/ClassPathDictionary.php'; // class autoloader
+require_once __DIR__.'/ClassPathDictionary.php'; // class autoloader
 
 try {
     $user_id = Facade::detect_user_id();

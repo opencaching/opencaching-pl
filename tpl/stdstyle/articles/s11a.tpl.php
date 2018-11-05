@@ -17,14 +17,6 @@ if ($debug_page)
 <table class="table" width="760" style="line-height: 1.6em; font-size: 10px;">
     <tr>
         <td><?php
-            global $rootpath;
-
-            if (!isset($rootpath))
-                $rootpath = './';
-
-            //include template handling
-            require_once($rootpath . 'lib/common.inc.php');
-
             echo '<center><table width="97%"><tr><td align="center"><center><b>{{Stats_s3a_01}}<br/></b>';
             echo '<br>({{Stats_s3a_02}})</center></td></tr></table><br><table border="1" bgcolor="white" width="30%">' . "\n";
 

@@ -1,8 +1,8 @@
 <?php
 
 /* include composer autoloader */
-if(file_exists(__DIR__ . '/../vendor/autoload.php')){
-    require __DIR__ . '/../vendor/autoload.php';
+if(file_exists(__DIR__.'/../vendor/autoload.php')){
+    require __DIR__.'/../vendor/autoload.php';
 }
 
 /**
@@ -31,7 +31,6 @@ class ClassPathDictionary
 {
 
     /**
-
      * While new class creating, try use namespace, leading to class php file. Thanks to that class
      * can be loaded automatically with function getClassPath().
      *

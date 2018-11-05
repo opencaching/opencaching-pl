@@ -11,8 +11,8 @@ use lib\Objects\GeoCache\GeoCacheCommons;
 use lib\Objects\GeoCache\CacheNote;
 
 global $content, $bUseZip, $usr, $hide_coords, $dbcSearch, $queryFilter;
-require_once ('lib/common.inc.php');
-require_once ('lib/calculation.inc.php');
+require_once (__DIR__.'/common.inc.php');
+require_once (__DIR__.'/calculation.inc.php');
 set_time_limit(1800);
 
 function getPictures($cacheid, $picturescount)
@@ -346,7 +346,7 @@ if ($usr || ! $hide_coords) {
     $bUseZip = false; // workaround for timeouts with big files
     if ($bUseZip == true) {
         $content = '';
-        require_once ($rootpath . 'lib/phpzip/ss_zip.class.php');
+        require_once (__DIR__.'/phpzip/ss_zip.class.php');
         $phpzip = new ss_zip('', 6);
     }
 

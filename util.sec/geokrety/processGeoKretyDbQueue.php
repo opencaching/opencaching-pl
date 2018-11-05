@@ -16,8 +16,6 @@ use Controllers\GeoKretyLogController;
  *
  */
 
-$GLOBALS['rootpath'] = "../../"; //TODO: how to remove it from here?
-
 $gkCtrl = new GeoKretyLogController();
 
 // add debug var to url if debug messages are needed

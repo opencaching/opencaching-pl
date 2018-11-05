@@ -28,6 +28,12 @@ class TestController extends BaseController
 {
     public function __construct(){
         parent::__construct();
+
+        // test pages are only for users with AdvancedUsers role
+        $this->redirectNotLoggedUsers();
+        if(!$this->loggedUser->hasAdvUserRole()){
+            $this->displayCommonErrorPageAndExit("Sorry, no such page.");
+        }
     }
 
     public function isCallableFromRouter($actionName)

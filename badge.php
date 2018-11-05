@@ -6,7 +6,7 @@ use lib\Controllers\MeritBadgeController;
 use Controllers\ViewBadgeHeadController;
 use Controllers\ViewBadgeShowPositionsController;
 
-require_once('./lib/common.inc.php');
+require_once(__DIR__.'/lib/common.inc.php');
 
 
 global $content_table, $config;

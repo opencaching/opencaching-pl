@@ -5,11 +5,8 @@ use lib\Objects\GeoCache\PrintList;
 use Utils\View\View;
 use Utils\Uri\Uri;
 
-//prepare the templates and include all neccessary
-if (!isset($rootpath))
-    $rootpath = '';
-require_once('./lib/common.inc.php');
-require_once('lib/cache_icon.inc.php');
+require_once (__DIR__.'/lib/common.inc.php');
+require_once (__DIR__.'/lib/cache_icon.inc.php');
 
 
 if ( isset($_POST['flush_print_list']) ){

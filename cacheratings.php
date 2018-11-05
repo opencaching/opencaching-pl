@@ -2,10 +2,10 @@
 
 use Utils\Database\XDb;
 //prepare the templates and include all neccessary
-require_once('./lib/common.inc.php');
-require_once('./lib/cache_icon.inc.php');
-require_once($rootpath . 'lib/caches.inc.php');
-require_once($stylepath . '/lib/icons.inc.php');
+require_once(__DIR__.'/lib/common.inc.php');
+require_once(__DIR__.'/lib/cache_icon.inc.php');
+require_once(__DIR__.'/lib/caches.inc.php');
+require_once(__DIR__.'/tpl/stdstyle/lib/icons.inc.php');
 
 global $usr;
 //Preprocessing
@@ -15,7 +15,7 @@ if ($error == false) {
         $target = urlencode(tpl_get_current_page());
         tpl_redirect('login.php?target=' . $target);
     } else {
-        require($stylepath . '/newcaches.inc.php');
+        require(__DIR__.'/tpl/stdstyle/newcaches.inc.php');
         // get the news
         $tplname = 'cacheratings';
 

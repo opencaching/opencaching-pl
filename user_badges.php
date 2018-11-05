@@ -3,8 +3,8 @@
 use lib\Objects\MeritBadge\MeritBadge;
 use lib\Controllers\MeritBadgeController;
 
-require_once('./tpl/stdstyle/user_badges.inc.php');
-require_once('./lib/common.inc.php');
+require_once (__DIR__.'/tpl/stdstyle/user_badges.inc.php');
+require_once (__DIR__.'/lib/common.inc.php');
 
 global $content_table;
 
@@ -42,12 +42,12 @@ foreach($userCategories as $oneCategory){
 
         $element=$content_element;
         $element=mb_ereg_replace('{name}', $oneBadge->getOBadge()->getName(), $element);
-        
-        $element=mb_ereg_replace('{short_desc}', MeritBadge::prepareShortDescription(   $oneBadge->getOBadge()->getShortDescription(), 
-                                                                                        $oneBadge->getNextVal(), 
-                                                                                        $oneBadge->getCurrVal()), 
+
+        $element=mb_ereg_replace('{short_desc}', MeritBadge::prepareShortDescription(   $oneBadge->getOBadge()->getShortDescription(),
+                                                                                        $oneBadge->getNextVal(),
+                                                                                        $oneBadge->getCurrVal()),
                                                                                         $element );
-        
+
         $element=mb_ereg_replace('{picture}', $oneBadge->getPicture(), $element );
         $element=mb_ereg_replace('{level_name}', $oneBadge->getOLevel()->getLevelName(), $element );
         $element=mb_ereg_replace('{badge_id}', $oneBadge->getBadgeId(), $element );
@@ -58,7 +58,7 @@ foreach($userCategories as $oneCategory){
         $element=mb_ereg_replace('{next_val}', MeritBadge::prepareTextThreshold($oneBadge->getNextVal()), $element );
         $element=mb_ereg_replace('{progresbar_size}', MeritBadge::getBarSize( $oneBadge->getLevelId(), $oneBadge->getOBadge()->getLevelsNumber() ), $element );
         $element=mb_ereg_replace('{progresbar_color}', MeritBadge::getColor( $oneBadge->getLevelId(), $oneBadge->getOBadge()->getLevelsNumber() ), $element );
-        
+
         $content_badge.= $element;
     }
     $content.=mb_ereg_replace('{content_badge_img}', $content_badge, $category_table);

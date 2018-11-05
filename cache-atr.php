@@ -2,14 +2,8 @@
 /**
  * This scripts display generator of "additional cache attributes"
  */
+require_once(__DIR__.'/lib/common.inc.php');
 
-//prepare the templates and include all neccessary
-require_once('./lib/common.inc.php');
-
-//Preprocessing
-if ($error == false) {
-    $tplname = 'cache-atr';
-}
-//make the template and send it out
+$tplname = 'cache-atr';
 
 tpl_BuildTemplate();

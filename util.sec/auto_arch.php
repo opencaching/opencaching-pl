@@ -10,10 +10,7 @@ use lib\Objects\OcConfig\OcConfig;
 use lib\Objects\GeoCache\GeoCache;
 use Utils\Generators\Uuid;
 
-
-
-$rootpath = __DIR__ . '/../';
-require_once($rootpath . 'lib/common.inc.php');
+require_once(__DIR__.'/../lib/common.inc.php');
 
 class AutoArch
 {
@@ -28,12 +25,10 @@ class AutoArch
      *  @var $ocConfig OcConfig
      */
     private $ocConfig;
-    private $stylepath;
 
-    public function __construct($stylepath)
+    public function __construct()
     {
         $this->ocConfig = OcConfig::instance();
-        $this->stylepath = $stylepath;
     }
 
   /**
@@ -81,13 +76,13 @@ class AutoArch
         $cache = new GeoCache(array('cacheId' => (int) $cacheid));
         switch ($step) {
             case $this->step["START"]:
-                $email_content = file_get_contents($this->stylepath . '/email/arch1.email');
+                $email_content = file_get_contents(__DIR__.'/../tpl/stdstyle/email/arch1.email');
                 break;
             case $this->step["AFTER_FIRST_MAIL_SENT"]:
-                $email_content = file_get_contents($this->stylepath . '/email/arch2.email');
+                $email_content = file_get_contents(__DIR__.'/../tpl/stdstyle/email/arch2.email');
                 break;
             case $this->step["AFTER_SECOND_MAIL_SENT"]:
-                $email_content = file_get_contents($this->stylepath . '/email/arch3.email');
+                $email_content = file_get_contents(__DIR__.'/../tpl/stdstyle/email/arch3.email');
                 break;
         }
         $email_content = mb_ereg_replace('{server}', $this->ocConfig->getAbsolute_server_URI(), $email_content);
@@ -212,6 +207,6 @@ class AutoArch
 }
 
 
-$autoArch = new AutoArch($stylepath);
+$autoArch = new AutoArch();
 $autoArch->run();
 $autoArch->ArchEvent();

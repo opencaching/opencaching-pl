@@ -6,7 +6,7 @@
 use lib\Objects\Coordinates\Coordinates;
 use lib\Objects\Coordinates\NutsLocation;
 
-require_once __DIR__ . '/lib/ClassPathDictionary.php';
+require_once __DIR__.'/lib/ClassPathDictionary.php';
 
 session_start();
 if (!isset($_SESSION['user_id'])) {

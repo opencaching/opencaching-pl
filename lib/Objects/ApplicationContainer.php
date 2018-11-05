@@ -48,6 +48,11 @@ final class ApplicationContainer
         return $this->loggedUser;
     }
 
+    /**
+     * Return authorized user object or null
+     *
+     * @return \lib\Objects\User\User
+     */
     public static function GetAuthorizedUser(){
         return self::Instance()->getLoggedUser();
     }

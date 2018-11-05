@@ -3,9 +3,6 @@
 use Utils\Database\XDb;
 use lib\Objects\GeoKret\GeoKretyApi;
 
-
-require_once('./lib/common.inc.php');
-
 $view->callChunk('tinyMCE', false);
 ?>
 <script>

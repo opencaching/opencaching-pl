@@ -1,13 +1,13 @@
 <?php
 use Utils\Uri\OcCookie;
 ?>
-<link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/GCT.css" />
-<link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/GCTStats.css" />
+<link rel="stylesheet" type="text/css" media="screen,projection" href="/tpl/stdstyle/css/GCT.css" />
+<link rel="stylesheet" type="text/css" media="screen,projection" href="/tpl/stdstyle/css/GCTStats.css" />
 <script src='https://www.google.com/jsapi'></script>
-<script src="lib/js/GCT.js"></script>
-<script src="lib/js/GCT.lang.php"></script>
-<script src="lib/js/GCTStats.js"></script>
-<script src="lib/js/wz_tooltip.js"></script>
+<script src="/lib/js/GCT.js"></script>
+<script src="/lib/js/GCT.lang.php"></script>
+<script src="/lib/js/GCTStats.js"></script>
+<script src="/lib/js/wz_tooltip.js"></script>
 
 <script>
   $( function() {
@@ -127,11 +127,7 @@ else
 
                 <!-- Begin of User -->
                 <td align="right">
-
-                    <?php
-                        include("tpl/stdstyle/articles/userfilter.php");
-                    ?>
-
+                    <?php $view->callSubTpl('/articles/userfilter'); ?>
                 </td>
                 <!-- End of User -->
             </tr>
@@ -139,16 +135,12 @@ else
 
         <hr style="color: black">
         <br>
-
-        <?php
-            include("tpl/stdstyle/articles/mypositionandcharts.php");
-        ?>
-
+        <?php $view->callSubTpl('/articles/mypositionandcharts'); ?>
         <br>
 
     </div> <!-- End of GCT-div -->
 
-    <?php include ("t102.php"); ?>
+    <?php include ('t102.php'); /* blah! this is called in in common_tpl_funcs.php context*/ ?>
 
 
 </div>

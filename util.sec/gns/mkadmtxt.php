@@ -18,10 +18,9 @@
 
  * ************************************************************************* */
 
-$rootpath = '../../';
-require_once($rootpath . 'lib/calculation.inc.php');
-require_once($rootpath . 'lib/search.inc.php');
-require_once($rootpath . 'tpl/stdstyle/selectlocid.inc.php');
+require_once(__DIR__.'/../../lib/calculation.inc.php');
+require_once(__DIR__.'/../../lib/search.inc.php');
+require_once(__DIR__.'/../../tpl/stdstyle/selectlocid.inc.php');
 
 /* begin search index rebuild */
 

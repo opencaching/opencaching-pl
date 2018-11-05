@@ -8,9 +8,8 @@
  * It should be called daily from CRON
  */
 use Utils\Database\XDb;
-$rootpath = '../../../';
-require_once($rootpath . 'lib/common.inc.php');
 
+require_once(__DIR__.'/../../../lib/common.inc.php');
 
 $rsCache = XDb::xSql(
     "SELECT `cache_id`, `latitude`, `longitude` FROM `caches` WHERE `need_npa_recalc`=1");

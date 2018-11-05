@@ -3,7 +3,7 @@
 use lib\Objects\Stats\CacheStats;
 
 //prepare the templates and include all neccessary
-require_once('./lib/common.inc.php');
+require_once(__DIR__.'/lib/common.inc.php');
 
 // get the article name to display
 $article = '';
@@ -24,7 +24,7 @@ if (isset($_REQUEST['page']) &&
 if ($article == '') {
     // no article specified => sitemap
     $tplname = 'contact';
-} else if (! file_exists($stylepath . '/articles/' . $article . '.tpl.php')) {
+} else if (! file_exists('./tpl/stdstyle/articles/' . $article . '.tpl.php')) {
     // article doesn't exists => sitemap
     $tplname = 'contact';
 } else {
@@ -40,8 +40,8 @@ if ($article == '') {
         default:
             break;
     }
-    if (file_exists($stylepath . '/articles/' . $article . '.inc.php')) {
-        require_once $stylepath . '/articles/' . $article . '.inc.php';
+    if (file_exists(__DIR__.'/tpl/stdstyle/articles/' . $article . '.inc.php')) {
+        require_once __DIR__.'/tpl/stdstyle/articles/' . $article . '.inc.php';
     }
     $tplname = 'articles/' . $article;
 }

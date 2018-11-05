@@ -14,13 +14,12 @@ use lib\Controllers\LogEntryController;
 use lib\Objects\ApplicationContainer;
 use lib\Objects\GeoCache\GeoCacheLogCommons;
 use Utils\EventHandler\EventHandler;
+use Utils\Text\InputFilter;
 
 /*
  * todo: create and set up 4 template selector with wybor_WE wybor_NS.
  */
-
-global $rootpath;
-require_once('./lib/common.inc.php');
+require_once (__DIR__.'/lib/common.inc.php');
 
 $user = ApplicationContainer::Instance()->getLoggedUser();
 if (!$user) {
@@ -35,8 +34,8 @@ $tplname = 'log_cache';
 $view->loadJquery();
 
 
-require_once($rootpath . 'lib/caches.inc.php');
-require($stylepath . '/rating.inc.php');
+require_once(__DIR__.'/lib/caches.inc.php');
+require(__DIR__.'/tpl/stdstyle/rating.inc.php');
 
 if(!isset($_REQUEST['cacheid'])){
     tpl_errorMsg('log_cache', "No cacheid param!");
@@ -283,12 +282,8 @@ if (isset($_POST['submit']) && !isset($_POST['version2'])) {
     $log_text = iconv("ISO-8859-1", "UTF-8", $log_text);
 }
 
-
-// check input
-require_once($rootpath . 'lib/class.inputfilter.php');
-$myFilter = new InputFilter($allowedtags, $allowedattr, 0, 0, 1);
-$log_text = $myFilter->process($log_text);
-
+// cleanup input
+$log_text = InputFilter::cleanupUserInput($log_text);
 
 //setting tpl messages if they should be not visible.
 tpl_set_var('lat_message', '');

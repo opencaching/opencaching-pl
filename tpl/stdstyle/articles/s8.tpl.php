@@ -9,13 +9,7 @@
         <td>
         <?php
 use Utils\Database\XDb;
-global $lang, $rootpath;
-
-if (!isset($rootpath))
-    $rootpath = './';
-
-//include template handling
-require_once($rootpath . 'lib/common.inc.php');
+global $lang;
 
 # This page took >60 seconds to render! Added daily caching.
 

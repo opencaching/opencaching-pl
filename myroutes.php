@@ -1,10 +1,9 @@
 <?php
 
 use Utils\Database\XDb;
-//prepare the templates and include all neccessary
-global $rootpath;
+use Utils\Text\InputFilter;
 
-require_once('./lib/common.inc.php');
+require_once (__DIR__.'/lib/common.inc.php');
 
 //Preprocessing
 if ($error == false) {
@@ -30,9 +29,7 @@ if ($error == false) {
             do{
                 $desc = $routes_record['desc'];
                 if ($desc != '') {
-                    require_once($rootpath . 'lib/class.inputfilter.php');
-                    $myFilter = new InputFilter($allowedtags, $allowedattr, 0, 0, 1);
-                    $desc = $myFilter->process($desc);
+                    $desc = InputFilter::cleanupUserInput($desc);
                 }
                 $routes .= '<div class="listitems">';
                 $routes .= '<table border="0" class="myr"><tr><td style="margin-left:3px;width:75px;" class="myr">' . $routes_record['name'] . '</td><td width="2" style="border-right:solid thin #7fa2ca"></td>

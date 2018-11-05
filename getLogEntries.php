@@ -9,12 +9,10 @@ use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\OcConfig\OcConfig;
 use lib\Objects\Coordinates\Coordinates;
 
-$rootpath = "./";
-
-require_once('./lib/common.inc.php');
-require($stylepath . '/lib/icons.inc.php');
-require($stylepath . '/viewcache.inc.php');
-require($stylepath . '/viewlogs.inc.php');
+require_once (__DIR__.'/lib/common.inc.php');
+require(__DIR__.'/tpl/stdstyle/lib/icons.inc.php');
+require(__DIR__.'/tpl/stdstyle/viewcache.inc.php');
+require(__DIR__.'/tpl/stdstyle/viewlogs.inc.php');
 
 if(isset($_REQUEST['geocacheId']) && $_REQUEST['geocacheId'] != ''){
     $geocacheId = $_REQUEST['geocacheId'];
@@ -68,7 +66,7 @@ $logEntries = $logEntryController->loadLogsFromDb($geocacheId, $includeDeletedLo
 $result = '';
 
 $logfilterConfig = (OcConfig::instance())->getLogfilterConfig();
-$tmpSrcLog = file_get_contents($stylepath . '/viewcache_log.tpl.php');
+$tmpSrcLog = file_get_contents('./tpl/stdstyle/viewcache_log.tpl.php');
 
 foreach ($logEntries as $record) {
     $record['text_listing'] = ucfirst(tr('logType' . $record['type'])); //add new attrib 'text_listing based on translation (instead of query as before)'

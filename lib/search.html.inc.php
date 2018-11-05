@@ -68,9 +68,9 @@ function fHideColumn($nr, $set)
 }
 
 global $dbcSearch, $usr, $lang, $hide_coords, $NrColSortSearch, $OrderSortSearch, $SearchWithSort, $TestStartTime, $queryFilter;
-require_once ($stylepath . '/lib/icons.inc.php');
-require_once ('lib/cache_icon.inc.php');
-require_once ('lib/calculation.inc.php');
+require_once (__DIR__.'/../tpl/stdstyle/lib/icons.inc.php');
+require_once (__DIR__.'/cache_icon.inc.php');
+require_once (__DIR__.'/calculation.inc.php');
 
 set_time_limit(1800);
 
@@ -228,12 +228,12 @@ if ($resultcount <= 5000 && $NrColSortSearch != - 1) {
     $SearchWithSort = true;
     $tplname = 'search.result.caches'; // prepare the output
     $caches_per_page = 999999;
-    $cache_line = tpl_do_translate(file_get_contents($stylepath . '/search.result.caches.row.tpl.php')); // build lines
+    $cache_line = tpl_do_translate(file_get_contents(__DIR__.'/../tpl/stdstyle/search.result.caches.row.tpl.php')); // build lines
 } else {
     $SearchWithSort = false;
     $tplname = 'search.result.caches'; // without sort
     $caches_per_page = 20;
-    $cache_line = tpl_do_translate(file_get_contents($stylepath . '/search.result.caches.row.tpl.php')); // build lines
+    $cache_line = tpl_do_translate(file_get_contents(__DIR__.'/../tpl/stdstyle/search.result.caches.row.tpl.php')); // build lines
 }
 
 if ($resultcount)
@@ -700,9 +700,6 @@ function PrepareText( $text )
 
 function icon_difficulty($what, $difficulty)
 {
-    global $stylepath;
-
-
     if ($what != "diff" && $what != "terr")
         die("Wrong difficulty-identifier!");
 
@@ -710,7 +707,7 @@ function icon_difficulty($what, $difficulty)
         if ($difficulty < 2 || $difficulty > 10)
             die("Wrong difficulty-value $what: $difficulty");
 
-            $icon = sprintf("$stylepath/images/difficulty/$what-%d.gif", $difficulty);
+            $icon = sprintf("/tpl/stdstyle/images/difficulty/$what-%d.gif", $difficulty);
             $text = sprintf($what == "diff" ? tr('task_difficulty') : tr('terrain_difficulty'), $difficulty / 2);
             return "<img src='$icon' class='img-difficulty' width='19' height='16' alt='$text' title='$text'>";
 }

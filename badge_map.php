@@ -5,9 +5,7 @@ use Utils\Database\OcDb;
 use Utils\Uri\SimpleRouter;
 use Controllers\MainMapController;
 
-require_once('./lib/common.inc.php');
-
-
+require_once(__DIR__.'/lib/common.inc.php');
 
 if ($usr == false) {
     $target = urlencode(tpl_get_current_page());

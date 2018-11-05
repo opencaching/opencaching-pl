@@ -4,7 +4,7 @@ use Utils\Database\OcDb;
 use lib\Objects\GeoCache\GeoCache;
 
 //prepare the templates and include all neccessary
-require_once('./lib/common.inc.php');
+require_once(__DIR__.'/lib/common.inc.php');
 //Preprocessing
 if ($error == false) {
     //user logged in?

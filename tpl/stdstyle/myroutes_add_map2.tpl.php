@@ -1,8 +1,8 @@
 <?php
-global $rootpath;
+use Utils\Uri\Uri;
 ?>
 
-<script src="lib/js/gmap.<?= date("YmdHis", filemtime($rootpath . 'lib/js/gmap.js')) ?>.js"></script>
+<script src="<?=Uri::getLinkWithModificationTime('/lib/js/gmap.js')?>"></script>
 <script>
 //<![CDATA[
     function checkForm()

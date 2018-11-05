@@ -1,18 +1,11 @@
 <?php
 use Utils\Database\XDb;
 
-global $rootpath;
-if (!isset($rootpath))
-    $rootpath = './';
+$userscount = XDb::xSimpleQueryValue(
+    'SELECT COUNT(DISTINCT user_id) FROM caches WHERE (status=1 OR `status`=2 OR `status`=3)', 0);
 
-    //include template handling
-    require_once($rootpath . 'lib/common.inc.php');
-
-    $userscount = XDb::xSimpleQueryValue(
-        'SELECT COUNT(DISTINCT user_id) FROM caches WHERE (status=1 OR `status`=2 OR `status`=3)', 0);
-
-    $cachescount = XDb::xSimpleQueryValue(
-        'SELECT COUNT(*) FROM `caches` WHERE (`status`=1 OR `status`=2 OR `status`=3)  AND `caches`.`type`<>6', 0);
+$cachescount = XDb::xSimpleQueryValue(
+    'SELECT COUNT(*) FROM `caches` WHERE (`status`=1 OR `status`=2 OR `status`=3)  AND `caches`.`type`<>6', 0);
 ?>
 
 <div class="content2-container">

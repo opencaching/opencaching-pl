@@ -3,9 +3,9 @@
 use Utils\Database\XDb;
 use Utils\Text\Validator;
 
-//prepare the templates and include all neccessary
 global $octeamEmailsSignature, $absolute_server_URI;
-require_once('./lib/common.inc.php');
+
+require_once (__DIR__.'/lib/common.inc.php');
 
 //Preprocessing
 if ($error == false) {
@@ -18,7 +18,7 @@ if ($error == false) {
         $tplname = 'newemail';
 
         //load language specific variables
-        require_once($stylepath . '/' . $tplname . '.inc.php');
+        require_once(__DIR__.'/tpl/stdstyle/' . $tplname . '.inc.php');
 
         tpl_set_var('new_email', '');
         tpl_set_var('message', '');
@@ -60,7 +60,7 @@ if ($error == false) {
                         "UPDATE `user` SET `new_email_date`=?, `new_email_code`=?, `new_email`=?
                         WHERE `user_id`=?", time(), $secure_code, $new_email, $usr['userid']);
 
-                    $email_content = file_get_contents($stylepath . '/email/newemail.email');
+                    $email_content = file_get_contents('./tpl/stdstyle/email/newemail.email');
                     $email_content = mb_ereg_replace('{server}', $absolute_server_URI, $email_content);
                     $email_content = mb_ereg_replace('{newEmailAddr_01}', tr('newEmailAddr_01'), $email_content);
                     $email_content = mb_ereg_replace('{newEmailAddr_02}', tr('newEmailAddr_02'), $email_content);

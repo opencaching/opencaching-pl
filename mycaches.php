@@ -4,15 +4,12 @@ use Utils\Database\XDb;
 use Utils\Database\OcDb;
 use lib\Objects\GeoCache\GeoCacheLog;
 
-global $lang, $rootpath, $usr, $dateFormat;
-
-if (!isset($rootpath))
-    $rootpath = '';
+global $lang, $usr, $dateFormat;
 
 //include template handling
-require_once($rootpath . 'lib/common.inc.php');
-require_once($rootpath . 'lib/cache_icon.inc.php');
-require_once($stylepath . '/lib/icons.inc.php');
+require_once (__DIR__.'/lib/common.inc.php');
+require_once (__DIR__.'/lib/cache_icon.inc.php');
+require_once (__DIR__.'/tpl/stdstyle/lib/icons.inc.php');
 
 //Preprocessing
 if ($error == false) {
@@ -31,7 +28,7 @@ if ($error == false) {
         }
         //get the news
         $tplname = 'mycaches';
-        require($stylepath . '/newlogs.inc.php');
+        require(__DIR__.'/tpl/stdstyle/newlogs.inc.php');
 
         if (XDb::xContainsColumn('cache_status', $lang))
             $lang_db = $lang;

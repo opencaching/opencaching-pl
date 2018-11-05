@@ -20,11 +20,7 @@ use lib\Objects\User\UserStats;
 
 const ADMINNOTES_PER_PAGE = 10;
 
-//prepare the templates and include all neccessary
-if (!isset($rootpath)) {
-    $rootpath = '';
-}
-require_once ('./lib/common.inc.php');
+require_once (__DIR__.'/lib/common.inc.php');
 
 //user logged in?
 if ($usr == false) {
@@ -67,7 +63,7 @@ if ($usr == false) {
         $user_id = $usr['userid'];
     }
 
-    require ($stylepath . '/lib/icons.inc.php');
+    require (__DIR__.'/tpl/stdstyle/lib/icons.inc.php');
     $tplname = 'viewprofile';
 
     /** @var View */
@@ -818,10 +814,9 @@ function buildGeocacheHtml(GeoCache $geocache, $html)
 
 function buildMeritBadges($user_id) {
 
-global $content_table_badge, $content_row_pattern_badge, $content_tip_badge, $content_element_badge,
-$stylepath;
+global $content_table_badge, $content_row_pattern_badge, $content_tip_badge, $content_element_badge;
 
-require($stylepath . '/viewprofile.inc.php');
+require(__DIR__.'/tpl/stdstyle/viewprofile.inc.php');
 
 
 $meritBadgeCtrl = new MeritBadgeController();

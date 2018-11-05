@@ -4,7 +4,7 @@
 
 use Utils\Uri\SimpleRouter;
 
-require_once('./lib/common.inc.php');
+require_once (__DIR__.'/lib/common.inc.php');
 
 $url = SimpleRouter::getLink('UserRegistration');
 header('Location: '. $url);
