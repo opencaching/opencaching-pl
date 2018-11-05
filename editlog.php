@@ -376,8 +376,9 @@ if ($error == false) {
                     //Update last found
                     $lastFoundDate = XDb::xMultiVariableQueryValue(
                         "SELECT MAX(`date`) AS `date` FROM `cache_logs`
-                         WHERE `type` = 1 AND `cache_id`= :1 AND deleted = 0",
-                         'NULL', $log_record['cache_id']);
+                         WHERE `type` IN (:1, :2) AND `cache_id`= :3 AND deleted = 0",
+                         'NULL', GeoCacheLog::LOGTYPE_FOUNDIT, GeoCacheLog::LOGTYPE_ATTENDED,
+                         $log_record['cache_id']);
 
                     XDb::xSql(
                         "UPDATE `caches` SET `last_found`=?, `founds`=?, `notfounds`=?, `notes`=? WHERE `cache_id`=?",
