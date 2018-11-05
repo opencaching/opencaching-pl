@@ -2788,6 +2788,16 @@ $translations = array(
     'startPage_latestTitledCaches' => 'Laatste uitblinker',
     'startPage_validAt' => 'Geldig vanaf',
 
+    'userRecommendations' => 'Aanbevolen door %s',
+    'myRecommendations' => 'Mijn aanbevelingen',
+    'myRecommendations_status' => 'Status',
+    'myRecommendations_cacheName' => 'Cache',
+    'myRecommendations_cacheOwner' => 'Eigenaar',
+    'myRecommendations_actionRemove' => 'Aanbeveling verwijderen',
+    'myRecommendations_removeRecommendation' => 'Klik hier om aanbeveling te verwijderen',
+    'myRecommendations_recommendationRemovingSuccess' => 'Aanbeveling verwijderd',
+    'myRecommendations_recommendationRemovingError' => 'Aanbeveling verwijderen mislukt',
+    'myRecommendations_emptyList' => 'Geen aanbevelingen gevonden',
 
     'myNotes_title' => 'Mijn cache notities',
     'myNotes_lastLogEntry' => 'Laatste log',
