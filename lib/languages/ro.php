@@ -2049,7 +2049,6 @@ $translations = array(
     'search_kml_06' => 'din',
     'search_kml_07' => 'Teren:',
     'search_kml_08' => 'Stare:',
-    'mytop5_1' => 'Vrei să ştergi recomandarea pe care ai dat-o?',
 
     'usrWatch_title' => 'Geocutii urmărite',
     'usrWatch_mapTitle' => 'Hartă cu geocutiile urmărite',

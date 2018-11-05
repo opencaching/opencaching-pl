@@ -1627,7 +1627,6 @@ $translations = array(
     'search_kml_05' => 'Difficulty:',
     'search_kml_06' => 'with',
     'search_kml_07' => 'Terrain:',
-    'mytop5_1' => 'Do you want to remove your recomandation ?',
     'myignores_1' => 'Do you want to switch off ignore ?',
     'myviewqueries_1' => 'Do you want to remove this querey collection ?',
     'search_gpxgc_01' => 'WARNING! There is a PASSWORD in the cache - please remember to write it down!',

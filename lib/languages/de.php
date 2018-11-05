@@ -2035,7 +2035,6 @@ $translations = array(
     'search_kml_06' => 'with',
     'search_kml_07' => 'Terrain:',
     'search_kml_08' => 'Status:',
-    'mytop5_1' => 'Do you want to remove your recommendation?',
 
     'usrWatch_title' => 'Watched geocaches',
     'usrWatch_mapTitle' => 'Map of watched geocaches',

@@ -2070,7 +2070,6 @@ $translations = array(
     'search_kml_06' => 'of',
     'search_kml_07' => 'Terrain:',
     'search_kml_08' => 'Status:',
-    'mytop5_1' => 'Do you want to remove your recommendation?',
 
     'usrWatch_title' => 'Watched geocaches',
     'usrWatch_mapTitle' => 'Map of watched geocaches',
@@ -2789,6 +2788,16 @@ $translations = array(
     'startPage_latestTitledCaches' => 'Latest awarded geocaches',
     'startPage_validAt' => 'Valid at',
 
+    'userRecommendations' => 'Recommended by %s',
+    'myRecommendations' => 'My recommendations',
+    'myRecommendations_status' => 'Status',
+    'myRecommendations_cacheName' => 'Geocache',
+    'myRecommendations_cacheOwner' => 'Owner',
+    'myRecommendations_actionRemove' => 'Remove recommendation',
+    'myRecommendations_removeRecommendation' => 'Click here to remove recommendation',
+    'myRecommendations_recommendationRemovingSuccess' => 'Recommendation removed',
+    'myRecommendations_recommendationRemovingError' => 'Recommendation removing failed',
+    'myRecommendations_emptyList' => 'No recommendations found',
 
     'myNotes_title' => 'My notes',
     'myNotes_lastLogEntry' => 'Last log entry',

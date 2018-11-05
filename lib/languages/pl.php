@@ -2074,7 +2074,6 @@ $translations = array(
     'search_kml_06' => 'z',
     'search_kml_07' => 'Teren:',
     'search_kml_08' => 'Status:',
-    'mytop5_1' => 'Czy na pewno chcesz usunąć tę rekomendację?',
 
     'usrWatch_title' => 'Obserwowane skrzynki',
     'usrWatch_mapTitle' => 'Mapa obserwowanych skrzynek',
@@ -2792,6 +2791,16 @@ $translations = array(
     'startPage_latestTitledCaches' => 'Ostatnio wyróżnione',
     'startPage_validAt' => 'Aktualność',
 
+    'userRecommendations' => 'Rekomendowane przez %s',
+    'myRecommendations' => 'Moje rekomendacje',
+    'myRecommendations_status' => 'Status',
+    'myRecommendations_cacheName' => 'Skrzynka',
+    'myRecommendations_cacheOwner' => 'Właściciel',
+    'myRecommendations_actionRemove' => 'Usuń rekomendację',
+    'myRecommendations_removeRecommendation' => 'Kliknij tu, aby usunąć rekomendację',
+    'myRecommendations_recommendationRemovingSuccess' => 'Rekomendacja usunięta',
+    'myRecommendations_recommendationRemovingError' => 'Nie udało się usunąć rekomendacji',
+    'myRecommendations_emptyList' => 'Nie znaleziono przyznanych rekomendacji',
 
     'myNotes_title' => 'Moje notatki',
     'myNotes_lastLogEntry' => 'Ostatni wpis w logu',

@@ -1,4 +1,6 @@
 <?php
+
+use Controllers\MyRecommendationsController;
 use Utils\Uri\SimpleRouter;
 use Controllers\CacheNotesController;
 
@@ -30,7 +32,7 @@ $menu = [ // DON'T CHANGE $menu var name!
     'mnu_myCacheNotes'  => SimpleRouter::getLink(CacheNotesController::class),
     'mnu_watchedCaches' => '/mywatches.php',
     'mnu_ignoredCaches' => '/myignores.php',
-    'mnu_myRecommends'  => '/mytop5.php',
+    'mnu_myRecommends'  => SimpleRouter::getLink(MyRecommendationsController::class, 'recommendations'),
     'mnu_savedQueries'  => '/query.php',
     'mnu_okapiExtApps'  => '/okapi/apps/?langpref=' . $GLOBALS['lang'],
 ];

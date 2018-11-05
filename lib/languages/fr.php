@@ -2070,7 +2070,6 @@ $translations = array(
     'search_kml_06' => 'de',
     'search_kml_07' => 'Terrain :',
     'search_kml_08' => 'Statut :',
-    'mytop5_1' => 'Voulez-vous vraiment supprimer votre recommandation ?',
 
     'usrWatch_title' => 'Caches surveillées',
     'usrWatch_mapTitle' => 'Carte des caches surveillés',
