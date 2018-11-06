@@ -2788,6 +2788,16 @@ $translations = array(
     'startPage_latestTitledCaches' => 'Dernières caches récompensées',
     'startPage_validAt' => 'Valide le',
 
+    'userRecommendations' => 'Recommandé par %s',
+    'myRecommendations' => 'Mes recommandations',
+    'myRecommendations_status' => 'État',
+    'myRecommendations_cacheName' => 'Géocache',
+    'myRecommendations_cacheOwner' => 'Propriétaire',
+    'myRecommendations_actionRemove' => 'Retirer la recommandation',
+    'myRecommendations_removeRecommendation' => 'Cliquez ici pour supprimer la recommandation',
+    'myRecommendations_recommendationRemovingSuccess' => 'Recommandation retirée',
+    'myRecommendations_recommendationRemovingError' => 'Échec lors de suppression de la recommandation',
+    'myRecommendations_emptyList' => 'Aucune recommandation',
 
     'myNotes_title' => 'Mes notes',
     'myNotes_lastLogEntry' => 'Dernière entrée du journal',
@@ -2820,6 +2830,14 @@ $translations = array(
     'log_filter_author' => 'Auteur',
     'log_filter_author_any' => 'Tout le monde',
     'log_filter_author_currentuser' => 'Moi',
+
+    'upload_clickOrDropFile' => 'Déposez un fichier ici ou cliquez pour en sélectionner un',
+    'upload_allowedTypesOfFile' => 'type de fichiers autorisés',
+    'upload_maxFileSize' => 'taille de fichier maximale',
+    'upload_allowedNumberOfFiles' => 'nombre maximum de fichiers à envoyer simultanément',
+    'upload_improperFileSize' => 'Ignoré, taille de fichier invalide !',
+    'upload_improperFileType' => 'Ignoré, type de fichier invalide !',
+    'upload_startUpload' => 'Lancer l\'envoi',
 
     'pictures_intro' => 'Formats d\'image permis : {picallowedformats}. JPG fonctionne mieux pour les photos.<br />La taille maximale autorisée est de {maxpicsizeMB} mégaoctets. Résolution recommandée : {maxpicresolution} pixels.',
 
