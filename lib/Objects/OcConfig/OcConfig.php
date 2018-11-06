@@ -169,7 +169,10 @@ final class OcConfig extends ConfigReader
         return $this->datetimeFormat;
     }
 
-
+    public function getPageTitle()
+    {
+        return $this->pagetitle;
+    }
 
     /**
      * Returns array of wiki-links readed from config

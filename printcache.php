@@ -4,6 +4,7 @@ use Utils\Database\XDb;
 use lib\Objects\GeoCache\PrintList;
 use Utils\View\View;
 use Utils\Uri\Uri;
+use lib\Objects\OcConfig\OcConfig;
 
 require_once (__DIR__.'/lib/common.inc.php');
 require_once (__DIR__.'/lib/cache_icon.inc.php');
@@ -117,7 +118,7 @@ if (!$cache_id) {
 <html lang="<?=$lang ?>">
   <head>
     <meta charset="utf-8">
-    <title><?php echo $pagetitle; echo ' - ' . tr('pagetitle_print'); ?></title>
+    <title><?php echo OcConfig::instance()->getPageTitle(); echo ' - ' . tr('pagetitle_print'); ?></title>
     <link rel="shortcut icon" href="/images/<?php print $config['headerFavicon']; ?>">
     <link rel="stylesheet" type="text/css" href="<?=Uri::getLinkWithModificationTime('tpl/stdstyle/css/style_print.css')?>">
   </head>
