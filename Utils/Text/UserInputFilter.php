@@ -12,6 +12,7 @@ use HTMLPurifier_ElementDef;
 use HTMLPurifier_HTMLModule_SafeEmbed;
 use HTMLPurifier_HTMLModule_SafeObject;
 use HTMLPurifier_Injector_SafeObject;
+use lib\Objects\OcConfig\OcConfig;
 
 /**
  * class designed to contain user input filters.
@@ -25,13 +26,12 @@ class UserInputFilter
     private static function createConfig()
     {
         global $debug_page;
-        global $dynbasepath;
 
         $config = HTMLPurifier_Config::createDefault();
 
         // Cache Serializer Path - keep it in area with dynamic files,
         // since the web server needs write permission there
-        $cacheSerializerPath = $dynbasepath . 'lib/htmlpurifier';
+        $cacheSerializerPath = OcConfig::instance()->getDynamicFilesPath() . 'lib/htmlpurifier';
 
         if (!file_exists($cacheSerializerPath)) {
             mkdir($cacheSerializerPath, 0777, true);

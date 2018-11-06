@@ -235,6 +235,11 @@ final class OcConfig extends ConfigReader
         return $this->octeamEmailAddress;
     }
 
+    public static function getDynFilesPath()
+    {
+        return self::instance()->getDynamicFilesPath();
+    }
+
     public function getDynamicFilesPath()
     {
         return $this->dynamicFilesPath;

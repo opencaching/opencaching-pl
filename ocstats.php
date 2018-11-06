@@ -1,10 +1,9 @@
 <?php
 
 use Utils\Database\XDb;
+use lib\Objects\OcConfig\OcConfig;
 
 require_once (__DIR__.'/lib/common.inc.php');
-
-global $dynbasepath;
 
 // Parameter
 $jpeg_qualitaet = 80;
@@ -45,7 +44,7 @@ XDb::xFreeResults($rs);
 
 $userid = $userid + 0;
 
-if (!file_exists($dynbasepath . 'images/statpics/statpic' . $userid . '.jpg')) {
+if (!file_exists(OcConfig::getDynFilesPath() . 'images/statpics/statpic' . $userid . '.jpg')) {
     // picture does not exist => create new
     $rs = XDb::xSql(
         "SELECT `tplpath`, `maxtextwidth` FROM `statpics` WHERE `id`= ? LIMIT 1", $logo);
@@ -124,7 +123,7 @@ if (!file_exists($dynbasepath . 'images/statpics/statpic' . $userid . '.jpg')) {
     // draw border
     ImageRectangle($im, 0, 0, imagesx($im) - 1, imagesy($im) - 1, $clrBorder);
     // write output
-    Imagejpeg($im, $dynbasepath . 'images/statpics/statpic' . $userid . '.jpg', $jpeg_qualitaet);
+    Imagejpeg($im, OcConfig::getDynFilesPath().'images/statpics/statpic' . $userid . '.jpg', $jpeg_qualitaet);
     ImageDestroy($im);
 }
 

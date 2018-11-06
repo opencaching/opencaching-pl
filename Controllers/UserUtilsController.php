@@ -30,14 +30,12 @@ class UserUtilsController extends BaseController
      */
     public function qrCodeGen()
     {
-        global $dynbasepath, $config; //TODO: remove it from here
-
+        global $config; //TODO: remove it from here
 
         if(!$this->isUserLogged()){
             $this->redirectToLoginPage();
             exit;
         }
-
 
         $this->view->setTemplate('qrCodeGen/qrcode');
         $this->view->addLocalCss(
@@ -46,7 +44,8 @@ class UserUtilsController extends BaseController
 
         //set it to writable location, a place for temp generated PNG files
         $qrCodesDirName = 'tmp/qrcodes/';
-        $qrCodesDir = $dynbasepath . $qrCodesDirName;
+
+        $qrCodesDir = $this->ocConfig->getDynamicFilesPath() . $qrCodesDirName;
 
         if (!file_exists($qrCodesDir)){
             mkdir($qrCodesDir);

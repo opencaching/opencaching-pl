@@ -1,10 +1,9 @@
 <?php
 
 use Utils\Database\XDb;
+use lib\Objects\OcConfig\OcConfig;
 
 require_once (__DIR__.'/lib/common.inc.php');
-
-global $dynbasepath;
 
 
 //user logged in?
@@ -111,7 +110,7 @@ while ($wynik = XDb::xFetchArray($wyniki)) {
 };
 
 // write output
-Imagejpeg($im, $dynbasepath . 'images/statpics/mapstat' . $user_id . '.jpg', $jpeg_qualitaet);
+Imagejpeg($im, OcConfig::getDynFilesPath() . 'images/statpics/mapstat' . $user_id . '.jpg', $jpeg_qualitaet);
 ImageDestroy($im);
 // generate number for refresh image
 $rand = rand();
