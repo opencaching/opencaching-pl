@@ -1628,7 +1628,8 @@ class GeoCache extends GeoCacheCommons
 
         $this->db->multiVariableQuery(
             'UPDATE `caches`
-            SET `status` = :1
+            SET `status` = :1,
+                `last_modified` = NOW()
             WHERE `cache_id` = :2',
             $newStatus, $this->getCacheId()
             );
