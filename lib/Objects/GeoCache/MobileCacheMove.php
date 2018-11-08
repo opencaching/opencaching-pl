@@ -40,7 +40,7 @@ class MobileCacheMove extends BaseObject
     private function updateDistance($newDistance)
     {
         $this->db->multiVariableQuery(
-            "UPDATE cache_moved SET km = :1 WHERE logId = :2",
+            "UPDATE cache_moved SET km = :1 WHERE log_id = :2",
             $newDistance, $this->logId);
 
         Facade::schedule_user_entries_check($this->cacheId, $this->userId);
