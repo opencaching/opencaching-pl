@@ -1,5 +1,7 @@
 <?php
 
+use lib\Objects\OcConfig\OcConfig;
+
 /**
  * staticMapLite 0.3.1
  *
@@ -86,8 +88,6 @@ Class staticMapLite
 
     public function __construct()
     {
-        global $dynbasepath;
-
         $this->zoom = 0;
         $this->lat = 0;
         $this->lon = 0;
@@ -96,9 +96,8 @@ Class staticMapLite
         $this->markers = array();
         $this->maptype = $this->tileDefaultSrc;
 
-        $this->tileCacheBaseDir = $dynbasepath.'images/staticmap/tiles';
-        $this->mapCacheBaseDir = $dynbasepath.'images/staticmap/maps';
-
+        $this->tileCacheBaseDir = OcConfig::getDynFilesPath() .'images/staticmap/tiles';
+        $this->mapCacheBaseDir = OcConfig::getDynFilesPath() .'images/staticmap/maps';
     }
 
     public function parseParams()

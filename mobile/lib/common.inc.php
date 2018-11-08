@@ -1,5 +1,7 @@
 <?php
 
+use lib\Objects\OcConfig\OcConfig;
+
 session_start();
 
 require_once('../lib/settingsGlue.inc.php');
@@ -10,8 +12,8 @@ require_once("./lib/login.class.php");
 require_once('../lib/ClassPathDictionary.php');
 
 $tpl = new Smarty;
-$tpl->template_dir = $dynbasepath . 'lib/templates/';
-$tpl->compile_dir = $dynbasepath . 'lib/templates_c/';
+$tpl->template_dir = OcConfig::getDynFilesPath() . 'lib/templates/';
+$tpl->compile_dir = OcConfig::getDynFilesPath() . 'lib/templates_c/';
 
 if (!(isset($_SESSION['logout_cookie']))) {
     $_SESSION['logout_cookie'] = mt_rand(1000, 9999) . mt_rand(1000, 9999);

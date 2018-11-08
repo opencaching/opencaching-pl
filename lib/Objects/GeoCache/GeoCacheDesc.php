@@ -8,6 +8,7 @@ use Utils\Text\SmilesInText;
 use Utils\Text\UserInputFilter;
 use lib\Objects\User\User;
 use lib\Objects\BaseObject;
+use Utils\Text\Formatter;
 
 class GeoCacheDesc extends BaseObject
 {
@@ -133,26 +134,26 @@ class GeoCacheDesc extends BaseObject
 
     public static function UpdateAdminComment(GeoCache $geoCache, $comment, User $author){
 
-        $sender_name = $author->getUserName();
-        $comment = nl2br($comment);
-        $date = date("d-m-Y H:i:s");
+        $userName = $author->getUserName();
+        $comment = UserInputFilter::purifyHtmlString(nl2br($comment));
+        $date = Formatter::dateTime(); //current formated date+time
 
-        $octeam_comment = '<b><span class="content-title-noshade txt-blue08">' .
-                            tr('date') . ': ' . $date . ', ' .
-                            tr('add_by') . ' ' . $sender_name . '</span></b><br/>' . $comment . '<br/><br/>';
+        $formattedComment = '<span class="ocTeamCommentHeader">'.tr('date').": $date, ".tr('add_by')." $userName:</span>" .
+                            '<span class="ocTeamComment">'.$comment.'</span>';
 
-        XDb::xSql(
-            "UPDATE cache_desc SET rr_comment = CONCAT('" . XDb::xEscape($octeam_comment) . "', rr_comment),
+        self::db()->multiVariableQuery(
+            "UPDATE cache_desc SET
+                rr_comment = CONCAT('$formattedComment', rr_comment),
                 last_modified = NOW()
-            WHERE cache_id= ? ", $geoCache->getCacheId());
+            WHERE cache_id= :1 ", $geoCache->getCacheId());
 
 
-        EmailSender::sendNotifyOfOcTeamCommentToCache($geoCache,$author, nl2br($_POST['rr_comment']));
+        EmailSender::sendNotifyOfOcTeamCommentToCache($geoCache, $author, $comment);
 
     }
 
     public static function RemoveAdminComment(GeoCache $geoCache){
-        XDb::xSql("UPDATE cache_desc SET rr_comment='' WHERE cache_id= ? ",$geoCache->getCacheId() );
+        self::db()->multiVariableQuery("UPDATE cache_desc SET rr_comment='' WHERE cache_id=:1 ", $geoCache->getCacheId());
     }
 }
 

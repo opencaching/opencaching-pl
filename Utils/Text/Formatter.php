@@ -70,12 +70,14 @@ class Formatter
     /**
      * Formats date and time according to config setting
      *
-     * @param mixed $datetime
-     *            can be timestamp or DateTime obj
+     * @param mixed $datetime - can be timestamp or DateTime obj - if not set current time will be used
      * @return string formatted date and time
      */
     public static function dateTime($datetime = null)
     {
+        if(!$datetime){
+            $datetime = new \DateTime();
+        }
         return self::date($datetime, true);
     }
 

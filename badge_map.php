@@ -4,6 +4,7 @@ use lib\Controllers\MeritBadgeController;
 use Utils\Database\OcDb;
 use Utils\Uri\SimpleRouter;
 use Controllers\MainMapController;
+use lib\Objects\OcConfig\OcConfig;
 
 require_once(__DIR__.'/lib/common.inc.php');
 
@@ -54,7 +55,7 @@ $maxlon = $r['maxlongitude'];
 $cacheQuery = "SELECT cache_id FROM $tmp_badge_map";
 $stmt = $db->simpleQuery($cacheQuery);
 $hash = uniqid();
-$f = fopen($dynbasepath . "searchdata/" . $hash, "w");
+$f = fopen(OcConfig::getDynFilesPath() . "searchdata/" . $hash, "w");
 while ($r = $db->dbResultFetch($stmt)) {
     fprintf($f, "%s\n", $r['cache_id']);
 }

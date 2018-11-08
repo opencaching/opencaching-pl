@@ -1,6 +1,7 @@
 <?php
 
 use Utils\Database\XDb;
+use lib\Objects\OcConfig\OcConfig;
 /* begin configuration */
 
 $rootpath = '../';
@@ -13,8 +14,7 @@ if ($error == true) {
     exit;
 }
 
-global $dynbasepath;
-$zip_basedir = $dynbasepath . 'download/zip/';
+$zip_basedir = OcConfig::getDynFilesPath() . 'download/zip/';
 $zip_wwwdir = '/download/zip/';
 
 

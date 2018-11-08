@@ -169,7 +169,10 @@ final class OcConfig extends ConfigReader
         return $this->datetimeFormat;
     }
 
-
+    public function getPageTitle()
+    {
+        return $this->pagetitle;
+    }
 
     /**
      * Returns array of wiki-links readed from config
@@ -233,6 +236,11 @@ final class OcConfig extends ConfigReader
     public function getOcteamEmailAddress()
     {
         return $this->octeamEmailAddress;
+    }
+
+    public static function getDynFilesPath()
+    {
+        return self::instance()->getDynamicFilesPath();
     }
 
     public function getDynamicFilesPath()

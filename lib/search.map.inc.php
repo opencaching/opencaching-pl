@@ -4,6 +4,7 @@
  */
 
 use Utils\Database\OcDb;
+use lib\Objects\OcConfig\OcConfig;
 
 global $content, $bUseZip, $usr, $hide_coords, $dbcSearch;
 
@@ -80,7 +81,7 @@ $maxlon = $r['maxlongitude'];
 $stmt = $dbcSearch->simpleQuery($query);
 $cnt = 0;
 $hash = uniqid();
-$f = fopen($dynbasepath . "searchdata/" . $hash, "w");
+$f = fopen(OcConfig::getDynFilesPath() . "searchdata/" . $hash, "w");
 while ($r = $dbcSearch->dbResultFetch($stmt)) {
 
     ++ $cnt;

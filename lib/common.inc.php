@@ -18,7 +18,6 @@ $GLOBALS['config'] = $config;
 $GLOBALS['lang'] = $lang;
 $GLOBALS['site_name'] = $site_name;
 $GLOBALS['contact_mail'] = $contact_mail;
-$GLOBALS['pagetitle'] = $pagetitle;
 
 require_once(__DIR__.'/language.inc.php');     // main translation funcs
 require_once(__DIR__.'/common_tpl_funcs.php'); // template engine
@@ -69,7 +68,7 @@ function initTemplateSystem(){
         tpl_set_var('wiki_link_'.$key, $value);
     }
 
-    tpl_set_var('title', htmlspecialchars($GLOBALS['pagetitle'], ENT_COMPAT, 'UTF-8'));
+    tpl_set_var('title', htmlspecialchars(OcConfig::instance()->getPageTitle(), ENT_COMPAT, 'UTF-8'));
     tpl_set_var('lang', $GLOBALS['lang']);
     tpl_set_var('bodyMod', '');
     tpl_set_var('cachemap_header', '');
