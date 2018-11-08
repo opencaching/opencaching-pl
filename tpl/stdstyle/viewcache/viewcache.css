@@ -345,3 +345,12 @@ a.links4:hover {
 .copy-coords-status .copy-coords-values {
     font-weight: bold;
 }
+
+.ocTeamCommentHeader {
+  color: rgb(122,114,204);
+  font-weight: bold;
+  display: block;
+  padding-top: 5px;
+}
+
+
