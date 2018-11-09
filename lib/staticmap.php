@@ -28,7 +28,7 @@ use lib\Objects\OcConfig\OcConfig;
  *
  */
 
-require_once (__DIR__.'/settingsGlue.inc.php');
+require_once __DIR__.'/common.inc.php';
 
 Class staticMapLite
 {
