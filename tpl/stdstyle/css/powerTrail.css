@@ -391,7 +391,7 @@ textarea.powerTrailEditor {
     height: 400px;
 }
 
-.seasonalBackground.right.autumn { /* fix for not clickable overfloved buttons of Geopath*/
+.seasonalBackground.right { /* fix for not clickable overfloved buttons of Geopath*/
   z-index: -1;
 }
 
