@@ -390,3 +390,9 @@ textarea.powerTrailEditor {
     min-width: 600px;
     height: 400px;
 }
+
+.seasonalBackground.right.autumn { /* fix for not clickable overfloved buttons of Geopath*/
+  z-index: -1;
+}
+
+
