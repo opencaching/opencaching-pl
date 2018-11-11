@@ -96,7 +96,8 @@ $config = array(
     'forbidenCacheTypes' => array(
         cache::TYPE_VIRTUAL,
         cache::TYPE_WEBCAM,
-        cache::TYPE_GEOPATHFINAL
+        cache::TYPE_PODCAST,
+        cache::TYPE_GEOPATHFINAL,
     ),
     /**
      * cache limits for user. If user is allowed to place limited nomber of specified cache type,

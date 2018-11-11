@@ -99,6 +99,7 @@ INSERT INTO `cache_type` (`id`, `sort`, `short`, `pl`, `en`, `icon_large`, `icon
 (8, 4, 'Moving', 'Mobilna', 'Moving', 'cache/moving.png', 'cache/16x16-moving.png', '#FF00FF'),
 (9, 9, 'Podcast', 'Podcast cache', 'Podcast cache', 'cache/podcache.png', 'cache/16x16-podcache.png', '#FF00FF'),
 (10, 10, 'own-cache', 'Own cache', 'Own cache', 'cache/owncache.png', 'cache/16x16-owncache.png', '#FF00FF');
+(14, 14, 'Pathfinal', 'Finał serii', 'Geopath Final', 'cache/geopathfinal.png', 'cache/16x16-geopathfinal.png', '#FF00FF');
 
 
 --

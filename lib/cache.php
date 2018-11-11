@@ -11,8 +11,9 @@ final class cache
     const TYPE_EVENT = 6;
     const TYPE_QUIZ = 7;
     const TYPE_MOVING = 8;
-    const TYPE_GEOPATHFINAL = 9;
+    const TYPE_PODCAST = 9;
     const TYPE_OWNCACHE = 10;
+    const TYPE_GEOPATHFINAL = 14;
 
     const SIZE_MICRO = 2;
     const SIZE_SMALL = 3;
@@ -96,7 +97,7 @@ final class cache
             'icon' => 'moving.png',
             'translation' => 'cachetype_4'
         ),
-        self::TYPE_GEOPATHFINAL => array(
+        self::TYPE_PODCAST => array(
             'name' => 'podcast',
             'icon' => 'podcache.png',
             'translation' => 'cacheType_9'
@@ -106,6 +107,13 @@ final class cache
             'icon' => 'owncache.png',
             'translation' => 'cacheType_10',
         ),
+/*
+        self::TYPE_GEOPATHFINAL => array(
+            'name' => 'geopathfinal',
+            'icon' => 'geopathfinal.png',
+            'translation' => 'cacheType_14'
+        ),
+*/
     );
     private static $iconPath = 'tpl/stdstyle/images/cache/';
     private static $iconSmallStr = '16x16-';

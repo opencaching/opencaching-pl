@@ -178,8 +178,9 @@ $gpxType[6] = 'Event Cache';        // OC: TYPE_EVENT
 // OC specific cache types
 $gpxType[7] = 'Unknown Cache';      // OC: TYPE_QUIZ
 $gpxType[8] = 'Unknown Cache';      // OC: TYPE_MOVING
-$gpxType[9] = 'Unknown Cache';      // OC: TYPE_GEOPATHFINAL
+$gpxType[9] = 'Unknown Cache';      // OC: TYPE_PODCAST
 $gpxType[10] = 'Unknown Cache';     // OC: TYPE_OWNCACHE
+$gpxType[14] = 'Unknown Cache';     // OC: TYPE_GEOPATHFINAL
 
 // type strings for oc:type (OC GPX extension)
 $gpxOcType[1] = 'Other Cache';
@@ -192,6 +193,7 @@ $gpxOcType[7] = 'Quiz Cache';
 $gpxOcType[8] = 'Moving Cache';
 $gpxOcType[9] = 'Podcast Cache';
 $gpxOcType[10] = 'Own Cache';
+$gpxOcType[14] = 'Geopath Final';
 
 /* Groundspeak IDs:
 2       Traditional Cache

@@ -313,8 +313,9 @@ $kmlType[6] = 'event';              // OC: TYPE_EVENT
 // OC specific cache types
 $kmlType[7] = 'quiz';               // OC: TYPE_QUIZ
 $kmlType[8] = 'moving';             // OC: TYPE_MOVING
-$kmlType[9] = 'podcache';           // OC: TYPE_GEOPATHFINAL
+$kmlType[9] = 'podcache';           // OC: TYPE_PODCAST
 $kmlType[10] = 'owncache';          // OC: TYPE_OWNCACHE
+$kmlType[14] = 'geopathfinal';      // OC: TYPE_GEOPATHFINAL
 
 // OC type names
 // Note: these names should be defined with cache types. See well_defined project.
@@ -328,6 +329,7 @@ $kmlGeocacheTypeText[7] = 'Puzzle Cache';
 $kmlGeocacheTypeText[8] = 'Moving Cache';
 $kmlGeocacheTypeText[9] = 'Podcast cache';
 $kmlGeocacheTypeText[10] = 'Own cache';
+$kmlGeocacheTypeText[14] = 'Geopath Final';
 
 // ************************************************************************
 // Waypoints

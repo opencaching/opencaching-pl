@@ -18,8 +18,9 @@ class GeoCacheCommons extends BaseObject {
     const TYPE_EVENT = 6;
     const TYPE_QUIZ = 7;
     const TYPE_MOVING = 8;
-    const TYPE_GEOPATHFINAL = 9;    //TODO: old -podcast- type?
+    const TYPE_PODCAST = 9;
     const TYPE_OWNCACHE = 10;
+    const TYPE_GEOPATHFINAL = 14;
 
     const STATUS_READY = 1;
     const STATUS_UNAVAILABLE = 2;
@@ -54,8 +55,9 @@ class GeoCacheCommons extends BaseObject {
     const TYPE_EVENT_TR_KEY          = 'cacheType_6';
     const TYPE_QUIZ_TR_KEY           = 'cacheType_3';
     const TYPE_MOVING_TR_KEY         = 'cachetype_4';
-    const TYPE_GEOPATHFINAL_TR_KEY   = 'cacheType_9';
+    const TYPE_PODCAST_TR_KEY        = 'cacheType_9';
     const TYPE_OWNCACHE_TR_KEY       = 'cacheType_10';
+    const TYPE_GEOPATHFINAL_TR_KEY   = 'cacheType_14';
 
     const STATUS_READY_TR_KEY            = 'cacheStatus_1';
     const STATUS_UNAVAILABLE_TR_KEY      = 'cacheStatus_2';
@@ -90,8 +92,9 @@ class GeoCacheCommons extends BaseObject {
             case self::TYPE_EVENT:          return self::TYPE_EVENT_TR_KEY;
             case self::TYPE_QUIZ:           return self::TYPE_QUIZ_TR_KEY;
             case self::TYPE_MOVING:         return self::TYPE_MOVING_TR_KEY;
-            case self::TYPE_GEOPATHFINAL:   return self::TYPE_GEOPATHFINAL_TR_KEY;
+            case self::TYPE_PODCAST:        return self::TYPE_PODCAST;
             case self::TYPE_OWNCACHE:       return self::TYPE_OWNCACHE_TR_KEY;
+            case self::TYPE_GEOPATHFINAL:   return self::TYPE_GEOPATHFINAL_TR_KEY;
         }
     }
 
