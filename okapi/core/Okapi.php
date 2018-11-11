@@ -22,8 +22,8 @@ class Okapi
     public static $server;
 
     /* These two get replaced in automatically deployed packages. */
-    private static $version_number = 1769;
-    private static $git_revision = 'e6a78302be86d1867d782d4b0da5e4f76e0dec70';
+    private static $version_number = 1770;
+    private static $git_revision = '649659de1aa521240186b5ec805b266482efb747';
 
     private static $okapi_vars = null;
 
@@ -1231,6 +1231,26 @@ class Okapi
             }
         }
         return implode("", $chunks);
+    }
+
+    /**
+     * Log temporary diagnostics data
+     */
+    public static function log_diagnostics($action, $comment, $consumer_key, $expire_days, $include_duplicates)
+    {
+        if ($include_duplicates || "$action|$comment|$consumer_key" != Cache::get('diagnostics/'.$action))
+        {
+            Db::execute("
+                insert into okapi_diagnostics (action, comment, consumer_key, expires)
+                values (
+                    '".Db::escape_string($action)."',
+                    '".Db::escape_string($comment)."',
+                    '".Db::escape_string($consumer_key)."',
+                    now() + interval '".Db::escape_string($expire_days)."' day
+                )
+            ");
+            Cache::set('diagnostics/'.$action, "$action|$comment|$consumer_key", 3600);
+        }
     }
 
     # object types in table okapi_submitted_objects
