@@ -357,6 +357,7 @@ class MainMapAjaxController extends BaseController
              preg_match(self::GEOPATH_ID_REGEX, $_GET['csId']) ) {
 
                 $this->searchParams['powertrail_ids'] = $_GET['csId'];
+                $this->searchParams['ocpl_call'] = true;
         }
 
 
