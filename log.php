@@ -15,6 +15,7 @@ use lib\Objects\ApplicationContainer;
 use lib\Objects\GeoCache\GeoCacheLogCommons;
 use Utils\EventHandler\EventHandler;
 use Utils\Text\InputFilter;
+use lib\Objects\GeoCache\MobileCacheMove;
 
 /*
  * todo: create and set up 4 template selector with wybor_WE wybor_NS.
@@ -567,7 +568,8 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
             VALUES (?, ?, ?, ?, ?, ?, 0)",
             $geoCache->getCacheId(), $user->getUserId(), $last_id_4_mobile_moved,
             $log_date, $wspolrzedneWE, $wspolrzedneNS);
-        LogEntryController::recalculateMobileMovesByCacheId($geoCache->getCacheId());
+
+        MobileCacheMove::recalculateMobileMoves($geoCache);
     }
 
     //inc cache stat and "last found"

@@ -49,8 +49,10 @@ class EmailSender
         }
     }
 
-    public static function sendRemoveLogNotification($emailTemplateFile, GeoCacheLog $log, User $loggedUser)
+    public static function sendRemoveLogNotification(GeoCacheLog $log, User $loggedUser)
     {
+        $emailTemplateFile = __DIR__.'/../../tpl/stdstyle/email/removed_log.email.html';
+
         $formattedMessage = new EmailFormatter($emailTemplateFile);
         $formattedMessage->setVariable("log_owner", $log->getUser()->getUserName());
         $formattedMessage->setVariable("waypointId", $log->getGeoCache()->getWaypointId());

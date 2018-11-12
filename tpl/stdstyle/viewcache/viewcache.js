@@ -5,16 +5,13 @@ function rmLog(event, logId){
         $("#rmLogHrefSection-"+logId).hide();
         $("#rmLogLoader-"+logId).show();
         request = $.ajax({
-            url: "removelog.php",
+            url: "/cacheLog/removeLogAjax/"+logId,
             type: "post",
             dataType: 'json',
-            data:{
-                    logid: logId
-            }
         });
         request.done(function (response, textStatus, jqXHR){
             console.log(response);
-            if(response.removeLogResult === true){
+            if(jqXHR.status === 200){
                 var uType = $("#uType").val();
                 if(uType == 1){
                     $("#log"+logId).addClass('show_deleted');

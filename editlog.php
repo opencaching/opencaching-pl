@@ -9,6 +9,7 @@ use lib\Controllers\MeritBadgeController;
 use okapi\Facade;
 use Utils\EventHandler\EventHandler;
 use Utils\Text\InputFilter;
+use lib\Objects\GeoCache\MobileCacheMove;
 
 //prepare the templates and include all neccessary
 require_once(__DIR__.'/lib/common.inc.php');
@@ -203,18 +204,11 @@ if ($error == false) {
                     }
                 }
 
-                // mobline by Łza (mobile caches)
-                if (isset($_POST['submitform']) && $log_type == 4) {
+                if (isset($_POST['submitform']) && $log_type == GeoCacheLog::LOGTYPE_MOVED) {
 
-                    /*
-                      `longitude`=[value-6],
-                      `latitude`=[value-7],
-                      `km`=[value-8]
-                     */
-                    XDb::xSql("UPDATE `cache_moved` SET `date`= ? WHERE log_id = ?",
-                        date('Y-m-d H:i:s', mktime($log_date_hour, $log_date_min, 0, $log_date_month, $log_date_day, $log_date_year)),
-                        $log_id);
-                    LogEntryController::recalculateMobileMovesByCacheId($log_record['cache_id']);
+                    $newDate = date('Y-m-d H:i:s', mktime($log_date_hour, $log_date_min, 0, $log_date_month, $log_date_day, $log_date_year));
+                    $logObj = GeoCacheLog::fromLogIdFactory($log_id);
+                    MobileCacheMove::updateDateOnLogEdit($logObj, $newDate);
                 }
 
                 //store?
