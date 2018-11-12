@@ -6,7 +6,7 @@
 */
 #powerTrailContentWraper {
     width: 780px;
-    overflow: visible;
+    overflow: hidden;
 }
 
 .info {

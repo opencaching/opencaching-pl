@@ -1356,7 +1356,7 @@
         <div style="display: {displaySelectedPowerTrail}">
 
             <table style="border-collapse: collapse; width: 100%;">
-                <tr>
+                <tr><!-- ptName & Logo -->
                     <td style="width: 251px;">
                         <table style="height: 250px; width: 250px;"><tr><td style="vertical-align: middle; text-align: center;"><span id="powerTrailLogo"><img class="powerTrailLogo" src="{powerTrailLogo}" alt=""></span></td></tr></table>
                         <img style="display: none" id="ajaxLoaderLogo" src="tpl/stdstyle/images/misc/ptPreloader.gif" alt="">
@@ -1365,7 +1365,7 @@
                         <span id="powerTrailName">{powerTrailName}</span> <img id="NameOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" alt=""> <!-- [ ? TU WSTAWIĆ MAPĘ ? ] -->
                     </td>
                 </tr>
-                <tr>
+                <tr><!-- name&edit edit button -->
                     <td>
                         <p id="toggleImageEditButton" style="text-align: center; display: {displayAddCachesButtons}">
                             <a href="javascript:void(0)" onclick="toggleImageEdit()" class="editPtDataButton">{{pt060}}</a>
@@ -1395,7 +1395,7 @@
                         </p>
                     </td>
                 </tr>
-                <tr>
+                <tr><!-- bar -->
                     <td colspan="3" class="linearBg1">{{pt019}}</td>
                 </tr>
                 <tr>
@@ -1498,26 +1498,33 @@
                         <span style="display: none" id="ajaxLoaderOwnerList"><img src="tpl/stdstyle/images/misc/ptPreloader.gif" alt=""></span>
                     </td>
                 </tr>
-                <tr>
+                <tr><!-- bar 2 -->
                     <td colspan="3" class="linearBg1">{{pt034}}</td>
                 </tr>
-                <tr>
-                    <td class="inlineTd" colspan="2"><span id="ptdesc"></span>
+
+            </table>
+
+            <div style="width: 100%; display:flex; flex-direction: row; flex-wrap:wrap">
+
+                    <div style="padding: 15px">
+                            <span id="ptdesc"></span>
                             <div id="powerTrailDescription">{powerTrailDescription}</div>
                             <div id="powerTrailDescriptionEdit" style="display: none">
                                 <textarea id="descriptionEdit" name="descriptionEdit" class="tinymce powerTrailEditor" style="height: 350px">{powerTrailDescription}</textarea>
                             </div>
-                    </td>
-                    <td style="text-align: right; vertical-align: bottom;">
+                    </div>
+                    <div>
                         {displayPtDescriptionUserAction}
                         <span style="display: none" id="ajaxLoaderDescription"><img src="tpl/stdstyle/images/misc/ptPreloader.gif" alt=""></span>
                         <a href="javascript:void(0)" id="editDescCancelButton" style="display: none" onclick="cancelDescEdit()" class="editPtDataButton">{{pt031}}</a>
                         <br> <br>
                         <a href="javascript:void(0)" id="editDescSaveButton" style="display: none" onclick="ajaxUpdatePtDescription()" class="editPtDataButton">{{pt044}}</a>
                         <img id="descOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" alt="">
-                    </td>
-                </tr>
-            </table>
+                    </div>
+
+            </div>
+
+
 
             <table style="border-collapse: collapse; width: 100%;">
                 <tr>
