@@ -184,7 +184,7 @@ class WatchlistController extends BaseController
      * Computes new send mail date and time for watcher, where watchmail mode is
      * set to daily or weekly.
      *
-     * @param lib\Objects\Watchlist\WatchlistWatcher $watcher watcher to compute
+     * @param WatchlistWatcher $watcher watcher to compute
      *     new date and time for
      *
      * @return \DateTime computed new send mail date and time
