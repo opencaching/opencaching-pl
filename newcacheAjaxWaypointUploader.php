@@ -3,6 +3,10 @@
  * This script allow to upload GPX file with new cache description
  */
 
+require_once __DIR__.'/lib/common.inc.php';
+
+global $picdir;
+
 $destination_path = $picdir . DIRECTORY_SEPARATOR;
 
 $valid_formats = array("gpx");
