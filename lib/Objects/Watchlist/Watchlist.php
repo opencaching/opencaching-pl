@@ -176,24 +176,23 @@ class Watchlist extends BaseObject
                  ww.user_id = u.user_id AND ww.watchtype IN ("
                  . self::WATCHTYPE_OWNER . ", " . self::WATCHTYPE_WATCH . ")
              WHERE
-                 (u.watchmail_mode = "
-                     . UserNotify::SEND_NOTIFICATION_HOURLY .
-                 " AND ww.id IS NOT NULL)
-                 OR
-                 (u.watchmail_mode IN ("
-                     . UserNotify::SEND_NOTIFICATION_DAILY
-                     . ", " . UserNotify::SEND_NOTIFICATION_WEEKLY . ")
-                  AND u.watchmail_nextmail < NOW()
+                 (
+                   (u.watchmail_mode = ". UserNotify::SEND_NOTIFICATION_HOURLY." AND ww.id IS NOT NULL)
+                   OR
+                   (u.watchmail_mode IN (
+                            ".UserNotify::SEND_NOTIFICATION_DAILY.",
+                            ".UserNotify::SEND_NOTIFICATION_WEEKLY."
+                            )
+                     AND u.watchmail_nextmail < NOW()
+                   )
                  )
+                 AND u.is_active_flag = 1
              ORDER BY u.user_id, ww.id DESC"
         );
         $currentWatcher = null;
         $result = [];
         while ($row = $this->db->dbResultFetch($stmt, OcDb::FETCH_ASSOC)) {
-            if (
-                $currentWatcher == null
-                || $currentWatcher->getUserId() != $row['user_id']
-            ) {
+            if ( $currentWatcher == null || $currentWatcher->getUserId() != $row['user_id'] ) {
                 if ($currentWatcher != null) {
                     $result[] = $currentWatcher;
                 }
@@ -210,8 +209,7 @@ class Watchlist extends BaseObject
             }
             if ($row['watchtype'] != null && (
                 (
-                    $currentWatcher->getWatchmailMode() ==
-                    UserNotify::SEND_NOTIFICATION_HOURLY
+                    $currentWatcher->getWatchmailMode() == UserNotify::SEND_NOTIFICATION_HOURLY
                 ) || (
                     $currentWatcher->getWatchmailNext() != null
                     && $currentWatcher->getWatchmailNext()->getTimestamp() > 0
