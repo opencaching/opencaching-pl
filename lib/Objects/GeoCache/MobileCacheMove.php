@@ -89,7 +89,7 @@ class MobileCacheMove extends BaseObject
             $move = new self();
             $move->loadFromDbRow($row);
 
-            if(!lastMove){
+            if(!$lastMove){
                 // this is initial location of cache
                 $distance = 0;
             } else {
