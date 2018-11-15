@@ -58,7 +58,7 @@
                     Should we include information about trackables (e.g. Geokrets) in geocache description?
                 </p>
                 <div><label>
-                    <input type='radio' name='trackables' value='none' checked="checked">
+                    <input type='radio' name='trackables' value='none'>
                     <span data-string-id="paramTrackables_none">
                         Don't include information on trackables.
                     </span>
@@ -73,6 +73,12 @@
                     <input type='radio' name='trackables' value='desc:list'>
                     <span data-string-id="paramTrackables_all">
                         Include a list of all trackables currently present inside the geocache.
+                    </span>
+                </label></div>
+                <div><label>
+                    <input type='radio' name='trackables' value='gc:travelbugs' checked="checked">
+                    <span data-string-id="paramTrackables_gc">
+                        Include all trackables like Groundspeak travelbugs.
                     </span>
                 </label></div>
             </section>
@@ -95,8 +101,7 @@
                 <div><label>
                     <input type='checkbox' name='attrs_gcattrs' checked="checked">
                     <span data-string-id="paramAttrs_gcattrs_HTML">
-                        Generate respective Groundspeak's <i>geocaching.com</i> attributes, if they apply
-                        (only a small subset of Opencaching attributes can be converted to Geocaching ones).
+                        Generate Groundspeak-like attributes.
                     </span>
                 </label></div>
             </section>
