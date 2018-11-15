@@ -122,9 +122,15 @@ class MainMapAjaxController extends BaseController
         Facade::service_display('services/caches/map/tile', intval($userId), $this->searchParams);
     }
 
-    public function getPlaceLocalization($place) {
+    public function getPlaceLocalization(
+        $place,
+        $centerLat = null,
+        $centerLon = null
+    ) {
         try {
-            $placesDetails = GeoCode::fromOpenRouteService($place);
+            $placesDetails = GeoCode::fromOpenRouteService(
+                $place, $centerLat, $centerLon
+            );
             $this->ajaxJsonResponse($placesDetails);
         } catch (\Exception $e) {
             $this->ajaxErrorResponse($e->getMessage(), 500);

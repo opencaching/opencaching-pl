@@ -2,6 +2,7 @@
 
 namespace lib\Objects\Coordinates;
 
+use lib\Objects\ApplicationContainer;
 use lib\Objects\OcConfig\OcConfig;
 use Utils\Debug\Debug;
 use Exception;
@@ -33,7 +34,9 @@ class GeoCode
     /**
      * @throws Exception if there is some problem with fetching data from OpenRouteService
      */
-    public static function fromOpenRouteService($place) {
+    public static function fromOpenRouteService(
+        $place, $focusLat = null, $focusLon = null
+    ) {
 
         $config = OcConfig::instance();
         $config->getMapConfig();
@@ -46,7 +49,29 @@ class GeoCode
 
         $input = urlencode($place);
         $url = "https://api.openrouteservice.org/geocode/search?api_key=$ors_key&text=$input";
-        $data = @file_get_contents($url);
+        if ($focusLat != null && $focusLon != null) {
+            $url .= "&focus.point.lat=" . $focusLat;
+            $url .= "&focus.point.lon=" . $focusLon;
+        }
+        if (function_exists("stream_context_create")) {
+            $currentLang = (ApplicationContainer::Instance())->getLang();
+            $acceptLanguage = $currentLang;
+            if ($acceptLanguage !== "en") {
+                $acceptLanguage .= ",en;q=0.5";
+            }
+            $options = [
+                "http" => [
+                    "method" => "GET",
+                    "header" => "Accept-language: " . $acceptLanguage
+                ],
+            ];
+
+            $context = stream_context_create($options);
+
+            $data = @file_get_contents($url, false, $context);
+        } else {
+            $data = @file_get_contents($url);
+        }
 
         if (!$data) {
             Debug::errorLog("Problem with fetching data from ".$url);
@@ -94,8 +119,28 @@ class GeoCode
                 if(isset($feature->properties->region)) {
                     $result->region = $feature->properties->region;
                 }
-
+                if(isset($feature->properties->distance)) {
+                    $result->distanceFromFocus = floatval(
+                        $feature->properties->distance
+                    );
+                }
                 array_push($results, $result);
+            }
+            if ($focusLat != null && $focusLon != null) {
+                // sort results by distance from focus point if exists
+                usort($results, function($a, $b) {
+                    $r = 0;
+                    if (!empty($a->distanceFromFocus)) {
+                        if (!empty($b->distanceFromFocus)) {
+                        $r =  $a->distanceFromFocus - $b->distanceFromFocus;
+                        } else {
+                            $r = -1;
+                        }
+                    } else if (!empty($b->distanceFromFocus)) {
+                        $r = 1;
+                    }
+                    return $r;
+                });
             }
         }
 
@@ -234,4 +279,6 @@ class GeoCodeServiceResult {
     public $countryCode;
     public $region;
     public $bbox;
+    /** @var float distance in km from point provided in search parameters */
+    public $distanceFromFocus;
 }

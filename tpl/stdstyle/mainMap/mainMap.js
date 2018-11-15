@@ -587,10 +587,12 @@ function initSearch(params) {
     }
 
     var _getLocalizationByPlace = function() {
+        var center = ol.proj.toLonLat(map.getView().getCenter());
         $.ajax({
             type: 'get',
             dataType: 'json',
-            url: "/MainMapAjax/getPlaceLocalization/"+_place,
+            url: "/MainMapAjax/getPlaceLocalization/"
+                + _place + "/" + center[1] + "/" + center[0],
             success: function(data) {
                 _displayResults(data);
             },
@@ -635,7 +637,9 @@ function initSearch(params) {
         var bbox = result.bbox;
         var sw = ol.proj.fromLonLat([bbox[0], bbox[1]]);
         var ne = ol.proj.fromLonLat([bbox[2], bbox[3]]);
-        map.getView().fit([sw[0], sw[1], ne[0], ne[1]], {nearest: true});
+        map.getView().fit([sw[0], sw[1], ne[0], ne[1]], {
+            nearest: true, maxZoom: map.getView().getZoom()
+        });
     }
 
     var _resetInput = function() {
