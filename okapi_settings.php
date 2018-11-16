@@ -33,6 +33,7 @@ function get_okapi_settings()
         # OKAPI-specific settings, see okapi/settings.php file.
 
         'OC_BRANCH' => 'oc.pl',
+        'EXTERNAL_AUTOLOADER' => __DIR__.'/lib/ClassPathDictionary.php',
         # Copy the rest from settings.inc.php:
 
         'DATA_LICENSE_URL' => $config['okapi']['data_license_url'],
