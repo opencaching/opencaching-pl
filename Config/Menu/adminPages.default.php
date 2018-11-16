@@ -25,7 +25,7 @@ $menu = [ // DON'T CHANGE $menu var name!
     'mnu_pendings'          => '/viewpendings.php', /* counters added in MainLayoutCtrl */
     'mnu_octeamStats'       => '/articles.php?page=cog',
     'mnu_notFoundCaches'    => '/admin_cachenotfound.php',
-    'mnu_searchUser'        => '/admin_searchuser.php',
+    'mnu_searchUser'        => SimpleRouter::getLink('Admin.UserAdmin','search'),
     'mnu_ocTeamNews'        => SimpleRouter::getLink('News.NewsAdmin'),
     'mnu_geoPathAdmin'      => '/powerTrailCOG.php',
     'mnu_abandonCacheSets'  => SimpleRouter::getLink(

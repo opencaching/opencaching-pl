@@ -153,4 +153,25 @@ class MultiUserQueries extends BaseObject
         return self::db()->dbResultFetchAll($stmt);
     }
 
+    /**
+     * Search for $subString in username (in users table)
+     * and return User[] with users whose usernames matches $subString
+     *
+     * @param string $subString
+     * @return User[]|null
+     */
+    public static function searchUser($subString)
+    {
+        $query = "
+            SELECT `user_id`
+            FROM `user`
+            WHERE `username` LIKE :1
+            ORDER BY `username`
+            ";
+        $stmt = self::db()->multiVariableQuery($query, '%' . $subString . '%');
+        return self::db()->dbFetchAllAsObjects($stmt, function ($row) {
+            return User::fromUserIdFactory($row['user_id']);
+        });
+    }
+
 }

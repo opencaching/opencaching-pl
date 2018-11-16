@@ -6,12 +6,13 @@ use Utils\Text\UserInputFilter;
 use Utils\Uri\SimpleRouter;
 use Utils\Uri\Uri;
 use lib\Objects\Admin\AdminNote;
+use lib\Objects\Admin\AdminNoteSet;
 use lib\Objects\User\User;
 use lib\Objects\User\UserAdmin;
 use lib\Objects\User\UserAuthorization;
 use lib\Objects\User\UserEmailSender;
 use lib\Objects\User\UserNotify;
-use lib\Objects\Admin\AdminNoteSet;
+use lib\Objects\User\MultiUserQueries;
 
 class UserAdminController extends BaseController
 {
@@ -48,6 +49,70 @@ class UserAdminController extends BaseController
         $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/admin/admin.css'));
         $this->view->loadJQuery();
         $this->view->setTemplate('admin/user_admin');
+        $this->view->buildView();
+    }
+
+    /**
+     * Admin search engine for users
+     */
+    public function search()
+    {
+        $this->redirectNotLoggedUsers();
+        if (! $this->loggedUser->hasOcTeamRole()) {
+            $this->view->redirect('/');
+        }
+
+        $usersTable = [];
+        $userName = '';
+
+        if (isset($_POST['username'])) { //There are submitted data
+            $userName = trim(strip_tags($_POST['username']));
+
+            // First try - submitted data is an e-mail of existing user
+            if (
+                strpos($userName, '@')
+                && ! is_null($user = User::fromEmailFactory($userName))
+                ) {
+
+                $this->view->redirect(SimpleRouter::getLink(
+                    'Admin.UserAdmin',
+                    'index',
+                    $user->getUserId())
+                    );
+            }
+
+            // Second try - submitted data is full username of existing user
+            if (! is_null($user = User::fromUsernameFactory($userName))) {
+                    $this->view->redirect(SimpleRouter::getLink(
+                        'Admin.UserAdmin',
+                        'index',
+                        $user->getUserId())
+                        );
+                }
+
+            // Third try - submitted data is substring of existing username
+            // so display list of users
+            if (mb_strlen($userName) >= 3) {
+                $usersTable = MultiUserQueries::searchUser($userName);
+                // If there is exact one result - redirect for user admin
+                if (sizeof($usersTable) == 1) {
+                    $this->view->redirect(SimpleRouter::getLink(
+                        'Admin.UserAdmin',
+                        'index',
+                        $usersTable[0]->getUserId())
+                        );
+                }
+                // If there is no results - show message
+                if (sizeof($usersTable) == 0) {
+                    $this->errorMsg = tr('message_user_not_found');
+                }
+            }
+        } // End of submitted data process
+
+        $this->view->setVar('userName', $userName);
+        $this->view->setVar('usersTable', $usersTable);
+        $this->view->setVar('errorMsg', $this->errorMsg);
+        $this->view->setTemplate('admin/user_search');
         $this->view->buildView();
     }
 
