@@ -117,6 +117,7 @@ class MainMapController extends BaseController
         }
 
         $this->mapJsParams->userId = $user->getUserId();
+        $this->mapJsParams->userUuid = $user->getUserUuid();
         $this->mapJsParams->username = $user->getUserName();
 
         $this->mapJsParams->isSearchEnabled = GeoCode::isGeocodeServiceAvailable();
@@ -233,6 +234,7 @@ class MainMapJsParams
     public $mapId = 'mainMap';          // id of the map div (in tpl)
     public $isFullScreenMap = false;    //
     public $userId = null;              // userId of user from map context
+    public $userUuid = null;            // userUuid of user from map context
     public $username = '';              // username of the user from map context
 
     // modes:

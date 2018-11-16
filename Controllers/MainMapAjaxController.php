@@ -36,7 +36,7 @@ class MainMapAjaxController extends BaseController
         $this->ajaxErrorResponse("No index!", 404);
     }
 
-    public function getPopupData($bboxStr, $userId)
+    public function getPopupData($bboxStr, $userUuid)
     {
         // map is only for logged users
         $this->checkUserLoggedAjax();
@@ -46,7 +46,7 @@ class MainMapAjaxController extends BaseController
             exit;
         }
 
-        $cache = $this->getCache( intval($userId), $bboxStr);
+        $cache = $this->getCache($userUuid, $bboxStr);
 
         if(is_null($cache)){
             $this->ajaxJsonResponse(null);
@@ -100,7 +100,7 @@ class MainMapAjaxController extends BaseController
         $this->ajaxJsonResponse($resp);
     }
 
-    public function getMapTile($x, $y, $zoom, $userId)
+    public function getMapTile($x, $y, $zoom, $userUuid)
     {
         $this->checkUserLoggedAjax();
 
@@ -118,12 +118,13 @@ class MainMapAjaxController extends BaseController
             $this->loadSearchData($searchData);
         }
 
-        $this->parseUrlSearchParams($userId); // parse filter params
+        $this->parseUrlSearchParams($userUuid); // parse filter params
 
         // Get OKAPI's response and display it. Add proper Cache-Control headers.
         Facade::service_display(
             'services/caches/map/tile',
-            $this->loggedUser->getUserId(),  // Do NOT pass $userId here! See OKAPI issue #496.
+            // Do NOT pass any other user's ID here! See OKAPI issue #496.
+            $this->loggedUser->getUserId(),
             $this->searchParams
         );
     }
@@ -155,7 +156,7 @@ class MainMapAjaxController extends BaseController
         }
     }
 
-    private function getCache($forUserId, $bboxStr)
+    private function getCache($forUserUuid, $bboxStr)
     {
 
         if ($searchData = $this->getSearchDataParam()) {
@@ -164,7 +165,7 @@ class MainMapAjaxController extends BaseController
         }
 
         // load the rest of params
-        $this->parseUrlSearchParams($forUserId);
+        $this->parseUrlSearchParams($forUserUuid);
 
         $this->searchParams['bbox'] = $bboxStr;
         $this->searchParams['limit'] = 1;
@@ -185,7 +186,7 @@ class MainMapAjaxController extends BaseController
         /** @var \ArrayObject */
         $okapiResp = Facade::service_call(
             'services/caches/shortcuts/search_and_retrieve',
-            null,    // Do NOT pass $forUserId here! See OKAPI issue #496.
+            null,   // Do NOT pass a user ID here! See OKAPI issue #496.
             $params
         );
 
@@ -277,13 +278,9 @@ class MainMapAjaxController extends BaseController
     /**
      * Parse map filter params and convert it to okapi search params
      */
-    private function parseUrlSearchParams($userId)
+    private function parseUrlSearchParams($userUuid)
     {
-        Facade::reenable_error_handling();
-
-        $userUuid = \okapi\core\Db::select_value("
-            select uuid from user where user_id=".intval($userId)."
-        ");
+        $this->searchParams['view_user_uuid'] = $userUuid;
 
         // exIgnored - convert to OKAPI's "exclude_ignored".
         //
@@ -294,7 +291,6 @@ class MainMapAjaxController extends BaseController
         if (isset($_GET['exIgnored'])){
             $this->searchParams['not_ignored_by'] = $userUuid;
         }
-        $this->searchParams['view_user_uuid'] = $userUuid;
 
         // exMyOwn (hide user's own caches) - convert to OKAPI's "exclude_my_own" parameter.
         if (isset($_GET['exMyOwn'])) {
@@ -391,8 +387,6 @@ class MainMapAjaxController extends BaseController
         if ( !empty($typesToExclude) ) {
             $this->searchParams['type'] = "-" . implode("|", $typesToExclude);
         }
-
-        Facade::disable_error_handling();
     }
 
 }
