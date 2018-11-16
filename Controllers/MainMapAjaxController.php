@@ -294,6 +294,7 @@ class MainMapAjaxController extends BaseController
         if (isset($_GET['exIgnored'])){
             $this->searchParams['not_ignored_by'] = $userUuid;
         }
+        $this->searchParams['view_user_uuid'] = $userUuid;
 
         // exMyOwn (hide user's own caches) - convert to OKAPI's "exclude_my_own" parameter.
         if (isset($_GET['exMyOwn'])) {
