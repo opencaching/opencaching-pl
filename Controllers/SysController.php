@@ -53,5 +53,9 @@ class SysController extends BaseController
 
     }
 
+    public function phpinfo(){
+        phpinfo();
+    }
+
 }
 
