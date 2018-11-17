@@ -22,8 +22,8 @@ class Okapi
     public static $server;
 
     /* These two get replaced in automatically deployed packages. */
-    private static $version_number = 1800;
-    private static $git_revision = '386805417dcf0ed43385f299842aa871803f9852';
+    private static $version_number = 1801;
+    private static $git_revision = '57080a8a00e2ed61b6db4b57d916440dccc8ddc6';
 
     private static $okapi_vars = null;
 
@@ -1127,10 +1127,9 @@ class Okapi
         if (isset($reverted[$id]))
             return $reverted[$id];
 
-        Okapi::mail_admins(
-            "Unhandled log type",
-            "There seems to be a cache_logs entry with type ".$id.". OKAPI is not prepared for that."
-        );
+        # There are lots of strange log types in OCPL databases.
+        # OCPL websites display and export them as 'Comment's.
+
         return "Comment";
     }
 
