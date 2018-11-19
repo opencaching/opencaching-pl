@@ -118,7 +118,7 @@
             params['ns_ox'] = "true";
         }
         if (formResponses['attrs_gcattrs']) {
-            tmp.push("gc:attrs");
+            tmp.push("gc_ocde:attrs");
         }
         if (tmp.length == 0) {
             params['attrs'] = "none";
