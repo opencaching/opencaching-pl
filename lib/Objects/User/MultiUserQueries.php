@@ -6,7 +6,6 @@ use lib\Objects\GeoCache\GeoCacheLog;
 use lib\Objects\GeoCache\GeoCacheLogCommons;
 use lib\Objects\GeoCache\GeoCacheCommons;
 use lib\Objects\GeoCache\GeoCache;
-use lib\Objects\OcConfig\OcConfig;
 
 /**
  * This class should contains mostly static, READ-ONLY queries
@@ -152,6 +151,27 @@ class MultiUserQueries extends BaseObject
             ORDER BY username";
         $stmt = self::db()->simpleQuery($query);
         return self::db()->dbResultFetchAll($stmt);
+    }
+
+    /**
+     * Search for $subString in username (in users table)
+     * and return User[] with users whose usernames matches $subString
+     *
+     * @param string $subString
+     * @return User[]|null
+     */
+    public static function searchUser($subString)
+    {
+        $query = "
+            SELECT `user_id`
+            FROM `user`
+            WHERE `username` LIKE :1
+            ORDER BY `username`
+            ";
+        $stmt = self::db()->multiVariableQuery($query, '%' . $subString . '%');
+        return self::db()->dbFetchAllAsObjects($stmt, function ($row) {
+            return User::fromUserIdFactory($row['user_id']);
+        });
     }
 
 }
