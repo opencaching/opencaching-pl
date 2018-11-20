@@ -22,8 +22,8 @@ class Okapi
     public static $server;
 
     /* These two get replaced in automatically deployed packages. */
-    private static $version_number = 1818;
-    private static $git_revision = 'c6a56a96adb7c1201b6320afc7134de08e4034f3';
+    private static $version_number = 1819;
+    private static $git_revision = '425d69dc25cdcd72c556e97175449b9e28c039df';
 
     private static $okapi_vars = null;
 
@@ -148,7 +148,7 @@ class Okapi
 
         # Make sure we're not spamming.
 
-        $cache_key = 'mail_admins_counter/'.(floor(time() / 3600) * 3600).'/'.md5($subject);
+        $cache_key = 'mail_admins_counter/'.(floor(time() / 1800) * 1800).'/'.md5($subject);
         try {
             $counter = Cache::get($cache_key);
         } catch (\Exception $e) {
