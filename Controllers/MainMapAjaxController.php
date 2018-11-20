@@ -36,7 +36,7 @@ class MainMapAjaxController extends BaseController
         $this->ajaxErrorResponse("No index!", 404);
     }
 
-    public function getPopupData($bboxStr, $userId)
+    public function getPopupData($bboxStr, $userUuid)
     {
         // map is only for logged users
         $this->checkUserLoggedAjax();
@@ -46,7 +46,7 @@ class MainMapAjaxController extends BaseController
             exit;
         }
 
-        $cache = $this->getCache( intval($userId), $bboxStr);
+        $cache = $this->getCache($userUuid, $bboxStr);
 
         if(is_null($cache)){
             $this->ajaxJsonResponse(null);
@@ -100,8 +100,10 @@ class MainMapAjaxController extends BaseController
         $this->ajaxJsonResponse($resp);
     }
 
-    public function getMapTile($x, $y, $zoom, $userId)
+    public function getMapTile($x, $y, $zoom, $userUuid)
     {
+        $this->checkUserLoggedAjax();
+
         if( $zoom > 21){ // OKAPI mapper max zoom
             //TODO
             die(); // zoom is too large
@@ -116,10 +118,15 @@ class MainMapAjaxController extends BaseController
             $this->loadSearchData($searchData);
         }
 
-        $this->parseUrlSearchParams(); // parse filter params
+        $this->parseUrlSearchParams($userUuid); // parse filter params
 
         // Get OKAPI's response and display it. Add proper Cache-Control headers.
-        Facade::service_display('services/caches/map/tile', intval($userId), $this->searchParams);
+        Facade::service_display(
+            'services/caches/map/tile',
+            // Do NOT pass any other user's ID here! See OKAPI issue #496.
+            $this->loggedUser->getUserId(),
+            $this->searchParams
+        );
     }
 
     public function getPlaceLocalization($place) {
@@ -149,7 +156,7 @@ class MainMapAjaxController extends BaseController
         }
     }
 
-    private function getCache($forUserId, $bboxStr)
+    private function getCache($forUserUuid, $bboxStr)
     {
 
         if ($searchData = $this->getSearchDataParam()) {
@@ -158,7 +165,7 @@ class MainMapAjaxController extends BaseController
         }
 
         // load the rest of params
-        $this->parseUrlSearchParams();
+        $this->parseUrlSearchParams($forUserUuid);
 
         $this->searchParams['bbox'] = $bboxStr;
         $this->searchParams['limit'] = 1;
@@ -179,7 +186,9 @@ class MainMapAjaxController extends BaseController
         /** @var \ArrayObject */
         $okapiResp = Facade::service_call(
             'services/caches/shortcuts/search_and_retrieve',
-            $forUserId, $params);
+            null,   // Do NOT pass a user ID here! See OKAPI issue #496.
+            $params
+        );
 
         Facade::disable_error_handling(); // disable OKAPI error handler after Facade usage
 
@@ -269,17 +278,23 @@ class MainMapAjaxController extends BaseController
     /**
      * Parse map filter params and convert it to okapi search params
      */
-    private function parseUrlSearchParams()
+    private function parseUrlSearchParams($userUuid)
     {
+        $this->searchParams['view_user_uuid'] = $userUuid;
 
         // exIgnored - convert to OKAPI's "exclude_ignored".
+        //
+        // We use an undocumented internal search parameter here,
+        // that was implemented only for this purpose.
+        // See https://github.com/opencaching/okapi/issues/496.
+
         if (isset($_GET['exIgnored'])){
-            $this->searchParams['ignored_status'] = "notignored_only";
+            $this->searchParams['not_ignored_by'] = $userUuid;
         }
 
         // exMyOwn (hide user's own caches) - convert to OKAPI's "exclude_my_own" parameter.
         if (isset($_GET['exMyOwn'])) {
-            $this->searchParams['exclude_my_own'] = "true";
+            $this->searchParams['owner_uuid'] = "-".$userUuid;
         }
 
         // filter out found or not yet found caches
@@ -289,11 +304,11 @@ class MainMapAjaxController extends BaseController
                 // exclude found && notAttendYet = empty set of caches
                 $this->ajaxErrorResponse("Search params are contradictory", 400);
             } else {
-                $this->searchParams['found_status'] = "notfound_only";
+                $this->searchParams['not_found_by'] = $userUuid;
             }
 
         } else if ( isset($_GET['exNoYetFound'])) {
-            $this->searchParams['found_status'] = "found_only";
+            $this->searchParams['found_by'] = $userUuid;
         }
 
         // exNoGeokret - Convert to OKAPI's "with_trackables_only" parameter.

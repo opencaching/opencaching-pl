@@ -42,7 +42,7 @@ function addOCTileLayer(params) {
 
 function getOcTailSource(params, addRandomParam) {
 
-  var ocTileUrl = '/MainMapAjax/getMapTile/{x}/{y}/{z}/'+params.userId;
+  var ocTileUrl = '/MainMapAjax/getMapTile/{x}/{y}/{z}/'+params.userUuid;
 
   // collect filter params, search data etc.
   urlParamsArr = getCommonUrlParams(params);
@@ -179,7 +179,7 @@ function mapClickInit(params) {
     url += swCorner[1]+'|'+swCorner[0]+'|'+neCorner[1]+'|'+ neCorner[0];
 
     // add userId param
-    url += '/' + params.userId;
+    url += '/' + params.userUuid;
 
     // collect filter params, search data etc.
     urlParamsArr = getCommonUrlParams(params);

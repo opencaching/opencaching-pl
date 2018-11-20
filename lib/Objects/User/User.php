@@ -14,6 +14,7 @@ class User extends UserCommons
 {
 
     private $userId;
+    private $userUuid;
     private $isGuide;
     private $userName;
     private $role;
@@ -83,7 +84,7 @@ class User extends UserCommons
                        notify_radius, watchmail_mode, watchmail_day,
                        watchmail_hour, notify_caches, notify_logs,
                        is_active_flag, stat_ban, description, activation_code,
-                       date_created, last_login";
+                       date_created, last_login, uuid";
 
     const AUTH_COLLUMS = self::COMMON_COLLUMNS . ', permanent_login_flag';
 
@@ -113,6 +114,10 @@ class User extends UserCommons
         if (isset($params['userId'])) {
             $this->userId = (int) $params['userId'];
             $this->loadDataFromDb($fields);
+
+        } elseif (isset($params['userUuid'])) {
+            $this->userUuid = $params['userUuid'];
+            $this->loadDataFromDbByUuid($fields);
 
         } elseif (isset($params['username'])) {
             $this->loadDataFromDbByUsername($params['username'], $fields);
@@ -205,8 +210,11 @@ class User extends UserCommons
         // load user data from row returned by OKAPI
         foreach ($okapiRow as $field => $value) {
             switch ($field) {
-                case 'uuid': // geocache owner's user ID,
+                case 'internal_id': // geocache owner's user ID,
                     $this->userId = (int) $value;
+                    break;
+                case 'uuid': // geocache owner's user UUID,
+                    $this->userUuid = $value;
                     break;
                 case 'username': // name of the user,
                     $this->userName = $value;
@@ -228,6 +236,19 @@ class User extends UserCommons
 
         $stmt = $this->db->multiVariableQuery(
             "SELECT $fields FROM `user` WHERE `user_id`=:1 LIMIT 1", $this->userId);
+
+        if ($row = $this->db->dbResultFetchOneRowOnly($stmt)) {
+            $this->setUserFieldsByUsedDbRow($row);
+            return true;
+        }
+        return false;
+    }
+
+    private function loadDataFromDbUuid($fields)
+    {
+
+        $stmt = $this->db->multiVariableQuery(
+            "SELECT $fields FROM `user` WHERE `uuid`=:1 LIMIT 1", $this->userUuid);
 
         if ($row = $this->db->dbResultFetchOneRowOnly($stmt)) {
             $this->setUserFieldsByUsedDbRow($row);
@@ -271,6 +292,9 @@ class User extends UserCommons
             switch ($key) {
                 case 'user_id':
                     $this->userId = (int) $value;
+                    break;
+                case 'uuid':
+                    $this->userUuid = $value;
                     break;
                 case 'username':
                     $this->userName = $value;
@@ -400,6 +424,15 @@ class User extends UserCommons
     public function getUserId()
     {
         return $this->userId;
+    }
+
+    /**
+     * global user identifier. (Used worldwide)
+     * @return integer
+     */
+    public function getUserUuid()
+    {
+        return $this->userUuid;
     }
 
     /**
