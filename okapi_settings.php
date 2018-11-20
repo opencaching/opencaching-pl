@@ -47,6 +47,7 @@ function get_okapi_settings()
         'SITELANG' => $lang,
         'SITE_URL' => isset($OKAPI_server_URI) ? $OKAPI_server_URI : $absolute_server_URI,
         'VAR_DIR' => rtrim($dynbasepath, '/'),
+        'TILEMAP_FONT_PATH' => $config['okapi']['tilemap_font_path'],
         'IMAGES_DIR' => rtrim($picdir, '/'),
         'IMAGES_URL' => rtrim($picurl, '/').'/',
         'IMAGE_MAX_UPLOAD_SIZE' => $config['limits']['image']['filesize'] * 1024 * 1024,
