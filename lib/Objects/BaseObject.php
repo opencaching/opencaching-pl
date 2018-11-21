@@ -45,14 +45,15 @@ abstract class BaseObject
         /** @var \lib\Objects\User\User */
         $user = self::getCurrentUser();
 
-        $userId = is_null($user) ? null : $user->getUserId();
+        // IMPORTANT: Only the logged-in user's ID may be passed to Facade,
+        // not any other user's ID!
 
-        Facade::disable_error_handling();
+        $userId = is_null($user) ? null : $user->getUserId();
 
         $okapiResp = Facade::service_call(
             $service, $userId, $params);
 
-        Facade::reenable_error_handling();
+        Facade::disable_error_handling();
 
         return $okapiResp;
     }
