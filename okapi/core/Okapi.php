@@ -22,8 +22,8 @@ class Okapi
     public static $server;
 
     /* These two get replaced in automatically deployed packages. */
-    private static $version_number = 1823;
-    private static $git_revision = 'a9e417328652d20428ae67e4aa75caf8528fd40b';
+    private static $version_number = 1824;
+    private static $git_revision = '3eea25192d2bdfdf2c0a1a9d6b55e457f22bea18';
 
     private static $okapi_vars = null;
 
@@ -1158,6 +1158,11 @@ class Okapi
     public static function get_submittable_logtype_names()
     {
         return array_keys(self::$submittable_log_types);
+    }
+
+    public static function is_submittable_logtype($name)
+    {
+        return isset(self::$submittable_log_types[$name]);
     }
 
     /**
