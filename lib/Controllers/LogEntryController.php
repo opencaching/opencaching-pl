@@ -10,7 +10,6 @@ use Utils\Gis\Gis;
 use lib\Objects\ApplicationContainer;
 use lib\Controllers\MeritBadgeController;
 use lib\Objects\GeoCache\GeoCache;
-use okapi\Facade;
 use lib\Objects\Coordinates\Coordinates;
 use Utils\EventHandler\EventHandler;
 use lib\Objects\User\User;
