@@ -360,7 +360,7 @@ INSERT INTO `languages` (`id`, `short`, `pl`, `en`, `list_default_pl`, `list_def
 (2, 'EN', 'Angielski', 'English', 1, 1),
 (3, 'FR', 'Francuski', 'French', 1, 1),
 (4, 'ES', 'Hiszpański', 'Spanish', 1, 1),
-(5, 'JP', 'Japonski', 'Japanese', 0, 0),
+(5, 'JA', 'Japonski', 'Japanese', 0, 0),
 (6, 'NL', 'Holenderski', 'Dutch', 1, 1),
 (7, 'BG', 'Bułgarski', 'Bulgarisch', 0, 0),
 (8, 'BS', 'Bosnisch', 'Bosnisch', 0, 0),
