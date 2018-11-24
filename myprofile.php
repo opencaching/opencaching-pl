@@ -39,7 +39,7 @@ if ($usr == false) {
     $s = $db->multiVariableQuery("SELECT `description`, `guru`,`username`, `email`, `date_created`, `permanent_login_flag`, `power_trail_email`, `ozi_filips` FROM `user` WHERE `user_id`=:1 ", $usr['userid']);
     $record = $db->dbResultFetchOneRowOnly($s);
     $description = $record['description'];
-    tpl_set_var('description', $description);
+    tpl_set_var('description', nl2br($description));
 
     if ($record['guru'] == 1) {
         tpl_set_var('guides_start', '');
