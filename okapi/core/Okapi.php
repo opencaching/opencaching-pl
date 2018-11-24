@@ -22,8 +22,8 @@ class Okapi
     public static $server;
 
     /* These two get replaced in automatically deployed packages. */
-    private static $version_number = 1834;
-    private static $git_revision = 'd847f6face603453506a4074b5ac2759b14dc483';
+    private static $version_number = 1836;
+    private static $git_revision = '7fdf783eb9b469aa3c52322598df0927f30450f7';
 
     private static $okapi_vars = null;
 
@@ -1043,11 +1043,7 @@ class Okapi
     {
         static $reversed = null;
         if ($reversed == null)
-        {
-            $reversed = array();
-            foreach (self::$cache_statuses as $key => $value)
-                $reversed[$value] = $key;
-        }
+            $reversed = array_flip(self::$cache_statuses);
         if (isset($reversed[$id]))
             return $reversed[$id];
         return 'Archived';
@@ -1093,11 +1089,7 @@ class Okapi
     {
         static $reversed = null;
         if ($reversed == null)
-        {
-            $reversed = array();
-            foreach (self::$cache_sizes as $key => $value)
-                $reversed[$value] = $key;
-        }
+            $reversed = array_flip(self::$cache_sizes);
         if (isset($reversed[$id]))
             return $reversed[$id];
         return "other";
