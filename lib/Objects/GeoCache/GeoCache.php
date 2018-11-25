@@ -1127,24 +1127,26 @@ class GeoCache extends GeoCacheCommons
     }
 
     /**
-     * This function is moved from clicompatbase
+     * Sets the language for GPX download of this cache.
+     *
      * @param int $cacheid
      */
     public static function setCacheDefaultDescLang($cacheid)
     {
+        global $config;
 
-        $r['desc_languages'] = XDb::xMultiVariableQueryValue(
+        $descLanguages = XDb::xMultiVariableQueryValue(
             "SELECT `desc_languages` FROM `caches`
-            WHERE `cache_id`= :1 LIMIT 1", null, $cacheid);
+            WHERE `cache_id`= :1 LIMIT 1", null, $cacheid
+        );
+        $desclang = mb_substr($descLanguages, 0, 2);
 
-        if (mb_strpos($r['desc_languages'], 'PL') !== false)
-            $desclang = 'PL';
-        else if (mb_strpos($r['desc_languages'], 'EN') !== false)
-            $desclang = 'EN';
-        else if ($r['desc_languages'] == '')
-            $desclang = '';
-        else
-            $desclang = mb_substr($r['desc_languages'], 0, 2);
+        foreach ($config['defaultLanguageList'] as $lang) {
+            if (mb_strpos($descLanguages, $lang) !== false) {
+                $desclang = $lang;
+                break;
+            }
+        }
 
         XDb::xSql(
             "UPDATE `caches` SET
