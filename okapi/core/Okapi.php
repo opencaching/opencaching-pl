@@ -22,8 +22,8 @@ class Okapi
     public static $server;
 
     /* These two get replaced in automatically deployed packages. */
-    private static $version_number = 1837;
-    private static $git_revision = '1730f50f012d60c0cfc4b12f1f2ac0063954f4bf';
+    private static $version_number = 1842;
+    private static $git_revision = '5cc14e635b232a1b223cc9c6ce1aa28e255a0005';
 
     private static $okapi_vars = null;
 
@@ -1366,7 +1366,8 @@ class Okapi
         $deg = abs($deg);
         $degrees = floor($deg);
         $minutes = ($deg - $degrees) * 60;
-        return sprintf("%s %d° %.3f'", $direction, $degrees, $minutes);
+        # Use number_format for the float because of issue #536.
+        return sprintf("%s %d° ", $direction, $degrees).number_format($minutes,3)."'";
     }
 
     /**
