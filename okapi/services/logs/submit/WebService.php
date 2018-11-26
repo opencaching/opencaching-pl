@@ -479,12 +479,18 @@ class WebService
             # This code will be called for OCPL branch only. Earlier, we made sure,
             # to set $rating to null, if we're running on OCDE.
 
+            # Note that the 'rating' field is defined as float(2,1), so this
+            # calculation - which is copied from OCPL code - can produce
+            # rounding errors, which - in rare cases - accumuluate to a wrong
+            # overall rating. This problem is neglectable, as the ratings are
+            # just fuzzy estimates.
+
             $db_score = Okapi::encode_geocache_rating($rating);
             Db::execute("
                 update caches
                 set
                     score = (
-                        score*votes + '".Db::escape_string($db_score)."'
+                        score*votes + ".Db::float_sql($db_score)."
                     ) / (votes + 1),
                     votes = votes + 1
                 where cache_id = '".Db::escape_string($cache['internal_id'])."'
@@ -494,7 +500,7 @@ class WebService
                 values (
                     '".Db::escape_string($user['internal_id'])."',
                     '".Db::escape_string($cache['internal_id'])."',
-                    '".Db::escape_string($db_score)."'
+                    ".Db::float_sql($db_score)."
                 );
             ");
         }
