@@ -1240,6 +1240,12 @@ class WebService
                 # All other OKAPI types map to 'Reference Point'.
             ];
 
+            # Set the language for "Stage", "User location" etc. Since all
+            # number formatting (meanwhile) is locale-independent, it should
+            # be safe to change gettext domain for all the alt_wpts generation. 
+
+            Okapi::gettext_domain_init($langprefs);
+
             foreach ($cacheid2waypoints as $cache_id => $waypoints)
             {
                 $cache_code = $cacheid2wptcode[$cache_id];
@@ -1303,7 +1309,7 @@ class WebService
                         # there should be only one user waypoint per cache...
                         $results[$cache_code]['alt_wpts'][] = array(
                             'name' => $cache_code.'-USER-COORDS',
-                            'location' => round($row['latitude'], 6)."|".round($row['longitude'], 6),
+                            'location' => Okapi::coords2latlon($row['latitude'], $row['longitude']),
                             'type' => 'user-coords',
                             'type_name' => _("User location"),
                             'gc_type' => 'Reference Point',
@@ -1316,6 +1322,8 @@ class WebService
                     }
                 }
             }
+
+            Okapi::gettext_domain_restore();
         }
 
         # Country and/or region
