@@ -1,10 +1,11 @@
 <?php
+
 namespace lib\Objects\GeoCache;
 
-use Utils\Gis\Gis;
 use lib\Objects\BaseObject;
 use lib\Objects\Coordinates\Coordinates;
 use okapi\Facade;
+use Utils\Gis\Gis;
 
 class MobileCacheMove extends BaseObject
 {
@@ -12,9 +13,11 @@ class MobileCacheMove extends BaseObject
     private $userId;
     private $cacheId;
     private $logId;
+    /** @var \DateTime */
     private $date;
-    private $latitude;
-    private $longitude;
+    /** @var Coordinates */
+    private $coordinates;
+    /** @var float */
     private $km;
 
     public function __construct()
@@ -24,34 +27,67 @@ class MobileCacheMove extends BaseObject
 
     private function loadFromDbRow(array $row)
     {
-        foreach ($row as $col=>$val){
-            switch($col){
-                case 'id': $this->id = $val; break;
-                case 'user_id': $this->userId = $val; break;
-                case 'cache_id': $this->cacheId = $val; break;
-                case 'log_id': $this->logId = $val; break;
-                case 'latitude': $this->latitude = $val; break;
-                case 'longitude': $this->longitude = $val; break;
-                case 'km': $this->km = $val; break;
+        foreach ($row as $col => $val) {
+            switch ($col) {
+                case 'id':
+                    $this->id = $val;
+                    break;
+                case 'user_id':
+                    $this->userId = $val;
+                    break;
+                case 'cache_id':
+                    $this->cacheId = $val;
+                    break;
+                case 'log_id':
+                    $this->logId = $val;
+                    break;
+                case 'date':
+                    $this->date = new \DateTime($val);
+                    break;
+                case 'km':
+                    $this->km = floatval($val);
+                    break;
             }
+        }
+
+        if (isset($row['latitude']) && isset($row['longitude'])) {
+            $this->coordinates = Coordinates::FromCoordsFactory($row['latitude'], $row['longitude']);
+        }
+    }
+
+    private function loadById($id)
+    {
+        $stmt = $this->db->multiVariableQuery(
+            "SELECT * FROM `cache_moved` WHERE `id` = :1 LIMIT 1", $id);
+
+        $dbRow = $this->db->dbResultFetch($stmt);
+
+        if (is_array($dbRow)) {
+            $this->loadFromDbRow($dbRow);
+        } else {
+            throw new \Exception("Cache Moved Id not found");
         }
     }
 
     private function updateDistance($newDistance)
     {
+        $this->km = $newDistance;
+
         $this->db->multiVariableQuery(
-            "UPDATE cache_moved SET km = :1 WHERE log_id = :2",
-            $newDistance, $this->logId);
+            "UPDATE `cache_moved` SET `km` = :1 WHERE `log_id` = :2",
+            $this->km,
+            $this->logId);
 
         Facade::schedule_user_entries_check($this->cacheId, $this->userId);
         Facade::disable_error_handling();
     }
 
 
-    public static function updateDateOnLogEdit(GeoCacheLog $log, $newDate){
+    public static function updateDateOnLogEdit(GeoCacheLog $log, $newDate)
+    {
 
         self::db()->multiVariableQuery(
-            "UPDATE cache_moved SET date=:1 WHERE log_id=:2",$newDate, $log->getId());
+            "UPDATE cache_moved SET date=:1 WHERE log_id=:2", $newDate, $log->getId());
 
         self::recalculateMobileMoves($log->getGeoCache());
     }
@@ -59,7 +95,7 @@ class MobileCacheMove extends BaseObject
     public static function updateMovesOnLogRemove(GeoCacheLog $log)
     {
         self::db()->multiVariableQuery(
-            "DELETE FROM cache_moved WHERE log_id=:1 LIMIT 1", $log->getId());
+            "DELETE FROM `cache_moved` WHERE `log_id` = :1 LIMIT 1", $log->getId());
 
         self::recalculateMobileMoves($log->getGeoCache());
     }
@@ -78,38 +114,39 @@ class MobileCacheMove extends BaseObject
         $db = self::db();
 
         $stmt = $db->multiVariableQuery(
-            "SELECT id, user_id, latitude, longitude, km
-            FROM cache_moved
-            WHERE cache_id= :1
-            ORDER BY date ASC", $cache->getCacheId());
+            "SELECT `id`
+            FROM `cache_moved`
+            WHERE `cache_id` = :1
+            ORDER BY `date` ASC",
+            $cache->getCacheId()
+        );
 
         /** @var MobileCacheMove $lastMove */
         $lastMove = null;
-        while($row = $db->dbResultFetch($stmt)){
-            $move = new self();
-            $move->loadFromDbRow($row);
 
-            if(!$lastMove){
+        while ($row = $db->dbResultFetch($stmt)) {
+            $move = new self();
+            $move->loadById($row['id']);
+
+            if (!$lastMove) {
                 // this is initial location of cache
                 $distance = 0;
             } else {
-                $distance = Gis::distance($move->latitude, $move->longitude, $lastMove->latitude, $lastMove->longitude);
+                $distance = Gis::distanceBetween($move->coordinates, $lastMove->coordinates);
                 $distance = round($distance, 2);
             }
 
-            if($move->km != $distance){
+            if ($move->km != $distance) {
                 $move->updateDistance($distance);
             }
 
             $lastMove = $move;
         }
 
-        if($lastMove) {
+        if ($lastMove) {
             // update cache coords if last if necessary
-            $lastMoveCoords = Coordinates::FromCoordsFactory( $lastMove->latitude, $lastMove->longitude );
-
-            if(!$cache->getCoordinates()->areSameAs($lastMoveCoords)){
-                $cache->updateCoordinates($lastMoveCoords);
+            if (!$cache->getCoordinates()->areSameAs($lastMove->coordinates)) {
+                $cache->updateCoordinates($lastMove->coordinates);
             }
         }
     }
