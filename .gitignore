@@ -9,6 +9,7 @@
 
 .buildpath
 .project
+.settings
 ocpl-dynamic-files
 .directory
-
+.idea
