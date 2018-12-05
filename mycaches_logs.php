@@ -31,7 +31,7 @@ if ($error == false) {
         $user_record['username'] = XDb::xMultiVariableQueryValue(
             "SELECT  username FROM user WHERE user_id= :1 LIMIT 1", '-noname-', $user_id);
 
-        tpl_set_var('username', $user_record['username']);
+        tpl_set_var('username', htmlspecialchars($user_record['username']));
 
         $LOGS_PER_PAGE = 50;
         $PAGES_LISTED = 10;
@@ -147,7 +147,7 @@ if ($error == false) {
                     $log_record['user_id'] = 0;
                 }
                 // koniec ukrywania nicka autora komentarza COG
-                $file_content .= '<b>' . $log_record['user_name'] . '</b>:<br>';
+                $file_content .= '<b>' . htmlspecialchars($log_record['user_name']) . '</b>:<br>';
                 $file_content .= GeoCacheLog::cleanLogTextForToolTip( $log_record['log_text'] );
                 $file_content .= '\', PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()">' . htmlspecialchars($log_record['cache_name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
                 $file_content .= '<td><b><a class="links" href="viewprofile.php?userid=' . htmlspecialchars($log_record['user_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($log_record['user_name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';

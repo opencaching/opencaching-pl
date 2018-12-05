@@ -115,7 +115,7 @@ if ($usr == false) {
                 $GeoKretyApiSecid = addslashes($_POST['GeoKretyApiSecid']);
 
                 // set user messages
-                tpl_set_var('username', $username);
+                tpl_set_var('username', htmlspecialchars($username));
                 tpl_set_var('username_message', '');
 
                 /* GeoKretyApi validate secid */

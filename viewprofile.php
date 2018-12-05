@@ -89,7 +89,7 @@ if ($usr == false) {
     }
 
 
-    tpl_set_var('username', $user->getUserName());
+    tpl_set_var('username', htmlspecialchars($user->getUserName()));
     if ((date('m') == 4) and ( date('d') == 1)) {
         tpl_set_var('username', tr('primaAprilis1'));
     }
@@ -176,7 +176,7 @@ if ($usr == false) {
             foreach ($adminNotes as $adminNote) {
                 $content .= '<tr>
                   <td>' . Formatter::dateTime($adminNote->getDateTime()) . '
-                  - <a class="links" href="'. $adminNote->getAdmin()->getProfileUrl() . '">' . $adminNote->getAdmin()->getUserName() . '</a></td><td>';
+                  - <a class="links" href="'. $adminNote->getAdmin()->getProfileUrl() . '">' . htmlspecialchars($adminNote->getAdmin()->getUserName()) . '</a></td><td>';
                 if ($adminNote->isAutomatic()) {
                     $content .= '<img title="'.tr("admin_notes_auto").'" alt="' . tr("admin_notes_auto") . '" class="icon16" src="' . $adminNote->getAutomaticPictureUrl() . '"> ';
                     $content .= tr($adminNote->getContentTranslationKey());
@@ -455,7 +455,7 @@ if ($usr == false) {
                 $tmp_log = mb_ereg_replace('{cacheid}', htmlspecialchars(urlencode($record_logs['cache_id']), ENT_COMPAT, 'UTF-8'), $tmp_log);
                 $tmp_log = mb_ereg_replace('{logid}', htmlspecialchars(urlencode($record_logs['id']), ENT_COMPAT, 'UTF-8'), $tmp_log);
 
-                $logtext = '<b>' . $record_logs['user_name'] . '</b>:<br>';
+                $logtext = '<b>' . htmlspecialchars($record_logs['user_name']) . '</b>:<br>';
                 $logtext .= GeoCacheLog::cleanLogTextForToolTip( $record_logs['log_text'] );
                 $tmp_log = mb_ereg_replace('{logtext}', $logtext, $tmp_log);
 
@@ -710,7 +710,7 @@ if ($usr == false) {
                 $tmp_log = mb_ereg_replace('{username}', htmlspecialchars($record_logs['user_name'], ENT_COMPAT, 'UTF-8'), $tmp_log);
                 $tmp_log = mb_ereg_replace('{logid}', htmlspecialchars(urlencode($record_logs['id']), ENT_COMPAT, 'UTF-8'), $tmp_log);
 
-                $logtext = '<b>' . $record_logs['user_name'] . '</b>:<br>';
+                $logtext = '<b>' . htmlspecialchars($record_logs['user_name'], ENT_COMPAT) . '</b>:<br>';
                 $logtext .= GeoCacheLog::cleanLogTextForToolTip( $record_logs['log_text'] );
 
                 $tmp_log = mb_ereg_replace('{logtext}', $logtext, $tmp_log);

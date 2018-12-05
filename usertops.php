@@ -17,7 +17,7 @@ if ($error == false) {
     if(!is_null($username)){
         // user found
         tpl_set_var('userid', $userid);
-        tpl_set_var('username', $username);
+        tpl_set_var('username', htmlspecialchars($username));
     }else{
         // user not found
         tpl_set_var('userid', 0);
@@ -58,7 +58,7 @@ if ($error == false) {
         }
     }
     else {
-        $content = mb_ereg_replace('{username}', $username, $notop5);
+        $content = mb_ereg_replace('{username}', htmlspecialchars($username), $notop5);
     }
 
     tpl_set_var('top5', $content);

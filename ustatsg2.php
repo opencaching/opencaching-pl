@@ -31,7 +31,7 @@ $rsGeneralStat = XDb::xSql(
     FROM `user` WHERE user_id= ? LIMIT 1", $user_id);
 
 $user_record = XDb::xFetchArray($rsGeneralStat);
-tpl_set_var('username', $user_record['username']);
+tpl_set_var('username', htmlspecialchars($user_record['username']));
 if ($user_record['founds_count'] == 0) {
     $content .= '<p>&nbsp;</p><p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="Caches Find" title="Caches Find" />&nbsp;&nbsp;&nbsp;' . tr("graph_find") . '</p></div><br /><br /><p> <b>' . tr("there_is_no_caches_found") . '</b></p>';
 } else {
@@ -47,7 +47,7 @@ if ($user_record['founds_count'] == 0) {
         $user_record = XDb::xFetchArray($rsGeneralStat);
         XDb::xFreeResults($rsGeneralStat);
 
-        tpl_set_var('username', $user_record['username']);
+        tpl_set_var('username', htmlspecialchars($user_record['username']));
     }
     $content .='<p>&nbsp;</p><p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="Caches Find" title="Caches Find" />&nbsp;&nbsp;&nbsp;' . tr("graph_find") . '</p></div><br />';
     $content .= '<p><img src="graphs/PieGraphustat.php?userid=' . $user_id . '&amp;t=cf"  border="0" alt="" width="500" height="300" /></p>';

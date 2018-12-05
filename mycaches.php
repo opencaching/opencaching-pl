@@ -255,7 +255,7 @@ if ($error == false) {
             for ($yy = 0; $yy < $log_entries_count; $yy++) {
                 $logs = $log_entries_all [$yy];
                 $table .= '<a class="links" href="viewlogs.php?logid=' . htmlspecialchars($logs['id'], ENT_COMPAT, 'UTF-8') . '" onmouseover="Tip(\'';
-                $table .= '<b>' . $logs['user_name'] . '</b>&nbsp;(' . htmlspecialchars(date($dateFormat, strtotime($logs['log_date'])), ENT_COMPAT, 'UTF-8') . '):<br>';
+                $table .= '<b>' . htmlspecialchars($logs['user_name']) . '</b>&nbsp;(' . htmlspecialchars(date($dateFormat, strtotime($logs['log_date'])), ENT_COMPAT, 'UTF-8') . '):<br>';
                 $table .= GeoCacheLog::cleanLogTextForToolTip( $logs['log_text'] );
                 // sprawdz ile dni minelo od wpisania logu
                 if ($logs['ilosc_dni'] < 3)
