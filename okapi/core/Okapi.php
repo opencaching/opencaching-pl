@@ -23,8 +23,8 @@ class Okapi
     public static $server;
 
     /* These two get replaced in automatically deployed packages. */
-    private static $version_number = 1863;
-    private static $git_revision = '40cf57bbc60d88e98d15d1140aaae232e779580a';
+    private static $version_number = 1865;
+    private static $git_revision = 'f82869d909c4c0c2b5ab5533ed8ee630a59cf7c5';
 
     private static $okapi_vars = null;
 
@@ -1241,6 +1241,7 @@ class Okapi
     {
         if (Settings::get('OC_BRANCH') == 'oc.pl')
         {
+            # see also SearchAssistant::prepare_common_search_params() / 'rating'
             if ($db_score >= 2.2) return 5.0;
             elseif ($db_score >= 1.4) return 4.0;
             elseif ($db_score >= 0.1) return 3.0;
