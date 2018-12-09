@@ -3,27 +3,8 @@
 
 # m  h  dom mon dow command
 
-# Publish new caches
-0    *   *   *   *   /home/ocpl/cron-defs/do-wget-url   util.sec/publish_caches/run_publish.php  run_publish.html
-
-# Send e-mail notifications about new caches
-13   *   *   *   *   /home/ocpl/cron-defs/do-wget-url   util.sec/notification/run_notify.php  run_notify.html
-
-# Check for watched caches and send mails
-5    *   *   *   *   /home/ocpl/cron-defs/do-wget-url   util.sec/watchlist/runwatch.php  runwatch.html
-
-# Auto archiving of caches
-30   4   *   *   *   /home/ocpl/cron-defs/do-wget-url   util.sec/auto_arch.php  auto_arch.html
-
-# GeoKrety
-45   4   *   *   *   /home/ocpl/cron-defs/do-wget-url   util.sec/geokrety/geokrety.new.php  geokrety.html
-*/10 *   *   *   *   /home/ocpl/cron-defs/do-wget-url   util.sec/geokrety/processGeoKretyDbQueue.php  processGeoKretyDbQueue.php
-
-# GeoPaths automatic maintenance
-11   0   *   *   *   /home/ocpl/cron-defs/do-wget-url   util.sec/powerTrail/PowerTrailCronJob.php  PowerTrailCronJob.html
-
-# Titled Cache (weekly example)
-56   21  *   *   4    wget -O - -q https://opencaching.pl/cache_titled_add.php?CRON
+# Main cronjobs controller
+*/5  *  *   *   *    /home/ocpl/cron-defs/do-wget-url  util.sec/cron/run_cron.php  cron_main.html
 
 # OKAPI cronjobs. Timeout of 1 second if okay, OKAPI keeps the process running
 # in the background and has an error-reporting of its own. If something is really
@@ -31,9 +12,6 @@
 # making cron send a proper email to the admin. See OKAPI cronjobs dispatcher
 # in okapi/cronjobs.php for more information.
 */5  *   *   *   *   wget -O - -q -t 1 https://opencaching.pl/okapi/cron5
-
-# OKAPI signalling cronjob, updates merit badges etc.
-*/5  *   *   *   *   /home/ocpl/cron-defs/do-wget-url   util.sec/okapi/okapi_cronjob.php  okapi_cronjob.html
 
 # Database maintanance
 10   6   *   *   *   /home/ocpl/cron-defs/do-mysql-flush

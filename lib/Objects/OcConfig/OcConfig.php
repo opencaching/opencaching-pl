@@ -80,6 +80,9 @@ final class OcConfig extends ConfigReader
     /** @var array */
     private $topBannerTxt;
 
+    /** @var array - array of cronjob settings from /Config/cronjobs.* files */
+    private $cronjobsConfig;
+
     /**
      * Call this method to get singleton
      * @return ocConfig
@@ -421,6 +424,20 @@ final class OcConfig extends ConfigReader
             $this->guidesConfig = self::getConfig("guides", "guides");
         }
         return $this->guidesConfig;
+    }
+
+    public function getCronjobSchedule($job = null)
+    {
+        if ($this->cronjobsConfig == null) {
+            $this->cronjobsConfig = self::getConfig('cronjobs', 'cronjobs');
+        }
+        if ($job === null) {
+            return $this->cronjobsConfig['schedule'];
+        } elseif (isset($this->cronjobsConfig['schedule'][$job])) {
+            return $this->cronjobsConfig['schedule'][$job];
+        } else {
+            return null;
+        }
     }
 
     /**
