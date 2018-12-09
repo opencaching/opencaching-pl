@@ -32,6 +32,9 @@
 # in okapi/cronjobs.php for more information.
 */5  *   *   *   *   wget -O - -q -t 1 https://opencaching.pl/okapi/cron5
 
+# OKAPI signalling cronjob, updates merit badges etc.
+*/5  *   *   *   *   /home/ocpl/cron-defs/do-wget-url   util.sec/okapi/okapi_cronjob.php  okapi_cronjob.html
+
 # Database maintanance
 10   6   *   *   *   /home/ocpl/cron-defs/do-mysql-flush
 
