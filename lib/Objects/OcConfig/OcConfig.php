@@ -49,7 +49,7 @@ final class OcConfig extends ConfigReader
     private $headerLogo;
     private $shortSiteName;
     private $needFindLimit;
-    private $needAproveLimit;
+    private $needApproveLimit;
     private $cogEmailAddress;
     private $mailSubjectPrefixForSite;
     private $mailSubjectPrefixForReviewers;
@@ -129,7 +129,7 @@ final class OcConfig extends ConfigReader
         $this->noreplyEmailAddress = $emailaddr;
         $this->headerLogo = $config['headerLogo'];
         $this->shortSiteName = $short_sitename;
-        $this->needAproveLimit = $NEED_APPROVE_LIMIT;
+        $this->needApproveLimit = $NEED_APPROVE_LIMIT;
         $this->needFindLimit = $NEED_FIND_LIMIT;
         $this->mailSubjectPrefixForSite = $subject_prefix_for_site_mails;
         $this->mailSubjectPrefixForReviewers = $subject_prefix_for_reviewers_mails;
@@ -339,9 +339,9 @@ final class OcConfig extends ConfigReader
         return self::instance()->needFindLimit;
     }
 
-    public static function getNeedAproveLimit()
+    public static function getNeedApproveLimit()
     {
-        return self::instance()->needAproveLimit;
+        return self::instance()->needApproveLimit;
     }
 
     public static function getCogEmailAddress()

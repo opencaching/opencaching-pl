@@ -42,8 +42,8 @@ class User extends UserCommons
     /** @var $geocachesNotPublished \ArrayObject() */
     private $geocachesNotPublished = null;
 
-    /** @var $geocachesWaitAproove \ArrayObject() */
-    private $geocachesWaitAproove = null;
+    /** @var $geocachesWaitApprove \ArrayObject() */
+    private $geocachesWaitApprove = null;
 
     /** @var $geocachesBlocked \ArrayObject() */
     private $geocachesBlocked = null;
@@ -78,7 +78,7 @@ class User extends UserCommons
     private $notifyLogs;
     private $activationCode;
 
-    const COMMON_COLLUMNS = "user_id, username, founds_count, notfounds_count,
+    const COMMON_COLUMNS = "user_id, username, founds_count, notfounds_count,
                        log_notes_count, hidden_count, latitude, longitude,
                        email, role, guru, verify_all, rules_confirmed,
                        notify_radius, watchmail_mode, watchmail_day,
@@ -86,16 +86,15 @@ class User extends UserCommons
                        is_active_flag, stat_ban, description, activation_code,
                        date_created, last_login, uuid";
 
-    const AUTH_COLLUMS = self::COMMON_COLLUMNS . ', permanent_login_flag';
+    const AUTH_COLUMNS = self::COMMON_COLUMNS . ', permanent_login_flag';
 
     /**
-     * construct class using $userId (fields will be loaded from db)
+     * construct class using userId (fields will be loaded from db)
      * OR, if you have already user data row fetched from db row ($userDbRow), object is created using this data
      *
-     * @param int $userId - user identifier in db
-     * @param array $userDbRow - array - user data taken from db, from table user.
+     * @param array $params
      */
-    public function __construct(array $params=null)
+    public function __construct(array $params = null)
     {
         parent::__construct();
 
@@ -108,7 +107,7 @@ class User extends UserCommons
             $fields = $params['fieldsStr'];
         } else {
             //default column list loaded from DB
-            $fields = self::COMMON_COLLUMNS;
+            $fields = self::COMMON_COLUMNS;
         }
 
         if (isset($params['userId'])) {
@@ -134,13 +133,14 @@ class User extends UserCommons
     /**
      * Factory
      * @param string $username
+     * @param string $fields
      * @return User object or null on error
      */
     public static function fromUsernameFactory($username, $fields = null)
     {
 
         if (!$fields) {
-            $fields = self::COMMON_COLLUMNS;
+            $fields = self::COMMON_COLUMNS;
         }
 
         $u = new self();
@@ -153,13 +153,14 @@ class User extends UserCommons
     /**
      * Factory
      * @param string $email
+     * @param string $fields
      * @return User object or null on error
      */
     public static function fromEmailFactory($email, $fields = null)
     {
 
         if (!$fields) {
-            $fields = self::COMMON_COLLUMNS;
+            $fields = self::COMMON_COLUMNS;
         }
 
         $u = new self();
@@ -172,8 +173,8 @@ class User extends UserCommons
 
     /**
      * Factory
-     * @param $username
-     * @param $fields - comma separatd list of columns to get from DB
+     * @param int $userId
+     * @param string $fields - comma separated list of columns to get from DB
      * @return User object or null on error
      */
     public static function fromUserIdFactory($userId, $fields = null)
@@ -182,7 +183,7 @@ class User extends UserCommons
         $u->userId = $userId;
 
         if (is_null($fields)) {
-            $fields = self::COMMON_COLLUMNS;
+            $fields = self::COMMON_COLUMNS;
         }
 
         if ($u->loadDataFromDb($fields)) {
@@ -244,7 +245,7 @@ class User extends UserCommons
         return false;
     }
 
-    private function loadDataFromDbUuid($fields)
+    private function loadDataFromDbByUuid($fields)
     {
 
         $stmt = $this->db->multiVariableQuery(
@@ -427,7 +428,7 @@ class User extends UserCommons
     }
 
     /**
-     * global user identifier. (Used worldwide)
+     * Global user identifier. (Used worldwide)
      * @return integer
      */
     public function getUserUuid()
@@ -436,19 +437,12 @@ class User extends UserCommons
     }
 
     /**
-     * user email address
+     * User email address
      * @return string
      */
     public function getEmail()
     {
         return $this->email;
-    }
-
-    public function getUserInformation()
-    {
-        return array(
-            'userName' => $this->userName
-        );
     }
 
     /**
@@ -460,6 +454,9 @@ class User extends UserCommons
         return $this->userName;
     }
 
+    /**
+     * @return string
+     */
     public function getProfileUrl()
     {
         if (!$this->profileUrl) {
@@ -570,7 +567,7 @@ class User extends UserCommons
                     $this->appendNotPublishedGeocache($geocache);
                 }
                 if ($geocache->getStatus() === GeoCache::STATUS_WAITAPPROVERS) {
-                    $this->appendWaitAprooveGeocache($geocache);
+                    $this->appendWaitApproveGeocache($geocache);
                 }
                 if ($geocache->getStatus() === GeoCache::STATUS_BLOCKED) {
                     $this->appendBlockedGeocache($geocache);
@@ -597,21 +594,21 @@ class User extends UserCommons
         return $this->geocachesNotPublished;
     }
 
-    public function appendWaitAprooveGeocache(GeoCache $geocache)
+    public function appendWaitApproveGeocache(GeoCache $geocache)
     {
-        if ($this->geocachesWaitAproove === null) {
-            $this->geocachesWaitAproove = new \ArrayObject;
+        if ($this->geocachesWaitApprove === null) {
+            $this->geocachesWaitApprove = new \ArrayObject;
         }
-        $this->geocachesWaitAproove->append($geocache);
+        $this->geocachesWaitApprove->append($geocache);
     }
 
-    public function getGeocachesWaitAproove()
+    public function getGeocachesWaitApprove()
     {
-        if ($this->geocachesWaitAproove === null) {
-            $this->geocachesWaitAproove = new \ArrayObject;
+        if ($this->geocachesWaitApprove === null) {
+            $this->geocachesWaitApprove = new \ArrayObject;
             $this->getGeocaches();
         }
-        return $this->geocachesWaitAproove;
+        return $this->geocachesWaitApprove;
     }
 
     public function appendBlockedGeocache(GeoCache $geocache)
@@ -660,7 +657,7 @@ class User extends UserCommons
              WHERE `user_id` = :1 AND status = 1",
              0, $this->getUserId());
 
-        if ($activeCachesNum < OcConfig::getNeedAproveLimit()) {
+        if ($activeCachesNum < OcConfig::getNeedApproveLimit()) {
             return true;
         }
         return false;
@@ -930,7 +927,7 @@ class User extends UserCommons
      */
     public function getLastLoginPeriodString()
     {
-        // User has no last login date in DB - return 'unknow'
+        // User has no last login date in DB - return 'unknown'
         if ($this->getLastLoginDate() === null) {
             return 'unknown';
         }
@@ -957,7 +954,7 @@ class User extends UserCommons
      */
     public function getLastLoginPeriodClass()
     {
-        // User has no last login date in DB - return 'unknow'
+        // User has no last login date in DB
         if ($this->getLastLoginDate() === null) {
             return 'text-color-dark';
         }
@@ -977,3 +974,4 @@ class User extends UserCommons
     }
 
 }
+

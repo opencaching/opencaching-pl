@@ -99,7 +99,7 @@ class UserAuthorizationController extends BaseController
             return tr('page_error');
         }
         $username = strip_tags(trim($_POST['userName']));
-        if (($user = User::fromUsernameFactory($username, User::AUTH_COLLUMS)) || ($user = User::fromEmailFactory($username, User::AUTH_COLLUMS))) {
+        if (($user = User::fromUsernameFactory($username, User::AUTH_COLUMNS)) || ($user = User::fromEmailFactory($username, User::AUTH_COLUMNS))) {
             if (! $user->isActive()) {
                 return tr('newpw_err_notact');
             }

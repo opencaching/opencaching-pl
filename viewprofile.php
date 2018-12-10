@@ -744,7 +744,7 @@ if ($usr == false) {
             $content .= '</ul></div>';
         }
 
-        $waitAproveGeocaches = $user->getGeocachesWaitAproove();
+        $waitAproveGeocaches = $user->getGeocachesWaitApprove();
         if ($waitAproveGeocaches->count() > 0) {
             $content .= '<br><p><span class="content-title-noshade txt-blue08">' . tr('caches_waiting_approve') . ':</span></p><br><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 115%;">';
             foreach ($waitAproveGeocaches as $geocache) {
