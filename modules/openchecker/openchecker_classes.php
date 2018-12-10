@@ -145,8 +145,8 @@ class OpenCheckerCore {
 
         tpl_set_var("cache_icon", '<img src="'. $geoCache->getCacheIcon() . '" />');
         tpl_set_var("cacheid", $cache_id);
-        tpl_set_var("user_name", $owner->getUserName());
-        tpl_set_var("cachename", $geoCache->getCacheName());
+        tpl_set_var("user_name", htmlspecialchars($owner->getUserName()));
+        tpl_set_var("cachename", htmlspecialchars($geoCache->getCacheName()));
         tpl_set_var("user_id", $owner->getUserId());
 
         // geting data from database
@@ -407,7 +407,7 @@ class OpenCheckerCore {
             <td><a href="viewcache.php?wp=' . $cache_data['wp_oc'] . '"><img src="tpl/stdstyle/images/' . $cache_data['icon_small'] . '" /></a></td>
             <td><a class="links" href="' . $OpenCheckerSetup->scriptname . '?wp=' . $cache_data['wp_oc'] . '"> ' . $cache_data['name'] . '</a> </td>
             <td align="center">' . $status[$cache_data['status']] . '</td>
-            <td><a href="viewprofile.php?userid=' . $cache_data['user_id'] . '">' . $cache_data['username'] . '</td>
+            <td><a href="viewprofile.php?userid=' . $cache_data['user_id'] . '">' . htmlspecialchars($cache_data['username']) . '</td>
             <td align="center">' . $cache_data['proby'] . '</td>
             <td align="center">' . $cache_data['sukcesy'] . '</td>
         </tr>

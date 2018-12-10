@@ -273,7 +273,7 @@ if ($error == false) {
                 tpl_set_var('ptStatusSelector', generateStatusSelector($powerTrail->getStatus()));
                 tpl_set_var('removeCacheButtonDisplay', $removeCacheButtonDisplay);
                 tpl_set_var('leadingUserId', $leadingUser['user_id']);
-                tpl_set_var('leadingUserName', $leadingUser['username']);
+                tpl_set_var('leadingUserName', htmlspecialchars($leadingUser['username']));
                 tpl_set_var('fullCountryMap', '0');
                 tpl_set_var('ptTypeName', tr($ptTypesArr[$powerTrail->getType()]['translate']));
                 tpl_set_var('displaySelectedPowerTrail', 'block');

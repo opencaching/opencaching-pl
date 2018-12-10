@@ -60,8 +60,8 @@ if ($error == false) {
                     tpl_set_var('not_found', '');
                 }
             } else { // User not found
-                tpl_set_var('username', $options['username']);
-                tpl_set_var('not_found', '<b>' . tr("message_user_not_found") . ': ' . $options['username'] . '</b><br/><br/>');
+                tpl_set_var('username', htmlspecialchars($options['username']));
+                tpl_set_var('not_found', '<b>' . tr("message_user_not_found") . ': ' . htmlspecialchars($options['username']) . '</b><br/><br/>');
                 tpl_set_var('lines', '');
             }
         } else {

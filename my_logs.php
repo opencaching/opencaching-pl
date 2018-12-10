@@ -32,7 +32,7 @@ if ($error == false) {
 
         $username = XDb::xMultiVariableQueryValue(
             "SELECT username FROM user WHERE user_id= :1 LIMIT 1", '', $user_id);
-        tpl_set_var('username', $username);
+        tpl_set_var('username', htmlspecialchars($username));
 
         $LOGS_PER_PAGE = 50;
         $PAGES_LISTED = 10;
@@ -137,7 +137,7 @@ if ($error == false) {
                     $file_content .= '<td width="22"><img src="tpl/stdstyle/images/' . $log_record['icon_small'] . '" border="0" alt="" /></td>';
                     $file_content .= '<td width="22"><a class="links" href="viewcache.php?cacheid=' . $log_record['cache_id'] . '"><img src="tpl/stdstyle/images/' . $log_record['cache_icon_small'] . '" border="0" alt=""/></a></td>';
                     $file_content .= '<td><b><a class="links" href="viewlogs.php?logid=' . htmlspecialchars($log_record['id'], ENT_COMPAT, 'UTF-8') . '" onmouseover="Tip(\'';
-                    $file_content .= '<b>' . $log_record['user_name'] . '</b>:<br>';
+                    $file_content .= '<b>' . htmlspecialchars($log_record['user_name']) . '</b>:<br>';
                     $file_content .= GeoCacheLog::cleanLogTextForToolTip( $log_record['log_text'] );
                     $file_content .= '\', PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()">' . htmlspecialchars($log_record['cache_name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
                     $file_content .= '<td>&nbsp;</td>';
