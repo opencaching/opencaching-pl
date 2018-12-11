@@ -9,16 +9,14 @@ use lib\Objects\User\User;
  * This class should contains mostly static, READ-ONLY queries
  * used to generates statistics etc. around cache_logs db table
  */
-
-
 class MultiLogStats extends BaseObject
 {
 
     public static function getTotalSearchesNumber()
     {
-        $countedTypes = implode(',',[
+        $countedTypes = implode(',', [
             GeoCacheLog::LOGTYPE_FOUNDIT,
-            GeoCacheLog::LOGTYPE_DIDNOTFIND
+            GeoCacheLog::LOGTYPE_DIDNOTFIND,
         ]);
 
         return self::db()->simpleQueryValue(
@@ -29,11 +27,11 @@ class MultiLogStats extends BaseObject
 
     public static function getLastSearchesCount($fromLastDays)
     {
-        $days = (int) $fromLastDays;
+        $days = (int)$fromLastDays;
 
-        $countedTypes = implode(',',[
+        $countedTypes = implode(',', [
             GeoCacheLog::LOGTYPE_FOUNDIT,
-            GeoCacheLog::LOGTYPE_DIDNOTFIND
+            GeoCacheLog::LOGTYPE_DIDNOTFIND,
         ]);
 
         return self::db()->simpleQueryValue(
@@ -43,9 +41,9 @@ class MultiLogStats extends BaseObject
                 AND date_created > DATE_SUB(NOW(), INTERVAL $days day)", 0);
     }
 
-    public static function getLastRecomendationsCount($fromLastDays)
+    public static function getLastRecommendationsCount($fromLastDays)
     {
-        $days = (int) $fromLastDays;
+        $days = (int)$fromLastDays;
 
         return self::db()->multiVariableQueryValue(
             "SELECT COUNT(*) FROM cache_logs
@@ -60,6 +58,8 @@ class MultiLogStats extends BaseObject
      * Returns array with last logs data for each given cacheId
      * @param array $cacheIds
      * @param array $logFields - optional list of log fields
+     *
+     * @return array
      */
     public static function getLastLogForEachCache(array $cacheIds, array $logFields = null)
     {
@@ -67,7 +67,7 @@ class MultiLogStats extends BaseObject
             return [];
         }
 
-        if ( empty($logFields) ) {
+        if (empty($logFields)) {
             $logFields = ['*'];
         }
 
@@ -89,23 +89,25 @@ class MultiLogStats extends BaseObject
         return $db->dbResultFetchAll($rs);
     }
 
-    public static function getLastLogs($numberOfLogs=100)
+    public static function getLastLogs($numberOfLogs = 100)
     {
         $db = self::db();
 
-        $numberOfLogs = (int) $numberOfLogs;
+        $numberOfLogs = (int)$numberOfLogs;
 
-        $allowedCacheStatuses = implode(',',[
+        $allowedCacheStatuses = implode(',', [
             GeoCache::STATUS_READY,
             GeoCache::STATUS_UNAVAILABLE,
-            GeoCache::STATUS_ARCHIVED]);
+            GeoCache::STATUS_ARCHIVED,
+        ]);
 
-        $allowedLogTypes = implode(',',[
+        $allowedLogTypes = implode(',', [
             GeoCacheLog::LOGTYPE_COMMENT,
             GeoCacheLog::LOGTYPE_DIDNOTFIND,
             GeoCacheLog::LOGTYPE_FOUNDIT,
             GeoCacheLog::LOGTYPE_MOVED,
-            GeoCacheLog::LOGTYPE_NEEDMAINTENANCE]);
+            GeoCacheLog::LOGTYPE_NEEDMAINTENANCE,
+        ]);
 
         $stmt = $db->simpleQuery(
             "SELECT c.cache_id, c.type AS cacheType, c.status, c.wp_oc,
