@@ -420,7 +420,7 @@ $view->callChunk('tinyMCE');
             if (document.newcacheform.lat_h.value == "0" && document.newcacheform.lon_h.value == "0") {
     alert("{{input_coord}}");
     } else {
-    window.open(<?=SimpleRouter::getLink(MainMapController::class, 'fullscreen')?>.'?circle&lat='+lat+'&lon='+lon); }
+    window.open('<?=SimpleRouter::getLink(MainMapController::class, 'fullscreen')?>?circle&lat='+lat+'&lon='+lon); }
     return false;
     }
 </script>
@@ -492,7 +492,7 @@ $(document).ready(function(){
         <tr class="form-group-sm">
             <td><p class="content-title-noshade">{{cache_type}}:</p></td>
             <td>
-                <select name="type" id="cacheType" class="form-control input200" onchange="return _chkVirtual()">
+                <select name="type" id="cacheType" class="form-control input200" onchange="_chkVirtual()">
                     {typeoptions}
                 </select>&nbsp;&nbsp;<img id="actionicons" src="" align="top" alt="">{type_message}
             </td>
@@ -503,7 +503,7 @@ $(document).ready(function(){
         <tr class="form-group-sm">
             <td><p class="content-title-noshade">{{cache_size}}:</p></td>
             <td>
-                <select name="size" id="size" class="form-control input200" onchange="return _chkVirtual()" {is_disabled_size}>
+                <select name="size" id="size" class="form-control input200" onchange="_chkVirtual()" {is_disabled_size}>
                     {sizeoptions}
                 </select>{size_message}
             </td>
@@ -520,7 +520,7 @@ $(document).ready(function(){
                     </select>
                     &nbsp;<input type="text" id="lat_h"  name="lat_h" maxlength="2" class="form-control input30" onchange="checkRegion()" placeholder="0" value="{lat_h}" />
                     &deg;&nbsp;<input type="text" id="lat_min" name="lat_min" maxlength="6" class="form-control input50" onkeyup="this.value = this.value.replace(/,/g, '.');" onchange="checkRegion()" placeholder="00.000" value="{lat_min}" />&nbsp;'&nbsp;
-                    <button class="btn btn-default btn-sm" onclick="return nearbycachemapOC()">{{check_nearby_caches_map}}</button>
+                    <button class="btn btn-default btn-sm" onclick="nearbycachemapOC()">{{check_nearby_caches_map}}</button>
                     {lat_message}<br />
                     &nbsp;&nbsp;&nbsp;
                     <select name="lonEW" id="lonEW" class="form-control input50" onchange="checkRegion()">
@@ -529,7 +529,7 @@ $(document).ready(function(){
                     </select>
                     &nbsp;<input type="text" id="lon_h" name="lon_h" maxlength="3" class="form-control input30" onchange="checkRegion()" placeholder="0" value="{lon_h}" />
                     &deg;&nbsp;<input type="text" id="lon_min" name="lon_min" maxlength="6" class="form-control input50" onkeyup="this.value = this.value.replace(/,/g, '.');" onchange="checkRegion()" placeholder="00.000" value="{lon_min}" />&nbsp;'&nbsp;
-                    <button class="btn btn-default btn-sm" onclick="return nearbycache()">{{check_nearby_caches}}</button><br />
+                    <button class="btn btn-default btn-sm" onclick="nearbycache()">{{check_nearby_caches}}</button><br />
                     {lon_message}</fieldset>
             </td>
         </tr>
@@ -551,7 +551,7 @@ $(document).ready(function(){
             <td>
                 <!-- <select name="region" id="region1" class="input200" onchange="javascript:chkcountry()" ></select> -->
                 <select name="region" id="region1" class="form-control input200" >
-                </select>&nbsp;<button class="btn btn-default btn-sm" id="region3" onclick="return extractregion()">{{region_from_coord}}</button>
+                </select>&nbsp;<button class="btn btn-default btn-sm" id="region3" onclick="extractregion()">{{region_from_coord}}</button>
                 <img id="regionAjaxLoader" style="display: none" src="tpl/stdstyle/images/misc/ptPreloader.gif" alt="">
                 {region_message}
             </td>

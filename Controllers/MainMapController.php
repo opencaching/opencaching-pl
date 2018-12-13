@@ -125,8 +125,8 @@ class MainMapController extends BaseController
 
         // load previously saved map settings
         $savedUserPrefs = UserPreferences::getUserPrefsByKey(MainMapSettings::KEY);
-        $mapModel->setInitLayerName($savedUserPrefs->getValues()['map']);
-
+        $this->mapJsParams->initUserPrefs = $savedUserPrefs->getValues();
+        $mapModel->setInitLayerName($this->mapJsParams->initUserPrefs['map']);
 
         // set map center based on requested coords&zoom
         if ( isset($_GET['zoom'], $_GET['lat'], $_GET['lon']) ) {
@@ -150,7 +150,6 @@ class MainMapController extends BaseController
             if(!$mapCenter) {
                 $mapModel->setInfoMessage(tr('map_incorectMapParams'));
             }else{
-                $this->mapJsParams->dontSaveFilters = true;
                 $zoom = 14;
             }
 
@@ -164,6 +163,7 @@ class MainMapController extends BaseController
             }else{
                 $zoom = 17;
                 $this->mapJsParams->circle150m = true;
+                $this->mapJsParams->initUserPrefs = null;  // clear filters
                 $this->mapJsParams->dontSaveFilters = true;
 
                 $mapModel->setInfoMessage(tr('map_circle150mMode'));
@@ -177,6 +177,7 @@ class MainMapController extends BaseController
                    $mapModel->setInfoMessage(tr('map_incorectMapParams'));
             } else {
                 $this->mapJsParams->searchData = $_GET['searchdata'];
+                $this->mapJsParams->initUserPrefs = null;  // clear filters
                 $this->mapJsParams->dontSaveFilters = true;
                 $mapModel->setInfoMessage(tr('map_searchResultsMode'));
 
@@ -198,6 +199,7 @@ class MainMapController extends BaseController
                 $mapModel->setInfoMessage(tr('map_incorectMapParams'));
             }else{
                 $this->mapJsParams->cacheSetId = $geoPath->getId();
+                $this->mapJsParams->initUserPrefs = null;  // clear filters
                 $this->mapJsParams->dontSaveFilters = true;
 
                 $mapCenter = $geoPath->getCoordinates();
@@ -205,8 +207,6 @@ class MainMapController extends BaseController
             }
         } else {
             // default mode: map at user home coods
-            $this->mapJsParams->initUserPrefs = $savedUserPrefs->getValues();
-
             $mapCenter = $user->getHomeCoordinates();
             $zoom = 11; //default zoom for user-home coords
         }
