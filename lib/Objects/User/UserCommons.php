@@ -2,17 +2,16 @@
 namespace lib\Objects\User;
 
 use lib\Objects\BaseObject;
-use lib\Objects\OcConfig\OcConfig;
 
 class UserCommons extends BaseObject
 {
-    // ROLE is a bitfild (SQL SET)
+    // ROLE is a bit field (SQL SET)
     const ROLE_OC_TEAM = 1;
     const ROLE_ADV_USER = 2;
     const ROLE_NEWS_PUBLISHER = 4;
     const ROLE_SYS_ADMIN = 8;
 
-    public function __construct(array $params = null)
+    public function __construct()
     {
         parent::__construct();
     }
@@ -28,7 +27,6 @@ class UserCommons extends BaseObject
         }
     }
 
-
     public static function GetUserProfileUrl($userId)
     {
         return "/viewprofile.php?userid=$userId";
@@ -38,8 +36,8 @@ class UserCommons extends BaseObject
     {
         $userId = intval($userId);
 
-        if (file_exists(OcConfig::instance()->getDynamicFilesPath() . 'images/statpics/statpic' . $userId . '.jpg')) {
-            unlink(OcConfig::instance()->getDynamicFilesPath() . 'images/statpics/statpic' . $userId . '.jpg');
+        if (file_exists(self::OcConfig()->getDynamicFilesPath() . 'images/statpics/statpic' . $userId . '.jpg')) {
+            unlink(self::OcConfig()->getDynamicFilesPath() . 'images/statpics/statpic' . $userId . '.jpg');
         }
     }
 
