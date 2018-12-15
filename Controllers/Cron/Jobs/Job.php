@@ -1,6 +1,6 @@
 <?php
 namespace Controllers\Cron\Jobs;
-use Utils\Database\XDb;
+use okapi\Facade;
 
 // Base class for all cron jobs. To add a new job:
 //
@@ -116,21 +116,20 @@ abstract class Job
         }
     }
 
-    private function getLastRun()
+    public final function getLastRun()
     {
-        return XDb::xMultiVariableQueryValue(
-            "SELECT last_run FROM cronjobs WHERE name = :1",
-            null,
-            get_class($this)
-        );
+        $lastRun = Facade::cache_get('ocpl/cronJobRun#' . get_class($this));
+        Facade::disable_error_handling();
+        return $lastRun;
     }
 
     public final function setLastRun()
     {
-        XDb::xSql(
-            "INSERT INTO cronjobs (name, last_run) VALUES (?, NOW())
-            ON DUPLICATE KEY UPDATE last_run = NOW()",
-            get_class($this)
+        Facade::cache_set(
+            'ocpl/cronJobRun#' . get_class($this),
+            date('Y-m-d H:i:s'),
+            366 * 24 * 3600
         );
+        Facade::disable_error_handling();
     }
 }

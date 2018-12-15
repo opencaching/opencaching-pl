@@ -85,4 +85,24 @@ class CronJobsController extends BaseController
         }
     }
 
+    public function getScheduleStatus()
+    {
+        $result = [];
+        foreach ($this->ocConfig->getCronjobSchedule() as $jobName => $schedule) {
+            $jobPath = __DIR__."/Jobs/".$jobName.".php";
+            if (!file_exists($jobPath)) {
+                $lastRun = '?';
+            } else {
+                require_once $jobPath;
+                $job = new $jobName($this->ocConfig);
+                $lastRun = $job->getLastRun();
+            }
+            $result[$jobName] = [
+                'shortName' => substr($jobName, 0, strlen($jobName) - 3),
+                'schedule' => $schedule,
+                'lastRun' => $lastRun   // is null if not run yet
+            ];
+        }
+        return $result;
+    }
 }
