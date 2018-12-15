@@ -5,4 +5,4 @@
  * See cronjobs.default.php for examples.
 */
 
-$cronjobs['schedule']['CacheTitledAddJob'] = 'disabled';
+$cronjobs['schedule']['TitledCacheAddJob'] = 'disabled';

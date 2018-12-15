@@ -33,6 +33,18 @@ abstract class Job
     }
 
     /**
+     * Returns true, if it is safe to run the job at any date and time.
+     *
+     * false will disable the "run now" action in admin menu. The job then may
+     * still be run manually for debugging via util.sec/cron/run_cron.php
+     * (job name as argument).
+     */
+    public function mayRunNow()
+    {
+        return true;
+    }
+
+    /**
      * Returns true if $this job should run now.
      */
     public function isDue()

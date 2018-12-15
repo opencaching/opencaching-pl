@@ -21,10 +21,13 @@ $cronjobs['schedule'] = [
     'GeoKretyDbQueueJob'    => 'every 10 minutes',
     'PublishCachesJob'      => 'hourly at :00',
     'WatchlistNotifyJob'    => 'hourly at :05',
-    'NewCachesNotifyJob'    => 'hourly at :15',
+    'NewCachesNotifyJob'    => 'hourly at :10',
     'GeoPathJob'            => 'daily at 0:10',
     'AutoArchiveCachesJob'  => 'daily at 4:30',
     'GeoKretyNewJob'        => 'daily at 4:45',
-    'CacheTitledAddJob'     => 'monthly on day 1 at 21:55',
+    'TitledCacheAddJob'     => 'monthly on day 1 at 0:20',
+
+    // Reentrant jobs; these will always run *after* non-reentrant jobs.
+    // See Jobs::isReentrant() for explanation.
     'OkapiSignallingJob'    => 'every 5 minutes',
 ];

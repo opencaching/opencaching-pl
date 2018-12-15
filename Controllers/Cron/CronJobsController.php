@@ -100,7 +100,8 @@ class CronJobsController extends BaseController
             $result[$jobName] = [
                 'shortName' => substr($jobName, 0, strlen($jobName) - 3),
                 'schedule' => $schedule,
-                'lastRun' => $lastRun   // is null if not run yet
+                'lastRun' => $lastRun,  // is null if not run yet
+                'mayRunNow' => $job->mayRunNow(),
             ];
         }
         return $result;

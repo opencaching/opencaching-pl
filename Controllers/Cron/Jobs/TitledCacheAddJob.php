@@ -5,8 +5,13 @@ use Utils\Database\OcDb;
 use Utils\Generators\Uuid;
 use lib\Controllers\MeritBadgeController;
 
-class CacheTitledAddJob extends Job
+class TitledCacheAddJob extends Job
 {
+    public function mayRunNow()
+    {
+        return $this->isDue();
+    }
+
     public function run()
     {
         global $titled_cache_nr_found, $titled_cache_period_prefix;
