@@ -69,7 +69,6 @@ function fHideColumn($nr, $set)
 
 global $dbcSearch, $usr, $lang, $hide_coords, $NrColSortSearch, $OrderSortSearch, $SearchWithSort, $TestStartTime, $queryFilter;
 require_once (__DIR__.'/../tpl/stdstyle/lib/icons.inc.php');
-require_once (__DIR__.'/cache_icon.inc.php');
 require_once (__DIR__.'/calculation.inc.php');
 
 set_time_limit(1800);

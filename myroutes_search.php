@@ -11,7 +11,6 @@ require_once (__DIR__.'/lib/common.inc.php');
 require_once (__DIR__.'/lib/export.inc.php');
 require_once (__DIR__.'/lib/format.gpx.inc.php');
 require_once (__DIR__.'/lib/calculation.inc.php');
-require_once (__DIR__.'/lib/cache_icon.inc.php');
 require_once (__DIR__.'/lib/caches.inc.php');
 require_once (__DIR__.'/tpl/stdstyle/lib/icons.inc.php');
 
@@ -585,7 +584,7 @@ if (isset($_POST['submit']) || isset($_POST['submit_map'])) {
             `user`.`username` `username`,
             `caches`.`date_created` `date_created`,
             `caches`.`date_hidden` `date`,
-            `cache_type`.`icon_large` `icon_large`,
+            `cache_type`.`icon_small` `icon_small`,
             `caches`.`topratings` `topratings`
         FROM `caches`,`user`, `cache_type`
         WHERE `caches`.`wp_oc` IN('" . implode("', '", $caches_list) . "')
@@ -614,7 +613,7 @@ if (isset($_POST['submit']) || isset($_POST['submit_map'])) {
         if (isset($_POST['submit_map'])) {
             $y = $r['longitude'];
             $x = $r['latitude'];
-            $point.=sprintf("addMarker(%s,%s,'%s',%s,'%s','%s','%s',%s);\n", $x, $y, getSmallCacheIcon($r['icon_large']), $r['cacheid'], addslashes($r['cachename']), $r['wp_oc'], addslashes($r['username']), $r['topratings']);
+            $point.=sprintf("addMarker(%s,%s,'%s',%s,'%s','%s','%s',%s);\n", $x, $y, $r['icon_small'], $r['cacheid'], addslashes($r['cachename']), $r['wp_oc'], addslashes($r['username']), $r['topratings']);
             tpl_set_var('points', $point);
         } else {
 
@@ -626,7 +625,7 @@ if (isset($_POST['submit']) || isset($_POST['submit_map'])) {
             } else {
                 $file_content .= '<td style="width: 22px;">&nbsp;&nbsp;</td>';
             }
-            $file_content .= '<td width="22">&nbsp;<img src="tpl/stdstyle/images/' . getSmallCacheIcon($r['icon_large']) . '" border="0" alt=""/></td>';
+            $file_content .= '<td width="22">&nbsp;<img src="tpl/stdstyle/images/' . $r['icon_small'] . '" border="0" alt=""/></td>';
             $file_content .= '<td><b><a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($r['cacheid'], ENT_COMPAT, 'UTF-8') . '" target="_blank" >' . htmlspecialchars($r['cachename'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
             $file_content .= '<td width="32"><b><a class="links" href="viewprofile.php?userid=' . htmlspecialchars($r['userid'], ENT_COMPAT, 'UTF-8') . '"  target="_blank">' . htmlspecialchars($r['username'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
 

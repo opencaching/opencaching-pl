@@ -6,7 +6,6 @@ global $lang, $dateFormat;
 
 //prepare the templates and include all neccessary
 require_once (__DIR__.'/lib/common.inc.php');
-require_once (__DIR__.'/lib/cache_icon.inc.php');
 require_once (__DIR__.'/tpl/stdstyle/lib/icons.inc.php');
 
 //Preprocessing
@@ -36,7 +35,7 @@ if ($error == false) {
                 `caches`.`date_created` `date_created`,
                 IF((`caches`.`date_hidden`>`caches`.`date_created`), `caches`.`date_hidden`, `caches`.`date_created`) AS `date`,
                 `countries`.$lang_db `country`,
-                `cache_type`.`icon_large` `icon_large`,
+                `cache_type`.`icon_small` `icon_small`,
                 `PowerTrail`.`id` AS PT_ID,
                 `PowerTrail`.`name` AS PT_name,
                 `PowerTrail`.`type` As PT_type,
@@ -67,7 +66,7 @@ if ($error == false) {
             'longitude' => $record['longitude'],
             'latitude' => $record['latitude'],
             'date' => $record['date'],
-            'icon_large' => $record['icon_large'],
+            'icon_small' => $record['icon_small'],
             'PT_ID' => $record['PT_ID'],
             'PT_name' => $record['PT_name'],
             'PT_type' => $record['PT_type'],
@@ -128,7 +127,7 @@ if ($error == false) {
                 $thisline = mb_ereg_replace('{cachename}', htmlspecialchars($cache_record['name'], ENT_COMPAT, 'UTF-8'), $thisline);
                 $thisline = mb_ereg_replace('{username}', htmlspecialchars($cache_record['username'], ENT_COMPAT, 'UTF-8'), $thisline);
                 $thisline = mb_ereg_replace('{date}', date($dateFormat, strtotime($cache_record['date'])), $thisline);
-                $thisline = mb_ereg_replace('{imglink}', 'tpl/stdstyle/images/' . getSmallCacheIcon($cache_record['icon_large']), $thisline);
+                $thisline = mb_ereg_replace('{imglink}', 'tpl/stdstyle/images/' . $cache_record['icon_small'], $thisline);
                 $content .= $thisline . "\n";
             }$content .= '<tr><td colspan="7">&nbsp;</td></tr>';
         }

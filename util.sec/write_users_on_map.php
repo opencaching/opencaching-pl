@@ -4,7 +4,6 @@ use Utils\Database\XDb;
 
 //include template handling
 require_once(__DIR__.'/../lib/common.inc.php');
-require_once(__DIR__.'/../lib/cache_icon.inc.php');
 
 $rs = XDb::xSql("SELECT latitude, longitude, date_created FROM user ORDER BY `date_created`");
 $im = imagecreatefromjpeg("mapa.jpg");
@@ -52,5 +51,3 @@ function latlon_to_pix($lat, $lon)
 //  return array(intval($x),intval($y));
     return array("x" => round($x), "y" => round($y));
 }
-
-
