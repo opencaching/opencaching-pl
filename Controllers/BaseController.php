@@ -32,7 +32,7 @@ abstract class BaseController
     protected $view = null;
 
     /** @var ApplicationContainer $applicationContainer */
-    private $applicationContainer = null;
+    protected $applicationContainer = null;
 
     /** @var User */
     protected $loggedUser = null;

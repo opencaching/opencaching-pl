@@ -89,7 +89,7 @@ class MultiUserQueries extends BaseObject
 
         // get active guides
         $s = $db->simpleQuery(
-            "SELECT latitude,longitude,username,user_id,description
+            "SELECT user_id, latitude, longitude, username, description
              FROM user
              WHERE guru <> 0
                  AND is_active_flag <> 0
@@ -110,9 +110,7 @@ class MultiUserQueries extends BaseObject
                  )"
         );
 
-        $activeGuidesDict = $db->dbResultFetchAllAsDict($s, function($row){
-            return [$row['user_id'], $row];
-        });
+        $activeGuidesDict = $db->dbResultFetchAllAsDict($s);
 
         if(empty($activeGuidesDict) ){
             // there is no guides...

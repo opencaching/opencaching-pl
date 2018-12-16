@@ -310,6 +310,9 @@ ul.tick          { list-style-image: url('/tpl/stdstyle/images/free_icons/tick.p
 /* Images */
 .img-difficulty                     { margin: 0; border-width: 0; border-style:none;}
 
+/* Other content */
+pre.source-code   { color: #111; }
+
 /*--------------------*/
 /* 6.3 - Footer Area  height: 3.0em;*/
 /*--------------------*/
