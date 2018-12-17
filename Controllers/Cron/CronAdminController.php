@@ -2,6 +2,7 @@
 namespace Controllers\Cron;
 
 use Controllers\BaseController;
+use Utils\Uri\SimpleRouter;
 use Utils\Uri\Uri;
 
 class CronAdminController extends BaseController
@@ -20,21 +21,19 @@ class CronAdminController extends BaseController
 
     public function index()
     {
-        if (!$this->isUserLogged() || !$this->loggedUser->hasSysAdminRole()) {
-            $this->view->redirect('/');
-            exit();
-        }
-        if (isset($_GET['action'])) {
-            if ($_GET['action'] == 'run') {
-                if (isset($_GET['job'])) {
-                    $this->runJob($_GET['job']);
-                }
-            }
-            // Remove params from URI, so the action is not repeated by a page reload.
-            $this->view->redirect(Uri::getCurrentRequestUri(false));
-            exit();
-        }
+        $this->securityCheck();
+
         $this->showCronAdmin();
+    }
+
+    public function run($job = null)
+    {
+        $this->securityCheck();
+
+        if ($job) {
+            $this->runJob($job);
+        }
+        $this->view->redirect(SimpleRouter::getLink('Cron.CronAdmin'));
     }
 
     private function showCronAdmin()
@@ -50,5 +49,13 @@ class CronAdminController extends BaseController
     {
         $cronJobs = new CronJobsController($jobName);
         $cronJobs->index();
+    }
+
+    private function securityCheck()
+    {
+        if (!$this->isUserLogged() || !$this->loggedUser->hasSysAdminRole()) {
+            $this->view->redirect('/');
+            exit();
+        }
     }
 }
