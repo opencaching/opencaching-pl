@@ -5,4 +5,4 @@
  * See cronjobs.default.php for examples.
 */
 
-$cronjobs['schedule']['TitledCacheAddJob'] = 'weekly on Thursday at 21:55';
+$cronjobs['schedule']['TitledCacheAddJob'] = 'weekly on Monday at 0:10';
