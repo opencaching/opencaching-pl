@@ -127,7 +127,12 @@ class AutoArchiveCachesJob extends Job
         return $this;
     }
 
-
+    /**
+     * Sends e-mail to cache owner about (planed) auto archiving
+     *
+     * @param GeoCache $cache
+     * @param integer $reason
+     */
     private function sendEmail(GeoCache $cache, $reason)
     {
         $email = new Email();
@@ -176,6 +181,8 @@ class AutoArchiveCachesJob extends Job
 
     /**
      * Cancel auto archive procedure if cache was modified
+     *
+     * @return AutoArchiveCachesJob
      */
     private function removeLastEditedCachesFromList()
     {
@@ -191,6 +198,13 @@ class AutoArchiveCachesJob extends Job
         return $this;
     }
 
+    /**
+     * Updates stepNo in DB
+     *
+     * @param GeoCache $cache
+     * @param integer $step
+     * @return AutoArchiveCachesJob
+     */
     private function updateCacheStepInDb(GeoCache $cache, $step)
     {
         $this->db->multiVariableQuery(
@@ -203,7 +217,7 @@ class AutoArchiveCachesJob extends Job
     }
 
     /**
-     * archive all events older than 2 months
+     * Archive all events older than 2 months
      */
     private function processEvents()
     {
