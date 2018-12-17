@@ -1,6 +1,11 @@
+<?php
+
+use Utils\Uri\SimpleRouter;
+
+?>
 <div class="content2-container">
     <div class="content2-pagetitle">
-        <img src="tpl/stdstyle/images/blue/clock.png" class="icon32" alt=""> {{admin_cron_title}}
+        {{admin_cron_title}}
     </div>
     <table class="table table-striped full-width">
         <tr>
@@ -19,7 +24,9 @@
             </td>
             <td>
                 <?php if ($jobData['mayRunNow']) { ?>
-                    <a href="<?= $view->runJobUri . $jobName ?>">{{admin_cron_run_now}}</a>
+                    <a href="<?=SimpleRouter::getLink('Cron.CronAdmin', 'run', $jobName) ?>">
+                        {{admin_cron_run_now}}
+                    </a>
                 <?php } ?>
             </td>
         </tr>
