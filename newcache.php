@@ -59,7 +59,7 @@ $num_caches = $record['num_caches'];
 
 $cacheLimitByTypePerUser = GeoCache::getUserActiveCachesCountByType($usr['userid']);
 
-if ($num_caches < OcConfig::getNeedAproveLimit()) {
+if ($num_caches < OcConfig::getNeedApproveLimit()) {
     // user needs approvement for first 3 caches to be published
     $needs_approvement = true;
     tpl_set_var('hide_publish_start', '<!--');

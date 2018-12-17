@@ -97,7 +97,7 @@ class UserAuthorization extends BaseObject
         }
 
         // add 'permanent_login' collumn to collumns to read from DB
-        $neededUserColumns = User::AUTH_COLLUMS;
+        $neededUserColumns = User::AUTH_COLUMNS;
 
         // try to find the user based on given username/email
         if( ($user = User::fromUsernameFactory($username, $neededUserColumns)) ||

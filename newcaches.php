@@ -3,9 +3,7 @@
 use Utils\Database\XDb;
 use Utils\View\View;
 
-
 require_once (__DIR__.'/lib/common.inc.php');
-require_once (__DIR__.'/lib/cache_icon.inc.php');
 require_once (__DIR__.'/lib/caches.inc.php');
 require_once (__DIR__.'/tpl/stdstyle/lib/icons.inc.php');
 require_once (__DIR__.'/tpl/stdstyle/newcaches.inc.php');

@@ -4,7 +4,16 @@
     "ezyang/htmlpurifier": "^4.9",
     "aferrandini/phpqrcode": "^1.0",
     "cweagans/composer-patches": "^1.6",
-    "js-cookie/js-cookie": "^2.1"
+    "js-cookie/js-cookie": "^2.1",
+    "php" : "~5.6 || >=7",
+    "ext-json": "*",
+    "ext-gettext": "*",
+    "ext-gd": "*",
+    "ext-mbstring": "*",
+    "ext-apcu": "*",
+    "ext-pdo": "*",
+    "ext-iconv": "*",
+    "ext-simplexml": "*"
   },
   "extra": {
     "patches": {

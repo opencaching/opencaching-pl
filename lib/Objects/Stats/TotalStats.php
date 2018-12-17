@@ -55,7 +55,7 @@ class TotalStats extends BaseObject
 
         $basicStats->latestSearches = Formatter::number(MultiLogStats::getLastSearchesCount($periodDays));
 
-        $basicStats->latestRecomendations = Formatter::number(MultiLogStats::getLastRecomendationsCount($periodDays));
+        $basicStats->latestRecomendations = Formatter::number(MultiLogStats::getLastRecommendationsCount($periodDays));
 
         $basicStats->createdAt = time();
         return $basicStats;
