@@ -1,6 +1,10 @@
 <?php
+
 namespace Controllers\Cron\Jobs;
+
+use lib\Objects\OcConfig\OcConfig;
 use okapi\Facade;
+use Utils\Database\OcDb;
 
 // Base class for all cron jobs. To add a new job:
 //
@@ -10,11 +14,16 @@ use okapi\Facade;
 
 abstract class Job
 {
+    /** @var OcConfig $ocConfig */
     protected $ocConfig;
 
-    public function __construct($ocConfig)
+    /** @var OcDb $db */
+    protected $db;
+
+    public function __construct()
     {
-        $this->ocConfig = $ocConfig;
+        $this->ocConfig = OcConfig::instance();
+        $this->db = OcDb::instance();
     }
 
     /**
@@ -70,21 +79,23 @@ abstract class Job
 
             return (time() - strtotime($lastRun)) >= 60 * ($matches[1] - 3);
 
-        // run once per hour
+            // run once per hour
         } elseif (preg_match('/^hourly at :(\d{2})$/', $schedule, $matches)) {
             $this->validateMinutes($matches[1]);
+
             return
                 date('Y-m-d H') != substr($lastRun, 0, 13) &&
                 date('i') >= $matches[1];
 
-        // run once per day
+            // run once per day
         } elseif (preg_match('/^daily at (\d{1,2}):(\d{2})$/', $schedule, $matches)) {
             $this->validateMinutes($matches[2]);
+
             return
                 date('Y-m-d') != substr($lastRun, 0, 10) &&
                 date('H:i') >= sprintf('%02d:%02d', $matches[1], $matches[2]);
 
-        // run once per week
+            // run once per week
         } elseif (preg_match('/^weekly on ([A-Za-z]+)day at (\d{1,2}):(\d{2})$/', $schedule, $matches)) {
             $this->validateMinutes($matches[3]);
             $dow = array_search(
@@ -94,12 +105,13 @@ abstract class Job
             if ($dow === false) {
                 die("Invalid day of week (".$matches[1]."day) for ".$jobName."\n");
             }
+
             return
                 date('N') == $dow + 1 &&
                 date('Y-m-d') != substr($lastRun, 0, 10) &&
                 date('H:i') >= sprintf('%02d:%02d', $matches[2], $matches[3]);
 
-        // run once a month
+            // run once a month
         } elseif (preg_match('/^monthly on day (\d+) at (\d{1,2}):(\d{2})$/', $schedule, $matches)) {
             $this->validateMinutes($matches[3]);
             if ($matches[1] > 28) {
@@ -108,6 +120,7 @@ abstract class Job
                     "; must range between 1 and 28.\n"
                 );
             }
+
             return
                 date('d') == $matches[1] &&
                 date('Y-m') != substr($lastRun, 0, 7) &&
@@ -130,15 +143,16 @@ abstract class Job
 
     public final function getLastRun()
     {
-        $lastRun = Facade::cache_get('ocpl/cronJobRun#' . get_class($this));
+        $lastRun = Facade::cache_get('ocpl/cronJobRun#'.get_class($this));
         Facade::disable_error_handling();
+
         return $lastRun;
     }
 
     public final function setLastRun()
     {
         Facade::cache_set(
-            'ocpl/cronJobRun#' . get_class($this),
+            'ocpl/cronJobRun#'.get_class($this),
             date('Y-m-d H:i:s'),
             366 * 24 * 3600
         );

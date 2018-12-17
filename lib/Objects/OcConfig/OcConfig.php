@@ -21,7 +21,7 @@ final class OcConfig extends ConfigReader
 */
 
 
-// old-style values - values from new-style config shoul be accessed through
+// old-style values - values from new-style config should be accessed through
 // $config[''] etc...
 
     private $dbDatetimeFormat = 'Y-m-d H:i:s';
@@ -253,7 +253,7 @@ final class OcConfig extends ConfigReader
 
     public static function isPowertrailsEnabled()
     {
-        return self::instance()->instance()->isPowerTrailModuleSwitchOn();
+        return self::instance()->isPowerTrailModuleSwitchOn();
     }
 
     public function isPowerTrailModuleSwitchOn()
@@ -263,7 +263,7 @@ final class OcConfig extends ConfigReader
 
     public static function getNoreplyEmailAddress()
     {
-        return self::instance()->instance()->noreplyEmailAddress;
+        return self::instance()->noreplyEmailAddress;
     }
 
     public function isCacheAccesLogEnabled()

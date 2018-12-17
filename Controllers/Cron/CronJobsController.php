@@ -99,7 +99,7 @@ class CronJobsController extends BaseController
                 $lastRun = '?';
             } else {
                 require_once $jobPath;
-                $job = new $jobName($this->ocConfig);
+                $job = new $jobName();
                 $lastRun = $job->getLastRun();
             }
             $result[$jobName] = [

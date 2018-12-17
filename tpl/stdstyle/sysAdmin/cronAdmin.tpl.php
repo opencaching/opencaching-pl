@@ -19,12 +19,12 @@ use Utils\Uri\SimpleRouter;
             <td><?= $jobData['shortName'] ?></td>
             <td><?= $jobData['schedule'] ?></td>
             <td>
-                <? if ($jobData['jobFileMissing']) { ?>
+                <?php if ($jobData['jobFileMissing']) { ?>
                     <span class="errormsg">{{admin_cron_file_missing}}</span>
-                <? } else { ?>
+                <?php } else { ?>
                     <?= substr($jobData['lastRun'], 0, 10) ?>&nbsp;
                     <?= substr($jobData['lastRun'], 11, 8) ?>
-                <? } ?>
+                <?php } ?>
             </td>
             <td>
                 <?php if ($jobData['mayRunNow']) { ?>
