@@ -61,10 +61,8 @@ class WatchlistController extends BaseController
     }
 
     /**
-     * Each controller action is callable
+     * Not callable from router
      * @see \Controllers\BaseController::isCallableFromRouter()
-     *
-     * @return boolean always true
      */
     public function isCallableFromRouter($actionName)
     {

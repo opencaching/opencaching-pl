@@ -30,6 +30,9 @@ class CronAdminController extends BaseController
                     $this->runJob($_GET['job']);
                 }
             }
+            // Remove params from URI, so the action is not repeated by a page reload.
+            $this->view->redirect(Uri::getCurrentRequestUri(false));
+            exit();
         }
         $this->showCronAdmin();
     }
@@ -38,10 +41,7 @@ class CronAdminController extends BaseController
     {
         $cronJobs = new CronJobsController();
         $this->view->setVar('jobs', $cronJobs->getScheduleStatus());
-
-        $currentUriExploded = explode('?', Uri::getCurrentUri());
-        $this->view->setVar('runJobUri', $currentUriExploded[0] . '?action=run&job=');        
-
+        $this->view->setVar('runJobUri', Uri::getCurrentRequestUri() . '?action=run&job=');
         $this->view->setTemplate('cron/cronAdmin');
         $this->view->buildView();
     }

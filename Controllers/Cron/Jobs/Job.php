@@ -65,23 +65,23 @@ abstract class Job
 
             // If the is the first run, strototime() will return FALSE, which
             // translates to 0 and runs the job.
-            // By subtracting 2 minutes (and running the controller every 5 minutes),
-            // we enforce an interval of at least 3 minutes since the last run.
+            // By subtracting 3 minutes (and running the controller every 5 minutes),
+            // we enforce an interval of at least 2 minutes since the last run.
 
-            return (time() - strtotime($lastRun)) >= 60 * ($matches[1] - 2);
+            return (time() - strtotime($lastRun)) >= 60 * ($matches[1] - 3);
 
         // run once per hour
         } elseif (preg_match('/^hourly at :(\d{2})$/', $schedule, $matches)) {
             $this->validateMinutes($matches[1]);
             return
-                date('H') != substr($lastRun, 11, 2) &&
+                date('Y-m-d H') != substr($lastRun, 0, 13) &&
                 date('i') >= $matches[1];
 
         // run once per day
         } elseif (preg_match('/^daily at (\d{1,2}):(\d{2})$/', $schedule, $matches)) {
             $this->validateMinutes($matches[2]);
             return
-                date('d') != substr($lastRun, 8, 2) &&
+                date('Y-m-d') != substr($lastRun, 0, 10) &&
                 date('H:i') >= sprintf('%02d:%02d', $matches[1], $matches[2]);
 
         // run once per week
@@ -96,7 +96,7 @@ abstract class Job
             }
             return
                 date('N') == $dow + 1 &&
-                date('d') != substr($lastRun, 8, 2) &&
+                date('Y-m-d') != substr($lastRun, 0, 10) &&
                 date('H:i') >= sprintf('%02d:%02d', $matches[2], $matches[3]);
 
         // run once a month
@@ -110,7 +110,7 @@ abstract class Job
             }
             return
                 date('d') == $matches[1] &&
-                date('m') != substr($lastRun, 5, 2) &&
+                date('Y-m') != substr($lastRun, 0, 7) &&
                 date('H:i') >= sprintf('%02d:%02d', $matches[2], $matches[3]);
 
         } else {

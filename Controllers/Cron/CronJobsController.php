@@ -27,15 +27,20 @@ class CronJobsController extends BaseController
 
     public function index()
     {
+        $this->processCronJobs();
+    }
+
+    private function processCronJobs()
+    {
         $lockHandle = Lock::tryLock($this, Lock::EXCLUSIVE | Lock::NONBLOCKING);
         if (!$lockHandle) {
             $lastLockedRun = Facade::cache_get('ocpl/lastLockedCronRun');
             $minutesSinceLastRun = (time() - strtotime($lastLockedRun)) / 60;
 
-            // We allow one run to take a maximum of 14 minutes, so that admins
+            // We allow one run to take a maximum of 19 minutes, so that admins
             // are not spammed with error messages if something is slow.
 
-            if ($minutesSinceLastRun > 14) {
+            if ($minutesSinceLastRun > 19) {
                 die("Another instance of CronJobsController is running for ".$minutesSinceLastRun.
                     " minutes, or problem with lock file.\n"
                 );
