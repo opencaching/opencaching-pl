@@ -5,37 +5,23 @@
 
 use Controllers\Cron\Jobs\Job;
 use lib\Objects\GeoCache\GeoCache;
-use Utils\Database\XDb;
-use Utils\EventHandler\EventHandler;
 
 class PublishCachesJob extends Job
 {
     public function run()
     {
-        $rsPublish = XDb::xSql(
-            "SELECT `cache_id`, `user_id`
+        $stmt = $this->db->multiVariableQuery(
+            "SELECT `cache_id`
              FROM `caches`
-             WHERE `status` = 5
+             WHERE `status` = :1
                AND `date_activate` != 0
-               AND `date_activate` <= NOW()"
-        );
+               AND `date_activate` <= NOW()",
+            GeoCache::STATUS_NOTYETAVAILABLE);
 
-        while ($rPublish = XDb::xFetchArray($rsPublish)) {
-            $userid = $rPublish['user_id'];
-            $cacheid = $rPublish['cache_id'];
-
-            // update cache status to active
-            XDb::xSql(
-                "UPDATE `caches` SET `status`=1, `date_activate`=NULL, `last_modified`=NOW() WHERE `cache_id`= ? ",
-                $cacheid
-            );
-
-            // send events
-            $cache = GeoCache::fromCacheIdFactory($cacheid);
-            GeoCache::touchCache($cacheid);
-            EventHandler::cacheNew($cache);
+        while ($row = $this->db->dbResultFetch($stmt)) {
+            $cache = GeoCache::fromCacheIdFactory($row['cache_id']);
+            $cache->publishCache();
             unset($cache);
         }
-        XDb::xFreeResults($rsPublish);
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 use Controllers\Cron\Jobs\Job;
-use Utils\Database\OcDb;
+use lib\Objects\GeoCache\GeoCacheLog;
 use Utils\Generators\Uuid;
 use lib\Controllers\MeritBadgeController;
 
@@ -16,11 +16,9 @@ class TitledCacheAddJob extends Job
     {
         global $titled_cache_nr_found, $titled_cache_period_prefix;
 
-        $dbc = OcDb::instance();
-
         $queryMax = "SELECT max( date_alg ) dataMax FROM cache_titled";
-        $s = $dbc->simpleQuery($queryMax);
-        $record = $dbc->dbResultFetchOneRowOnly($s);
+        $s = $this->db->simpleQuery($queryMax);
+        $record = $this->db->dbResultFetchOneRowOnly($s);
         $dataMax = $record["dataMax"];
 
         $start_date_alg = date("Y-m-d");
@@ -110,8 +108,8 @@ class TitledCacheAddJob extends Job
         order by nrTinR, cFounds DESC, cDateCrt, RATE DESC
         ";
 
-        $s = $dbc->multiVariableQuery($queryS, $date_alg, $titled_cache_nr_found );
-        $rec = $dbc->dbResultFetch($s);
+        $s = $this->db->multiVariableQuery($queryS, $date_alg, $titled_cache_nr_found );
+        $rec = $this->db->dbResultFetch($s);
 
 
         $queryL = "
@@ -129,14 +127,14 @@ class TitledCacheAddJob extends Job
                 ORDER BY length(cl.text) DESC LIMIT 1 )
         ) as i";
 
-        $s = $dbc->multiVariableQuery($queryL, $rec[ "cacheId" ] );
-        $recL = $dbc->dbResultFetchOneRowOnly($s);
+        $s = $this->db->multiVariableQuery($queryL, $rec[ "cacheId" ] );
+        $recL = $this->db->dbResultFetchOneRowOnly($s);
 
         $queryI = "INSERT INTO cache_titled
             (cache_id, rate, ratio, rating, found, days, date_alg, log_id)
             VALUES (:1, :2, :3, :4, :5, :6, :7, :8)";
 
-        $dbc->multiVariableQuery($queryI, $rec[ "cacheId" ], $rec[ "RATE" ], $rec[ "ratio" ],
+        $this->db->multiVariableQuery($queryI, $rec[ "cacheId" ], $rec[ "RATE" ], $rec[ "ratio" ],
                 $rec[ "cRating" ], $rec[ "cFounds" ], $rec[ "cNrDays" ], $date_alg, $recL["logId"] );
 
 
@@ -149,18 +147,17 @@ class TitledCacheAddJob extends Job
         VALUES ( :1, :2, :3, :4, :5, :6, :7, :8 , :9 , :10, :11, :12, :13, :14, :15, '0', NULL , NULL , NULL , '0' )";
 
         $SystemUser = -1;
-        $LogType = 12; //OCTeam
+        $LogType = GeoCacheLog::LOGTYPE_ADMINNOTE;
         $ntitled_cache = $titled_cache_period_prefix.'_titled_cache_congratulations';
         $msgText = str_replace('{ownerName}', htmlspecialchars($rec['userName']), tr($ntitled_cache));
         $LogUuid = Uuid::create();
 
-        $dbc->multiVariableQuery($queryLogI, $rec[ "cacheId" ], $SystemUser, $LogType, $date_alg,
+        $this->db->multiVariableQuery($queryLogI, $rec[ "cacheId" ], $SystemUser, $LogType, $date_alg,
                 $msgText, '2', '1', $date_alg, $date_alg, $LogUuid, '0', '0',
                 $date_alg, '0', $this->ocConfig->getOcNodeId() );
 
         $ctrlMeritBadge = new MeritBadgeController;
-        $titledIds= $ctrlMeritBadge->updateTriggerByNewTitledCache($rec[ "cacheId" ]);
+        $ctrlMeritBadge->updateTriggerByNewTitledCache($rec[ "cacheId" ]);
 
-        unset($dbc);
     }
 }

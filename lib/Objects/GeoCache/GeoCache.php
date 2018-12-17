@@ -8,6 +8,7 @@ use lib\Objects\OcConfig\OcConfig;
 use lib\Objects\PowerTrail\PowerTrail;
 use lib\Objects\User\MultiUserQueries;
 use lib\Objects\User\User;
+use Utils\EventHandler\EventHandler;
 
 /**
  * Description of geoCache
@@ -1653,5 +1654,29 @@ class GeoCache extends GeoCacheCommons
 
         $this->db->multiVariableQuery("UPDATE caches SET votes=:1, score=:2 WHERE cache_id=:3",
             $newVotes, $newScore, $this->getCacheId());
+    }
+
+    /**
+     * Publishes cache and
+     * @return $this
+     */
+    public function publishCache()
+    {
+        $this->status = self::STATUS_READY;
+        $this->dateActivate = null;
+
+        $this->db->multiVariableQuery(
+            "UPDATE `caches`
+              SET `status` = :1, `date_activate` = :2, `last_modified` = NOW()
+              WHERE `cache_id` = :3",
+            $this->status,
+            $this->dateActivate,
+            $this->id
+        );
+
+        self::touchCache($this->id);
+        EventHandler::cacheNew($this);
+
+        return $this;
     }
 }
