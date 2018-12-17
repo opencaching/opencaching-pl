@@ -106,6 +106,7 @@ class CronJobsController extends BaseController
                 'shortName' => substr($jobName, 0, strlen($jobName) - 3),
                 'schedule' => $schedule,
                 'lastRun' => $lastRun,  // is null if not run yet
+                'jobFileMissing' => ($lastRun == '?'),
                 'mayRunNow' => $job->mayRunNow(),
             ];
         }

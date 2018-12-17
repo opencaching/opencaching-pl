@@ -2653,6 +2653,7 @@ $translations = array(
     'admin_cron_lbl_job' => 'Job',
     'admin_cron_lbl_schedule' => 'Zeitplan',
     'admin_cron_lbl_lastrun' => 'Letzter Lauf',
+    'admin_cron_file_missing' => '.php-Datei fehlt',
     'admin_cron_run_now' => 'Jetzt starten',
     'action' => 'Aktion',
 

@@ -41,7 +41,7 @@ class CronAdminController extends BaseController
         $cronJobs = new CronJobsController();
         $this->view->setVar('jobs', $cronJobs->getScheduleStatus());
         $this->view->setVar('runJobUri', Uri::getCurrentRequestUri() . '?action=run&job=');
-        $this->view->setTemplate('cron/cronAdmin');
+        $this->view->setTemplate('sysAdmin/cronAdmin');
         $this->view->buildView();
     }
 
