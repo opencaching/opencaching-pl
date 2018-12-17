@@ -30,4 +30,5 @@ $menu = [ // DON'T CHANGE $menu var name!
     'mnu_geoPathAdmin'      => '/powerTrailCOG.php',
     'mnu_abandonCacheSets'  => SimpleRouter::getLink(
                                 CacheSetAdminController::class, 'cacheSetsToArchive'),
+    'mnu_cronJobs'          => SimpleRouter::getLink('Cron.CronAdmin'),
 ];
