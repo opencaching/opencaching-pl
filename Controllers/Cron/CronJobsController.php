@@ -71,7 +71,7 @@ class CronJobsController extends BaseController
                     echo "\nConfigured cronjob '".$jobName."' does not exist.\n";
                 } else {
                     require_once $jobPath;
-                    $this->jobs[] = new $jobName($this->ocConfig);
+                    $this->jobs[] = new $jobName();
                 }
             }
         }
