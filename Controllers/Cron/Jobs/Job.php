@@ -72,7 +72,7 @@ abstract class Job
         if (preg_match('/^every (\d+) minutes$/', $schedule, $matches)) {
             $this->validateMinutes($matches[1]);
 
-            // If the is the first run, strototime() will return FALSE, which
+            // If this is the first run, strototime() will return FALSE, which
             // translates to 0 and runs the job.
             // By subtracting 3 minutes (and running the controller every 5 minutes),
             // we enforce an interval of at least 2 minutes since the last run.
