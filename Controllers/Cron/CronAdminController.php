@@ -21,16 +21,16 @@ class CronAdminController extends BaseController
 
     public function index()
     {
-        $this->securityCheck();
-
-        $this->showCronAdmin();
+        if ($this->isUserLogged()) {
+            $this->showCronAdmin();
+        } else {
+            $this->view->redirect('/');
+        }
     }
 
     public function run($job = null)
     {
-        $this->securityCheck();
-
-        if ($job) {
+        if ($job && $this->allowRun()) {
             $this->runJob($job);
         }
         $this->view->redirect(SimpleRouter::getLink('Cron.CronAdmin'));
@@ -40,6 +40,7 @@ class CronAdminController extends BaseController
     {
         $cronJobs = new CronJobsController();
         $this->view->setVar('jobs', $cronJobs->getScheduleStatus());
+        $this->view->setVar('allowRun', $this->allowRun());
         $this->view->setTemplate('sysAdmin/cronAdmin');
         $this->view->buildView();
     }
@@ -50,11 +51,8 @@ class CronAdminController extends BaseController
         $cronJobs->index();
     }
 
-    private function securityCheck()
+    private function allowRun()
     {
-        if (!$this->isUserLogged() || !$this->loggedUser->hasSysAdminRole()) {
-            $this->view->redirect('/');
-            exit();
-        }
+        return $this->isUserLogged() && $this->loggedUser->hasSysAdminRole();
     }
 }
