@@ -1,6 +1,6 @@
 <?php
 /**
- * This script handles cache auto archivisation process
+ * This script handles cache auto archiving process
  * It should be called from CRON quite often (to not delay messages)
  */
 
@@ -36,7 +36,7 @@ class AutoArchiveCachesJob extends Job
      */
     private function processCaches()
     {
-        $this->removeLastEditedCachesFromList();
+        $this->cleanAutoArchDB();
 
         $stmt = $this->db->multiVariableQuery(
             "SELECT `cache_id`, `last_modified`
@@ -180,19 +180,33 @@ class AutoArchiveCachesJob extends Job
     }
 
     /**
-     * Cancel auto archive procedure if cache was modified
+     * Cleans cache_arch table. Removes:
+     * - old data about auto archived caches
+     * - caches modified less than 4 months ago
+     * - caches which changed status (not temporary unavailable
      *
      * @return AutoArchiveCachesJob
      */
-    private function removeLastEditedCachesFromList()
+    private function cleanAutoArchDB()
     {
-        $this->db->simpleQuery(
-            "DELETE FROM `cache_arch` WHERE `cache_arch`.`cache_id` IN (
-                      SELECT `caches`.`cache_id` as `cache_id`
-                      FROM `caches`, `cache_arch`
-                      WHERE `cache_arch`.`cache_id` = `caches`.`cache_id`
-                        AND `caches`.`last_modified` >= NOW() - INTERVAL 4 MONTH 
-                      )"
+        // Remove old cache arch info
+        $this->db->multiVariableQuery(
+            'DELETE FROM `cache_arch` WHERE `step` = :1',
+            self::STEP_3_ARCHIVED
+        );
+
+        // Cancel auto archive procedure if cache was modified or if cache status changed
+        $this->db->multiVariableQuery(
+            'DELETE FROM `cache_arch` WHERE `cache_arch`.`cache_id` IN (
+              SELECT  `tmptable`.`cache_id` AS `cache_id` FROM (
+                SELECT `caches`.`cache_id` as `cache_id`
+                  FROM `caches`, `cache_arch`
+                  WHERE `cache_arch`.`cache_id` = `caches`.`cache_id`
+                    AND (`caches`.`last_modified` >= NOW() - INTERVAL 4 MONTH
+                      OR `caches`.`status` <> :1)
+                  ) `tmptable`
+                )',
+            GeoCache::STATUS_UNAVAILABLE
         );
 
         return $this;
