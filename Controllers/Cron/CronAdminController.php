@@ -21,11 +21,8 @@ class CronAdminController extends BaseController
 
     public function index()
     {
-        if ($this->isUserLogged()) {
-            $this->showCronAdmin();
-        } else {
-            $this->view->redirect('/');
-        }
+        $this->redirectNotLoggedUsers();
+        $this->showCronAdmin();
     }
 
     public function run($job = null)
