@@ -28,14 +28,18 @@ class CronAdminController extends BaseController
     public function run($job = null)
     {
         if ($job && $this->allowRun()) {
+            ob_start();
             $this->runJob($job);
+            $this->showCronAdmin(ob_get_clean());
+        } else {
+            $this->view->redirect(SimpleRouter::getLink('Cron.CronAdmin'));
         }
-        $this->view->redirect(SimpleRouter::getLink('Cron.CronAdmin'));
     }
 
-    private function showCronAdmin()
+    private function showCronAdmin($message = '')
     {
         $cronJobs = new CronJobsController();
+        $this->view->setVar('message', $message);
         $this->view->setVar('jobs', $cronJobs->getScheduleStatus());
         $this->view->setVar('allowRun', $this->allowRun());
         $this->view->setTemplate('sysAdmin/cronAdmin');

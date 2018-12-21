@@ -7,6 +7,9 @@ use Utils\Uri\SimpleRouter;
     <div class="content2-pagetitle">
         {{admin_cron_title}}
     </div>
+    <p>
+        <?= $view->message ?>
+    </p>
     <table class="table table-striped full-width">
         <tr>
             <th>{{admin_cron_lbl_job}}</th>
