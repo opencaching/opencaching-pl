@@ -63,7 +63,7 @@ $config = array(
      * mainly for MSIE
      */
     'headerFavicon' => 'oc_icon.png',
-    /** Language list for new caches */
+    /** Language list for new caches and for GPX */
     'defaultLanguageList' => array(
         'PL', 'EN', 'FR', 'DE', 'NL', 'RO'
     ),

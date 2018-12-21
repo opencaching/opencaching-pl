@@ -45,6 +45,7 @@ function get_okapi_settings()
         'DB_USERNAME' => $dbusername,
         'DB_PASSWORD' => $dbpasswd,
         'SITELANG' => $lang,
+        'SITELANGS' => array_map('strtolower', $config['defaultLanguageList']),
         'SITE_URL' => isset($OKAPI_server_URI) ? $OKAPI_server_URI : $absolute_server_URI,
         'VAR_DIR' => rtrim($dynbasepath, '/'),
         'TILEMAP_FONT_PATH' => $config['okapi']['tilemap_font_path'],
