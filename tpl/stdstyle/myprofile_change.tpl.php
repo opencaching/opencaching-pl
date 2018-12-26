@@ -31,7 +31,7 @@ use lib\Objects\GeoKret\GeoKretyApi;
       <tr>
         <td>&nbsp;</td>
         <td>
-          <div class="notice" style="width:500px;height:44px;">{{GKApi03}} <a href="<?=GeoKretyApi::GEOKRETY_URL?>/mypage.php" target="_blank" rel="noopener">{{GKApi04}}</a></div>
+          <div class="notice" style="width:500px;">{{GKApi03}} <a href="<?=GeoKretyApi::GEOKRETY_URL?>/mypage.php" target="_blank" rel="noopener">{{GKApi04}}</a></div>
         </td>
       </tr>
       {guide_start}
@@ -62,7 +62,7 @@ use lib\Objects\GeoKret\GeoKretyApi;
         <td class="txt-grey07" valign="top">
           <input type="checkbox" name="using_permanent_login" value="1" {permanent_login_sel} id="l_using_permanent_login" class="checkbox">
           <label for="l_using_permanent_login">{{no_auto_logout}}</label><br>
-          <div class="notice" style="width:500px;height:44px;">{{no_auto_logout_warning}}</div>
+          <div class="notice" style="width:500px;">{{no_auto_logout_warning}}</div>
         </td>
       </tr>
       <tr style="display: {displayGeoPathSection}">
@@ -79,8 +79,8 @@ use lib\Objects\GeoKret\GeoKretyApi;
       <tr class="form-group-sm">
         <td class="content-title-noshade txt-grey07" valign="top"><img src="tpl/stdstyle/images/free_icons/plugin.png" class="icon16" alt="" align="middle">&nbsp;{{ozi_path_label}}:</td>
         <td class="txt-grey07" valign="top"><input type="text" size="46" name="ozi_path" value="{ozi_path}" class="form-control input300"><br>
-          <div class="notice" style="width:500px;height:44px;">{{ozi_path_info}}</div>
-          <div class="notice" style="width:500px;height:44px;">{{ozi_path_info2}}</div>
+          <div class="notice" style="width:500px;">{{ozi_path_info}}</div>
+          <div class="notice" style="width:500px;">{{ozi_path_info2}}</div>
         </td>
       </tr>
     </table>

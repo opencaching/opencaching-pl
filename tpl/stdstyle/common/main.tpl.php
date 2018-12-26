@@ -331,7 +331,7 @@ global $tpl_subtitle;
         <p>
           <?php foreach($view->_footerMenu as $key=>$url){ ?>
               <?php if(is_array($url)) { //array="open in new window" ?>
-                  <a href="<?=$url[0]?>" target="_blank" rel="noopener"><?=$key?></a>
+                  <a href="<?=$url[0]?>" target="_blank" rel="noopener"><?=$key?></a> &nbsp;
               <?php } else { // !is_array($url) ?>
                   <a href="<?=$url?>" rel="noopener"><?=$key?></a> &nbsp;
               <?php } // if-is_array($url) ?>

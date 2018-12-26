@@ -571,7 +571,7 @@ $(document).ready(function(){
         </tr>
         <tr>
             <td>&nbsp;</td>
-            <td><div class="notice">{{difficulty_problem}} <a href="difficultyForm.php" target="_BLANK">{{rating_system}}</a>.</div>
+            <td><div class="notice">{{difficulty_problem}} <a href="difficultyForm.php" target="_BLANK">{{rating_system}}</a></div>
             </td>
         </tr>
         <tr class="form-group-sm"><td><p class="content-title-noshade">{{additional_information}} ({{optional}}):</p></td>
@@ -710,7 +710,7 @@ $(document).ready(function(){
                     <input class="input20" type="hidden" name="activate_month" id="activate_month" value="{activate_month}"/>
                     <input class="input20" type="hidden" name="activate_day"   id="activate_day"   value="{activate_day}"/>&nbsp;
                     <select name="activate_hour" class="form-control input70">{activation_hours}
-                    </select>&nbsp;{{hour}}&nbsp;{activate_on_message}<br />
+                    </select>&nbsp;–&nbsp;{activate_on_message}<br />
                     <input type="radio" class="radio" name="publish" id="publish_notnow" value="notnow" {publish_notnow_checked}/>&nbsp;<label for="publish_notnow">{{dont_publish_yet}}</label>
                 </fieldset>
             </td>

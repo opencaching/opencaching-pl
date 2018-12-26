@@ -259,7 +259,7 @@ ul#statmenu { padding: 0; margin: 0;}
 .content2-container-2col-left  { overflow: hidden; float: left; width: 272px; margin: 0; padding: 0;}
 .content2-container-2col-right { overflow: hidden; float: right; width: 372px; margin: 0; padding: 0;}
 .content2-pagetitle            { overflow: hidden; width: 769px; margin: 0 0 10px 0; padding: 0 0 2px 0; border-bottom: solid 3px rgb(88,144,168); color: rgb(88,144,168); font-weight: bold; font-size: 180%;}
-
+.content2-newline              { clear: both; }
 
 .templateContainer a           { color: rgb(75,75,75);}
 /*********************************/
@@ -922,6 +922,7 @@ input               { border:1px solid black;    background-color:white;    padd
 *.input100          { width:100px;}    /* log-password */
 *.input120          { width:120px;}    /* e-mail address */
 *.input200          { width:200px;}
+*.input250          { width:250px;}
 *.input300          { width:300px;}
 *.input400          { width:400px;}    /* short cache description */
 input.checkbox      { width:12px; height:12px; font-size:12px; border:0;}

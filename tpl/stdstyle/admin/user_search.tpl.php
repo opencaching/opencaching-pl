@@ -10,12 +10,14 @@ use lib\Objects\GeoCache\GeoCacheLog;
 <div class="content2-container">
   <?php $view->callChunk('infoBar', null, null, $view->errorMsg); ?>
   <form style="display:inline;" method="POST">
-    <label for="username"><?=tr('loginForm_userOrEmail')?>:</label>
-    <input type="text" name="username" value="<?=$view->userName?>" class="form-control input300">
-    <button type="submit" name="submit" class="btn btn-default">
-      <img class="icon16" src="/tpl/stdstyle/images/misc/magnifying-glass.svg" alt="<?=tr('search')?>">
-      <?=tr('search')?>
-    </button>
+    <p>
+      <label for="username"><?=tr('loginForm_userOrEmail')?>:</label>
+      <input type="text" name="username" value="<?=$view->userName?>" class="form-control input300">
+      <button type="submit" name="submit" class="btn btn-default">
+        <img class="icon16" src="/tpl/stdstyle/images/misc/magnifying-glass.svg" alt="<?=tr('search')?>">
+        <?=tr('search')?>
+      </button>
+    </p>
   </form>
   <?php if (sizeof($view->usersTable) > 1) { ?>
     <table class="table table-striped full-width">

@@ -139,7 +139,7 @@
         <tr><td class="buffer" colspan="2"></td></tr>
         <tr>
             <td vAlign="top" align="left" colSpan="2">
-                <button type="button" name="back" value="back" class="btn btn-default"><b>{{cancel}}</b></button>&nbsp;&nbsp;
+                <button type="button" name="back" value="back" class="btn btn-default" onclick="location.href = 'editcache.php?cacheid={cacheid}'"><b>{{cancel}}</b></button>&nbsp;&nbsp;
                 <button type="button" name="delete" value="delete" onclick="return confirm('{{delete_wp_confirm}}');" class="btn btn-danger"><b>{{delete_wp}}</b></button> &nbsp;&nbsp;
                 <button type="submit" name="submit" value="submit" class="btn btn-primary"><b>{{write_wp}}</b></button>
                 <br /><br /></td>

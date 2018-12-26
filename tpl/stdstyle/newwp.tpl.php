@@ -49,7 +49,7 @@
             <tr>
                 <td class="content-title-noshade">{{type_wp2}}:</td>
                 <td>
-                    <select name="type" class="form-control input200" onChange="return _chkType()">
+                    <select name="type" class="form-control input250" onChange="return _chkType()">
                         {typeoptions}
                     </select>{type_message}
                 </td>
@@ -145,7 +145,7 @@
         <tr><td class="buffer" colspan="2"></td></tr>
         <tr>
             <td valign="top" align="left" colspan="2">
-                <button type="button" name="back" value="back" class="btn btn-default">{{cancel}}</button>&nbsp;&nbsp;
+                <button type="button" name="back" value="back" class="btn btn-default" onclick="location.href = 'editcache.php?cacheid={cacheid}'">{{cancel}}</button>&nbsp;&nbsp;
                 <button type="submit" name="submitform" value="submit" class="btn btn-primary">{{write_wp}}</button>
                 <br /><br /></td>
         </tr>
