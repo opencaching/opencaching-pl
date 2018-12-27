@@ -2,10 +2,9 @@
 
 use Utils\Database\OcDb;
 use Utils\Generators\Uuid;
-/**
- *
- */
-class powerTrailController {
+
+class powerTrailController
+{
 
     private $debug = true;
     private $action;
@@ -20,7 +19,7 @@ class powerTrailController {
 
     function __construct($user)
     {
-        if(isset($_REQUEST['ptAction'])) {
+        if (isset($_REQUEST['ptAction'])) {
             $this->action = $_REQUEST['ptAction'];
         } else {
             $this->action = 'showAllSeries';
@@ -39,6 +38,7 @@ class powerTrailController {
                 break;
             case 'selectCaches':
                 $this->getUserPTs();
+
                 return $this->getUserCachesToChose();
                 break;
             case 'createNewPowerTrail':
@@ -56,7 +56,8 @@ class powerTrailController {
         }
     }
 
-    private function mySeries(){
+    private function mySeries()
+    {
         // print $_SESSION['user_id'];
         $q = 'SELECT * FROM `PowerTrail` WHERE id IN (SELECT `PowerTrailId` FROM `PowerTrail_owners`
                 WHERE `userId` = :1 ) ORDER BY cacheCount DESC';
@@ -68,9 +69,10 @@ class powerTrailController {
 
     }
 
-    private function getAllPowerTrails() {
+    private function getAllPowerTrails()
+    {
         // sort by
-        if(isset($_REQUEST['sortBy'])) {
+        if (isset($_REQUEST['sortBy'])) {
             switch ($_REQUEST['sortBy']) {
                 case 'type':
                     $sortBy = 'type';
@@ -99,8 +101,8 @@ class powerTrailController {
         }
 
         // filters here
-        if(isset($_REQUEST['filter'])) {
-            $filterValue = (int) $_REQUEST['filter'];
+        if (isset($_REQUEST['filter'])) {
+            $filterValue = (int)$_REQUEST['filter'];
             switch ($_REQUEST['filter']) {
                 case '0':
                     $filter = ' ';
@@ -114,7 +116,7 @@ class powerTrailController {
         }
 
         // order (as var for future use)
-        if(isset($_REQUEST['sortDir'])){
+        if (isset($_REQUEST['sortDir'])) {
             switch ($_REQUEST['sortDir']) {
                 case 'asc':
                     $sortOder = 'ASC';
@@ -129,19 +131,19 @@ class powerTrailController {
         } else {
             $sortOder = 'DESC';
         }
-        if(isset($_REQUEST['historicLimitBool']) && $_REQUEST['historicLimitBool']==="no") {
+        if (isset($_REQUEST['historicLimitBool']) && $_REQUEST['historicLimitBool'] === "no") {
             $cacheCountLimit = powerTrailBase::historicMinimumCacheCount();
         } else {
             $cacheCountLimit = powerTrailBase::minimumCacheCount();
         }
         $userid = $this->user['userid'];
-        if(isset($_REQUEST['myPowerTrailsBool']) && isset($userid) && $_REQUEST['myPowerTrailsBool']==="yes") {
+        if (isset($_REQUEST['myPowerTrailsBool']) && isset($userid) && $_REQUEST['myPowerTrailsBool'] === "yes") {
             $myTrailsCondition = "and `id` NOT IN (SELECT `PowerTrailId` FROM `PowerTrail_owners`
             WHERE `userId` = $userid)";
         } else {
             $myTrailsCondition = "";
         }
-        if(isset($_REQUEST['gainedPowerTrailsBool']) && isset($userid) && $_REQUEST['gainedPowerTrailsBool']==="yes") {
+        if (isset($_REQUEST['gainedPowerTrailsBool']) && isset($userid) && $_REQUEST['gainedPowerTrailsBool'] === "yes") {
             $gainedTrailsCondition = "and `id` NOT IN (SELECT `PowerTrailId` FROM `PowerTrail_comments`
             WHERE `userId` = $userid and `commentType` = 2)";
         } else {
@@ -164,7 +166,8 @@ class powerTrailController {
         return $this->powerTrailDbRow;
     }
 
-    public function getPowerTrailOwn() {
+    public function getPowerTrailOwn()
+    {
         return $this->areOwnSeries;
     }
 
@@ -188,18 +191,18 @@ class powerTrailController {
         return $this->allSeries;
     }
 
-    public function getDisplayedPowerTrailsCount() {
+    public function getDisplayedPowerTrailsCount()
+    {
         return count($this->allSeries);
     }
 
     private function createNewPowerTrail()
     {
-        if(!isset($_SESSION['user_id'])){ /* user is not logged in */
+        if (!isset($_SESSION['user_id'])) { /* user is not logged in */
             return false;
         }
         $this->action = 'createNewSerie';
-        if(isset($_POST['powerTrailName']) && $_POST['powerTrailName'] != '' && $_POST['type'] != 0 && $_POST['status'] != 0 && $_SESSION['powerTrail']['userFounds'] >= powerTrailBase::userMinimumCacheFoundToSetNewPowerTrail())
-        {
+        if (isset($_POST['powerTrailName']) && $_POST['powerTrailName'] != '' && $_POST['type'] != 0 && $_SESSION['powerTrail']['userFounds'] >= powerTrailBase::userMinimumCacheFoundToSetNewPowerTrail()) {
             $query = "INSERT INTO `PowerTrail`
                        (`name`, `type`, `status`, `dateCreated`, `cacheCount`, `description`, `perccentRequired`, uuid)
                        VALUES (:1,:2,:3,NOW(),0,:4,:5, ".Uuid::getSqlForUpperCaseUuid().")";
@@ -207,18 +210,19 @@ class powerTrailController {
             if ($_POST['dPercent'] < \lib\Controllers\PowerTrailController::MINIMUM_PERCENT_REQUIRED) {
                 $_POST['dPercent'] = \lib\Controllers\PowerTrailController::MINIMUM_PERCENT_REQUIRED;
             }
-            $db->multiVariableQuery($query, strip_tags($_POST['powerTrailName']),(int) $_POST['type'], (int) $_POST['status'], htmlspecialchars($_POST['description']), (int) $_POST['dPercent']);
+            $db->multiVariableQuery($query, strip_tags($_POST['powerTrailName']), (int)$_POST['type'], 2,
+                htmlspecialchars($_POST['description']), (int)$_POST['dPercent']);
             $newProjectId = $db->lastInsertId();
             // exit;
             $query = "INSERT INTO `PowerTrail_owners`(`PowerTrailId`, `userId`, `privileages`) VALUES (:1,:2,:3)";
             $db->multiVariableQuery($query, $newProjectId, $this->user['userid'], 1);
             $logQuery = 'INSERT INTO `PowerTrail_actionsLog`(`PowerTrailId`, `userId`, `actionDateTime`, `actionType`, `description`) VALUES (:1,:2,NOW(),1,:3)';
-            $db->multiVariableQuery($logQuery, $newProjectId,$this->user['userid'] ,$this->ptAPI->logActionTypes[1]['type']);
+            $db->multiVariableQuery($logQuery, $newProjectId, $this->user['userid'],
+                $this->ptAPI->logActionTypes[1]['type']);
             header("location: powerTrail.php?ptAction=showSerie&ptrail=$newProjectId");
+
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
 
@@ -245,8 +249,7 @@ class powerTrailController {
     }
 
 
-
-    public function debug($var, $name=null, $line=null)
+    public function debug($var, $name = null, $line = null)
     {
         //if($this->debug === false) return;
         print '<font color=green><b>#'.$line."</b> $name, </font>(".__FILE__.") <pre>";

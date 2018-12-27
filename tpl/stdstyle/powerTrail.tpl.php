@@ -1231,18 +1231,6 @@
                     </tr>
                     <tr>
                         <td>
-                            {{pt010}}
-                            <a class="tooltip" href="javascript:void(0);">{{pt087}}?<span class="custom help"><img src="tpl/stdstyle/images/toltipsImages/Help.png" alt="Help" height="48" width="48" /><em>{{pt088}}</em>{{pt089}}</span></a>
-                        </td>
-                        <td>
-                            <select name="status">
-                                <option value="1">{{cs_statusPublic}}</option>
-                                <option value="2">{{cs_statusNotYetAvailable}}</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
                             {{pt054}}
                             <br><a class="tooltip" href="javascript:void(0);">{{pt087}}?<span class="custom help"><img src="tpl/stdstyle/images/toltipsImages/Help.png" alt="Help" height="48" width="48" /><em>{{pt088}}</em>{{pt086}}</span></a>
                         </td>
