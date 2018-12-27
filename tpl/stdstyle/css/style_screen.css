@@ -1,16 +1,16 @@
-img                 { vertical-align:middle; border-width:0px; border-style:none; }
+img                 { vertical-align: middle; border-width:0; border-style:none; }
 
 div#overall         { min-width: 970px; width: 100%; overflow: hidden; }
 
-body                { font-size: 62.5%; line-height: 1.42857143; margin: 0px auto; 
-                      padding: 0px; background-color: #cccccc;
+body                { font-size: 62.5%; line-height: 1.42857143; margin: 0 auto;
+                      padding: 0; background-color: #cccccc;
                       font-family: OpenSans, sans-serif;
                     }
-                      
+
 .page-container-1 {
   width: 970px;
-  margin: 0px auto;
-  padding: 0px;
+  margin: 0 auto;
+  padding: 0;
   background-color:#ffffff;
   border: solid 1px rgb(100,100,100);
   position: relative;
@@ -27,12 +27,12 @@ body.winter { background-color: #ddebf5; }
 body.spring { background-color: #feec98; }
 
 div.seasonalBackground {
-  display: block; 
-  position: absolute; 
-  width: 330px; 
-  height: 100%; 
-  top: -2px; 
-  background-repeat: no-repeat; 
+  display: block;
+  position: absolute;
+  width: 330px;
+  height: 100%;
+  top: -2px;
+  background-repeat: no-repeat;
 }
 
 div.seasonalBackground.left{ left: -331px; }
@@ -97,7 +97,7 @@ tr.highlighted > td {border-width:2px;}
 .topline-dropdown-icon {
   max-width: 8px;
   height: 8px;
-  padding: 4px 0px !important;
+  padding: 4px 0 !important;
 }
 
 .topline-dropdown-content {
@@ -108,7 +108,7 @@ tr.highlighted > td {border-width:2px;}
   background-color: white;
   width: 252px;
   font-size: 12px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
   border: 1px solid #ccc;
   border-radius: 5px;
   z-index: 999;
@@ -134,22 +134,22 @@ tr.highlighted > td {border-width:2px;}
 .top-video-container {
   width: 970px;
   height: 180px;
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
   position: relative;
 }
 
 .top-video-container video {
   width: 970px;
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
 }
 
 .top-video-slider {
   position: absolute;
   top: -180px;
   width: 970px;
-  height: 0px;
+  height: 0;
   line-height: 180px;
   color: white;
   text-shadow: 2px 2px 4px #000000;
@@ -162,7 +162,7 @@ tr.highlighted > td {border-width:2px;}
 /*--------------------------*/
 .bottom-flags {
   display: inline;
-  margin: 0px 10px;
+  margin: 0 10px;
 }
 
 .bottom-flags img {
@@ -205,27 +205,27 @@ tr.highlighted > td {border-width:2px;}
 /*----------------------------*/
 /* 2.4 - Navigation - horizontal menu bar */
 /*----------------------------*/
-#nav2                               { clear: both; margin: 0px; padding: 0px; font-size: 1.0em; letter-spacing: 1px;}
-#nav2 ul                            { float: left; width: 970px; margin: 0px; padding: 0px; background-color: #7FA2CA; font-weight: bold; box-sizing: border-box;}
-#nav2 li                            { display: inline; list-style: none; margin: 0px; padding: 0px;}
+#nav2                               { clear: both; margin: 0; padding: 0; font-size: 1.0em; letter-spacing: 1px;}
+#nav2 ul                            { float: left; width: 970px; margin: 0; padding: 0; background-color: #7FA2CA; font-weight: bold; box-sizing: border-box;}
+#nav2 li                            { display: inline; list-style: none; margin: 0; padding: 0;}
 #nav2 a:hover                       { background-color: #52769E;}
-#nav2 li a                          { display: block; float: left; margin: 0px 0px 0px 0px; padding: 8px 10px; color: rgb(255,255,255); text-transform: uppercase; text-decoration: none; font-size: 100%;}
+#nav2 li a                          { display: block; float: left; margin: 0; padding: 8px 10px; color: rgb(255,255,255); text-transform: uppercase; text-decoration: none; font-size: 100%;}
 #nav2 a:hover, #nav2 a.selected     { text-decoration: none;}
 #nav2 a.selected                    { background-color: #184E89;}
-.buffer                             { clear: both; width: 1px; height: 15px; margin: 0px; padding: 0px; background-color: rgb(255,255,255);}
+.buffer                             { clear: both; width: 1px; height: 15px; margin: 0; padding: 0; background-color: rgb(255,255,255);}
 
 /*----------------------------*/
 /* 2.5 - Navigation - left menus */
 /*----------------------------*/
-#nav3                                           { overflow: hidden; clear: both; float: left; width: 160px; min-height: 500px; margin: 0px; padding: 0px; color: rgb(75,75,75); font-size: 1.0em;}
-#nav3 ul                                        { width: 160px; margin: 0px 0px 10px 0px; padding: 0px; border-bottom: solid 1px rgb(216,206,159); background-color: rgb(219,230,241);}
-#nav3 li                                        { list-style: none; margin: 0px; padding: 0px;}
-#nav3 li.title                                  { margin: 0px 0px 0px 0px; padding: 3px 5px 2px 15px; background-color: rgb(156,186,214); color: rgb(255,255,255); text-transform: uppercase; font-weight: bold; font-size: 120%;}
-#nav3 li.group a                                { display: block; min-height: 1.7em; height: auto !important; height: 1.7em; line-height: 1.7em; margin: 0px; padding: 0px 7px 0px 15px; border-top: solid 1px rgb(200,200,200); border-left: solid 7px rgb(219,230,241); color: rgb(75,75,75); font-weight: bold; font-size: 120%;}
+#nav3                                           { overflow: hidden; clear: both; float: left; width: 160px; min-height: 500px; margin: 0; padding: 0; color: rgb(75,75,75); font-size: 1.0em;}
+#nav3 ul                                        { width: 160px; margin: 0 0 10px 0; padding: 0; border-bottom: solid 1px rgb(216,206,159); background-color: rgb(219,230,241);}
+#nav3 li                                        { list-style: none; margin: 0; padding: 0;}
+#nav3 li.title                                  { margin: 0; padding: 3px 5px 2px 15px; background-color: rgb(156,186,214); color: rgb(255,255,255); text-transform: uppercase; font-weight: bold; font-size: 120%;}
+#nav3 li.group a                                { display: block; min-height: 1.7em; height: auto !important; line-height: 1.7em; margin: 0; padding: 0 7px 0 15px; border-top: solid 1px rgb(200,200,200); border-left: solid 7px rgb(219,230,241); color: rgb(75,75,75); font-weight: bold; font-size: 120%;}
 #nav3 li.group_active a                         { border-left: solid 7px rgb(156,186,214); background-color: rgb(156,186,214);}
-#nav3 li.subgroup a                             { display: block; min-height: 1.7em; height: auto !important; height: 1.7em; line-height: 1.7em; margin: 0px; padding: 0px 7px 0px 15px; border-top: solid 1px rgb(200,200,200); border-left: solid 14px rgb(219,230,241); color: rgb(75,75,75); font-weight: normal; font-size: 120%;}
+#nav3 li.subgroup a                             { display: block; min-height: 1.7em; height: auto !important; line-height: 1.7em; margin: 0; padding: 0 7px 0 15px; border-top: solid 1px rgb(200,200,200); border-left: solid 14px rgb(219,230,241); color: rgb(75,75,75); font-weight: normal; font-size: 120%;}
 #nav3 li.subgroup_active a                      { border-left: solid 14px rgb(156,186,214); background-color: rgb(156,186,214);}
-#nav3 li a                                      { display: block; min-height: 1.7em; height: auto !important; height: 1.7em; line-height: 1.7em; margin: 0px; padding: 0px 7px 0px 20px; border-left: solid 7px rgb(219,230,241); color: rgb(75,75,75); text-decoration: none; font-size: 120%;}
+#nav3 li a                                      { display: block; min-height: 1.7em; height: auto !important; line-height: 1.7em; margin: 0; padding: 0 7px 0 20px; border-left: solid 7px rgb(219,230,241); color: rgb(75,75,75); text-decoration: none; font-size: 120%;}
 #nav3 li a:hover, #nav3 li a.selected           { border-left: solid 7px rgb(156,186,214);  color: rgb(100,100,100); text-decoration: none;}
 #nav3 li.subgroup a:hover, #nav3 li a.selected  { border-left: solid 14px rgb(156,186,214);  color: rgb(100,100,100); text-decoration: none;}
 
@@ -233,32 +233,32 @@ tr.highlighted > td {border-width:2px;}
 /* 2.5 - Navigation - Level 4 */
 /* TODO: refactor! - used only in viewProfile  */
 /*----------------------------*/
-.nav4 li                                        { float: left; list-style: none; margin: 0px; padding: 0px;padding-bottom: 5px;}
-.nav4 li.title                                  { display: none; margin: 0px 0px 0px 0px; padding: 3px 5px 2px 5px; background-color: rgb(156,186,214); color: rgb(255,255,255); text-transform: uppercase; font-weight: bold; font-size: 120%;}
-.nav4 li.group a                                { background-color: rgb(219,230,241);display: block; min-height: 1.7em; height: auto !important; height: 1.7em; line-height: 1.7em; margin: 0px; margin-right: 3px; padding: 0px 7px 0px 20px; border-top: solid 1px rgb(200,200,200); border-left: solid 7px rgb(219,230,241); color: rgb(75,75,75); font-weight: bold; font-size: 120%;}
+.nav4 li                                        { float: left; list-style: none; margin: 0; padding: 0 0 5px;}
+.nav4 li.title                                  { display: none; margin: 0; padding: 3px 5px 2px 5px; background-color: rgb(156,186,214); color: rgb(255,255,255); text-transform: uppercase; font-weight: bold; font-size: 120%;}
+.nav4 li.group a                                { background-color: rgb(219,230,241);display: block; min-height: 1.7em; height: auto !important; line-height: 1.7em; margin: 0 3px 0 0; padding: 0 7px 0 20px; border-top: solid 1px rgb(200,200,200); border-left: solid 7px rgb(219,230,241); color: rgb(75,75,75); font-weight: bold; font-size: 120%;}
 .nav4 li.group_active a                         { border-left: solid 7px rgb(156,186,214); background-color: rgb(156,186,214);}
-.nav4 li.subgroup a                             { display: block; min-height: 1.7em; height: auto !important; height: 1.7em; line-height: 1.7em; margin: 0px; padding: 0px 7px 0px 0px; border-top: solid 1px rgb(200,200,200); border-left: solid 14px rgb(219,230,241); color: rgb(75,75,75); font-weight: normal; font-size: 120%;}
+.nav4 li.subgroup a                             { display: block; min-height: 1.7em; height: auto !important; line-height: 1.7em; margin: 0; padding: 0 7px 0 0; border-top: solid 1px rgb(200,200,200); border-left: solid 14px rgb(219,230,241); color: rgb(75,75,75); font-weight: normal; font-size: 120%;}
 .nav4 li.subgroup_active a                      { border-left: solid 14px rgb(156,186,214); background-color: rgb(156,186,214);}
-.nav4 li a                                      { display: block; min-height: 1.7em; height: auto !important; height: 1.7em; line-height: 1.7em; margin: 0px; border-left: solid 40px rgb(219,230,241); color: rgb(75,75,75); text-decoration: none; font-size: 120%;}
+.nav4 li a                                      { display: block; min-height: 1.7em; height: auto !important; line-height: 1.7em; margin: 0; border-left: solid 40px rgb(219,230,241); color: rgb(75,75,75); text-decoration: none; font-size: 120%;}
 .nav4 li a:hover, .nav4 li a.selected           { border-left: solid 7px rgb(156,186,214);  color: rgb(100,100,100); text-decoration: none;}
 .nav4 li.subgroup a:hover, .nav4 li a.selected  { border-left: solid 14px rgb(156,186,214);  color: rgb(100,100,100); text-decoration: none;}
-ul#statmenu { padding: 0px; margin: 0px;}
-.notlogged-cacheview                            { display: block; min-height: 1.7em; height: auto !important; height: 1.7em; line-height: 1.7em; margin: 0px; padding: 0px 0px 6px 7px; color: rgb(150,75,75); font-size: 120%; }
+ul#statmenu { padding: 0; margin: 0;}
+.notlogged-cacheview                            { display: block; min-height: 1.7em; height: auto !important; line-height: 1.7em; margin: 0; padding: 0 0 6px 7px; color: rgb(150,75,75); font-size: 120%; }
 
 /******************************************************/
 /* SECTION 4 - SPECIFIC CLASSES FOR LAYOUTS #2 and #3 */
 /******************************************************/
-.notice                        { overflow: hidden; width: 97%; height: auto; margin: 0px 0px 0px 0px; padding: 0px 0px 12px 20px; color: rgb(88,144,168); font-style: italic; font-size: 11px; background-image: url(../images/misc/16x16-info.png); background-position: top left; background-repeat:no-repeat;}
-.warning                       { overflow: hidden;  width: 735px; height: 24px; border: 1px solid black; background-color: rgb(240,100,100); margin: 0px 0px 0px 0px; padding: 8px 0px 0px 32px; color: rgb(50,50,50); font-weight: bold; font-size: 12px; background-image: url(../images/misc/32x32-impressum.png); background-position: top left; background-repeat:no-repeat;}
+.notice                        { overflow: hidden; width: 97%; height: auto; margin: 0; padding: 0 0 12px 20px; color: rgb(88,144,168); font-style: italic; font-size: 11px; background-image: url(../images/misc/16x16-info.png); background-position: top left; background-repeat:no-repeat;}
+.warning                       { overflow: hidden;  width: 735px; height: 24px; border: 1px solid black; background-color: rgb(240,100,100); margin: 0; padding: 8px 0 0 32px; color: rgb(50,50,50); font-weight: bold; font-size: 12px; background-image: url(../images/misc/32x32-impressum.png); background-position: top left; background-repeat:no-repeat;}
 .errormsg                      { color: rgb(240,100,100); font-weight: bold;}
 .successmsg                    { color: rgb(50,150,20); font-weight: bold;}
 
-.templateContainer             { float: left; width: 790px; min-height: 500px; margin: 0px; padding: 0px 0px 0px 20px; color: rgb(75,75,75); font-size: 1.0em;}
-.content2-container            { clear: both; float: left; width: 769px; margin: 0px 0px 15px 0px; padding: 0px;}
-.content2-container-1col       { overflow: hidden; width: 769px; margin: 0px; padding: 0px;}
-.content2-container-2col-left  { overflow: hidden; float: left; width: 272px; margin: 0px; padding: 0px;}
-.content2-container-2col-right { overflow: hidden; float: right; width: 372px; margin: 0px; padding: 0px;}
-.content2-pagetitle            { overflow: hidden; width: 769px; margin: 0px 0px 10px 0px; padding: 0px 0px 2px 0px; border-bottom: solid 3px rgb(88,144,168); color: rgb(88,144,168); font-weight: bold; font-size: 180%;}
+.templateContainer             { float: left; width: 790px; min-height: 500px; margin: 0; padding: 0 0 0 20px; color: rgb(75,75,75); font-size: 1.0em;}
+.content2-container            { clear: both; float: left; width: 769px; margin: 0 0 15px 0; padding: 0;}
+.content2-container-1col       { overflow: hidden; width: 769px; margin: 0; padding: 0;}
+.content2-container-2col-left  { overflow: hidden; float: left; width: 272px; margin: 0; padding: 0;}
+.content2-container-2col-right { overflow: hidden; float: right; width: 372px; margin: 0; padding: 0;}
+.content2-pagetitle            { overflow: hidden; width: 769px; margin: 0 0 10px 0; padding: 0 0 2px 0; border-bottom: solid 3px rgb(88,144,168); color: rgb(88,144,168); font-weight: bold; font-size: 180%;}
 
 
 .templateContainer a           { color: rgb(75,75,75);}
@@ -271,49 +271,49 @@ ul#statmenu { padding: 0px; margin: 0px;}
 /*--------------------*/
 
 /* Titles and textboxes*/
-.content-title-noshade          { margin: 0px; padding: 0px; color: rgb(88,144,168); font-weight: bold; font-size: 100%;}
-.content-title-noshade-size0    { margin: 0px; padding: 0px; color: rgb(88,144,168); font-weight: bold; font-size: 70%;}
-.content-title-noshade-size05   { margin: 0px; padding: 0px; color: rgb(88,144,168); font-weight: bold; font-size: 80%;}
-.content-title-noshade-size1    { margin: 0px; padding: 0px; color: rgb(88,144,168); font-weight: bold; font-size: 130%;}
-.content-title-noshade-size12   { margin: 0px; padding: 0px; color: rgb(88,144,168); font-weight: bold; font-size: 120%;}
-.content-title-noshade-size2    { margin: 0px; padding: 0px; color: rgb(88,144,168); font-weight: bold; font-size: 150%;}
-.content-title-noshade-size3    { margin: 0px; padding: 0px; color: rgb(88,144,168); font-weight: bold; font-size: 160%;}
-.content-title-noshade-size5    { margin: 0px; padding: 0px; color: rgb(88,144,168); font-weight: bold; font-size: 200%;}
-.content-txtbox-noshade         { margin: 0px; padding: 7px 0px 0px 0px; background-color: rgb(255,255,255);}
+.content-title-noshade          { margin: 0; padding: 0; color: rgb(88,144,168); font-weight: bold; font-size: 100%;}
+.content-title-noshade-size0    { margin: 0; padding: 0; color: rgb(88,144,168); font-weight: bold; font-size: 70%;}
+.content-title-noshade-size05   { margin: 0; padding: 0; color: rgb(88,144,168); font-weight: bold; font-size: 80%;}
+.content-title-noshade-size1    { margin: 0; padding: 0; color: rgb(88,144,168); font-weight: bold; font-size: 130%;}
+.content-title-noshade-size12   { margin: 0; padding: 0; color: rgb(88,144,168); font-weight: bold; font-size: 120%;}
+.content-title-noshade-size2    { margin: 0; padding: 0; color: rgb(88,144,168); font-weight: bold; font-size: 150%;}
+.content-title-noshade-size3    { margin: 0; padding: 0; color: rgb(88,144,168); font-weight: bold; font-size: 160%;}
+.content-title-noshade-size5    { margin: 0; padding: 0; color: rgb(88,144,168); font-weight: bold; font-size: 200%;}
+.content-txtbox-noshade         { margin: 0; padding: 7px 0 0 0; background-color: rgb(255,255,255);}
 
 
 /* Headings */
-h1 { margin: 1.0em 0px 0.5em 0px; font-weight: bold; font-size: 160%;}
-h2 { margin: 1.0em 0px 0.5em 0px; font-weight: bold; font-size: 150%;}
-h3 { margin: 1.0em 0px 0.5em 0px; font-weight: bold; font-size: 140%;}
-h4 { margin: 1.0em 0px 0.5em 0px; font-weight: bold; font-size: 130%;}
-h5 { margin: 0px 0px 0.2em 0px; font-weight: bold; font-size: 130%;}
-h6 { margin: 0px 0px 0.2em 0px;font-weight: bold; font-style: italic; font-size: 130%;}
+h1 { margin: 1.0em 0 0.5em 0; font-weight: bold; font-size: 160%;}
+h2 { margin: 1.0em 0 0.5em 0; font-weight: bold; font-size: 150%;}
+h3 { margin: 1.0em 0 0.5em 0; font-weight: bold; font-size: 140%;}
+h4 { margin: 1.0em 0 0.5em 0; font-weight: bold; font-size: 130%;}
+h5 { margin: 0 0 0.2em 0; font-weight: bold; font-size: 130%;}
+h6 { margin: 0 0 0.2em 0;font-weight: bold; font-style: italic; font-size: 130%;}
 
 /* Paragraphs */
-p  { margin: 0px 0px 0.5em 0px; padding: 0px; line-height: 1.3em; font-size: 12px; }
+p  { margin: 0 0 0.5em 0; padding: 0; line-height: 1.3em; font-size: 12px; }
 
 /* Lists */
-ul.indent        { margin: 0px 0px 7px 15px; padding: 0px 0px 0px 15px; list-style-type: disc; font-size: 120%;}
-ol               { margin: 0px 0px 0px 9px; padding: 0px 0px 0px 25px; list-style-type: decimal; list-style-position: outside; font-size: 120%;}
+ul.indent        { margin: 0 0 7px 15px; padding: 0 0 0 15px; list-style-type: disc; font-size: 120%;}
+ol               { margin: 0 0 0 9px; padding: 0 0 0 25px; list-style-type: decimal; list-style-position: outside; font-size: 120%;}
 ul.tick          { list-style-image: url('/tpl/stdstyle/images/free_icons/tick.png'); }
 
 /* Tables */
-.table            { font-size: 10px; line-height: 2.0em; clear: left; padding: 0px; margin: 0.5em 0px 0.2em 0px; border: solid 0px rgb(150,150,150); empty-cells: show; border-collapse: collapse; background-color: rgb(255,255,255);}
-.table tr         { margin: 0px; padding: 0px;}
-.table td         { padding: 2px 7px 2px 7px; border: solid 0px rgb(150,150,150); text-align: left; font-size: 120%;}
-.table th         { margin: 0px; background-color: rgb(127,162,202); padding: 2px 7px 2px 7px; border: solid 0px rgb(150,150,150); empty-cells: show; text-align: left; font-size: 120%; color: rgb(255,255,255);    }
-.table-caption    { margin: 0.5em 0px 1.0em 30px; padding: 0px; clear: both; text-align: left; font-size: 120%;}
+.table            { font-size: 10px; line-height: 2.0em; clear: left; padding: 0; margin: 0.5em 0 0.2em 0; border: solid 0 rgb(150,150,150); empty-cells: show; border-collapse: collapse; background-color: rgb(255,255,255);}
+.table tr         { margin: 0; padding: 0;}
+.table td         { padding: 2px 7px 2px 7px; border: solid 0 rgb(150,150,150); text-align: left; font-size: 120%;}
+.table th         { margin: 0; background-color: rgb(127,162,202); padding: 2px 7px 2px 7px; border: solid 0 rgb(150,150,150); empty-cells: show; text-align: left; font-size: 120%; color: rgb(255,255,255);    }
+.table-caption    { margin: 0.5em 0 1.0em 30px; padding: 0; clear: both; text-align: left; font-size: 120%;}
 .table td.options { padding: 0.5em 0.5em; }
 
 /* Images */
-.img-difficulty                     { margin: 0px; border-width:0px; border-style:none;}
+.img-difficulty                     { margin: 0; border-width: 0; border-style:none;}
 
 /*--------------------*/
 /* 6.3 - Footer Area  height: 3.0em;*/
 /*--------------------*/
-#footer     { overflow: hidden; clear: both; width: 970px;  margin: 0px; padding: 0.5em 0px 0.5em 0px; border-top: solid 1px rgb(125,125,125); background-color: rgb(128,161,202); color: rgb(255,255,255); font-size: 1.0em;}
-#footer p   { margin: 0px; padding: 0px; text-align: center; line-height: 1.3em; font-size: 110%;}
+#footer     { overflow: hidden; clear: both; width: 970px;  margin: 0; padding: 0.5em 0 0.5em 0; border-top: solid 1px rgb(125,125,125); background-color: rgb(128,161,202); color: rgb(255,255,255); font-size: 1.0em;}
+#footer p   { margin: 0; padding: 0; text-align: center; line-height: 1.3em; font-size: 110%;}
 #footer a        { color: rgb(255,255,255); text-decoration: none;}
 #footer a:hover  { color: rgb(0,0,0); text-decoration: none;}
 
@@ -454,14 +454,14 @@ ul.tick          { list-style-image: url('/tpl/stdstyle/images/free_icons/tick.p
 /*---------------------------*/
 /* 7.5  Bottom border colors */
 /*---------------------------*/
-.box-blue       { width:750px; padding: 15px 9px 5px 10px; margin:10px 10px 10px 10px;border-top:1px solid rgb(88,144,168);border-left:1px solid rgb(88,144,168);border-right:1px solid rgb(88,144,168);border-bottom:1px solid rgb(88,144,168);}
-.line-box       { width:769px; border-bottom: solid 1px rgb(200,200,200); padding-bottom: 7px; margin: 0px 0px 15px 0px;}
+.box-blue       { width: 750px; padding: 15px 9px 5px 10px; margin: 10px; border-top: 1px solid rgb(88,144,168);border-left:1px solid rgb(88,144,168);border-right:1px solid rgb(88,144,168);border-bottom:1px solid rgb(88,144,168);}
+.line-box       { width: 769px; border-bottom: solid 1px rgb(200,200,200); padding-bottom: 7px; margin: 0 0 15px 0;}
 
 
 /*****************************/
 /* SECTION 8 - MISCELLANEOUS */
 /*****************************/
-br { clear: none;} /* TODO: is it neccessary? */
+br { clear: none;} /* TODO: is it necessary? */
 
 
 
@@ -564,7 +564,7 @@ table.bs-table td > a:hover {
     width: 1%;
 }
 .btn-group-justified>.btn:not(:first-child) {
-    border-left: 0px;
+    border-left: 0;
 }
 .btn-group .btn+.btn, .btn-group .btn+.btn-group, .btn-group .btn-group+.btn, .btn-group .btn-group+.btn-group {
     margin-left: -1px;
@@ -912,7 +912,7 @@ input.form-upload {
     border-left-color: #d9534f;
 }
 
-/* styles for inputfields */
+/* styles for input fields */
 input               { border:1px solid black;    background-color:white;    padding:1px; font-size:11px;color: black;}
 *.input20           { width:20px;}  /* day,month */
 *.input30           { width:30px;}
@@ -920,14 +920,14 @@ input               { border:1px solid black;    background-color:white;    padd
 *.input50           { width:50px;}
 *.input70           { width:70px;}
 *.input100          { width:100px;}    /* log-password */
-*.input120          { width:120px;}    /* emailadress */
+*.input120          { width:120px;}    /* e-mail address */
 *.input200          { width:200px;}
 *.input300          { width:300px;}
-*.input400          { width:400px;}    /* short cachedescription */
+*.input400          { width:400px;}    /* short cache description */
 input.checkbox      { width:12px; height:12px; font-size:12px; border:0;}
-input.radio         { border:0px; border-width: 0px; width:12px; height:12px; background-color: transparent;}
+input.radio         { border:0; width:12px; height:12px; background-color: transparent;}
 select              { border:1px solid black; background-color:white; padding:1px; font-size:12px; color: black;}
-input.formbuttons   { background-color:rgb(219,230,241); width:120px; border:1px solid black; padding:0px; color: #000000; }
+input.formbuttons   { background-color:rgb(219,230,241); width:120px; border:1px solid black; padding:0; color: #000000; }
 
 
 textarea.desc, textarea.cachelog {
@@ -1025,7 +1025,7 @@ form, input, textarea, button {
 }
 
 
-/* linki w recomendation cache sp2ong */
+/* linki w recommendation cache sp2ong */
 a.links:link {
     font-weight:bold;
     color: #323232;
@@ -1081,14 +1081,14 @@ a.info span     { display: none}
 a.info:hover span{ /*the span will display just on :hover state*/
     display:block;
     position:relative;
-    bottom:15em; left:0em; width:15em;
+    bottom:15em; left:0; width:15em;
     border:1px solid #000;
     background-color:#FFFFCC; color:#000;
     text-align: left; font-size: 11px;
 }
 
 
-/* Gradien stylee */
+/* Gradient style */
 #gradient {
     border-collapse: collapse;
 }
@@ -1096,12 +1096,9 @@ a.info:hover span{ /*the span will display just on :hover state*/
     border: 1px solid black;
 }
 #gradient th {
-    background-color: #a4d9ff;
     color: #000000;
     background: #fff url(/tpl/stdstyle/images/misc/bg-gradient-blue.png) repeat-x top left;
 }
-
-
 
 table.border {    background: url(/images/css/bg_blue.png) repeat-x;
                   color: #333;
@@ -1152,19 +1149,13 @@ div.listitems {
 /* This is for myRoutes only */
 div.ver {
     height: 30px;
-    margin-top:3px;
-    margin-bottom:3px;
-    margin-right:5px;
-    margin-left:5px;
+    margin: 3px 5px;
     float:left;
     border-left: 2px solid white;
 }
 div.ver35 {
     height: 100%;
-    margin-top:3px;
-    margin-bottom:3px;
-    margin-right:5px;
-    margin-left:5px;
+    margin: 3px 5px;
     float:left;
     border-left: 2px solid #7fa2ca;
 }
@@ -1328,3 +1319,6 @@ div.currentuser-log {
   background-repeat: no-repeat;
 }
 
+tr.geoKretLog {
+    height: 27px !important;
+}

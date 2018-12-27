@@ -13,7 +13,8 @@
     "ext-apcu": "*",
     "ext-pdo": "*",
     "ext-iconv": "*",
-    "ext-simplexml": "*"
+    "ext-simplexml": "*",
+    "ext-libxml": "*"
   },
   "extra": {
     "patches": {
