@@ -94,7 +94,7 @@ final class cache
         self::TYPE_MOVING => array(
             'name' => 'moving',
             'icon' => 'moving.png',
-            'translation' => 'cachetype_4'
+            'translation' => 'cacheType_4'
         ),
         self::TYPE_GEOPATHFINAL => array(
             'name' => 'podcast',

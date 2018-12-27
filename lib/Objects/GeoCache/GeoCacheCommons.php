@@ -53,7 +53,7 @@ class GeoCacheCommons extends BaseObject {
     const TYPE_WEBCAM_TR_KEY         = 'cacheType_7';
     const TYPE_EVENT_TR_KEY          = 'cacheType_6';
     const TYPE_QUIZ_TR_KEY           = 'cacheType_3';
-    const TYPE_MOVING_TR_KEY         = 'cachetype_4';
+    const TYPE_MOVING_TR_KEY         = 'cacheType_4';
     const TYPE_GEOPATHFINAL_TR_KEY   = 'cacheType_9';
     const TYPE_OWNCACHE_TR_KEY       = 'cacheType_10';
 
