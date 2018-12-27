@@ -79,7 +79,7 @@ class PolylineEncoder
             }
         }
 
-        $polyline = new stdClass();
+        $polyline = new \stdClass();
         $polyline->rawPoints = $this->createEncodings($points, $dists);
         $polyline->levels = $this->encodeLevels($points, $dists, $absMaxDist);
         $polyline->points = str_replace("\\", "\\\\", $polyline->rawPoints);
