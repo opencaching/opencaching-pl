@@ -185,7 +185,7 @@ if ($usr['admin']) {
     if (isset($_GET['cacheid'])) {
         if (isset($_GET['assign'])) {
             if (assignUserToCase($_GET['assign'], $_GET['cacheid'])) {
-                $confirm = "<p>" . tr("viewPending_07") . " " . getUsername($_GET['assign']) . " " . tr("viewPending_07") . ".</p>";
+                $confirm = "<p>" . tr("viewPending_07") . " " . getUsername($_GET['assign']) . " " . tr("viewPending_08") . ".</p>";
                 tpl_set_var('confirm', $confirm);
             } else {
                 tpl_set_var('confirm', '');
