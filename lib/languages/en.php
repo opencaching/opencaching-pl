@@ -188,7 +188,6 @@ $translations = array(
     'page_error' => 'Site error',
     'personal_data' => 'Personal data',
     'message' => 'Message',
-    'register_confirm' => 'Registration confirmation',
     'user' => 'User',
     'password' => 'Password',
     'logged_as' => 'Logged in as',
