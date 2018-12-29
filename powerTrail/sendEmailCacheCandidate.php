@@ -34,7 +34,7 @@ function emailCacheOwner($ptId, $cacheId, $linkCode){
     $mailbody = mb_ereg_replace('{userName}', $usr['username'], $mailbody);
     $mailbody = mb_ereg_replace('{absolute_server_URI}', $absolute_server_URI, $mailbody);
     $mailbody = mb_ereg_replace('{linkCode}', $linkCode, $mailbody);
-    $mailbody = mb_ereg_replace('{runwatch14}', tr('runwatch14'), $mailbody);
+    $mailbody = mb_ereg_replace('{mail_auto_generated}', tr('mail_auto_generated'), $mailbody);
     $mailbody = mb_ereg_replace('{cacheWaypoint}', $cacheData['wp_oc'], $mailbody);
     $mailbody = mb_ereg_replace('{pt183}', tr('pt183'), $mailbody);
     $mailbody = mb_ereg_replace('{pt184}', tr('pt184'), $mailbody);
