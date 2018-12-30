@@ -49,7 +49,7 @@ class sendEmail
             $usr['userid'] = -1;
         if (!isset($usr['username']))
             $usr['username'] = 'SYSTEM';
-        $mailbody = mb_ereg_replace('{runwatch14}', tr('runwatch14'), $mailbody);
+        $mailbody = mb_ereg_replace('{mail_auto_generated}', tr('mail_auto_generated'), $mailbody);
         $mailbody = mb_ereg_replace('{commentDateTime}', date($siteDateTimeFormat, strtotime($commentDateTime)), $mailbody);
         $mailbody = mb_ereg_replace('{userId}', $usr['userid'], $mailbody);
         $mailbody = mb_ereg_replace('{userName}', $usr['username'], $mailbody);
