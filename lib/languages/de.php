@@ -1,6 +1,7 @@
 <?php
 
 $translations = array(
+    'kojoty_test_translation' => 'testTesttest',
     'main_menu' => 'Hauptmenü',
     'user_menu' => 'Benutzermenü',
     'new' => 'Neu',
