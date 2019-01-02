@@ -1,7 +1,7 @@
 <?php
 
 $translations = array(
-    'kojoty_test_translation' => 'testTesttest',
+    'kojoty_test_translation' => 'new test translation',
     'main_menu' => 'Menu główne',
     'user_menu' => 'Menu użytkownika',
     'new' => 'Nowa',
