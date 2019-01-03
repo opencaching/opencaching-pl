@@ -129,10 +129,14 @@ class DbUpdateController extends BaseController
         // This action is allowed to run on production sites (by sysAdmins only).
         $this->securityCheck(false);
 
-        if ($uuid) {
-            $messages = $this->getUpdateFromUuid($uuid)->run();
-        } else {
-            $messages = DbUpdates::run();
+        try {
+            if ($uuid) {
+                $messages = $this->getUpdateFromUuid($uuid)->run();
+            } else {
+                $messages = DbUpdates::run();
+            }
+        } catch (\Exception $e) {
+            $messages = get_class($e).": " . $e->getMessage() . "\n\n" . $e->getTraceAsString();
         }
 
         $this->showAdminView($messages);

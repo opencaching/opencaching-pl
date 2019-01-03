@@ -2529,7 +2529,6 @@ $translations = array(
     'admin_dbupdate_create' => 'Create new update',
     'admin_dbupdate_reload' => 'Reload list',
     'admin_dbupdate_develnote' => '<i>Italics</i> = Update is in development (not merged to Git master).',
-    'admin_dbupdate_help' => 'More explanations',
     'rename' => 'Rename',
 
     'loginForm_title' => 'Login',

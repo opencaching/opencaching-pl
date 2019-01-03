@@ -188,7 +188,7 @@ class DbUpdate
             }
             if (!file_exists($oldPath)) {
                 $this->name = $newName;
-                if (DbUpdateHistory::contains($uuid)) {
+                if (DbUpdateHistory::contains($this->uuid)) {
                     DbUpdateHistory::rename($this->uuid, $newName);
                 }
                 DbUpdates::sort();

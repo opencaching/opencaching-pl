@@ -64,7 +64,10 @@ class DbUpdateHistory
     public static function wasRunAt($uuid)
     {
         self::init();
-        return @self::$history[$uuid]['wasRunAt'];
+        if (isset(self::$history[$uuid]['wasRunAt'])) {
+            return self::$history[$uuid]['wasRunAt'];
+        }
+        return null;
     }
 
     public static function contains($uuid)

@@ -64,8 +64,8 @@ class I18n
         return $result;
     }
 
-    // Helper methods for retrieving and maintaining old-style database
-    // translations. This should become obsolete some time.
+    // Methods for retrieving and maintaining old-style database translations.
+    // This should become obsolete some time.
 
     // TODO: cache_atttrib
 
@@ -77,16 +77,16 @@ class I18n
         ];
     }
 
-    public static function getIdColumnName($table)
+    public static function getTranslationIdColumnName($table)
     {
         if ($table == 'countries' || $table == 'languages') {
             return 'short';
         } elseif ($table == 'cache_type') {
-            return 'sort';  // !!
+            return 'sort';  // not 'id' !
         } elseif (in_array($table, self::getTranslationTables())) {
             return 'id';
         } else {
-            throw new Exception('unknown table in getTranslationColumnName(): '.$table);
+            throw new Exception('unknown table in getTranslationIdColumnName(): '.$table);
         }
     }
 

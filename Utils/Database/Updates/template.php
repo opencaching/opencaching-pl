@@ -1,6 +1,6 @@
 <?php
 
-// created on {{creation_date}} by {{developer_name}}
+// created on {creation_date} by {developer_name}
 
 namespace Utils\Database\Updates;
 
@@ -9,7 +9,7 @@ return new class extends UpdateScript
     public function getProperties()
     {
         return [
-            'uuid' => '{{update_uuid}}',  // do not change
+            'uuid' => '{update_uuid}',  // do not change
             'run' => 'auto',  // must be 'auto' for all regular updates
         ];
     }

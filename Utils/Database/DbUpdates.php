@@ -9,9 +9,6 @@ use Utils\Generators\Uuid;
  * in the Updates directory.
  */
 
-// TODO: error handling (issue #1792)
-// TODO: docs
-
 class DbUpdates
 {
     /**
@@ -27,7 +24,6 @@ class DbUpdates
      * @return string
      *    multiline English plain text, diagnostic notices, should be displayed
      *    to the operator / developer if the update was run manually.
-     *    '' if nothing was run.
      */
     public static function run()
     {
@@ -55,6 +51,7 @@ class DbUpdates
             if ($update->getName() < "900_") {
                 $lastRegularUpdate = $update->getName();
             }
+            // Numbers 900+ are reserved for always-run-last updates.
         }
         return sprintf("%03d", substr($lastRegularUpdate, 0, 3) + 1);
     }
@@ -71,9 +68,9 @@ class DbUpdates
 
         $updatesDir = self::getUpdatesDir();
         $template = file_get_contents($updatesDir . '/template.php');
-        $template = str_replace('{{creation_date}}', $creationDate, $template);
-        $template = str_replace('{{developer_name}}', $developerName, $template);
-        $template = str_replace('{{update_uuid}}', $uuid, $template);
+        $template = str_replace('{creation_date}', $creationDate, $template);
+        $template = str_replace('{developer_name}', $developerName, $template);
+        $template = str_replace('{update_uuid}', $uuid, $template);
 
         $name = self::getNextVersionNumberString() . '_new';
         $path = $updatesDir . '/' . $name . '.php';
@@ -83,8 +80,8 @@ class DbUpdates
         $update = new DbUpdate($name);
 
         if (self::$updates !== null) {
-            // Append new script with highest number to the end of $updates.
             self::$updates[$uuid] = $update;
+            self::sort();
         }
 
         return $update;
@@ -130,7 +127,10 @@ class DbUpdates
     public static function get($uuid)
     {
         $updates = self::getAll();
-        return @$updates[$uuid];
+        if (isset($updates[$uuid])) {
+            return $updates[$uuid];
+        }
+        return null;
     }
 
     /**

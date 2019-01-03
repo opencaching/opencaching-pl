@@ -51,7 +51,7 @@ class UpdateScript
                 '',
                 $after
             );
-            $idColumn = I18n::getIdColumnName($table);
+            $idColumn = I18n::getTranslationIdColumnName($table);
 
             $ids = $this->db->dbFetchOneColumnArray(
                 $this->db->simpleQuery(

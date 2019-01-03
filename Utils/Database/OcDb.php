@@ -601,11 +601,7 @@ class OcDb extends OcPdo
             $column
         ));
         if (!$row) {
-            $this->error(
-                __METHOD__.": column not found: '".$table.".".$column."'",
-                new PDOException(__METHOD__.": column not found: '".$table.".".$column."'"),
-                true  // fatal error
-            );
+            $this->error("Column not found: '".$table.".".$column."'");
         }
         $row = array_change_key_case($row, CASE_LOWER);
 
@@ -660,11 +656,7 @@ class OcDb extends OcPdo
     {
         // For consistency, we require also for this method that the $table exists:
         if (!$this->tableExists($table)) {
-            $this->error(
-                __METHOD__.": table not found: '".$table."'",
-                new PDOException(__METHOD__.": table not found: '".$table."'"),
-                true  // fatal error
-            );
+            $this->error("Table not found: '".$table."'");
         }
         self::validateEntityName($column);
 
@@ -921,11 +913,7 @@ class OcDb extends OcPdo
                 self::validateEntityName($entity);
             }
         } elseif (!preg_match('/^[A-Za-z_][A-Za-z_0-9]*$/', $name)) {
-            $this->error(
-                __METHOD__ . ": invalid entity name: '".$name."'",
-                new PDOException(__METHOD__ . ": invalid entity name: '".$name."'"),
-                true  // fatal error
-            );
+            $this->error("Invalid entity name: '".$name."'");
         }
     }
 
@@ -936,11 +924,7 @@ class OcDb extends OcPdo
     public function validateSqlKeywords($keywords)
     {
         if (!preg_match('/^[A-Za-z ]+$/', $keywords)) {
-            $this->error(
-                __METHOD__ . ": invalid SQL keyword(s): '".$keywords."'",
-                new PDOException(__METHOD__ . ": invalid SQL keyword(s): '".$keywords."'"),
-                true  // fatal error
-            );
+            $this->error("Invalid SQL keyword(s): '".$keywords."'");
         }
     }
 }
