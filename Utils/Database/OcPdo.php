@@ -56,13 +56,13 @@ class OcPdo extends PDO
         }
 
         $dsn = 'mysql:' . implode(';', $dsnpairs);
-        try{
+        try {
             parent::__construct(
                 $dsn, $conf->getDbUser(), $conf->getDbPass(), $options
             );
-        }catch (PDOException $e){
+        } catch (PDOException $e) {
             $message = "OcPdo object creation failed!";
-            $this->error($message, $e, true); //fatal error!
+            $this->error($message, $e);
             return null;
         }
     }
@@ -72,49 +72,15 @@ class OcPdo extends PDO
      *
      * @param string $message - description of the error
      * @param PDOException $e - exception object
-     * @param bool $fatal     - should this error shutdown the script?
-     * @param bool $sendEmail - should Email about error should be send?
      */
-    protected function error(/*PHP7:string*/ $message, PDOException $e=null,
-                             /*PHP7:bool*/ $fatal=false, /*PHP7:bool*/ $sendEmail=true){
-
-        $email_text  = "+++ PDO Error +++ ";
-        $email_text .= "\n+++ Debug: ".$message;
-        if( !is_null($e) ){
-            $email_text .= "\n+++ Ex_Code: ".$e->getCode();
-            $email_text .= "\n+++ Ex_Msg: ".$e->getMessage();
-        }else{
-            //there is no Exception - generate one to get the trace
-            $e = new PDOException();
-        }
-        $email_text .= "\n+++ Ex_Trace:\n".$e->getTraceAsString();
-
-        //get short version of the trace
-        $traceStr = '';
-        foreach($e->getTrace() as $trace){
-            if(isset($trace['file']) && isset($trace['line'])){
-                $traceStr.= ' | '.$trace['file'].'::'.$trace['line'];
-            }
-        }
-
-        //send email to RT
-        if($sendEmail)
-            EmailSender::adminOnErrorMessage($email_text, OcSpamDomain::DB_ERRORS);
-
-        if($this->debug){
-            d($email_text);
-        }
-
-        if($fatal){
-            // TODO: How to better handle error - print some nice error page
-            // this is fatal error - stop the script
-            trigger_error("OcPdo Error:\n $message. Trace: ".$traceStr, E_USER_ERROR);
-            error_log("Db message:".$e->getMessage());
-            exit;
-        }else{
-            // non-fatal error: only print warning
-            trigger_error("OcPdo Error: $message. Trace: ".$traceStr, E_USER_WARNING);
-            error_log("Db message:".$e->getMessage());
+    protected function error(/*PHP7:string*/ $message, PDOException $e = null)
+    {
+        if ($e === null) {
+            throw new PDOException($message);
+        } elseif ($message != '') {
+            throw new PDOException($message . "\n" . $e->getMessage());
+        } else {
+            throw $e;
         }
     }
 
