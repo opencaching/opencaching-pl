@@ -29,8 +29,8 @@ class ErrorHandler
     {
         if ($severity != E_STRICT && $severity != E_DEPRECATED) {
 
-            // Map error / warning / notice to exception, which will be handled
-            // by self::handleException().
+            // Map error / warning / notice to exception, which will either
+            // get caught or be handled by self::handleException().
 
             throw new \ErrorException($message, 0, $severity, $filename, $lineno);
         }
@@ -119,8 +119,17 @@ class ErrorHandler
                     : 'The OC site admins have been notified.';
                 $mainPageLinkTitle = 'Go to the main page'; 
             }
-            $showMainPageLink = basename(@$_SERVER["SCRIPT_FILENAME"]) != 'index.php';
+
+            if (isset($_SERVER["SCRIPT_FILENAME"])) {
+                $showMainPageLink = basename($_SERVER["SCRIPT_FILENAME"]) != 'index.php';
+            } else {
+                $showMainPageLink = false;
+            }
+
             $errorMsg = ($debug_page ? $msg : '');
+
+            // No calls to tpl_ or View:: here, to avoid generating an error
+            // within the error handler (code may be unstable).
 
             include __DIR__ . '/../../tpl/stdstyle/page_error.tpl.php';
         }

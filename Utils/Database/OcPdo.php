@@ -61,27 +61,25 @@ class OcPdo extends PDO
                 $dsn, $conf->getDbUser(), $conf->getDbPass(), $options
             );
         } catch (PDOException $e) {
-            $message = "OcPdo object creation failed!";
-            $this->error($message, $e);
-            return null;
+            $this->error("OcPdo object creation failed!", $e);
         }
     }
 
     /**
-     * Handle error/exception occurence around DB operations
+     * Process error/exception occurence around DB operations
      *
      * @param string $message - description of the error
-     * @param PDOException $e - exception object
+     * @param PDOException|null $e - exception object
      */
     protected function error(/*PHP7:string*/ $message, PDOException $e = null)
     {
         if ($e === null) {
             throw new PDOException($message);
-        } elseif ($message != '') {
-            throw new PDOException($message . "\n" . $e->getMessage());
-        } else {
-            throw $e;
         }
+        if ($message != '') {
+            throw new PDOException($message . "\n" . $e->getMessage());
+        }
+        throw $e;
     }
 
     /**
