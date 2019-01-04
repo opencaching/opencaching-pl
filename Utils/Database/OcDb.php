@@ -561,6 +561,9 @@ class OcDb extends OcPdo
     // We will avoid to use the information_schema if possible, because there
     // have been backward-incompatible information_schema changes in the past.
 
+    // We will validate all passed entity names, so that calling functions
+    // can rely that validation is done here.
+
     public function tableExists($table)
     {
         self::validateEntityName($this->dbName);
@@ -574,9 +577,6 @@ class OcDb extends OcPdo
 
     public function columnExists($table, $column)
     {
-        // We will validate all passed entity names, so that calling
-        // calling functions can rely that validation is done here.
-
         self::validateEntityName($table);
         self::validateEntityName($column);
 
@@ -659,6 +659,7 @@ class OcDb extends OcPdo
             $this->error("Table not found: '".$table."'");
         }
         self::validateEntityName($column);
+        self::validateEntityName($refTable);
 
         return $this->multiVariableQueryValue(
             "SELECT 1
@@ -854,7 +855,7 @@ class OcDb extends OcPdo
     public function createOrReplaceTrigger($trigger, $definition)
     {
         self::validateEntityName($trigger);
-        // $body is not validated
+        // $definition is not validated
 
         $this->dropTriggerIfExists($trigger);
         $this->simpleQuery(
@@ -876,8 +877,7 @@ class OcDb extends OcPdo
     public function createOrReplaceFunction($func, array $params, $returns, $body)
     {
         self::validateEntityName($func);
-        // not validated: $params
-        // not validated: $body
+        // $params and $body are not validated
 
         $this->dropFunctionIfExists($func);
         $this->simpleQuery(
@@ -889,16 +889,19 @@ class OcDb extends OcPdo
 
     public function dropTriggerIfExists($trigger)
     {
+        self::validateEntityName($trigger);
         $this->simpleQuery("DROP TRIGGER IF EXISTS `".$trigger."`");
     }
 
     public function dropProcedureIfExists($proc)
     {
+        self::validateEntityName($proc);
         $this->simpleQuery("DROP PROCEDURE IF EXISTS `".$proc."`");
     }
 
     public function dropFunctionIfExists($func)
     {
+        self::validateEntityName($func);
         $this->simpleQuery("DROP FUNCTION IF EXISTS `".$func."`");
     }
 

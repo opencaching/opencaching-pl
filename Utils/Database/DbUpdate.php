@@ -155,7 +155,9 @@ class DbUpdate
         if ($action == 'run') {
             DbUpdateHistory::addOrReplace($this->uuid, $this->name);
         } elseif ($action == 'rollback') {
-            DbUpdateHistory::remove($this->uuid);
+            if (DbUpdateHistory::contains($this->uuid)) {
+                DbUpdateHistory::remove($this->uuid);
+            }
         }
 
         $this->db->commit();

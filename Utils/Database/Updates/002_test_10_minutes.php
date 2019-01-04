@@ -20,8 +20,4 @@ return new class extends UpdateScript
         sleep(600);
         echo "Ok\n";
     }
-
-    public function rollback()
-    {
-    }
 };

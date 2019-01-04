@@ -23,7 +23,7 @@ class UpdateScript
     }
 
     # Do NOT declare rollback() here! The update system would no longer
-    # detect if an update script implements rollback.
+    # detect if an update script does not implement rollback.
 
     /**
      * Copy all translations for a language from <language>.php to DB tables;
@@ -43,6 +43,7 @@ class UpdateScript
                 false
             );
             $after = end($existingLangs);
+            unset($existingLangs);
 
             $this->db->addColumnIfNotExists(
                 $table,

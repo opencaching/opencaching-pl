@@ -48,12 +48,12 @@ class DbUpdates
     private static function getNextVersionNumberString()
     {
         foreach (self::getAll() as $uuid => $update) {
-            if ($update->getName() < "900_") {
+            if ($update->getName() < '900_') {
                 $lastRegularUpdate = $update->getName();
             }
             // Numbers 900+ are reserved for always-run-last updates.
         }
-        return sprintf("%03d", substr($lastRegularUpdate, 0, 3) + 1);
+        return sprintf('%03d', substr($lastRegularUpdate, 0, 3) + 1);
     }
 
     /**
@@ -166,7 +166,7 @@ class DbUpdates
                 // copy & paste protection
                 if (isset(self::$updates[$uuid])) {
                     throw new Exception(
-                        'Duplicated UUIDs in ' . self::$updates[$uuid]->getFileName() .
+                        'Duplicate UUID in ' . self::$updates[$uuid]->getFileName() .
                         ' and ' . $name.'.php'
                     );
                 }
@@ -185,7 +185,7 @@ class DbUpdates
             }
         }
 
-        // glob() did sort alphanumerically, but we want it case-insensitive:
+        // glob() did already sort alphanumerically, but we want it case-insensitive:
         self::sort();
     }
 
@@ -196,10 +196,7 @@ class DbUpdates
     {
         if (self::$updates !== null) {
             uasort(self::$updates, function($a, $b) {
-                return strcmp(
-                    strtolower($a->getFileName()),
-                    strtolower($b->getFileName())
-                );
+                return strcasecmp($a->getFileName(), $b->getFileName());
             });
         }
     }

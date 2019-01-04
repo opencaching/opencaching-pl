@@ -70,7 +70,7 @@ use Utils\Uri\SimpleRouter;
         <a class="btn btn-default btn-sm" href="<?= SimpleRouter::getLink('Admin.DbUpdate', 'run') ?>">{{admin_dbupdate_run}}</a>
     <?php }?>
     <?php if ($view->developerMode) { ?>
-        <a class="btn btn-default btn-sm" href="<?= SimpleRouter::getLink('Admin.DbUpdate', 'createnew') ?>">{{admin_dbupdate_create}}</a>
+        <a class="btn btn-default btn-sm" href="<?= SimpleRouter::getLink('Admin.DbUpdate', 'createNew') ?>">{{admin_dbupdate_create}}</a>
     <?php }?>
     <a class="btn btn-default btn-sm" href="https://github.com/opencaching/opencaching-pl/blob/master/docs/DbUpdate.md" target="_blank">{{Help}}</a>
     <br /><br />

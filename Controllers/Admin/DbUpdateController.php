@@ -141,7 +141,7 @@ class DbUpdateController extends BaseController
 
         $this->showAdminView($messages);
 
-        # The update will be run again, if the user reloads the page.
+        # The update will be run again if the user reloads the page.
         # Alternatively, we could reload the page now without running update
         # and pass the message. But then if the user reloads again, the
         # message will confusingly be shown again. Probably it's the best
@@ -154,7 +154,7 @@ class DbUpdateController extends BaseController
         $messages = $this->getUpdateFromUuid($uuid)->rollback();
         $this->showAdminView($messages);
 
-        // See comment in run() method.
+        # See comment in run() method.
     }
 
     public function askRename($uuid)

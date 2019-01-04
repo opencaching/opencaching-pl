@@ -78,11 +78,11 @@ Links for each  update:
 - **rollback** - Reverts an update back that was run.
     This is only available if the update has a `rollback()` method.
 - **try rollback** - Runs the rollback method of an update that did not run yet or was
-    rolled back. This is only available if the update has a `rollback()` method.
+    rolled back.
 - **rename** - Renames an update. It is safe to change the update's number, as long as
     it is safe to run the updates in the resulting order (see "Merging DB updates" below).
 - **delete** - Deletes an update. This is not available for updates that have been
-    merged to Git master, or if the update was run and has a `rollback()` method.
+    merged to Git master, or have been run and have a `rollback()` method.
     In the latter case, do a *rollback* first.
 
 Generally, you should do ALL this update maintenance on the *Admin.DbUpdate* page,

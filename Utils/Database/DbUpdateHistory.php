@@ -4,6 +4,7 @@ namespace Utils\Database;
 use Exception;
 use lib\Objects\OcConfig\OcConfig;
 use Utils\Database\OcDb;
+use Utils\Generators\Uuid;
 
 /**
  * Static container of the list of all DB updates which have been deployed
@@ -41,6 +42,11 @@ class DbUpdateHistory
     {
         self::init();
         self::$history[$uuid] = ['name' => $name, 'wasRunAt' => date('Y-m-d H:m:s')];
+
+        // Write to database first, as we should be inside a transaction.
+        // If the DB operation fails, the script is aborted and everything
+        // is cleanly rolled back - file is not created.
+
         self::writeToDb($uuid);
         self::writeToFile($uuid);
     }
@@ -49,11 +55,18 @@ class DbUpdateHistory
     {
         self::init();
         self::verifyUuid($uuid);
+
+        // Remove file first, as we should be inside a transaction. If the file
+        // operation fails, the script is aborted and everything is cleanly
+        // rolled back - database entry is not deleted. If the file is deleted
+        // and the DB operation fails, the file will be restored by
+        // DbUpdates::makeUpdatesDict().
+
+        unlink(self::$path . $uuid);
         OcDb::instance()->multiVariableQuery(
             "DELETE FROM db_update_history WHERE uuid = :1",
             $uuid
         );
-        unlink(self::$path . $uuid);
         unset(self::$history[$uuid]);
     }
 
@@ -88,7 +101,16 @@ class DbUpdateHistory
         self::init();
         self::verifyUuid($uuid);
         if ($newName != self::$history[$uuid]['name']) {
+
             self::$history[$uuid]['name'] = $newName;
+
+            # If at least one of the following operations fails, we get a teporary
+            # inconsistency of the name information, as this is called after
+            # the file was renamed. But the failure will abort the script, and
+            # upon next access to DB updates, DbUpdates::makeUpdatesDict() will
+            # fix the inconsistency. The names stored here are not critical anyway,
+            # see intro.
+
             self::writeToDb($uuid);
             self::writeToFile($uuid);
         }
@@ -128,7 +150,7 @@ class DbUpdateHistory
         if (!$initialized) {
             $db = OcDb::instance();
 
-            // create history storage, if not exists
+            // create history storages, if not exist
 
             $db->createTableIfNotExists(
                 'db_update_history', [
@@ -153,7 +175,10 @@ class DbUpdateHistory
                     "SELECT uuid, name, wasRunAt FROM db_update_history"
                 )
             );
-            $fileHistory = glob(self::$path . '????????-????-????-????-????????????');
+            $fileHistory = glob(self::$path . Uuid::getMask());
+
+            // Restore consistency between the redundant history storages in the
+            // (unlikely) case that one of both got corrupted; see intro.
 
             // add missing entries to DB history
             foreach ($fileHistory as $filePath) {

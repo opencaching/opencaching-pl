@@ -86,7 +86,7 @@ class I18n
         } elseif (in_array($table, self::getTranslationTables())) {
             return 'id';
         } else {
-            throw new Exception('unknown table in getTranslationIdColumnName(): '.$table);
+            throw new Exception("unknown table: '".$table."'");
         }
     }
 
@@ -106,7 +106,7 @@ class I18n
             ];
         }
         if (!isset($prefixes[$table])) {
-            throw new Exception('unknown table in getTranslationId(): '.$table);
+            throw new Exception("unknown table: '".$table."'");
         }
 
         if ($table == 'cache_size') {

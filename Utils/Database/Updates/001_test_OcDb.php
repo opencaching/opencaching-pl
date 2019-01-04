@@ -294,7 +294,7 @@ return new class extends UpdateScript
 
         $this->db->dropTableIfExists(self::TABLE);
         $this->assertTrue(
-            'dropTableIfExists',
+            'dropTableIfExists', 0,
             !$this->db->tableExists(self::TABLE)
         );
         $this->db->dropTableIfExists(self::TABLE);

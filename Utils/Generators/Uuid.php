@@ -43,4 +43,12 @@ class Uuid
     {
         return preg_match('/^[A-Z0-9]{8}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{12}$/', $str);
     }
+
+    /**
+     * @return string - mask for UUIDs, with ? representing a hex digit
+     */
+    public static function getMask()
+    {
+        return '????????-????-????-????-????????????';
+    }
 }

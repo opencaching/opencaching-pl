@@ -30,7 +30,6 @@ class ErrorHandler
         if ($severity != E_STRICT && $severity != E_DEPRECATED &&
             error_reporting() > 0  // is 0 if suppressed by @ operator
         ) {
-
             // Map error / warning / notice to exception, which will either
             // get caught or be handled by self::handleException().
 
