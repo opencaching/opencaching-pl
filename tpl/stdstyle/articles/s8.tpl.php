@@ -14,7 +14,7 @@ global $lang;
 # This page took >60 seconds to render! Added daily caching.
 
 $cache_key = "articles_s8-" . $lang;
-$result = apc_fetch($cache_key);
+$result = apcu_fetch($cache_key);
 
 if ($result === false) {
     ob_start();
@@ -73,7 +73,7 @@ if ($result === false) {
     XDb::xFreeResults($rsfCR);
 
     $result = ob_get_clean();
-    apc_store($cache_key, $result, 86400);
+    apcu_store($cache_key, $result, 86400);
 }
 print $result;
         ?>

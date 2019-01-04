@@ -87,7 +87,7 @@ class UserInputFilter
 
         // we observed some rare apcu bugs(?) where there is null returned here
         if ( is_null($result) ) {
-//            error_log (__METHOD__.': APCU BUG?! apc_fetch returns null');
+//            error_log (__METHOD__.': APCU BUG?! apcu_fetch returns null');
             $result = false;
         }
 

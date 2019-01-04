@@ -69,7 +69,7 @@ class requestSigner
         }
         if (isset($_GET['signature'])) {
             $signature = $_GET['signature'];
-            $user = apc_fetch($signature);
+            $user = apcu_fetch($signature);
             if ($user) {
                 $usr = $user;
             }

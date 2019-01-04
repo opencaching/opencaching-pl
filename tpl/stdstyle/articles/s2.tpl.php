@@ -81,7 +81,7 @@ $cachelogscount = XDb::xSimpleQueryValue(
     }
 
     $cache_key = 'articles_s2'.md5($a);
-    $lines = apc_fetch($cache_key);
+    $lines = apcu_fetch($cache_key);
 
     if ($lines === false) {
         $r = XDb::xSql( $a );
@@ -92,7 +92,7 @@ $cachelogscount = XDb::xSimpleQueryValue(
         }
 
         unset($r);
-        apc_store($cache_key, $lines, 3600);
+        apcu_store($cache_key, $lines, 3600);
     }
 
     echo "<br />";
