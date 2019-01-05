@@ -1,5 +1,7 @@
 <?php
 
+use Utils\Cache\OcMemCache;
+
 global $usr;
 
 /**
@@ -44,7 +46,11 @@ class requestSigner
                 $signature = sprintf('%04X%04X-%04X-%04X-%04X-%04X%04X%04X', mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(16384, 20479), mt_rand(32768, 49151), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535));
                 $_SESSION['signature'] = $signature;
             }
-            apcu_store($signature, $usr, 3600);  # cache it for 1 hour
+            OcMemCache::store(
+                $signature,
+                3600,  # cache it for 1 hour
+                $usr
+            );
             return '&signature=' . $signature;
         } else {
             return '';
@@ -69,14 +75,12 @@ class requestSigner
         }
         if (isset($_GET['signature'])) {
             $signature = $_GET['signature'];
-            $user = apcu_fetch($signature);
+            $user = OcMemCache::get($signature);
             if ($user) {
-                $usr = $user;
+                return $user;
             }
         }
-        return $usr;
+        return false;
     }
 
 }
-
-

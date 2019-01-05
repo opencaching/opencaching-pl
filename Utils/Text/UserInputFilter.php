@@ -13,15 +13,13 @@ use HTMLPurifier_HTMLModule_SafeEmbed;
 use HTMLPurifier_HTMLModule_SafeObject;
 use HTMLPurifier_Injector_SafeObject;
 use lib\Objects\OcConfig\OcConfig;
+use Utils\Cache\OcMemCache;
 
 /**
  * class designed to contain user input filters.
  */
 class UserInputFilter
 {
-
-    private static $config;
-
     private static function createConfig()
     {
         global $debug_page;
@@ -78,31 +76,25 @@ class UserInputFilter
     public static function getConfig()
     {
         global $debug_page;
-        if (self::$config !== null) {
-            return self::$config;
-        }
-        $useCache = !(isset($debug_page) ? $debug_page : false);
-        $cache_key = 'HTMLPurifierConfig';
-        $result = $useCache ? apcu_fetch($cache_key) : false;
+        static $config = null;
 
-        // we observed some rare apcu bugs(?) where there is null returned here
-        if ( is_null($result) ) {
-//            error_log (__METHOD__.': APCU BUG?! apcu_fetch returns null');
-            $result = false;
+        if ($config === null) {
+            $config = OcMemCache::getOrCreate(
+                'HTMLPurifierConfig',
+                isset($debug_page) && $debug_page ? 1 : 60,
+                function ()
+                {
+                    $cfg = self::createConfig();
+                    // finalize and lock the config
+                    $cfg->getHTMLDefinition();
+                    $cfg->getCSSDefinition();
+                    $cfg->getURIDefinition();
+                    return $cfg;
+                }
+            );
         }
 
-        if ($result === false) {
-            $result = self::createConfig();
-            // finalize and lock the config
-            $result->getHTMLDefinition();
-            $result->getCSSDefinition();
-            $result->getURIDefinition();
-
-            if ($useCache) {
-                apcu_store($cache_key, $result, 60);  # cache it for 60 seconds
-            }
-        }
-        return self::$config = $result;
+        return $config;
     }
 
     /**

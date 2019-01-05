@@ -9,14 +9,16 @@
         <td>
         <?php
 use Utils\Database\XDb;
+use Utils\Cache\OcMemCache;
 global $lang;
 
 # This page took >60 seconds to render! Added daily caching.
 
-$cache_key = "articles_s8-" . $lang;
-$result = apcu_fetch($cache_key);
-
-if ($result === false) {
+$result = OcMemCache::getOrCreate(
+    "articles_s8-" . $lang,
+    86400,
+function ()
+{
     ob_start();
 
     $fCt["count"] = XDb::xSimpleQueryValue(
@@ -72,10 +74,11 @@ if ($result === false) {
 
     XDb::xFreeResults($rsfCR);
 
-    $result = ob_get_clean();
-    apcu_store($cache_key, $result, 86400);
-}
+    return ob_get_clean();
+});
+
 print $result;
+
         ?>
         </td></tr>
 </table>

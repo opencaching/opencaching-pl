@@ -10,6 +10,7 @@
         <td>
 <?php
 use Utils\Database\XDb;
+use Utils\Cache\OcMemCache;
 global $lang;
 
 $userscount = XDb::xSimpleQueryValue(
@@ -81,7 +82,7 @@ $cachelogscount = XDb::xSimpleQueryValue(
     }
 
     $cache_key = 'articles_s2'.md5($a);
-    $lines = apcu_fetch($cache_key);
+    $lines = OcMemCache::get($cache_key);
 
     if ($lines === false) {
         $r = XDb::xSql( $a );
@@ -92,7 +93,7 @@ $cachelogscount = XDb::xSimpleQueryValue(
         }
 
         unset($r);
-        apcu_store($cache_key, $lines, 3600);
+        OcMemCache::store($cache_key, 3600, $lines);
     }
 
     echo "<br />";
