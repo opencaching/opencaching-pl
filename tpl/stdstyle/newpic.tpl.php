@@ -18,17 +18,19 @@
     }
 </script>
 
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/picture.png" class="icon32" alt="" />&nbsp;<b>{pictypedesc} &nbsp;<a href="/viewcache.php?cacheid={cacheid}">{cachename}</a></b></div>
+
 <form action="newpic.php" method="post" enctype="multipart/form-data" name="newpic_form" dir="ltr" onsubmit="return checkForm();">
     <input type="hidden" name="objectid" value="{objectid}" />
     <input type="hidden" name="type" value="{type}" />
     <input type="hidden" name="def_seq" value="{def_seq}" />
-    <table class="content">
+    <table class="table">
         <colgroup>
             <col width="100">
             <col>
         </colgroup>
-        <tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/picture.png" class="icon32" alt="" title="Neuw Cache" align="middle" /> <b>{pictypedesc} &nbsp;<a href="/viewcache.php?cacheid={cacheid}">{cachename}</a></b></td></tr>
-        <tr><td class="spacer" colspan="2"><br /><font color="red"><b>{{cache_picture_intro}}</b></font></td></tr>
+        <tr><td colspan="2"><font color="red"><b>{{cache_picture_intro}}</b></font></td></tr>
+        <tr><td colspan="2" class="spacer"></td></tr>
 
         <tr  class="form-group-sm">
             <td valign="top">{{title_picture}}:</td>

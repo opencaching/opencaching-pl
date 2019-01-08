@@ -23,6 +23,7 @@ use Utils\Uri\SimpleRouter;
         </div>
 
         <div id="downloadMenu">
+          <p>
             <?=tr('download')?>:
             <a href="search.php?searchto=searchbywatched&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;count=max&amp;output=gpxgc" title="GPS Exchange Format .gpx">GPX</a>
             <a href="search.php?searchto=searchbywatched&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;count=max&amp;output=loc" title="Waypoint .loc">LOC</a>
@@ -33,8 +34,10 @@ use Utils\Uri\SimpleRouter;
             <a href="search.php?searchto=searchbywatched&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;count=max&amp;output=wpt" title="Oziexplorer .wpt">WPT</a>
             <a href="search.php?searchto=searchbywatched&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;count=max&amp;output=uam" title="AutoMapa .uam">UAM</a>
             <a href="search.php?searchto=searchbywatched&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;count=max&amp;output=zip" title="Garmin ZIP file (GPX + zdjęcia)  .zip">GARMIN</a>
-            <br />
+          </p>
+          <p>
             <span class="help"><?=tr('accept_terms_of_use')?></span>
+          </p>
         </div>
     <?php } else { //$view->cachesCount == 0 ?>
         <div>

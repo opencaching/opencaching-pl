@@ -11,7 +11,8 @@
         </div>
     <?php } else { //$view->cachesCount == 0 ?>
         <div>
-            <?=tr('myRecommendations_emptyList')?>
+            <br />
+            <p><?=tr('myRecommendations_emptyList')?></p>
         </div>
     <?php } //$view->cachesCount == 0 ?>
 

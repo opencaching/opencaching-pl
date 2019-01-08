@@ -434,7 +434,6 @@
         </tr>
         <tr><td colspan="2"><div class="notice buffer" style="width:500px;">{{event_hidden_hint}}</div></td></tr>
         {activation_form}
-        <tr><td class="spacer" colspan="2"></td></tr>
         {logpw_start}
         <tr class="form-group-sm">
             <td colspan="2"><br />
