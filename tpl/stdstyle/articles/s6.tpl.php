@@ -11,7 +11,7 @@
         <?php
 use Utils\Database\XDb;
 
-echo '<table width="97%"><tr><td align="center"><center><b>' . tr('Stats_t5_01') . '</b><br /><br />' . tr('Stats_t5_02') . ': (z% - <b><font color="green">X</font>/<font color="blue">Y</font></b>) X- ' . tr('Stats_t5_03') . ', Y - ' . tr('Stats_t5_04') . ', <br /> z - ' . tr('Stats_t5_05') . ' % ' . tr('Stats_t5_06') . ' (X/Y)*100<br /><br /></center></td></tr> </table>';
+echo '<table width="97%"><tr><td align="center"><center><b>' . tr('Stats_t5_01') . '</b><br /><br />' . tr('Stats_t5_02') . ' (<b><font color="firebrick">z% -</font> <font color="green">X</font>/<font color="blue">Y</font></b>):<br />X = ' . tr('Stats_t5_03') . ', Y = ' . tr('Stats_t5_04') . ', <br /> z = ' . tr('Stats_t5_05') . ' % ' . tr('Stats_t5_06') . ' (X/Y)*100<br /><br /></center></td></tr> </table>';
 echo '<table border="1" bgcolor="white" width="97%" style="font-size:11px; line-height:1.6em;">' . "\n";
 
 $linie = XDb::xSql(
@@ -23,7 +23,7 @@ $linie = XDb::xSql(
     GROUP BY `user`.`user_id`
     ORDER BY `count` DESC, `user`.`username` ASC");
 
-echo '<tr><td class="bgcolor2" align="right"><b>' . tr('Stats_t5_07') . '</b>&nbsp;&nbsp;</td><td class="bgcolor2" align="center"><img src="images/rating-star.png" border="0" alt="Recommendations" />&nbsp;<b>' . tr('Stats_t5_08') . '</b>&nbsp;&nbsp;</td><td class="bgcolor2" align="center"><b>' . tr('Stats_t5_09') . '</b>&nbsp;&nbsp;</td></tr><tr><td>';
+echo '<tr><td class="bgcolor2" align="right"><b>' . tr('Stats_t5_07') . '</b>&nbsp;&nbsp;</td><td class="bgcolor2" align="center" style="white-space: nowrap"><img src="images/rating-star.png" border="0" alt="Recommendations" />&nbsp;<b>' . tr('Stats_t5_08') . '</b>&nbsp;&nbsp;</td><td class="bgcolor2" align="center"><b>' . tr('Stats_t5_09') . '</b>&nbsp;&nbsp;</td></tr><tr><td>';
 $l2 = "";
 $licznik = 0;
 while ($linia = XDb::xFetchArray($linie)) {

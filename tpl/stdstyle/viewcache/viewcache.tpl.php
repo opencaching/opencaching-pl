@@ -276,7 +276,7 @@ use Controllers\MainMapController;
             <?php if ($view->displayDistanceToCache) { ?>
               <div>
                   <img src="tpl/stdstyle/images/free_icons/car.png" class="icon16" alt="distance">
-                  <?=tr('distance_to_cache')?>:<b><?=$view->distanceToCache?>&nbsp;km</b>
+                  <?=tr('distance_to_cache')?>: <b><?=$view->distanceToCache?>&nbsp;km</b>
 
               </div>
             <?php } // if-display-distance-to-cache ?>

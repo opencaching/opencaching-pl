@@ -12,6 +12,7 @@
 use Utils\Database\XDb;
 
 echo '<table width="97%"><tr><td align="center"><center><b>' . tr('Stats_t3_01') . '</b></center></td></tr> </table>';
+echo '<br />';
 echo '<table border="1" bgcolor="white" width="97%" style="font-size:11px; line-height:1.6em;">' . "\n";
 
 $linie = XDb::xSql(

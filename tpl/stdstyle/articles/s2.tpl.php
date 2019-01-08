@@ -25,7 +25,7 @@ $cachelogscount = XDb::xSimpleQueryValue(
     echo '</center></td></tr>';
     echo '<tr><td class="bgcolor2"><b>' . tr('filter_out_caches') . '</b><br /><form action="articles.php" method="GET">';
 
-    $res_q = XDb::xSql('SELECT id, pl FROM cache_type WHERE id != 6');
+    $res_q = XDb::xSql('SELECT id FROM cache_type WHERE id != 6');
 
     $no_types = 0;
     $typ = "";
@@ -41,7 +41,7 @@ $cachelogscount = XDb::xSimpleQueryValue(
         } else
             $checked = '';
 
-            echo '<input type="checkbox" value="1" name="' . intval($res['id']) . '" id="' . intval($res['id']) . '" ' . $checked . ' /><label for="' . intval($res['id']) . '">' . strip_tags($res['pl']) . '</label>';
+            echo '<input type="checkbox" value="1" name="' . intval($res['id']) . '" id="' . intval($res['id']) . '" ' . $checked . ' /> <label for="' . intval($res['id']) . '">' . tr('cacheType_' . $res['id']) . '</label> &nbsp;';
             if ($no_types % 5 != 0)
                 echo ' | ';
                 if ($no_types == 5)

@@ -441,7 +441,7 @@ function displayPTrails($pTrails, $areOwnSeries)
                 '<td style="text-align: right; padding-right: 5px;"><b><a href="powerTrail.php?ptAction=showSerie&ptrail=' . $pTrail["id"] . '">' . $pTrail["name"] . '</a></b></td>' .
                 '<td><img src="' . $ptTypes[$pTrail["type"]]['icon'] . '" alt=""> ' . tr($ptTypes[$pTrail["type"]]['translate']) . '</td>' .
                 '<td class="ptTd">' . $ownOrAll . '</td>' .
-                '<td class="ptTd">' . substr($pTrail["dateCreated"], 0, -9) . '</td>' .
+                '<td class="ptTd">' . date(OcConfig::instance()->getDateFormat(), strtotime($pTrail["dateCreated"])) . '</td>' .
                 '<td class="ptTd">' . $pTrail["cacheCount"] . '</td>' .
                 '<td class="ptTd">' . $pTrail["conquestedCount"] . '</td>
         </tr>';

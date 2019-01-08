@@ -1261,7 +1261,7 @@
             <div class="searchdiv">
                 <table style="border-spacing: 2px; border-collapse: separate; margin-left: 10px; line-height: 1.4em; font-size: 13px; width: 95%;">
                     <tr>
-                        <td style="padding: 1px;">waypoint</td>
+                        <td style="padding: 1px;">{{waypoint}}</td>
                         <td style="padding: 1px;">{{cache_name}}</td>
                         <td style="padding: 1px;">{{pt002}}</td>
                         <td>&nbsp;</td>

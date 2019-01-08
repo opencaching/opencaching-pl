@@ -1531,7 +1531,7 @@ function outputSearchForm($options)
     {
         $record = XDb::xFetchArray($rs);
 
-        $cachesize_options .= '<input type="checkbox" name="cachesize_' . htmlspecialchars($record['id'], ENT_COMPAT, 'UTF-8') . '" value="1" id="l_cachesize_' . htmlspecialchars($record['id'], ENT_COMPAT, 'UTF-8') . '" class="checkbox" onclick="javascript:sync_options(this)" '.($options['cachesize_'.$record['id']] == 1 ? 'checked="checked"' : '').'/><label for="l_cachesize_' . htmlspecialchars($record['id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($record[$lang_db], ENT_COMPAT, 'UTF-8') . '</label>';
+        $cachesize_options .= '<span style="white-space:nowrap"><input type="checkbox" name="cachesize_' . htmlspecialchars($record['id'], ENT_COMPAT, 'UTF-8') . '" value="1" id="l_cachesize_' . htmlspecialchars($record['id'], ENT_COMPAT, 'UTF-8') . '" class="checkbox" onclick="javascript:sync_options(this)" '.($options['cachesize_'.$record['id']] == 1 ? 'checked="checked"' : '').'/> <label for="l_cachesize_' . htmlspecialchars($record['id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($record[$lang_db], ENT_COMPAT, 'UTF-8') . '</label></span> &nbsp;';
 
         $cachesize_options .= "\n";
     }

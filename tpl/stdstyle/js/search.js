@@ -63,6 +63,6 @@ function CacheExport( type )
     }
     else
     {
-        alert( 'Nie zaznaczono żadnej pozycji' );
+        alert(textNoCachesSelected);
     }
 }

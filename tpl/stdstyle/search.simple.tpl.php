@@ -376,11 +376,11 @@
       <tr>
         <td class="content-title-noshade" style="width: 200px;">{{omit_caches}}:</td>
         <td class="content-title-noshade">
-          <input type="checkbox" name="f_inactive" value="1" id="l_inactive" class="checkbox" onclick="javascript:sync_options(this)" {f_inactive_checked} /> <label for="l_inactive">{{not_active}}</label>
-          <input type="checkbox" name="f_ignored" value="1" id="l_ignored" class="checkbox" onclick="javascript:sync_options(this)" {f_ignored_disabled} /> <label for="l_ignored">{{ignored}}</label>
-          <input type="checkbox" name="f_userfound" value="1" id="l_userfound" class="checkbox" onclick="javascript:sync_options(this)" {f_userfound_disabled} /> <label for="l_userfound">{{founds}}</label>&nbsp;&nbsp;
-          <input type="checkbox" name="f_userowner" value="1" id="l_userowner" class="checkbox" onclick="javascript:sync_options(this)" {f_userowner_disabled} /> <label for="l_userowner">{{of_owner}}</label>&nbsp;&nbsp;
-          <input type="checkbox" name="f_watched" value="1" id="l_watched" class="checkbox" onclick="javascript:sync_options(this)" {f_watched_disabled} /> <label for="l_watched">{{observed}}</label>
+          <input type="checkbox" name="f_inactive" value="1" id="l_inactive" class="checkbox" onclick="javascript:sync_options(this)" {f_inactive_checked} /> <label for="l_inactive">{{not_active}}</label> &nbsp;
+          <input type="checkbox" name="f_ignored" value="1" id="l_ignored" class="checkbox" onclick="javascript:sync_options(this)" {f_ignored_disabled} /> <label for="l_ignored">{{ignored}}</label> &nbsp;
+          <input type="checkbox" name="f_userfound" value="1" id="l_userfound" class="checkbox" onclick="javascript:sync_options(this)" {f_userfound_disabled} /> <label for="l_userfound">{{founds}}</label> &nbsp;
+          <input type="checkbox" name="f_userowner" value="1" id="l_userowner" class="checkbox" onclick="javascript:sync_options(this)" {f_userowner_disabled} /> <label for="l_userowner">{{of_owner}}</label> &nbsp;
+          <span style="white-space:nowrap"><input type="checkbox" name="f_watched" value="1" id="l_watched" class="checkbox" onclick="javascript:sync_options(this)" {f_watched_disabled} /> <label for="l_watched">{{observed}}</label></span>
           <!--<input type="checkbox" name="f_geokret" value="1" id="l_geokret" class="checkbox" onclick="javascript:sync_options(this)" {f_geokret_checked} /> <label for="l_geokret">{{geokret}}</label>-->
         </td>
       </tr>
@@ -488,7 +488,7 @@
             <option value="2.199">{{rating_good}}</option>
             <option value="3.000" selected="selected">{{rating_excellent}}</option>
           </select><br/>
-          <input type="checkbox" name="cachenovote" value="1" id="l_cachenovote" class="checkbox" onclick="javascript:sync_options(this)" checked="checked"/><label for="l_cachenovote">{{with_hidden_score}}</label>
+          <input type="checkbox" name="cachenovote" value="1" id="l_cachenovote" class="checkbox" onclick="javascript:sync_options(this)" checked="checked"/> <label for="l_cachenovote">{{with_hidden_score}}</label>
         </td>
       </tr>
       <tr>
@@ -545,9 +545,12 @@
           {{pt225}}:<br>
           <span style="font-size: 7px;">({{pt226}})</span>
         </td>
-        <td class="content-title-noshade">
-          <input id="gpxLogLimit" name="gpxLogLimit" style="border: none;" type="range" autocomplete="on" onchange="$('#gpxLogLimitCurrent').html(this.value);
-            javascript:sync_options(this);" oninput="$('#gpxLogLimitCurrent').html(this.value); javascript:sync_options(this);" min="5" value="{gpxLogLimitUserChoice}" max="100" step="5" /> <span id="gpxLogLimitCurrent" style="font-size: 10px; font-weight: bold">{gpxLogLimitUserChoice}</span>
+        <td class="content-title-noshade" style="vertical-align:top">
+          <table><tr>
+            <td style="padding:0"><input id="gpxLogLimit" name="gpxLogLimit" style="border: none;" type="range" autocomplete="on" onchange="$('#gpxLogLimitCurrent').html(this.value);
+            javascript:sync_options(this);" oninput="$('#gpxLogLimitCurrent').html(this.value); javascript:sync_options(this);" min="5" value="{gpxLogLimitUserChoice}" max="100" step="5" /></td>
+            <td style="vertical-align:top"><span id="gpxLogLimitCurrent" style="font-weight: bold">{gpxLogLimitUserChoice}</span></td>
+            </tr></table>
         </td>
       </tr>
     </table>
@@ -594,7 +597,7 @@
     <table class="table full-width">
       <tr>
         <td style="width: 200px;"><button type="submit" value="{{search}}" class="btn btn-primary" onclick="firstBtnClick();">{{search}}</button></td>
-        <td class="content-title-noshade"><input type="checkbox" name="showonmap" id="showonmap1"><label for="showonmap1">{{show_on_map}}</label></td>
+        <td class="content-title-noshade"><input type="checkbox" name="showonmap" id="showonmap1"> <label for="showonmap1">{{show_on_map}}</label></td>
       </tr>
     </table>
   </div>
@@ -611,7 +614,7 @@
         <td style="width: 220px;"><input type="text" name="cachename" id="cachename" value="{cachename}" class="form-control input200"></td>
         <td class="content-title-noshade">
           <input type="submit" value="{{search}}" class="btn btn-primary btn-sm">&nbsp;&nbsp;
-          <input type="checkbox" name="showonmap" id="showonmap1a"><label for="showonmap1a">{{show_on_map}}</label>
+          <input type="checkbox" name="showonmap" id="showonmap1a"> <label for="showonmap1a">{{show_on_map}}</label>
         </td>
       </tr>
     </table>
@@ -762,7 +765,7 @@
         </td>
         <td class="content-title-noshade">
           <input type="submit" value="{{search}}" class="btn btn-primary btn-sm">&nbsp;&nbsp;
-          <input type="checkbox" name="showonmap" id="showonmap3"><label for="showonmap3">{{show_on_map}}</label>
+          <input type="checkbox" name="showonmap" id="showonmap3"> <label for="showonmap3">{{show_on_map}}</label>
         </td>
       </tr>
     </table>
@@ -819,15 +822,15 @@
         <td class="content-title-noshade" style="width: 220px;"><input type="text" name="fulltext" value="{fulltext}" class="form-control input200"></td>
         <td class="content-title-noshade">
           <input type="submit" value="{{search}}" class="btn btn-primary btn-sm">&nbsp;&nbsp;
-          <input type="checkbox" name="showonmap" id="showonmap4"><label for="showonmap4">{{show_on_map}}</label>
+          <input type="checkbox" name="showonmap" id="showonmap4"> <label for="showonmap4">{{show_on_map}}</label>
         </td>
       </tr>
       <tr>
         <td></td>
         <td class="content-title-noshade" colspan="2">
-          <input type="checkbox" name="ft_name" id="ft_name" class="checkbox" value="1" {ft_name_checked}> <label for="ft_name">{{cache_name}}</label>
-          <input type="checkbox" name="ft_desc" id="ft_desc" class="checkbox" value="1" {ft_desc_checked}> <label for="ft_desc">{{descriptions}}</label>
-          <input type="checkbox" name="ft_logs" id="ft_logs" class="checkbox" value="1" {ft_logs_checked}> <label for="ft_logs">{{logs_label}}</label>
+          <input type="checkbox" name="ft_name" id="ft_name" class="checkbox" value="1" {ft_name_checked}> <label for="ft_name">{{cache_name}}</label> &nbsp;
+          <input type="checkbox" name="ft_desc" id="ft_desc" class="checkbox" value="1" {ft_desc_checked}> <label for="ft_desc">{{descriptions}}</label> &nbsp;
+          <input type="checkbox" name="ft_logs" id="ft_logs" class="checkbox" value="1" {ft_logs_checked}> <label for="ft_logs">{{logs_label}}</label> &nbsp;
           <input type="checkbox" name="ft_pictures" id="ft_pictures" class="checkbox" value="1" {ft_pictures_checked}> <label for="ft_pictures">{{pictures}}</label>
         </td>
       </tr>
@@ -884,7 +887,7 @@
         <td class="content-title-noshade" style="width: 220px;"><input type="text" name="owner" value="{owner}" maxlength="40" class="form-control input200"></td>
         <td class="content-title-noshade">
           <input type="submit" value="{{search}}" class="btn btn-primary btn-sm">&nbsp;&nbsp;
-          <input type="checkbox" name="showonmap" id="showonmap5"><label for="showonmap5">{{show_on_map}}</label>
+          <input type="checkbox" name="showonmap" id="showonmap5"> <label for="showonmap5">{{show_on_map}}</label>
         </td>
       </tr>
     </table>
@@ -940,7 +943,7 @@
         <td class="content-title-noshade" style="width: 220px;"><input type="text" name="finder" value="{finder}" maxlength="40" class="form-control input200"></td>
         <td class="content-title-noshade">
           <input type="submit" value="{{search}}" class="btn btn-primary btn-sm">&nbsp;&nbsp;
-          <input type="checkbox" name="showonmap" id="showonmap6" /><label for="showonmap6">{{show_on_map}}</label>
+          <input type="checkbox" name="showonmap" id="showonmap6" /> <label for="showonmap6">{{show_on_map}}</label>
         </td>
       </tr>
     </table>

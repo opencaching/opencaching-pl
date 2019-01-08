@@ -46,7 +46,7 @@ $activation_form = '
                 <input class="input20" type="text" name="activate_day" onChange="yes_change();" maxlength="2" value="{activate_day}"/>&nbsp;
                                 <select name="activate_hour" class="input40" onChange="yes_change();" >
                     {activation_hours}
-                </select>&nbsp;' . tr('hour') . '&nbsp;{activate_on_message}<br />
+                </select>&nbsp;–&nbsp;{activate_on_message}<br />
                 <input type="radio" onChange="yes_change();" class="radio" name="publish" id="publish_notnow" value="notnow" {publish_notnow_checked}>&nbsp;<label for="publish_notnow">' . tr('dont_publish_yet') . '</label>
                 </fieldset>
                 </td>

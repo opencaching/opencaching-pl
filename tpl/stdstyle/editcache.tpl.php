@@ -364,12 +364,12 @@
         </tr>
         <tr><td class="buffer" colspan="2"></td></tr>
         <tr>
-            <td colspan="2"><div class="notice" style="width:500px;min-height:24px;height:auto;white-space: nowrap;">{{attributes_edit_hint}} {{attributes_desc_hint}}</div>
+            <td colspan="2"><div class="notice" style="width:500px;min-height:24px;height:auto;white-space: nowrap;">{{attributes_desc_hint}}</div>
             </td></tr>
         <tr>
             <td colspan="2">
                 <div class="content2-container bg-blue02"><p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/describe.png" class="icon32" alt=""/>&nbsp;{{descriptions}}</p></div>
-                <p class="content-title-noshade"><img src="images/actions/list-add-20.png" align="middle" border="0" alt="" title="Dodaj nowy opis"/>&nbsp;<a href="newdesc.php?cacheid={cacheid_urlencode}" onclick="return check_if_proceed();">{{add_new_desc}}</a></p>
+                <div class="content2-newline"><p class="content-title-noshade"><img src="images/actions/list-add-20.png" align="middle" border="0" alt="" title="Dodaj nowy opis"/>&nbsp;<a href="newdesc.php?cacheid={cacheid_urlencode}" onclick="return check_if_proceed();">{{add_new_desc}}</a></p></div>
             </td>
         </tr>
         <tr><td class="buffer" colspan="2"></td></tr>
@@ -379,8 +379,7 @@
         <tr>
             <td colspan="2">
                 <div class="content2-container bg-blue02"><p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/compas.png" class="icon32" alt=""/>&nbsp;{{additional_waypoints}}</p></div>
-                <p class="content-title-noshade"><img src="images/actions/list-add-20.png" align="middle" border="0" alt=""/>&nbsp;<a onclick="return check_if_proceed();" href="newwp.php?cacheid={cacheid}" >{{add_new_waypoint}}</a></p>
-
+                <div class="content2-newline"><p class="content-title-noshade"><img src="images/actions/list-add-20.png" align="middle" border="0" alt=""/>&nbsp;<a onclick="return check_if_proceed();" href="newwp.php?cacheid={cacheid}" >{{add_new_waypoint}}</a></p></div>
             </td>
         </tr>
 
@@ -397,7 +396,7 @@
         <tr>
             <td colspan="2">
                 <div class="content2-container bg-blue02"><p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/picture.png" class="icon32" alt=""/>&nbsp;&nbsp;{{pictures_label}}</p></div>
-                <p class="content-title-noshade"><img src="images/actions/list-add-20.png" align="middle" border="0" alt=""/>&nbsp;<a href="newpic.php?objectid={cacheid_urlencode}&type=2&def_seq={def_seq}" onclick="return check_if_proceed();">{{add_new_pict}}</a></p>
+                <div class="content2-newline"><p class="content-title-noshade"><img src="images/actions/list-add-20.png" align="middle" border="0" alt=""/>&nbsp;<a href="newpic.php?objectid={cacheid_urlencode}&type=2&def_seq={def_seq}" onclick="return check_if_proceed();">{{add_new_pict}}</a></p></div>
             </td>
         </tr>
         <tr><td class="buffer" colspan="2"></td></tr>
@@ -408,7 +407,7 @@
         <tr>
             <td colspan="2">
                 <div class="content2-container bg-blue02"><p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/podcache-mp3.png" class="icon32" alt=""/>&nbsp;&nbsp;{{mp3_label}}</p></div>
-                <p class="content-title-noshade"><img src="images/actions/list-add-20.png" align="middle" border="0" alt=""/>&nbsp;<a href="newmp3.php?objectid={cacheid_urlencode}&type=2&def_seq_m={def_seq_m}" onclick="return check_if_proceed();">{{add_new_mp3}}</a></p>
+                <div class="content2-newline"><p class="content-title-noshade"><img src="images/actions/list-add-20.png" align="middle" border="0" alt=""/>&nbsp;<a href="newmp3.php?objectid={cacheid_urlencode}&type=2&def_seq_m={def_seq_m}" onclick="return check_if_proceed();">{{add_new_mp3}}</a></p></div>
             </td>
         </tr>
         <tr><td class="buffer" colspan="2"></td></tr>
@@ -433,7 +432,7 @@
                 </fieldset>
             </td>
         </tr>
-        <tr><td colspan="2"><div class="notice buffer" style="width:500px;height:24px;">{{event_hidden_hint}}</div></td></tr>
+        <tr><td colspan="2"><div class="notice buffer" style="width:500px;">{{event_hidden_hint}}</div></td></tr>
         {activation_form}
         <tr><td class="spacer" colspan="2"></td></tr>
         {logpw_start}
@@ -445,7 +444,7 @@
 
             </td>
         </tr>
-        <tr><td colspan="2"><div class="notice buffer" style="width:500px;height:24px;">{{please_read}}</div></td></tr>
+        <tr><td colspan="2"><div class="notice buffer" style="width:500px;">{{please_read}}</div></td></tr>
         {logpw_end}
         <tr><td colspan="2"><div class="errormsg"><br />{{creating_cache}}<br /></div></td></tr>
 

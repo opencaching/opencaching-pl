@@ -48,12 +48,12 @@
     <p class="content-title-noshade-size2">{{user_ranking}}</p>
     <div class="content-txtbox-noshade">
       <ul class="indent tick">
+        <li><a class="links" href="articles.php?page=s2">{{ranking_by_number_of_finds}}</a></li>
         <li><a class="links" href="articles.php?page=s102&init=1&stat=NumberOfFinds">{{ranking_by_number_of_finds_new}}</a></li>
         <li><a class="links" href="articles.php?page=s1">{{ranking_by_number_of_created_active_caches}}</a></li>
         <li><a class="links" href="articles.php?page=s1b">{{ranking_by_number_of_created_caches}}</a></li>
         <li><a class="links" href="articles.php?page=s6">{{ranking_by_number_of_recommnedations}}</a></li>
         <li><a class="links" href="articles.php?page=s3">{{user_ranking_by_number_of_finds_of_their_caches}}</a></li>
-        <li><a class="links" href="articles.php?page=s2">{{ranking_by_number_of_finds}}</a></li>
         <li><a class="links" href="articles.php?page=s102&init=1&stat=MaintenanceOfCaches">{{ranking_by_maintenace}}</a></li>
       </ul>
     </div>
@@ -78,6 +78,7 @@
       </ul>
     </div>
   </div>
+  <br />
   <p class="content-title-noshade-size2">{{rise_charts}}</p>
   <div class="content-txtbox-noshade">
     <div id="chart_cachesfound_div"></div>
