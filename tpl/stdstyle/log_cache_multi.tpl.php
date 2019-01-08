@@ -73,7 +73,7 @@ function get_icon_for_cache_type($type)
             <?php
             global $dane;
             global $lang;
-            global $dateFormat, $datetimeFormat;
+            global $datetimeFormat;
             foreach ($dane as $k => $v) {
                 ?>
                 <form method="POST" name="logCacheForm" action="log.php?cacheid=<?php echo @$v['cache_id']; ?>" target="_blank">

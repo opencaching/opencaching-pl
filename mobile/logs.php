@@ -1,6 +1,7 @@
 <?php
 
 use Utils\Log\CacheAccessLog;
+use Utils\Text\Formatter;
 use lib\Controllers\LogEntryController;
 use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\OcConfig\OcConfig;
@@ -28,7 +29,7 @@ function find_news($start, $limit)
         $tmplog['id'] = $log['logid'];
         $tmplog['user_id'] = $log['user_id'];
         $tmplog['newtype'] = $log['type'];
-        $tmplog['newdate'] = date(OcConfig::instance()->getDateFormat(), strtotime($log['date']));
+        $tmplog['newdate'] = Formatter::date($log['date']);
         $tmplog['username'] = $log['username'];
         $tmplog['newtext'] = html2log($log['text']);
         $znalezione[] = $tmplog;

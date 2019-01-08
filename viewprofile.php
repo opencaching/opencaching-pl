@@ -803,7 +803,7 @@ function buildGeocacheHtml(GeoCache $geocache, $html)
     if ($geocache->getDateActivate() === null) {
         $html = mb_ereg_replace('{date}', tr('no_time_indicated'), $html);
     } else {
-        $html = mb_ereg_replace('{date}', $geocache->getDateActivate()->format($ocConfig->getDateFormat()), $html);
+        $html = mb_ereg_replace('{date}', Formatter::date($geocache->getDateActivate()), $html);
     }
     $html = mb_ereg_replace('{cachename}', htmlspecialchars($geocache->getCacheName(), ENT_COMPAT, 'UTF-8'), $html);
     $html = mb_ereg_replace('{wpname}', htmlspecialchars($geocache->getWaypointId(), ENT_COMPAT, 'UTF-8'), $html);

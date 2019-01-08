@@ -1,6 +1,7 @@
 <?php
 namespace lib\Objects\News;
 
+use Utils\Text\Formatter;
 use Utils\Text\UserInputFilter;
 use lib\Objects\BaseObject;
 use lib\Objects\User\User;
@@ -445,7 +446,7 @@ class News extends BaseObject
             return null;
         }
         if ($asString) { // Date should be formated as human readable string
-            return $obj->format(OcConfig::instance()->getDateFormat());
+            return Formatter::date($obj);
         } else { // Date should be returned as an object
             return $obj;
         }

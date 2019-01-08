@@ -2,6 +2,7 @@
 
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
+use Utils\Text\Formatter;
 use lib\Objects\GeoCache\GeoCacheCommons;
 use okapi\Facade;
 use okapi\core\Exception\BadRequest;
@@ -16,7 +17,7 @@ require_once (__DIR__.'/tpl/stdstyle/lib/icons.inc.php');
 
 global $content, $bUseZip, $usr, $config;
 global $default_lang, $cache_attrib_jsarray_line, $cache_attrib_img_line;
-global $lang, $dateFormat, $googlemap_key;
+global $lang, $googlemap_key;
 
 $database = OcDb::instance();
 
@@ -618,7 +619,7 @@ if (isset($_POST['submit']) || isset($_POST['submit_map'])) {
         } else {
 
             $file_content .= '<tr>';
-            $file_content .= '<td style="width: 90px;">' . date($dateFormat, strtotime($r['date'])) . '</td>';
+            $file_content .= '<td style="width: 90px;">' . Formatter::date($r['date']) . '</td>';
             //      $file_content .= '<td style="width: 22px;"><span style="font-weight:bold;color: blue;">'.sprintf("%01.1f",$r['distance']). '</span></td>';
             if ($r['topratings'] != 0) {
                 $file_content .= '<td style="width: 22px;"><span style="font-weight:bold;color: green;">' . $r['topratings'] . '</span></td>';
@@ -649,7 +650,7 @@ if (isset($_POST['submit']) || isset($_POST['submit_map'])) {
 
             if ($r_log = $database_inner->dbResultFetchOneRowOnly($rs)) {
 
-                $file_content .= '<td style="width: 80px;">' . htmlspecialchars(date($dateFormat, strtotime($r_log['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';
+                $file_content .= '<td style="width: 80px;">' . htmlspecialchars(Formatter::date($r_log['log_date']), ENT_COMPAT, 'UTF-8') . '</td>';
                 $file_content .= '<td width="22"><b><a class="links" href="viewlogs.php?logid=' . htmlspecialchars($r_log['id'], ENT_COMPAT, 'UTF-8') . '" onmouseover="Tip(\'';
                 $file_content .= '<b>' . $r_log['user_name'] . '</b>:<br>';
                 $data = cleanup_text2(str_replace("\r\n", " ", $r_log['log_text']));

@@ -1,13 +1,13 @@
 <?php
 
-
+use Utils\Text\Formatter;
 use lib\Controllers\MeritBadgeController;
 use Controllers\ViewBadgeHeadController;
 
 require_once(__DIR__.'/lib/common.inc.php');
 
 
-global $content_table, $config, $dateFormat;
+global $content_table, $config;
 
 if ($usr == false) {
     $target = urlencode(tpl_get_current_page());
@@ -58,7 +58,7 @@ foreach( $positionsMeritBadge as $onePositionBadge ){
             $cacheTypesIcons[$onePositionBadge->getType()]['iconSet'][1]['iconSmallFound'],
             $typeIcon );
 
-    $date = date($dateFormat, strtotime($onePositionBadge->getGainDate()));
+    $date = Formatter::date($onePositionBadge->getGainDate());
     $dateSort = date("y.m.d", strtotime($onePositionBadge->getGainDate()));
 
     $content .=  "

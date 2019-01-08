@@ -4,6 +4,7 @@ namespace lib\Objects\Notify;
 use Utils\Email\Email;
 use Utils\Email\EmailFormatter;
 use Utils\Gis\Gis;
+use Utils\Text\Formatter;
 use Utils\Uri\SimpleRouter;
 use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\OcConfig\OcConfig;
@@ -70,9 +71,8 @@ class NotifyEmailSender
                 ->getNotFoundGeocachesCount() + $item->getCache()
                 ->getOwner()
                 ->getHiddenGeocachesCount(), $line);
-            $line = mb_ereg_replace('{cache_date}', $item->getCache()
-                ->getDatePlaced()
-                ->format(OcConfig::instance()->getDateFormat()), $line);
+            $line = mb_ereg_replace('{cache_date}',
+                Formatter::date($item->getCache()->getDatePlaced()), $line);
             $content .= $line;
         }
 

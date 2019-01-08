@@ -2,8 +2,9 @@
 
 use lib\Objects\GeoCache\GeoCacheLog;
 use Utils\Database\XDb;
+use Utils\Text\Formatter;
 
-global $lang, $dateFormat;
+global $lang;
 
 //include template handling
 require_once(__DIR__.'/lib/common.inc.php');
@@ -124,8 +125,9 @@ if ($usr == false) {
             //hide log type "COG comment" behind 'ordinary' users, displya all logs for admins
             if (!(($log_record['log_type'] == 12) && (!$usr['admin']))) {
                 $file_content .= '<tr>';
-                $file_content .= '<td style="width: 70px;">'.htmlspecialchars(date($dateFormat,
-                        strtotime($log_record['log_date'])), ENT_COMPAT, 'UTF-8').'</td>';
+                $file_content .= '<td style="width: 70px;">'.htmlspecialchars(
+                    Formatter::date($log_record['log_date']), ENT_COMPAT, 'UTF-8'
+                ).'</td>';
 
                 if ($log_record['geokret_in'] != '0') {
                     $file_content .= '<td width="26">&nbsp;<img src="images/gk.png" border="0" alt="" title="GeoKret" /></td>';
