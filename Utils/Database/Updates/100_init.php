@@ -163,7 +163,7 @@ return new class extends UpdateScript
 
         $this->db->createOrReplaceProcedure(
             'dec_powertrail_progress',
-            ['IN `user_id` INT(11)', 'IN `cache_id` INT(11)'],
+            ['IN `p_user_id` INT(11)', 'IN `p_cache_id` INT(11)'],
             "
             BEGIN
                 DECLARE p_pt_id int(11) DEFAULT NULL;
@@ -181,7 +181,7 @@ return new class extends UpdateScript
 
         $this->db->createOrReplaceProcedure(
             'inc_logs_stats',
-            ['IN `p_cache_id` INT(11)', 'IN `user_id` INT(11)', 'IN `cache_id` INT(11)'],
+            ['IN `type` INT(11)', 'IN `user_id` INT(11)', 'IN `cache_id` INT(11)'],
             "
             BEGIN
                 CASE `type`
@@ -195,7 +195,7 @@ return new class extends UpdateScript
 
         $this->db->createOrReplaceProcedure(
             'dec_logs_stats',
-            ['IN `p_cache_id` INT(11)', 'IN `user_id` INT(11)', 'IN `cache_id` INT(11)'],
+            ['IN `type` INT(11)', 'IN `user_id` INT(11)', 'IN `cache_id` INT(11)'],
             "
             BEGIN
                 CASE `type`
