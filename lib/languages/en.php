@@ -2419,7 +2419,6 @@ $translations = array(
     'DirectionDistance' => 'Direction and distance (km)',
     'TaskTerainDifficulty' => 'Difficulty of task/terrain',
     'SelectedPositionExport' => 'Export of selected caches',
-    'Selected' => 'Selected',
     'pos.' => 'Cache(s)',
     'AllPosExport' => 'Export all caches',
     'HideCols' => 'Hide columns',
