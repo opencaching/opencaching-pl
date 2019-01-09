@@ -2421,7 +2421,7 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'DirectionDistance' => 'Richtung und Entfernung (km)',
     'TaskTerainDifficulty' => 'Schwierigkeit und Geländewertung',
     'SelectedPositionExport' => 'Gewählte Caches herunterladen',
-    'Selected' => 'Ausgewählt',
+    'Selected' => 'Selected',
     'pos.' => 'Cache(s)',
     'AllPosExport' => 'Alle Caches herunterladen',
     'HideCols' => 'Spalten ausblenden',
