@@ -1,7 +1,6 @@
 <?php
 
 $translations = array(
-    'kojoty_test' => 'Crowdin test',
     'main_menu' => 'Menu główne',
     'user_menu' => 'Menu użytkownika',
     'new' => 'Nowa',
@@ -1793,7 +1792,6 @@ $translations = array(
     'pt177' => 'malejąco',
     'pt178' => 'Kierunek sortowania',
     'pt179' => 'Pobierz',
-    'pt180' => 'skrzynek',
     'pt181' => 'Mentor',
     'pt182' => 'Mentor to osoba, która zarejestrowała GeoŚcieżkę w systemie',
     'pt183' => 'Pytanie o dodanie Twojej skrzynki do GeoŚcieżki',
@@ -2421,7 +2419,6 @@ $translations = array(
     'DirectionDistance' => 'Kierunek i odległość (km)',
     'TaskTerainDifficulty' => 'Trudność zadania/terenu',
     'SelectedPositionExport' => 'Eksport zaznaczonych skrzynek',
-    'Selected' => 'Selected',
     'pos.' => 'poz.',
     'AllPosExport' => 'Eksport wszystkich skrzynek',
     'HideCols' => 'Ukryj kolumny',
