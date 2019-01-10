@@ -8,7 +8,7 @@ use lib\Objects\OcConfig\OcConfig;
 
 
 /**
- * This is just wrapper for apc/apcu.
+ * This is just wrapper for apcu.
  *
  * PLEASE NOTE: that PDO object can't be serialized and every "oc-object" h
  * as reference PDO instance. It is handled in BaseObject class as
@@ -17,6 +17,7 @@ use lib\Objects\OcConfig\OcConfig;
  */
 class OcMemCache
 {
+    public static $debug = false;
 
     /**
      * Fetch from cache or create by callback-creator if there is no such entry
@@ -28,22 +29,10 @@ class OcMemCache
      */
     public static function getOrCreate($key, $ttl, callable $generator)
     {
-        $key = self::getPrefix() . $key;
-
-        // apcu_entry was added in APCu version 5.1
-        //if(function_exists('apcu_entry')){
-        //    return apcu_entry($key, $generator, $ttl);
-        //}
-
-        // this is older installation - there is no apcu_entry function
-        // TODO: these lines can be safetly removed when all nodes moved to PHP7 (APCu 5)
-        if ( ($var = apcu_fetch($key)) === false || $var === null) {
+        $var = self::get($key);
+        if ($var === false) {
             $var = call_user_func($generator);
-            try {
-                apcu_store($key, $var, $ttl);
-            } catch(Exception $e) {
-                Debug::errorLog("Can't serialize object! error: ".$e->getMessage()." ");
-            }
+            self::store($key, $ttl, $var);
         }
 
         return $var;
@@ -60,35 +49,64 @@ class OcMemCache
      */
     public static function refreshAndReturn($key, $ttl, callable $creatorCallback)
     {
-        $var = $creatorCallback();
-
-        $key = self::getPrefix() . $key;
-
-        try {
-            apcu_store($key, $var, $ttl);
-        } catch(Exception $e){
-            Debug::errorLog("Can't serialize object");
-        }
+        self::store(
+            $key,
+            $ttl,
+            $var = $creatorCallback()
+        );
 
         return $var;
     }
 
     /**
-     * Fetch from cache if given entry is present
+     * Store value in cache
+     *
+     * @param string $key - should be a __CLASS__ of saved object
+     * @param integer $ttl - ttl at which this var should be saved in cache [sec]
+     * @param mixed $var
+     */
+    public static function store($key, $ttl, $var)
+    {
+        if ($var === null) {
+            // null would be returned as false, see get()
+            $var = '[OcMemCache null]';
+        }
+        if ($var !== false) {
+            // false is the same as "not in cache" - no need to store
+            try {
+                apcu_store(self::getPrefix() . $key, $var, $ttl);
+            } catch (Exception $e) {
+                Debug::errorLog("Can't serialize object! error: ".$e->getMessage()." ");
+            }
+        }
+    }
+
+    /**
+     * Fetch from cache if given entry is present. Includes workaround for
+     * some rare apcu bugs(?) where we got a null return value; see
+     * https://github.com/opencaching/opencaching-pl/pull/1811
      *
      * @param string $key - should be a __CLASS__ of saved object
      * @return mixed - requested entry value or false if there is no such entry
      */
     public static function get($key)
     {
-        $key = self::getPrefix() . $key;
-
-        return apcu_fetch($key);
+        $value = apcu_fetch(self::getPrefix() . $key);
+        if ($value === null) {
+            $value = false;
+        } elseif ($value == '[OcMemCache null]') {
+            $value = null;
+        }
+        if (self::$debug) {
+            echo "$key: ";
+            var_dump($value);
+            echo "<br />";
+        }
+        return $value;
     }
 
     private static function getPrefix()
     {
         return OcConfig::getShortSiteName() . '_';
     }
-
 }
