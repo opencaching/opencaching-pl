@@ -1,7 +1,6 @@
 <?php
 
 $translations = array(
-    'kojoty_test' => 'Crowdin test',
     'main_menu' => 'Hauptmenü',
     'user_menu' => 'Benutzermenü',
     'new' => 'Neu',
@@ -1793,7 +1792,6 @@ $translations = array(
     'pt177' => 'absteigend',
     'pt178' => 'Sortierung',
     'pt179' => 'Download als',
-    'pt180' => 'der Caches',
     'pt181' => 'Mentor',
     'pt182' => 'Der Mentor ist der Ersteller des Geocaches.',
     'pt183' => 'Anfrage, deinen Cache zum Geopfad hinzuzufügen',
@@ -2422,7 +2420,6 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'DirectionDistance' => 'Richtung und Entfernung (km)',
     'TaskTerainDifficulty' => 'Schwierigkeit und Geländewertung',
     'SelectedPositionExport' => 'Gewählte Caches herunterladen',
-    'Selected' => 'Selected',
     'pos.' => 'Cache(s)',
     'AllPosExport' => 'Alle Caches herunterladen',
     'HideCols' => 'Spalten ausblenden',
