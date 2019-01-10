@@ -1,7 +1,6 @@
 <?php
 
 $translations = array(
-    'kojoty_test' => 'Crowdin test',
     'main_menu' => 'Menu principal',
     'user_menu' => 'Menu Utilisateur',
     'new' => 'NOUVEAU',
@@ -1793,7 +1792,6 @@ $translations = array(
     'pt177' => 'descendant',
     'pt178' => 'Ordre du tri',
     'pt179' => 'Téléchargements',
-    'pt180' => 'Cache',
     'pt181' => 'Mentor',
     'pt182' => 'Le mentor est la personne qui a créé le GeoPath.',
     'pt183' => 'Demande d\'ajout de votre cache au GeoPath',
@@ -2421,7 +2419,6 @@ $translations = array(
     'DirectionDistance' => 'Direction et distance (km)',
     'TaskTerainDifficulty' => 'Difficulté du terrain recherche/terrain',
     'SelectedPositionExport' => 'Exporter les caches sélectionnées',
-    'Selected' => 'Selected',
     'pos.' => 'Cache(s)',
     'AllPosExport' => 'Exporter toutes les caches',
     'HideCols' => 'Masquer les colonnes',
