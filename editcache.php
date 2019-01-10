@@ -96,6 +96,9 @@ if ($error == false) {
                 if ($pic_count_check > 0) {
                     if (isset($_POST['pic_seq_select1'])) { // check if in POST mode and in case any picture is attached (re-)update sequence value, providing it was changed - value of pic_seq_change_X)
                         for ($i = 1; $i <= $pic_count_check; $i++) {
+                            if (!isset ($_POST['pic_seq_select' . $i], $_POST['pic_seq_id' . $i])) {
+                                continue;
+                            }
                             $this_seq = $_POST['pic_seq_select' . $i]; //get new seqence
                             $this_pic_id = $_POST['pic_seq_id' . $i]; //get picutre ID the new seq is applicable to
                             $this_pic_changed = $_POST['pic_seq_changed' . $i]; //get changed status ("yes" or "no")
