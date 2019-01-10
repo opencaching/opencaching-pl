@@ -1,7 +1,6 @@
 <?php
 
 $translations = array(
-    'kojoty_test' => 'Crowdin test',
     'main_menu' => 'Hlavní menu',
     'user_menu' => 'Menu uživatele',
     'new' => 'NEW',
@@ -1793,7 +1792,6 @@ $translations = array(
     'pt177' => 'descending',
     'pt178' => 'sort direction',
     'pt179' => 'download',
-    'pt180' => 'geocache',
     'pt181' => 'Mentor',
     'pt182' => 'Mentor is a person, who registered geoPath in system.***',
     'pt183' => 'Adding your cache to geoPath request',
@@ -2421,7 +2419,6 @@ $translations = array(
     'DirectionDistance' => 'Směr a vzdálenost (km)',
     'TaskTerainDifficulty' => 'Obtížnost a terén',
     'SelectedPositionExport' => 'Export vybraných keší',
-    'Selected' => 'Selected',
     'pos.' => 'pos.',
     'AllPosExport' => 'Export všech keší',
     'HideCols' => 'Skrýt sloupce',
