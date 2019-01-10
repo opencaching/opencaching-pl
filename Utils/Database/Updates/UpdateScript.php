@@ -88,7 +88,8 @@ class UpdateScript
                 }
             }
 
-            // special handling for language and countries tables
+            // Special handling for language and countries tables
+            // TODO: Move all this data to the settings or static initialization files.
 
             // There are no global defaults for this; we simply initialize it from PL.
             if ($this->db->columnExists($table, 'list_default_pl') &&

@@ -140,11 +140,11 @@ class DbUpdate
     private function execute($action)
     {
         if (!method_exists($this->script, $action)) {
-            throw new Exception("missing method '".$action."' in" . $this->getFileName());
+            throw new Exception("missing method '".$action."' in " . $this->getFileName());
         }
 
         $oldTimeLimit = ini_get('max_execution_time');
-        set_time_limit(1800);  // allow 30 minutes for expensive updates
+        set_time_limit(0);   // allow long runtime for expensive updates
 
         ob_start();
         echo $action . " " . $this->name . "\n";

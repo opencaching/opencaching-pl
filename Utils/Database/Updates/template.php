@@ -18,7 +18,8 @@ return new class extends UpdateScript
     {
         // Insert your update code here, using $this->db for database access.
 
-        // The update will be run inside a transaction.
+        // The update will be run inside a transaction. It will also run
+        // with set_time_limit(0), so don't create any endless loops!
     }
 
     public function rollback()
@@ -26,7 +27,8 @@ return new class extends UpdateScript
         // If possible and feasible, provide code here which reverses the
         // changes made by run().
 
-        // The rollback will be run inside a transaction.
+        // The update will be run inside a transaction. It will also run
+        // with set_time_limit(0), so don't create any endless loops!
 
         // IMPORTANT: If you do NOT write a rollback, please COMPLETELY REMOVE
         // the rollback() method. This will disable the "rollback" action on

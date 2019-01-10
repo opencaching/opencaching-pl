@@ -119,7 +119,7 @@ class DbUpdateHistory
     private static function verifyUuid($uuid)
     {
         if (!isset(self::$history[$uuid])) {
-            throw new Exception("Unknown UUID '".$uuid."' passed to ".__METHOD__);
+            throw new Exception("Unknown UUID '".$uuid."'");
         }
     }
 

@@ -76,15 +76,13 @@ class DbUpdates
         $path = $updatesDir . '/' . $name . '.php';
         file_put_contents($path, $template);
 
-        // This also tests if template.php is healthy.
-        $update = new DbUpdate($name);
-
         if (self::$updates !== null) {
-            self::$updates[$uuid] = $update;
+            // This also tests if template.php is healthy.
+            self::$updates[$uuid] = new DbUpdate($name);
             self::sort();
         }
 
-        return $update;
+        return $uuid;
     }
 
     /**
@@ -190,7 +188,7 @@ class DbUpdates
     }
 
     /**
-     * Re-sort after some update name(s) changed
+     * Sort the updates ascending and case-insensitive by filename
      */
     public function sort()
     {
