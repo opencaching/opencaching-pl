@@ -2670,4 +2670,8 @@ $translations = array(
 
     'pictures_intro' => 'Formatele de imagine acceptate: {picallowedformats}. JPG este optim pentru fotografii.<br />Mărime fişier maximă: {maxpicsizeMB} MB. Rezoluţie recomandată: {maxpicresolution} pixeli.',
 
+    'page_error_1' => 'An error occured while processing your request.',
+    'page_error_2' => 'The OC site admins have been notified.',
+    'page_error_3' => 'If the problem persists, please <a href="/articles.php?page=contact">contact</a> the OC team and describe step by step how to reproduce this error.',
+    'page_error_back' => 'Go to the main page',
 );
