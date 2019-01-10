@@ -3,8 +3,9 @@
 use lib\Objects\GeoCache\GeoCacheLog;
 use Utils\Database\OcDb;
 use Utils\Database\XDb;
+use Utils\Text\Formatter;
 
-global $lang, $usr, $dateFormat;
+global $lang, $usr;
 
 //include template handling
 require_once(__DIR__.'/lib/common.inc.php');
@@ -196,7 +197,7 @@ if ($usr == false) {
     $log_record_count = count($log_record_all);
     $file_content = '';
 
-    //prepare second queryt
+    //prepare second query
     $logs_query = "
             SELECT
                 cache_logs.id,
@@ -223,7 +224,7 @@ if ($usr == false) {
     for ($zz = 0; $zz < $log_record_count; $zz++) {
         $log_record = $log_record_all[$zz];
         $table = '';
-        $table .= '<td style="width: 90px;">'.htmlspecialchars(date($dateFormat, strtotime($log_record['date_hidden'])),
+        $table .= '<td style="width: 90px;">'.htmlspecialchars(Formatter::date($log_record['date_hidden']),
                 ENT_COMPAT, 'UTF-8').'</td>';
         $table .= '<td ><a href="editcache.php?cacheid='.htmlspecialchars($log_record['cache_id'], ENT_COMPAT,
                 'UTF-8').'"><img src="tpl/stdstyle/images/free_icons/pencil.png" alt="'.$edit_geocache_tr.'" title="'.$edit_geocache_tr.'"/></a></td>';
@@ -269,8 +270,9 @@ if ($usr == false) {
             $logs = $log_entries_all [$yy];
             $table .= '<a class="links" href="viewlogs.php?logid='.htmlspecialchars($logs['id'], ENT_COMPAT,
                     'UTF-8').'" onmouseover="Tip(\'';
-            $table .= '<b>'.htmlspecialchars($logs['user_name']).'</b>&nbsp;('.htmlspecialchars(date($dateFormat,
-                    strtotime($logs['log_date'])), ENT_COMPAT, 'UTF-8').'):<br>';
+            $table .= '<b>'.htmlspecialchars($logs['user_name']).'</b>&nbsp;('.htmlspecialchars(
+                Formatter::date($logs['log_date']), ENT_COMPAT, 'UTF-8'
+            ).'):<br>';
             $table .= GeoCacheLog::cleanLogTextForToolTip($logs['log_text']);
             // sprawdz ile dni minelo od wpisania logu
             if ($logs['ilosc_dni'] < 3) {

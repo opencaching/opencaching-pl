@@ -15,6 +15,7 @@ use lib\Objects\CacheSet\CacheSetCommon;
 use lib\Objects\User\User;
 use Utils\Uri\SimpleRouter;
 use Controllers\MainMapController;
+use Utils\Text\Formatter;
 
 /**
  *  Power Trails in opencaching
@@ -280,7 +281,7 @@ if ($error == false) {
                 tpl_set_var('powerTrailName', htmlspecialchars($powerTrail->getName(), ENT_COMPAT | ENT_HTML5));
                 tpl_set_var('powerTrailDescription', stripslashes(htmlspecialchars_decode($powerTrail->getDescription())));
                 tpl_set_var('displayPtDescriptionUserAction', displayPtDescriptionUserAction($powerTrail));
-                tpl_set_var('powerTrailDateCreated', $powerTrail->getDateCreated()->format($dateFormat));
+                tpl_set_var('powerTrailDateCreated', Formatter::date($powerTrail->getDateCreated()));
                 tpl_set_var('powerTrailCacheCount', $powerTrail->getCacheCount());
 
                 tpl_set_var('powerTrailActiveCacheCount', $powerTrail->getActiveGeocacheCount());
@@ -289,7 +290,7 @@ if ($error == false) {
 
                 tpl_set_var('powerTrailCacheLeft', ($powerTrail->getCacheCount() - count($foundCachsByUser)));
                 tpl_set_var('powerTrailOwnerList', displayPtOwnerList($powerTrail));
-                tpl_set_var('date', date($dateFormat));
+                tpl_set_var('date', Formatter::date("now"));
                 tpl_set_var('powerTrailDemandPercent', $powerTrail->getPerccentRequired());
                 tpl_set_var('ptCommentsSelector', displayPtCommentsSelector('commentType', $powerTrail, null, $usr));
                 tpl_set_var('conquestCount', $powerTrail->getConquestedCount());
@@ -441,7 +442,7 @@ function displayPTrails($pTrails, $areOwnSeries)
                 '<td style="text-align: right; padding-right: 5px;"><b><a href="powerTrail.php?ptAction=showSerie&ptrail=' . $pTrail["id"] . '">' . $pTrail["name"] . '</a></b></td>' .
                 '<td><img src="' . $ptTypes[$pTrail["type"]]['icon'] . '" alt=""> ' . tr($ptTypes[$pTrail["type"]]['translate']) . '</td>' .
                 '<td class="ptTd">' . $ownOrAll . '</td>' .
-                '<td class="ptTd">' . date(OcConfig::instance()->getDateFormat(), strtotime($pTrail["dateCreated"])) . '</td>' .
+                '<td class="ptTd">' . Formatter::date($pTrail["dateCreated"]) . '</td>' .
                 '<td class="ptTd">' . $pTrail["cacheCount"] . '</td>' .
                 '<td class="ptTd">' . $pTrail["conquestedCount"] . '</td>
         </tr>';

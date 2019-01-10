@@ -1,9 +1,8 @@
 <?php
 
 use Utils\Database\OcDb;
+use Utils\Text\Formatter;
 use lib\Objects\GeoCache\GeoCacheLog;
-
-global $dateFormat;
 
 require_once (__DIR__.'/lib/common.inc.php');
 require_once (__DIR__.'/tpl/stdstyle/lib/icons.inc.php');
@@ -114,7 +113,7 @@ if( !empty($log_ids) ){
             $bgColor = '#eeeeee';
 
         $file_content .= '<tr style="background-color:' . $bgColor . '">';
-        $file_content .= '<td style="width: 70px;">' . htmlspecialchars(date($dateFormat, strtotime($log_record['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';
+        $file_content .= '<td style="width: 70px;">' . htmlspecialchars(Formatter::date($log_record['log_date']), ENT_COMPAT, 'UTF-8') . '</td>';
         if ($log_record['geokret_in'] != '0') {
             $file_content .= '<td style="width: 22px;">&nbsp;<img src="images/gk.png" alt="" title="GeoKret"></td>';
         } else {

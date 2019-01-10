@@ -1,6 +1,7 @@
 <?php
 
 use Utils\Database\XDb;
+use Utils\Text\Formatter;
 use Utils\View\View;
 
 require_once (__DIR__.'/lib/common.inc.php');
@@ -8,7 +9,7 @@ require_once (__DIR__.'/lib/caches.inc.php');
 require_once (__DIR__.'/tpl/stdstyle/lib/icons.inc.php');
 require_once (__DIR__.'/tpl/stdstyle/newcaches.inc.php');
 
-global $usr, $dateFormat;
+global $usr;
 
 /** @var View */
 $view->setTemplate('newcaches');
@@ -114,7 +115,7 @@ while ($r = XDb::xFetchArray($rs)) {
     $thisline = mb_ereg_replace('{cachename}', htmlspecialchars($r['cachename'], ENT_COMPAT, 'UTF-8'), $thisline);
     $thisline = mb_ereg_replace('{username}', htmlspecialchars($r['username'], ENT_COMPAT, 'UTF-8'), $thisline);
     $thisline = mb_ereg_replace('{region}', htmlspecialchars($r['region'], ENT_COMPAT, 'UTF-8'), $thisline);
-    $thisline = mb_ereg_replace('{date}', date($dateFormat, strtotime($r['date'])), $thisline);
+    $thisline = mb_ereg_replace('{date}', Formatter::date($r['date']), $thisline);
     $thisline = mb_ereg_replace('{country}', htmlspecialchars(strtolower($r['country']), ENT_COMPAT, 'UTF-8'), $thisline);
 
     $cacheicon = myninc::checkCacheStatusByUser($r, $usr['userid']);

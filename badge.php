@@ -1,6 +1,6 @@
 <?php
 
-
+use Utils\Text\Formatter;
 use lib\Objects\MeritBadge\MeritBadge; //for static functions
 use lib\Controllers\MeritBadgeController;
 use Controllers\ViewBadgeHeadController;
@@ -77,7 +77,7 @@ foreach( $levelsMeritBadge as $oneLevel ){
     $name = "<b style=\'color:$color\'>$name</b>";
 
     $gain = $oneLevel->getGainCounter();
-    $max_date = ($oneLevel->getGainLastDate())?date($dateFormat, strtotime($oneLevel->getGainLastDate())):"";
+    $max_date = $oneLevel->getGainLastDate() ? Formatter::date($oneLevel->getGainLastDate()) : "";
 
 
     if ($is_user_level){
@@ -125,7 +125,7 @@ foreach( $usersMeritBadge as $oneUserBadge ){
     $curr_val = $pure_curr_val;
 
     $pure_ts = $oneUserBadge->getLevelDateTS();
-    $curr_level_date = ($oneUserBadge->getLevelDateTS())?date($dateFormat, strtotime($oneUserBadge->getLevelDate())):"";;
+    $curr_level_date = $oneUserBadge->getLevelDateTS() ? Formatter::date($oneUserBadge->getLevelDate()) : "";
 
 
     if ($user_id == $userid ){

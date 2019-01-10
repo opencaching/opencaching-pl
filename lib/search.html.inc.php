@@ -2,6 +2,7 @@
 
 use Utils\Database\OcDb;
 use Utils\Gis\Gis;
+use Utils\Text\Formatter;
 use Utils\Uri\Uri;
 use Utils\Uri\OcCookie;
 use lib\Objects\Coordinates\Coordinates;
@@ -371,7 +372,7 @@ for ($i = 0; $i < $dbcSearch->rowCount($s); $i ++) {
     $tmpline = str_replace('{icon_large}', $iconname, $tmpline);
     // sp2ong
 
-    $tmpline = str_replace('{date_created}', date($dateFormat, strtotime($caches_record['date_created'])), $tmpline);
+    $tmpline = str_replace('{date_created}', Formatter::date($caches_record['date_created']), $tmpline);
     $tmpline = str_replace('{date_created_sort}', date($logdateformat_ymd, strtotime($caches_record['date_created'])), $tmpline);
 
     $ratingA = $caches_record['toprating'];
@@ -470,7 +471,7 @@ for ($i = 0; $i < $dbcSearch->rowCount($s); $i ++) {
 
             $log_text = PrepareText($row['log_text']);
 
-            $tmpline = str_replace('{logimage2}', "<span='" . date($logdateformat_ymd, strtotime($row['date'])) . "'/>" . icon_log_type($row['icon_small'], $log_text) . date($dateFormat, strtotime($row['date'])), $tmpline);
+            $tmpline = str_replace('{logimage2}', "<span='" . date($logdateformat_ymd, strtotime($row['date'])) . "'/>" . icon_log_type($row['icon_small'], $log_text) . Formatter::date($row['date']), $tmpline);
             $tmpline = str_replace('{logtype}', icon_log_type($row['icon_small'], $log_text), $tmpline);
             $tmpline = str_replace('{logdate}', date($logdateformat_ymd, strtotime($row['date'])), $tmpline);
             $tmpline = str_replace('{logdesc}', $log_text, $tmpline);

@@ -6,6 +6,7 @@ use okapi\Facade;
 use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\User\UserPreferences\MainMapSettings;
 use lib\Objects\User\UserPreferences\UserPreferences;
+use Utils\Text\Formatter;
 
 /**
  * This class provides:
@@ -72,8 +73,7 @@ class MainMapAjaxController extends BaseController
 
         if($cache->isEvent()){
             $resp->isEvent = true;
-            $resp->eventStartDate = $cache->getDatePlaced()->format(
-                $this->ocConfig->getDateFormat());
+            $resp->eventStartDate = Formatter::date($cache->getDatePlaced());
         }else{
             $resp->isEvent = false;
         }
