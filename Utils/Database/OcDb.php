@@ -44,7 +44,7 @@ class OcDb extends OcPdo
             }
         }
 
-        $this->error('', new PDOException(__METHOD__.': call PDOstatement issue!'));
+        $this->error('Call PDOstatement issue!');
     }
 
     /**
@@ -61,7 +61,7 @@ class OcDb extends OcPdo
 
             return $result;
         }
-        $this->error('', new PDOException(__METHOD__.': call PDOstatement issue!'));
+        $this->error('Call PDOstatement issue!');
     }
 
     /**
@@ -109,7 +109,7 @@ class OcDb extends OcPdo
             return $result;
         }
 
-        $this->error('', new PDOException(__METHOD__.': call PDOstatement issue!'));
+        $this->error('Call PDOstatement issue!');
     }
 
     /**
@@ -149,7 +149,7 @@ class OcDb extends OcPdo
             return $result;
         }
 
-        $this->error('', new PDOException(__METHOD__.': call PDOstatement issue!'));
+        $this->error('Call PDOstatement issue!');
     }
 
     /**
@@ -170,7 +170,7 @@ class OcDb extends OcPdo
             return $result;
         }
 
-        $this->error('', new PDOException(__METHOD__.': call PDOstatement issue!'));
+        $this->error('Call PDOstatement issue!');
     }
 
 
@@ -212,7 +212,7 @@ class OcDb extends OcPdo
             return $stmt->rowCount();
         }
 
-        $this->error('', new PDOException(__METHOD__.': call PDOstatement issue!'));
+        $this->error('Call PDOstatement issue!');
     }
 
     /**
@@ -233,8 +233,6 @@ class OcDb extends OcPdo
         } catch (PDOException $e) {
 
             $this->error('Query: '.$query, $e);
-
-            return null;
         }
 
         if ($this->debug) {
@@ -329,8 +327,6 @@ class OcDb extends OcPdo
         } catch (PDOException $e) {
 
             $this->error("Query:\n$query\n\nParams:\n".implode(' | ', $params), $e);
-
-            return null;
         }
         if ($this->debug) {
             self::debugOut(__METHOD__.":\n\nQuery:\n$query\n\nParams:\n".implode(' | ', $params));
@@ -397,8 +393,6 @@ class OcDb extends OcPdo
         } catch (PDOException $e) {
             $message = 'Query|Params: '.$query.' | '.implode(' | ', $argList);
             $this->error($message, $e);
-
-            return null;
         }
 
         if ($this->debug) {
@@ -428,10 +422,8 @@ class OcDb extends OcPdo
         if ($numArgs <= 2) {
 
             //only query + default value=> use simpleQuery
-            $e = new PDOException('Improper using of '.__METHOD__.' . Too less arguments. Use simpleQueryValue() instead');
-            $this->error('Improper using of '.__METHOD__, $e, false, false); //skip sending email
+            $this->error('Improper use of '.__METHOD__.': Too few arguments. Use simpleQueryValue() instead.');
 
-            return $this->simpleQueryValue($query, $default);
         } else {
             // check if params are passed as array
             if ($numArgs == 3 && is_array($argList[2])) {
