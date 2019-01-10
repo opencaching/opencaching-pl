@@ -1,7 +1,6 @@
 <?php
 
 $translations = array(
-    'kojoty_test' => 'Crowdin test',
     'main_menu' => 'Hoofd Menu',
     'user_menu' => 'Gebruikers Menu',
     'new' => 'NIEUW',
@@ -1793,7 +1792,6 @@ $translations = array(
     'pt177' => 'Aflopend',
     'pt178' => 'Sorteerwijze',
     'pt179' => 'Download als',
-    'pt180' => 'caches',
     'pt181' => 'Hoofdeigenaar',
     'pt182' => 'Hoofdeigenaar is de persoon die de GeoPath geregistreerd heeft.',
     'pt183' => 'Verzoek om cache toe te voegen aan GeoPath',
@@ -2421,7 +2419,6 @@ $translations = array(
     'DirectionDistance' => 'Richting en afstand (km)',
     'TaskTerainDifficulty' => 'Moeilijkheid van cache/terrein',
     'SelectedPositionExport' => 'Download geselecteerde caches',
-    'Selected' => 'Selected',
     'pos.' => 'pos.',
     'AllPosExport' => 'Download alle caches',
     'HideCols' => 'Verberg kolommen',
