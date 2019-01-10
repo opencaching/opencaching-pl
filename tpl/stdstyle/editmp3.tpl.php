@@ -18,17 +18,16 @@
     }
 </script>
 
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/podcache-mp3.png" class="icon32" alt="" />&nbsp;<b>{mp3typedesc}: </b><a href="/viewcache.php?cacheid={cacheid}">{cachename}</a></div>
+
 <form action="editmp3.php" method="post" enctype="multipart/form-data" name="editmp3_form" dir="ltr" onsubmit="return checkForm();">
     <input type="hidden" name="uuid" value="{uuid}" />
     <div class="searchdiv">
-        <table class="content">
+        <table class="table">
             <colgroup>
                 <col width="100">
                 <col>
             </colgroup>
-            <tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/podcache-mp3.png" class="icon32" alt="" title="edit mp3" align="middle" /> <b>{mp3typedesc} </b><font size="2"><a href="/viewcache.php?cacheid={cacheid}">{cachename}</a></font></td></tr>
-
-            <tr><td class="spacer" colspan="2"><br /><br /></td></tr>
             <tr class="form-group-sm">
                 <td valign="top">{{editmp3_03}}:</td>
                 <td><input class="form-control input200" name="title" type="text" value="{title}" size="43" /> {errnotitledesc}</td>

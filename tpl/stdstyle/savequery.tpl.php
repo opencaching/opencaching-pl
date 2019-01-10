@@ -1,18 +1,17 @@
 <?php
 
 ?>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/save.png" class="icon32" alt="" />&nbsp;{{save_queries}}</div>
+
 <form action="query.php" method="post" enctype="application/x-www-form-urlencoded">
     <input type="hidden" name="action" value="save" />
     <input type="hidden" name="queryid" value="{queryid}" />
     <input type="hidden" name="submit" value="1" />
-    <table class="content">
+    <table class="table">
         <colgroup>
-            <col width="150">
+            <col width="180">
             <col>
         </colgroup>
-        <tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/save.png" class="icon32" alt="Zapamiętaj szukanie" title="Zapamiętaj szukanie" align="middle" /> <b>{{save_queries}}</b></td></tr>
-        <tr><td class="spacer" colspan="2"></td></tr>
-
         {nameerror}
         <tr class="form-group-sm">
             <td>{{name_queries}}</td>
@@ -29,17 +28,18 @@
         </tr>
     </table>
 </form>
+<br /><br />
 <form action="query.php" method="post" enctype="application/x-www-form-urlencoded">
     <input type="hidden" name="action" value="saveas" />
     <input type="hidden" name="queryid" value="{queryid}" />
     <input type="hidden" name="submit" value="1" />
-    <table class="content">
+    <table class="table">
         <colgroup>
-            <col width="150">
+            <col width="180">
             <col>
         </colgroup>
         <tr>
-            <td class="header-small" colspan="2">{{old_options}}</td>
+            <td class="header-small" colspan="2"><b>{{old_options}}</b></td>
         </tr>
         <tr class="form-group-sm">
             <td>{{name_queries}}</td>

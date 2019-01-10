@@ -17,19 +17,19 @@
         return true;
     }
 </script>
+
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/podcache-mp3.png" class="icon32" alt="" />&nbsp;<b>{mp3typedesc}: </b><a href="/viewcache.php?cacheid={cacheid}">{cachename}</a></div>
+
 <form action="newmp3.php" method="post" enctype="multipart/form-data" name="newmp3_form" dir="ltr" onsubmit="return checkForm();">
     <input type="hidden" name="objectid" value="{objectid}" />
     <input type="hidden" name="type" value="{type}" />
     <input type="hidden" name="def_seq_m" value="{def_seq_m}" />
     <div class="searchdiv">
-        <table class="content">
+        <table class="table">
             <colgroup>
                 <col width="100">
                 <col>
             </colgroup>
-            <tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/podcache-mp3.png" class="icon32" alt="" title="Cache" align="middle" /> <b>{mp3typedesc}: </b><font size="2"><a href="/viewcache.php?cacheid={cacheid}">{cachename}</a></font></td></tr>
-
-            <tr><td class="spacer" colspan="2"><br /><br /></td></tr>
             <tr class="form-group-sm">
                 <td valign="top">{{newmp3_14}}:</td>
                 <td><input class="form-control input200" name="title" type="text" value="{title}" size="43" /> {errnotitledesc}</td>

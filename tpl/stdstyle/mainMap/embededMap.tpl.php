@@ -24,7 +24,7 @@
           <input id="searchControlButton" value="<?=tr('search')?>" type="button">
            -->
           <img id="fullscreenToggle" src="/images/icons/fullscreen.svg"
-               title="<?=tr('map_disableFullscreen')?>" alt="<?=tr('map_disableFullscreen')?>">
+               title="<?=tr('fullscreen')?>" alt="<?=tr('fullscreen')?>">
 
           <img id="refreshButton" src="/images/icons/refresh.svg"
                title="<?=tr('map_refresh')?>" alt="<?=tr('map_refresh')?>">

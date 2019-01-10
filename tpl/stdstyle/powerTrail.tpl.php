@@ -1434,7 +1434,7 @@
                             <a href="javascript:void(0)" onclick="togglePercentSection(); $('#ptPercentCc').html(calculatepercentCc($('#powerTrailpercent').html(), $('#powerTrailCacheCount').html()));" class="editPtDataButton">{{pt031}}</a>
                             <a href="javascript:void(0)" onclick="ajaxUpdateDemandPercent()" class="editPtDataButton">{{pt044}}</a>
                         </span>
-                        (<span id="ptPercentCc"></span> {{pt180}})
+                        (<span id="ptPercentCc"></span> {{caches}})
                         <img id="ptPercentOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" alt="">
                     </td>
                     <td style="text-align: right;">
