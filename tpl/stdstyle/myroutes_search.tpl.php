@@ -302,7 +302,7 @@
                             <option value="2.199" {cvt5}>{{rating_good}}</option>
                             <option value="3.000" {cvt6}>{{rating_excellent}}</option>
                         </select><br/>
-                        <input type="checkbox" name="cachenovote" value="1" id="l_cachenovote" class="checkbox" onclick="javascript:sync_options(this)" {cachev}/><label for="l_cachenovote">{{with_hidden_score}}</label>
+                        <input type="checkbox" name="cachenovote" value="1" id="l_cachenovote" class="checkbox" onclick="javascript:sync_options(this)" {cachev}/> <label for="l_cachenovote">{{with_hidden_score}}</label>
                     </td>
                 </tr>
                 <tr><td class="buffer" colspan="3"></td></tr>

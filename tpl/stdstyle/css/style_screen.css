@@ -261,7 +261,9 @@ ul#statmenu { padding: 0; margin: 0;}
 .content2-pagetitle            { overflow: hidden; width: 769px; margin: 0 0 10px 0; padding: 0 0 2px 0; border-bottom: solid 3px rgb(88,144,168); color: rgb(88,144,168); font-weight: bold; font-size: 180%;}
 .content2-newline              { clear: both; }
 
+.templateContainer ul          { font-size: 12px; }
 .templateContainer a           { color: rgb(75,75,75);}
+
 /*********************************/
 /* SECTION 6 - COMMON PARAMETERS */
 /*********************************/
