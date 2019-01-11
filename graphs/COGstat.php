@@ -7,7 +7,6 @@ require(__DIR__.'/../lib/common.inc.php');
 
 global $lang;
 
-
 // jpgraph package doesn't contains fonts
 define('TTF_DIR',__DIR__.'/../lib/fonts/');
 
@@ -17,7 +16,7 @@ JpGraphLoader::module('date');
 JpGraphLoader::module('mgraph');
 
 
-# Setup begining of stat for OC Team. Start timie 01 June every year
+# Setup begining of stat for OC Team. Start time 01 June every year
 $year = date('Y');
 $year_old = $year - 1;
 $year_new = $year + 1;
@@ -88,157 +87,179 @@ XDb::xFreeResults($rsreports);
 XDb::xFreeResults($rscaches);
 XDb::xFreeResults($rscachesM);
 
+if (count($x) == 0) {
+    $graph = null;
+} else {
+    // Create the graph. These two calls are always required
+    $graph = new Graph(740, 250, 'auto');
+    $graph->SetScale('textint', 0, max($y) + (max($y) * 0.2), 0, 0);
 
-// Create the graph. These two calls are always required
-$graph = new Graph(740, 250, 'auto');
-$graph->SetScale('textint', 0, max($y) + (max($y) * 0.2), 0, 0);
+    // Add a drop shadow
+    $graph->SetShadow();
 
-// Add a drop shadow
-$graph->SetShadow();
+    // Adjust the margin a bit to make more room for titles
+    $graph->SetMargin(50, 30, 30, 70);
 
-// Adjust the margin a bit to make more room for titles
-$graph->SetMargin(50, 30, 30, 70);
+    // Create a bar pot
+    $bplot = new BarPlot($y);
 
-// Create a bar pot
-$bplot = new BarPlot($y);
+    // Adjust fill color
+    $bplot->SetFillColor('steelblue2');
+    $graph->Add($bplot);
 
-// Adjust fill color
-$bplot->SetFillColor('steelblue2');
-$graph->Add($bplot);
+    // Setup the titles
+    $descibe = iconv('UTF-8', 'ASCII//TRANSLIT', tr("octeam_stat_problems"));
+    $graph->title->Set($descibe);
+    $graph->xaxis->title->Set($xtitle);
+    $graph->xaxis->SetTickLabels($x);
+    $graph->xaxis->SetLabelAngle(40);
+    $noproblems = iconv('UTF-8', 'ASCII//TRANSLIT', tr('number_problems'));
+    $graph->yaxis->title->Set($noproblems);
+    $graph->title->SetFont(FF_FONT1, FS_BOLD);
+    $graph->yaxis->title->SetFont(FF_FONT1, FS_BOLD);
+    $graph->xaxis->title->SetFont(FF_FONT1, FS_BOLD);
+    $graph->xaxis->SetFont(FF_ARIAL, FS_NORMAL, 8);
 
-// Setup the titles
-$descibe = iconv('UTF-8', 'ASCII//TRANSLIT', tr("octeam_stat_problems"));
-$graph->title->Set($descibe);
-$graph->xaxis->title->Set($xtitle);
-$graph->xaxis->SetTickLabels($x);
-$graph->xaxis->SetLabelAngle(40);
-$noproblems = iconv('UTF-8', 'ASCII//TRANSLIT', tr('number_problems'));
-$graph->yaxis->title->Set($noproblems);
-$graph->title->SetFont(FF_FONT1, FS_BOLD);
-$graph->yaxis->title->SetFont(FF_FONT1, FS_BOLD);
-$graph->xaxis->title->SetFont(FF_FONT1, FS_BOLD);
-$graph->xaxis->SetFont(FF_ARIAL, FS_NORMAL, 8);
+    // Setup the values that are displayed on top of each bar
+    $bplot->value->Show();
 
-// Setup the values that are displayed on top of each bar
-$bplot->value->Show();
+    // Must use TTF fonts if we want text at an arbitrary angle
+    $bplot->value->SetFont(FF_FONT1, FS_BOLD);
+    $bplot->value->SetAngle(0);
+    $bplot->value->SetFormat('%d');
+}
 
-// Must use TTF fonts if we want text at an arbitrary angle
-$bplot->value->SetFont(FF_FONT1, FS_BOLD);
-$bplot->value->SetAngle(0);
-$bplot->value->SetFormat('%d');
+if (count($x2) == 0) {
+    $graph2 = null;
+} else {
+    // Create the graph. These two calls are always required
+    $graph2 = new Graph(740, 250, 'auto');
+    $graph2->SetScale('textint', 0, max($y2) + (max($y2) * 0.2), 0, 0);
 
+    // Add a drop shadow
+    $graph2->SetShadow();
 
+    // Adjust the margin a bit to make more room for titles
+    $graph2->SetMargin(50, 30, 30, 70);
 
-// Create the graph. These two calls are always required
-$graph2 = new Graph(740, 250, 'auto');
-$graph2->SetScale('textint', 0, max($y2) + (max($y2) * 0.2), 0, 0);
+    // Create a bar pot
+    $bplot2 = new BarPlot($y2);
 
-// Add a drop shadow
-$graph2->SetShadow();
+    // Adjust fill color
+    $bplot2->SetFillColor('chartreuse3');
+    $graph2->Add($bplot2);
 
-// Adjust the margin a bit to make more room for titles
-$graph2->SetMargin(50, 30, 30, 70);
+    // Setup the titles
+    $descibe2 = iconv('UTF-8', 'ASCII//TRANSLIT', tr("octeam_stat_caches"));
+    $graph2->title->Set($descibe2);
+    $graph2->xaxis->title->Set($xtitle);
+    $graph2->xaxis->SetTickLabels($x2);
+    $graph2->xaxis->SetLabelAngle(40);
 
-// Create a bar pot
-$bplot2 = new BarPlot($y2);
+    $ncaches = iconv('UTF-8', 'ASCII//TRANSLIT', tr('number_caches'));
+    $graph2->yaxis->title->Set($ncaches);
 
-// Adjust fill color
-$bplot2->SetFillColor('chartreuse3');
-$graph2->Add($bplot2);
+    $graph2->title->SetFont(FF_FONT1, FS_BOLD);
+    $graph2->yaxis->title->SetFont(FF_FONT1, FS_BOLD);
+    $graph2->xaxis->title->SetFont(FF_FONT1, FS_BOLD);
+    $graph2->xaxis->SetFont(FF_ARIAL, FS_NORMAL, 8);
 
-// Setup the titles
-$descibe2 = iconv('UTF-8', 'ASCII//TRANSLIT', tr("octeam_stat_caches"));
-$graph2->title->Set($descibe2);
-$graph2->xaxis->title->Set($xtitle);
-$graph2->xaxis->SetTickLabels($x2);
-$graph2->xaxis->SetLabelAngle(40);
+    // Setup the values that are displayed on top of each bar
+    $bplot2->value->Show();
 
-$ncaches = iconv('UTF-8', 'ASCII//TRANSLIT', tr('number_caches'));
-$graph2->yaxis->title->Set($ncaches);
+    // Must use TTF fonts if we want text at an arbitrary angle
+    $bplot2->value->SetFont(FF_FONT1, FS_BOLD);
+    $bplot2->value->SetAngle(0);
+    $bplot2->value->SetFormat('%d');
+}
 
-$graph2->title->SetFont(FF_FONT1, FS_BOLD);
-$graph2->yaxis->title->SetFont(FF_FONT1, FS_BOLD);
-$graph2->xaxis->title->SetFont(FF_FONT1, FS_BOLD);
-$graph2->xaxis->SetFont(FF_ARIAL, FS_NORMAL, 8);
+if (count($x3) == 0) {
+    $graph3 = null;
+} else {
 
-// Setup the values that are displayed on top of each bar
-$bplot2->value->Show();
+    // Create the graph. These two calls are always required
+    $graph3 = new Graph(740, 200, 'auto');
+    $graph3->SetScale('textint', 0, max($y3) + (max($y3) * 0.2), 0, 0);
 
-// Must use TTF fonts if we want text at an arbitrary angle
-$bplot2->value->SetFont(FF_FONT1, FS_BOLD);
-$bplot2->value->SetAngle(0);
-$bplot2->value->SetFormat('%d');
+    // Add a drop shadow
+    $graph3->SetShadow();
 
-// Create the graph. These two calls are always required
-$graph3 = new Graph(740, 200, 'auto');
-$graph3->SetScale('textint', 0, max($y3) + (max($y3) * 0.2), 0, 0);
+    // Adjust the margin a bit to make more room for titles
+    $graph3->SetMargin(50, 30, 30, 40);
 
-// Add a drop shadow
-$graph3->SetShadow();
+    // Create a bar pot
+    $bplot3 = new BarPlot($y3);
 
-// Adjust the margin a bit to make more room for titles
-$graph3->SetMargin(50, 30, 30, 40);
+    // Adjust fill color
+    $bplot3->SetFillColor('purple1');
+    $graph3->Add($bplot3);
 
-// Create a bar pot
-$bplot3 = new BarPlot($y3);
+    // Setup the titles
+    $descibe3 = iconv('UTF-8', 'ASCII//TRANSLIT', tr("octeam_stat_m_problems"));
+    $graph3->title->Set($descibe3);
+    $graph3->xaxis->title->Set(iconv('UTF-8', 'ASCII//TRANSLIT', tr('number_month')) . '2016/2017');
+    $graph3->xaxis->SetTickLabels($x3);
+    $graph3->yaxis->title->Set($noproblems);
+    $graph3->title->SetFont(FF_FONT1, FS_BOLD);
+    $graph3->yaxis->title->SetFont(FF_FONT1, FS_BOLD);
+    $graph3->xaxis->title->SetFont(FF_FONT1, FS_BOLD);
 
-// Adjust fill color
-$bplot3->SetFillColor('purple1');
-$graph3->Add($bplot3);
+    // Setup the values that are displayed on top of each bar
+    $bplot3->value->Show();
 
-// Setup the titles
-$descibe3 = iconv('UTF-8', 'ASCII//TRANSLIT', tr("octeam_stat_m_problems"));
-$graph3->title->Set($descibe3);
-$graph3->xaxis->title->Set(iconv('UTF-8', 'ASCII//TRANSLIT', tr('number_month')) . '2016/2017');
-$graph3->xaxis->SetTickLabels($x3);
-$graph3->yaxis->title->Set($noproblems);
+    // Must use TTF fonts if we want text at an arbitrary angle
+    $bplot3->value->SetFont(FF_FONT1, FS_BOLD);
+    $bplot3->value->SetAngle(0);
+    $bplot3->value->SetFormat('%d');
+}
 
-$graph3->title->SetFont(FF_FONT1, FS_BOLD);
-$graph3->yaxis->title->SetFont(FF_FONT1, FS_BOLD);
-$graph3->xaxis->title->SetFont(FF_FONT1, FS_BOLD);
+if (count($x4) == 0) {
+    $graph4 = null;
+} else {
+    // Create the graph. These two calls are always required
+    $graph4 = new Graph(740, 200, 'auto');
+    $graph4->SetScale('textint', 0, max($y4) + (max($y4) * 0.2), 0, 0);
 
-// Setup the values that are displayed on top of each bar
-$bplot3->value->Show();
+    // Add a drop shadow
+    $graph4->SetShadow();
 
-// Must use TTF fonts if we want text at an arbitrary angle
-$bplot3->value->SetFont(FF_FONT1, FS_BOLD);
-$bplot3->value->SetAngle(0);
-$bplot3->value->SetFormat('%d');
+    // Adjust the margin a bit to make more room for titles
+    $graph4->SetMargin(50, 30, 30, 40);
 
-// Create the graph. These two calls are always required
-$graph4 = new Graph(740, 200, 'auto');
-$graph4->SetScale('textint', 0, max($y4) + (max($y4) * 0.2), 0, 0);
+    // Create a bar pot
+    $bplot4 = new BarPlot($y4);
 
-// Add a drop shadow
-$graph4->SetShadow();
+    // Adjust fill color
+    $bplot4->SetFillColor('purple1');
+    $graph4->Add($bplot4);
 
-// Adjust the margin a bit to make more room for titles
-$graph4->SetMargin(50, 30, 30, 40);
+    // Setup the titles
+    $descibe4 = iconv('UTF-8', 'ASCII//TRANSLIT', tr("octeam_stat_m_caches"));
+    $graph4->title->Set($descibe4);
+    $graph4->xaxis->title->Set(iconv('UTF-8', 'ASCII//TRANSLIT', tr('number_month')) . '2016/2017');
+    $graph4->xaxis->SetTickLabels($x4);
+    $graph4->yaxis->title->Set($ncaches);
 
-// Create a bar pot
-$bplot4 = new BarPlot($y4);
+    $graph4->title->SetFont(FF_FONT1, FS_BOLD);
+    $graph4->yaxis->title->SetFont(FF_FONT1, FS_BOLD);
+    $graph4->xaxis->title->SetFont(FF_FONT1, FS_BOLD);
 
-// Adjust fill color
-$bplot4->SetFillColor('purple1');
-$graph4->Add($bplot4);
+    // Setup the values that are displayed on top of each bar
+    $bplot4->value->Show();
 
-// Setup the titles
-$descibe4 = iconv('UTF-8', 'ASCII//TRANSLIT', tr("octeam_stat_m_caches"));
-$graph4->title->Set($descibe4);
-$graph4->xaxis->title->Set(iconv('UTF-8', 'ASCII//TRANSLIT', tr('number_month')) . '2016/2017');
-$graph4->xaxis->SetTickLabels($x4);
-$graph4->yaxis->title->Set($ncaches);
-$graph4->title->SetFont(FF_FONT1, FS_BOLD);
-$graph4->yaxis->title->SetFont(FF_FONT1, FS_BOLD);
-$graph4->xaxis->title->SetFont(FF_FONT1, FS_BOLD);
+    // Must use TTF fonts if we want text at an arbitrary angle
+    $bplot4->value->SetFont(FF_FONT1, FS_BOLD);
+    $bplot4->value->SetAngle(0);
+    $bplot4->value->SetFormat('%d');
+}
 
-// Setup the values that are displayed on top of each bar
-$bplot4->value->Show();
+// Show (English) message, if no data available.
+// TODO: dynamically create an image with translated message.
 
-// Must use TTF fonts if we want text at an arbitrary angle
-$bplot4->value->SetFont(FF_FONT1, FS_BOLD);
-$bplot4->value->SetAngle(0);
-$bplot4->value->SetFormat('%d');
+if (!$graph && !$graph2 && !$graph3 && !$graph4) {
+    header('Content-type: image/png');
+    die(file_get_contents(__DIR__ . '/../tpl/stdstyle/images/misc/nodata.png'));
+}
 
 //-----------------------
 // Create a multigraph
@@ -246,10 +267,16 @@ $bplot4->value->SetFormat('%d');
 $mgraph = new MGraph();
 $mgraph->SetMargin(10, 10, 10, 10);
 $mgraph->SetFrame(true, 'darkgray', 2);
-$mgraph->Add($graph);
-$mgraph->Add($graph3, 0, 270);
-$mgraph->Add($graph2, 0, 490);
-$mgraph->Add($graph4, 0, 760);
+if ($graph) {
+    $mgraph->Add($graph);
+}
+if ($graph3) {
+    $mgraph->Add($graph3, 0, 270);
+}
+if ($graph2) {
+    $mgraph->Add($graph2, 0, 490);
+}
+if ($graph4) {
+    $mgraph->Add($graph4, 0, 760);
+}
 $mgraph->Stroke();
-
-
