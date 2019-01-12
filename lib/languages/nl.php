@@ -2671,7 +2671,7 @@ $translations = array(
     'pictures_intro' => 'Toegestane formaten: {picallowedformats}. JPG is het beste voor foto\'s.<br />Maximum grootte {maxpicsizeMB} MB. Aanbevolen resolutie: {maxpicresolution} pixels.',
 
     'page_error_1' => 'An error occured while processing your request.',
-    'page_error_2' => 'The OC site admins have been notified.',
-    'page_error_3' => 'If the problem persists, please <a href="/articles.php?page=contact">contact</a> the OC team and describe step by step how to reproduce this error.',
-    'page_error_back' => 'Go to the main page',
+    'page_error_2' => 'De admins van OC zijn op de hoogte gebracht.',
+    'page_error_3' => 'Wanneer het probleem blijft bestaan, neem <a href="/articles.php?page=contact">contact</a> met het OC team en beschrijf duidelijk hoe deze fout ontstaat.',
+    'page_error_back' => 'Ga naar de hoofdpagina',
 );
