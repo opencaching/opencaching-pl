@@ -1792,7 +1792,6 @@ $translations = array(
     'pt177' => 'absteigend',
     'pt178' => 'Sortierung',
     'pt179' => 'Download als',
-    'pt180' => 'Caches',
     'pt181' => 'Mentor',
     'pt182' => 'Der Mentor ist der Ersteller des Geocaches.',
     'pt183' => 'Anfrage, deinen Cache zum Geopfad hinzuzufügen',
@@ -2672,4 +2671,8 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
 
     'pictures_intro' => 'Zulässige Bildformate: {picallowedformats}. Für Fotos wird JPG empfohlen.<br />Maximale Dateigröße: {maxpicsizeMB} MB. Empfohlene Auflösung: {maxpicresolution} Pixel.',
 
+    'page_error_1' => 'Beim Ausführen deiner Abfrage ist ein Fehler aufgetreten.',
+    'page_error_2' => 'Die Opencachin-Admins wurden informiert.',
+    'page_error_3' => 'Falls das Problem bestehen bleibt, <a href="/articles.php?page=contact">kontaktiere</a> bitte das OC-Team und beschreibe Schritt für Schritt, wie sich der Fehler reproduzieren lässt.',
+    'page_error_back' => 'Zur Startseite',
 );
