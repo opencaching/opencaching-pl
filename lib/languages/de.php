@@ -2673,6 +2673,6 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
 
     'page_error_1' => 'Beim Ausführen deiner Abfrage ist ein Fehler aufgetreten.',
     'page_error_2' => 'Die Opencachin-Admins wurden informiert.',
-    'page_error_3' => 'If the problem persists, please <a href="/articles.php?page=contact">contact</a> the OC team and describe step by step how to reproduce this error.',
+    'page_error_3' => 'Falls das Problem bestehen bleibt, <a href="/articles.php?page=contact">kontaktiere</a> bitte das OC-Team und beschreibe Schritt für Schritt, wie sich der Fehler reproduzieren lässt.',
     'page_error_back' => 'Zur Startseite',
 );
