@@ -2530,7 +2530,7 @@ $translations = array(
     'loginForm_cantSetCookie' => 'Twoja przeglądarka nie zapisała ciasteczek dla {site_name}.',
 
     'mnu_blog' => 'Blog',
-    'mnu_download' => 'Pobierz',
+    'mnu_download' => 'Download',
     'mnu_qrCode' => 'QRCode generator',
     'mnu_oldCacheMap' => 'Dawna mapa skrzynek',
     'mnu_contact' => 'Kontakt',
