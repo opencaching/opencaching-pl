@@ -290,7 +290,7 @@ $translations = array(
     'additional_attributes_hint' => 'Usted puede agregar atributos adicionales para el nombre del buzón de correo utilizando el formulario',
     'additional_attributes' => 'Atributos adicionales de la caja',
     'attributes_desc_hint' => 'Leer los <a href="{wiki_link_cacheAttrib_en}" target="_blank" rel="noopener">descripción atributos CO</a>.',
-    'descriptions' => 'Description',
+    'descriptions' => 'Descripción',
     'language' => 'Idioma',
     'other_languages_desc' => 'Nombres en otros idiomas, usted puede entrar después del registro del buzón - a través de la edición.',
     'error_new_cache' => 'Antigüedad errores. Por favor, corrija los campos marcados con',
