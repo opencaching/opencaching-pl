@@ -1214,7 +1214,7 @@ $translations = array(
     'error_ort' => 'Locating failed***',
     'alert_search_by_cachename' => 'Enter the name!***',
     'alert_search_by_dist_01' => 'Longitudinea trebuie să fie numerică!\\nFormat: GG° MM.mmm',
-    'alert_search_by_dist_02' => 'Latitudinea trebuie să fie numerică!!\\nFormat: GG° MM.mmm',
+    'alert_search_by_dist_02' => 'Latitudinea trebuie să fie numerică!\\nFormat: GG° MM.mmm',
     'alert_search_by_dist_03' => 'Distanţa maximă trebuie să fie numerică!',
     'alert_search_by_dist_04' => 'Distanţa maximă trebuie să fie în gama: 0 - 9999',
     'alert_search_by_text_01' => 'Te rog introdu descrierea!',
@@ -1863,7 +1863,7 @@ $translations = array(
     'region_04' => 'Zonă găsită de Google Maps',
     'region_mapQuest' => 'Zonă găsită de MapQuest API',
 
-    'cacheType_1' => 'Traditională',
+    'cacheType_1' => 'Tradiţională',
     'cacheType_2' => 'Multiplă',
     'cacheType_3' => 'Puzzle',
     'cacheType_4' => 'În mişcare',
