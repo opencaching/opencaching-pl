@@ -506,11 +506,11 @@
     $('#ajaxLoaderLogo').hide();
             $('#powerTrailLogo').fadeOut(800);
             $(function() {
-            setTimeout(function() {
-            console.log('nowy obrzek to: ' + success);
-                    $('#powerTrailLogo').html(success);
-                    $("#powerTrailLogo").fadeIn(800);
-            }, 801);
+              setTimeout(function() {
+                console.log('nowy obrzek to: ' + success);
+                $('#powerTrailLogo').html(success);
+                $("#powerTrailLogo").fadeIn(800);
+              }, 801);
             });
             toggleImageEdit()
             return true;
