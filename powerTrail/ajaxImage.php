@@ -1,11 +1,13 @@
 <?php
 use Utils\Database\OcDb;
+use lib\SimpleImage;
 
 require_once __DIR__ . '/../lib/common.inc.php';
 
 global $picurl, $picdir;
 
 $destination_path = $picdir.'/';
+
 $powerTrailId = $_REQUEST['powerTrailId'];
 
 $valid_formats = array("jpg", "png", "gif", "bmp", "jpeg");
@@ -15,7 +17,7 @@ $result = "-error-";
 $name = $_FILES['myfile']['name'];
 $size = $_FILES['myfile']['size'];
 
-if (strlen($name)) {
+if (!empty($name) && !empty($_FILES['myfile']['tmp_name'])) {
 
     $fileInfo = pathinfo($name);
     $txt = $fileInfo['filename'];
@@ -27,8 +29,9 @@ if (strlen($name)) {
 
             $target_path = $destination_path . $actual_image_name;
 
-            $image = new \lib\SimpleImage();
-            $image -> load($_FILES['myfile']['tmp_name']);
+            $image = new SimpleImage();
+            $image->load($_FILES['myfile']['tmp_name']);
+
             if ($image->getHeight() > $image->getWidth() && $image->getHeight()>250) { //portrait
                 $image->resizeToHeight(250);
             }
