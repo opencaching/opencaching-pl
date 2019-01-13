@@ -10,6 +10,8 @@
         <?php
 use Utils\Database\XDb;
 use Utils\Cache\OcMemCache;
+use lib\Objects\OcConfig\OcConfig;
+
 global $lang;
 
 # This page took >60 seconds to render! Added daily caching.
@@ -34,11 +36,15 @@ function ()
                 SELECT DISTINCT `user_id` FROM `caches`
         ) AS `t`', 0);
 
+    $countriesQuoted = array_map(
+        '\Utils\Database\XDb::xQuote',
+        OcConfig::instance()->getSiteConfig()['primaryCountries']
+    );
     $rsfCR = XDb::xSql(
         "SELECT COUNT(*) `count`, `cache_location`.`adm3` region, `cache_location`.`code3` code_region
         FROM `cache_location`
             INNER JOIN cache_logs ON cache_location.cache_id=cache_logs.cache_id
-        WHERE `cache_location`.`code1`='PL'
+        WHERE `cache_location`.`code1` IN (".implode(",", $countriesQuoted) .")
             AND (cache_logs.type='1' OR cache_logs.type='2')
             AND cache_logs.deleted='0'
         GROUP BY `cache_location`.`code3`

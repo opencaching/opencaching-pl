@@ -62,6 +62,9 @@ final class OcConfig extends ConfigReader
     private $dbHost;
     private $dbName;
 
+    /** @var array general site properties */
+    private $siteConfig;
+
     /** @var array the \Utils\Lock objects configuration array */
     private $lockConfig;
     /** @var array the watchlist configuration array */
@@ -374,6 +377,23 @@ final class OcConfig extends ConfigReader
             $this->lockConfig = self::getConfig("lock", "lock");
         }
         return $this->lockConfig;
+    }
+
+    /**
+     * Gives site properties, tries to initialize it if null
+     *
+     * @return array site properties
+     */
+    public function getSiteConfig()
+    {
+        if ($this->siteConfig == null) {
+            $this->siteConfig = self::getConfig("site", "site");
+
+            if (!isset($this->siteConfig['primaryCountries'])) {
+                throw new \Exception("primaryCountries config is missing for this site");
+            }
+        }
+        return $this->siteConfig;
     }
 
     /**
