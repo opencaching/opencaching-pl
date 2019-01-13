@@ -1021,7 +1021,7 @@ function updateAltitudeIfNeeded($oldCacheRecord, $cacheId){
     $oldCoords = Coordinates::FromCoordsFactory($oldCacheRecord['latitude'], $oldCacheRecord['longitude']);
     $newCoords = $geoCache->getCoordinates();
 
-    if (!$newCoords->areSameAs($oldCoords)) {
+    if ($newCoords && $oldCoords && !$newCoords->areSameAs($oldCoords)) {
         //cords was changed - update altitude value
         $geoCache->updateAltitude();
     }
