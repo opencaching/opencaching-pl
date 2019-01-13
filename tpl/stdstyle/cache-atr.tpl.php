@@ -3,8 +3,7 @@
  * This template is used to display generator of "additional cache attributes"
  */
 
-if
- ($_POST["cache_icon"] == "TRUE") {
+if (isset($_POST["cache_icon"]) && $_POST["cache_icon"] == "TRUE") {
     $atr1 = $_POST["atr1"];
     $atr2 = $_POST["atr2"];
     $atr3 = $_POST["atr3"];
