@@ -15,7 +15,14 @@ if( $appContainer->getLoggedUser() === null){
 
 
 $commentsArr = PowerTrailController::getEntryTypes();
+
+if (!isset($_REQUEST['projectId'])){
+    http_response_code(403);
+    echo "Unknown PT";
+    exit;
+}
 $ptOwners = powerTrailBase::getPtOwners($_REQUEST['projectId']);
+
 $paginateCount = powerTrailBase::commentsPaginateCount;
 foreach ($ptOwners as $owner) {
     $ownersIdArray[] = $owner['user_id'];

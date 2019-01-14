@@ -933,8 +933,7 @@ if (isset($_POST['submit_gpx'])) {
         $attribentries = '';
         while ($rAttrib = XDb::xFetchArray($rsAttributes)) {
             if (isset($gpxAttribID[$rAttrib['attrib_id']])) {
-                $thisattribute = $gpxAttributes;
-
+                $thisattribute = '<attribute id="{attrib_id}" inc="1">{attrib_text_long}</attribute>';
                 $thisattribute = mb_ereg_replace('{attrib_id}', $gpxAttribID[$rAttrib['attrib_id']], $thisattribute);
                 $thisattribute = mb_ereg_replace('{attrib_text_long}', $gpxAttribName[$rAttrib['attrib_id']], $thisattribute);
                 if (isset($gpxAttribInc[$rAttrib['attrib_id']]))

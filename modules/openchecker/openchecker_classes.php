@@ -175,17 +175,10 @@ class OpenCheckerCore {
 
         $attempts_counter = $data['proby'] + 1;
 
-        $coordN_master = $data['latitude'];
-        $coordE_master = $data['longitude'];
+        $properCoords = Coordinates::FromCoordsFactory($data['latitude'], $data['longitude']);
 
         // comparing data from post with data from database
-        if (
-                $guessCorrds !== null &&
-                (($coordN_master - $guessCorrds->getLatitude()) < 0.00001) &&
-                (($coordN_master - $guessCorrds->getLatitude()) > -0.00001) &&
-                (($coordE_master - $guessCorrds->getLongitude()) < 0.00001) &&
-                (($coordE_master - $guessCorrds->getLongitude()) > -0.00001)
-        ) {
+        if ($guessCorrds && $properCoords && $properCoords->areSameAs($guessCorrds)) {
             //puzzle solved - result ok
             $hits_counter = $data['sukcesy'] + 1;
 

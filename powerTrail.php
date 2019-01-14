@@ -415,14 +415,17 @@ function displayCaches($caches, $pTrails)
 function displayPTrails($pTrails, $areOwnSeries)
 {
 
-
     $ptTypes = powerTrailBase::getPowerTrailTypes();
     $ptStatus = \lib\Controllers\PowerTrailController::getPowerTrailStatus();
 
     $dataForList = '';
     $dataForMap = '';
 
-    foreach ($pTrails as $pTkey => $pTrail) {
+    if (!is_array($pTrails)) {
+        return ['',''];
+    }
+
+    foreach ($pTrails as $pTrail) {
 
         $pTrail["name"] = str_replace("'", '&#39;', $pTrail["name"]);
 
