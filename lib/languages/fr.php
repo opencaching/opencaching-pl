@@ -2094,7 +2094,7 @@ $translations = array(
     'contact_ocro_description_1' => 'contact_ocro_description_1',
     'contact_ocro_description_2' => 'contact_ocro_description_2',
     'contact_nl_title_1' => 'Questions générales au sujet d\'Opencaching.nl et et sur le thème du Géocaching.',
-    'contact_nl_desc_1_1' => 'Pour toute question concernant OpenCaching ou le thème du Geocaching, consultez notre <a href="http://wiki.opencaching.nl/">Wiki OpenCaching</a>, vous y trouverez pas mal de lectures sur le sujet. Il existe une <a href="https://www.youtube.com/watch?v=_ujk70YhKLA&feature=youtu.be">video d\'introduction</a> expliquant ce qu\'est OpenCaching.nl et le Géocaching. ',
+    'contact_nl_desc_1_1' => 'Pour toute question concernant OpenCaching ou le thème du Geocaching, consultez notre <a href="https://wiki.opencaching.nl/">Wiki OpenCaching</a>, vous y trouverez pas mal de lectures sur le sujet. Il existe une <a href="https://www.youtube.com/watch?v=_ujk70YhKLA&feature=youtu.be">video d\'introduction</a> expliquant ce qu\'est OpenCaching.nl et le Géocaching.',
     'contact_nl_desc_1_2' => 'Si vous ne trouvez pas réponse a votre question, vous pouvez aussi regarder du cote de notre <a href="http://forum.opencaching.nl">forum</a>. Il est probable que votre question ait déjà été posée.',
     'contact_nl_title_2' => 'Géocacheurs inscrits sur ce site et membres de l’équipe OC.',
     'contact_nl_desc_2_1' => '<a href="https://www.opencaching.nl/viewprofile.php?userid=1"><b>harrieklomp</b></a> (Harrie) : Administration du site Opencaching, prend soin du Wiki, modère les nouvelles caches de la région de Limburg en Belgique, etc. etc.',
