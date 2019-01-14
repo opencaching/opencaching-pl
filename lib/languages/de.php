@@ -2095,7 +2095,7 @@ $translations = array(
     'contact_ocro_description_2' => 'April 2014 – Start von {site_name} in Rumänien, basierend auf dem Open-Source-Projekt OPENCACHING-PL',
     'contact_nl_title_1' => 'Allgemeine Fragen zu Opencaching.nl und zum Thema Geocaching',
     'contact_nl_desc_1_1' => 'Bei Fragen zu Opencaching und zum Thema Geocachig kannst du in unserem <a href="https://wiki.opencaching.nl/">OpenCaching-Wiki</a> nachschauen.',
-    'contact_nl_desc_1_2' => 'Wenn du im Wiki nicht fündig wurdest, kannst du es auch in unserem <a href="http://forum.opencaching.nl">Forum</a> versuchen. Vielleicht wurde deine Frage dort schon beantwortet?',
+    'contact_nl_desc_1_2' => 'Wenn du im Wiki nicht fündig wurdest, kannst du es auch in unserem <a href="https://forum.opencaching.nl">Forum</a> versuchen. Vielleicht wurde deine Frage dort schon beantwortet?',
     'contact_nl_title_2' => 'Cacher, die diese Seite betreuen und dem OC-Team angehören',
     'contact_nl_desc_2_1' => '<a href="https://www.opencaching.nl/viewprofile.php?userid=1"><b>harrieklomp</b></a> (Harrie):
 Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches in der Region Limburg, Belgien etc. etc.',
