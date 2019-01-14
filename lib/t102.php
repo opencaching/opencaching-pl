@@ -180,7 +180,7 @@ while ($record = $dbc->dbResultFetch($s)) {
     $sOpis = "" . $sOpis;
 
 
-    $sProfil = "<b>Zarejestrowany od:</b> " . $record["date_created"];
+    $sProfil = "<b>" . tr('registered_since_label') . "</b> " . $record["date_created"];
 
 
     $nCount = $record["count"];
