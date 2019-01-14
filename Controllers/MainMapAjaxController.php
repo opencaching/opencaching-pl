@@ -1,9 +1,10 @@
 <?php
 namespace Controllers;
 
-use lib\Objects\Coordinates\GeoCode;
 use okapi\Facade;
+use lib\Objects\Coordinates\GeoCode;
 use lib\Objects\GeoCache\GeoCache;
+use lib\Objects\OcConfig\OcConfig;
 use lib\Objects\User\UserPreferences\MainMapSettings;
 use lib\Objects\User\UserPreferences\UserPreferences;
 use Utils\Text\Formatter;
@@ -17,7 +18,7 @@ use Utils\Text\Formatter;
 class MainMapAjaxController extends BaseController
 {
     const RATING_REGEX = '/^[1-4]-[1-5]|X$/';
-    const SEARCHDATA_REGEX = '/^[a-f0-9]{6,32}/';
+    const SEARCHDATA_REGEX = '/^[a-f0-9]{6,32}$/';
     const GEOPATH_ID_REGEX = '/^[0-9]+(\|[0-9]+)*$/';
     const BBOX_REGEX = '/^(-?\d+\.?\d*\|){3}-?\d+\.?\d*$/';
 
@@ -190,8 +191,6 @@ class MainMapAjaxController extends BaseController
             $params
         );
 
-        Facade::disable_error_handling(); // disable OKAPI error handler after Facade usage
-
         if (! is_a($okapiResp, "ArrayObject")) { // strange OKAPI return !?
             error_log(__METHOD__.": ERROR: strange OKAPI response - not an ArrayObject!");
             $this->ajaxErrorResponse('Internal error', 500);
@@ -210,53 +209,12 @@ class MainMapAjaxController extends BaseController
 
     private function loadSearchData($searchData)
     {
-        Facade::reenable_error_handling();
+        $filepath = OcConfig::getDynFilesPath() . "/searchdata/" . $searchData;
 
-        // We need to transform OC's "searchdata" into OKAPI's "search set".
-        // First, we need to determine if we ALREADY did that.
-        // Note, that this is not exactly thread-efficient. Multiple threads may
-        // do this transformation in the same time. However, this is done only once
-        // for each searchdata, so we will ignore it.
+        $set_id = Facade::import_search_set_file($searchData, $filepath);
 
-        $cache_key = "OC_searchdata_" . $searchData;
-        $set_id = Facade::cache_get($cache_key);
-        if ($set_id === null) {
-            // Read the searchdata file into a temporary table.
-
-            $filepath = \okapi\Settings::get('VAR_DIR') . "/searchdata/" . $searchData;
-
-
-            if (file_exists($filepath)) {
-
-                \okapi\core\Db::execute("
-                    create temporary table temp_" . $searchData . " (
-                    cache_id integer primary key
-                    ) engine=memory
-                ");
-
-                \okapi\core\Db::execute("
-                        load data local infile '$filepath'
-                        into table temp_" . $searchData . "
-                        fields terminated by ' '
-                        lines terminated by '\\n'
-                        (cache_id)
-                ");
-            } else {
-                //TODO: no such file!
-            }
-
-            // Tell OKAPI to import the table into its own internal structures.
-            // Cache it for two hours.
-
-            $set_info = Facade::import_search_set("temp_" . $searchData, 7200, 7200);
-            $set_id = $set_info['set_id'];
-            Facade::cache_set($cache_key, $set_id, 7200);
-        }
         $this->searchParams['set_and'] = $set_id;
         $this->searchParams['status'] = "Available|Temporarily unavailable|Archived";
-
-        Facade::disable_error_handling();
-        return true;
     }
 
     /**

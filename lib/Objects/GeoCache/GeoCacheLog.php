@@ -541,8 +541,6 @@ class GeoCacheLog extends GeoCacheLogCommons
             // Notify OKAPI's replicate module of the change.
             // Details: https://github.com/opencaching/okapi/issues/265
             Facade::schedule_user_entries_check($this->getGeoCache()->getCacheId(), $this->getUserId());
-            Facade::disable_error_handling();
-
 
             GeoCacheScore::updateScoreOnLogRemove($this);
 

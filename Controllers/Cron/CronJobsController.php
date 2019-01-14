@@ -48,7 +48,6 @@ class CronJobsController extends BaseController
         } else {
             Facade::cache_set('ocpl/lastLockedCronRun', date('Y-m-d H:i:s'), 7200);
         }
-        Facade::disable_error_handling();
 
         $this->prepareJobs();
 

@@ -25,8 +25,6 @@ class GeoKretyNewJob extends Job
 {
     public function run()
     {
-        Facade::disable_error_handling();
-
         /* last synchro check */
         $last_updated = XDb::xSimpleQueryValue(
             "SELECT value FROM sysconfig WHERE name='geokrety_lastupdate'", 0);

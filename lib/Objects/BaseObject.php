@@ -53,8 +53,6 @@ abstract class BaseObject
         $okapiResp = Facade::service_call(
             $service, $userId, $params);
 
-        Facade::disable_error_handling();
-
         return $okapiResp;
     }
 

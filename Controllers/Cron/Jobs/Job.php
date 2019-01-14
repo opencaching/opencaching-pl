@@ -143,10 +143,7 @@ abstract class Job
 
     public final function getLastRun()
     {
-        $lastRun = Facade::cache_get('ocpl/cronJobRun#'.get_class($this));
-        Facade::disable_error_handling();
-
-        return $lastRun;
+        return Facade::cache_get('ocpl/cronJobRun#'.get_class($this));
     }
 
     public final function setLastRun()
@@ -156,6 +153,5 @@ abstract class Job
             date('Y-m-d H:i:s'),
             366 * 24 * 3600
         );
-        Facade::disable_error_handling();
     }
 }
