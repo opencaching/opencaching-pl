@@ -66,6 +66,9 @@ final class OcConfig extends ConfigReader
     /** @var array general site properties */
     private $siteConfig;
 
+    /** @var array of i18n settings */
+    private $i18nConfig;
+
     /** @var array the \Utils\Lock objects configuration array */
     private $lockConfig;
     /** @var array the watchlist configuration array */
@@ -405,6 +408,14 @@ final class OcConfig extends ConfigReader
             }
         }
         return $this->siteConfig;
+    }
+
+    public function getI18Config()
+    {
+        if ($this->i18nConfig == null) {
+            $this->i18nConfig = self::getConfig("i18n");
+        }
+        return $this->i18nConfig;
     }
 
     /**

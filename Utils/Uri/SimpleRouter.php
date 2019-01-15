@@ -112,6 +112,26 @@ class SimpleRouter
         exit;
     }
 
+
+    /**
+     * Redirect to new location
+     *
+     * @param string $uri
+     * @param bool $absoluteUri - if set means that uri is absolute (contains protocol and host etc.)
+     */
+    public static function redirect($uri, $absoluteUri=null)
+    {
+        if (is_null($absoluteUri)) {
+            // if the first char of $uri is not a slash add slash
+            if (substr($uri, 0, 1) !== '/') {
+                $uri = '/'.$uri;
+            }
+            $uri = "//" . $_SERVER['HTTP_HOST'] . $uri;
+        }
+
+        header("Location: $uri");
+    }
+
     /**
      * Replace ctrl part from route into php-namespace class name
      *

@@ -3,26 +3,26 @@ namespace Utils\I18n;
 
 use Exception;
 use Utils\Uri\Uri;
+use lib\Objects\OcConfig\OcConfig;
 
 class I18n
 {
-
     /**
-     * supported translations list is stored in config['supportedLanguages'] var in settings* files
-     * @return array of supported tranlation in form: 'PL', 'EN', 'NL', 'RO'
+     * supported translations list is stored in i18n::$config['supportedLanguages'] var in config files
+     * @return array of supported languags
      */
     public static function getSupportedTranslations(){
-
-        if(isset($GLOBALS['config']['supportedLanguages']) && is_array($GLOBALS['config']['supportedLanguages'])){
-            return $GLOBALS['config']['supportedLanguages'];
-        } else {
-            error_log(__METHOD__.': There is no $config[supportedLanguages] settings -'.
-                        'please load settingsDefault.inc.php in your setting.inc.php!');
-            return array('en', 'nl', 'pl', 'ro');
-        }
+        return OcConfig::instance()->getI18Config()['supportedLanguages'];
     }
 
     public static function isTranslationSupported($lang){
+
+        if (CrowdinInContextMode::isSupportedInConfig()) {
+            if ($lang == CrowdinInContextMode::getPseudoLang() ){
+                return true;
+            }
+        }
+
         return in_array($lang, self::getSupportedTranslations());
     }
 
@@ -64,6 +64,7 @@ class I18n
         return $result;
     }
 
+
     // Methods for retrieving and maintaining old-style database translations.
     // This should become obsolete some time.
 
@@ -72,7 +73,7 @@ class I18n
     public static function getTranslationTables()
     {
         return [
-            'cache_size', 'cache_status', 'cache_type', 'log_types', 'waypoint_type', 
+            'cache_size', 'cache_status', 'cache_type', 'log_types', 'waypoint_type',
             'countries', 'languages'
         ];
     }

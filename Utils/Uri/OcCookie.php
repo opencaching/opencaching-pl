@@ -120,7 +120,14 @@ class OcCookie
     {
         $cookieExpiry = time() + UserAuthorization::PERMANENT_LOGIN_TIMEOUT;
 
-        $result = CookieBase::setCookie(self::getOcCookieName(), base64_encode(json_encode(self::$ocData)), $cookieExpiry, '/', false, true, CookieBase::SAME_SITE_RESTRICTION_LAX);
+        $result = CookieBase::setCookie(
+            self::getOcCookieName(),
+            base64_encode( json_encode(self::$ocData)),
+            $cookieExpiry,
+            '/',
+            false,
+            true,
+            CookieBase::SAME_SITE_RESTRICTION_LAX);
 
         if (! $result) {
             Debug::errorLog(__METHOD__ . ": Can't set OCUserData cookie");

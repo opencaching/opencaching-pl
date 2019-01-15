@@ -4,6 +4,8 @@ use Utils\Uri\Uri;
 use Utils\I18n\Languages;
 use Utils\Text\UserInputFilter;
 use Utils\Uri\OcCookie;
+use lib\Objects\OcConfig\OcConfig;
+use Utils\I18n\CrowdinInContextMode;
 
 //English must be always supported
 define('FAILOVER_LANGUAGE', 'en');
@@ -14,18 +16,17 @@ function initTranslations()
 {
     global $lang, $language;
 
-    //language changed?
+    // language changed?
     if (isset($_REQUEST['lang'])) {
         $lang = $_REQUEST['lang'];
     } else {
         $lang = OcCookie::getOrDefault('lang', $lang);
     }
 
-    //check if $lang is supported by site
+    // check if $lang is supported by site
     if (!I18n::isTranslationSupported($lang)) {
         // requested language is not supported - display error...
         tpl_set_tplname('error/langNotSupported');
-        header("HTTP/1.0 404 Not Found");
         $view = tpl_getView();
 
         $view->loadJQuery();
@@ -41,6 +42,12 @@ function initTranslations()
         exit;
     }
 
+    CrowdinInContextMode::initHandler();
+    if (CrowdinInContextMode::enabled()) {
+        // CrowdinInContext mode is enabled => force loading crowdin "pseudo" lang
+        $lang = CrowdinInContextMode::getPseudoLang();
+    }
+
     load_language_file($lang);
     Languages::setLocale($lang);
 }
@@ -52,6 +59,8 @@ function load_language_file($lang)
     if (!file_exists($languageFilename)) {
         return false;
     }
+
+    // load selected language/translation file
     include ($languageFilename);
     $language[$lang] = $translations;
     return true;

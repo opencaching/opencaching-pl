@@ -67,12 +67,6 @@ $config = array(
     'defaultLanguageList' => array(
         'PL', 'EN', 'FR', 'DE', 'NL', 'RO'
     ),
-    /** Languages supported by OC node -
-     * for those languages translations are supported both in file and db-tables
-     * IMPORTANT: use lower letters only! */
-    'supportedLanguages' => array (
-        'pl', 'en', 'nl', 'ro'
-    ),
     /** default country in user registration form */
     'defaultCountry' => 'PL',
 

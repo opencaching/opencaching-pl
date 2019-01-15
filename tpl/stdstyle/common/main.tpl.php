@@ -342,8 +342,20 @@ global $tpl_subtitle;
           <?=$view->licenseHtml?>
           <span class="bottom-flags">
             <?php foreach($view->_languageFlags as $langFlag){ ?>
-              <a rel="nofollow" href="<?=$langFlag['link']?>"><img class="img-navflag" src="<?=$langFlag['img']?>" alt="<?=$langFlag['name']?> version" title="<?=$langFlag['name']?> version"></a>
+              <a rel="nofollow" href="<?=$langFlag['link']?>">
+                <img class="img-navflag" src="<?=$langFlag['img']?>"
+                     alt="<?=$langFlag['name']?> version" title="<?=$langFlag['name']?> version">
+              </a>
             <?php } //forach-lang-flags ?>
+          </span>
+          <span>
+            <a href="<?=$view->_crowdinInContextActionUrl?>">
+                <?php if ($view->_crowdinInContextEnabled) { ?>
+                  <?=tr('common_disableCrowdinInContext')?>
+                <?php } else { // if-_crowdinInContextEnabled ?>
+                  <?=tr('common_enableCrowdinInContext')?>
+                <?php } //if-_crowdinInContextEnabled ?>
+            </a>
           </span>
         </div>
 
@@ -381,6 +393,6 @@ global $tpl_subtitle;
             <script src="<?=$js['url']?>"<?=$js['async'] ? ' async' : ''?> defer></script>
   <?php   } //if
       } //foreach-js ?>
-  <!-- (C) The Opencaching Project 2018 -->
+  <!-- (C) The Opencaching Project 2019 -->
 </body>
 </html>

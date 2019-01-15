@@ -2687,4 +2687,7 @@ $translations = array(
     'page_error_2' => 'The OC site admins have been notified.',
     'page_error_3' => 'If the problem persists, please <a href="/articles.php?page=contact">contact</a> the OC team and describe step by step how to reproduce this error.',
     'page_error_back' => 'Go to the main page',
+
+    'common_enableCrowdinInContext' => 'Improve translations',
+    'common_disableCrowdinInContext' => 'Disable translations improvement mode',
 );

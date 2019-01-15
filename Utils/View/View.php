@@ -5,6 +5,8 @@ use Utils\DateTime\Year;
 use lib\Objects\ApplicationContainer;
 use Utils\Debug\Debug;
 use Controllers\PageLayout\MainLayoutController;
+use Utils\I18n\CrowdinInContextMode;
+use Utils\Uri\SimpleRouter;
 
 class View {
 
@@ -37,6 +39,7 @@ class View {
         $this->_googleAnalyticsKey = isset($GLOBALS['googleAnalytics_key']) ?
                 $GLOBALS['googleAnalytics_key'] : '';
 
+        $this->handleCrowdinInContextMode();
     }
 
     /**
@@ -132,6 +135,16 @@ class View {
         return ob_get_clean();
     }
 
+    public function handleCrowdinInContextMode()
+    {
+        if(!CrowdinInContextMode::enabled()){
+            // crowdin-in-context mode is not enabled
+            return;
+        }
+
+        // crowdin-in-context mode is enabled - load proper chunk
+        $this->addHeaderChunk('crowdinInContext');
+    }
 
     public function loadJQuery()
     {
@@ -205,13 +218,7 @@ class View {
      */
     public function redirect($uri)
     {
-
-        // if the first char of $uri is not a slash add slash
-        if (substr($uri, 0, 1) !== '/') {
-            $uri = '/'.$uri;
-        }
-
-        header("Location: " . "//" . $_SERVER['HTTP_HOST'] . $uri);
+        SimpleRouter::redirect($uri);
     }
 
     public function getSeasonCssName()
