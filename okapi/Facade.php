@@ -27,12 +27,6 @@ use okapi\lib\OCSession;
 # method that has not been exposed through the Facade class, contact
 # OKAPI developers, we will add it here.
 
-# The first Facade function call will initialize OKAPI Framework with its
-# default exception and error handlers. OKAPI is strict about PHP warnings
-# and notices, so you might need to temporarily disable the error handler
-# in order to get it to work with your code. Just call this after you
-# include the Facade file: Facade::disable_error_handling().
-
 # EXAMPLE OF USAGE:
 
 # require_once $rootpath.'okapi/Facade.php';
@@ -40,6 +34,8 @@ use okapi\lib\OCSession;
 # \okapi\Facade::disable_error_handling();
 
 # --------------------
+
+# This initialization code is executed by PHP upon first call of a Facade method:
 
 require_once __DIR__ . '/autoload.php';
 
@@ -74,7 +70,9 @@ class Facade
             $parameters
         );
         $request->perceive_as_http_request = true;
-        return OkapiServiceRunner::call($service_name, $request);
+        $result = OkapiServiceRunner::call($service_name, $request);
+        self::disable_error_handling();
+        return $result;
     }
 
     /**
@@ -100,6 +98,7 @@ class Facade
             $request->etag = $_SERVER['HTTP_IF_NONE_MATCH'];
         $response = OkapiServiceRunner::call($service_name, $request);
         $response->display();
+        self::disable_error_handling();
     }
 
     /**
@@ -110,7 +109,9 @@ class Facade
     public static function detect_user_id()
     {
         self::reenable_error_handling();
-        return OCSession::get_user_id();
+        $user_id = OCSession::get_user_id();
+        self::disable_error_handling();
+        return $user_id;
     }
 
     /**
@@ -132,9 +133,70 @@ class Facade
             $temp_table.".cache_id = caches.cache_id",
             'caches.status in (1,2,3)',
         );
-        return \okapi\services\caches\search\save\WebService::get_set(
+        $result = \okapi\services\caches\search\save\WebService::get_set(
             $tables, array() /* joins */, $where_conds, $min_store, $max_ref_age
         );
+        self::disable_error_handling();
+        return $result;
+    }
+
+    /**
+     * Creates a search set from a file, each line containing a cache code.
+     */
+    public static function import_search_set_file($search_data_id, $filepath)
+    {
+        // We need to transform OC's "searchdata" into OKAPI's "search set".
+        // First, we need to determine if we ALREADY did that.
+        // Note, that this is not exactly thread-efficient. Multiple threads may
+        // do this transformation in the same time. However, this is done only once
+        // for each searchdata, so we will ignore it.
+
+        self::reenable_error_handling();
+        if (!preg_match('/^[a-z0-9_]+$/i', $search_data_id)) {
+            throw new \Exception("bad search data id: '".$search_data_id."'");
+        }
+
+        $cache_key = "OC_searchdata_" . $search_data_id;
+        $set_id = self::cache_get($cache_key);
+
+        if ($set_id === null) {
+            // Read the searchdata file into a temporary table.
+
+            if (file_exists($filepath)) {
+                $temp_table = "temp_" . $search_data_id;
+                Db::execute("
+                    create temporary table " . $temp_table . " (
+                    cache_id integer primary key
+                    ) engine=memory
+                ");
+                Db::execute("
+                    load data local infile '".$filepath."'
+                    into table " . $temp_table . "
+                    fields terminated by ' '
+                    lines terminated by '\\n'
+                    (cache_id)
+                ");
+            } else {
+                throw new \Exception("File missing: " . $filepath);
+            }
+
+            // Tell OKAPI to import the table into its own internal structures.
+            // Cache it for two hours.
+
+            $tables = array('caches', $temp_table);
+            $where_conds = array(
+                $temp_table.".cache_id = caches.cache_id",
+                'caches.status in (1,2,3)',
+            );
+            $set_info = \okapi\services\caches\search\save\WebService::get_set(
+                $tables, array() /* joins */, $where_conds, 7200, 7200
+            );
+            $set_id = $set_info['set_id'];
+            self::cache_set($cache_key, $set_id, 7200);
+        }
+
+        self::disable_error_handling();
+        return $set_id;
     }
 
     /**
@@ -155,6 +217,7 @@ class Facade
             set okapi_syncbase = now()
             where wp_oc in ('".implode("','", array_map('\okapi\core\Db::escape_string', $cache_codes))."')
         ");
+        self::disable_error_handling();
     }
 
     /**
@@ -174,6 +237,7 @@ class Facade
                 cache_id = '".Db::escape_string($cache_id)."'
                 and user_id = '".Db::escape_string($user_id)."'
         ");
+        self::disable_error_handling();
     }
 
     /**
@@ -192,6 +256,7 @@ class Facade
             delete from okapi_tokens
             where user_id = '".Db::escape_string($user_id)."'
         ");
+        self::disable_error_handling();
     }
 
     /**
@@ -202,25 +267,7 @@ class Facade
     {
         self::reenable_error_handling();
         views\update\View::call();
-    }
-
-    /**
-     * You will probably want to call that with FALSE when using Facade
-     * in buggy, legacy OC code. This will disable OKAPI's default behavior
-     * of treating NOTICEs as errors. Redundant calls will be ignored.
-     */
-    public static function disable_error_handling()
-    {
-        OkapiErrorHandler::disable();
-    }
-
-    /**
-     * If you disabled OKAPI's error handling with disable_error_handling,
-     * you may reenable it with this method. Redundant calls will be ignored.
-     */
-    public static function reenable_error_handling()
-    {
-        OkapiErrorHandler::enable();
+        self::disable_error_handling();
     }
 
     /**
@@ -251,6 +298,7 @@ class Facade
     {
         self::reenable_error_handling();
         Cache::set("facade#".$key, $value, $timeout);
+        self::disable_error_handling();
     }
 
     /** Same as `cache_set`, but works on many key->value pair at once. */
@@ -262,6 +310,7 @@ class Facade
             $prefixed_dict["facade#".$key] = &$value_ref;
         }
         Cache::set_many($prefixed_dict, $timeout);
+        self::disable_error_handling();
     }
 
     /**
@@ -271,7 +320,9 @@ class Facade
     public static function cache_get($key)
     {
         self::reenable_error_handling();
-        return Cache::get("facade#".$key);
+        $value = Cache::get("facade#".$key);
+        self::disable_error_handling();
+        return $value;
     }
 
     /** Same as `cache_get`, but it works on multiple keys at once. */
@@ -287,6 +338,7 @@ class Facade
         foreach ($prefixed_result as $prefixed_key => &$value_ref) {
             $result[substr($prefixed_key, 7)] = &$value_ref;
         }
+        self::disable_error_handling();
         return $result;
     }
 
@@ -297,6 +349,7 @@ class Facade
     {
         self::reenable_error_handling();
         Cache::delete("facade#".$key);
+        self::disable_error_handling();
     }
 
     /** Same as `cache_delete`, but works on many keys at once. */
@@ -308,6 +361,7 @@ class Facade
             $prefixed_keys[] = "facade#".$key;
         }
         Cache::delete_many($prefixed_keys);
+        self::disable_error_handling();
     }
 
     /**
@@ -318,13 +372,16 @@ class Facade
     public static function fetch_signals($maxcount)
     {
         self::reenable_error_handling();
-        return OCPLSignals::fetch($maxcount);
+        $signals = OCPLSignals::fetch($maxcount);
+        self::disable_error_handling();
+        return $signals;
     }
 
     public static function signals_done($signals)
     {
         self::reenable_error_handling();
-        return OCPLSignals::delete($signals);
+        OCPLSignals::delete($signals);
+        self::disable_error_handling();
     }
 
     /**
@@ -337,5 +394,21 @@ class Facade
             'okapi_tile_caches', 'okapi_tile_status',
             'okapi_nonces',
         ];
+    }
+
+    /**
+     * Switch from Okapi to external error handling
+     */
+    public static function disable_error_handling()
+    {
+        OkapiErrorHandler::disable();
+    }
+
+    /**
+     * Switch from external to Okapi error handling
+     */
+    public static function reenable_error_handling()
+    {
+        OkapiErrorHandler::enable();
     }
 }

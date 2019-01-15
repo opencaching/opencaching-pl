@@ -1,4 +1,8 @@
 <?php
+/**
+  * This is "pseudo" language file used by Crowdin-in-context translation mode
+  * see: https://support.crowdin.com/in-context-localization/#optional-parameters for details 
+  */
 
 $translations = array(
     'main_menu' => 'crwdns5540:0crwdne5540:0',
