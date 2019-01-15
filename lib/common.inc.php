@@ -6,6 +6,7 @@ use Utils\Debug\ErrorHandler;
 use Utils\View\View;
 use lib\Objects\User\UserAuthorization;
 use lib\Objects\OcConfig\OcConfig;
+use Utils\I18n\I18n;
 
 ErrorHandler::install();
 
@@ -46,7 +47,7 @@ if (php_sapi_name() != "cli") { // this is not neccesarry for command-line scrip
     UserAuthorization::verify();
 
     initTemplateSystem();
-    initTranslations();
+    I18n::initTranslations();
 }
 
 function initTemplateSystem(){

@@ -5,6 +5,12 @@
  */
 
 /**
+ * Default node language
+ */
+$config['defaultLang'] = 'pl';
+
+
+/**
  * List of supported languages
  * Please note that for now still we have also translations in DB!
  */

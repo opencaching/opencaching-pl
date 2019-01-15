@@ -2,11 +2,133 @@
 namespace Utils\I18n;
 
 use Exception;
+use Utils\Text\UserInputFilter;
+use Utils\Uri\OcCookie;
 use Utils\Uri\Uri;
 use lib\Objects\OcConfig\OcConfig;
+use Utils\Debug\Debug;
 
 class I18n
 {
+    const FAILOVER_LANGUAGE = 'en';
+
+    /**
+     * Retruns current language of tranlsations
+     * @return string - two-char lang code - for example: 'pl' or 'en'
+     */
+    public static function getCurrentLang()
+    {
+        global $lang;
+        return $lang;
+    }
+
+    /**
+     * Main initialization of translations - should be called for all the scipts
+     */
+    public static function initTranslations()
+    {
+        // language changed
+        if (isset($_REQUEST['lang'])) {
+            $requestedLang = $_REQUEST['lang'];
+        } else {
+            $requestedLang = OcCookie::getOrDefault('lang', I18n::getDefaultLang());
+        }
+
+        // check if $requestedLang is supported by node
+        if (!self::isLangSupported($requestedLang)) {
+            // requested language is not supported - display error...
+            self::handleUnsupportedLangAndExit ($requestedLang);
+        }
+
+        CrowdinInContextMode::initHandler();
+        if (CrowdinInContextMode::enabled()) {
+            // CrowdinInContext mode is enabled => force loading crowdin "pseudo" lang
+            $requestedLang = CrowdinInContextMode::getPseudoLang();
+        }
+
+        self::setLang($requestedLang);
+        self::loadLangFile($requestedLang);
+        Languages::setLocale($requestedLang);
+    }
+
+    public static function translatePhrase($str, $langCode)
+    {
+        global $language;
+
+        if (!isset($language[$langCode])) {
+            self::loadLangFile($langCode);
+        }
+
+        if (isset($language[$langCode][$str]) && $language[$langCode][$str]) {
+            // requested phrase found
+            return self::postProcessTr($language[$langCode][$str]);
+        } else {
+            if($langCode != self::FAILOVER_LANGUAGE){
+                // there is no such phrase - try to handle it in failover language
+                return self::translatePhrase($str, self::FAILOVER_LANGUAGE);
+            }
+        }
+
+        // ups - no such phrase at all - even in failover language...
+        Debug::errorLog('Unknown translation for id: '.$str);
+        return "No translation available (id: $str)";
+    }
+
+    /**
+     * Allow to check if given phrase is present
+     *
+     * @param string $str - phrase to translate
+     * @return boolean
+     */
+    public static function isTranslationAvailable($str)
+    {
+        global $language;
+        $language = self::getCurrentLang();
+
+        return isset($language[$language][$str]) && $language[$language][$str];
+    }
+
+    private static function postProcessTr(&$ref)
+    {
+        if (strpos($ref, "{") !== false) {
+            return tpl_do_replace($ref, true);
+        } else {
+            return $ref;
+        }
+    }
+
+    /**
+     * Load given translation file
+     *
+     * THIS METHOD SHOULD BE PRIVATE!
+     *
+     * @param string $langCode - two-letter language code
+     */
+    public static function loadLangFile($langCode)
+    {
+        global $language;
+
+        $languageFilename = __DIR__ . "/../../lib/languages/" . $langCode.'.php';
+        if (!file_exists($languageFilename)) {
+            throw new \Exception("Can't find translation file for requested language!");
+            return;
+        }
+
+        if (!is_array($language)){
+            $language = [];
+        }
+
+        // load selected language/translation file
+        include ($languageFilename);
+        $language[$langCode] = $translations;
+    }
+
+    private static function setLang($languageCode)
+    {
+        global $lang;
+        $lang = $languageCode;
+    }
+
     /**
      * supported translations list is stored in i18n::$config['supportedLanguages'] var in config files
      * @return array of supported languags
@@ -15,14 +137,18 @@ class I18n
         return OcConfig::instance()->getI18Config()['supportedLanguages'];
     }
 
-    public static function isTranslationSupported($lang){
+    public static function getDefaultLang()
+    {
+        return OcConfig::instance()->getI18Config()['defaultLang'];
+    }
+
+    private static function isLangSupported($lang){
 
         if (CrowdinInContextMode::isSupportedInConfig()) {
             if ($lang == CrowdinInContextMode::getPseudoLang() ){
                 return true;
             }
         }
-
         return in_array($lang, self::getSupportedTranslations());
     }
 
@@ -54,16 +180,35 @@ class I18n
     public static function getLanguagesFlagsData($currentLang=null){
 
         $result = array();
-        foreach(self::getSupportedTranslations() as $lang){
-            if(!isset($currentLang) || $lang != $currentLang){
-                $result[$lang]['name'] = $lang;
-                $result[$lang]['img'] = '/images/flags/' . $lang . '.svg';
-                $result[$lang]['link'] = Uri::setOrReplaceParamValue('lang',$lang);
+        foreach(self::getSupportedTranslations() as $language){
+            if(!isset($currentLang) || $language != $currentLang){
+                $result[$language]['name'] = $language;
+                $result[$language]['img'] = '/images/flags/' . $language . '.svg';
+                $result[$language]['link'] = Uri::setOrReplaceParamValue('lang',$language);
             }
         }
         return $result;
     }
 
+    private static function handleUnsupportedLangAndExit($requestedLang)
+    {
+        tpl_set_tplname('error/langNotSupported');
+        $view = tpl_getView();
+
+        $view->loadJQuery();
+        $view->setVar("localCss",
+            Uri::getLinkWithModificationTime('/tpl/stdstyle/error/error.css'));
+        $view->setVar('requestedLang', UserInputFilter::purifyHtmlString($requestedLang));
+
+        self::setLang(self::FAILOVER_LANGUAGE);
+
+        $view->setVar('allLanguageFlags', self::getLanguagesFlagsData());
+
+        self::loadLangFile(self::FAILOVER_LANGUAGE);
+
+        tpl_BuildTemplate();
+        exit;
+    }
 
     // Methods for retrieving and maintaining old-style database translations.
     // This should become obsolete some time.

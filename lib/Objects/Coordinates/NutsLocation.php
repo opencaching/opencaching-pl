@@ -4,6 +4,7 @@ namespace lib\Objects\Coordinates;
 
 use lib\Objects\BaseObject;
 use Utils\Debug\Debug;
+use Utils\I18n\I18n;
 
 /**
  * Class represents location of the point in NUTS nomenclature.
@@ -98,7 +99,7 @@ class NutsLocation extends BaseObject
         }
 
         // try to translate country name
-        if (tr_available($this->codes[self::LEVEL_COUNTRY])){
+        if (I18n::isTranslationAvailable($this->codes[self::LEVEL_COUNTRY])){
             $country = tr($this->codes[self::LEVEL_COUNTRY]);
         } else {
             $country = $this->names[self::LEVEL_COUNTRY];
