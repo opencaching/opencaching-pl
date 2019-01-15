@@ -31,15 +31,3 @@ function tr($str, array $args = null)
         return vsprintf(I18n::translatePhrase($str, $lang), $args);
     }
 }
-
-function tr2($str, $lang)
-{
-    global $language;
-
-    if (!isset($language[$lang])) {
-        I18n::loadLangFile($lang);
-    }
-
-    return I18n::translatePhrase($str, $lang);
-}
-
