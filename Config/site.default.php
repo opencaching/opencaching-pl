@@ -13,5 +13,6 @@ use lib\Objects\GeoCache\GeoCacheCommons;
  *    - searching for caches
  */
 $site['disabledCacheSizes'] = [
+    GeoCacheCommons::SIZE_NANO,
     GeoCacheCommons::SIZE_OTHER   // Do not enable before OKAPI #519 is fixed!
 ];
