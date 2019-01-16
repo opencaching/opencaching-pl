@@ -7,6 +7,7 @@ use Utils\Database\OcDb;
 use lib\Objects\GeoCache\CacheNote;
 use lib\Objects\GeoCache\GeoCacheCommons;
 use lib\Objects\GeoCache\GeoCacheLog;
+use Utils\I18n\I18n;
 
 global $content, $bUseZip, $usr, $hide_coords, $dbcSearch, $queryFilter;
 
@@ -359,11 +360,11 @@ if ($usr || ! $hide_coords) {
         // start extra info
         $thisextra = "";
 
-        $lang = XDb::xEscape($lang);
+        $language = I18n::getCurrentLang();
         $rsAttributes = XDb::xSql("SELECT `cache_attrib`.`id`, `caches_attributes`.`attrib_id`, `cache_attrib`.`text_long`
                             FROM `caches_attributes`, `cache_attrib`
                             WHERE `caches_attributes`.`cache_id`= ? AND `caches_attributes`.`attrib_id` = `cache_attrib`.`id`
-                                AND `cache_attrib`.`language` = '$lang'
+                                AND `cache_attrib`.`language` = '$language'
                             ORDER BY `caches_attributes`.`attrib_id`", $r['cacheid']);
 
             if (($r['votes'] > 3) || ($r['topratings'] > 0) || (XDb::xNumRows($rsAttributes) > 0)) {
@@ -578,9 +579,8 @@ if ($usr || ! $hide_coords) {
         // Waypoints
         $waypoints = '';
 
-        $lang = XDb::xEscape($lang);
         $rswp = XDb::xSql(
-            "SELECT  `longitude`, `cache_id`, `latitude`,`desc`,`stage`, `type`, `status`,`waypoint_type`." . $lang . " `wp_type_name`
+            "SELECT  `longitude`, `cache_id`, `latitude`,`desc`,`stage`, `type`, `status`,`waypoint_type`." . $language . " `wp_type_name`
             FROM `waypoints`
                 INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id)
             WHERE  `waypoints`.`cache_id`=?

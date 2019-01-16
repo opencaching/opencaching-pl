@@ -5,6 +5,7 @@ namespace lib\Objects;
 use lib\Objects\User\User;
 use lib\Objects\OcConfig\OcConfig;
 use Utils\Database\OcDb;
+use Utils\I18n\I18n;
 
 final class ApplicationContainer
 {
@@ -89,10 +90,5 @@ final class ApplicationContainer
         return $this->ocConfig;
     }
 
-
-    public function getLang()
-    {
-        return $GLOBALS['lang'];
-    }
 }
 

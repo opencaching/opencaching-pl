@@ -43,7 +43,6 @@ function tpl_redirect($page)
     global $absolute_server_URI;
 
     //page has to be the filename without domain i.e. 'viecache.php?cacheid=1'
-    write_cookie_settings();
     http_write_no_cache();
 
     header("Location: " . $absolute_server_URI . $page);
@@ -61,7 +60,6 @@ function tpl_get_current_page()
 function tpl_redirect_absolute($absolute_server_URI)
 {
     //page has to be the filename with domain i.e. 'http://abc.de/viecache.php?cacheid=1'
-    write_cookie_settings();
     http_write_no_cache();
 
     header("Location: " . $absolute_server_URI);
@@ -150,7 +148,7 @@ function set_tpl_subtitle($title)
 function tpl_BuildTemplate($minitpl = false, $noCommonTemplate=false)
 {
     //template handling vars
-    global $tplname, $vars, $lang, $config, $usr;
+    global $tplname, $vars, $config, $usr;
 
     // object
     /** @var View $view */
@@ -183,7 +181,6 @@ function tpl_BuildTemplate($minitpl = false, $noCommonTemplate=false)
     //does template exist?
     if (!file_exists(__DIR__.'/../tpl/stdstyle/' . $tplname . '.tpl.php')) {
         //set up the error template
-        $error = true;
         tpl_set_var('error_msg', "Page not found");
         tpl_set_var('tplname', $tplname);
         $tplname = 'error';
@@ -199,9 +196,6 @@ function tpl_BuildTemplate($minitpl = false, $noCommonTemplate=false)
 
     $sCode = tpl_do_translate($sCode);
 
-    //store the cookie
-    write_cookie_settings();
-
     //send http-no-caching-header
     http_write_no_cache();
 
@@ -210,13 +204,6 @@ function tpl_BuildTemplate($minitpl = false, $noCommonTemplate=false)
 
     //run the template code
     eval('?>'.$sCode);
-}
-
-//store the cookie vars
-function write_cookie_settings()
-{
-    global $lang;
-    OcCookie::set('lang', $lang, true);
 }
 
 function http_write_no_cache()

@@ -7,6 +7,7 @@ use lib\Objects\GeoCache\GeoCache;
 use okapi\Facade;
 use okapi\core\Exception\BadRequest;
 use lib\Objects\GeoCache\CacheNote;
+use Utils\I18n\I18n;
 
 require_once (__DIR__.'/lib/common.inc.php');
 require_once (__DIR__.'/lib/export.inc.php');
@@ -16,8 +17,8 @@ require_once (__DIR__.'/lib/caches.inc.php');
 require_once (__DIR__.'/tpl/stdstyle/lib/icons.inc.php');
 
 global $content, $bUseZip, $usr, $config;
-global $default_lang, $cache_attrib_jsarray_line, $cache_attrib_img_line;
-global $lang, $googlemap_key;
+global $cache_attrib_jsarray_line, $cache_attrib_img_line;
+global $googlemap_key;
 
 $database = OcDb::instance();
 
@@ -46,7 +47,9 @@ if (isset($_POST['distance'])) {
 }
 
 
-tpl_set_var('cachemap_header', '<script src="https://maps.googleapis.com/maps/api/js?libraries=geometry&amp;key=' . $googlemap_key . '&amp;language=' . $lang . '"></script>');
+tpl_set_var('cachemap_header',
+    '<script src="https://maps.googleapis.com/maps/api/js?libraries=geometry&amp;key=' . $googlemap_key .
+    '&amp;language=' . I18n::getCurrentLang() . '"></script>');
 
 $s = $database->paramQuery(
         'SELECT `user_id`,`name`, `description`, `radius`, `options` FROM `routes`
@@ -195,11 +198,7 @@ tpl_set_var('min_logs_caches_disabled', ($logs == 0) ? ' disabled="disabled"' : 
 $cache_attrib_jsarray_line = "new Array('{id}', {state}, '{text_long}', '{icon}', '{icon_no}', '{icon_undef}', '{category}')";
 $cache_attrib_img_line = '<img id="attrimg{id}" src="{icon}" title="{text_long}" alt="{text_long}" onmousedown="switchAttribute({id})" style="cursor: pointer;" />&nbsp;';
 
-$lang_attribute = $lang;
-if ($lang != $lang) {
-    $lang_attribute = $lang;
-}
-
+$lang_attribute = I18n::getCurrentLang();
 
 // cache-attributes
 $attributes_jsarray = '';
@@ -939,11 +938,11 @@ if (isset($_POST['submit_gpx'])) {
         // start extra info
         $thisextra = "";
 
-        $lang = XDb::xEscape($lang);
+        $language = XDb::xEscape(I18n::getCurrentLang());
         $rsAttributes = XDb::xSql("SELECT `cache_attrib`.`id`, `caches_attributes`.`attrib_id`, `cache_attrib`.`text_long`
                             FROM `caches_attributes`, `cache_attrib`
                             WHERE `caches_attributes`.`cache_id`= ? AND `caches_attributes`.`attrib_id` = `cache_attrib`.`id`
-                                AND `cache_attrib`.`language` = '$lang'
+                                AND `cache_attrib`.`language` = '$language'
                             ORDER BY `caches_attributes`.`attrib_id`", $r['cacheid']);
 
         if (($r['votes'] > 3) || ($r['topratings'] > 0) || (XDb::xNumRows($rsAttributes) > 0)) {
@@ -1112,9 +1111,9 @@ if (isset($_POST['submit_gpx'])) {
         // Waypoints
         $waypoints = '';
 
-        $lang = XDb::xEscape($lang);
+        $langCode = XDb::xEscape(I18n::getCurrentLang());
         $rswp = XDb::xSql(
-            "SELECT  `longitude`, `cache_id`, `latitude`,`desc`,`stage`, `type`, `status`,`waypoint_type`." . $lang . " `wp_type_name`
+            "SELECT  `longitude`, `cache_id`, `latitude`,`desc`,`stage`, `type`, `status`,`waypoint_type`." . $langCode . " `wp_type_name`
             FROM `waypoints`
                 INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id)
             WHERE  `waypoints`.`cache_id`=?

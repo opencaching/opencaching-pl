@@ -6,6 +6,7 @@ use Utils\Text\Formatter;
 use Utils\Uri\Uri;
 use Utils\Uri\OcCookie;
 use lib\Objects\Coordinates\Coordinates;
+use Utils\I18n\I18n;
 
 /**
  * This script is used (can be loaded) by /search.php
@@ -68,7 +69,7 @@ function fHideColumn($nr, $set)
     return $C;
 }
 
-global $dbcSearch, $usr, $lang, $hide_coords, $NrColSortSearch, $OrderSortSearch, $SearchWithSort, $TestStartTime, $queryFilter;
+global $dbcSearch, $usr, $hide_coords, $NrColSortSearch, $OrderSortSearch, $SearchWithSort, $TestStartTime, $queryFilter;
 require_once (__DIR__.'/../tpl/stdstyle/lib/icons.inc.php');
 require_once (__DIR__.'/calculation.inc.php');
 
@@ -319,7 +320,7 @@ if ($usr === false) {
         $query .= ' LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id` AND `cache_mod_cords`.`user_id` = ' . $usr['userid'] . ' ';
     }
 }
-$query .= ' LEFT JOIN cache_desc ON cache_desc.cache_id=caches.cache_id AND cache_desc.language=\'' . $lang . '\',
+$query .= ' LEFT JOIN cache_desc ON cache_desc.cache_id=caches.cache_id AND cache_desc.language=\'' . I18n::getCurrentLang() . '\',
             `user`, cache_type
         WHERE `caches`.`user_id`=`user`.`user_id`
         AND `caches`.`cache_id` IN (' . $queryFilter . ')
@@ -400,7 +401,7 @@ for ($i = 0; $i < $dbcSearch->rowCount($s); $i ++) {
         }
     }
     ;
-    $tmpline = str_replace('{cachetype}', htmlspecialchars(cache_type_from_id($caches_record['cache_type'], $lang), ENT_COMPAT, 'UTF-8'), $tmpline);
+    $tmpline = str_replace('{cachetype}', htmlspecialchars(cache_type_from_id($caches_record['cache_type']), ENT_COMPAT, 'UTF-8'), $tmpline);
 
     // sp2ong short_desc ermitteln TODO: nicht die erste sondern die richtige wĂ¤hlen
     $tmpline = str_replace('{wp_oc}', htmlspecialchars($caches_record['wp_oc'], ENT_COMPAT, 'UTF-8'), $tmpline);

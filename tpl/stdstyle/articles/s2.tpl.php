@@ -11,7 +11,6 @@
 <?php
 use Utils\Database\XDb;
 use Utils\Cache\OcMemCache;
-global $lang;
 
 $userscount = XDb::xSimpleQueryValue(
     'SELECT COUNT( DISTINCT user_id) FROM cache_logs WHERE type=1 AND `deleted`=0', 0);

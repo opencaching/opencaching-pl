@@ -1,5 +1,6 @@
 <?php
 use Utils\Uri\Uri;
+use Utils\I18n\I18n;
 
 /**
  * This chunk is used to load TinyMCE
@@ -39,7 +40,7 @@ return function ($media = true, $selector = '.tinymce') {
     entity_encoding: "raw",
     fontsize_formats: "8px 10px 11px 12px 13px 14px 18px 24px 36px",
     content_style: "* { margin: 0px 0px 0.5em 0px;} p, ul {font-size: 12px; font-family: arial, sans serif;} ol {padding: 0px 0px 0px 25px; font-family: arial, sans serif;} sub {font-size: 0.7em;} sup {font-size: 0.7em;} br { margin: 0;} body {margin: 3px;}",
-    language: "<?=$GLOBALS['lang']?>",
+    language: "<?=I18n::getCurrentLang()?>",
     toolbar1: "newdocument | styleselect formatselect fontselect fontsizeselect",
     toolbar2: "cut copy paste searchreplace | bullist numlist | outdent indent | undo redo | nonbreaking link unlink image<?=$mediatxt?> | code fullscreen",
     toolbar3: "bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | hr | subscript superscript | charmap | forecolor backcolor",

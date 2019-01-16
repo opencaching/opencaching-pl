@@ -111,7 +111,7 @@ while ($r = XDb::xFetchArray($rs)) {
         $thisline = mb_ereg_replace('{GPicon}', '<img src="images/rating-star-empty.png" class="icon16" alt="" title="">', $thisline);
     };
 
-    $thisline = mb_ereg_replace('{cachetype}', htmlspecialchars(cache_type_from_id($r['type'], $lang), ENT_COMPAT, 'UTF-8'), $thisline);
+    $thisline = mb_ereg_replace('{cachetype}', htmlspecialchars(cache_type_from_id($r['type']), ENT_COMPAT, 'UTF-8'), $thisline);
     $thisline = mb_ereg_replace('{cachename}', htmlspecialchars($r['cachename'], ENT_COMPAT, 'UTF-8'), $thisline);
     $thisline = mb_ereg_replace('{username}', htmlspecialchars($r['username'], ENT_COMPAT, 'UTF-8'), $thisline);
     $thisline = mb_ereg_replace('{region}', htmlspecialchars($r['region'], ENT_COMPAT, 'UTF-8'), $thisline);

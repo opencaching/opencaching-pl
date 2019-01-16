@@ -2,6 +2,7 @@
 
 use Utils\Database\XDb;
 use lib\Objects\GeoCache\GeoCacheCommons;
+use Utils\I18n\I18n;
 
 require_once('../lib/ClassPathDictionary.php');
 
@@ -17,11 +18,12 @@ if (isSet($_GET['nazwa']) && !empty($_GET['nazwa']) ||
     function find_news($start, $end)
     {
 
-        global $lang;
         global $ile;
         global $url;
         global $tpl;
         global $znalezione;
+
+        $language = I18n::getCurrentLang();
 
         if (isSet($_GET['nazwa'])) {
             $nazwa = XDb::xEscape($_GET['nazwa']);
@@ -93,7 +95,7 @@ if (isSet($_GET['nazwa']) && !empty($_GET['nazwa']) ||
                 $wynik2 = XDb::xSql($query);
                 $wiersz = XDb::xFetchArray($wynik2);
 
-                $query = "select " . $lang . " from cache_type where id = " . $rekord['type'] . ";";
+                $query = "select " . $language . " from cache_type where id = " . $rekord['type'] . ";";
                 $wynik2 = XDb::xSql($query);
                 $wiersz2 = XDb::xFetchArray($wynik2);
 

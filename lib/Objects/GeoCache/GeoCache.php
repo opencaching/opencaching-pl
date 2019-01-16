@@ -9,6 +9,7 @@ use lib\Objects\PowerTrail\PowerTrail;
 use lib\Objects\User\MultiUserQueries;
 use lib\Objects\User\User;
 use Utils\EventHandler\EventHandler;
+use Utils\I18n\I18n;
 
 /**
  * Description of geoCache
@@ -1289,7 +1290,7 @@ class GeoCache extends GeoCacheCommons
 
     public function getCacheAttributesList()
     {
-        global $lang, $config;
+        global $config;
 
         if (is_array($this->cacheAttributesList)) {
             return $this->cacheAttributesList;
@@ -1302,7 +1303,7 @@ class GeoCache extends GeoCacheCommons
                     AND cache_attrib.language = ?
                     AND caches_attributes.cache_id = ?
                 ORDER BY cache_attrib.category, cache_attrib.id",
-            strtoupper($lang), $this->getCacheId());
+            strtoupper(I18n::getLangForDbTranslations()), $this->getCacheId());
 
         if (XDb::xNumRows($s) == 0) {
             //TODO: there can be a lack of cache attrib translation in current language - then retrive translation in english

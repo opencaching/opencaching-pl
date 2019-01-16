@@ -5,8 +5,6 @@ use Utils\Database\XDb;
 
 require(__DIR__.'/../lib/common.inc.php');
 
-global $lang;
-
 // jpgraph package doesn't contains fonts
 define('TTF_DIR',__DIR__.'/../lib/fonts/');
 

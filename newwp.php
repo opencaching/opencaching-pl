@@ -1,6 +1,7 @@
 <?php
 
 use Utils\Database\XDb;
+use Utils\I18n\I18n;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
@@ -80,10 +81,8 @@ if ($error == false) {
 
                 //build typeoptions
                 $sel_type = isset($_POST['type']) ? $_POST['type'] : -1;
-                if (XDb::xContainsColumn('waypoint_type', $lang))
-                    $lang_db = $lang;
-                else
-                    $lang_db = "en";
+                $lang_db = I18n::getLangForDbTranslations('waypoint_type');
+
                 $types = '<option disabled selected="selected">' . tr('choose_waypoint_type') . '</options>';
 //                  if ($cache_record['type'] == '2' || $cache_record['type'] == '6' || $cache_record['type'] == '8' || $cache_record['type'] == '9')
                 // check if final waypoint alreday exist for this cache

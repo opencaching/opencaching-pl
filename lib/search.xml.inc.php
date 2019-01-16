@@ -3,12 +3,12 @@ use Utils\Database\XDb;
 use Utils\Database\OcDb;
 use lib\Objects\Coordinates\Coordinates;
 use lib\Objects\GeoCache\GeoCacheCommons;
-
+use Utils\I18n\I18n;
 /**
  * This script is used (can be loaded) by /search.php
  */
 
-global $content, $bUseZip, $dbcSearch, $lang;
+global $content, $bUseZip, $dbcSearch;
 
 require_once (__DIR__.'/../lib/calculation.inc.php');
 
@@ -155,13 +155,13 @@ echo "      <startat>" . $startat . "</startat>\n";
 echo "      <perpage>" . $count . "</perpage>\n";
 echo "  </docinfo>\n";
 
-
+$language = I18n::getCurrentLang();
 $stmt = XDb::xSql(
     'SELECT `xmlcontent`.`cache_id` `cacheid`, `xmlcontent`.`longitude` `longitude`, `xmlcontent`.`latitude` `latitude`,
             `xmlcontent`.cache_mod_cords_id, `caches`.`wp_oc` `waypoint`, `caches`.`date_hidden` `date_hidden`,
             `caches`.`name` `name`, `caches`.`country` `country`, `caches`.`type` `type_id`, `caches`.`terrain` `terrain`,
             `caches`.`difficulty` `difficulty`, `caches`.`desc_languages` `desc_languages`,
-            `caches`.`size`, `cache_type`.`'.$lang.'` `type`, `cache_status`.`'.$lang.'` `status`,
+            `cache_size`.`'.$language.'` `size`, `cache_type`.`'.$language.'` `type`, `cache_status`.`'.$language.'` `status`,
             `user`.`username` `username`, `cache_desc`.`desc` `desc`, `cache_desc`.`short_desc` `short_desc`,
             `cache_desc`.`hint` `hint`, `cache_desc`.`desc_html` `html`, `xmlcontent`.`distance` `distance`
     FROM `xmlcontent`, `caches`, `user`, `cache_desc`, `cache_type`, `cache_status`

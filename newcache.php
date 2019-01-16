@@ -11,6 +11,7 @@ use lib\Objects\OcConfig\OcConfig;
 use lib\Objects\User\User;
 use Utils\Debug\Debug;
 use Utils\EventHandler\EventHandler;
+use Utils\I18n\I18n;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
@@ -114,8 +115,8 @@ if (! isset($_POST['size'])) {
         $sel_size = GeoCache::SIZE_NONE;
     }
 }
-$sel_lang = isset($_POST['desc_lang']) ? $_POST['desc_lang'] : $default_lang;
-$sel_country = isset($_POST['country']) ? $_POST['country'] : strtoupper($lang);
+$sel_lang = isset($_POST['desc_lang']) ? $_POST['desc_lang'] : I18n::getCurrentLang();
+$sel_country = isset($_POST['country']) ? $_POST['country'] : strtoupper(I18n::getCurrentLang());
 $sel_region = isset($_POST['region']) ? $_POST['region'] : $default_region;
 $show_all_countries = isset($_POST['show_all_countries']) ? $_POST['show_all_countries'] : 0;
 $show_all_langs = isset($_POST['show_all_langs']) ? $_POST['show_all_langs'] : 0;
@@ -338,7 +339,7 @@ if (isset($_POST['show_all_countries_submit'])) {
 }
 
 // langoptions selector
-buildDescriptionLanguageSelector($show_all_langs, $lang, $config['defaultLanguageList'], $db, $show_all);
+buildDescriptionLanguageSelector($show_all_langs, I18n::getCurrentLang(), $config['defaultLanguageList'], $db, $show_all);
 
 // countryoptions
 $countriesoptions = '';
@@ -380,7 +381,7 @@ $cache_attrib_array = '';
 $cache_attribs_string = '';
 
 $rs = XDb::xSql("SELECT `id`, `text_long`, `icon_undef`, `icon_large` FROM `cache_attrib`
-            WHERE `language`= ? ORDER BY `category`, `id`", $default_lang);
+            WHERE `language`= ? ORDER BY `category`, `id`", I18n::getCurrentLang());
 
 while ($record = XDb::xFetchArray($rs)) {
     $line = $cache_attrib_pic;
@@ -668,7 +669,7 @@ if (isset($_POST['submitform'])) {
 
         // insert cache_location
         $code1 = $sel_country;
-        $eLang = XDb::xEscape($lang);
+        $eLang = XDb::xEscape(I18n::getCurrentLang());
         $adm1 = XDb::xMultiVariableQueryValue("SELECT `countries`.$eLang FROM `countries`
                                     WHERE `countries`.`short`= :1 ", 0, $code1);
         // check if selected country has no districts, then use $default_region
@@ -730,7 +731,7 @@ if (isset($_POST['submitform'])) {
     }
 }
 
-tpl_set_var('language4js', $lang);
+tpl_set_var('language4js', I18n::getCurrentLang());
 if ($no_tpl_build == false) {
     // make the template and send it out
     tpl_BuildTemplate();
@@ -764,7 +765,7 @@ function buildCacheSizeSelector($sel_type, $sel_size)
     return $sizes;
 }
 
-function buildDescriptionLanguageSelector($show_all_langs, $lang, $defaultLangugaeList, $db, $show_all)
+function buildDescriptionLanguageSelector($show_all_langs, $langCode, $defaultLangugaeList, $db, $show_all)
 {
     tpl_set_var('show_all_langs', '0');
     tpl_set_var('show_all_langs_submit', '<input class="btn btn-default btn-sm" type="submit" name="show_all_langs_submit" value="' . $show_all . '"/>');
@@ -782,7 +783,7 @@ function buildDescriptionLanguageSelector($show_all_langs, $lang, $defaultLangug
     }
     $langsoptions = '';
     foreach ($defaultLangugaeList as $defLang) {
-        if (strtoupper($lang) === strtoupper($defLang)) {
+        if (strtoupper($langCode) === strtoupper($defLang)) {
             $selected = 'selected="selected"';
         } else {
             $selected = '';

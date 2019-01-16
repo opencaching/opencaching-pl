@@ -40,7 +40,6 @@ $gallery_link = '<a href="gallery_cache.php?cacheid={cacheid}">' . tr('gallery_s
 
 $viewtext_on = tr('enter_text');
 $viewtext_off = tr('enter_text_error');
-$default_lang = 'PL';
 $event_attended_text = " " . tr('attendends');
 $event_will_attend_text = " " . tr('will_attend');
 

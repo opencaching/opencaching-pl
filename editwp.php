@@ -1,6 +1,7 @@
 <?php
 
 use Utils\Database\XDb;
+use Utils\I18n\I18n;
 
 //prepare the templates and include all neccessary
 require_once(__DIR__.'/lib/common.inc.php');
@@ -75,9 +76,9 @@ if ($error == false) {
                 foreach (get_wp_types_from_database($cache_record['type']) as $type) {
 
                     if ($type['id'] == $wp_type) {
-                        $types .= '<option value="' . $type['id'] . '" selected="selected">' . htmlspecialchars($type[$lang], ENT_COMPAT, 'UTF-8') . '</option>';
+                        $types .= '<option value="' . $type['id'] . '" selected="selected">' . htmlspecialchars($type[I18n::getCurrentLang()], ENT_COMPAT, 'UTF-8') . '</option>';
                     } else {
-                        $types .= '<option value="' . $type['id'] . '">' . htmlspecialchars($type[$lang], ENT_COMPAT, 'UTF-8') . '</option>';
+                        $types .= '<option value="' . $type['id'] . '">' . htmlspecialchars($type[I18n::getCurrentLang()], ENT_COMPAT, 'UTF-8') . '</option>';
                     }
                 }
                 tpl_set_var('typeoptions', $types);

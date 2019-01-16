@@ -8,6 +8,7 @@ use lib\Objects\Coordinates\Coordinates;
 use Utils\EventHandler\EventHandler;
 use lib\Objects\GeoCache\GeoCacheLog;
 use lib\Objects\OcConfig\OcConfig;
+use Utils\I18n\I18n;
 
 require_once(__DIR__.'/lib/common.inc.php');
 
@@ -451,7 +452,7 @@ if ($error == false) {
 
                         $code1 = $cache_country;
                         $adm1 = XDb::xMultiVariableQueryValue(
-                            "SELECT ".XDb::xEscape($lang).
+                            "SELECT ".XDb::xEscape(I18n::getCurrentLang()).
                             " FROM `countries`
                              WHERE `countries`.`short`= :1 ", 0, $code1);
 
@@ -558,7 +559,7 @@ if ($error == false) {
 
                 //check if selected country is in list_default
                 if ($show_all_countries == 0) {
-                    $eLang = XDb::xEscape($lang);
+                    $eLang = XDb::xEscape(I18n::getCurrentLang());
                     $rs = XDb::xSql(
                         "SELECT `short` FROM `countries`
                         WHERE (`list_default_$eLang`=1) AND (lower(`short`) = lower( ? ))",
@@ -569,7 +570,7 @@ if ($error == false) {
                 }
 
                 //get the record
-                $eLang = XDb::xEscape($lang);
+                $eLang = XDb::xEscape(I18n::getCurrentLang());
                 if ($show_all_countries == 0) {
                     $rs = XDb::xSql('SELECT `' . $eLang . '`, `short` FROM `countries`
                                WHERE `list_default_' . $eLang . '`=1
@@ -596,7 +597,7 @@ if ($error == false) {
                 $cache_attribs_string = '';
 
                 $rs = XDb::xSql("SELECT `id`, `text_long`, `icon_undef`, `icon_large` FROM `cache_attrib`
-                                 WHERE `language`= ? ORDER BY `category`, `id`", $default_lang);
+                                 WHERE `language`= ? ORDER BY `category`, `id`", I18n::getCurrentLang());
                 while ($record = XDb::xFetchArray($rs)) {
                     $line = $cache_attrib_pic;
                     $line = mb_ereg_replace('{attrib_id}', $record['id'], $line);
@@ -675,9 +676,9 @@ if ($error == false) {
                     }
 
                     if ($type['id'] == $cache_type) {
-                        $types .= '<option value="' . $type['id'] . '" selected="selected">' . htmlspecialchars($type[$lang], ENT_COMPAT, 'UTF-8') . '</option>';
+                        $types .= '<option value="' . $type['id'] . '" selected="selected">' . htmlspecialchars($type[I18n::getCurrentLang()], ENT_COMPAT, 'UTF-8') . '</option>';
                     } else {
-                        $types .= '<option value="' . $type['id'] . '">' . htmlspecialchars($type[$lang], ENT_COMPAT, 'UTF-8') . '</option>';
+                        $types .= '<option value="' . $type['id'] . '">' . htmlspecialchars($type[I18n::getCurrentLang()], ENT_COMPAT, 'UTF-8') . '</option>';
                     }
                 }
                 tpl_set_var('typeoptions', $types);
@@ -721,7 +722,7 @@ if ($error == false) {
                         '<tr>
                             <td colspan="2">
                                 <img src="images/flags/' . strtolower($descLang) . '.gif" class="icon16" alt="">
-                                    &nbsp;' . htmlspecialchars(Languages::LanguageNameFromCode($descLang, $lang), ENT_COMPAT, 'UTF-8') . '&nbsp;&nbsp;
+                                    &nbsp;' . htmlspecialchars(Languages::LanguageNameFromCode($descLang, I18n::getCurrentLang()), ENT_COMPAT, 'UTF-8') . '&nbsp;&nbsp;
                                 <img src="images/actions/edit-16.png" border="0" align="middle" alt="" title="Edit">
                                 [<a href="' . htmlspecialchars($edit_url, ENT_COMPAT, 'UTF-8') . '" onclick="return check_if_proceed();">' . tr('edit') . '</a>]' .
                                 $removedesc .
@@ -875,17 +876,13 @@ if ($error == false) {
                 }
 
                 //Add Waypoint
-                if (XDb::xContainsColumn('waypoint_type', $lang)){
-                    $lang_db = $lang;
-                } else{
-                    $lang_db = "en";
-                }
+                $lang_db = I18n::getLangForDbTranslations('waypoint_type');
 
                 $cache_type = $cache_record['type'];
                 if ($cache_type != GeoCache::TYPE_MOVING) {
                     tpl_set_var('waypoints_start', '');
                     tpl_set_var('waypoints_end', '');
-                    $eLang = XDb::xEscape($lang);
+                    $eLang = XDb::xEscape($lang_db);
                     $wp_rs = XDb::xSql(
                         "SELECT `wp_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`,
                                 `waypoint_type`.`$eLang` wp_type, waypoint_type.icon wp_icon

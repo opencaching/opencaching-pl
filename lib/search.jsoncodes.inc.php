@@ -10,7 +10,7 @@
  * https://github.com/opencaching/opencaching-pl/issues/1039
  */
 
-global $content, $dbcSearch, $lang;
+global $content, $dbcSearch;
 
 $rs = $dbcSearch->simpleQuery("
     select wp_oc

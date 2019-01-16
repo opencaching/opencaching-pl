@@ -42,8 +42,6 @@ $ftsearch_simplerules[] = array('va', 'wa');
 
 function ftsearch_hash(&$str)
 {
-    global $lang;
-
     $astr = ftsearch_split($str, true);
 
     foreach ($astr AS $k => $s) {

@@ -19,7 +19,6 @@ require_once(__DIR__.'/settingsGlue.inc.php');
 // TODO: kojoty: it should be removed after config refactoring
 // now if common.inc.php is not loaded in global context settings are not accessible
 $GLOBALS['config'] = $config;
-$GLOBALS['lang'] = $lang;
 $GLOBALS['site_name'] = $site_name;
 $GLOBALS['contact_mail'] = $contact_mail;
 
@@ -46,8 +45,8 @@ if (php_sapi_name() != "cli") { // this is not neccesarry for command-line scrip
 
     UserAuthorization::verify();
 
-    initTemplateSystem();
     I18n::init();
+    initTemplateSystem();
 }
 
 function initTemplateSystem(){
@@ -73,7 +72,7 @@ function initTemplateSystem(){
     }
 
     tpl_set_var('title', htmlspecialchars(OcConfig::instance()->getPageTitle(), ENT_COMPAT, 'UTF-8'));
-    tpl_set_var('lang', $GLOBALS['lang']);
+    tpl_set_var('lang', I18n::getCurrentLang());
     tpl_set_var('bodyMod', '');
     tpl_set_var('cachemap_header', '');
     tpl_set_var('htmlheaders', '');

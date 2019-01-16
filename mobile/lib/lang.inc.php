@@ -1,5 +1,7 @@
 <?php
 
+use Utils\I18n\I18n;
+
 if (isset($_COOKIE['lang']))
     switch ($_COOKIE['lang']) {
         case 'en':
@@ -18,9 +20,10 @@ if (isset($_COOKIE['lang']))
             $lang2 = 'ro';
             break;
         default:
-            $lang2 = $lang;
-    } else
-    $lang2 = $lang;
+            $lang2 = I18n::getCurrentLang();
+} else {
+    $lang2 = I18n::getCurrentLang();
+}
 
 $fhandle = fopen(dirname(__FILE__) . "/lang/" . $lang2, "r");
 

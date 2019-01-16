@@ -28,7 +28,7 @@ use lib\Objects\GeoCache\Waypoint;
 use Utils\View\View;
 
 // variables required by opencaching.pl
-global $lang, $usr;
+global $usr;
 
 //prepare the templates and include all neccessary
 require_once (__DIR__.'/lib/common.inc.php');

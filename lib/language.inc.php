@@ -24,10 +24,9 @@ function getAutoloadTranslationWithoutFailover($str, $lang)
  */
 function tr($str, array $args = null)
 {
-    global $lang;
     if (is_null($args)) {
-        return I18n::translatePhrase($str, $lang);
+        return I18n::translatePhrase($str);
     } else {
-        return vsprintf(I18n::translatePhrase($str, $lang), $args);
+        return vsprintf(I18n::translatePhrase($str), $args);
     }
 }

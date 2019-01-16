@@ -16,13 +16,14 @@ use lib\Objects\User\User;
 use Utils\Uri\SimpleRouter;
 use Controllers\MainMapController;
 use Utils\Text\Formatter;
+use Utils\I18n\I18n;
 
 /**
  *  Power Trails in opencaching
  *  this is display file. for API check dir powerTrail
  */
 
-global $lang, $usr, $absolute_server_URI;
+global $usr, $absolute_server_URI;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
@@ -100,7 +101,7 @@ if ($error == false) {
     tpl_set_var('displayPowerTrails', 'none');
     tpl_set_var('displaySelectedPowerTrail', 'none');
     tpl_set_var('PowerTrailCaches', 'none');
-    tpl_set_var('language4js', $lang);
+    tpl_set_var('language4js', I18n::getCurrentLang());
     tpl_set_var('powerTrailName', '');
     tpl_set_var('powerTrailLogo', '');
     tpl_set_var('mainPtInfo', '');

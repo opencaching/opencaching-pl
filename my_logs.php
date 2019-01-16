@@ -4,8 +4,6 @@ use lib\Objects\GeoCache\GeoCacheLog;
 use Utils\Database\XDb;
 use Utils\Text\Formatter;
 
-global $lang;
-
 //include template handling
 require_once(__DIR__.'/lib/common.inc.php');
 

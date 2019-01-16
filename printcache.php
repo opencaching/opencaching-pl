@@ -5,6 +5,7 @@ use lib\Objects\OcConfig\OcConfig;
 use Utils\Database\XDb;
 use Utils\Uri\Uri;
 use Utils\View\View;
+use Utils\I18n\I18n;
 
 require_once(__DIR__.'/lib/common.inc.php');
 
@@ -131,7 +132,7 @@ if ($_POST['spoiler_only'] == "&spoiler_only=1") {
 ?>
 
 <!DOCTYPE html>
-<html lang="<?= $lang ?>">
+<html lang="<?=I18n::getCurrentLang()?>">
 <head>
     <meta charset="utf-8">
     <title><?php echo OcConfig::instance()->getPageTitle();

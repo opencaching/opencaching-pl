@@ -141,7 +141,7 @@ class MainLayoutController extends BaseController
         $this->view->setVar('_logoSubtitle', $logoSubtitle);
 
         $this->view->setVar('_languageFlags',
-            I18n::getLanguagesFlagsData($this->view->getLang()));
+            I18n::getLanguagesFlagsData(I18n::getCurrentLang()));
 
         $this->view->setVar('_crowdinInContextEnabled', CrowdinInContextMode::enabled());
         // CrowdinInContext mode is enabled by setting var in uri

@@ -1,6 +1,7 @@
 <?php
 
 use Utils\Database\XDb;
+use Utils\I18n\I18n;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
@@ -16,7 +17,10 @@ if ($error == false) {
         $tplname = 'myroutes_add_map2';
         $view = tpl_getView();
 
-        tpl_set_var('cachemap_header', '<script src="https://maps.googleapis.com/maps/api/js?libraries=geometry&amp;key=' . $googlemap_key . '&amp;language=' . $lang . '"></script>');
+        tpl_set_var(
+            'cachemap_header',
+            '<script src="https://maps.googleapis.com/maps/api/js?libraries=geometry&amp;key=' . $googlemap_key .
+            '&amp;language=' . I18n::getCurrentLang() . '"></script>');
 
         // set map center
         tpl_set_var('map_lat',$main_page_map_center_lat);

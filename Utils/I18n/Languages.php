@@ -13,13 +13,13 @@ use Utils\Database\XDb;
 class Languages
 {
 
-    public static function LanguageNameFromCode($countryCode, $lang){
+    public static function LanguageNameFromCode($countryCode, $langCode){
 
         $rs = XDb::xSql(
-            "SELECT `short`, `$lang` FROM `languages` WHERE `short`= ? ", $countryCode);
+            "SELECT `short`, `$langCode` FROM `languages` WHERE `short`= ? ", $countryCode);
 
         if ( $record = XDb::xFetchArray($rs) ) {
-            return $record[$lang];
+            return $record[$langCode];
         } else {
             return false;
         }

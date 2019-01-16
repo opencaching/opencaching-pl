@@ -1,5 +1,6 @@
 <?php
 use Utils\Database\XDb;
+use Utils\I18n\I18n;
 require_once("./lib/common.inc.php");
 
 
@@ -19,7 +20,7 @@ while ($rekord = XDb::xFetchArray($wynik)) {
     $wynik2 = XDb::xSql($query);
     $wiersz = XDb::xFetchArray($wynik2);
 
-    $query = "select " . $lang . " from cache_type where id = " . $rekord['type'] . ";";
+    $query = "select " . I18n::getCurrentLang() . " from cache_type where id = " . $rekord['type'] . ";";
     $wynik2 = XDb::xSql($query);
     $wiersz2 = XDb::xFetchArray($wynik2);
 

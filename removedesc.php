@@ -3,6 +3,7 @@
 use Utils\Database\XDb;
 use lib\Objects\GeoCache\GeoCache;
 use Utils\I18n\Languages;
+use Utils\I18n\I18n;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
@@ -60,8 +61,7 @@ if ($error == false) {
                         //commit the removement
                         $tplname = 'removedesc';
 
-                        global $lang;
-                        tpl_set_var('desclang_name', Languages::LanguageNameFromCode($desclang, $lang));
+                        tpl_set_var('desclang_name', Languages::LanguageNameFromCode($desclang, I18n::getCurrentLang()));
                         tpl_set_var('cachename', htmlspecialchars($cache_record['name'], ENT_COMPAT, 'UTF-8'));
                         tpl_set_var('cacheid', htmlspecialchars($cache_id, ENT_COMPAT, 'UTF-8'));
                         tpl_set_var('cacheid_urlencode', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'));

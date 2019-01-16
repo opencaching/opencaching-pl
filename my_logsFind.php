@@ -4,8 +4,6 @@ use lib\Objects\GeoCache\GeoCacheLog;
 use Utils\Database\XDb;
 use Utils\Text\Formatter;
 
-global $lang;
-
 require_once(__DIR__.'/lib/common.inc.php');
 
 //user logged in?

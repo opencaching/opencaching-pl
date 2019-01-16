@@ -3,6 +3,7 @@
 use Controllers\MyRecommendationsController;
 use Utils\Uri\SimpleRouter;
 use Controllers\CacheNotesController;
+use Utils\I18n\I18n;
 
 /**
  * This is simple configuration of links presented in sidebar of the page
@@ -34,5 +35,5 @@ $menu = [ // DON'T CHANGE $menu var name!
     'mnu_ignoredCaches' => '/myignores.php',
     'mnu_myRecommends'  => SimpleRouter::getLink(MyRecommendationsController::class, 'recommendations'),
     'mnu_savedQueries'  => '/query.php',
-    'mnu_okapiExtApps'  => '/okapi/apps/?langpref=' . $GLOBALS['lang'],
+    'mnu_okapiExtApps'  => '/okapi/apps/?langpref=' . I18n::getCurrentLang(),
 ];

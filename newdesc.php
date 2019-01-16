@@ -4,6 +4,7 @@ use Utils\Database\XDb;
 use lib\Objects\GeoCache\GeoCache;
 use Utils\Generators\Uuid;
 use Utils\Text\UserInputFilter;
+use Utils\I18n\I18n;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
@@ -31,8 +32,6 @@ if ($error == false) {
                 tpl_set_var('desc_err', '');
                 $show_all_langs = false;
 
-                $default_lang = 'PL';
-
                 $lang_message = '<br/><span class="errormsg">' . tr('lngExist') . '</span>';
                 $show_all_langs_submit = '<input type="submit" class="btn btn-default btn-sm" name="show_all_langs_submit" value="' . tr('edDescShowAll') . '"/>';
 
@@ -42,7 +41,7 @@ if ($error == false) {
                 $short_desc = isset($_POST['short_desc']) ? $_POST['short_desc'] : '';
 
                 $hints = isset($_POST['hints']) ? $_POST['hints'] : '';
-                $sel_lang = isset($_POST['desc_lang']) ? $_POST['desc_lang'] : $default_lang;
+                $sel_lang = isset($_POST['desc_lang']) ? $_POST['desc_lang'] : I18n::getCurrentLang();
                 $desc = isset($_POST['desc']) ? $_POST['desc'] : '';
 
                 $desc = UserInputFilter::purifyHtmlString($desc);
@@ -85,7 +84,7 @@ if ($error == false) {
                 $langoptions = '';
                 $q_nosellangs = 'SELECT `language` FROM `cache_desc` WHERE `cache_id`=\'' . XDb::xEscape($cache_id) . '\'';
 
-                $eLang = XDb::xEscape($lang);
+                $eLang = XDb::xEscape(I18n::getCurrentLang());
                 if ($show_all_langs == 0) {
                     $langs_rs = XDb::xSql("SELECT `$eLang`, `short` FROM `languages`
                                            WHERE `short` NOT IN (" . $q_nosellangs . ")
@@ -105,9 +104,9 @@ if ($error == false) {
 
                     if (($langs_record['short'] == $sel_lang) || ($bSelectFirst == true)) {
                         $bSelectFirst = false;
-                        $langoptions .= '<option value="' . htmlspecialchars($langs_record['short'], ENT_COMPAT, 'UTF-8') . '" selected="selected">' . htmlspecialchars($langs_record[$lang], ENT_COMPAT, 'UTF-8') . '</option>';
+                        $langoptions .= '<option value="' . htmlspecialchars($langs_record['short'], ENT_COMPAT, 'UTF-8') . '" selected="selected">' . htmlspecialchars($langs_record[I18n::getCurrentLang()], ENT_COMPAT, 'UTF-8') . '</option>';
                     } else {
-                        $langoptions .= '<option value="' . htmlspecialchars($langs_record['short'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($langs_record[$lang], ENT_COMPAT, 'UTF-8') . '</option>';
+                        $langoptions .= '<option value="' . htmlspecialchars($langs_record['short'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($langs_record[I18n::getCurrentLang()], ENT_COMPAT, 'UTF-8') . '</option>';
                     }
 
                     $langoptions .= "\n";
@@ -127,7 +126,7 @@ if ($error == false) {
                 tpl_set_var('desc', htmlspecialchars($desc, ENT_COMPAT, 'UTF-8'), true);
                 tpl_set_var('hints', $hints);
 
-                tpl_set_var('language4js', $lang);
+                tpl_set_var('language4js', I18n::getCurrentLang());
             } else {
                 tpl_redirect('');
             }

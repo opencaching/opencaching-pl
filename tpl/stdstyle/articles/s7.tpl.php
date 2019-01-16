@@ -13,13 +13,12 @@
 use Utils\Database\XDb;
 use Utils\Cache\OcMemCache;
 use lib\Objects\OcConfig\OcConfig;
-
-global $lang;
+use Utils\I18n\I18n;
 
 # This page took >60 seconds to render! Added daily caching.
 
 $result = OcMemCache::getOrCreate(
-    "articles_s7-" . $lang,
+    "articles_s7-" . I18n::getCurrentLang(),
     86400,
 function ()
 {

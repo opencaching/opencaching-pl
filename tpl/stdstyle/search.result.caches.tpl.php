@@ -1,4 +1,6 @@
 <?php
+use Utils\I18n\I18n;
+
 ?>
 
 <script src="https://www.google.com/jsapi"></script>
@@ -35,7 +37,7 @@
 </script>
 
 <?php
-global $hide_coords, $colNameSearch, $NrColSortSearch, $OrderSortSearch, $SearchWithSort, $usr, $lang, $selectList, $NrColVisable;
+global $hide_coords, $colNameSearch, $NrColSortSearch, $OrderSortSearch, $SearchWithSort, $usr, $selectList, $NrColVisable;
 
 if ( !$SearchWithSort )
 {
@@ -48,7 +50,7 @@ if ( !$SearchWithSort )
 }
 
 echo "<script>";
-echo " GCTLoad( 'ChartTable', '". $lang ."' );";
+echo " GCTLoad( 'ChartTable', '". I18n::getCurrentLang() ."' );";
 echo "</script>";
 
 $NrColSortToSet = $NrColSortSearch-1;

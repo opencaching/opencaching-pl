@@ -5,6 +5,7 @@
 
 use Utils\Database\XDb;
 use Utils\Gis\Gis;
+use Utils\I18n\I18n;
 
 /*
  *
@@ -28,9 +29,6 @@ use Utils\Gis\Gis;
  *
  */
 require_once (__DIR__.'/../../lib/common.inc.php');
-
-global $lang;
-
 
 // select caches which don't have cache_location record
 // OR modification time is later cache location mod.time
@@ -102,14 +100,10 @@ while ($rCache = XDb::xFetchArray($rsCache)) {
         if (mb_strlen($sCode) == 2) {
             $code1 = $sCode;
 
-            if (XDb::xContainsColumn('countries', 'list_default_' . $lang))
-                $lang_db = $lang;
-            else
-                $lang_db = "en";
-
+            $language = I18n::getLangForDbTranslations('countries');
             // try to get localised name first
             $adm1 = XDb::xSimpleQueryValue(
-                "SELECT `countries`.`$lang`
+                "SELECT `countries`.`$language`
                 FROM `countries`
                 WHERE `countries`.`short`='$sCode'", 0);
 
@@ -127,10 +121,6 @@ while ($rCache = XDb::xFetchArray($rsCache)) {
             $adm1, $adm2, $adm3, $adm4, $code1, $code2, $code3, $code4);
 
     } else {
-        if (XDb::xContainsColumn('countries', 'list_default_' . $lang))
-            $lang_db = $lang;
-        else
-            $lang_db = "en";
         $sCountry = XDb::xSimpleQueryValue(
             "SELECT `countries`.`pl` FROM `caches`
             INNER JOIN `countries` ON `caches`.`country`=`countries`.`short`

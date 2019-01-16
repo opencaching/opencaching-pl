@@ -40,7 +40,6 @@ final class OcConfig extends ConfigReader
     private $mainPageMapZoom;
     private $siteInService = false;
     private $pagetitle;
-    private $defaultLanguage;
     private $pictureDirectory;
     private $pictureUrl;
     private $contactMail;
@@ -136,7 +135,6 @@ final class OcConfig extends ConfigReader
         $this->mainPageMapZoom = $main_page_map_zoom;
         $this->siteInService = $site_in_service;
         $this->pagetitle = $pagetitle;
-        $this->defaultLanguage = $lang;
         $this->pictureDirectory = $picdir;
         $this->pictureUrl = $picurl;
         $this->contactMail = $contact_mail;

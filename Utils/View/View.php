@@ -7,6 +7,7 @@ use Utils\Debug\Debug;
 use Controllers\PageLayout\MainLayoutController;
 use Utils\I18n\CrowdinInContextMode;
 use Utils\Uri\SimpleRouter;
+use Utils\I18n\I18n;
 
 class View {
 
@@ -236,7 +237,7 @@ class View {
 
     public function getLang()
     {
-        return ApplicationContainer::Instance()->getLang();
+        I18n::getCurrentLang();
     }
 
     /**

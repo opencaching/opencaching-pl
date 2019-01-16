@@ -1,8 +1,6 @@
 <?php
 
 use Utils\Database\XDb;
-global $lang;
-$lang = 'en';
 
 //include template handling
 require_once(__DIR__.'/../lib/common.inc.php');

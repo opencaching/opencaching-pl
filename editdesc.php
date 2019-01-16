@@ -4,6 +4,7 @@ use Utils\Database\XDb;
 use lib\Objects\GeoCache\GeoCache;
 use Utils\I18n\Languages;
 use Utils\Text\UserInputFilter;
+use Utils\I18n\I18n;
 
 //prepare the templates and include all neccessary
 require_once(__DIR__.'/lib/common.inc.php');
@@ -104,7 +105,7 @@ if ( $desc_record = XDb::xFetchArray($desc_rs) ) {
         $desc = $desc_record['desc'];
     }
 
-    $eLang = XDb::xEscape($lang);
+    $eLang = XDb::xEscape(I18n::getCurrentLang());
 
     //here we only set up the template variables
     tpl_set_var('desc', htmlspecialchars($desc, ENT_COMPAT, 'UTF-8'), true);
@@ -147,12 +148,12 @@ if ( $desc_record = XDb::xFetchArray($desc_rs) ) {
     tpl_set_var('descid', $descid);
     tpl_set_var('cacheid', htmlspecialchars($desc_record['cache_id'], ENT_COMPAT, 'UTF-8'));
     tpl_set_var('desclang', htmlspecialchars($desc_lang, ENT_COMPAT, 'UTF-8'));
-    tpl_set_var('desclang_name', htmlspecialchars(Languages::LanguageNameFromCode($desc_lang, $lang), ENT_COMPAT, 'UTF-8'));
+    tpl_set_var('desclang_name', htmlspecialchars(Languages::LanguageNameFromCode($desc_lang, I18n::getCurrentLang()), ENT_COMPAT, 'UTF-8'));
     tpl_set_var('cachename', htmlspecialchars($desc_record['name'], ENT_COMPAT, 'UTF-8'));
 }
 
 
 //make the template and send it out
-tpl_set_var('language4js', $lang);
+tpl_set_var('language4js', I18n::getCurrentLang());
 tpl_BuildTemplate();
 

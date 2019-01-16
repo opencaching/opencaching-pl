@@ -15,6 +15,7 @@ use lib\Objects\User\User;
 use lib\Objects\Neighbourhood\MyNbhSets;
 use lib\Objects\Neighbourhood\Neighbourhood;
 use Utils\Uri\SimpleRouter;
+use Utils\I18n\I18n;
 
 class RSSController extends BaseController
 {
@@ -132,7 +133,7 @@ class RSSController extends BaseController
             __CLASS__ . '::newCaches',
             1 * 60 * 60,
             function() {
-                return self::newCachesDataPrepare($this->view->getLang());
+                return self::newCachesDataPrepare(I18n::getCurrentLang());
             });
 
         foreach ($caches as $cache) {
@@ -206,7 +207,7 @@ class RSSController extends BaseController
             __CLASS__ . '::newNews',
             1 * 60 * 60,
             function() {
-                return self::newNewsDataPrepare($this->view->getLang());
+                return self::newNewsDataPrepare(I18n::getCurrentLang());
             });
 
         foreach ($allNews as $news) {

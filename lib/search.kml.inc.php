@@ -7,8 +7,9 @@ ob_start();
 
 use Utils\Database\XDb;
 use lib\Objects\GeoCache\GeoCacheCommons;
+use Utils\I18n\I18n;
 
-global $absolute_server_URI, $bUseZip, $usr, $hide_coords, $lang, $dbcSearch, $queryFilter;
+global $absolute_server_URI, $bUseZip, $usr, $hide_coords, $dbcSearch, $queryFilter;
 require_once (__DIR__.'/format.kml.inc.php');
 require_once (__DIR__.'/calculation.inc.php');
 
@@ -147,8 +148,19 @@ if ($usr || ! $hide_coords) {
      * lat
      * icon
      */
+    $language = I18n::getCurrentLang();
+    $s = $dbcSearch->simpleQuery(
+        'SELECT `kmlcontent`.`cache_id` `cacheid`, `kmlcontent`.`status` `status`,
+                `kmlcontent`.`longitude` `longitude`, `kmlcontent`.`latitude` `latitude`, `kmlcontent`.cache_mod_cords_id,
+                `kmlcontent`.`type` `type`, `caches`.`date_hidden` `date_hidden`, `caches`.`name` `name`, `caches`.`wp_oc`
+                `cache_wp`, `cache_type`.`' . $language . '` `typedesc`, `cache_size`.`' . $language . '` `sizedesc`,
+                `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `user`.`username` `username`
+        FROM `kmlcontent`, `caches`, `cache_type`, `cache_size`, `user`
+        WHERE `kmlcontent`.`cache_id`=`caches`.`cache_id`
+            AND `kmlcontent`.`type`=`cache_type`.`id`
+            AND `kmlcontent`.`size`=`cache_size`.`id`
+            AND `kmlcontent`.`user_id`=`user`.`user_id`');
 
-    $s = $dbcSearch->simpleQuery('SELECT `kmlcontent`.`cache_id` `cacheid`, `kmlcontent`.`status` `status`, `kmlcontent`.`longitude` `longitude`, `kmlcontent`.`latitude` `latitude`, `kmlcontent`.cache_mod_cords_id, `kmlcontent`.`type` `type`, `caches`.`date_hidden` `date_hidden`, `caches`.`name` `name`, `caches`.`wp_oc` `cache_wp`, `cache_type`.`' . $lang . '` `typedesc`, `kmlcontent`.`size`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `user`.`username` `username` FROM `kmlcontent`, `caches`, `cache_type`, `user` WHERE `kmlcontent`.`cache_id`=`caches`.`cache_id` AND `kmlcontent`.`type`=`cache_type`.`id` AND `kmlcontent`.`user_id`=`user`.`user_id`');
     while ($r = $dbcSearch->dbResultFetch($s)) {
         $thisline = $kmlLine;
         $thiskmlTypeIMG = $kmlTypeIMG;
