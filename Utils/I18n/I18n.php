@@ -7,6 +7,7 @@ use Utils\Uri\OcCookie;
 use Utils\Uri\Uri;
 use lib\Objects\OcConfig\OcConfig;
 use Utils\Debug\Debug;
+use Utils\Database\XDb;
 
 class I18n
 {
@@ -55,9 +56,21 @@ class I18n
         return self::instance()->currentLanguage;
     }
 
-    public static function getLangForDbTranslations()
+    /**
+     * Return language which can be used to look up for translation in given Db table
+     * DON'T USE DB TRANSLATION! This method is only to support legacy code.
+     *
+     * @param string $tableName
+     * @return string - language code
+     */
+    public static function getLangForDbTranslations($tableName)
     {
-        return self::getCurrentLang();
+        $langCode = self::getCurrentLang();
+        if (XDb::xContainsColumn($tableName, $langCode)) {
+            return $langCode;
+        } else {
+            return self::FAILOVER_LANGUAGE;
+        }
     }
 
     /**
