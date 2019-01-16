@@ -178,8 +178,6 @@ $C18 = fHideColumn( 18, true );
     gct.drawChart();
     gct.addSelectEvent( EventSelectPosFunction );
     gct.addPageEvent( EventPageFunction );
-
-    var textNoCachesSelected = '{{export_no_caches}}';
 </script>
 
 <?php
