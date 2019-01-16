@@ -355,6 +355,9 @@ class MainMapAjaxController extends BaseController
         if ( isset($_GET['size2']) ){
             //'none', 'nano', 'micro', 'small', 'regular', 'large', 'xlarge', 'other'.
             switch($_GET['size2']){
+                case "nano":
+                    $this->searchParams['size2'] = 'micro|small|regular|large|xlarge|other';
+                    break;
                 case "micro":
                     $this->searchParams['size2'] = 'small|regular|large|xlarge|other';
                     break;

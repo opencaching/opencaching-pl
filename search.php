@@ -2,9 +2,10 @@
 
 use Utils\Database\OcDb;
 use Utils\Database\XDb;
-use lib\Objects\GeoCache\PrintList;
 use Utils\Text\TextConverter;
 use Utils\Uri\OcCookie;
+use lib\Objects\GeoCache\GeoCache;
+use lib\Objects\GeoCache\PrintList;
 use lib\Objects\Coordinates\Coordinates;
 
 require_once (__DIR__.'/lib/common.inc.php');
@@ -1518,21 +1519,13 @@ function outputSearchForm($options)
 
     tpl_set_var('cachetype_options', $cachetype_options);
 
-    //Rozmiar skrzynki
+    // Size options. Show only those sizes of which caches exist at this site.
+    // Use order from GeoCache::CacheSizesArray().
 
     $cachesize_options = '';
-    if (Xdb::xContainsColumn('cache_size',$lang))
-        $lang_db = XDb::xEscape($lang);
-    else
-        $lang_db = "en";
-
-    $rs = XDb::xSql("SELECT `id`, `$lang_db` FROM `cache_size` ORDER BY `id`");
-    for ($i = 0; $i < XDb::xNumRows($rs); $i++)
+    foreach (array_intersect(GeoCache::CacheSizesArray(), GeoCache::getSizesInUse()) as $sizeId)
     {
-        $record = XDb::xFetchArray($rs);
-
-        $cachesize_options .= '<span style="white-space:nowrap"><input type="checkbox" name="cachesize_' . htmlspecialchars($record['id'], ENT_COMPAT, 'UTF-8') . '" value="1" id="l_cachesize_' . htmlspecialchars($record['id'], ENT_COMPAT, 'UTF-8') . '" class="checkbox" onclick="javascript:sync_options(this)" '.($options['cachesize_'.$record['id']] == 1 ? 'checked="checked"' : '').'/> <label for="l_cachesize_' . htmlspecialchars($record['id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($record[$lang_db], ENT_COMPAT, 'UTF-8') . '</label></span> &nbsp;';
-
+        $cachesize_options .= '<span style="white-space:nowrap"><input type="checkbox" name="cachesize_' . $sizeId . '" value="1" id="l_cachesize_' . $sizeId . '" class="checkbox" onclick="javascript:sync_options(this)"' . (empty($options['cachesize_' . $sizeId]) ? '' : ' checked="checked"') . ' /> <label for="l_cachesize_' . $sizeId . '">' . htmlspecialchars(tr(GeoCache::CacheSizeTranslationKey($sizeId))) . '</label></span> &nbsp;';
         $cachesize_options .= "\n";
     }
 

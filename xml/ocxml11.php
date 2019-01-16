@@ -1,6 +1,7 @@
 <?php
 
 use Utils\Database\XDb;
+use lib\Objects\GeoCache\GeoCacheCommons;
 use lib\Objects\OcConfig\OcConfig;
 /* begin configuration */
 
@@ -17,6 +18,7 @@ if ($error == true) {
 $zip_basedir = OcConfig::getDynFilesPath() . 'download/zip/';
 $zip_wwwdir = '/download/zip/';
 
+load_language_file('pl');
 
 /* end configuration */
 
@@ -317,12 +319,12 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
     }
     XDb::xFreeResults($rs);
 
-    $cachesizes = array();
-    $rs = XDb::xSql('SELECT `id`, `pl` FROM cache_size');
-    while ( $r = XDb::xFetchArray($rs) ){
-        $cachesizes[$r['id']]['pl'] = $r['pl'];
+    foreach (GeoCacheCommons::CacheSizesArray() as $sizeID) {
+        $cachesizes[$sizeID]['pl'] = getTranslation(
+            GeoCacheCommons::CacheSizeTranslationKey($sizeID),
+            'pl'
+        );
     }
-    XDb::xFreeResults($rs);
 
     $languages = array();
     $rs = XDb::xSql('SELECT `short`, `pl` FROM languages');

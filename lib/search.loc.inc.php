@@ -166,11 +166,10 @@ if ($usr || ! $hide_coords) {
         'SELECT `loccontent`.`cache_id` `cacheid`, `loccontent`.`longitude` `longitude`, `loccontent`.`latitude` `latitude`,
                     `loccontent`.cache_mod_cords_id, `caches`.`date_hidden` `date_hidden`,
                     `caches`.`name` `name`, `caches`.`wp_oc` `waypoint`,
-                    `cache_type`.`short` `typedesc`, `cache_type`.`id` `type_id`, `cache_size`.`id` `size_id`, `caches`.`terrain` `terrain`,
-                    `caches`.`difficulty` `difficulty`, `user`.`username` `username` FROM `loccontent`, `caches`, `cache_type`, `cache_size`, `user`
+                    `cache_type`.`short` `typedesc`, `cache_type`.`id` `type_id`, `loccontent`.`size` `size_id`, `caches`.`terrain` `terrain`,
+                    `caches`.`difficulty` `difficulty`, `user`.`username` `username` FROM `loccontent`, `caches`, `cache_type`, `user`
         WHERE `loccontent`.`cache_id`=`caches`.`cache_id`
             AND `loccontent`.`type`=`cache_type`.`id`
-            AND `loccontent`.`size`=`cache_size`.`id`
             AND `loccontent`.`user_id`=`user`.`user_id`');
 
     while ($r = $dbcSearch->dbResultFetch($s)) {

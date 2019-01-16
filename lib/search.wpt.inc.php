@@ -14,14 +14,14 @@ set_time_limit(1800);
 require_once (__DIR__.'/../lib/calculation.inc.php');
 
 
-$wptSize[1] = 'Nano';
+$wptSize[1] = 'Not specified';
 $wptSize[2] = 'Micro';
 $wptSize[3] = 'Small';
 $wptSize[4] = 'Regular';
 $wptSize[5] = 'Large';
 $wptSize[6] = 'Extra Large';
 $wptSize[7] = 'No container';
-$wptSize[8] = 'Not specified';
+$wptSize[8] = 'Nano';
 
 $wptType[1] = 'Unknown Cache';
 $wptType[2] = 'Traditional Cache';
@@ -163,10 +163,10 @@ if( $usr || !$hide_coords ) {
                 (SELECT cache_id FROM cache_logs WHERE deleted=0 AND user_id='.$usr['userid'].' AND (type=1 OR type=8)),1,0)
                 as found, `wptcontent`.`longitude` `longitude`, `wptcontent`.`latitude` `latitude`, `wptcontent`.cache_mod_cords_id,
                 `caches`.`date_hidden` `date_hidden`, `caches`.`name` `name`, `caches`.`wp_oc` `wp_oc`, `cache_type`.`short` `typedesc`,
-                `cache_size`.`'.$lang.'` `sizedesc`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `user`.`username` `username` ,
-                `caches`.`size` `size`, `caches`.`status` `status`, `caches`.`type` `type` FROM `wptcontent`, `caches`, `cache_type`, `cache_size`, `user`
+                `wptcontent`.`size` `size`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `user`.`username` `username` ,
+                `caches`.`status` `status`, `caches`.`type` `type` FROM `wptcontent`, `caches`, `cache_type`, `user`
         WHERE `wptcontent`.`cache_id`=`caches`.`cache_id`
-            AND `wptcontent`.`type`=`cache_type`.`id` AND `wptcontent`.`size`=`cache_size`.`id`
+            AND `wptcontent`.`type`=`cache_type`.`id`
             AND `wptcontent`.`user_id`=`user`.`user_id`' );
 
     echo "OziExplorer Waypoint File Version 1.1\r\n";

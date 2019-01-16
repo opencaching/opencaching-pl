@@ -107,14 +107,6 @@ $config = array(
     'cacheLimitByTypePerUser' => array(
         cache::TYPE_OWNCACHE => 1,
     ),
-    /**
-     * not allowed cache sizes (user cannot create caches of this sizes).
-     *
-     * Cachesizes must be lib/cache.php constant SIZE_*
-     */
-    'forbiddenCacheSizes' => array(
-        //cache::SIZE_MICRO
-    ),
     /** The filter fragment selecting provinces from nuts_codes table. */
     'provinceNutsCondition' => '`code` like \'PL__\'',
     /** Nature2000 link - used in viewcache.php */

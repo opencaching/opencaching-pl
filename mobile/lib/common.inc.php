@@ -10,6 +10,7 @@ require_once('./lib/functions.inc.php');
 require_once("./lib/cookie.class.php");
 require_once("./lib/login.class.php");
 require_once('../lib/ClassPathDictionary.php');
+require_once("../lib/language.inc.php");
 
 $tpl = new Smarty;
 $tpl->template_dir = OcConfig::getDynFilesPath() . 'lib/templates/';

@@ -1,6 +1,7 @@
 <?php
 namespace lib\Objects\GeoCache;
 
+use Utils\Database\OcDb;
 use Utils\Database\XDb;
 use lib\Objects\Coordinates\Altitude;
 use lib\Objects\Coordinates\Coordinates;
@@ -1680,5 +1681,28 @@ class GeoCache extends GeoCacheCommons
         EventHandler::cacheNew($this);
 
         return $this;
+    }
+
+    public static function getSizesInUse()
+    {
+        static $sizesInUse = null;
+
+        if ($sizesInUse === null) {
+            $db = OcDb::instance();
+            $sizesInUse = $db->dbFetchOneColumnArray(
+                $db->simpleQuery("SELECT DISTINCT size FROM caches"),
+                'size'
+            );
+        }
+        return $sizesInUse;
+    }
+
+    public static function nanoIsInUse()
+    {
+        return OcDb::instance()->multiVariableQueryValue(
+            "SELECT 1 FROM caches WHERE size = :1",
+            0,
+            self::SIZE_NANO
+        ) != 0;
     }
 }

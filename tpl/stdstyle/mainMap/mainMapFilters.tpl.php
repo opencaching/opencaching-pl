@@ -163,6 +163,9 @@ use lib\Objects\GeoCache\GeoCache;
             <label for="size2"><?=tr('map_biggerSizeThan')?>:</label>
             <select id="size2" class="filterParam">
               <option value="any"><?=tr('map_sizeAny')?></option>
+              <?php if ($view->nanoFilterEnabled) { ?>
+                  <option value="nano"><?=lcfirst(tr(GeoCache::SIZE_NANO_TR_KEY))?></option>
+              <?php } ?>
               <option value="micro"><?=lcfirst(tr(GeoCache::SIZE_MICRO_TR_KEY))?></option>
               <option value="small"><?=lcfirst(tr(GeoCache::SIZE_SMALL_TR_KEY))?></option>
               <option value="regular"><?=lcfirst(tr(GeoCache::SIZE_REGULAR_TR_KEY))?></option>

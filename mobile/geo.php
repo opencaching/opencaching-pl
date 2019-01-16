@@ -1,6 +1,7 @@
 <?php
 
 use Utils\Database\XDb;
+use lib\Objects\GeoCache\GeoCacheCommons;
 
 require_once("./lib/common.inc.php");
 
@@ -50,17 +51,16 @@ if (isset($_GET['wp']) && !empty($_GET['wp']) && isset($_GET['output']) && !empt
                 $wynik = XDb::xSql($query);
                 $wiersz4 = XDb::xFetchArray($wynik);
 
-                $query = "select en from cache_size where id=" . $wiersz['size'];
-                $wynik = XDb::xSql($query);
-                $wiersz5 = XDb::xFetchArray($wynik);
+                $wiersz5 = tr(GeoCacheCommons::CacheSizeTranslationKey($wiersz['size']));
 
-                $query = "select short_desc,cache_desc.desc from cache_desc where cache_id=" . $wiersz['cache_id'];
+                $query = "select short_desc,cache_desc.desc,hint from cache_desc where cache_id=" . $wiersz['cache_id'];
                 $wynik = XDb::xSql($query);
                 $wiersz6 = XDb::xFetchArray($wynik);
 
                 $query = "select attrib_id from caches_attributes where cache_id=" . $wiersz['cache_id'];
                 $wynik = XDb::xSql($query);
 
+                $attr_text = '';
                 while ($rekord = XDb::xFetchArray($wynik)) {
 
                     $query = "select text_long from cache_attrib where id ='" . $rekord['attrib_id'] . "' and language = '" . $lang . "';";
@@ -102,7 +102,7 @@ if (isset($_GET['wp']) && !empty($_GET['wp']) && isset($_GET['output']) && !empt
                 $rekord['difficulty'] = gpxhelper($wiersz['difficulty']);
                 $rekord['terrain'] = gpxhelper($wiersz['terrain']);
                 $rekord['type'] = gpxhelper($wiersz3['en']);
-                $rekord['size'] = gpxhelper($wiersz5['en']);
+                $rekord['size'] = gpxhelper($wiersz5);
                 $rekord['status'] = gpxhelper($wiersz4['en']);
                 $rekord['cache_id'] = $wiersz['cache_id'];
                 $rekord['latitude'] = $wiersz['latitude'];
