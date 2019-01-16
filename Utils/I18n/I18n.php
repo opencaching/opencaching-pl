@@ -12,66 +12,74 @@ class I18n
 {
     const FAILOVER_LANGUAGE = 'en';
 
+    private $currentLanguage;
+    private $trArray;
+
+    private function __construct()
+    {
+        $this->trArray = [];
+
+        $initLang = $this->getInitLang();
+        // check if $requestedLang is supported by node
+        if (!$this->isLangSupported($initLang)) {
+            // requested language is not supported - display error...
+            $this->handleUnsupportedLangAndExit($initLang);
+        }
+
+        $this->setCurrentLang($initLang);
+        $this->loadLangFile($initLang);
+        Languages::setLocale($initLang);
+    }
+
+    /**
+     * Returns instance of itself.
+     *
+     * @return I18n object
+     */
+    public static function instance()
+    {
+        static $instance = null;
+        if ($instance === null) {
+            $instance = new static(false);
+        }
+        return $instance;
+    }
+
     /**
      * Retruns current language of tranlsations
      * @return string - two-char lang code - for example: 'pl' or 'en'
      */
     public static function getCurrentLang()
     {
+        // temporary use external global var
         global $lang;
         return $lang;
+        // return $this->currentLanguage;
     }
 
     /**
-     * Main initialization of translations - should be called for all the scipts
+     * The only function to initilize I18n for OC code.
+     * This should be called at the begining of every request.
+     *
+     * @return \Utils\I18n\I18n
      */
-    public static function initTranslations()
+    public static function init()
     {
-        // language changed
-        if (isset($_REQUEST['lang'])) {
-            $requestedLang = $_REQUEST['lang'];
-        } else {
-            $requestedLang = OcCookie::getOrDefault('lang', I18n::getDefaultLang());
-        }
-
-        // check if $requestedLang is supported by node
-        if (!self::isLangSupported($requestedLang)) {
-            // requested language is not supported - display error...
-            self::handleUnsupportedLangAndExit ($requestedLang);
-        }
-
-        CrowdinInContextMode::initHandler();
-        if (CrowdinInContextMode::enabled()) {
-            // CrowdinInContext mode is enabled => force loading crowdin "pseudo" lang
-            $requestedLang = CrowdinInContextMode::getPseudoLang();
-        }
-
-        self::setLang($requestedLang);
-        self::loadLangFile($requestedLang);
-        Languages::setLocale($requestedLang);
+        // just be sure that instance of this class is created
+        return self::instance();
     }
 
-    public static function translatePhrase($str, $langCode)
+    /**
+     * Main translate function
+     *
+     * @param string $translationId - id of the phrase
+     * @param string $langCode - two-letter language code
+     * @param boolean $skipPostprocess - if true skip "old-template" postprocessing
+     * @return string -
+     */
+    public static function translatePhrase($translationId, $langCode=null, $skipPostprocess=null)
     {
-        global $language;
-
-        if (!isset($language[$langCode])) {
-            self::loadLangFile($langCode);
-        }
-
-        if (isset($language[$langCode][$str]) && $language[$langCode][$str]) {
-            // requested phrase found
-            return self::postProcessTr($language[$langCode][$str]);
-        } else {
-            if($langCode != self::FAILOVER_LANGUAGE){
-                // there is no such phrase - try to handle it in failover language
-                return self::translatePhrase($str, self::FAILOVER_LANGUAGE);
-            }
-        }
-
-        // ups - no such phrase at all - even in failover language...
-        Debug::errorLog('Unknown translation for id: '.$str);
-        return "No translation available (id: $str)";
+        return self::instance()->translate($translationId, $langCode=null, $skipPostprocess=null);
     }
 
     /**
@@ -82,13 +90,75 @@ class I18n
      */
     public static function isTranslationAvailable($str)
     {
-        global $language;
+        $instance = self::instance();
         $language = self::getCurrentLang();
-
-        return isset($language[$language][$str]) && $language[$language][$str];
+        return isset($instance->trArray[$language][$str]) && $instance->trArray[$language][$str];
     }
 
-    private static function postProcessTr(&$ref)
+    public static function getLanguagesFlagsData($currentLang=null){
+
+        $instance = self::instance();
+        $result = array();
+        foreach ($instance->getSupportedTranslations() as $language) {
+            if (!isset($currentLang) || $language != $currentLang) {
+                $result[$language]['name'] = $language;
+                $result[$language]['img'] = '/images/flags/' . $language . '.svg';
+                $result[$language]['link'] = Uri::setOrReplaceParamValue('lang',$language);
+            }
+        }
+        return $result;
+    }
+
+    /**
+     * Returns language code which should be apply for current instance
+     */
+    private function getInitLang()
+    {
+        // first check if CrowdinInContext is enabled - then use pseudoLang
+        CrowdinInContextMode::initHandler();
+        if (CrowdinInContextMode::enabled()) {
+            // CrowdinInContext mode is enabled => force loading crowdin "pseudo" lang
+            return CrowdinInContextMode::getPseudoLang();
+        }
+
+        // language changed
+        if (isset($_REQUEST['lang'])) {
+            return $_REQUEST['lang'];
+        } else {
+            return OcCookie::getOrDefault('lang', $this->getDefaultLang());
+        }
+    }
+
+    private function translate($str, $langCode=null, $skipPostprocess=null)
+    {
+        if(!$langCode){
+            $langCode = self::getCurrentLang();
+        }
+
+        if (!isset($this->trArray[$langCode])) {
+            $this->loadLangFile($langCode);
+        }
+
+        if (isset($this->trArray[$langCode][$str]) && $this->trArray[$langCode][$str]) {
+            // requested phrase found
+            if (!$skipPostprocess) {
+                return $this->postProcessTr($this->trArray[$langCode][$str]);
+            } else {
+                return $this->trArray[$langCode][$str];
+            }
+        } else {
+            if($langCode != self::FAILOVER_LANGUAGE){
+                // there is no such phrase - try to handle it in failover language
+                return $this->translate($str, self::FAILOVER_LANGUAGE, $skipPostprocess);
+            }
+        }
+
+        // ups - no such phrase at all - even in failover language...
+        Debug::errorLog('Unknown translation for id: '.$str);
+        return "No translation available (id: $str)";
+    }
+
+    private function postProcessTr(&$ref)
     {
         if (strpos($ref, "{") !== false) {
             return tpl_do_replace($ref, true);
@@ -104,93 +174,51 @@ class I18n
      *
      * @param string $langCode - two-letter language code
      */
-    public static function loadLangFile($langCode)
+    private function loadLangFile($langCode)
     {
-        global $language;
-
         $languageFilename = __DIR__ . "/../../lib/languages/" . $langCode.'.php';
         if (!file_exists($languageFilename)) {
             throw new \Exception("Can't find translation file for requested language!");
             return;
         }
 
-        if (!is_array($language)){
-            $language = [];
-        }
-
         // load selected language/translation file
         include ($languageFilename);
-        $language[$langCode] = $translations;
+        $this->trArray[$langCode] = $translations;
     }
 
-    private static function setLang($languageCode)
+    private function setCurrentLang($languageCode)
     {
+        // temporary use global var also
         global $lang;
         $lang = $languageCode;
+        $this->currentLanguage = $languageCode;
     }
 
     /**
      * supported translations list is stored in i18n::$config['supportedLanguages'] var in config files
      * @return array of supported languags
      */
-    public static function getSupportedTranslations(){
+    private function getSupportedTranslations(){
         return OcConfig::instance()->getI18Config()['supportedLanguages'];
     }
 
-    public static function getDefaultLang()
+    private function getDefaultLang()
     {
         return OcConfig::instance()->getI18Config()['defaultLang'];
     }
 
-    private static function isLangSupported($lang){
+    private function isLangSupported($lang){
 
         if (CrowdinInContextMode::isSupportedInConfig()) {
             if ($lang == CrowdinInContextMode::getPseudoLang() ){
                 return true;
             }
         }
-        return in_array($lang, self::getSupportedTranslations());
+        return in_array($lang, $this->getSupportedTranslations());
     }
 
-    /**
-     * Returns locale for given language in format: <xx_YY>,
-     * where
-     * - xx: 2-letter language code (list of lang codes: http://www.loc.gov/standards/iso639-2/php/code_list.php)
-     * - YY: 2-letter country code (list of countries codes: https://en.wikipedia.org/wiki/ISO_3166-1)
-     *
-     * For example for 'pl': defaults is pl_PL
-     *
-     * @param string $lang
-     * @param string $tie - sometimes '-' is needed instead of '_'
-     *
-     * @return string
-     */
-    public static function getLocaleCode($lang, $tie='_')
-    {
-        switch($lang){
-            case 'pl': return "pl$tiePL";
-            case 'en': return "en$tieGB";
-            case 'nl': return "nl$tieNL";
-            case 'ro': return "ro$tieRO";
-            default:
-                return "en$tieGB";
-        }
-    }
-
-    public static function getLanguagesFlagsData($currentLang=null){
-
-        $result = array();
-        foreach(self::getSupportedTranslations() as $language){
-            if(!isset($currentLang) || $language != $currentLang){
-                $result[$language]['name'] = $language;
-                $result[$language]['img'] = '/images/flags/' . $language . '.svg';
-                $result[$language]['link'] = Uri::setOrReplaceParamValue('lang',$language);
-            }
-        }
-        return $result;
-    }
-
-    private static function handleUnsupportedLangAndExit($requestedLang)
+    private function handleUnsupportedLangAndExit($requestedLang)
     {
         tpl_set_tplname('error/langNotSupported');
         $view = tpl_getView();
@@ -200,11 +228,11 @@ class I18n
             Uri::getLinkWithModificationTime('/tpl/stdstyle/error/error.css'));
         $view->setVar('requestedLang', UserInputFilter::purifyHtmlString($requestedLang));
 
-        self::setLang(self::FAILOVER_LANGUAGE);
+        $this->setLang(self::FAILOVER_LANGUAGE);
 
         $view->setVar('allLanguageFlags', self::getLanguagesFlagsData());
 
-        self::loadLangFile(self::FAILOVER_LANGUAGE);
+        $this->loadLangFile(self::FAILOVER_LANGUAGE);
 
         tpl_BuildTemplate();
         exit;
