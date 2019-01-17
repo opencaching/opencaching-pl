@@ -340,14 +340,18 @@ global $tpl_subtitle;
 
         <div class="bottom-page-container">
           <?=$view->licenseHtml?>
-          <span class="bottom-flags">
-            <?php foreach($view->_languageFlags as $langFlag){ ?>
-              <a rel="nofollow" href="<?=$langFlag['link']?>">
-                <img class="img-navflag" src="<?=$langFlag['img']?>"
-                     alt="<?=$langFlag['name']?> version" title="<?=$langFlag['name']?> version">
-              </a>
-            <?php } //forach-lang-flags ?>
-          </span>
+
+          <?php if (!$view->_crowdinInContextEnabled) { ?>
+              <span class="bottom-flags">
+                <?php foreach($view->_languageFlags as $langFlag){ ?>
+                  <a rel="nofollow" href="<?=$langFlag['link']?>">
+                    <img class="img-navflag" src="<?=$langFlag['img']?>"
+                         alt="<?=$langFlag['name']?> version" title="<?=$langFlag['name']?> version">
+                  </a>
+                <?php } //forach-lang-flags ?>
+              </span>
+          <?php } //$view->_crowdinInContextEnabled ?>
+
           <span>
             <a href="<?=$view->_crowdinInContextActionUrl?>">
                 <?php if ($view->_crowdinInContextEnabled) { ?>

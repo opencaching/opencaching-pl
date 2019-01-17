@@ -161,7 +161,7 @@ $stmt = XDb::xSql(
             `xmlcontent`.cache_mod_cords_id, `caches`.`wp_oc` `waypoint`, `caches`.`date_hidden` `date_hidden`,
             `caches`.`name` `name`, `caches`.`country` `country`, `caches`.`type` `type_id`, `caches`.`terrain` `terrain`,
             `caches`.`difficulty` `difficulty`, `caches`.`desc_languages` `desc_languages`,
-            `cache_size`.`'.$language.'` `size`, `cache_type`.`'.$language.'` `type`, `cache_status`.`'.$language.'` `status`,
+            `caches`.`size`, `cache_type`.`'.$language.'` `type`, `cache_status`.`'.$language.'` `status`,
             `user`.`username` `username`, `cache_desc`.`desc` `desc`, `cache_desc`.`short_desc` `short_desc`,
             `cache_desc`.`hint` `hint`, `cache_desc`.`desc_html` `html`, `xmlcontent`.`distance` `distance`
     FROM `xmlcontent`, `caches`, `user`, `cache_desc`, `cache_type`, `cache_status`

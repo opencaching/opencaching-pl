@@ -68,7 +68,9 @@ class Languages
                 setlocale(LC_TIME, 'en_EN');
                 break;
             default:
-                error_log(__METHOD__.": Error: trying to load unsupported locale: $langCode !?");
+                if ($langCode != CrowdinInContextMode::getPseudoLang()) {
+                    error_log(__METHOD__.": Error: trying to load unsupported locale: $langCode !?");
+                }
                 setlocale(LC_CTYPE, 'en_EN');
                 setlocale(LC_TIME, 'en_EN');
                 break;

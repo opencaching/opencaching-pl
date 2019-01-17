@@ -13,6 +13,7 @@ class I18n
 {
     const FAILOVER_LANGUAGE = 'en';
     const COOKIE_LANG_VAR = 'lang';
+    const URI_LANG_VAR = 'lang';
 
     private $currentLanguage;
     private $trArray;
@@ -54,6 +55,15 @@ class I18n
     public static function getCurrentLang()
     {
         return self::instance()->currentLanguage;
+    }
+
+    /**
+     * Returns default language for this node.
+     * @return string - two-letters lang code
+     */
+    public static function getDefaultLang()
+    {
+        return OcConfig::instance()->getI18Config()['defaultLang'];
     }
 
     /**
@@ -119,7 +129,7 @@ class I18n
             if (!isset($currentLang) || $language != $currentLang) {
                 $result[$language]['name'] = $language;
                 $result[$language]['img'] = '/images/flags/' . $language . '.svg';
-                $result[$language]['link'] = Uri::setOrReplaceParamValue('lang',$language);
+                $result[$language]['link'] = Uri::setOrReplaceParamValue(self::URI_LANG_VAR, $language);
             }
         }
         return $result;
@@ -130,19 +140,21 @@ class I18n
      */
     private function getInitLang()
     {
-        // first check if CrowdinInContext is enabled - then use pseudoLang
-        CrowdinInContextMode::initHandler();
-        if (CrowdinInContextMode::enabled()) {
-            // CrowdinInContext mode is enabled => force loading crowdin "pseudo" lang
+        if (isset($_REQUEST['lang'])) {
+            // language switch is requested
+            $langToUse = $_REQUEST[self::URI_LANG_VAR];
+        } else {
+            // use previous lang or default
+            $langToUse = OcCookie::getOrDefault(self::COOKIE_LANG_VAR, $this->getDefaultLang());
+        }
+
+        // check request for CrowdinInContext mode commands
+        CrowdinInContextMode::checkRequest($langToUse);
+        if (CrowdinInContextMode::enabled()){
             return CrowdinInContextMode::getPseudoLang();
         }
 
-        // language changed
-        if (isset($_REQUEST['lang'])) {
-            return $_REQUEST['lang'];
-        } else {
-            return OcCookie::getOrDefault(self::COOKIE_LANG_VAR, $this->getDefaultLang());
-        }
+        return $langToUse;
     }
 
     private function translate($str, $langCode=null, $skipPostprocess=null)
@@ -217,10 +229,7 @@ class I18n
         return OcConfig::instance()->getI18Config()['supportedLanguages'];
     }
 
-    private function getDefaultLang()
-    {
-        return OcConfig::instance()->getI18Config()['defaultLang'];
-    }
+
 
     private function isLangSupported($langCode){
 
@@ -252,11 +261,13 @@ class I18n
         exit;
     }
 
-    // Methods for retrieving and maintaining old-style database translations.
-    // This should become obsolete some time.
 
-    // TODO: cache_atttrib
 
+    /**
+     * Methods for retrieving and maintaining old-style database translations.
+     * This should become obsolete some time.
+     * TODO: cache_atttrib
+     */
     public static function getTranslationTables()
     {
         return [
@@ -303,7 +314,7 @@ class I18n
                 $sizeIds = ['other', 'micro', 'small', 'regular', 'large', 'xLarge', 'none', 'nano'];
             }
             if ($id < 1 || $id > count($sizeIds)) {
-                throw new Exception('invalid size ID passed to getTranslationId(): '.$size);
+                throw new Exception('invalid size ID passed to getTranslationId(): '.$id);
             }
             $id = $sizeIds[$id - 1];
         };

@@ -237,7 +237,7 @@ class View {
 
     public function getLang()
     {
-        I18n::getCurrentLang();
+        return I18n::getCurrentLang();
     }
 
     /**
