@@ -393,7 +393,7 @@ $translations = array(
     'back_to_the_geocache_listing' => 'Retour à la géocache',
 
     'register_pageTitle' => 'Nouvelle ouverture de compte',
-    'register_intro' => 'Veuillez entrer votre adresse e-mail - nous vous enverrons un lien d\'activation. Lors de votre inscription, vous choisirez également un nom d\'utilisateur unique (pseudo) que vous utiliserez sur le site.',
+    'register_intro' => 'Veuillez entrer votre adresse e-mail - nous vous enverrons un lien d’activation. Lors de votre inscription, vous choisirez également un nom d’utilisateur unique (pseudo) que vous utiliserez sur le site.',
     'register_info' => 'L\'utilisateur peut se désinscrire du site. Toutes les données saisies lors de votre inscription seront définitivement supprimées. Si vous souhaitez désactiver votre compte, veuillez nous contacter à l\'aide de l\'adresse e-mail utilisée lors de votre inscription. En cas de doute, n\'hésitez pas à nous contacter ({contact_mail}). Merci.',
     'register_rulesLbl' => 'Oui, j\'ai lu les <strong><a href="{wiki_link_rules}" target="_blank" rel="noopener">Conditions d\'Utilisation du Service</a></strong> {site_name} et je m\'engage à les respecter.',
     'register_ageLbl' => 'Oui, je suis âgé de {minAge} ans ou plus.',
