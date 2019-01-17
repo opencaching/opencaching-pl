@@ -1079,7 +1079,7 @@ $translations = array(
     'printcache_03' => 'Toon alle logs',
     'printcache_04' => 'Geen afbeeldingen',
     'printcache_05' => 'Toon miniaturen',
-    'printcache_06' => 'Toon grote foto\'s',
+    'printcache_06' => 'Toon grote foto’s',
     'printcache_07' => 'Decodeer hint',
     'printcache_08' => 'Toon alleen spoiler foto',
     'printcache_09' => 'Veranderen',
@@ -2581,7 +2581,7 @@ $translations = array(
     'mnu_massLogsSave' => 'Garmin logbestand',
     'mnu_octeamStats' => 'Statistieken OC Team',
     'mnu_okapiExtApps' => 'jouw Apps',
-    'mnu_FloppMap' => 'Flopp\'s kaart',
+    'mnu_FloppMap' => 'Flopp’s kaart',
     'mnu_clipboard' => 'Klembord',
     'mnu_privacyPolicy' => 'Privacyverklaringen',
     'mnu_facebook' => 'Facebook',
@@ -2668,7 +2668,7 @@ $translations = array(
     'upload_improperFileType' => 'Overgeslagen, onjuiste bestandsoort!',
     'upload_startUpload' => 'Beginnen met uploaden',
 
-    'pictures_intro' => 'Toegestane formaten: {picallowedformats}. JPG is het beste voor foto\'s.<br />Maximum grootte {maxpicsizeMB} MB. Aanbevolen resolutie: {maxpicresolution} pixels.',
+    'pictures_intro' => 'Toegestane formaten: {picallowedformats}. JPG is het beste voor foto’s.<br />Maximum grootte {maxpicsizeMB} MB. Aanbevolen resolutie: {maxpicresolution} pixels.',
 
     'page_error_1' => 'Er is een fout opgetreden tijdens het verwerken van het verzoek.',
     'page_error_2' => 'De admins van OC zijn op de hoogte gebracht.',
