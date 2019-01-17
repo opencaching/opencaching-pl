@@ -8,8 +8,4 @@ use lib\Objects\GeoCache\GeoCacheCommons;
 
 $site['primaryCountries'] = ['NL', 'BE', 'LU'];
 
-// enable nano caches
-$site['disabledCacheSizes'] = array_diff(
-    $site['disabledCacheSizes'],
-    [GeoCacheCommons::SIZE_NANO]
-);
+$site['enabledCacheSizes'][] = GeoCacheCommons::SIZE_NANO;

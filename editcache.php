@@ -688,7 +688,7 @@ if ($error == false) {
 
                     // blockforbidden cache sizes
                     if ($size != $sel_size
-                        && in_array($size, OcConfig::instance()->getSiteConfig()['disabledCacheSizes'])
+                        && !in_array($size, OcConfig::instance()->getSiteConfig()['enabledCacheSizes'])
                     ) {
                         continue;
                     }

@@ -10,9 +10,15 @@ use lib\Objects\GeoCache\GeoCacheCommons;
  * Theses sizes are not available for
  *    - creating caches
  *    - changing the type of a cache to this size
- *    - searching for caches
+ *    - searching for caches.
+ *
+ * The order does not matter.
  */
-$site['disabledCacheSizes'] = [
-    GeoCacheCommons::SIZE_NANO,
-    GeoCacheCommons::SIZE_OTHER   // Do not enable before OKAPI #519 is fixed!
+$site['enabledCacheSizes'] = [
+    GeoCacheCommons::SIZE_MICRO,
+    GeoCacheCommons::SIZE_SMALL,
+    GeoCacheCommons::SIZE_REGULAR,
+    GeoCacheCommons::SIZE_LARGE,
+    GeoCacheCommons::SIZE_XLARGE,
+    GeoCacheCommons::SIZE_NONE,
 ];
