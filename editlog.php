@@ -363,7 +363,6 @@ if ($error == false) {
                     // Notify OKAPI's replicate module of the change.
                     // Details: https://github.com/opencaching/okapi/issues/265
                     Facade::schedule_user_entries_check($log_record['cache_id'], $log_record['user_id']);
-                    Facade::disable_error_handling();
 
                     //Update last found
                     $lastFoundDate = XDb::xMultiVariableQueryValue(

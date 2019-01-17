@@ -79,7 +79,6 @@ class MobileCacheMove extends BaseObject
             $this->logId);
 
         Facade::schedule_user_entries_check($this->cacheId, $this->userId);
-        Facade::disable_error_handling();
     }
 
 
