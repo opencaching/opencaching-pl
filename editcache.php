@@ -544,7 +544,7 @@ if ($error == false) {
                         }
 
                         //display cache-page
-                        tpl_redirect($cache->getCacheUrl());
+                        tpl_redirect(ltrim($cache->getCacheUrl(), '/'));
                         exit;
                     }
                 } elseif (isset($_POST['show_all_countries_submit'])) {
