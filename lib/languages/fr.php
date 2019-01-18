@@ -2666,9 +2666,9 @@ $translations = array(
     'upload_allowedNumberOfFiles' => 'nombre maximum de fichiers à envoyer simultanément',
     'upload_improperFileSize' => 'Ignoré, taille de fichier invalide !',
     'upload_improperFileType' => 'Ignoré, type de fichier invalide !',
-    'upload_startUpload' => 'Lancer l\'envoi',
+    'upload_startUpload' => 'Lancer l’envoi',
 
-    'pictures_intro' => 'Formats d\'image permis : {picallowedformats}. JPG fonctionne mieux pour les photos.<br />La taille maximale autorisée est de {maxpicsizeMB} mégaoctets. Résolution recommandée : {maxpicresolution} pixels.',
+    'pictures_intro' => 'Formats d’image permis : {picallowedformats}. JPG fonctionne mieux pour les photos.<br />La taille maximale autorisée est de {maxpicsizeMB} mégaoctets. Résolution recommandée : {maxpicresolution} pixels.',
 
     'page_error_1' => 'An error occured while processing your request.',
     'page_error_2' => 'The OC site admins have been notified.',
