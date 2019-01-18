@@ -52,7 +52,6 @@ class CacheRecommendation extends BaseObject
             // Notify OKAPI's replicate module of the change.
             // Details: https://github.com/opencaching/okapi/issues/265
             Facade::schedule_user_entries_check($cacheId, $userId);
-            Facade::disable_error_handling();
         }
     }
 

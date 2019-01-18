@@ -23,8 +23,6 @@ use okapi\Facade;
 
 require_once(__DIR__.'/../../lib/ClassPathDictionary.php');
 
-Facade::disable_error_handling();
-
 /* last synchro check */
 $last_updated = XDb::xSimpleQueryValue(
     "SELECT value FROM sysconfig WHERE name='geokrety_lastupdate'", 0);
