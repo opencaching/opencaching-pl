@@ -36,17 +36,18 @@ in [100_init.php](https://github.com/opencaching/opencaching-pl/blob/master/Util
 
 ### Types of database updates
 
-There are three types, which can set in the `run` variable of the update's `getProperties()` method:
+There are three types, which can be set in the `run` variable of the update's
+`getProperties()` method:
 
 - **auto** (default) - The update will be run exactly once on each OC site after
     code deployment. (On your developer VM, you may run it multiple times manually.)
 
 - **manual** - This update can only be run manually, using the *[run]* link on the
     *Admin.DbUpdate* page. This is intended for test-only updates, or for updates that
-    need to be synchronized to some local system configuration change.
+    need to be synchronized with some local system configuration change.
 
 - **always** - This update will run on all OC sites after each code deployment.
-    You may use this e.g. to ensure DB consistency, or to nail some mutating static
+    You may use this e.g. to ensure DB consistency, or to nail some static
     DB contents to its defaults. Assign a number >= 900 if the update should run
     after all *auto* updates.
 
@@ -92,6 +93,10 @@ not manually in the file system or database. This is most failsafe.
 
 Every DB update should be tested by someone else before merge.
 
-Also, please verify before merge that update numbers are in the right order.
+Also, please verify before merge that update numbers are in a valid order.
 E.g. if updates 120 and 121 were already merged, and now you merge update 119,
-then it must be safe to run those updates in the order 119, 120, 121.
+then it must be safe to run those updates in all of these orders:
+
+- 120, 121, 119
+- 120, 119, 121
+- 119, 120, 121
