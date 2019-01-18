@@ -198,7 +198,7 @@ class Email
             error_log(__METHOD__ . ": Stack trace:");
             error_log($e->getTraceAsString());
         }
-        trigger_error($message, E_USER_NOTICE);
+        //trigger_error($message, E_USER_NOTICE); // TMP FIX: kojoty
     }
 
     private function isEmailValid()
