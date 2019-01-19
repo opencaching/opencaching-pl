@@ -45,7 +45,7 @@ return function ($media = true, $selector = '.tinymce') {
     toolbar3: "bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | hr | subscript superscript | charmap | forecolor backcolor",
     plugins: [
       "advlist autolink autosave link image lists charmap hr anchor spellchecker searchreplace wordcount code fullscreen nonbreaking",
-      "textcolor paste<?=$mediatxt?>"
+      "textcolor paste <?=$mediatxt?>"
     ],
   });
 </script>
