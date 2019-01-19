@@ -46,7 +46,7 @@ class ReportEmailSender
         $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
         $email->setSubject($subject);
         $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForReviewers());
-        $email->setBody($formattedMessage->getEmailContent(), true);
+        $email->setHtmlBody($formattedMessage->getEmailContent());
         $email->send();
     }
 
@@ -79,7 +79,7 @@ class ReportEmailSender
         $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
         $email->setSubject($subject);
         $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForReviewers());
-        $email->setBody($formattedMessage->getEmailContent(), true);
+        $email->setHtmlBody($formattedMessage->getEmailContent());
         $email->send();
     }
 
@@ -113,7 +113,7 @@ class ReportEmailSender
         $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
         $email->setSubject($subject);
         $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForReviewers());
-        $email->setBody($formattedMessage->getEmailContent(), true);
+        $email->setHtmlBody($formattedMessage->getEmailContent());
         $email->send();
     }
 
@@ -165,7 +165,7 @@ class ReportEmailSender
         $subject = '[R#' . $poll->getReport()->getId() . '] ' . $subject;
         $email->setSubject($subject);
         $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForReviewers());
-        $email->setBody($formattedMessage->getEmailContent(), true);
+        $email->setHtmlBody($formattedMessage->getEmailContent());
         $email->send();
     }
 
@@ -197,7 +197,7 @@ class ReportEmailSender
         $email->setFromAddr(OcConfig::getCogEmailAddress());
         $email->setSubject($subject);
         $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForSite());
-        $email->setBody($formattedMessage->getEmailContent(), true);
+        $email->setHtmlBody($formattedMessage->getEmailContent());
         $email->send();
     }
 
@@ -240,7 +240,7 @@ class ReportEmailSender
         $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
         $email->setSubject($subject);
         $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForSite());
-        $email->setBody($formattedMessage->getEmailContent(), true);
+        $email->setHtmlBody($formattedMessage->getEmailContent());
         $email->send();
     }
 
@@ -274,7 +274,7 @@ class ReportEmailSender
         $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
         $email->setSubject($subject);
         $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForSite());
-        $email->setBody($formattedMessage->getEmailContent(), true);
+        $email->setHtmlBody($formattedMessage->getEmailContent());
         $email->send();
     }
 
@@ -312,7 +312,7 @@ class ReportEmailSender
         $email->setFromAddr(OcConfig::getCogEmailAddress());
         $email->setSubject($subject);
         $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForSite());
-        $email->setBody($formattedMessage->getEmailContent(), true);
+        $email->setHtmlBody($formattedMessage->getEmailContent());
         $email->send();
     }
 
@@ -351,7 +351,7 @@ class ReportEmailSender
         $email->setFromAddr(OcConfig::getCogEmailAddress());
         $email->setSubject($subject);
         $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForSite());
-        $email->setBody($formattedMessage->getEmailContent(), true);
+        $email->setHtmlBody($formattedMessage->getEmailContent());
         $email->send();
     }
 
@@ -390,7 +390,7 @@ class ReportEmailSender
         $email->setFromAddr(OcConfig::getCogEmailAddress());
         $email->setSubject($subject);
         $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForReviewers());
-        $email->setBody($formattedMessage->getEmailContent(), true);
+        $email->setHtmlBody($formattedMessage->getEmailContent());
         $email->send();
     }
 }

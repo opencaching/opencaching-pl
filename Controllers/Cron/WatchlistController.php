@@ -5,6 +5,7 @@
 namespace Controllers\Cron;
 
 use Controllers\BaseController;
+use Utils\Email\Email;
 use Utils\Lock\Lock;
 use lib\Objects\User\UserNotify;
 use lib\Objects\Watchlist\Watchlist;
@@ -153,7 +154,12 @@ class WatchlistController extends BaseController
                 || sizeof($watcher->getWatchLogs()) > 0)
                 && UserNotify::getUserLogsNotify($watcher->getUserId())
             ) {
-                $sendStatus = $this->watchlistReport->prepareAndSend($watcher);
+                if (!Email::isValidEmailAddr($watcher->getEmail())) {
+                    // Only users with valid addresses will receive notifications.
+                    $sendStatus = true;
+                } else {
+                    $sendStatus = $this->watchlistReport->prepareAndSend($watcher);
+                }
                 $watcher->setSendStatus($sendStatus);
             }
             $watcher->setWatchmailNext(

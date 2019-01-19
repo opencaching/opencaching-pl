@@ -92,7 +92,7 @@ class NotifyEmailSender
         $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
         $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForSite());
         $email->setSubject($subject);
-        $email->setBody($formattedMessage->getEmailContent(), true);
+        $email->setHtmlBody($formattedMessage->getEmailContent());
         $email->send();
     }
 }

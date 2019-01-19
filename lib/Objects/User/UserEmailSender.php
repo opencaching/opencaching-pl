@@ -46,16 +46,15 @@ class UserEmailSender
         $email = new Email();
         $email->addToAddr($to->getEmail());
         if ($attachSenderAddress) {
-            $email->setReplyToAddr($from->getEmail());
+            $email->setFromAddr($from->getEmail());
+            $email->setSenderName($from->getUserName());
         } else {
-            $email->setReplyToAddr(OcConfig::getNoreplyEmailAddress());
+            $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
+            $subject = tr('mailto_emailFrom') . ' ' . $from->getUserName() . ': ' . $subject;
         }
-        $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
-        $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForSite());
-        // add additional prefix to subject
-        $subject = tr('mailto_emailFrom') . ' ' . $from->getUserName() . ': ' . $subject;
         $email->setSubject($subject);
-        $email->setBody($userMessage->getEmailContent(), true);
+        $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForSite());
+        $email->setHtmlBody($userMessage->getEmailContent());
         $result = $email->send();
         if (! $result) {
             error_log(__METHOD__ . ': Mail sending failure to: ' . $to->getEmail());
@@ -92,7 +91,7 @@ class UserEmailSender
         $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
         $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForSite());
         $email->setSubject($subject);
-        $email->setBody($userMessage->getEmailContent(), true);
+        $email->setHtmlBody($userMessage->getEmailContent());
         $result = $email->send();
         if (! $result) {
             error_log(__METHOD__ . ': Sender copy sending failure to: ' . $from->getEmail());
@@ -125,7 +124,7 @@ class UserEmailSender
         $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
         $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForSite());
         $email->setSubject(tr('activate_mail_subject'));
-        $email->setBody($userMessage->getEmailContent(), true);
+        $email->setHtmlBody($userMessage->getEmailContent());
         $email->send();
     }
 
@@ -147,7 +146,7 @@ class UserEmailSender
         $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
         $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForSite());
         $email->setSubject(tr('postActivation_mail_subject'));
-        $email->setBody($userMessage->getEmailContent(), true);
+        $email->setHtmlBody($userMessage->getEmailContent());
         $email->send();
     }
 }
