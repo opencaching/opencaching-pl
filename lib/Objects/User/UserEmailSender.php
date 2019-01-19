@@ -46,14 +46,15 @@ class UserEmailSender
         $email = new Email();
         $email->addToAddr($to->getEmail());
         if ($attachSenderAddress) {
-            $email->setFromAddr($from->getEmail());
-            $email->setSenderName($from->getUserName());
+            $email->setReplyToAddr($from->getEmail());
         } else {
-            $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
-            $subject = tr('mailto_emailFrom') . ' ' . $from->getUserName() . ': ' . $subject;
+            $email->setReplyToAddr(OcConfig::getNoreplyEmailAddress());
         }
-        $email->setSubject($subject);
+        $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
         $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForSite());
+        // add additional prefix to subject
+        $subject = tr('mailto_emailFrom') . ' ' . $from->getUserName() . ': ' . $subject;
+        $email->setSubject($subject);
         $email->setHtmlBody($userMessage->getEmailContent());
         $result = $email->send();
         if (! $result) {
