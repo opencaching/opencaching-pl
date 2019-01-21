@@ -23,8 +23,8 @@ class Okapi
     public static $server;
 
     /* These two get replaced in automatically deployed packages. */
-    private static $version_number = 1895;
-    private static $git_revision = '2d611228f872e31c5ccc6a814b3f24b82014ae41';
+    private static $version_number = 1896;
+    private static $git_revision = '7198ca4f16aa010494c5164570518f380bbbaea3';
 
     private static $okapi_vars = null;
 
@@ -1264,6 +1264,35 @@ class Okapi
         $site_url = Settings::get('SITE_URL');
         $other_scheme_url = strtr($site_url, ['http:' => 'https:', 'https:' => 'http:']);
         return str_replace($other_scheme_url, $site_url, $s);
+    }
+
+    /**
+     * Returns the URL for logging in at the site.
+     * $after_login is the page to display after sufcessful login.
+     * $langpref is the user-supplied 'langpref' param or NULL if not supplied.
+     */
+    public static function oc_login_url($after_login, $langpref)
+    {
+        $login_url =
+            Settings::get('SITE_URL') . 'login.php?' .
+            'mobileView=1&' .
+            'target=' . urlencode($after_login);
+
+        if ($langpref != null) {
+            # OCPL will show an error page when passing an unsupported language.
+            # To be on the safe side, we pass only languages that always are available.
+            # TODO: Add settings for that.
+
+            if (Settings::get('OC_BRANCH') == 'oc.de') {
+                if (in_array($langpref, ['en', 'de', 'it', 'es', 'fr']))
+                    $login_url .= '&locale=' . strtoupper($langpref);
+            } else {
+                if (in_array($langpref, ['en', 'pl', 'nl']))
+                    $login_url .= '&lang=' . $langpref;
+            }
+        }
+
+        return $login_url;
     }
 
     /**
