@@ -103,9 +103,9 @@ class I18n
      * @param boolean $skipPostprocess - if true skip "old-template" postprocessing
      * @return string -
      */
-    public static function translatePhrase($translationId, $langCode=null, $skipPostprocess=null)
+    public static function translatePhrase($translationId, $langCode=null, $skipPostprocess=null, $skipFailoverLang=null)
     {
-        return self::instance()->translate($translationId, $langCode=null, $skipPostprocess=null);
+        return self::instance()->translate($translationId, $langCode=null, $skipPostprocess=null, $skipFailoverLang=null);
     }
 
     /**
@@ -157,7 +157,7 @@ class I18n
         return $langToUse;
     }
 
-    private function translate($str, $langCode=null, $skipPostprocess=null)
+    private function translate($str, $langCode=null, $skipPostprocess=null, $skipFailoverLang=null)
     {
         if(!$langCode){
             $langCode = self::getCurrentLang();
@@ -175,9 +175,11 @@ class I18n
                 return $this->trArray[$langCode][$str];
             }
         } else {
-            if($langCode != self::FAILOVER_LANGUAGE){
+            if(!$skipFailoverLang && $langCode != self::FAILOVER_LANGUAGE){
                 // there is no such phrase - try to handle it in failover language
                 return $this->translate($str, self::FAILOVER_LANGUAGE, $skipPostprocess);
+            } else {
+                return null;
             }
         }
 
