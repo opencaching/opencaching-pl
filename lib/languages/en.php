@@ -477,7 +477,6 @@ $translations = array(
     'submit' => 'Submit',
     'edit_cache_description' => 'Edit cache description for:',
     'short_description' => 'Short description',
-    'extra_attrs_info' => 'You can add attributes using this form: <a href="cache-atr.php" target="_BLANK">Additional cache attributes</a>.',
     'javascript_edit_info' => 'Javascript is turned off in your browser. You can enter plain text only. For rich text you have to turn Javascript on.',
     'geocaching_com_foto_info' => 'Please do NOT use pictures from geocaching.com unless you own them.',
     'hint_info' => 'Additional hints',
