@@ -173,13 +173,16 @@ if ($usr == false || (!isset($_FILES['userfile']) && !isset($_SESSION['log_cache
                     $listaKodowOP[] = $dane[$dane_i]['kod_str'];
                     // kod
                     // czas
-                    $regex = "/(.+)-(.+)-(.+)T(.+):(.+)Z/";
-                    $ileMatches = preg_match($regex, trim($rec[1]), $matches);
-                    if (count($matches) >= 6) {
+                    $regex = "/^([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2})[:Z]/";
+                    if (preg_match($regex, trim($rec[1]), $matches)) {
                         $dane[$dane_i]['timestamp'] = mktime($matches[4], $matches[5], 0, $matches[2], $matches[3], $matches[1]);
-                        $dane[$dane_i] = UstawDatyZTimeStampa($dane[$dane_i]);
-                        unset($matches);
+                    } else {
+                        // default to current date/time if date/time information is invalid
+                        $dane[$dane_i]['timestamp'] = time();
                     }
+                    unset($matches);
+                    $dane[$dane_i] = UstawDatyZTimeStampa($dane[$dane_i]);
+
                     //status
                     $dane[$dane_i]['status'] = isset($statusy[trim($rec[2])]) ? $statusy[trim($rec[2])] : 0;
                     // komentarz
