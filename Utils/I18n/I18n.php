@@ -21,7 +21,26 @@ class I18n
     private function __construct()
     {
         $this->trArray = [];
+    }
 
+    /**
+     * Returns instance of itself.
+     *
+     * @return I18n object
+     */
+    public static function instance()
+    {
+        static $instance = null;
+        if ($instance === null) {
+            $instance = new static();
+            $instance->initialize();
+        }
+
+        return $instance;
+    }
+
+    private function initialize()
+    {
         $initLang = $this->getInitLang();
         // check if $requestedLang is supported by node
         if (!$this->isLangSupported($initLang)) {
@@ -34,19 +53,6 @@ class I18n
         Languages::setLocale($initLang);
     }
 
-    /**
-     * Returns instance of itself.
-     *
-     * @return I18n object
-     */
-    public static function instance()
-    {
-        static $instance = null;
-        if ($instance === null) {
-            $instance = new static(false);
-        }
-        return $instance;
-    }
 
     /**
      * Retruns current language of tranlsations
@@ -121,11 +127,15 @@ class I18n
         return isset($instance->trArray[$language][$str]) && $instance->trArray[$language][$str];
     }
 
-    public static function getLanguagesFlagsData($currentLang=null){
-
+    public static function getLanguagesFlagsData(){
         $instance = self::instance();
+        return $instance->getFlags();
+    }
+
+    private function getFlags($currentLang=null){
+
         $result = array();
-        foreach ($instance->getSupportedTranslations() as $language) {
+        foreach ($this->getSupportedTranslations() as $language) {
             if (!isset($currentLang) || $language != $currentLang) {
                 $result[$language]['name'] = $language;
                 $result[$language]['img'] = '/images/flags/' . $language . '.svg';
@@ -245,21 +255,23 @@ class I18n
 
     private function handleUnsupportedLangAndExit($requestedLang)
     {
-        tpl_set_tplname('error/langNotSupported');
-        $view = tpl_getView();
-
-        $view->loadJQuery();
-        $view->setVar("localCss",
-            Uri::getLinkWithModificationTime('/tpl/stdstyle/error/error.css'));
-        $view->setVar('requestedLang', UserInputFilter::purifyHtmlString($requestedLang));
-
-        $this->setLang(self::FAILOVER_LANGUAGE);
-
-        $view->setVar('allLanguageFlags', self::getLanguagesFlagsData());
-
+        $this->setCurrentLang(self::FAILOVER_LANGUAGE);
         $this->loadLangFile(self::FAILOVER_LANGUAGE);
 
+        $view = tpl_getView();
+        tpl_set_tplname('error/langNotSupported');
+
+        $view->loadJQuery();
+
+        $view->setVar("localCss",
+            Uri::getLinkWithModificationTime('/tpl/stdstyle/error/error.css'));
+
+        $view->setVar('requestedLang', UserInputFilter::purifyHtmlString($requestedLang));
+
+        $view->setVar('allLanguageFlags', $this->getFlags());
+
         tpl_BuildTemplate();
+
         exit;
     }
 
