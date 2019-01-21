@@ -352,6 +352,7 @@ global $tpl_subtitle;
               </span>
           <?php } //$view->_crowdinInContextEnabled ?>
 
+          <?php if ($view->_crowdinInContextAllowed) { ?>
           <span>
             <a href="<?=$view->_crowdinInContextActionUrl?>">
                 <?php if ($view->_crowdinInContextEnabled) { ?>
@@ -361,6 +362,7 @@ global $tpl_subtitle;
                 <?php } //if-_crowdinInContextEnabled ?>
             </a>
           </span>
+          <?php } //if-$view->_crowdinInContextAllowed ?>
         </div>
 
       </div>
