@@ -28,14 +28,14 @@ require_once (__DIR__.'/../lib/calculation.inc.php');
 set_time_limit(1800);
 global $content, $bUseZip, $hide_coords, $usr, $dbcSearch;
 
-$uamSize[1] = 'n'; // 'Nano'
+$uamSize[1] = 'u'; // 'Not specified'
 $uamSize[2] = 'm'; // 'Micro'
 $uamSize[3] = 's'; // 'Small'
 $uamSize[4] = 'r'; // 'Regular'
 $uamSize[5] = 'l'; // 'Large'
 $uamSize[6] = 'x'; // 'Large'
 $uamSize[7] = '-'; // 'No container'
-$uamSize[8] = 'u'; // 'Not specified'
+$uamSize[8] = 'n'; // 'Nano'
 
 // known by gpx
 $uamType[1] = 'O'; // 'Other'
@@ -144,12 +144,12 @@ if ($usr || ! $hide_coords) {
 
     $s = $dbcSearch->simpleQuery(
         'SELECT `wptcontent`.`cache_id` `cacheid`, `wptcontent`.`longitude` `longitude`, `wptcontent`.`latitude` `latitude`, `caches`.`date_hidden` `date_hidden`,
-                `caches`.`name` `name`, `caches`.`wp_oc` `wp_oc`, `cache_type`.`short` `typedesc`, `cache_size`.`pl` `sizedesc`,
+                `caches`.`name` `name`, `caches`.`wp_oc` `wp_oc`, `cache_type`.`short` `typedesc`,
                 `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `user`.`username` `username` , `caches`.`size` `size`,
                 `caches`.`type` `type`
-        FROM `wptcontent`, `caches`, `cache_type`, `cache_size`, `user`
+        FROM `wptcontent`, `caches`, `cache_type`, `user`
         WHERE `wptcontent`.`cache_id`=`caches`.`cache_id` AND `wptcontent`.`type`=`cache_type`.`id`
-            AND `wptcontent`.`size`=`cache_size`.`id` AND `wptcontent`.`user_id`=`user`.`user_id`');
+            AND `wptcontent`.`user_id`=`user`.`user_id`');
 
     echo pack("ccccl", 0xBB, 0x22, 0xD5, 0x3F, $rCount['count']);
 

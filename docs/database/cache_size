@@ -34,3 +34,4 @@ Create Table: CREATE TABLE `cache_size` (
 
 Changelog
 ---------
+2019-01-16  table is obsolete

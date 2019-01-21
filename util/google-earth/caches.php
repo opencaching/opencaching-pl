@@ -3,6 +3,7 @@
 ob_start();
 
 use Utils\Database\XDb;
+use lib\Objects\GeoCache\GeoCacheCommons;
 
 /* Bounding Box:
   BBOX=2.38443,48.9322,27.7053,55.0289
@@ -43,12 +44,11 @@ $rs = XDb::xSql(
     "SELECT `caches`.`cache_id` `cacheid`, `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude`,
             `caches`.`status` `status`, `caches`.`type` `type`, `caches`.`date_hidden` `date_hidden`,
             `caches`.`name` `name`, `caches`.`wp_oc` `cache_wp`,
-            `cache_type`.`" . $lang . "` `typedesc`, `cache_size`.`" . $lang . "` `sizedesc`,
+            `cache_type`.`" . $lang . "` `typedesc`, `caches`.`size`, 
             `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`,
             `user`.`username` `username`
-    FROM `caches`, `cache_type`, `cache_size`, `user`
+    FROM `caches`, `cache_type`, `user`
     WHERE `caches`.`type`=`cache_type`.`id`
-        AND `caches`.`size`=`cache_size`.`id`
         AND `caches`.`user_id`=`user`.`user_id`
         AND `caches`.`status` IN (1,2)
         AND `caches`.`longitude` >= ?
@@ -102,7 +102,9 @@ while ($r = XDb::xFetchArray($rs)) {
     $thisline = str_replace('{mod_suffix}', '', $thisline);
 
     $thisline = str_replace('{type}', xmlentities(convert_string($r['typedesc'])), $thisline);
-    $thisline = str_replace('{size}', xmlentities(convert_string($r['sizedesc'])), $thisline);
+    $thisline = str_replace('{size}', xmlentities(convert_string(
+        tr(GeoCacheCommons::CacheSizeTranslationKey($r['size']))
+    )), $thisline);
 
     $difficulty = sprintf('%01.1f', $r['difficulty'] / 2);
     $thisline = str_replace('{difficulty}', $difficulty, $thisline);

@@ -1681,4 +1681,26 @@ class GeoCache extends GeoCacheCommons
 
         return $this;
     }
+
+    public static function getSizesInUse()
+    {
+        static $sizesInUse = null;
+
+        if ($sizesInUse === null) {
+            $sizesInUse = self::db()->dbFetchOneColumnArray(
+                self::db()->simpleQuery("SELECT DISTINCT size FROM caches"),
+                'size'
+            );
+        }
+        return $sizesInUse;
+    }
+
+    public static function nanoIsInUse()
+    {
+        return self::db()->multiVariableQueryValue(
+            "SELECT 1 FROM caches WHERE size = :1",
+            0,
+            self::SIZE_NANO
+        ) != 0;
+    }
 }

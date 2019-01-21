@@ -133,15 +133,20 @@ class GeoCacheCommons extends BaseObject {
 
     public static function CacheSizesArray()
     {
+        // Sizes will always be displayed in this order.
+        // TODO: move "other" before "none" if the meaning is "other"
+        //       (see OKAPI issue #519)
+        //       (+ adjust order in myroutes_search.tpl.php)
+
         return array(
-            self::SIZE_NONE,
-            //self::SIZE_NANO,
+            self::SIZE_NANO,
             self::SIZE_MICRO,
             self::SIZE_SMALL,
             self::SIZE_REGULAR,
             self::SIZE_LARGE,
             self::SIZE_XLARGE,
-            //self::SIZE_OTHER
+            self::SIZE_NONE,
+            self::SIZE_OTHER
         );
     }
 

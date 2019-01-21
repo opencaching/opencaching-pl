@@ -7,6 +7,7 @@ use Utils\I18n\Languages;
 use lib\Objects\Coordinates\Coordinates;
 use Utils\EventHandler\EventHandler;
 use lib\Objects\GeoCache\GeoCacheLog;
+use lib\Objects\OcConfig\OcConfig;
 
 require_once(__DIR__.'/lib/common.inc.php');
 
@@ -686,7 +687,9 @@ if ($error == false) {
                 foreach (GeoCache::CacheSizesArray() as $size) {
 
                     // blockforbidden cache sizes
-                    if (($size != $sel_size) && in_array($size, $config['forbiddenCacheSizes']) && !$usr['admin']) {
+                    if ($size != $sel_size
+                        && !in_array($size, OcConfig::instance()->getSiteConfig()['enabledCacheSizes'])
+                    ) {
                         continue;
                     }
                     if ($size == GeoCache::SIZE_NONE && $sel_size != GeoCache::SIZE_NONE) {

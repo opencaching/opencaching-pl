@@ -9,6 +9,7 @@ use lib\Objects\User\User;
 use lib\Objects\Coordinates\Coordinates;
 use lib\Objects\CacheSet\CacheSet;
 use lib\Objects\ChunkModels\DynamicMap\DynamicMapModel;
+use lib\Objects\GeoCache\GeoCache;
 
 /**
  * Modes of mainMap init:
@@ -217,7 +218,7 @@ class MainMapController extends BaseController
         }
 
         $this->view->setVar('mapModel', $mapModel);
-
+        $this->view->setVar('nanoFilterEnabled', GeoCache::nanoIsInUse());
     }
 
     private function getMapJsParamsJson()

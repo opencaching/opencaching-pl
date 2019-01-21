@@ -2,6 +2,8 @@
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
 use lib\Objects\Coordinates\Coordinates;
+use lib\Objects\GeoCache\GeoCacheCommons;
+
 /**
  * This script is used (can be loaded) by /search.php
  */
@@ -159,14 +161,14 @@ $stmt = XDb::xSql(
             `xmlcontent`.cache_mod_cords_id, `caches`.`wp_oc` `waypoint`, `caches`.`date_hidden` `date_hidden`,
             `caches`.`name` `name`, `caches`.`country` `country`, `caches`.`type` `type_id`, `caches`.`terrain` `terrain`,
             `caches`.`difficulty` `difficulty`, `caches`.`desc_languages` `desc_languages`,
-            `cache_size`.`'.$lang.'` `size`, `cache_type`.`'.$lang.'` `type`, `cache_status`.`'.$lang.'` `status`,
+            `caches`.`size`, `cache_type`.`'.$lang.'` `type`, `cache_status`.`'.$lang.'` `status`,
             `user`.`username` `username`, `cache_desc`.`desc` `desc`, `cache_desc`.`short_desc` `short_desc`,
             `cache_desc`.`hint` `hint`, `cache_desc`.`desc_html` `html`, `xmlcontent`.`distance` `distance`
-    FROM `xmlcontent`, `caches`, `user`, `cache_desc`, `cache_type`, `cache_status`, `cache_size`
+    FROM `xmlcontent`, `caches`, `user`, `cache_desc`, `cache_type`, `cache_status`
     WHERE `xmlcontent`.`cache_id`=`caches`.`cache_id` AND `caches`.`cache_id`=`cache_desc`.`cache_id`
         AND `caches`.`default_desclang`=`cache_desc`.`language`
         AND `xmlcontent`.`user_id`=`user`.`user_id` AND `caches`.`type`=`cache_type`.`id`
-        AND `caches`.`status`=`cache_status`.`id` AND `caches`.`size`=`cache_size`.`id`');
+        AND `caches`.`status`=`cache_status`.`id`');
 
 while($r = XDb::xFetchArray($stmt) ) {
     if (@$enable_cache_access_logs) {
@@ -234,7 +236,7 @@ while($r = XDb::xFetchArray($stmt) ) {
     }
 
     $thisline = str_replace('{type}', $r['type'], $thisline);
-    $thisline = str_replace('{container}', $r['size'], $thisline);
+    $thisline = str_replace('{container}', tr(GeoCacheCommons::CacheSizeTranslationKey($r['size'])), $thisline);
     $thisline = str_replace('{status}', $r['status'], $thisline);
 
     $difficulty = sprintf('%01.1f', $r['difficulty'] / 2);

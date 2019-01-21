@@ -3,7 +3,7 @@
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
 use Utils\Text\Formatter;
-use lib\Objects\GeoCache\GeoCacheCommons;
+use lib\Objects\GeoCache\GeoCache;
 use okapi\Facade;
 use okapi\core\Exception\BadRequest;
 use lib\Objects\GeoCache\CacheNote;
@@ -337,30 +337,19 @@ if (isset($options['cachetype10'])) {
     tpl_set_var('cachetype10', ($options['cachetype10'] == 1) ? ' checked="checked"' : '');
 }
 
-if (isset($options['cachesize_1'])) {
-    tpl_set_var('cachesize_1', ($options['cachesize_1'] == 1) ? ' checked="checked"' : '');
+for ($size = 1; $size <= 8; ++$size) {
+
+    $enabled = in_array($size, GeoCache::getSizesInUse());
+    tpl_set_var(
+        'cachesize_'.$size.'_enable',
+        $enabled ? '' : ' display:none'
+    );
+    tpl_set_var(
+        'cachesize_'.$size,
+        $enabled && isset($options['cachesize_'.$size]) && $options['cachesize_'.$size] == 1 ? ' checked="checked"' : ''
+    );
 }
-if (isset($options['cachesize_2'])) {
-    tpl_set_var('cachesize_2', ($options['cachesize_2'] == 1) ? ' checked="checked"' : '');
-}
-if (isset($options['cachesize_3'])) {
-    tpl_set_var('cachesize_3', ($options['cachesize_3'] == 1) ? ' checked="checked"' : '');
-}
-if (isset($options['cachesize_4'])) {
-    tpl_set_var('cachesize_4', ($options['cachesize_4'] == 1) ? ' checked="checked"' : '');
-}
-if (isset($options['cachesize_5'])) {
-    tpl_set_var('cachesize_5', ($options['cachesize_5'] == 1) ? ' checked="checked"' : '');
-}
-if (isset($options['cachesize_6'])) {
-    tpl_set_var('cachesize_6', ($options['cachesize_6'] == 1) ? ' checked="checked"' : '');
-}
-if (isset($options['cachesize_7'])) {
-    tpl_set_var('cachesize_7', ($options['cachesize_7'] == 1) ? ' checked="checked"' : '');
-}
-if (isset($options['cachesize_8'])) {
-    tpl_set_var('cachesize_8', ($options['cachesize_8'] == 1) ? ' checked="checked"' : '');
-}
+unset($enabled);
 
 // SQL additional options
 if (!isset($options['f_userowner']))
@@ -970,7 +959,7 @@ if (isset($_POST['submit_gpx'])) {
 
             if ($r['votes'] > 3) {
 
-                $score = cleanup_text(GeoCacheCommons::ScoreNameTranslation($r['score']));
+                $score = cleanup_text(GeoCache::ScoreNameTranslation($r['score']));
                 $thisextra .= "\n" . cleanup_text(tr('search_gpxgc_05')) . ": " . $score . "\n";
             }
             if ($r['topratings'] > 0) {

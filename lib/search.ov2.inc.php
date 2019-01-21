@@ -3,9 +3,11 @@
  * This script is used (can be loaded) by /search.php
  */
 
+use Utils\Database\XDb;
+use lib\Objects\GeoCache\GeoCacheCommons;
+
 ob_start();
 
-use Utils\Database\XDb;
 global $content, $bUseZip, $hide_coords, $usr, $dbcSearch;
 
 set_time_limit(1800);
@@ -143,7 +145,7 @@ if ($usr || ! $hide_coords) {
         $phpzip = new ss_zip('', 6);
     }
 
-    $query = 'SELECT `ov2content`.`cache_id` `cacheid`, `ov2content`.`longitude` `longitude`, `ov2content`.`latitude` `latitude`, `ov2content`.cache_mod_cords_id, `caches`.`date_hidden` `date_hidden`, `caches`.`name` `name`, `caches`.`wp_oc` `wp_oc`, `cache_type`.`short` `typedesc`, `cache_size`.`pl` `sizedesc`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `user`.`username` `username`, `cache_type`.`id` `type_id` FROM `ov2content`, `caches`, `cache_type`, `cache_size`, `user` WHERE `ov2content`.`cache_id`=`caches`.`cache_id` AND `ov2content`.`type`=`cache_type`.`id` AND `ov2content`.`size`=`cache_size`.`id` AND `ov2content`.`user_id`=`user`.`user_id`';
+    $query = 'SELECT `ov2content`.`cache_id` `cacheid`, `ov2content`.`longitude` `longitude`, `ov2content`.`latitude` `latitude`, `ov2content`.cache_mod_cords_id, `caches`.`date_hidden` `date_hidden`, `caches`.`name` `name`, `caches`.`wp_oc` `wp_oc`, `cache_type`.`short` `typedesc`, `ov2content`.`size`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `user`.`username` `username`, `cache_type`.`id` `type_id` FROM `ov2content`, `caches`, `cache_type`, `user` WHERE `ov2content`.`cache_id`=`caches`.`cache_id` AND `ov2content`.`type`=`cache_type`.`id` AND `ov2content`.`user_id`=`user`.`user_id`';
     $s = $dbcSearch->simpleQuery($query);
 
     while ($r = $dbcSearch->dbResultFetch($s)) {
@@ -160,7 +162,7 @@ if ($usr || ! $hide_coords) {
         $name = convert_string($comb_name);
         $username = convert_string($r['username']);
         $type = convert_string($cacheTypeText[$r['type_id']]);
-        $size = convert_string($r['sizedesc']);
+        $size = convert_string(tr(GeoCacheCommons::CacheSizeTranslationKey($r['size'])));
         $difficulty = sprintf('%01.1f', $r['difficulty'] / 2);
         $terrain = sprintf('%01.1f', $r['terrain'] / 2);
         $cacheid = convert_string($r['wp_oc']);

@@ -86,9 +86,7 @@ if (isSet($_GET['wp']) && !empty($_GET['wp']) && $_GET['wp'] != "OP") {
         $wynik = XDb::xSql($query);
         $cache_type = XDb::xFetchArray($wynik);
 
-        $query = "select " . $lang . " from cache_size where id =" . $caches['size'] . ';';
-        $wynik = XDb::xSql($query);
-        $cache_size = XDb::xFetchArray($wynik);
+        $cache_size = tr(GeoCacheCommons::CacheSizeTranslationKey($caches['size']));
 
         $query = "select " . $lang . " from cache_status where id =" . $caches['status'] . ';';
         $wynik = XDb::xSql($query);
@@ -136,7 +134,7 @@ if (isSet($_GET['wp']) && !empty($_GET['wp']) && $_GET['wp'] != "OP") {
         $cache_info['N'] = cords($caches['latitude']);
         $cache_info['E'] = cords($caches['longitude']);
         $cache_info['type'] = $cache_type[0];
-        $cache_info['size'] = $cache_size[0];
+        $cache_info['size'] = $cache_size;
         $cache_info['status2'] = $caches['status'];
         $cache_info['status'] = $cache_status[0];
         $cache_info['hidden_date'] = date('j.m.Y', strtotime($caches['date_hidden']));
