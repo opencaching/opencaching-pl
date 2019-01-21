@@ -57,6 +57,8 @@ class DbUpdateController extends BaseController
         $wasRun = ($update->wasRunAt() !== null);
         if (!$wasRun) {
             $actions['run'] = 'run';
+        } elseif (!$this->ocConfig->inDebugMode() && substr($update->getName(), 0, 3) < 100) {
+            $actions['run'] = 'run again';
         }
 
         // Devel / test actions, not available on production sites:
@@ -115,7 +117,7 @@ class DbUpdateController extends BaseController
 
     public function viewScript($uuid)
     {
-        $this->securityCheck();
+        $this->securityCheck(false);
 
         $update = $this->getUpdateFromUuid($uuid);
         $this->view->setVar('viewScript', $uuid);
