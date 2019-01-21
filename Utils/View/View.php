@@ -265,9 +265,21 @@ class View {
      */
     public function showVideoBanner()
     {
-        if (is_null(ApplicationContainer::Instance()->getLoggedUser()))
+        if (self::mobile()) {
+            return false;
+        }
+        if (is_null(ApplicationContainer::Instance()->getLoggedUser())) {
             return true;
+        }
         return $this->_showVideoBannerState;
+    }
+
+    /**
+     * @return boolean - true if the view should be optimized for mobile devices
+     */
+    public static function mobile()
+    {
+        return isset($_REQUEST['mobileView']) && $_REQUEST['mobileView'] == 1;
     }
 
     /**
