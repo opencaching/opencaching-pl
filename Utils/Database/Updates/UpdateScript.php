@@ -15,7 +15,7 @@ class UpdateScript
     /** @var OcDb $db */
     protected $db;
 
-    protected $simulate = false;  // true => don't update translations, but show what would be changed 
+    protected $simulate = false;  // true => don't update translations, but show what would be changed
 
     public function __construct()
     {
@@ -37,7 +37,7 @@ class UpdateScript
 
             $existingLangs = $this->db->dbFetchOneColumnArray(
                 $this->db->simpleQuery(
-                    "SHOW COLUMNS FROM `".$table."` WHERE field LIKE '__'" 
+                    "SHOW COLUMNS FROM `".$table."` WHERE field LIKE '__'"
                 ),
                 'field',
                 false
@@ -63,7 +63,7 @@ class UpdateScript
             foreach ($ids as $id) {
                 $key = I18n::getTranslationKey($table, $id);
 
-                if ($translation = getAutoloadTranslationWithoutFailover($key, $lang)) {
+                if ($translation = I18n::translatePhrase($key, $lang, null, true)) {
 
                     $oldText = $this->db->multiVariableQueryValue(
                         "SELECT `".$lang."` FROM `".$table."`
@@ -107,7 +107,7 @@ class UpdateScript
                     "UPDATE `".$table."` SET `sort_".$lang."` = `".$lang."`
                     WHERE `sort_".$lang."` = ''"
                 );
-            }             
+            }
         }
     }
 

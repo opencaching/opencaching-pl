@@ -1,20 +1,6 @@
 <?php
 use Utils\I18n\I18n;
 
-function getAutoloadTranslationWithoutFailover($str, $lang)
-{
-    global $language;
-
-    if (!isset($language[$lang])) {
-        load_language_file($lang);
-    }
-    if (!isset($language[$lang][$str])) {
-        return null;
-    } else {
-        return $language[$lang][$str];
-    }
-}
-
 /**
  * Return tranlated string
  *
