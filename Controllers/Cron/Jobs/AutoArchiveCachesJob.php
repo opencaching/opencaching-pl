@@ -137,8 +137,6 @@ class AutoArchiveCachesJob extends Job
     {
         $email = new Email();
         if (!$email->addToAddr($cache->getOwner()->getEmail())) {
-            unlink($email);
-
             return;
         }
 
@@ -175,7 +173,7 @@ class AutoArchiveCachesJob extends Job
         $email->setFromAddr($this->ocConfig->getOcteamEmailAddress());
         $email->setSubject($subject);
         $email->addSubjectPrefix($this->ocConfig->getMailSubjectPrefixForSite());
-        $email->setBody($formattedMessage->getEmailContent(), true);
+        $email->setHtmlBody($formattedMessage->getEmailContent());
         $email->send();
     }
 

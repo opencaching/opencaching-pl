@@ -13,6 +13,7 @@ use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\GeoCache\GeoCacheLog;
 use lib\Objects\OcConfig\OcConfig;
 use lib\Objects\User\User;
+use Utils\Debug\Debug;
 
 class EmailSender
 {
@@ -42,10 +43,14 @@ class EmailSender
 
         $email->addSubjectPrefix("OC Admin Email");
         $email->setSubject('Error in domain: '.$spamDomain); //TODO
-        $email->setBody($message);
+        $email->setPlainTextBody($message);
 
-        if( ! $email->send() ){
-            trigger_error(__METHOD__.": Email sending failed!", E_USER_NOTICE);
+        if (!$email->send()) {
+            // The only available fallback here is logging.
+            Debug::errorLog(
+                __METHOD__.": Admin email sending failed! Message:\n" . $message,
+                false
+            );
         }
     }
 
@@ -72,7 +77,7 @@ class EmailSender
         $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
         $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForSite());
         $email->setSubject(tr('removed_log_title'));
-        $email->setBody($formattedMessage->getEmailContent(), true);
+        $email->setHtmlBody($formattedMessage->getEmailContent());
         $email->send();
     }
 
@@ -101,7 +106,7 @@ class EmailSender
         $email->setFromAddr(OcConfig::getCogEmailAddress());
         $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForSite());
         $email->setSubject(tr('octeam_comment_subject'));
-        $email->setBody($formattedMessage->getEmailContent(), true);
+        $email->setHtmlBody($formattedMessage->getEmailContent());
         $email->send();
 
         //Send copy to COG
@@ -111,7 +116,7 @@ class EmailSender
         $emailCOG->setFromAddr(OcConfig::getCogEmailAddress());
         $emailCOG->addSubjectPrefix(OcConfig::getMailSubjectPrefixForReviewers());
         $emailCOG->setSubject(tr('octeam_comment_subject_copy').' '.$admin->getUserName());
-        $emailCOG->setBody($formattedMessage->getEmailContent(), true);
+        $emailCOG->setHtmlBody($formattedMessage->getEmailContent());
         $emailCOG->send();
     }
 
@@ -130,7 +135,7 @@ class EmailSender
         $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
         $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForSite());
         $email->setSubject(tr('adopt_25'));
-        $email->setBody($formattedMessage->getEmailContent(), true);
+        $email->setHtmlBody($formattedMessage->getEmailContent());
         $email->send();
     }
 
@@ -149,7 +154,7 @@ class EmailSender
         $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
         $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForSite());
         $email->setSubject(tr('adopt_18'));
-        $email->setBody($formattedMessage->getEmailContent(), true);
+        $email->setHtmlBody($formattedMessage->getEmailContent());
         $email->send();
     }
 
@@ -168,7 +173,7 @@ class EmailSender
         $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
         $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForSite());
         $email->setSubject(tr('adopt_28'));
-        $email->setBody($formattedMessage->getEmailContent(), true);
+        $email->setHtmlBody($formattedMessage->getEmailContent());
         $email->send();
     }
 
@@ -201,7 +206,7 @@ class EmailSender
             $email->setSubject(tr('ocTeamNewCache_sub').": ".tr('dummy_outside'));
         }
 
-        $email->setBody($formattedMessage->getEmailContent(), true);
+        $email->setHtmlBody($formattedMessage->getEmailContent());
         $email->send();
     }
 

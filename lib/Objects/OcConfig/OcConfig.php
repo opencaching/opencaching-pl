@@ -2,7 +2,7 @@
 
 namespace lib\Objects\OcConfig;
 
-
+use Utils\Email\Email;
 
 final class OcConfig extends ConfigReader
 {
@@ -253,7 +253,11 @@ final class OcConfig extends ConfigReader
 
     public function getOcteamEmailAddress()
     {
-        return $this->octeamEmailAddress;
+        $addr = self::instance()->octeamEmailAddress;
+        if (!Email::isValidEmailAddr($addr)) {
+            throw new \Exception('Invalid OC team email address setting');
+        }
+        return $addr;
     }
 
     public static function getDynFilesPath()
@@ -278,7 +282,11 @@ final class OcConfig extends ConfigReader
 
     public static function getNoreplyEmailAddress()
     {
-        return self::instance()->noreplyEmailAddress;
+        $addr = self::instance()->noreplyEmailAddress;
+        if (!Email::isValidEmailAddr($addr)) {
+            throw new \Exception('Invalid noreply email address setting');
+        }
+        return $addr;
     }
 
     public function isCacheAccesLogEnabled()
@@ -339,6 +347,10 @@ final class OcConfig extends ConfigReader
         //currently this is only a stub...
         global $mail_rt;
 
+        if (!Email::isValidEmailAddr($mail_rt)) {
+            throw new \Exception('Invalid mail_rt setting');
+        }
+
         return $mail_rt;
     }
 
@@ -364,7 +376,11 @@ final class OcConfig extends ConfigReader
 
     public static function getCogEmailAddress()
     {
-        return self::instance()->cogEmailAddress;
+        $addr = self::instance()->cogEmailAddress;
+        if (!Email::isValidEmailAddr($addr)) {
+            throw new \Exception('Invalid COG email address setting');
+        }
+        return $addr;
     }
 
     public static function getMailSubjectPrefixForSite()

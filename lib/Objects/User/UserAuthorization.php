@@ -416,7 +416,7 @@ class UserAuthorization extends BaseObject
         $email->addSubjectPrefix(ApplicationContainer::Instance()->getOcConfig()->getMailSubjectPrefixForSite());
         $subject = tr('newpw_mail_subject') . ' ' . ApplicationContainer::Instance()->getOcConfig()->getSiteName();
         $email->setSubject($subject);
-        $email->setBody($userMessage->getEmailContent(), true);
+        $email->setHtmlBody($userMessage->getEmailContent());
         $result = $email->send();
         if (! $result) {
             error_log(__METHOD__ . ': Mail sending failure to: ' . $user->getEmail());
