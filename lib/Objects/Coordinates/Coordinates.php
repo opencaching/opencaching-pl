@@ -286,8 +286,24 @@ class Coordinates
      * @return boolean
      */
     public function areSameAs(Coordinates $coords){
-        return $this->latitude == $coords->getLatitude() &&
-               $this->longitude == $coords->getLongitude();
+
+        $latA = $this->getLatitudeParts();
+        $latB = $coords->getLatitudeParts();
+        foreach($latA as $key=>$part){
+            if($latA[$key] != $latB[$key]){
+                return false;
+            }
+        }
+
+        $lotA = $this->getLongitudeParts();
+        $lotB = $coords->getLongitudeParts();
+        foreach($lotA as $key=>$part){
+            if($lotA[$key] != $lotB[$key]){
+                return false;
+            }
+        }
+
+        return true;
     }
 
     private function getParts($coordinate)
