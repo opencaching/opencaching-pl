@@ -5,20 +5,12 @@ use lib\Objects\GeoCache\GeoCacheCommons;
 use lib\Objects\OcConfig\OcConfig;
 /* begin configuration */
 
-$rootpath = '../';
-require($rootpath . 'lib/common.inc.php');
-require($rootpath . 'lib/export.inc.php');
-require($rootpath . 'lib/calculation.inc.php');
-
-if ($error == true) {
-    echo 'Unable to connect to database';
-    exit;
-}
+require('../lib/common.inc.php');
+require('../lib/export.inc.php');
+require('../lib/calculation.inc.php');
 
 $zip_basedir = OcConfig::getDynFilesPath() . 'download/zip/';
 $zip_wwwdir = '/download/zip/';
-
-load_language_file('pl');
 
 /* end configuration */
 
