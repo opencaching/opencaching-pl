@@ -21,7 +21,7 @@ class DbUpdateController extends BaseController
 
     public function index()
     {
-        $this->securityCheck();
+        $this->securityCheck(false);
         $this->showAdminView();
     }
 
