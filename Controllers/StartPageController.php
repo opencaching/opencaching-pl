@@ -216,8 +216,15 @@ class StartPageController extends BaseController
 
     private function processNews()
     {
-        $this->view->setVar('newsList',
-            NewsListController::listNewsOnMainPage($this->isUserLogged()));
+        if ($this->isUserLogged() ||
+            $this->ocConfig->getNewsConfig('showOnStartPageForNonLoggedUsers')
+        ) {
+            $this->view->setVar('newsList',
+                NewsListController::listNewsOnMainPage($this->isUserLogged())
+            );
+        } else {
+            $this->view->setVar('newsList', []);
+        }
     }
 
     private function processTotalStats()

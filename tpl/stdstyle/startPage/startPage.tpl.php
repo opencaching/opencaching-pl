@@ -10,7 +10,7 @@
     <?php } //if-isUserLogged ?>
 
 
-    <?php if($view->isUserLogged && !empty($view->newsList)){ ?>
+    <?php if(!empty($view->newsList)){ ?>
     <!-- news -->
     <div id="newsDiv">
         <div class="content-title-noshade-size3">
