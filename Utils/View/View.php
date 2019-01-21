@@ -419,4 +419,9 @@ class View {
 
     }
 
+    public static function showPlainText($text)
+    {
+        header('Content-type: text/plain');
+        die($text);
+    }
 }

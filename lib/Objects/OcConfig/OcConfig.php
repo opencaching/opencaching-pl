@@ -24,6 +24,7 @@ final class OcConfig extends ConfigReader
 // old-style values - values from new-style config should be accessed through
 // $config[''] etc...
 
+    private $debugMode = false;
     private $dbDatetimeFormat = 'Y-m-d H:i:s';
     private $datetimeFormat = 'Y-m-d H:i';
     private $ocNodeId = null;
@@ -75,6 +76,9 @@ final class OcConfig extends ConfigReader
     /** @var array - array of map settings from /Config/map.* files */
     private $mapConfig;
 
+    /** @var array - array of user settings from /Config/user.* files */
+    private $userConfig;
+
     /** @var array - array of guides settings from /Config/guides.* files */
     private $guidesConfig;
 
@@ -110,8 +114,10 @@ final class OcConfig extends ConfigReader
 
     private function loadConfig()
     {
+        global $debug_page;
         require self::LEGACY_LOCAL_CONFIG;
 
+        $this->debugMode = $debug_page;
         $this->datetimeFormat = $datetimeFormat;
         $this->ocNodeId = $oc_nodeid;
         $this->absolute_server_URI = $absolute_server_URI;
@@ -163,6 +169,11 @@ final class OcConfig extends ConfigReader
         if (isset($config['logfilter']) && is_array($config['logfilter'])) {
             $this->logfilterConfig = $config['logfilter'];
         }
+    }
+
+    public function inDebugMode()
+    {
+        return $this->debugMode;
     }
 
     public function getDateFormat()
@@ -436,6 +447,14 @@ final class OcConfig extends ConfigReader
             $this->mapConfig = self::getConfig("map", "map");
         }
         return $this->mapConfig;
+    }
+
+    public function getUserConfig()
+    {
+        if ($this->userConfig == null) {
+            $this->userConfig = self::getConfig("user", "user");
+        }
+        return $this->userConfig;
     }
 
     public function getGuidesConfig()

@@ -8,8 +8,7 @@ use Utils\Debug\Debug;
 
 class OcDb extends OcPdo
 {
-
-    const BIND_CHAR = ':'; //
+    const BIND_CHAR = ':';
 
     /**
      * This the ONLY way on which instance of this class
@@ -68,16 +67,27 @@ class OcDb extends OcPdo
      * The returned array of $key-$vals pair returned by extractor based on DB rows.
      *
      * @param PDOStatement|null $stmt
-     * @param callable $extractor - callable with argument $row (DB-ROW-ASSOC) which returns array [$key, $val]
+     * @param callable|null $extractor - callable with argument $row (DB-ROW-ASSOC) which returns array [$key, $val]
      *
-     * @return array with key/val returned by extractor.
+     * @return array dictionary with key => val returned by extractor
+     *               dictionary first column value => second column value, if extractor === null and 2 columns
+     *               dictionary first column value => row, if extractor === null and != 2 columns
      */
-    public function dbResultFetchAllAsDict(PDOStatement $stmt = null, callable $extractor)
+    public function dbResultFetchAllAsDict(PDOStatement $stmt = null, callable $extractor = null)
     {
         $result = [];
         while ($row = $this->dbResultFetch($stmt, OcDb::FETCH_ASSOC)) {
-            list($key, $val) = $extractor($row);
-            $result[$key] = $val;
+            if ($extractor !== null) {
+                list($key, $val) = $extractor($row);
+                $result[$key] = $val;
+            } else {
+                $key = reset($row);
+                if (count($row) == 2) {
+                    $result[$key] = next($row);
+                } else {
+                    $result[$key] = $row;
+                }
+            }
         }
 
         return $result;
@@ -136,13 +146,20 @@ class OcDb extends OcPdo
      * @param PDOStatement $stmt
      * @param string $keyCol - column name to use for result key
      * @param string $valCol - column name to use for result value
+     * @param bool $ignoreKeyCase - false => $keyCol case must match the case of table column
      * @return array
      */
-    public function dbFetchAsKeyValArray(PDOStatement $stmt, $keyCol, $valCol)
+    public function dbFetchAsKeyValArray(PDOStatement $stmt, $keyCol, $valCol, $caseSensitiveKey = true)
     {
         $result = [];
         if (!is_null($stmt)) {
+            if (!$caseSensitiveKey) {
+                $keyCol = strtolower($keyCol);
+            }
             while ($row = $this->dbResultFetch($stmt, OcDb::FETCH_ASSOC)) {
+                if (!$caseSensitiveKey) {
+                    $row = array_change_key_case($row, CASE_LOWER);
+                }
                 $result[$row[$keyCol]] = $row[$valCol];
             }
 
@@ -159,11 +176,17 @@ class OcDb extends OcPdo
      * @param string $keyCol - column name to use for result key
      * @return array
      */
-    public function dbFetchOneColumnArray(PDOStatement $stmt, $keyCol)
+    public function dbFetchOneColumnArray(PDOStatement $stmt, $keyCol, $caseSensitiveKey = true)
     {
         $result = [];
         if (!is_null($stmt)) {
+            if (!$caseSensitiveKey) {
+                $keyCol = strtolower($keyCol);
+            }
             while ($row = $this->dbResultFetch($stmt, OcDb::FETCH_ASSOC)) {
+                if (!$caseSensitiveKey) {
+                    $row = array_change_key_case($row, CASE_LOWER);
+                }
                 $result[] = $row[$keyCol];
             }
 
@@ -218,7 +241,7 @@ class OcDb extends OcPdo
     /**
      * simple query
      * Use only with static queries, Queries should contain no variables.
-     * For queries with variables use paramQery method
+     * For queries with variables use paramQuery method
      *
      * @param string $query
      * @return PDOStatement|null obj, if the query succeeded; null otherwise
@@ -533,4 +556,378 @@ class OcDb extends OcPdo
         return $value;
     }
 
+    // Methods for querying database structure
+
+    // We will avoid to use the information_schema if possible, because there
+    // have been backward-incompatible information_schema changes in the past.
+
+    // We will validate all passed entity names, so that calling functions
+    // can rely that validation is done here.
+
+    public function tableExists($table)
+    {
+        self::validateEntityName($this->dbName);
+
+        return $this->multiVariableQueryValue(
+            "SHOW TABLES FROM `".$this->dbName."` LIKE :1",
+            null,
+            $table
+        ) !== null;
+    }
+
+    public function columnExists($table, $column)
+    {
+        self::validateEntityName($table);
+        self::validateEntityName($column);
+
+        return $this->multiVariableQueryValue(
+            "SHOW COLUMNS FROM `".$table."` LIKE :1",
+            null,
+            $column
+        ) !== null;
+    }
+
+    /**
+     * Get column type including NULL and DEFAULT attributes, e.g.
+     * "varchar(36) DEFAULT NULL" or "int(11) zerofill NOT NULL".
+     */
+    public function getFullColumnType($table, $column)
+    {
+        self::validateEntityName($table);
+        self::validateEntityName($column);
+
+        $row = $this->dbResultFetchOneRowOnly($this->multiVariableQuery(
+            "SHOW COLUMNS FROM `".$table."` LIKE :1",
+            $column
+        ));
+        if (!$row) {
+            $this->error("Column not found: '".$table.".".$column."'");
+        }
+        $row = array_change_key_case($row, CASE_LOWER);
+
+        $type = strtolower($row['type']);
+        $isNullable = (strtoupper($row['null']) == 'YES');
+        if (!$isNullable) {
+            $type .= " NOT NULL";
+        }
+        if ($row['default'] !== null) {
+            // Some MySQL/MariaDB versions quote numeric default values, other don't.
+            // We will always quote them for consistency (and because it's simpler).
+
+            $type .= " DEFAULT '" . $row['default'] . "'";
+
+        } elseif ($isNullable) {
+            $type .= " DEFAULT NULL";
+        }
+
+        return $type;
+    }
+
+    public function getColumnComment($table, $column)
+    {
+        self::validateEntityName($table);
+        self::validateEntityName($column);
+
+        $row = $this->dbResultFetchOneRowOnly($this->multiVariableQuery(
+            "SHOW FULL COLUMNS FROM `".$table."` LIKE :1",
+            $column
+        ));
+        if (!$row) {
+            return '';
+        }
+        $row = array_change_key_case($row, CASE_LOWER);
+
+        return $row['comment'];
+    }
+
+    public function indexExists($table, $index)
+    {
+        self::validateEntityName($table);
+        self::validateEntityName($index);
+
+        return $this->multiVariableQueryValue(
+            "SHOW INDEX FROM `".$table."` WHERE key_name = :1",
+            null,
+            $index
+        ) !== null;
+    }
+
+    public function foreignKeyExists($table, $column, $refTable)
+    {
+        // For consistency, we require also for this method that the $table exists:
+        if (!$this->tableExists($table)) {
+            $this->error("Table not found: '".$table."'");
+        }
+        self::validateEntityName($column);
+        self::validateEntityName($refTable);
+
+        return $this->multiVariableQueryValue(
+            "SELECT 1
+             FROM information_schema.key_column_usage
+             WHERE table_schema = :1 AND table_name = :2
+                AND column_name = :3 AND referenced_table_name = :4",
+            0,
+            $this->dbName,
+            $table,
+            $column,
+            $refTable
+        ) == 1;
+    }
+
+    public function triggerExists($name)
+    {
+        return $this->funcExists($name, "SHOW TRIGGERS WHERE `trigger` = :1");      
+    }
+
+    public function procedureExists($name)
+    {
+        return $this->funcExists($name, "SHOW PROCEDURE STATUS WHERE `name` = :1");      
+    }
+
+    public function functionExists($name)
+    {
+        return $this->funcExists($name, "SHOW FUNCTION STATUS WHERE `name` = :1");
+    }
+
+    private function funcExists($name, $sql)
+    {
+        self::validateEntityName($name);
+        return $this->multiVariableQueryValue($sql, null, $name) !== null;
+    }
+
+    // Failsafe methods for modifying database structure
+
+    public function createTableIfNotExists($table, $fieldDefs, array $params = [])
+    {
+        self::validateEntityName($table);
+        // $fields and $params are not validated.
+
+          $p = '';
+          foreach ($params as $key => $value) {
+              $p .= " " . $key . "=" . $value;
+          }
+          $this->multiVariableQuery(
+              "CREATE TABLE IF NOT EXISTS`".$table."` (" .
+              implode(", ", $fieldDefs) . ")" . $p
+          );
+    }
+
+    public function addColumnIfNotExists($table, $column, $type, $comment='', $after='')
+    {
+        // $type is not validated.
+
+        if (!$this->columnExists($table, $column)) {
+            if ($after) {
+                self::validateEntityName($after);
+                $after = "AFTER `".$after."`";
+            }
+            $this->multiVariableQuery(
+                "ALTER TABLE `".$table."` ADD COLUMN `".$column."` ".$type." COMMENT :1 ".$after,
+                $comment
+            );
+        }
+    }
+
+    public function updateColumnType($table, $column, $newType)
+    {
+        // $newType is not validated.
+
+        if (strcasecmp($this->getFullColumnType($table, $column), $newType) !== 0) {
+
+            // The above comparison will not always work, as different DB servers
+            // use slightly differrent syntaxes. But it's just an optimization.
+
+            $this->multiVariableQuery(
+                "ALTER TABLE `".$table."` MODIFY COLUMN `".$column."` ".$newType." COMMENT :1",
+                $this->getColumnComment($table, $column)
+            );
+        }
+    }
+
+    public function updateColumnComment($table, $column, $newComment)
+    {
+        if ($this->getColumnComment($table, $column) !== $newComment) {
+            $type = $this->getFullColumnType($table, $column);
+            $this->multiVariableQuery(
+                "ALTER TABLE `".$table."` MODIFY COLUMN `".$column."` ".$type." COMMENT :1",
+                $newComment
+            );
+        }
+    }
+
+    public function dropColumnIfExists($table, $column)
+    {
+        if ($this->columnExists($table, $column)) {
+            $this->simpleQuery(
+                "ALTER TABLE `".$table."` DROP COLUMN `".$column."`"
+            );
+        }
+    }
+
+    public function addPrimaryKeyIfNotExists($table, $column)
+    {
+        if (!$this->indexExists($table, 'PRIMARY')) {
+            $this->simpleQuery(
+                "ALTER TABLE `".$table."` ADD PRIMARY KEY (`".$column."`)"
+            );
+        }
+    }
+
+    public function addUniqueIndexIfNotExists($table, $index, array $columns = [])
+    {
+        $this->addIndexOfTypeIfNotExists($table, $index, 'UNIQUE', $columns);
+    }
+
+    public function addIndexIfNotExists($table, $index, array $columns = [])
+    {
+        $this->addIndexOfTypeIfNotExists($table, $index, 'INDEX', $columns);
+    }
+
+    public function addFulltextIfNotExists($table, $index, array $columns = [])
+    {
+        $this->addIndexOfTypeIfNotExists($table, $index, 'FULLTEXT', $columns);
+    }
+
+    private function addIndexOfTypeIfNotExists($table, $index, $type, array $columns = [])
+    {
+        // $type is not validated
+
+        if (!$this->indexExists($table, $index)) {
+            if ($columns) {
+                self::validateEntityName($columns);
+            } else {
+                $columns = [$index];
+            }
+            $this->simpleQuery(
+                "ALTER TABLE `".$table."` ADD ".$type." `".$index."` (`".implode("`,`", $columns)."`)"
+            );
+        }
+    }
+
+    public function dropIndexIfExists($table, $index)
+    {
+        if ($this->indexExists($table, $index)) {
+            $this->simpleQuery(
+                "ALTER TABLE `".$table."` DROP INDEX `".$index."`"
+            );
+        }
+    }
+
+    public function addForeignKeyIfNotExists(
+        $table, $column, $refTable, $refColumn, $refOptions = ''
+    ) {
+        if (!$this->foreignKeyExists($table, $column, $refTable)) {
+
+            self::validateEntityName($refColumn);
+            self::validateSqlKeywords($refOptions);
+
+            $this->simpleQuery(
+                "ALTER TABLE `".$table."` ADD FOREIGN KEY (`".$column."`) " .
+                "REFERENCES `".$refTable."` (`".$refColumn."`) ".$refOptions
+            );
+        }
+    }
+
+    public function dropForeignKeyIfExists($table, $column, $refTable)
+    {
+        if ($this->foreignKeyExists($table, $column, $refTable)) {
+
+            $constraint = $this->multiVariableQueryValue(
+                "SELECT constraint_name FROM information_schema.key_column_usage
+                WHERE table_name = :1 AND column_name = :2 AND referenced_table_name = :3",
+                '[internal error]',
+                $table,
+                $column,
+                $refTable
+            );
+            $this->simpleQuery(
+                "ALTER TABLE `".$table."` DROP FOREIGN KEY `".$constraint."`"
+            );
+        }
+    }
+
+    public function dropTableIfExists($table)
+    {
+        self::validateEntityName($table);
+        $this->simpleQuery("DROP TABLE IF EXISTS `".$table."`");
+    }
+
+    public function createOrReplaceTrigger($trigger, $definition)
+    {
+        self::validateEntityName($trigger);
+        // $definition is not validated
+
+        $this->dropTriggerIfExists($trigger);
+        $this->simpleQuery(
+            "CREATE TRIGGER `".$trigger."` ".$definition
+        );
+    }
+
+    public function createOrReplaceProcedure($proc, array $params, $body)
+    {
+        self::validateEntityName($proc);
+        // $params and $body are not validated
+
+        $this->dropProcedureIfExists($proc);
+        $this->simpleQuery(
+            "CREATE PROCEDURE `".$proc."` (" . implode(", ", $params) . ")\n" .$body
+        );
+    }
+
+    public function createOrReplaceFunction($func, array $params, $returns, $body)
+    {
+        self::validateEntityName($func);
+        // $params and $body are not validated
+
+        $this->dropFunctionIfExists($func);
+        $this->simpleQuery(
+            "CREATE FUNCTION `".$func."` (" . implode(", ", $params) . ")\n" .
+            "RETURNS " . $returns . "\n" .
+            $body
+        );
+    }
+
+    public function dropTriggerIfExists($trigger)
+    {
+        self::validateEntityName($trigger);
+        $this->simpleQuery("DROP TRIGGER IF EXISTS `".$trigger."`");
+    }
+
+    public function dropProcedureIfExists($proc)
+    {
+        self::validateEntityName($proc);
+        $this->simpleQuery("DROP PROCEDURE IF EXISTS `".$proc."`");
+    }
+
+    public function dropFunctionIfExists($func)
+    {
+        self::validateEntityName($func);
+        $this->simpleQuery("DROP FUNCTION IF EXISTS `".$func."`");
+    }
+
+    /**
+     * Sanity check for table, column, index etc. names, which are to be inserted
+     * into an SQL statement name
+     */
+    public function validateEntityName($name)
+    {
+        if (is_array($name)) {
+            foreach ($name as $entity) {
+                self::validateEntityName($entity);
+            }
+        } elseif (!preg_match('/^[A-Za-z_][A-Za-z_0-9]*$/', $name)) {
+            $this->error("Invalid entity name: '".$name."'");
+        }
+    }
+
+    /**
+     * Sanity check for one or more SQL keywords, which are to be inserted
+     * into an SQL statement.
+     */
+    public function validateSqlKeywords($keywords)
+    {
+        if (!preg_match('/^[A-Za-z ]+$/', $keywords)) {
+            $this->error("Invalid SQL keyword(s): '".$keywords."'");
+        }
+    }
 }

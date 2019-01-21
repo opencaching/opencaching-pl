@@ -12,6 +12,7 @@ class OcPdo extends PDO
 {
 
     protected $debug; //bool, if set enabled debug messages
+    protected $dbName;
 
     /**
      *
@@ -24,10 +25,11 @@ class OcPdo extends PDO
         }
 
         $conf = OcConfig::instance();
+        $this->dbName = $conf->getDbName();
 
         $dsnarr = array(
             'host' => $conf->getDbHost(),
-            'dbname' => $conf->getDbName(),
+            'dbname' => $this->dbName,
             'charset' => 'utf8'
         );
 

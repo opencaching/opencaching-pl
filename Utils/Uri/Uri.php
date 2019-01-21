@@ -158,4 +158,21 @@ class Uri {
         return '/' . ltrim($path, '/');
     }
 
+    /**
+     * Returns a given URI with parameters added.
+     *
+     * @param string $uri
+     * @param array dictionary of params
+     * @return string
+     */
+    public static function addParamsToUri($uri, $params = [])
+    {
+        $delimiter = strpos($uri, '?') ? '&' : '?';
+
+        foreach ($params as $key => $value) {
+            $uri .= $delimiter . $key . '=' . urlencode($value);
+            $delimiter = '&';
+        }
+        return $uri;
+    }
 }

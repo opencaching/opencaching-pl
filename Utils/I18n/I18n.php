@@ -1,6 +1,7 @@
 <?php
 namespace Utils\I18n;
 
+use Exception;
 use Utils\Uri\Uri;
 
 class I18n
@@ -62,5 +63,63 @@ class I18n
         }
         return $result;
     }
-}
 
+    // Methods for retrieving and maintaining old-style database translations.
+    // This should become obsolete some time.
+
+    // TODO: cache_atttrib
+
+    public static function getTranslationTables()
+    {
+        return [
+            'cache_size', 'cache_status', 'cache_type', 'log_types', 'waypoint_type', 
+            'countries', 'languages'
+        ];
+    }
+
+    public static function getTranslationIdColumnName($table)
+    {
+        if ($table == 'countries' || $table == 'languages') {
+            return 'short';
+        } elseif ($table == 'cache_type') {
+            return 'sort';  // not 'id' !
+        } elseif (in_array($table, self::getTranslationTables())) {
+            return 'id';
+        } else {
+            throw new Exception("unknown table: '".$table."'");
+        }
+    }
+
+    public static function getTranslationKey($table, $id)
+    {
+        static $prefixes;
+
+        if (!$prefixes) {
+            $prefixes = [
+                'cache_size' => 'cacheSize_',
+                'cache_status' => 'cacheStatus_',
+                'cache_type' => 'cacheType_',
+                'countries' => '',
+                'languages' => 'language_',
+                'log_types' => 'logType',
+                'waypoint_type' => 'wayPointType'
+            ];
+        }
+        if (!isset($prefixes[$table])) {
+            throw new Exception("unknown table: '".$table."'");
+        }
+
+        if ($table == 'cache_size') {
+            static $sizeIds;
+            if (!$sizeIds) {
+                $sizeIds = ['other', 'micro', 'small', 'regular', 'large', 'xLarge', 'none', 'nano'];
+            }
+            if ($id < 1 || $id > count($sizeIds)) {
+                throw new Exception('invalid size ID passed to getTranslationId(): '.$size);
+            }
+            $id = $sizeIds[$id - 1];
+        };
+
+        return $prefixes[$table] . $id;
+    }
+}
