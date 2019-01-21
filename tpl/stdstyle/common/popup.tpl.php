@@ -1,5 +1,8 @@
+<?php
+use Utils\I18n\I18n;
+?>
 <!DOCTYPE html>
-<html lang="<?=$GLOBALS['lang']?>">
+<html lang="<?=I18n::getCurrentLang()?>">
 <head>
   <title><?php echo isset($tpl_subtitle) ? $tpl_subtitle : ''; ?>{title}</title>
   <meta charset="utf-8">

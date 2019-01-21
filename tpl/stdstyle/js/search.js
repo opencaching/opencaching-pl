@@ -63,6 +63,6 @@ function CacheExport( type )
     }
     else
     {
-        alert(textNoCachesSelected);
+        alert("No caches to export");
     }
 }

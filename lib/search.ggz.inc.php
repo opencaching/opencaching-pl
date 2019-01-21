@@ -1,11 +1,11 @@
 <?php
 
-function call_okapi($usr, $waypoints, $lang, $file_base_name, $zip_part)
+function call_okapi($usr, $waypoints, $language, $file_base_name, $zip_part)
 {
 
     $okapi_response = \okapi\Facade::service_call('services/caches/formatters/ggz', $usr['userid'], array(
                 'cache_codes' => $waypoints,
-                'langpref' => $lang,
+                'langpref' => $language,
                 'ns_ground' => 'true',
                 'ns_ox' => 'true',
                 'images' => 'none',

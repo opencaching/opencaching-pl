@@ -1,5 +1,6 @@
 <?php
 use Utils\Database\XDb;
+use Utils\I18n\I18n;
 require_once("./lib/common.inc.php");
 
 if (isset($_SESSION['user_id'])) {
@@ -8,8 +9,6 @@ if (isset($_SESSION['user_id'])) {
 
     function find_news($start, $end)
     {
-
-        global $lang;
         global $ile;
         global $url;
         global $znalezione;
@@ -45,7 +44,7 @@ if (isset($_SESSION['user_id'])) {
                     $wynik2 = XDb::xSql($query);
                     $wiersz = XDb::xFetchArray($wynik2);
 
-                    $query = "select " . $lang . " from cache_type where id = " . $rekord['type'] . ";";
+                    $query = "select " . I18n::getCurrentLang() . " from cache_type where id = " . $rekord['type'] . ";";
                     $wynik2 = XDb::xSql($query);
                     $wiersz2 = XDb::xFetchArray($wynik2);
                     $rekord['if_found'] = $if_found;

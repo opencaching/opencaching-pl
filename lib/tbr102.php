@@ -23,8 +23,6 @@ require_once(__DIR__.'/common.inc.php');
         $sDateCondition = "";
         $sTypeCondition = "";
 
-        global $lang;
-
         $sUserIDLine = $_REQUEST["UserID"];
         $sDateFrom = $_REQUEST["DF"];
         $sDateTo = $_REQUEST["DT"];
@@ -43,13 +41,13 @@ require_once(__DIR__.'/common.inc.php');
 
         if ($nDayInterval < 65) {
             $sGranulate = " (week( cl.date) + 1) period ";
-            $sPeriodName = tr2('.week', $lang);
+            $sPeriodName = tr('.week');
         } else if ($nDayInterval < 367) {
             $sGranulate = " month( cl.date) period ";
-            $sPeriodName = tr2('.month', $lang);
+            $sPeriodName = tr('.month');
         } else {
             $sGranulate = " year( cl.date) period ";
-            $sPeriodName = tr2('.year', $lang);
+            $sPeriodName = tr('.year');
         }
 
 
@@ -71,10 +69,10 @@ require_once(__DIR__.'/common.inc.php');
 
 
         if (!strlen($sUserIDLine))
-            $sEND = tr2('SelectUsers', $lang);
+            $sEND = tr('SelectUsers');
 
         if (count($asUserID) > 30)
-            $sEND = tr2('more30', $lang);
+            $sEND = tr('more30');
 
         if ($sEND <> "") {
             echo "<script>";

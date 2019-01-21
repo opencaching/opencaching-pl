@@ -3,25 +3,20 @@
 use lib\Objects\GeoCache\GeoCacheCommons;
 use lib\Objects\PowerTrail\PowerTrail;
 
-
-require_once __DIR__ . '/../lib/ClassPathDictionary.php';
-require_once __DIR__ . '/../lib/language.inc.php';
-
+require_once __DIR__ . '/../lib/common.inc.php';
 
 $powerTrail = new PowerTrail(array('id' => (int) $_REQUEST['ptrail']));
+
 if (isset($_REQUEST['choseFinalCaches'])) {
     $choseFinalCaches = true;
 } else {
     $choseFinalCaches = false;
 }
-session_start();
 
 print displayAllCachesOfPowerTrail($powerTrail, $choseFinalCaches);
 
 function displayAllCachesOfPowerTrail(PowerTrail $powerTrail, $choseFinalCaches)
 {
-    $language = isset($_POST['lang']) ? $_POST['lang'] : 'en';
-
     $userId = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : -9999;
     $powerTrailCachesUserLogsByCache = $powerTrail->getFoundCachsByUser($userId);
     $geocacheFoundArr = array();
@@ -31,7 +26,7 @@ function displayAllCachesOfPowerTrail(PowerTrail $powerTrail, $choseFinalCaches)
 
 
     if ($powerTrail->getCacheCount() == 0) {
-        return '<br /><br />' . tr2('pt082', $language);
+        return '<br /><br />' . tr('pt082');
     }
 
     $statusIcons = array(
@@ -43,24 +38,24 @@ function displayAllCachesOfPowerTrail(PowerTrail $powerTrail, $choseFinalCaches)
     );
 
     $statusDesc = array(
-        1 => tr2('pt141', $language),
-        2 => tr2('pt142', $language),
-        3 => tr2('pt143', $language),
-        5 => tr2('pt144', $language),
-        6 => tr2('pt244', $language)
+        1 => tr('pt141'),
+        2 => tr('pt142'),
+        3 => tr('pt143'),
+        5 => tr('pt144'),
+        6 => tr('pt244')
     );
 
     $cacheTypesIcons = cache::getCacheIconsSet();
     $cacheRows = '<table class="ptCacheTable" align="center" width="90%"><tr>
-        <th>' . tr2('pt075',$language) . '</th>
-        <th>' . tr2('pt076',$language) . '</th>';
+        <th>' . tr('pt075') . '</th>
+        <th>' . tr('pt076') . '</th>';
     if ($choseFinalCaches) {
         $cacheRows .= '<th></th>';
     }
     $cacheRows .=
-            '   <th>' . tr2('pt077',$language) . '</th>
+            '   <th>' . tr('pt077') . '</th>
         <th><img src="tpl/stdstyle/images/log/16x16-found.png" /></th>
-        <th>' . tr2('pt078',$language) . '</th>
+        <th>' . tr('pt078') . '</th>
         <th><img src="images/rating-star.png" /></th>
     </tr>';
     $totalFounds = 0;
@@ -101,7 +96,7 @@ function displayAllCachesOfPowerTrail(PowerTrail $powerTrail, $choseFinalCaches)
         //cachename, username
         $cacheRows .= '<td><b><a href="' . $geocache->getWaypointId() . '">' . $fontColor . $geocache->getCacheName() . '</b></a> (' . $geocache->getOwner()->getUserName() . ') ';
         if ($geocache->isIsPowerTrailFinalGeocache()) {
-            $cacheRows .= '<span class="finalCache">' . tr2('pt148', $language) . '</span>';
+            $cacheRows .= '<span class="finalCache">' . tr('pt148') . '</span>';
         }
 
         $cacheRows .= '</td>';
@@ -127,7 +122,7 @@ function displayAllCachesOfPowerTrail(PowerTrail $powerTrail, $choseFinalCaches)
     $cacheRows .= '
     <tr bgcolor="#efefff">
         <td></td>
-        <td style="font-size: 9px;">' . tr2('pt085', $language) . '</td>
+        <td style="font-size: 9px;">' . tr('pt085') . '</td>
         <td></td>
         <td align="center" style="font-size: 9px;">' . $totalFounds . '</td>
         <td></td>
@@ -146,8 +141,8 @@ function displayAllCachesOfPowerTrail(PowerTrail $powerTrail, $choseFinalCaches)
         foreach ($cacheSize as $key => $value) {
             $cacheSizePercent[$key] = round(($value * 100) / $countCaches);
         }
-        $img = '<table align="center"><tr><td align=center width="50%">' . tr2('pt107', $language) . '<br /><img src="https://chart.googleapis.com/chart?chs=350x100&chd=t:' . $cachetypes[2] . ',' . $cachetypes[3] . ',' . $cachetypes[7] . ',' . $cachetypes[1] . ',' . $restCaches . '&cht=p3&chl=' . $cachetypes[2] . '|' . $cachetypes[3] . '|' . $cachetypes[7] . '|' . $cachetypes[1] . '|' . $restCaches . '&chco=00aa00|FFEB0D|0000cc|cccccc|eeeeee&&chdl=%20' . tr2('pt108', $language) . '%20(' . $cachePercent[2] . '%)|' . tr2('pt109', $language) . '%20(' . $cachePercent[3] . '%)|' . tr2('pt110', $language) . '%20(' . $cachePercent[7] . '%)|' . urlencode(tr2('pt111', $language)) . '%20(' . $cachePercent[1] . '%)|' . urlencode(tr2('pt112', $language)) . '%20(' . $restCachesPercent . '%)" /></td>';
-        $img .= '<td align=center width="50%">' . tr2('pt106', $language) . '<br /><img src="https://chart.googleapis.com/chart?chs=350x100&chd=t:' . $cacheSize[2] . ',' . $cacheSize[3] . ',' . $cacheSize[4] . ',' . $cacheSize[5] . ',' . $cacheSize[6] . '&cht=p3&chl=%20' . $cacheSize[2] . '|' . $cacheSize[3] . '|' . $cacheSize[4] . '|' . $cacheSize[5] . '|' . $cacheSize[6] . '&chco=0000aa|00aa00|aa0000|aaaa00|00aaaa&&chdl=' . urlencode(tr2('pt113', $language)) . '%20(' . $cacheSizePercent[2] . '%)|' . urlencode(tr2('pt114', $language)) . '%20(' . $cacheSizePercent[3] . '%)|' . urlencode(tr2('pt115', $language)) . '%20(' . $cacheSizePercent[4] . '%)|' . urlencode(tr2('pt116', $language)) . '%20(' . $cacheSizePercent[5] . '%)|' . urlencode(tr2('pt117', $language)) . '%20(' . $cacheSizePercent[6] . '%)" /></td></tr></table><br /><br />';
+        $img = '<table align="center"><tr><td align=center width="50%">' . tr('pt107') . '<br /><img src="https://chart.googleapis.com/chart?chs=350x100&chd=t:' . $cachetypes[2] . ',' . $cachetypes[3] . ',' . $cachetypes[7] . ',' . $cachetypes[1] . ',' . $restCaches . '&cht=p3&chl=' . $cachetypes[2] . '|' . $cachetypes[3] . '|' . $cachetypes[7] . '|' . $cachetypes[1] . '|' . $restCaches . '&chco=00aa00|FFEB0D|0000cc|cccccc|eeeeee&&chdl=%20' . tr('pt108') . '%20(' . $cachePercent[2] . '%)|' . tr('pt109') . '%20(' . $cachePercent[3] . '%)|' . tr('pt110') . '%20(' . $cachePercent[7] . '%)|' . urlencode(tr('pt111')) . '%20(' . $cachePercent[1] . '%)|' . urlencode(tr('pt112')) . '%20(' . $restCachesPercent . '%)" /></td>';
+        $img .= '<td align=center width="50%">' . tr('pt106') . '<br /><img src="https://chart.googleapis.com/chart?chs=350x100&chd=t:' . $cacheSize[2] . ',' . $cacheSize[3] . ',' . $cacheSize[4] . ',' . $cacheSize[5] . ',' . $cacheSize[6] . '&cht=p3&chl=%20' . $cacheSize[2] . '|' . $cacheSize[3] . '|' . $cacheSize[4] . '|' . $cacheSize[5] . '|' . $cacheSize[6] . '&chco=0000aa|00aa00|aa0000|aaaa00|00aaaa&&chdl=' . urlencode(tr('pt113')) . '%20(' . $cacheSizePercent[2] . '%)|' . urlencode(tr('pt114')) . '%20(' . $cacheSizePercent[3] . '%)|' . urlencode(tr('pt115')) . '%20(' . $cacheSizePercent[4] . '%)|' . urlencode(tr('pt116')) . '%20(' . $cacheSizePercent[5] . '%)|' . urlencode(tr('pt117')) . '%20(' . $cacheSizePercent[6] . '%)" /></td></tr></table><br /><br />';
     } else {
         $img = '';
     }
@@ -156,19 +151,17 @@ function displayAllCachesOfPowerTrail(PowerTrail $powerTrail, $choseFinalCaches)
 
 function ratings($score, $votes)
 {
-    $language = isset($_POST['lang']) ? $_POST['lang'] : 'en';
-
     if ($votes < 3) {
-        return '<span style="color: gray">' . tr2('pt083', $language) . '</span>';
+        return '<span style="color: gray">' . tr('pt083') . '</span>';
     }
     $scoreNum = GeoCacheCommons::ScoreAsRatingNum($score);
 
 
     switch ($scoreNum) {
-        case 1: return '<span style="color: #790000">' . tr2('pt074', $language) . '</span>';
-        case 2: return '<span style="color: #BF3C3C">' . tr2('pt073', $language) . '</span>';
-        case 3: return '<span style="color: #505050">' . tr2('pt072', $language) . '</span>';
-        case 4: return '<span style="color: #518C00">' . tr2('pt071', $language) . '</span>';
-        case 5: return '<span style="color: #009D00">' . tr2('pt070', $language) . '</span>';
+        case 1: return '<span style="color: #790000">' . tr('pt074') . '</span>';
+        case 2: return '<span style="color: #BF3C3C">' . tr('pt073') . '</span>';
+        case 3: return '<span style="color: #505050">' . tr('pt072') . '</span>';
+        case 4: return '<span style="color: #518C00">' . tr('pt071') . '</span>';
+        case 5: return '<span style="color: #009D00">' . tr('pt070') . '</span>';
     }
 }

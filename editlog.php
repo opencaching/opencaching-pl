@@ -10,6 +10,7 @@ use okapi\Facade;
 use Utils\EventHandler\EventHandler;
 use Utils\Text\InputFilter;
 use lib\Objects\GeoCache\MobileCacheMove;
+use Utils\I18n\I18n;
 
 //prepare the templates and include all neccessary
 require_once(__DIR__.'/lib/common.inc.php');
@@ -469,11 +470,7 @@ if ($error == false) {
                         }
                     }
 
-
-                    if (XDb::xContainsColumn('log_types', $lang))
-                        $lang_db = $lang;
-                    else
-                        $lang_db = "en";
+                    $lang_db = I18n::getLangForDbTranslations('log_types');
 
                     if ($type['id'] == $log_type) {
                         $logtypeoptions .= '<option value="' . $type['id'] . '" selected="selected">' . htmlspecialchars($type[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>' . "\n";
@@ -522,5 +519,5 @@ if ($error == false) {
 }
 
 //make the template and send it out
-tpl_set_var('language4js', $lang);
+tpl_set_var('language4js', I18n::getCurrentLang());
 tpl_BuildTemplate();

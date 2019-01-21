@@ -1,5 +1,7 @@
 <?php
 
+use Utils\I18n\I18n;
+
 $submit = 'Zapisz';
 $remove = tr('delete');
 $edit = tr('edit');
@@ -32,8 +34,6 @@ $wpline = '<tr>{stagehide_start}<td align="center" valign="middle"><center>{numb
 
 $cache_attrib_js = "new Array({id}, {selected}, '{img_undef}', '{img_large}')";
 $cache_attrib_pic = '<img id="attr{attrib_id}" src="{attrib_pic}" border="0" alt="{attrib_text}" title="{attrib_text}" onmousedown="toggleAttr({attrib_id}); yes_change();" /> ';
-
-$default_lang = $lang;
 
 $activation_form = '
         <tr><td colspan="2">

@@ -5,6 +5,7 @@ namespace lib\Objects\Coordinates;
 use lib\Objects\OcConfig\OcConfig;
 use Utils\Debug\Debug;
 use Exception;
+use Utils\I18n\I18n;
 
 class GeoCode
 {
@@ -111,7 +112,7 @@ class GeoCode
      */
     public static function fromGoogleApi(Coordinates $coords)
     {
-        global $googlemap_key, $lang; //TODO: refactor configs
+        global $googlemap_key; //TODO: refactor configs
 
         $lat = $coords->getLatitude();
         $lon = $coords->getLongitude();
@@ -120,8 +121,9 @@ class GeoCode
             return null;
         }
 
+        $language = I18n::getCurrentLang();
         $url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$lon" .
-        "&key=$googlemap_key&language=$lang&result_type=administrative_area_level_1";
+        "&key=$googlemap_key&language=$language&result_type=administrative_area_level_1";
 
         $data = @file_get_contents($url);
         $resp = json_decode($data);

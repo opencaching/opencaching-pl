@@ -2,6 +2,7 @@
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
 use lib\Objects\GeoCache\GeoCacheCommons;
+use Utils\I18n\I18n;
 
 require_once("./lib/common.inc.php");
 
@@ -82,13 +83,13 @@ if (isSet($_GET['wp']) && !empty($_GET['wp']) && $_GET['wp'] != "OP") {
         $query = "select attrib_id from caches_attributes where cache_id ='" . $caches['cache_id'] . '\';';
         $cache_attributes = XDb::xSql($query);
 
-        $query = "select " . $lang . " from cache_type where id =" . $caches['type'] . ';';
+        $query = "select " . I18n::getCurrentLang() . " from cache_type where id =" . $caches['type'] . ';';
         $wynik = XDb::xSql($query);
         $cache_type = XDb::xFetchArray($wynik);
 
         $cache_size = tr(GeoCacheCommons::CacheSizeTranslationKey($caches['size']));
 
-        $query = "select " . $lang . " from cache_status where id =" . $caches['status'] . ';';
+        $query = "select " . I18n::getCurrentLang() . " from cache_status where id =" . $caches['status'] . ';';
         $wynik = XDb::xSql($query);
         $cache_status = XDb::xFetchArray($wynik);
 
@@ -171,7 +172,7 @@ if (isSet($_GET['wp']) && !empty($_GET['wp']) && $_GET['wp'] != "OP") {
 
             while ($rekord = XDb::xFetchArray($cache_attributes)) {
 
-                $query = "select text_long from cache_attrib where id ='" . $rekord['attrib_id'] . "' and language = '" . $lang . "';";
+                $query = "select text_long from cache_attrib where id ='" . $rekord['attrib_id'] . "' and language = '" . I18n::getCurrentLang() . "';";
                 $wynik = XDb::xSql($query);
                 $attr = XDb::xFetchArray($wynik);
                 $attr_text .= "\\n" . $attr[0] . "\\n";

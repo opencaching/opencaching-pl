@@ -11,9 +11,9 @@ $rating_tpl = '<tr class="form-group-sm">
                 </td>
             </tr>';
 
-$rating_allowed = '<input type="checkbox" name="rating" id="l_rating" value="1" class="checkbox" {chk_sel}/><label for="l_rating">' . $language[$lang]['want_to_recommend'] . '.</label>';
+$rating_allowed = '<input type="checkbox" name="rating" id="l_rating" value="1" class="checkbox" {chk_sel}/><label for="l_rating">' . tr('want_to_recommend'). '.</label>';
 $recommendationsUrl = SimpleRouter::getLink(MyRecommendationsController::class, 'recommendations');
 $rating_maxreached = '<b>' . tr('alternative_recommend') . '<a href="'.$recommendationsUrl.'">' . tr('here') . '</a>.</b>';
-$rating_too_few_founds = '' . $language[$lang]['possible_recommend'] . ': {recommendationsNr}';
-$rating_stat = '' . $language[$lang]['number_my_recommend'] . ': {curr} ' . $language[$lang]['number_possible_recommend'] . ' {max}.';
+$rating_too_few_founds = tr('possible_recommend') . ': {recommendationsNr}';
+$rating_stat = tr('number_my_recommend') . ': {curr} ' . tr('number_possible_recommend') . ' {max}.';
 $rating_own = '<input type="checkbox" name="rating" id="l_rating" value="1" class="checkbox" {chk_dis}/><label for="l_rating"><b>' . tr('not_recommend_own') . '.</b></label>';

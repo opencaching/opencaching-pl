@@ -2,8 +2,7 @@
 
 use Utils\Database\XDb;
 use Utils\Text\Formatter;
-
-global $lang;
+use Utils\I18n\I18n;
 
 //prepare the templates and include all neccessary
 require_once (__DIR__.'/lib/common.inc.php');
@@ -18,10 +17,7 @@ if ($error == false) {
     $content = '';
     $cache_country = '';
 
-    if (XDb::xContainsColumn('countries', 'list_default_' . $lang))
-        $lang_db = XDb::xEscape($lang);
-    else
-        $lang_db = "en";
+    $lang_db = I18n::getLangForDbTranslations('countries');
 
     $rs = XDb::xSql(
         "SELECT `caches`.`cache_id` `cache_id`,

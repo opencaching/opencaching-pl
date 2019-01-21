@@ -12,6 +12,7 @@ use lib\Objects\GeoCache\PrintList;
 use lib\Objects\OcConfig\OcConfig;
 use lib\Objects\User\UserAuthorization;
 use Utils\Cache\OcMemCache;
+use Utils\I18n\CrowdinInContextMode;
 
 /**
  * This controller prepares common data used by almost every page at oc
@@ -140,7 +141,13 @@ class MainLayoutController extends BaseController
         $this->view->setVar('_logoSubtitle', $logoSubtitle);
 
         $this->view->setVar('_languageFlags',
-            I18n::getLanguagesFlagsData($this->view->getLang()));
+            I18n::getLanguagesFlagsData(I18n::getCurrentLang()));
+
+        $this->view->setVar('_crowdinInContextEnabled', CrowdinInContextMode::enabled());
+        // CrowdinInContext mode is enabled by setting var in uri
+        $this->view->setVar('_crowdinInContextActionUrl', Uri::setOrReplaceParamValue(CrowdinInContextMode::VAR_NAME, true));
+        // CrowdinInContext can be enabled only by advUsers
+        $this->view->setVar('_crowdinInContextAllowed', $this->isUserLogged() && $this->loggedUser->hasAdvUserRole());
 
         $this->view->setVar('_qSearchByOwnerEnabled', $config['quick_search']['byowner']);
         $this->view->setVar('_qSearchByFinderEnabled', $config['quick_search']['byfinder']);

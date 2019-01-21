@@ -1,6 +1,9 @@
+<?php
+use Utils\I18n\I18n;
+?>
 
 <div id='idGTC' align = "center"> </div>
-<script>GCTLoad( 'ChartTable', '" . $lang . "' );</script>
+<script>GCTLoad( 'ChartTable', '" . <?=I18n::getCurrentLang()?> . "' );</script>
 
 <script>
     var gct = new GCT('idGTC');

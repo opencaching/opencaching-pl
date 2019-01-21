@@ -2,11 +2,12 @@
 use Utils\Database\XDb;
 use okapi\core\Exception\BadRequest;
 use okapi\Facade;
+use Utils\I18n\I18n;
 /**
  * This script is used (can be loaded) by /search.php
  */
 
-global $content, $usr, $hide_coords, $lang, $dbcSearch;
+global $content, $usr, $hide_coords, $dbcSearch;
 
 set_time_limit(1800);
 
@@ -178,7 +179,7 @@ if ($usr || !$hide_coords) {
         // OKAPI services from within OC code.
 
         try {
-            $okapi_response = call_okapi($usr, $waypoints, $lang, $sFilebasename, $zippart);
+            $okapi_response = call_okapi($usr, $waypoints, I18n::getCurrentLang(), $sFilebasename, $zippart);
 
             // This outputs headers and the file content.
             $okapi_response->display();

@@ -1,6 +1,7 @@
 <?php
 use Utils\Database\XDb;
 use lib\Objects\GeoCache\GeoCacheCommons;
+use Utils\I18n\I18n;
 require_once("./lib/common.inc.php");
 
 function makeUrl($url)
@@ -165,7 +166,7 @@ if (isset($_GET['ns']) && isset($_GET['ew']) && isset($_GET['radius']) && isset(
             if ($kier >= 292.5 && $kier < 337.5)
                 $kier = 'NW';
 
-            $query = "select " . $lang . " from cache_type where id = '" . $wiersz['type'] . "';";
+            $query = "select " . I18n::getCurrentLang() . " from cache_type where id = '" . $wiersz['type'] . "';";
             $wynik2 = XDb::xSql($query);
             $wiersz2 = XDb::xFetchArray($wynik2);
             $rekord['typetext'] = $wiersz2[0];

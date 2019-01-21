@@ -12,7 +12,7 @@ use lib\Objects\GeoCache\GeoCacheCommons;
 use lib\Objects\GeoCache\CacheNote;
 use lib\Objects\Coordinates\Coordinates;
 
-global $content, $bUseZip, $hide_coords, $usr, $lang, $dbcSearch;
+global $content, $bUseZip, $hide_coords, $usr, $dbcSearch;
 
 set_time_limit(1800);
 

@@ -1,3 +1,6 @@
+<?php
+use Utils\I18n\I18n;
+?>
   <script>
     function gctUShowUsers( level ){
         gctU.removeAllRows();
@@ -52,7 +55,7 @@
 
 
 <script>
-<?php echo "GCTLoad( 'ChartTable', '" . $lang . "' );"?>
+<?php echo "GCTLoad( 'ChartTable', '" . I18n::getCurrentLang() . "' );"?>
 </script>
 
 <script>

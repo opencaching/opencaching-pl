@@ -2,6 +2,7 @@
 
 use Utils\Database\XDb;
 use lib\Objects\GeoCache\GeoCacheCommons;
+use Utils\I18n\I18n;
 
 require_once("./lib/common.inc.php");
 
@@ -63,7 +64,7 @@ if (isset($_GET['wp']) && !empty($_GET['wp']) && isset($_GET['output']) && !empt
                 $attr_text = '';
                 while ($rekord = XDb::xFetchArray($wynik)) {
 
-                    $query = "select text_long from cache_attrib where id ='" . $rekord['attrib_id'] . "' and language = '" . $lang . "';";
+                    $query = "select text_long from cache_attrib where id ='" . $rekord['attrib_id'] . "' and language = '" . I18n::getCurrentLang() . "';";
                     $wynik2 = XDb::xSql($query);
                     $attr = XDb::xFetchArray($wynik2);
                     $attr_text .= $attr[0] . " | ";
@@ -158,4 +159,4 @@ if (isset($_GET['wp']) && !empty($_GET['wp']) && isset($_GET['output']) && !empt
         }
     }
 }
-?>
+

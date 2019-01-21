@@ -1,6 +1,7 @@
 <?php
 
 use Utils\Database\XDb;
+use Utils\I18n\I18n;
 
 global $googlemap_key;
 
@@ -50,7 +51,9 @@ if ($error == false) {
         $rdesc = isset($_POST['desc']) ? $_POST['desc'] : '';
         $rradius = isset($_POST['radius']) ? $_POST['radius'] : '';
 
-        tpl_set_var('cachemap_header', '<script src="https://maps.googleapis.com/maps/api/js?libraries=geometry&amp;key=' . $googlemap_key . '&amp;language=' . $lang . '"></script>');
+        tpl_set_var('cachemap_header',
+            '<script src="https://maps.googleapis.com/maps/api/js?libraries=geometry&amp;key=' . $googlemap_key .
+            '&amp;language=' . I18n::getCurrentLang() . '"></script>');
 
         if ($record['user_id'] == $usr['userid']) {
 

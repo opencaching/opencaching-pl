@@ -13,13 +13,13 @@ use Utils\Database\XDb;
 class Languages
 {
 
-    public static function LanguageNameFromCode($countryCode, $lang){
+    public static function LanguageNameFromCode($countryCode, $langCode){
 
         $rs = XDb::xSql(
-            "SELECT `short`, `$lang` FROM `languages` WHERE `short`= ? ", $countryCode);
+            "SELECT `short`, `$langCode` FROM `languages` WHERE `short`= ? ", $countryCode);
 
         if ( $record = XDb::xFetchArray($rs) ) {
-            return $record[$lang];
+            return $record[$langCode];
         } else {
             return false;
         }
@@ -68,7 +68,9 @@ class Languages
                 setlocale(LC_TIME, 'en_EN');
                 break;
             default:
-                error_log(__METHOD__.": Error: trying to load unsupported locale: $langCode !?");
+                if ($langCode != CrowdinInContextMode::getPseudoLang()) {
+                    error_log(__METHOD__.": Error: trying to load unsupported locale: $langCode !?");
+                }
                 setlocale(LC_CTYPE, 'en_EN');
                 setlocale(LC_TIME, 'en_EN');
                 break;

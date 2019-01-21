@@ -9,6 +9,7 @@ use Utils\Database\XDb;
 use Utils\Database\OcDb;
 use lib\Objects\GeoCache\GeoCacheCommons;
 use lib\Objects\GeoCache\CacheNote;
+use Utils\I18n\I18n;
 
 global $content, $bUseZip, $usr, $hide_coords, $dbcSearch, $queryFilter;
 require_once (__DIR__.'/common.inc.php');
@@ -482,11 +483,12 @@ if ($usr || ! $hide_coords) {
 
         // start extra info
         $thisextra = "";
+        $language = I18n::getCurrentLang();
         $rsAttributes = XDb::xSql("SELECT `caches_attributes`.`attrib_id`, `cache_attrib`.`text_long`
                 FROM `caches_attributes`, `cache_attrib`
                 WHERE `caches_attributes`.`cache_id`= ?
                     AND `caches_attributes`.`attrib_id` = `cache_attrib`.`id`
-                    AND `cache_attrib`.`language` = '$lang'
+                    AND `cache_attrib`.`language` = '$language'
                 ORDER BY `caches_attributes`.`attrib_id`", $r['cacheid']);
 
         if (($r['votes'] > 3) || ($r['topratings'] > 0) || (XDb::xNumRows($rsAttributes) > 0)) {
@@ -583,11 +585,10 @@ if ($usr || ! $hide_coords) {
         $thisline = str_replace('{owner}', xmlentities(convert_string($r['username'])), $thisline);
         $thisline = str_replace('{owner_id}', xmlentities($r['owner_id']), $thisline);
 
-        $lang = XDb::xEscape($lang);
         $rsAttributes = XDb::xSql("SELECT `caches_attributes`.`attrib_id`, `cache_attrib`.`text_long`
                 FROM `caches_attributes`, `cache_attrib`
                 WHERE `caches_attributes`.`cache_id`= ? AND `caches_attributes`.`attrib_id` = `cache_attrib`.`id`
-                    AND `cache_attrib`.`language` = '$lang'
+                    AND `cache_attrib`.`language` = '$language'
                 ORDER BY `caches_attributes`.`attrib_id`", $r['cacheid']);
 
         // create log list

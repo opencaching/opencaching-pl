@@ -4,8 +4,9 @@ use lib\Objects\GeoCache\GeoCacheLog;
 use Utils\Database\OcDb;
 use Utils\Database\XDb;
 use Utils\Text\Formatter;
+use Utils\I18n\I18n;
 
-global $lang, $usr;
+global $usr;
 
 //include template handling
 require_once(__DIR__.'/lib/common.inc.php');
@@ -28,13 +29,7 @@ if ($usr == false) {
     $tplname = 'mycaches';
     require(__DIR__.'/tpl/stdstyle/newlogs.inc.php');
 
-    if (XDb::xContainsColumn('cache_status', $lang)) {
-        $lang_db = $lang;
-    } else {
-        $lang_db = "en";
-    }
-
-    $eLang = XDb::xEscape($lang_db);
+    $eLang = I18n::getLangForDbTranslations('cache_status');
 
     $rs_stat = XDb::xMultiVariableQueryValue(
         "SELECT cache_status.$eLang FROM cache_status WHERE `cache_status`.`id` = :1 ", 0, $stat_cache);

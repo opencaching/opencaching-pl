@@ -1,6 +1,7 @@
 <?php
 
 use Utils\Database\XDb;
+use Utils\I18n\I18n;
 
 function get_log_types_from_database()
 {
@@ -41,12 +42,9 @@ function get_wp_types_from_database($cachetype)
 
 
 
-function cache_type_from_id($id, $lang)
+function cache_type_from_id($id)
 {
-    if (Xdb::xContainsColumn('cache_type', $lang))
-        $lang_db = $lang;
-    else
-        $lang_db = "en";
+    $lang_db = I18n::getLangForDbTranslations('cache_type');
 
     foreach (get_cache_types_from_database() AS $cache_type) {
         if ($cache_type['id'] == $id) {

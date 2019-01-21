@@ -31,4 +31,3 @@ $sel_message = tr('choose');
 $cache_attrib_js = "new Array({id}, {selected}, '{img_undef}', '{img_large}')";
 $cache_attrib_pic = '<img id="attr{attrib_id}" src="{attrib_pic}" alt="{attrib_text}" title="{attrib_text}" onmousedown="toggleAttr({attrib_id})"> ';
 
-$default_lang = $lang;

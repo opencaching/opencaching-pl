@@ -16,6 +16,7 @@ use lib\Objects\GeoCache\GeoCacheLogCommons;
 use Utils\EventHandler\EventHandler;
 use Utils\Text\InputFilter;
 use lib\Objects\GeoCache\MobileCacheMove;
+use Utils\I18n\I18n;
 
 /*
  * todo: create and set up 4 template selector with wybor_WE wybor_NS.
@@ -791,8 +792,8 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
             }
         }
 
-        if (isset($type[$lang])){
-            $lang_db = $lang;
+        if (isset($type[I18n::getCurrentLang()])){
+            $lang_db = I18n::getCurrentLang();
         } else {
             $lang_db = "en";
         }
@@ -877,7 +878,7 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
 
 
 //make the template and send it out
-tpl_set_var('language4js', $lang);
+tpl_set_var('language4js', I18n::getCurrentLang());
 tpl_BuildTemplate();
 
 

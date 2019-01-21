@@ -4,6 +4,7 @@ use Utils\Database\XDb;
 use lib\Objects\User\User;
 use Utils\Text\TextConverter;
 use lib\Objects\User\UserStats;
+use Utils\I18n\I18n;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
@@ -62,7 +63,7 @@ if ($error == false) {
                     AND `log_types`.`id`=`cache_logs`.`type`
                     AND `log_types_text`.`log_types_id`=`log_types`.`id` AND `log_types_text`.`lang`= ?
                     ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`date_created` DESC
-                    LIMIT 10", $usr['userid'], $lang);
+                    LIMIT 10", $usr['userid'], I18n::getCurrentLang());
 
         if (XDb::xNumRows($rs_logs) == 0) {
 
@@ -85,11 +86,7 @@ if ($error == false) {
         }
 
         //get last hidden caches
-        if (XDb::xContainsColumn('cache_status', $lang))
-            $lang_db = $lang;
-        else
-            $lang_db = "en";
-
+        $lang_db = I18n::getLangForDbTranslations('cache_status');
         $rs_caches = XDb::xSql("  SELECT  `cache_id`, `name`, `date_hidden`, `status`,
                             `cache_status`.`id` AS `cache_status_id`, `cache_status`.`".XDb::xEscape($lang_db)."` AS `cache_status_text`
                         FROM `caches`, `cache_status`
@@ -168,7 +165,7 @@ if ($error == false) {
                     AND `log_types`.`id`=`cache_logs`.`type`
                     AND `log_types_text`.`log_types_id`=`log_types`.`id` AND `log_types_text`.`lang`= ?
                     ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`date_created` DESC
-                    LIMIT 10", $usr['userid'], $lang);
+                    LIMIT 10", $usr['userid'], I18n::getCurrentLang());
 
         if (XDb::xNumRows($rs_logs) == 0) {
             tpl_set_var('last_logs_in_your_caches', $no_logs);

@@ -1,6 +1,7 @@
 <?php
 
 use lib\Objects\Stats\CacheStats;
+use Utils\I18n\I18n;
 
 //prepare the templates and include all neccessary
 require_once(__DIR__.'/lib/common.inc.php');
@@ -46,7 +47,7 @@ if ($article == '') {
     $tplname = 'articles/' . $article;
 }
 
-tpl_set_var('language4js', $lang);
+tpl_set_var('language4js', I18n::getCurrentLang());
 
 // make the template and send it out
 tpl_BuildTemplate();

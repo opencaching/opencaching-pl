@@ -1,3 +1,6 @@
+<?php
+use Utils\I18n\I18n;
+?>
 
 <br>
 {head}
@@ -17,7 +20,7 @@
 <br>
 
 <script>
-<?php echo "GCTLoad( 'ChartTable', '" . $lang . "' );"?>
+<?php echo "GCTLoad( 'ChartTable', '" . I18n::getCurrentLang() . "' );"?>
 </script>
 
 <script>

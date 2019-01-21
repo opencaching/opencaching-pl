@@ -340,11 +340,29 @@ global $tpl_subtitle;
 
         <div class="bottom-page-container">
           <?=$view->licenseHtml?>
-          <span class="bottom-flags">
-            <?php foreach($view->_languageFlags as $langFlag){ ?>
-              <a rel="nofollow" href="<?=$langFlag['link']?>"><img class="img-navflag" src="<?=$langFlag['img']?>" alt="<?=$langFlag['name']?> version" title="<?=$langFlag['name']?> version"></a>
-            <?php } //forach-lang-flags ?>
+
+          <?php if (!$view->_crowdinInContextEnabled) { ?>
+              <span class="bottom-flags">
+                <?php foreach($view->_languageFlags as $langFlag){ ?>
+                  <a rel="nofollow" href="<?=$langFlag['link']?>">
+                    <img class="img-navflag" src="<?=$langFlag['img']?>"
+                         alt="<?=$langFlag['name']?> version" title="<?=$langFlag['name']?> version">
+                  </a>
+                <?php } //forach-lang-flags ?>
+              </span>
+          <?php } //$view->_crowdinInContextEnabled ?>
+
+          <?php if ($view->_crowdinInContextAllowed) { ?>
+          <span>
+            <a href="<?=$view->_crowdinInContextActionUrl?>">
+                <?php if ($view->_crowdinInContextEnabled) { ?>
+                  <?=tr('common_disableCrowdinInContext')?>
+                <?php } else { // if-_crowdinInContextEnabled ?>
+                  <?=tr('common_enableCrowdinInContext')?>
+                <?php } //if-_crowdinInContextEnabled ?>
+            </a>
           </span>
+          <?php } //if-$view->_crowdinInContextAllowed ?>
         </div>
 
       </div>
@@ -381,6 +399,6 @@ global $tpl_subtitle;
             <script src="<?=$js['url']?>"<?=$js['async'] ? ' async' : ''?> defer></script>
   <?php   } //if
       } //foreach-js ?>
-  <!-- (C) The Opencaching Project 2018 -->
+  <!-- (C) The Opencaching Project 2019 -->
 </body>
 </html>

@@ -72,7 +72,6 @@ function get_icon_for_cache_type($type)
             </table>
             <?php
             global $dane;
-            global $lang;
             global $datetimeFormat;
             foreach ($dane as $k => $v) {
                 ?>

@@ -89,10 +89,5 @@ final class ApplicationContainer
         return $this->ocConfig;
     }
 
-
-    public function getLang()
-    {
-        return $GLOBALS['lang'];
-    }
 }
 

@@ -15,6 +15,7 @@ use lib\Objects\GeoCache\GeoCacheDesc;
 use lib\Objects\GeoCache\OpenChecker;
 use lib\Objects\GeoCache\PrintList;
 use lib\Objects\GeoCache\Waypoint;
+use Utils\I18n\I18n;
 
 class ViewCacheController extends BaseController
 {
@@ -393,8 +394,6 @@ class ViewCacheController extends BaseController
 
     private function processDesc()
     {
-        global $lang;
-
         // determine description language
         $availableDescLangs = mb_split(',', $this->geocache->getDescLanguagesList());
 
@@ -402,8 +401,8 @@ class ViewCacheController extends BaseController
         if ( isset($_REQUEST['desclang']) && (array_search($_REQUEST['desclang'], $availableDescLangs) !== false)) {
             $descLang = $_REQUEST['desclang'];
 
-        } elseif ( array_search( mb_strtoupper($lang) , $availableDescLangs) ) { // or try current lang
-            $descLang = mb_strtoupper($lang);
+        } elseif ( array_search( mb_strtoupper(I18n::getCurrentLang()) , $availableDescLangs) ) { // or try current lang
+            $descLang = mb_strtoupper(I18n::getCurrentLang());
 
         } else { // use first available otherwise
             $descLang = $availableDescLangs[0];

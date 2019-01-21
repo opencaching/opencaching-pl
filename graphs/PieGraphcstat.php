@@ -2,10 +2,9 @@
 
 use Libs\JpGraph\JpGraphLoader;
 use Utils\Database\XDb;
+use Utils\I18n\I18n;
 
 require(__DIR__.'/../lib/common.inc.php');
-
-global $lang;
 
 // jpgraph package doesn't contains fonts
 define('TTF_DIR',__DIR__.'/../lib/fonts/');
@@ -22,10 +21,7 @@ if (isset($_REQUEST['cacheid'])) {
 $y = array();
 $x = array();
 
-if (XDb::xContainsColumn('log_types', $lang))
-    $lang_db = XDb::xEscape($lang);
-else
-    $lang_db = "en";
+$lang_db = I18n::getLangForDbTranslations('log_types');
 
 // Ustawic sprawdzanie jezyka w cache_type.pl !!!!
 $rsCSF = XDb::xSql(

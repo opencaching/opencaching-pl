@@ -22,8 +22,6 @@ require_once(__DIR__.'/common.inc.php');
         $sDateCondition = "";
         $sTypeCondition = "";
 
-        global $lang;
-
         $sUserIDLine = $_REQUEST["UserID"];
         $sDateFrom = $_REQUEST["DF"];
         $sDateTo = $_REQUEST["DT"];
@@ -49,10 +47,10 @@ require_once(__DIR__.'/common.inc.php');
 
 
         if (!strlen($sUserIDLine))
-            $sEND = tr2('SelectUsers', $lang);
+            $sEND = tr('SelectUsers');
 
         if (count($asUserID) > 10)
-            $sEND = tr2('more10', $lang);
+            $sEND = tr('more10');
 
         echo "<script>";
         if ($sEND <> "") {
@@ -112,7 +110,7 @@ require_once(__DIR__.'/common.inc.php');
 
 //echo "gcl.addChartOption('vAxis', { title: 'Ilość keszy' } );";
         echo " var chartOpt = gcl.getChartOption();";
-        echo " chartOpt.vAxis.title= '" . tr2('NrCaches', $lang) . "';";
+        echo " chartOpt.vAxis.title= '" . tr('NrCaches') . "';";
         echo "</script>";
 
 ////////////////////////////

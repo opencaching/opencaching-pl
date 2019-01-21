@@ -3,6 +3,7 @@
 use lib\Objects\PowerTrail\PowerTrail;
 use lib\Objects\GeoCache\GeoCache;
 use Utils\Uri\Uri;
+use Utils\I18n\I18n;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
@@ -21,7 +22,7 @@ if ($error == false) {
     }
     tpl_set_var("selPtDiv", 'none');
     tpl_set_var("PtDetailsDiv", 'none');
-    tpl_set_var('language4js', $lang);
+    tpl_set_var('language4js', I18n::getCurrentLang());
 
     $view->loadJQuery();
     $view->addLocalCss(Uri::getLinkWithModificationTime('tpl/stdstyle/css/powerTrail.css'));

@@ -1143,8 +1143,8 @@
         {
             ele.style.display = "none";
             // os_tytul.style.display = "block";
-            text.innerHTML = "{{os_zobo}}";
-            text2.innerHTML = "{{os_zobo}}";
+            //text.innerHTML = "/{/{os_zobo}}";
+            //text2.innerHTML = "/{/{os_zobo}}";
             help_link1.style.display = "block";
             help_link2.style.display = "none";
             cialo.style.display = "block";
@@ -1153,8 +1153,8 @@
         {
             ele.style.display = "block";
             // os_tytul.style.display = "none";
-            text.innerHTML = "{{os_powrot}}";
-            text2.innerHTML = "{{os_powrot}}";
+            //text.innerHTML = "/{/{os_powrot}}";
+            //text2.innerHTML = "/{/{os_powrot}}";
             help_link1.style.display = "none";
             help_link2.style.display = "block";
             cialo.style.display = "none";
