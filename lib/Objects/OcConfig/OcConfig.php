@@ -75,6 +75,9 @@ final class OcConfig extends ConfigReader
     /** @var array the logfilter configuration array */
     private $logfilterConfig;
 
+    /** @var array */
+    private $newsConfig;
+
     /** @var array - array of map settings from /Config/map.* files */
     private $mapConfig;
 
@@ -501,6 +504,18 @@ final class OcConfig extends ConfigReader
             return $this->cronjobsConfig['schedule'][$job];
         } else {
             return null;
+        }
+    }
+
+    public function getNewsConfig($setting = null)
+    {
+        if ($this->newsConfig == null) {
+            $this->newsConfig = self::getConfig("news", "news");
+        }
+        if ($setting === null) {
+            return $this->newsConfig;
+        } else {
+            return $this->newsConfig[$setting];
         }
     }
 
