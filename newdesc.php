@@ -63,11 +63,19 @@ if ($error == false) {
 
                     if ($desc_lang_exists == false) {
                         $desc_uuid = Uuid::create();
+
+                        $rr_comment = XDb::xMultiVariableQueryValue("
+                            SELECT rr_comment
+                            FROM cache_desc
+                            WHERE cache_id = :1 AND rr_comment <> ''
+                            LIMIT 1
+                        ", '', $cache_id);
+
                         //add to DB
                         XDb::xSql("INSERT INTO `cache_desc` (`id`,`cache_id`,`language`,`desc`,`desc_html`,`desc_htmledit`,
-                                                       `hint`,`short_desc`,`last_modified`,`uuid`,`node`)
-                             VALUES ('', ?, ?, ?, 2, ?, ?, ?, NOW(), ?, ?)",
-                             $cache_id, $sel_lang, $desc, '1', nl2br($hints), $short_desc, $desc_uuid, $oc_nodeid);
+                                                       `hint`,`short_desc`,`last_modified`,`uuid`,`node`,`rr_comment`)
+                             VALUES ('', ?, ?, ?, 2, ?, ?, ?, NOW(), ?, ?, ?)",
+                             $cache_id, $sel_lang, $desc, '1', nl2br($hints), $short_desc, $desc_uuid, $oc_nodeid, $rr_comment);
 
 
                         // update cache-record, including last modification date
