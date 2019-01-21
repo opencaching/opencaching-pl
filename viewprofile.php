@@ -304,7 +304,7 @@ if ($usr == false) {
         if ($found == 0) {
             $content .= '</p>';
         } else {
-            $content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt=""> [<a class="links" href="my_logsFind.php?userid=' . $user_id . '">' . tr('show') . '</a>]</p>';
+            $content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt=""> [<a class="links" href="my_logs.php?userid=' . $user_id . '&logtypes=1">' . tr('show') . '</a>]</p>';
         }
 
         $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('total_dnf_caches') . ':</span> <strong>' . $userNotFounds . '</strong>';
@@ -312,20 +312,20 @@ if ($usr == false) {
         if ($userNotFounds == 0) {
             $content .= '</p>';
         } else {
-            $content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt=""> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;f_inactive=0&amp;output=HTML&amp;sort=bycreated&amp;finderid=' . $user_id . '&amp;searchbyfinder=&amp;logtype=2&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">' . tr('show') . '</a>]</p>';
+            $content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt=""> [<a class="links" href="my_logs.php?userid=' . $user_id . '&logtypes=2">' . tr('show') . '</a>]</p>';
         }
-        $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('total_comments') . ':</span> <strong>' . $user->getLogNotesCount() . '</strong></p>';
+        $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('total_comments') . ':</span> <strong>' . $user->getLogNotesCount() . '</strong> [<a class="links" href="my_logs.php?userid=' . $user_id . '&logtypes=3">' . tr('show') . '</a>]</p>';
         $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('total_moved') . ':</span> <strong>' . $moved . '</strong>';
         if ($moved == 0) {
             $content .= '</p>';
         } else {
-            $content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt=""> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;f_inactive=0&amp;output=HTML&amp;sort=bycreated&amp;finderid=' . $user_id . '&amp;searchbyfinder=&amp;logtype=4&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">' . tr('show') . '</a>]</p>';
+            $content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt=""> [<a class="links" href="my_logs.php?userid=' . $user_id . '&logtypes=4">' . tr('show') . '</a>]</p>';
         }
         $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('total_attended_events') . ':</span> <strong>' . $events_count . '</strong>';
         if ($events_count == 0) {
             $content .= '</p>';
         } else {
-            $content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt=""> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;f_inactive=0&amp;output=HTML&amp;sort=bycreated&amp;finderid=' . $user_id . '&amp;searchbyfinder=&amp;logtype=7&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">' . tr('show') . '</a>]</p>';
+            $content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt=""> [<a class="links" href="my_logs.php?userid=' . $user_id . '&logtypes=7">' . tr('show') . '</a>]</p>';
         }
 
         $recomendf = XDb::xMultiVariableQueryValue(
