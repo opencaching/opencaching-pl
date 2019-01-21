@@ -2527,7 +2527,7 @@ $translations = array(
     'admin_dbupdate_time' => 'Was run at',
     'admin_dbupdate_run' => 'Uruchom aktualizację',
     'admin_dbupdate_create' => 'Create new update',
-    'admin_dbupdate_reload' => 'Reload list',
+    'admin_dbupdate_reload' => 'Odśwież listę',
     'admin_dbupdate_develnote' => '<i>Italics</i> = Update is in development (not merged to Git master).',
     'rename' => 'Zmień nazwę',
 
