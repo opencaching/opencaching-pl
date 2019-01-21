@@ -128,6 +128,10 @@ function tpl_errorMsg($tplnameError, $msg)
 function tpl_getView(){
 
     global $view;
+    if(!$view) {
+        $view = new View();
+    }
+
     return $view;
 }
 

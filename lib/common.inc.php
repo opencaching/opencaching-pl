@@ -45,15 +45,18 @@ if (php_sapi_name() != "cli") { // this is not neccesarry for command-line scrip
 
     UserAuthorization::verify();
 
-    I18n::init();
     initTemplateSystem();
+    I18n::init();
+
 }
 
 function initTemplateSystem(){
 
     // create global view variable (used in templates)
     // TODO: it should be moved to context..
-    $GLOBALS['view'] = new View();
+    if (!isset($GLOBALS['view'])) {
+        $GLOBALS['view'] = new View();
+    }
 
     //by default, use start template
     if (!isset($GLOBALS['tplname'])){
@@ -72,7 +75,6 @@ function initTemplateSystem(){
     }
 
     tpl_set_var('title', htmlspecialchars(OcConfig::instance()->getPageTitle(), ENT_COMPAT, 'UTF-8'));
-    tpl_set_var('lang', I18n::getCurrentLang());
     tpl_set_var('bodyMod', '');
     tpl_set_var('cachemap_header', '');
     tpl_set_var('htmlheaders', '');
