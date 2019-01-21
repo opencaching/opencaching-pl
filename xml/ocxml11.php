@@ -3,6 +3,7 @@
 use Utils\Database\XDb;
 use lib\Objects\GeoCache\GeoCacheCommons;
 use lib\Objects\OcConfig\OcConfig;
+use Utils\I18n\I18n;
 /* begin configuration */
 
 require('../lib/common.inc.php');
@@ -312,10 +313,7 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
     XDb::xFreeResults($rs);
 
     foreach (GeoCacheCommons::CacheSizesArray() as $sizeID) {
-        $cachesizes[$sizeID]['pl'] = getTranslation(
-            GeoCacheCommons::CacheSizeTranslationKey($sizeID),
-            'pl'
-        );
+        $cachesizes[$sizeID]['pl'] = I18n::translatePhrase(GeoCacheCommons::CacheSizeTranslationKey($sizeID),'pl');
     }
 
     $languages = array();
