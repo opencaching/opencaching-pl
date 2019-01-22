@@ -55,16 +55,32 @@ class DbUpdateController extends BaseController
         $actions = [];  // dictionary of action => title
 
         $wasRun = ($update->wasRunAt() !== null);
-        if (!$wasRun) {
-            $actions['run'] = 'run';
-        } elseif (!$this->ocConfig->inDebugMode() && substr($update->getName(), 0, 3) < 100) {
-            $actions['run'] = 'run again';
-        }
+        $specialPurpose = substr($update->getName(), 0, 3) < 100;
 
-        // Devel / test actions, not available on production sites:
+        if (!$this->ocConfig->inDebugMode()) {
+            // production site
 
-        if ($this->ocConfig->inDebugMode()) {
             if (!$wasRun) {
+                $actions['run'] = 'run';
+            } else {
+                if ($update->getRuntype() == 'always' || $specialPurpose) {
+
+                    # For tests an special-purpose updates, it can make sense to
+                    # re-run them even on production sites, and to roll them back.
+
+                    $actions['run'] = 'run again';
+
+                    if ($update->hasRollback()) {
+                        $actions['rollback'] = 'rollback';
+                    }
+                }
+            }
+        } else {
+            // developer site
+
+            if (!$wasRun) {
+                $actions['run'] = 'run';
+
                 if ($update->hasRollback()) {
 
                     # There may be cases when a developer wants to test
@@ -73,13 +89,14 @@ class DbUpdateController extends BaseController
 
                     $actions['rollback'] = 'try rollback';
                 }
+
             } else {
                 # It can make sense to repeat an update, e.g. if there is no
                 # rollback method and the developer did a manual rollback.
 
                 $actions['run'] = 'run again';
 
-                if ($update->hasRollback() && !$update->isInGitMasterBranch()) {
+                if ($update->hasRollback() && (!$update->isInGitMasterBranch() || $specialPurpose)) {
 
                     # The workflow for rolling back an already deployed
                     # update is to create a new rollback-update and run that.
@@ -89,6 +106,7 @@ class DbUpdateController extends BaseController
                     $actions['rollback'] = 'rollback';
                 }
             }
+
             if (!$update->isInGitMasterBranch()) {
 
                 if (!($wasRun && $update->hasRollback())) {
@@ -99,6 +117,7 @@ class DbUpdateController extends BaseController
                     # helps to keep the database clean.
                 }
             }
+
             $actions['askRename'] = 'rename';
         }
 
@@ -131,14 +150,24 @@ class DbUpdateController extends BaseController
         // This action is allowed to run on production sites (by sysAdmins only).
         $this->securityCheck(false);
 
-        try {
-            if ($uuid) {
-                $messages = $this->getUpdateFromUuid($uuid)->run();
-            } else {
-                $messages = DbUpdates::run();
+        $update = $this->getUpdateFromUuid($uuid);
+
+        if (!isset($this->getAvailableActions($update)['run'])) {
+
+            # This can happen on page reload on a production site:
+            # Update was allowed to run, but must not re-run.
+
+            $messages = sprintf(tr('admin_dbupdate_norun'), $update->getName());
+        } else {
+            try {
+                if ($uuid) {
+                    $messages = $this->getUpdateFromUuid($uuid)->run();
+                } else {
+                    $messages = DbUpdates::run();
+                }
+            } catch (\Exception $e) {
+                $messages = get_class($e).": " . $e->getMessage() . "\n\n" . $e->getTraceAsString();
             }
-        } catch (\Exception $e) {
-            $messages = get_class($e).": " . $e->getMessage() . "\n\n" . $e->getTraceAsString();
         }
 
         $this->showAdminView($messages);
@@ -152,8 +181,26 @@ class DbUpdateController extends BaseController
 
     public function rollback($uuid)
     {
-        $this->securityCheck();
-        $messages = $this->getUpdateFromUuid($uuid)->rollback();
+        // This action is allowed to run on production sites for some special
+        // updates like tests (by sysAdmins only).
+        $this->securityCheck(false);
+
+        $update = $this->getUpdateFromUuid($uuid);
+
+        if (!isset($this->getAvailableActions($update)['rollback'])) {
+
+            # This can happen on page reload on a production site:
+            # Update was allowed to roll back, but only once.
+
+            $messages = sprintf(tr('admin_dbupdate_norollback'), $update->getName());
+        } else {
+            try {
+                $messages = $this->getUpdateFromUuid($uuid)->rollback();
+            } catch (\Exception $e) {
+                $messages = get_class($e).": " . $e->getMessage() . "\n\n" . $e->getTraceAsString();
+            }
+        }
+
         $this->showAdminView($messages);
 
         # See comment in run() method.

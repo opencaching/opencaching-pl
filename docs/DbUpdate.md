@@ -48,8 +48,19 @@ There are three types, which can be set in the `run` variable of the update's
 
 - **always** - This update will run on all OC sites after each code deployment.
     You may use this e.g. to ensure DB consistency, or to nail some static
-    DB contents to its defaults. Assign a number >= 900 if the update should run
-    after all *auto* updates.
+    DB contents to its defaults.
+
+### Numbers ###
+
+The update numbers are assigned like this:
+
+- 001–099: Tests, special-purpose *manual* updates, updates that *always* run before
+    all regular updates. These updates are allowed to run multiple times also on
+    production sites.
+
+- 100-899: Regular updates, which will run once on each production site.
+
+- 900-999: Updates that run *always* after all other updates.
 
 ### Admin.DbUpdate actions
 
@@ -67,14 +78,10 @@ Buttons at the top:
 
 - **Help** - Shows this documentation.
 
-Links for each  update:
+Links for each update, some of them only available on developer sites:
 
 - (Click on update name) - Shows the PHP source.
-
 - **run** - Runs a update that did not run yet or was rolled back.
-
-(all of the following is only available on developer sites)
-
 - **run again** - Re-runs an update that did already run.
 - **rollback** - Reverts an update back that was run.
     This is only available if the update has a `rollback()` method.

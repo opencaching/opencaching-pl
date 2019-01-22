@@ -47,6 +47,7 @@ use Utils\Uri\SimpleRouter;
         }
     </script>
 
+    <br />
     <input type="submit" class="btn btn-default btn-sm" value="{{rename}}" />
     <a class="btn btn-default btn-sm" href="<?= SimpleRouter::getLink('Admin.DbUpdate') ?>">{{cancel}}</a>
 
@@ -60,6 +61,7 @@ use Utils\Uri\SimpleRouter;
     <p><br />Do you really want to delete <b><?= $view->fileName ?></b> ?</p>
     <p><br /><i>Delete</i> will do a <b>git rm -f</b>, if the file is staged or commited in Git.</p>
 
+    <br />
     <a class="btn btn-default btn-sm" href="<?= SimpleRouter::getLink('Admin.DbUpdate', 'delete', $view->askDelete) ?>">{{delete}}</a>
     <a class="btn btn-default btn-sm" href="<?= SimpleRouter::getLink('Admin.DbUpdate') ?>">{{cancel}}</a>
 

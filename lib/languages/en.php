@@ -2530,6 +2530,8 @@ $translations = array(
     'admin_dbupdate_always' => 'always',
     'admin_dbupdate_time' => 'Was run at',
     'admin_dbupdate_run' => 'Run updates',
+    'admin_dbupdate_norun' => 'The update %s must not run (again).',
+    'admin_dbupdate_norollback' => 'The update %s must not be rolled back (again).',
     'admin_dbupdate_create' => 'Create new update',
     'admin_dbupdate_reload' => 'Reload list',
     'admin_dbupdate_develnote' => '<i>Italics</i> = Update is in development (not merged to Git master).',
