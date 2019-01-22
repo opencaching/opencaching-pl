@@ -88,19 +88,22 @@ foreach ($result as $key => $dbEntry) {
     if (!is_null($loggedUserId)) {
         $toDisplay .= '<span class="editDeleteComment">';
 
-        if ($dbEntry['deleted'] && $ocTeamUser) {
-            $toDisplay .= '&nbsp;<img src="tpl/stdstyle/images/free_icons/accept.png" /> <a href="javascript:void(0);" onclick="restoreComment('.$dbEntry['id'].','.$loggedUserId.', true)">'.tr('restore').'</a>';
-        } elseif (
-            ($loggedUserId == $dbEntry['userId'] || in_array($loggedUserId, $ownersIdArray))
-            && $dbEntry['userId'] !=-1
-            && !in_array($dbEntry['commentType'], [3, 4, 5, 6])
-        ) {
-            $toDisplay .= '&nbsp;<img src="tpl/stdstyle/images/free_icons/cross.png" /> <a href="javascript:void(0);" onclick="deleteComment('.$dbEntry['id'].','.$loggedUserId.', false)">'.tr('pt130').'</a>';
-        }
-        if (!$dbEntry['deleted'] && $loggedUserId == $dbEntry['userId'] ) {
-            $toDisplay .= '
-                &nbsp;<img src="tpl/stdstyle/images/free_icons/pencil.png" />
-                <a href="javascript:void(0);" onclick="editComment('.$dbEntry['id'].','.$loggedUserId.')">'.tr('pt145').'</a>';
+        if ($dbEntry['deleted']) {
+            if ($ocTeamUser) {
+                $toDisplay .= '&nbsp;<img src="tpl/stdstyle/images/free_icons/accept.png" /> <a href="javascript:void(0);" onclick="restoreComment('.$dbEntry['id'].','.$loggedUserId.', true)">'.tr('restore').'</a>';
+            }
+        } else {
+            if (($loggedUserId == $dbEntry['userId'] || in_array($loggedUserId, $ownersIdArray))
+                && $dbEntry['userId'] != -1
+                && !in_array($dbEntry['commentType'], [3, 4, 5, 6])
+            ) {
+                $toDisplay .= '&nbsp;<img src="tpl/stdstyle/images/free_icons/cross.png" /> <a href="javascript:void(0);" onclick="deleteComment('.$dbEntry['id'].','.$loggedUserId.', false)">'.tr('pt130').'</a>';
+            }
+            if ($loggedUserId == $dbEntry['userId'] ) {
+                $toDisplay .= '
+                    &nbsp;<img src="tpl/stdstyle/images/free_icons/pencil.png" />
+                    <a href="javascript:void(0);" onclick="editComment('.$dbEntry['id'].','.$loggedUserId.')">'.tr('pt145').'</a>';
+            }
         }
         $toDisplay .= '</span>';
     }
