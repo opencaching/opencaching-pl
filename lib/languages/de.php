@@ -2661,7 +2661,7 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'myNotes_coordsRemovingError' => 'Benutzerkoordinaten konnten nicht gelöscht werden',
     'myNotes_emptyList' => 'Keine Cachenotizen vorhanden',
     'myNotes_showFullNote' => 'mehr',
-    'myNotes_hideFullNote' => 'less',
+    'myNotes_hideFullNote' => 'weniger',
 
     'gdpr_text' => 'Am 25. Mai 2018 haben wir aufgrund der DSGVO Folgendes geändert: ',
     'gdpr_text2' => 'Bitte lies dir die Änderungen durch. Um diese Seite weiterhin zu nutzen, musst du die Änderungen akzeptieren.<br />Wenn du nicht einverstanden bist, <a href="mailto:{OCTeamEmail}">kontaktiere uns</a> bitte, um dein Benutzerkonto deaktivieren zu lassen.',
@@ -2694,6 +2694,6 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'page_error_3' => 'Falls das Problem bestehen bleibt, <a href="/articles.php?page=contact">kontaktiere</a> bitte das OC-Team und beschreibe Schritt für Schritt, wie sich der Fehler reproduzieren lässt.',
     'page_error_back' => 'Zur Startseite',
 
-    'common_enableCrowdinInContext' => 'Improve translations',
-    'common_disableCrowdinInContext' => 'Disable translations improvement mode',
+    'common_enableCrowdinInContext' => 'Übersetzungen verbessern',
+    'common_disableCrowdinInContext' => 'Übersetzungsverbesserungsmodus abschalten',
 );
