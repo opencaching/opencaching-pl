@@ -13,4 +13,4 @@ $config['defaultLang'] = 'nl';
  * List of languages supported
  * Please note that for now still we have also translations in DB!
  */
-$config['supportedLanguages'] = ['pl', 'en', 'nl', 'de', 'ro'];
+$config['supportedLanguages'] = ['pl', 'en', 'nl', 'de', 'ro', 'fr'];
