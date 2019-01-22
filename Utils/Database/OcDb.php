@@ -16,11 +16,12 @@ class OcDb extends OcPdo
      *
      * Returns instance of itself.
      *
+     * @param $access - database access level of the returned instance
      * @return OcDb object
      */
-    public static function instance()
+    public static function instance($access = self::NORMAL_ACCESS)
     {
-        $instance = parent::instance();
+        $instance = parent::instance($access);
 
         return $instance;
     }
