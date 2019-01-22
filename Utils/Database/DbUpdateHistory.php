@@ -11,8 +11,8 @@ use Utils\Generators\Uuid;
  * to the site. For high robustness, this (critical!) list is maintained
  * redundantly at two places:
  *
- *   - the database table db_update_history
- *   - the directory $dynbasepath/db_update_history
+ *   - in the database table db_update_history
+ *   - in the directory $dynbasepath/db_update_history
  *
  * Both are loaded and synchronized with the first call to a DbUpdateHistory
  * method. If an entry is missing in one of both (which means that data was
