@@ -656,7 +656,12 @@ class ViewCacheController extends BaseController
         }
         foreach($config['maps']['external'] as $key => $value) {
             if ( $value == 1 ) {
-                $externalMaps[$key] = sprintf($config['maps']['external'][$key.'_URL'],
+                if ($key == "Flopp's Map" || $key == "Flopp’s Map") {
+                    $name = tr('flopps_map');
+                } else {
+                    $name = $key;
+                }
+                $externalMaps[$name] = sprintf($config['maps']['external'][$key.'_URL'],
                     $lat, $lon,
                     $this->geocache->getCacheId(), $this->geocache->getWaypointId(),
                     urlencode($this->geocache->getCacheName()) );

@@ -11,7 +11,8 @@
         </div>
     <?php } else { //$view->cachesCount == 0 ?>
         <div>
-            <?=tr('myNotes_emptyList')?>
+            <br />
+            <p><?=tr('myNotes_emptyList')?></p>
         </div>
     <?php } //$view->cachesCount == 0 ?>
 

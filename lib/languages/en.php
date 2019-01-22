@@ -426,6 +426,7 @@ $translations = array(
     'map_scoreGeExcellent' => '"Excellent" only',
     'score_label' => 'Rated as',
     'available_maps' => 'See on map',
+    'flopps_map' => 'Flopp’s map',
     'cache_attributes' => 'Cache attributes',
     'latest_logs' => 'Latest logs',
     'abroad_caches' => 'Abroad caches',

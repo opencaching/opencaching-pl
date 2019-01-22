@@ -41,7 +41,8 @@ use Utils\Uri\SimpleRouter;
         </div>
     <?php } else { //$view->cachesCount == 0 ?>
         <div>
-            <?=tr('usrWatch_nothingWatched')?>
+            <br />
+            <p><?=tr('usrWatch_nothingWatched')?></p>
         </div>
     <?php } //$view->cachesCount == 0 ?>
 
