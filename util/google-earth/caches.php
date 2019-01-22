@@ -47,7 +47,7 @@ $rs = XDb::xSql(
     "SELECT `caches`.`cache_id` `cacheid`, `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude`,
             `caches`.`status` `status`, `caches`.`type` `type`, `caches`.`date_hidden` `date_hidden`,
             `caches`.`name` `name`, `caches`.`wp_oc` `cache_wp`,
-            `cache_type`.`" . $language . "` `typedesc`, `cache_size`.`" . $language . "` `sizedesc`,
+            `cache_type`.`" . $language . "` `typedesc`, `caches`.`size` ,
             `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`,
             `user`.`username` `username`
     FROM `caches`, `cache_type`, `user`
