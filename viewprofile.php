@@ -314,7 +314,12 @@ if ($usr == false) {
         } else {
             $content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt=""> [<a class="links" href="my_logs.php?userid=' . $user_id . '&logtypes=2">' . tr('show') . '</a>]</p>';
         }
-        $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('total_comments') . ':</span> <strong>' . $user->getLogNotesCount() . '</strong> [<a class="links" href="my_logs.php?userid=' . $user_id . '&logtypes=3">' . tr('show') . '</a>]</p>';
+        $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('total_comments') . ':</span> <strong>' . $user->getLogNotesCount() . '</strong>';
+        if ($user->getLogNotesCount() == 0) {
+            $content .= '</p>';
+        } else {
+            $content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt=""> [<a class="links" href="my_logs.php?userid=' . $user_id . '&logtypes=3">' . tr('show') . '</a>]</p>';
+        }
         $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('total_moved') . ':</span> <strong>' . $moved . '</strong>';
         if ($moved == 0) {
             $content .= '</p>';
