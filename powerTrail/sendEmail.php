@@ -23,11 +23,21 @@ class sendEmail
 
         switch ($action) {
             case 'delComment' :
-                $subject = tr('pt131') . ' ' . $ptDbRow['name'];
+                $actionDesc = sprintf(tr('pt131'), $ptDbRow['name']);
+                $subject = $actionDesc;
                 $mailbody = mb_ereg_replace('{commentAction}', tr('pt132'), $mailbody);
-                $mailbody = mb_ereg_replace('{actionDesc}', tr('pt131'), $mailbody);
+                $mailbody = mb_ereg_replace('{actionDesc}', $actionDesc, $mailbody);
                 $mailbody = mb_ereg_replace('{delReason}', $delReason, $mailbody);
                 $mailbody = mb_ereg_replace('{pt153}', tr('pt153'), $mailbody);
+                break;
+
+            case 'restoreComment' :
+                $actionDesc = sprintf(tr('pt136'), $ptDbRow['name']);
+                $subject = $actionDesc;
+                $mailbody = mb_ereg_replace('{commentAction}', tr('pt137'), $mailbody);
+                $mailbody = mb_ereg_replace('{actionDesc}', $actionDesc, $mailbody);
+                $mailbody = mb_ereg_replace('{delReason}', '', $mailbody);
+                $mailbody = mb_ereg_replace('{pt153}', '', $mailbody);
                 break;
 
             case 'newComment' :
@@ -37,6 +47,7 @@ class sendEmail
                 $mailbody = mb_ereg_replace('{delReason}', '', $mailbody);
                 $mailbody = mb_ereg_replace('{pt153}', '', $mailbody);
                 break;
+
             case 'editComment' :
                 $subject = tr('pt146') . ' ' . $ptDbRow['name'];
                 $mailbody = mb_ereg_replace('{commentAction}', tr('pt147'), $mailbody);
