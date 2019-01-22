@@ -59,6 +59,8 @@ final class OcConfig extends ConfigReader
 
     private $dbUser;
     private $dbPass;
+    private $dbAdminUser;
+    private $dbAdminPass;
     private $dbHost;
     private $dbName;
 
@@ -163,6 +165,14 @@ final class OcConfig extends ConfigReader
         $this->dbName = $opt['db']['name'];
         $this->dbUser = $opt['db']['username'];
         $this->dbPass = $opt['db']['password'];
+
+        if (isset($opt['db']['admin_username'])) {
+            $this->dbAdminUser = $opt['db']['admin_username'];
+            $this->dbAdminPass = $opt['db']['admin_password'];
+        } else {
+            $this->dbAdminUser = $this->dbUser;
+            $this->dbAdminPass = $this->dbPass;
+        }
 
         if (isset($config['lock']) && is_array($config['lock'])) {
             $this->lockConfig = $config['lock'];
@@ -324,14 +334,14 @@ final class OcConfig extends ConfigReader
         return self::instance()->getMapsConfig();
     }
 
-    public function getDbUser()
+    public function getDbUser($admin = false)
     {
-        return $this->dbUser;
+        return $admin ? $this->dbAdminUser : $this->dbUser;
     }
 
-    public function getDbPass()
+    public function getDbPass($admin = false)
     {
-        return $this->dbPass;
+        return $admin ? $this->dbAdminPass : $this->dbPass;
     }
 
     public function getDbHost()

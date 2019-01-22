@@ -10,6 +10,8 @@ use Utils\Email\OcSpamDomain;
 
 class OcPdo extends PDO
 {
+    const NORMAL_ACCESS = 0;
+    const ADMIN_ACCESS = 1;
 
     protected $debug; //bool, if set enabled debug messages
     protected $dbName;
@@ -18,7 +20,7 @@ class OcPdo extends PDO
      *
      * @param string $debug
      */
-    public function __construct($debug = false)
+    public function __construct($adminAccess = false, $debug = false)
     {
         if ($debug === true) {
             $this->debug = true;
@@ -60,7 +62,7 @@ class OcPdo extends PDO
         $dsn = 'mysql:' . implode(';', $dsnpairs);
         try {
             parent::__construct(
-                $dsn, $conf->getDbUser(), $conf->getDbPass(), $options
+                $dsn, $conf->getDbUser($adminAccess), $conf->getDbPass($adminAccess), $options
             );
         } catch (PDOException $e) {
             $this->error("OcPdo object creation failed!", $e);
@@ -98,20 +100,20 @@ class OcPdo extends PDO
     }
 
     /**
-     * This the ONLY way on which instance of this class
-     * should be accessed
+     * This the ONLY way on which instance of this class should be accessed
      *
      * Returns instance of itself.
      *
+     * @param $access - database access level of the returned instance
      * @return OcDb object
      */
-    protected static function instance()
+    protected static function instance($access = self::NORMAL_ACCESS)
     {
-        static $instance = null;
-        if ($instance === null) {
-            $instance = new static(false);
+        static $instance = [];
+        if (!isset($instance[$access])) {
+            $instance[$access] = new static($access == self::ADMIN_ACCESS, false);
         }
-        return $instance;
+        return $instance[$access];
     }
 
     /**

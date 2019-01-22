@@ -143,6 +143,8 @@ $opt['db']['server'] = $dbserver;
 $opt['db']['name'] = $dbname;
 $opt['db']['username'] = $dbusername;
 $opt['db']['password'] = $dbpasswd;
+$opt['db']['admin_username'] = 'ocdbua';
+$opt['db']['admin_password'] = 'AdminPassword';
 
 // warnlevel for sql-execution
 $sql_errormail = 'rt@localhost';

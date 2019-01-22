@@ -31,7 +31,7 @@ class DbUpdate
 
     public function __construct($name)
     {
-        $this->db = OcDb::instance();
+        $this->db = OcDb::instance(OcDb::ADMIN_ACCESS);
         $this->name = $name;
 
         # To avoid class redeclaration errors (also with anonymous classes!),
