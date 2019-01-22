@@ -2694,5 +2694,5 @@ $translations = array(
     'page_error_back' => 'Przejdź do strony głównej',
 
     'common_enableCrowdinInContext' => 'Improve translations',
-    'common_disableCrowdinInContext' => 'Disable translations improvement mode',
+    'common_disableCrowdinInContext' => 'Wyłącz tryb poprawiania tłumaczeń',
 );
