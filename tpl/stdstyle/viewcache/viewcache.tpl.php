@@ -32,7 +32,7 @@ use Controllers\MainMapController;
 
             <span id="buttons-left">
                 <a class="btn btn-primary btn-md" href="log.php?cacheid=<?=$view->geoCache->getCacheId()?>">
-                  <img src="images/actions/new-entry-16.png" alt="new-entry">&nbsp;<?=tr('new_log_entry')?>
+                  <img src="images/actions/new-entry-16.png" alt="">&nbsp;<?=tr('new_log_entry')?>
                 </a>
                 <?php if ($view->showWatchButton) { ?>
                     <label class="btn btn-default btn-md two-state-btn">
@@ -59,12 +59,12 @@ use Controllers\MainMapController;
             <span id="buttons-right">
                 <?php if ($view->showReportProblemButton) { ?>
                     <a class="btn btn-default btn-md" href="report.php?action=add&amp;cacheid=<?=$view->geoCache->getCacheId()?>">
-                      <img src="images/actions/report-problem-18.png" alt="report-problem">&nbsp;<?=tr('report_problem')?>
+                      <img src="images/actions/report-problem-18.png" alt="">&nbsp;<?=tr('report_problem')?>
                     </a>
                 <?php } //if-showReportProblemButton ?>
                 <?php if ($view->showEditButton) { ?>
                     <a class="btn btn-success btn-md" href="editcache.php?cacheid=<?=$view->geoCache->getCacheId()?>">
-                      <img src="images/actions/edit-16.png" alt="edit">&nbsp;<?=tr('edit')?>
+                      <img src="images/actions/edit-16.png" alt="">&nbsp;<?=tr('edit')?>
                     </a>
                 <?php } //if-showEditButton ?>
             </span>
@@ -98,12 +98,12 @@ use Controllers\MainMapController;
                     </div>
                 <?php } else { //if-notempty-userActivityLogs ?>
                     <img src="<?=$view->cacheMainIcon?>" class="icon32"
-                      alt="<?=tr($view->geoCache->getCacheTypeTranslationKey())?>" title="<?=tr($view->geoCache->getCacheTypeTranslationKey())?>">
+                      alt="" title="<?=tr($view->geoCache->getCacheTypeTranslationKey())?>">
                 <?php } //if-notempty-userActivityLogs-else ?>
             </div>
             <div class="align-right">
-              <img src='<?=$view->geoCache->getDifficultyIcon()?>' class='img-difficulty' width='19' height='16' alt='difficulty' title='<?=$view->diffTitle?>'>
-              <img src='<?=$view->geoCache->getTerrainIcon()?>' class='img-difficulty' width='19' height='16' alt='terrain' title='<?=$view->terrainTitle?>'>
+              <img src='<?=$view->geoCache->getDifficultyIcon()?>' class='img-difficulty' width='19' height='16' alt='' title='<?=$view->diffTitle?>'>
+              <img src='<?=$view->geoCache->getTerrainIcon()?>' class='img-difficulty' width='19' height='16' alt='' title='<?=$view->terrainTitle?>'>
             </div>
             <div class="align-center">
 
@@ -164,7 +164,7 @@ use Controllers\MainMapController;
 
                 <?php if ($view->geoCache->isEvent()) { ?>
                     <div class="common-desc">
-                        <img src="tpl/stdstyle/images/blue/meeting.png" class="icon16" alt="meeting">
+                        <img src="tpl/stdstyle/images/blue/meeting.png" class="icon16" alt="">
 
                         <script>
                             function eventAttendancePopup() {
@@ -206,7 +206,7 @@ use Controllers\MainMapController;
 <div class="content2-container">
     <div class="content2-container-2col-left" id="viewcache-baseinfo">
         <div class="content-title-noshade-size3" id="viewcache-coordsinfo">
-            <img src="tpl/stdstyle/images/blue/kompas.png" class="coords-image" alt="compass"/>
+            <img src="tpl/stdstyle/images/blue/kompas.png" class="coords-image" alt=""/>
             <?php if ($view->isUserAuthorized || $view->alwaysShowCoords) { ?>
                 <div class="viewcache-coordsinfo-block"
                     id="cacheCoordinates"
@@ -262,12 +262,12 @@ use Controllers\MainMapController;
         <div class="list-of-details">
 
             <div>
-                <img src="tpl/stdstyle/images/free_icons/mountain.png" class="icon16" width=16 height=16 alt="altitude">
+                <img src="tpl/stdstyle/images/free_icons/mountain.png" class="icon16" width=16 height=16 alt="">
                 {{cache_alt}}: {altitude} {{abovesealevel}}
             </div>
 
             <div>
-                <img src="tpl/stdstyle/images/free_icons/world.png" class="icon16" alt="location">&nbsp;{{region}}:
+                <img src="tpl/stdstyle/images/free_icons/world.png" class="icon16" alt="">&nbsp;{{region}}:
                 <b>
                   <?=$view->geoCache->getCacheLocationObj()->getLocationDesc(' &gt; ')?>
                 </b>
@@ -275,24 +275,24 @@ use Controllers\MainMapController;
 
             <?php if ($view->displayDistanceToCache) { ?>
               <div>
-                  <img src="tpl/stdstyle/images/free_icons/car.png" class="icon16" alt="distance">
+                  <img src="tpl/stdstyle/images/free_icons/car.png" class="icon16" alt="">
                   <?=tr('distance_to_cache')?>: <b><?=$view->distanceToCache?>&nbsp;km</b>
 
               </div>
             <?php } // if-display-distance-to-cache ?>
 
             <div>
-                <img src="tpl/stdstyle/images/free_icons/box.png" class="icon16" alt="type">
+                <img src="tpl/stdstyle/images/free_icons/box.png" class="icon16" alt="">
                 <?=tr('cache_type')?>: <b><?=tr($view->geoCache->getCacheTypeTranslationKey())?></b>
             </div>
 
             <div>
-                <img src="tpl/stdstyle/images/free_icons/package_green.png" class="icon16" alt="size">
+                <img src="tpl/stdstyle/images/free_icons/package_green.png" class="icon16" alt="">
                 <?=tr('size')?>: <b><?=tr($view->geoCache->getSizeTranslationKey())?></b>
             </div>
 
             <div>
-                <img src="tpl/stdstyle/images/free_icons/page.png" class="icon16" alt="status">
+                <img src="tpl/stdstyle/images/free_icons/page.png" class="icon16" alt="">
                 {{status_label}}:
                 <?php if ($view->geoCache->isStatusReady()) { ?>
                   <span style="color:green;font-weight:bold;">
@@ -306,7 +306,7 @@ use Controllers\MainMapController;
 
             <?php if ($view->geoCache->getWayLenght() || $view->geoCache->getSearchTime()) { ?>
                 <div>
-                    <img src="tpl/stdstyle/images/free_icons/time.png" class="icon16" alt="time">
+                    <img src="tpl/stdstyle/images/free_icons/time.png" class="icon16" alt="">
                     {{time}}:
                     <?php if ($view->geoCache->getSearchTime()) { ?>
                         <?=$view->geoCache->getSearchTimeFormattedString() ?>
@@ -315,7 +315,7 @@ use Controllers\MainMapController;
                     <?php } //no-search-time ?>
                     &nbsp;&nbsp;
 
-                    <img src="tpl/stdstyle/images/free_icons/arrow_switch.png" class="icon16" alt="wayTo">
+                    <img src="tpl/stdstyle/images/free_icons/arrow_switch.png" class="icon16" alt="">
                     {{length}}:
                     <?php if ($view->geoCache->getWayLenght()) { ?>
                         <?=$view->geoCache->getWayLenghtFormattedString() ?>
@@ -328,32 +328,32 @@ use Controllers\MainMapController;
 
             <div>
                 <?php if ($view->geoCache->isEvent()) { ?>
-                    <img src="tpl/stdstyle/images/cache/16x16-event.png" class="icon16" alt="event">
+                    <img src="tpl/stdstyle/images/cache/16x16-event.png" class="icon16" alt="">
                     <?=tr('date_event_label')?>: <strong> <?=$view->cacheHiddenDate?> </strong>
                 <?php } else { // cache-is-not-event ?>
-                    <img src="tpl/stdstyle/images/free_icons/date.png" class="icon16" alt="hidden">
+                    <img src="tpl/stdstyle/images/free_icons/date.png" class="icon16" alt="">
                     <?=tr('date_hidden_label')?>: <?=$view->cacheHiddenDate?>
                 <?php } // cache-is-not-event ?>
             </div>
 
             <div>
-                <img src="tpl/stdstyle/images/free_icons/date.png" class="icon16" alt="creation-date">
+                <img src="tpl/stdstyle/images/free_icons/date.png" class="icon16" alt="">
                 {{date_created_label}}: <?=$view->cacheCreationDate?>
             </div>
 
             <div>
-                <img src="tpl/stdstyle/images/free_icons/date.png" class="icon16" alt="published-date">
+                <img src="tpl/stdstyle/images/free_icons/date.png" class="icon16" alt="">
                 {{date_published_label}}: <?=$view->cachePublishedDate?>
             </div>
 
             <div>
-                <img src="tpl/stdstyle/images/free_icons/date.png" class="icon16" alt="last-mod">
+                <img src="tpl/stdstyle/images/free_icons/date.png" class="icon16" alt="">
                 {{last_modified_label}}: <?=$view->cacheLastModifiedDate?>
             </div>
 
             <?php if (!empty($view->otherSitesListing)) { ?>
                 <div>
-                    <img src="tpl/stdstyle/images/free_icons/link.png" class="icon16" alt="link">
+                    <img src="tpl/stdstyle/images/free_icons/link.png" class="icon16" alt="">
                     {{listed_also_on}}:
                     <?php foreach ($view->otherSitesListing as $site) { ?>
                         <span class="no-whitespace">
@@ -371,45 +371,45 @@ use Controllers\MainMapController;
             <div class="list-of-details">
                 <?php if ($view->geoCache->isEvent()) { ?>
                     <div>
-                        <img src="tpl/stdstyle/images/log/16x16-attend.png" class="icon16" alt="attends">
+                        <img src="tpl/stdstyle/images/log/16x16-attend.png" class="icon16" alt="">
                         <?=$view->geoCache->getFounds()?> <?=tr('attendends')?>
                     </div>
 
                     <div>
-                        <img src="tpl/stdstyle/images/log/16x16-will_attend.png" class="icon16" alt="not-found">
+                        <img src="tpl/stdstyle/images/log/16x16-will_attend.png" class="icon16" alt="">
                         <?=$view->geoCache->getNotFounds()?> <?=tr('will_attend')?>
                     </div>
 
                 <?php } else { //if-not-event ?>
                     <div>
-                        <img src="tpl/stdstyle/images/log/16x16-found.png" class="icon16" alt="<?=tr('found')?>">
+                        <img src="tpl/stdstyle/images/log/16x16-found.png" class="icon16" alt="">
                         <?=$view->geoCache->getFounds()?>x <?=tr('found')?>
                     </div>
                     <div>
                         <?php if ($view->geoCache->isMovable()) { ?>
-                            <img src="tpl/stdstyle/images/log/16x16-moved.png" class="icon16" alt="moved">
+                            <img src="tpl/stdstyle/images/log/16x16-moved.png" class="icon16" alt="">
                             <?=$view->geoCache->getMoveCount()?>x <?=tr('moved_text')?>&nbsp;&nbsp;
                             <?=$view->geoCache->getDistance()?>&nbsp;km
 
                         <?php } //if-mobile-cache ?>
                     </div>
                     <div>
-                        <img src="tpl/stdstyle/images/log/16x16-dnf.png" class="icon16" alt="{{not_found}}">
+                        <img src="tpl/stdstyle/images/log/16x16-dnf.png" class="icon16" alt="">
                         <?=$view->geoCache->getNotFounds()?>x <?=tr('not_found')?>
                     </div>
                 <?php } //if-not-event ?>
 
                 <div>
-                    <img src="tpl/stdstyle/images/log/16x16-note.png" class="icon16" alt="{{log_note}}">
+                    <img src="tpl/stdstyle/images/log/16x16-note.png" class="icon16" alt="">
                     <?=$view->geoCache->getNotesCount()?> <?=tr('log_notes')?>
                 </div>
                 <div>
                     <img src="tpl/stdstyle/images/action/16x16-watch.png" class="icon16" alt="watchers">
-                    <?=$view->geoCache->getWatchingUsersCount()?> <?=tr('watchers')?>
+                    <span id="watchersCount"><?=$view->geoCache->getWatchingUsersCount()?></span> <?=tr('watchers')?>
                 </div>
 
                 <div class="lightTipped" style="display:inline;">
-                    <img src="tpl/stdstyle/images/free_icons/vcard.png" class="icon16" alt="visits">
+                    <img src="tpl/stdstyle/images/free_icons/vcard.png" class="icon16" alt="">
                     <?=$view->geoCache->getCacheVisits()?> <?=tr('visitors')?>
                 </div>
                 <?php if ($view->displayPrePublicationAccessInfo) {?>
@@ -420,19 +420,19 @@ use Controllers\MainMapController;
                 <?php } //if-displayPrePublicationAccessInfo ?>
 
                 <div>
-                    <img src="tpl/stdstyle/images/free_icons/thumb_up.png" class="icon16" alt="votes">
+                    <img src="tpl/stdstyle/images/free_icons/thumb_up.png" class="icon16" alt="">
                     <?=$view->geoCache->getRatingVotes()?> x <?=tr('scored')?>
                 </div>
 
                 <div>
-                    <img src="images/cache-rate.png" class="icon16" alt="score">
+                    <img src="images/cache-rate.png" class="icon16" alt="">
                     <?=tr('score_label')?>: <b style="color:<?=$view->scoreColor?>"><?=$view->score?></b>
                 </div>
 
                 <?php if ($view->geoCache->getRecommendations() > 0) { ?>
                     <div>
                         <a class="links2 lightTipped" href="#">
-                            <img src="images/rating-star.png" alt="{{recommended}}">
+                            <img src="images/rating-star.png" alt="">
                             <?=$view->geoCache->getRecommendations()?> x <?=tr('recommended')?>
                         </a>
                         <div class="lightTip">
@@ -443,10 +443,10 @@ use Controllers\MainMapController;
                 <?php } // if-there-are-recommendations ?>
 
                 <div>
-                    <img src="images/gk.png" class="icon16" alt="geokret" title="GeoKrety visited">
+                    <img src="images/gk.png" class="icon16" alt="" title="GeoKrety visited">
                     <span class="no-whitespace">
                         <a class="links no-whitespace" href="<?=GeoKretyApi::GEOKRETY_URL?>/szukaj.php?wpt=<?=$view->geoCache->getWaypointId()?>" target="_blank" rel="noopener">{{history_gk}}</a>
-                        <img src="/tpl/stdstyle/images/misc/linkicon.png" alt="link" class="img12">
+                        <img src="/tpl/stdstyle/images/misc/linkicon.png" alt="" class="img12">
                     </span>
                 </div>
             </div>
@@ -483,7 +483,7 @@ use Controllers\MainMapController;
     <!-- cache attributes: -->
     <div class="content2-container bg-blue02">
         <span class="content-title-noshade-size1">
-            <img src="tpl/stdstyle/images/blue/attributes.png" class="icon32" alt="attributes">
+            <img src="tpl/stdstyle/images/blue/attributes.png" class="icon32" alt="">
             {{cache_attributes_label}}
         </span>
     </div>
@@ -498,7 +498,7 @@ use Controllers\MainMapController;
     </div>
     <div class="notice noprint">
       {{attributes_desc_hint}}
-      <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link">
+      <img src="tpl/stdstyle/images/misc/linkicon.png" alt="">
     </div>
 <?php } //cache has attributes ?>
 
@@ -519,7 +519,7 @@ use Controllers\MainMapController;
 <!-- cache description header: -->
 <div class="content2-container bg-blue02">
     <span class="content-title-noshade-size1">
-        <img src="tpl/stdstyle/images/blue/describe.png" class="icon32" alt="description">
+        <img src="tpl/stdstyle/images/blue/describe.png" class="icon32" alt="">
         {{descriptions}}
     </span>
 
@@ -558,7 +558,7 @@ use Controllers\MainMapController;
 
     <div class="content2-container bg-blue02">
         <span class="content-title-noshade-size1">
-            <img src="tpl/stdstyle/images/blue/openchecker_32x32.png" class="icon32" alt="openchecker">
+            <img src="tpl/stdstyle/images/blue/openchecker_32x32.png" class="icon32" alt="">
             {{openchecker_name}}
         </span>
     </div>
@@ -585,7 +585,7 @@ use Controllers\MainMapController;
     <!-- waypoints: -->
     <div class="content2-container bg-blue02">
         <span class="content-title-noshade-size1">
-            <img src="tpl/stdstyle/images/blue/compas.png" class="icon32" alt="waypoints">
+            <img src="tpl/stdstyle/images/blue/compas.png" class="icon32" alt="">
             {{additional_waypoints}}
         </span>
     </div>
@@ -613,7 +613,7 @@ use Controllers\MainMapController;
                     <?php } // if-cacheWithStages ?>
 
                     <td>
-                        <img src="<?=$wp->getIconName()?>" alt="waypoint-icon" title="<?=tr($wp->getTypeTranslationKey())?>">
+                        <img src="<?=$wp->getIconName()?>" alt="" title="<?=tr($wp->getTypeTranslationKey())?>">
                     </td>
                     <td>
                         <?=tr($wp->getTypeTranslationKey())?>
@@ -639,7 +639,7 @@ use Controllers\MainMapController;
     <div class="notice noprint">
         <a class="links" href="{wiki_link_additionalWaypoints}" target="_blank">
             {{show_info_about_wp}}
-            <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link">
+            <img src="tpl/stdstyle/images/misc/linkicon.png" alt="">
         </a>
     </div>
 <?php } //if-waypoints-present ?>
@@ -726,7 +726,7 @@ use Controllers\MainMapController;
     <!-- user-note:  -->
     <div class="content2-container bg-blue02" id="userNotes">
         <span class="content-title-noshade-size1">
-            <img src="tpl/stdstyle/images/blue/logs.png" alt="{{personal_cache_note}}"> {{personal_cache_note}}
+            <img src="tpl/stdstyle/images/blue/logs.png" alt=""> {{personal_cache_note}}
         </span>
     </div>
 
@@ -832,15 +832,15 @@ use Controllers\MainMapController;
     <!-- geokrety: -->
     <div class="content2-container bg-blue02">
         <span class="content-title-noshade-size1">
-            <img src="tpl/stdstyle/images/blue/travelbug.png" class="icon32" alt="travelbug">
-            Geokrety
+            <img src="tpl/stdstyle/images/blue/travelbug.png" class="icon32" alt="">
+            {{geokret}}
         </span>
     </div>
     <div class="content2-container">
         <div id="geoKretySection">
             <p>
                 <?php foreach ($view->geoCache->getGeokretsHosted() as $gk) { ?>
-                    <img src="/images/geokret.gif" alt="geokret">&nbsp;
+                    <img src="/images/geokret.gif" alt="{{geokret}}">&nbsp;
                     <a href='<?=GeoKretyApi::GEOKRETY_URL?>/konkret.php?id=<?=$gk['id']?>'><?=$gk['name']?></a>
                     - <?=tr('total_distance')?>: <?=$gk['distance']?> km <br>
                 <?php } ?>
@@ -854,7 +854,7 @@ use Controllers\MainMapController;
     <!-- mp3-list -->
     <div class="content2-container bg-blue02">
         <span class="content-title-noshade-size1">
-            <img src="tpl/stdstyle/images/blue/podcache-mp3.png" class="icon32" alt="mp3">
+            <img src="tpl/stdstyle/images/blue/podcache-mp3.png" class="icon32" alt="">
             {{mp3_files_info}}
         </span>
     </div>
@@ -1011,7 +1011,7 @@ use Controllers\MainMapController;
         <?=$view->geoCache->getNotesCount()?>x
 
         <?php if ( $view->geoCache->getPicsInLogsCount() > 0 ) { ?>
-            <img src="tpl/stdstyle/images/free_icons/photo.png" alt="Photo" class="icon16">
+            <img src="tpl/stdstyle/images/free_icons/photo.png" alt="{{image}}" class="icon16">
             <?=$view->geoCache->getPicsInLogsCount()?>x
         <?php } //if-getNumberOfPicsInLogs > 0 ?>
 
@@ -1020,7 +1020,7 @@ use Controllers\MainMapController;
 
         <?php if ($view->isUserAuthorized) { ?>
             <a class="btn btn-sm btn-primary" href="log.php?cacheid=<?=$view->geoCache->getCacheId()?>" title="<?=tr('new_log_entry')?>">
-              <!-- img src="images/actions/new-entry-18.png" title="<?=tr('new_log_entry')?>" alt="<?=tr('new_log_entry')?>"-->
+              <!-- img src="images/actions/new-entry-18.png" title="<?=tr('new_log_entry')?>" alt=""-->
               <?=tr('new_log_entry_short')?>
             </a>
         <?php } //if-isUserAuthorized ?>
@@ -1028,7 +1028,7 @@ use Controllers\MainMapController;
         <?php if ($view->displayAllLogsLink) { ?>
 
             <a class="btn btn-sm btn-default" href="viewlogs.php?cacheid=<?=$view->geoCache->getCacheId()?>">
-              <!-- img src="tpl/stdstyle/images/action/16x16-showall.png" class="icon16" alt="<?=tr('show_all_log_entries')?>"
+              <!-- img src="tpl/stdstyle/images/action/16x16-showall.png" class="icon16" alt=""
                    title="<?=tr('show_all_log_entries')?>" / -->
               <?=tr("show_all_log_entries_short")?>
             </a>
@@ -1038,7 +1038,7 @@ use Controllers\MainMapController;
         <?php if ($view->showDeletedLogsDisplayLink) { ?>
             <span style="white-space: nowrap;">
                 <a class="btn btn-sm btn-default" href="<?=$view->deletedLogsDisplayLink?>" title="<?=$view->deletedLogsDisplayText?>">
-                    <!-- img src="tpl/stdstyle/images/log/16x16-trash.png" class="icon16" alt="<?=$view->deletedLogsDisplayText?>" title="<?=$view->deletedLogsDisplayText?>" /-->
+                    <!-- img src="tpl/stdstyle/images/log/16x16-trash.png" class="icon16" alt="" title="<?=$view->deletedLogsDisplayText?>" /-->
                     <?=$view->deletedLogsDisplayText?>
                 </a>
             </span>

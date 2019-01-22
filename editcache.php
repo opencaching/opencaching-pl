@@ -711,8 +711,8 @@ if ($error == false) {
 
                     if (count($descList) > 1) {
                         $remove_url = 'removedesc.php?cacheid=' . urlencode($cache_id) . '&desclang=' . urlencode($descLang);
-                        $removedesc = '&nbsp;<img src="tpl/stdstyle/images/log/16x16-trash.png" border="0" align="middle" class="icon16" alt="" title="Delete">[
-                            <a href="' . htmlspecialchars($remove_url, ENT_COMPAT, 'UTF-8') . '" onclick="return check_if_proceed();">' . tr('delete') . '</a>]';
+                        $removedesc = '&nbsp;&nbsp;<img src="tpl/stdstyle/images/log/16x16-trash.png" border="0" align="middle" class="icon16" alt="">'.
+                            ' [<a href="' . htmlspecialchars($remove_url, ENT_COMPAT, 'UTF-8') . '" onclick="return check_if_proceed();">' . tr('delete') . '</a>]';
                     } else {
                         $removedesc = '';
                     }
@@ -723,7 +723,7 @@ if ($error == false) {
                             <td colspan="2">
                                 <img src="images/flags/' . strtolower($descLang) . '.gif" class="icon16" alt="">
                                     &nbsp;' . htmlspecialchars(Languages::LanguageNameFromCode($descLang, I18n::getCurrentLang()), ENT_COMPAT, 'UTF-8') . '&nbsp;&nbsp;
-                                <img src="images/actions/edit-16.png" border="0" align="middle" alt="" title="Edit">
+                                <img src="images/actions/edit-16.png" border="0" align="middle" alt="">
                                 [<a href="' . htmlspecialchars($edit_url, ENT_COMPAT, 'UTF-8') . '" onclick="return check_if_proceed();">' . tr('edit') . '</a>]' .
                                 $removedesc .
                             '</td>
