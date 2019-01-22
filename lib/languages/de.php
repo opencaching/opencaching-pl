@@ -279,7 +279,7 @@ $translations = array(
     'hour' => 'Stunde',
     'dont_publish_yet' => 'Noch nicht veröffentlichen',
     'log_password' => 'Kennwort für Fundlogs',
-    'no_password_label' => 'Lasse dieses Feld leer, wenn der Cache ohne Passwort logbar sein soll.',
+    'no_password_label' => 'Lasse dieses Feld leer, wenn der Cache ohne Kennwort logbar sein soll.',
     'please_read' => 'Beachte bitte die <a href="{wiki_link_cacheLogPass_en}" target="_blank">Erläuterung zu Logpasswörtern</a>!',
     'creating_cache' => 'Mit dem Einstellen eines neuen Caches akzeptierst du die <a href="{wiki_link_rules_en}" target="_blank">Nutzungsbedingungen</a> von {site_name}.',
     'cache_name' => 'Cachename',
@@ -2695,5 +2695,5 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'page_error_back' => 'Zur Startseite',
 
     'common_enableCrowdinInContext' => 'Übersetzungen verbessern',
-    'common_disableCrowdinInContext' => 'Übersetzungsverbesserungsmodus abschalten',
+    'common_disableCrowdinInContext' => 'Übersetzungsmodus abschalten',
 );
