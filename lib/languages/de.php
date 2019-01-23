@@ -2530,7 +2530,7 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'admin_dbupdate_auto' => 'auto',
     'admin_dbupdate_manual' => 'manuell',
     'admin_dbupdate_always' => 'immer',
-    'admin_dbupdate_time' => 'Letzter Start',
+    'admin_dbupdate_time' => 'Ausgeführt',
     'admin_dbupdate_run' => 'Updates starten',
     'admin_dbupdate_norun' => 'Das Update %s darf nicht (noch einmal) gestartet werden.',
     'admin_dbupdate_norollback' => 'Das Update %s darf nicht (noch einmal) zurückgerollt werden.',
