@@ -875,15 +875,25 @@ class OcDb extends OcPdo
         );
     }
 
-    public function createOrReplaceFunction($func, array $params, $returns, $body)
+    public function createOrReplaceFunction($func, array $params, $returns, $type, $body)
     {
         self::validateEntityName($func);
         // $params and $body are not validated
+
+        $type = strtoupper($type);
+        if ($type != 'DETERMINISTIC' && $type != 'READS SQL DATA') {
+
+            # Other types will not work if binary logging is enabled (e.g. at OC NL); see
+            # https://stackoverflow.com/questions/26015160/deterministic-no-sql-or-reads-sql-data-in-its-declaration-and-binary-logging-i
+
+            $this->error('invalid function type: ' . $type);
+        }
 
         $this->dropFunctionIfExists($func);
         $this->simpleQuery(
             "CREATE FUNCTION `".$func."` (" . implode(", ", $params) . ")\n" .
             "RETURNS " . $returns . "\n" .
+            $type . "\n" .
             $body
         );
     }
