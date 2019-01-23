@@ -937,7 +937,7 @@ class OcDb extends OcPdo
      */
     public function validateSqlKeywords($keywords)
     {
-        if (!preg_match('/^[A-Za-z ]+$/', $keywords)) {
+        if (!preg_match('/^[A-Za-z ]*$/', $keywords)) {
             $this->error("Invalid SQL keyword(s): '".$keywords."'");
         }
     }
