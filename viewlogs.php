@@ -200,7 +200,7 @@ if ($error == false) {
             $logEneries = $logEntryController->loadLogsFromDb($cache_id, $includeDeletedLogs, 0, 9999);
         }
 
-        $logfilterConfig = (OcConfig::instance())->getLogfilterConfig();
+        $logfilterConfig = OcConfig::instance()->getLogfilterConfig();
         $view->setVar(
             'enableLogsFiltering',
             !empty($logfilterConfig['enable_logs_filtering'])
