@@ -19,7 +19,7 @@ class UpdateScript
 
     public function __construct()
     {
-        $this->db = OcDb::instance();
+        $this->db = OcDb::instance(OcDb::ADMIN_ACCESS);
     }
 
     # Do NOT declare rollback() here! The update system would no longer

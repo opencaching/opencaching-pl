@@ -226,14 +226,14 @@ return new class extends UpdateScript
         $this->db->dropProcedureIfExists($procedure);
 
         $this->db->createOrReplaceFunction(
-            $function, [], "INT", "BEGIN SET @A=1; RETURN @A; END"
+            $function, [], "INT", "DETERMINISTIC", "BEGIN SET @A=1; RETURN @A; END"
         );
         $this->assertTrue(
             'functionExists', 54,
             $this->db->functionExists($function)
         );
         $this->db->createOrReplaceFunction(
-            $function, [], "INT", "BEGIN SET @A=2; RETURN @A; END"
+            $function, [], "INT", "DETERMINISTIC", "BEGIN SET @A=2; RETURN @A; END"
         );
         $this->db->dropFunctionIfExists($function);
         $this->assertTrue(

@@ -22,6 +22,12 @@ if ($usr == false) {
         tpl_set_var('userid', $user_id);
     }
 
+    $logTypes = GeoCacheLog::logTypes();
+    if (isset($_REQUEST['logtypes'])) {
+        $logTypes = array_intersect($logTypes, explode(',', $_REQUEST['logtypes']));
+    }
+    $logTypesCondition = "cache_logs.type IN (" . implode(',', $logTypes) . ")";
+
     //get the news
     $tplname = 'my_logs';
     tpl_set_var('latest_logs_cache', tr('latest_logs'));
@@ -37,6 +43,7 @@ if ($usr == false) {
     $total_logs = XDb::xMultiVariableQueryValue(
         "SELECT count(id) FROM cache_logs, caches WHERE `cache_logs`.`cache_id`=`caches`.`cache_id`
                 AND `cache_logs`.`deleted`=0
+                AND ".$logTypesCondition."
                 AND `caches`.`status` != 4
                 AND `caches`.`status` != 5
                 AND `caches`.`status` != 6
@@ -53,34 +60,40 @@ if ($usr == false) {
 
     $startat = max(0, floor((($start / $LOGS_PER_PAGE) + 1) / $PAGES_LISTED) * $PAGES_LISTED);
 
+    $logsPage = 'my_logs.php?userid='.$user_id;
+    if (array_diff(GeoCacheLog::logTypes(), $logTypes)) {
+        $logsPage .= '&amp;logtypes='.implode(',',$logTypes);
+    }
+    $logsPage .= '&amp;start=';
+
     if (($start / $LOGS_PER_PAGE) + 1 >= $PAGES_LISTED) {
-        $pages .= '<a href="my_logs.php?userid='.$user_id.'&amp;start='.max(0,
+        $pages .= '<a href="'.$logsPage.max(0,
                 ($startat - $PAGES_LISTED - 1) * $LOGS_PER_PAGE).'">{first_img}</a> ';
     } else {
-        $pages .= "{first_img_inactive}";
+        $pages .= "{first_img_inactive} ";
     }
     for ($i = max(1, $startat); $i < min($startat + $PAGES_LISTED, $total_pages + 1); $i++) {
         $page_number = ($i - 1) * $LOGS_PER_PAGE;
         if ($page_number == $start) {
             $pages .= '<b>';
         }
-        $pages .= '<a href="my_logs.php?userid='.$user_id.'&amp;start='.$page_number.'">'.$i.'</a> ';
+        $pages .= '<a href="'.$logsPage.$page_number.'">'.$i.'</a> ';
         if ($page_number == $start) {
             $pages .= '</b>';
         }
     }
     if ($total_pages >= $startat + $PAGES_LISTED) {
-        $pages .= '<a href="my_logs.php?userid='.$user_id.'&amp;start='.(($i - 1) * $LOGS_PER_PAGE).'">{last_img}</a> ';
+        $pages .= '<a href="'.$logsPage.(($i - 1) * $LOGS_PER_PAGE).'">{last_img}</a> ';
     } else {
         $pages .= '{last_img_inactive}';
     }
-
 
     $rs = XDb::xSql(
         "SELECT `cache_logs`.`id`
             FROM `cache_logs`, `caches`
             WHERE `cache_logs`.`cache_id`=`caches`.`cache_id`
                 AND `cache_logs`.`deleted`=0
+                AND ".$logTypesCondition."
                 AND `caches`.`status` != 4
                 AND `caches`.`status` != 5
                 AND `caches`.`status` != 6
@@ -93,6 +106,8 @@ if ($usr == false) {
         $log_ids[] = $record['id'];
     }
     XDb::xFreeResults($rs);
+
+    $file_content = '';
 
     if (!empty($log_ids)) {
 
@@ -112,12 +127,11 @@ if ($usr == false) {
                     LEFT JOIN gk_item_waypoint ON gk_item_waypoint.wp = caches.wp_oc
                     LEFT JOIN gk_item ON gk_item.id = gk_item_waypoint.id
                         AND gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5
-                WHERE cache_logs.deleted=0 AND cache_logs.id IN ( ".implode(',', $log_ids)." ) AND `cache_logs`.`user_id`= ?
+                WHERE cache_logs.deleted=0 AND cache_logs.id IN ( ".implode(',', $log_ids)." ) AND `cache_logs`.`user_id`= ? AND ".$logTypesCondition."
                 GROUP BY cache_logs.id
                 ORDER BY cache_logs.date_created DESC, `cache_logs`.`date` DESC, `cache_logs`.`id` DESC",
             $user_id);
 
-        $file_content = '';
         while ($log_record = XDb::xFetchArray($rs)) {
 
             //hide log type "COG comment" behind 'ordinary' users, displya all logs for admins
@@ -152,17 +166,17 @@ if ($usr == false) {
             } // end of COG comments hidding
         }
 
-
         $pages = mb_ereg_replace('{last_img}', $last_img, $pages);
         $pages = mb_ereg_replace('{first_img}', $first_img, $pages);
 
         $pages = mb_ereg_replace('{first_img_inactive}', $first_img_inactive, $pages);
         $pages = mb_ereg_replace('{last_img_inactive}', $last_img_inactive, $pages);
-
-        tpl_set_var('file_content', $file_content);
-        tpl_set_var('pages', $pages);
-
+    } else {
+        $pages = '';
     }
+
+    tpl_set_var('file_content', $file_content);
+    tpl_set_var('pages', $pages);
 }
 
 //make the template and send it out

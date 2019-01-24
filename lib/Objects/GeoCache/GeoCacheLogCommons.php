@@ -107,6 +107,24 @@ class GeoCacheLogCommons extends BaseObject
         }
     }
 
+    public static function logTypes()
+    {
+        return array(
+            self::LOGTYPE_FOUNDIT,
+            self::LOGTYPE_DIDNOTFIND,
+            self::LOGTYPE_COMMENT,
+            self::LOGTYPE_MOVED,
+            self::LOGTYPE_NEEDMAINTENANCE,
+            self::LOGTYPE_MADEMAINTENANCE,
+            self::LOGTYPE_ATTENDED,
+            self::LOGTYPE_WILLATTENDED,
+            self::LOGTYPE_ARCHIVED,
+            self::LOGTYPE_READYTOSEARCH,
+            self::LOGTYPE_TEMPORARYUNAVAILABLE,
+            self::LOGTYPE_ADMINNOTE,
+        );
+    }
+
     /**
      * Returns translation key for cache log if chache changed status
      *
