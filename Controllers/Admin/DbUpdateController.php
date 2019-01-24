@@ -150,24 +150,24 @@ class DbUpdateController extends BaseController
         // This action is allowed to run on production sites (by sysAdmins only).
         $this->securityCheck(false);
 
-        $update = $this->getUpdateFromUuid($uuid);
+        try {
+            if (!$uuid) {
+                $messages = DbUpdates::run();
+            } else {
+                $update = $this->getUpdateFromUuid($uuid);
 
-        if (!isset($this->getAvailableActions($update)['run'])) {
+                if (!isset($this->getAvailableActions($update)['run'])) {
 
-            # This can happen on page reload on a production site:
-            # Update was allowed to run, but must not re-run.
+                    # This can happen on page reload on a production site:
+                    # Update was allowed to run, but must not re-run.
 
-            $messages = sprintf(tr('admin_dbupdate_norun'), $update->getName());
-        } else {
-            try {
-                if ($uuid) {
-                    $messages = $this->getUpdateFromUuid($uuid)->run();
+                    $messages = sprintf(tr('admin_dbupdate_norun'), $update->getName());
                 } else {
-                    $messages = DbUpdates::run();
+                    $messages = $this->getUpdateFromUuid($uuid)->run();
                 }
-            } catch (\Exception $e) {
-                $messages = get_class($e).": " . $e->getMessage() . "\n\n" . $e->getTraceAsString();
             }
+        } catch (\Exception $e) {
+            $messages = get_class($e).": " . $e->getMessage() . "\n\n" . $e->getTraceAsString();
         }
 
         $this->showAdminView($messages);
