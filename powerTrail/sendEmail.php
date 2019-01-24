@@ -1,4 +1,7 @@
 <?php
+
+use lib\Objects\OcConfig\OcConfig;
+
 class sendEmail
 {
     public static function emailOwners($ptId, $commentType, $commentDateTime, $commentText, $action, $commentOwnerId = false, $delReason = '') {
@@ -60,6 +63,7 @@ class sendEmail
             $usr['userid'] = -1;
         if (!isset($usr['username']))
             $usr['username'] = 'SYSTEM';
+        $mailbody = mb_ereg_replace('{oclogo}', OcConfig::getHeaderLogo(), $mailbody);
         $mailbody = mb_ereg_replace('{mail_auto_generated}', tr('mail_auto_generated'), $mailbody);
         $mailbody = mb_ereg_replace('{commentDateTime}', date($siteDateTimeFormat, strtotime($commentDateTime)), $mailbody);
         $mailbody = mb_ereg_replace('{userId}', $usr['userid'], $mailbody);
