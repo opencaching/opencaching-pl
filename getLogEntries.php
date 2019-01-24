@@ -65,7 +65,7 @@ $logEntryController = new LogEntryController();
 $logEntries = $logEntryController->loadLogsFromDb($geocacheId, $includeDeletedLogs, $offset, $limit);
 $result = '';
 
-$logfilterConfig = (OcConfig::instance())->getLogfilterConfig();
+$logfilterConfig = OcConfig::instance()->getLogfilterConfig();
 $tmpSrcLog = file_get_contents('./tpl/stdstyle/viewcache_log.tpl.php');
 
 foreach ($logEntries as $record) {
