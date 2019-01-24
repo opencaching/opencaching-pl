@@ -232,23 +232,52 @@ return new class extends UpdateScript
 
     public function adjustTriggers()
     {
-        // Add missing triggers at NL and RO
+        // Add missing triggers cache_logs_insert and cache_logs_update at
+        // OC NL and RO. We need to merge the previous triggers
+        //
+        //   cache_logs_insert + cl_insert
+        //   cache_logs_update + cl_update
+        //
+        // because the old OCNL MySQL cannot handle multiple triggers with
+        // identical actions.
+
+        $this->db->dropTriggerIfExists('cl_insert');
 
         $this->db->createOrReplaceTrigger(
             'cache_logs_insert',
             "AFTER INSERT ON cache_logs
             FOR EACH ROW BEGIN
+
                 IF NEW.`deleted` = 0 THEN
                     -- new, not-deleted log is now added
                     CALL inc_logs_stats(NEW.`type`, NEW.`user_id`, NEW.`cache_id`);
+
+                    IF (NEW.type = 1) THEN
+                        IF EXISTS (
+                            SELECT 1
+                            FROM user_finds
+                            WHERE date = DATE(NEW.date)
+                            AND user_id = NEW.user_id
+                        ) THEN
+                            UPDATE user_finds SET number = number + 1
+                            WHERE date = DATE(NEW.date) AND user_id = NEW.user_id;
+                        ELSE
+                            INSERT INTO user_finds (date, user_id, number)
+                            VALUES (NEW.date, NEW.user_id, 1);
+                        END IF;
+                    END IF;
                 END IF;
+
             END"
         );
+
+        $this->db->dropTriggerIfExists('cl_update');
 
         $this->db->createOrReplaceTrigger(
             'cache_logs_update',
             "AFTER UPDATE ON cache_logs
             FOR EACH ROW BEGIN
+
                 IF OLD.`deleted` = 0 AND NEW.`deleted` = 0 THEN
                     -- update of active log
                     IF OLD.`type` <> NEW.`type` THEN
@@ -268,37 +297,6 @@ return new class extends UpdateScript
                     -- do NOTHING - update of removed log without status change
                     CALL nop();
                 END IF;
-            END"
-        );
-
-        // Replace triggers with different syntax (case, spaces, newlines ...)
-        // at different sites, to make them all identical.
-
-        $this->db->createOrReplaceTrigger(
-            'cl_insert',
-            "AFTER INSERT ON cache_logs
-            FOR EACH ROW BEGIN
-                IF (NEW.deleted = 0 AND NEW.type = 1) THEN
-                    IF EXISTS (
-                        SELECT 1
-                        FROM user_finds
-                        WHERE date = DATE(NEW.date)
-                        AND user_id = NEW.user_id
-                    ) THEN
-                        UPDATE user_finds SET number = number + 1
-                        WHERE date = DATE(NEW.date) AND user_id = NEW.user_id;
-                    ELSE
-                        INSERT INTO user_finds (date, user_id, number)
-                        VALUES (NEW.date, NEW.user_id, 1);
-                    END IF;
-                END IF;
-            END"
-        );
-
-        $this->db->createOrReplaceTrigger(
-            'cl_update',
-            "AFTER UPDATE ON cache_logs
-            FOR EACH ROW BEGIN
 
                 IF (OLD.type = 1) THEN
                     IF (NEW.deleted = 1 AND OLD.deleted = 0) OR
