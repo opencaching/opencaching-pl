@@ -271,9 +271,9 @@
 
     function deleteComment(commentId, callingUser){
 
-    $("#dialog-form").dialog({
+    $("#remove-dialog-form").dialog({
     autoOpen: false,
-            height: 150,
+            height: 180,
             width: 350,
             modal: true,
             buttons: {
@@ -283,9 +283,9 @@
                     $('#ptComments').html('<br><br><center><img src="tpl/stdstyle/images/misc/ptPreloader.gif" alt=""><br><br></center>');
                     request = $.ajax({
                     async: false,
-                            url: "powerTrail/ajaxRemoveComment.php",
+                            url: "powerTrail/ajaxRemoveOrRestoreComment.php",
                             type: "post",
-                            data:{ptId: $('#xmd34nfywr54').val(), commentId: commentId, callingUser: callingUser, delReason: $('#delReason').val() },
+                            data:{ptId: $('#xmd34nfywr54').val(), commentId: commentId, callingUser: callingUser, delReason: $('#delReason').val(), restore : '0' },
                     });
                     request.done(function (response, textStatus, jqXHR){
                     if (response == 2) $("#commentType").append('<option selected="selected" value="2">{{pt065}}</option>');
@@ -303,8 +303,39 @@
             }
 
     });
-            $("#dialog-form").dialog("open");
+            $("#remove-dialog-form").dialog("open");
             $(".ui-dialog-titlebar-close").hide();
+    }
+
+    function restoreComment(commentId, callingUser)
+    {
+        $("#restore-dialog-form").dialog({
+            autoOpen: false,
+            height: 120,
+            width: 350,
+            modal: true,
+            buttons: {
+                "{{restore}}": function() {
+                    $(this).dialog("close");
+                    $('#ptComments').html('<br><br><center><img src="tpl/stdstyle/images/misc/ptPreloader.gif" alt=""><br><br></center>');
+                    request = $.ajax({
+                        async: false,
+                        url: "powerTrail/ajaxRemoveOrRestoreComment.php",
+                        type: "post",
+                        data: {ptId: $('#xmd34nfywr54').val(), commentId: commentId, callingUser: callingUser, delReason: '', restore : '1' },
+                    });
+                    request.always(function () {
+                        ajaxGetComments(0, {commentsPaginateCount});
+                    });
+                },
+                "{{pt031}}": function() {
+                    $(this).dialog("close");
+                },
+            },
+        });
+
+        $("#restore-dialog-form").dialog("open");
+        $(".ui-dialog-titlebar-close").hide();
     }
 
     function ajaxGetPtStats(){
@@ -1170,12 +1201,17 @@
     <?php } //if-dynamicMap-present ?>
 
     <input type="hidden" id="xmd34nfywr54" value="{powerTrailId}">
+
     <!-- deleting entry comfirmation dialog  -->
-    <div id="dialog-form" title="{{pt151}}" style="display: none">
+    <div id="remove-dialog-form" title="{{pt151}}" style="display: none">
         <form>
             <label for="delReason">{{pt152}} (max. 500 {{pt154}})</label><br><br>
             <input onkeypress="return event.keyCode != 13;" type="text" name="delReason" id="delReason" class="text ui-widget-content ui-corner-all" style="width: 280px;" maxlength="500" />
         </form>
+    </div>
+
+    <!-- restoring entry comfirmation dialog  -->
+    <div id="restore-dialog-form" title="{{pt155}}" style="display: none">
     </div>
 
     <div id="oldIE" style="display: none">{{pt129}}</div>

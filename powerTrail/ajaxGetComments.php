@@ -9,8 +9,10 @@ require_once __DIR__.'/../lib/common.inc.php';
 $appContainer = ApplicationContainer::Instance();
 if( $appContainer->getLoggedUser() === null){
     $loggedUserId = null;
+    $ocTeamUser = false;
 } else {
     $loggedUserId = $appContainer->getLoggedUser()->getUserId();
+    $ocTeamUser = $appContainer->getLoggedUser()->hasOcTeamRole();
 }
 
 
@@ -38,7 +40,7 @@ $count = $count['count'];
 
 $query = 'SELECT * FROM  `PowerTrail_comments`, `user`
           WHERE  `PowerTrailId` =:variable1
-            AND `deleted` = 0
+            AND (`deleted` = 0 OR :variable4)
             AND `PowerTrail_comments`.`userId` = `user`.`user_id`
           ORDER BY  `logDateTime` DESC
           LIMIT :variable2 , :variable3   ';
@@ -49,6 +51,8 @@ $params['variable2']['value'] = (integer) $_REQUEST['start'];;
 $params['variable2']['data_type'] = 'integer';
 $params['variable3']['value'] = (integer) $_REQUEST['limit'];;
 $params['variable3']['data_type'] = 'integer';
+$params['variable4']['value'] = $ocTeamUser;
+$params['variable4']['data_type'] = 'boolean';
 $s = $db->paramQuery($query, $params);
 $result = $db->dbResultFetchAll($s);
 
@@ -70,32 +74,44 @@ foreach ($result as $key => $dbEntry) {
         continue;
     }
 
+    $strikethrough = ($dbEntry['deleted'] ? 'style="text-decoration: line-through"' : '');
+
     $toDisplay .= '
     <tr>
-        <td colspan="3" class="commentHead">
+        <td colspan="3" class="commentHead" '.$strikethrough.'>
             <span class="CommentDate" id="CommentDate-'.$dbEntry['id'].'">'. $logDateTime[0].'</span>
             <span class="commentTime" id="commentTime-'.$dbEntry['id'].'">'.substr($logDateTime[1],0,-3).'</span>
                 <a href="viewprofile.php?userid='.$dbEntry['userId'].'"><b>'.$dbEntry['username'].'</b></a>
                 (<img height="13" src="tpl/stdstyle/images/blue/thunder_ico.png" /><font size="-1">'.$userActivity.'</font>)
             - <span style="color: '.$commentsArr[$dbEntry['commentType']]['color'].';">'. tr($commentsArr[$dbEntry['commentType']]['translate']).'</span>';
 
-    if(!is_null($loggedUserId)){
+    if (!is_null($loggedUserId)) {
         $toDisplay .= '<span class="editDeleteComment">';
-        if(($loggedUserId == $dbEntry['userId'] || in_array($loggedUserId, $ownersIdArray))&&$dbEntry['userId']!=-1&&$dbEntry['commentType']!=3&&$dbEntry['commentType']!=4&&$dbEntry['commentType']!=5&&$dbEntry['commentType']!=6) {
-            $toDisplay .= '<img src="tpl/stdstyle/images/free_icons/cross.png" /><a href="javascript:void(0);" onclick="deleteComment('.$dbEntry['id'].','.$loggedUserId.')">'.tr('pt130').'</a>';
-        }
-        if($loggedUserId == $dbEntry['userId']) {
+
+        if ($dbEntry['deleted']) {
+            if ($ocTeamUser) {
+                $toDisplay .= '&nbsp;<img src="tpl/stdstyle/images/free_icons/accept.png" /> <a href="javascript:void(0);" onclick="restoreComment('.$dbEntry['id'].','.$loggedUserId.', true)">'.tr('restore').'</a>';
+            }
+        } else {
+            if (($loggedUserId == $dbEntry['userId'] || in_array($loggedUserId, $ownersIdArray))
+                && $dbEntry['userId'] != -1
+                && !in_array($dbEntry['commentType'], [3, 4, 5, 6])
+            ) {
+                $toDisplay .= '&nbsp;<img src="tpl/stdstyle/images/free_icons/cross.png" /> <a href="javascript:void(0);" onclick="deleteComment('.$dbEntry['id'].','.$loggedUserId.', false)">'.tr('pt130').'</a>';
+            }
+            if ($loggedUserId == $dbEntry['userId'] ) {
                 $toDisplay .= '
-                    <img src="tpl/stdstyle/images/free_icons/pencil.png" />
+                    &nbsp;<img src="tpl/stdstyle/images/free_icons/pencil.png" />
                     <a href="javascript:void(0);" onclick="editComment('.$dbEntry['id'].','.$loggedUserId.')">'.tr('pt145').'</a>';
             }
+        }
         $toDisplay .= '</span>';
     }
     $toDisplay .= '
         </td>
     </tr>
     <tr>
-        <td class="commentContent" valign="top"><span id="commentId-'.$dbEntry['id'].'" >'.htmlspecialchars_decode(stripslashes($dbEntry['commentText'])).'</span></td>
+        <td class="commentContent" valign="top"><span id="commentId-'.$dbEntry['id'].'" '.$strikethrough.'>'.htmlspecialchars_decode(stripslashes($dbEntry['commentText'])).'</span></td>
     </tr><tr><td>&nbsp;</td></tr>'
     ;
 }
