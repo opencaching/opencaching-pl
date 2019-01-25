@@ -70,6 +70,13 @@ class UpdateController extends BaseController
                     $messages .= $update->run();
                 }
             }
+
+            # Routine updates must run AFTER table structure updates, because
+            # there may be new or renamed columns. Routine creation fails if
+            # a referenced column does not exist!
+
+            $messages .= self::updateRoutines();
+
             if ($messages == '') {
                 $messages = "no updates to run\n";
             }

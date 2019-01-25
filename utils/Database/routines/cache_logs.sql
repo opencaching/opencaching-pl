@@ -1,5 +1,11 @@
 DELIMITER ;;
 
+-- DELIMITER must be in the first line.
+-- Do not include the delimiter (double semicolon) in comments or strings. 
+
+-- Changes will be automatically installed on production sites.
+-- On developer sites, use http://local.opencaching.pl/Admin.DbUpdate/run
+
 
 --
 -- increment user-founds-counter for selected geopath
@@ -141,7 +147,7 @@ CREATE TRIGGER cache_logs_update AFTER UPDATE ON `cache_logs`
                 DATE(NEW.date) <> DATE(OLD.date)
             THEN
                 UPDATE user_finds SET number = number - 1
-                WHERE date = DATE(OLD.date) AND user_id = NEW.user_id AND number > 0;
+                WHERE date = DATE(OLD.date) AND user_id = OLD.user_id AND number > 0;
             END IF;
         END IF;
 
@@ -163,12 +169,12 @@ DROP TRIGGER IF EXISTS cache_logs_delete;;
 
 CREATE TRIGGER cache_logs_delete AFTER DELETE ON `cache_logs`
     FOR EACH ROW begin
-        IF OLD.`deleted`=0 THEN
+        IF OLD.`deleted` = 0 THEN
             -- not-deleted log is now removed
             CALL dec_logs_stats(OLD.`type`, OLD.`user_id`, OLD.`cache_id`);
 
             UPDATE user_finds SET number = number - 1
-            WHERE date = DATE(OLD.date) AND user_id = NEW.user_id AND number > 0;
+            WHERE date = DATE(OLD.date) AND user_id = OLD.user_id AND number > 0;
         END IF;
     END;;
 
