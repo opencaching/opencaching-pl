@@ -101,18 +101,9 @@ CREATE TRIGGER cache_logs_insert AFTER INSERT ON `cache_logs`
             CALL inc_logs_stats(NEW.`type`, NEW.`user_id`, NEW.`cache_id`);
 
             IF (NEW.type = 1) THEN
-                IF EXISTS (
-                    SELECT 1
-                    FROM user_finds
-                    WHERE date = DATE(NEW.date)
-                    AND user_id = NEW.user_id
-                ) THEN
-                    UPDATE user_finds SET number = number + 1
-                    WHERE date = DATE(NEW.date) AND user_id = NEW.user_id;
-                ELSE
-                    INSERT INTO user_finds (date, user_id, number)
-                    VALUES (NEW.date, NEW.user_id, 1);
-                END IF;
+                INSERT INTO user_finds (date, user_id, number)
+                VALUES (NEW.date, NEW.user_id, 1)
+                ON DUPLICATE KEY UPDATE number = number + 1;
             END IF;
         END IF;
     END;;
@@ -144,36 +135,24 @@ CREATE TRIGGER cache_logs_update AFTER UPDATE ON `cache_logs`
             CALL nop();
         END IF;
 
-        IF (OLD.type = 1) THEN
-            IF (NEW.deleted = 1 AND OLD.deleted = 0) OR
+        IF OLD.deleted = 0 AND OLD.type = 1 THEN
+            IF NEW.deleted = 1 OR
                 NEW.type <> 1 OR
                 DATE(NEW.date) <> DATE(OLD.date)
             THEN
-                IF EXISTS (
-                    SELECT 1 FROM user_finds
-                    WHERE date = DATE(OLD.date) AND user_id = NEW.user_id
-                ) THEN
-                    UPDATE user_finds SET number = number - 1
-                    WHERE date = DATE(OLD.date) AND user_id = NEW.user_id;
-                END IF;
+                UPDATE user_finds SET number = number - 1
+                WHERE date = DATE(OLD.date) AND user_id = NEW.user_id AND number > 0;
             END IF;
         END IF;
 
-        IF (NEW.deleted = 0 AND NEW.type = 1) THEN
-            IF (OLD.deleted = 1 OR
+        IF NEW.deleted = 0 AND NEW.type = 1 THEN
+            IF OLD.deleted = 1 OR
                 OLD.type <> 1 OR
                 DATE(NEW.date) <> DATE(OLD.date)
-            ) THEN
-                IF EXISTS (
-                    SELECT 1 FROM user_finds
-                    WHERE date = DATE(NEW.date) AND user_id = NEW.user_id
-                ) THEN
-                    UPDATE user_finds SET number = number + 1
-                    WHERE date = DATE(NEW.date) AND user_id = NEW.user_id;
-                ELSE
-                    INSERT INTO user_finds (date, user_id, number)
-                    VALUES (NEW.date, NEW.user_id, 1);
-                END IF;
+            THEN
+                INSERT INTO user_finds (date, user_id, number)
+                VALUES (NEW.date, NEW.user_id, 1)
+                ON DUPLICATE KEY UPDATE number = number + 1;
             END IF;
         END IF;
 
@@ -185,8 +164,11 @@ DROP TRIGGER IF EXISTS cache_logs_delete;;
 CREATE TRIGGER cache_logs_delete AFTER DELETE ON `cache_logs`
     FOR EACH ROW begin
         IF OLD.`deleted`=0 THEN
-           -- not-deleted log is now removed
-           CALL dec_logs_stats(OLD.`type`, OLD.`user_id`, OLD.`cache_id`);
+            -- not-deleted log is now removed
+            CALL dec_logs_stats(OLD.`type`, OLD.`user_id`, OLD.`cache_id`);
+
+            UPDATE user_finds SET number = number - 1
+            WHERE date = DATE(OLD.date) AND user_id = NEW.user_id AND number > 0;
         END IF;
     END;;
 

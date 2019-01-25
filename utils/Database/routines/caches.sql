@@ -112,22 +112,77 @@ CREATE TRIGGER `cachesAfterUpdate` AFTER UPDATE ON `caches`
     END;;
 
 
+DROP TRIGGER IF EXISTS cachesBeforeDelete;;
+
+CREATE TRIGGER `cachesBeforeDelete` BEFORE DELETE ON `caches`
+    FOR EACH ROW BEGIN
+
+        IF IFNULL(@allowdelete,0) = 0 THEN
+
+            -- protection against accidential cache deletion;
+            -- call to nonexistent proc throws error
+
+            CALL must_not_delete_caches();
+        ELSE
+            -- This is used e.g. for preparing developer VMs
+
+            -- owner's cache content & derived data
+            DELETE FROM `caches_additions` WHERE `cache_id` = OLD.`cache_id`;
+            DELETE FROM `cache_coordinates` WHERE `cache_id` = OLD.`cache_id`;
+            DELETE FROM `cache_countries` WHERE `cache_id` = OLD.`cache_id`;
+            DELETE FROM `cache_desc` WHERE `cache_id` = OLD.`cache_id`;
+            DELETE FROM `cache_location` WHERE `cache_id` = OLD.`cache_id`;
+            DELETE FROM `cache_npa_areas` WHERE `cache_id` = OLD.`cache_id`;
+            DELETE FROM `caches_attributes` WHERE `cache_id` = OLD.`cache_id`;
+            DELETE FROM `chowner` WHERE `cache_id` = OLD.`cache_id`;
+            DELETE FROM `opensprawdzacz` WHERE `cache_id` = OLD.`cache_id`;
+            DELETE FROM `PowerTrail_actionsLog` WHERE `cacheId` = OLD.`cache_id`;
+            DELETE FROM `PowerTrail_cacheCandidate` WHERE `cacheId` = OLD.`cache_id`;
+            DELETE FROM `powerTrail_caches` WHERE `cacheId` = OLD.`cache_id`;
+            DELETE FROM `waypoints` WHERE `cache_id` = OLD.`cache_id`;
+
+            -- log entries and other cache-related data by users
+            DELETE FROM `badge_cache` WHERE `cache_id` = OLD.`cache_id`;
+            DELETE FROM `cache_ignore` WHERE `cache_id` = OLD.`cache_id`;
+            DELETE FROM `cache_logs` WHERE `cache_id` = OLD.`cache_id`;
+            DELETE FROM `cache_mod_cords` WHERE `cache_id` = OLD.`cache_id`;
+            DELETE FROM `cache_moved` WHERE `cache_id` = OLD.`cache_id`;
+            DELETE FROM `cache_notes` WHERE `cache_id` = OLD.`cache_id`;
+            DELETE FROM `cache_rating` WHERE `cache_id` = OLD.`cache_id`;
+            DELETE FROM `cache_titled` WHERE `cache_id` = OLD.`cache_id`;
+            DELETE FROM `cache_watches` WHERE `cache_id` = OLD.`cache_id`;
+            DELETE FROM `geokret_log` WHERE `cache_id` = OLD.`cache_id`;
+            DELETE FROM `recommendation_plan` WHERE `cacheId` = OLD.`cache_id`;
+            DELETE FROM `scores` WHERE `cache_id` = OLD.`cache_id`;
+
+            -- admin data
+            DELETE FROM `admin_user_notes` WHERE `cache_id` = OLD.`cache_id`;
+            DELETE FROM `approval_status` WHERE `cache_id` = OLD.`cache_id`;
+            DELETE FROM `reports` WHERE `cache_id` = OLD.`cache_id`;
+
+            -- other data
+            DELETE FROM `CACHE_ACCESS_LOGS` WHERE `cache_id` = OLD.`cache_id`;
+            DELETE FROM `cache_arch` WHERE `cache_id` = OLD.`cache_id`;
+            DELETE FROM `cache_visits2` WHERE `cache_id` = OLD.`cache_id`;
+            DELETE FROM `notify_waiting` WHERE `cache_id` = OLD.`cache_id`;
+            DELETE FROM `search_index` WHERE `cache_id` = OLD.`cache_id`;
+
+            -- There is also some OKAPI data, but it's temporary and will
+            -- be cleaned up by cronjob.
+        END IF;
+    END;
+
+
 DROP TRIGGER IF EXISTS cachesAfterDelete;;
 
 CREATE TRIGGER `cachesAfterDelete` AFTER DELETE ON `caches`
     FOR EACH ROW BEGIN
-
-        DELETE FROM `cache_coordinates` WHERE `cache_id` = OLD.`cache_id`;
-        DELETE FROM `cache_countries` WHERE `cache_id` = OLD.`cache_id`;
-        DELETE FROM `cache_npa_areas` WHERE `cache_id` = OLD.`cache_id`;
-
         UPDATE `user`, (
             SELECT COUNT(*) AS `hidden_count` FROM `caches`
             WHERE `user_id` = OLD.`user_id` AND `status` IN (1, 2, 3)
         ) AS `c`
         SET `user`.`hidden_count` = `c`.`hidden_count`
         WHERE `user`.`user_id` = OLD.`user_id`;
-
     END;;
 
 
