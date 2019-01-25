@@ -1,0 +1,13 @@
+DELIMITER ;;
+
+--
+-- Just do nothing
+--
+DROP PROCEDURE IF EXISTS nop;;
+
+CREATE PROCEDURE nop()
+BEGIN
+END;;
+
+
+DELIMITER ;
