@@ -430,7 +430,7 @@ final class OcConfig extends ConfigReader
         if ($this->siteConfig == null) {
             $this->siteConfig = self::getConfig("site", "site");
 
-            if (!isset($this->siteConfig['primaryCountries'])) {
+            if (empty($this->siteConfig['primaryCountries'])) {
                 throw new \Exception("primaryCountries config is missing for this site");
             }
         }
