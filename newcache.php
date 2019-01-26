@@ -742,7 +742,7 @@ function buildCacheSizeSelector($sel_type, $sel_size)
     $sizes = '<option value="-1" disabled selected="selected">' . tr('select_one') . '</option>';
     foreach (GeoCacheCommons::CacheSizesArray() as $size) {
 
-        if (!in_array($size, OcConfig::instance()->getSiteConfig()['enabledCacheSizes'])) {
+        if (!in_array($size, OcConfig::instance()->getGeoCacheConfig('enabledSizes'))) {
             continue;
         }
 

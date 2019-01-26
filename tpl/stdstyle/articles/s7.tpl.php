@@ -36,7 +36,7 @@ function ()
 
     $countriesQuoted = array_map(
         '\Utils\Database\XDb::xQuote',
-        OcConfig::instance()->getSiteConfig()['primaryCountries']
+        OcConfig::instance()->getSiteConfig('primaryCountries')
     );
     $rsfCR = XDb::xSql(
         "SELECT COUNT(*) `count`, `cache_location`.`adm3` region, `cache_location`.`code3` code_region

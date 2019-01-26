@@ -689,7 +689,7 @@ if ($error == false) {
 
                     // blockforbidden cache sizes
                     if ($size != $sel_size
-                        && !in_array($size, OcConfig::instance()->getSiteConfig()['enabledCacheSizes'])
+                        && !in_array($size, OcConfig::instance()->getGeocacheConfig('enabledSizes'))
                     ) {
                         continue;
                     }
