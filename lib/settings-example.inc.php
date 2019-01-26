@@ -10,6 +10,9 @@ date_default_timezone_set('Europe/Warsaw');
 // country-id of the running node: pl|ro|nl...
 $config['ocNode'] = 'pl';
 
+// countries served by the node
+$config['primaryCountries'] = ['PL'];
+
 //pagetitle
 if (!isset($pagetitle))
     $pagetitle = 'Geocaching Opencaching Polska';
