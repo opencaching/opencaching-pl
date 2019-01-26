@@ -111,7 +111,7 @@ class I18n
      */
     public static function translatePhrase($translationId, $langCode=null, $skipPostprocess=null, $skipFailoverLang=null)
     {
-        return self::instance()->translate($translationId, $langCode=null, $skipPostprocess=null, $skipFailoverLang=null);
+        return self::instance()->translate($translationId, $langCode, $skipPostprocess, $skipFailoverLang);
     }
 
     /**
@@ -185,11 +185,10 @@ class I18n
                 return $this->trArray[$langCode][$str];
             }
         } else {
+            // there is no such phrase
             if(!$skipFailoverLang && $langCode != self::FAILOVER_LANGUAGE){
-                // there is no such phrase - try to handle it in failover language
+                // try to handle it in failover language
                 return $this->translate($str, self::FAILOVER_LANGUAGE, $skipPostprocess);
-            } else {
-                return null;
             }
         }
 
@@ -219,7 +218,6 @@ class I18n
         $languageFilename = __DIR__ . "/../../lib/languages/" . $langCode.'.php';
         if (!file_exists($languageFilename)) {
             throw new \Exception("Can't find translation file for requested language!");
-            return;
         }
 
         // load selected language/translation file
