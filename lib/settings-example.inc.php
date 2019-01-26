@@ -114,8 +114,6 @@ if (!isset($maxmp3size))
 if (!isset($mp3extensions))
     $mp3extensions = ';mp3;';
 
-
-
 // default coordinates for cachemap, set to your country's center of gravity
 $country_coordinates = "52.5,19.2";
 // zoom at which your whole country/region is visible
@@ -156,6 +154,11 @@ $sql_warntime = 1;
 // replacements for sql()
 $sql_replacements['db'] = $dbname;
 $sql_replacements['tmpdb'] = 'test';
+
+// safemode_zip-binary
+$safemode_zip = '/var/www/bin/phpzip-pl.php';
+$zip_basedir = $dynbasepath . 'download/zip/';
+$zip_wwwdir = '/download/zip/';
 
 // Your own Google map API key
 $googlemap_key = "";
