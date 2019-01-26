@@ -22,7 +22,6 @@ $GLOBALS['config'] = $config;
 $GLOBALS['site_name'] = $site_name;
 $GLOBALS['contact_mail'] = $contact_mail;
 
-require_once(__DIR__.'/language.inc.php');     // main translation funcs
 require_once(__DIR__.'/common_tpl_funcs.php'); // template engine
 
 // yepp, we will use UTF-8
