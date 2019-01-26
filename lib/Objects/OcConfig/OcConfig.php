@@ -28,6 +28,7 @@ final class OcConfig extends ConfigReader
     private $dbDatetimeFormat = 'Y-m-d H:i:s';
     private $datetimeFormat = 'Y-m-d H:i';
     private $ocNodeId = null;
+    private $primaryCountries = [];
     private $absolute_server_URI = null;
     private $octeamEmailsSignature = null;
     private $octeamEmailAddress;
@@ -127,6 +128,7 @@ final class OcConfig extends ConfigReader
         $this->debugMode = $debug_page;
         $this->datetimeFormat = $datetimeFormat;
         $this->ocNodeId = $oc_nodeid;
+        $this->primaryCountries = $config['primaryCountries'];
         $this->absolute_server_URI = $absolute_server_URI;
         $this->octeamEmailsSignature = $octeamEmailsSignature;
         $this->octeamEmailAddress = $octeam_email;
@@ -431,10 +433,15 @@ final class OcConfig extends ConfigReader
             $this->siteConfig = self::getConfig("site", "site");
 
             if (empty($this->siteConfig['primaryCountries'])) {
-                throw new \Exception("primaryCountries config is missing for this site");
+                $this->siteConfig['primaryCountries'] = self::instance()->getPrimaryCountriesSetting();
             }
         }
         return $this->siteConfig;
+    }
+
+    private function getPrimaryCountriesSetting()
+    {
+        return $this->primaryCountries;
     }
 
     public function getI18Config()

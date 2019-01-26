@@ -10,7 +10,6 @@ require_once (__DIR__.'/cache.php');
 // default site name
 $site_name = 'OpenCaching.???';
 
-
 // OC specific email addresses for international use
 // override in settings.inc.php to values you want to locally use
 
@@ -27,6 +26,7 @@ $config = array(
      */
     'ocNode' => 'pl', // pl is a default
 
+    'primaryCountries' => ['PL'],
 
     /**
      *Add button to a shop. Set true otherwise false
