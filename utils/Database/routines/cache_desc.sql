@@ -56,14 +56,16 @@ CREATE TRIGGER cacheDescAfterUpdate AFTER UPDATE ON cache_desc
 DROP TRIGGER IF EXISTS cacheDescAfterDelete;;
 
 CREATE TRIGGER cacheDescAfterDelete AFTER DELETE ON cache_desc
-   FOR EACH ROW BEGIN
-      UPDATE caches
-      SET caches.desc_languages = (
-          SELECT GROUP_CONCAT(language)
-          FROM cache_desc AS cd
-          WHERE cd.cache_id = OLD.cache_id
-      )
-      WHERE caches.cache_id = OLD.cache_id;
+    FOR EACH ROW BEGIN
+        IF IFNULL(@deleting_cache, 0) = 0 THEN
+            UPDATE caches
+            SET caches.desc_languages = (
+                SELECT GROUP_CONCAT(language)
+                FROM cache_desc AS cd
+                WHERE cd.cache_id = OLD.cache_id
+            )
+            WHERE caches.cache_id = OLD.cache_id;
+        END IF;
     END;;
 
 

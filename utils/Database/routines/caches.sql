@@ -7,36 +7,6 @@ DELIMITER ;;
 -- On developer sites, use http://local.opencaching.pl/Admin.DbUpdate/run
 
 
---
--- increment cache-watchers-counter (column watchers) for selected cache;
--- called from cache_watches trigger
---
-DROP PROCEDURE IF EXISTS inc_cache_watchers;;
-
-CREATE PROCEDURE inc_cache_watchers (
-    IN `p_cache_id` int(11)
-)
-BEGIN
-    UPDATE caches SET watcher = watcher + 1
-    WHERE `p_cache_id` = `cache_id` LIMIT 1;
-END;;
-
-
---
--- decrement cache-watchers-counter (column watchers) for selected cache;
--- called from cache_watches trigger
---
-DROP PROCEDURE IF EXISTS dec_cache_watchers;;
-
-CREATE PROCEDURE dec_cache_watchers (
-    IN `p_cache_id` int(11)
-)
-BEGIN
-    UPDATE caches SET watcher = watcher - 1
-    WHERE `p_cache_id` = `cache_id` AND watcher > 0 LIMIT 1;
-END;;
-
-
 DROP TRIGGER IF EXISTS `cachesBeforeInsert`;;
 
 CREATE TRIGGER `cachesBeforeInsert` BEFORE INSERT ON `caches`
@@ -100,7 +70,7 @@ CREATE TRIGGER `cachesAfterUpdate` AFTER UPDATE ON `caches`
         IF NEW.`status` != OLD.`status` OR NEW.`user_id` != OLD.`user_id` THEN
             UPDATE `user`, (
                 SELECT COUNT(*) AS `hidden_count` FROM `caches`
-                WHERE `user_id`=NEW.`user_id` AND `status` IN (1, 2, 3)
+                WHERE `user_id` = NEW.`user_id` AND `status` IN (1, 2, 3)
             ) AS `c`
             SET `user`.`hidden_count` = `c`.`hidden_count`
             WHERE `user`.`user_id` = NEW.`user_id`;
@@ -123,7 +93,7 @@ DROP TRIGGER IF EXISTS cachesBeforeDelete;;
 CREATE TRIGGER `cachesBeforeDelete` BEFORE DELETE ON `caches`
     FOR EACH ROW BEGIN
 
-        IF IFNULL(@allowdelete,0) = 0 THEN
+        IF IFNULL(@allowdelete, 0) = 0 THEN
 
             -- protection against accidential cache deletion;
             -- call to nonexistent proc throws error
@@ -131,6 +101,9 @@ CREATE TRIGGER `cachesBeforeDelete` BEFORE DELETE ON `caches`
             CALL must_not_delete_caches();
         ELSE
             -- This is used e.g. for preparing developer VMs
+
+            -- prevent recursive write access to caches table
+            SET @deleting_cache = 1;
 
             -- owner's cache content & derived data
             DELETE FROM `caches_additions` WHERE `cache_id` = OLD.`cache_id`;
@@ -157,7 +130,7 @@ CREATE TRIGGER `cachesBeforeDelete` BEFORE DELETE ON `caches`
             DELETE FROM `cache_rating` WHERE `cache_id` = OLD.`cache_id`;
             DELETE FROM `cache_titled` WHERE `cache_id` = OLD.`cache_id`;
             DELETE FROM `cache_watches` WHERE `cache_id` = OLD.`cache_id`;
-            DELETE FROM `geokret_log` WHERE `cache_id` = OLD.`cache_id`;
+            DELETE FROM `geokret_log` WHERE `geocache_id` = OLD.`cache_id`;
             DELETE FROM `recommendation_plan` WHERE `cacheId` = OLD.`cache_id`;
             DELETE FROM `scores` WHERE `cache_id` = OLD.`cache_id`;
 
@@ -172,6 +145,8 @@ CREATE TRIGGER `cachesBeforeDelete` BEFORE DELETE ON `caches`
             DELETE FROM `cache_visits2` WHERE `cache_id` = OLD.`cache_id`;
             DELETE FROM `notify_waiting` WHERE `cache_id` = OLD.`cache_id`;
             DELETE FROM `search_index` WHERE `cache_id` = OLD.`cache_id`;
+
+            SET @deleting_cache = 0;
 
             -- There is also some OKAPI data, but it's temporary and will
             -- be cleaned up by cronjob.
