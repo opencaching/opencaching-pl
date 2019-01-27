@@ -28,7 +28,7 @@ return function ($media = true, $selector = '.tinymce') {
     ?>
 
 <!-- TinyMCE chunk start -->
-<script src="<?=Uri::getLinkWithModificationTime('/assets/js/libs/tinyMCE/4.9.2/tinymce.min.js')?>"></script>
+<script src="<?=Uri::getLinkWithModificationTime('/public/js/libs/tinyMCE/4.9.2/tinymce.min.js')?>"></script>
 <script>
   tinymce.init({
     selector: "<?=$selector?>",
