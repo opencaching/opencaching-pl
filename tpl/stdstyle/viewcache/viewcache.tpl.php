@@ -405,7 +405,7 @@ use Controllers\MainMapController;
                 </div>
                 <div>
                     <img src="tpl/stdstyle/images/action/16x16-watch.png" class="icon16" alt="watchers">
-                    <?=$view->geoCache->getWatchingUsersCount()?> <?=tr('watchers')?>
+                    <span id="watchersCount"><?=$view->geoCache->getWatchingUsersCount()?></span> <?=tr('watchers')?>
                 </div>
 
                 <div class="lightTipped" style="display:inline;">

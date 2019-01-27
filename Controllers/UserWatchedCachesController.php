@@ -185,7 +185,8 @@ class UserWatchedCachesController extends BaseController
             $this->loggedUser->getUserId(), $cacheWp);
 
         if($resp){
-            $this->ajaxSuccessResponse();
+            $cache = new GeoCache(['cacheWp' => $cacheWp]);
+            $this->ajaxSuccessResponse($cache->getWatchingUsersCount());
         }else{
             $this->ajaxErrorResponse("Unknown OKAPI error", 500);
         }
@@ -208,7 +209,8 @@ class UserWatchedCachesController extends BaseController
             $this->loggedUser->getUserId(), $cacheWp);
 
         if($resp){
-            $this->ajaxSuccessResponse();
+            $cache = new GeoCache(['cacheWp' => $cacheWp]);
+            $this->ajaxSuccessResponse($cache->getWatchingUsersCount());
         }else{
             $this->ajaxErrorResponse("Unknown OKAPI error", 500);
         }
