@@ -72,4 +72,84 @@ class Validator
             return false;
         }
     }
+
+    /**
+     * Verifies the syntax of a geocaching.com cache code.
+     *
+     * Minimum string length is 4. ILOSU are not used, because they could be
+     * confused with other chars/digits. GC maps O => 0 and S => 5.
+     *
+     * @param string $code
+     * @return string|boolean - optimized cache code, or false if invalid
+     */
+     public static function gcWaypoint($code)
+     {
+        // try to fix it
+        $code = preg_replace('/\s/', '', $code);
+        $code = strtoupper($code);
+        $code = str_replace(['O', 'S'], ['0', '5'], $code);
+
+        // verify
+        if (preg_match('/^GC[0-9A-HJKMNPQRTV-Z]{2,5}$/', $code)) {
+            return $code;
+        } else {
+            return false;
+        }
+     }
+
+    /**
+     * Verifies the syntax of a terracaching.com cache code.
+     *
+     * Minimum string length is 3 - there actually is a cache TC2!
+     * Second letter is the cache category: Traditional, Locationless or Cyber.
+     *
+     * Note that some OC PL users did enter OpenCaching.com 'OX' codes in the
+     * TC waypoint field (total ~75 caches).
+     *
+     * @param string $code
+     * @return string|boolean - optimized cache code, or false if invalid
+     */
+     public static function tcWaypoint($code)
+     {
+        // try to fix it
+        $code = preg_replace('/\s/', '', $code);
+        $code = strtoupper($code);
+
+        // verify
+        if (preg_match('/^[TLC]C[0-9A-Z]{1,4}$/', $code)) {
+            return $code;
+        } else {
+            return false;
+        }
+     }
+
+    /**
+     * Verifies the syntax of a gpsgames.org cache code.
+     * (4-digit hex numbers)
+     *
+     * @param string $code
+     * @return string|boolean - optimized cache code, or false if invalid
+     */
+     public static function geWaypoint($code)
+     {
+        // try to fix it
+        $code = preg_replace('/\s/', '', $code);
+        $code = strtoupper($code);
+
+        // verify
+        if (preg_match('/^GE[0-9A-F]{4}$/', $code)) {
+            return $code;
+        } else {
+            return false;
+        }
+     }
+
+    /**
+     * Pro-forma validator for obsolete NC waypoints
+     * Must not return false, because we did not define an NC error message.
+     */
+    public static function ncWaypoint($code)
+    {
+        return trim($code);
+    }
 }

@@ -490,9 +490,11 @@ if ($usr || ! $hide_coords) {
         $thisline = mb_ereg_replace('{oc_password}', $r['logpw'] != '' ? 'true' : 'false', $thisline);
 
         $other_codes = [];
-        foreach (['GC', 'TC', 'NC', 'GE'] as $platform) {
-            $code = strtoupper($r['wp_'.strtolower($platform)]);
-            if (substr($code, 0, 2) == $platform && strlen($code) >= 4) {
+        foreach (['gc', 'tc', 'nc', 'ge'] as $platform) {
+            $code = $r['wp_'.$platform];
+            $validatorMethod = $platform.'Waypoint';
+            $code = call_user_func(['\Utils\Text\Validator', $validatorMethod], $code);
+            if ($code) {
                 $other_codes[] = mb_ereg_replace('{code}', $code, $gpxOcOtherCode);
             }
         }

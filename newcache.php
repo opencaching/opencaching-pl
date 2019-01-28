@@ -94,6 +94,10 @@ tpl_set_var('size_message', '');
 tpl_set_var('type_message', '');
 tpl_set_var('diff_message', '');
 tpl_set_var('region_message', '');
+tpl_set_var('wp_gc_message', '');
+tpl_set_var('wp_tc_message', '');
+tpl_set_var('wp_nc_message', '');
+tpl_set_var('wp_ge_message', '');
 // configuration variables needed in translation strings
 tpl_set_var('limits_promixity', $config['oc']['limits']['proximity']);
 tpl_set_var('short_sitename', $short_sitename);
@@ -624,8 +628,29 @@ if (isset($_POST['submitform'])) {
         $diff_not_ok = true;
     }
 
+    // foreign waypoints
+    foreach (['gc', 'nc', 'tc', 'ge'] as $wpType) {
+        $wpVar = 'wp_'.$wpType;
+        $wpOkVar = $wpVar.'_ok';
+        $wpValidatorMethod = $wpType.'Waypoint';
+
+        if (${$wpVar} == '') {
+            ${$wpOkVar} = true;
+        } else {
+            $validated = call_user_func(['\Utils\Text\Validator', $wpValidatorMethod], ${$wpVar});
+            ${$wpOkVar} = ($validated !== false);
+            if (${$wpOkVar}) {
+                ${$wpVar} = $validated;
+            } else {
+                tpl_set_var('wp_'.$wpType.'_message', ${'invalid_'.$wpVar.'_message'});
+            }
+        }
+    }
+
     // no errors?
-    if (! ($name_not_ok || $hidden_date_not_ok || $activation_date_not_ok || $lon_not_ok || $lat_not_ok || $desc_html_not_ok || $time_not_ok || $way_length_not_ok || $size_not_ok || $type_not_ok || $diff_not_ok || $region_not_ok)) {
+    if (! ($name_not_ok || $hidden_date_not_ok || $activation_date_not_ok || $lon_not_ok || $lat_not_ok || $desc_html_not_ok || $time_not_ok || $way_length_not_ok || $size_not_ok || $type_not_ok || $diff_not_ok || $region_not_ok)
+        && $wp_gc_ok && $wp_tc_ok && $wp_nc_ok && $wp_ge_ok
+    ) {
         // sel_status
         $now = getdate();
         $today = mktime(0, 0, 0, $now['mon'], $now['mday'], $now['year']);
