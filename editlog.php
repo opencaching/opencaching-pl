@@ -259,7 +259,7 @@ if ($error == false) {
                         XDb::xFreeResults($user_rs);
 
 
-                        if ($log_record['logtype'] == 1 || $log_record['logtype'] == 7) {
+                        if ($log_record['logtype'] == 1) {
                             $user_record['founds_count'] --;
 
                             // recalc scores for this cache
@@ -293,7 +293,7 @@ if ($error == false) {
                         $user_record['notfounds_count'] = $user_record['notfounds_count'] + 0;
                         $user_record['log_notes_count'] = $user_record['log_notes_count'] + 0;
 
-                        if ($log_type == 1 || $log_type == 7) {
+                        if ($log_type == 1) {
                             $user_record['founds_count'] ++;
                         } elseif ($log_type == 2) {
                             $user_record['notfounds_count'] ++;
