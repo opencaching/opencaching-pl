@@ -2,6 +2,9 @@
 
 use Utils\I18n\I18n;
 
+// initialize translations
+I18n::init();
+
 if (isset($_COOKIE['lang']))
     switch ($_COOKIE['lang']) {
         case 'en':
