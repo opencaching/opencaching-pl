@@ -72,8 +72,13 @@ final class OcConfig extends ConfigReader
 
     /** @var array the \Utils\Lock objects configuration array */
     private $lockConfig;
+
+    /** @var array the watchlist configuration array */
+    private $geoCacheConfig;
+
     /** @var array the watchlist configuration array */
     private $watchlistConfig;
+
     /** @var array the logfilter configuration array */
     private $logfilterConfig;
 
@@ -425,16 +430,20 @@ final class OcConfig extends ConfigReader
      *
      * @return array site properties
      */
-    public function getSiteConfig()
+    public function getSiteConfig($setting = null)
     {
         if ($this->siteConfig == null) {
             $this->siteConfig = self::getConfig("site", "site");
 
-            if (!isset($this->siteConfig['primaryCountries'])) {
-                throw new \Exception("primaryCountries config is missing for this site");
+            if (empty($this->siteConfig['primaryCountries'])) {
+                $this->siteConfig['primaryCountries'] = [strtoupper(substr(self::getSiteName(), -2))];
             }
         }
-        return $this->siteConfig;
+        if ($setting !== null) {
+            return $this->siteConfig[$setting];
+        } else {
+            return $this->siteConfig;
+        }
     }
 
     public function getI18Config()
@@ -443,6 +452,18 @@ final class OcConfig extends ConfigReader
             $this->i18nConfig = self::getConfig("i18n");
         }
         return $this->i18nConfig;
+    }
+
+    public function getGeoCacheConfig($setting = null)
+    {
+        if ($this->geoCacheConfig == null) {
+            $this->geoCacheConfig = self::getConfig("geocache", "geocache");
+        }
+        if ($setting !== null) {
+            return $this->geoCacheConfig[$setting];
+        } else {
+            return $this->geoCacheConfig;
+        }
     }
 
     /**
