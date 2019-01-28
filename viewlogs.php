@@ -410,7 +410,13 @@ if ($error == false) {
                 if (!isset($showspoiler)) {
                     $showspoiler = '';
                 }
+                $pictures = 0;
                 while ( $pic_record = $dbc->dbResultFetch($s) ){
+
+                    if (++$pictures > 4) {
+                        $logpicturelines .= '<div style="clear:both"></div>';
+                        $pictures -= 4;
+                    }
 
                     $thisline = $logpictureline;
 

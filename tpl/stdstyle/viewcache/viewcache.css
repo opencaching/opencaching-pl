@@ -127,7 +127,7 @@ div#viewcache-description * {
 }
 
 div#viewcache-utility                   { font-size: 12px; }
-div.viewcache-pictureblock              { float: left; }
+div.viewcache-pictureblock              { display: inline-block; }
 div.viewcache-pictureblock span.title   { display: block; max-width: 175px; padding-left: 10px; padding-right: 5px;clear: left; font-size: 125%;}
 
 #waypoints-table {
