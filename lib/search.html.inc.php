@@ -635,12 +635,8 @@ if ($usr || ! $hide_coords)
     tpl_set_var('queryid', $options['queryid']);
     tpl_set_var('startat', $startat);
 
-    tpl_set_var('startatp1', $startat + 1);
-
-    //if (($resultcount - $startat) < 500)
-        tpl_set_var('endat', $startat + $resultcount - $startat);
-    //else
-        //tpl_set_var('endat', $startat + 500);
+    tpl_set_var('startatp1', 1);
+    tpl_set_var('endat', $resultcount);
 
     // compatibility!
     if ($distance_unit == 'sm')
