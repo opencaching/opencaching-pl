@@ -80,10 +80,12 @@ class CronJobsController extends BaseController
     {
         foreach ($this->jobs as $job) {
             if ($reentrant == $job->isReentrant() && ($this->jobToRun || $job->isDue())) {
-                if ($result = $job->run()) {
-                    echo $result . "\n";
-                } else {
-                    $job->setLastRun();
+                if ($job->mayRunNow()) {
+                    if ($result = $job->run()) {
+                        echo $result . "\n";
+                    } else {
+                        $job->setLastRun();
+                    }
                 }
             }
         }
