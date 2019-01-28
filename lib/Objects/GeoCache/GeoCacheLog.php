@@ -557,7 +557,7 @@ class GeoCacheLog extends GeoCacheLogCommons
         // trigger log-author statpic update
         User::deleteStatpic($this->getUserId());
 
-        if($this->getUserId() !== $this->getCurrentUser()->getUserId()){
+        if ($this->getUserId() != $this->getCurrentUser()->getUserId()) {
             EmailSender::sendRemoveLogNotification($this, $this->getCurrentUser());
         }
     }
