@@ -13,7 +13,7 @@
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
-            <td><strong>Geocache</strong></td>
+            <td><strong>{{cache}}</strong></td>
             <td><strong>{{logged_by}}</strong></td>
         </tr>
         <tr>
