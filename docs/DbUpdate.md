@@ -96,6 +96,25 @@ Links for each update, some of them only available on developer sites:
 Generally, you should do ALL this update maintenance on the *Admin.DbUpdate* page,
 not manually in the file system or database. This is most failsafe.
 
+### Re-running DB updates
+
+On a developer site, you can run any update as often as you like.
+On production sites, *auto* and *manual* updates will run only once. The
+[run] option disappears after the update has run (without throwing an
+Exception). If an update did not work properly, then a new update should
+be written which fixes that.
+
+There is one exception from this rule: If
+
+- there was a temporary problem at an OC site, which prevented the update
+    from performing correctly (e.g. a wrong config setting),
+- this problem has been solved, and
+- you are 100% sure that it is safe to re-run the update's code,
+
+then this hidden action may be used (replace "UUID" by the update's UUID):
+
+- http://opencaching.XX/Admin.DbUpdate/run/UUID&override=1
+
 ### Merging DB updates
 
 Every DB update should be tested by someone else before merge.
