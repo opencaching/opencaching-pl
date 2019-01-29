@@ -150,7 +150,8 @@ function watchIt(input){
     error: function (xhr) {
         console.log("watchIt error: " + xhr.responseText);
     },
-    success: function (data, status) {
+    success: function (result) {
+        $('#watchersCount').html(result['message']);
         console.log("watchIt: success!");
     }
   });
