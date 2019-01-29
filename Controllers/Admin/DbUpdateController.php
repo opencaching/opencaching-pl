@@ -156,7 +156,9 @@ class DbUpdateController extends BaseController
             } else {
                 $update = $this->getUpdateFromUuid($uuid);
 
-                if (!isset($this->getAvailableActions($update)['run'])) {
+                if (!isset($this->getAvailableActions($update)['run'])
+                    && empty($_REQUEST['override'])
+                ) {
 
                     # This can happen on page reload on a production site:
                     # Update was allowed to run, but must not re-run.
@@ -187,7 +189,9 @@ class DbUpdateController extends BaseController
 
         $update = $this->getUpdateFromUuid($uuid);
 
-        if (!isset($this->getAvailableActions($update)['rollback'])) {
+        if (!isset($this->getAvailableActions($update)['rollback'])
+            && empty($_REQUEST['override'])
+        ) {
 
             # This can happen on page reload on a production site:
             # Update was allowed to roll back, but only once.
