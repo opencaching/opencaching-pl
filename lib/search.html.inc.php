@@ -416,12 +416,6 @@ for ($i = 0; $i < $dbcSearch->rowCount($s); $i ++) {
 
     $tmpline = str_replace('{short_desc}', htmlspecialchars(PrepareText($caches_record['short_desc']), ENT_COMPAT, 'UTF-8'), $tmpline);
 
-    $dDiff = abs(dateDiff('d', $caches_record['date_created'], date('Y-m-d')));
-    if ($dDiff < $caches_olddays)
-        $tmpline = str_replace('{new}', $caches_newstring, $tmpline);
-    else
-        $tmpline = str_replace('{new}', '', $tmpline);
-
     $tmpline = str_replace('{diffpic}', icon_difficulty("diff", $caches_record['difficulty']), $tmpline);
     $tmpline = str_replace('{terrpic}', icon_difficulty("terr", $caches_record['terrain']), $tmpline);
 

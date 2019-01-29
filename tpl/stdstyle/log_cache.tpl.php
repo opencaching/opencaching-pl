@@ -335,7 +335,7 @@ $founds = XDb::xMultiVariableQueryValue(
             <br><div class="notice">{{GKApi19}} {{GKApi27}}</div>
         </div>
         <div class="buffer"></div>
-        <p id="scriptwarning" class="errormsg">{{javascript_edit_info}}</p>
+        <p id="scriptwarning" class="errormsg">{{pt129}}</p>
         <img src="tpl/stdstyle/images/free_icons/page_edit.png" class="icon16" alt="">&nbsp;<span class="content-title-noshade-size12">{{comments_log}}:</span>
         <div class="buffer"></div>
         <textarea name="logtext" id="logtext" class="cachelog tinymce">{logtext}</textarea>

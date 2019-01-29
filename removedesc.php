@@ -39,7 +39,6 @@ if ($error == false) {
                 if ($desc_record = XDb::xFetchArray($desc_rs)) {
 
                     XDb::xFreeResults($desc_rs);
-                    require(__DIR__.'/tpl/stdstyle/removedesc.inc.php');
 
                     if ($remove_commit == 1) {
                         //add to removed_objects
