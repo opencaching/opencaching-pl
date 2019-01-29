@@ -17,10 +17,9 @@
 
     <table class="tablefooter">
         <tr>
-            <td class="button" style="width:25%"><a href="javascript:createcookie('lang','pl'); reloadpage();" >PL</a></td>
-            <td class="button" style="width:25%"><a href="javascript:createcookie('lang','en'); reloadpage();" >EN</a></td>
-            <td class="button" style="width:25%"><a href="javascript:createcookie('lang','nl'); reloadpage();" >NL</a></td>
-            <td class="button" style="width:25%"><a href="javascript:createcookie('lang','ro'); reloadpage();" >RO</a></td>
+            {foreach $languages as $language}
+                <td class="button" style="width:25%"><a href="./?lang={$language}" >{$language|upper}</a></td>
+            {/foreach}
         </tr>
     </table>
 
@@ -29,4 +28,3 @@
 </body>
 
 </html>
-

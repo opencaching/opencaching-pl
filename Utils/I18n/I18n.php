@@ -302,6 +302,30 @@ namespace Utils\I18n {
             exit;
         }
 
+        /**
+         * @param string $prefix
+         * @return array dictionay of all translations that's keys start with the given prefix
+         */
+        public function getPrefixedTranslationsWithFailover($prefix)
+        {
+            if (!isset($this->trArray[self::FAILOVER_LANGUAGE])) {
+                $this->loadLangFile(self::FAILOVER_LANGUAGE);
+            }
+
+            $prefixLen = strlen($prefix);
+            $t = [];
+
+            foreach ($this->trArray[self::FAILOVER_LANGUAGE] as $key => $text) {
+                if (substr($key, 0, $prefixLen) == $prefix) {
+                    if (isset($this->trArray[$this->currentLanguage][$key])) {
+                        $t[substr($key, $prefixLen)] = $this->trArray[$this->currentLanguage][$key];
+                    } else {
+                        $t[substr($key, $prefixLen)] = $text;
+                    }
+                }
+            }
+            return $t;
+        }
 
 
         /**
