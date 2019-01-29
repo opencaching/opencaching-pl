@@ -117,8 +117,6 @@ return new class extends UpdateScript
         $this->db->addForeignKeyIfNotExists('user_settings', 'user_id', 'user', 'user_id'); // NL
 
         $this->db->addIndexIfNotExists('waypoints', 'opensprawdzacz'); // all but PL
-/*
-        There is some bug here; changed OC NL translations to German  -- following 2018-01-29
 
         $this->updateTranslations('de'); // adds columns to all translation tables at PL, RO, UK
         $this->updateTranslations('fr'); // adds column to waypoint_type table at PL, RO, UK
@@ -127,7 +125,7 @@ return new class extends UpdateScript
         $this->updateTranslations('pl');
         $this->updateTranslations('en');
         $this->updateTranslations('nl');
-*/
+
         $this->db->updateColumnComment('cache_type', 'sort', 'This also is the translation ID number; see I18n::getIdColumnName()');
     }
 
