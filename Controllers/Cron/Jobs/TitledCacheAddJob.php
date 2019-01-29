@@ -16,9 +16,26 @@ class TitledCacheAddJob extends Job
     {
         global $titled_cache_nr_found, $titled_cache_period_prefix;
 
-        if (!$this->mayRunNow()) {
-            return;
+        $daysSinceLastTitle = $this->db->simpleQueryValue(
+            "SELECT DATEDIFF(NOW(), MAX(date_alg)) FROM cache_titled",
+            999
+        );
+
+        if ($titled_cache_period_prefix == "week") {
+            $securityPeriod = 7;
+        } elseif ($titled_cache_period_prefix == "month") {
+            $securityPeriod = 28;
+        } else {
+            $securityPeriod = 0;
         }
+
+        if ($daysSinceLastTitle < $securityPeriod) {
+            return
+                'Titled cache security period underrun ('.
+                $daysSinceLastTitle.' vs '.$securityPeriod.' days)';
+        }
+        unset($daysSinceLastTitle);
+        unset($securityPeriod);
 
         $date_alg = date("Y-m-d");
 
