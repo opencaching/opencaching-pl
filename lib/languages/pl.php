@@ -699,7 +699,7 @@ $translations = array(
     'online_users' => 'Zarejestrowani użytkownicy online',
     'online_users_info' => 'bazuje na użytkownikach aktywnych w ciągu ostatnich 10 minut',
     'empty_entry_notice' => '<b>Etykieta wpisów</b>: Staraj się nie robić pustych wpisów. Przygotowanie skrzynki zajmuje często bardzo dużo pracy i słowa wdzięczności bądź krytyki są zwykle mile widziane! Nawet zwykłe „dziękuję” wystarczy.',
-    'empty_entry_confirm' => 'Czy na pewno chcesz dokonać pustego wpisu? Zwykle dużo lepszy jest krótki komentarz niż milczenie.',
+    'empty_entry_confirm' => 'Czy na pewno chcesz dokonać pustego wpisu?\nZwykle dużo lepszy jest krótki komentarz niż milczenie.',
     'empty_mark' => 'Czy na pewno nie chcesz ocenić tej skrzynki?',
     'where_i_am' => 'Gdzie jestem?',
     'read_info_about_cache_types' => 'Zapoznaj się z opisem jak wybrać <a href="{wiki_link_cacheTypes}" target="_blank">Typ skrzynki</a>',
