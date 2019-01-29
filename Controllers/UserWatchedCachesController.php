@@ -209,7 +209,7 @@ class UserWatchedCachesController extends BaseController
             $this->loggedUser->getUserId(), $cacheWp);
 
         if($resp){
-            $cache = new GeoCache(['cacheWp' => $cacheWp]);
+            $cache = GeoCache::fromWayPointFactory($cacheWp);
             $this->ajaxSuccessResponse($cache->getWatchingUsersCount());
         }else{
             $this->ajaxErrorResponse("Unknown OKAPI error", 500);
