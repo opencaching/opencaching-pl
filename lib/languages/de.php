@@ -2187,6 +2187,7 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'language_CE' => 'Tschetschenisch',
     'language_CS' => 'Tschechisch',
     'language_DA' => 'Dänisch',
+    'language_DK' => 'Danish',
     'language_EL' => 'Griechisch',
     'language_EO' => 'Esperanto',
     'language_ET' => 'Estnisch',
