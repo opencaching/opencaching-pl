@@ -2186,6 +2186,7 @@ $translations = array(
     'language_CE' => 'crwdns7852:0crwdne7852:0',
     'language_CS' => 'crwdns7853:0crwdne7853:0',
     'language_DA' => 'crwdns7854:0crwdne7854:0',
+    'language_DK' => 'crwdns25756:0crwdne25756:0',
     'language_EL' => 'crwdns7855:0crwdne7855:0',
     'language_EO' => 'crwdns7856:0crwdne7856:0',
     'language_ET' => 'crwdns7857:0crwdne7857:0',
