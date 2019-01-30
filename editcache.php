@@ -433,6 +433,12 @@ if ($error == false) {
                         $cache_attribs = array();
                     }
                 }
+
+                $errors_occured =
+                    $hidden_date_not_ok || $lat_not_ok || $lon_not_ok || $name_not_ok ||
+                    $time_not_ok || $way_length_not_ok || $size_not_ok || $activate_date_not_ok
+                    || $status_not_ok || !$all_wp_ok;
+
                 //try to save to DB?
                 if (isset($_POST['submit'])) {
                     //prevent un archiving cache by non-admin users
@@ -440,7 +446,7 @@ if ($error == false) {
                         $status_not_ok = true;
                     }
                     //all validations ok?
-                    if (!($hidden_date_not_ok || $lat_not_ok || $lon_not_ok || $name_not_ok || $time_not_ok || $way_length_not_ok || $size_not_ok || $activate_date_not_ok || $status_not_ok || !$all_wp_ok)) {
+                    if (!$errors_occured) {
 
                         $cache_lat = $coords_lat_h + round($coords_lat_min, 3) / 60;
                         if ($coords_latNS == 'S'){
@@ -1004,7 +1010,7 @@ if ($error == false) {
                 tpl_set_var('date_message', ($hidden_date_not_ok == true) ? $date_not_ok_message : '');
                 tpl_set_var('size_message', ($size_not_ok == true) ? $size_not_ok_message : '');
 
-                if ($lon_not_ok || $lat_not_ok || $hidden_date_not_ok || $name_not_ok){
+                if ($errors_occured) {
                     tpl_set_var('general_message', $error_general);
                 } else {
                     tpl_set_var('general_message', "");
