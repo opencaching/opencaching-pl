@@ -37,6 +37,7 @@ namespace Utils\I18n {
     use lib\Objects\OcConfig\OcConfig;
     use Utils\Debug\Debug;
     use Utils\Database\XDb;
+    use Utils\Cache\OcMemCache;
 
     class I18n
     {
@@ -244,14 +245,25 @@ namespace Utils\I18n {
          */
         private function loadLangFile($langCode)
         {
+            // load selected language/translation file
+            $languageFilename = self::languageFilename($langCode);
+            include $languageFilename;
+            $this->trArray[$langCode] = $translations;
+        }
+
+        private function languageFileTime($langCode)
+        {
+            $languageFilename = self::languageFilename($langCode);
+            return filemtime($languageFilename);
+        }
+
+        private static function languageFilename($langCode)
+        {
             $languageFilename = __DIR__ . "/../../lib/languages/" . $langCode.'.php';
             if (!file_exists($languageFilename)) {
                 throw new \Exception("Can't find translation file for requested language!");
             }
-
-            // load selected language/translation file
-            include ($languageFilename);
-            $this->trArray[$langCode] = $translations;
+            return $languageFilename;
         }
 
         private function setCurrentLang($languageCode)
@@ -267,8 +279,6 @@ namespace Utils\I18n {
         private function getSupportedTranslations(){
             return OcConfig::instance()->getI18Config()['supportedLanguages'];
         }
-
-
 
         private function isLangSupported($langCode){
 
@@ -306,24 +316,60 @@ namespace Utils\I18n {
          * @param string $prefix
          * @return array dictionay of all translations that's keys start with the given prefix
          */
-        public function getPrefixedTranslationsWithFailover($prefix)
+        public static function getPrefixedTranslationsWithFailover($prefix)
+        {
+            $cacheKey = 'translations-'.self::getCurrentLang().'-'.$prefix;
+
+            $currentLangFiletime = self::languageFileTime(self::getCurrentLang());
+            $failoverFiletime = self::languageFileTime(self::FAILOVER_LANGUAGE);
+
+            $t = OcMemCache::get($cacheKey);
+
+            if ($t !== false &&
+                $t['failover-filetime'] == $failoverFiletime &&
+                $t['main-filetime'] == $currentLangFiletime
+            ) {
+                // use translations from cache
+                return $t['translations'];
+            }
+
+            // not in cache - compile new translation set
+            $t = self::instance()->makePrefixedTranslationsWithFailover($prefix);
+
+            OcMemCache::store(
+                $cacheKey, 3600 * 24, [
+
+                    // If you change anything here, also change the name of the cache key!
+                    // Otherwise the old cached data could crash the changed implementation.
+
+                    'failover-filetime' => $failoverFiletime,
+                    'main-filetime' => $currentLangFiletime,
+                    'translations' => $t
+                ]
+            );
+            return $t;
+        }
+
+        private function makePrefixedTranslationsWithFailover($prefix)
         {
             if (!isset($this->trArray[self::FAILOVER_LANGUAGE])) {
                 $this->loadLangFile(self::FAILOVER_LANGUAGE);
             }
 
             $prefixLen = strlen($prefix);
+            $currentLanguage = self::getCurrentLang();
             $t = [];
 
             foreach ($this->trArray[self::FAILOVER_LANGUAGE] as $key => $text) {
                 if (substr($key, 0, $prefixLen) == $prefix) {
-                    if (isset($this->trArray[$this->currentLanguage][$key])) {
-                        $t[substr($key, $prefixLen)] = $this->trArray[$this->currentLanguage][$key];
+                    if (isset($this->trArray[$currentLanguage][$key])) {
+                        $t[substr($key, $prefixLen)] = $this->trArray[$currentLanguage][$key];
                     } else {
                         $t[substr($key, $prefixLen)] = $text;
                     }
                 }
             }
+
             return $t;
         }
 
