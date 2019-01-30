@@ -260,7 +260,7 @@ echo"
             <td colspan=3 style='color:green;'>{{HideCols}}</td>
         </tr>
         <tr>
-            <td><input type='checkbox' name='C1' value='1' "; if($C1 == 1) echo "checked"; echo" "; echo $colNameSearch[1]["O"]; echo" </td>
+            <td><input type='checkbox' name='C1' value='1' "; if($C1 == 1) echo "checked"; echo"> "; echo $colNameSearch[1]["O"]; echo" </td>
             <td><input type='checkbox' name='C2' value='1' "; if($C2 == 1) echo "checked"; echo"> "; echo $colNameSearch[2]["O"]; echo" </td>
             <td><input type='checkbox' name='C3' value='1' "; if($C3 == 1) echo "checked"; echo"> "; echo $colNameSearch[3]["O"]; echo" </td>
         </tr>
