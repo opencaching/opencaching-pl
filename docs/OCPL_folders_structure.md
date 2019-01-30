@@ -93,7 +93,6 @@
 
 ### `/public/js/`
 	- **contains** JS "common" scripts used by many views - but not external libs (see above)
-	- TODO: do we need to store anything here ?!
 
 ### `/public/css/`
 	- **contains** CSS "common" files used by many views
@@ -104,24 +103,24 @@
 	- images should be grouped in logical structure of folders
 	- every folder with images should contains README file with description of origin/author of images
 
-## 5. `/srv/` folder structure
+## 5. `/src/` folder structure
 	- all subfolders names start with capital letter
 
-### `/srv/Controllers/`	
+### `/src/Controllers/`	
 	- **migration** - generally the copy of the code of current `/Controllers`	
 	
-### `/srv/Models/`
+### `/src/Models/`
 	- **migration** - generally the copy of the code of current `/lib/Objects`
 	
-### `/srv/Views/`
+### `/src/Views/`
 	- **contains** code of PHP view templates
 	- finally these scripts are used (included) ONLY by `/srv/Utils/View/View` class
 	- **migration** - generally the copy of the PHP templates with code from current `/tpl/stdstyle`
 	
-### `/srv/Utils/`
+### `/src/Utils/`
 	- **migration** - generally the copy of the code from current `/Utils`
 	
-### `/srv/Libs/`
+### `/src/Libs/`
 	- **contains** EXTERNAL PHP libraries hosted in OCPL code
 	- every libraru should be stored in separate folder 
 	- every folder should contain README with information about given lib + update description
