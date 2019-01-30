@@ -8,6 +8,7 @@ use lib\Objects\GeoCache\CacheNote;
 use lib\Objects\GeoCache\GeoCacheCommons;
 use lib\Objects\GeoCache\GeoCacheLog;
 use Utils\I18n\I18n;
+use Utils\Text\Validator;
 
 global $content, $bUseZip, $usr, $hide_coords, $dbcSearch, $queryFilter;
 
@@ -491,9 +492,7 @@ if ($usr || ! $hide_coords) {
 
         $other_codes = [];
         foreach (['gc', 'tc', 'nc', 'ge'] as $platform) {
-            $code = $r['wp_'.$platform];
-            $validatorMethod = $platform.'Waypoint';
-            $code = call_user_func(['\Utils\Text\Validator', $validatorMethod], $code);
+            $code = Validator::xxWaypoint($platform, $r['wp_'.$platform]);
             if ($code) {
                 $other_codes[] = mb_ereg_replace('{code}', $code, $gpxOcOtherCode);
             }
