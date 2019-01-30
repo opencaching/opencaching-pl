@@ -23,6 +23,9 @@ $size_not_ok_message = '<br><img src="tpl/stdstyle/images/misc/32x32-impressum.p
 $diff_not_ok_message = '<br><img src="tpl/stdstyle/images/misc/32x32-impressum.png" class="icon32" alt="">&nbsp;&nbsp;<span class="errormsg">' . tr('diff_incorrect') . '</span>';
 $sizemismatch_message = '<br><img src="tpl/stdstyle/images/misc/32x32-impressum.png" class="icon32" alt="">&nbsp;&nbsp;<span class="errormsg">' . tr('virtual_cache_size') . '</span>';
 $regionNotOkMessage = '<br><img src="tpl/stdstyle/images/misc/32x32-impressum.png" class="icon32" alt="">&nbsp;&nbsp;<span class="errormsg">' . tr('region_not_ok') . '</span>';
+$invalid_wp_gc_message = '<img src="tpl/stdstyle/images/misc/32x32-impressum.png" class="icon32" alt=""  />&nbsp;&nbsp;<span class="errormsg">' . tr('invalid_wp_gc') . '</span>';
+$invalid_wp_tc_message = '<img src="tpl/stdstyle/images/misc/32x32-impressum.png" class="icon32" alt=""  />&nbsp;&nbsp;<span class="errormsg">' . tr('invalid_wp_tc') . '</span>';
+$invalid_wp_ge_message = '<img src="tpl/stdstyle/images/misc/32x32-impressum.png" class="icon32" alt=""  />&nbsp;&nbsp;<span class="errormsg">' . tr('invalid_wp_ge') . '</span>';
 
 $html_desc_errbox = '<br><br><p style="margin-top:0px;margin-left:0px;width:550px;background-color:#e5e5e5;border:1px solid black;text-align:left;padding:3px 8px 3px 8px;"><span class="errormsg">' . tr('html_incorrect') . '</span><br>%text%</p><br>';
 

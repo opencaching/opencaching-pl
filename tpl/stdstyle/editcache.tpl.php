@@ -342,11 +342,28 @@
         <tr class="form-group-sm">
             <td><p class="content-title-noshade">{{foreign_waypoint}} ({{optional}}):</p></td>
             <td>
-                Geocaching.com: &nbsp;&nbsp;<input type="text" name="wp_gc" value="{wp_gc}" maxlength="7" size="7" class="form-control input70" onChange="yes_change();"/>
-                Navicache.com: &nbsp;<input type="text" name="wp_nc" value="{wp_nc}" maxlength="6" size="6" class="form-control input70" onChange="yes_change();"/><br/>
-                Terracaching.com: <input type="text" name="wp_tc" value="{wp_tc}" maxlength="7" size="7" class="form-control input70" onChange="yes_change();"/>
-                GPSGames.org: <input type="text" name="wp_ge" value="{wp_ge}" maxlength="6" size="6" class="form-control input70" onChange="yes_change();"/>
-
+                <table class="table compact-horizontal">
+                    <tr>
+                        <td>Geocaching.com:</td>
+                        <td><input type="text" name="wp_gc" value="{wp_gc}" maxlength="7" size="7" class="form-control input70 uppercase" onChange="yes_change();"/>&nbsp; &nbsp;</td>
+                        <td>Navicache.com:&nbsp;</td>
+                        <td><input type="text" name="wp_nc" value="{wp_nc}" maxlength="6" size="6" class="form-control input70 uppercase" onChange="yes_change();"/></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">{wp_gc_message}</td>
+                        <td colspan="2">{wp_nc_message}</td>
+                    </tr>
+                    <tr>
+                        <td>Terracaching.com:&nbsp;</td>
+                        <td><input type="text" name="wp_tc" value="{wp_tc}" maxlength="7" size="7" class="form-control input70 uppercase" onChange="yes_change();"/>&nbsp; &nbsp;</td>
+                        <td>GPSGames.org:</td>
+                        <td><input type="text" name="wp_ge" value="{wp_ge}" maxlength="6" size="6" class="form-control input70 uppercase" onChange="yes_change();"/></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">{wp_tc_message}</td>
+                        <td colspan="2">{wp_ge_message}</td>
+                    </tr>
+                </table>
             </td>
         </tr>
         <tr>

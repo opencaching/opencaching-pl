@@ -244,7 +244,9 @@ class GeoCache extends GeoCacheCommons
         switch (mb_strtoupper(mb_substr($wp, 0, 2))) {
             case 'GC': return 'wp_gc';
             case 'NC': return 'wp_nc';
-            case 'QC': return 'wp_qc';
+            case 'TC': return 'wp_tc';
+            case 'GE': return 'wp_ge';
+            case 'QC': return 'wp_qc';  // obsolete
             default: return 'wp_oc';
         }
     }

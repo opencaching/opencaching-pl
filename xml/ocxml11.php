@@ -4,6 +4,7 @@ use Utils\Database\XDb;
 use lib\Objects\GeoCache\GeoCacheCommons;
 use lib\Objects\OcConfig\OcConfig;
 use Utils\I18n\I18n;
+use Utils\Text\Validator;
 /* begin configuration */
 
 require('../lib/common.inc.php');
@@ -416,7 +417,7 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
         fwrite($f, $t2 . '<difficulty>' . sprintf('%01.1f', $r['difficulty'] / 2) . '</difficulty>' . "\n");
         fwrite($f, $t2 . '<terrain>' . sprintf('%01.1f', $r['terrain'] / 2) . '</terrain>' . "\n");
         fwrite($f, $t2 . '<rating waylength="' . $r['way_length'] . '" needtime="' . $r['search_time'] . '" />' . "\n");
-        fwrite($f, $t2 . '<waypoints gccom="' . xmlentities2($r['wp_gc']) . '" gpsgames="' . xmlentities2($r['wp_nc']) . '" oc="' . xmlentities2($r['wp_oc']) . '" />' . "\n");
+        fwrite($f, $t2 . '<waypoints gccom="' . xmlentities2(Validator::gcWaypoint($r['wp_gc'])) . '" gpsgames="' . xmlentities2($r['wp_nc']) . '" oc="' . xmlentities2($r['wp_oc']) . '" />' . "\n");
         fwrite($f, $t2 . '<datehidden>' . date($sDateformat, strtotime($r['date_hidden'])) . '</datehidden>' . "\n");
         fwrite($f, $t2 . '<datecreated>' . date($sDateformat, strtotime($r['date_created'])) . '</datecreated>' . "\n");
         fwrite($f, $t2 . '<lastmodified>' . date($sDateformat, strtotime($r['last_modified'])) . '</lastmodified>' . "\n");
