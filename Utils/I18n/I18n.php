@@ -26,6 +26,7 @@ namespace {
         }
 
     }
+
 } // namespace / (global)
 
 namespace Utils\I18n {
@@ -72,10 +73,9 @@ namespace Utils\I18n {
         private function initialize()
         {
             $initLang = $this->getInitLang();
-            // check if $requestedLang is supported by node
+
             if (!$this->isLangSupported($initLang)) {
-                // requested language is not supported - display error...
-                $this->handleUnsupportedLangAndExit($initLang);
+                $initLang = self::FAILOVER_LANGUAGE;
             }
 
             $this->setCurrentLang($initLang);
@@ -139,7 +139,7 @@ namespace Utils\I18n {
          * @param boolean $skipPostprocess - if true skip "old-template" postprocessing
          * @return string -
          */
-        public static function translatePhrase($translationId, $langCode=null, $skipPostprocess=null, $skipFailoverLang=null)
+        public static function translatePhrase($translationId, $langCode=null, $skipPostprocess=false, $skipFailoverLang=false)
         {
             return self::instance()->translate($translationId, $langCode, $skipPostprocess, $skipFailoverLang);
         }
@@ -197,7 +197,7 @@ namespace Utils\I18n {
             return $langToUse;
         }
 
-        private function translate($str, $langCode=null, $skipPostprocess=null, $skipFailoverLang=null)
+        private function translate($str, $langCode=null, $skipPostprocess=false, $skipFailoverLang=false)
         {
             if(!$langCode){
                 $langCode = self::getCurrentLang();
@@ -290,27 +290,6 @@ namespace Utils\I18n {
             return in_array($langCode, $this->getSupportedTranslations());
         }
 
-        private function handleUnsupportedLangAndExit($requestedLang)
-        {
-            $this->setCurrentLang(self::FAILOVER_LANGUAGE);
-            $this->loadLangFile(self::FAILOVER_LANGUAGE);
-
-            $view = tpl_getView();
-            tpl_set_tplname('error/langNotSupported');
-
-            $view->loadJQuery();
-
-            $view->setVar("localCss",
-                Uri::getLinkWithModificationTime('/tpl/stdstyle/error/error.css'));
-
-            $view->setVar('requestedLang', UserInputFilter::purifyHtmlString($requestedLang));
-
-            $view->setVar('allLanguageFlags', $this->getFlags());
-
-            tpl_BuildTemplate();
-
-            exit;
-        }
 
         /**
          * @param string $prefix
