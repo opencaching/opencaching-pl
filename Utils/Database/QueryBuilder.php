@@ -143,7 +143,7 @@ class QueryBuilder
 
     private static function getIntValOrNull($var)
     {
-        return (is_int($var)?intval($var):null);
+        return (is_int($var)?max(0, intval($var)):null);
     }
 
     private static function escapeStr($str)

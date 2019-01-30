@@ -264,9 +264,9 @@ class News extends BaseObject
         }
         $query .= ' ORDER BY date_publication DESC';
         if (! is_null($limit)) {
-            $query .= ' LIMIT ' . $limit;
+            $query .= ' LIMIT ' . self::db()->quoteLimit($limit);
             if (! is_null($offset)) {
-                $query .= ' OFFSET ' . $offset;
+                $query .= ' OFFSET ' . self::db()->quoteOffset($offset);
             }
         }
         $stmt = self::db()->simpleQuery($query);

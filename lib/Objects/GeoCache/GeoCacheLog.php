@@ -493,7 +493,7 @@ class GeoCacheLog extends GeoCacheLogCommons
              `cache_id` = :1 AND `user_id` = :2 AND deleted = 0"
              .(is_array($types) ? " AND `type` IN (" . $typesInString . ")" : "")
              ." ORDER BY `date` DESC"
-             .($limit != null ? " LIMIT " . intval($limit) : ""),
+             .($limit != null ? " LIMIT " . $this->db()->quoteLimit($limit) : ""),
              $params
         );
         return $this->db->dbFetchAllAsObjects($stmt, function($row) {

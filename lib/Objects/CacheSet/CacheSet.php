@@ -330,7 +330,7 @@ class CacheSet extends CacheSetCommon
 
         $db = self::db();
 
-        list ($limit, $offset) = $db->quoteLimitOffset($limit);
+        $limit = $db->quoteLimit($limit);
 
         $rs = $db->multiVariableQuery(
             "SELECT id, name, centerLatitude, centerLongitude,
@@ -338,7 +338,7 @@ class CacheSet extends CacheSetCommon
             FROM PowerTrail
             WHERE status = :1
             ORDER BY dateCreated DESC
-            LIMIT $offset, $limit", self::STATUS_OPEN);
+            LIMIT $limit", self::STATUS_OPEN);
 
         $result=[];
         while($row = $db->dbResultFetch($rs, OcDb::FETCH_ASSOC)){
