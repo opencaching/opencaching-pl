@@ -17,8 +17,8 @@
 
     <table class="tablefooter">
         <tr>
-            {foreach $languages as $language}
-                <td class="button" style="width:25%"><a href="./?lang={$language}" >{$language|upper}</a></td>
+            {foreach $languages as $langCode => $langData}
+                <td class="button" style="width:25%"><a href="{$langData.link}" >{$langCode|upper}</a></td>
             {/foreach}
         </tr>
     </table>

@@ -33,13 +33,15 @@ class OcSmarty extends Smarty
         $availableMobileTranslations = ['en', 'pl', 'nl', 'ro'];
 
         // The mobile page also accesses the desktop translation system.
-        $availableDesktopTranslations = array_keys(I18n::getLanguagesFlagsData());
+        $availableDesktopTranslations = I18n::getLanguagesFlagsData();
 
         // We can provide only those languages, which are available in both flavors.
-        $availableTranslations = array_intersect(
-            $availableDesktopTranslations,  // determines the order
-            $availableMobileTranslations
-        );
+        $availableTranslations = [];
+        foreach ($availableDesktopTranslations as $langCode => $langData) {
+            if (in_array($langCode, $availableMobileTranslations)) {
+                $availableTranslations[$langCode] = $langData;
+            }
+        }
 
         $this->assign('languages', $availableTranslations);
     }
