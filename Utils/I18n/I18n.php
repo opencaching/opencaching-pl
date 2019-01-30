@@ -230,6 +230,12 @@ namespace Utils\I18n {
         private function postProcessTr(&$ref)
         {
             if (strpos($ref, "{") !== false) {
+                if (!function_exists('tpl_do_replace')) {
+                    throw new Exception(
+                        // Desktop template system is not available on mobile pages.
+                        '{} placeholders must not be used in mobile_ translation texts.'
+                    );
+                }
                 return tpl_do_replace($ref, true);
             } else {
                 return $ref;
