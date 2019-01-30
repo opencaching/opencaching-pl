@@ -2186,6 +2186,7 @@ $translations = array(
     'language_CE' => 'Shekhinah',
     'language_CS' => 'Tchèque',
     'language_DA' => 'Danois',
+    'language_DK' => 'Danish',
     'language_EL' => 'Grecque',
     'language_EO' => 'Espéranto',
     'language_ET' => 'Estonien',
