@@ -150,6 +150,21 @@ class Validator
      */
     public static function ncWaypoint($code)
     {
-        return trim($code);
+        return strtoupper(trim($code));
+    }
+
+    /**
+     * Validate waypoint code by type
+     */
+    public function xxWaypoint($wpType, $code)
+    {
+        switch (strtoupper($wpType)) {
+            case 'GC': return self::gcWaypoint($code);
+            case 'TC': return self::tcWaypoint($code);
+            case 'GE': return self::geWaypoint($code);
+            case 'NC': return self::ncWaypoint($code);
+            case 'QC': return $code;  // obsolete
+            default:   throw new \Exception('Invalid waypoint code type: '.$code);
+        }
     }
 }

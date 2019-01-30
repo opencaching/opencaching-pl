@@ -9,6 +9,7 @@ use Utils\EventHandler\EventHandler;
 use lib\Objects\GeoCache\GeoCacheLog;
 use lib\Objects\OcConfig\OcConfig;
 use Utils\I18n\I18n;
+use Utils\Text\Validator;
 
 require_once(__DIR__.'/lib/common.inc.php');
 
@@ -379,28 +380,32 @@ if ($error == false) {
                 }
 
                 // foreign waypoints
+                $all_wp_ok = true;
+
                 foreach (['gc', 'nc', 'tc', 'ge'] as $wpType) {
                     $wpVar = 'wp_'.$wpType;
-                    $wpOkVar = $wpVar.'_ok';
-                    $wpValidatorMethod = $wpType.'Waypoint';
                     $wpMessageVar = 'wp_'.$wpType.'_message';
 
                     ${$wpVar} = isset($_POST[$wpVar]) ? $_POST[$wpVar] : $cache_record[$wpVar];
                     if (${$wpVar} == '') {
-                        ${$wpOkVar} = true;
+                        $wpOk = true;
                     } else {
-                        $validated = call_user_func(['\Utils\Text\Validator', $wpValidatorMethod], ${$wpVar});
-                        ${$wpOkVar} = ($validated !== false);
-                        if (${$wpOkVar}) {
-                            ${$wpVar} = $validated;
+                        $validatedCode = Validator::xxWaypoint($wpType, ${$wpVar});
+                        $wpOk = ($validatedCode !== false);
+                        if ($wpOk) {
+                            ${$wpVar} = $validatedCode;
                         }
                     }
-                    if (${$wpOkVar}) {
+                    if ($wpOk) {
                         tpl_set_var($wpMessageVar,'');
                     } else {
                         tpl_set_var($wpMessageVar, ${'invalid_'.$wpVar.'_message'});
+                        $all_wp_ok = false;
                     }
                 }
+                unset($wpVar);
+                unset($wpMessageVar);
+                unset($wpOk);
 
                 // cache-attributes
                 if (isset($_POST['cache_attribs'])) {
@@ -435,9 +440,8 @@ if ($error == false) {
                         $status_not_ok = true;
                     }
                     //all validations ok?
-                    if (!($hidden_date_not_ok || $lat_not_ok || $lon_not_ok || $name_not_ok || $time_not_ok || $way_length_not_ok || $size_not_ok || $activate_date_not_ok || $status_not_ok)
-                        && $wp_gc_ok && $wp_tc_ok && $wp_nc_ok && $wp_ge_ok
-                    ) {
+                    if (!($hidden_date_not_ok || $lat_not_ok || $lon_not_ok || $name_not_ok || $time_not_ok || $way_length_not_ok || $size_not_ok || $activate_date_not_ok || $status_not_ok || !$all_wp_ok)) {
+
                         $cache_lat = $coords_lat_h + round($coords_lat_min, 3) / 60;
                         if ($coords_latNS == 'S'){
                             $cache_lat = -$cache_lat;

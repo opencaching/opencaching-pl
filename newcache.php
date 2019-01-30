@@ -12,6 +12,7 @@ use lib\Objects\User\User;
 use Utils\Debug\Debug;
 use Utils\EventHandler\EventHandler;
 use Utils\I18n\I18n;
+use Utils\Text\Validator;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
@@ -629,28 +630,25 @@ if (isset($_POST['submitform'])) {
     }
 
     // foreign waypoints
+    $all_wp_ok = true;
+
     foreach (['gc', 'nc', 'tc', 'ge'] as $wpType) {
         $wpVar = 'wp_'.$wpType;
-        $wpOkVar = $wpVar.'_ok';
-        $wpValidatorMethod = $wpType.'Waypoint';
 
-        if (${$wpVar} == '') {
-            ${$wpOkVar} = true;
-        } else {
-            $validated = call_user_func(['\Utils\Text\Validator', $wpValidatorMethod], ${$wpVar});
-            ${$wpOkVar} = ($validated !== false);
-            if (${$wpOkVar}) {
-                ${$wpVar} = $validated;
+        if (${$wpVar} != '') {
+            $validatedCode = Validator::xxWaypoint($wpType, ${$wpVar});
+            if ($validatedCode !== false) {
+                ${$wpVar} = $validatedCode;
             } else {
+                $all_wp_ok = false;
                 tpl_set_var('wp_'.$wpType.'_message', ${'invalid_'.$wpVar.'_message'});
             }
         }
     }
+    unset($wpVar);
 
     // no errors?
-    if (! ($name_not_ok || $hidden_date_not_ok || $activation_date_not_ok || $lon_not_ok || $lat_not_ok || $desc_html_not_ok || $time_not_ok || $way_length_not_ok || $size_not_ok || $type_not_ok || $diff_not_ok || $region_not_ok)
-        && $wp_gc_ok && $wp_tc_ok && $wp_nc_ok && $wp_ge_ok
-    ) {
+    if (! ($name_not_ok || $hidden_date_not_ok || $activation_date_not_ok || $lon_not_ok || $lat_not_ok || $desc_html_not_ok || $time_not_ok || $way_length_not_ok || $size_not_ok || $type_not_ok || $diff_not_ok || $region_not_ok || !$all_wp_ok)) {
         // sel_status
         $now = getdate();
         $today = mktime(0, 0, 0, $now['mon'], $now['mday'], $now['year']);
