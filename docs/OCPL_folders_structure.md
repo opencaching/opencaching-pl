@@ -4,7 +4,6 @@
 	- motivation OCPL needs some cleanup 
 	- the idea of PHP project universal structure: [https://github.com/php-pds/skeleton](https://github.com/php-pds/skeleton)
 	- all accesses to folders are regulated by attached in git .htaccess files
-	- .htaccess will be used to control access and rewrite/redirects
 
 ## 2. Migration process
 	- migration needs to be a process
