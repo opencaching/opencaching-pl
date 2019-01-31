@@ -12,7 +12,7 @@
 
 
         <b>{$result} {$ile}</b><br/>
-        {$page} {if $smarty.get.page}{$smarty.get.page}/{$max}{else}1/{$max}{/if}
+        {if $pages}{$page} {if $smarty.get.page}{$smarty.get.page}/{$max}{else}1/{$max}{/if}{/if}
         <br/>
         {assign var ="gpx_url" value="./file2.php?wp="}
 
@@ -75,8 +75,10 @@
 {$i=$i+1}
 {/section}
 
-{if $smarty.get.Nstopien && $smarty.get.Nminuty && $smarty.get.Estopien && $smarty.get.Eminuty}<hr/>
-    {$fixed_cords}<br/>{$smarty.get.Nstopien}° {$smarty.get.Nminuty}', {$smarty.get.Estopien}° {$smarty.get.Eminuty}'
+{if isset($smarty.get.Nstopien)}
+    {if $smarty.get.Nstopien && $smarty.get.Nminuty && $smarty.get.Estopien && $smarty.get.Eminuty}<hr/>
+        {$fixed_cords}<br/>{$smarty.get.Nstopien}° {$smarty.get.Nminuty}', {$smarty.get.Estopien}° {$smarty.get.Eminuty}'
+    {/if}
 {/if}
 {if $ile>0}<hr/>
     <table class="tablefooter" style="width:87%"><tr>

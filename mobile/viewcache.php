@@ -95,16 +95,14 @@ if (isSet($_GET['wp']) && !empty($_GET['wp']) && $_GET['wp'] != "OP") {
 
         if (isset($_SESSION['user_id'])) {
             $query2 = "select 1 from cache_logs where user_id = '" . $_SESSION['user_id'] . "' and type = '1' and deleted='0' and cache_id ='" . $caches['cache_id'] . "';";
-            $wynik2 = XDb::xSql($query2);
-            $if_found = XDb::xFetchArray($wynik2);
+            $if_found = XDb::xSimpleQueryValue($query2, 0);
 
-            if ($if_found[0] != '1') {
+            if ($if_found != '1') {
                 $query2 = "select 2 from cache_logs where user_id = '" . $_SESSION['user_id'] . "' and type = '2' and deleted='0' and cache_id ='" . $caches['cache_id'] . "';";
-                $wynik2 = XDb::xSql($query2);
-                $if_found = XDb::xFetchArray($wynik2);
+                $if_found = XDb::xSimpleQueryValue($query2, 0);
             }
-
-            $if_found = $if_found[0];
+        } else {
+            $if_found = 0;
         }
 
         $cache_info = array();
@@ -125,6 +123,8 @@ if (isSet($_GET['wp']) && !empty($_GET['wp']) && $_GET['wp'] != "OP") {
                 $cache_info['watched'] = $watched;
             else
                 $cache_info['watched'] = -1;
+        } else {
+            $cache_info['watched'] = -1;
         }
 
         $cache_info['cache_id'] = $caches['cache_id'];

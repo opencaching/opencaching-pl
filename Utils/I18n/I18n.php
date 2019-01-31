@@ -26,6 +26,7 @@ namespace {
         }
 
     }
+
 } // namespace / (global)
 
 namespace Utils\I18n {
@@ -37,6 +38,7 @@ namespace Utils\I18n {
     use lib\Objects\OcConfig\OcConfig;
     use Utils\Debug\Debug;
     use Utils\Database\XDb;
+    use Utils\Cache\OcMemCache;
 
     class I18n
     {
@@ -71,10 +73,9 @@ namespace Utils\I18n {
         private function initialize()
         {
             $initLang = $this->getInitLang();
-            // check if $requestedLang is supported by node
+
             if (!$this->isLangSupported($initLang)) {
-                // requested language is not supported - display error...
-                $this->handleUnsupportedLangAndExit($initLang);
+                $initLang = self::FAILOVER_LANGUAGE;
             }
 
             $this->setCurrentLang($initLang);
@@ -138,7 +139,7 @@ namespace Utils\I18n {
          * @param boolean $skipPostprocess - if true skip "old-template" postprocessing
          * @return string -
          */
-        public static function translatePhrase($translationId, $langCode=null, $skipPostprocess=null, $skipFailoverLang=null)
+        public static function translatePhrase($translationId, $langCode=null, $skipPostprocess=false, $skipFailoverLang=false)
         {
             return self::instance()->translate($translationId, $langCode, $skipPostprocess, $skipFailoverLang);
         }
@@ -196,7 +197,7 @@ namespace Utils\I18n {
             return $langToUse;
         }
 
-        private function translate($str, $langCode=null, $skipPostprocess=null, $skipFailoverLang=null)
+        private function translate($str, $langCode=null, $skipPostprocess=false, $skipFailoverLang=false)
         {
             if(!$langCode){
                 $langCode = self::getCurrentLang();
@@ -229,6 +230,12 @@ namespace Utils\I18n {
         private function postProcessTr(&$ref)
         {
             if (strpos($ref, "{") !== false) {
+                if (!function_exists('tpl_do_replace')) {
+                    throw new Exception(
+                        // Desktop template system is not available on mobile pages.
+                        '{} placeholders must not be used in mobile_ translation texts.'
+                    );
+                }
                 return tpl_do_replace($ref, true);
             } else {
                 return $ref;
@@ -244,14 +251,25 @@ namespace Utils\I18n {
          */
         private function loadLangFile($langCode)
         {
+            // load selected language/translation file
+            $languageFilename = self::languageFilename($langCode);
+            include $languageFilename;
+            $this->trArray[$langCode] = $translations;
+        }
+
+        private function languageFileTime($langCode)
+        {
+            $languageFilename = self::languageFilename($langCode);
+            return filemtime($languageFilename);
+        }
+
+        private static function languageFilename($langCode)
+        {
             $languageFilename = __DIR__ . "/../../lib/languages/" . $langCode.'.php';
             if (!file_exists($languageFilename)) {
                 throw new \Exception("Can't find translation file for requested language!");
             }
-
-            // load selected language/translation file
-            include ($languageFilename);
-            $this->trArray[$langCode] = $translations;
+            return $languageFilename;
         }
 
         private function setCurrentLang($languageCode)
@@ -268,8 +286,6 @@ namespace Utils\I18n {
             return OcConfig::instance()->getI18Config()['supportedLanguages'];
         }
 
-
-
         private function isLangSupported($langCode){
 
             if (CrowdinInContextMode::isSupportedInConfig()) {
@@ -280,28 +296,67 @@ namespace Utils\I18n {
             return in_array($langCode, $this->getSupportedTranslations());
         }
 
-        private function handleUnsupportedLangAndExit($requestedLang)
+
+        /**
+         * @param string $prefix
+         * @return array dictionay of all translations that's keys start with the given prefix
+         */
+        public static function getPrefixedTranslationsWithFailover($prefix)
         {
-            $this->setCurrentLang(self::FAILOVER_LANGUAGE);
-            $this->loadLangFile(self::FAILOVER_LANGUAGE);
+            $cacheKey = 'translations-'.self::getCurrentLang().'-'.$prefix;
 
-            $view = tpl_getView();
-            tpl_set_tplname('error/langNotSupported');
+            $currentLangFiletime = self::languageFileTime(self::getCurrentLang());
+            $failoverFiletime = self::languageFileTime(self::FAILOVER_LANGUAGE);
 
-            $view->loadJQuery();
+            $t = OcMemCache::get($cacheKey);
 
-            $view->setVar("localCss",
-                Uri::getLinkWithModificationTime('/tpl/stdstyle/error/error.css'));
+            if ($t !== false &&
+                $t['failover-filetime'] == $failoverFiletime &&
+                $t['main-filetime'] == $currentLangFiletime
+            ) {
+                // use translations from cache
+                return $t['translations'];
+            }
 
-            $view->setVar('requestedLang', UserInputFilter::purifyHtmlString($requestedLang));
+            // not in cache - compile new translation set
+            $t = self::instance()->makePrefixedTranslationsWithFailover($prefix);
 
-            $view->setVar('allLanguageFlags', $this->getFlags());
+            OcMemCache::store(
+                $cacheKey, 3600 * 24, [
 
-            tpl_BuildTemplate();
+                    // If you change anything here, also change the name of the cache key!
+                    // Otherwise the old cached data could crash the changed implementation.
 
-            exit;
+                    'failover-filetime' => $failoverFiletime,
+                    'main-filetime' => $currentLangFiletime,
+                    'translations' => $t
+                ]
+            );
+            return $t;
         }
 
+        private function makePrefixedTranslationsWithFailover($prefix)
+        {
+            if (!isset($this->trArray[self::FAILOVER_LANGUAGE])) {
+                $this->loadLangFile(self::FAILOVER_LANGUAGE);
+            }
+
+            $prefixLen = strlen($prefix);
+            $currentLanguage = self::getCurrentLang();
+            $t = [];
+
+            foreach ($this->trArray[self::FAILOVER_LANGUAGE] as $key => $text) {
+                if (substr($key, 0, $prefixLen) == $prefix) {
+                    if (isset($this->trArray[$currentLanguage][$key])) {
+                        $t[substr($key, $prefixLen)] = $this->trArray[$currentLanguage][$key];
+                    } else {
+                        $t[substr($key, $prefixLen)] = $text;
+                    }
+                }
+            }
+
+            return $t;
+        }
 
 
         /**
