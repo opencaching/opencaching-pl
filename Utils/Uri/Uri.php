@@ -1,7 +1,6 @@
 <?php
 namespace Utils\Uri;
 
-
 class Uri {
 
     /**
@@ -85,10 +84,23 @@ class Uri {
      */
     public static function getLinkWithModificationTime($rootPath)
     {
+        $ROOT = __dir__.'/../..';
+
         // be sure that the path has preceding slash
         $rootPath = self::addPrecedingSlashIfNecessary($rootPath);
 
-        return $rootPath.'?' . filemtime(__dir__.'/../..'.$rootPath);
+        $realPath = $ROOT.$rootPath;
+        if (!file_exists($realPath)) {
+            // there is no such file!
+            if (file_exists($ROOT.'/public'.$rootPath)) {
+                // there is such file in '/public'
+                $realPath = $ROOT.'/public'.$rootPath;
+            } else {
+                throw new \Exception("No such file: $rootPath");
+            }
+        }
+
+        return $rootPath.'?' . filemtime($realPath);
     }
 
 
