@@ -332,7 +332,7 @@
                 <input type="text" name="search_time" maxlength="10" value="{search_time}" class="form-control input50" onChange="yes_change();" /> h
                 &nbsp;&nbsp;
                 {{length}}:
-                <input type="text" name="way_length" maxlength="10" value="{way_length}" class="form-control input30" onChange="yes_change();" /> km &nbsp; {effort_message}
+                <input type="text" name="way_length" maxlength="10" value="{way_length}" class="form-control input40" onChange="yes_change();" /> km &nbsp; {effort_message}
             </td>
         </tr>
         <tr>

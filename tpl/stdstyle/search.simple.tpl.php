@@ -371,7 +371,7 @@
   <form name="optionsform" style="display:inline;" action="search.php" method="post">
     <table class="table full-width">
       <tr>
-        <td class="buffer" colspan="2"><span id="scriptwarning" class="errormsg">{{no_javascript}}</span></td>
+        <td class="buffer" colspan="2"><span id="scriptwarning" class="errormsg">{{pt129}}</span></td>
       </tr>
       <tr>
         <td class="content-title-noshade" style="width: 200px;">{{omit_caches}}:</td>

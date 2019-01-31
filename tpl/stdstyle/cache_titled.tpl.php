@@ -34,7 +34,7 @@ use Utils\I18n\I18n;
 
     gct.addChartOption('showRowNumber', true );
 
-    gct.addChartOption('sortColumn', 4 ); //Data
+    gct.addChartOption('sortColumn', 4 ); //Date
     gct.addChartOption('sortAscending', false );
     gct.addChartOption('pageSize', 20);
 

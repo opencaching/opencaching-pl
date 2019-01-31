@@ -363,7 +363,7 @@ if ($usr == false) {
 
 
         if ( $found >= 10 ) {
-            $content .= '<br><table style="border-collapse: collapse; font-size: 110%;" width="250" border="1"><tr><td colspan="3" align="center" bgcolor="#DBE6F1"><b>' . tr('milestones') . '</b></td> </tr><tr><td bgcolor="#EEEDF9"><b> Nr </b></td> <td bgcolor="#EEEDF9"><b> Data </b></td> <td bgcolor="#EEEDF9"><b> Geocache</b> </td> </tr>';
+            $content .= '<br><table style="border-collapse: collapse; font-size: 110%;" width="250" border="1"><tr><td colspan="3" align="center" bgcolor="#DBE6F1"><b>' . tr('milestones') . '</b></td> </tr><tr><td bgcolor="#EEEDF9"><b> Nr </b></td> <td bgcolor="#EEEDF9"><b>'.tr('date').'</b></td> <td bgcolor="#EEEDF9"><b>'.tr('cache').'</b> </td> </tr>';
 
             if ( $found > 101 ) {
                 $milestone = 100;
@@ -605,7 +605,7 @@ if ($usr == false) {
         $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('latest_created_cache') . ':</span>&nbsp;&nbsp;<strong><a class="links" href="viewcache.php?cacheid=' . $rcc2['cache_id'] . '">' . $rcc2['wp_oc'] . '</a>&nbsp;&nbsp;</strong>(' . $rcc2['data'] . ')</p>';
 
         if ( $total_created_and_owned_caches >= 10 ) {
-            $content .= '<br><table style="border-collapse: collapse; font-size: 110%;" width="250" border="1"><tr><td colspan="3" align="center" bgcolor="#DBE6F1"><b>' . tr('milestones') . '</b></td> </tr><tr><td bgcolor="#EEEDF9"><b> Nr </b></td> <td bgcolor="#EEEDF9"><b> Data </b></td> <td bgcolor="#EEEDF9"><b> Geocache</b> </td> </tr>';
+            $content .= '<br><table style="border-collapse: collapse; font-size: 110%;" width="250" border="1"><tr><td colspan="3" align="center" bgcolor="#DBE6F1"><b>' . tr('milestones') . '</b></td> </tr><tr><td bgcolor="#EEEDF9"><b> Nr </b></td> <td bgcolor="#EEEDF9"><b>'.tr('date').'</b></td> <td bgcolor="#EEEDF9"><b>'.tr('cache').'</b> </td> </tr>';
 
             if ( $total_created_and_owned_caches > 101 ) {
                 $milestone = 100;

@@ -2,8 +2,6 @@
 
 tpl_set_var('mail_oc', $mail_oc);
 
-$submit = 'Wyślij';
-
 $mp3typedesc_cache = tr('editmp3_06');
 $mp3typedesc_log = tr('editmp3_07');
 

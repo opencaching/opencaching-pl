@@ -7,7 +7,6 @@ $rating_tpl = '<tr class="form-group-sm">
                 <td class="content-title-noshade"><img src="images/rating-star.png" class="icon16" alt="">&nbsp;'. tr('my_recommend') . ':</td>
                 <td class="options">
                     {rating_msg}
-                    <noscript><br><b>Rekomendacje mogą być dodawane tylko podczas robienia wpisu do logu!</b></noscript>
                 </td>
             </tr>';
 
