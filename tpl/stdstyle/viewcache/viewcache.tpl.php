@@ -894,9 +894,6 @@ use Controllers\MainMapController;
                     </div>
                     <span class="title"><?=$pic->title?></span>
                 </div>
-                <?php if ($key%4 == 3) { //add after every 4 pics ?>
-                <div style="clear:both"></div>
-                <?php } ?>
             <?php } //foreach ?>
         </div>
     </div>
