@@ -1,5 +1,9 @@
 <?php
 
+$page = null;
+$prev_page = null;
+$next_page = null;
+
 if ($ile <= $na_stronie)
     find_news(0, $na_stronie);
 else {
