@@ -2699,7 +2699,7 @@ $translations = array(
 
     'pictures_intro' => 'Akceptowane formaty: {picallowedformats} - dla zdjęć rekomendowany format JPG .<br />Maksymalna dozwolona wielkość pliku {maxpicsizeMB} MB. Zalecane wymiary obrazków: {maxpicresolution} pikseli. <br />Po potwierdzeniu przetwarzanie może potrwać dłuższą chwilę.',
 
-    'page_error_1' => 'Oups, wystąpił problem podczas przetwarzania danych.',
+    'page_error_1' => 'Ups, wystąpił problem podczas przetwarzania danych.',
     'page_error_2' => 'Administratorzy systemu zostali o nim powiadomieni.',
     'page_error_3' => 'Jeśli problem będzie się powtarzał, proszę <a href="/articles.php?page=contact">skontaktuj się z nami</a> i opisz krok po kroku co należy zrobić, by problem wystąpił.',
     'page_error_back' => 'Przejdź do strony głównej',
