@@ -9,6 +9,11 @@
 	- migration needs to be a process
 	- files needs to be moved in git repo (to not break the repo history of files)	
 
+## 2. Still open cases (TODO)
+
+### `/okapi/` - where is the best place for OKAPI code ?
+	- **contains** code of OKAPI - separate dir because OKAPI is an external but unique project for OCPL
+
 ## 3. Folders structure: root-level folders
 
 ### `/` (project root folder)
@@ -52,6 +57,10 @@
 	- folder structure - see below 
 	- **migration** - see below
 
+### `/mobile/`
+	- **access**: blocked from main oc domain - mobile page has its own m.* domain (PHP is allowed)
+	- **contains** - legacy mobile site
+
 ### `/resources/`
 	- **access**: RW for webserver, (TODO: PHP ?)
 	- a root-level directory for files which needs webserver RW access for uploaded files etc.
@@ -91,12 +100,6 @@
 	- **contains** common used images, icons etc.
 	- images should be grouped in logical structure of folders
 	- every folder with images should contains README file with description of origin/author of images
-
-### `/public/okapi/`
-	- **contains** code of OKAPI - separate dir because OKAPI is an external but unique project for OCPL
-
-### `/public/mobile/`
-	- **contains** - legacy mobile site
 	
 ### `/public/xml/`
 	- **contains** - legacy external interface to OC code
