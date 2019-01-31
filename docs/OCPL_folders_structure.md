@@ -62,10 +62,9 @@
 	- **contains** - legacy mobile site
 
 ### `/resources/`
-	- **access**: RW for webserver, (TODO: PHP ?)
-	- a root-level directory for files which needs webserver RW access for uploaded files etc.
-	- let's store main directory structure in git, but the content should be ignored (by git-ignore)
-	- **migration** this should become more-less this what we called "ocpl-dynamic" so far
+	- **access**: no access for webserver, (PHP can read)
+	- non-public static resources used by PHP scripts
+	- TODO: It seems for now we don't have such data 
 
 ### `/src/`
 	- **access**: No access from Internet, (PHP can include)
@@ -73,8 +72,15 @@
 	- folder structure - see below
 	- **migration** - almost all PHP scripts shoudl finally land here, but we need to migrate it partially
 
+### `/var/`
+	- **access**: RW for webserver, (TODO: PHP ?)
+	- a root-level directory for files which needs webserver RW access for uploaded files etc.
+	- let's store main directory structure in git, but the content should be ignored (by git-ignore)
+	- **migration** this should become more-less this what we called "ocpl-dynamic" so far
+	
 ### `/vendor/`
 	- external libraries maintained with composer
+
 
 ## 4. `/public/` folder structure
 
