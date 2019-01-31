@@ -75,7 +75,7 @@ class UpdateController extends BaseController
             # there may be new or renamed columns. Routine creation fails if
             # a referenced column does not exist!
 
-            $messages .= self::updateRoutines();
+            $messages .= DbUpdates::updateRoutines();
 
             if ($messages == '') {
                 $messages = "no updates to run\n";

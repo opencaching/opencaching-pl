@@ -157,7 +157,7 @@ class DbUpdateController extends BaseController
         $this->securityCheck(false);
 
         try {
-            if (!$uuid) {
+            if (!$id) {
                 $messages = UpdateController::runOcDatabaseUpdate();
             } elseif (substr($id, -4) == '.sql') {
                 $messages = DbUpdates::runRoutines($id);
