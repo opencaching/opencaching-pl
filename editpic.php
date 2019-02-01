@@ -20,14 +20,15 @@ if ($error == false) {
         require_once(__DIR__.'/tpl/stdstyle/editpic.inc.php');
 
         $uuid = isset($_REQUEST['uuid']) ? $_REQUEST['uuid'] : 0;
-        if (!$uuid)
+        if (!$uuid) {
             $message = $message_picture_not_found;
+        }
 
-        $owner = XDb::xMultiVariableQueryValue(
-            "SELECT `user_id` FROM `pictures` WHERE `uuid`= :1 LIMIT 1", 0, $uuid);
+        if (!$message) {
+            $owner = XDb::xMultiVariableQueryValue(
+                "SELECT `user_id` FROM `pictures` WHERE `uuid`= :1 LIMIT 1", 0, $uuid);
 
-        if ($usr['admin'] || $owner == $usr['userid']) {
-            if (!$message) {
+            if ($usr['admin'] || $owner == $usr['userid']) {
 
                 $rs = XDb::xSql(
                     "SELECT `pictures`.`spoiler`, `pictures`.`display`, `pictures`.`title`, `pictures`.`object_id`,
@@ -39,6 +40,12 @@ if ($error == false) {
                 if (!$row = XDb::xFetchArray($rs)) {
                     $message = $message_picture_not_found;
                 }
+            } else {
+                $tplname = 'error';
+                tpl_set_var('tplname', 'editpic.php');
+                tpl_set_var('error_msg', tr('noaccess_error_01'));
+                tpl_BuildTemplate();
+                exit;
             }
         }
 
