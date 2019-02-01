@@ -11,5 +11,5 @@ git stash
 git pull --rebase
 git stash pop
 
-echo Running OKAPI update scripts...
-wget -O - -q http://YOUR_OPENCACHING_HOSTNAME/okapi/update
+echo Running update scripts...
+wget -O - -q http://YOUR_OPENCACHING_HOSTNAME/update

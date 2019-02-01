@@ -18,28 +18,6 @@ class DbUpdates
     private static $updates = null;
 
     /**
-     * Runs all updates that did not run yet (or were rolled back) and have
-     * no 'autorun'=false property.
-     *
-     * @return string
-     *    multiline English plain text, diagnostic notices, should be displayed
-     *    to the operator / developer if the update was run manually.
-     */
-    public static function run()
-    {
-        $messages = '';
-        foreach (self::getAll() as $uuid => $update) {
-            if ($update->shouldRun()) {
-                $messages .= $update->run();
-            }
-        }
-        if ($messages == '') {
-            $messages = "no updates to run\n";
-        }
-        return $messages;
-    }
-
-    /**
      * @return string
      *    next unused version number (first part of filename) for a new
      *    update script to be created; number 900+ is reserved for

@@ -34,6 +34,12 @@ In the update script you may either use special OcDb methods like
 Whatever fits your purpose. For the special OcDb methods, there are usage examples
 in [100_init.php](https://github.com/opencaching/opencaching-pl/blob/master/Utils/Database/Updates/100_init.php).
 
+IMPORTANT: You can output diangostic information from your update by "echo",
+"print", "printf" etc. This information will by shown when running updates
+manually. As the update views are PUBLIC
+[why?](https://github.com/opencaching/opencaching-pl/pull/1923), you MUST NOT
+output any sensitive data.
+
 ### Types of database updates
 
 There are three types, which can be set in the `run` variable of the update's
