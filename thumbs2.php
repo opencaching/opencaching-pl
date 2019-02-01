@@ -84,25 +84,31 @@ if ($error == false) {
                     tpl_redirect_absolute($imgurl_format);
             }
 
-            if ($extension == 'jpeg')
+            if ($extension == 'jpeg') {
                 $extension = 'jpg';
-            switch ($extension) {
-                case 'jpg':
-                    $im = imagecreatefromjpeg($picdir . '/' . $filename);
-                    break;
+            }
+            try {
+                switch ($extension) {
+                    case 'jpg':
+                        $im = imagecreatefromjpeg($picdir . '/' . $filename);
+                        break;
 
-                case 'gif':
-                    $im = imagecreatefromgif($picdir . '/' . $filename);
-                    break;
+                    case 'gif':
+                        $im = imagecreatefromgif($picdir . '/' . $filename);
+                        break;
 
-                case 'png':
-                    $im = imagecreatefrompng($picdir . '/' . $filename);
-                    break;
+                    case 'png':
+                        $im = imagecreatefrompng($picdir . '/' . $filename);
+                        break;
 
-                case 'bmp':
-                    require(__DIR__.'/lib/imagebmp.inc.php');
-                    $im = imagecreatefrombmp($picdir . '/' . $filename);
-                    break;
+                    case 'bmp':
+                        require(__DIR__.'/lib/imagebmp.inc.php');
+                        $im = imagecreatefrombmp($picdir . '/' . $filename);
+                        break;
+                }
+            } catch (\Exception $e) {
+                // invalid file format
+                $im = '';
             }
 
             if ($im == '') {
