@@ -108,7 +108,7 @@
 	- every folder with images should contains README file with description of origin/author of images
 	
 ### `/public/xml/`
-	- **contains** - legacy external interface to OC code
+	- **contains** - legacy external interface to OC DB
 
 
 ## 5. `/src/` folder structure
