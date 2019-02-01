@@ -21,7 +21,8 @@ class UpdateController extends BaseController
     {
         // It MUST be safe to run update any time. (Concurrent runs are prevented
         // by locks). Therefore it is also safe to publish this page via router.
-        // Note that the OKAPI update view has always been public.
+        // Note that the OKAPI update view as well as the OCPL post-commit.php
+        // have always been public.
 
         // However, it may not be safe to run only parts of update. Therefore only
         // the full update is runnable by router:
