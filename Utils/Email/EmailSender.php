@@ -37,8 +37,8 @@ class EmailSender
         //ok, mail allowed - build it
         $email = new Email();
 
-        $email->addToAddr( OcConfig::getEmailAddrTechAdmin());
-        $email->setReplyToAddr( OcConfig::getEmailAddrTechAdmin());
+        $email->addToAddr( OcConfig::getEmailAddrTechAdminNotification());
+        $email->setReplyToAddr( OcConfig::getEmailAddrTechAdminNotification());
         $email->setFromAddr( OcConfig::getEmailAddrNoReply());
 
         $email->addSubjectPrefix("OC Admin Email");

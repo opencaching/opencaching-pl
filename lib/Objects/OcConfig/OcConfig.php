@@ -2,8 +2,6 @@
 
 namespace lib\Objects\OcConfig;
 
-use Utils\Email\Email;
-
 final class OcConfig extends ConfigReader
 {
     use EmailConfigTrait;
@@ -30,7 +28,6 @@ final class OcConfig extends ConfigReader
     private $datetimeFormat = 'Y-m-d H:i';
     private $ocNodeId = null;
     private $absolute_server_URI = null;
-    private $octeamEmailAddress;
     private $siteName;
     private $dynamicFilesPath;
     private $powerTrailModuleSwitchOn;
