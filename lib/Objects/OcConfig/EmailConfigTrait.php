@@ -8,9 +8,14 @@ trait EmailConfigTrait {
 
     protected $emailConfig = null;
 
-    public static function getOcteamEmailAddress()
+    public static function getOcteamEmailAddress($forWebDisplay=false)
     {
-        return self::getEmailVar('ocTeamContactEmail');
+        $email = self::getEmailVar('ocTeamContactEmail');
+        if($forWebDisplay){
+            return self::emailToDisplay($email);
+        } else {
+            return $email;
+        }
     }
 
     public static function getOcteamEmailsSignature()
@@ -20,7 +25,6 @@ trait EmailConfigTrait {
 
     public static function getNoreplyEmailAddress()
     {
-        // $this->noreplyEmailAddress = $emailaddr;
         return self::getEmailVar('noReplyEmail');
     }
 
@@ -34,6 +38,16 @@ trait EmailConfigTrait {
             $this->emailConfig = self::getConfig('email');
         }
         return $this->emailConfig;
+    }
+
+    public static function getMailSubjectPrefixForSite()
+    {
+        return self::getVar('mailSubjectPrefix');
+    }
+
+    public static function getMailSubjectPrefixForReviewers()
+    {
+        return self::getVar('mailSubjectPrefixForReviewers');
     }
 
     protected static function getVar($varName)
@@ -63,5 +77,10 @@ trait EmailConfigTrait {
     protected static function removeHashes($text)
     {
         return str_replace('#', "", $text);
+    }
+
+    protected static function emailToDisplay($email)
+    {
+        return str_replace('@', " (at) ", $email);
     }
 }

@@ -42,15 +42,12 @@ final class OcConfig extends ConfigReader
     private $pagetitle;
     private $pictureDirectory;
     private $pictureUrl;
-    private $contactMail;
     private $dateFormat;
     private $mapsConfig;            //settings.inc: $config['mapsConfig']
     private $headerLogo;
     private $shortSiteName;
     private $needFindLimit;
     private $needApproveLimit;
-    private $mailSubjectPrefixForSite;
-    private $mailSubjectPrefixForReviewers;
     private $enableCacheAccessLogs;
     private $minumumAge;
     private $meritBadgesEnabled;
@@ -142,14 +139,11 @@ final class OcConfig extends ConfigReader
         $this->pagetitle = $pagetitle;
         $this->pictureDirectory = $picdir;
         $this->pictureUrl = $picurl;
-        $this->contactMail = $contact_mail;
         $this->dateFormat = $dateFormat;
         $this->headerLogo = $config['headerLogo'];
         $this->shortSiteName = $short_sitename;
         $this->needApproveLimit = $NEED_APPROVE_LIMIT;
         $this->needFindLimit = $NEED_FIND_LIMIT;
-        $this->mailSubjectPrefixForSite = $subject_prefix_for_site_mails;
-        $this->mailSubjectPrefixForReviewers = $subject_prefix_for_reviewers_mails;
         $this->enableCacheAccessLogs = $enable_cache_access_logs;
         $this->minumumAge = $config['limits']['minimum_age'];
         $this->meritBadgesEnabled = $config['meritBadges'];
@@ -359,17 +353,6 @@ final class OcConfig extends ConfigReader
         return self::instance()->needApproveLimit;
     }
 
-
-
-    public static function getMailSubjectPrefixForSite()
-    {
-        return self::instance()->mailSubjectPrefixForSite;
-    }
-
-    public static function getMailSubjectPrefixForReviewers()
-    {
-        return self::instance()->mailSubjectPrefixForReviewers;
-    }
 
     /**
      * Gives \Utils\Lock objects configuration, tries to initialize it if null

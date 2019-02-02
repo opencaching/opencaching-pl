@@ -76,12 +76,9 @@ if ($error == false) {
                     $email_content = mb_ereg_replace('{code}', $secure_code, $email_content);
                     $email_content = mb_ereg_replace('{octeamEmailsSignature}', OcConfig::getOcteamEmailsSignature(), $email_content);
 
-
-                    global $emailaddr;
-
                     $emailheaders = "Content-Type: text/plain; charset=utf-8\r\n";
                     $emailheaders .= "Content-Transfer-Encoding: 8bit\r\n";
-                    $emailheaders .= 'From: "' . $emailaddr . '" <' . $emailaddr . '>';
+                    $emailheaders .= 'From: "'.OcConfig::getNoreplyEmailAddress().'" <'.OcConfig::getNoreplyEmailAddress().'>';
 
 
                     mb_send_mail($new_email, $email_subject, $email_content, $emailheaders);

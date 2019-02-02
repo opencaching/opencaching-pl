@@ -35,10 +35,20 @@ $config['ocTeamContactEmail'] = 'cog@o#pencaching.pl';
  */
 $config['ocTeamEmailSignature'] = 'Pozdrawiamy, Zespół www.opencaching.pl';
 
-
 /**
  * No-reply email address for this node
  * ALL HASHES WILL BE AUTOMATICALLY REMOVED FROM EMAIL ADDRESS!
  */
 $config['noReplyEmail'] = 'noreply@o#pencaching.pl';
+
+/**
+ * Prefix added to subject of emails sending from OC code
+ */
+$config['mailSubjectPrefix'] = 'OCPL';
+
+/**
+ * Prefix added to subject of emails sending from OC code in context of cache review
+ */
+$config['mailSubjectPrefixForReviewers'] = 'COG';
+
 
