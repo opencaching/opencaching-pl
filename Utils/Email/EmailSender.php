@@ -102,8 +102,8 @@ class EmailSender
 
         $email = new Email();
         $email->addToAddr($cache->getOwner()->getEmail());
-        $email->setReplyToAddr(OcConfig::getCogEmailAddress());
-        $email->setFromAddr(OcConfig::getCogEmailAddress());
+        $email->setReplyToAddr(OcConfig::getOcteamEmailAddress());
+        $email->setFromAddr(OcConfig::getOcteamEmailAddress());
         $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForSite());
         $email->setSubject(tr('octeam_comment_subject'));
         $email->setHtmlBody($formattedMessage->getEmailContent());
@@ -111,9 +111,9 @@ class EmailSender
 
         //Send copy to COG
         $emailCOG = new Email();
-        $emailCOG->addToAddr(OcConfig::getCogEmailAddress());
-        $emailCOG->setReplyToAddr(OcConfig::getCogEmailAddress());
-        $emailCOG->setFromAddr(OcConfig::getCogEmailAddress());
+        $emailCOG->addToAddr(OcConfig::getOcteamEmailAddress());
+        $emailCOG->setReplyToAddr(OcConfig::getOcteamEmailAddress());
+        $emailCOG->setFromAddr(OcConfig::getOcteamEmailAddress());
         $emailCOG->addSubjectPrefix(OcConfig::getMailSubjectPrefixForReviewers());
         $emailCOG->setSubject(tr('octeam_comment_subject_copy').' '.$admin->getUserName());
         $emailCOG->setHtmlBody($formattedMessage->getEmailContent());
@@ -195,7 +195,7 @@ class EmailSender
         $formattedMessage->addFooterAndHeader(OcConfig::getMailSubjectPrefixForReviewers());
 
         $email = new Email();
-        $email->addToAddr(OcConfig::getCogEmailAddress());
+        $email->addToAddr(OcConfig::getOcteamEmailAddress());
         $email->setReplyToAddr(OcConfig::getNoreplyEmailAddress());
         $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
         $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForReviewers());

@@ -193,8 +193,8 @@ class ReportEmailSender
         $formattedMessage->addFooterAndHeader($toUser->getUserName(), false);
         $email = new Email();
         $email->addToAddr($toUser->getEmail());
-        $email->setReplyToAddr(OcConfig::getCogEmailAddress());
-        $email->setFromAddr(OcConfig::getCogEmailAddress());
+        $email->setReplyToAddr(OcConfig::getOcteamEmailAddress());
+        $email->setFromAddr(OcConfig::getOcteamEmailAddress());
         $email->setSubject($subject);
         $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForSite());
         $email->setHtmlBody($formattedMessage->getEmailContent());
@@ -308,8 +308,8 @@ class ReportEmailSender
         $formattedMessage->addFooterAndHeader($toUser->getUserName(), false);
         $email = new Email();
         $email->addToAddr($toUser->getEmail());
-        $email->setReplyToAddr(OcConfig::getCogEmailAddress());
-        $email->setFromAddr(OcConfig::getCogEmailAddress());
+        $email->setReplyToAddr(OcConfig::getOcteamEmailAddress());
+        $email->setFromAddr(OcConfig::getOcteamEmailAddress());
         $email->setSubject($subject);
         $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForSite());
         $email->setHtmlBody($formattedMessage->getEmailContent());
@@ -347,8 +347,8 @@ class ReportEmailSender
         $formattedMessage->addFooterAndHeader($toUser->getUserName(), false);
         $email = new Email();
         $email->addToAddr($toUser->getEmail());
-        $email->setReplyToAddr(OcConfig::getCogEmailAddress());
-        $email->setFromAddr(OcConfig::getCogEmailAddress());
+        $email->setReplyToAddr(OcConfig::getOcteamEmailAddress());
+        $email->setFromAddr(OcConfig::getOcteamEmailAddress());
         $email->setSubject($subject);
         $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForSite());
         $email->setHtmlBody($formattedMessage->getEmailContent());
@@ -386,8 +386,8 @@ class ReportEmailSender
         $formattedMessage->addFooterAndHeader($toUser->getUserName(), true);
         $email = new Email();
         $email->addToAddr($toUser->getEmail());
-        $email->setReplyToAddr(OcConfig::getCogEmailAddress());
-        $email->setFromAddr(OcConfig::getCogEmailAddress());
+        $email->setReplyToAddr(OcConfig::getOcteamEmailAddress());
+        $email->setFromAddr(OcConfig::getOcteamEmailAddress());
         $email->setSubject($subject);
         $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForReviewers());
         $email->setHtmlBody($formattedMessage->getEmailContent());

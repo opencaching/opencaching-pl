@@ -1,5 +1,7 @@
 <?php
 
+use lib\Objects\OcConfig\OcConfig;
+
 require_once(__DIR__.'/common.inc.php');
 
 $gpxHead = '<?xml version="1.0" encoding="utf-8"?>
@@ -11,7 +13,7 @@ $gpxHead = '<?xml version="1.0" encoding="utf-8"?>
     <name>Cache Listing Generated from ' . convert_string($site_name) . '</name>
     <desc>Cache Listing Generated from ' . convert_string($site_name) . ' {wpchildren}</desc>
     <author>' . convert_string($site_name) . '</author>
-    <email>' . $mail_oc . '</email>
+    <email>' . OcConfig::getTechAdminsEmailAddr() . '</email>
     <url>' . $absolute_server_URI . '</url>
     <urlname>' . convert_string($site_name) . ' - ' . convert_string(tr('oc_subtitle_on_all_pages_' . $config['ocNode'])) . '</urlname>
     <time>{time}</time>

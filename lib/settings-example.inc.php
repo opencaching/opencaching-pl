@@ -206,8 +206,7 @@ $cache_params_url = 'http://wiki.opencaching.pl/index.php/Parametry_skrzynki';
 $rating_desc_url = 'http://wiki.opencaching.pl/index.php/Oceny_skrzynek';
 
 $contact_mail = 'ocpl (at) localhost';
-// E-mail address group of people from OC Team who solve problems, verify cache
-$octeam_email = 'cog@localhost';
+
 
 // signature of e-mails send by system
 $octeamEmailsSignature = "Pozdrawiamy, Zespół www.opencaching.pl";
@@ -249,10 +248,6 @@ $powerTrailUserMinimumCacheFoundToSetNewPowerTrail = 500;
 
 // enable detailed cache access logging
 //$enable_cache_access_logs = true;
-
-// OC specific email addresses for international use - here version for OC.PL.
-$mail_rt = 'rt@opencaching.pl';     // OCPL: technical contact
-$mail_oc = 'ocpl@opencaching.pl';   // OCPL: general contact
 
 
 //Short sitename for international use.
