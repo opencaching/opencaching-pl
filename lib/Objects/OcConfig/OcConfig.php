@@ -30,7 +30,6 @@ final class OcConfig extends ConfigReader
     private $datetimeFormat = 'Y-m-d H:i';
     private $ocNodeId = null;
     private $absolute_server_URI = null;
-    private $octeamEmailsSignature = null;
     private $octeamEmailAddress;
     private $siteName;
     private $dynamicFilesPath;
@@ -132,7 +131,6 @@ final class OcConfig extends ConfigReader
         $this->datetimeFormat = $datetimeFormat;
         $this->ocNodeId = $oc_nodeid;
         $this->absolute_server_URI = $absolute_server_URI;
-        $this->octeamEmailsSignature = $octeamEmailsSignature;
         $this->siteName = $site_name;
         $this->dynamicFilesPath = $dynbasepath;
         $this->powerTrailModuleSwitchOn = $powerTrailModuleSwitchOn;

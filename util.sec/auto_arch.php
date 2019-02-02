@@ -99,7 +99,7 @@ class AutoArch
         $email_content = mb_ereg_replace('{cachename}', $cache->getCacheName(), $email_content);
         $email_content = mb_ereg_replace('{cache_wp}', $cache->getWaypointId(), $email_content);
         $email_content = mb_ereg_replace('{cacheid}', $cacheid, $email_content);
-        $email_content = mb_ereg_replace('{octeamEmailsSignature}', $this->ocConfig->getOcteamEmailsSignature(), $email_content);
+        $email_content = mb_ereg_replace('{octeamEmailsSignature}', OcConfig::getOcteamEmailsSignature(), $email_content);
         $emailheaders = "Content-Type: text/plain; charset=utf-8\r\n";
         $emailheaders .= "From: $siteName <$octeamEmailAddress>\r\n";
         $emailheaders .= "Reply-To: $siteName <$octeamEmailAddress>";

@@ -115,7 +115,7 @@ function assignUserToCase($userid, $cacheid)
 function notifyOwner($cacheid, $msgType)
 {
     // msgType - 0 = cache accepted, 1 = cache declined (=archived)
-    global $usr, $site_name, $absolute_server_URI, $octeamEmailsSignature, $oc_nodeid;
+    global $usr, $site_name, $absolute_server_URI, $oc_nodeid;
     $user_id = getCacheOwnerId($cacheid);
 
     $cachename = getCachename($cacheid);
@@ -130,7 +130,7 @@ function notifyOwner($cacheid, $msgType)
     $email_content = mb_ereg_replace('{server}', $absolute_server_URI, $email_content);
     $email_content = mb_ereg_replace('{cachename}', $cachename, $email_content);
     $email_content = mb_ereg_replace('{cacheid}', $cacheid, $email_content);
-    $email_content = mb_ereg_replace('{octeamEmailsSignature}', $octeamEmailsSignature, $email_content);
+    $email_content = mb_ereg_replace('{octeamEmailsSignature}', OcConfig::getOcteamEmailsSignature(), $email_content);
     $email_content = mb_ereg_replace('{cacheArchived_01}', tr('cacheArchived_01'), $email_content);
     $email_content = mb_ereg_replace('{cacheArchived_02}', tr('cacheArchived_02'), $email_content);
     $email_content = mb_ereg_replace('{cacheArchived_03}', tr('cacheArchived_03'), $email_content);

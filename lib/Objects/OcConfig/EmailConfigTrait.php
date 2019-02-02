@@ -15,7 +15,7 @@ trait EmailConfigTrait {
 
     public static function getOcteamEmailsSignature()
     {
-        return self::instance()->octeamEmailsSignature;
+        return self::getVar('ocTeamEmailSignature');
     }
 
     public static function getNoreplyEmailAddress()

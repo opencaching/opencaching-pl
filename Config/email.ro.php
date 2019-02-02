@@ -23,6 +23,12 @@ $config['nodeTechContactEmail'] = 'echipa@opencaching.ro';
 $config['ocTeamContactEmail'] = 'echipa@o#pencaching.ro';
 
 /**
+ * Signature for OCTeam emails for this node
+ * ALL HASHES WILL BE AUTOMATICALLY REMOVED FROM EMAIL ADDRESS!
+ */
+$config['ocTeamEmailSignature'] = 'Cu stimă, Echipa Opencaching România';
+
+/**
  * No-reply email address for this node
  * ALL HASHES WILL BE AUTOMATICALLY REMOVED FROM EMAIL ADDRESS!
  */
