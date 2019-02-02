@@ -6,7 +6,7 @@ class sendEmail
 {
     public static function emailOwners($ptId, $commentType, $commentDateTime, $commentText, $action, $commentOwnerId = false, $delReason = '') {
         /*ugly, but we need this values from common.inc.php*/
-        global $watchlistMailfrom, $usr, $absolute_server_URI, $site_name, $siteDateFormat, $siteDateTimeFormat;
+        global $usr, $absolute_server_URI, $site_name, $siteDateFormat, $siteDateTimeFormat;
         $siteDateFormat = 'Y-m-d';
         $siteDateTimeFormat = 'Y-m-d H:i';
 
@@ -19,8 +19,8 @@ class sendEmail
 
         $headers = 'MIME-Version: 1.0' . "\r\n";
         $headers .= 'Content-type: text/html; charset=UTF-8 ' . "\r\n";
-        $headers .= "From: $site_name <" . $watchlistMailfrom . ">\r\n";
-        $headers .= "Reply-To: " . $watchlistMailfrom . "\r\n";
+        $headers .= "From: $site_name <" . OcConfig::getNoreplyEmailAddress() . ">\r\n";
+        $headers .= "Reply-To: " . OcConfig::getNoreplyEmailAddress() . "\r\n";
 
         $mailbody = file_get_contents(dirname(__FILE__) . '/commentEmail.html');
 
