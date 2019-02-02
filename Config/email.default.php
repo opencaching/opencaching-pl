@@ -21,17 +21,17 @@ $config['technicalNotificationEmail'] = '#tech#No#tif#y#@#ope#ncac#hing.pl';
  * Technical contact address for users of this OC node
  * ALL HASHES WILL BE AUTOMATICALLY REMOVED FROM EMAIL ADDRESS!
  */
-$config['nodeTechContactEmail'] = 'r#t#@#ope#ncac#hing.p#l';
+$config['nodeTechContactEmail'] = 'rt@o#pencaching.pl';
 
 /**
- * Contact address to OCTEAM for this node
+ * Contact address to OCTEAM for this node (reviewers and regional service for cachers)
  * ALL HASHES WILL BE AUTOMATICALLY REMOVED FROM EMAIL ADDRESS!
  */
-$config['ocTeamContactEmail'] = 'c#o#g#@#ope#ncac#hing.p#l';
+$config['ocTeamContactEmail'] = 'cog@o#pencaching.pl';
 
 /**
  * No-reply email address for this node
  * ALL HASHES WILL BE AUTOMATICALLY REMOVED FROM EMAIL ADDRESS!
  */
-$config['noReplyEmail'] = 'noreply#@o#p#encaching.pl';
+$config['noReplyEmail'] = 'noreply@o#pencaching.pl';
 

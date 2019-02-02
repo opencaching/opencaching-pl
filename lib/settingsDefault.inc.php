@@ -14,7 +14,6 @@ $site_name = 'OpenCaching.???';
 // OC specific email addresses for international use
 // override in settings.inc.php to values you want to locally use
 
-$mail_cog = 'cog@localhost';    // OCPL COG = reviewers and regional service for cachers
 $mail_rt = 'root@localhost';    // OCPL technical contact
 $mail_oc = 'ocpl@localhost';    // OCPL general contact
 

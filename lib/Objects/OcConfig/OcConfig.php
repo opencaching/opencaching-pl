@@ -50,7 +50,6 @@ final class OcConfig extends ConfigReader
     private $shortSiteName;
     private $needFindLimit;
     private $needApproveLimit;
-    private $cogEmailAddress;
     private $mailSubjectPrefixForSite;
     private $mailSubjectPrefixForReviewers;
     private $enableCacheAccessLogs;
@@ -135,7 +134,6 @@ final class OcConfig extends ConfigReader
         $this->absolute_server_URI = $absolute_server_URI;
         $this->octeamEmailsSignature = $octeamEmailsSignature;
         $this->octeamEmailAddress = $octeam_email;
-        $this->cogEmailAddress = $mail_cog;
         $this->siteName = $site_name;
         $this->dynamicFilesPath = $dynbasepath;
         $this->powerTrailModuleSwitchOn = $powerTrailModuleSwitchOn;
@@ -396,12 +394,12 @@ final class OcConfig extends ConfigReader
 
     public static function getCogEmailAddress()
     {
-        $addr = self::instance()->cogEmailAddress;
-        if (!Email::isValidEmailAddr($addr)) {
-            throw new \Exception('Invalid COG email address setting');
+        $emailConfig = self::instance()->getEmailConfig();
+        if (!is_array($emailConfig) || !Email::isValidEmailAddr($emailConfig['ocTeamContactEmail'])) {
+            throw new \Exception('Invalid OCTeam email address setting: see /config/email.*');
         }
-        return $addr;
-    }
+        return $emailConfig['ocTeamContactEmail'];
+   }
 
     public static function getMailSubjectPrefixForSite()
     {
