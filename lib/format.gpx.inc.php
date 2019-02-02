@@ -13,7 +13,7 @@ $gpxHead = '<?xml version="1.0" encoding="utf-8"?>
     <name>Cache Listing Generated from ' . convert_string($site_name) . '</name>
     <desc>Cache Listing Generated from ' . convert_string($site_name) . ' {wpchildren}</desc>
     <author>' . convert_string($site_name) . '</author>
-    <email>' . OcConfig::getTechAdminsEmailAddr() . '</email>
+    <email>' . OcConfig::getEmailAddrTechAdmin() . '</email>
     <url>' . $absolute_server_URI . '</url>
     <urlname>' . convert_string($site_name) . ' - ' . convert_string(tr('oc_subtitle_on_all_pages_' . $config['ocNode'])) . '</urlname>
     <time>{time}</time>

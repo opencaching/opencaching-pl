@@ -80,7 +80,7 @@ class ErrorHandler
         } catch (\Exception $e) {
             try {
                 mail(
-                    OcConfig::getTechAdminsEmailAddr(),
+                    OcConfig::getEmailAddrTechAdmin(),
                     "OC site error",
                     $msg
                 );

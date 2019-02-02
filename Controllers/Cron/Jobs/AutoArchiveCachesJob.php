@@ -10,6 +10,7 @@ use lib\Objects\GeoCache\GeoCacheLog;
 use Utils\Email\Email;
 use Utils\Email\EmailFormatter;
 use Utils\Generators\Uuid;
+use lib\Objects\OcConfig\OcConfig;
 
 class AutoArchiveCachesJob extends Job
 {
@@ -168,11 +169,11 @@ class AutoArchiveCachesJob extends Job
             ->setVariable('cacheWp', $cache->getGeocacheWaypointId())
             ->setVariable('cacheUrl', $this->ocConfig->getAbsolute_server_URI().$cache->getCacheUrl());
 
-        $email->setFromAddr($this->ocConfig->getOcteamEmailAddress());
-        $email->setReplyToAddr($this->ocConfig->getOcteamEmailAddress());
-        $email->setFromAddr($this->ocConfig->getOcteamEmailAddress());
+        $email->setFromAddr(OcConfig::getEmailAddrOcTeam());
+        $email->setReplyToAddr(OcConfig::getEmailAddrOcTeam());
+        $email->setFromAddr(OcConfig::getEmailAddrOcTeam());
         $email->setSubject($subject);
-        $email->addSubjectPrefix($this->ocConfig->getMailSubjectPrefixForSite());
+        $email->addSubjectPrefix(OcConfig::getEmailSubjectPrefix());
         $email->setHtmlBody($formattedMessage->getEmailContent());
         $email->send();
     }

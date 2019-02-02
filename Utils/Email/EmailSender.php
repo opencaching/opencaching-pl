@@ -37,9 +37,9 @@ class EmailSender
         //ok, mail allowed - build it
         $email = new Email();
 
-        $email->addToAddr( OcConfig::getTechAdminsEmailAddr());
-        $email->setReplyToAddr( OcConfig::getTechAdminsEmailAddr());
-        $email->setFromAddr( OcConfig::getNoreplyEmailAddress());
+        $email->addToAddr( OcConfig::getEmailAddrTechAdmin());
+        $email->setReplyToAddr( OcConfig::getEmailAddrTechAdmin());
+        $email->setFromAddr( OcConfig::getEmailAddrNoReply());
 
         $email->addSubjectPrefix("OC Admin Email");
         $email->setSubject('Error in domain: '.$spamDomain); //TODO
@@ -73,9 +73,9 @@ class EmailSender
 
         $email = new Email();
         $email->addToAddr($log->getUser()->getEmail());
-        $email->setReplyToAddr(OcConfig::getNoreplyEmailAddress());
-        $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
-        $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForSite());
+        $email->setReplyToAddr(OcConfig::getEmailAddrNoReply());
+        $email->setFromAddr(OcConfig::getEmailAddrNoReply());
+        $email->addSubjectPrefix(OcConfig::getEmailSubjectPrefix());
         $email->setSubject(tr('removed_log_title'));
         $email->setHtmlBody($formattedMessage->getEmailContent());
         $email->send();
@@ -102,19 +102,19 @@ class EmailSender
 
         $email = new Email();
         $email->addToAddr($cache->getOwner()->getEmail());
-        $email->setReplyToAddr(OcConfig::getOcteamEmailAddress());
-        $email->setFromAddr(OcConfig::getOcteamEmailAddress());
-        $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForSite());
+        $email->setReplyToAddr(OcConfig::getEmailAddrOcTeam());
+        $email->setFromAddr(OcConfig::getEmailAddrOcTeam());
+        $email->addSubjectPrefix(OcConfig::getEmailSubjectPrefix());
         $email->setSubject(tr('octeam_comment_subject'));
         $email->setHtmlBody($formattedMessage->getEmailContent());
         $email->send();
 
         //Send copy to COG
         $emailCOG = new Email();
-        $emailCOG->addToAddr(OcConfig::getOcteamEmailAddress());
-        $emailCOG->setReplyToAddr(OcConfig::getOcteamEmailAddress());
-        $emailCOG->setFromAddr(OcConfig::getOcteamEmailAddress());
-        $emailCOG->addSubjectPrefix(OcConfig::getMailSubjectPrefixForReviewers());
+        $emailCOG->addToAddr(OcConfig::getEmailAddrOcTeam());
+        $emailCOG->setReplyToAddr(OcConfig::getEmailAddrOcTeam());
+        $emailCOG->setFromAddr(OcConfig::getEmailAddrOcTeam());
+        $emailCOG->addSubjectPrefix(OcConfig::getEmailSubjectPrefixForOcTeam());
         $emailCOG->setSubject(tr('octeam_comment_subject_copy').' '.$admin->getUserName());
         $emailCOG->setHtmlBody($formattedMessage->getEmailContent());
         $emailCOG->send();
@@ -131,9 +131,9 @@ class EmailSender
 
         $email = new Email();
         $email->addToAddr($userEmail);
-        $email->setReplyToAddr(OcConfig::getNoreplyEmailAddress());
-        $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
-        $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForSite());
+        $email->setReplyToAddr(OcConfig::getEmailAddrNoReply());
+        $email->setFromAddr(OcConfig::getEmailAddrNoReply());
+        $email->addSubjectPrefix(OcConfig::getEmailSubjectPrefix());
         $email->setSubject(tr('adopt_25'));
         $email->setHtmlBody($formattedMessage->getEmailContent());
         $email->send();
@@ -150,9 +150,9 @@ class EmailSender
 
         $email = new Email();
         $email->addToAddr($oldOwnerEmail);
-        $email->setReplyToAddr(OcConfig::getNoreplyEmailAddress());
-        $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
-        $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForSite());
+        $email->setReplyToAddr(OcConfig::getEmailAddrNoReply());
+        $email->setFromAddr(OcConfig::getEmailAddrNoReply());
+        $email->addSubjectPrefix(OcConfig::getEmailSubjectPrefix());
         $email->setSubject(tr('adopt_18'));
         $email->setHtmlBody($formattedMessage->getEmailContent());
         $email->send();
@@ -169,9 +169,9 @@ class EmailSender
 
         $email = new Email();
         $email->addToAddr($oldOwnerEmail);
-        $email->setReplyToAddr(OcConfig::getNoreplyEmailAddress());
-        $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
-        $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForSite());
+        $email->setReplyToAddr(OcConfig::getEmailAddrNoReply());
+        $email->setFromAddr(OcConfig::getEmailAddrNoReply());
+        $email->addSubjectPrefix(OcConfig::getEmailSubjectPrefix());
         $email->setSubject(tr('adopt_28'));
         $email->setHtmlBody($formattedMessage->getEmailContent());
         $email->send();
@@ -192,13 +192,13 @@ class EmailSender
         $formattedMessage->setVariable("cacheid", $newCacheId);
         $formattedMessage->setVariable("cachename", $newCacheName);
 
-        $formattedMessage->addFooterAndHeader(OcConfig::getMailSubjectPrefixForReviewers());
+        $formattedMessage->addFooterAndHeader(OcConfig::getEmailSubjectPrefixForOcTeam());
 
         $email = new Email();
-        $email->addToAddr(OcConfig::getOcteamEmailAddress());
-        $email->setReplyToAddr(OcConfig::getNoreplyEmailAddress());
-        $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
-        $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForReviewers());
+        $email->addToAddr(OcConfig::getEmailAddrOcTeam());
+        $email->setReplyToAddr(OcConfig::getEmailAddrNoReply());
+        $email->setFromAddr(OcConfig::getEmailAddrNoReply());
+        $email->addSubjectPrefix(OcConfig::getEmailSubjectPrefixForOcTeam());
 
         if (isset($region) && isset($country)) {
             $email->setSubject(tr('ocTeamNewCache_sub').": ".$country." -> ".$region);

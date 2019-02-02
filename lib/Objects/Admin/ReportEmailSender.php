@@ -42,10 +42,10 @@ class ReportEmailSender
         $formattedMessage->addFooterAndHeader($toUser->getUserName(), true);
         $email = new Email();
         $email->addToAddr($toUser->getEmail());
-        $email->setReplyToAddr(OcConfig::getNoreplyEmailAddress());
-        $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
+        $email->setReplyToAddr(OcConfig::getEmailAddrNoReply());
+        $email->setFromAddr(OcConfig::getEmailAddrNoReply());
         $email->setSubject($subject);
-        $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForReviewers());
+        $email->addSubjectPrefix(OcConfig::getEmailSubjectPrefixForOcTeam());
         $email->setHtmlBody($formattedMessage->getEmailContent());
         $email->send();
     }
@@ -75,10 +75,10 @@ class ReportEmailSender
         $formattedMessage->addFooterAndHeader($toUser->getUserName(), true);
         $email = new Email();
         $email->addToAddr($toUser->getEmail());
-        $email->setReplyToAddr(OcConfig::getNoreplyEmailAddress());
-        $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
+        $email->setReplyToAddr(OcConfig::getEmailAddrNoReply());
+        $email->setFromAddr(OcConfig::getEmailAddrNoReply());
         $email->setSubject($subject);
-        $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForReviewers());
+        $email->addSubjectPrefix(OcConfig::getEmailSubjectPrefixForOcTeam());
         $email->setHtmlBody($formattedMessage->getEmailContent());
         $email->send();
     }
@@ -109,10 +109,10 @@ class ReportEmailSender
         $formattedMessage->addFooterAndHeader($toUser->getUserName(), true);
         $email = new Email();
         $email->addToAddr($toUser->getEmail());
-        $email->setReplyToAddr(OcConfig::getNoreplyEmailAddress());
-        $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
+        $email->setReplyToAddr(OcConfig::getEmailAddrNoReply());
+        $email->setFromAddr(OcConfig::getEmailAddrNoReply());
         $email->setSubject($subject);
-        $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForReviewers());
+        $email->addSubjectPrefix(OcConfig::getEmailSubjectPrefixForOcTeam());
         $email->setHtmlBody($formattedMessage->getEmailContent());
         $email->send();
     }
@@ -155,8 +155,8 @@ class ReportEmailSender
         $formattedMessage->addFooterAndHeader($toUser->getUserName(), true);
         $email = new Email();
         $email->addToAddr($toUser->getEmail());
-        $email->setReplyToAddr(OcConfig::getNoreplyEmailAddress());
-        $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
+        $email->setReplyToAddr(OcConfig::getEmailAddrNoReply());
+        $email->setFromAddr(OcConfig::getEmailAddrNoReply());
         if ($remind) {
             $subject = ReportEmailTemplate::processTemplate(tr('admin_reports_mail_subjpollrem'), $poll->getReport());
         } else {
@@ -164,7 +164,7 @@ class ReportEmailSender
         }
         $subject = '[R#' . $poll->getReport()->getId() . '] ' . $subject;
         $email->setSubject($subject);
-        $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForReviewers());
+        $email->addSubjectPrefix(OcConfig::getEmailSubjectPrefixForOcTeam());
         $email->setHtmlBody($formattedMessage->getEmailContent());
         $email->send();
     }
@@ -193,10 +193,10 @@ class ReportEmailSender
         $formattedMessage->addFooterAndHeader($toUser->getUserName(), false);
         $email = new Email();
         $email->addToAddr($toUser->getEmail());
-        $email->setReplyToAddr(OcConfig::getOcteamEmailAddress());
-        $email->setFromAddr(OcConfig::getOcteamEmailAddress());
+        $email->setReplyToAddr(OcConfig::getEmailAddrOcTeam());
+        $email->setFromAddr(OcConfig::getEmailAddrOcTeam());
         $email->setSubject($subject);
-        $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForSite());
+        $email->addSubjectPrefix(OcConfig::getEmailSubjectPrefix());
         $email->setHtmlBody($formattedMessage->getEmailContent());
         $email->send();
     }
@@ -235,11 +235,11 @@ class ReportEmailSender
         } else {
             $formattedMessage->setVariable('reply', tr('mailto_respByOc') . '<br><a href="' . $server . SimpleRouter::getLink('UserProfile','mailTo', $submitter->getUserId()) . '">' . tr('reports_user_mail_send') . '</a>');
             $formattedMessage->addFooterAndHeader($toUser->getUserName(), true);
-            $email->setReplyToAddr(OcConfig::getNoreplyEmailAddress());
+            $email->setReplyToAddr(OcConfig::getEmailAddrNoReply());
         }
-        $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
+        $email->setFromAddr(OcConfig::getEmailAddrNoReply());
         $email->setSubject($subject);
-        $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForSite());
+        $email->addSubjectPrefix(OcConfig::getEmailSubjectPrefix());
         $email->setHtmlBody($formattedMessage->getEmailContent());
         $email->send();
     }
@@ -270,10 +270,10 @@ class ReportEmailSender
         $formattedMessage->addFooterAndHeader($toUser->getUserName(), true);
         $email = new Email();
         $email->addToAddr($toUser->getEmail());
-        $email->setReplyToAddr(OcConfig::getNoreplyEmailAddress());
-        $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
+        $email->setReplyToAddr(OcConfig::getEmailAddrNoReply());
+        $email->setFromAddr(OcConfig::getEmailAddrNoReply());
         $email->setSubject($subject);
-        $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForSite());
+        $email->addSubjectPrefix(OcConfig::getEmailSubjectPrefix());
         $email->setHtmlBody($formattedMessage->getEmailContent());
         $email->send();
     }
@@ -308,10 +308,10 @@ class ReportEmailSender
         $formattedMessage->addFooterAndHeader($toUser->getUserName(), false);
         $email = new Email();
         $email->addToAddr($toUser->getEmail());
-        $email->setReplyToAddr(OcConfig::getOcteamEmailAddress());
-        $email->setFromAddr(OcConfig::getOcteamEmailAddress());
+        $email->setReplyToAddr(OcConfig::getEmailAddrOcTeam());
+        $email->setFromAddr(OcConfig::getEmailAddrOcTeam());
         $email->setSubject($subject);
-        $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForSite());
+        $email->addSubjectPrefix(OcConfig::getEmailSubjectPrefix());
         $email->setHtmlBody($formattedMessage->getEmailContent());
         $email->send();
     }
@@ -347,10 +347,10 @@ class ReportEmailSender
         $formattedMessage->addFooterAndHeader($toUser->getUserName(), false);
         $email = new Email();
         $email->addToAddr($toUser->getEmail());
-        $email->setReplyToAddr(OcConfig::getOcteamEmailAddress());
-        $email->setFromAddr(OcConfig::getOcteamEmailAddress());
+        $email->setReplyToAddr(OcConfig::getEmailAddrOcTeam());
+        $email->setFromAddr(OcConfig::getEmailAddrOcTeam());
         $email->setSubject($subject);
-        $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForSite());
+        $email->addSubjectPrefix(OcConfig::getEmailSubjectPrefix());
         $email->setHtmlBody($formattedMessage->getEmailContent());
         $email->send();
     }
@@ -386,10 +386,10 @@ class ReportEmailSender
         $formattedMessage->addFooterAndHeader($toUser->getUserName(), true);
         $email = new Email();
         $email->addToAddr($toUser->getEmail());
-        $email->setReplyToAddr(OcConfig::getOcteamEmailAddress());
-        $email->setFromAddr(OcConfig::getOcteamEmailAddress());
+        $email->setReplyToAddr(OcConfig::getEmailAddrOcTeam());
+        $email->setFromAddr(OcConfig::getEmailAddrOcTeam());
         $email->setSubject($subject);
-        $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForReviewers());
+        $email->addSubjectPrefix(OcConfig::getEmailSubjectPrefixForOcTeam());
         $email->setHtmlBody($formattedMessage->getEmailContent());
         $email->send();
     }

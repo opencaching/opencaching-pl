@@ -90,9 +90,9 @@ class WatchlistReport
 
         $email = new Email();
         $email->addToAddr($watcher->getEmail());
-        $email->setReplyToAddr(OcConfig::getNoreplyEmailAddress());
-        $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
-        $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForSite());
+        $email->setReplyToAddr(OcConfig::getEmailAddrNoReply());
+        $email->setFromAddr(OcConfig::getEmailAddrNoReply());
+        $email->addSubjectPrefix(OcConfig::getEmailSubjectPrefix());
         $email->setSubject($subject);
         $email->setHtmlBody($report->getEmailContent());
         return $email->send();

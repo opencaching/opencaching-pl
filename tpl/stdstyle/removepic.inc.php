@@ -2,7 +2,7 @@
 
 use lib\Objects\OcConfig\OcConfig;
 
-tpl_set_var('mail_oc', OcConfig::getTechAdminsEmailAddr());
+tpl_set_var('mail_oc', OcConfig::getEmailAddrTechAdmin());
 
 $submit = tr('remove_pic_subject');
 

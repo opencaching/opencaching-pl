@@ -74,7 +74,7 @@ class MainLayoutController extends BaseController
                 $this->view->setVar('_wikiLinkRules', $this->ocConfig->getWikiLink('rules'));
                 $this->view->setVar('_wikiLinkPrivacyPolicy',
                     (empty($this->ocConfig->getWikiLinks()['privacyPolicy'])) ? null : $this->ocConfig->getWikiLink('privacyPolicy'));
-                $this->view->setVar('_ocTeamEmail', $this->ocConfig->getOcteamEmailAddress());
+                $this->view->setVar('_ocTeamEmail', OcConfig::getEmailAddrOcTeam());
             }
         } else {
             $this->view->setVar('_isUserLogged', false);

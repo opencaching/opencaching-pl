@@ -2,7 +2,7 @@
 
 use lib\Objects\OcConfig\OcConfig;
 
-tpl_set_var('mail_oc', OcConfig::getTechAdminsEmailAddr());
+tpl_set_var('mail_oc', OcConfig::getEmailAddrTechAdmin());
 
 $mp3typedesc_cache = tr('editmp3_06');
 $mp3typedesc_log = tr('editmp3_07');
