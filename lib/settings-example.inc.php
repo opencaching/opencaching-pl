@@ -207,10 +207,6 @@ $rating_desc_url = 'http://wiki.opencaching.pl/index.php/Oceny_skrzynek';
 
 $contact_mail = 'ocpl (at) localhost';
 
-
-// signature of e-mails send by system
-$octeamEmailsSignature = "Pozdrawiamy, Zespół www.opencaching.pl";
-
 // New caches outside country where server is:
 $SiteOutsideCountryString = 'poland_outside';
 $countryParamNewcacherestPhp = " 'PL' ";
