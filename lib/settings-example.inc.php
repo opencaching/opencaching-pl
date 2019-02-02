@@ -216,9 +216,6 @@ $mailfrom_noreply = 'noreply@opencaching.pl';
 // signature of e-mails send by system
 $octeamEmailsSignature = "Pozdrawiamy, Zespół www.opencaching.pl";
 
-// watchlist config:
-$watchlistMailfrom = 'watch@opencaching.pl';
-
 // New caches outside country where server is:
 $SiteOutsideCountryString = 'poland_outside';
 $countryParamNewcacherestPhp = " 'PL' ";

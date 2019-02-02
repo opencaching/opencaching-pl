@@ -160,6 +160,8 @@ final class OcConfig extends ConfigReader
         $this->minumumAge = $config['limits']['minimum_age'];
         $this->meritBadgesEnabled = $config['meritBadges'];
 
+        $this->emailConfig = null;
+
         if (isset($config['mapsConfig']) && is_array($config['mapsConfig'])) {
             $this->mapsConfig = $config['mapsConfig'];
         } else {
@@ -522,6 +524,13 @@ final class OcConfig extends ConfigReader
             $this->guidesConfig = self::getConfig("guides", "guides");
         }
         return $this->guidesConfig;
+    }
+
+    public function getEmailConfig(){
+        if ($this->emailConfig == null) {
+            $this->emailConfig = self::getConfig('email');
+        }
+        return $this->emailConfig;
     }
 
     public function getCronjobSchedule($job = null)
