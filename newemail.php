@@ -78,7 +78,7 @@ if ($error == false) {
 
                     $emailheaders = "Content-Type: text/plain; charset=utf-8\r\n";
                     $emailheaders .= "Content-Transfer-Encoding: 8bit\r\n";
-                    $emailheaders .= 'From: "'.OcConfig::getNoreplyEmailAddress().'" <'.OcConfig::getNoreplyEmailAddress().'>';
+                    $emailheaders .= 'From: "'.OcConfig::getEmailAddrNoReply().'" <'.OcConfig::getEmailAddrNoReply().'>';
 
 
                     mb_send_mail($new_email, $email_subject, $email_content, $emailheaders);

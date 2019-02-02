@@ -418,12 +418,12 @@ class TestController extends BaseController
     {
         d($this->ocConfig->getEmailConfig());
 
-        d(OcConfig::getOcteamEmailAddress());
+        d(OcConfig::getEmailAddrOcTeam());
         d(OcConfig::getOcteamEmailsSignature());
-        d(OcConfig::getNoreplyEmailAddress());
-        d(OcConfig::getTechAdminsEmailAddr());
-        d(OcConfig::getMailSubjectPrefixForReviewers());
-        d(OcConfig::getMailSubjectPrefixForSite());
+        d(OcConfig::getEmailAddrNoReply());
+        d(OcConfig::getEmailAddrTechAdmin());
+        d(OcConfig::getEmailSubjectPrefixForOcTeam());
+        d(OcConfig::getEmailSubjectPrefix());
     }
 
 }

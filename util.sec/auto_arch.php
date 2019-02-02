@@ -71,7 +71,7 @@ class AutoArch
 
     private function sendEmail($step, $cacheid)
     {
-        $octeamEmailAddress = $this->ocConfig->getOcteamEmailAddress();
+        $octeamEmailAddress = OcConfig::getEmailAddrOcTeam();
         $siteName = $this->ocConfig->getSiteName();
         $cache = new GeoCache(array('cacheId' => (int) $cacheid));
         switch ($step) {

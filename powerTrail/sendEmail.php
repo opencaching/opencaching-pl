@@ -19,8 +19,8 @@ class sendEmail
 
         $headers = 'MIME-Version: 1.0' . "\r\n";
         $headers .= 'Content-type: text/html; charset=UTF-8 ' . "\r\n";
-        $headers .= "From: $site_name <" . OcConfig::getNoreplyEmailAddress() . ">\r\n";
-        $headers .= "Reply-To: " . OcConfig::getNoreplyEmailAddress() . "\r\n";
+        $headers .= "From: $site_name <" . OcConfig::getEmailAddrNoReply() . ">\r\n";
+        $headers .= "Reply-To: " . OcConfig::getEmailAddrNoReply() . "\r\n";
 
         $mailbody = file_get_contents(dirname(__FILE__) . '/commentEmail.html');
 

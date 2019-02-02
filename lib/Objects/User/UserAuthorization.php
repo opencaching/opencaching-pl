@@ -9,6 +9,7 @@ use lib\Objects\ApplicationContainer;
 use lib\Objects\BaseObject;
 use Utils\Uri\SimpleRouter;
 use Utils\Generators\TextGen;
+use lib\Objects\OcConfig\OcConfig;
 
 class UserAuthorization extends BaseObject
 {
@@ -411,9 +412,9 @@ class UserAuthorization extends BaseObject
         $userMessage->addFooterAndHeader($user->getUserName());
         $email = new Email();
         $email->addToAddr($user->getEmail());
-        $email->setReplyToAddr(ApplicationContainer::Instance()->getOcConfig()->getNoreplyEmailAddress());
-        $email->setFromAddr(ApplicationContainer::Instance()->getOcConfig()->getNoreplyEmailAddress());
-        $email->addSubjectPrefix(ApplicationContainer::Instance()->getOcConfig()->getMailSubjectPrefixForSite());
+        $email->setReplyToAddr(OcConfig::getEmailAddrNoReply());
+        $email->setFromAddr(OcConfig::getEmailAddrNoReply());
+        $email->addSubjectPrefix(OcConfig::getEmailSubjectPrefix());
         $subject = tr('newpw_mail_subject') . ' ' . ApplicationContainer::Instance()->getOcConfig()->getSiteName();
         $email->setSubject($subject);
         $email->setHtmlBody($userMessage->getEmailContent());
