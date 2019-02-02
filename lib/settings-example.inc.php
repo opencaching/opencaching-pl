@@ -210,7 +210,6 @@ $contact_mail = 'ocpl (at) localhost';
 $octeam_email = 'cog@localhost';
 
 // name of the sender for user-to-user notofications
-$mailfrom = 'opencaching.pl';
 $mailfrom_noreply = 'noreply@opencaching.pl';
 
 // signature of e-mails send by system
