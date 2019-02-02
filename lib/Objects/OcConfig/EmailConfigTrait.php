@@ -85,7 +85,7 @@ trait EmailConfigTrait {
 
     /**
      * Read config from files
-     * @return unknown
+     * @return array
      */
     private function getEmailConfig(){
         if ($this->emailConfig == null) {

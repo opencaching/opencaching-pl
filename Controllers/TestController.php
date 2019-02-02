@@ -416,7 +416,6 @@ class TestController extends BaseController
 
     public function checkConfig()
     {
-        d($this->ocConfig->getEmailConfig());
 
         d(OcConfig::getEmailAddrOcTeam());
         d(OcConfig::getOcteamEmailsSignature());
