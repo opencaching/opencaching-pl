@@ -14,7 +14,7 @@ $config['nodeContactEmail'] = 'contact@opencaching.nl';
  * Technical contact address for users of this OC node
  * ALL HASHES WILL BE AUTOMATICALLY REMOVED FROM EMAIL ADDRESS!
  */
-$config['nodeTechContactEmail'] = 'octeam@opencaching.nl';
+$config['nodeTechContactEmail'] = 'admin@opencaching.nl';
 
 
 /**
