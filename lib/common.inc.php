@@ -20,7 +20,7 @@ require_once(__DIR__.'/settingsGlue.inc.php');
 // now if common.inc.php is not loaded in global context settings are not accessible
 $GLOBALS['config'] = $config;
 $GLOBALS['site_name'] = $site_name;
-$GLOBALS['contact_mail'] = $contact_mail;
+$GLOBALS['contact_mail'] = OcConfig::getOcteamEmailAddress(true);
 
 require_once(__DIR__.'/common_tpl_funcs.php'); // template engine
 

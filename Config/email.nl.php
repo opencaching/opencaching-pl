@@ -35,3 +35,14 @@ $config['ocTeamEmailSignature'] = 'Met vriendelijke groet, team opencaching.nl';
  */
 $config['noReplyEmail'] = 'noreply#@o#p#encaching.nl';
 
+/**
+ * Prefix added to subject of emails sending from OC code
+ */
+$config['mailSubjectPrefix'] = 'OCNL';
+
+/**
+ * Prefix added to subject of emails sending from OC code in context of cache review
+ */
+$config['mailSubjectPrefixForReviewers'] = 'OC Team';
+
+

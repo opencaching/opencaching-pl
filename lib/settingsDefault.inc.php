@@ -269,10 +269,6 @@ $config['feed']['blog']['url'] = '';
 $config['feed']['blog']['posts'] = 5;
 $config['feed']['blog']['showAuthor'] = true;
 
-$subject_prefix_for_site_mails = "OCXX";
-$subject_prefix_for_reviewers_mails = "";
-
-
 // customization of the start page
 $config['startPage']['latestCacheSetsCount'] = 3;
 

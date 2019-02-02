@@ -74,9 +74,6 @@ $absolute_server_URI = '//localhost/';
 //then you can set $OKAPI_server_URI to another than $absolute_server_URI address.
 //$OKAPI_server_URI = 'http://localhost/';
 
-// EMail address of the sender
-if (!isset($emailaddr))
-    $emailaddr = 'noreply@localhost';
 
 // location for dynamically generated files
 $dynbasepath = '/var/www/ocpl-data/';
@@ -146,9 +143,6 @@ $opt['db']['password'] = $dbpasswd;
 $opt['db']['admin_username'] = 'ocdbua';
 $opt['db']['admin_password'] = 'AdminPassword';
 
-// warnlevel for sql-execution
-$sql_errormail = 'rt@localhost';
-$sql_warntime = 1;
 
 // replacements for sql()
 $sql_replacements['db'] = $dbname;
@@ -158,8 +152,6 @@ $sql_replacements['tmpdb'] = 'test';
 $googlemap_key = "";
 $googlemap_type = "G_MAP_TYPE"; // alternativ: _HYBRID_TYPE
 $googleAnalytics_key = '';      // google Analytics key: UA-XXXXX-Y - if not set google analytics will not be used
-
-$dberrormail = 'rt@localhost';
 
 //Links to blog page on oc site
 //NOT-USED: $blogsite_url = 'http://blog.opencaching.pl';
@@ -204,8 +196,6 @@ $dberrormail = 'rt@localhost';
 $rules_url = 'http://wiki.opencaching.pl/index.php/Regulamin_OC_PL';
 $cache_params_url = 'http://wiki.opencaching.pl/index.php/Parametry_skrzynki';
 $rating_desc_url = 'http://wiki.opencaching.pl/index.php/Oceny_skrzynek';
-
-$contact_mail = 'ocpl (at) localhost';
 
 // New caches outside country where server is:
 $SiteOutsideCountryString = 'poland_outside';
@@ -500,9 +490,4 @@ $config['feed']['blog']['url'] = 'http://blog.opencaching.pl/feed/atom/';
 $config['feed']['blog']['posts'] = 5;
 $config['feed']['blog']['showAuthor'] = true;
 
-//To all mails send from our service we can add few prefixes:
-//If you don't want use global prefixes just set $value=""
-//Prefix for all mails sent to users:
-$subject_prefix_for_site_mails = "OCXX";
-//Prefix for all notification and mails sent to cache reviewers
-$subject_prefix_for_reviewers_mails = "R-Team";
+

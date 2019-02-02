@@ -34,4 +34,14 @@ $config['ocTeamEmailSignature'] = 'Cu stimă, Echipa Opencaching România';
  */
 $config['noReplyEmail'] = 'noreply@o#pencaching.ro';
 
+/**
+ * Prefix added to subject of emails sending from OC code
+ */
+$config['mailSubjectPrefix'] = 'OCRO';
+
+/**
+ * Prefix added to subject of emails sending from OC code in context of cache review
+ */
+$config['mailSubjectPrefixForReviewers'] = 'ADMIN';
+
 
