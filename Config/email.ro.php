@@ -11,6 +11,12 @@
 $config['nodeContactEmail'] = 'contact@o#pencaching.ro';
 
 /**
+ * Technical contact address for users of this OC node
+ * ALL HASHES WILL BE AUTOMATICALLY REMOVED FROM EMAIL ADDRESS!
+ */
+$config['nodeTechContactEmail'] = 'echipa@opencaching.ro';
+
+/**
  * Contact address to OCTEAM for this node
  * ALL HASHES WILL BE AUTOMATICALLY REMOVED FROM EMAIL ADDRESS!
  */

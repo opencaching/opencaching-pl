@@ -6,6 +6,7 @@ use Utils\Email\Email;
 
 final class OcConfig extends ConfigReader
 {
+    use EmailConfigTrait;
 
 /*
     const OCNODE_GERMANY    = 1;  // Opencaching Germany http://www.opencaching.de OC
@@ -44,7 +45,6 @@ final class OcConfig extends ConfigReader
     private $pictureUrl;
     private $contactMail;
     private $dateFormat;
-    private $noreplyEmailAddress;
     private $mapsConfig;            //settings.inc: $config['mapsConfig']
     private $headerLogo;
     private $shortSiteName;
@@ -133,7 +133,6 @@ final class OcConfig extends ConfigReader
         $this->ocNodeId = $oc_nodeid;
         $this->absolute_server_URI = $absolute_server_URI;
         $this->octeamEmailsSignature = $octeamEmailsSignature;
-        $this->octeamEmailAddress = $octeam_email;
         $this->siteName = $site_name;
         $this->dynamicFilesPath = $dynbasepath;
         $this->powerTrailModuleSwitchOn = $powerTrailModuleSwitchOn;
@@ -147,7 +146,6 @@ final class OcConfig extends ConfigReader
         $this->pictureUrl = $picurl;
         $this->contactMail = $contact_mail;
         $this->dateFormat = $dateFormat;
-        $this->noreplyEmailAddress = $emailaddr;
         $this->headerLogo = $config['headerLogo'];
         $this->shortSiteName = $short_sitename;
         $this->needApproveLimit = $NEED_APPROVE_LIMIT;
@@ -157,8 +155,6 @@ final class OcConfig extends ConfigReader
         $this->enableCacheAccessLogs = $enable_cache_access_logs;
         $this->minumumAge = $config['limits']['minimum_age'];
         $this->meritBadgesEnabled = $config['meritBadges'];
-
-        $this->emailConfig = null;
 
         if (isset($config['mapsConfig']) && is_array($config['mapsConfig'])) {
             $this->mapsConfig = $config['mapsConfig'];
@@ -249,10 +245,7 @@ final class OcConfig extends ConfigReader
         return self::instance()->absolute_server_URI;
     }
 
-    public static function getOcteamEmailsSignature()
-    {
-        return self::instance()->octeamEmailsSignature;
-    }
+
 
     public function getOcNodeId()
     {
@@ -269,14 +262,7 @@ final class OcConfig extends ConfigReader
         return self::instance()->siteName;
     }
 
-    public function getOcteamEmailAddress()
-    {
-        $addr = self::instance()->octeamEmailAddress;
-        if (!Email::isValidEmailAddr($addr)) {
-            throw new \Exception('Invalid OC team email address setting');
-        }
-        return $addr;
-    }
+
 
     public static function getDynFilesPath()
     {
@@ -298,14 +284,7 @@ final class OcConfig extends ConfigReader
         return $this->powerTrailModuleSwitchOn;
     }
 
-    public static function getNoreplyEmailAddress()
-    {
-        $addr = self::instance()->noreplyEmailAddress;
-        if (!Email::isValidEmailAddr($addr)) {
-            throw new \Exception('Invalid noreply email address setting');
-        }
-        return $addr;
-    }
+
 
     public function isCacheAccesLogEnabled()
     {
@@ -359,18 +338,8 @@ final class OcConfig extends ConfigReader
         return $this->dbName;
     }
 
-    public static function getTechAdminsEmailAddr()
-    {
-        //it will be implemented in a future
-        //currently this is only a stub...
-        global $mail_rt;
 
-        if (!Email::isValidEmailAddr($mail_rt)) {
-            throw new \Exception('Invalid mail_rt setting');
-        }
 
-        return $mail_rt;
-    }
 
     public static function getHeaderLogo()
     {
@@ -392,14 +361,7 @@ final class OcConfig extends ConfigReader
         return self::instance()->needApproveLimit;
     }
 
-    public static function getCogEmailAddress()
-    {
-        $emailConfig = self::instance()->getEmailConfig();
-        if (!is_array($emailConfig) || !Email::isValidEmailAddr($emailConfig['ocTeamContactEmail'])) {
-            throw new \Exception('Invalid OCTeam email address setting: see /config/email.*');
-        }
-        return $emailConfig['ocTeamContactEmail'];
-   }
+
 
     public static function getMailSubjectPrefixForSite()
     {
@@ -524,12 +486,7 @@ final class OcConfig extends ConfigReader
         return $this->guidesConfig;
     }
 
-    public function getEmailConfig(){
-        if ($this->emailConfig == null) {
-            $this->emailConfig = self::getConfig('email');
-        }
-        return $this->emailConfig;
-    }
+
 
     public function getCronjobSchedule($job = null)
     {

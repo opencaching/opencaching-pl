@@ -11,12 +11,6 @@ require_once (__DIR__.'/cache.php');
 $site_name = 'OpenCaching.???';
 
 
-// OC specific email addresses for international use
-// override in settings.inc.php to values you want to locally use
-
-$mail_rt = 'root@localhost';    // OCPL technical contact
-$mail_oc = 'ocpl@localhost';    // OCPL general contact
-
 // enable detailed cache access logging
 $enable_cache_access_logs = false;
 

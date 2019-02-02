@@ -3,6 +3,7 @@
 use Utils\Database\XDb;
 use lib\Objects\Admin\AdminNote;
 use Utils\Generators\Uuid;
+use lib\Objects\OcConfig\OcConfig;
 use lib\Objects\User\User;
 
 global $bgcolor1, $bgcolor2;
@@ -114,7 +115,7 @@ function assignUserToCase($userid, $cacheid)
 function notifyOwner($cacheid, $msgType)
 {
     // msgType - 0 = cache accepted, 1 = cache declined (=archived)
-    global $usr, $octeam_email, $site_name, $absolute_server_URI, $octeamEmailsSignature, $oc_nodeid;
+    global $usr, $site_name, $absolute_server_URI, $octeamEmailsSignature, $oc_nodeid;
     $user_id = getCacheOwnerId($cacheid);
 
     $cachename = getCachename($cacheid);
@@ -124,8 +125,8 @@ function notifyOwner($cacheid, $msgType)
         $email_content = file_get_contents('./tpl/stdstyle/email/archived_cache.email');
     }
     $email_headers = "Content-Type: text/plain; charset=utf-8\r\n";
-    $email_headers .= "From: $site_name <$octeam_email>\r\n";
-    $email_headers .= "Reply-To: $octeam_email\r\n";
+    $email_headers .= "From: $site_name <".OcConfig::getOcteamEmailAddress().">\r\n";
+    $email_headers .= "Reply-To: ".OcConfig::getOcteamEmailAddress()."\r\n";
     $email_content = mb_ereg_replace('{server}', $absolute_server_URI, $email_content);
     $email_content = mb_ereg_replace('{cachename}', $cachename, $email_content);
     $email_content = mb_ereg_replace('{cacheid}', $cacheid, $email_content);

@@ -1,6 +1,7 @@
 <?php
 
 use Utils\Database\OcDb;
+use lib\Objects\OcConfig\OcConfig;
 require_once __DIR__.'/../lib/ClassPathDictionary.php';
 
 // sendEmailCacheCandidate.php
@@ -8,7 +9,7 @@ $siteDateFormat = 'Y-m-d';
 $siteDateTimeFormat = 'Y-m-d H:i';
 
 function emailCacheOwner($ptId, $cacheId, $linkCode){
-    global $octeam_email, $usr, $absolute_server_URI, $site_name, $siteDateFormat, $siteDateTimeFormat;
+    global $usr, $absolute_server_URI, $site_name, $siteDateFormat, $siteDateTimeFormat;
     $owners = powerTrailBase::getPtOwners($ptId);
     $ptDbRow = powerTrailBase::getPtDbRow($ptId);
 
@@ -22,8 +23,8 @@ function emailCacheOwner($ptId, $cacheId, $linkCode){
 
     $headers  = 'MIME-Version: 1.0' . "\r\n";
     $headers .= 'Content-type: text/html; charset=UTF-8 ' . "\r\n";
-    $headers .= "From: $site_name <".$octeam_email.">\r\n";
-    $headers .= "Reply-To: ".$octeam_email. "\r\n";
+    $headers .= "From: $site_name <".OcConfig::getOcteamEmailAddress().">\r\n";
+    $headers .= "Reply-To: ".OcConfig::getOcteamEmailAddress(). "\r\n";
     $mailbody = file_get_contents(dirname(__FILE__).'/candidateEmail.html');
     $mailbody = mb_ereg_replace('{cacheOwnerName}', $cacheData['username'], $mailbody);
     $mailbody = mb_ereg_replace('{ptName}', $ptDbRow['name'], $mailbody);

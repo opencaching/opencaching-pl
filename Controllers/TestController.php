@@ -412,4 +412,15 @@ class TestController extends BaseController
 
         $this->view->buildView();
     }
+
+    public function checkConfig()
+    {
+        d($this->ocConfig->getEmailConfig());
+
+        d($this->ocConfig->getOcteamEmailAddress());
+        d($this->ocConfig->getOcteamEmailsSignature());
+        d($this->ocConfig->getNoreplyEmailAddress());
+        d($this->ocConfig->getTechAdminsEmailAddr());
+    }
+
 }
