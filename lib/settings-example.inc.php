@@ -209,9 +209,6 @@ $contact_mail = 'ocpl (at) localhost';
 // E-mail address group of people from OC Team who solve problems, verify cache
 $octeam_email = 'cog@localhost';
 
-// name of the sender for user-to-user notofications
-$mailfrom_noreply = 'noreply@opencaching.pl';
-
 // signature of e-mails send by system
 $octeamEmailsSignature = "Pozdrawiamy, Zespół www.opencaching.pl";
 
