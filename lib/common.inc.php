@@ -19,8 +19,6 @@ require_once(__DIR__.'/settingsGlue.inc.php');
 // TODO: kojoty: it should be removed after config refactoring
 // now if common.inc.php is not loaded in global context settings are not accessible
 $GLOBALS['config'] = $config;
-$GLOBALS['site_name'] = $site_name;
-$GLOBALS['contact_mail'] = OcConfig::getEmailAddrOcTeam(true);
 
 require_once(__DIR__.'/common_tpl_funcs.php'); // template engine
 
@@ -64,8 +62,8 @@ function initTemplateSystem(){
 
 
     // load vars from settings...
-    tpl_set_var('site_name', $GLOBALS['site_name']);
-    tpl_set_var('contact_mail', $GLOBALS['contact_mail']);
+    tpl_set_var('site_name', OcConfig::getSiteName());
+    tpl_set_var('contact_mail', OcConfig::getEmailAddrOcTeam(true));
 
 
     // set wikiLinks used in translations

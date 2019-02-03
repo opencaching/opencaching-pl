@@ -81,7 +81,7 @@ class MainLayoutController extends BaseController
             $this->view->setVar('_target',Uri::getCurrentUri(true));
         }
 
-        $this->view->setVar('_siteName', $config['siteName']);
+        $this->view->setVar('_siteName', OcConfig::getSiteName());
         $this->view->setVar('_favicon', '/images/'.$config['headerFavicon']);
         $this->view->setVar('_appleLogo', $config['header']['appleLogo']);
 

@@ -28,7 +28,6 @@ final class OcConfig extends ConfigReader
     private $datetimeFormat = 'Y-m-d H:i';
     private $ocNodeId = null;
     private $absolute_server_URI = null;
-    private $siteName;
     private $dynamicFilesPath;
     private $powerTrailModuleSwitchOn;
     private $googleMapKey;
@@ -122,7 +121,6 @@ final class OcConfig extends ConfigReader
         $this->datetimeFormat = $datetimeFormat;
         $this->ocNodeId = $oc_nodeid;
         $this->absolute_server_URI = $absolute_server_URI;
-        $this->siteName = $site_name;
         $this->dynamicFilesPath = $dynbasepath;
         $this->powerTrailModuleSwitchOn = $powerTrailModuleSwitchOn;
         $this->googleMapKey = $googlemap_key;
@@ -243,10 +241,7 @@ final class OcConfig extends ConfigReader
         return $this->dbDatetimeFormat;
     }
 
-    public static function getSiteName()
-    {
-        return self::instance()->siteName;
-    }
+
 
 
 

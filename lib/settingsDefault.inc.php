@@ -7,10 +7,6 @@
 
 require_once (__DIR__.'/cache.php');
 
-// default site name
-$site_name = 'OpenCaching.???';
-
-
 // enable detailed cache access logging
 $enable_cache_access_logs = false;
 

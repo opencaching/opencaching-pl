@@ -8,14 +8,14 @@ $gpxHead = '<?xml version="1.0" encoding="utf-8"?>
 <gpx xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd http://www.groundspeak.com/cache/1/0/1 http://www.groundspeak.com/cache/1/0/1/cache.xsd http://www.gsak.net/xmlv1/5 http://www.gsak.net/xmlv1/5/gsak.xsd https://github.com/opencaching/gpx-extension-v1 https://raw.githubusercontent.com/opencaching/gpx-extension-v1/master/schema.xsd"
     xmlns="http://www.topografix.com/GPX/1/0" version="1.0"
-    creator="' . convert_string($site_name) . '">
+    creator="' . convert_string(OcConfig::getSiteName()) . '">
 
-    <name>Cache Listing Generated from ' . convert_string($site_name) . '</name>
-    <desc>Cache Listing Generated from ' . convert_string($site_name) . ' {wpchildren}</desc>
-    <author>' . convert_string($site_name) . '</author>
+    <name>Cache Listing Generated from ' . convert_string(OcConfig::getSiteName()) . '</name>
+    <desc>Cache Listing Generated from ' . convert_string(OcConfig::getSiteName()) . ' {wpchildren}</desc>
+    <author>' . convert_string(OcConfig::getSiteName()) . '</author>
     <email>' . OcConfig::getEmailAddrTechAdmin() . '</email>
     <url>' . $absolute_server_URI . '</url>
-    <urlname>' . convert_string($site_name) . ' - ' . convert_string(tr('oc_subtitle_on_all_pages_' . $config['ocNode'])) . '</urlname>
+    <urlname>' . convert_string(OcConfig::getSiteName()) . ' - ' . convert_string(tr('oc_subtitle_on_all_pages_' . $config['ocNode'])) . '</urlname>
     <time>{time}</time>
     <keywords>cache, geocache</keywords>
 ';
