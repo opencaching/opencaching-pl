@@ -375,7 +375,7 @@ $translations = array(
 
     'postActivation_mail_subject' => 'Welkom op {site_name}',
     'postActivation_mail_intro' => 'Wij zijn blij met de activatie met jouw registratie voor het zoeken en maken van caches op onze site {site_name}, Bedankt.',
-    'postActivation_mail_01' => 'Om te beginnen kun je informatie terug vinden op Opencaching wiki, Deze site is nog niet compleet maar wordt regelmatig aangevuld. Opencaching wiki is beschikbaar op:',
+    'postActivation_mail_01' => 'Om te beginnen kun je informatie terug vinden op Opencaching wiki. Opencaching wiki is beschikbaar op:',
     'postActivation_mail_02' => 'Als je op zoek bent naar hulp via een interactieve kaart kun je in jouw gebied vrijwilligers vinden die hun hulp aanbieden aan beginnende cachers.',
     'postActivation_mail_03' => 'Kijk eens op:',
     'postActivation_mail_04' => 'Voordat je de eerste cache kunt plaatsen op {site_name} dien je eerst {NEED_FIND_LIMIT} caches gevonden te hebben om ervaring op te doen.',
