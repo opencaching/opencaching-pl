@@ -4,10 +4,10 @@ use lib\Objects\CacheSet\CacheSetCommon;
 use lib\Objects\CacheSet\CacheSet;
 
 /**
-  This is column with cache icon.
-  $date arg needs to contains:
-
-  TODO...
+ * This is column with cache icon.
+ * $date arg needs to contains:
+ *
+ * TODO...
 */
 
 
@@ -24,4 +24,3 @@ return function (array $data){
     </a>
 <?php
 };
-

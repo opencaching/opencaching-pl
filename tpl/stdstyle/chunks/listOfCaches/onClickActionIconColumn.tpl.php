@@ -20,4 +20,3 @@ return function (array $data){
          class="icon16 column_action" alt="<?=$data['title']?>" title="<?=$data['title']?>">
 <?php
 };
-

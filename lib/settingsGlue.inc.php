@@ -90,7 +90,3 @@ if ( isset($opt['cookie']['path']) ){
 if ( isset($opt['cookie']['domain']) ){
     $config['cookie']['domain'] = $opt['cookie']['domain'];
 }
-
-
-
-

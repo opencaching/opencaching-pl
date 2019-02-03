@@ -129,4 +129,3 @@ if (!file_exists(OcConfig::getDynFilesPath() . 'images/statpics/statpic' . $user
 
 // redirect to the saved picture
 tpl_redirect('images/statpics/statpic' . $userid . '.jpg');
-

@@ -57,4 +57,3 @@ $(function() {
         'map_searchEmpty': '<?=tr('map_searchEmpty')?>',
     };
 </script>
-

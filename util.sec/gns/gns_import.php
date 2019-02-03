@@ -151,4 +151,3 @@ function importGns($filename)
 
     echo "$line_cnt lines, $cnt records imported\n";
 }
-?>

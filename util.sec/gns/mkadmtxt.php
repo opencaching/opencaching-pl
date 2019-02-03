@@ -82,4 +82,3 @@ while ($rLocations = sql_fetch_array($rsLocations)) {
 mysql_free_result($rsLocations);
 
 /* end search index rebuild */
-?>

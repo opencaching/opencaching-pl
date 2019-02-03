@@ -12,4 +12,3 @@ $message_toobig = 'Wybrany plik jest za duży. Postaraj się zmniejszyć go popr
 
 $message_title_wrongext = 'Typ pliku nieropoznany';
 $message_wrongext = 'Wybrany plik ma nieznany format. Dozwolone są tylko typy BMP, GIF, PNG i JPG - dla zdjęć JPG rekomendowany. Dodatkowow dozwolona wielkość pliku to 300 kB. Rekomendowana rozdzielczosc to 480 pikseli szerokość i 360 piksesli wysokość.';
-?>

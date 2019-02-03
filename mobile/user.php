@@ -47,4 +47,3 @@ if (isset($_SESSION['user_id'])) {
     $tpl->display('tpl/user.tpl');
 } else
     header('Location: ./login.php');
-?>

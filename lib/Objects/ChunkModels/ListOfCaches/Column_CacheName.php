@@ -13,5 +13,3 @@ class Column_CacheName extends AbstractColumn {
         return 'left';
     }
 }
-
-

@@ -19,4 +19,3 @@ if($ptAPI::checkIfUserIsPowerTrailOwner($_SESSION['user_id'], $powerTrailId) == 
     $db = OcDb::instance();
     $db->multiVariableQuery($query, $isFinal, $cacheId, $powerTrailId);
 }
-

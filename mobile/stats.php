@@ -136,4 +136,3 @@ if (isset($_GET['more']) && ($_GET['more'] == '1' || $_GET['more'] == '2' || $_G
     $tpl->assign('user_hidden', $znalezione);
     $tpl->display('tpl/stats.tpl');
 }
-?>

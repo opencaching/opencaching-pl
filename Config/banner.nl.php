@@ -13,4 +13,4 @@ $bannerTxt = [
     "Statistieken, GPX, zoeken. alles voor niets",
     "Mails ontvangen over nieuwe caches en logs",
     "Alle geocaching mogelijkeden 100% gratis",
-]; 
+];

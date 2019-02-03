@@ -177,5 +177,3 @@ function setAsSelectedColor( $value ){
 function setAsSelected( $value ){
     return setAsSelectedColor( setAsSelectedBold( $value ) );
 }
-
-

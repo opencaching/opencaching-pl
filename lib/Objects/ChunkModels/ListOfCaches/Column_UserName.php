@@ -13,5 +13,3 @@ class Column_UserName extends AbstractColumn {
         return 'left';
     }
 }
-
-

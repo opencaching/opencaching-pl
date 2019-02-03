@@ -413,4 +413,3 @@ class TestController extends BaseController
         $this->view->buildView();
     }
 }
-

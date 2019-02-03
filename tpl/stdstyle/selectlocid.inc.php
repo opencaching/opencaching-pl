@@ -58,5 +58,3 @@ function landkreisFromLocid($locid)
             AND `hr`.`id_lvl5`!=0",
         0, $locid);
 }
-
-

@@ -24,4 +24,3 @@ foreach ($result as $user) {
 
 echo '<pre>';
 print_r($resArr);
-

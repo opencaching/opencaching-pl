@@ -116,4 +116,3 @@ $graph->SetShadow();
 
 // ... and stroke it
 $graph->Stroke();
-

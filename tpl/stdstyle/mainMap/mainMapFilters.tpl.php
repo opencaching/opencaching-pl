@@ -198,4 +198,3 @@ use lib\Objects\GeoCache\GeoCache;
     </div>
 </div>
 <?php } //if-$view->ptFilterEnabled ?>
-

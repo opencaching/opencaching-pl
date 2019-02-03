@@ -3,10 +3,10 @@
 use lib\Objects\User\UserCommons;
 
 /**
-	This is column which displays user name.
-  $date arg has to contains:
-    - userId - user identifier
-    - userName - user nickname
+ * This is column which displays user name.
+ * $date arg has to contains:
+ * - userId - user identifier
+ * - userName - user nickname
 */
 
 return function (array $data) {
@@ -16,4 +16,3 @@ return function (array $data) {
     </a>
 <?php
 };
-

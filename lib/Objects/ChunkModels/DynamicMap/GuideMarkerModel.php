@@ -28,4 +28,3 @@ class GuideMarkerModel extends AbstractMarkerModelBase
             isset($this->recCount);
     }
 }
-

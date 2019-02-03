@@ -677,12 +677,12 @@ class OcDb extends OcPdo
 
     public function triggerExists($name)
     {
-        return $this->funcExists($name, "SHOW TRIGGERS WHERE `trigger` = :1");      
+        return $this->funcExists($name, "SHOW TRIGGERS WHERE `trigger` = :1");
     }
 
     public function procedureExists($name)
     {
-        return $this->funcExists($name, "SHOW PROCEDURE STATUS WHERE `name` = :1");      
+        return $this->funcExists($name, "SHOW PROCEDURE STATUS WHERE `name` = :1");
     }
 
     public function functionExists($name)

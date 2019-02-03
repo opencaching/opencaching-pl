@@ -277,4 +277,3 @@ function filterevilchars($str)
     $str = mb_ereg_replace('/[[:cntrl:]]/', '', $str);
     return $str;
 }
-

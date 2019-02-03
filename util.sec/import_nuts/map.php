@@ -54,4 +54,3 @@ while ($rBez = mysql_fetch_assoc($rsBez)) {
 mysql_free_result($rsBez);
 
 imagegif($img, 'map.gif');
-

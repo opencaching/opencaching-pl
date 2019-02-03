@@ -21,4 +21,3 @@ $message_title_wrongext = tr('image_bad_format');
 $message_wrongext = tr('image_bad_format_info');
 
 $message_picture_not_found = tr('no_picture');
-

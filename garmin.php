@@ -103,4 +103,3 @@ tpl_set_var('cachename', $str);
 
 //make the template and send it out
 tpl_BuildTemplate();
-

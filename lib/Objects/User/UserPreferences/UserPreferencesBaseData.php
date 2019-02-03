@@ -68,4 +68,3 @@ abstract class UserPreferencesBaseData {
     }
 
 }
-

@@ -12,4 +12,3 @@ $error_email_exists = '<div class="errormsg">' . tr('em10') . '.</div>';
 $error_no_new_email = '<div class="errormsg">' . tr('em10') . '.</div>';
 $error_wrong_code = '<div class="errormsg">' . tr('em11') . '.</div>';
 $error_code_timed_out = '<div class="errormsg">' . tr('em12') . '.</div>';
-?>

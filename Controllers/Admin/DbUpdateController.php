@@ -231,7 +231,7 @@ class DbUpdateController extends BaseController
 
             # This could be improved by returning error codes from rename(),
             # e.g. for "invalid characters" or "name too short", and
-            # presenting an error message. 
+            # presenting an error message.
         }
         $this->reload();
     }

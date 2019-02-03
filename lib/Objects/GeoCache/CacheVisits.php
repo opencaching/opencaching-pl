@@ -115,4 +115,3 @@ class CacheVisits
             self::TYPE_LAST_USER_UNIQUE_VISIT, self::UNIQUE_VISIT_PERIOD);
     }
 }
-

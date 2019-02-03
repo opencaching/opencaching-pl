@@ -25,4 +25,3 @@ global $usr;
         {lines}
     </table>
 </div>
-

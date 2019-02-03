@@ -91,4 +91,3 @@ fclose($f);
 
 tpl_redirect(
     "/MainMap/embeded?searchdata=$hash&bbox=$minlon|$minlat|$maxlon|$maxlat");
-

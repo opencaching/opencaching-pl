@@ -16,4 +16,3 @@ $s = $db->multiVariableQuery($query, $waypoint);
 $result = $db->dbResultFetchOneRowOnly($s);
 
 print $result['name'].'!1@$%3%7%4@#23557&^%%4#@2$LZA**&6545$###'.$result['cache_id'];
-

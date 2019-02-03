@@ -41,5 +41,3 @@ gct.drawChart();
 </script>
 
 <br>
-
-

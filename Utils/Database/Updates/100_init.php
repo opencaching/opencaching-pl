@@ -28,7 +28,7 @@ return new class extends UpdateScript
      * Level all table differences between OC site databases as of December 2018,
      * with two exceptions:
      *
-     *   - Table transaction_test at PL, NL, RO sites - is it in use? 
+     *   - Table transaction_test at PL, NL, RO sites - is it in use?
      *   - Column user.cog_note at RO site - is it in use?
      */
     private function adjustTables()

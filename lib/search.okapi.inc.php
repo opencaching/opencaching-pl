@@ -196,4 +196,3 @@ if ($usr || !$hide_coords) {
         exit;
     }
 }
-
