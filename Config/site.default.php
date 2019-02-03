@@ -21,3 +21,10 @@ $site['primaryCountries'] = [];
  * Site name for the node
  */
 $site['siteName'] = 'OpenCaching';
+
+/**
+ * Page title (to display on the browser titlebar)
+ */
+$site['pageTitle'] = 'OpenCaching';
+
+

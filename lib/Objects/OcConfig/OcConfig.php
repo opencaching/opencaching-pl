@@ -35,7 +35,6 @@ final class OcConfig extends ConfigReader
     private $mainPageMapCenterLon;
     private $mainPageMapZoom;
     private $siteInService = false;
-    private $pagetitle;
     private $pictureDirectory;
     private $pictureUrl;
     private $dateFormat;
@@ -128,7 +127,6 @@ final class OcConfig extends ConfigReader
         $this->mainPageMapCenterLon = $main_page_map_center_lon;
         $this->mainPageMapZoom = $main_page_map_zoom;
         $this->siteInService = $site_in_service;
-        $this->pagetitle = $pagetitle;
         $this->pictureDirectory = $picdir;
         $this->pictureUrl = $picurl;
         $this->dateFormat = $dateFormat;
@@ -183,11 +181,6 @@ final class OcConfig extends ConfigReader
     public function getDatetimeFormat()
     {
         return $this->datetimeFormat;
-    }
-
-    public function getPageTitle()
-    {
-        return $this->pagetitle;
     }
 
     /**

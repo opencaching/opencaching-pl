@@ -10,9 +10,6 @@ date_default_timezone_set('Europe/Warsaw');
 // country-id of the running node: pl|ro|nl...
 $config['ocNode'] = 'pl';
 
-//pagetitle
-if (!isset($pagetitle))
-    $pagetitle = 'Geocaching Opencaching Polska';
 
 // Used OC number nodes and name of waypoints :
 // 1 Opencaching Germany http://www.opencaching.de OC
