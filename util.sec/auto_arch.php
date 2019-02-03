@@ -148,7 +148,6 @@ class AutoArch
      */
     private function archiveGeocache($rs)
     {
-        global $oc_nodeid;
         $db = OcDb::instance();
 
         $statusSqlQuery = "REPLACE INTO cache_arch (cache_id, step) VALUES ( :1, :2 )";
@@ -161,7 +160,11 @@ class AutoArch
 
         $db->multiVariableQuery($statusSqlQuery, (int) $rs['cache_id'], $this->step["ARCH_COMPLETE"]);
         $db->multiVariableQuery($archSqlQuery, (int) $rs['cache_id']);
-        $db->multiVariableQuery($logSqlQuery, (int) $rs['cache_id'],  Uuid::create(), tr('autoArchive_12'), $oc_nodeid);
+        $db->multiVariableQuery($logSqlQuery,
+            (int) $rs['cache_id'],
+            Uuid::create(),
+            tr('autoArchive_12'),
+            OcConfig::getSiteNodeId());
 
         if ($db->commit()) {
             $this->sendEmail($this->step["AFTER_SECOND_MAIL_SENT"], $rs['cache_id']);

@@ -119,7 +119,7 @@ class AutoArchiveCachesJob extends Job
             Uuid::create(),
             GeoCacheLog::LOGTYPE_ARCHIVED,
             tr('autoArchiveLog'),
-            $this->ocConfig->getOcNodeId());
+            OcConfig::getSiteNodeId());
 
         if ($this->db->commit()) {
             $this->sendEmail($cache, self::STEP_3_ARCHIVED);
@@ -256,7 +256,7 @@ class AutoArchiveCachesJob extends Job
                 Uuid::create(),
                 GeoCacheLog::LOGTYPE_ARCHIVED,
                 tr('autoArchiveEventLog'),
-                $this->ocConfig->getOcNodeId());
+                OcConfig::getSiteNodeId());
 
             $this->sendEmail($cache, self::ARCHIVE_EVENT);
         }

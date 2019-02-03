@@ -15,7 +15,7 @@ trait SiteConfigTrait {
      */
     public static function getSitePageTitle()
     {
-        return self::getSiteVar('pageTite');
+        return self::getSiteVar('pageTitle');
     }
 
     /**
@@ -25,6 +25,17 @@ trait SiteConfigTrait {
     public static function getSiteName()
     {
         return self::getSiteVar('siteName');
+    }
+
+    /**
+     * Returns nodeId from config
+     * Possible values: @see https://wiki.opencaching.eu/index.php?title=Node_IDs
+     *
+     * @return string
+     */
+    public static function getSiteNodeId()
+    {
+        return self::getSiteVar('ocNodeId');
     }
 
     /**

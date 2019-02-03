@@ -11,7 +11,7 @@ use Utils\EventHandler\EventHandler;
 use Utils\Text\InputFilter;
 use lib\Objects\GeoCache\MobileCacheMove;
 use Utils\I18n\I18n;
-
++
 //prepare the templates and include all neccessary
 require_once(__DIR__.'/lib/common.inc.php');
 global $usr, $config;
@@ -46,7 +46,7 @@ if ($error == false) {
             require_once(__DIR__.'/lib/caches.inc.php');
             require(__DIR__.'/tpl/stdstyle/rating.inc.php');
 
-            if ($log_record['node'] != $oc_nodeid) {
+            if ($log_record['node'] != OcConfig::getSiteNodeId()) {
                 tpl_errorMsg('editlog', $error_wrong_node);
                 exit;
             }

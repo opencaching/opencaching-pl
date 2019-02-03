@@ -45,7 +45,6 @@ abstract class ConfigReader
 
     protected $links = null;
 
-
     protected function __construct()
     {
 

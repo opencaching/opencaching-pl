@@ -9,6 +9,7 @@ use lib\Objects\GeoCache\GeoCacheCommons;
 use lib\Objects\GeoCache\GeoCacheLog;
 use Utils\I18n\I18n;
 use Utils\Text\Validator;
+use lib\Objects\OcConfig\OcConfig;
 
 global $content, $bUseZip, $usr, $hide_coords, $dbcSearch, $queryFilter;
 
@@ -315,8 +316,8 @@ if ($usr || ! $hide_coords) {
             $r['cacheid']);
 
         $attribentries = '';
-        if (isset($gpxNodemap[$oc_nodeid]) && isset($gpxAI[$gpxNodemap[$oc_nodeid]])) {
-            $nodeCode = $gpxNodemap[$oc_nodeid];
+        if (isset($gpxNodemap[OcConfig::getSiteNodeId()]) && isset($gpxAI[$gpxNodemap[OcConfig::getSiteNodeId()]])) {
+            $nodeCode = $gpxNodemap[OcConfig::getSiteNodeId()];
         } else {
             $nodeCode = '';
         }

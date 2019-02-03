@@ -17,6 +17,7 @@ use Utils\EventHandler\EventHandler;
 use Utils\Text\InputFilter;
 use lib\Objects\GeoCache\MobileCacheMove;
 use Utils\I18n\I18n;
+use lib\Objects\OcConfig\OcConfig;
 
 /*
  * todo: create and set up 4 template selector with wybor_WE wybor_NS.
@@ -491,7 +492,7 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
             LIMIT 1",
                 $geoCache->getCacheId(), $user->getUserId(),
                 $log_type, $log_date, $log_text,
-                $text_html, $text_htmledit, $log_uuid, $oc_nodeid,
+                $text_html, $text_htmledit, $log_uuid, OcConfig::getSiteNodeId(),
                 $log_type, $user->getUserId(), $geoCache->getCacheId()
             );
 
@@ -500,7 +501,8 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
             "INSERT INTO `cache_logs` (`cache_id`, `user_id`, `type`, `date`, `text`, `text_html`,
                          `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`)
             VALUES ( ?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), ?, ?)",
-            $geoCache->getCacheId(), $user->getUserId(), $log_type, $log_date, $log_text, 2, 1, $log_uuid, $oc_nodeid);
+            $geoCache->getCacheId(), $user->getUserId(), $log_type,
+            $log_date, $log_text, 2, 1, $log_uuid, OcConfig::getSiteNodeId());
     }
 
     // insert to database.
@@ -551,7 +553,7 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
                     `date_created`, `last_modified`, `uuid`, `node`)
                 VALUES ('', ?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), ?, ?)",
                 $geoCache->getCacheId(), $init_log_userID, 4, $init_log_date,
-                $init_log_desc, 0, 0, $init_log_uuid, $oc_nodeid);
+                $init_log_desc, 0, 0, $init_log_uuid, OcConfig::getSiteNodeId());
 
             // print $init_log_longitude; exit;
             XDb::xSql(

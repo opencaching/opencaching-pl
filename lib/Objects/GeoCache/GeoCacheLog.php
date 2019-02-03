@@ -7,6 +7,7 @@ use Utils\Generators\Uuid;
 use Exception;
 use lib\Controllers\MeritBadgeController;
 use okapi\Facade;
+use lib\Objects\OcConfig\OcConfig;
 
 class GeoCacheLog extends GeoCacheLogCommons
 {
@@ -457,7 +458,7 @@ class GeoCacheLog extends GeoCacheLogCommons
             'INSERT INTO `cache_logs`
                 (`cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `last_modified`, `uuid`, `date_created`, `node`)
             VALUES (:1 , :2, :3, :4, :5 , 2, 1, NOW(), :6, NOW(), :7)',
-            $cacheId, $userId, $logType, $date->format(self::OcConfig()->getDbDateTimeFormat()), $text, $uuid, self::OcConfig()->getOcNodeId()
+            $cacheId, $userId, $logType, $date->format(self::OcConfig()->getDbDateTimeFormat()), $text, $uuid, OcConfig::getSiteNodeId()
             );
     }
 

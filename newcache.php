@@ -686,7 +686,10 @@ if (isset($_POST['submitform'])) {
                         `date_created` = NOW(), `type` = ?, `status` = ?, `country` = ?, `date_hidden` = ?, `date_activate` = ?,
                         `founds` = 0, `notfounds` = 0, `watcher` = 0, `notes` = 0, `last_found` = NULL, `size` = ?, `difficulty` = ?,
                         `terrain` = ?, `uuid` = ?, `logpw` = ?, `search_time` = ?, `way_length` = ?, `wp_gc` = ?,
-                        `wp_nc` = ?, `wp_ge` = ?, `wp_tc` = ?, `node` = ? ", $usr['userid'], $name, $longitude, $latitude, $sel_type, $sel_status, $sel_country, date('Y-m-d', $hidden_date), $activation_date, $sel_size, $difficulty, $terrain, $cache_uuid, $log_pw, $search_time, $way_length, $wp_gc, $wp_nc, $wp_ge, $wp_tc, $oc_nodeid);
+                        `wp_nc` = ?, `wp_ge` = ?, `wp_tc` = ?, `node` = ? ",
+            $usr['userid'], $name, $longitude, $latitude, $sel_type, $sel_status, $sel_country,
+            date('Y-m-d', $hidden_date), $activation_date, $sel_size, $difficulty, $terrain, $cache_uuid,
+            $log_pw, $search_time, $way_length, $wp_gc, $wp_nc, $wp_ge, $wp_tc, OcConfig::getSiteNodeId());
 
         $cache_id = XDb::xLastInsertId();
 
@@ -720,10 +723,13 @@ if (isset($_POST['submitform'])) {
         // add record to cache_desc table
         $desc = UserInputFilter::purifyHtmlString($desc);
 
-        $db->multiVariableQuery("INSERT INTO `cache_desc` (
-                        `cache_id`, `language`, `desc`, `hint`,
+        $db->multiVariableQuery(
+            "INSERT INTO `cache_desc` (
+                         `cache_id`, `language`, `desc`, `hint`,
                         `short_desc`, `last_modified`, `uuid`, `node`, `rr_comment` )
-                    VALUES (:1, :2, :3, :4, :5, NOW(), :6, :7, :8)", $cache_id, $sel_lang, $desc, nl2br(htmlspecialchars($hints, ENT_COMPAT, 'UTF-8')), $short_desc, $desc_uuid, $oc_nodeid, '');
+            VALUES (:1, :2, :3, :4, :5, NOW(), :6, :7, :8)",
+            $cache_id, $sel_lang, $desc, nl2br(htmlspecialchars($hints, ENT_COMPAT, 'UTF-8')),
+            $short_desc, $desc_uuid, OcConfig::getSiteNodeId(), '');
 
         GeoCache::setCacheDefaultDescLang($cache_id);
 

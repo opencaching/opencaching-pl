@@ -876,7 +876,7 @@ class User extends UserCommons
                 (:1, :2, :3, NOW(), 0 , NOW(), :4, :5, :6, :7, :8)
             ', $username, hash('sha512', md5($password)),
             $email, Uuid::create(), TextGen::randomText(13),
-            $config->getOcNodeId(), boolval($rulesConfirmed),
+            OcConfig::getSiteNodeId(), boolval($rulesConfirmed),
             $config->getUserConfig()['defaultStatpicText']));
     }
 

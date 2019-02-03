@@ -26,7 +26,6 @@ final class OcConfig extends ConfigReader
     private $debugMode = false;
     private $dbDatetimeFormat = 'Y-m-d H:i:s';
     private $datetimeFormat = 'Y-m-d H:i';
-    private $ocNodeId = null;
     private $absolute_server_URI = null;
     private $dynamicFilesPath;
     private $powerTrailModuleSwitchOn;
@@ -118,7 +117,6 @@ final class OcConfig extends ConfigReader
 
         $this->debugMode = $debug_page;
         $this->datetimeFormat = $datetimeFormat;
-        $this->ocNodeId = $oc_nodeid;
         $this->absolute_server_URI = $absolute_server_URI;
         $this->dynamicFilesPath = $dynbasepath;
         $this->powerTrailModuleSwitchOn = $powerTrailModuleSwitchOn;
@@ -222,21 +220,10 @@ final class OcConfig extends ConfigReader
         return self::instance()->absolute_server_URI;
     }
 
-
-
-    public function getOcNodeId()
-    {
-        return $this->ocNodeId;
-    }
-
     public function getDbDateTimeFormat()
     {
         return $this->dbDatetimeFormat;
     }
-
-
-
-
 
     public static function getDynFilesPath()
     {

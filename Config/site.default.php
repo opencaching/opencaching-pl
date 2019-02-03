@@ -27,4 +27,9 @@ $site['siteName'] = 'OpenCaching';
  */
 $site['pageTitle'] = 'OpenCaching';
 
+/**
+ * NodeId: globally unique ID of opencaching node
+ * @see https://wiki.opencaching.eu/index.php?title=Node_IDs
+ */
+$site['ocNodeId'] = 4;
 
