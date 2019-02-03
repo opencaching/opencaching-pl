@@ -606,8 +606,6 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
 
 function startXmlSession($sModifiedSince, $bCache, $bCachedesc, $bCachelog, $bUser, $bPicture, $bRemovedObject, $bPictureFromCachelog, $selection)
 {
-    global $rootpath;
-
     // create session
     XDb::xSql(
         'INSERT INTO `xmlsession` (`last_use`, `modified_since`, `date_created`)
@@ -711,7 +709,7 @@ function startXmlSession($sModifiedSince, $bCache, $bCachedesc, $bCachelog, $bUs
                 $selection['country']);
 
         } else if ($selection['type'] == 2) {
-            require_once($rootpath . 'lib/search.inc.php');
+            require_once(__DIR__.'/../lib/search.inc.php');
 
             XDb::xSql(
                 'CREATE TEMPORARY TABLE `tmpxmlSesssionCaches` (`cache_id` int(11), `distance` double, KEY (`cache_id`)) ENGINE=MEMORY

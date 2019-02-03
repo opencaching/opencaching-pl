@@ -669,7 +669,7 @@ class Report extends BaseObject
         $params['text']['data_type'] = 'string';
         $params['uuid']['value'] = Uuid::create();
         $params['uuid']['data_type'] = 'string';
-        $params['node']['value'] = OcConfig::instance()->getOcNodeId();
+        $params['node']['value'] = OcConfig::getSiteNodeId()
         $params['node']['data_type'] = 'string';
         return (self::db()->paramQuery($query, $params) !== null);
     }

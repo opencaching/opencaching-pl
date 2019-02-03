@@ -19,3 +19,9 @@ $site['siteName'] = 'OPENCACHE.uk';
  * Page title (to display on the browser titlebar)
  */
 $site['pageTitle'] = 'Geocaching Opencaching UK';
+
+/**
+ * NodeId: globally unique ID of opencaching node
+ * @see https://wiki.opencaching.eu/index.php?title=Node_IDs
+ */
+$site['ocNodeId'] = 6;

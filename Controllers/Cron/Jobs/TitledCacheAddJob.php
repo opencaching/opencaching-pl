@@ -4,6 +4,7 @@ use Controllers\Cron\Jobs\Job;
 use lib\Objects\GeoCache\GeoCacheLog;
 use Utils\Generators\Uuid;
 use lib\Controllers\MeritBadgeController;
+use lib\Objects\OcConfig\OcConfig;
 
 class TitledCacheAddJob extends Job
 {
@@ -154,7 +155,7 @@ class TitledCacheAddJob extends Job
 
         $this->db->multiVariableQuery($queryLogI, $rec[ "cacheId" ], $SystemUser, $LogType, $date_alg,
                 $msgText, '2', '1', $date_alg, $date_alg, $LogUuid, '0', '0',
-                $date_alg, '0', $this->ocConfig->getOcNodeId() );
+                $date_alg, '0', OcConfig::getSiteName() );
 
         $ctrlMeritBadge = new MeritBadgeController;
         $ctrlMeritBadge->updateTriggerByNewTitledCache($rec[ "cacheId" ]);

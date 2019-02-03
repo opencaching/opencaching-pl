@@ -1,6 +1,7 @@
 <?php
 
 use Utils\Database\XDb;
+use lib\Objects\OcConfig\OcConfig;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
@@ -49,7 +50,7 @@ if ($error == false) {
             XDb::xSql(
                 "INSERT INTO `removed_objects` (`localID`, `uuid`, `type`, `removed_date`, `node`)
                 VALUES ( ?, ?, 6, NOW(), ?)",
-                $localid, $uuid, $oc_nodeid);
+                $localid, $uuid, OcConfig::getSiteNodeId());
 
             switch ($type) {
                 // log

@@ -2,6 +2,7 @@
 
 use Utils\Database\XDb;
 use Utils\Generators\Uuid;
+use lib\Objects\OcConfig\OcConfig;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
@@ -189,7 +190,7 @@ if ($error == false) {
                             VALUES (?, ?, NOW(), ?, '', 0, NOW(), NOW(),?, ?,
                                     ?, 1, ?, ?, ?, ?)",
                             $uuid, $picurl . '/' . $uuid . '.' . $extension, $title, $objectid, $type, $usr['userid'],
-                            ($bSpoiler == 1) ? '1' : '0', ($bNoDisplay == 1) ? '0' : '1', $oc_nodeid, $def_seq);
+                            ($bSpoiler == 1) ? '1' : '0', ($bNoDisplay == 1) ? '0' : '1', OcConfig::getSiteNodeId(), $def_seq);
 
                         switch ($type) {
                             // log
