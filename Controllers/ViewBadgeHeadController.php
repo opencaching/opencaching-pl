@@ -57,7 +57,7 @@ class ViewBadgeHeadController extends BaseController{
         $this->preapareCode();
 
         $this->setVar( 'picture', $userMeritBadge->getPicture() );
-        $this->setVar( 'progresbar_curr_val', MeritBadge::getProgressBarValueMax($currUserPrevThreshold, $currUserCurrVal) ); 
+        $this->setVar( 'progresbar_curr_val', MeritBadge::getProgressBarCurrValue($currUserPrevThreshold, $currUserCurrVal, $currUserThreshold) ); 
         $this->setVar( 'progresbar_next_val', MeritBadge::getProgressBarValueMax($currUserPrevThreshold, $currUserThreshold) );
         $this->setVar( 'progresbar_color', MeritBadge::getColor($currUserLevel, $noLevels) );
         $this->setVar( 'progresbar_size', MeritBadge::getBarSize($currUserLevel, $noLevels) );
