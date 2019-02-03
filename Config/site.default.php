@@ -16,3 +16,6 @@ $site = [];
  */
 
 $site['primaryCountries'] = [];
+
+
+$site['siteName'] = 'OpenCaching.PL DEVEL';
