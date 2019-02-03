@@ -1,7 +1,7 @@
 DELIMITER ;;
 
 -- DELIMITER must be in the first line.
--- Do not include the delimiter (double semicolon) in comments or strings. 
+-- Do not include the delimiter (double semicolon) in comments or strings.
 
 -- Changes will be automatically installed on production sites.
 -- On developer sites, use http://local.opencaching.pl/Admin.DbUpdate/run
@@ -58,14 +58,14 @@ END;;
 
 
 --
--- callback triggered if there is a new log and counters should be incremented    
+-- callback triggered if there is a new log and counters should be incremented
 --
 DROP PROCEDURE IF EXISTS inc_logs_stats;;
-    
+
 CREATE PROCEDURE inc_logs_stats(
     IN `type` int(11),
     IN `user_id` int(11),
-    IN `cache_id` int(11)    
+    IN `cache_id` int(11)
 )
 BEGIN
     CASE `type`
@@ -85,7 +85,7 @@ DROP PROCEDURE IF EXISTS dec_logs_stats;;
 CREATE PROCEDURE dec_logs_stats(
     IN `type` int(11),
     IN `user_id` int(11),
-    IN `cache_id` int(11)    
+    IN `cache_id` int(11)
 )
 BEGIN
     CASE `type`
@@ -93,7 +93,7 @@ BEGIN
             CALL dec_powertrail_progress(user_id, cache_id);
         ELSE
             CALL nop();
-    END CASE;  
+    END CASE;
 END;;
 
 
@@ -113,7 +113,7 @@ CREATE TRIGGER cache_logs_insert AFTER INSERT ON `cache_logs`
             END IF;
         END IF;
     END;;
-    
+
 
 DROP TRIGGER IF EXISTS cl_update;;  -- was merged to cache_logs_update
 DROP TRIGGER IF EXISTS cache_logs_update;;

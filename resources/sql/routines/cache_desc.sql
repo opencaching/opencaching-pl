@@ -1,7 +1,7 @@
 DELIMITER ;;
 
 -- DELIMITER must be in the first line.
--- Do not include the delimiter (double semicolon) in comments or strings. 
+-- Do not include the delimiter (double semicolon) in comments or strings.
 
 -- Changes will be automatically installed on production sites.
 -- On developer sites, use http://local.opencaching.pl/Admin.DbUpdate/run
@@ -37,9 +37,9 @@ CREATE TRIGGER cacheDescAfterUpdate AFTER UPDATE ON cache_desc
                 WHERE cd.cache_id = NEW.cache_id
             )
             WHERE caches.cache_id = NEW.cache_id;
-      
+
             IF OLD.cache_id != NEW.cache_id THEN
-      
+
                 UPDATE caches
                 SET caches.desc_languages = (
                     SELECT GROUP_CONCAT(language)
@@ -47,7 +47,7 @@ CREATE TRIGGER cacheDescAfterUpdate AFTER UPDATE ON cache_desc
                     WHERE cd.cache_id = OLD.cache_id
                 )
                 WHERE caches.cache_id = OLD.cache_id;
-          
+
             END IF;
         END IF;
     END;;

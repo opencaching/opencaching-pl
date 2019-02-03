@@ -249,6 +249,6 @@ class DbUpdates
 
     private static function getRoutinesPath($fileName)
     {
-        return __DIR__ . '/routines/' . $fileName;
+        return __DIR__ . '/../../resources/sql/routines/' . $fileName;
     }
 }

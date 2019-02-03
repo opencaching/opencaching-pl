@@ -1,7 +1,7 @@
 DELIMITER ;;
 
 -- DELIMITER must be in the first line.
--- Do not include the delimiter (double semicolon) in comments or strings. 
+-- Do not include the delimiter (double semicolon) in comments or strings.
 
 -- Changes will be automatically installed on production sites.
 -- On developer sites, use http://local.opencaching.pl/Admin.DbUpdate/run
@@ -19,8 +19,8 @@ CREATE TRIGGER `cacheRatingAfterInsert` AFTER INSERT ON `cache_rating`
     END;;
 
 
-DROP TRIGGER IF EXISTS cacheRatingAfterUpdate;;  
-    
+DROP TRIGGER IF EXISTS cacheRatingAfterUpdate;;
+
 CREATE TRIGGER `cacheRatingAfterUpdate` AFTER UPDATE ON `cache_rating`
     FOR EACH ROW BEGIN
         IF OLD.`cache_id` != NEW.`cache_id` THEN
@@ -29,7 +29,7 @@ CREATE TRIGGER `cacheRatingAfterUpdate` AFTER UPDATE ON `cache_rating`
                 WHERE `cache_rating`.`cache_id` = OLD.`cache_id`
             )
             WHERE `cache_id` = OLD.`cache_id`;
-            
+
             UPDATE `caches` SET `topratings` = (
                 SELECT COUNT(*) FROM `cache_rating`
                 WHERE `cache_rating`.`cache_id` = NEW.`cache_id`
