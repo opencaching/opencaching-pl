@@ -953,7 +953,7 @@
 <div class="buffer"></div>
 
 <script>
-    document.getElementById("scriptwarning").firstChild.nodeValue = "";
+    document.getElementById("scriptwarning").style.display = 'none';
     // erweiterte attribute ausblenden, falls kein erweitertes attribute selektiert
     var i = 0;
     var bHide = true;
