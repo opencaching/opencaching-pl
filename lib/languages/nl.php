@@ -290,7 +290,7 @@ $translations = array(
     'log_password' => 'Geef logwachtwoord',
     'no_password_label' => 'Laat leeg voor geen logwachtwoord',
     'please_read' => 'Lees meer <a href="{wiki_link_cacheLogPass}" target="_blank">informatie over wachtwoorden in logs</a>',
-    'creating_cache' => 'Met het maken van een nieuwe cache accepteer je de <a href="{wiki_link_rules}" target="_blank">Gebruikers voorwaarden</a> met alle consequenties.',
+    'creating_cache' => 'Met het maken van een nieuwe cache accepteer je de {site_name} <a href="{wiki_link_rules}" target="_blank">Gebruikers voorwaarden</a>.',
     'cache_name' => 'cache naam',
     'distance_label' => 'Afstand',
     'omit_caches' => 'Verberg caches',
