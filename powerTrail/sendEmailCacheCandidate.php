@@ -9,7 +9,7 @@ $siteDateFormat = 'Y-m-d';
 $siteDateTimeFormat = 'Y-m-d H:i';
 
 function emailCacheOwner($ptId, $cacheId, $linkCode){
-    global $usr, $absolute_server_URI, $site_name, $siteDateFormat, $siteDateTimeFormat;
+    global $usr, $absolute_server_URI, $siteDateFormat, $siteDateTimeFormat;
     $owners = powerTrailBase::getPtOwners($ptId);
     $ptDbRow = powerTrailBase::getPtDbRow($ptId);
 
@@ -23,7 +23,7 @@ function emailCacheOwner($ptId, $cacheId, $linkCode){
 
     $headers  = 'MIME-Version: 1.0' . "\r\n";
     $headers .= 'Content-type: text/html; charset=UTF-8 ' . "\r\n";
-    $headers .= "From: $site_name <".OcConfig::getEmailAddrOcTeam().">\r\n";
+    $headers .= "From: ".OcConfig::getSiteName()." <".OcConfig::getEmailAddrOcTeam().">\r\n";
     $headers .= "Reply-To: ".OcConfig::getEmailAddrOcTeam(). "\r\n";
     $mailbody = file_get_contents(dirname(__FILE__).'/candidateEmail.html');
     $mailbody = mb_ereg_replace('{cacheOwnerName}', $cacheData['username'], $mailbody);

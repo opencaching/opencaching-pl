@@ -14,9 +14,6 @@ $config['ocNode'] = 'pl';
 if (!isset($pagetitle))
     $pagetitle = 'Geocaching Opencaching Polska';
 
-//site name
-$site_name = 'localhost';
-
 // Used OC number nodes and name of waypoints :
 // 1 Opencaching Germany http://www.opencaching.de OC
 // 2 Opencaching Poland http://www.opencaching.pl OP

@@ -17,5 +17,7 @@ $site = [];
 
 $site['primaryCountries'] = [];
 
-
-$site['siteName'] = 'OpenCaching.PL DEVEL';
+/**
+ * Site name for the node
+ */
+$site['siteName'] = 'OpenCaching';

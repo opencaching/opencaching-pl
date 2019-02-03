@@ -1,5 +1,7 @@
 <?php
 
+use lib\Objects\OcConfig\OcConfig;
+
 require_once(__DIR__.'/common.inc.php');
 
 $kmlHead = '<?xml version="1.0" encoding="UTF-8"?>
@@ -222,7 +224,7 @@ $kmlHead = '<?xml version="1.0" encoding="UTF-8"?>
         </Style>
 
         <Folder>
-            <Name>' . convert_string($site_name) . '</Name>
+            <Name>' . convert_string(OcConfig::getSiteName()) . '</Name>
             <Open>0</Open>
 ';
 

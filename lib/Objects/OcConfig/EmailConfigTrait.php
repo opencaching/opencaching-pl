@@ -6,6 +6,7 @@ use Utils\Email\Email;
 
 /**
  * This trait group access to email settings stored in /config/email.* conf. files
+ * BEWARE OF FUNCTIONS NAME COLLISION BETWEEN CONFIG TRAITS!
  */
 trait EmailConfigTrait {
 
@@ -19,7 +20,7 @@ trait EmailConfigTrait {
      */
     public static function getEmailAddrOcTeam($forWebDisplay=false)
     {
-        $email = self::getEmailVar('ocTeamContactEmail');
+        $email = self::getEmailAddrVar('ocTeamContactEmail');
         if($forWebDisplay){
             return self::emailToDisplay($email);
         } else {
@@ -34,7 +35,7 @@ trait EmailConfigTrait {
      */
     public static function getOcteamEmailsSignature()
     {
-        return self::getVar('ocTeamEmailSignature');
+        return self::getEmailVar('ocTeamEmailSignature');
     }
 
     /**
@@ -44,7 +45,7 @@ trait EmailConfigTrait {
      */
     public static function getEmailAddrNoReply()
     {
-        return self::getEmailVar('noReplyEmail');
+        return self::getEmailAddrVar('noReplyEmail');
     }
 
     /**
@@ -53,7 +54,7 @@ trait EmailConfigTrait {
      */
     public static function getEmailAddrTechAdmin()
     {
-        return self::getEmailVar('nodeTechContactEmail');
+        return self::getEmailAddrVar('nodeTechContactEmail');
     }
 
     /**
@@ -62,7 +63,7 @@ trait EmailConfigTrait {
      */
     public static function getEmailAddrTechAdminNotification()
     {
-        return self::getEmailVar('technicalNotificationEmail');
+        return self::getEmailAddrVar('technicalNotificationEmail');
     }
 
     /**
@@ -71,7 +72,7 @@ trait EmailConfigTrait {
      */
     public static function getEmailSubjectPrefix()
     {
-        return self::getVar('mailSubjectPrefix');
+        return self::getEmailVar('mailSubjectPrefix');
     }
 
     /**
@@ -80,7 +81,7 @@ trait EmailConfigTrait {
      */
     public static function getEmailSubjectPrefixForOcTeam()
     {
-        return self::getVar('mailSubjectPrefixForReviewers');
+        return self::getEmailVar('mailSubjectPrefixForReviewers');
     }
 
     /**
@@ -101,7 +102,7 @@ trait EmailConfigTrait {
      * @throws \Exception
      * @return string
      */
-    private static function getVar($varName)
+    private static function getEmailVar($varName)
     {
         $emailConfig = self::instance()->getEmailConfig();
         if (!is_array($emailConfig)) {
@@ -117,7 +118,7 @@ trait EmailConfigTrait {
      * @throws \Exception
      * @return mixed
      */
-    private static function getEmailVar($varName)
+    private static function getEmailAddrVar($varName)
     {
         $emailConfig = self::instance()->getEmailConfig();
         if (!is_array($emailConfig)) {

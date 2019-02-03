@@ -3,7 +3,7 @@
 ob_start();
 
 use Utils\Database\XDb;
-use Utils\Database\OcDb;
+use lib\Objects\OcConfig\OcConfig;
 
 global $usr;
 
@@ -16,7 +16,7 @@ header('Content-Disposition: attachment; filename="opencaching.kml"');
 $kml = '<?xml version="1.0" encoding="utf-8"?>
 <kml xmlns="http://earth.google.com/kml/2.0">
     <Document>
-        <Name>' . convert_string($site_name) . '</Name>
+        <Name>' . convert_string(OcConfig::getSiteName()) . '</Name>
         <LookAt>
             <longitude>{lon}</longitude>
             <latitude>{lat}</latitude>
@@ -25,8 +25,8 @@ $kml = '<?xml version="1.0" encoding="utf-8"?>
             <heading>0</heading>
         </LookAt>
         <NetworkLink>
-            <name>' . convert_string($site_name) . '</name>
-            <Link id="' . convert_string($site_name) . '">
+            <name>' . convert_string(OcConfig::getSiteName()) . '</name>
+            <Link id="' . convert_string(OcConfig::getSiteName()) . '">
                 <href>' . $absolute_server_URI . 'util/google-earth/caches.php</href>
                 <viewRefreshTime>1</viewRefreshTime>
                 <viewRefreshMode>onStop</viewRefreshMode>
