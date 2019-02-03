@@ -14,3 +14,8 @@ $site['primaryCountries'] = ['GB'];
  * Site name for the node
  */
 $site['siteName'] = 'OPENCACHE.uk';
+
+/**
+ * Page title (to display on the browser titlebar)
+ */
+$site['pageTitle'] = 'Geocaching Opencaching UK';

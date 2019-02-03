@@ -135,7 +135,7 @@ if ($_POST['spoiler_only'] == "&spoiler_only=1") {
 <html lang="<?=I18n::getCurrentLang()?>">
 <head>
     <meta charset="utf-8">
-    <title><?php echo OcConfig::instance()->getPageTitle();
+    <title><?php echo OcConfig::getSitePageTitle();
         echo ' - '.tr('pagetitle_print'); ?></title>
     <link rel="shortcut icon" href="/images/<?php print $config['headerFavicon']; ?>">
     <link rel="stylesheet" type="text/css"

@@ -10,6 +10,15 @@ trait SiteConfigTrait {
     protected $siteConfig = null;
 
     /**
+     * Returns pageTitle from config
+     * @return string
+     */
+    public static function getSitePageTitle()
+    {
+        return self::getSiteVar('pageTite');
+    }
+
+    /**
      * Returns siteName from config
      * @return string
      */
