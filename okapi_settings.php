@@ -27,36 +27,36 @@ function get_okapi_settings()
 
     require(__DIR__.'/lib/settingsGlue.inc.php');  # (into the *local* scope)
 
-    return array(
-        # These first section of settings is OKAPI-specific, OCPL's
-        # settings.inc.php file does not provide them. For more
-        # OKAPI-specific settings, see okapi/settings.php file.
+    return [
+        # OKAPI-specific settings which are not taken from OCPL settings.
+        # For more OKAPI-specific settings, see okapi/Settings.php file.
 
         'OC_BRANCH' => 'oc.pl',
         'EXTERNAL_AUTOLOADER' => __DIR__.'/lib/ClassPathDictionary.php',
-        # Copy the rest from settings.inc.php:
+        'USE_SQL_SUBQUERIES' => true,
 
-        'DATA_LICENSE_URL' => $config['okapi']['data_license_url'],
-        'ADMINS' => ($config['okapi']['admin_emails'] ? $config['okapi']['admin_emails'] : array($sql_errormail, 'rygielski@mimuw.edu.pl', 'following@online.de')),
-        'FROM_FIELD' => $emailaddr,
-        'DEBUG' => $debug_page,
+        # These settings will stay in local settings.inc.php.
+
         'DB_SERVER' => $dbserver,
         'DB_NAME' => $dbname,
         'DB_USERNAME' => $dbusername,
         'DB_PASSWORD' => $dbpasswd,
-        'SITELANG' => 'en', //TODO: how to read it from I18n class?
-        'SITELANGS' => array_map('strtolower', $config['defaultLanguageList']),
+        'DEBUG' => $debug_page,
+
+        # These settings will be refactored to UpdateController::updateOkapiSettings().
+
+        'ADMINS' => ($config['okapi']['admin_emails'] ? $config['okapi']['admin_emails'] : array($sql_errormail, 'rygielski@mimuw.edu.pl', 'following@online.de')),
+        'DATA_LICENSE_URL' => $config['okapi']['data_license_url'],
+        'FROM_FIELD' => $emailaddr,
         'SITE_URL' => isset($OKAPI_server_URI) ? $OKAPI_server_URI : $absolute_server_URI,
-        'VAR_DIR' => rtrim($dynbasepath, '/'),
-        'TILEMAP_FONT_PATH' => $config['okapi']['tilemap_font_path'],
         'IMAGES_DIR' => rtrim($picdir, '/'),
         'IMAGES_URL' => rtrim($picurl, '/').'/',
         'IMAGE_MAX_UPLOAD_SIZE' => $config['limits']['image']['filesize'] * 1024 * 1024,
         'IMAGE_MAX_PIXEL_COUNT' => $config['limits']['image']['height'] * $config['limits']['image']['width'],
-        'OC_NODE_ID' => $oc_nodeid,
         'OC_COOKIE_NAME' => $config['cookie']['name'].'_auth',
-        //'OCPL_ENABLE_GEOCACHE_ACCESS_LOGS' => isset($enable_cache_access_logs) ? $enable_cache_access_logs : false
-        'OCPL_ENABLE_GEOCACHE_ACCESS_LOGS' => false,
-        'USE_SQL_SUBQUERIES' => true,
-    );
+        'TILEMAP_FONT_PATH' => $config['okapi']['tilemap_font_path'],
+    ]
+        # Load the rest from OCPL Config (add the associative arrays):
+
+        + include __DIR__.'/var/okapi_settings.inc.php';
 }

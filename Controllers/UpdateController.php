@@ -4,6 +4,7 @@ namespace Controllers;
 
 use Utils\Database\DbUpdates;
 use Utils\Lock\Lock;
+use Utils\I18n\I18n;
 use okapi\Facade;
 
 /**
@@ -43,6 +44,7 @@ class UpdateController extends BaseController
         echo "\n";
 
         // OKAPI update
+        $this->updateOkapiSettings();
         Facade::database_update();
 
         $messages = ob_get_clean();
@@ -78,5 +80,25 @@ class UpdateController extends BaseController
         }
 
         return $messages;
+    }
+
+    /**
+     * Create settings file for OKAPI
+     */
+    private function updateOkapiSettings()
+    {
+        // See explanation in /okapi_settings.php.
+
+        $settings = [
+            'OC_NODE_ID' => $this->ocConfig->getOcNodeId(),
+            'SITELANG' => I18n::getDefaultLang(),
+            'VAR_DIR' => $this->ocConfig->getDynamicFilesPath(),
+            //'OCPL_ENABLE_GEOCACHE_ACCESS_LOGS' => $this->ocConfig->isCacheAccesLogEnabled(),
+            'OCPL_ENABLE_GEOCACHE_ACCESS_LOGS' => false,
+        ];
+
+        $code = "<?php\n\nreturn " . var_export($settings, true) . ";\n";
+
+        file_put_contents(__DIR__.'/../var/okapi_settings.inc.php', $code);
     }
 }
