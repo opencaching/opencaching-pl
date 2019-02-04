@@ -6,7 +6,6 @@
 
 $site = [];
 
-
 /**
  * Primary country (or countries) for this node. See site.nl.php for an
  * example setting.

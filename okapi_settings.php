@@ -3,7 +3,7 @@
 namespace okapi;
 
 use lib\Objects\OcConfig\OcConfig;
-use Utils\I18n\I18n;
+use Utils\Cache\OcMemCache;
 
 function get_okapi_settings()
 {
@@ -28,7 +28,6 @@ function get_okapi_settings()
     # OKAPI defines only *one* global variable, named 'rootpath'.
     # You may access it to get a proper path to your own settings file.
 
-    require(__DIR__.'/lib/settingsGlue.inc.php');  # (into the *local* scope)
 
     # save OKAPI classloaders
     $savedAutoloaders = spl_autoload_functions();
@@ -36,40 +35,45 @@ function get_okapi_settings()
     # load OCPL classloader
     require_once __DIR__ . '/lib/ClassPathDictionary.php';
 
-    # prepare settings for OKAPI
-    $okapiSettings = array(
-        # These first section of settings is OKAPI-specific, OCPL's
-        # settings.inc.php file does not provide them. For more
-        # OKAPI-specific settings, see okapi/settings.php file.
+    $okapiSettings = OcMemCache::getOrCreate('okapi_settings', 15*60, function() {
 
-        'OC_BRANCH' => 'oc.pl',
-        'EXTERNAL_AUTOLOADER' => __DIR__.'/lib/ClassPathDictionary.php',
-        # Copy the rest from settings.inc.php:
+        require(__DIR__.'/lib/settingsGlue.inc.php');  # (into the *local* scope)
 
-        'DATA_LICENSE_URL' => $config['okapi']['data_license_url'],
-        'ADMINS' => ($config['okapi']['admin_emails'] ? $config['okapi']['admin_emails'] :
-            array('techNotify@opencaching.pl','rygielski@mimuw.edu.pl', 'following@online.de')),
+        # prepare settings for OKAPI
+        return [
+            # These first section of settings is OKAPI-specific, OCPL's
+            # settings.inc.php file does not provide them. For more
+            # OKAPI-specific settings, see okapi/settings.php file.
 
-        'FROM_FIELD' => OcConfig::getEmailAddrNoReply(),
-        'DEBUG' => $debug_page,
-        'DB_SERVER' => $dbserver,
-        'DB_NAME' => $dbname,
-        'DB_USERNAME' => $dbusername,
-        'DB_PASSWORD' => $dbpasswd,
-        'SITELANG' => OcConfig::getI18nDefaultLang(),
-        'SITE_URL' => isset($OKAPI_server_URI) ? $OKAPI_server_URI : $absolute_server_URI,
-        'VAR_DIR' => rtrim($dynbasepath, '/'),
-        'TILEMAP_FONT_PATH' => $config['okapi']['tilemap_font_path'],
-        'IMAGES_DIR' => rtrim($picdir, '/'),
-        'IMAGES_URL' => rtrim($picurl, '/').'/',
-        'IMAGE_MAX_UPLOAD_SIZE' => $config['limits']['image']['filesize'] * 1024 * 1024,
-        'IMAGE_MAX_PIXEL_COUNT' => $config['limits']['image']['height'] * $config['limits']['image']['width'],
-        'OC_NODE_ID' => OcConfig::getSiteNodeId(),
-        'OC_COOKIE_NAME' => $config['cookie']['name'].'_auth',
-        //'OCPL_ENABLE_GEOCACHE_ACCESS_LOGS' => isset($enable_cache_access_logs) ? $enable_cache_access_logs : false
-        'OCPL_ENABLE_GEOCACHE_ACCESS_LOGS' => false,
-        'USE_SQL_SUBQUERIES' => true,
-    );
+            'OC_BRANCH' => 'oc.pl',
+            'EXTERNAL_AUTOLOADER' => __DIR__.'/lib/ClassPathDictionary.php',
+            # Copy the rest from settings.inc.php:
+
+            'DATA_LICENSE_URL' => $config['okapi']['data_license_url'],
+            'ADMINS' => ($config['okapi']['admin_emails'] ? $config['okapi']['admin_emails'] :
+                array('techNotify@opencaching.pl','rygielski@mimuw.edu.pl', 'following@online.de')),
+
+            'FROM_FIELD' => OcConfig::getEmailAddrNoReply(),
+            'DEBUG' => $debug_page,
+            'DB_SERVER' => $dbserver,
+            'DB_NAME' => $dbname,
+            'DB_USERNAME' => $dbusername,
+            'DB_PASSWORD' => $dbpasswd,
+            'SITELANG' => OcConfig::getI18nDefaultLang(),
+            'SITE_URL' => isset($OKAPI_server_URI) ? $OKAPI_server_URI : $absolute_server_URI,
+            'VAR_DIR' => rtrim($dynbasepath, '/'),
+            'TILEMAP_FONT_PATH' => $config['okapi']['tilemap_font_path'],
+            'IMAGES_DIR' => rtrim($picdir, '/'),
+            'IMAGES_URL' => rtrim($picurl, '/').'/',
+            'IMAGE_MAX_UPLOAD_SIZE' => $config['limits']['image']['filesize'] * 1024 * 1024,
+            'IMAGE_MAX_PIXEL_COUNT' => $config['limits']['image']['height'] * $config['limits']['image']['width'],
+            'OC_NODE_ID' => OcConfig::getSiteNodeId(),
+            'OC_COOKIE_NAME' => $config['cookie']['name'].'_auth',
+            //'OCPL_ENABLE_GEOCACHE_ACCESS_LOGS' => isset($enable_cache_access_logs) ? $enable_cache_access_logs : false
+            'OCPL_ENABLE_GEOCACHE_ACCESS_LOGS' => false,
+            'USE_SQL_SUBQUERIES' => true,
+        ];
+    });
 
     # restore OKAPI classloaders
 
