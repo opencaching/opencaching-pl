@@ -7,4 +7,3 @@ if ($usr['admin']) {
     $tplname = 'admin';
     tpl_BuildTemplate();
 }
-?>

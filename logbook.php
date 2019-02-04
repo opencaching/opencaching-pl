@@ -26,5 +26,3 @@ function encrypt($text, $key)
     $iv = mcrypt_create_iv($iv_size, MCRYPT_RAND);
     return base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $key, $text, MCRYPT_MODE_ECB, $iv));
 }
-
-

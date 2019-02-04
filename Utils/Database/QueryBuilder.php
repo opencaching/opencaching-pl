@@ -151,4 +151,3 @@ class QueryBuilder
         return XDb::xEscape($str);
     }
 }
-

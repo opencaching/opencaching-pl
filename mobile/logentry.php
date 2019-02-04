@@ -168,5 +168,3 @@ $tpl->assign('date_Y', date('Y'));
 $tpl->assign('date_H', date('H'));
 $tpl->assign('date_i', date('i'));
 $tpl->display('tpl/logentry.tpl');
-
-

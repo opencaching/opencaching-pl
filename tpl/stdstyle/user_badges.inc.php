@@ -36,4 +36,3 @@ $content_element = '
             <span class="Badge-short_desc-user">{short_desc}</span> <br>
 
 </div>';
-

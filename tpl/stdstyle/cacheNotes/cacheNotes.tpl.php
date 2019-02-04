@@ -17,5 +17,3 @@
     <?php } //$view->cachesCount == 0 ?>
 
 </div>
-
-

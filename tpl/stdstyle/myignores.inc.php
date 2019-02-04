@@ -12,4 +12,3 @@ $ignore = '<tr>
 $no_ignores = '<div class="notice">' . tr('no_ignores') . '</div>';
 $title_text = tr('ignored_caches');
 $no_found_date = '---';
-?>

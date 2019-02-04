@@ -200,4 +200,3 @@ if (isSet($_GET['wp']) && !empty($_GET['wp']) && $_GET['wp'] != "OP") {
 }
 
 $tpl->display('tpl/viewcache.tpl');
-?>

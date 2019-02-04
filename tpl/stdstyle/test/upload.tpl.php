@@ -11,7 +11,7 @@
 <script>
   $('#uploadA').click(function(e){
 
-    /**
+    /*
       ocUpload takes two params:
        - params json - see UploadModel
        - callback function

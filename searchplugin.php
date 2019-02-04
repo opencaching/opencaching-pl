@@ -121,4 +121,3 @@ if (($sourceid == 'mozilla-search') && ($userinput != '')) {
     }
 }
 tpl_redirect($targeturl);
-?>

@@ -753,6 +753,3 @@ $(document).ready(function(){
 <div class="buffer"></div>
 <input type="hidden" value="" id="gpxWaypointObject">
 <div id="waypointsToChose" title="{{newCacheWpTitle}}"></div>
-
-
-

@@ -220,4 +220,3 @@ shell_exec("pdfjam $pages > \"work/$shortname.pdf\" ");
 echo "$imax,work/".$shortname;
 if($_POST['pdf'])
 echo ",pdf";
-?>

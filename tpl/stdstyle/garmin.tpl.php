@@ -40,4 +40,3 @@
 </script>
 <br /><center>
     <div id="garminDisplay"></div>
-

@@ -174,4 +174,3 @@ class NutsLocation extends BaseObject
     }
 
 }
-

@@ -7,4 +7,3 @@
  */
 
 $guides['guideGotRecommendations'] = 3;
-

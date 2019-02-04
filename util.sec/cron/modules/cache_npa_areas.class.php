@@ -80,4 +80,3 @@ while ($rCache = XDb::xFetchArray($rsCache)) {
     XDb::xSql("UPDATE `caches` SET `need_npa_recalc`=0 WHERE `cache_id`= ? LIMIT 1", $rCache['cache_id']);
 }
 XDb::xFreeResults($rsCache);
-

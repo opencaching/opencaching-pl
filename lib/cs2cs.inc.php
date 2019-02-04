@@ -186,6 +186,3 @@ $cs2csresult = cs2cs_core($lat, $lon, "+proj=tmerc +ellps=bessel +lat_0=0 +lon_0
 return $cs2csresult;
 
 }
-
-
-

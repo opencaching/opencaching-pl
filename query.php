@@ -208,4 +208,3 @@ function savequery($queryid, $queryname, $saveas, $submit, $saveas_queryid)
 
     tpl_redirect('query.php?action=view');
 }
-

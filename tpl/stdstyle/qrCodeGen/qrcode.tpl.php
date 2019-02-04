@@ -39,5 +39,3 @@
     <img src="/tpl/stdstyle/images/misc/16x16-info.png" class="icon16" alt="Info" />
     <?=tr('qrcode_appInfo')?>
 </div>
-
-

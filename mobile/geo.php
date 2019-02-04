@@ -159,4 +159,3 @@ if (isset($_GET['wp']) && !empty($_GET['wp']) && isset($_GET['output']) && !empt
         }
     }
 }
-

@@ -70,5 +70,3 @@ function removeDbEntry($code)
     $query = 'DELETE FROM `PowerTrail_cacheCandidate` WHERE `link` = :1';
     $db->multiVariableQuery($query, $code);
 }
-
-?>

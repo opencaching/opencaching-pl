@@ -670,4 +670,3 @@ function saveCookie()
     OcCookie::set("ptMyBool", $_REQUEST['myPowerTrailsBool']);
     OcCookie::set("ptMiniBool", $_REQUEST['historicLimitBool']);
 }
-

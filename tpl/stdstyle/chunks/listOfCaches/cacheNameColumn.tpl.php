@@ -3,11 +3,11 @@
 use lib\Objects\GeoCache\GeoCacheCommons;
 
 /**
-	This is column which displays cache name.
-  $date arg has to contain:
-    - cacheWp - OC waypoint, for example: OP1234
-    - cacheName - name of the cache
-    - isStatusAware  - whether to adjust style depending in cache status
+ * This is column which displays cache name.
+ * $date arg has to contain:
+ * - cacheWp - OC waypoint, for example: OP1234
+ * - cacheName - name of the cache
+ * - isStatusAware  - whether to adjust style depending in cache status
  *
 */
 
@@ -25,4 +25,3 @@ return function (array $data) {
     </a>
 <?php
 };
-

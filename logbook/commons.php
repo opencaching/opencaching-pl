@@ -44,5 +44,3 @@ $num=0;
 sscanf($cookietext, "%d", $num);
 return $num;
 }
-
-?>

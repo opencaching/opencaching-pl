@@ -45,4 +45,3 @@ use Utils\I18n\I18n;
 {contentTable}
 gct.drawChart();
 </script>
-

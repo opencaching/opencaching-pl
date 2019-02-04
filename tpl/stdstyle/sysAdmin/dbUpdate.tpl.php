@@ -95,7 +95,7 @@ use Utils\Uri\SimpleRouter;
             <td>
                 <?php foreach ($update->adminActions as $action => $title) { ?>
                     [<a href="<?= SimpleRouter::getLink('Admin.DbUpdate', $action, $update->getUuid()) ?>" style="white-space: nowrap"><?= $title ?></a>]
-                <?php } ?> 
+                <?php } ?>
             </td>
         </tr>
     <?php } ?>

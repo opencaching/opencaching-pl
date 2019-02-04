@@ -1038,5 +1038,3 @@ function output_convert($str)
     else if ($sCharset == 'utf-8')
         return $str;
 }
-
-?>

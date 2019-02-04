@@ -33,5 +33,3 @@ $db->multiVariableQuery($updateQuery, $cacheCountResult, $projectId);
 
 // $result = json_encode($cacheCountResult);
 echo $cacheCountResult;
-
-?>

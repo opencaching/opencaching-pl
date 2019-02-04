@@ -293,4 +293,3 @@ if (isset($_GET['ns']) && isset($_GET['ew']) && isset($_GET['radius']) && isset(
 }
 
 $tpl->display('./tpl/near.tpl');
-?>

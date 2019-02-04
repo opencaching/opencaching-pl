@@ -300,4 +300,3 @@ $config['oAuth']['google']['clientSecret'] = null;
 
 // MapQuest Key - used to access MapQuest API - to obtain key see: https://developer.mapquest.com/
 $config['maps']['mapQuestKey'] = null;
-

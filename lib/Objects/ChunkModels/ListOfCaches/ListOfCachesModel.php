@@ -68,4 +68,3 @@ class ListOfCachesModel {
         return $this->displayHeader;
     }
 }
-

@@ -60,7 +60,7 @@ class CacheRecommendation extends BaseObject
      */
     public static function getCountOfUserRecommendations($userId) {
         return self::db()->multiVariableQueryValue(
-            "SELECT COUNT(cache_id) FROM cache_rating 
+            "SELECT COUNT(cache_id) FROM cache_rating
                     WHERE user_id = :1", 0, $userId);
     }
 

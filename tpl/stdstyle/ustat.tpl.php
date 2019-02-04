@@ -40,4 +40,3 @@
 
     {content}
 </div>
-

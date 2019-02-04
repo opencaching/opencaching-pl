@@ -140,4 +140,3 @@ while ($rCache = XDb::xFetchArray($rsCache)) {
     }
 }
 XDb::xFreeResults($rsCache);
-

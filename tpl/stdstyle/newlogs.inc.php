@@ -8,4 +8,3 @@ $next_img_inactive = '<img src="/tpl/stdstyle/images/action/16x16-next_inactive.
 $prev_img_inactive = '<img src="/tpl/stdstyle/images/action/16x16-prev_inactive.png" alt="&lt;">';
 $last_img_inactive = '<img src="/tpl/stdstyle/images/action/16x16-last_inactive.png" alt="&gt;&gt;">';
 $first_img_inactive = '<img src="/tpl/stdstyle/images/action/16x16-first_inactive.png" alt="&lt;&lt;">';
-?>

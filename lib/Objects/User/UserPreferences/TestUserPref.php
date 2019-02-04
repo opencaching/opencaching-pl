@@ -21,4 +21,3 @@ class TestUserPref extends UserPreferencesBaseData
 
 
 }
-

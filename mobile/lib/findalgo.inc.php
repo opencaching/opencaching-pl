@@ -184,4 +184,3 @@ if (isSet($_GET['nazwa']) && !empty($_GET['nazwa']) ||
 $tpl->assign('oc_waypoint', $GLOBALS['oc_waypoint']);
 $tpl->assign('action', $action);
 $tpl->display('tpl/find.tpl');
-?>

@@ -114,7 +114,7 @@ $view->callChunk('tinyMCE', false);
         </table>
     <div class="buffer"></div>
     <div class="content2-container bg-blue02">
-        <p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/basic2.png" class="icon32" alt=""/>{{pt020}}	</p>
+        <p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/basic2.png" class="icon32" alt=""/>{{pt020}}</p>
     </div>
     <div class="content2-container">
       {ptCaches}

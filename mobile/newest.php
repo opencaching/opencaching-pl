@@ -38,4 +38,3 @@ $tpl->assign('lista', $lista);
 $tpl->assign("max", 1);
 $tpl->assign("znalezione", $znalezione);
 $tpl->display('./tpl/find2.tpl');
-?>

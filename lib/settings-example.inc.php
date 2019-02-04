@@ -523,4 +523,3 @@ $config['feed']['blog']['showAuthor'] = true;
 $subject_prefix_for_site_mails = "OCXX";
 //Prefix for all notification and mails sent to cache reviewers
 $subject_prefix_for_reviewers_mails = "R-Team";
-
