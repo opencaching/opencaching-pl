@@ -2542,6 +2542,7 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'action' => 'Aktion',
     'admin_dbupdate_title' => 'Datenbankupdates verwalten',
     'admin_dbupdate_name' => 'Update-Name',
+    'admin_dbupdate_sqlfile' => 'SQL file',
     'admin_dbupdate_runtype' => 'Starten',
     'admin_dbupdate_auto' => 'auto',
     'admin_dbupdate_manual' => 'manuell',
