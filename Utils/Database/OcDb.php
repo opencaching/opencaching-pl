@@ -560,7 +560,7 @@ class OcDb extends OcPdo
         // Note that is somewhat less than PHP_INT_MAX/2.
         $max = 1000000000;
 
-        if ($number == 'max' || $number >= $max) {
+        if ($number === 'max' || $number >= $max) {
             // 'max' is used by search.php.
             return $max;
         }

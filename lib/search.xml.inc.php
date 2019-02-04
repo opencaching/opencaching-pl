@@ -105,6 +105,9 @@ if (isset($_REQUEST['count'])) {
 } else {
     $count = $caches_per_page;
 }
+if ($count > 500) {
+    $count = 500;
+}
 
 $queryLimit = ' LIMIT ' . $startat . ', ' . $count;
 

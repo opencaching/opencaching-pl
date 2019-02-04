@@ -97,8 +97,8 @@ class QueryBuilder
 
     public function limit($limit=null, $offset=null)
     {
-        $this->limit = self::getIntValOrNull($limit);
-        $this->offset = self::getIntValOrNull($offset);
+        $this->limit = self::getNonNegativeIntValOrNull($limit);
+        $this->offset = self::getNonNegativeIntValOrNull($offset);
         return $this;
     }
 
@@ -141,7 +141,7 @@ class QueryBuilder
     }
 
 
-    private static function getIntValOrNull($var)
+    private static function getNonNegativeIntValOrNull($var)
     {
         return (is_int($var)?max(0, intval($var)):null);
     }
