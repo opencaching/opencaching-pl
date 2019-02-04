@@ -11,9 +11,6 @@ final class ApplicationContainer
     /** @var ApplicationContainer */
     private static $applicationContainer = null;
 
-    /** ocNode identifier loaded form local site-settings: pl|ro|nl|uk|... */
-    private $ocNode = null;
-
     /** @var User */
     private $loggedUser = null;
 
@@ -67,18 +64,6 @@ final class ApplicationContainer
     {
         self::Instance()->loggedUser = $loggedUser;
     }
-
-
-    public static function GetOcNode()
-    {
-        return self::Instance()->ocNode;
-    }
-
-    public static function SetOcNode($ocNode)
-    {
-        self::Instance()->ocNode = $ocNode;
-    }
-
 
     /**
      *
