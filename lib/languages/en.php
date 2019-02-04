@@ -2541,6 +2541,7 @@ $translations = array(
     'action' => 'Action',
     'admin_dbupdate_title' => 'Manage database updates',
     'admin_dbupdate_name' => 'Update name',
+    'admin_dbupdate_sqlfile' => 'SQL file',
     'admin_dbupdate_runtype' => 'Run',
     'admin_dbupdate_auto' => 'auto',
     'admin_dbupdate_manual' => 'manual',

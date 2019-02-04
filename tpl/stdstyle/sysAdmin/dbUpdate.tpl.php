@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Text\Formatter;
 use Utils\Uri\SimpleRouter;
 
 ?>
@@ -68,9 +69,7 @@ use Utils\Uri\SimpleRouter;
 <?php } else { ?>
 
     <a class="btn btn-default btn-sm" href="<?= SimpleRouter::getLink('Admin.DbUpdate') ?>">{{admin_dbupdate_reload}}</a>
-    <?php if ($view->updatesShouldRun) { ?>
-        <a class="btn btn-default btn-sm" href="<?= SimpleRouter::getLink('Admin.DbUpdate', 'run') ?>">{{admin_dbupdate_run}}</a>
-    <?php }?>
+    <a class="btn btn-default btn-sm" href="<?= SimpleRouter::getLink('Admin.DbUpdate', 'run') ?>">{{admin_dbupdate_run}}</a>
     <?php if ($view->developerMode) { ?>
         <a class="btn btn-default btn-sm" href="<?= SimpleRouter::getLink('Admin.DbUpdate', 'createNew') ?>">{{admin_dbupdate_create}}</a>
     <?php }?>
@@ -86,7 +85,9 @@ use Utils\Uri\SimpleRouter;
 
     <?php foreach ($view->updates as $update) { ?>
         <tr>
-            <td <?php if (!$update->isInGitMasterBranch()) { ?>style="font-style:oblique"<?php } ?>><a href="<?= SimpleRouter::getLink('Admin.DbUpdate', 'viewScript', $update->getUuid()) ?>"><?= $update->getName() ?></a></td>
+            <td <?php if (!$update->isInGitMasterBranch()) { ?>style="font-style:oblique"<?php } ?> >
+                <a href="<?= SimpleRouter::getLink('Admin.DbUpdate', 'viewScript', $update->getUuid()) ?>"><?= $update->getName() ?></a>
+            </td>
             <td><?= tr('admin_dbupdate_' . $update->getRuntype()) ?></td>
             <td>
                 <?= substr($update->wasRunAt(), 0, 10) ?>&nbsp;
@@ -101,8 +102,32 @@ use Utils\Uri\SimpleRouter;
     <?php } ?>
 
         <tr>
-            <td colspan="4" style="background:white;"><br />{{admin_dbupdate_develnote}}</td>
+            <td colspan="4" style="background:white;"><br />{{admin_dbupdate_develnote}}<br />&nbsp;</td>
         </tr>
+
+        <tr>
+            <th>{{admin_dbupdate_sqlfile}}</th>
+            <th>{{admin_dbupdate_runtype}}</th>
+            <th>{{admin_dbupdate_time}}</th>
+            <th>{{action}}</th>
+        </tr>
+
+    <?php foreach ($view->routineFiles as $name => $lastRun) { ?>
+        <tr>
+            <td>
+                <a href="<?= SimpleRouter::getLink('Admin.DbUpdate', 'viewScript', $name) ?>"><?= str_replace('.sql', '', $name) ?></a>
+            </td>
+            <td style="white-space: nowrap">{{admin_dbupdate_auto}}</td>
+            <td>
+                <?= substr(Formatter::dateTime($lastRun['runTime']), 0, 10) ?>&nbsp;
+                <?= substr(Formatter::dateTime($lastRun['runTime']), 11, 5) ?>
+            </td>
+            <td>
+                [<a href="<?= SimpleRouter::getLink('Admin.DbUpdate', 'run', $name) ?>">run</a>]
+            </td>
+        </tr>
+    <?php } ?>
+
     </table>
 <?php } ?>
 </div>
