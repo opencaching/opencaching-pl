@@ -39,7 +39,7 @@ if ($error == false) {
             if ($debug == 1)
                 die('Debug: line ' . __LINE__);
             else
-                tpl_redirect_absolute($imgurl_spoiler);
+                tpl_redirect_absolute(Thumbnail::placeholderUri(Thumbnail::SPOILER));
         }
 
         $imgurl = $r['url'];
