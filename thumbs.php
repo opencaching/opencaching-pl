@@ -7,6 +7,7 @@
  */
 
 use Utils\Database\XDb;
+use lib\Objects\Pictures\Thumbnail;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
@@ -20,7 +21,6 @@ $thumburl = $picurl . '/thumbs';
 
 
 if ($error == false) {
-    require_once(__DIR__.'/tpl/stdstyle/thumbs.inc.php');
 
     $rs = XDb::xSql(
         "SELECT `local`, `spoiler`, `url`, `thumb_last_generated`, `last_modified`, `unknown_format`, `uuid`, `thumb_url`
@@ -32,14 +32,14 @@ if ($error == false) {
             if ($debug == 1)
                 die('Debug: line ' . __LINE__);
             else
-                tpl_redirect_absolute($imgurl_extern);
+                tpl_redirect_absolute(Thumbnail::placeholderUri(Thumbnail::EXTERN));
 
         if ( ($r['spoiler'] == 1) &&
             (!isset($_REQUEST['showspoiler']) || $_REQUEST['showspoiler'] != '1') ){
             if ($debug == 1)
                 die('Debug: line ' . __LINE__);
             else
-                tpl_redirect_absolute($imgurl_spoiler);
+                tpl_redirect_absolute(Thumbnail::placeholderUri(Thumbnail::SPOILER));
         }
 
         $imgurl = $r['url'];
@@ -48,7 +48,7 @@ if ($error == false) {
             if ($debug == 1)
                 die('Debug: line ' . __LINE__);
             else
-                tpl_redirect_absolute($imgurl_intern);
+                tpl_redirect_absolute(Thumbnail::placeholderUri(Thumbnail::ERROR_INTERN));
 
         // create new thumb?
         $bGenerate = false;
@@ -65,7 +65,7 @@ if ($error == false) {
                 if ($debug == 1)
                     die('Debug: line ' . __LINE__);
                 else
-                    tpl_redirect_absolute($imgurl_format);
+                    tpl_redirect_absolute(Thumbnail::placeholderUri(Thumbnail::ERROR_FORMAT));
 
             // ok, let's see if the file format is supported
             $filename = $urlparts[count($urlparts) - 1];
@@ -79,28 +79,34 @@ if ($error == false) {
                 if ($debug == 1)
                     die('Debug: line ' . __LINE__);
                 else
-                    tpl_redirect_absolute($imgurl_format);
+                    tpl_redirect_absolute(Thumbnail::placeholderUri(Thumbnail::ERROR_FORMAT));
             }
 
-            if ($extension == 'jpeg')
+            if ($extension == 'jpeg') {
                 $extension = 'jpg';
-            switch ($extension) {
-                case 'jpg':
-                    $im = imagecreatefromjpeg($picdir . '/' . $filename);
-                    break;
+            }
+            try {
+                switch ($extension) {
+                    case 'jpg':
+                        $im = imagecreatefromjpeg($picdir . '/' . $filename);
+                        break;
 
-                case 'gif':
-                    $im = imagecreatefromgif($picdir . '/' . $filename);
-                    break;
+                    case 'gif':
+                        $im = imagecreatefromgif($picdir . '/' . $filename);
+                        break;
 
-                case 'png':
-                    $im = imagecreatefrompng($picdir . '/' . $filename);
-                    break;
+                    case 'png':
+                        $im = imagecreatefrompng($picdir . '/' . $filename);
+                        break;
 
-                case 'bmp':
-                    require(__DIR__.'/lib/imagebmp.inc.php');
-                    $im = imagecreatefrombmp($picdir . '/' . $filename);
-                    break;
+                    case 'bmp':
+                        require(__DIR__.'/lib/imagebmp.inc.php');
+                        $im = imagecreatefrombmp($picdir . '/' . $filename);
+                        break;
+                }
+            } catch (\Exception $e) {
+                // invalid file format
+                $im = '';
             }
 
             if ($im == '') {
@@ -110,7 +116,7 @@ if ($error == false) {
                 if ($debug == 1)
                     die('Debug: line ' . __LINE__);
                 else
-                    tpl_redirect_absolute($imgurl_format);
+                    tpl_redirect_absolute(Thumbnail::placeholderUri(Thumbnail::ERROR_FORMAT));
             }
 
             $imheight = imagesy($im);
@@ -181,7 +187,7 @@ if ($error == false) {
         if ($debug == 1)
             die('Debug: line ' . __LINE__);
         else
-            tpl_redirect_absolute($imgurl_404);
+            tpl_redirect_absolute(Thumbnail::placeholderUri(Thumbnail::ERROR_404));
     }
     exit;
 }
