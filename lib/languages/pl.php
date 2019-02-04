@@ -2541,6 +2541,7 @@ $translations = array(
     'action' => 'Działanie',
     'admin_dbupdate_title' => 'Zarządzanie aktualizacjami bazy danych',
     'admin_dbupdate_name' => 'Zaktualizuj nazwę',
+    'admin_dbupdate_sqlfile' => 'SQL file',
     'admin_dbupdate_runtype' => 'Uruchom',
     'admin_dbupdate_auto' => 'automatycznie',
     'admin_dbupdate_manual' => 'ręcznie',
@@ -2753,7 +2754,6 @@ $translations = array(
     'ogpx_otherOptions_recommendations' => 'Pokaż informację o liczbie przyznanych rekomendacji (w opisie skrzynki).',
     'ogpx_otherOptions_alt_wpts' => 'Dołącz wszystkie dodatkowe punkty/waypointy, które autor przypisał do skrzynki.',
     'ogpx_otherOptions_mark_found' => 'Oznacz skrzynki, które już znalazłem (zostaną wygenerowane z symbolem otwartej skrzynki).',
-    'ogpx_additionalDownloadsHeaderHTML' => '<p>Gdy pobieranych jest powyżej 500 skrzynek, plik GPX jest dzielony na parę mniejszych plików. Każdy z nich musi być pobrany niezależnie:</p>',
 
     'mobile_login' => '[zaloguj]',
     'mobile_logout' => '[wyloguj]',
