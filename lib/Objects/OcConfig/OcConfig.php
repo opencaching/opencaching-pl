@@ -4,7 +4,7 @@ namespace lib\Objects\OcConfig;
 
 final class OcConfig extends ConfigReader
 {
-    use EmailConfigTrait, SiteConfigTrait;
+    use EmailConfigTrait, SiteConfigTrait, I18nConfigTrait;
 
 /*
     const OCNODE_GERMANY    = 1;  // Opencaching Germany http://www.opencaching.de OC
@@ -52,9 +52,6 @@ final class OcConfig extends ConfigReader
     private $dbAdminPass;
     private $dbHost;
     private $dbName;
-
-    /** @var array of i18n settings */
-    private $i18nConfig;
 
     /** @var array the \Utils\Lock objects configuration array */
     private $lockConfig;
@@ -337,14 +334,6 @@ final class OcConfig extends ConfigReader
         return $this->lockConfig;
     }
 
-
-    public function getI18Config()
-    {
-        if ($this->i18nConfig == null) {
-            $this->i18nConfig = self::getConfig("i18n");
-        }
-        return $this->i18nConfig;
-    }
 
     public function getGeoCacheConfig($setting = null)
     {

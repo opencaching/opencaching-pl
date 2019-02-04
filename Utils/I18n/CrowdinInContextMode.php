@@ -68,12 +68,12 @@ class CrowdinInContextMode
 
     public static function isSupportedInConfig()
     {
-        return OcConfig::instance()->getI18Config()['crowdinInContextSupported'];
+        return OcConfig::isI18nCrowdinInContextSupported();
     }
 
     public static function getPseudoLang()
     {
-        return OcConfig::instance()->getI18Config()['crowdinInContextPseudoLang'];
+        return OcConfig::getI18nCrowdinInContextPseudoLang();
     }
 
 }

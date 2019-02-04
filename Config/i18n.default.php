@@ -23,8 +23,6 @@ $config['defaultLang'] = 'en';
 $config['supportedLanguages'] = ['pl', 'en', 'nl', 'ro'];
 
 
-
-
 /**
  * If node support crowdinInContext mode
  */
