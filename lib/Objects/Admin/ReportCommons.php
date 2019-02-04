@@ -189,9 +189,9 @@ class ReportCommons extends BaseObject
     public static function getReports(User $currentUser, $waypoint = '', $type = self::DEFAULT_REPORTS_TYPE, $status = self::DEFAULT_REPORTS_STATUS, $user = self::DEFAULT_REPORTS_USER, $offset = 0, $limit = self::REPORTS_PER_PAGE)
     {
         $params = [];
-        $params['limit']['value'] = $limit;
+        $params['limit']['value'] = self::db()->quoteLimit($limit);
         $params['limit']['data_type'] = 'integer';
-        $params['offset']['value'] = $offset;
+        $params['offset']['value'] = self::db()->quoteOffset($offset);
         $params['offset']['data_type'] = 'integer';
         $query = 'SELECT `reports`.* FROM `reports`';
         if ($waypoint != '' and ! is_null($waypoint)) {

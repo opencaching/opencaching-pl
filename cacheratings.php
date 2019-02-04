@@ -48,7 +48,7 @@ if ($usr == false) {
                 AND `caches`.`type`=`cache_type`.`id`
              GROUP BY `user`.`user_id`, `user`.`username`, `caches`.`cache_id`, `caches`.`name`, `cache_type`.`icon_large`
              ORDER BY `recommendationsNr` DESC, `caches`.`name` ASC
-             LIMIT '.XDb::xEscape($startat).','.XDb::xEscape($perpage));
+             LIMIT '.XDb::quoteLimit($startat).','.XDb::quoteLimit($perpage));
 
     $tr_myn_click_to_view_cache = tr('myn_click_to_view_cache');
     $cacheline = '<tr><td>&nbsp;</td><td><span class="content-title-noshade txt-blue08" >{rating_absolute}</span></td><td>{GPicon}</td><td><a class="links" href="viewcache.php?cacheid={cacheid}"><img src="{cacheicon}" class="icon16" alt="'.$tr_myn_click_to_view_cache.'" title="'.$tr_myn_click_to_view_cache.'" /></a></td><td><strong><a class="links" href="viewcache.php?cacheid={cacheid}">{cachename}</a></strong></td><td><strong><a class="links" href="viewprofile.php?userid={userid}">{username}</a></strong></td></tr>';

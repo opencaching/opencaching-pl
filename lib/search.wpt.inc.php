@@ -87,31 +87,16 @@ if( $usr || !$hide_coords ) {
         $query .= ' ORDER BY name ASC';
     }
 
-    //startat?
-    $startat = isset($_REQUEST['startat']) ? $_REQUEST['startat'] : 0;
-    if (!is_numeric($startat)) {
+    if (isset($_REQUEST['startat'])) {
+        $startat = XDb::quoteOffset($_REQUEST['startat']);
+    } else { 
         $startat = 0;
     }
 
     if (isset($_REQUEST['count'])) {
-        $count = $_REQUEST['count'];
+        $count = XDb::quoteLimit($_REQUEST['count']);
     } else {
         $count = $caches_per_page;
-    }
-
-    $maxlimit = 1000000000;
-
-    if ($count == 'max') {
-        $count = $maxlimit;
-    }
-    if (!is_numeric($count)) {
-        $count = 0;
-    }
-    if ($count < 1) {
-        $count = 1;
-    }
-    if ($count > $maxlimit) {
-        $count = $maxlimit;
     }
 
     $queryLimit = ' LIMIT ' . $startat . ', ' . $count;

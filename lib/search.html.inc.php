@@ -340,13 +340,17 @@ if (! $SearchWithSort) // without interactive sort
         }
 }
 
-// startat?
-$startat = isset($_REQUEST['startat']) ? $_REQUEST['startat'] : 0;
-if (! is_numeric($startat))
+if (isset($_REQUEST['startat'])) {
+    $startat = OcDb::quoteLimit($_REQUEST['startat']);
+} else { 
     $startat = 0;
-if (! is_numeric($caches_per_page))
-    $caches_per_page = 20;
-$startat = floor($startat / $caches_per_page) * $caches_per_page;
+}
+
+$caches_per_page = OcDb::quoteOffset($caches_per_page);
+if ($caches_per_page > 0) {
+    $startat = floor($startat / $caches_per_page) * $caches_per_page;
+}
+
 $query .= ' LIMIT ' . $startat . ', ' . $caches_per_page;
 
 $s = $dbcSearch->simpleQuery($query);

@@ -93,7 +93,7 @@ class MultiLogStats extends BaseObject
     {
         $db = self::db();
 
-        $numberOfLogs = (int)$numberOfLogs;
+        $numberOfLogs = $db->quoteLimit($numberOfLogs);
 
         $allowedCacheStatuses = implode(',', [
             GeoCache::STATUS_READY,

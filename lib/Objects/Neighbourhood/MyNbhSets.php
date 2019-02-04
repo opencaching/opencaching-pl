@@ -45,9 +45,9 @@ class MyNbhSets extends BaseObject
         $params['excludedtypes']['data_type'] = 'integer';
         $params['status']['value'] = GeoCache::STATUS_READY;
         $params['status']['data_type'] = 'integer';
-        $params['offset']['value'] = $offset;
+        $params['offset']['value'] = self::db()->quoteOffset($offset);
         $params['offset']['data_type'] = 'integer';
-        $params['limit']['value'] = $limit;
+        $params['limit']['value'] = self::db()->quoteLimit($limit);
         $params['limit']['data_type'] = 'integer';
         $query = '
                 SELECT `cache_id`
@@ -103,9 +103,9 @@ class MyNbhSets extends BaseObject
         $params['excludedtypes']['data_type'] = 'integer';
         $params['status']['value'] = GeoCache::STATUS_READY;
         $params['status']['data_type'] = 'integer';
-        $params['offset']['value'] = $offset;
+        $params['offset']['value'] = self::db()->quoteOffset($offset);
         $params['offset']['data_type'] = 'integer';
-        $params['limit']['value'] = $limit;
+        $params['limit']['value'] = self::db()->quoteLimit($limit);
         $params['limit']['data_type'] = 'integer';
         $query = '
                 SELECT `cache_id`
@@ -149,9 +149,9 @@ class MyNbhSets extends BaseObject
     public function getLatestTitledCaches($limit = 10, $offset = 0)
     {
         $params = [];
-        $params['offset']['value'] = $offset;
+        $params['offset']['value'] = self::db()->quoteOffset($offset);
         $params['offset']['data_type'] = 'integer';
-        $params['limit']['value'] = $limit;
+        $params['limit']['value'] = self::db()->quoteLimit($limit);
         $params['limit']['data_type'] = 'integer';
         $query = '
             SELECT `local_caches`.`cache_id` AS cache_id
@@ -197,9 +197,9 @@ class MyNbhSets extends BaseObject
         $params['type']['data_type'] = 'integer';
         $params['status']['value'] = GeoCache::STATUS_READY;
         $params['status']['data_type'] = 'integer';
-        $params['offset']['value'] = $offset;
+        $params['offset']['value'] = self::db()->quoteOffset($offset);
         $params['offset']['data_type'] = 'integer';
-        $params['limit']['value'] = $limit;
+        $params['limit']['value'] = self::db()->quoteLimit($limit);
         $params['limit']['data_type'] = 'integer';
         $query = 'SELECT `cache_id`
                     FROM `local_caches`
@@ -241,9 +241,9 @@ class MyNbhSets extends BaseObject
     public function getLatestLogs($limit = 10, $offset = 0)
     {
         $params = [];
-        $params['offset']['value'] = $offset;
+        $params['offset']['value'] = self::db()->quoteOffset($offset);
         $params['offset']['data_type'] = 'integer';
-        $params['limit']['value'] = $limit;
+        $params['limit']['value'] = self::db()->quoteLimit($limit);
         $params['limit']['data_type'] = 'integer';
         $query = '
             SELECT `cache_logs`.`id`

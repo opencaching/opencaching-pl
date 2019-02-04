@@ -28,7 +28,7 @@ echo "Find set of caches to update\n";
 
 $db = OcDb::instance();
 
-list($limit, $offset) = $db->quoteLimitOffset($cachesToRepair);
+$limit = $db->quoteLimit($cachesToRepair);
 
 // find caches-id to repair
 $rs = $db->multiVariableQuery(
