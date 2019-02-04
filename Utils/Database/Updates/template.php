@@ -14,6 +14,10 @@ return new class extends UpdateScript
         ];
     }
 
+    // IMPORTANT:
+    // Any output by 'echo', 'print' etc. will be PUBLIC (see #1923).
+    // Do not output any sensitive information.
+
     public function run()
     {
         // Insert your update code here, using $this->db for database access.
@@ -30,7 +34,7 @@ return new class extends UpdateScript
         // The update will be run inside a transaction. It will also run
         // with set_time_limit(0), so don't create any endless loops!
 
-        // IMPORTANT: If you do NOT write a rollback, please COMPLETELY REMOVE
+        // If you do NOT write a rollback, please COMPLETELY REMOVE
         // the rollback() method. This will disable the "rollback" action on
         // the Admin.DbUpdate page.
     }

@@ -2,6 +2,7 @@
 namespace Controllers\Admin;
 
 use Controllers\BaseController;
+use Controllers\UpdateController;
 use Utils\Database\DbUpdates;
 use Utils\Uri\SimpleRouter;
 use Utils\Uri\Uri;
@@ -152,7 +153,7 @@ class DbUpdateController extends BaseController
 
         try {
             if (!$uuid) {
-                $messages = DbUpdates::run();
+                $messages = UpdateController::runOcDatabaseUpdate();
             } else {
                 $update = $this->getUpdateFromUuid($uuid);
 
