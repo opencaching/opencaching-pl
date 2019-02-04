@@ -32,5 +32,3 @@ class Column_SimpleText extends AbstractColumn {
         return 'center';
     }
 }
-
-

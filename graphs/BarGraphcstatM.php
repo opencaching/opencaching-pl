@@ -153,5 +153,3 @@ $graph->legend->SetFont(FF_ARIAL, FS_NORMAL);
 
 // Display the graph
 $graph->Stroke();
-
-

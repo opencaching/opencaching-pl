@@ -118,7 +118,7 @@ class ErrorHandler
                     ? 'If the problem persists, please <a href="/articles.php?page=contact">contact</a> ' .
                       'the OC team and describe step by step how to reproduce this error.'
                     : 'The OC site admins have been notified.';
-                $mainPageLinkTitle = 'Go to the main page'; 
+                $mainPageLinkTitle = 'Go to the main page';
             }
 
             if (isset($_SERVER["SCRIPT_FILENAME"])) {

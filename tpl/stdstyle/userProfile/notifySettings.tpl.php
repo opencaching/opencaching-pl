@@ -84,101 +84,101 @@ use lib\Objects\User\UserNotify;
 
 <script>
 function notifyCachesChange(state) {
-	if (state == 1) {
-		$.ajax({
-			url : "<?=SimpleRouter::getLink('UserProfile', 'ajaxSetNotifyCaches', 1)?>",
-			type : "get",
-		});
-		$("#notifyCachesOff").hide();
-		$("#notifyCachesOn").show();
-		$("#notify-add-nbh").show();
-	} else {
-		$.ajax({
-			url : "<?=SimpleRouter::getLink('UserProfile', 'ajaxSetNotifyCaches', 0)?>",
-			type : "get",
-		});
-		$("#notifyCachesOn").hide();
-		$("#notifyCachesOff").show();
-		$("#notify-add-nbh").hide();
-	}
+    if (state == 1) {
+        $.ajax({
+            url : "<?=SimpleRouter::getLink('UserProfile', 'ajaxSetNotifyCaches', 1)?>",
+            type : "get",
+        });
+        $("#notifyCachesOff").hide();
+        $("#notifyCachesOn").show();
+        $("#notify-add-nbh").show();
+    } else {
+        $.ajax({
+            url : "<?=SimpleRouter::getLink('UserProfile', 'ajaxSetNotifyCaches', 0)?>",
+            type : "get",
+        });
+        $("#notifyCachesOn").hide();
+        $("#notifyCachesOff").show();
+        $("#notify-add-nbh").hide();
+    }
 }
 
 function notifyLogsChange(state) {
-	if (state == 1) {
-		$.ajax({
-			url : "<?=SimpleRouter::getLink('UserProfile', 'ajaxSetNotifyLogs', 1)?>",
-			type : "get",
-		});
-		$("#notifyLogsOff").hide();
-		$("#notifyLogsOn").show();
-		$("#notifyLogsWarning").hide();
-	} else {
-		$.ajax({
-			url : "<?=SimpleRouter::getLink('UserProfile', 'ajaxSetNotifyLogs', 0)?>",
-			type : "get",
-		});
-		$("#notifyLogsOn").hide();
-		$("#notifyLogsOff").show();
-		$("#notifyLogsWarning").show();
-	}
+    if (state == 1) {
+        $.ajax({
+            url : "<?=SimpleRouter::getLink('UserProfile', 'ajaxSetNotifyLogs', 1)?>",
+            type : "get",
+        });
+        $("#notifyLogsOff").hide();
+        $("#notifyLogsOn").show();
+        $("#notifyLogsWarning").hide();
+    } else {
+        $.ajax({
+            url : "<?=SimpleRouter::getLink('UserProfile', 'ajaxSetNotifyLogs', 0)?>",
+            type : "get",
+        });
+        $("#notifyLogsOn").hide();
+        $("#notifyLogsOff").show();
+        $("#notifyLogsWarning").show();
+    }
 }
 
 function notifyNbhChange(nbh, state) {
-	$.ajax({
-		url : "<?=SimpleRouter::getLink('UserProfile', 'ajaxSetNeighbourhoodNotify')?>",
-		type : "post",
-		data : {
-			nbh : nbh,
-			state : state,
-		}
-	});
-	if (state == 1) {
-		$("#notifyNbhOff-"+nbh).hide();
-		$("#notifyNbhOn-"+nbh).show();
-	} else {
-		$("#notifyNbhOn-"+nbh).hide();
-		$("#notifyNbhOff-"+nbh).show();
-	}
+    $.ajax({
+        url : "<?=SimpleRouter::getLink('UserProfile', 'ajaxSetNeighbourhoodNotify')?>",
+        type : "post",
+        data : {
+            nbh : nbh,
+            state : state,
+        }
+    });
+    if (state == 1) {
+        $("#notifyNbhOff-"+nbh).hide();
+        $("#notifyNbhOn-"+nbh).show();
+    } else {
+        $("#notifyNbhOn-"+nbh).hide();
+        $("#notifyNbhOff-"+nbh).show();
+    }
 }
 
 function intervalChanged(update = true) {
-	if (update) {
-		notifySettingsChange();
-	}
-	switch( $( "#intervalSelect" ).val() ){
-		case '<?=UserNotify::SEND_NOTIFICATION_HOURLY?>':
-			$("#watch_hour_selector").hide();
-			$("#watch_day_selector").hide();
-			break;
-		case '<?=UserNotify::SEND_NOTIFICATION_DAILY?>':
-			$("#watch_hour_selector").show();
-			$("#watch_day_selector").hide();
-			break;
-		case '<?=UserNotify::SEND_NOTIFICATION_WEEKLY?>':
-			$("#watch_hour_selector").show();
-			$("#watch_day_selector").show();
-			break;
-		default:
-	}
+    if (update) {
+        notifySettingsChange();
+    }
+    switch( $( "#intervalSelect" ).val() ){
+        case '<?=UserNotify::SEND_NOTIFICATION_HOURLY?>':
+            $("#watch_hour_selector").hide();
+            $("#watch_day_selector").hide();
+            break;
+        case '<?=UserNotify::SEND_NOTIFICATION_DAILY?>':
+            $("#watch_hour_selector").show();
+            $("#watch_day_selector").hide();
+            break;
+        case '<?=UserNotify::SEND_NOTIFICATION_WEEKLY?>':
+            $("#watch_hour_selector").show();
+            $("#watch_day_selector").show();
+            break;
+        default:
+    }
 }
 
 function notifySettingsChange() {
-	$.ajax({
-		url : "<?=SimpleRouter::getLink('UserProfile', 'ajaxSetNotifySettings')?>",
-		type : "post",
-		data : {
-			watchmail_mode : $("#intervalSelect").val(),
-			watchmail_day : $("#weekdaySelect").val(),
-			watchmail_hour: $("#hourSelect").val()
-		}
-	});
+    $.ajax({
+        url : "<?=SimpleRouter::getLink('UserProfile', 'ajaxSetNotifySettings')?>",
+        type : "post",
+        data : {
+            watchmail_mode : $("#intervalSelect").val(),
+            watchmail_day : $("#weekdaySelect").val(),
+            watchmail_hour: $("#hourSelect").val()
+        }
+    });
 
 }
 
 $(function() {
-	$("#intervalSelect").val("<?=$view->intervalSelected?>");
-	$("#weekdaySelect").val("<?=$view->weekDaySelected?>");
-	$("#hourSelect").val("<?=$view->hourSelected?>");
-	intervalChanged(false);
+    $("#intervalSelect").val("<?=$view->intervalSelected?>");
+    $("#weekdaySelect").val("<?=$view->weekDaySelected?>");
+    $("#hourSelect").val("<?=$view->hourSelected?>");
+    intervalChanged(false);
 });
 </script>

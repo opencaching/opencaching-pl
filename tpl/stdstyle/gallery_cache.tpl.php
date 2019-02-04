@@ -11,7 +11,7 @@
 <?php if (count($view->cachepictures) > 0) { ?>
   <div class="content2-container">
     <p class="content-title-noshade-size1">{{images_cache}}</p>
-    <?php foreach ($view->cachepictures as $picture) { 
+    <?php foreach ($view->cachepictures as $picture) {
         if (!($picture->spoiler && $view->hidespoilers)) {?>
         <div class="viewcache-pictureblock">
           <div class="img-shadow">
@@ -29,7 +29,7 @@
 <?php if (count($view->logpictures) > 0) { ?>
   <div class="content2-container">
     <p class="content-title-noshade-size1">{{images_logs}}</p>
-    <?php foreach ($view->logpictures as $picture) { 
+    <?php foreach ($view->logpictures as $picture) {
         if (!($picture['spoiler'] == '1' && $view->hidespoilers)) {?>
         <div class="viewcache-pictureblock">
           <div class="img-shadow">

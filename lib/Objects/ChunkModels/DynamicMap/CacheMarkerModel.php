@@ -58,4 +58,3 @@ class CacheMarkerModel extends AbstractMarkerModelBase
     }
 
 }
-

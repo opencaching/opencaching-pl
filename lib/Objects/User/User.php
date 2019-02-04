@@ -977,4 +977,3 @@ class User extends UserCommons
     }
 
 }
-

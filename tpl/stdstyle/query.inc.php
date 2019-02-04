@@ -26,4 +26,3 @@ $nosaveastext = tr('no_queries');
 
 $bgcolor1 = '#eeeeee';
 $bgcolor2 = '#ffffff';
-?>

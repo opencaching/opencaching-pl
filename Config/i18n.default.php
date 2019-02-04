@@ -35,4 +35,3 @@ $config['crowdinInContextSupported'] = true;
  * See https://crowdin.com/project/oc-polish-code-translations/settings#in-context for details.
  */
 $config['crowdinInContextPseudoLang'] = 'aa';
-

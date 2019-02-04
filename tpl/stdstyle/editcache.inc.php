@@ -54,4 +54,3 @@ $activation_form = '
                 </td>
         </tr>
         ';
-?>

@@ -1,3 +1,4 @@
+
 <div class="content2-pagetitle"><?=tr('register_pageTitle')?></div>
 
 <div class="content2-container">
@@ -81,4 +82,3 @@
     </div>
 </form>
 -->
-

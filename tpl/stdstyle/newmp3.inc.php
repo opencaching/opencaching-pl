@@ -18,4 +18,3 @@ $message_toobig = tr('newmp3_09');
 
 $message_title_wrongext = tr('newmp3_10');
 $message_wrongext = tr('newmp3_11');
-?>

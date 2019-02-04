@@ -8,4 +8,3 @@ if (isset($_SESSION['user_id'])) {
     require_once("./lib/findalgo.inc.php");
 } else
     header('Location: ./index.php');
-?>

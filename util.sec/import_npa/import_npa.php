@@ -11,4 +11,3 @@ while ($rArea = mysql_fetch_assoc($rsArea)) {
     mysql_query($sql);
 }
 mysql_free_result($rsArea);
-?>

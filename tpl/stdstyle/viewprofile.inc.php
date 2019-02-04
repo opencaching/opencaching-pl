@@ -31,5 +31,3 @@ $content_element_badge = '<div class="Badge-div-element-small">
             </div>
         </a>
 </div>';
-
-

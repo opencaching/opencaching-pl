@@ -17,4 +17,3 @@ $message_title_wrongext = tr('editmp3_13');
 $message_wrongext = tr('editmp3_14');
 
 $message_mp3_not_found = tr('editmp3_15');
-?>

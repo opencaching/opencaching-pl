@@ -55,4 +55,3 @@ return function ($data){
 <?php
 
 };
-

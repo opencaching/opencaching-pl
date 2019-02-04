@@ -60,4 +60,3 @@ $map['keyInjectionCallback'] = function (array $mapConfig) {
 
     return true;
 };
-

@@ -68,6 +68,4 @@ $content.="<a class='links'  href='user_badges.php?user_id=999999'>[".tr('merit_
 
 tpl_set_var( 'content', $content );
 
-tpl_BuildTemplate(); 
-
-
+tpl_BuildTemplate();

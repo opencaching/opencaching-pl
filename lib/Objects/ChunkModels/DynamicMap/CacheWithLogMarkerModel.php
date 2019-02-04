@@ -59,4 +59,3 @@ class CacheWithLogMarkerModel extends CacheMarkerModel
         isset($this->log_date);
     }
 }
-

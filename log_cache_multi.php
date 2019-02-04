@@ -409,5 +409,3 @@ function fcGetStatusyEn()
     $statusy['Needs Maintenance'] = 5; // Potrzebny serwis
     return $statusy;
 }
-
-?>

@@ -72,5 +72,3 @@ function gpxhelper($text)
     $text = preg_replace('/[[:cntrl:]]/', '', $text);
     return $text;
 }
-
-?>

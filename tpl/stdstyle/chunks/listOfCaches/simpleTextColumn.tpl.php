@@ -11,4 +11,3 @@ return function ($text){
     <?=$text?>
 <?php
 };
-

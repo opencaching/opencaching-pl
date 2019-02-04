@@ -52,7 +52,3 @@ function cache_type_from_id($id)
         }
     }
 }
-
-
-
-

@@ -105,4 +105,3 @@ class UserUtilsController extends BaseController
     }
 
 }
-

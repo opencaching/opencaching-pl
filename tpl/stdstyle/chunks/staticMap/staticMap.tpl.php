@@ -43,4 +43,3 @@ return function (StaticMapModel $m){
 </div>
 <?php
 }; //end of chunk
-

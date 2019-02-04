@@ -93,27 +93,19 @@ if (isset($lat_rad) && isset($lon_rad) && ($sortby == 'bydistance')) {
 } else { // by name
     $query .= ' ORDER BY name ASC';
 }
- //startat?
-$startat = isset($_REQUEST['startat']) ? $_REQUEST['startat'] : 0;
-if (!is_numeric($startat)) {
+
+if (isset($_REQUEST['startat'])) {
+    $startat = XDb::quoteOffset($_REQUEST['startat']);
+} else { 
     $startat = 0;
 }
 
 if (isset($_REQUEST['count'])) {
-    $count = $_REQUEST['count'];
+    $count = XDb::quoteLimit($_REQUEST['count']);
 } else {
     $count = $caches_per_page;
 }
-
-if ($count == 'max') {
-    $count = 500;
-}
-if (!is_numeric($count)) {
-    $count = 0;
-}
-if ($count < 1) {
-    $count = 1;
-} elseif ($count > 500) {
+if ($count > 500) {
     $count = 500;
 }
 
@@ -277,4 +269,3 @@ function filterevilchars($str)
     $str = mb_ereg_replace('/[[:cntrl:]]/', '', $str);
     return $str;
 }
-

@@ -132,5 +132,3 @@
 <p class="idea-source">({{rating_disclaimer}})</p>
 
 </form>
-
-

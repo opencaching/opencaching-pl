@@ -50,4 +50,3 @@ $links['wiki']['rules_en']              = $_wiki.'/index.php/OC_PL_Conditions_of
 
 // optional items - used in node-specific menu only
 $links['wiki']['downloads']             = $_wiki.'/index.php/U%C5%BCyteczne_pliki_zwi%C4%85zane_z_OC_PL';
-

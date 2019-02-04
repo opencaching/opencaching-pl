@@ -42,16 +42,6 @@
         $.extend(strings, newStrings);
     };
 
-    var loadTranslationStrings = function(lang) {
-        var VERSION = 4;  // increment when translations changed, set to 0 when debugging
-        var url = "/tpl/stdstyle/js/okapiGpxFormatterWidget." + lang + ".js?v=" + VERSION;
-        return $.ajax({
-            dataType: "script",
-            cache: VERSION > 0,
-            url: url
-        });
-    };
-
     var getFormResponses = function(form) {
         var responses = {};
         $(form).find(":input").each(function() {
@@ -219,28 +209,16 @@
     }
 
     var getTemplate = function(id) {
-        var VERSION = 4;  // increment when template changed, set to 0 when debugging
-        var url = "/tpl/stdstyle/js/okapiGpxFormatterWidget.template.html?v=" + VERSION;
+        var url = "CacheExport/okapiGpxForm";
         var contents = $("#" + id);
         if (contents.length == 0) {
             return $.ajax({
                 dataType: "html",
-                cache: VERSION > 0,
+                cache: false,
                 url: url
             }).then(function(html) {
                 var $html = $(html);
                 $('body').append($html);
-                // Apply translations, if available.
-                $html.find("[data-string-id]").each(function(_, elem) {
-                    var stringId = $(elem).attr('data-string-id');
-                    if (strings[stringId]) {
-                        if (stringId.endsWith("HTML")) {
-                            $(elem).html(strings[stringId]);
-                        } else { // plaintext
-                            $(elem).text(strings[stringId]);
-                        }
-                    }
-                });
                 // Find proper ID
                 contents = $("#" + id);
                 if (contents.length == 0) {
@@ -260,6 +238,7 @@
             cacheCodes: [],
         };
         var options = $.extend({}, defaultOptions, opts);
+
         getTemplate("okapiGpxFormatterDialogContentsTemplate").done(function(innerContents) {
             var dialogContents = $("<div>").append(innerContents);
             if (options.cacheCodes.length > 500) {
@@ -339,7 +318,5 @@
         show: show,
         extendTranslationStrings: extendTranslationStrings
     };
-
-    loadTranslationStrings($("html").attr("lang"));
 
 })(jQuery);

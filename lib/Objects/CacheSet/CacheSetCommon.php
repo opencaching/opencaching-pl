@@ -69,4 +69,3 @@ class CacheSetCommon extends BaseObject
         return self::CACHESET_URL_BASE.$id;
     }
 }
-

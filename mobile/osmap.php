@@ -19,4 +19,3 @@ $tpl->assign('lat', $lat);
 $tpl->assign('lon', $lon);
 $tpl->assign('wp', $wp);
 $tpl->display('./tpl/osmap.tpl');
-?>

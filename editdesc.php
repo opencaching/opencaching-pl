@@ -156,4 +156,3 @@ if ( $desc_record = XDb::xFetchArray($desc_rs) ) {
 //make the template and send it out
 tpl_set_var('language4js', I18n::getCurrentLang());
 tpl_BuildTemplate();
-

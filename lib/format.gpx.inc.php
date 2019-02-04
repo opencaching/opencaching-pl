@@ -250,17 +250,17 @@ $gpxLogType[11] = 'Temporarily Disable Listing';        // OC: XXX_TEMPORARILY_U
 $gpxLogType[12] = 'OC Team Comment';                    // OC: XXX_OC_TEAM_COMMENT
 // Note: log types implementation incomplete.
 
-/************************************************************************
-Attributes
+/* ***********************************************************************
+  Attributes
 
-GPX ID mapping of all attributes of OC.PL .NL .RO .UK. .US, as of 3 October 2017.
-If there is a matching DE attribute with other ID, the DE ID is given in the "DE" column.
+  GPX ID mapping of all attributes of OC.PL .NL .RO .UK. .US, as of 3 October 2017.
+  If there is a matching DE attribute with other ID, the DE ID is given in the "DE" column.
 
-IDs < 100 are original GC.com, 101-199 are pseudo-GC IDs for special Opencaching attributes.
-Appended ".0" means inc="0".
+  IDs < 100 are original GC.com, 101-199 are pseudo-GC IDs for special Opencaching attributes.
+  Appended ".0" means inc="0".
 
-Note that there are some redundant IDs, e.h. UK/RO 46 and NL/PL/US 83 both map to
-GC 51 "Special tool required".
+  Note that there are some redundant IDs, e.h. UK/RO 46 and NL/PL/US 83 both map to
+  GC 51 "Special tool required".
 */
 
 // common assignments

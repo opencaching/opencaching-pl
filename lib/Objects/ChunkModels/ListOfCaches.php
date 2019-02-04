@@ -63,4 +63,3 @@ class ListOfCachesCacheModel{
     public $ptName = '';
     public $ptIcon = '';
 }
-

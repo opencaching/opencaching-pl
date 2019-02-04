@@ -143,4 +143,3 @@ function get_icon_for_cache_type($type)
         }
     }
 }
-

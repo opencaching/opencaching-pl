@@ -12,4 +12,3 @@
 
     <button type="submit" value="Wyślij"  class='btn btn-primary'>{{submit}}</button>
 </form>
-

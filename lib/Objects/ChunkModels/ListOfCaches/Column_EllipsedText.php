@@ -37,5 +37,3 @@ class Column_EllipsedText extends AbstractColumn {
         return 'center';
     }
 }
-
-

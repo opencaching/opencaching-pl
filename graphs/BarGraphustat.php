@@ -160,4 +160,3 @@ $bplot->value->SetFormat('%d');
 
 // Display the graph
 $graph->Stroke();
-

@@ -82,4 +82,3 @@ tpl_set_var('content', $content);
 
 
 tpl_BuildTemplate();
-

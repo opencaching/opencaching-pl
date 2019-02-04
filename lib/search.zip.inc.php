@@ -57,4 +57,3 @@ function get_pagination_page_title()
 
 // all the logic is done here
 include __DIR__.'/search.okapi.inc.php';
-

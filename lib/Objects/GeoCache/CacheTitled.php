@@ -105,4 +105,3 @@ class CacheTitled extends BaseObject
     }
 
 }
-

@@ -23,5 +23,3 @@ return function (){
 
 <?php
 }; //end of chunk
-
-

@@ -156,4 +156,3 @@ class GeoCacheDesc extends BaseObject
         self::db()->multiVariableQuery("UPDATE cache_desc SET rr_comment='' WHERE cache_id=:1 ", $geoCache->getCacheId());
     }
 }
-

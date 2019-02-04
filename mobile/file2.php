@@ -13,4 +13,3 @@ if (!$show_coords) {
 }
 
 $tpl->display('tpl/file.tpl');
-?>

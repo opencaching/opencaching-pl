@@ -4,13 +4,13 @@ use lib\Objects\GeoCache\GeoCacheLogCommons;
 use Utils\Text\Formatter;
 
 /**
-	This is column with log-icon and log-text.
-  It needs vars in $data:
-	- logId - id of the log
-    - logType - type of the log
-    - logText - text of the log
-    - logUserName - name of the author
-    - logDate - date of the log
+ * This is column with log-icon and log-text.
+ * It needs vars in $data:
+ * - logId - id of the log
+ * - logType - type of the log
+ * - logText - text of the log
+ * - logUserName - name of the author
+ * - logDate - date of the log
 */
 
 return function (array $data){
@@ -46,4 +46,3 @@ return function (array $data){
   <?php } ?>
 <?php
 };
-

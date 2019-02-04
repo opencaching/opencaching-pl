@@ -22,5 +22,3 @@ class Column_OnClickActionIcon extends AbstractColumn {
         return 'center';
     }
 }
-
-
