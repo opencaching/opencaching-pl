@@ -56,7 +56,7 @@ function get_okapi_settings()
         'DB_NAME' => $dbname,
         'DB_USERNAME' => $dbusername,
         'DB_PASSWORD' => $dbpasswd,
-        'SITELANG' => I18n::getDefaultLang(),
+        'SITELANG' => OcConfig::getI18nDefaultLang(),
         'SITE_URL' => isset($OKAPI_server_URI) ? $OKAPI_server_URI : $absolute_server_URI,
         'VAR_DIR' => rtrim($dynbasepath, '/'),
         'TILEMAP_FONT_PATH' => $config['okapi']['tilemap_font_path'],

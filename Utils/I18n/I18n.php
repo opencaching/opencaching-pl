@@ -99,7 +99,7 @@ namespace Utils\I18n {
          */
         public static function getDefaultLang()
         {
-            return OcConfig::instance()->getI18Config()['defaultLang'];
+            return OcConfig::getI18nDefaultLang();
         }
 
         /**
@@ -283,7 +283,7 @@ namespace Utils\I18n {
          * @return array of supported languags
          */
         private function getSupportedTranslations(){
-            return OcConfig::instance()->getI18Config()['supportedLanguages'];
+            return OcConfig::getI18nSupportedLangs();
         }
 
         private function isLangSupported($langCode){
