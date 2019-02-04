@@ -2541,6 +2541,7 @@ $translations = array(
     'action' => 'Actie',
     'admin_dbupdate_title' => 'Beheer database updates',
     'admin_dbupdate_name' => 'Naam update',
+    'admin_dbupdate_sqlfile' => 'SQL file',
     'admin_dbupdate_runtype' => 'Uitvoeren',
     'admin_dbupdate_auto' => 'automatisch',
     'admin_dbupdate_manual' => 'manueel',
