@@ -1,3 +1,6 @@
+<?php
+
+?>
 <style>
     .ui-widget-overlay { background: #c5c5c5; }
     .ui-dialog { box-shadow: 0px 5px 66px rgba(0, 0, 0, 0.5); }
@@ -18,15 +21,12 @@
 <div style='display: none'>
     <div id='okapiGpxFormatterDialogContentsTemplate'>
         <section data-string-id="infoHeaderHTML">
-            <p><a href='/okapi/'>OKAPI</a> allows us to generate various types of GPX files.
-            Here you can access a subset of its advanced options. Keep in mind
-            however, that if you choose a bad set of options, then some applications might
-            be unable to read the result GPX file.</p>
+            {{ogpx_infoHeaderHTML}}
         </section>
         <section>
             <h2>
                 <span data-string-id="numberOfCachesHeader">
-                    Number of geocaches to be exported:
+                    {{ogpx_numberOfCachesHeader}}
                 </span>
                 <b class='okapi-number-of-cachecodes'>0</b>
             </h2>
@@ -34,186 +34,178 @@
         <form>
             <section>
                 <p data-string-id="paramLpcHeader">
-                    How to handle geocache logs/comments:
+                    {{ogpx_paramLpcHeader}}
                 </p>
                 <div><label>
                     <input type='radio' name='lpc' value='0'>
-                    <span data-string-id="paramLpc_0">Don't include any logs.</span>
+                    <span data-string-id="paramLpc_0">{{ogpx_paramLpc_0}}</span>
                 </label></div>
                 <div><label>
                     <input type='radio' name='lpc' value='10'>
-                    <span data-string-id="paramLpc_10">Include only 10 of the latest logs.</span>
+                    <span data-string-id="paramLpc_10">{{ogpx_paramLpc_10}}</span>
                 </label></div>
                 <div><label>
                     <input type='radio' name='lpc' value='mine'>
-                    <span data-string-id="paramLpc_mine">Include only my logs.</span>
+                    <span data-string-id="paramLpc_mine">{{ogpx_paramLpc_mine}}</span>
                 </label></div>
                 <div><label>
                     <input type='radio' name='lpc' value='all' checked="checked">
-                    <span data-string-id="paramLpc_all">Include all logs.</span>
+                    <span data-string-id="paramLpc_all">{{ogpx_paramLpc_all}}</span>
                 </label></div>
             </section>
             <section>
                 <p data-string-id="paramTrackablesHeader">
-                    Should we include information about trackables (e.g. Geokrets) in geocache description?
+                    {{ogpx_paramTrackablesHeader}}
                 </p>
                 <div><label>
                     <input type='radio' name='trackables' value='none'>
                     <span data-string-id="paramTrackables_none">
-                        Don't include information on trackables.
+                        {{ogpx_paramTrackables_none}}
                     </span>
                 </label></div>
                 <div><label>
                     <input type='radio' name='trackables' value='desc:count'>
                     <span data-string-id="paramTrackables_count">
-                        Only include the total number of all trackables currently present inside the geocache.
+                        {{ogpx_paramTrackables_count}}
                     </span>
                 </label></div>
                 <div><label>
                     <input type='radio' name='trackables' value='desc:list'>
                     <span data-string-id="paramTrackables_all">
-                        Include a list of all trackables currently present inside the geocache.
+                        {{ogpx_paramTrackables_all}}
                     </span>
                 </label></div>
                 <div><label>
                     <input type='radio' name='trackables' value='gc:travelbugs' checked="checked">
                     <span data-string-id="paramTrackables_gc">
-                        Include all trackables like Groundspeak travelbugs.
+                        {{ogpx_paramTrackables_gc}}
                     </span>
                 </label></div>
             </section>
             <section>
                 <p data-string-id="paramAttrsHeader">
-                    How to handle geocache attributes:
+                    {{ogpx_paramAttrsHeader}}
                 </p>
                 <div><label>
                     <input type='checkbox' name='attrs_desctext' checked="checked">
                     <span data-string-id="paramAttrs_desctext">
-                        Put a list of attribute names directly in the geocache description.
+                        {{ogpx_paramAttrs_desctext}}
                     </span>
                 </label></div>
                 <div><label>
                     <input type='checkbox' name='attrs_oxtags' checked="checked">
                     <span data-string-id="paramAttrs_oxtags_HTML">
-                        Generate <code>ox:tag</code> elements for each attribute (some devices may recognize those).
+                        {{ogpx_paramAttrs_oxtags_HTML}}
                     </span>
                 </label></div>
                 <div><label>
                     <input type='checkbox' name='attrs_gcattrs' checked="checked">
                     <span data-string-id="paramAttrs_gcattrs_HTML">
-                        Generate Groundspeak-like attributes.
+                        {{ogpx_paramAttrs_gcattrs_HTML}}
                     </span>
                 </label></div>
             </section>
             <section>
                 <p data-string-id="paramMyNotesHeader">
-                    How to handle personal notes:
+                    {{ogpx_paramMyNotesHeader}}
                 </p>
                 <div><label>
                     <input type='checkbox' name='my_notes_desctext' checked="checked">
                     <span data-string-id="paramMyNotes_desctext">
-                        Include personal notes inside geocache descriptions.
+                        {{ogpx_paramMyNotesHeader}}
                     </span>
                 </label></div>
                 <div><label>
                     <input type='checkbox' name='my_notes_gcpersonalnote'>
                     <span data-string-id="paramMyNotes_gcpersonalnote_HTML">
-                        Include personal notes inside <code>groundspeak:personal_note</code> element.
+                        {{ogpx_paramMyNotes_gcpersonalnote_HTML}}
                     </span>
                 </label></div>
             </section>
             <section>
                 <p data-string-id="paramLocationSourceHeader">
-                    Which coordinates should we consider as "primary" ones?
+                    {{ogpx_paramLocationSourceHeader}}
                 </p>
                 <div><label>
                     <input type='radio' name='location_source' value='default-coords' checked="checked">
                     <span data-string-id="paramLocationSource_default">
-                        The original coordinates of the geocache, as provided by the geocache owner.
+                        {{ogpx_paramLocationSource_default}}
                     </span>
                 </label></div>
                 <div><label>
                     <input type='radio' name='location_source' value='alt_wpt:user-coords'>
                     <span data-string-id="paramLocationSource_usercoords">
-                        Whenever available, use the "final" coordinates which I have supplied by myself
-                        (might useful for quiz geocaches you have already found).
+                        {{ogpx_paramLocationSource_usercoords}}
                     </span>
                 </label></div>
                 <div><label>
                     <input type='radio' name='location_source' value='alt_wpt:parking'>
                     <span data-string-id="paramLocationSource_parking">
-                        Use the coordinates from the "parking" additional waypoint (if such waypoint
-                        was provided by the geocache owner).
+                        {{ogpx_paramLocationSource_parking}}
                     </span>
                 </label></div>
             </section>
             <section>
                 <p data-string-id="paramImagesHeader">
-                    Should we include image references in the geocache description?
+                    {{ogpx_paramImagesHeader}}
                 </p>
                 <div><label>
                     <input type='radio' name='images' value='none'>
                     <span data-string-id="paramImages_none">
-                        Don't include images.
+                        {{ogpx_paramImages_none}}
                     </span>
                 </label></div>
                 <div><label>
                     <input type='radio' name='images' value='descrefs:thumblinks'>
                     <span data-string-id="paramImages_thumblinks">
-                        Thumbnails with links. Include thumbnails only, with links to bigger
-                        versions. Placeholder image will be used to hide spoiler images.
+                        {{ogpx_paramImages_thumblinks}}
                     </span>
                 </label></div>
                 <div><label>
                     <input type='radio' name='images' value='descrefs:nonspoilers'>
                     <span data-string-id="paramImages_nonspoilers">
-                        All, except spoilers. No thumbnails (show bigger versions without
-                        the need to click on them).
+                        {{ogpx_paramImages_nonspoilers}}
                     </span>
                 </label></div>
                 <div><label>
                     <input type='radio' name='images' value='descrefs:all' checked="checked">
                     <span data-string-id="paramImages_all">
-                        All, including spoilers. No thumbnails (show bigger versions without
-                        the need to click on them). Spoiler images will be shown directly
-                        (on placeholder will be used to hide them).
+                        {{ogpx_paramImages_all}}
                     </span>
                 </label></div>
                 <div><label>
                     <input type='radio' name='images' value='ox:all'>
                     <span data-string-id="paramImages_oxall_HTML">
-                        Don't include <code>img</code> elements in geocache description, but
-                        generate proper <code>ox:image</code> references instead (for Garmin
-                        devices).
+                        {{ogpx_paramImages_oxall_HTML}}
                     </span>
                 </label></div>
             </section>
             <section>
                 <p data-string-id="otherOptionsHeader">
-                    Other options:
+                    {{ogpx_otherOptionsHeader}}
                 </p>
                 <div><label>
                     <input type='checkbox' name='protection_areas'>
                     <span data-string-id="otherOptions_protection_areas">
-                        Include information about protection areas inside which the geocache might be located.
+                        {{ogpx_otherOptions_protection_areas}}
                     </span>
                 </label></div>
                 <div><label>
                     <input type='checkbox' name='recommendations' checked="checked">
                     <span data-string-id="otherOptions_recommendations">
-                        Include the number of recommendations the geocache has received.
+                        {{ogpx_otherOptions_recommendations}}
                     </span>
                 </label></div>
                 <div><label>
                     <input type='checkbox' name='alt_wpts' checked="checked">
                     <span data-string-id="otherOptions_alt_wpts">
-                        Include additional waypoints along with the geocache.
+                        {{ogpx_otherOptions_alt_wpts}}
                     </span>
                 </label></div>
                 <div><label>
                     <input type='checkbox' name='mark_found' checked="checked">
                     <span data-string-id="otherOptions_mark_found">
-                        Mark geocaches which I have already found (use a "found cache" symbol for them).
+                        {{ogpx_otherOptions_mark_found}}
                     </span>
                 </label></div>
             </section>
@@ -221,9 +213,7 @@
     </div>
     <div id='okapiGpxFormatterDialogContentsTemplate2'>
         <section data-string-id="additionalDownloadsHeaderHTML">
-            <p>When downloading more than 500 geocaches, your GPX file is being split
-            into a couple of smaller GPX files. Each of them needs to be downloaded
-            separately:</p>
+            {{ogpx_additionalDownloadsHeaderHTML}}
         </section>
         <section>
             <ul>

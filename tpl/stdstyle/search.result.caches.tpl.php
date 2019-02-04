@@ -7,7 +7,7 @@ use Utils\I18n\I18n;
 <script src="lib/js/GCT.js"></script>
 <script src="lib/js/GCT.lang.php"></script>
 <script src="tpl/stdstyle/js/search.js"></script>
-<script src="tpl/stdstyle/js/okapiGpxFormatterWidget.js?v=2"></script>
+<script src="tpl/stdstyle/js/okapiGpxFormatterWidget.js?v=3"></script>
 <script>
     $(function() {
 
