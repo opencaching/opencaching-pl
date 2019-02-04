@@ -2730,6 +2730,7 @@ $translations = array(
     'ogpx_paramTrackables_none' => 'Nie dołączaj.',
     'ogpx_paramTrackables_count' => 'Pokaż tylko informację o aktualnej ilości Geokretów w skrzynce.',
     'ogpx_paramTrackables_all' => 'Pokaż pełną listę Geokretów aktualnie znajdujących się w skrzynce.',
+    'ogpx_paramTrackables_gc' => 'Również z geokretami.',
     'ogpx_paramAttrsHeader' => 'Atrybuty skrzynki:',
     'ogpx_paramAttrs_desctext' => 'Pokaż listę atrybutów bezpośrednio w opisie skrzynki.',
     'ogpx_paramAttrs_oxtags_HTML' => 'Wygeneruj element <code>ox:tag</code> dla wszystkich atrybutów (niektóre urządzenia mogą je rozpoznać).',
