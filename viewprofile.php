@@ -852,7 +852,7 @@ foreach ($userCategories as $oneCategory) {
         $element=mb_ereg_replace('{badge_id}', $oneBadge->getBadgeId(), $element );
         $element=mb_ereg_replace('{user_id}', $user_id, $element );
         $element=mb_ereg_replace('{curr_val}', $oneBadge->getCurrVal(), $element );
-        $element=mb_ereg_replace('{progresbar_curr_val}', $oneBadge->getCurrVal()-$oneBadge->getOLevel()->getPrevThreshold(), $element );
+        $element=mb_ereg_replace('{progresbar_curr_val}', MeritBadge::getProgressBarCurrValue($oneBadge->getOLevel()->getPrevThreshold(), $oneBadge->getCurrVal(), $oneBadge->getNextVal()), $element );
         $element=mb_ereg_replace('{progresbar_next_val}', MeritBadge::getProgressBarValueMax($oneBadge->getOLevel()->getPrevThreshold(), $oneBadge->getNextVal()), $element );
         $element=mb_ereg_replace('{progresbar_size}', MeritBadge::getBarSize( $oneBadge->getLevelId(),  $oneBadge->getOBadge()->getLevelsNumber() ), $element );
         $element=mb_ereg_replace('{progresbar_color}', MeritBadge::getColor( $oneBadge->getLevelId(), $oneBadge->getOBadge()->getLevelsNumber() ), $element );
