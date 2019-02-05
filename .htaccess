@@ -12,12 +12,8 @@ RewriteRule ^statpics/([0-9]+)\.jpg$                                            
 # redirect requests like /OP123F to viewcache page 
 RewriteRule ^(O[A-Z][0-9A-Z][0-9A-Z][0-9A-Z][0-9A-Z])$                              viewcache.php?wp=$1 [R=301,L,NC]
 
-# block requests to /mobile/* - it works on another domain
-RewriteRule ^mobile/                                                                "-" [F]
-
 # permanentely block Wordpress login page - too many such requests 
 RewriteRule ^wp-login.php                                                           "-" [F]
-
 
 FileETag None
 
