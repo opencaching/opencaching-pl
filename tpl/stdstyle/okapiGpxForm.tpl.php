@@ -112,7 +112,7 @@
                 <div><label>
                     <input type='checkbox' name='my_notes_desctext' checked="checked">
                     <span data-string-id="paramMyNotes_desctext">
-                        {{ogpx_paramMyNotesHeader}}
+                        {{ogpx_paramMyNotes_desctext}}
                     </span>
                 </label></div>
                 <div><label>
