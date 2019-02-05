@@ -2753,7 +2753,8 @@ $translations = array(
     'ogpx_otherOptions_protection_areas' => 'Informatie over beschermende natuurgebieden waar de cache zich kan bevinden.',
     'ogpx_otherOptions_recommendations' => 'Voeg het aantal aanbevelingen die deze cache heeft ontvangen toe.',
     'ogpx_otherOptions_alt_wpts' => 'Voeg de extra waypoints van deze cache toe.',
-    'ogpx_otherOptions_mark_found' => '<p>Wanneer er meer dan 500 geocaches download worden, zal het GPX bestand worden gesplitst in een paar kleinere GPX bestanden. Elk van hen moet afzonderlijk worden gedownload:</p>',
+    'ogpx_otherOptions_mark_found' => 'Mark geocaches which I have already found (use a "found cache" symbol for them).',
+    'ogpx_additionalDownloadsHeaderHTML' => '<p>When downloading more than 500 geocaches, your GPX file is being split into a couple of smaller GPX files. Each of them needs to be downloaded separately:</p>',
 
     'mobile_login' => '[inloggen]',
     'mobile_logout' => '[uitloggen]',
