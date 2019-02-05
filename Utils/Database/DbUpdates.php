@@ -3,10 +3,11 @@ namespace Utils\Database;
 
 use Exception;
 use Utils\Generators\Uuid;
+use okapi\Facade;
 
 /**
  * Static container of DbUpdate objects, each representing one of the scripts
- * in the Updates directory.
+ * in the Updates directory, + some DB updating logic.
  */
 
 class DbUpdates
@@ -183,5 +184,71 @@ class DbUpdates
     public static function getUpdatesDir()
     {
         return __DIR__ . '/Updates';
+    }
+
+
+    /**
+     * Update DB triggers, procedures and functions
+     */
+     public static function updateRoutines()
+     {
+        $routines = self::getRoutineFileNames();
+        $messages = '';
+
+        foreach ($routines as $fileName => $lastRun) {
+            if (!$lastRun ||
+                $lastRun['fileTime'] != self::routineFileModified($fileName)
+            ) {
+                $messages .= self::runRoutines($fileName);
+            }
+        }
+        return $messages;
+    }
+
+    public static function runRoutines($fileName)
+    {
+        $queries = self::getRoutineContents($fileName);
+        if (substr($queries, 0, 10) != 'DELIMITER ') {
+            throw new Exception('DELIMITER statement is missing in '.$fileName);
+        }
+        OcDb::instance(OcDb::ADMIN_ACCESS)->simpleQueries($queries);
+
+        Facade::cache_set(
+            'run '.$fileName,
+            ['fileTime' => self::routineFileModified($fileName), 'runTime' => time()],
+            365 * 24 * 3600
+              // At least once a year, all routines are re-installed.
+        );
+        return 'run '.$fileName."\n";
+    }
+
+    /**
+     * @return array dictionary: .sql file path or name => filetime and last run time
+     */
+    public static function getRoutineFileNames()
+    {
+        $routineFilePaths = glob(self::getRoutinesPath('*.sql'));
+        $routines = [];
+
+        foreach ($routineFilePaths as $filePath) {
+            $fileName = basename($filePath);
+            $routines[$fileName] = Facade::cache_get('run '.$fileName);
+        }
+        return $routines;
+    }
+
+    public function getRoutineContents($fileName)
+    {
+        return file_get_contents(self::getRoutinesPath($fileName));
+    }
+
+    private function routineFileModified($fileName)
+    {
+        return filemtime(self::getRoutinesPath($fileName));
+    }
+
+    private static function getRoutinesPath($fileName)
+    {
+        return __DIR__ . '/../../resources/sql/routines/' . $fileName;
     }
 }

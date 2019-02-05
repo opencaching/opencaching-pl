@@ -56,7 +56,7 @@ There are three types, which can be set in the `run` variable of the update's
     You may use this e.g. to ensure DB consistency, or to nail some static
     DB contents to its defaults.
 
-### Numbers ###
+### Numbers
 
 The update numbers are assigned like this:
 
@@ -107,19 +107,21 @@ not manually in the file system or database. This is most failsafe.
 On a developer site, you can run any update as often as you like.
 On production sites, *auto* and *manual* updates will run only once. The
 [run] option disappears after the update has run (without throwing an
-Exception). If an update did not work properly, then a new update should
-be written which fixes that.
+Exception). This prevents database damage by accientially re-running an
+update which is not safe to re-run.
 
-There is one exception from this rule: If
+However, if you know what you are doing - i.e. you have verified, tested
+and are 100% sure that it is safe to re-run an update now - there are two
+ways to accomplish that:
 
-- there was a temporary problem at an OC site, which prevented the update
-    from performing correctly (e.g. a wrong config setting),
-- this problem has been solved, and
-- you are 100% sure that it is safe to re-run the update's code,
+* As a developer: Change the UUID of the update (use some UUID generator).
+It then will re-run on all sites. You can also use this to add code to an
+existing update, instead of creating a new update for some small change.
 
-then this hidden action may be used (replace "UUID" by the update's UUID):
-
-- http://opencaching.XX/Admin.DbUpdate/run/UUID&override=1
+* As SysAdmin:
+Request http://opencaching.XX/Admin.DbUpdate/run/UUID&override=1
+with the update's UUID as "UUID" argument. Please DO NOT do this if
+the update did not perform properly due to a bug. Fix the bug instead.
 
 ### Merging DB updates
 
@@ -132,3 +134,20 @@ then it must be safe to run those updates in all of these orders:
 - 120, 121, 119
 - 120, 119, 121
 - 119, 120, 121
+
+### DB routines (triggers, procedures and functions)
+
+All routine definitions are in
+[Utils/Database/routines](https://github.com/opencaching/opencaching-pl/tree/master/Utils/Database/routines).
+When one of these files has changed, it will automatically be executed on the
+production sites with next code deployment. On developer sites, use the
+*Run updates* button on the [Admin.DbUpdate](http://local.opencaching.pl/Admin.DbUpdate) page.
+
+The routine updates will run AFTER all other database updates (Why? See
+[DbUpdates](https://github.com/opencaching/opencaching-pl/tree/master/Utils/Database/DbUpdates.php)::run).
+So if some new routine is needed to run a new DB update, you additionally have
+to define the routine inside the DB update.
+
+To **delete** a routine, remove the "CREATE ..." statement from the .sql file,
+but keep the "DROP ..." statement. If lots of deletions have accumulated in the
+.sql files, this can be cleaned up by moving the DROPs to a new DB update.

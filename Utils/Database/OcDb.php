@@ -267,6 +267,31 @@ class OcDb extends OcPdo
     }
 
     /**
+     * Execute multiple queries from one string, without parameters.
+     * Recognizes the DELIMITER statement, which may be supplied ONCE
+     * at the very beginning of the string.
+     *
+     * This very simple function will fail if the delimiter (default ';')
+     * is included in a comment or string constant.
+     *
+     * @param $queries
+     */
+    public function simpleQueries($queries)
+    {
+        if (preg_match('/^DELIMITER\s+([^\s]+)\s/i', $queries, $matches)) {
+            $delimiter = $matches[1];
+        } else {
+            $delimiter = ';';
+        }
+        foreach (explode($delimiter, $queries) as $query) {
+            $query = trim($query);
+            if (strcasecmp(substr($query, 0, 9), 'DELIMITER') != 0) {
+                $this->simpleQuery($query);
+            }
+        }
+    }
+
+    /**
      * Executes given query. If the query return no rows, or null value, default value is returned.
      * Otherwise, value of first column in a first row is returned.
      *
@@ -281,7 +306,6 @@ class OcDb extends OcPdo
 
         return $this->dbResultFetchValue($stmt, $default);
     }
-
 
     /**
      * @param $query - string, with params representation instead variables.

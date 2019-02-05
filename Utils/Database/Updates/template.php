@@ -9,8 +9,9 @@ return new class extends UpdateScript
     public function getProperties()
     {
         return [
-            'uuid' => '{update_uuid}',  // do not change
-            'run' => 'auto',  // must be 'auto' for all regular updates
+            // see /docs/DbUpdate.md
+            'uuid' => '{update_uuid}',
+            'run' => 'auto',
         ];
     }
 
@@ -29,13 +30,10 @@ return new class extends UpdateScript
     public function rollback()
     {
         // If possible and feasible, provide code here which reverses the
-        // changes made by run().
+        // changes made by run(). Otherwiese please REMOVE the rollback method.
+        // This will disable the "rollback" action on the Admin.DbUpdate page.
 
-        // The update will be run inside a transaction. It will also run
+        // The rollback will be run inside a transaction. It will also run
         // with set_time_limit(0), so don't create any endless loops!
-
-        // If you do NOT write a rollback, please COMPLETELY REMOVE
-        // the rollback() method. This will disable the "rollback" action on
-        // the Admin.DbUpdate page.
     }
 };
