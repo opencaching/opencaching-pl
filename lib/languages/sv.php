@@ -2753,7 +2753,8 @@ $translations = array(
     'ogpx_otherOptions_protection_areas' => 'Include information about protection areas inside which the geocache might be located.',
     'ogpx_otherOptions_recommendations' => 'Include the number of recommendations the geocache has received.',
     'ogpx_otherOptions_alt_wpts' => 'Include additional waypoints along with the geocache.',
-    'ogpx_otherOptions_mark_found' => '<p>When downloading more than 500 geocaches, your GPX file is being split into a couple of smaller GPX files. Each of them needs to be downloaded separately:</p>',
+    'ogpx_otherOptions_mark_found' => 'Mark geocaches which I have already found (use a "found cache" symbol for them).',
+    'ogpx_additionalDownloadsHeaderHTML' => '<p>When downloading more than 500 geocaches, your GPX file is being split into a couple of smaller GPX files. Each of them needs to be downloaded separately:</p>',
 
     'mobile_login' => '[login]',
     'mobile_logout' => '[logout]',
