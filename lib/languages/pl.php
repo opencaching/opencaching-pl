@@ -2753,7 +2753,8 @@ $translations = array(
     'ogpx_otherOptions_protection_areas' => 'Pokaż informacje o rezerwatach i innych obszarach chronionych (jeśli skrzynka się w takowym znajduje).',
     'ogpx_otherOptions_recommendations' => 'Pokaż informację o liczbie przyznanych rekomendacji (w opisie skrzynki).',
     'ogpx_otherOptions_alt_wpts' => 'Dołącz wszystkie dodatkowe punkty/waypointy, które autor przypisał do skrzynki.',
-    'ogpx_otherOptions_mark_found' => 'Oznacz skrzynki, które już znalazłem (zostaną wygenerowane z symbolem otwartej skrzynki).',
+    'ogpx_otherOptions_mark_found' => 'Mark geocaches which I have already found (use a "found cache" symbol for them).',
+    'ogpx_additionalDownloadsHeaderHTML' => '<p>When downloading more than 500 geocaches, your GPX file is being split into a couple of smaller GPX files. Each of them needs to be downloaded separately:</p>',
 
     'mobile_login' => '[zaloguj]',
     'mobile_logout' => '[wyloguj]',
