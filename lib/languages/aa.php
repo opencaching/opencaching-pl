@@ -2753,7 +2753,8 @@ $translations = array(
     'ogpx_otherOptions_protection_areas' => 'crwdns26744:0crwdne26744:0',
     'ogpx_otherOptions_recommendations' => 'crwdns26746:0crwdne26746:0',
     'ogpx_otherOptions_alt_wpts' => 'crwdns26748:0crwdne26748:0',
-    'ogpx_otherOptions_mark_found' => 'crwdns26750:0crwdne26750:0',
+    'ogpx_otherOptions_mark_found' => 'crwdns26754:0crwdne26754:0',
+    'ogpx_additionalDownloadsHeaderHTML' => 'crwdns26756:0crwdne26756:0',
 
     'mobile_login' => 'crwdns26348:0[login]crwdne26348:0',
     'mobile_logout' => 'crwdns26350:0[logout]crwdne26350:0',
