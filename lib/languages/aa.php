@@ -2541,6 +2541,7 @@ $translations = array(
     'action' => 'crwdns12552:0crwdne12552:0',
     'admin_dbupdate_title' => 'crwdns25590:0crwdne25590:0',
     'admin_dbupdate_name' => 'crwdns25592:0crwdne25592:0',
+    'admin_dbupdate_sqlfile' => 'crwdns26752:0crwdne26752:0',
     'admin_dbupdate_runtype' => 'crwdns25594:0crwdne25594:0',
     'admin_dbupdate_auto' => 'crwdns25596:0crwdne25596:0',
     'admin_dbupdate_manual' => 'crwdns25598:0crwdne25598:0',
