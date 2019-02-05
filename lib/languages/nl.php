@@ -2750,9 +2750,9 @@ $translations = array(
     'ogpx_paramImages_all' => 'Alles, inclusief spoilers. Geen miniaturen (Toon grotere versies zonder er op te hoeven klikken). Spoilers worden direct getoond.',
     'ogpx_paramImages_oxall_HTML' => '<code>img-</code> elementen in cache beschrijving niet opnemen, maar genereer wel een <code>ox: afbeelding</code> verwijzing (voor Garmin apparaten).',
     'ogpx_otherOptionsHeader' => 'Andere opties:',
-    'ogpx_otherOptions_protection_areas' => 'Include information about protection areas inside which the geocache might be located.',
-    'ogpx_otherOptions_recommendations' => 'Include the number of recommendations the geocache has received.',
-    'ogpx_otherOptions_alt_wpts' => 'Include additional waypoints along with the geocache.',
+    'ogpx_otherOptions_protection_areas' => 'Informatie over beschermende natuurgebieden waar de cache zich kan bevinden.',
+    'ogpx_otherOptions_recommendations' => 'Voeg het aantal aanbevelingen die deze cache heeft ontvangen toe.',
+    'ogpx_otherOptions_alt_wpts' => 'Voeg de extra waypoints van deze cache toe.',
     'ogpx_otherOptions_mark_found' => '<p>Wanneer er meer dan 500 geocaches download worden, zal het GPX bestand worden gesplitst in een paar kleinere GPX bestanden. Elk van hen moet afzonderlijk worden gedownload:</p>',
 
     'mobile_login' => '[inloggen]',
