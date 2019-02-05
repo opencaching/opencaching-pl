@@ -2720,7 +2720,7 @@ $translations = array(
     'ogpx_cancelButtonLabel' => 'Annuleren',
     'ogpx_continueButtonLabel' => 'Continue >',
     'ogpx_closeButtonLabel' => 'Sluiten',
-    'ogpx_infoHeaderHTML' => '<p><a href="/okapi/">OKAPI</a> kan verschillende soorten GPX bestanden genereren.. Maak een keuze uit deze geavanceerde opties. Bedenk wel dat als er bepaalde opties gekozen zijn dat er toepassingen zijn die deze gegenereerde GPX bestand niet kan lezen.</p>',
+    'ogpx_infoHeaderHTML' => '<p><a href="/okapi/">OKAPI</a> kan verschillende soorten GPX bestanden genereren. Maak een keuze uit deze geavanceerde opties. Bedenk wel dat als er bepaalde opties gekozen zijn dat er toepassingen zijn die deze gegenereerde GPX bestand niet kan lezen.</p>',
     'ogpx_numberOfCachesHeader' => 'Aantal te exporteren caches:',
     'ogpx_paramLpcHeader' => 'Hoe de logs te behandelen:',
     'ogpx_paramLpc_0' => 'Geen logs toevoegen.',
@@ -2753,7 +2753,8 @@ $translations = array(
     'ogpx_otherOptions_protection_areas' => 'Informatie over beschermende natuurgebieden waar de cache zich kan bevinden.',
     'ogpx_otherOptions_recommendations' => 'Voeg het aantal aanbevelingen die deze cache heeft ontvangen toe.',
     'ogpx_otherOptions_alt_wpts' => 'Voeg de extra waypoints van deze cache toe.',
-    'ogpx_otherOptions_mark_found' => '<p>Wanneer er meer dan 500 geocaches download worden, zal het GPX bestand worden gesplitst in een paar kleinere GPX bestanden. Elk van hen moet afzonderlijk worden gedownload:</p>',
+    'ogpx_otherOptions_mark_found' => 'Markeer caches die al gevonden zijn. (gebruik een "gevonden" symbool hiervoor).',
+    'ogpx_additionalDownloadsHeaderHTML' => '<p>Wanneer er meer dan 500 geocaches download worden, zal het GPX bestand worden gesplitst in een paar kleinere GPX bestanden. Elk van hen moet afzonderlijk worden gedownload:</p>',
 
     'mobile_login' => '[inloggen]',
     'mobile_logout' => '[uitloggen]',
