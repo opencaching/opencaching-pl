@@ -379,7 +379,7 @@ $translations = array(
     'postActivation_mail_02' => 'Jeśli poszukujesz pomocy, możesz znaleźć w swojej okolicy wolontariusza Przewodnika, który oferuje pomoc dla początkujących.',
     'postActivation_mail_03' => 'Mapę przewodników możesz zobaczyć tutaj:',
     'postActivation_mail_04' => 'Zanim założysz swoje pierwsze skrzynki w serwisie {site_name}, znajdź przynajmniej {NEED_FIND_LIMIT} skrzynek, by zdobyć doświadczenie.',
-    'postActivation_mail_cacheguides' => 'Geocaching Guides / Gurus',
+    'postActivation_mail_cacheguides' => 'Przewodnicy-wolontariusze po geocachingu',
 
 
     'password_confirm' => 'Potwierdź hasło',
