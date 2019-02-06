@@ -24,4 +24,3 @@ $site['pageTitle'] = 'Opencaching.nl';
  * @see https://wiki.opencaching.eu/index.php?title=Node_IDs
  */
 $site['ocNodeId'] = 14;
-

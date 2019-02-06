@@ -42,5 +42,3 @@ $config['mailSubjectPrefix'] = 'OCUK';
  * Prefix added to subject of emails sending from OC code in context of cache review
  */
 $config['mailSubjectPrefixForReviewers'] = 'OCTeam';
-
-
