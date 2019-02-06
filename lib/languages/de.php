@@ -379,6 +379,8 @@ $translations = array(
     'postActivation_mail_02' => 'Wenn du dir Hilfe von erfahrenen Geocachern wünschst, schaue einfach auf der interaktiven Karte nach. Du findest dort freiwillige Guides, die Neulingen gerne weiterhelfen.',
     'postActivation_mail_03' => 'Karte der freiwilligen Guides:',
     'postActivation_mail_04' => 'Bevor du deinen ersten Cache auf {site_name} veröffentlichen kannst, solltest du mindestens {NEED_FIND_LIMIT} Caches gefunden haben, um Erfahrungen zu sammeln.',
+    'postActivation_mail_cacheguides' => 'Geocaching Guides / Gurus',
+
 
     'password_confirm' => 'Passwort bestätigen',
     'register_msg1' => 'Um ein Benutzerkonto auf {site_name} zu erstellen, musst du eine gültige E-Mail-Addresse und einen Benutzername eingeben. Du erhältst dann per E-Mail einen Aktivierungscode. Pro E-Mail-Adresse kann nur ein Konto angelegt werden.',
