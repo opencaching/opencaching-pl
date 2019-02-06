@@ -379,6 +379,8 @@ $translations = array(
     'postActivation_mail_02' => 'Dacă ai nevoie de sprijin din partea unor căutători experimentaţi aruncă o privire pe această hartă interactivă unde poţi găsi căutători care s-au oferit voluntari să sprijine pe începători.',
     'postActivation_mail_03' => 'Harta cu ghizi:',
     'postActivation_mail_04' => 'Înainte de a publica prima geocutie pe {site_name} trebuie ca mai întâi să găseşti cel puţin {NEED_FIND_LIMIT} geocutii de următoarele tipuri: tradiţională, multiplă, puzzle sau alte tipuri (mai puţin evenimente).',
+    'postActivation_mail_cacheguides' => 'Geocaching Guides / Gurus',
+
 
     'password_confirm' => 'Confirmare parolă',
     'register_msg1' => 'Pentru a crea un cont pe {site_name} este nevoie de o adresă de E-Mail valabilă şi un nume de utilizatoran. <br/>La adresa de E-Mail pe care o furnizezi vei primi un mesaj cu un cod de activare. Se poate crea un singur cont pentru o adresa de E-Mail.',
