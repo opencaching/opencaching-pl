@@ -379,6 +379,8 @@ $translations = array(
     'postActivation_mail_02' => 'crwdns11226:0crwdne11226:0',
     'postActivation_mail_03' => 'crwdns11227:0crwdne11227:0',
     'postActivation_mail_04' => 'crwdns11228:0{site_name}crwdnd11228:0{NEED_FIND_LIMIT}crwdne11228:0',
+    'postActivation_mail_cacheguides' => 'crwdns26758:0crwdne26758:0',
+
 
     'password_confirm' => 'crwdns5968:0crwdne5968:0',
     'register_msg1' => 'crwdns5969:0{site_name}crwdne5969:0',
