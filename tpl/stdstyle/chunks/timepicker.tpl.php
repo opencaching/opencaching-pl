@@ -8,7 +8,7 @@
  *     $view->loadTimepicker()
  *
  * This chunk is autoloaded in View class
- * 
+ *
  * TODO: Change this timepicker to more beautiful one
  */
 
