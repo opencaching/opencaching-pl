@@ -106,11 +106,6 @@ $founds = XDb::xMultiVariableQueryValue(
 
 </script>
 
-<script>
-    $(function () {
-        $('#scriptwarning').hide();
-    });
-</script>
 
 <form action="editlog.php" method="post" enctype="application/x-www-form-urlencoded" name="editlog" id="editlog" dir="ltr">
     <input type="hidden" name="logid" value="{logid}"/>
@@ -151,7 +146,6 @@ $founds = XDb::xMultiVariableQueryValue(
         </table>
         <div class="content2-container">
             <div class="buffer"></div>
-            <p id="scriptwarning" class="errormsg">{{javascript_edit_info}}</p>
             <img src="tpl/stdstyle/images/free_icons/page_edit.png" class="icon16" alt="">&nbsp;<span class="content-title-noshade-size12">{{comments_log}}:</span>
             <div class="buffer"></div>
             <textarea name="logtext" id="logtext" class="cachelog tinymce">{logtext}</textarea>
