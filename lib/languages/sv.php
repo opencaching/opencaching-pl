@@ -379,6 +379,8 @@ $translations = array(
     'postActivation_mail_02' => 'If you are looking for help from experienced players, please take a look at this interactive map where you can find volunteer guides willing to offer their help to beginners.',
     'postActivation_mail_03' => 'Map of volunteer guides:',
     'postActivation_mail_04' => 'Before you can publish your first cache on {site_name} you should find at least {NEED_FIND_LIMIT} caches, to gain experience.',
+    'postActivation_mail_cacheguides' => 'Geocaching Guides / Gurus',
+
 
     'password_confirm' => 'Bekräfta lösenord',
     'register_msg1' => 'För att skapa ett konto på opencaching.pl måste du ange en fungerande e-postadress och ett användarnamn. <br> Ett e-post med en aktiveringskod kommer att skickas till den adress du anger. Endast ett konto kan skapas per e-postadress.',

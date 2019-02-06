@@ -379,6 +379,8 @@ $translations = array(
     'postActivation_mail_02' => 'Als je op zoek bent naar hulp via een interactieve kaart kun je in jouw gebied vrijwilligers vinden die hun hulp aanbieden aan beginnende cachers.',
     'postActivation_mail_03' => 'Kijk eens op:',
     'postActivation_mail_04' => 'Voordat je de eerste cache kunt plaatsen op {site_name} dien je eerst {NEED_FIND_LIMIT} caches gevonden te hebben om ervaring op te doen.',
+    'postActivation_mail_cacheguides' => 'Geocaching Guides / Gurus',
+
 
     'password_confirm' => 'Bevestig wachtwoord',
     'register_msg1' => 'Om een gebruikersaccount aan te maken op {site_name}, dien je een geldig e-mail adres en een gebruikersnaam op te geven. <br/>Een e-mail bericht zal naar het opgegeven e-mail adres verzonden worden met een activatie link, waarmee het gebruikersaccount geactiveerd kan worden. Per e-mail adres kan één account aangemaakt worden.',

@@ -379,6 +379,8 @@ $translations = array(
     'postActivation_mail_02' => 'If you are looking for help from experienced players, please take a look at this interactive map where you can find volunteer guides willing to offer their help to beginners.',
     'postActivation_mail_03' => 'Map of volunteer guides:',
     'postActivation_mail_04' => 'Before you can publish your first cache on {site_name} you should find at least {NEED_FIND_LIMIT} caches, to gain experience.',
+    'postActivation_mail_cacheguides' => 'Geocaching Guides / Gurus',
+
 
     'password_confirm' => 'Confirm password',
     'register_msg1' => 'To create an account on {site_name}, you have to enter a valid e-mail address and username. <br/>An e-mail with an activation link will be sent to the address you supplied. Only one account can be created for each e-mail address.',
