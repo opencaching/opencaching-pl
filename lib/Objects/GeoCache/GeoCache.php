@@ -10,6 +10,8 @@ use lib\Objects\User\MultiUserQueries;
 use lib\Objects\User\User;
 use Utils\EventHandler\EventHandler;
 use Utils\I18n\I18n;
+use Utils\Uri\SimpleRouter;
+use Utils\View\View;
 
 /**
  * Description of geoCache
@@ -1705,5 +1707,20 @@ class GeoCache extends GeoCacheCommons
             0,
             self::SIZE_NANO
         ) != 0;
+    }
+
+    public function getAbsLink()
+    {
+        return SimpleRouter::getAbsLink('ViewCache') . '?wp=' . $this->getWaypointId();
+    }
+
+    public function getLinkedName()
+    {
+        return View::makeLink($this->getAbsLink(), $this->cacheName);
+    }
+
+    public function getLinkedWaypointId()
+    {
+        return View::makeLink($this->getAbsLink(), $this->geocacheWaypointId);
     }
 }

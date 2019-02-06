@@ -61,6 +61,11 @@ class View {
         $this->$varName = $varValue;
     }
 
+    public static function makeLink($uri, $plainText)
+    {
+        return '<a href="'.$uri.'">'.htmlspecialchars($plainText).'</a>';
+    }
+
     public function __call($method, $args)
     {
         if (property_exists($this, $method) && is_callable($this->$method)) {

@@ -15,9 +15,11 @@
     </div>
 
     <div>
+      <p>
         <label for="username">{{adopt_07}}</label>
-        <input id="username" type="text" size="25" name="username" />
+        <input id="username" type="text" size="20" name="username" />
         <input type="submit" class="btn btn-sm btn-primary" value="{{adopt_08}}" />
+      </p>
     </div>
 
     <input type="hidden" name ="cacheid" value="{cacheid}" />

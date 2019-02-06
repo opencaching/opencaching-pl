@@ -178,7 +178,7 @@ class CacheAdoptionController extends BaseController
         $this->db->commit();
 
         $message = tr('adopt_15');
-        $message = str_replace('{cacheName}', $cacheObj->getCacheName(), $message);
+        $message = str_replace('{cacheName}', $cacheObj->getLinkedName(), $message);
         $this->infoMsg = $message;
 
         EmailSender::sendAdoptionSuccessMessage(__DIR__.'/../tpl/stdstyle/email/adoption.email.html',
