@@ -155,7 +155,7 @@ class TitledCacheAddJob extends Job
 
         $this->db->multiVariableQuery($queryLogI, $rec[ "cacheId" ], $SystemUser, $LogType, $date_alg,
                 $msgText, '2', '1', $date_alg, $date_alg, $LogUuid, '0', '0',
-                $date_alg, '0', OcConfig::getSiteName() );
+                $date_alg, '0', OcConfig::getSiteNodeId());
 
         $ctrlMeritBadge = new MeritBadgeController;
         $ctrlMeritBadge->updateTriggerByNewTitledCache($rec[ "cacheId" ]);
