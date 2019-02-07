@@ -190,6 +190,13 @@ class MeritBadge
        return $nextValue-$prevValue;
     }
 
+    public static function getProgressBarCurrValue($prevValue, $nextValue, $threshold){
+        if ( $threshold== self::THE_HIGHEST_LEVEL)
+            return 1;
+            
+            return $nextValue-$prevValue;
+    }
+    
     public static function prepareShortDescription($desc, $threshold, $currVal ){
         if ( $threshold == self::THE_HIGHEST_LEVEL)
             return "<span style='font-weight:bold;color:". self::getColor( self::COLOR_NUMBER, self::COLOR_NUMBER) .";'>".tr('merit_badge_gain_max_level' )."</span>";

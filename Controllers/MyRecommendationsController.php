@@ -169,4 +169,3 @@ class MyRecommendationsController extends BaseController
         return $results;
     }
 }
-

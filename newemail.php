@@ -2,8 +2,9 @@
 
 use Utils\Database\XDb;
 use Utils\Text\Validator;
+use lib\Objects\OcConfig\OcConfig;
 
-global $octeamEmailsSignature, $absolute_server_URI;
+global $absolute_server_URI;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
@@ -73,14 +74,11 @@ if ($error == false) {
                     $email_content = mb_ereg_replace('{date}', strftime(
                         $GLOBALS['config']['datetimeformat']), $email_content);
                     $email_content = mb_ereg_replace('{code}', $secure_code, $email_content);
-                    $email_content = mb_ereg_replace('{octeamEmailsSignature}', $octeamEmailsSignature, $email_content);
-
-
-                    global $emailaddr;
+                    $email_content = mb_ereg_replace('{octeamEmailsSignature}', OcConfig::getOcteamEmailsSignature(), $email_content);
 
                     $emailheaders = "Content-Type: text/plain; charset=utf-8\r\n";
                     $emailheaders .= "Content-Transfer-Encoding: 8bit\r\n";
-                    $emailheaders .= 'From: "' . $emailaddr . '" <' . $emailaddr . '>';
+                    $emailheaders .= 'From: "'.OcConfig::getEmailAddrNoReply().'" <'.OcConfig::getEmailAddrNoReply().'>';
 
 
                     mb_send_mail($new_email, $email_subject, $email_content, $emailheaders);
@@ -133,4 +131,3 @@ if ($error == false) {
 
 //make the template and send it out
 tpl_BuildTemplate();
-

@@ -10,7 +10,7 @@ class RepairCacheScores
     {
         $db = OcDb::instance();
 
-        $sql = "SELECT cache_id FROM caches";
+        $sql = "SELECT cache_id, type FROM caches";
         $params = array();
         if (isset($_GET['cache_id'])) {
             $sql .= ' WHERE cache_id=:cache_id';
@@ -48,8 +48,8 @@ class RepairCacheScores
             unset($row);
 
             // repair founds etc.
-            $founds = $db->multiVariableQueryValue("SELECT count(*) FROM cache_logs WHERE deleted=0 AND cache_id = :1 AND (type=1 OR type=7)", 0, $cache_id);
-            $notfounds = $db->multiVariableQueryValue("SELECT count(*) FROM cache_logs WHERE deleted=0 AND cache_id = :1 AND (type=2 OR type=8)", 0, $cache_id);
+            $founds = $db->multiVariableQueryValue("SELECT count(*) FROM cache_logs WHERE deleted=0 AND cache_id = :1 AND type = :2", 0, $cache_id, $cache['type'] == 6 ? 7 : 1);
+            $notfounds = $db->multiVariableQueryValue("SELECT count(*) FROM cache_logs WHERE deleted=0 AND cache_id = :1 AND type = :2", 0, $cache_id, $cache['type'] == 6 ? 8 : 2);
             $notes = $db->multiVariableQueryValue("SELECT count(*) FROM cache_logs WHERE deleted=0 AND cache_id = :1 AND type=3", 0, $cache_id);
             $watchers = $db->multiVariableQueryValue("SELECT count(*) FROM cache_watches WHERE cache_id = :1", 0, $cache_id);
             $ignorers = $db->multiVariableQueryValue("SELECT count(*) FROM cache_ignore WHERE cache_id = :1", 0, $cache_id);

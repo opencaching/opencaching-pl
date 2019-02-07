@@ -106,4 +106,3 @@ class CacheSetsListController extends BaseController
     }
 
 }
-

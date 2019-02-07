@@ -241,13 +241,6 @@ $founds = XDb::xMultiVariableQueryValue(
     }
 </script>
 
-
-<script>
-    $(function () {
-        $('#scriptwarning').hide();
-    });
-</script>
-
 <form action="log.php" method="post" enctype="application/x-www-form-urlencoded" name="logform" id="logform" dir="ltr" onsubmit="return onSubmitHandler()" >
     <input type="hidden" name="cacheid" value="{cacheid}"/>
     <input type="hidden" name="version2" value="1"/>
@@ -335,7 +328,6 @@ $founds = XDb::xMultiVariableQueryValue(
             <br><div class="notice">{{GKApi19}} {{GKApi27}}</div>
         </div>
         <div class="buffer"></div>
-        <p id="scriptwarning" class="errormsg">{{javascript_edit_info}}</p>
         <img src="tpl/stdstyle/images/free_icons/page_edit.png" class="icon16" alt="">&nbsp;<span class="content-title-noshade-size12">{{comments_log}}:</span>
         <div class="buffer"></div>
         <textarea name="logtext" id="logtext" class="cachelog tinymce">{logtext}</textarea>

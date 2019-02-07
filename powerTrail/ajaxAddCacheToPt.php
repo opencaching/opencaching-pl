@@ -299,5 +299,3 @@ function addCacheToCacheCandidate($cacheId, $ptId)
     print 'cache added as cache candidate';
     exit;
 }
-
-

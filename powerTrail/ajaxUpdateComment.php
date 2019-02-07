@@ -30,5 +30,3 @@ $db->multiVariableQuery(
 );
 
 sendEmail::emailOwners($_REQUEST['ptId'], '', $logDateTime, $text, 'editComment');
-
-?>

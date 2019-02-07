@@ -74,14 +74,14 @@ class MainLayoutController extends BaseController
                 $this->view->setVar('_wikiLinkRules', $this->ocConfig->getWikiLink('rules'));
                 $this->view->setVar('_wikiLinkPrivacyPolicy',
                     (empty($this->ocConfig->getWikiLinks()['privacyPolicy'])) ? null : $this->ocConfig->getWikiLink('privacyPolicy'));
-                $this->view->setVar('_ocTeamEmail', $this->ocConfig->getOcteamEmailAddress());
+                $this->view->setVar('_ocTeamEmail', OcConfig::getEmailAddrOcTeam());
             }
         } else {
             $this->view->setVar('_isUserLogged', false);
             $this->view->setVar('_target',Uri::getCurrentUri(true));
         }
 
-        $this->view->setVar('_siteName', $config['siteName']);
+        $this->view->setVar('_siteName', OcConfig::getSiteName());
         $this->view->setVar('_favicon', '/images/'.$config['headerFavicon']);
         $this->view->setVar('_appleLogo', $config['header']['appleLogo']);
 

@@ -100,7 +100,7 @@ $cachelogscount = XDb::xSimpleQueryValue(
 
     echo '<tr class="bgcolor2">' .
         '<td align="center">&nbsp;&nbsp;<b>' . tr('ranking') . '</b>&nbsp;&nbsp;</td>' .
-        '<td align="center"><b>' . tr('shared_place') . '</b></td>' .
+        '<td align="center"><b>' . tr('Position') . '</b></td>' .
         '<td align="center"><b>' . tr('number_found_caches') . '</b></td>' .
         '<td align="center">&nbsp;&nbsp;<b>' . tr('username') . '</b>&nbsp;&nbsp;</td></tr><tr><td>';
 

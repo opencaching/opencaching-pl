@@ -8,4 +8,3 @@ case 'cachevalidator':
 include("cachevalidator.php");
 break;
 }
-?>

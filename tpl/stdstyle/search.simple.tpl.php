@@ -371,9 +371,6 @@
   <form name="optionsform" style="display:inline;" action="search.php" method="post">
     <table class="table full-width">
       <tr>
-        <td class="buffer" colspan="2"><span id="scriptwarning" class="errormsg">{{no_javascript}}</span></td>
-      </tr>
-      <tr>
         <td class="content-title-noshade" style="width: 200px;">{{omit_caches}}:</td>
         <td class="content-title-noshade">
           <input type="checkbox" name="f_inactive" value="1" id="l_inactive" class="checkbox" onclick="javascript:sync_options(this)" {f_inactive_checked} /> <label for="l_inactive">{{not_active}}</label> &nbsp;
@@ -953,8 +950,7 @@
 <div class="buffer"></div>
 
 <script>
-    document.getElementById("scriptwarning").firstChild.nodeValue = "";
-    // erweiterte attribute ausblenden, falls kein erweitertes attribute selektiert
+    // hide extended attributes if no extended attribute is selected
     var i = 0;
     var bHide = true;
     for (i = 0; i < maAttributes.length; i++)

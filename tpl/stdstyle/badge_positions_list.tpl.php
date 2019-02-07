@@ -30,7 +30,7 @@ use Utils\I18n\I18n;
     gct.addColumn('string', '<?php echo tr("owner") ?>', 'font-size: 12px; ' ); //2
     gct.addColumn('string', '<?php echo tr("merit_badge_gain_date") ?>', 'font-size: 12px; ' ); //3
 
-    gct.addChartOption('sortColumn', 3 ); //Data
+    gct.addChartOption('sortColumn', 3 ); //Date
     gct.addChartOption('sortAscending', false );
     gct.addChartOption('pageSize', 30);
 </script>
@@ -41,5 +41,3 @@ gct.drawChart();
 </script>
 
 <br>
-
-

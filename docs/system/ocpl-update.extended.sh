@@ -88,9 +88,9 @@ if [ "$DO_LOG" == "1" ]; then
     echo "- GIT update completed."              | logger ${LOG_LEVEL}
     echo                            | logger ${LOG_LEVEL}
 
-    # run OKAPI update
-    echo "Running OKAPI update scripts..."          | logger ${LOG_LEVEL}
-    wget -O - -q http://${SITE_NAME}/okapi/update       | logger ${LOG_LEVEL}
+    # run update
+    echo "Running update scripts..."          | logger ${LOG_LEVEL}
+    wget -O - -q http://${SITE_NAME}/update       | logger ${LOG_LEVEL}
     echo "--- Done."                        | logger ${LOG_LEVEL}
     echo                            | logger ${LOG_LEVEL}
     )
@@ -107,7 +107,7 @@ else
     ${SUDO_CMD} ${CMD_POST} 2>&1 > /dev/null
     fi
 
-    # run OKAPI update
-    wget -O - -q http://${SITE_NAME}/okapi/update 2>&1 > /dev/null
+    # run update
+    wget -O - -q http://${SITE_NAME}/update 2>&1 > /dev/null
     )
 fi

@@ -148,5 +148,3 @@ function search_text2sort($str)
 
     return $str;
 }
-
-?>

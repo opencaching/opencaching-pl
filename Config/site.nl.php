@@ -1,11 +1,27 @@
 <?php
 
-use lib\Objects\GeoCache\GeoCacheCommons;
-
 /**
-  * Configuration of general site properties of OC NL
+ * Configuration of general site properties of OC NL
  */
 
+/**
+ * Primary countries for this node.
+ */
 $site['primaryCountries'] = ['NL', 'BE', 'LU'];
 
-$site['enabledCacheSizes'][] = GeoCacheCommons::SIZE_NANO;
+/**
+ * Site name for the node
+ */
+$site['siteName'] = 'Opencaching.nl';
+
+/**
+ * Page title (to display on the browser titlebar)
+ */
+$site['pageTitle'] = 'Opencaching.nl';
+
+/**
+ * NodeId: globally unique ID of opencaching node
+ * @see https://wiki.opencaching.eu/index.php?title=Node_IDs
+ */
+$site['ocNodeId'] = 14;
+

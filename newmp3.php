@@ -2,6 +2,7 @@
 
 use Utils\Database\XDb;
 use Utils\Generators\Uuid;
+use lib\Objects\OcConfig\OcConfig;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
@@ -159,7 +160,7 @@ if ($error == false) {
                                               `object_id`, `object_type`, `user_id`, `local`, `display`, `node`, `seq`)
                             VALUES (? , ?, NOW(), ?, NOW(), NOW(), ?, ?, ?, 1, ?, ?, ?)",
                             $uuid, $mp3url . '/' . $uuid . '.' . $extension, $title, $objectid,
-                            $type, $usr['userid'], ($bNoDisplay == 1) ? '0' : '1', $oc_nodeid, $def_seq_m);
+                            $type, $usr['userid'], ($bNoDisplay == 1) ? '0' : '1', OcConfig::getSiteNodeId(), $def_seq_m);
 
                         switch ($type) {
                             // log
@@ -231,4 +232,3 @@ if ($error == false) {
 
 //make the template and send it out
 tpl_BuildTemplate();
-

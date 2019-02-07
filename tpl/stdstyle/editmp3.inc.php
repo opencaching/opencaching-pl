@@ -1,8 +1,8 @@
 <?php
 
-tpl_set_var('mail_oc', $mail_oc);
+use lib\Objects\OcConfig\OcConfig;
 
-$submit = 'Wyślij';
+tpl_set_var('mail_oc', OcConfig::getEmailAddrTechAdmin());
 
 $mp3typedesc_cache = tr('editmp3_06');
 $mp3typedesc_log = tr('editmp3_07');
@@ -19,4 +19,3 @@ $message_title_wrongext = tr('editmp3_13');
 $message_wrongext = tr('editmp3_14');
 
 $message_mp3_not_found = tr('editmp3_15');
-?>

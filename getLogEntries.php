@@ -269,7 +269,13 @@ foreach ($logEntries as $record) {
             WHERE `object_id`=:1 AND `object_type`=1";
         $s = $dbc->multiVariableQuery($thatquery, $record['logid']);
 
-        while( $pic_record = $dbc->dbResultFetch($s)) {
+        $pictures = 0;
+        while ($pic_record = $dbc->dbResultFetch($s)) {
+
+            if (++$pictures > 4) {
+                $logpicturelines .= '<div style="clear:both"></div>';
+                $pictures -= 4;
+            }
 
             if (!isset($showspoiler)){
                $showspoiler = '';

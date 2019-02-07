@@ -12,6 +12,7 @@ use lib\Objects\User\User;
 use Utils\Debug\Debug;
 use Utils\EventHandler\EventHandler;
 use Utils\I18n\I18n;
+use Utils\Text\Validator;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
@@ -94,6 +95,10 @@ tpl_set_var('size_message', '');
 tpl_set_var('type_message', '');
 tpl_set_var('diff_message', '');
 tpl_set_var('region_message', '');
+tpl_set_var('wp_gc_message', '');
+tpl_set_var('wp_tc_message', '');
+tpl_set_var('wp_nc_message', '');
+tpl_set_var('wp_ge_message', '');
 // configuration variables needed in translation strings
 tpl_set_var('limits_promixity', $config['oc']['limits']['proximity']);
 tpl_set_var('short_sitename', $short_sitename);
@@ -624,8 +629,26 @@ if (isset($_POST['submitform'])) {
         $diff_not_ok = true;
     }
 
+    // foreign waypoints
+    $all_wp_ok = true;
+
+    foreach (['gc', 'nc', 'tc', 'ge'] as $wpType) {
+        $wpVar = 'wp_'.$wpType;
+
+        if (${$wpVar} != '') {
+            $validatedCode = Validator::xxWaypoint($wpType, ${$wpVar});
+            if ($validatedCode !== false) {
+                ${$wpVar} = $validatedCode;
+            } else {
+                $all_wp_ok = false;
+                tpl_set_var('wp_'.$wpType.'_message', ${'invalid_'.$wpVar.'_message'});
+            }
+        }
+    }
+    unset($wpVar);
+
     // no errors?
-    if (! ($name_not_ok || $hidden_date_not_ok || $activation_date_not_ok || $lon_not_ok || $lat_not_ok || $desc_html_not_ok || $time_not_ok || $way_length_not_ok || $size_not_ok || $type_not_ok || $diff_not_ok || $region_not_ok)) {
+    if (! ($name_not_ok || $hidden_date_not_ok || $activation_date_not_ok || $lon_not_ok || $lat_not_ok || $desc_html_not_ok || $time_not_ok || $way_length_not_ok || $size_not_ok || $type_not_ok || $diff_not_ok || $region_not_ok || !$all_wp_ok)) {
         // sel_status
         $now = getdate();
         $today = mktime(0, 0, 0, $now['mon'], $now['mday'], $now['year']);
@@ -663,7 +686,10 @@ if (isset($_POST['submitform'])) {
                         `date_created` = NOW(), `type` = ?, `status` = ?, `country` = ?, `date_hidden` = ?, `date_activate` = ?,
                         `founds` = 0, `notfounds` = 0, `watcher` = 0, `notes` = 0, `last_found` = NULL, `size` = ?, `difficulty` = ?,
                         `terrain` = ?, `uuid` = ?, `logpw` = ?, `search_time` = ?, `way_length` = ?, `wp_gc` = ?,
-                        `wp_nc` = ?, `wp_ge` = ?, `wp_tc` = ?, `node` = ? ", $usr['userid'], $name, $longitude, $latitude, $sel_type, $sel_status, $sel_country, date('Y-m-d', $hidden_date), $activation_date, $sel_size, $difficulty, $terrain, $cache_uuid, $log_pw, $search_time, $way_length, $wp_gc, $wp_nc, $wp_ge, $wp_tc, $oc_nodeid);
+                        `wp_nc` = ?, `wp_ge` = ?, `wp_tc` = ?, `node` = ? ",
+            $usr['userid'], $name, $longitude, $latitude, $sel_type, $sel_status, $sel_country,
+            date('Y-m-d', $hidden_date), $activation_date, $sel_size, $difficulty, $terrain, $cache_uuid,
+            $log_pw, $search_time, $way_length, $wp_gc, $wp_nc, $wp_ge, $wp_tc, OcConfig::getSiteNodeId());
 
         $cache_id = XDb::xLastInsertId();
 
@@ -697,10 +723,13 @@ if (isset($_POST['submitform'])) {
         // add record to cache_desc table
         $desc = UserInputFilter::purifyHtmlString($desc);
 
-        $db->multiVariableQuery("INSERT INTO `cache_desc` (
-                        `cache_id`, `language`, `desc`, `hint`,
+        $db->multiVariableQuery(
+            "INSERT INTO `cache_desc` (
+                         `cache_id`, `language`, `desc`, `hint`,
                         `short_desc`, `last_modified`, `uuid`, `node`, `rr_comment` )
-                    VALUES (:1, :2, :3, :4, :5, NOW(), :6, :7, :8)", $cache_id, $sel_lang, $desc, nl2br(htmlspecialchars($hints, ENT_COMPAT, 'UTF-8')), $short_desc, $desc_uuid, $oc_nodeid, '');
+            VALUES (:1, :2, :3, :4, :5, NOW(), :6, :7, :8)",
+            $cache_id, $sel_lang, $desc, nl2br(htmlspecialchars($hints, ENT_COMPAT, 'UTF-8')),
+            $short_desc, $desc_uuid, OcConfig::getSiteNodeId(), '');
 
         GeoCache::setCacheDefaultDescLang($cache_id);
 
@@ -742,7 +771,7 @@ function buildCacheSizeSelector($sel_type, $sel_size)
     $sizes = '<option value="-1" disabled selected="selected">' . tr('select_one') . '</option>';
     foreach (GeoCacheCommons::CacheSizesArray() as $size) {
 
-        if (!in_array($size, OcConfig::instance()->getSiteConfig()['enabledCacheSizes'])) {
+        if (!in_array($size, OcConfig::instance()->getGeoCacheConfig('enabledSizes'))) {
             continue;
         }
 

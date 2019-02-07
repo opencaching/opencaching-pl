@@ -6,6 +6,3 @@
 <br/>
 {content}
 <div class="notice">{{see_desc_myroute}} <a href="{wiki_link_myRoutes}" target="_blank">{{here}}</a>.</div>
-
-
-

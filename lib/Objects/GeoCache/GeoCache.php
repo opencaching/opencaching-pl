@@ -244,7 +244,9 @@ class GeoCache extends GeoCacheCommons
         switch (mb_strtoupper(mb_substr($wp, 0, 2))) {
             case 'GC': return 'wp_gc';
             case 'NC': return 'wp_nc';
-            case 'QC': return 'wp_qc';
+            case 'TC': return 'wp_tc';
+            case 'GE': return 'wp_ge';
+            case 'QC': return 'wp_qc';  // obsolete
             default: return 'wp_oc';
         }
     }
@@ -1303,7 +1305,7 @@ class GeoCache extends GeoCacheCommons
                     AND cache_attrib.language = ?
                     AND caches_attributes.cache_id = ?
                 ORDER BY cache_attrib.category, cache_attrib.id",
-            strtoupper(I18n::getLangForDbTranslations('cache_attrib')), $this->getCacheId());
+            strtoupper(I18n::getCurrentLang()), $this->getCacheId());
 
         if (XDb::xNumRows($s) == 0) {
             //TODO: there can be a lack of cache attrib translation in current language - then retrive translation in english

@@ -10,4 +10,3 @@ $last_img_inactive = '<img src="/tpl/stdstyle/images/action/16x16-last_inactive.
 $first_img_inactive = '<img src="/tpl/stdstyle/images/action/16x16-first_inactive.png" alt="&lt;&lt;">';
 
 $tpl_line = '<tr><td style="width: 70px;">{date}</td><td></td><td style="width: 22px;">{gkimage}</td><td style="width: 22px;">{GPicon}</td><td style="width: 22px;">{log_image}</td><td style="width: 22px;"><img src="{imglink}" class="icon16" alt="" title="{cachetype}" style="margin-top:4px;"></td><td><b><a class="links" href="viewcache.php?cacheid={cacheid}">{cachename}</a></b></td><td><span class="txt-blue10">{region}</span></td><td><b><a class="links" href="viewprofile.php?userid={userid}">{username}</a></b></td></tr>';
-?>

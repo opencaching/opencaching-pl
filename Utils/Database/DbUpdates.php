@@ -3,10 +3,11 @@ namespace Utils\Database;
 
 use Exception;
 use Utils\Generators\Uuid;
+use okapi\Facade;
 
 /**
  * Static container of DbUpdate objects, each representing one of the scripts
- * in the Updates directory.
+ * in the Updates directory, + some DB updating logic.
  */
 
 class DbUpdates
@@ -16,28 +17,6 @@ class DbUpdates
      *    ordered ascending by filename; read access only via get() / getAll()
      */
     private static $updates = null;
-
-    /**
-     * Runs all updates that did not run yet (or were rolled back) and have
-     * no 'autorun'=false property.
-     *
-     * @return string
-     *    multiline English plain text, diagnostic notices, should be displayed
-     *    to the operator / developer if the update was run manually.
-     */
-    public static function run()
-    {
-        $messages = '';
-        foreach (self::getAll() as $uuid => $update) {
-            if ($update->shouldRun()) {
-                $messages .= $update->run();
-            }
-        }
-        if ($messages == '') {
-            $messages = "no updates to run\n";
-        }
-        return $messages;
-    }
 
     /**
      * @return string
@@ -65,12 +44,14 @@ class DbUpdates
         $developerName = str_replace(['"', "'", "\\"], '', $developerName);
         $creationDate = date('Y-m-d');
         $uuid = Uuid::create();
+        $className = 'C' . str_replace('.', '', microtime(true));
 
         $updatesDir = self::getUpdatesDir();
         $template = file_get_contents($updatesDir . '/template.php');
         $template = str_replace('{creation_date}', $creationDate, $template);
         $template = str_replace('{developer_name}', $developerName, $template);
         $template = str_replace('{update_uuid}', $uuid, $template);
+        $template = str_replace('{class_name}', $className, $template);
 
         $name = self::getNextVersionNumberString() . '_new';
         $path = $updatesDir . '/' . $name . '.php';
@@ -205,5 +186,71 @@ class DbUpdates
     public static function getUpdatesDir()
     {
         return __DIR__ . '/Updates';
+    }
+
+
+    /**
+     * Update DB triggers, procedures and functions
+     */
+     public static function updateRoutines()
+     {
+        $routines = self::getRoutineFileNames();
+        $messages = '';
+
+        foreach ($routines as $fileName => $lastRun) {
+            if (!$lastRun ||
+                $lastRun['fileTime'] != self::routineFileModified($fileName)
+            ) {
+                $messages .= self::runRoutines($fileName);
+            }
+        }
+        return $messages;
+    }
+
+    public static function runRoutines($fileName)
+    {
+        $queries = self::getRoutineContents($fileName);
+        if (substr($queries, 0, 10) != 'DELIMITER ') {
+            throw new Exception('DELIMITER statement is missing in '.$fileName);
+        }
+        OcDb::instance(OcDb::ADMIN_ACCESS)->simpleQueries($queries);
+
+        Facade::cache_set(
+            'run '.$fileName,
+            ['fileTime' => self::routineFileModified($fileName), 'runTime' => time()],
+            365 * 24 * 3600
+              // At least once a year, all routines are re-installed.
+        );
+        return 'run '.$fileName."\n";
+    }
+
+    /**
+     * @return array dictionary: .sql file path or name => filetime and last run time
+     */
+    public static function getRoutineFileNames()
+    {
+        $routineFilePaths = glob(self::getRoutinesPath('*.sql'));
+        $routines = [];
+
+        foreach ($routineFilePaths as $filePath) {
+            $fileName = basename($filePath);
+            $routines[$fileName] = Facade::cache_get('run '.$fileName);
+        }
+        return $routines;
+    }
+
+    public function getRoutineContents($fileName)
+    {
+        return file_get_contents(self::getRoutinesPath($fileName));
+    }
+
+    private function routineFileModified($fileName)
+    {
+        return filemtime(self::getRoutinesPath($fileName));
+    }
+
+    private static function getRoutinesPath($fileName)
+    {
+        return __DIR__ . '/../../resources/sql/routines/' . $fileName;
     }
 }

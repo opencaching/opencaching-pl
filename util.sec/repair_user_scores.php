@@ -97,4 +97,3 @@ class RepairUserScores
 
 $rus = new RepairUserScores();
 $rus->run();
-

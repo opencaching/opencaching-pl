@@ -68,17 +68,30 @@ class cookie
         global $config;
 
         if ($this->changed == true) {
-            if (count($this->values) == 0){
+
+            // Config setting for mobile cookies is missing. Use the main page
+            // setting and hack 'm.' into the domain.
+
+            $domain = $config['cookie']['domain'];
+            if (preg_match('/^(.+?)?open(.+?)$/', $domain, $matches)) {
+                if ($matches[1] == 'www.') {
+                    $domain = 'm.open'.$matches[2];
+                } else {
+                    $domain = $matches[1].'m.open'.$matches[2];
+                }
+            }
+
+            if (count($this->values) == 0) {
                 setcookie(
                     $config['cookie']['name'] . 'data', false,
                     time() + 31536000, $config['cookie']['path'],
-                    $config['cookie']['domain'], 0);
+                    $domain, 0);
             } else {
                 setcookie(
                     $config['cookie']['name'] . 'data',
                     base64_encode(json_encode($this->values)),
                     time() + 31536000, $config['cookie']['path'],
-                    $config['cookie']['domain'], 0);
+                    $domain, 0);
             }
         }
     }
@@ -90,5 +103,3 @@ class cookie
     }
 
 }
-
-

@@ -239,4 +239,3 @@ echo "document.FilterDate.DateTo.value = '" . $sData_do . "';";
 echo "</script>";
 
 unset($dbc);
-

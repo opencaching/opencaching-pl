@@ -235,15 +235,6 @@ final class Settings
          * This setting allow to decide which way should be used for local node.
          */
         'USE_SQL_SUBQUERIES' => false,
-
-        /**
-         * Optional external, additional autoloader used to call classes that reside outside
-         * of OKAPI. It should be a path to the php external autoload script which can be
-         * directly included
-         *
-         * Currently used for OCPL UserInputFilter.
-         */
-        'EXTERNAL_AUTOLOADER' => null,
     );
 
     /**
@@ -279,8 +270,6 @@ final class Settings
     {
         if (!in_array($dict['OC_BRANCH'], array('oc.pl', 'oc.de')))
             throw new Exception("Currently, OC_BRANCH has to be either 'oc.pl' or 'oc.de'. Hint: Whom did you get your code from?");
-        if ($dict['OC_BRANCH'] == 'oc.pl' && $dict['EXTERNAL_AUTOLOADER'] === null)
-            throw new Exception("OCPL autoloader is not configured");
         $boolean_keys = array('DEBUG', 'DEBUG_PREVENT_EMAILS', 'DEBUG_PREVENT_SEMAPHORES', 'USE_SQL_SUBQUERIES');
         foreach ($boolean_keys as $key)
             if (!in_array($dict[$key], array(true, false)))
@@ -318,6 +307,19 @@ final class Settings
         # The OKAPI code is only compatible with utf8 and utf8mb4 charsets.
         if (!in_array($dict['DB_CHARSET'], array('utf8', 'utf8mb4'))) {
             throw new exception("DB_CHARSET must be utf8 or utf8mb4.");
+        }
+
+        # SITELANG setting in OCPL okapi-settings.php is broken. We maintain
+        # an own OCPL language directory to work around that.
+        # See https://wiki.opencaching.eu/index.php?title=Node_IDs
+
+        if ($dict['OC_BRANCH'] == 'oc.pl') {
+            switch ($dict['OC_NODE_ID']) {
+                case 2: $dict['SITELANG'] = 'pl'; break;
+                case 3: $dict['SITELANG'] = 'cs'; break;
+                case 14: $dict['SITELANG'] = 'nl'; break;
+                case 16: $dict['SITELANG'] = 'ro'; break;
+            }
         }
     }
 

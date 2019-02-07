@@ -78,4 +78,3 @@ abstract class AbstractColumn {
         return $this->additionalClass;
     }
 }
-

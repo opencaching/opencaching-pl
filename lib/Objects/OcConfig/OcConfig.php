@@ -2,10 +2,9 @@
 
 namespace lib\Objects\OcConfig;
 
-use Utils\Email\Email;
-
 final class OcConfig extends ConfigReader
 {
+    use EmailConfigTrait, SiteConfigTrait, I18nConfigTrait;
 
 /*
     const OCNODE_GERMANY    = 1;  // Opencaching Germany http://www.opencaching.de OC
@@ -27,11 +26,7 @@ final class OcConfig extends ConfigReader
     private $debugMode = false;
     private $dbDatetimeFormat = 'Y-m-d H:i:s';
     private $datetimeFormat = 'Y-m-d H:i';
-    private $ocNodeId = null;
     private $absolute_server_URI = null;
-    private $octeamEmailsSignature = null;
-    private $octeamEmailAddress;
-    private $siteName;
     private $dynamicFilesPath;
     private $powerTrailModuleSwitchOn;
     private $googleMapKey;
@@ -39,20 +34,14 @@ final class OcConfig extends ConfigReader
     private $mainPageMapCenterLon;
     private $mainPageMapZoom;
     private $siteInService = false;
-    private $pagetitle;
     private $pictureDirectory;
     private $pictureUrl;
-    private $contactMail;
     private $dateFormat;
-    private $noreplyEmailAddress;
     private $mapsConfig;            //settings.inc: $config['mapsConfig']
     private $headerLogo;
     private $shortSiteName;
     private $needFindLimit;
     private $needApproveLimit;
-    private $cogEmailAddress;
-    private $mailSubjectPrefixForSite;
-    private $mailSubjectPrefixForReviewers;
     private $enableCacheAccessLogs;
     private $minumumAge;
     private $meritBadgesEnabled;
@@ -64,16 +53,15 @@ final class OcConfig extends ConfigReader
     private $dbHost;
     private $dbName;
 
-    /** @var array general site properties */
-    private $siteConfig;
-
-    /** @var array of i18n settings */
-    private $i18nConfig;
-
     /** @var array the \Utils\Lock objects configuration array */
     private $lockConfig;
+
+    /** @var array the watchlist configuration array */
+    private $geoCacheConfig;
+
     /** @var array the watchlist configuration array */
     private $watchlistConfig;
+
     /** @var array the logfilter configuration array */
     private $logfilterConfig;
 
@@ -126,12 +114,7 @@ final class OcConfig extends ConfigReader
 
         $this->debugMode = $debug_page;
         $this->datetimeFormat = $datetimeFormat;
-        $this->ocNodeId = $oc_nodeid;
         $this->absolute_server_URI = $absolute_server_URI;
-        $this->octeamEmailsSignature = $octeamEmailsSignature;
-        $this->octeamEmailAddress = $octeam_email;
-        $this->cogEmailAddress = $mail_cog;
-        $this->siteName = $site_name;
         $this->dynamicFilesPath = $dynbasepath;
         $this->powerTrailModuleSwitchOn = $powerTrailModuleSwitchOn;
         $this->googleMapKey = $googlemap_key;
@@ -139,18 +122,13 @@ final class OcConfig extends ConfigReader
         $this->mainPageMapCenterLon = $main_page_map_center_lon;
         $this->mainPageMapZoom = $main_page_map_zoom;
         $this->siteInService = $site_in_service;
-        $this->pagetitle = $pagetitle;
         $this->pictureDirectory = $picdir;
         $this->pictureUrl = $picurl;
-        $this->contactMail = $contact_mail;
         $this->dateFormat = $dateFormat;
-        $this->noreplyEmailAddress = $emailaddr;
         $this->headerLogo = $config['headerLogo'];
         $this->shortSiteName = $short_sitename;
         $this->needApproveLimit = $NEED_APPROVE_LIMIT;
         $this->needFindLimit = $NEED_FIND_LIMIT;
-        $this->mailSubjectPrefixForSite = $subject_prefix_for_site_mails;
-        $this->mailSubjectPrefixForReviewers = $subject_prefix_for_reviewers_mails;
         $this->enableCacheAccessLogs = $enable_cache_access_logs;
         $this->minumumAge = $config['limits']['minimum_age'];
         $this->meritBadgesEnabled = $config['meritBadges'];
@@ -200,11 +178,6 @@ final class OcConfig extends ConfigReader
         return $this->datetimeFormat;
     }
 
-    public function getPageTitle()
-    {
-        return $this->pagetitle;
-    }
-
     /**
      * Returns array of wiki-links readed from config
      * @return array
@@ -244,33 +217,9 @@ final class OcConfig extends ConfigReader
         return self::instance()->absolute_server_URI;
     }
 
-    public static function getOcteamEmailsSignature()
-    {
-        return self::instance()->octeamEmailsSignature;
-    }
-
-    public function getOcNodeId()
-    {
-        return $this->ocNodeId;
-    }
-
     public function getDbDateTimeFormat()
     {
         return $this->dbDatetimeFormat;
-    }
-
-    public static function getSiteName()
-    {
-        return self::instance()->siteName;
-    }
-
-    public function getOcteamEmailAddress()
-    {
-        $addr = self::instance()->octeamEmailAddress;
-        if (!Email::isValidEmailAddr($addr)) {
-            throw new \Exception('Invalid OC team email address setting');
-        }
-        return $addr;
     }
 
     public static function getDynFilesPath()
@@ -293,14 +242,7 @@ final class OcConfig extends ConfigReader
         return $this->powerTrailModuleSwitchOn;
     }
 
-    public static function getNoreplyEmailAddress()
-    {
-        $addr = self::instance()->noreplyEmailAddress;
-        if (!Email::isValidEmailAddr($addr)) {
-            throw new \Exception('Invalid noreply email address setting');
-        }
-        return $addr;
-    }
+
 
     public function isCacheAccesLogEnabled()
     {
@@ -354,18 +296,8 @@ final class OcConfig extends ConfigReader
         return $this->dbName;
     }
 
-    public static function getTechAdminsEmailAddr()
-    {
-        //it will be implemented in a future
-        //currently this is only a stub...
-        global $mail_rt;
 
-        if (!Email::isValidEmailAddr($mail_rt)) {
-            throw new \Exception('Invalid mail_rt setting');
-        }
 
-        return $mail_rt;
-    }
 
     public static function getHeaderLogo()
     {
@@ -387,24 +319,6 @@ final class OcConfig extends ConfigReader
         return self::instance()->needApproveLimit;
     }
 
-    public static function getCogEmailAddress()
-    {
-        $addr = self::instance()->cogEmailAddress;
-        if (!Email::isValidEmailAddr($addr)) {
-            throw new \Exception('Invalid COG email address setting');
-        }
-        return $addr;
-    }
-
-    public static function getMailSubjectPrefixForSite()
-    {
-        return self::instance()->mailSubjectPrefixForSite;
-    }
-
-    public static function getMailSubjectPrefixForReviewers()
-    {
-        return self::instance()->mailSubjectPrefixForReviewers;
-    }
 
     /**
      * Gives \Utils\Lock objects configuration, tries to initialize it if null
@@ -420,29 +334,17 @@ final class OcConfig extends ConfigReader
         return $this->lockConfig;
     }
 
-    /**
-     * Gives site properties, tries to initialize it if null
-     *
-     * @return array site properties
-     */
-    public function getSiteConfig()
-    {
-        if ($this->siteConfig == null) {
-            $this->siteConfig = self::getConfig("site", "site");
 
-            if (!isset($this->siteConfig['primaryCountries'])) {
-                throw new \Exception("primaryCountries config is missing for this site");
-            }
-        }
-        return $this->siteConfig;
-    }
-
-    public function getI18Config()
+    public function getGeoCacheConfig($setting = null)
     {
-        if ($this->i18nConfig == null) {
-            $this->i18nConfig = self::getConfig("i18n");
+        if ($this->geoCacheConfig == null) {
+            $this->geoCacheConfig = self::getConfig("geocache", "geocache");
         }
-        return $this->i18nConfig;
+        if ($setting !== null) {
+            return $this->geoCacheConfig[$setting];
+        } else {
+            return $this->geoCacheConfig;
+        }
     }
 
     /**
@@ -502,6 +404,8 @@ final class OcConfig extends ConfigReader
         }
         return $this->guidesConfig;
     }
+
+
 
     public function getCronjobSchedule($job = null)
     {

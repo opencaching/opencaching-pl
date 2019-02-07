@@ -17,5 +17,3 @@ return function (){
 <!-- End of Crowdin-in-context chunk -->
 <?php
 }; //end of chunk
-
-

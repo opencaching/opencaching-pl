@@ -172,7 +172,7 @@ class MeritBadgeController{
             return new $obj; //0 positions
                 
         //if it cache, take only active
-        if ( self::$_trigger_type[ $meritBadge->getTriggerType() ]  == 'C' ) 
+        if ( self::$_trigger_type[ $meritBadge->getTriggerType() ]  == 'C' )
             $query = mb_ereg_replace( ' WHERE ', ' WHERE ' . ' caches.status=1 and ', $query);
         
         $stm = $this->db->multiVariableQuery( $query );
@@ -269,7 +269,7 @@ class MeritBadgeController{
         
     
     private function patternHtmlChangeLevelMeritBadges($firstEl){
-        $header = "<p style='font-size:12px; font-weight:bold; color:green; text-decoration: underline;'>" 
+        $header = "<p style='font-size:12px; font-weight:bold; color:green; text-decoration: underline;'>"
                 .tr('merit_badge_gain_next_level')."</p><br>" ;
         $htmlNewElement = "<hr><br>";
 

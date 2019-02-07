@@ -23,7 +23,7 @@ class UserNotify extends BaseObject
     {
         return boolval(self::db()->multiVariableQueryValue('
             SELECT notify_logs FROM user
-            WHERE user_id=:1 
+            WHERE user_id=:1
               AND ('.($countInactiveUsers?'TRUE':'user.is_active_flag = 1').')
             LIMIT 1', 0, $userId));
     }

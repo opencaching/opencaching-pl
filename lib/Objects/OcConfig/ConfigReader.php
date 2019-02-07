@@ -2,7 +2,6 @@
 
 namespace lib\Objects\OcConfig;
 
-use lib\Objects\ApplicationContainer;
 use Utils\Debug\Debug;
 
 /**
@@ -23,14 +22,13 @@ use Utils\Debug\Debug;
  * Node-id is stored read from local site-config.
  *
  */
-
 abstract class ConfigReader
 {
     const CONFIG_DIR = __DIR__.'/../../../Config/';
     const MENU_DIR = self::CONFIG_DIR.'Menu/';
-    const LEGACY_LOCAL_CONFIG = __DIR__.'/../../settingsGlue.inc.php';
 
-    const CONFIG_PREFIX = 'config';
+    const LEGACY_LOCAL_CONFIG = __DIR__.'/../../settingsGlue.inc.php';
+    const LOCAL_CONFIG = self::CONFIG_DIR.'site.local.php';
 
     const LINKS_PREFIX = 'links';
 
@@ -42,9 +40,10 @@ abstract class ConfigReader
     const MENU_HORIZONTAL_BAR = 'horizontalBarMenu';
     const MENU_ADDITIONAL_PAGES = 'additionalPages';
 
+    /** ocNode identifier loaded form local site-settings: pl|ro|nl|uk|... */
+    private $ocNode = null;
 
     protected $links = null;
-
 
     protected function __construct()
     {
@@ -156,52 +155,65 @@ abstract class ConfigReader
      */
     public static function getOcNode()
     {
-        if(!is_null($ocNode = ApplicationContainer::GetOcNode())){
-            return $ocNode;
+        if (!is_null(static::instance()->ocNode)) {
+            return static::instance()->ocNode;
         }
 
         // try to load from legacy config file
-        if(is_file(self::LEGACY_LOCAL_CONFIG)){
-            include self::LEGACY_LOCAL_CONFIG;
-
-            if(!isset($config['ocNode'])){
-                Debug::errorLog(__METHOD__.": ERROR: Can't read config['ocNode'] value".
-                    "from file: ".self::LEGACY_LOCAL_CONFIG);
-
-                $config['ocNode'] = "pl";
-            }
-
-            ApplicationContainer::SetOcNode($config['ocNode']);
-            return $config['ocNode'];
+        $ocNode = self::getNodeIdFromLegacyConfig();
+        if (!is_null($ocNode)) {
+            self::setOcNode($ocNode);
+            return $ocNode;
         }
 
+
         // try to load from local config file
-        $localConfigFile = self::CONFIG_DIR.self::CONFIG_PREFIX.'.local.php';
+        $ocNode = self::getNodeIdFromConfig();
+        if (!is_null($ocNode)) {
+            self::setOcNode($ocNode);
+            return $ocNode;
+        }
+
+        throw new \Exception("Can't locate both legacy and non-legacy config files:".
+            self::LEGACY_LOCAL_CONFIG.' and '.self::LOCAL_CONFIG);
+    }
+
+    private static function getNodeIdFromConfig()
+    {
+        $localConfigFile = self::LOCAL_CONFIG;
 
         if(is_file($localConfigFile)){
             include $localConfigFile;
 
             if(!isset($config['ocNode'])){
-                Debug::errorLog(__METHOD__.": ERROR: Can't read config['ocNode'] value".
-                    "from file: $localConfigFile");
+                $config['ocNode'] = "pl";
+            }
+            return $config['ocNode'];
+        }
+        return null;
+    }
 
+    private static function getNodeIdFromLegacyConfig()
+    {
+        // try to load from legacy config file
+        if(is_file(self::LEGACY_LOCAL_CONFIG)){
+            include self::LEGACY_LOCAL_CONFIG;
+
+            if(!isset($config['ocNode'])){
                 $config['ocNode'] = "pl";
             }
 
-            ApplicationContainer::SetOcNode($config['ocNode']);
             return $config['ocNode'];
         }
-
-        Debug::errorLog(__METHOD__.": ERROR: Can't locate both legacy and non-legacy config files:".
-            self::LEGACY_LOCAL_CONFIG.' and '.$localConfigFile);
-
-        // TODO: how to handle such error !?
-        echo "FATAL-ERROR!";
-        exit;
-
+        return null;
     }
+
+
+    private static function setOcNode($ocNode)
+    {
+        static::instance()->ocNode = $ocNode;
+    }
+
 
     abstract public static function instance();
 }
-
-

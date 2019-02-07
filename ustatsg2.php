@@ -119,4 +119,3 @@ $content .= '<p style="margin-left: 125px;"><img src="/images/statpics/mapstat' 
 tpl_set_var('content', $content);
 
 tpl_BuildTemplate();
-

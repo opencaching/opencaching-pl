@@ -10,31 +10,6 @@ date_default_timezone_set('Europe/Warsaw');
 // country-id of the running node: pl|ro|nl...
 $config['ocNode'] = 'pl';
 
-//pagetitle
-if (!isset($pagetitle))
-    $pagetitle = 'Geocaching Opencaching Polska';
-
-//site name
-$site_name = 'localhost';
-
-// Used OC number nodes and name of waypoints :
-// 1 Opencaching Germany http://www.opencaching.de OC
-// 2 Opencaching Poland http://www.opencaching.pl OP
-// 3 Opencaching Czech http://www.opencaching.cz OZ
-// 4 Local Development AA
-// 5 free
-// 6 Opencaching Great Britain http://www.opencaching.org.uk OK
-// 7 Opencaching Sweden http://www.opencaching.se OS =>OC Scandinavia
-// 8 free
-// 9 free
-// 10 Opencaching United States http://www.opencaching.us OU
-// 11 free
-// 12 Opencaching Russia http://www.opencaching.org.ru  (I don't know current status???)
-// 14 Opencaching Nederland https://www.opencaching.nl OB => OC Benelux
-// 16 Opencaching Romania http://www.opencaching.ro OR
-//
-//id of the node 4 for local development
-$oc_nodeid = 4;
 
 //OC Waypoint for your site for example OX
 $GLOBALS['oc_waypoint'] = 'OP';
@@ -74,9 +49,6 @@ $absolute_server_URI = '//localhost/';
 //then you can set $OKAPI_server_URI to another than $absolute_server_URI address.
 //$OKAPI_server_URI = 'http://localhost/';
 
-// EMail address of the sender
-if (!isset($emailaddr))
-    $emailaddr = 'noreply@localhost';
 
 // location for dynamically generated files
 $dynbasepath = '/var/www/ocpl-data/';
@@ -146,9 +118,6 @@ $opt['db']['password'] = $dbpasswd;
 $opt['db']['admin_username'] = 'ocdbua';
 $opt['db']['admin_password'] = 'AdminPassword';
 
-// warnlevel for sql-execution
-$sql_errormail = 'rt@localhost';
-$sql_warntime = 1;
 
 // replacements for sql()
 $sql_replacements['db'] = $dbname;
@@ -158,8 +127,6 @@ $sql_replacements['tmpdb'] = 'test';
 $googlemap_key = "";
 $googlemap_type = "G_MAP_TYPE"; // alternativ: _HYBRID_TYPE
 $googleAnalytics_key = '';      // google Analytics key: UA-XXXXX-Y - if not set google analytics will not be used
-
-$dberrormail = 'rt@localhost';
 
 //Links to blog page on oc site
 //NOT-USED: $blogsite_url = 'http://blog.opencaching.pl';
@@ -205,20 +172,6 @@ $rules_url = 'http://wiki.opencaching.pl/index.php/Regulamin_OC_PL';
 $cache_params_url = 'http://wiki.opencaching.pl/index.php/Parametry_skrzynki';
 $rating_desc_url = 'http://wiki.opencaching.pl/index.php/Oceny_skrzynek';
 
-$contact_mail = 'ocpl (at) localhost';
-// E-mail address group of people from OC Team who solve problems, verify cache
-$octeam_email = 'cog@localhost';
-
-// name of the sender for user-to-user notofications
-$mailfrom = 'opencaching.pl';
-$mailfrom_noreply = 'noreply@opencaching.pl';
-
-// signature of e-mails send by system
-$octeamEmailsSignature = "Pozdrawiamy, Zespół www.opencaching.pl";
-
-// watchlist config:
-$watchlistMailfrom = 'watch@opencaching.pl';
-
 // New caches outside country where server is:
 $SiteOutsideCountryString = 'poland_outside';
 $countryParamNewcacherestPhp = " 'PL' ";
@@ -256,11 +209,6 @@ $powerTrailUserMinimumCacheFoundToSetNewPowerTrail = 500;
 
 // enable detailed cache access logging
 //$enable_cache_access_logs = true;
-
-// OC specific email addresses for international use - here version for OC.PL.
-$mail_cog = 'cog@opencaching.pl';   // OCPL: reviewers and regional service for cachers
-$mail_rt = 'rt@opencaching.pl';     // OCPL: technical contact
-$mail_oc = 'ocpl@opencaching.pl';   // OCPL: general contact
 
 
 //Short sitename for international use.
@@ -517,10 +465,4 @@ $config['feed']['blog']['url'] = 'http://blog.opencaching.pl/feed/atom/';
 $config['feed']['blog']['posts'] = 5;
 $config['feed']['blog']['showAuthor'] = true;
 
-//To all mails send from our service we can add few prefixes:
-//If you don't want use global prefixes just set $value=""
-//Prefix for all mails sent to users:
-$subject_prefix_for_site_mails = "OCXX";
-//Prefix for all notification and mails sent to cache reviewers
-$subject_prefix_for_reviewers_mails = "R-Team";
 

@@ -10,7 +10,7 @@
             <col width="40px"/>
         </colgroup>
         <tr>
-            <td class="content-title-noshade">Geocache</td>
+            <td class="content-title-noshade">{{cache}}</td>
             <td>&nbsp;</td>
             <td style="text-align: center" class="content-title-noshade">{{off_ignore}}</td>
         </tr>
@@ -18,4 +18,3 @@
     </table>
     {no_ignores}
 </div>
-

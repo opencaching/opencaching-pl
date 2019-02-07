@@ -25,5 +25,3 @@ header("Content-Type: text/plain; charset=utf-8");
 # If this is a developer installation, then you should do updates by yourself.
 
 print shell_exec("sudo " . $config['server']['update']['script'] . " 2>&1");
-
-?>

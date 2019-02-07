@@ -88,6 +88,11 @@ if ($usr == false) {
         $pages .= '{last_img_inactive}';
     }
 
+    $dateOrderSql =
+        $user_id == $usr['userid']
+        ?  '`cache_logs`.`date` DESC, `cache_logs`.`date_created` DESC'
+        :  '`cache_logs`.`date_created` DESC, `cache_logs`.`date` DESC';
+
     $rs = XDb::xSql(
         "SELECT `cache_logs`.`id`
             FROM `cache_logs`, `caches`
@@ -98,7 +103,7 @@ if ($usr == false) {
                 AND `caches`.`status` != 5
                 AND `caches`.`status` != 6
                 AND `cache_logs`.`user_id`= ?
-            ORDER BY  `cache_logs`.`date_created` DESC, `cache_logs`.`date` DESC, `cache_logs`.`id` DESC
+            ORDER BY ".$dateOrderSql.", `cache_logs`.`id` DESC
             LIMIT ".intval($start).", ".intval($LOGS_PER_PAGE), $user_id);
 
     $log_ids = array();
@@ -129,7 +134,7 @@ if ($usr == false) {
                         AND gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5
                 WHERE cache_logs.deleted=0 AND cache_logs.id IN ( ".implode(',', $log_ids)." ) AND `cache_logs`.`user_id`= ? AND ".$logTypesCondition."
                 GROUP BY cache_logs.id
-                ORDER BY cache_logs.date_created DESC, `cache_logs`.`date` DESC, `cache_logs`.`id` DESC",
+                ORDER BY ".$dateOrderSql.", `cache_logs`.`id` DESC",
             $user_id);
 
         while ($log_record = XDb::xFetchArray($rs)) {

@@ -385,7 +385,7 @@ global $tpl_subtitle;
     }
 
     function topmenuTogle() {
-    	document.getElementById("topline-search-dropdown").classList.toggle("topline-dropdown-show");;
+        document.getElementById("topline-search-dropdown").classList.toggle("topline-dropdown-show");;
     }
   </script>
   <?php

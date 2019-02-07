@@ -23,8 +23,6 @@ $config['defaultLang'] = 'en';
 $config['supportedLanguages'] = ['pl', 'en', 'nl', 'ro'];
 
 
-
-
 /**
  * If node support crowdinInContext mode
  */
@@ -35,4 +33,3 @@ $config['crowdinInContextSupported'] = true;
  * See https://crowdin.com/project/oc-polish-code-translations/settings#in-context for details.
  */
 $config['crowdinInContextPseudoLang'] = 'aa';
-

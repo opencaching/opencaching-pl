@@ -2,6 +2,8 @@
 
 namespace okapi;
 
+use lib\Objects\OcConfig\OcConfig;
+
 function get_okapi_settings()
 {
     # This comment is here for all international OC developers. This
@@ -27,7 +29,8 @@ function get_okapi_settings()
 
     require(__DIR__.'/lib/settingsGlue.inc.php');  # (into the *local* scope)
 
-    return array(
+    # prepare settings for OKAPI
+    return [
         # These first section of settings is OKAPI-specific, OCPL's
         # settings.inc.php file does not provide them. For more
         # OKAPI-specific settings, see okapi/settings.php file.
@@ -37,15 +40,16 @@ function get_okapi_settings()
         # Copy the rest from settings.inc.php:
 
         'DATA_LICENSE_URL' => $config['okapi']['data_license_url'],
-        'ADMINS' => ($config['okapi']['admin_emails'] ? $config['okapi']['admin_emails'] : array($sql_errormail, 'rygielski@mimuw.edu.pl', 'following@online.de')),
-        'FROM_FIELD' => $emailaddr,
+        'ADMINS' => ($config['okapi']['admin_emails'] ? $config['okapi']['admin_emails'] :
+            array('techNotify@opencaching.pl','rygielski@mimuw.edu.pl', 'following@online.de')),
+
+        'FROM_FIELD' => OcConfig::getEmailAddrNoReply(),
         'DEBUG' => $debug_page,
         'DB_SERVER' => $dbserver,
         'DB_NAME' => $dbname,
         'DB_USERNAME' => $dbusername,
         'DB_PASSWORD' => $dbpasswd,
-        'SITELANG' => 'en', //TODO: how to read it from I18n class?
-        'SITELANGS' => array_map('strtolower', $config['defaultLanguageList']),
+        'SITELANG' => OcConfig::getI18nDefaultLang(),
         'SITE_URL' => isset($OKAPI_server_URI) ? $OKAPI_server_URI : $absolute_server_URI,
         'VAR_DIR' => rtrim($dynbasepath, '/'),
         'TILEMAP_FONT_PATH' => $config['okapi']['tilemap_font_path'],
@@ -53,10 +57,10 @@ function get_okapi_settings()
         'IMAGES_URL' => rtrim($picurl, '/').'/',
         'IMAGE_MAX_UPLOAD_SIZE' => $config['limits']['image']['filesize'] * 1024 * 1024,
         'IMAGE_MAX_PIXEL_COUNT' => $config['limits']['image']['height'] * $config['limits']['image']['width'],
-        'OC_NODE_ID' => $oc_nodeid,
+        'OC_NODE_ID' => OcConfig::getSiteNodeId(),
         'OC_COOKIE_NAME' => $config['cookie']['name'].'_auth',
         //'OCPL_ENABLE_GEOCACHE_ACCESS_LOGS' => isset($enable_cache_access_logs) ? $enable_cache_access_logs : false
         'OCPL_ENABLE_GEOCACHE_ACCESS_LOGS' => false,
         'USE_SQL_SUBQUERIES' => true,
-    );
+    ];
 }

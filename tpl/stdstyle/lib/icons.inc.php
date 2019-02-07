@@ -100,26 +100,3 @@ function getPtIconByType($ptType){
         return $poweTrailMarkers[$ptType]['icon'];
     }
 }
-
-//function icon_rating($founds, $topratings)
-//{
-//  global $rating_text;
-//  global $not_rated;
-//
-//  if ($founds < 3)
-//  {
-//      $icon = sprintf("/tpl/stdstyle/images/rating/rat-%d.gif", 0);
-//      $text = $not_rated;
-//  }
-//  else
-//  {
-//      $rating = round($topratings/$founds*100, 0);
-//      $ratpic = ceil($topratings/$founds*5);
-//
-//      $icon = sprintf("/tpl/stdstyle/images/rating/rat-%d.gif", $ratpic);
-//      $text = mb_ereg_replace('{rating}', $rating, $rating_text);
-//  }
-//
-//  return "<img src='$icon' border='0' width='19' height='16' hspace='2' alt='$text' title='$text' />";
-//}
-

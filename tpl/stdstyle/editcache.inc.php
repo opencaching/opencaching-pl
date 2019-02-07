@@ -18,6 +18,9 @@ $size_not_ok_message = '<br/><img src="tpl/stdstyle/images/misc/32x32-impressum.
 $diff_not_ok_message = '<br/><img src="tpl/stdstyle/images/misc/32x32-impressum.png" class="icon32" alt=""  />&nbsp;&nbsp;<span class="errormsg">' . tr('diff_incorrect') . '</span>';
 $sizemismatch_message = '<br/><img src="tpl/stdstyle/images/misc/32x32-impressum.png" class="icon32" alt=""  />&nbsp;&nbsp;<span class="errormsg">' . tr('virtual_cache_size') . '</span>';
 $all_countries_submit = '<input class="btn btn-default btn-sm" type="submit" name="show_all_countries_submit" value="' . tr('show_all_countries') . '"/>';
+$invalid_wp_gc_message = '<img src="tpl/stdstyle/images/misc/32x32-impressum.png" class="icon32" alt=""  />&nbsp;&nbsp;<span class="errormsg">' . tr('invalid_wp_gc') . '</span>';
+$invalid_wp_tc_message = '<img src="tpl/stdstyle/images/misc/32x32-impressum.png" class="icon32" alt=""  />&nbsp;&nbsp;<span class="errormsg">' . tr('invalid_wp_tc') . '</span>';
+$invalid_wp_ge_message = '<img src="tpl/stdstyle/images/misc/32x32-impressum.png" class="icon32" alt=""  />&nbsp;&nbsp;<span class="errormsg">' . tr('invalid_wp_ge') . '</span>';
 
 $status_message = '&nbsp;<span class="errormsg">' . tr('status_incorrect') . '</span>';
 $nopictures = '<tr><td colspan="2"><div class="notice">' . tr('no_pictures_yet') . '</div></td></tr>';
@@ -29,8 +32,7 @@ $mp3line = '<tr><td colspan="2">{seq_drop_mp3}<img src="tpl/stdstyle/images/free
 $mp3lines = '{lines}<tr><td colspan="2">&nbsp;</td></tr>';
 
 $nowp = '<div class="notice">' . tr('nowp_notice') . '</div>';
-$wpline = '<tr>{stagehide_start}<td align="center" valign="middle"><center>{number}</center></td>{stagehide_end}<td align="center" valign="middle"><center><img src="{wp_icon}" alt="" title="{type}" /></center></td><td align="center" valign="middle">{type}</td><td align="center" valign="middle"><b><span style="color: rgb(88,144,168)">{lat}<br />{lon}</span></b></td><td align="center" valign="middle">{desc}</td><td align="center" valign="middle"><center><img src="{status}" alt="" title="Status" /></center></td><td align="center" valign="middle"><center><a class="links" onclick="return check_if_proceed();"  href="editwp.php?wpid={wpid}"><img src="images/actions/edit-16.png" alt="" title="Edit WP" /></a></center></td><td align="center" valign="middle"><center><a class="links" href="editwp.php?wpid={wpid}&delete" onclick="if (confirm(\'' . tr('ec_delete_wp') . '\')) {return check_if_proceed();} else {return false;};"><img src="tpl/stdstyle/images/log/16x16-trash.png" align="middle" class="icon16" alt="" title="Usuń WP" /></a></center></td> </tr>';
-
+$wpline = '<tr>{stagehide_start}<td align="center" valign="middle"><center>{number}</center></td>{stagehide_end}<td align="center" valign="middle"><center><img src="{wp_icon}" alt="" title="{type}" /></center></td><td align="center" valign="middle">{type}</td><td align="center" valign="middle"><b><span style="color: rgb(88,144,168)">{lat}<br />{lon}</span></b></td><td align="center" valign="middle">{desc}</td><td align="center" valign="middle"><center><img src="{status}" alt="" /></center></td><td align="center" valign="middle"><center><a class="links" onclick="return check_if_proceed();"  href="editwp.php?wpid={wpid}"><img src="images/actions/edit-16.png" alt="" /></a></center></td><td align="center" valign="middle"><center><a class="links" href="editwp.php?wpid={wpid}&delete" onclick="if (confirm(\'' . tr('ec_delete_wp') . '\')) {return check_if_proceed();} else {return false;};"><img src="tpl/stdstyle/images/log/16x16-trash.png" align="middle" class="icon16" alt="" /></a></center></td> </tr>';
 
 $cache_attrib_js = "new Array({id}, {selected}, '{img_undef}', '{img_large}')";
 $cache_attrib_pic = '<img id="attr{attrib_id}" src="{attrib_pic}" border="0" alt="{attrib_text}" title="{attrib_text}" onmousedown="toggleAttr({attrib_id}); yes_change();" /> ';
@@ -52,4 +54,3 @@ $activation_form = '
                 </td>
         </tr>
         ';
-?>

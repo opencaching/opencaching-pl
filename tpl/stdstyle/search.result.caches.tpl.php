@@ -7,7 +7,7 @@ use Utils\I18n\I18n;
 <script src="lib/js/GCT.js"></script>
 <script src="lib/js/GCT.lang.php"></script>
 <script src="tpl/stdstyle/js/search.js"></script>
-<script src="tpl/stdstyle/js/okapiGpxFormatterWidget.js?v=2"></script>
+<script src="tpl/stdstyle/js/okapiGpxFormatterWidget.js?v=3"></script>
 <script>
     $(function() {
 
@@ -220,10 +220,10 @@ echo "<div class='GCT-div' style='font-size:12px'>
             <td style='color:green;'>{{AllPosExport}}</td>
                      <td>
                        <span class='content-title-noshade' style='color:green'>{{format_GPX}}</span>:<br/>
-                <a class=\"links\" href=\"ocplgpx";?>{queryid}<?php echo ".gpx?startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"GPS Exchange Format .gpx\">GPX</a> |
-                <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".zip?startat=";?>{startat}<?php echo "&amp;count=max\" title=\"Garmin ZIP file ({{format_pict}})  .zip\">GARMIN ({{format_pict}})</a> |
-                <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".ggz?startat=";?>{startat}<?php echo "&amp;count=max\" title=\"Garmin .ggz\">GARMIN GGZ</a> <sup style='color:red;text-shadow: 2px 2px 2px rgba(255, 109, 255, 1);'>Beta!</sup> |
-                <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".zip?startat=";?>{startat}<?php echo "&amp;format=ggz&amp;count=max\" title=\"Garmin ZIP file ({{format_ggz_pict}})  .zip\">GARMIN GGZ ({{format_ggz_pict}})</a> <sup style='color:red;text-shadow: 2px 2px 2px rgba(255, 109, 255, 1);'>Beta!</sup>
+                <a class=\"links\" href=\"ocplgpx";?>{queryid}<?php echo ".gpx?startat=1&amp;count=max&amp;zip=1\" title=\"GPS Exchange Format .gpx\">GPX</a> |
+                <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".zip?startat=1&amp;count=max\" title=\"Garmin ZIP file ({{format_pict}})  .zip\">GARMIN ({{format_pict}})</a> |
+                <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".ggz?startat=1&amp;count=max\" title=\"Garmin .ggz\">GARMIN GGZ</a> <sup style='color:red;text-shadow: 2px 2px 2px rgba(255, 109, 255, 1);'>Beta!</sup> |
+                <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".zip?startat=1&amp;format=ggz&amp;count=max\" title=\"Garmin ZIP file ({{format_ggz_pict}})  .zip\">GARMIN GGZ ({{format_ggz_pict}})</a> <sup style='color:red;text-shadow: 2px 2px 2px rgba(255, 109, 255, 1);'>Beta!</sup>
                 <div>
                     <a class='links' id='exportOkapiGPX-all'>OKAPI GPX...</a>
                 </div>
@@ -235,14 +235,14 @@ echo "<div class='GCT-div' style='font-size:12px'>
                     ".tr('listing_from_to').":
                      </td>
                             <td><span class='content-title-noshade' style='color:green'>{{format_other}}</span>:<br/>
-                <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".loc?startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"Waypoint .loc\">LOC</a> |
-                <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".kml?startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"Google Earth .kml\">KML</a> |
-                <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".ov2?startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"TomTom POI .ov2\">OV2</a> |
-                <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".ovl?startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"TOP50-Overlay .ovl\">OVL</a> |
-                <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".txt?startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"Text .txt\">TXT</a> |
-                <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".wpt?startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"Oziexplorer .wpt\"> WPT</a> |
-                <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".uam?startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"AutoMapa .uam\">UAM</a> |
-                            <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".xml?startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"xml\">XML</a>
+                <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".loc?startat=1&amp;count=max&amp;zip=1\" title=\"Waypoint .loc\">LOC</a> |
+                <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".kml?startat=1&amp;count=max&amp;zip=1\" title=\"Google Earth .kml\">KML</a> |
+                <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".ov2?startat=1&amp;count=max&amp;zip=1\" title=\"TomTom POI .ov2\">OV2</a> |
+                <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".ovl?startat=1&amp;count=max&amp;zip=1\" title=\"TOP50-Overlay .ovl\">OVL</a> |
+                <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".txt?startat=1&amp;count=max&amp;zip=1\" title=\"Text .txt\">TXT</a> |
+                <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".wpt?startat=1&amp;count=max&amp;zip=1\" title=\"Oziexplorer .wpt\"> WPT</a> |
+                <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".uam?startat=1&amp;count=max&amp;zip=1\" title=\"AutoMapa .uam\">UAM</a> |
+                            <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".xml?startat=1&amp;count=max&amp;zip=1\" title=\"xml\">XML</a>
                         </td>
            </tr>
     </table>
@@ -260,38 +260,38 @@ echo"
             <td colspan=3 style='color:green;'>{{HideCols}}</td>
         </tr>
         <tr>
-            <td><input type='checkbox' name='C1' value='1' "; if($C1 == 1) echo "checked"; echo">"; echo $colNameSearch[1]["O"]; echo" </td>
-            <td><input type='checkbox' name='C2' value='1' "; if($C2 == 1) echo "checked"; echo">"; echo $colNameSearch[2]["O"]; echo" </td>
-            <td><input type='checkbox' name='C3' value='1' "; if($C3 == 1) echo "checked"; echo">"; echo $colNameSearch[3]["O"]; echo" </td>
+            <td><input type='checkbox' name='C1' value='1' "; if($C1 == 1) echo "checked"; echo"> "; echo $colNameSearch[1]["O"]; echo" </td>
+            <td><input type='checkbox' name='C2' value='1' "; if($C2 == 1) echo "checked"; echo"> "; echo $colNameSearch[2]["O"]; echo" </td>
+            <td><input type='checkbox' name='C3' value='1' "; if($C3 == 1) echo "checked"; echo"> "; echo $colNameSearch[3]["O"]; echo" </td>
         </tr>
         <tr>
-            <td><input type='checkbox' name='C4' value='1' "; if($C4 == 1) echo "checked"; echo">"; echo $colNameSearch[4]["O"]; echo" </td>
-            <td><input type='checkbox' name='C5' value='1' "; if($C5 == 1) echo "checked"; echo">"; echo $colNameSearch[5]["O"]; echo" </td>
-            <td><input type='checkbox' name='C6' value='1' "; if($C6 == 1) echo "checked"; echo">"; echo $colNameSearch[6]["O"]; echo" </td>
-        </tr>
-
-        <tr>
-            <td><input type='checkbox' name='C7' value='1' "; if($C7 == 1) echo "checked"; echo">"; echo $colNameSearch[7]["O"]; echo" </td>
-            <td><input type='checkbox' name='C8' value='1' "; if($C8 == 1) echo "checked"; echo">"; echo $colNameSearch[8]["O"]; echo" </td>
-            <td><input type='checkbox' name='C9' value='1' "; if($C9 == 1) echo "checked"; echo">"; echo $colNameSearch[9]["O"]; echo" </td>
+            <td><input type='checkbox' name='C4' value='1' "; if($C4 == 1) echo "checked"; echo"> "; echo $colNameSearch[4]["O"]; echo" </td>
+            <td><input type='checkbox' name='C5' value='1' "; if($C5 == 1) echo "checked"; echo"> "; echo $colNameSearch[5]["O"]; echo" </td>
+            <td><input type='checkbox' name='C6' value='1' "; if($C6 == 1) echo "checked"; echo"> "; echo $colNameSearch[6]["O"]; echo" </td>
         </tr>
 
         <tr>
-            <td><input type='checkbox' name='C10' value='1' "; if($C10 == 1) echo "checked"; echo">"; echo $colNameSearch[10]["O"]; echo" </td>
-            <td><input type='checkbox' name='C11' value='1' "; if($C11 == 1) echo "checked"; echo">"; echo $colNameSearch[11]["O"]; echo" </td>
-            <td><input type='checkbox' name='C12' value='1' "; if($C12 == 1) echo "checked"; echo">"; echo $colNameSearch[12]["O"]; echo" </td>
+            <td><input type='checkbox' name='C7' value='1' "; if($C7 == 1) echo "checked"; echo"> "; echo $colNameSearch[7]["O"]; echo" </td>
+            <td><input type='checkbox' name='C8' value='1' "; if($C8 == 1) echo "checked"; echo"> "; echo $colNameSearch[8]["O"]; echo" </td>
+            <td><input type='checkbox' name='C9' value='1' "; if($C9 == 1) echo "checked"; echo"> "; echo $colNameSearch[9]["O"]; echo" </td>
         </tr>
 
         <tr>
-            <td><input type='checkbox' name='C13' value='1' "; if($C13 == 1) echo "checked"; echo">"; echo $colNameSearch[13]["O"]; echo" </td>
-            <td><input type='checkbox' name='C14' value='1' "; if($C14 == 1) echo "checked"; echo">"; echo $colNameSearch[14]["O"]; echo" </td>
-            <td><input type='checkbox' name='C15' value='1' "; if($C15 == 1) echo "checked"; echo">"; echo $colNameSearch[15]["O"]; echo" </td>
+            <td><input type='checkbox' name='C10' value='1' "; if($C10 == 1) echo "checked"; echo"> "; echo $colNameSearch[10]["O"]; echo" </td>
+            <td><input type='checkbox' name='C11' value='1' "; if($C11 == 1) echo "checked"; echo"> "; echo $colNameSearch[11]["O"]; echo" </td>
+            <td><input type='checkbox' name='C12' value='1' "; if($C12 == 1) echo "checked"; echo"> "; echo $colNameSearch[12]["O"]; echo" </td>
+        </tr>
+
+        <tr>
+            <td><input type='checkbox' name='C13' value='1' "; if($C13 == 1) echo "checked"; echo"> "; echo $colNameSearch[13]["O"]; echo" </td>
+            <td><input type='checkbox' name='C14' value='1' "; if($C14 == 1) echo "checked"; echo"> "; echo $colNameSearch[14]["O"]; echo" </td>
+            <td><input type='checkbox' name='C15' value='1' "; if($C15 == 1) echo "checked"; echo"> "; echo $colNameSearch[15]["O"]; echo" </td>
          </tr>
 
         <tr>
-            <td><input type='checkbox' name='C16' value='1' "; if($C16 == 1) echo "checked"; echo">"; echo $colNameSearch[16]["O"]; echo" </td>
-            <td><input type='checkbox' name='C17' value='1' "; if($C17 == 1) echo "checked"; echo">"; echo $colNameSearch[17]["O"]; echo" </td>
-            <td><input type='checkbox' name='C18' value='1' "; if($C18 == 1) echo "checked"; echo">"; echo $colNameSearch[18]["O"]; echo" </td>
+            <td><input type='checkbox' name='C16' value='1' "; if($C16 == 1) echo "checked"; echo"> "; echo $colNameSearch[16]["O"]; echo" </td>
+            <td><input type='checkbox' name='C17' value='1' "; if($C17 == 1) echo "checked"; echo"> "; echo $colNameSearch[17]["O"]; echo" </td>
+            <td><input type='checkbox' name='C18' value='1' "; if($C18 == 1) echo "checked"; echo"> "; echo $colNameSearch[18]["O"]; echo" </td>
          </tr>
 
 
@@ -309,8 +309,8 @@ echo"
                     $selectList
                 </select>
 
-                <input type='radio' name='OrderSortSearch' value='M'"; if ($OrderSortSearch == 'M') echo "checked='checked'"; echo "/>{{Descending}}
-                <input type='radio' name='OrderSortSearch' value='R'"; if ($OrderSortSearch == 'R') echo "checked='checked'"; echo " />{{Ascending}}
+                &nbsp; <input type='radio' name='OrderSortSearch' value='M'"; if ($OrderSortSearch == 'M') echo "checked='checked'"; echo "/> {{Descending}}
+                &nbsp; <input type='radio' name='OrderSortSearch' value='R'"; if ($OrderSortSearch == 'R') echo "checked='checked'"; echo " /> {{Ascending}}
 
          </td>
          <td class='align-right'> <button type='submit' name='bHideColumns' class='btn btn-primary'>{{save}}</td>

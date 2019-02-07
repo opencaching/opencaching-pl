@@ -157,11 +157,11 @@ use Utils\Uri\SimpleRouter;
   <input type="hidden" name="radius" id="input-radius" value="<?=$view->coordsOK == 1 ? $view->neighbourhoodsList[$view->selectedNbh]->getRadius() : '' ?>">
   </form>
 <script>
-	let cancelButton = "<?=tr('cancel')?>";
-	let deleteButton = "<?=tr('delete')?>";
-	let deleteLink = "<?=SimpleRouter::getLink('MyNeighbourhood', 'delete', $view->selectedNbh)?>";
-	let cachesCount = <?=$view->preferences['style']['caches-count']?>;
-	let minCaches = <?=$view->minCaches?>;
-	let maxCaches = <?=$view->maxCaches?>;
+    let cancelButton = "<?=tr('cancel')?>";
+    let deleteButton = "<?=tr('delete')?>";
+    let deleteLink = "<?=SimpleRouter::getLink('MyNeighbourhood', 'delete', $view->selectedNbh)?>";
+    let cachesCount = <?=$view->preferences['style']['caches-count']?>;
+    let minCaches = <?=$view->minCaches?>;
+    let maxCaches = <?=$view->maxCaches?>;
 </script>
 </div>

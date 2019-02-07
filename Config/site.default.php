@@ -1,45 +1,34 @@
 <?php
 
-use lib\Objects\GeoCache\GeoCacheCommons;
-
 /**
- * This is simple configuration of maps in the OC code
- *
- * This is a DEFAULT configuration for ALL nodes, which contains necessary vars.
- *
- * If you to customize it for your node
- * create config for your node and there override array values as needed.
+ * DEFAULT general site properties for ALL nodes
  */
 
-/**
- * Configuration of general site properties in defaut version
- */
-
-/**
- * Configuration of general site properties in defaut version
- */
 $site = [];
 
-
 /**
- * Primary country (or countries) for this node
- */
-$site['primaryCountries'] = ['PL'];
-
-/**
- * Theses sizes are available for
- *    - creating caches
- *    - changing the type of a cache to this size
- *    - searching for caches.
+ * Primary country (or countries) for this node. See site.nl.php for an
+ * example setting.
  *
- * The order does not matter.
+ * If not set in site.XX.php, the site's topelevel domain will be used as
+ * primary country.
  */
-$site['enabledCacheSizes'] = [
-    GeoCacheCommons::SIZE_MICRO,
-    GeoCacheCommons::SIZE_SMALL,
-    GeoCacheCommons::SIZE_REGULAR,
-    GeoCacheCommons::SIZE_LARGE,
-    GeoCacheCommons::SIZE_XLARGE,
-    GeoCacheCommons::SIZE_NONE,
-];
+
+$site['primaryCountries'] = [];
+
+/**
+ * Site name for the node
+ */
+$site['siteName'] = 'OpenCaching';
+
+/**
+ * Page title (to display on the browser titlebar)
+ */
+$site['pageTitle'] = 'OpenCaching';
+
+/**
+ * NodeId: globally unique ID of opencaching node
+ * @see https://wiki.opencaching.eu/index.php?title=Node_IDs
+ */
+$site['ocNodeId'] = 4;
 

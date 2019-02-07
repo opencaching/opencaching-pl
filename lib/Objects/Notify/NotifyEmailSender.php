@@ -88,9 +88,9 @@ class NotifyEmailSender
 
         $email = new Email();
         $email->addToAddr($user->getEmail());
-        $email->setReplyToAddr(OcConfig::getNoreplyEmailAddress());
-        $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
-        $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForSite());
+        $email->setReplyToAddr(OcConfig::getEmailAddrNoReply());
+        $email->setFromAddr(OcConfig::getEmailAddrNoReply());
+        $email->addSubjectPrefix(OcConfig::getEmailSubjectPrefix());
         $email->setSubject($subject);
         $email->setHtmlBody($formattedMessage->getEmailContent());
         $email->send();

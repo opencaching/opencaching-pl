@@ -92,7 +92,7 @@ class login
         if ($user_id) {
             /* User exists. Is the password correct? */
 
-            if(PasswordManager::verifyPassword($user_id, $password)){
+            if(!PasswordManager::verifyPassword($user_id, $password)){
                 $user_id = null;
             }
         }
@@ -141,5 +141,3 @@ class login
     }
 
 }
-
-?>

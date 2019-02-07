@@ -24,4 +24,3 @@ class TextGen
         return implode($text);
     }
 }
-

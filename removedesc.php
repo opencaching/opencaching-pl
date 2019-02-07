@@ -4,6 +4,7 @@ use Utils\Database\XDb;
 use lib\Objects\GeoCache\GeoCache;
 use Utils\I18n\Languages;
 use Utils\I18n\I18n;
+use lib\Objects\OcConfig\OcConfig;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
@@ -39,14 +40,13 @@ if ($error == false) {
                 if ($desc_record = XDb::xFetchArray($desc_rs)) {
 
                     XDb::xFreeResults($desc_rs);
-                    require(__DIR__.'/tpl/stdstyle/removedesc.inc.php');
 
                     if ($remove_commit == 1) {
                         //add to removed_objects
                         XDb::xSql(
                             "INSERT INTO `removed_objects` (`id`, `localID`, `uuid`, `type`, `removed_date`, `node`)
                             VALUES ('', ?, ?, '3', NOW(), ?)",
-                            $desc_record['id'], $desc_record['uuid'], $oc_nodeid);
+                            $desc_record['id'], $desc_record['uuid'], OcConfig::getSiteNodeId());
 
                         //remove it from cache_desc
                         XDb::xSql(
@@ -82,4 +82,3 @@ if ($error == false) {
 
 //make the template and send it out
 tpl_BuildTemplate();
-

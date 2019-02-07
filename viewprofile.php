@@ -363,7 +363,7 @@ if ($usr == false) {
 
 
         if ( $found >= 10 ) {
-            $content .= '<br><table style="border-collapse: collapse; font-size: 110%;" width="250" border="1"><tr><td colspan="3" align="center" bgcolor="#DBE6F1"><b>' . tr('milestones') . '</b></td> </tr><tr><td bgcolor="#EEEDF9"><b> Nr </b></td> <td bgcolor="#EEEDF9"><b> Data </b></td> <td bgcolor="#EEEDF9"><b> Geocache</b> </td> </tr>';
+            $content .= '<br><table style="border-collapse: collapse; font-size: 110%;" width="250" border="1"><tr><td colspan="3" align="center" bgcolor="#DBE6F1"><b>' . tr('milestones') . '</b></td> </tr><tr><td bgcolor="#EEEDF9"><b> Nr </b></td> <td bgcolor="#EEEDF9"><b>'.tr('date').'</b></td> <td bgcolor="#EEEDF9"><b>'.tr('cache').'</b> </td> </tr>';
 
             if ( $found > 101 ) {
                 $milestone = 100;
@@ -605,7 +605,7 @@ if ($usr == false) {
         $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('latest_created_cache') . ':</span>&nbsp;&nbsp;<strong><a class="links" href="viewcache.php?cacheid=' . $rcc2['cache_id'] . '">' . $rcc2['wp_oc'] . '</a>&nbsp;&nbsp;</strong>(' . $rcc2['data'] . ')</p>';
 
         if ( $total_created_and_owned_caches >= 10 ) {
-            $content .= '<br><table style="border-collapse: collapse; font-size: 110%;" width="250" border="1"><tr><td colspan="3" align="center" bgcolor="#DBE6F1"><b>' . tr('milestones') . '</b></td> </tr><tr><td bgcolor="#EEEDF9"><b> Nr </b></td> <td bgcolor="#EEEDF9"><b> Data </b></td> <td bgcolor="#EEEDF9"><b> Geocache</b> </td> </tr>';
+            $content .= '<br><table style="border-collapse: collapse; font-size: 110%;" width="250" border="1"><tr><td colspan="3" align="center" bgcolor="#DBE6F1"><b>' . tr('milestones') . '</b></td> </tr><tr><td bgcolor="#EEEDF9"><b> Nr </b></td> <td bgcolor="#EEEDF9"><b>'.tr('date').'</b></td> <td bgcolor="#EEEDF9"><b>'.tr('cache').'</b> </td> </tr>';
 
             if ( $total_created_and_owned_caches > 101 ) {
                 $milestone = 100;
@@ -852,7 +852,7 @@ foreach ($userCategories as $oneCategory) {
         $element=mb_ereg_replace('{badge_id}', $oneBadge->getBadgeId(), $element );
         $element=mb_ereg_replace('{user_id}', $user_id, $element );
         $element=mb_ereg_replace('{curr_val}', $oneBadge->getCurrVal(), $element );
-        $element=mb_ereg_replace('{progresbar_curr_val}', $oneBadge->getCurrVal()-$oneBadge->getOLevel()->getPrevThreshold(), $element );
+        $element=mb_ereg_replace('{progresbar_curr_val}', MeritBadge::getProgressBarCurrValue($oneBadge->getOLevel()->getPrevThreshold(), $oneBadge->getCurrVal(), $oneBadge->getNextVal()), $element );
         $element=mb_ereg_replace('{progresbar_next_val}', MeritBadge::getProgressBarValueMax($oneBadge->getOLevel()->getPrevThreshold(), $oneBadge->getNextVal()), $element );
         $element=mb_ereg_replace('{progresbar_size}', MeritBadge::getBarSize( $oneBadge->getLevelId(),  $oneBadge->getOBadge()->getLevelsNumber() ), $element );
         $element=mb_ereg_replace('{progresbar_color}', MeritBadge::getColor( $oneBadge->getLevelId(), $oneBadge->getOBadge()->getLevelsNumber() ), $element );

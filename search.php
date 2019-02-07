@@ -1679,7 +1679,7 @@ function attr_image($tpl, $options, $id, $textlong, $iconlarge, $iconno, $iconun
 
 function outputUniidSelectionForm($uniSql, $urlparams)
 {
-    global $tplname, $locline, $bgcolor1, $bgcolor2, $gns_countries;
+    global $tplname, $locline, $bgcolor1, $bgcolor2;
     global $next_img, $prev_img, $last_img, $first_img;
     global $next_img_inactive, $prev_img_inactive, $last_img_inactive, $first_img_inactive;
     global $secondlocationname;

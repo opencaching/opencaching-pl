@@ -20,7 +20,7 @@ echo "Removing unimportant data..."
 echo "delete from okapi_cache where \`key\` != 'cron_schedule'" | mysql -pubuntu ocpl
 
 # be sure that hidden caches are removed from DB:
-echo "DELETE FROM caches WHERE caches.status IN (4,5,6)" | mysql -pubuntu ocpl
+echo "SET @allowdelete = 1; DELETE FROM caches WHERE caches.status IN (4,5,6)" | mysql -pubuntu ocpl
 echo "DELETE ca FROM caches_additions ca LEFT JOIN caches c USING (cache_id) WHERE c.cache_id IS NULL" | mysql -pubuntu ocpl
 echo "DELETE ca FROM caches_attributes ca LEFT JOIN caches c USING (cache_id) WHERE c.cache_id IS NULL" | mysql -pubuntu ocpl
 echo "DELETE ca FROM cache_arch ca LEFT JOIN caches c USING (cache_id) WHERE c.cache_id IS NULL" | mysql -pubuntu ocpl

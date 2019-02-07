@@ -45,4 +45,3 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $tpl->display('tpl/login.tpl');
-?>

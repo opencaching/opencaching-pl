@@ -238,4 +238,3 @@ class CookieBase
         return false;
     }
 }
-

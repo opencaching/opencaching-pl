@@ -68,10 +68,6 @@ if (isset($opt['db']['password']))
 /* *** END sample code **************************************************** */
 
 
-if (isset($site_name)){
-    $config['siteName'] = $site_name;
-}
-
 if (isset($onlineusers)){
     $config['mainLayout']['displayOnlineUsers'] = ($onlineusers == 1);
 }
@@ -90,7 +86,3 @@ if ( isset($opt['cookie']['path']) ){
 if ( isset($opt['cookie']['domain']) ){
     $config['cookie']['domain'] = $opt['cookie']['domain'];
 }
-
-
-
-

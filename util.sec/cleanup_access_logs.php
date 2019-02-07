@@ -25,4 +25,3 @@ class CleanupAccessLogs
 
 $cal = new CleanupAccessLogs();
 $cal->run();
-

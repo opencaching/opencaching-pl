@@ -1,0 +1,1 @@
+These emoticons are copied from tinyMce emoticons plugin. Plugin is now disabled but many logs contains links to these images.

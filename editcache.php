@@ -9,6 +9,7 @@ use Utils\EventHandler\EventHandler;
 use lib\Objects\GeoCache\GeoCacheLog;
 use lib\Objects\OcConfig\OcConfig;
 use Utils\I18n\I18n;
+use Utils\Text\Validator;
 
 require_once(__DIR__.'/lib/common.inc.php');
 
@@ -231,10 +232,7 @@ if ($error == false) {
                     tpl_set_var('logpw_start', '<!--');
                     tpl_set_var('logpw_end', '-->');
                 }
-                $wp_gc = isset($_POST['wp_gc']) ? $_POST['wp_gc'] : $cache_record['wp_gc'];
-                $wp_nc = isset($_POST['wp_nc']) ? $_POST['wp_nc'] : $cache_record['wp_nc'];
-                $wp_tc = isset($_POST['wp_tc']) ? $_POST['wp_tc'] : $cache_record['wp_tc'];
-                $wp_ge = isset($_POST['wp_ge']) ? $_POST['wp_ge'] : $cache_record['wp_ge'];
+
                 // name
                 $name_not_ok = false;
                 if (isset($_POST['name'])) {
@@ -380,6 +378,35 @@ if ($error == false) {
                 } else {
                     tpl_set_var('other_nobox', 'false');
                 }
+
+                // foreign waypoints
+                $all_wp_ok = true;
+
+                foreach (['gc', 'nc', 'tc', 'ge'] as $wpType) {
+                    $wpVar = 'wp_'.$wpType;
+                    $wpMessageVar = 'wp_'.$wpType.'_message';
+
+                    ${$wpVar} = isset($_POST[$wpVar]) ? $_POST[$wpVar] : $cache_record[$wpVar];
+                    if (${$wpVar} == '') {
+                        $wpOk = true;
+                    } else {
+                        $validatedCode = Validator::xxWaypoint($wpType, ${$wpVar});
+                        $wpOk = ($validatedCode !== false);
+                        if ($wpOk) {
+                            ${$wpVar} = $validatedCode;
+                        }
+                    }
+                    if ($wpOk) {
+                        tpl_set_var($wpMessageVar,'');
+                    } else {
+                        tpl_set_var($wpMessageVar, ${'invalid_'.$wpVar.'_message'});
+                        $all_wp_ok = false;
+                    }
+                }
+                unset($wpVar);
+                unset($wpMessageVar);
+                unset($wpOk);
+
                 // cache-attributes
                 if (isset($_POST['cache_attribs'])) {
                     $cache_attribs = mb_split(';', $_POST['cache_attribs']);
@@ -406,6 +433,12 @@ if ($error == false) {
                         $cache_attribs = array();
                     }
                 }
+
+                $errors_occured =
+                    $hidden_date_not_ok || $lat_not_ok || $lon_not_ok || $name_not_ok ||
+                    $time_not_ok || $way_length_not_ok || $size_not_ok || $activate_date_not_ok
+                    || $status_not_ok || !$all_wp_ok;
+
                 //try to save to DB?
                 if (isset($_POST['submit'])) {
                     //prevent un archiving cache by non-admin users
@@ -413,7 +446,8 @@ if ($error == false) {
                         $status_not_ok = true;
                     }
                     //all validations ok?
-                    if (!($hidden_date_not_ok || $lat_not_ok || $lon_not_ok || $name_not_ok || $time_not_ok || $way_length_not_ok || $size_not_ok || $activate_date_not_ok || $status_not_ok)) {
+                    if (!$errors_occured) {
+
                         $cache_lat = $coords_lat_h + round($coords_lat_min, 3) / 60;
                         if ($coords_latNS == 'S'){
                             $cache_lat = -$cache_lat;
@@ -689,7 +723,7 @@ if ($error == false) {
 
                     // blockforbidden cache sizes
                     if ($size != $sel_size
-                        && !in_array($size, OcConfig::instance()->getSiteConfig()['enabledCacheSizes'])
+                        && !in_array($size, OcConfig::instance()->getGeocacheConfig('enabledSizes'))
                     ) {
                         continue;
                     }
@@ -711,8 +745,8 @@ if ($error == false) {
 
                     if (count($descList) > 1) {
                         $remove_url = 'removedesc.php?cacheid=' . urlencode($cache_id) . '&desclang=' . urlencode($descLang);
-                        $removedesc = '&nbsp;<img src="tpl/stdstyle/images/log/16x16-trash.png" border="0" align="middle" class="icon16" alt="" title="Delete">[
-                            <a href="' . htmlspecialchars($remove_url, ENT_COMPAT, 'UTF-8') . '" onclick="return check_if_proceed();">' . tr('delete') . '</a>]';
+                        $removedesc = '&nbsp;&nbsp;<img src="tpl/stdstyle/images/log/16x16-trash.png" border="0" align="middle" class="icon16" alt="">'.
+                            ' [<a href="' . htmlspecialchars($remove_url, ENT_COMPAT, 'UTF-8') . '" onclick="return check_if_proceed();">' . tr('delete') . '</a>]';
                     } else {
                         $removedesc = '';
                     }
@@ -723,7 +757,7 @@ if ($error == false) {
                             <td colspan="2">
                                 <img src="images/flags/' . strtolower($descLang) . '.gif" class="icon16" alt="">
                                     &nbsp;' . htmlspecialchars(Languages::LanguageNameFromCode($descLang, I18n::getCurrentLang()), ENT_COMPAT, 'UTF-8') . '&nbsp;&nbsp;
-                                <img src="images/actions/edit-16.png" border="0" align="middle" alt="" title="Edit">
+                                <img src="images/actions/edit-16.png" border="0" align="middle" alt="">
                                 [<a href="' . htmlspecialchars($edit_url, ENT_COMPAT, 'UTF-8') . '" onclick="return check_if_proceed();">' . tr('edit') . '</a>]' .
                                 $removedesc .
                             '</td>
@@ -976,7 +1010,7 @@ if ($error == false) {
                 tpl_set_var('date_message', ($hidden_date_not_ok == true) ? $date_not_ok_message : '');
                 tpl_set_var('size_message', ($size_not_ok == true) ? $size_not_ok_message : '');
 
-                if ($lon_not_ok || $lat_not_ok || $hidden_date_not_ok || $name_not_ok){
+                if ($errors_occured) {
                     tpl_set_var('general_message', $error_general);
                 } else {
                     tpl_set_var('general_message', "");

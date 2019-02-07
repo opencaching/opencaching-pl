@@ -15,7 +15,7 @@
 
 <p>&nbsp;</p>
     <div>
-        <input type="submit" name="submitform" value="{{remove_desc_04}}" class="formbuttons"/>&nbsp;&nbsp;&nbsp;
+        <input type="submit" name="submitform" value="{{remove_desc_04}}" class="btn btn-default"/>&nbsp;&nbsp;&nbsp;
     </div>
     <p>&nbsp;</p>
     <p><a href="javascript:;" onclick="history.go(-1); return true;">{{back}}</a></p>

@@ -5,6 +5,7 @@ use lib\Objects\GeoCache\GeoCache;
 use Utils\Generators\Uuid;
 use Utils\Text\UserInputFilter;
 use Utils\I18n\I18n;
+use lib\Objects\OcConfig\OcConfig;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
@@ -75,7 +76,8 @@ if ($error == false) {
                         XDb::xSql("INSERT INTO `cache_desc` (`id`,`cache_id`,`language`,`desc`,`desc_html`,`desc_htmledit`,
                                                        `hint`,`short_desc`,`last_modified`,`uuid`,`node`,`rr_comment`)
                              VALUES ('', ?, ?, ?, 2, ?, ?, ?, NOW(), ?, ?, ?)",
-                             $cache_id, $sel_lang, $desc, '1', nl2br($hints), $short_desc, $desc_uuid, $oc_nodeid, $rr_comment);
+                             $cache_id, $sel_lang, $desc, '1', nl2br($hints), $short_desc, $desc_uuid,
+                             OcConfig::getSiteNodeId(), $rr_comment);
 
 
                         // update cache-record, including last modification date

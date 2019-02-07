@@ -20,4 +20,3 @@ $s = $database->multiVariableQuery($ftfQuery, $userId);
 $ftfResult = $database->dbResultFetchAll($s);
 
 print json_encode($ftfResult);
-

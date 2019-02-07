@@ -20,4 +20,3 @@ $export_list = '<div>' . tr('mylist_05') . ':
                         <a href="search.php?searchto=searchbylist&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;count=max&amp;output=uam" title="AutoMapa .uam">UAM</a>
                         <br />
 <span class="help">' . tr('accept_terms_of_use') . '</a></span></div>';
-?>

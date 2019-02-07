@@ -102,4 +102,3 @@ function addCachesToTmpTable( $db, $tmp_badge_map, $show, $gainedList, $belongin
         }
     }
 }
-

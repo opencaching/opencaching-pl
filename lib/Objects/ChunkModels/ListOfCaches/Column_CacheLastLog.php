@@ -13,5 +13,3 @@ class Column_CacheLastLog extends AbstractColumn {
         return 'left';
     }
 }
-
-

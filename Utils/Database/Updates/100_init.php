@@ -2,7 +2,7 @@
 
 namespace Utils\Database\Updates;
 
-return new class extends UpdateScript
+class C100Init extends UpdateScript
 {
     public function getProperties()
     {
@@ -16,19 +16,13 @@ return new class extends UpdateScript
     {
         $this->develCleanup();
         $this->adjustTables();
-
-        // Some trigger definitions reference procedures (but not vice versa)
-        // => do the procedures first:
-
-        $this->updateProcedures();
-        $this->adjustTriggers();
     }
 
     /**
      * Level all table differences between OC site databases as of December 2018,
      * with two exceptions:
      *
-     *   - Table transaction_test at PL, NL, RO sites - is it in use? 
+     *   - Table transaction_test at PL, NL, RO sites - is it in use?
      *   - Column user.cog_note at RO site - is it in use?
      */
     private function adjustTables()
@@ -51,7 +45,7 @@ return new class extends UpdateScript
         $this->db->updateColumnComment('cache_desc', 'desc_htmledit', 'Unused'); // NL
         $this->db->updateColumnType('cache_logs', 'text_html', 'tinyint(1) NOT NULL DEFAULT 0'); // NL
         $this->db->addIndexIfNotExists('cache_moved', 'log_id'); // NL
-        $this->db->updateColumnType('cache_notes', 'date', 'timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP'); // RO
+        $this->db->updateColumnType('cache_notes', 'date', 'timestamp NOT NULL DEFAULT current_timestamp()'); // RO
         $this->db->addIndexIfNotExists('cache_npa_areas', 'parki_id'); // all but PL
         $this->db->dropIndexIfExists('caches', 'wp_oc_2'); // NL
         $this->db->dropIndexIfExists('caches', 'date_hidden_2'); // NL
@@ -66,7 +60,7 @@ return new class extends UpdateScript
         $this->db->dropIndexIfExists('email_schemas', 'deleted_2'); // PL
         $this->db->dropIndexIfExists('email_user', 'date_generated_2'); // NL
         $this->db->dropIndexIfExists('logentries', 'logtime_2'); // NL
-        $this->db->updateColumnType('news', 'date_publication', 'datetime NOT NULL DEFAULT CURRENT_TIMESTAMP'); // RO
+        $this->db->updateColumnType('news', 'date_publication', 'datetime NOT NULL DEFAULT current_timestamp()'); // RO
         $this->db->updateColumnType('npa_areas', 'shape', 'geometry NOT NULL'); // RO
         $this->db->dropColumnIfExists('notify_waiting', 'type'); // NL
         $this->db->addIndexIfNotExists('opensprawdzacz', 'cache_id'); // all but PL
@@ -129,212 +123,6 @@ return new class extends UpdateScript
         $this->db->updateColumnComment('cache_type', 'sort', 'This also is the translation ID number; see I18n::getIdColumnName()');
     }
 
-    /**
-     * We don't know the procedure definitions at least at the RO site.
-     * Rewrite all procedures based in the PL definitions (checked against
-     * sqlAlters), to make sure that all are up-to-date.
-     * Note that currently there are no DB *functions* in OCPL database.
-     */
-    public function updateProcedures()
-    {
-        $this->db->createOrReplaceProcedure(
-            'nop',
-            [],
-            "BEGIN END"
-        );
-
-        $this->db->createOrReplaceProcedure(
-            'inc_powertrail_progress',
-            ['IN `user_id` INT(11)', 'IN `cache_id` INT(11)'],
-            "
-            BEGIN
-                DECLARE pt_id int(11) DEFAULT NULL;
-
-                SELECT PowerTrailId INTO pt_id
-                FROM powerTrail_caches WHERE cacheId = cache_id
-                LIMIT 1;
-
-                IF pt_id IS NOT NULL THEN
-                    INSERT INTO powertrail_progress (user_id, pt_id, founds) VALUES (user_id, pt_id, 1)
-                    ON DUPLICATE KEY UPDATE founds = founds + 1;
-                END IF;
-            END"
-        );
-
-        $this->db->createOrReplaceProcedure(
-            'dec_powertrail_progress',
-            ['IN `p_user_id` INT(11)', 'IN `p_cache_id` INT(11)'],
-            "
-            BEGIN
-                DECLARE p_pt_id int(11) DEFAULT NULL;
-
-                SELECT PowerTrailId INTO p_pt_id
-                FROM powerTrail_caches WHERE cacheId = p_cache_id
-                LIMIT 1;
-
-                IF p_pt_id IS NOT NULL THEN
-                    UPDATE powertrail_progress SET founds = founds - 1
-                    WHERE user_id = p_user_id AND pt_id = p_pt_id AND founds > 0;
-                END IF;
-            END"
-        );
-
-        $this->db->createOrReplaceProcedure(
-            'inc_logs_stats',
-            ['IN `type` INT(11)', 'IN `user_id` INT(11)', 'IN `cache_id` INT(11)'],
-            "
-            BEGIN
-                CASE `type`
-                    WHEN 1 THEN -- FOUND
-                        CALL inc_powertrail_progress(user_id, cache_id);
-                    ELSE
-                        CALL nop();
-                END CASE;
-            END"
-        );
-
-        $this->db->createOrReplaceProcedure(
-            'dec_logs_stats',
-            ['IN `type` INT(11)', 'IN `user_id` INT(11)', 'IN `cache_id` INT(11)'],
-            "
-            BEGIN
-                CASE `type`
-                    WHEN 1 THEN -- FOUND
-                        CALL dec_powertrail_progress(user_id, cache_id);
-                    ELSE
-                        CALL nop();
-                END CASE;
-            END"
-        );
-
-        $this->db->createOrReplaceProcedure(
-            'inc_cache_watchers',
-            ['IN `p_cache_id` INT(11)'],
-            "
-            BEGIN
-                UPDATE caches SET watcher = watcher + 1
-                WHERE `p_cache_id` = `cache_id`
-                LIMIT 1;
-            END"
-        );
-
-        $this->db->createOrReplaceProcedure(
-            'dec_cache_watchers',
-            ['IN `p_cache_id` INT(11)'],
-            "
-            BEGIN
-                UPDATE caches SET watcher = watcher - 1
-                WHERE `p_cache_id` = `cache_id` AND watcher > 0
-                LIMIT 1;
-            END"
-        );
-    }
-
-    public function adjustTriggers()
-    {
-        // Add missing triggers cache_logs_insert and cache_logs_update at
-        // OC NL and RO. We need to merge the previous triggers
-        //
-        //   cache_logs_insert + cl_insert
-        //   cache_logs_update + cl_update
-        //
-        // because the old OCNL MySQL cannot handle multiple triggers with
-        // identical actions.
-
-        $this->db->dropTriggerIfExists('cl_insert');
-
-        $this->db->createOrReplaceTrigger(
-            'cache_logs_insert',
-            "AFTER INSERT ON cache_logs
-            FOR EACH ROW BEGIN
-
-                IF NEW.`deleted` = 0 THEN
-                    -- new, not-deleted log is now added
-                    CALL inc_logs_stats(NEW.`type`, NEW.`user_id`, NEW.`cache_id`);
-
-                    IF (NEW.type = 1) THEN
-                        IF EXISTS (
-                            SELECT 1
-                            FROM user_finds
-                            WHERE date = DATE(NEW.date)
-                            AND user_id = NEW.user_id
-                        ) THEN
-                            UPDATE user_finds SET number = number + 1
-                            WHERE date = DATE(NEW.date) AND user_id = NEW.user_id;
-                        ELSE
-                            INSERT INTO user_finds (date, user_id, number)
-                            VALUES (NEW.date, NEW.user_id, 1);
-                        END IF;
-                    END IF;
-                END IF;
-
-            END"
-        );
-
-        $this->db->dropTriggerIfExists('cl_update');
-
-        $this->db->createOrReplaceTrigger(
-            'cache_logs_update',
-            "AFTER UPDATE ON cache_logs
-            FOR EACH ROW BEGIN
-
-                IF OLD.`deleted` = 0 AND NEW.`deleted` = 0 THEN
-                    -- update of active log
-                    IF OLD.`type` <> NEW.`type` THEN
-                        CALL dec_logs_stats(OLD.`type`, OLD.`user_id`, OLD.`cache_id`);
-                        CALL inc_logs_stats(NEW.`type`, NEW.`user_id`, NEW.`cache_id`);
-                    END IF;
-
-                ELSEIF OLD.`deleted` = 1 AND NEW.`deleted` = 0 THEN
-                    -- log UNDELETE
-                    CALL inc_logs_stats(NEW.`type`, NEW.`user_id`, NEW.`cache_id`);
-
-                ELSEIF OLD.`deleted` = 0 AND NEW.`deleted` = 1 THEN
-                    -- log DELETE
-                    CALL dec_logs_stats(OLD.`type`, OLD.`user_id`, OLD.`cache_id`);
-
-                ELSE
-                    -- do NOTHING - update of removed log without status change
-                    CALL nop();
-                END IF;
-
-                IF (OLD.type = 1) THEN
-                    IF (NEW.deleted = 1 AND OLD.deleted = 0) OR
-                        NEW.type <> 1 OR
-                        DATE(NEW.date) <> DATE(OLD.date)
-                    THEN
-                        IF EXISTS (
-                            SELECT 1 FROM user_finds
-                            WHERE date = DATE(OLD.date) AND user_id = NEW.user_id
-                        ) THEN
-                            UPDATE user_finds SET number = number - 1
-                            WHERE date = DATE(OLD.date) AND user_id = NEW.user_id;
-                        END IF;
-                    END IF;
-                END IF;
-
-                IF (NEW.deleted = 0 AND NEW.type = 1) THEN
-                    IF (OLD.deleted = 1 OR
-                        OLD.type <> 1 OR
-                        DATE(NEW.date) <> DATE(OLD.date)
-                    ) THEN
-                        IF EXISTS (
-                            SELECT 1 FROM user_finds
-                            WHERE date = DATE(NEW.date) AND user_id = NEW.user_id
-                        ) THEN
-                            UPDATE user_finds SET number = number + 1
-                            WHERE date = DATE(NEW.date) AND user_id = NEW.user_id;
-                        ELSE
-                            INSERT INTO user_finds (date, user_id, number)
-                            VALUES (NEW.date, NEW.user_id, 1);
-                        END IF;
-                    END IF;
-                END IF;
-
-            END"
-        );
-    }
-
     public function rollback()
     {
         $this->db->updateColumnType('user', 'statpic_text', "varchar(30) NOT NULL DEFAULT 'Opencaching'");
@@ -349,3 +137,5 @@ return new class extends UpdateScript
         $this->db->dropTableIfExists('db_updates__');
     }
 };
+
+return new C100Init;

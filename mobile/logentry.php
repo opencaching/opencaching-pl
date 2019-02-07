@@ -28,12 +28,11 @@ if (isset($_SESSION['user_id']) && isset($_GET['wp']) && !empty($_GET['wp'])) {
             $query = "select 1 from cache_logs where user_id = '" . $_SESSION['user_id'] . "' and type = '7' and deleted='0' and cache_id ='" . $caches['cache_id'] . "';";
         else
             $query = "select 1 from cache_logs where user_id = '" . $_SESSION['user_id'] . "' and type = '1' and deleted='0' and cache_id ='" . $caches['cache_id'] . "';";
-        $wynik = XDb::xSql($query);
-        $if_found = XDb::xFetchArray($wynik);
+        $if_found = XDb::xSimpleQueryValue($query, 0);
 
         $is_mine = ($_SESSION['user_id'] == $caches['user_id']) ? 1 : 0;
 
-        $temp_found = ($if_found[0] == 1 || $is_mine == 1) ? 1 : 0;
+        $temp_found = ($if_found == 1 || $is_mine == 1) ? 1 : 0;
 
         $query = "SELECT floor( founds_count /10 ) FROM user WHERE user_id =" . $_SESSION['user_id'] . ";";
         $wynik = XDb::xSql($query);
@@ -163,11 +162,9 @@ $tpl->assign('cache_name', $caches['name']);
 $tpl->assign('cache_type', $caches['type']);
 $tpl->assign('logpw', $caches['logpw']);
 $tpl->assign('wp_oc', $wp);
-$tpl->assign('date_d', date(d));
-$tpl->assign('date_m', date(m));
-$tpl->assign('date_Y', date(Y));
-$tpl->assign('date_H', date(H));
-$tpl->assign('date_i', date(i));
+$tpl->assign('date_d', date('d'));
+$tpl->assign('date_m', date('m'));
+$tpl->assign('date_Y', date('Y'));
+$tpl->assign('date_H', date('H'));
+$tpl->assign('date_i', date('i'));
 $tpl->display('tpl/logentry.tpl');
-
-

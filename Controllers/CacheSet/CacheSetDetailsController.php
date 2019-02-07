@@ -25,4 +25,3 @@ class CacheSetDetailsController extends BaseController
     }
 
 }
-

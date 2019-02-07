@@ -340,13 +340,17 @@ if (! $SearchWithSort) // without interactive sort
         }
 }
 
-// startat?
-$startat = isset($_REQUEST['startat']) ? $_REQUEST['startat'] : 0;
-if (! is_numeric($startat))
+if (isset($_REQUEST['startat'])) {
+    $startat = OcDb::quoteLimit($_REQUEST['startat']);
+} else { 
     $startat = 0;
-if (! is_numeric($caches_per_page))
-    $caches_per_page = 20;
-$startat = floor($startat / $caches_per_page) * $caches_per_page;
+}
+
+$caches_per_page = OcDb::quoteOffset($caches_per_page);
+if ($caches_per_page > 0) {
+    $startat = floor($startat / $caches_per_page) * $caches_per_page;
+}
+
 $query .= ' LIMIT ' . $startat . ', ' . $caches_per_page;
 
 $s = $dbcSearch->simpleQuery($query);
@@ -415,12 +419,6 @@ for ($i = 0; $i < $dbcSearch->rowCount($s); $i ++) {
     }
 
     $tmpline = str_replace('{short_desc}', htmlspecialchars(PrepareText($caches_record['short_desc']), ENT_COMPAT, 'UTF-8'), $tmpline);
-
-    $dDiff = abs(dateDiff('d', $caches_record['date_created'], date('Y-m-d')));
-    if ($dDiff < $caches_olddays)
-        $tmpline = str_replace('{new}', $caches_newstring, $tmpline);
-    else
-        $tmpline = str_replace('{new}', '', $tmpline);
 
     $tmpline = str_replace('{diffpic}', icon_difficulty("diff", $caches_record['difficulty']), $tmpline);
     $tmpline = str_replace('{terrpic}', icon_difficulty("terr", $caches_record['terrain']), $tmpline);
@@ -635,12 +633,8 @@ if ($usr || ! $hide_coords)
     tpl_set_var('queryid', $options['queryid']);
     tpl_set_var('startat', $startat);
 
-    tpl_set_var('startatp1', $startat + 1);
-
-    //if (($resultcount - $startat) < 500)
-        tpl_set_var('endat', $startat + $resultcount - $startat);
-    //else
-        //tpl_set_var('endat', $startat + 500);
+    tpl_set_var('startatp1', 1);
+    tpl_set_var('endat', $resultcount);
 
     // compatibility!
     if ($distance_unit == 'sm')

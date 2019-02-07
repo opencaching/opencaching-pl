@@ -30,4 +30,3 @@ $url = "/lib/js/openlayers/5.2.0";
 
 <?php
 }; //end of chunk
-

@@ -8,4 +8,3 @@
 
 
 <?php $view->callChunk('dynamicMap/dynamicMap', $view->mapModel, "mapCanvas");?>
-

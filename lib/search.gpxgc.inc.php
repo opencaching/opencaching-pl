@@ -8,6 +8,8 @@ use lib\Objects\GeoCache\CacheNote;
 use lib\Objects\GeoCache\GeoCacheCommons;
 use lib\Objects\GeoCache\GeoCacheLog;
 use Utils\I18n\I18n;
+use Utils\Text\Validator;
+use lib\Objects\OcConfig\OcConfig;
 
 global $content, $bUseZip, $usr, $hide_coords, $dbcSearch, $queryFilter;
 
@@ -136,26 +138,17 @@ if ($usr || ! $hide_coords) {
             $query .= ' ORDER BY name ASC';
         }
 
-    // startat?
-    $startat = isset($_REQUEST['startat']) ? $_REQUEST['startat'] : 0;
-    if (! is_numeric($startat))
+    if (isset($_REQUEST['startat'])) {
+        $startat = XDb::quoteOffset($_REQUEST['startat']);
+    } else { 
         $startat = 0;
+    }
 
-    if (isset($_REQUEST['count']))
-        $count = $_REQUEST['count'];
-    else
+    if (isset($_REQUEST['count'])) {
+        $count = XDb::quoteLimit($_REQUEST['count']);
+    } else {
         $count = $caches_per_page;
-
-    $maxlimit = 1000000000;
-
-    if ($count == 'max')
-        $count = $maxlimit;
-    if (! is_numeric($count))
-        $count = 0;
-    if ($count < 1)
-        $count = 1;
-    if ($count > $maxlimit)
-        $count = $maxlimit;
+    }
 
     $queryLimit = ' LIMIT ' . $startat . ', ' . $count;
 
@@ -323,8 +316,8 @@ if ($usr || ! $hide_coords) {
             $r['cacheid']);
 
         $attribentries = '';
-        if (isset($gpxNodemap[$oc_nodeid]) && isset($gpxAI[$gpxNodemap[$oc_nodeid]])) {
-            $nodeCode = $gpxNodemap[$oc_nodeid];
+        if (isset($gpxNodemap[OcConfig::getSiteNodeId()]) && isset($gpxAI[$gpxNodemap[OcConfig::getSiteNodeId()]])) {
+            $nodeCode = $gpxNodemap[OcConfig::getSiteNodeId()];
         } else {
             $nodeCode = '';
         }
@@ -490,9 +483,9 @@ if ($usr || ! $hide_coords) {
         $thisline = mb_ereg_replace('{oc_password}', $r['logpw'] != '' ? 'true' : 'false', $thisline);
 
         $other_codes = [];
-        foreach (['GC', 'TC', 'NC', 'GE'] as $platform) {
-            $code = strtoupper($r['wp_'.strtolower($platform)]);
-            if (substr($code, 0, 2) == $platform && strlen($code) >= 4) {
+        foreach (['gc', 'tc', 'nc', 'ge'] as $platform) {
+            $code = Validator::xxWaypoint($platform, $r['wp_'.$platform]);
+            if ($code) {
                 $other_codes[] = mb_ereg_replace('{code}', $code, $gpxOcOtherCode);
             }
         }

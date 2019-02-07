@@ -2,6 +2,8 @@
 namespace Controllers\Admin;
 
 use Controllers\BaseController;
+use Controllers\UpdateController;
+use Utils\DataBase\OcDb;
 use Utils\Database\DbUpdates;
 use Utils\Uri\SimpleRouter;
 use Utils\Uri\Uri;
@@ -33,15 +35,12 @@ class DbUpdateController extends BaseController
         $updates = DbUpdates::getAll();
         $updates = array_reverse($updates, true);
 
-        $updatesShouldRun = false;
-
         foreach ($updates as $update) {
             $update->adminActions = $this->getAvailableActions($update);
-            $updatesShouldRun |= $update->shouldRun();
         }
 
         $this->view->setVar('updates', $updates);
-        $this->view->setVar('updatesShouldRun', $updatesShouldRun);
+        $this->view->setVar('routineFiles', DbUpdates::getRoutineFileNames());
         $this->view->setVar('messages', $messages);
 
         $this->buildTemplateView();
@@ -134,36 +133,48 @@ class DbUpdateController extends BaseController
         );
     }
 
-    public function viewScript($uuid)
+    public function viewScript($id)
     {
         $this->securityCheck(false);
 
-        $update = $this->getUpdateFromUuid($uuid);
-        $this->view->setVar('viewScript', $uuid);
-        $this->view->setVar('scriptFilename', $update->getFileName());
-        $this->view->setVar('scriptSource', $update->getScriptContents());
+        if (substr($id, -4) == '.sql') {
+            $filename = $id;
+            $contents = DbUpdates::getRoutineContents($filename);
+        } else {
+            $update = $this->getUpdateFromUuid($id);
+            $filename = $update->getFileName();
+            $contents = $update->getScriptContents();
+        }
+
+        $this->view->setVar('viewScript', $id);
+        $this->view->setVar('scriptFilename', $filename);
+        $this->view->setVar('scriptSource', $contents);
         $this->buildTemplateView();
     }
 
-    public function run($uuid = null)
+    public function run($id = null)
     {
         // This action is allowed to run on production sites (by sysAdmins only).
         $this->securityCheck(false);
 
         try {
-            if (!$uuid) {
-                $messages = DbUpdates::run();
+            if (!$id) {
+                $messages = UpdateController::runOcDatabaseUpdate();
+            } elseif (substr($id, -4) == '.sql') {
+                $messages = DbUpdates::runRoutines($id);
             } else {
-                $update = $this->getUpdateFromUuid($uuid);
+                $update = $this->getUpdateFromUuid($id);
 
-                if (!isset($this->getAvailableActions($update)['run'])) {
+                if (!isset($this->getAvailableActions($update)['run'])
+                    && empty($_REQUEST['override'])
+                ) {
 
                     # This can happen on page reload on a production site:
                     # Update was allowed to run, but must not re-run.
 
                     $messages = sprintf(tr('admin_dbupdate_norun'), $update->getName());
                 } else {
-                    $messages = $this->getUpdateFromUuid($uuid)->run();
+                    $messages = $update->run();
                 }
             }
         } catch (\Exception $e) {
@@ -187,7 +198,9 @@ class DbUpdateController extends BaseController
 
         $update = $this->getUpdateFromUuid($uuid);
 
-        if (!isset($this->getAvailableActions($update)['rollback'])) {
+        if (!isset($this->getAvailableActions($update)['rollback'])
+            && empty($_REQUEST['override'])
+        ) {
 
             # This can happen on page reload on a production site:
             # Update was allowed to roll back, but only once.
@@ -226,7 +239,7 @@ class DbUpdateController extends BaseController
 
             # This could be improved by returning error codes from rename(),
             # e.g. for "invalid characters" or "name too short", and
-            # presenting an error message. 
+            # presenting an error message.
         }
         $this->reload();
     }
@@ -281,6 +294,7 @@ class DbUpdateController extends BaseController
     private function buildTemplateView()
     {
         $this->view->setVar('developerMode', $this->ocConfig->inDebugMode());
+        $this->view->setVar('mysqlVersion', OcDb::instance()->getServerVersion());
         $this->view->setTemplate('sysAdmin/dbUpdate');
         $this->view->buildView();
         exit();

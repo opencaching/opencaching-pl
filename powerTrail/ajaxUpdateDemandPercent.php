@@ -23,4 +23,3 @@ if($ptAPI::checkIfUserIsPowerTrailOwner($_SESSION['user_id'], $powerTrailId) == 
     $db->multiVariableQuery($query, $newPercent, $powerTrailId);
     echo $newPercent;
 }
-?>

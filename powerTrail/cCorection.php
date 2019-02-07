@@ -158,4 +158,3 @@ final class UserCollection
         return $this->userArray;
     }
 }
-

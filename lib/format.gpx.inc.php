@@ -1,19 +1,21 @@
 <?php
 
+use lib\Objects\OcConfig\OcConfig;
+
 require_once(__DIR__.'/common.inc.php');
 
 $gpxHead = '<?xml version="1.0" encoding="utf-8"?>
 <gpx xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd http://www.groundspeak.com/cache/1/0/1 http://www.groundspeak.com/cache/1/0/1/cache.xsd http://www.gsak.net/xmlv1/5 http://www.gsak.net/xmlv1/5/gsak.xsd https://github.com/opencaching/gpx-extension-v1 https://raw.githubusercontent.com/opencaching/gpx-extension-v1/master/schema.xsd"
     xmlns="http://www.topografix.com/GPX/1/0" version="1.0"
-    creator="' . convert_string($site_name) . '">
+    creator="' . convert_string(OcConfig::getSiteName()) . '">
 
-    <name>Cache Listing Generated from ' . convert_string($site_name) . '</name>
-    <desc>Cache Listing Generated from ' . convert_string($site_name) . ' {wpchildren}</desc>
-    <author>' . convert_string($site_name) . '</author>
-    <email>' . $mail_oc . '</email>
+    <name>Cache Listing Generated from ' . convert_string(OcConfig::getSiteName()) . '</name>
+    <desc>Cache Listing Generated from ' . convert_string(OcConfig::getSiteName()) . ' {wpchildren}</desc>
+    <author>' . convert_string(OcConfig::getSiteName()) . '</author>
+    <email>' . OcConfig::getEmailAddrTechAdmin() . '</email>
     <url>' . $absolute_server_URI . '</url>
-    <urlname>' . convert_string($site_name) . ' - ' . convert_string(tr('oc_subtitle_on_all_pages_' . $config['ocNode'])) . '</urlname>
+    <urlname>' . convert_string(OcConfig::getSiteName()) . ' - ' . convert_string(tr('oc_subtitle_on_all_pages_' . $config['ocNode'])) . '</urlname>
     <time>{time}</time>
     <keywords>cache, geocache</keywords>
 ';
@@ -250,17 +252,17 @@ $gpxLogType[11] = 'Temporarily Disable Listing';        // OC: XXX_TEMPORARILY_U
 $gpxLogType[12] = 'OC Team Comment';                    // OC: XXX_OC_TEAM_COMMENT
 // Note: log types implementation incomplete.
 
-/************************************************************************
-Attributes
+/* ***********************************************************************
+  Attributes
 
-GPX ID mapping of all attributes of OC.PL .NL .RO .UK. .US, as of 3 October 2017.
-If there is a matching DE attribute with other ID, the DE ID is given in the "DE" column.
+  GPX ID mapping of all attributes of OC.PL .NL .RO .UK. .US, as of 3 October 2017.
+  If there is a matching DE attribute with other ID, the DE ID is given in the "DE" column.
 
-IDs < 100 are original GC.com, 101-199 are pseudo-GC IDs for special Opencaching attributes.
-Appended ".0" means inc="0".
+  IDs < 100 are original GC.com, 101-199 are pseudo-GC IDs for special Opencaching attributes.
+  Appended ".0" means inc="0".
 
-Note that there are some redundant IDs, e.h. UK/RO 46 and NL/PL/US 83 both map to
-GC 51 "Special tool required".
+  Note that there are some redundant IDs, e.h. UK/RO 46 and NL/PL/US 83 both map to
+  GC 51 "Special tool required".
 */
 
 // common assignments

@@ -34,4 +34,3 @@ return function () {
 
 <?php
 };
-

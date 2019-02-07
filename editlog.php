@@ -10,8 +10,9 @@ use okapi\Facade;
 use Utils\EventHandler\EventHandler;
 use Utils\Text\InputFilter;
 use lib\Objects\GeoCache\MobileCacheMove;
+use lib\Objects\OcConfig\OcConfig;
 use Utils\I18n\I18n;
-
++
 //prepare the templates and include all neccessary
 require_once(__DIR__.'/lib/common.inc.php');
 global $usr, $config;
@@ -46,7 +47,7 @@ if ($error == false) {
             require_once(__DIR__.'/lib/caches.inc.php');
             require(__DIR__.'/tpl/stdstyle/rating.inc.php');
 
-            if ($log_record['node'] != $oc_nodeid) {
+            if ($log_record['node'] != OcConfig::getSiteNodeId()) {
                 tpl_errorMsg('editlog', $error_wrong_node);
                 exit;
             }
@@ -259,7 +260,7 @@ if ($error == false) {
                         XDb::xFreeResults($user_rs);
 
 
-                        if ($log_record['logtype'] == 1 || $log_record['logtype'] == 7) {
+                        if ($log_record['logtype'] == 1) {
                             $user_record['founds_count'] --;
 
                             // recalc scores for this cache
@@ -293,7 +294,7 @@ if ($error == false) {
                         $user_record['notfounds_count'] = $user_record['notfounds_count'] + 0;
                         $user_record['log_notes_count'] = $user_record['log_notes_count'] + 0;
 
-                        if ($log_type == 1 || $log_type == 7) {
+                        if ($log_type == 1) {
                             $user_record['founds_count'] ++;
                         } elseif ($log_type == 2) {
                             $user_record['notfounds_count'] ++;

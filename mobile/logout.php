@@ -7,4 +7,3 @@ if (isset($_GET['token']) && isset($_SESSION['logout_cookie']) && $_GET['token']
         $login->logout();
 }
 header('Location: ./index.php');
-?>

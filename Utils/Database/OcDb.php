@@ -267,6 +267,31 @@ class OcDb extends OcPdo
     }
 
     /**
+     * Execute multiple queries from one string, without parameters.
+     * Recognizes the DELIMITER statement, which may be supplied ONCE
+     * at the very beginning of the string.
+     *
+     * This very simple function will fail if the delimiter (default ';')
+     * is included in a comment or string constant.
+     *
+     * @param $queries
+     */
+    public function simpleQueries($queries)
+    {
+        if (preg_match('/^DELIMITER\s+([^\s]+)\s/i', $queries, $matches)) {
+            $delimiter = $matches[1];
+        } else {
+            $delimiter = ';';
+        }
+        foreach (explode($delimiter, $queries) as $query) {
+            $query = trim($query);
+            if (strcasecmp(substr($query, 0, 9), 'DELIMITER') != 0) {
+                $this->simpleQuery($query);
+            }
+        }
+    }
+
+    /**
      * Executes given query. If the query return no rows, or null value, default value is returned.
      * Otherwise, value of first column in a first row is returned.
      *
@@ -281,7 +306,6 @@ class OcDb extends OcPdo
 
         return $this->dbResultFetchValue($stmt, $default);
     }
-
 
     /**
      * @param $query - string, with params representation instead variables.
@@ -519,26 +543,61 @@ class OcDb extends OcPdo
     }
 
     /**
-     * Quote limit and offset values - it can't be bind by pdo->bind :(
-     * @param int $limit
-     * @param int $offset
-     * @return array - [$limit, $offset]
+     * Converts any limit/offset variables into integers which can be safely
+     * inserted into a LIMIT clause, directly or as PDO param.
+     *
+     * @param int|float|string $limit
+     * @param int|float|string $offset
+     * @return array - [string $limit, string $offset]
      */
-    public function quoteLimitOffset($limit, $offset = null)
+    public static function quoteLimitOffset($limit, $offset)
     {
-        if (is_null($limit) || !is_numeric($limit)) {
-            $limit = 1000000000; //very large row number
-        } else {
-            $limit = (int)$limit;
+        return [
+            self::quoteLimit($limit),
+            self::quoteOffset($offset)
+        ];
+    }
+
+    /**
+     * Converts any limit variable into integers which can be safely inserted
+     * into a LIMIT clause, directly or as PDO param.
+     *
+     * @param int|float|string $limit
+     * @return string $limit
+     */
+    public static function quoteLimit($limit)
+    {
+        return self::quoteLimitNumber($limit);
+    }
+
+    public static function quoteOffset($limit)
+    {
+        return self::quoteLimitNumber($limit);
+    }
+
+    /**
+     * Do the validation and conversion
+     */
+    private static function quoteLimitNumber($number)
+    {
+        // We don't expect to ever reach > 1 billion rows in a table.
+        // Note that is somewhat less than PHP_INT_MAX/2.
+        $max = 1000000000;
+
+        if ($number === 'max' || $number >= $max) {
+            // 'max' is used by search.php.
+            return $max;
+        }
+        if ($number <= 0) {
+            // This includes all non-numeric values. Previous implementation
+            // returned 1000000000 for non_numeric limit, but that prevents
+            // detection of some programming errors.
+
+            return 0;
         }
 
-        if (is_null($offset) || !is_numeric($offset)) {
-            $offset = 0; // no-offset
-        } else {
-            $offset = (int)$offset;
-        }
-
-        return array($limit, $offset);
+        // get rid of whitespace, non-integer components and other rubbish
+        return (int) $number;
     }
 
     /**
@@ -677,12 +736,12 @@ class OcDb extends OcPdo
 
     public function triggerExists($name)
     {
-        return $this->funcExists($name, "SHOW TRIGGERS WHERE `trigger` = :1");      
+        return $this->funcExists($name, "SHOW TRIGGERS WHERE `trigger` = :1");
     }
 
     public function procedureExists($name)
     {
-        return $this->funcExists($name, "SHOW PROCEDURE STATUS WHERE `name` = :1");      
+        return $this->funcExists($name, "SHOW PROCEDURE STATUS WHERE `name` = :1");
     }
 
     public function functionExists($name)
@@ -786,6 +845,9 @@ class OcDb extends OcPdo
 
     public function addFulltextIfNotExists($table, $index, array $columns = [])
     {
+        throw new \Exception(
+            'FULLTEXT is not available at OC RO (MySQL 5.0)'
+        );
         $this->addIndexOfTypeIfNotExists($table, $index, 'FULLTEXT', $columns);
     }
 
@@ -940,5 +1002,10 @@ class OcDb extends OcPdo
         if (!preg_match('/^[A-Za-z ]*$/', $keywords)) {
             $this->error("Invalid SQL keyword(s): '".$keywords."'");
         }
+    }
+
+    public function getServerVersion()
+    {
+        return $this->simpleQueryValue('SELECT version()', '?');
     }
 }

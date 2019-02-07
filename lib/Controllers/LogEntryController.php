@@ -80,7 +80,7 @@ use lib\Objects\User\User;
      * @param int $limit
      * @return \lib\Objects\GeoCache\GeoCacheLog[]
      */
-    public function loadLogs(GeoCache $cache, $includeDeletedLogs = false, $offset = 0, $limit = -1)
+    public function loadLogs(GeoCache $cache, $includeDeletedLogs = false, $offset = 0, $limit = 0)
     {
         $query = 'SELECT * FROM `cache_logs` WHERE `cache_logs`.`cache_id` = :cacheid';
         if (! $includeDeletedLogs) {
@@ -94,11 +94,11 @@ use lib\Objects\User\User;
                 'data_type' => 'integer',
             ),
             'limit' => array(
-                'value' => (integer) $limit,
+                'value' => OcDb::quoteLimit($limit),
                 'data_type' => 'integer',
             ),
             'offset' => array(
-                'value' => (integer) $offset,
+                'value' => OcDb::quoteOffset($offset),
                 'data_type' => 'integer',
             ),
         );
@@ -112,7 +112,7 @@ use lib\Objects\User\User;
         return $result;
     }
 
-    public function loadLogsFromDb($geocacheId, $includeDeletedLogs = false, $offset = 0, $limit = -1, $logId = false)
+    public function loadLogsFromDb($geocacheId, $includeDeletedLogs = false, $offset = 0, $limit = 0, $logId = false)
     {
         $query = $this->generateGetLogsQuery($includeDeletedLogs, $logId);
         $params = array(
@@ -121,11 +121,11 @@ use lib\Objects\User\User;
                 'data_type' => 'integer',
             ),
             'v2' => array(
-                'value' => (integer) $limit,
+                'value' => OcDb::quoteLimit($limit),
                 'data_type' => 'integer',
             ),
             'v3' => array(
-                'value' => (integer) $offset,
+                'value' => OcDb::quoteOffset($offset),
                 'data_type' => 'integer',
             ),
         );

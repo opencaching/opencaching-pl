@@ -74,4 +74,3 @@ return function (ListOfCaches $m){
   </table>
 <?php
 }; //end of chunk
-
