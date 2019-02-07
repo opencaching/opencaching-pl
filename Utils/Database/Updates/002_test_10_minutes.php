@@ -2,7 +2,7 @@
 
 namespace Utils\Database\Updates;
 
-return new class extends UpdateScript
+class C002Test extends UpdateScript
 {
     public function getProperties()
     {
@@ -21,3 +21,5 @@ return new class extends UpdateScript
         echo "Ok\n";
     }
 };
+
+return new C002Test;
