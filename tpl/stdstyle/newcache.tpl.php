@@ -31,7 +31,6 @@ $view->callChunk('tinyMCE');
             }
 
     $(function() {
-    $('#scriptwarning').hide();
             chkcountry2();
             $.datepicker.setDefaults($.datepicker.regional['pl']);
             $('#hiddenDatePicker, #activateDatePicker').datepicker(
@@ -658,11 +657,6 @@ $(document).ready(function(){
             <td colspan="2">
                 <p class="content-title-noshade">{{full_description}}:</p>
                 {desc_message}
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <span id="scriptwarning" class="errormsg">{{javascript_edit_info}}</span>
             </td>
         </tr>
         <tr>

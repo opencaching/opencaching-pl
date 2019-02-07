@@ -71,7 +71,7 @@ class AutoArch
 
     private function sendEmail($step, $cacheid)
     {
-        $octeamEmailAddress = $this->ocConfig->getOcteamEmailAddress();
+        $octeamEmailAddress = OcConfig::getEmailAddrOcTeam();
         $siteName = $this->ocConfig->getSiteName();
         $cache = new GeoCache(array('cacheId' => (int) $cacheid));
         switch ($step) {
@@ -99,7 +99,7 @@ class AutoArch
         $email_content = mb_ereg_replace('{cachename}', $cache->getCacheName(), $email_content);
         $email_content = mb_ereg_replace('{cache_wp}', $cache->getWaypointId(), $email_content);
         $email_content = mb_ereg_replace('{cacheid}', $cacheid, $email_content);
-        $email_content = mb_ereg_replace('{octeamEmailsSignature}', $this->ocConfig->getOcteamEmailsSignature(), $email_content);
+        $email_content = mb_ereg_replace('{octeamEmailsSignature}', OcConfig::getOcteamEmailsSignature(), $email_content);
         $emailheaders = "Content-Type: text/plain; charset=utf-8\r\n";
         $emailheaders .= "From: $siteName <$octeamEmailAddress>\r\n";
         $emailheaders .= "Reply-To: $siteName <$octeamEmailAddress>";
@@ -148,7 +148,6 @@ class AutoArch
      */
     private function archiveGeocache($rs)
     {
-        global $oc_nodeid;
         $db = OcDb::instance();
 
         $statusSqlQuery = "REPLACE INTO cache_arch (cache_id, step) VALUES ( :1, :2 )";
@@ -161,7 +160,11 @@ class AutoArch
 
         $db->multiVariableQuery($statusSqlQuery, (int) $rs['cache_id'], $this->step["ARCH_COMPLETE"]);
         $db->multiVariableQuery($archSqlQuery, (int) $rs['cache_id']);
-        $db->multiVariableQuery($logSqlQuery, (int) $rs['cache_id'],  Uuid::create(), tr('autoArchive_12'), $oc_nodeid);
+        $db->multiVariableQuery($logSqlQuery,
+            (int) $rs['cache_id'],
+            Uuid::create(),
+            tr('autoArchive_12'),
+            OcConfig::getSiteNodeId());
 
         if ($db->commit()) {
             $this->sendEmail($this->step["AFTER_SECOND_MAIL_SENT"], $rs['cache_id']);

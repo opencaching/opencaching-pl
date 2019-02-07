@@ -1,6 +1,7 @@
 <?php
 
 use Utils\Database\OcDb;
+use lib\Objects\OcConfig\OcConfig;
 /*
  * Simple script to delete user account. The script is intended for admins only,
  * in cases when the user wants to opt-out and no activity has been recorded.
@@ -71,7 +72,7 @@ if ($pic_count > 0) {
 // Record user removal
 $db->multiVariableQuery(
         "INSERT INTO removed_objects (localid, uuid, `type`, removed_date, node)" .
-        " SELECT user_id, uuid, 4, NOW(), :2 FROM user WHERE user_id = :1", $user_id, $oc_nodeid);
+        " SELECT user_id, uuid, 4, NOW(), :2 FROM user WHERE user_id = :1", $user_id, OcConfig::getSiteNodeId());
 
 // Delete saved queries
 $db->multiVariableQuery('DELETE FROM queries WHERE user_id = :1', $user_id);

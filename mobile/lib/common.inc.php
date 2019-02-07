@@ -1,5 +1,7 @@
 <?php
 
+use lib\Objects\OcConfig\OcConfig;
+
 session_start();
 
 require_once('../lib/settingsGlue.inc.php');
@@ -21,4 +23,4 @@ if (!$hide_coords || (isset($_SESSION['user_id']) && $_SESSION['user_id'] > 0)) 
 }
 $tpl->assign('show_coords', $show_coords);
 $tpl->assign('absolute_server_url', rtrim($absolute_server_URI, '/'));
-$tpl->assign('site_name', rtrim($site_name, '/'));
+$tpl->assign('site_name', rtrim(OcConfig::getSiteName(), '/'));

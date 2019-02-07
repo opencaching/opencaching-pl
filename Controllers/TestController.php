@@ -23,6 +23,7 @@ use Utils\Text\Formatter;
 use Utils\Uri\OcCookie;
 use lib\Objects\Coordinates\Coordinates;
 use Utils\FileSystem\FileUploadMgr;
+use lib\Objects\OcConfig\OcConfig;
 
 class TestController extends BaseController
 {
@@ -412,4 +413,16 @@ class TestController extends BaseController
 
         $this->view->buildView();
     }
+
+    public function checkConfig()
+    {
+
+        d(OcConfig::getEmailAddrOcTeam());
+        d(OcConfig::getOcteamEmailsSignature());
+        d(OcConfig::getEmailAddrNoReply());
+        d(OcConfig::getEmailAddrTechAdmin());
+        d(OcConfig::getEmailSubjectPrefixForOcTeam());
+        d(OcConfig::getEmailSubjectPrefix());
+    }
+
 }

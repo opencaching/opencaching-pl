@@ -48,10 +48,10 @@ class UserEmailSender
         if ($attachSenderAddress) {
             $email->setReplyToAddr($from->getEmail());
         } else {
-            $email->setReplyToAddr(OcConfig::getNoreplyEmailAddress());
+            $email->setReplyToAddr(OcConfig::getEmailAddrNoReply());
         }
-        $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
-        $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForSite());
+        $email->setFromAddr(OcConfig::getEmailAddrNoReply());
+        $email->addSubjectPrefix(OcConfig::getEmailSubjectPrefix());
         // add additional prefix to subject
         $subject = tr('mailto_emailFrom') . ' ' . $from->getUserName() . ': ' . $subject;
         $email->setSubject($subject);
@@ -88,9 +88,9 @@ class UserEmailSender
         // send email to Recipient
         $email = new Email();
         $email->addToAddr($from->getEmail());
-        $email->setReplyToAddr(OcConfig::getNoreplyEmailAddress());
-        $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
-        $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForSite());
+        $email->setReplyToAddr(OcConfig::getEmailAddrNoReply());
+        $email->setFromAddr(OcConfig::getEmailAddrNoReply());
+        $email->addSubjectPrefix(OcConfig::getEmailSubjectPrefix());
         $email->setSubject($subject);
         $email->setHtmlBody($userMessage->getEmailContent());
         $result = $email->send();
@@ -121,9 +121,9 @@ class UserEmailSender
 
         $email = new Email();
         $email->addToAddr($user->getEmail());
-        $email->setReplyToAddr(OcConfig::getNoreplyEmailAddress());
-        $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
-        $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForSite());
+        $email->setReplyToAddr(OcConfig::getEmailAddrNoReply());
+        $email->setFromAddr(OcConfig::getEmailAddrNoReply());
+        $email->addSubjectPrefix(OcConfig::getEmailSubjectPrefix());
         $email->setSubject(tr('activate_mail_subject'));
         $email->setHtmlBody($userMessage->getEmailContent());
         $email->send();
@@ -143,9 +143,9 @@ class UserEmailSender
         $userMessage->setVariable('postActivation_mail_04', mb_ereg_replace('{NEED_FIND_LIMIT}', OcConfig::getNeedFindLimit(), tr('postActivation_mail_04')));
         $email = new Email();
         $email->addToAddr($user->getEmail());
-        $email->setReplyToAddr(OcConfig::getNoreplyEmailAddress());
-        $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
-        $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForSite());
+        $email->setReplyToAddr(OcConfig::getEmailAddrNoReply());
+        $email->setFromAddr(OcConfig::getEmailAddrNoReply());
+        $email->addSubjectPrefix(OcConfig::getEmailSubjectPrefix());
         $email->setSubject(tr('postActivation_mail_subject'));
         $email->setHtmlBody($userMessage->getEmailContent());
         $email->send();

@@ -1,6 +1,8 @@
 <?php
 
-tpl_set_var('mail_oc', $mail_oc);
+use lib\Objects\OcConfig\OcConfig;
+
+tpl_set_var('mail_oc', OcConfig::getEmailAddrTechAdmin());
 
 $submit = tr('newmp3_01');
 

@@ -3,6 +3,7 @@
 use Utils\Database\XDb;
 use lib\Objects\Admin\AdminNote;
 use Utils\Generators\Uuid;
+use lib\Objects\OcConfig\OcConfig;
 use lib\Objects\User\User;
 
 global $bgcolor1, $bgcolor2;
@@ -114,7 +115,7 @@ function assignUserToCase($userid, $cacheid)
 function notifyOwner($cacheid, $msgType)
 {
     // msgType - 0 = cache accepted, 1 = cache declined (=archived)
-    global $usr, $octeam_email, $site_name, $absolute_server_URI, $octeamEmailsSignature, $oc_nodeid;
+    global $usr, $absolute_server_URI;
     $user_id = getCacheOwnerId($cacheid);
 
     $cachename = getCachename($cacheid);
@@ -124,12 +125,12 @@ function notifyOwner($cacheid, $msgType)
         $email_content = file_get_contents('./tpl/stdstyle/email/archived_cache.email');
     }
     $email_headers = "Content-Type: text/plain; charset=utf-8\r\n";
-    $email_headers .= "From: $site_name <$octeam_email>\r\n";
-    $email_headers .= "Reply-To: $octeam_email\r\n";
+    $email_headers .= "From: ".OcConfig::getSiteName()." <".OcConfig::getEmailAddrOcTeam().">\r\n";
+    $email_headers .= "Reply-To: ".OcConfig::getEmailAddrOcTeam()."\r\n";
     $email_content = mb_ereg_replace('{server}', $absolute_server_URI, $email_content);
     $email_content = mb_ereg_replace('{cachename}', $cachename, $email_content);
     $email_content = mb_ereg_replace('{cacheid}', $cacheid, $email_content);
-    $email_content = mb_ereg_replace('{octeamEmailsSignature}', $octeamEmailsSignature, $email_content);
+    $email_content = mb_ereg_replace('{octeamEmailsSignature}', OcConfig::getOcteamEmailsSignature(), $email_content);
     $email_content = mb_ereg_replace('{cacheArchived_01}', tr('cacheArchived_01'), $email_content);
     $email_content = mb_ereg_replace('{cacheArchived_02}', tr('cacheArchived_02'), $email_content);
     $email_content = mb_ereg_replace('{cacheArchived_03}', tr('cacheArchived_03'), $email_content);
@@ -157,7 +158,7 @@ function notifyOwner($cacheid, $msgType)
             "INSERT INTO `cache_logs`
                 (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`)
             VALUES ('', ?, ?, '12', NOW(), ?, '2', '1', NOW(), NOW(), ?, ?)",
-            $cacheid, $usr['userid'], $log_text, $log_uuid, $oc_nodeid);
+            $cacheid, $usr['userid'], $log_text, $log_uuid, OcConfig::getSiteNodeId());
 
     } else {
         //send email to owner
@@ -172,7 +173,7 @@ function notifyOwner($cacheid, $msgType)
             "INSERT INTO `cache_logs`
                 (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`)
             VALUES ('', ?, ?, ?, NOW(), ?, ?, ?, NOW(), NOW(), ?, ?)",
-            $cacheid, $usr['userid'], 12, $log_text, 2, 1, $log_uuid, $oc_nodeid);
+            $cacheid, $usr['userid'], 12, $log_text, 2, 1, $log_uuid, OcConfig::getSiteNodeId());
     }
 }
 

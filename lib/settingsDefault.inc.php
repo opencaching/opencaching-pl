@@ -7,17 +7,6 @@
 
 require_once (__DIR__.'/cache.php');
 
-// default site name
-$site_name = 'OpenCaching.???';
-
-
-// OC specific email addresses for international use
-// override in settings.inc.php to values you want to locally use
-
-$mail_cog = 'cog@localhost';    // OCPL COG = reviewers and regional service for cachers
-$mail_rt = 'root@localhost';    // OCPL technical contact
-$mail_oc = 'ocpl@localhost';    // OCPL general contact
-
 // enable detailed cache access logging
 $enable_cache_access_logs = false;
 
@@ -275,10 +264,6 @@ $config['feed']['forum']['showAuthor'] = true;
 $config['feed']['blog']['url'] = '';
 $config['feed']['blog']['posts'] = 5;
 $config['feed']['blog']['showAuthor'] = true;
-
-$subject_prefix_for_site_mails = "OCXX";
-$subject_prefix_for_reviewers_mails = "";
-
 
 // customization of the start page
 $config['startPage']['latestCacheSetsCount'] = 3;

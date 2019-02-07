@@ -3,6 +3,7 @@
 use Utils\Database\OcDb;
 use Utils\Generators\Uuid;
 use lib\Controllers\MeritBadgeController;
+use lib\Objects\OcConfig\OcConfig;
 
 global $titled_cache_nr_found, $titled_cache_period_prefix;
 
@@ -154,7 +155,7 @@ if ( $dDiff->days < $securityPeriod )
 
     $dbc->multiVariableQuery($queryLogI, $rec[ "cacheId" ], $SystemUser, $LogType, $date_alg,
             $msgText, '2', '1', $date_alg, $date_alg, $LogUuid, '0', '0',
-            $date_alg, '0', $oc_nodeid );
+            $date_alg, '0', OcConfig::getSiteNodeId() );
 
     $ctrlMeritBadge = new MeritBadgeController;
     $titledIds= $ctrlMeritBadge->updateTriggerByNewTitledCache($rec[ "cacheId" ]);

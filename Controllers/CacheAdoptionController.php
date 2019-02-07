@@ -8,6 +8,7 @@ use Utils\Email\EmailSender;
 use Utils\Database\OcDb;
 use Utils\Uri\Uri;
 use Utils\Generators\Uuid;
+use lib\Objects\OcConfig\OcConfig;
 
 class CacheAdoptionController extends BaseController
 {
@@ -167,7 +168,7 @@ class CacheAdoptionController extends BaseController
                             uuid = :3,
                             node = :4",
 
-            $cacheObj->getCacheId(), $logMessage, Uuid::create(), $GLOBALS['oc_nodeid'] );
+            $cacheObj->getCacheId(), $logMessage, Uuid::create(), OcConfig::getSiteNodeId() );
 
         $this->db->multiVariableQuery(
             "UPDATE `caches` SET

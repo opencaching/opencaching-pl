@@ -6,7 +6,6 @@
 
 $site = [];
 
-
 /**
  * Primary country (or countries) for this node. See site.nl.php for an
  * example setting.
@@ -16,3 +15,20 @@ $site = [];
  */
 
 $site['primaryCountries'] = [];
+
+/**
+ * Site name for the node
+ */
+$site['siteName'] = 'OpenCaching';
+
+/**
+ * Page title (to display on the browser titlebar)
+ */
+$site['pageTitle'] = 'OpenCaching';
+
+/**
+ * NodeId: globally unique ID of opencaching node
+ * @see https://wiki.opencaching.eu/index.php?title=Node_IDs
+ */
+$site['ocNodeId'] = 4;
+
