@@ -845,6 +845,9 @@ class OcDb extends OcPdo
 
     public function addFulltextIfNotExists($table, $index, array $columns = [])
     {
+        throw new \Exception(
+            'FULLTEXT is not available at OC RO (MySQL 5.0)'
+        );
         $this->addIndexOfTypeIfNotExists($table, $index, 'FULLTEXT', $columns);
     }
 

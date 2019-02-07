@@ -73,9 +73,11 @@ class C001Test extends UpdateScript
             $this->db->addIndexIfNotExists(
                 self::TABLE, 'uc', ['uuid', 'created']
             );
+            /*  not available at OC RO
             $this->db->addFulltextIfNotExists(
                 self::TABLE, 'uft', ['uuid']
             );
+            */
             $this->db->addForeignKeyIfNotExists(
                 self::TABLE, 'id', 'caches', 'cache_id', 'ON DELETE RESTRICT ON UPDATE RESTRICT'
             );
