@@ -3,6 +3,7 @@ namespace Controllers\Admin;
 
 use Controllers\BaseController;
 use Controllers\UpdateController;
+use Utils\DataBase\OcDb;
 use Utils\Database\DbUpdates;
 use Utils\Uri\SimpleRouter;
 use Utils\Uri\Uri;
@@ -293,6 +294,7 @@ class DbUpdateController extends BaseController
     private function buildTemplateView()
     {
         $this->view->setVar('developerMode', $this->ocConfig->inDebugMode());
+        $this->view->setVar('mysqlVersion', OcDb::instance()->getServerVersion());
         $this->view->setTemplate('sysAdmin/dbUpdate');
         $this->view->buildView();
         exit();

@@ -1003,4 +1003,9 @@ class OcDb extends OcPdo
             $this->error("Invalid SQL keyword(s): '".$keywords."'");
         }
     }
+
+    public function getServerVersion()
+    {
+        return $this->simpleQueryValue('SELECT version()', '?');
+    }
 }
