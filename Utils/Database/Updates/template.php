@@ -4,7 +4,7 @@
 
 namespace Utils\Database\Updates;
 
-return new class extends UpdateScript
+class {class_name} extends UpdateScript
 {
     public function getProperties()
     {
@@ -37,3 +37,5 @@ return new class extends UpdateScript
         // with set_time_limit(0), so don't create any endless loops!
     }
 };
+
+return new {class_name};

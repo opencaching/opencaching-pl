@@ -2,7 +2,7 @@
 
 namespace Utils\Database\Updates;
 
-return new class extends UpdateScript
+class C100Init extends UpdateScript
 {
     public function getProperties()
     {
@@ -137,3 +137,5 @@ return new class extends UpdateScript
         $this->db->dropTableIfExists('db_updates__');
     }
 };
+
+return new C100Init;

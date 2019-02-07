@@ -14,7 +14,7 @@ use PDOException;
  * everything is ok.
  */
 
-return new class extends UpdateScript
+class C001Test extends UpdateScript
 {
     public function getProperties()
     {
@@ -320,3 +320,5 @@ return new class extends UpdateScript
     }
 
 };
+
+return new C001Test;
