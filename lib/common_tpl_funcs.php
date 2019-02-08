@@ -185,7 +185,7 @@ function tpl_BuildTemplate($minitpl = false, $noCommonTemplate=false)
     //does template exist?
     if (!file_exists(__DIR__.'/../tpl/stdstyle/' . $tplname . '.tpl.php')) {
         //set up the error template
-        tpl_set_var('error_msg', "Page not found");
+        tpl_set_var('error_msg', tr('page_not_found'));
         tpl_set_var('tplname', $tplname);
         $tplname = 'error';
     }
