@@ -25,7 +25,7 @@ use Utils\Debug\Debug;
 abstract class ConfigReader
 {
     const CONFIG_DIR = __DIR__.'/../../../config/';
-    const MENU_DIR = self::CONFIG_DIR.'Menu/';
+    const MENU_DIR = self::CONFIG_DIR.'menu/';
 
     const LEGACY_LOCAL_CONFIG = __DIR__.'/../../settingsGlue.inc.php';
     const LOCAL_CONFIG = self::CONFIG_DIR.'site.local.php';
