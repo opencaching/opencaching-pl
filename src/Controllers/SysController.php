@@ -34,7 +34,7 @@ class SysController extends BaseController
     public function apc($redirectToApcScript=TRUE)
     {
         if($redirectToApcScript){
-            $this->view->redirect('/Libs/Apc/apc.php');
+            $this->view->redirect('/src/Libs/Apc/apc.php');
             exit;
         }
 

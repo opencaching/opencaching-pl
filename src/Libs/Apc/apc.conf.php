@@ -7,7 +7,7 @@ use src\Controllers\SysController;
  * without any modification in apc.php
  */
 
-require_once __DIR__.'/../../lib/common.inc.php';
+require_once __DIR__.'/../../../lib/common.inc.php';
 
 $ctrl = new SysController();
 $ctrl->apc(false);

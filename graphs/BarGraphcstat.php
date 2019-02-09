@@ -1,6 +1,6 @@
 <?php
 
-use Libs\JpGraph\JpGraphLoader;
+use src\Libs\JpGraph\JpGraphLoader;
 use Utils\Database\XDb;
 
 require(__DIR__.'/../lib/common.inc.php');

@@ -1,6 +1,6 @@
 <?php
 
-namespace Libs\PolylineEncoder;
+namespace src\Libs\PolylineEncoder;
 
 /**
  * PolylineEncoder based on Mark McClure's Javascript PolylineEncoder
