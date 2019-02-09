@@ -2,7 +2,7 @@
 
 namespace src\Controllers\Cron\Jobs;
 
-use lib\Objects\OcConfig\OcConfig;
+use src\Models\OcConfig\OcConfig;
 use okapi\Facade;
 use Utils\Database\OcDb;
 

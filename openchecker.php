@@ -23,8 +23,8 @@
  */
 
 use Utils\Database\XDb;
-use lib\Objects\GeoCache\GeoCache;
-use lib\Objects\GeoCache\Waypoint;
+use src\Models\GeoCache\GeoCache;
+use src\Models\GeoCache\Waypoint;
 use Utils\View\View;
 
 // variables required by opencaching.pl

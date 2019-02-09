@@ -3,20 +3,20 @@
 use src\Controllers\MyRecommendationsController;
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
-use lib\Objects\PowerTrail\PowerTrail;
-use lib\Objects\User\User;
-use lib\Objects\GeoCache\GeoCacheLog;
-use lib\Objects\GeoCache\GeoCache;
-use lib\Objects\OcConfig\OcConfig;
-use lib\Objects\MeritBadge\MeritBadge;
+use src\Models\PowerTrail\PowerTrail;
+use src\Models\User\User;
+use src\Models\GeoCache\GeoCacheLog;
+use src\Models\GeoCache\GeoCache;
+use src\Models\OcConfig\OcConfig;
+use src\Models\MeritBadge\MeritBadge;
 use Utils\Text\TextConverter;
 use Utils\DateTime\Year;
 use Utils\Uri\SimpleRouter;
 use Utils\Uri\OcCookie;
 use src\Controllers\MeritBadgeController;
 use Utils\Text\Formatter;
-use lib\Objects\Admin\AdminNoteSet;
-use lib\Objects\User\UserStats;
+use src\Models\Admin\AdminNoteSet;
+use src\Models\User\UserStats;
 
 const ADMINNOTES_PER_PAGE = 10;
 

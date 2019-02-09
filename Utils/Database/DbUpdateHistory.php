@@ -2,7 +2,7 @@
 namespace Utils\Database;
 
 use Exception;
-use lib\Objects\OcConfig\OcConfig;
+use src\Models\OcConfig\OcConfig;
 use Utils\Database\OcDb;
 use Utils\Generators\Uuid;
 

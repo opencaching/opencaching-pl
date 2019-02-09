@@ -1,6 +1,6 @@
 <?php
 use Utils\Gis\Gis;
-use lib\Objects\Neighbourhood\Neighbourhood;
+use src\Models\Neighbourhood\Neighbourhood;
 use Utils\Uri\SimpleRouter;
 
 ?>

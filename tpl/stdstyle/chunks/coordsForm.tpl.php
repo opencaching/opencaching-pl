@@ -1,5 +1,5 @@
 <?php
-use lib\Objects\Coordinates\Coordinates;
+use src\Models\Coordinates\Coordinates;
 
 /**
  * This chunk is purposed to be uniform coordinates edit form

@@ -1,5 +1,5 @@
 <?php
-use lib\Objects\PowerTrail\PowerTrail;
+use src\Models\PowerTrail\PowerTrail;
 
 session_start();
 if (!isset($_SESSION['user_id'])) {

@@ -1,5 +1,5 @@
 <?php
-namespace src\Controllers;
+namespace lib\Controllers;
 
 use lib\Objects\MeritBadge\MeritBadge;
 use lib\Objects\MeritBadge\LevelMeritBadge;
@@ -7,7 +7,7 @@ use lib\Objects\MeritBadge\CategoryMeritBadge;
 use lib\Objects\MeritBadge\PositionMeritBadge;
 use lib\Objects\GeoCache\GeoCache;
 
-use src\Controllers\LogEntryController;
+use lib\Controllers\LogEntryController;
 
 use Utils\Database\OcDb;
 
@@ -31,22 +31,22 @@ class MeritBadgeController{
     //C = cache
     //G - geoPath
     static private $_check_if_belong  = array(
-                    "N" => "",
-                    "C" => "caches.cache_id=:1",
-                    "G" => "" //not supported yet
-                            );
+        "N" => "",
+        "C" => "caches.cache_id=:1",
+        "G" => "" //not supported yet
+    );
 
     static private $_trigger_type = array(
-                    self::TRIGGER_NONE => "N",
-                    self::TRIGGER_CRON => "N",
-                    self::TRIGGER_LOG_CACHE => "C",
-                    self::TRIGGER_RESERVED_3=> "C",
-                    self::TRIGGER_TITLED_CACHE => "C",
-                    self::TRIGGER_RESERVED_5=> "C",
-                    self::TRIGGER_LOG_GEOPATH => "G",
-                    self::TRIGGER_LOG_GEOPATH_AUTHOR => "G",
-                    self::TRIGGER_RECOMMENDATION => "C",
-                    self::TRIGGER_CACHE_AUTHOR=> "N"
+        self::TRIGGER_NONE => "N",
+        self::TRIGGER_CRON => "N",
+        self::TRIGGER_LOG_CACHE => "C",
+        self::TRIGGER_RESERVED_3=> "C",
+        self::TRIGGER_TITLED_CACHE => "C",
+        self::TRIGGER_RESERVED_5=> "C",
+        self::TRIGGER_LOG_GEOPATH => "G",
+        self::TRIGGER_LOG_GEOPATH_AUTHOR => "G",
+        self::TRIGGER_RECOMMENDATION => "C",
+        self::TRIGGER_CACHE_AUTHOR=> "N"
     );
 
     public function __construct(){
@@ -171,13 +171,13 @@ class MeritBadgeController{
         if ($query == "all" || $query == "" )
             return new $obj; //0 positions
 
-        //if it cache, take only active
-        if ( self::$_trigger_type[ $meritBadge->getTriggerType() ]  == 'C' )
-            $query = mb_ereg_replace( ' WHERE ', ' WHERE ' . ' caches.status=1 and ', $query);
+            //if it cache, take only active
+            if ( self::$_trigger_type[ $meritBadge->getTriggerType() ]  == 'C' )
+                $query = mb_ereg_replace( ' WHERE ', ' WHERE ' . ' caches.status=1 and ', $query);
 
-        $stm = $this->db->multiVariableQuery( $query );
+                $stm = $this->db->multiVariableQuery( $query );
 
-        return $this->buildArray( $obj, $stm );
+                return $this->buildArray( $obj, $stm );
     }
 
 
@@ -194,8 +194,8 @@ class MeritBadgeController{
             $userMeritBadge = $this->buildUserBadge( $user_id, $badge_id );
 
             $short_desc = MeritBadge::prepareShortDescription(  $userMeritBadge->getOBadge()->getShortDescription(),
-                                                                $userMeritBadge->getNextVal(),
-                                                                $userMeritBadge->getCurrVal());
+                $userMeritBadge->getNextVal(),
+                $userMeritBadge->getCurrVal());
 
             $element=mb_ereg_replace('{name}', $userMeritBadge->getOBadge()->getName(), $element);
             $element=mb_ereg_replace('{short_desc}', $short_desc , $element);
@@ -238,21 +238,21 @@ class MeritBadgeController{
                 if (!$currValue)
                     continue;
 
-                $newUserBadge = !$this->isExistUserBadge( $user_id, $oneMeritBadge->getId() );
-                if ( $newUserBadge ){
-                    $this->insertUserBadge($currValue, $user_id, $oneMeritBadge->getId() );
-                }
-                else{
-                    $this->updateCurrValInUserBadge($currValue, $user_id, $oneMeritBadge->getId() );
-                }
+                    $newUserBadge = !$this->isExistUserBadge( $user_id, $oneMeritBadge->getId() );
+                    if ( $newUserBadge ){
+                        $this->insertUserBadge($currValue, $user_id, $oneMeritBadge->getId() );
+                    }
+                    else{
+                        $this->updateCurrValInUserBadge($currValue, $user_id, $oneMeritBadge->getId() );
+                    }
 
-                if ( $this->setProperValueUserBadge( $user_id, $oneMeritBadge->getId(), $newUserBadge ) ){
-                    if (!$first)
-                        $changedLevelBadgesIds .= ",";
+                    if ( $this->setProperValueUserBadge( $user_id, $oneMeritBadge->getId(), $newUserBadge ) ){
+                        if (!$first)
+                            $changedLevelBadgesIds .= ",";
 
-                    $changedLevelBadgesIds .= $oneMeritBadge->getId(); //the level was changed
-                    $first = false;
-                }
+                            $changedLevelBadgesIds .= $oneMeritBadge->getId(); //the level was changed
+                            $first = false;
+                    }
         }
 
 
@@ -270,22 +270,22 @@ class MeritBadgeController{
 
     private function patternHtmlChangeLevelMeritBadges($firstEl){
         $header = "<p style='font-size:12px; font-weight:bold; color:green; text-decoration: underline;'>"
-                .tr('merit_badge_gain_next_level')."</p><br>" ;
-        $htmlNewElement = "<hr><br>";
+            .tr('merit_badge_gain_next_level')."</p><br>" ;
+            $htmlNewElement = "<hr><br>";
 
-        $pattern = "<div style ='width:500px;'><img src='{picture}' style= 'float: left;margin-right:20px;' />
+            $pattern = "<div style ='width:500px;'><img src='{picture}' style= 'float: left;margin-right:20px;' />
             <p style='font-size:20px; font-weight:bold;'> {name} <br>
             <span style='font-size:13px; font-weight:normal; font-style:italic;'> {short_desc} </span></p>
             <p style='font-size:13px;font-weight:normal;'>"
-            .tr('merit_badge_level_name').": <b>{level_name}</b><br>"
-            .tr('merit_badge_number').": <b>{curr_val}</b><br>"
-            .tr('merit_badge_next_level_threshold').": <b>{next_val}</b><br>
+                .tr('merit_badge_level_name').": <b>{level_name}</b><br>"
+                    .tr('merit_badge_number').": <b>{curr_val}</b><br>"
+                        .tr('merit_badge_next_level_threshold').": <b>{next_val}</b><br>
             </p></div><br>";
 
-        if ( !$firstEl )
-            return $htmlNewElement . $pattern;
+                        if ( !$firstEl )
+                            return $htmlNewElement . $pattern;
 
-        return $pattern;
+                            return $pattern;
     }
 
     private function buildArray( $class, $stm ){
@@ -342,9 +342,9 @@ class MeritBadgeController{
                 VALUES (:1, :2)";
 
         $this->db->multiVariableQuery( $query,
-                                        $badge_id,
-                                        $cache_id
-                                    );
+            $badge_id,
+            $cache_id
+            );
     }
 
     private function insertUserBadge($curr_val, $user_id, $badge_id ){
@@ -353,14 +353,14 @@ class MeritBadgeController{
                 VALUES (:1, :2, :3, :4, :5, :6, :7)";
 
         $this->db->multiVariableQuery( $query,
-                                        $user_id,
-                                        $badge_id,
-                                        0, //level_id
-                                        "1971-12-20",
-                                        $curr_val,
-                                        0, //threshold
-                                        "" //description
-                                    );
+            $user_id,
+            $badge_id,
+            0, //level_id
+            "1971-12-20",
+            $curr_val,
+            0, //threshold
+            "" //description
+            );
     }
 
 
@@ -376,7 +376,7 @@ class MeritBadgeController{
         if ( !$userMeritBadge->getCurrVal() )
             return false;
 
-        return true;
+            return true;
     }
 
     //@return = true - new level; set new value for badge_user
@@ -387,20 +387,20 @@ class MeritBadgeController{
         if ( $userMeritBadge->getCurrVal() < $userMeritBadge->getNextVal() )
             return false;
 
-        //the badge has a wrong level
-        if ($newUserBadge)
-            $badgeLevel = $this->getProperBadgeLevel($badge_id, $userMeritBadge->getCurrVal() );
-        else
-            $badgeLevel = $this->buildBadgeLevel( $badge_id, $userMeritBadge->getLevelId()+1); //next level
+            //the badge has a wrong level
+            if ($newUserBadge)
+                $badgeLevel = $this->getProperBadgeLevel($badge_id, $userMeritBadge->getCurrVal() );
+                else
+                    $badgeLevel = $this->buildBadgeLevel( $badge_id, $userMeritBadge->getLevelId()+1); //next level
 
-        $query = "UPDATE badge_user
+                    $query = "UPDATE badge_user
                 SET level_id = :1, level_date= :2, prev_val = next_val, next_val = :3
                 WHERE user_id = :4 and badge_id= :5";
-        $this->db->multiVariableQuery( $query,
-                $badgeLevel->getLevel(), date("Y-m-d"), $badgeLevel->getThreshold(),
-                $user_id, $badge_id );
+                    $this->db->multiVariableQuery( $query,
+                        $badgeLevel->getLevel(), date("Y-m-d"), $badgeLevel->getThreshold(),
+                        $user_id, $badge_id );
 
-        return true;
+                    return true;
     }
 
 
@@ -409,21 +409,21 @@ class MeritBadgeController{
         if ($query == "all") //everything
             return true;
 
-        if ($query == "") //nothing
-            return false;
+            if ($query == "") //nothing
+                return false;
 
-            $condition = self::$_check_if_belong[ self::$_trigger_type[ $oneMeritBadge->getTriggerType() ] ];
-        if ($condition != ""){
-            $query = mb_ereg_replace( ' WHERE ', ' WHERE ' . $condition . ' and ', $query);
-            $stm = $this->db->multiVariableQuery( $query, $id );
-        } else{
-            $stm = $this->db->multiVariableQuery( $query);
-        }
+                $condition = self::$_check_if_belong[ self::$_trigger_type[ $oneMeritBadge->getTriggerType() ] ];
+                if ($condition != ""){
+                    $query = mb_ereg_replace( ' WHERE ', ' WHERE ' . $condition . ' and ', $query);
+                    $stm = $this->db->multiVariableQuery( $query, $id );
+                } else{
+                    $stm = $this->db->multiVariableQuery( $query);
+                }
 
-        if( !$this->db->rowCount($stm) )
-            return false;
+                if( !$this->db->rowCount($stm) )
+                    return false;
 
-        return true;
+                    return true;
     }
 
 
@@ -432,8 +432,8 @@ class MeritBadgeController{
         if ( $query == "" )
             return 0;
 
-        $stm = $this->db->multiVariableQuery( $query, $user_id );
-        return $stm;
+            $stm = $this->db->multiVariableQuery( $query, $user_id );
+            return $stm;
     }
 
     private function calcCurrValForUserBadge($user_id, $oneMeritBadge){
@@ -444,11 +444,11 @@ class MeritBadgeController{
         if (!$currVal)
             return 0;
 
-        $rec = $this->db->dbResultFetch($stm);
-        if ( isset($rec['position_count']) )
-            return $rec['position_count'];
+            $rec = $this->db->dbResultFetch($stm);
+            if ( isset($rec['position_count']) )
+                return $rec['position_count'];
 
-        return $this->db->rowCount($stm);
+                return $this->db->rowCount($stm);
     }
 
     //////////////////////////////////////////////////////////////////////
@@ -509,10 +509,10 @@ class MeritBadgeController{
                 (
                     SELECT badge_id, count(*) amount FROM badge_levels GROUP BY 1
                 ) as lvl on lvl.badge_id = badges.id"
-                .$condition.
-                " ORDER BY badges.sequence";
+            .$condition.
+            " ORDER BY badges.sequence";
 
-        return $query;
+            return $query;
     }
 
 
@@ -535,10 +535,10 @@ class MeritBadgeController{
                     WHERE badge_id=:1
                     GROUP BY 1
                 ) as gain on gain.level_id = badge_levels.level "
-                .$condition.
-                " ORDER BY badge_levels.level";
+            .$condition.
+            " ORDER BY badge_levels.level";
 
-        return $query;
+            return $query;
     }
 
     private function getArrayUserQuery(){
@@ -573,5 +573,4 @@ class MeritBadgeController{
 
         return $query;
     }
-
 }

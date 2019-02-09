@@ -1,5 +1,5 @@
 <?php
-use lib\Objects\GeoCache\GeoCache;
+use src\Models\GeoCache\GeoCache;
 ?>
 
 <div class="mapFilterContainer">

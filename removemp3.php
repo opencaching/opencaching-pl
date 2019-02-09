@@ -1,7 +1,7 @@
 <?php
 
 use Utils\Database\XDb;
-use lib\Objects\OcConfig\OcConfig;
+use src\Models\OcConfig\OcConfig;
 
 require_once (__DIR__.'/lib/common.inc.php');
 

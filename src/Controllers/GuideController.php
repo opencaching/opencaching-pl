@@ -2,10 +2,10 @@
 namespace src\Controllers;
 
 use Utils\Uri\Uri;
-use lib\Objects\ChunkModels\DynamicMap\DynamicMapModel;
-use lib\Objects\User\MultiUserQueries;
-use lib\Objects\ChunkModels\DynamicMap\GuideMarkerModel;
-use lib\Objects\User\User;
+use src\Models\ChunkModels\DynamicMap\DynamicMapModel;
+use src\Models\User\MultiUserQueries;
+use src\Models\ChunkModels\DynamicMap\GuideMarkerModel;
+use src\Models\User\User;
 use Utils\Cache\OcMemCache;
 use Utils\Text\Formatter;
 

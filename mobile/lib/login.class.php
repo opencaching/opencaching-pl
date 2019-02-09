@@ -1,7 +1,7 @@
 <?php
 
 use Utils\Database\XDb;
-use lib\Objects\User\PasswordManager;
+use src\Models\User\PasswordManager;
 
 require_once('../lib/ClassPathDictionary.php');
 

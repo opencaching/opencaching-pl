@@ -2,7 +2,7 @@
 
 use src\Controllers\Cron\Jobs\Job;
 use Utils\Database\XDb;
-use lib\Objects\GeoKret\GeoKretyApi;
+use src\Models\GeoKret\GeoKretyApi;
 use okapi\Facade;
 
 /* * *************************************************************************

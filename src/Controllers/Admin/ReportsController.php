@@ -4,17 +4,17 @@ namespace src\Controllers\Admin;
 use src\Controllers\BaseController;
 use Utils\Uri\Uri;
 use src\Controllers\LogEntryController;
-use lib\Objects\Admin\Report;
-use lib\Objects\Admin\ReportEmailSender;
-use lib\Objects\Admin\ReportEmailTemplate;
-use lib\Objects\Admin\ReportLog;
-use lib\Objects\Admin\ReportPoll;
-use lib\Objects\Admin\ReportWatches;
-use lib\Objects\ChunkModels\PaginationModel;
-use lib\Objects\User\MultiUserQueries;
-use lib\Objects\User\User;
-use lib\Objects\Admin\ReportCommons;
-use lib\Objects\GeoCache\GeoCache;
+use src\Models\Admin\Report;
+use src\Models\Admin\ReportEmailSender;
+use src\Models\Admin\ReportEmailTemplate;
+use src\Models\Admin\ReportLog;
+use src\Models\Admin\ReportPoll;
+use src\Models\Admin\ReportWatches;
+use src\Models\ChunkModels\PaginationModel;
+use src\Models\User\MultiUserQueries;
+use src\Models\User\User;
+use src\Models\Admin\ReportCommons;
+use src\Models\GeoCache\GeoCache;
 
 class ReportsController extends BaseController
 {

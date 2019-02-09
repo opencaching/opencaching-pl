@@ -4,12 +4,12 @@ namespace src\Controllers;
 use Utils\Log\Log;
 use Utils\Text\UserInputFilter;
 use Utils\Uri\Uri;
-use lib\Objects\Neighbourhood\Neighbourhood;
-use lib\Objects\User\User;
-use lib\Objects\User\UserEmailSender;
-use lib\Objects\User\UserNotify;
-use lib\Objects\User\UserPreferences\UserPreferences;
-use lib\Objects\User\UserPreferences\UserProfilePref;
+use src\Models\Neighbourhood\Neighbourhood;
+use src\Models\User\User;
+use src\Models\User\UserEmailSender;
+use src\Models\User\UserNotify;
+use src\Models\User\UserPreferences\UserPreferences;
+use src\Models\User\UserPreferences\UserProfilePref;
 
 class UserProfileController extends BaseController
 {

@@ -6,8 +6,8 @@
 
 use Utils\Database\OcDb;
 use Utils\Log\Log;
-use lib\Objects\OcConfig\OcConfig;
-use lib\Objects\GeoCache\GeoCache;
+use src\Models\OcConfig\OcConfig;
+use src\Models\GeoCache\GeoCache;
 use Utils\Generators\Uuid;
 
 require_once(__DIR__.'/../lib/common.inc.php');

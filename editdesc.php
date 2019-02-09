@@ -1,7 +1,7 @@
 <?php
 
 use Utils\Database\XDb;
-use lib\Objects\GeoCache\GeoCache;
+use src\Models\GeoCache\GeoCache;
 use Utils\I18n\Languages;
 use Utils\Text\UserInputFilter;
 use Utils\I18n\I18n;

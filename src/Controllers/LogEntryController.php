@@ -2,17 +2,17 @@
 
 namespace src\Controllers;
 
-use lib\Objects\GeoCache\GeoCacheLog;
-use lib\Objects\OcConfig\OcConfig;
+use src\Models\GeoCache\GeoCacheLog;
+use src\Models\OcConfig\OcConfig;
 use Utils\Database\OcDb;
 use Utils\Email\EmailSender;
 use Utils\Gis\Gis;
-use lib\Objects\ApplicationContainer;
+use src\Models\ApplicationContainer;
 use src\Controllers\MeritBadgeController;
-use lib\Objects\GeoCache\GeoCache;
-use lib\Objects\Coordinates\Coordinates;
+use src\Models\GeoCache\GeoCache;
+use src\Models\Coordinates\Coordinates;
 use Utils\EventHandler\EventHandler;
-use lib\Objects\User\User;
+use src\Models\User\User;
 
  class LogEntryController
 {
@@ -78,7 +78,7 @@ use lib\Objects\User\User;
      * @param bool $includeDeletedLogs
      * @param int $offset
      * @param int $limit
-     * @return \lib\Objects\GeoCache\GeoCacheLog[]
+     * @return \src\Models\GeoCache\GeoCacheLog[]
      */
     public function loadLogs(GeoCache $cache, $includeDeletedLogs = false, $offset = 0, $limit = 0)
     {

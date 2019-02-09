@@ -1,7 +1,7 @@
 <?php
 
-use lib\Objects\GeoCache\PrintList;
-use lib\Objects\OcConfig\OcConfig;
+use src\Models\GeoCache\PrintList;
+use src\Models\OcConfig\OcConfig;
 use Utils\Database\XDb;
 use Utils\Uri\Uri;
 use Utils\View\View;

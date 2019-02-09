@@ -1,6 +1,6 @@
 <?php
 
-use lib\Objects\GeoCache\GeoCacheLogCommons;
+use src\Models\GeoCache\GeoCacheLogCommons;
 use Utils\Text\Formatter;
 
 /**

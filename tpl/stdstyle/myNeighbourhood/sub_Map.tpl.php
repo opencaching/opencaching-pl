@@ -1,5 +1,5 @@
 <?php
-use lib\Objects\Neighbourhood\Neighbourhood;
+use src\Models\Neighbourhood\Neighbourhood;
 
 ?>
 <div class="nbh-block-header">

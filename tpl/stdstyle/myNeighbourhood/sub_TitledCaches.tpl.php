@@ -1,8 +1,8 @@
 <?php
 use Utils\Gis\Gis;
 use Utils\Text\Formatter;
-use lib\Objects\GeoCache\CacheTitled;
-use lib\Objects\Neighbourhood\Neighbourhood;
+use src\Models\GeoCache\CacheTitled;
+use src\Models\Neighbourhood\Neighbourhood;
 use Utils\Uri\SimpleRouter;
 
 ?>

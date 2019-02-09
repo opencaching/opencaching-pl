@@ -2,9 +2,9 @@
 
 namespace src\Controllers;
 
-use lib\Objects\PowerTrail\PowerTrail;
-use lib\Objects\PowerTrail\Log;
-use lib\Objects\User\User;
+use src\Models\PowerTrail\PowerTrail;
+use src\Models\PowerTrail\Log;
+use src\Models\User\User;
 use Utils\Database\OcDb;
 
 class PowerTrailController

@@ -1,8 +1,8 @@
 <?php
 
 use Utils\Database\XDb;
-use lib\Objects\GeoCache\GeoCacheCommons;
-use lib\Objects\OcConfig\OcConfig;
+use src\Models\GeoCache\GeoCacheCommons;
+use src\Models\OcConfig\OcConfig;
 use Utils\I18n\I18n;
 use Utils\Text\Validator;
 /* begin configuration */

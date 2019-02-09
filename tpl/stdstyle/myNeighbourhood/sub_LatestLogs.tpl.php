@@ -3,8 +3,8 @@ use Utils\Gis\Gis;
 use Utils\Text\Formatter;
 use Utils\Text\UserInputFilter;
 use Utils\Uri\SimpleRouter;
-use lib\Objects\GeoCache\GeoCacheLog;
-use lib\Objects\Neighbourhood\Neighbourhood;
+use src\Models\GeoCache\GeoCacheLog;
+use src\Models\Neighbourhood\Neighbourhood;
 
 ?>
 <div class="nbh-block-header">

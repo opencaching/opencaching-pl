@@ -1,7 +1,7 @@
 <?php
 namespace Utils\Gis;
 
-use lib\Objects\Coordinates\Coordinates;
+use src\Models\Coordinates\Coordinates;
 
 class Gis
 {

@@ -1,7 +1,7 @@
 <?php
 use Utils\Uri\Uri;
-use lib\Objects\ApplicationContainer;
-use lib\Objects\GeoCache\GeoCache;
+use src\Models\ApplicationContainer;
+use src\Models\GeoCache\GeoCache;
 
 require_once (__DIR__.'/lib/common.inc.php');
 

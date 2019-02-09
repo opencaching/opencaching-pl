@@ -5,7 +5,7 @@
 namespace Utils\Lock;
 
 use \RuntimeException;
-use lib\Objects\OcConfig\OcConfig;
+use src\Models\OcConfig\OcConfig;
 
 /**
  * Implements locking mechanism using flock function

@@ -8,13 +8,13 @@ use Utils\Text\Rot13;
 use Utils\Text\Formatter;
 use Utils\Uri\Uri;
 use src\Controllers\MeritBadgeController;
-use lib\Objects\Coordinates\Coordinates;
-use lib\Objects\GeoCache\GeoCache;
-use lib\Objects\GeoCache\GeoCacheLog;
-use lib\Objects\GeoCache\GeoCacheDesc;
-use lib\Objects\GeoCache\OpenChecker;
-use lib\Objects\GeoCache\PrintList;
-use lib\Objects\GeoCache\Waypoint;
+use src\Models\Coordinates\Coordinates;
+use src\Models\GeoCache\GeoCache;
+use src\Models\GeoCache\GeoCacheLog;
+use src\Models\GeoCache\GeoCacheDesc;
+use src\Models\GeoCache\OpenChecker;
+use src\Models\GeoCache\PrintList;
+use src\Models\GeoCache\Waypoint;
 use Utils\I18n\I18n;
 
 class ViewCacheController extends BaseController

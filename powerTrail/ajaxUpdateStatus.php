@@ -1,7 +1,7 @@
 <?php
 
 use Utils\Database\OcDb;
-use lib\Objects\PowerTrail\PowerTrail;
+use src\Models\PowerTrail\PowerTrail;
 use Utils\Generators\Uuid;
 
 require_once __DIR__.'/../lib/common.inc.php';

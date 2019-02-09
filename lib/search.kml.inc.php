@@ -6,7 +6,7 @@
 ob_start();
 
 use Utils\Database\XDb;
-use lib\Objects\GeoCache\GeoCacheCommons;
+use src\Models\GeoCache\GeoCacheCommons;
 use Utils\I18n\I18n;
 
 global $absolute_server_URI, $bUseZip, $usr, $hide_coords, $dbcSearch, $queryFilter;

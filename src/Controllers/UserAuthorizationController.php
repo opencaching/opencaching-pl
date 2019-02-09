@@ -4,9 +4,9 @@ namespace src\Controllers;
 use Utils\Text\Validator;
 use Utils\Uri\SimpleRouter;
 use Utils\Uri\Uri;
-use lib\Objects\User\PasswordManager;
-use lib\Objects\User\User;
-use lib\Objects\User\UserAuthorization;
+use src\Models\User\PasswordManager;
+use src\Models\User\User;
+use src\Models\User\UserAuthorization;
 
 class UserAuthorizationController extends BaseController
 {
@@ -166,7 +166,7 @@ class UserAuthorizationController extends BaseController
      *            - urlencoded username
      * @param string $code
      *            - new password code
-     * @return NULL|\lib\Objects\User\User
+     * @return NULL|\src\Models\User\User
      */
     private function checkUserAndCode($usr, $code)
     {

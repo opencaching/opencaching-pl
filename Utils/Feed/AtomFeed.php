@@ -1,7 +1,7 @@
 <?php
 namespace Utils\Feed;
 
-use lib\Objects\OcConfig\OcConfig;
+use src\Models\OcConfig\OcConfig;
 use Utils\Uri\Uri;
 
 /**

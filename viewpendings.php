@@ -1,10 +1,10 @@
 <?php
 
 use Utils\Database\XDb;
-use lib\Objects\Admin\AdminNote;
+use src\Models\Admin\AdminNote;
 use Utils\Generators\Uuid;
-use lib\Objects\OcConfig\OcConfig;
-use lib\Objects\User\User;
+use src\Models\OcConfig\OcConfig;
+use src\Models\User\User;
 
 global $bgcolor1, $bgcolor2;
 

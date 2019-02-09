@@ -4,12 +4,12 @@ ob_start();
 
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
-use lib\Objects\GeoCache\CacheNote;
-use lib\Objects\GeoCache\GeoCacheCommons;
-use lib\Objects\GeoCache\GeoCacheLog;
+use src\Models\GeoCache\CacheNote;
+use src\Models\GeoCache\GeoCacheCommons;
+use src\Models\GeoCache\GeoCacheLog;
 use Utils\I18n\I18n;
 use Utils\Text\Validator;
-use lib\Objects\OcConfig\OcConfig;
+use src\Models\OcConfig\OcConfig;
 
 global $content, $bUseZip, $usr, $hide_coords, $dbcSearch, $queryFilter;
 

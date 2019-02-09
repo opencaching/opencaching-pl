@@ -1,6 +1,6 @@
 <?php
 
-use lib\Objects\GeoCache\GeoCacheCommons;
+use src\Models\GeoCache\GeoCacheCommons;
 
 /**
   * Configuration of geocache properties for OC NL

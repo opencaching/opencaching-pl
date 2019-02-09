@@ -2,7 +2,7 @@
 
 use Utils\Uri\Uri;
 use Utils\View\View;
-use lib\Objects\ChunkModels\DynamicMap\DynamicMapModel;
+use src\Models\ChunkModels\DynamicMap\DynamicMapModel;
 
 /**
  * This chunk displays dynamic map with different kinds of markers.

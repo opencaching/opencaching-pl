@@ -1,6 +1,6 @@
 <?php
 
-use lib\Objects\OcConfig\OcConfig;
+use src\Models\OcConfig\OcConfig;
 
 require_once(__DIR__.'/common.inc.php');
 

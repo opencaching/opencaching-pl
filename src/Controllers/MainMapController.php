@@ -1,15 +1,15 @@
 <?php
 namespace src\Controllers;
 
-use lib\Objects\Coordinates\GeoCode;
+use src\Models\Coordinates\GeoCode;
 use Utils\Uri\Uri;
-use lib\Objects\User\UserPreferences\MainMapSettings;
-use lib\Objects\User\UserPreferences\UserPreferences;
-use lib\Objects\User\User;
-use lib\Objects\Coordinates\Coordinates;
-use lib\Objects\CacheSet\CacheSet;
-use lib\Objects\ChunkModels\DynamicMap\DynamicMapModel;
-use lib\Objects\GeoCache\GeoCache;
+use src\Models\User\UserPreferences\MainMapSettings;
+use src\Models\User\UserPreferences\UserPreferences;
+use src\Models\User\User;
+use src\Models\Coordinates\Coordinates;
+use src\Models\CacheSet\CacheSet;
+use src\Models\ChunkModels\DynamicMap\DynamicMapModel;
+use src\Models\GeoCache\GeoCache;
 
 /**
  * Modes of mainMap init:

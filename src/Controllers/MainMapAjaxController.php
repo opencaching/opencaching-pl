@@ -2,11 +2,11 @@
 namespace src\Controllers;
 
 use okapi\Facade;
-use lib\Objects\Coordinates\GeoCode;
-use lib\Objects\GeoCache\GeoCache;
-use lib\Objects\OcConfig\OcConfig;
-use lib\Objects\User\UserPreferences\MainMapSettings;
-use lib\Objects\User\UserPreferences\UserPreferences;
+use src\Models\Coordinates\GeoCode;
+use src\Models\GeoCache\GeoCache;
+use src\Models\OcConfig\OcConfig;
+use src\Models\User\UserPreferences\MainMapSettings;
+use src\Models\User\UserPreferences\UserPreferences;
 use Utils\Text\Formatter;
 
 /**

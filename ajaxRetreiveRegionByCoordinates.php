@@ -3,8 +3,8 @@
  * This callback is used by newcache to select region based on coords
  */
 
-use lib\Objects\Coordinates\Coordinates;
-use lib\Objects\Coordinates\NutsLocation;
+use src\Models\Coordinates\Coordinates;
+use src\Models\Coordinates\NutsLocation;
 
 require_once __DIR__.'/lib/ClassPathDictionary.php';
 

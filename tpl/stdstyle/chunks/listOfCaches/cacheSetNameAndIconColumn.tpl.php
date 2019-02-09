@@ -1,7 +1,7 @@
 <?php
 
-use lib\Objects\CacheSet\CacheSetCommon;
-use lib\Objects\CacheSet\CacheSet;
+use src\Models\CacheSet\CacheSetCommon;
+use src\Models\CacheSet\CacheSet;
 
 /**
  * This is column with cache icon.

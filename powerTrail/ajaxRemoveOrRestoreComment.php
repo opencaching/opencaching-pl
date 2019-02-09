@@ -1,6 +1,6 @@
 <?php
 use Utils\Database\OcDb;
-use lib\Objects\ApplicationContainer;
+use src\Models\ApplicationContainer;
 
 require_once __DIR__.'/../lib/common.inc.php';
 

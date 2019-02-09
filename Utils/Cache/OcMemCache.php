@@ -4,7 +4,7 @@ namespace Utils\Cache;
 
 use Exception;
 use Utils\Debug\Debug;
-use lib\Objects\OcConfig\OcConfig;
+use src\Models\OcConfig\OcConfig;
 
 
 /**

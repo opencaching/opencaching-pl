@@ -2,7 +2,7 @@
 namespace src\Controllers;
 
 use Utils\Text\UserInputFilter;
-use lib\Objects\CacheSet\CacheSet;
+use src\Models\CacheSet\CacheSet;
 
 class GeoPathController extends BaseController
 {

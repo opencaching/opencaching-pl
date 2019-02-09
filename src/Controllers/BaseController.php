@@ -2,9 +2,9 @@
 
 namespace src\Controllers;
 
-use lib\Objects\ApplicationContainer;
-use lib\Objects\User\User;
-use lib\Objects\OcConfig\OcConfig;
+use src\Models\ApplicationContainer;
+use src\Models\User\User;
+use src\Models\OcConfig\OcConfig;
 use Utils\View\View;
 use Utils\Uri\Uri;
 

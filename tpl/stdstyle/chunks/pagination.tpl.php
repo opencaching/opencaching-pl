@@ -12,7 +12,7 @@
  * - in template:
  *     View::callChunkInline('pagination', $this->paginationModel);
  */
-use lib\Objects\ChunkModels\PaginationModel;
+use src\Models\ChunkModels\PaginationModel;
 use Utils\Uri\Uri;
 
 return function (PaginationModel $pagination){

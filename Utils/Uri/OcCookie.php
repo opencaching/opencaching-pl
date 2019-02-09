@@ -3,7 +3,7 @@ namespace Utils\Uri;
 
 use Utils\Debug\Debug;
 use Utils\Text\UserInputFilter;
-use lib\Objects\User\UserAuthorization;
+use src\Models\User\UserAuthorization;
 
 class OcCookie
 {

@@ -7,7 +7,7 @@
  */
 
 use Utils\Database\XDb;
-use lib\Objects\Pictures\Thumbnail;
+use src\Models\Pictures\Thumbnail;
 
 require_once (__DIR__.'/lib/common.inc.php');
 

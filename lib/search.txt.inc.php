@@ -8,9 +8,9 @@ ob_start();
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
 use Utils\Text\Rot13;
-use lib\Objects\GeoCache\GeoCacheCommons;
-use lib\Objects\GeoCache\CacheNote;
-use lib\Objects\Coordinates\Coordinates;
+use src\Models\GeoCache\GeoCacheCommons;
+use src\Models\GeoCache\CacheNote;
+use src\Models\Coordinates\Coordinates;
 
 global $content, $bUseZip, $hide_coords, $usr, $dbcSearch;
 

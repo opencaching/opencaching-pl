@@ -3,10 +3,10 @@
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
 use Utils\Text\Formatter;
-use lib\Objects\GeoCache\GeoCache;
+use src\Models\GeoCache\GeoCache;
 use okapi\Facade;
 use okapi\core\Exception\BadRequest;
-use lib\Objects\GeoCache\CacheNote;
+use src\Models\GeoCache\CacheNote;
 use Utils\I18n\I18n;
 
 require_once (__DIR__.'/lib/common.inc.php');

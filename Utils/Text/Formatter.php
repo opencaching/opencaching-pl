@@ -2,7 +2,7 @@
 namespace Utils\Text;
 
 use DateTime;
-use lib\Objects\OcConfig\OcConfig;
+use src\Models\OcConfig\OcConfig;
 
 /**
  * This class implements common formatters which format:

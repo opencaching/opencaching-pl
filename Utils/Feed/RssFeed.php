@@ -4,7 +4,7 @@ namespace Utils\Feed;
 
 use Exception;
 use SimpleXMLElement;
-use lib\Objects\OcConfig\OcConfig;
+use src\Models\OcConfig\OcConfig;
 
 /**
  * Simple reader for RSS and Atom feeds.

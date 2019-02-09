@@ -5,14 +5,14 @@ use src\Controllers\BaseController;
 use Utils\Text\UserInputFilter;
 use Utils\Uri\SimpleRouter;
 use Utils\Uri\Uri;
-use lib\Objects\Admin\AdminNote;
-use lib\Objects\Admin\AdminNoteSet;
-use lib\Objects\User\User;
-use lib\Objects\User\UserAdmin;
-use lib\Objects\User\UserAuthorization;
-use lib\Objects\User\UserEmailSender;
-use lib\Objects\User\UserNotify;
-use lib\Objects\User\MultiUserQueries;
+use src\Models\Admin\AdminNote;
+use src\Models\Admin\AdminNoteSet;
+use src\Models\User\User;
+use src\Models\User\UserAdmin;
+use src\Models\User\UserAuthorization;
+use src\Models\User\UserEmailSender;
+use src\Models\User\UserNotify;
+use src\Models\User\MultiUserQueries;
 
 class UserAdminController extends BaseController
 {

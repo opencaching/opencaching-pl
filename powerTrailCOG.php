@@ -1,7 +1,7 @@
 <?php
 
-use lib\Objects\PowerTrail\PowerTrail;
-use lib\Objects\GeoCache\GeoCache;
+use src\Models\PowerTrail\PowerTrail;
+use src\Models\GeoCache\GeoCache;
 use Utils\Uri\Uri;
 use Utils\I18n\I18n;
 

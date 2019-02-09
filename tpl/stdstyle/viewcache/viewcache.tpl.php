@@ -1,7 +1,7 @@
 <?php
-use lib\Objects\Coordinates\Coordinates;
-use lib\Objects\GeoKret\GeoKretyApi;
-use lib\Objects\GeoCache\GeoCacheLogCommons;
+use src\Models\Coordinates\Coordinates;
+use src\Models\GeoKret\GeoKretyApi;
+use src\Models\GeoCache\GeoCacheLogCommons;
 use Utils\Uri\SimpleRouter;
 use Utils\Text\UserInputFilter;
 use Utils\Text\Formatter;

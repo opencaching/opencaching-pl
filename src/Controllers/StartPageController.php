@@ -7,17 +7,17 @@ use Utils\Feed\RssFeed;
 use Utils\Text\Formatter;
 use Utils\Uri\SimpleRouter;
 use Utils\Uri\Uri;
-use lib\Objects\CacheSet\CacheSet;
-use lib\Objects\CacheSet\CacheSetOwner;
-use lib\Objects\ChunkModels\StaticMap\StaticMapMarker;
-use lib\Objects\ChunkModels\StaticMap\StaticMapModel;
-use lib\Objects\Coordinates\Coordinates;
-use lib\Objects\GeoCache\CacheTitled;
-use lib\Objects\GeoCache\GeoCache;
-use lib\Objects\GeoCache\GeoCacheLog;
-use lib\Objects\GeoCache\MultiCacheStats;
-use lib\Objects\Stats\TotalStats;
-use lib\Objects\User\User;
+use src\Models\CacheSet\CacheSet;
+use src\Models\CacheSet\CacheSetOwner;
+use src\Models\ChunkModels\StaticMap\StaticMapMarker;
+use src\Models\ChunkModels\StaticMap\StaticMapModel;
+use src\Models\Coordinates\Coordinates;
+use src\Models\GeoCache\CacheTitled;
+use src\Models\GeoCache\GeoCache;
+use src\Models\GeoCache\GeoCacheLog;
+use src\Models\GeoCache\MultiCacheStats;
+use src\Models\Stats\TotalStats;
+use src\Models\User\User;
 
 class StartPageController extends BaseController
 {

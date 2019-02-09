@@ -3,8 +3,8 @@
 use Utils\Log\CacheAccessLog;
 use Utils\Text\Formatter;
 use src\Controllers\LogEntryController;
-use lib\Objects\GeoCache\GeoCache;
-use lib\Objects\OcConfig\OcConfig;
+use src\Models\GeoCache\GeoCache;
+use src\Models\OcConfig\OcConfig;
 
 const LOGS_PER_PAGE = 10;
 

@@ -1,6 +1,6 @@
 <?php
 
-use lib\Objects\ChunkModels\StaticMap\StaticMapMarker;
+use src\Models\ChunkModels\StaticMap\StaticMapMarker;
 
 
 /**

@@ -1,6 +1,6 @@
 <?php
 
-use lib\Objects\OcConfig\OcConfig;
+use src\Models\OcConfig\OcConfig;
 
 tpl_set_var('mail_oc', OcConfig::getEmailAddrTechAdmin());
 

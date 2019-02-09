@@ -2,7 +2,7 @@
 
 use Utils\Database\XDb;
 use Utils\Generators\Uuid;
-use lib\Objects\OcConfig\OcConfig;
+use src\Models\OcConfig\OcConfig;
 
 require_once (__DIR__.'/lib/common.inc.php');
 

@@ -1,6 +1,6 @@
 <?php
 
-use lib\Objects\Stats\CacheStats;
+use src\Models\Stats\CacheStats;
 use Utils\I18n\I18n;
 
 //prepare the templates and include all neccessary

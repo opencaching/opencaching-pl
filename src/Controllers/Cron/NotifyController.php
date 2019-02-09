@@ -3,9 +3,9 @@ namespace src\Controllers\Cron;
 
 use src\Controllers\BaseController;
 use Utils\Lock\Lock;
-use lib\Objects\Notify\Notify;
-use lib\Objects\User\User;
-use lib\Objects\Notify\NotifyEmailSender;
+use src\Models\Notify\Notify;
+use src\Models\User\User;
+use src\Models\Notify\NotifyEmailSender;
 
 class NotifyController extends BaseController
 {

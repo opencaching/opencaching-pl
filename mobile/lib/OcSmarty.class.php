@@ -1,6 +1,6 @@
 <?php
 
-use lib\Objects\OcConfig\OcConfig;
+use src\Models\OcConfig\OcConfig;
 use Utils\I18n\I18n;
 
 require_once(__DIR__.'/smarty/Smarty.class.php');

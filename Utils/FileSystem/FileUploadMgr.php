@@ -2,7 +2,7 @@
 namespace Utils\FileSystem;
 
 
-use lib\Objects\ChunkModels\UploadModel;
+use src\Models\ChunkModels\UploadModel;
 use RuntimeException;
 use Utils\Generators\Uuid;
 

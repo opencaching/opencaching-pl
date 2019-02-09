@@ -1,6 +1,6 @@
 <?php
 
-use lib\Objects\PowerTrail\PowerTrail;
+use src\Models\PowerTrail\PowerTrail;
 
 /**
  * Geopatch icon for the cache.

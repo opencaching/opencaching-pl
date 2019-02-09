@@ -1,9 +1,9 @@
 <?php
 
 use Utils\Database\XDb;
-use lib\Objects\GeoCache\GeoCache;
-use lib\Objects\GeoCache\Waypoint;
-use lib\Objects\Coordinates\Coordinates;
+use src\Models\GeoCache\GeoCache;
+use src\Models\GeoCache\Waypoint;
+use src\Models\Coordinates\Coordinates;
 
 class OpenCheckerSetup {
 

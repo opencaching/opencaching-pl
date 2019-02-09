@@ -1,18 +1,18 @@
 <?php
 
-use lib\Objects\OcConfig\OcConfig;
-use lib\Objects\ApplicationContainer;
-use lib\Objects\PowerTrail\PowerTrail;
-use lib\Objects\GeoCache\GeoCache;
+use src\Models\OcConfig\OcConfig;
+use src\Models\ApplicationContainer;
+use src\Models\PowerTrail\PowerTrail;
+use src\Models\GeoCache\GeoCache;
 use Utils\Uri\Uri;
-use lib\Objects\OcConfig\OcDynamicMapConfig;
+use src\Models\OcConfig\OcDynamicMapConfig;
 use Utils\View\View;
 use Utils\Uri\OcCookie;
-use lib\Objects\ChunkModels\DynamicMap\CacheMarkerModel;
-use lib\Objects\ChunkModels\DynamicMap\DynamicMapModel;
-use lib\Objects\ChunkModels\DynamicMap\CacheSetMarkerModel;
-use lib\Objects\CacheSet\CacheSetCommon;
-use lib\Objects\User\User;
+use src\Models\ChunkModels\DynamicMap\CacheMarkerModel;
+use src\Models\ChunkModels\DynamicMap\DynamicMapModel;
+use src\Models\ChunkModels\DynamicMap\CacheSetMarkerModel;
+use src\Models\CacheSet\CacheSetCommon;
+use src\Models\User\User;
 use Utils\Uri\SimpleRouter;
 use src\Controllers\MainMapController;
 use Utils\Text\Formatter;
@@ -470,7 +470,7 @@ function displayPtOwnerList(PowerTrail $powerTrail)
     $ptOwners = $powerTrail->getOwners();
     $ownerList = '';
     isset($_SESSION['user_id']) ? $userLogged = $_SESSION['user_id'] : $userLogged = -1;
-    /* @var $owner lib\Objects\PowerTrail\Owner*/
+    /* @var $owner src\Models\PowerTrail\Owner*/
     foreach ($ptOwners as $owner) {
         $ownerList .= '<a href="viewprofile.php?userid=' . $owner->getUserId() . '">' . $owner->getUserName() . '</a>';
         if ($owner->getUserId() != $userLogged) {
@@ -548,7 +548,7 @@ function displayPtCommentsSelector($htmlid, PowerTrail $powerTrail, $selectedId 
             continue;
         }
 
-        if($id === \lib\Objects\PowerTrail\Log::TYPE_ADD_WARNING && !$appContainer->getLoggedUser()->hasOcTeamRole()){
+        if($id === \src\Models\PowerTrail\Log::TYPE_ADD_WARNING && !$appContainer->getLoggedUser()->hasOcTeamRole()){
             continue;
         }
 

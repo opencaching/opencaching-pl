@@ -3,12 +3,12 @@ namespace src\Controllers\Admin;
 
 use src\Controllers\BaseController;
 use Utils\Uri\Uri;
-use lib\Objects\Admin\Report;
-use lib\Objects\Admin\ReportCommons;
-use lib\Objects\Admin\ReportEmailSender;
-use lib\Objects\GeoCache\GeoCache;
-use lib\Objects\User\MultiUserQueries;
-use lib\Objects\User\User;
+use src\Models\Admin\Report;
+use src\Models\Admin\ReportCommons;
+use src\Models\Admin\ReportEmailSender;
+use src\Models\GeoCache\GeoCache;
+use src\Models\User\MultiUserQueries;
+use src\Models\User\User;
 
 class ReportCacheController extends BaseController
 {

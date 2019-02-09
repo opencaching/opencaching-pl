@@ -2,9 +2,9 @@
 
 namespace src\Controllers;
 
-use lib\Objects\GeoKret\GeoKretLog;
+use src\Models\GeoKret\GeoKretLog;
 use src\Controllers\BaseController;
-use lib\Objects\GeoKret\GeoKretyApi;
+use src\Models\GeoKret\GeoKretyApi;
 
 /**
  * This class processing GeoKrety logs queue (stored in DB).

@@ -1,6 +1,6 @@
 <?php
 
-use lib\Objects\GeoCache\GeoCacheLog;
+use src\Models\GeoCache\GeoCacheLog;
 use Utils\Database\XDb;
 use Utils\Text\Formatter;
 

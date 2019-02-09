@@ -10,7 +10,7 @@
         <?php
 use Utils\Database\XDb;
 use Utils\Cache\OcMemCache;
-use lib\Objects\OcConfig\OcConfig;
+use src\Models\OcConfig\OcConfig;
 use Utils\I18n\I18n;
 
 # This page took >60 seconds to render! Added daily caching.

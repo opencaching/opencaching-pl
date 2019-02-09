@@ -1,6 +1,6 @@
 <?php
 
-use lib\Objects\GeoCache\GeoCacheCommons;
+use src\Models\GeoCache\GeoCacheCommons;
 
 /**
  * DEFAULT config for geocache properties

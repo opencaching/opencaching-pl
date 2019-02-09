@@ -3,14 +3,14 @@ namespace src\Controllers;
 
 use Exception;
 use src\Controllers\LogEntryController;
-use lib\Objects\GeoCache\GeoCacheLog;
+use src\Models\GeoCache\GeoCacheLog;
 use Utils\EventHandler\EventHandler;
 use Utils\Uri\Uri;
-use lib\Objects\ChunkModels\DynamicMap\DynamicMapModel;
-use lib\Objects\GeoCache\MultiLogStats;
-use lib\Objects\ChunkModels\DynamicMap\LogMarkerModel;
-use lib\Objects\GeoCache\GeoCache;
-use lib\Objects\User\MultiUserQueries;
+use src\Models\ChunkModels\DynamicMap\DynamicMapModel;
+use src\Models\GeoCache\MultiLogStats;
+use src\Models\ChunkModels\DynamicMap\LogMarkerModel;
+use src\Models\GeoCache\GeoCache;
+use src\Models\User\MultiUserQueries;
 
 class CacheLogController extends BaseController
 {

@@ -2,8 +2,8 @@
 namespace src\Controllers\News;
 
 use src\Controllers\BaseController;
-use lib\Objects\News\News;
-use lib\Objects\ChunkModels\PaginationModel;
+use src\Models\News\News;
+use src\Models\ChunkModels\PaginationModel;
 use Utils\Uri\Uri;
 use Utils\Uri\SimpleRouter;
 

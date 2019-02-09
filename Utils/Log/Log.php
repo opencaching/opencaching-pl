@@ -6,7 +6,7 @@
 namespace Utils\Log;
 
 use Utils\Database\OcDb;
-use lib\Objects\User\User;
+use src\Models\User\User;
 
 class Log
 {

@@ -1,7 +1,7 @@
 <?php
 
 use Utils\Text\Formatter;
-use lib\Objects\MeritBadge\MeritBadge; //for static functions
+use src\Models\MeritBadge\MeritBadge; //for static functions
 use src\Controllers\MeritBadgeController;
 use src\Controllers\ViewBadgeHeadController;
 use src\Controllers\ViewBadgeShowPositionsController;

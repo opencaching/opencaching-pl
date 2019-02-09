@@ -3,7 +3,7 @@ use Utils\Gis\Gis;
 use Utils\Text\Formatter;
 use Utils\Text\UserInputFilter;
 use Utils\Uri\SimpleRouter;
-use lib\Objects\GeoCache\GeoCacheLog;
+use src\Models\GeoCache\GeoCacheLog;
 
 ?>
 <div class="content2-container">

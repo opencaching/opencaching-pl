@@ -6,7 +6,7 @@
 ob_start();
 
 use Utils\Database\XDb;
-use lib\Objects\GeoCache\GeoCacheCommons;
+use src\Models\GeoCache\GeoCacheCommons;
 
 global $content, $bUseZip, $hide_coords, $usr, $dbcSearch;
 set_time_limit(1800);

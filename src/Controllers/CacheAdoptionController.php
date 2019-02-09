@@ -2,13 +2,13 @@
 
 namespace src\Controllers;
 
-use lib\Objects\User\User;
-use lib\Objects\GeoCache\GeoCache;
+use src\Models\User\User;
+use src\Models\GeoCache\GeoCache;
 use Utils\Email\EmailSender;
 use Utils\Database\OcDb;
 use Utils\Uri\Uri;
 use Utils\Generators\Uuid;
-use lib\Objects\OcConfig\OcConfig;
+use src\Models\OcConfig\OcConfig;
 
 class CacheAdoptionController extends BaseController
 {

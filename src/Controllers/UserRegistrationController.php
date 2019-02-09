@@ -4,8 +4,8 @@ namespace src\Controllers;
 use Utils\Text\UserInputFilter;
 use Utils\Text\Validator;
 use Utils\Uri\Uri;
-use lib\Objects\User\User;
-use lib\Objects\User\UserEmailSender;
+use src\Models\User\User;
+use src\Models\User\UserEmailSender;
 
 class UserRegistrationController extends BaseController
 {

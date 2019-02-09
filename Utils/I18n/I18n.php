@@ -35,7 +35,7 @@ namespace Utils\I18n {
     use Utils\Text\UserInputFilter;
     use Utils\Uri\OcCookie;
     use Utils\Uri\Uri;
-    use lib\Objects\OcConfig\OcConfig;
+    use src\Models\OcConfig\OcConfig;
     use Utils\Debug\Debug;
     use Utils\Database\XDb;
     use Utils\Cache\OcMemCache;

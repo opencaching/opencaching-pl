@@ -5,7 +5,7 @@ use Utils\Gis\Gis;
 use Utils\Text\Formatter;
 use Utils\Uri\Uri;
 use Utils\Uri\OcCookie;
-use lib\Objects\Coordinates\Coordinates;
+use src\Models\Coordinates\Coordinates;
 use Utils\I18n\I18n;
 
 /**

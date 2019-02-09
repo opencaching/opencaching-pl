@@ -2,7 +2,7 @@
 
 namespace src\Controllers;
 
-use lib\Objects\MeritBadge\MeritBadge; //for static functions
+use src\Models\MeritBadge\MeritBadge; //for static functions
 use src\Controllers\MeritBadgeController;
 
 

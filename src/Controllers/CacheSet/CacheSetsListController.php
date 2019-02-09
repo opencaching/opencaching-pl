@@ -4,13 +4,13 @@ namespace src\Controllers\CacheSet;
 
 use src\Controllers\BaseController;
 use Utils\Uri\Uri;
-use lib\Objects\CacheSet\CacheSet;
-use lib\Objects\ChunkModels\PaginationModel;
-use lib\Objects\CacheSet\CacheSetCommon;
-use lib\Objects\ChunkModels\ListOfCaches\Column_CacheSetNameAndIcon;
-use lib\Objects\ChunkModels\ListOfCaches\ListOfCachesModel;
-use lib\Objects\ChunkModels\DynamicMap\CacheSetMarkerModel;
-use lib\Objects\ChunkModels\DynamicMap\DynamicMapModel;
+use src\Models\CacheSet\CacheSet;
+use src\Models\ChunkModels\PaginationModel;
+use src\Models\CacheSet\CacheSetCommon;
+use src\Models\ChunkModels\ListOfCaches\Column_CacheSetNameAndIcon;
+use src\Models\ChunkModels\ListOfCaches\ListOfCachesModel;
+use src\Models\ChunkModels\DynamicMap\CacheSetMarkerModel;
+use src\Models\ChunkModels\DynamicMap\DynamicMapModel;
 
 class CacheSetsListController extends BaseController
 {

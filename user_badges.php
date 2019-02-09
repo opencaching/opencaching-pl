@@ -1,6 +1,6 @@
 <?php
 
-use lib\Objects\MeritBadge\MeritBadge;
+use src\Models\MeritBadge\MeritBadge;
 use src\Controllers\MeritBadgeController;
 
 require_once (__DIR__.'/lib/common.inc.php');

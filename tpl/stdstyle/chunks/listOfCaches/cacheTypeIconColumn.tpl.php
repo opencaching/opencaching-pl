@@ -1,7 +1,7 @@
 <?php
 
-use lib\Objects\GeoCache\GeoCacheCommons;
-use lib\Objects\GeoCache\GeoCacheLogCommons;
+use src\Models\GeoCache\GeoCacheCommons;
+use src\Models\GeoCache\GeoCacheLogCommons;
 
 /**
  * This is column with cache icon.

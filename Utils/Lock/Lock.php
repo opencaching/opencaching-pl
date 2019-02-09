@@ -36,7 +36,7 @@
  */
 namespace Utils\Lock;
 
-use lib\Objects\OcConfig\OcConfig;
+use src\Models\OcConfig\OcConfig;
 
 /**
  * Provides the abstraction layer to locking mechanism. Should be used as the

@@ -4,7 +4,7 @@
  */
 
 use Utils\Database\XDb;
-use lib\Objects\GeoCache\GeoCacheCommons;
+use src\Models\GeoCache\GeoCacheCommons;
 
 ob_start();
 

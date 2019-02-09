@@ -11,7 +11,7 @@
  * @param ListOfCaches $m
  *
  */
-use lib\Objects\ChunkModels\ListOfCaches;
+use src\Models\ChunkModels\ListOfCaches;
 
 return function (ListOfCaches $m){
 //start of chunk

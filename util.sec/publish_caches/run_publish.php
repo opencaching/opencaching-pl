@@ -4,7 +4,7 @@
  */
 
 use Utils\Database\XDb;
-use lib\Objects\GeoCache\GeoCache;
+use src\Models\GeoCache\GeoCache;
 use Utils\EventHandler\EventHandler;
 
 require_once(__DIR__.'/../../lib/ClassPathDictionary.php');

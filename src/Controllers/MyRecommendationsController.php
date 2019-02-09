@@ -6,15 +6,15 @@ namespace src\Controllers;
  * This controller handles recommendations list view
  */
 
-use lib\Objects\ChunkModels\ListOfCaches\Column_CacheName;
-use lib\Objects\ChunkModels\ListOfCaches\Column_CacheTypeIcon;
-use lib\Objects\ChunkModels\ListOfCaches\Column_OnClickActionIcon;
-use lib\Objects\ChunkModels\ListOfCaches\Column_UserName;
-use lib\Objects\ChunkModels\ListOfCaches\ListOfCachesModel;
-use lib\Objects\ChunkModels\PaginationModel;
-use lib\Objects\GeoCache\CacheRecommendation;
-use lib\Objects\GeoCache\MultiLogStats;
-use lib\Objects\User\User;
+use src\Models\ChunkModels\ListOfCaches\Column_CacheName;
+use src\Models\ChunkModels\ListOfCaches\Column_CacheTypeIcon;
+use src\Models\ChunkModels\ListOfCaches\Column_OnClickActionIcon;
+use src\Models\ChunkModels\ListOfCaches\Column_UserName;
+use src\Models\ChunkModels\ListOfCaches\ListOfCachesModel;
+use src\Models\ChunkModels\PaginationModel;
+use src\Models\GeoCache\CacheRecommendation;
+use src\Models\GeoCache\MultiLogStats;
+use src\Models\User\User;
 use Utils\Uri\Uri;
 
 class MyRecommendationsController extends BaseController

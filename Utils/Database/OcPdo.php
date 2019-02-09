@@ -2,7 +2,7 @@
 
 namespace Utils\Database;
 
-use lib\Objects\OcConfig\OcConfig;
+use src\Models\OcConfig\OcConfig;
 use Utils\Email\EmailSender;
 use PDO;
 use PDOException;

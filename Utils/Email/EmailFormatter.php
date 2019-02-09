@@ -8,7 +8,7 @@
 
 namespace Utils\Email;
 
-use lib\Objects\OcConfig\OcConfig;
+use src\Models\OcConfig\OcConfig;
 
 class EmailFormatter
 {

@@ -1,10 +1,10 @@
 <?php
 namespace Utils\EventHandler;
 
-use lib\Objects\Notify\Notify;
-use lib\Objects\User\User;
-use lib\Objects\GeoCache\GeoCache;
-use lib\Objects\GeoCache\GeoCacheLog;
+use src\Models\Notify\Notify;
+use src\Models\User\User;
+use src\Models\GeoCache\GeoCache;
+use src\Models\GeoCache\GeoCacheLog;
 
 class EventHandler
 {

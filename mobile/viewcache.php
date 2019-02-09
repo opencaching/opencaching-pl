@@ -1,7 +1,7 @@
 <?php
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
-use lib\Objects\GeoCache\GeoCacheCommons;
+use src\Models\GeoCache\GeoCacheCommons;
 use Utils\I18n\I18n;
 
 require_once("./lib/common.inc.php");

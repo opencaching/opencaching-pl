@@ -1,6 +1,6 @@
 <?php
 
-use lib\Objects\User\UserCommons;
+use src\Models\User\UserCommons;
 
 /**
  * This is column which displays user name.

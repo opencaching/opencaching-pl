@@ -4,7 +4,7 @@
  */
 
 use src\Controllers\Cron\Jobs\Job;
-use lib\Objects\GeoCache\GeoCache;
+use src\Models\GeoCache\GeoCache;
 
 class PublishCachesJob extends Job
 {

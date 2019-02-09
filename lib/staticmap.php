@@ -1,6 +1,6 @@
 <?php
 
-use lib\Objects\OcConfig\OcConfig;
+use src\Models\OcConfig\OcConfig;
 
 /**
  * staticMapLite 0.3.1

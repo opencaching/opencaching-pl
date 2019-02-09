@@ -2,7 +2,7 @@
 namespace Utils\I18n;
 
 use Utils\Uri\OcCookie;
-use lib\Objects\OcConfig\OcConfig;
+use src\Models\OcConfig\OcConfig;
 use Utils\Uri\Uri;
 use Utils\Uri\SimpleRouter;
 

@@ -5,12 +5,12 @@
  */
 
 use src\Controllers\Cron\Jobs\Job;
-use lib\Objects\GeoCache\GeoCache;
-use lib\Objects\GeoCache\GeoCacheLog;
+use src\Models\GeoCache\GeoCache;
+use src\Models\GeoCache\GeoCacheLog;
 use Utils\Email\Email;
 use Utils\Email\EmailFormatter;
 use Utils\Generators\Uuid;
-use lib\Objects\OcConfig\OcConfig;
+use src\Models\OcConfig\OcConfig;
 
 class AutoArchiveCachesJob extends Job
 {

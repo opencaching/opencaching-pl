@@ -4,7 +4,7 @@
  */
 
 use Utils\Database\OcDb;
-use lib\Objects\OcConfig\OcConfig;
+use src\Models\OcConfig\OcConfig;
 
 global $content, $bUseZip, $usr, $hide_coords, $dbcSearch;
 

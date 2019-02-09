@@ -7,11 +7,11 @@ namespace src\Controllers\Cron;
 use src\Controllers\BaseController;
 use Utils\Email\Email;
 use Utils\Lock\Lock;
-use lib\Objects\User\UserNotify;
-use lib\Objects\Watchlist\Watchlist;
-use lib\Objects\Watchlist\WatchlistItem;
-use lib\Objects\Watchlist\WatchlistReport;
-use lib\Objects\Watchlist\WatchlistWatcher;
+use src\Models\User\UserNotify;
+use src\Models\Watchlist\Watchlist;
+use src\Models\Watchlist\WatchlistItem;
+use src\Models\Watchlist\WatchlistReport;
+use src\Models\Watchlist\WatchlistWatcher;
 
 /**
  * Initiates and performs operations included in watchlist processing: new logs
@@ -22,14 +22,14 @@ class WatchlistController extends BaseController
 {
     /**
      * @var array watchlist configuration associative array from
-     * {@see \lib\Objects\OcConfig\OcConfig}
+     * {@see \src\Models\OcConfig\OcConfig}
      */
     private $watchlistConfig;
-    /** @var \lib\Objects\Watchlist\Watchlist class instance */
+    /** @var \src\Models\Watchlist\Watchlist class instance */
     private $watchlist;
-    /** @var \lib\Objects\Watchlist\WatchlistItem class instance */
+    /** @var \src\Models\Watchlist\WatchlistItem class instance */
     private $watchlistItem;
-    /** @var \lib\Objects\Watchlist\WatchlistReport class instance */
+    /** @var \src\Models\Watchlist\WatchlistReport class instance */
     private $watchlistReport;
 
     /** @var resource diagnostic file handle, used only if enabled in config */

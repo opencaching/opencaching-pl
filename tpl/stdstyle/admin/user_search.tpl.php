@@ -1,7 +1,7 @@
 <?php
 use Utils\Uri\SimpleRouter;
 use Utils\Text\Formatter;
-use lib\Objects\GeoCache\GeoCacheLog;
+use src\Models\GeoCache\GeoCacheLog;
 ?>
 <div class="content2-pagetitle">
   <?=tr('search_user')?>

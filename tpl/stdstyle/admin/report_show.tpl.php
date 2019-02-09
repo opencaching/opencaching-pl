@@ -1,9 +1,9 @@
 <?php
-use lib\Objects\GeoCache\GeoCache;
-use lib\Objects\GeoCache\GeoCacheLogCommons;
-use lib\Objects\Admin\ReportEmailTemplate;
-use lib\Objects\Admin\ReportPoll;
-use lib\Objects\Admin\ReportCommons;
+use src\Models\GeoCache\GeoCache;
+use src\Models\GeoCache\GeoCacheLogCommons;
+use src\Models\Admin\ReportEmailTemplate;
+use src\Models\Admin\ReportPoll;
+use src\Models\Admin\ReportCommons;
 use Utils\Text\Formatter;
 ?>
 <?php if ($view->includeGCharts) {?>

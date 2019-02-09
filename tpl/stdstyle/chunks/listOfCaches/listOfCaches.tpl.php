@@ -1,6 +1,6 @@
 <?php
 
-use lib\Objects\ChunkModels\ListOfCaches\ListOfCachesModel;
+use src\Models\ChunkModels\ListOfCaches\ListOfCachesModel;
 use Utils\Uri\Uri;
 
 /**

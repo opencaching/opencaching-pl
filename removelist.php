@@ -1,6 +1,6 @@
 <?php
 
-use lib\Objects\GeoCache\PrintList;
+use src\Models\GeoCache\PrintList;
 
 require_once (__DIR__.'/lib/common.inc.php');
 

@@ -2,15 +2,15 @@
 
 use Utils\Database\XDb;
 use Utils\Text\UserInputFilter;
-use lib\Objects\GeoCache\GeoCacheCommons;
-use lib\Objects\GeoCache\GeoCacheLog;
+use src\Models\GeoCache\GeoCacheCommons;
+use src\Models\GeoCache\GeoCacheLog;
 use src\Controllers\LogEntryController;
 use src\Controllers\MeritBadgeController;
 use okapi\Facade;
 use Utils\EventHandler\EventHandler;
 use Utils\Text\InputFilter;
-use lib\Objects\GeoCache\MobileCacheMove;
-use lib\Objects\OcConfig\OcConfig;
+use src\Models\GeoCache\MobileCacheMove;
+use src\Models\OcConfig\OcConfig;
 use Utils\I18n\I18n;
 +
 //prepare the templates and include all neccessary

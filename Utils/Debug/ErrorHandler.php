@@ -1,7 +1,7 @@
 <?php
 namespace Utils\Debug;
 
-use lib\Objects\OcConfig;
+use src\Models\OcConfig;
 use Utils\Email\EmailSender;
 
 class ErrorHandler

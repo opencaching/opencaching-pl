@@ -1,29 +1,29 @@
 <?php
 namespace src\Controllers;
 
-use lib\Objects\CacheSet\CacheSet;
-use lib\Objects\User\OAuthSimpleUser\FacebookOAuth;
-use lib\Objects\User\OAuthSimpleUser\GoogleOAuth;
+use src\Models\CacheSet\CacheSet;
+use src\Models\User\OAuthSimpleUser\FacebookOAuth;
+use src\Models\User\OAuthSimpleUser\GoogleOAuth;
 use Utils\Text\UserInputFilter;
 use Utils\Uri\Uri;
-use lib\Objects\User\UserPreferences\UserPreferences;
-use lib\Objects\User\UserPreferences\TestUserPref;
-use lib\Objects\ChunkModels\UploadModel;
-use lib\Objects\ChunkModels\DynamicMap\CacheMarkerModel;
-use lib\Objects\ChunkModels\DynamicMap\CacheWithLogMarkerModel;
-use lib\Objects\ChunkModels\DynamicMap\DynamicMapModel;
-use lib\Objects\ChunkModels\DynamicMap\CacheSetMarkerModel;
-use lib\Objects\GeoCache\GeoCache;
-use lib\Objects\GeoCache\MultiCacheStats;
-use lib\Objects\GeoCache\MultiLogStats;
-use lib\Objects\User\User;
-use lib\Objects\User\MultiUserQueries;
-use lib\Objects\GeoCache\GeoCacheLog;
+use src\Models\User\UserPreferences\UserPreferences;
+use src\Models\User\UserPreferences\TestUserPref;
+use src\Models\ChunkModels\UploadModel;
+use src\Models\ChunkModels\DynamicMap\CacheMarkerModel;
+use src\Models\ChunkModels\DynamicMap\CacheWithLogMarkerModel;
+use src\Models\ChunkModels\DynamicMap\DynamicMapModel;
+use src\Models\ChunkModels\DynamicMap\CacheSetMarkerModel;
+use src\Models\GeoCache\GeoCache;
+use src\Models\GeoCache\MultiCacheStats;
+use src\Models\GeoCache\MultiLogStats;
+use src\Models\User\User;
+use src\Models\User\MultiUserQueries;
+use src\Models\GeoCache\GeoCacheLog;
 use Utils\Text\Formatter;
 use Utils\Uri\OcCookie;
-use lib\Objects\Coordinates\Coordinates;
+use src\Models\Coordinates\Coordinates;
 use Utils\FileSystem\FileUploadMgr;
-use lib\Objects\OcConfig\OcConfig;
+use src\Models\OcConfig\OcConfig;
 
 class TestController extends BaseController
 {

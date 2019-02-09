@@ -5,8 +5,8 @@ use src\Controllers\BaseController;
 use Utils\DateTime\Converter;
 use Utils\Uri\SimpleRouter;
 use Utils\Uri\Uri;
-use lib\Objects\ChunkModels\PaginationModel;
-use lib\Objects\News\News;
+use src\Models\ChunkModels\PaginationModel;
+use src\Models\News\News;
 
 class NewsAdminController extends BaseController
 {

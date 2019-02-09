@@ -6,11 +6,11 @@ use src\Controllers\BaseController;
 use Utils\DateTime\Year;
 use Utils\I18n\I18n;
 use Utils\Uri\Uri;
-use lib\Objects\Admin\GeoCacheApproval;
-use lib\Objects\Admin\ReportCommons;
-use lib\Objects\GeoCache\PrintList;
-use lib\Objects\OcConfig\OcConfig;
-use lib\Objects\User\UserAuthorization;
+use src\Models\Admin\GeoCacheApproval;
+use src\Models\Admin\ReportCommons;
+use src\Models\GeoCache\PrintList;
+use src\Models\OcConfig\OcConfig;
+use src\Models\User\UserAuthorization;
 use Utils\Cache\OcMemCache;
 use Utils\I18n\CrowdinInContextMode;
 

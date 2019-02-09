@@ -1,7 +1,7 @@
 <?php
 
-use lib\Objects\GeoCache\GeoCacheCommons;
-use lib\Objects\PowerTrail\PowerTrail;
+use src\Models\GeoCache\GeoCacheCommons;
+use src\Models\PowerTrail\PowerTrail;
 
 require_once __DIR__ . '/../lib/common.inc.php';
 

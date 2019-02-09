@@ -9,10 +9,10 @@
 
 namespace Utils\Email;
 
-use lib\Objects\GeoCache\GeoCache;
-use lib\Objects\GeoCache\GeoCacheLog;
-use lib\Objects\OcConfig\OcConfig;
-use lib\Objects\User\User;
+use src\Models\GeoCache\GeoCache;
+use src\Models\GeoCache\GeoCacheLog;
+use src\Models\OcConfig\OcConfig;
+use src\Models\User\User;
 use Utils\Debug\Debug;
 
 class EmailSender

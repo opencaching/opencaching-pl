@@ -5,9 +5,9 @@ use src\Controllers\LogEntryController;
 use Utils\Text\TextConverter;
 use Utils\Text\SmilesInText;
 use Utils\Text\UserInputFilter;
-use lib\Objects\GeoCache\GeoCache;
-use lib\Objects\OcConfig\OcConfig;
-use lib\Objects\Coordinates\Coordinates;
+use src\Models\GeoCache\GeoCache;
+use src\Models\OcConfig\OcConfig;
+use src\Models\Coordinates\Coordinates;
 
 require_once (__DIR__.'/lib/common.inc.php');
 require(__DIR__.'/tpl/stdstyle/lib/icons.inc.php');

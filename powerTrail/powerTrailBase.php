@@ -1,7 +1,7 @@
 <?php
 use Utils\Database\OcDb;
-use lib\Objects\Coordinates\Altitude;
-use lib\Objects\Coordinates\Coordinates;
+use src\Models\Coordinates\Altitude;
+use src\Models\Coordinates\Coordinates;
 /**
  *
  */

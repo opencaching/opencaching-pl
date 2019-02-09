@@ -11,7 +11,7 @@ namespace Utils\Email;
 
 use Exception;
 use Utils\Text\Validator;
-use lib\Objects\OcConfig\OcConfig;
+use src\Models\OcConfig\OcConfig;
 
 class Email
 {

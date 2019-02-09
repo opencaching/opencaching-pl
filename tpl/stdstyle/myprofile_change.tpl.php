@@ -1,5 +1,5 @@
 <?php
-use lib\Objects\GeoKret\GeoKretyApi;
+use src\Models\GeoKret\GeoKretyApi;
 ?>
 <div class="content2-pagetitle">{{change_account_data}}</div>
 <div class="content2-container">

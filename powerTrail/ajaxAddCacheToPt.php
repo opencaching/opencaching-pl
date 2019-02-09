@@ -1,10 +1,10 @@
 <?php
 
-use lib\Objects\GeoCache\GeoCache;
+use src\Models\GeoCache\GeoCache;
 use Utils\Database\OcDb;
 use Utils\Database\XDb;
-use lib\Objects\Coordinates\Altitude;
-use lib\Objects\Coordinates\Coordinates;
+use src\Models\Coordinates\Altitude;
+use src\Models\Coordinates\Coordinates;
 use Utils\Generators\TextGen;
 
 /**

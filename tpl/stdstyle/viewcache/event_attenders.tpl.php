@@ -1,6 +1,6 @@
 <?php
 use Utils\Text\Formatter;
-use lib\Objects\User\User;
+use src\Models\User\User;
 
 ?>
 

@@ -5,7 +5,7 @@
  * This chunk needs LightTipped chunk!
  */
 use Utils\Uri\Uri;
-use lib\Objects\ChunkModels\StaticMap\StaticMapModel;
+use src\Models\ChunkModels\StaticMap\StaticMapModel;
 use Utils\View\View;
 
 return function (StaticMapModel $m){

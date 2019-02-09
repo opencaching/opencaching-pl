@@ -1,13 +1,13 @@
 <?php
 
-use lib\Objects\GeoCache\GeoCache;
+use src\Models\GeoCache\GeoCache;
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
 use Utils\I18n\Languages;
-use lib\Objects\Coordinates\Coordinates;
+use src\Models\Coordinates\Coordinates;
 use Utils\EventHandler\EventHandler;
-use lib\Objects\GeoCache\GeoCacheLog;
-use lib\Objects\OcConfig\OcConfig;
+use src\Models\GeoCache\GeoCacheLog;
+use src\Models\OcConfig\OcConfig;
 use Utils\I18n\I18n;
 use Utils\Text\Validator;
 

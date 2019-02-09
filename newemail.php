@@ -2,7 +2,7 @@
 
 use Utils\Database\XDb;
 use Utils\Text\Validator;
-use lib\Objects\OcConfig\OcConfig;
+use src\Models\OcConfig\OcConfig;
 
 global $absolute_server_URI;
 

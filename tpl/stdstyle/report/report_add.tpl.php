@@ -1,5 +1,5 @@
 <?php
-use lib\Objects\Admin\ReportCommons;
+use src\Models\Admin\ReportCommons;
 ?>
 <script src="<?=$view->report_js?>"></script>
 <div class="content2-container">

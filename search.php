@@ -4,9 +4,9 @@ use Utils\Database\OcDb;
 use Utils\Database\XDb;
 use Utils\Text\TextConverter;
 use Utils\Uri\OcCookie;
-use lib\Objects\GeoCache\GeoCache;
-use lib\Objects\GeoCache\PrintList;
-use lib\Objects\Coordinates\Coordinates;
+use src\Models\GeoCache\GeoCache;
+use src\Models\GeoCache\PrintList;
+use src\Models\Coordinates\Coordinates;
 use Utils\I18n\I18n;
 
 require_once (__DIR__.'/lib/common.inc.php');

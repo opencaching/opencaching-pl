@@ -3,16 +3,16 @@ namespace src\Controllers;
 
 use Utils\Uri\SimpleRouter;
 use Utils\Uri\Uri;
-use lib\Objects\ChunkModels\PaginationModel;
-use lib\Objects\ChunkModels\DynamicMap\CacheMarkerModel;
-use lib\Objects\ChunkModels\DynamicMap\DynamicMapModel;
-use lib\Objects\ChunkModels\DynamicMap\LogMarkerModel;
-use lib\Objects\Coordinates\Coordinates;
-use lib\Objects\Neighbourhood\MyNbhSets;
-use lib\Objects\Neighbourhood\Neighbourhood;
-use lib\Objects\User\UserPreferences\UserPreferences;
+use src\Models\ChunkModels\PaginationModel;
+use src\Models\ChunkModels\DynamicMap\CacheMarkerModel;
+use src\Models\ChunkModels\DynamicMap\DynamicMapModel;
+use src\Models\ChunkModels\DynamicMap\LogMarkerModel;
+use src\Models\Coordinates\Coordinates;
+use src\Models\Neighbourhood\MyNbhSets;
+use src\Models\Neighbourhood\Neighbourhood;
+use src\Models\User\UserPreferences\UserPreferences;
 use Utils\Text\UserInputFilter;
-use lib\Objects\User\UserPreferences\NeighbourhoodPref;
+use src\Models\User\UserPreferences\NeighbourhoodPref;
 
 class MyNeighbourhoodController extends BaseController
 {

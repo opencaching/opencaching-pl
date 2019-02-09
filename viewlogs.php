@@ -6,8 +6,8 @@ use src\Controllers\LogEntryController;
 use Utils\Text\TextConverter;
 use Utils\Text\SmilesInText;
 use Utils\Text\UserInputFilter;
-use lib\Objects\OcConfig\OcConfig;
-use lib\Objects\Coordinates\Coordinates;
+use src\Models\OcConfig\OcConfig;
+use src\Models\Coordinates\Coordinates;
 
 require_once (__DIR__.'/lib/common.inc.php');
 

@@ -1,6 +1,6 @@
 <?php
 
-use lib\Objects\GeoCache\GeoCache;
+use src\Models\GeoCache\GeoCache;
 use Utils\Database\OcDb;
 
 require_once __DIR__ . '/../lib/common.inc.php';

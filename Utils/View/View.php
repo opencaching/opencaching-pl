@@ -2,7 +2,7 @@
 namespace Utils\View;
 
 use Utils\DateTime\Year;
-use lib\Objects\ApplicationContainer;
+use src\Models\ApplicationContainer;
 use Utils\Debug\Debug;
 use src\Controllers\PageLayout\MainLayoutController;
 use Utils\I18n\CrowdinInContextMode;

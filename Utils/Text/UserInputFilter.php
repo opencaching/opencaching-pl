@@ -12,7 +12,7 @@ use HTMLPurifier_ElementDef;
 use HTMLPurifier_HTMLModule_SafeEmbed;
 use HTMLPurifier_HTMLModule_SafeObject;
 use HTMLPurifier_Injector_SafeObject;
-use lib\Objects\OcConfig\OcConfig;
+use src\Models\OcConfig\OcConfig;
 use Utils\Cache\OcMemCache;
 
 /**
