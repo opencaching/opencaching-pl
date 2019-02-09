@@ -44,6 +44,9 @@ class SimpleRouter
     {
         $ctrl = self::checkControllerName($ctrl);
 
+        // remove "src." from begining of class (if added)
+        $ctrl = preg_replace("/^src./i","",$ctrl);
+
         $link = "/$ctrl";
 
         if(!is_null($action)){
