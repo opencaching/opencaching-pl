@@ -1,6 +1,6 @@
 <?php
 
-namespace lib\Controllers;
+namespace src\Controllers;
 
 use lib\Objects\GeoCache\GeoCacheLog;
 use lib\Objects\OcConfig\OcConfig;
@@ -8,7 +8,7 @@ use Utils\Database\OcDb;
 use Utils\Email\EmailSender;
 use Utils\Gis\Gis;
 use lib\Objects\ApplicationContainer;
-use lib\Controllers\MeritBadgeController;
+use src\Controllers\MeritBadgeController;
 use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\Coordinates\Coordinates;
 use Utils\EventHandler\EventHandler;

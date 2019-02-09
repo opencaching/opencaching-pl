@@ -1,6 +1,6 @@
 <?php
 
-use lib\Controllers\MeritBadgeController;
+use src\Controllers\MeritBadgeController;
 use Utils\Database\OcDb;
 use Utils\Uri\SimpleRouter;
 use src\Controllers\MainMapController;

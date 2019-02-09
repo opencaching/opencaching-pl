@@ -2,7 +2,7 @@
 
 use Utils\Log\CacheAccessLog;
 use Utils\Text\Formatter;
-use lib\Controllers\LogEntryController;
+use src\Controllers\LogEntryController;
 use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\OcConfig\OcConfig;
 

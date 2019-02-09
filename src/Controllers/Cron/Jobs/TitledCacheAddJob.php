@@ -3,7 +3,7 @@
 use src\Controllers\Cron\Jobs\Job;
 use lib\Objects\GeoCache\GeoCacheLog;
 use Utils\Generators\Uuid;
-use lib\Controllers\MeritBadgeController;
+use src\Controllers\MeritBadgeController;
 use lib\Objects\OcConfig\OcConfig;
 
 class TitledCacheAddJob extends Job

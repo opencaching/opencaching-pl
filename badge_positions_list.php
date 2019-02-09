@@ -1,7 +1,7 @@
 <?php
 
 use Utils\Text\Formatter;
-use lib\Controllers\MeritBadgeController;
+use src\Controllers\MeritBadgeController;
 use src\Controllers\ViewBadgeHeadController;
 
 require_once(__DIR__.'/lib/common.inc.php');
@@ -24,7 +24,7 @@ if (isset($_REQUEST['user_id'])) {
 
 $badge_id = $_REQUEST['badge_id'];
 
-$meritBadgeCtrl = new \lib\Controllers\MeritBadgeController;
+$meritBadgeCtrl = new \src\Controllers\MeritBadgeController;
 $head= (new ViewBadgeHeadController())->index();
 
 $tplname = 'badge_positions_list';

@@ -5,7 +5,7 @@ use lib\Objects\User\User;
 use Utils\Email\EmailSender;
 use Utils\Generators\Uuid;
 use Exception;
-use lib\Controllers\MeritBadgeController;
+use src\Controllers\MeritBadgeController;
 use okapi\Facade;
 use lib\Objects\OcConfig\OcConfig;
 

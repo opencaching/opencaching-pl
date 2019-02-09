@@ -207,8 +207,8 @@ class powerTrailController
                        (`name`, `type`, `status`, `dateCreated`, `cacheCount`, `description`, `perccentRequired`, uuid)
                        VALUES (:1,:2,:3,NOW(),0,:4,:5, ".Uuid::getSqlForUpperCaseUuid().")";
             $db = OcDb::instance();
-            if ($_POST['dPercent'] < \lib\Controllers\PowerTrailController::MINIMUM_PERCENT_REQUIRED) {
-                $_POST['dPercent'] = \lib\Controllers\PowerTrailController::MINIMUM_PERCENT_REQUIRED;
+            if ($_POST['dPercent'] < \src\Controllers\PowerTrailController::MINIMUM_PERCENT_REQUIRED) {
+                $_POST['dPercent'] = \src\Controllers\PowerTrailController::MINIMUM_PERCENT_REQUIRED;
             }
             $db->multiVariableQuery($query, strip_tags($_POST['powerTrailName']), (int)$_POST['type'], 2,
                 htmlspecialchars($_POST['description']), (int)$_POST['dPercent']);

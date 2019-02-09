@@ -3,7 +3,7 @@ namespace src\Controllers\Admin;
 
 use src\Controllers\BaseController;
 use Utils\Uri\Uri;
-use lib\Controllers\LogEntryController;
+use src\Controllers\LogEntryController;
 use lib\Objects\Admin\Report;
 use lib\Objects\Admin\ReportEmailSender;
 use lib\Objects\Admin\ReportEmailTemplate;

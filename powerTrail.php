@@ -130,7 +130,7 @@ if ($error == false) {
     tpl_set_var('cacheFound', '');
     tpl_set_var('powerTrailCacheLeft', '');
     tpl_set_var('PowerTrails', '');
-    tpl_set_var('demandPercentMinimum', lib\Controllers\PowerTrailController::MINIMUM_PERCENT_REQUIRED);
+    tpl_set_var('demandPercentMinimum', src\Controllers\PowerTrailController::MINIMUM_PERCENT_REQUIRED);
     tpl_set_var('powerTrailDemandPercent', '100');
     tpl_set_var('leadingUserId', '');
 
@@ -264,7 +264,7 @@ if ($error == false) {
                 ($appContainer->getLoggedUser() !== null && $appContainer->getLoggedUser()->hasOcTeamRole())) {
 
                 $ptTypesArr = powerTrailBase::getPowerTrailTypes();
-                $ptStatusArr = \lib\Controllers\PowerTrailController::getPowerTrailStatus();
+                $ptStatusArr = \src\Controllers\PowerTrailController::getPowerTrailStatus();
                 $foundCachsByUser = $powerTrail->getFoundCachsByUser($usr['userid']);
                 $leadingUser = powerTrailBase::getLeadingUser($powerTrail->getId());
                 if ($powerTrail->getConquestedCount() > 0){
@@ -416,7 +416,7 @@ function displayPTrails($pTrails, $areOwnSeries)
 {
 
     $ptTypes = powerTrailBase::getPowerTrailTypes();
-    $ptStatus = \lib\Controllers\PowerTrailController::getPowerTrailStatus();
+    $ptStatus = \src\Controllers\PowerTrailController::getPowerTrailStatus();
 
     $dataForList = '';
     $dataForMap = '';
@@ -526,7 +526,7 @@ function displayPtCommentsSelector($htmlid, PowerTrail $powerTrail, $selectedId 
     } else {
         $percentUserFound = 0;
     }
-    $commentsArr = lib\Controllers\PowerTrailController::getEntryTypes();
+    $commentsArr = src\Controllers\PowerTrailController::getEntryTypes();
 
     $ptOwners = powerTrailBase::getPtOwners($ptId);
     $selector = '<select id="' . $htmlid . '" name="' . $htmlid . '">';
@@ -646,7 +646,7 @@ function generateStatusSelector($currStatus)
     if ($currStatus == 3) { //permanently closed
         $selector .= '<option value="3">' . tr('cs_statusClosed') . '</option>';
     } else {
-        foreach (\lib\Controllers\PowerTrailController::getPowerTrailStatus() as $val => $desc) {
+        foreach (\src\Controllers\PowerTrailController::getPowerTrailStatus() as $val => $desc) {
             if ($val == $currStatus)
                 $selected = 'selected="selected"';
             else

@@ -1,7 +1,7 @@
 <?php
 
 use Utils\Database\OcDb;
-use lib\Controllers\LogEntryController;
+use src\Controllers\LogEntryController;
 use Utils\Text\TextConverter;
 use Utils\Text\SmilesInText;
 use Utils\Text\UserInputFilter;

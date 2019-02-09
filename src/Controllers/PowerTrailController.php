@@ -1,6 +1,6 @@
 <?php
 
-namespace lib\Controllers;
+namespace src\Controllers;
 
 use lib\Objects\PowerTrail\PowerTrail;
 use lib\Objects\PowerTrail\Log;
@@ -17,7 +17,7 @@ class PowerTrailController
 
     public function __construct()
     {
-        include __DIR__ . '/../settingsGlue.inc.php';
+        include __DIR__ . '/../../lib/settingsGlue.inc.php';
         $this->config = $powerTrailMinimumCacheCount;
         $this->serverUrl = $absolute_server_URI;
 

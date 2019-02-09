@@ -1,7 +1,7 @@
 <?php
 use Utils\Database\OcDb;
 use lib\Objects\ApplicationContainer;
-use lib\Controllers\PowerTrailController;
+use src\Controllers\PowerTrailController;
 
 
 require_once __DIR__.'/../lib/common.inc.php';

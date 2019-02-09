@@ -1,5 +1,5 @@
 <?php
-namespace lib\Controllers;
+namespace src\Controllers;
 
 use lib\Objects\MeritBadge\MeritBadge;
 use lib\Objects\MeritBadge\LevelMeritBadge;
@@ -7,7 +7,7 @@ use lib\Objects\MeritBadge\CategoryMeritBadge;
 use lib\Objects\MeritBadge\PositionMeritBadge;
 use lib\Objects\GeoCache\GeoCache;
 
-use lib\Controllers\LogEntryController;
+use src\Controllers\LogEntryController;
 
 use Utils\Database\OcDb;
 
@@ -84,7 +84,7 @@ class MeritBadgeController{
         }
     }
 
-    
+
     //one user merit badge
     public function buildUserBadge( $user_id, $badge_id ){
 
@@ -110,8 +110,8 @@ class MeritBadgeController{
 
         return $retArray;
     }
-    
-    
+
+
     //levels list of the badge (badge_id)
     public function buildArrayLevels( $badge_id ){
         $condition = " WHERE badge_levels.badge_id=:1 ";
@@ -156,13 +156,13 @@ class MeritBadgeController{
         $badge->setFromRow($rec);
         return $badge;
     }
-        
+
     public function buildArrayGainedPositions($user_id, $badge_id){
         $meritBadge = $this->buildMeritBadge( $badge_id );
         $stm = $this->preapareGainedPositions($user_id, $meritBadge);
         return $this->buildArray( '\lib\Objects\MeritBadge\PositionMeritBadge', $stm );
     }
-    
+
     public function buildArrayBelongingPositions($user_id, $badge_id){
         $obj = '\lib\Objects\MeritBadge\PositionMeritBadge';
         $meritBadge = $this->buildMeritBadge( $badge_id );
@@ -170,18 +170,18 @@ class MeritBadgeController{
         $query = $meritBadge->getBelongingQuery();
         if ($query == "all" || $query == "" )
             return new $obj; //0 positions
-                
+
         //if it cache, take only active
         if ( self::$_trigger_type[ $meritBadge->getTriggerType() ]  == 'C' )
             $query = mb_ereg_replace( ' WHERE ', ' WHERE ' . ' caches.status=1 and ', $query);
-        
+
         $stm = $this->db->multiVariableQuery( $query );
-        
+
         return $this->buildArray( $obj, $stm );
     }
-    
 
-    
+
+
 
     public function prepareHtmlChangeLevelMeritBadges( $arrBadgesNextLevel, $user_id ){
         $html = "";
@@ -211,7 +211,7 @@ class MeritBadgeController{
         return $html;
     }
 
-    
+
     //////////////////////////////////////////////////////////////////////
     // private functions
     //////////////////////////////////////////////////////////////////////
@@ -392,7 +392,7 @@ class MeritBadgeController{
             $badgeLevel = $this->getProperBadgeLevel($badge_id, $userMeritBadge->getCurrVal() );
         else
             $badgeLevel = $this->buildBadgeLevel( $badge_id, $userMeritBadge->getLevelId()+1); //next level
-            
+
         $query = "UPDATE badge_user
                 SET level_id = :1, level_date= :2, prev_val = next_val, next_val = :3
                 WHERE user_id = :4 and badge_id= :5";
@@ -402,8 +402,8 @@ class MeritBadgeController{
 
         return true;
     }
-        
-    
+
+
     private function isToUpdate( $id, $oneMeritBadge ){
         $query = $oneMeritBadge->getBelongingQuery();
         if ($query == "all") //everything
@@ -411,7 +411,7 @@ class MeritBadgeController{
 
         if ($query == "") //nothing
             return false;
-          
+
             $condition = self::$_check_if_belong[ self::$_trigger_type[ $oneMeritBadge->getTriggerType() ] ];
         if ($condition != ""){
             $query = mb_ereg_replace( ' WHERE ', ' WHERE ' . $condition . ' and ', $query);
@@ -419,7 +419,7 @@ class MeritBadgeController{
         } else{
             $stm = $this->db->multiVariableQuery( $query);
         }
-        
+
         if( !$this->db->rowCount($stm) )
             return false;
 

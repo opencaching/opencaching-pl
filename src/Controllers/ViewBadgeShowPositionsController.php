@@ -2,7 +2,7 @@
 
 namespace src\Controllers;
 
-use lib\Controllers\MeritBadgeController;
+use src\Controllers\MeritBadgeController;
 
 class ViewBadgeShowPositionsController extends BaseController{
 

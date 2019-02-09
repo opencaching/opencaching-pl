@@ -1,7 +1,7 @@
 <?php
 namespace lib\Objects\GeoCache;
 
-use lib\Controllers\MeritBadgeController;
+use src\Controllers\MeritBadgeController;
 use lib\Objects\BaseObject;
 use okapi\Facade;
 

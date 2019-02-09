@@ -7,7 +7,7 @@ use Utils\Log\CacheAccessLog;
 use Utils\Text\Rot13;
 use Utils\Text\Formatter;
 use Utils\Uri\Uri;
-use lib\Controllers\MeritBadgeController;
+use src\Controllers\MeritBadgeController;
 use lib\Objects\Coordinates\Coordinates;
 use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\GeoCache\GeoCacheLog;

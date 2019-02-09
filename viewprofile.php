@@ -13,7 +13,7 @@ use Utils\Text\TextConverter;
 use Utils\DateTime\Year;
 use Utils\Uri\SimpleRouter;
 use Utils\Uri\OcCookie;
-use lib\Controllers\MeritBadgeController;
+use src\Controllers\MeritBadgeController;
 use Utils\Text\Formatter;
 use lib\Objects\Admin\AdminNoteSet;
 use lib\Objects\User\UserStats;

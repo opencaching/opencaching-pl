@@ -1,6 +1,6 @@
 <?php
 use src\Controllers\Cron\Jobs\Job;
-use lib\Controllers\PowerTrailController;
+use src\Controllers\PowerTrailController;
 
 class GeoPathJob extends Job
 {

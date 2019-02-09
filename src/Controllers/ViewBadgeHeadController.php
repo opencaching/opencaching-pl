@@ -3,7 +3,7 @@
 namespace src\Controllers;
 
 use lib\Objects\MeritBadge\MeritBadge; //for static functions
-use lib\Controllers\MeritBadgeController;
+use src\Controllers\MeritBadgeController;
 
 
 class ViewBadgeHeadController extends BaseController{
@@ -38,7 +38,7 @@ class ViewBadgeHeadController extends BaseController{
 
         $badge_id = $_REQUEST['badge_id'];
 
-        $meritBadgeCtrl = new \lib\Controllers\MeritBadgeController;
+        $meritBadgeCtrl = new \src\Controllers\MeritBadgeController;
         $userMeritBadge = $meritBadgeCtrl->buildUserBadge($userid, $badge_id);
 
         $currUserLevel = $userMeritBadge->getOlevel()->getLevel();

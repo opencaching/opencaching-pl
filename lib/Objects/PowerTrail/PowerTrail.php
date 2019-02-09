@@ -457,8 +457,8 @@ class PowerTrail extends BaseObject
         $this->getGeocaches();
         $requiredGeocacheCount = $this->caclulateRequiredGeocacheCount();
 
-        if ($this->perccentRequired < \lib\Controllers\PowerTrailController::MINIMUM_PERCENT_REQUIRED) { // disable power trail witch too low percent required
-            print '<span style="color: orange"> geoPath #<a href="' . $serverUrl . 'powerTrail.php?ptAction=showSerie&ptrail=' . $this->id . '">' . $this->id .' '. $this->name . '</a> will be put in service because too low perccentRequired. (Current Percent:' . $this->perccentRequired . ' Required: ' . \lib\Controllers\PowerTrailController::MINIMUM_PERCENT_REQUIRED . ') [<a href="' . $serverUrl . '/powerTrailCOG.php?ptSelector=' . $this->id . '">cog link</a>]</span><br/>';
+        if ($this->perccentRequired < \src\Controllers\PowerTrailController::MINIMUM_PERCENT_REQUIRED) { // disable power trail witch too low percent required
+            print '<span style="color: orange"> geoPath #<a href="' . $serverUrl . 'powerTrail.php?ptAction=showSerie&ptrail=' . $this->id . '">' . $this->id .' '. $this->name . '</a> will be put in service because too low perccentRequired. (Current Percent:' . $this->perccentRequired . ' Required: ' . \src\Controllers\PowerTrailController::MINIMUM_PERCENT_REQUIRED . ') [<a href="' . $serverUrl . '/powerTrailCOG.php?ptSelector=' . $this->id . '">cog link</a>]</span><br/>';
         }
 
         if ($this->activeGeocacheCount < $requiredGeocacheCount) {
@@ -606,7 +606,7 @@ class PowerTrail extends BaseObject
     public function canBeOpened()
     {
         $this->getGeocaches();
-        if ($this->perccentRequired < \lib\Controllers\PowerTrailController::MINIMUM_PERCENT_REQUIRED) {
+        if ($this->perccentRequired < \src\Controllers\PowerTrailController::MINIMUM_PERCENT_REQUIRED) {
             return false;
         }
         if ($this->activeGeocacheCount < $this->caclulateRequiredGeocacheCount()) {
@@ -623,7 +623,7 @@ class PowerTrail extends BaseObject
 
     public function getStatusTranslation()
     {
-        $statusTranslationArray = \lib\Controllers\PowerTrailController::getPowerTrailStatus();
+        $statusTranslationArray = \src\Controllers\PowerTrailController::getPowerTrailStatus();
         return tr($statusTranslationArray[$this->status]['translate']);
     }
 }

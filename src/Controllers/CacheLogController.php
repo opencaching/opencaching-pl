@@ -2,7 +2,7 @@
 namespace src\Controllers;
 
 use Exception;
-use lib\Controllers\LogEntryController;
+use src\Controllers\LogEntryController;
 use lib\Objects\GeoCache\GeoCacheLog;
 use Utils\EventHandler\EventHandler;
 use Utils\Uri\Uri;

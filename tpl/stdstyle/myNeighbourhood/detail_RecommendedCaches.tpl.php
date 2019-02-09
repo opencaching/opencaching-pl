@@ -2,7 +2,7 @@
 use Utils\Gis\Gis;
 use Utils\Text\Formatter;
 use Utils\Uri\SimpleRouter;
-use lib\Controllers\LogEntryController;
+use src\Controllers\LogEntryController;
 use lib\Objects\GeoCache\GeoCacheLog;
 
 $logController = new LogEntryController();

@@ -11,7 +11,7 @@ $ptAPI = new powerTrailBase;
 
 $powerTrailId = (int) $_REQUEST['projectId'];
 $newPercent = (int) $_REQUEST['newPercent'];
-if($newPercent < \lib\Controllers\PowerTrailController::MINIMUM_PERCENT_REQUIRED || $newPercent > 100) {
+if($newPercent < \src\Controllers\PowerTrailController::MINIMUM_PERCENT_REQUIRED || $newPercent > 100) {
     echo 'error';
     exit;
 }

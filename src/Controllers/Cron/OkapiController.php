@@ -2,7 +2,7 @@
 namespace src\Controllers\Cron;
 
 use src\Controllers\BaseController;
-use lib\Controllers\MeritBadgeController;
+use src\Controllers\MeritBadgeController;
 use lib\Objects\GeoCache\GeoCache;
 use okapi\Facade;
 

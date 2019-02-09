@@ -2,7 +2,7 @@
 
 use Utils\Database\OcDb;
 use Utils\Generators\Uuid;
-use lib\Controllers\MeritBadgeController;
+use src\Controllers\MeritBadgeController;
 use lib\Objects\OcConfig\OcConfig;
 
 global $titled_cache_nr_found, $titled_cache_period_prefix;
