@@ -1,6 +1,6 @@
 <?php
 
-use Controllers\MyRecommendationsController;
+use src\Controllers\MyRecommendationsController;
 use Utils\Uri\SimpleRouter;
 
 $rating_tpl = '<tr class="form-group-sm">

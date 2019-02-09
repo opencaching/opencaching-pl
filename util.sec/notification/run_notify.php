@@ -1,5 +1,5 @@
 <?php
-use Controllers\Cron\NotifyController;
+use src\Controllers\Cron\NotifyController;
 
 require_once (__DIR__.'/../../lib/common.inc.php');
 

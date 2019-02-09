@@ -2,7 +2,7 @@
 
 use Utils\Text\Formatter;
 use lib\Controllers\MeritBadgeController;
-use Controllers\ViewBadgeHeadController;
+use src\Controllers\ViewBadgeHeadController;
 
 require_once(__DIR__.'/lib/common.inc.php');
 

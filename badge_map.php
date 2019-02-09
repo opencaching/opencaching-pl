@@ -3,7 +3,7 @@
 use lib\Controllers\MeritBadgeController;
 use Utils\Database\OcDb;
 use Utils\Uri\SimpleRouter;
-use Controllers\MainMapController;
+use src\Controllers\MainMapController;
 use lib\Objects\OcConfig\OcConfig;
 
 require_once(__DIR__.'/lib/common.inc.php');

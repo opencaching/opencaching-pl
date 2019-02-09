@@ -1,6 +1,6 @@
 <?php
 use Utils\Uri\SimpleRouter;
-use Controllers\UserUtilsController;
+use src\Controllers\UserUtilsController;
 
 /**
  * This is simple configuration of links presented in sidebar of the page

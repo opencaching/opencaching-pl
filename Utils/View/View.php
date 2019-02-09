@@ -4,7 +4,7 @@ namespace Utils\View;
 use Utils\DateTime\Year;
 use lib\Objects\ApplicationContainer;
 use Utils\Debug\Debug;
-use Controllers\PageLayout\MainLayoutController;
+use src\Controllers\PageLayout\MainLayoutController;
 use Utils\I18n\CrowdinInContextMode;
 use Utils\Uri\SimpleRouter;
 use Utils\I18n\I18n;

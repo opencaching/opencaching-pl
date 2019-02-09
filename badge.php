@@ -3,8 +3,8 @@
 use Utils\Text\Formatter;
 use lib\Objects\MeritBadge\MeritBadge; //for static functions
 use lib\Controllers\MeritBadgeController;
-use Controllers\ViewBadgeHeadController;
-use Controllers\ViewBadgeShowPositionsController;
+use src\Controllers\ViewBadgeHeadController;
+use src\Controllers\ViewBadgeShowPositionsController;
 
 require_once(__DIR__.'/lib/common.inc.php');
 

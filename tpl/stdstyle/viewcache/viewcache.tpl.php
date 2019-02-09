@@ -5,7 +5,7 @@ use lib\Objects\GeoCache\GeoCacheLogCommons;
 use Utils\Uri\SimpleRouter;
 use Utils\Text\UserInputFilter;
 use Utils\Text\Formatter;
-use Controllers\MainMapController;
+use src\Controllers\MainMapController;
 ?>
 <link rel="stylesheet" href="tpl/stdstyle/css/lightTooltip.css">
 

@@ -1,5 +1,5 @@
 <?php
-use Controllers\Admin\ReportsController;
+use src\Controllers\Admin\ReportsController;
 
 require_once __DIR__.'/lib/common.inc.php';
 

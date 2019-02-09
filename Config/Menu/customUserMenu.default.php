@@ -1,8 +1,8 @@
 <?php
 
-use Controllers\MyRecommendationsController;
+use src\Controllers\MyRecommendationsController;
 use Utils\Uri\SimpleRouter;
-use Controllers\CacheNotesController;
+use src\Controllers\CacheNotesController;
 use Utils\I18n\I18n;
 
 /**

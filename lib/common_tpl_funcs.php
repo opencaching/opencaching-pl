@@ -3,7 +3,7 @@
 use Utils\View\View;
 use Utils\Uri\Uri;
 use Utils\I18n\I18n;
-use Controllers\PageLayout\MainLayoutController;
+use src\Controllers\PageLayout\MainLayoutController;
 use Utils\Uri\OcCookie;
 
 //set the global template-name variable

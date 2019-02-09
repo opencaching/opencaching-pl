@@ -1,6 +1,6 @@
 <?php
 
-use Controllers\SysController;
+use src\Controllers\SysController;
 
 /**
  * This is config file for apc.php script - it allows to override its config

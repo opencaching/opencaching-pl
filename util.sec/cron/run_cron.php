@@ -1,5 +1,5 @@
 <?php
-use Controllers\Cron\CronJobsController;
+use src\Controllers\Cron\CronJobsController;
 
 require_once (__DIR__.'/../../lib/common.inc.php');
 

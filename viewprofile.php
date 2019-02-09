@@ -1,6 +1,6 @@
 <?php
 
-use Controllers\MyRecommendationsController;
+use src\Controllers\MyRecommendationsController;
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
 use lib\Objects\PowerTrail\PowerTrail;

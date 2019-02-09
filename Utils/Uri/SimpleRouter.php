@@ -25,7 +25,7 @@ class SimpleRouter
     // action used if request is improper (eg. there is no such action)
     const ERROR_ACTION = 'displayCommonErrorPageAndExit';
 
-    const CTRL_BASE_CLASS = '\Controllers\BaseController';
+    const CTRL_BASE_CLASS = '\src\Controllers\BaseController';
     const ROOT_DIR = __DIR__.'/../..';
 
     // GET (url) var used to transfer route
@@ -143,7 +143,7 @@ class SimpleRouter
         //be sure the first letter of controller (class) is uppper letter
         $ctrl = ucfirst($ctrl);
 
-        return '\\Controllers\\'.str_replace('.', '\\', $ctrl).'Controller';
+        return '\\src\\Controllers\\'.str_replace('.', '\\', $ctrl).'Controller';
     }
 
     /**

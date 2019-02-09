@@ -2,7 +2,7 @@
 /**
  * Runs watchlist processing, should be executed from cron
  */
-use Controllers\Cron\WatchlistController;
+use src\Controllers\Cron\WatchlistController;
 
 require_once (__DIR__.'/../../lib/common.inc.php');
 

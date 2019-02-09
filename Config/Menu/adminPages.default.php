@@ -1,6 +1,6 @@
 <?php
 use Utils\Uri\SimpleRouter;
-use Controllers\Admin\CacheSetAdminController;
+use src\Controllers\Admin\CacheSetAdminController;
 
 /**
  * This is simple configuration of links presented in sidebar of the page

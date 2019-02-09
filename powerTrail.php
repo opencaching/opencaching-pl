@@ -14,7 +14,7 @@ use lib\Objects\ChunkModels\DynamicMap\CacheSetMarkerModel;
 use lib\Objects\CacheSet\CacheSetCommon;
 use lib\Objects\User\User;
 use Utils\Uri\SimpleRouter;
-use Controllers\MainMapController;
+use src\Controllers\MainMapController;
 use Utils\Text\Formatter;
 use Utils\I18n\I18n;
 
