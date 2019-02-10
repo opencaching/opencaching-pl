@@ -41,7 +41,7 @@ $logpictures = [];
 while ($row = $app->db->dbResultFetch($stmt)) {
     $row['url'] = str_replace("images/uploads", "upload", $row['url']);
     if ($row['spoiler'] == '1') {
-        $row['thumbUrl'] = 'tpl/stdstyle/images/thumb/thumbspoiler.gif';
+        $row['thumbUrl'] = 'images/thumb/thumbspoiler.gif';
     } else {
         $row['thumbUrl'] = 'thumbs.php?uuid=' . $row['uuid'];
     }

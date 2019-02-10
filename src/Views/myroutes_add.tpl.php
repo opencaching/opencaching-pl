@@ -24,7 +24,7 @@
 </script>
 
 
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/route.png" class="icon32" alt="" />&nbsp;{{add_new_route}}</div>
+<div class="content2-pagetitle"><img src="/images/blue/route.png" class="icon32" alt="" />&nbsp;{{add_new_route}}</div>
 
 <form action="myroutes_add.php" method="post" enctype="multipart/form-data" name="myroute_form" dir="ltr" >
     <div class="searchdiv">

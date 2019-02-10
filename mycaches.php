@@ -222,7 +222,7 @@ if ($usr == false) {
         $table .= '<td style="width: 90px;">'.htmlspecialchars(Formatter::date($log_record['date_hidden']),
                 ENT_COMPAT, 'UTF-8').'</td>';
         $table .= '<td ><a href="editcache.php?cacheid='.htmlspecialchars($log_record['cache_id'], ENT_COMPAT,
-                'UTF-8').'"><img src="tpl/stdstyle/images/free_icons/pencil.png" alt="'.$edit_geocache_tr.'" title="'.$edit_geocache_tr.'"/></a></td>';
+                'UTF-8').'"><img src="images/free_icons/pencil.png" alt="'.$edit_geocache_tr.'" title="'.$edit_geocache_tr.'"/></a></td>';
         $table .= '<td ><img src="tpl/stdstyle/images/'.$log_record['cache_icon_small'].'" border="0" alt=""/></td>';
         $table .= '<td><b><a class="links" href="viewcache.php?cacheid='.htmlspecialchars($log_record['cache_id'],
                 ENT_COMPAT, 'UTF-8').'">'.htmlspecialchars($log_record['name'], ENT_COMPAT, 'UTF-8').'</a></b></td>';

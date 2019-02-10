@@ -11,11 +11,11 @@
     <li>{{nc05}}</li>
     <li>{{nc06}}</li>
     <li>{{nc07}}</li>
-    <li>{{nc11}} <a class="links" href="{wiki_link_rules}">{{nc12}} <img src="/tpl/stdstyle/images/misc/linkicon.png" alt="link"></a>?</li>
+    <li>{{nc11}} <a class="links" href="{wiki_link_rules}">{{nc12}} <img src="/images/misc/linkicon.png" alt="link"></a>?</li>
   </ul>
-  {{nc13}} <a class="links" href="{wiki_link_placingCache}">{{nc14}} <img src="/tpl/stdstyle/images/misc/linkicon.png" alt="link"></a>
-  {{nc15}} <a class="links" href="{wiki_link_cachingCode}">{{nc16}} <img src="/tpl/stdstyle/images/misc/linkicon.png" alt="link"></a> {{nc17}}.<br>
-  {{nc08}} <a class="links" href="/guide">{{nc09}} <img src="/tpl/stdstyle/images/misc/linkicon.png" alt="link"></a>, {{nc10}}.
+  {{nc13}} <a class="links" href="{wiki_link_placingCache}">{{nc14}} <img src="/images/misc/linkicon.png" alt="link"></a>
+  {{nc15}} <a class="links" href="{wiki_link_cachingCode}">{{nc16}} <img src="/images/misc/linkicon.png" alt="link"></a> {{nc17}}.<br>
+  {{nc08}} <a class="links" href="/guide">{{nc09}} <img src="/images/misc/linkicon.png" alt="link"></a>, {{nc10}}.
   <div class="buffer"></div>
   {{nc18}}<br><b>{{nc19}}</b>
 </div>

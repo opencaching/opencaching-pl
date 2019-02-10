@@ -1,7 +1,7 @@
 <?php
 
 ?>
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/save.png" class="icon32" alt="" />&nbsp;{{save_queries}}</div>
+<div class="content2-pagetitle"><img src="/images/blue/save.png" class="icon32" alt="" />&nbsp;{{save_queries}}</div>
 
 <form action="query.php" method="post" enctype="application/x-www-form-urlencoded">
     <input type="hidden" name="action" value="save" />

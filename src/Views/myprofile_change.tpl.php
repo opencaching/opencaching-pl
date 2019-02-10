@@ -15,7 +15,7 @@ use src\Models\GeoKret\GeoKretyApi;
         <col>
       </colgroup>
       <tr class="form-group-sm">
-        <td class="content-title-noshade"><img src="tpl/stdstyle/images/free_icons/user.png" class="icon16" alt="" align="middle">&nbsp;{{username_label}}:</td>
+        <td class="content-title-noshade"><img src="images/free_icons/user.png" class="icon16" alt="" align="middle">&nbsp;{{username_label}}:</td>
         <td>
           <input type="text" name="username" maxlength="60" value="{username}" class="form-control input200">
           {username_message}
@@ -25,7 +25,7 @@ use src\Models\GeoKret\GeoKretyApi;
         <td class="buffer" colspan="2"></td>
       </tr>
       <tr class="form-group-sm">
-        <td class="content-title-noshade txt-grey07"><img src="tpl/stdstyle/images/description/22x22-geokret.png" class="icon16" alt="" align="middle">&nbsp;{{GKApi02}}</td>
+        <td class="content-title-noshade txt-grey07"><img src="/images/description/22x22-geokret.png" class="icon16" alt="" align="middle">&nbsp;{{GKApi02}}</td>
         <td class="txt-grey07"><input type="text" name="GeoKretyApiSecid" maxlength="150" value="{GeoKretyApiSecid}" class="form-control input200"> <span style="color: red; font-weight:bold; font-size: 12px;">{secid_message}</span></td>
       </tr>
       <tr>
@@ -38,7 +38,7 @@ use src\Models\GeoKret\GeoKretyApi;
       <tr>
         <td class="buffer" colspan="2"></td></tr>
       <tr>
-        <td class="content-title-noshade" valign="top"><img src="tpl/stdstyle/images/free_icons/book_open.png" class="icon16" alt="" align="middle">&nbsp;{{guide}}:</td>
+        <td class="content-title-noshade" valign="top"><img src="images/free_icons/book_open.png" class="icon16" alt="" align="middle">&nbsp;{{guide}}:</td>
         <td  valign="middle">
           <input type="checkbox" name="guide" id="guide" value="1" {guide_sel} class="checkbox">
           <label for="guide">{{myprofile04}}.<br> {{myprofile05}} <a class="links" href="/guide">{{myprofile03}}</a></label>
@@ -49,7 +49,7 @@ use src\Models\GeoKret\GeoKretyApi;
         <td class="buffer" colspan="2"></td>
       </tr>
       <tr>
-        <td class="content-title-noshade" valign="top"><img src="tpl/stdstyle/images/free_icons/script.png" class="icon16" alt="" align="middle">&nbsp;{{my_description}}:</td>
+        <td class="content-title-noshade" valign="top"><img src="images/free_icons/script.png" class="icon16" alt="" align="middle">&nbsp;{{my_description}}:</td>
         <td valign="top">
           <textarea name="description" cols="50" rows="5">{description}</textarea>
         </td>
@@ -58,7 +58,7 @@ use src\Models\GeoKret\GeoKretyApi;
         <td class="buffer" colspan="2"></td>
       </tr>
       <tr>
-        <td class="content-title-noshade txt-grey07" valign="top"><img src="tpl/stdstyle/images/free_icons/brick.png" class="icon16" alt="" align="middle">&nbsp;{{other}}:</td>
+        <td class="content-title-noshade txt-grey07" valign="top"><img src="images/free_icons/brick.png" class="icon16" alt="" align="middle">&nbsp;{{other}}:</td>
         <td class="txt-grey07" valign="top">
           <input type="checkbox" name="using_permanent_login" value="1" {permanent_login_sel} id="l_using_permanent_login" class="checkbox">
           <label for="l_using_permanent_login">{{no_auto_logout}}</label><br>
@@ -77,7 +77,7 @@ use src\Models\GeoKret\GeoKretyApi;
         <td class="buffer" colspan="2"></td>
       </tr>
       <tr class="form-group-sm">
-        <td class="content-title-noshade txt-grey07" valign="top"><img src="tpl/stdstyle/images/free_icons/plugin.png" class="icon16" alt="" align="middle">&nbsp;{{ozi_path_label}}:</td>
+        <td class="content-title-noshade txt-grey07" valign="top"><img src="images/free_icons/plugin.png" class="icon16" alt="" align="middle">&nbsp;{{ozi_path_label}}:</td>
         <td class="txt-grey07" valign="top"><input type="text" size="46" name="ozi_path" value="{ozi_path}" class="form-control input300"><br>
           <div class="notice" style="width:500px;">{{ozi_path_info}}</div>
           <div class="notice" style="width:500px;">{{ozi_path_info2}}</div>

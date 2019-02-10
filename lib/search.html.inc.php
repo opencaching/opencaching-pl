@@ -518,7 +518,7 @@ for ($i = 0; $i < $dbcSearch->rowCount($s); $i ++) {
         }
         if ($CalcSendToGPS) {
             $tmpline = str_replace('{sendtogps}', ("<a href=\"#\" onclick=\"javascript:window.open('garmin.php?lat=" . $caches_record['latitude'] . "&amp;long=" . $caches_record['longitude'] . "&amp;wp=" . $caches_record['wp_oc'] . "&amp;name=" . urlencode($mod_suffix_garmin . $caches_record['name']) . "&amp;popup=y','Send_To_GPS','width=450,height=160,resizable=no,scrollbars=0')\"><img src='/images/garmin.jpg' alt='Send to GPS' title='" . $tr_Send_to_GPS . "' border='0' /></a>"), $tmpline);
-            $tmpline = str_replace('{sendtogpsnew}', "<a href='#' onclick=\\\"javascript:window.open('garmin.php?lat=" . $caches_record['latitude'] . "&amp;long=" . $caches_record['longitude'] . "&amp;wp=" . $caches_record['wp_oc'] . "&amp;name=" . urlencode($mod_suffix_garmin . $caches_record['name']) . "&amp;popup=y','Send_To_GPS','width=450,height=160,resizable=no,scrollbars=0')\\\"><img src='tpl/stdstyle/images/blue/gps-receiving-32.png' alt='Send to GPS' title='" . $tr_Send_to_GPS . "' border='0'  height='16' width='16' /></a>", $tmpline);
+            $tmpline = str_replace('{sendtogpsnew}', "<a href='#' onclick=\\\"javascript:window.open('garmin.php?lat=" . $caches_record['latitude'] . "&amp;long=" . $caches_record['longitude'] . "&amp;wp=" . $caches_record['wp_oc'] . "&amp;name=" . urlencode($mod_suffix_garmin . $caches_record['name']) . "&amp;popup=y','Send_To_GPS','width=450,height=160,resizable=no,scrollbars=0')\\\"><img src='/images/blue/gps-receiving-32.png' alt='Send to GPS' title='" . $tr_Send_to_GPS . "' border='0'  height='16' width='16' /></a>", $tmpline);
         }
     } else {
         $tmpline = str_replace('{sendtogps}', "", $tmpline);
@@ -702,7 +702,7 @@ function icon_difficulty($what, $difficulty)
         if ($difficulty < 2 || $difficulty > 10)
             die("Wrong difficulty-value $what: $difficulty");
 
-            $icon = sprintf("/tpl/stdstyle/images/difficulty/$what-%d.gif", $difficulty);
+            $icon = sprintf("/images/difficulty/$what-%d.gif", $difficulty);
             $text = sprintf($what == "diff" ? tr('task_difficulty') : tr('terrain_difficulty'), $difficulty / 2);
             return "<img src='$icon' class='img-difficulty' width='19' height='16' alt='$text' title='$text'>";
 }

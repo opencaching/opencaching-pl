@@ -20,7 +20,7 @@
         <?php foreach($view->newsList as $news) { ?>
           <div class="newsItem">
             <div class="newsStatusLine">
-              <img src="/tpl/stdstyle/images/free_icons/newspaper.png" alt="newsImage" class="icon16">
+              <img src="/images/free_icons/newspaper.png" alt="newsImage" class="icon16">
               <?=$news->getDatePublication(true)?>
               <span class="newsTitle">
                 <?=$news->getTitle()?>

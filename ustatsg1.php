@@ -38,7 +38,7 @@ tpl_set_var('username', htmlspecialchars($user_record['username']));
 if ($user_record['hidden_count'] == 0) {
     $content .= '<p>&nbsp;</p><p>&nbsp;</p><div class="content2-container bg-blue02">
                  <p class="content-title-noshade-size1">
-                &nbsp;<img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="Caches created" title="Caches created" />
+                &nbsp;<img src="/images/blue/cache.png" class="icon32" alt="Caches created" title="Caches created" />
                 &nbsp;&nbsp;&nbsp;' . tr("graph_created") . '</p></div><br /><br />
                 <p><b>' . tr("there_is_no_caches_registered") . '</b></p>';
 } else {
@@ -62,7 +62,7 @@ if ($user_record['hidden_count'] == 0) {
 
         tpl_set_var('username', htmlspecialchars($user_record['username']));
     }
-    $content .='<p>&nbsp;</p><p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="Caches created" title="Caches created" />&nbsp;&nbsp;&nbsp;' . tr("graph_created") . '</p></div><br />';
+    $content .='<p>&nbsp;</p><p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="/images/blue/cache.png" class="icon32" alt="Caches created" title="Caches created" />&nbsp;&nbsp;&nbsp;' . tr("graph_created") . '</p></div><br />';
     $content .= '<p><img src="graphs/PieGraphustat.php?userid=' . $user_id . '&amp;t=cc' . '" border="0" alt="" width="500" height="300" /></p>';
 
     $year = date("Y");

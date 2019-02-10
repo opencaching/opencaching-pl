@@ -43,7 +43,7 @@
 
 </script>
 
-  <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/stat1.png" class="icon32" alt="">&nbsp;{{statistics}}</div>
+  <div class="content2-pagetitle"><img src="/images/blue/stat1.png" class="icon32" alt="">&nbsp;{{statistics}}</div>
   <div class="content2-container-1col">
     <p class="content-title-noshade-size2">{{user_ranking}}</p>
     <div class="content-txtbox-noshade">

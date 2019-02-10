@@ -298,7 +298,7 @@ p  { margin: 0 0 0.5em 0; padding: 0; line-height: 1.3em; font-size: 12px; }
 /* Lists */
 ul.indent        { margin: 0 0 7px 15px; padding: 0 0 0 15px; list-style-type: disc; font-size: 120%;}
 ol               { margin: 0 0 0 9px; padding: 0 0 0 25px; list-style-type: decimal; list-style-position: outside; font-size: 120%;}
-ul.tick          { list-style-image: url('/tpl/stdstyle/images/free_icons/tick.png'); }
+ul.tick          { list-style-image: url('/images/free_icons/tick.png'); }
 
 /* Tables */
 .table            { font-size: 10px; line-height: 2.0em; clear: left; padding: 0; margin: 0.5em 0 0.2em 0; border: solid 0 rgb(150,150,150); empty-cells: show; border-collapse: collapse; background-color: rgb(255,255,255);}
@@ -987,7 +987,7 @@ div.logs {
     border: 1px solid #ccc;
     margin: 0 0 10px 0;
     padding: 3px 5px 5px 5px;
-    background: #fff url(/tpl/stdstyle/images/misc/bg-gradient-blue.png) repeat-x top left;
+    background: #fff url(/images/misc/bg-gradient-blue.png) repeat-x top left;
     border-radius: 5px;
     -moz-border-radius: 5px;
 }
@@ -1105,7 +1105,7 @@ a.info:hover span{ /*the span will display just on :hover state*/
 }
 #gradient th {
     color: #000000;
-    background: #fff url(/tpl/stdstyle/images/misc/bg-gradient-blue.png) repeat-x top left;
+    background: #fff url(/images/misc/bg-gradient-blue.png) repeat-x top left;
 }
 
 table.border {    background: url(/images/css/bg_blue.png) repeat-x;
@@ -1149,7 +1149,7 @@ div.listitems {
     float:right;
     padding: 3px;
     border: solid 1px rgb(219,230,241);
-    background: #fff url(/tpl/stdstyle/images/misc/bg-gradient-blue.png) repeat-x top left;
+    background: #fff url(/images/misc/bg-gradient-blue.png) repeat-x top left;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
 }

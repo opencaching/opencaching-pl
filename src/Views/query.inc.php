@@ -17,7 +17,7 @@ $viewquery_line = '<tr>
             <a href="search.php?queryid={queryid}&output=xml&count=max&zip=1" title="xml">XML</a>
             <a href="search.php?queryid={queryid}&output=zip&count=max&zip=1" title="Garmin ZIP file (GPX + zdjęcia)  .zip">GARMIN</a>
             </td>
-            <td width="10%" bgcolor="{bgcolor}" style="text-align: center"; vertical-align: middle; background-color: {bgcolor}"><a href="query.php?queryid={queryid}&action=delete" onclick="return confirm(\'' . tr("myviewqueries_1") . '\');" ><img style="vertical-align: middle;" src="tpl/stdstyle/images/log/16x16-trash.png" alt="" title=' . tr('delete') . ' /></a></td>
+            <td width="10%" bgcolor="{bgcolor}" style="text-align: center"; vertical-align: middle; background-color: {bgcolor}"><a href="query.php?queryid={queryid}&action=delete" onclick="return confirm(\'' . tr("myviewqueries_1") . '\');" ><img style="vertical-align: middle;" src="images/log/16x16-trash.png" alt="" title=' . tr('delete') . ' /></a></td>
             </tr>';
 $noqueries = '<tr><td colspan="2">' . tr('no_queries') . '</td></tr>';
 

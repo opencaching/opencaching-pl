@@ -18,7 +18,7 @@
     }
 </script>
 
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/podcache-mp3.png" class="icon32" alt="" />&nbsp;<b>{mp3typedesc}: </b><a href="/viewcache.php?cacheid={cacheid}">{cachename}</a></div>
+<div class="content2-pagetitle"><img src="/images/blue/podcache-mp3.png" class="icon32" alt="" />&nbsp;<b>{mp3typedesc}: </b><a href="/viewcache.php?cacheid={cacheid}">{cachename}</a></div>
 
 <form action="editmp3.php" method="post" enctype="multipart/form-data" name="editmp3_form" dir="ltr" onsubmit="return checkForm();">
     <input type="hidden" name="uuid" value="{uuid}" />

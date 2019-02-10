@@ -6,7 +6,7 @@
 */
 .infoBar-closeBtn {
 	cursor: pointer;
-	background-image: url("/tpl/stdstyle/images/misc/btn_close_normal.svg");
+	background-image: url("/images/misc/btn_close_normal.svg");
 	background-size: cover;
 	height: 13px;
 	width: 13px;
@@ -14,7 +14,7 @@
 }
 
 .infoBar-closeBtn:hover {
-	background-image: url("/tpl/stdstyle/images/misc/btn_close_hover.svg");
+	background-image: url("/images/misc/btn_close_hover.svg");
 }
 
 .infoBar-message {

@@ -39,7 +39,7 @@ function displayPtOwnerList($ptOwners)
     foreach ($ptOwners as $user) {
         $ownerList .= '<a href="viewprofile.php?userid=' . $user->getUserId() . '">' . $user->getUsername() . '</a>';
         if ($user->getUserId() != $_SESSION['user_id']) {
-            $ownerList .= '<span style="display: none" class="removeUserIcon"><img onclick="ajaxRemoveUserFromPt(' . $user->getUserId() . ');" src="tpl/stdstyle/images/free_icons/cross.png" width=10 " /></span>, ';
+            $ownerList .= '<span style="display: none" class="removeUserIcon"><img onclick="ajaxRemoveUserFromPt(' . $user->getUserId() . ');" src="images/free_icons/cross.png" width=10 " /></span>, ';
         } else {
             $ownerList .= ', ';
         }

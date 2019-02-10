@@ -42,7 +42,7 @@ function toggle() {
 <body onLoad="clearForms()" onUnload="clearForms()">
 
     <div class="content2-pagetitle">
-        <img src="tpl/stdstyle/images/blue/openchecker_32x32.png" class="icon32" alt="geocache" title="geocache" align="middle" />
+        <img src="/images/blue/openchecker_32x32.png" class="icon32" alt="geocache" title="geocache" align="middle" />
         {{openchecker_name}}
     </div>
 
@@ -91,7 +91,7 @@ function toggle() {
 
         <div class="content2-container bg-blue02">
             <p class="content-title-noshade-size1">
-                <img src="tpl/stdstyle/images/blue/empty.png" alt="" align="middle" />
+                <img src="/images/blue/empty.png" alt="" align="middle" />
                 {{openchecker_title_01}}
             </p>
         </div>
@@ -100,7 +100,7 @@ function toggle() {
         <br />
         <div class="content2-container bg-blue02">
             <p class="content-title-noshade-size1">
-                <img src="tpl/stdstyle/images/blue/empty.png" alt="" align="middle" />
+                <img src="/images/blue/empty.png" alt="" align="middle" />
                 {{openchecker_title_02}}
             </p>
         </div>
@@ -120,11 +120,11 @@ function toggle() {
                 </tr>
 
                 <tr>
-                    <td colspan="7"><img src="tpl/stdstyle/images/blue/dot_blue.png" height="1" width="100%"/></td>
+                    <td colspan="7"><img src="/images/blue/dot_blue.png" height="1" width="100%"/></td>
                 </tr>
                 {caches_table}
                 <tr>
-                    <td colspan="7"><img src="tpl/stdstyle/images/blue/dot_blue.png" height="5" width="100%"/></td>
+                    <td colspan="7"><img src="/images/blue/dot_blue.png" height="5" width="100%"/></td>
                 </tr>
             </table>
         </div>
@@ -135,7 +135,7 @@ function toggle() {
         {section_2_start}
         <div class="content2-container bg-blue02">
             <p class="content-title-noshade-size1">
-                <img src="tpl/stdstyle/images/blue/empty.png" alt="" align="middle" />
+                <img src="/images/blue/empty.png" alt="" align="middle" />
                 {{openchecker_form}}
             </p>
         </div>
@@ -154,7 +154,7 @@ function toggle() {
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="4"><img src="tpl/stdstyle/images/blue/dot_blue.png" height="1" width="100%"/></td></tr>
+                    <td colspan="4"><img src="/images/blue/dot_blue.png" height="1" width="100%"/></td></tr>
             </table>
 
             <p class="errormsg">{openchecker_not_enabled}</p>
@@ -175,7 +175,7 @@ function toggle() {
         {section_3_start}
         <div class="content2-container bg-blue02">
             <p class="content-title-noshade-size1">
-                <img src="tpl/stdstyle/images/blue/empty.png" alt="" align="middle" />
+                <img src="/images/blue/empty.png" alt="" align="middle" />
                 {{openchecker_result}}:
             </p>
         </div>

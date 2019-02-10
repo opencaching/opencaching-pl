@@ -40,7 +40,7 @@ use src\Models\GeoCache\GeoCacheLog;
               <img src="<?=$log->getGeoCache()->getTerrainIcon()?>" alt="<?=tr('terrain_difficulty')?>: <?=$log->getGeoCache()->getTerrain() / 2?>" title="<?=tr('terrain_difficulty')?>: <?=$log->getGeoCache()->getTerrain() / 2?>">
               <?=tr($log->getGeoCache()->getSizeTranslationKey())?></span> |
               <span class="nbh-nowrap"><?=round(Gis::distanceBetween($view->coords, $log->getGeoCache()->getCoordinates()))?> km
-              <img src="/tpl/stdstyle/images/misc/arrow-north.svg" class="nbh-arrow-north" alt="<?=tr('direction')?>" style="transform: rotate(<?=round(Gis::calcBearingBetween($view->coords, $log->getGeoCache()->getCoordinates()))?>deg)"></span>
+              <img src="/images/misc/arrow-north.svg" class="nbh-arrow-north" alt="<?=tr('direction')?>" style="transform: rotate(<?=round(Gis::calcBearingBetween($view->coords, $log->getGeoCache()->getCoordinates()))?>deg)"></span>
             </a>
           </div>
         </td>

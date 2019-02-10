@@ -4,7 +4,7 @@ $view->callChunk('tinyMCE');
 <form action="newdesc.php" method="post" enctype="application/x-www-form-urlencoded" name="newdesc_form" dir="ltr">
     <input type="hidden" name="cacheid" value="{cacheid}"/>
     <input type="hidden" name="show_all_langs" value="{show_all_langs}"/>
-    <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/describe.png" class="icon32" alt="">&nbsp;{{make_new_description}} <a href="viewcache.php?cacheid={cacheid}">{cachename}</a></div>
+    <div class="content2-pagetitle"><img src="/images/blue/describe.png" class="icon32" alt="">&nbsp;{{make_new_description}} <a href="viewcache.php?cacheid={cacheid}">{cachename}</a></div>
     <table class="table">
         <tr class="form-group-sm">
             <td class="content-title-noshade">{{language}}:</td>

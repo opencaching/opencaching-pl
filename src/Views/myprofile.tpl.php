@@ -22,20 +22,20 @@ use src\Utils\Uri\SimpleRouter;
   <div class="buffer"></div>
   <table class="table">
     <tr>
-      <td class="content-title-noshade"><img src="tpl/stdstyle/images/free_icons/user.png" class="icon16" alt="" align="middle">&nbsp;{{username_label}}:</td>
+      <td class="content-title-noshade"><img src="images/free_icons/user.png" class="icon16" alt="" align="middle">&nbsp;{{username_label}}:</td>
       <td>{username}</td>
     </tr>
     <tr>
       <td class="buffer" colspan="2"></td></tr>
     <tr>
-      <td class="content-title-noshade"><img src="tpl/stdstyle/images/free_icons/email.png" class="icon16" alt="" align="middle">&nbsp;{{email_address}}:</td>
+      <td class="content-title-noshade"><img src="images/free_icons/email.png" class="icon16" alt="" align="middle">&nbsp;{{email_address}}:</td>
       <td class="txt-grey07">{email}</td>
     </tr>
     <tr>
       <td class="buffer" colspan="2"></td>
     </tr>
     <tr>
-      <td class="content-title-noshade"><img src="tpl/stdstyle/images/description/22x22-geokret.png" width="16" height="16" class="icon16" alt="" align="middle">&nbsp;{{GKApi01}}:</td>
+      <td class="content-title-noshade"><img src="/images/description/22x22-geokret.png" width="16" height="16" class="icon16" alt="" align="middle">&nbsp;{{GKApi01}}:</td>
       <td class="txt-grey07">{GeoKretyApiIntegration}</td>
     </tr>
     {guides_start}
@@ -43,7 +43,7 @@ use src\Utils\Uri\SimpleRouter;
       <td class="buffer" colspan="2"></td>
     </tr>
     <tr>
-      <td class="content-title-noshade" valign="top"><img src="tpl/stdstyle/images/free_icons/book_open.png" class="icon16" alt="" align="middle">&nbsp;{{guide}}:</td>
+      <td class="content-title-noshade" valign="top"><img src="images/free_icons/book_open.png" class="icon16" alt="" align="middle">&nbsp;{{guide}}:</td>
       <td  valign="middle">
         {{myprofile02}}<a class="links" href="/guide">{{myprofile03}}</a></label>
       </td>
@@ -53,21 +53,21 @@ use src\Utils\Uri\SimpleRouter;
       <td class="buffer" colspan="2"></td>
     </tr>
     <tr>
-      <td class="content-title-noshade" valign="top"><img src="tpl/stdstyle/images/free_icons/script.png" class="icon16" alt="" align="middle">&nbsp;{{my_description}}:</td>
+      <td class="content-title-noshade" valign="top"><img src="images/free_icons/script.png" class="icon16" alt="" align="middle">&nbsp;{{my_description}}:</td>
       <td>{description}</td>
     </tr>
     <tr>
       <td class="buffer" colspan="2"></td>
     </tr>
     <tr>
-      <td class="content-title-noshade" valign="top"><img src="tpl/stdstyle/images/free_icons/brick.png" class="icon16" alt="" align="middle">&nbsp;{{other}}:</td>
+      <td class="content-title-noshade" valign="top"><img src="images/free_icons/brick.png" class="icon16" alt="" align="middle">&nbsp;{{other}}:</td>
       <td class="txt-grey07" valign="top">{user_options}</td>
     </tr>
     <tr>
       <td class="buffer" colspan="2"></td>
     </tr>
     <tr>
-      <td class="content-title-noshade" valign="top"><img src="tpl/stdstyle/images/free_icons/plugin.png" class="icon16" alt="" align="middle">&nbsp;{{ozi_path_label}}:</td>
+      <td class="content-title-noshade" valign="top"><img src="images/free_icons/plugin.png" class="icon16" alt="" align="middle">&nbsp;{{ozi_path_label}}:</td>
       <td class="txt-grey07" valign="top">{ozi_path}</td>
     </tr>
     <tr>
@@ -80,28 +80,28 @@ use src\Utils\Uri\SimpleRouter;
       <td class="buffer" colspan="2"></td>
     </tr>
     <tr>
-      <td class="content-title-noshade"><img src="tpl/stdstyle/images/free_icons/calendar.png" class="icon16" alt="" align="middle">&nbsp;{{registered_since_label}}:</td>
+      <td class="content-title-noshade"><img src="images/free_icons/calendar.png" class="icon16" alt="" align="middle">&nbsp;{{registered_since_label}}:</td>
       <td>{registered_since}</td>
     </tr>
     <tr>
       <td class="buffer" colspan="2"></td>
     </tr>
     <tr>
-      <td class="content-title-noshade" style="vertical-align:top;"><img src="tpl/stdstyle/images/free_icons/chart_bar.png" class="icon16" alt="" align="middle">&nbsp;{{statpic_label}}:</td>
+      <td class="content-title-noshade" style="vertical-align:top;"><img src="images/free_icons/chart_bar.png" class="icon16" alt="" align="middle">&nbsp;{{statpic_label}}:</td>
       <td><img src="statpics/{userid}.jpg" align="middle" alt=""></td>
     </tr>
     <tr>
       <td class="buffer" colspan="2"></td>
     </tr>
     <tr>
-      <td class="content-title-noshade" style="vertical-align:top;"><img src="tpl/stdstyle/images/free_icons/html.png" class="icon16" alt="" align="middle">&nbsp;{{html_statpic_link}}:</td>
+      <td class="content-title-noshade" style="vertical-align:top;"><img src="images/free_icons/html.png" class="icon16" alt="" align="middle">&nbsp;{{html_statpic_link}}:</td>
       <td class="txt-grey07">&lt;img src="{statlink}" alt="{site_name} {{statpic_html_link}} {username_html}" title="{site_name} {{statpic_html_link}} {username_html}"></td>
     </tr>
     <tr>
       <td class="buffer" colspan="2"></td>
     </tr>
     <tr>
-      <td class="content-title-noshade" style="vertical-align:top;"><img src="tpl/stdstyle/images/free_icons/html.png" class="icon16" alt="" align="middle">&nbsp;{{bbcode_statpic}}:</td>
+      <td class="content-title-noshade" style="vertical-align:top;"><img src="images/free_icons/html.png" class="icon16" alt="" align="middle">&nbsp;{{bbcode_statpic}}:</td>
       <td class="txt-grey07">[url={profileurl}][img]{statlink}[/img][/url]</td>
     </tr>
   </table>

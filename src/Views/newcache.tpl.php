@@ -268,7 +268,7 @@ $view->callChunk('tinyMCE');
             iconarray['7'] = 'quiz.png';
             iconarray['8'] = 'moving.png';
             iconarray['10'] = 'owncache.png';
-            var image_cache = "/tpl/stdstyle/images/cache/" + iconarray[mode];
+            var image_cache = "/images/cache/" + iconarray[mode];
             $('#actionicons').attr('src', image_cache);
     }
 
@@ -440,11 +440,11 @@ $(document).ready(function(){
 
 </style>
 
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="" title="{{new_cache}}">&nbsp;{{new_cache}}</div>
+<div class="content2-pagetitle"><img src="/images/blue/cache.png" class="icon32" alt="" title="{{new_cache}}">&nbsp;{{new_cache}}</div>
 {general_message}
 <div class="buffer"></div>
 <div class="content2-container bg-blue02" >
-    <p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/basic2.png" class="icon32" alt=""/>&nbsp;{{basic_information}}</p>
+    <p class="content-title-noshade-size1"><img src="/images/blue/basic2.png" class="icon32" alt=""/>&nbsp;{{basic_information}}</p>
 </div>
 <div class="notice">
     {{first_cache}}.
@@ -467,7 +467,7 @@ $(document).ready(function(){
                 </div>
                 <iframe id="upload_target" name="upload_target" src="about:blank" style="width:0;height:0;border:0px solid #fff;"></iframe>
             </form>
-            <img style="display: none" id="ajaxLoaderLogo" src="tpl/stdstyle/images/misc/ptPreloader.gif" alt="">
+            <img style="display: none" id="ajaxLoaderLogo" src="images/misc/ptPreloader.gif" alt="">
         </td>
     </tr>
     <tr>
@@ -551,7 +551,7 @@ $(document).ready(function(){
                 <!-- <select name="region" id="region1" class="input200" onchange="javascript:chkcountry()" ></select> -->
                 <select name="region" id="region1" class="form-control input200" >
                 </select>&nbsp;<button class="btn btn-default btn-sm" id="region3" onclick="extractregion()">{{region_from_coord}}</button>
-                <img id="regionAjaxLoader" style="display: none" src="tpl/stdstyle/images/misc/ptPreloader.gif" alt="">
+                <img id="regionAjaxLoader" style="display: none" src="images/misc/ptPreloader.gif" alt="">
                 {region_message}
             </td>
         </tr>
@@ -619,7 +619,7 @@ $(document).ready(function(){
         </tr>
         <tr>
             <td colspan="2"><div class="content2-container bg-blue02">
-                    <p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/attributes.png" class="icon32" alt=""/>&nbsp;{{cache_attributes}}</p>
+                    <p class="content-title-noshade-size1"><img src="/images/blue/attributes.png" class="icon32" alt=""/>&nbsp;{{cache_attributes}}</p>
                 </div>
             </td>
         </tr>
@@ -630,7 +630,7 @@ $(document).ready(function(){
             <td colspan="2"><div class="notice">{{attributes_edit_hint}} {{attributes_desc_hint}}</div></td></tr>
         <tr>
             <td colspan="2"><div class="content2-container bg-blue02">
-                    <p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/describe.png" class="icon32" alt=""/>&nbsp;{{descriptions}}</p>
+                    <p class="content-title-noshade-size1"><img src="/images/blue/describe.png" class="icon32" alt=""/>&nbsp;{{descriptions}}</p>
                 </div>
             </td>
         </tr>
@@ -689,7 +689,7 @@ $(document).ready(function(){
         </tr>
         <tr>
             <td colspan="2"><div class="content2-container bg-blue02">
-                    <p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/crypt.png" class="icon32" alt=""/>
+                    <p class="content-title-noshade-size1"><img src="/images/blue/crypt.png" class="icon32" alt=""/>
                         {{other}}
                     </p>
                 </div>

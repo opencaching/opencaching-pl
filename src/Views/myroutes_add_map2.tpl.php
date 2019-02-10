@@ -115,7 +115,7 @@ use src\Utils\Uri\Uri;
     }
 
 </style>
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/route.png" class="icon32" alt="" />&nbsp;{{setup_new_route}}</div>
+<div class="content2-pagetitle"><img src="/images/blue/route.png" class="icon32" alt="" />&nbsp;{{setup_new_route}}</div>
 <div class="searchdiv">
 
     <div class="searchdiv">

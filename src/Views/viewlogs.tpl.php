@@ -63,7 +63,7 @@
 <script src="{viewcache_js}"></script>
 <div class="content2-container bg-blue02">
     <p class="content-title-noshade-size1">
-        <img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt=""/>
+        <img src="/images/blue/logs.png" class="icon32" alt=""/>
         &nbsp;{{log_entries}} <a href="viewcache.php?cacheid={cacheid}">{cachename}</a>
         &nbsp;&nbsp;
         {found_icon} {founds}x

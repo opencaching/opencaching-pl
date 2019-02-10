@@ -291,9 +291,9 @@ if ($usr['admin']) {
                 <a class=\"truncated\" href='viewlogs.php?logid=". $report['last_log_id'] ."' title='". strip_tags($report['last_log_text']) ."'>". strip_tags($report['last_log_text']) . "</a>
                 </td>\n";
 
-        $content .= "<td class='" . $bgcolor . "'><img src=\"tpl/stdstyle/images/blue/arrow.png\" alt=\"\" />&nbsp;<a class=\"links\" href='viewpendings.php?user_id=".$report['user_id']."&amp;cacheid=" . $report['cache_id'] . "&amp;action=1'>" . tr('accept') . "</a><br/>
-            <img src=\"tpl/stdstyle/images/blue/arrow.png\" alt=\"\" />&nbsp;<a class=\"links\" href='viewpendings.php?user_id=".$report['user_id']."&amp;cacheid=" . $report['cache_id'] . "&amp;action=2'>" . tr('block') . "</a><br/>
-            <img src=\"tpl/stdstyle/images/blue/arrow.png\" alt=\"\" />&nbsp;<a class=\"links\" href='viewpendings.php?cacheid=" . $report['cache_id'] . "&amp;assign=" . $usr['userid'] . "'>" . tr('assign_yourself') . "</a></td>\n";
+        $content .= "<td class='" . $bgcolor . "'><img src=\"/images/blue/arrow.png\" alt=\"\" />&nbsp;<a class=\"links\" href='viewpendings.php?user_id=".$report['user_id']."&amp;cacheid=" . $report['cache_id'] . "&amp;action=1'>" . tr('accept') . "</a><br/>
+            <img src=\"/images/blue/arrow.png\" alt=\"\" />&nbsp;<a class=\"links\" href='viewpendings.php?user_id=".$report['user_id']."&amp;cacheid=" . $report['cache_id'] . "&amp;action=2'>" . tr('block') . "</a><br/>
+            <img src=\"/images/blue/arrow.png\" alt=\"\" />&nbsp;<a class=\"links\" href='viewpendings.php?cacheid=" . $report['cache_id'] . "&amp;assign=" . $usr['userid'] . "'>" . tr('assign_yourself') . "</a></td>\n";
         $content .= "<td class='" . $bgcolor . "'><a class=\"links\" href='viewprofile.php?userid=" . $assignedUserId . "'>" . getUsername($assignedUserId) . "</a><br/></td>";
         $content .= "</tr>\n";
         $row_num++;

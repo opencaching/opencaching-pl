@@ -363,7 +363,7 @@
 </script>
 
 <div class="content2-pagetitle">
-  <img src="tpl/stdstyle/images/blue/search3.png" class="icon32" alt=""> {{search_cache}}
+  <img src="/images/blue/search3.png" class="icon32" alt=""> {{search_cache}}
 </div>
 
 <div class="searchdiv">
@@ -517,7 +517,7 @@
       <tr class="form-group-sm">
         <td class="content-title-noshade">{{regions_only_for}}:</td>
         <td class="content-title-noshade">
-          <img id="regionAjaxLoader" style="display: none" src="tpl/stdstyle/images/misc/ptPreloader.gif" alt="">
+          <img id="regionAjaxLoader" style="display: none" src="images/misc/ptPreloader.gif" alt="">
           <select name="region" id="region1" class="form-control input200" onchange="javascript:sync_options(this)">
             {regionoptions}
           </select>

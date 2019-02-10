@@ -3,7 +3,7 @@
     <table class="content" border="0" cellspacing="0" cellpadding="0">
         <tr>
             <td class="content2-pagetitle"><img
-                src="tpl/stdstyle/images/blue/cache.png" class="icon32"
+                src="/images/blue/cache.png" class="icon32"
                 alt="" /><font size="4"> <b>{{cache_notfound}}</b></font></td>
         </tr>
         <tr>

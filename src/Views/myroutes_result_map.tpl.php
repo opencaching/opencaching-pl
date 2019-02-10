@@ -32,7 +32,7 @@ $polyline = $encoder->encode($points);
 
     var currentinfowindow = null;
 
-    var icon3 = {url: "tpl/stdstyle/images/google_maps/gmgreen.gif"};
+    var icon3 = {url: "/images/google_maps/gmgreen.gif"};
 
     function addMarker(lat, lon, icon, cacheid, cachename, wp, username, ratings) {
         var marker = new google.maps.Marker({position: new google.maps.LatLng(lat, lon), icon: icon3, map: map});
@@ -93,7 +93,7 @@ $polyline = $encoder->encode($points);
 
 //]]>
 </script>
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/route.png" class="icon32" alt="" />&nbsp;{{caches_along_route}} ({number_caches}): <span style="color: black;font-size:13px;">{routes_name} ({{radius}} {distance} km)</span></div>
+<div class="content2-pagetitle"><img src="/images/blue/route.png" class="icon32" alt="" />&nbsp;{{caches_along_route}} ({number_caches}): <span style="color: black;font-size:13px;">{routes_name} ({{radius}} {distance} km)</span></div>
 
 <div class="searchdiv">
     <center>

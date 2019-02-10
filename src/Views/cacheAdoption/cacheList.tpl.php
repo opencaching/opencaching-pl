@@ -4,7 +4,7 @@
 <?php if($view->adoptionOffers) { ?>
 
 <div class="content2-pagetitle">
-  <img src="tpl/stdstyle/images/blue/email.png" class="icon32" align="middle" />
+  <img src="/images/blue/email.png" class="icon32" align="middle" />
   <b>{{adopt_10}}</b>
 </div>
 
@@ -40,7 +40,7 @@
 <!-- Caches owns by current user -->
 
 <div class="content2-pagetitle">
-  <img src="tpl/stdstyle/images/blue/email.png" border="0" align="middle" />
+  <img src="/images/blue/email.png" border="0" align="middle" />
   <b>{{adopt_00}}</b>
 </div>
 

@@ -54,9 +54,9 @@ class CacheNotesController extends BaseController
 
         //load lightPopup
         $this->view->addLocalCss(
-            Uri::getLinkWithModificationTime('/tpl/stdstyle/js/lightPopup/lightPopup.css'));
+            Uri::getLinkWithModificationTime('/js/lightPopup/lightPopup.css'));
         $this->view->addLocalJs(
-            Uri::getLinkWithModificationTime('/tpl/stdstyle/js/lightPopup/lightPopup.js'));
+            Uri::getLinkWithModificationTime('/js/lightPopup/lightPopup.js'));
 
 
 
@@ -111,7 +111,7 @@ class CacheNotesController extends BaseController
             $model->addColumn(new Column_OnClickActionIcon(tr('myNotes_removeNote'),
                 function($row){
                     return [
-                        'icon' => isset($row['noteTxt'])?'/tpl/stdstyle/images/log/16x16-trash.png':null,
+                        'icon' => isset($row['noteTxt'])?'/images/log/16x16-trash.png':null,
                         'onClick' => "removeNote(this, {$row['cache_id']})",
                         'title' => tr('myNotes_removeNote')
                     ];
@@ -132,7 +132,7 @@ class CacheNotesController extends BaseController
                 function($row){
 
                     return [
-                        'icon' => isset($row['coords'])?'/tpl/stdstyle/images/log/16x16-trash.png':null,
+                        'icon' => isset($row['coords'])?'/images/log/16x16-trash.png':null,
                         'onClick' => "removeCoords(this, {$row['cache_id']})",
                         'title' => tr('myNotes_removeCoords')
                     ];

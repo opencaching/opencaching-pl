@@ -200,7 +200,7 @@ if ($_POST['spoiler_only'] == "&spoiler_only=1") {
     <input type="hidden" id="showlogs" value="<?= $showlogs ?>">
 
     <?php View::callChunkInline('jQuery') ?>
-    <script src="<?= Uri::getLinkWithModificationTime('/tpl/stdstyle/js/printcache.js') ?>"></script>
+    <script src="<?= Uri::getLinkWithModificationTime('/js/printcache.js') ?>"></script>
 
     <form action="/printcache.php?cacheid=<?php print $cache_id; ?>" method="post">
         <?php

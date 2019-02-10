@@ -170,7 +170,7 @@ $founds = XDb::xMultiVariableQueryValue(
         iconarray['10'] = '16x16-published.png';
         iconarray['11'] = '16x16-temporary.png';
         iconarray['12'] = '16x16-octeam.png';
-        var image_log = "/tpl/stdstyle/images/log/" + iconarray[mode];
+        var image_log = "/images/log/" + iconarray[mode];
         document.getElementById('actionicon').src = image_log;
 
         var el;
@@ -246,7 +246,7 @@ $founds = XDb::xMultiVariableQueryValue(
     <input type="hidden" name="version2" value="1"/>
 
     <div class="content2-pagetitle">
-        <img src="/tpl/stdstyle/images/blue/logs.png" class="icon32" alt="">&nbsp;{{post_new_log}} <a href="/viewcache.php?cacheid={cacheid}">{cachename}</a>
+        <img src="/images/blue/logs.png" class="icon32" alt="">&nbsp;{{post_new_log}} <a href="/viewcache.php?cacheid={cacheid}">{cachename}</a>
     </div>
     <div class="buffer"></div>
     <div class="notice">{{empty_entry_notice}}</div>
@@ -255,26 +255,26 @@ $founds = XDb::xMultiVariableQueryValue(
     <table class="table">
         <tr class="form-group-sm">
             <td class="content-title-noshade">
-                <img src="/tpl/stdstyle/images/free_icons/page_go.png" class="icon16" alt="">&nbsp;{{type_of_log}}:
+                <img src="/images/free_icons/page_go.png" class="icon16" alt="">&nbsp;{{type_of_log}}:
             </td>
             <td class="options">
                 <select class="form-control input200" name="logtype" id="logtype" onChange="toogleLayer('ocena');">
                     {logtypeoptions}
-                </select>&nbsp;&nbsp;<img id="actionicon" src="/tpl/stdstyle/images/log/Arrow-Right.png" alt="" style="vertical-align:top">
+                </select>&nbsp;&nbsp;<img id="actionicon" src="/images/log/Arrow-Right.png" alt="" style="vertical-align:top">
                 &nbsp;{log_message}
             </td>
         </tr>
         <tr class="form-group-sm">
             <td class="content-title-noshade">
-                <img src="/tpl/stdstyle/images/free_icons/date.png" class="icon16" alt="">&nbsp;{{date_logged}}:
+                <img src="/images/free_icons/date.png" class="icon16" alt="">&nbsp;{{date_logged}}:
             </td>
             <td class="options">
-                <img src="/tpl/stdstyle/images/free_icons/date_previous.png" alt ="{{lc_Day_before}}" title="{{lc_Day_before}}" onclick="subs_days(1);"/>
+                <img src="/images/free_icons/date_previous.png" alt ="{{lc_Day_before}}" title="{{lc_Day_before}}" onclick="subs_days(1);"/>
                 <input class="form-control input30" type="text" id="logday" name="logday" maxlength="2" value="{logday}"/>.
                 <input class="form-control input30" type="text" id="logmonth" name="logmonth" maxlength="2" value="{logmonth}"/>.
                 <input class="form-control input50" type="text" id="logyear" name="logyear" maxlength="4" value="{logyear}"/>
-                <img src="/tpl/stdstyle/images/free_icons/date_next.png" alt ="{{lc_Day_after}}" title="{{lc_Day_after}}" onclick="subs_days(-1);"/>
-                &nbsp;&nbsp;<img src="/tpl/stdstyle/images/free_icons/clock.png" class="icon16" alt="">&nbsp;{{time}}:
+                <img src="/images/free_icons/date_next.png" alt ="{{lc_Day_after}}" title="{{lc_Day_after}}" onclick="subs_days(-1);"/>
+                &nbsp;&nbsp;<img src="/images/free_icons/clock.png" class="icon16" alt="">&nbsp;{{time}}:
                 <input class="form-control input30" type="text" name="loghour" maxlength="2" value="{loghour}"/> HH (0-23)
                 <input class="form-control input30" type="text" name="logmin" maxlength="2" value="{logmin}"/> MM (0-59)
                 <br>{date_message}
@@ -283,7 +283,7 @@ $founds = XDb::xMultiVariableQueryValue(
             {rating_message}
         <tr class="form-group-sm" id="ocena" style="display:{display};">
             <td class="content-title-noshade" style="vertical-align:top">
-                <img src="/tpl/stdstyle/images/free_icons/star.png" class="icon16" alt="">&nbsp;{score_header}
+                <img src="/images/free_icons/star.png" class="icon16" alt="">&nbsp;{score_header}
             </td>
             <td class="options">
                 {score}<br>
@@ -292,7 +292,7 @@ $founds = XDb::xMultiVariableQueryValue(
         </tr>
         <tr class="form-group-sm" id="coord_table" style="display:none;">
             <td class="content-title-noshade" style="vertical-align:top">
-                <img src="/tpl/stdstyle/images/log/16x16-moved.png" class="icon16" alt="">&nbsp;{{new_coords}}:
+                <img src="/images/log/16x16-moved.png" class="icon16" alt="">&nbsp;{{new_coords}}:
             </td>
             <td class="options">
                 <select name="wybor_NS"   id="wybor_NS"   disabled="disabled" class="form-control input50"><option selected="selected">N</option><option>S</option></select>
@@ -311,7 +311,7 @@ $founds = XDb::xMultiVariableQueryValue(
     </table>
     <div class="buffer"></div>
     <div class="content2-container">
-        <img src="/tpl/stdstyle/images/description/22x22-geokret.png" alt=""> <a onclick="event.preventDefault(); toggleGeoKrety();" class="links" href="#"><span class="content-title-noshade-size12">{{GKApi06}}</span></a>
+        <img src="/images/description/22x22-geokret.png" alt=""> <a onclick="event.preventDefault(); toggleGeoKrety();" class="links" href="#"><span class="content-title-noshade-size12">{{GKApi06}}</span></a>
         <div id="toggleGeoKretyDIV" style="display: none">
             <div style="display: {GeoKretyApiNotConfigured};">
                 <span class="errormsg"><br>{{GKApi07}}</span><br><br>
@@ -328,7 +328,7 @@ $founds = XDb::xMultiVariableQueryValue(
             <br><div class="notice">{{GKApi19}} {{GKApi27}}</div>
         </div>
         <div class="buffer"></div>
-        <img src="tpl/stdstyle/images/free_icons/page_edit.png" class="icon16" alt="">&nbsp;<span class="content-title-noshade-size12">{{comments_log}}:</span>
+        <img src="images/free_icons/page_edit.png" class="icon16" alt="">&nbsp;<span class="content-title-noshade-size12">{{comments_log}}:</span>
         <div class="buffer"></div>
         <textarea name="logtext" id="logtext" class="cachelog tinymce">{logtext}</textarea>
         {log_pw_field}

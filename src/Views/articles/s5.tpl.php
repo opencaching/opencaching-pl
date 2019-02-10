@@ -1,6 +1,6 @@
 <div class="content2-container">
   <div class="content2-pagetitle">
-    <img src="tpl/stdstyle/images/blue/stat1.png" class="icon32" alt="">
+    <img src="/images/blue/stat1.png" class="icon32" alt="">
     {{statistics}}
   </div>
 
@@ -20,7 +20,7 @@ $tops = array();
     <td><img src="images/rating-star.png" alt="Recommendations"> {{index_03}}</td>
   </tr>
   <tr>
-    <td><img src="tpl/stdstyle/images/log/16x16-found.png" class="icon16" alt="Found"> {{index_04}}</td>
+    <td><img src="images/log/16x16-found.png" class="icon16" alt="Found"> {{index_04}}</td>
   </tr>
   <tr>
     <td>{{index_05}}</td>
@@ -34,7 +34,7 @@ $tops = array();
   <tr>
     <td><strong>{{index_06}}</strong></td>
     <td><img src="images/rating-star.png" alt=""></td>
-    <td><img src="tpl/stdstyle/images/log/16x16-found.png" class="icon16" alt=""></td>
+    <td><img src="images/log/16x16-found.png" class="icon16" alt=""></td>
     <td><strong>{{cache}}</strong></td>
     <td><strong>{{user}}</strong></td>
   </tr>

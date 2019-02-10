@@ -18,7 +18,7 @@ class powerTrailBase{
     const powerTrailLogoFileName = 'powerTrailLogoId';
     const commentsPaginateCount = 5;
     const cCountForMaxMagnifier = 50;
-    const iconPath = 'tpl/stdstyle/images/blue/';
+    const iconPath = '/images/blue/';
 
     public static function minimumCacheCount(){
         include __DIR__.'/../lib/settingsGlue.inc.php';

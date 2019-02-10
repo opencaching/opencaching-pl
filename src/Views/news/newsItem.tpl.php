@@ -5,7 +5,7 @@ use src\Utils\Uri\SimpleRouter;
 
 <div class="content2-container">
   <div class="content2-pagetitle">
-    <img src="/tpl/stdstyle/images/blue/newspaper.png" class="icon22" alt="Newspaper icon">
+    <img src="/images/blue/newspaper.png" class="icon22" alt="Newspaper icon">
     <?=tr('news')?>
   </div>
   <div class="callout callout-news callout-<?=$view->news->getStatusBootstrapName()?>">

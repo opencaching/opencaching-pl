@@ -3,10 +3,10 @@
 <div class="content2-container">
 
   <div class="content2-pagetitle">
-    <img src="tpl/stdstyle/images/blue/cache.png" class="icon22" alt="Cache">
+    <img src="/images/blue/cache.png" class="icon22" alt="Cache">
     {{newcaches_label}}
     <a href="/rss/newcaches.xml">
-      <img src="/tpl/stdstyle/images/misc/rss.svg" class="icon16" alt="RSS icon">
+      <img src="/images/misc/rss.svg" class="icon16" alt="RSS icon">
     </a>
   </div>
 

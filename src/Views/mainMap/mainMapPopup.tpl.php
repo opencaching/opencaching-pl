@@ -50,26 +50,26 @@
       <div class="col">
         <div>
         {{#if isEvent}}
-          <img src="/tpl/stdstyle/images/log/16x16-attend.png" alt="<?=tr("attendends")?>">
+          <img src="/images/log/16x16-attend.png" alt="<?=tr("attendends")?>">
           {{cacheFounds}} x <?=tr("attendends")?>
         {{else}}
-          <img src="/tpl/stdstyle/images/log/16x16-found.png" alt="<?=tr("found")?>">
+          <img src="/images/log/16x16-found.png" alt="<?=tr("found")?>">
           {{cacheFounds}} x <?=tr("found")?>
         {{/if}}
         </div>
 
         <div>
         {{#if isEvent}}
-          <img src="/tpl/stdstyle/images/log/16x16-will_attend.png" alt="<?=tr("will_attend")?>">
+          <img src="/images/log/16x16-will_attend.png" alt="<?=tr("will_attend")?>">
           {{cacheNotFounds}} x <?=tr("will_attend")?>
         {{else}}
-          <img src="/tpl/stdstyle/images/log/16x16-dnf.png" alt="<?=tr("not_found")?>">
+          <img src="/images/log/16x16-dnf.png" alt="<?=tr("not_found")?>">
           {{cacheNotFounds}} x <?=tr("not_found")?>
         {{/if}}
         </div>
 
         <div>
-          <img src="/tpl/stdstyle/images/free_icons/thumb_up.png" alt="<?=tr("scored")?>">
+          <img src="/images/free_icons/thumb_up.png" alt="<?=tr("scored")?>">
             {{cacheRatingVotes}} x <?=tr("scored")?>
           </div>
 
@@ -82,7 +82,7 @@
 
       {{#if titledDesc}}
         <div>
-          <img src="/tpl/stdstyle/images/free_icons/award_star_gold_1.png" alt="{{titledDesc}}">
+          <img src="/images/free_icons/award_star_gold_1.png" alt="{{titledDesc}}">
           {{titledDesc}}
         </div>
       {{/if}}

@@ -94,10 +94,10 @@ class MainLayoutController extends BaseController
             $this->view->setVar('_topBannerVideo', $this->ocConfig->getTopBannerVideo());
             $this->view->loadJQuery();
             $this->view->addLocalCss(
-                    Uri::getLinkWithModificationTime('/tpl/stdstyle/js/slick/slick.css'));
-            $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/js/slick/slick-theme.css'));
+                    Uri::getLinkWithModificationTime('/js/slick/slick.css'));
+            $this->view->addLocalCss(Uri::getLinkWithModificationTime('/js/slick/slick-theme.css'));
             $this->view->addLocalJs(
-                    Uri::getLinkWithModificationTime('/tpl/stdstyle/js/slick/slick.min.js'));
+                    Uri::getLinkWithModificationTime('/js/slick/slick.min.js'));
 
         }
 

@@ -67,7 +67,7 @@ function icon_geopath_small($ptID, $ptImg, $ptName, $ptType, $pt_cache_intro_tr,
     $poweTrailMarkers = powerTrailBase::getPowerTrailTypes();
 
     if ($ptImg == '')
-        $ptImg = '/tpl/stdstyle/images/blue/powerTrailGenericLogo.png';
+        $ptImg = '/images/blue/powerTrailGenericLogo.png';
     // for testing use: $ptImg = 'ocpl-dynamic-files/images/uploads/powerTrailLogoId13.png';
     $PT_tip = $pt_cache_intro_tr . '<BR>';
     $PT_tip.='<table width=\'99%\'>';

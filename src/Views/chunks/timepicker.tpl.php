@@ -17,8 +17,8 @@ return function (){
     ?>
 
 <!-- timepicker chunk -->
-<link rel="stylesheet" property="stylesheet" href="/tpl/stdstyle/js/timepicker/jquery.ui.timepicker.css?v=0.3.3">
-<script src="/tpl/stdstyle/js/timepicker/timepicker.js"></script>
+<link rel="stylesheet" property="stylesheet" href="/js/timepicker/jquery.ui.timepicker.css?v=0.3.3">
+<script src="/js/timepicker/timepicker.js"></script>
 <!-- End of timepicker chunk -->
 
 <?php

@@ -21,4 +21,4 @@
     </div>
   </form>
 </div>
-<link rel="prefetch" href="/tpl/stdstyle/images/misc/eye-off.svg">
+<link rel="prefetch" href="/images/misc/eye-off.svg">

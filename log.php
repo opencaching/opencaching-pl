@@ -835,7 +835,7 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
     if ($geoCache->hasLogPassword()) {
         if ($pw_not_ok == true) {
             tpl_set_var('log_pw_field', '<tr><td colspan="2">'.
-                '<img src="tpl/stdstyle/images/free_icons/key_go.png" class="icon16" alt="" title="" align="middle" />&nbsp;<b>' .
+                '<img src="images/free_icons/key_go.png" class="icon16" alt="" title="" align="middle" />&nbsp;<b>' .
                 tr('password_to_log') .
                 ': <input type="text" name="log_pw" maxlength="20" size="20" value=""/><span class="errormsg"> ' .
                 tr('incorrect_password_to_log') .
@@ -843,7 +843,7 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
         } else {
             tpl_set_var('log_pw_field',
                 '<tr><td colspan="2">'.
-                '<img src="tpl/stdstyle/images/free_icons/key_go.png" class="icon16" alt="" title="" align="middle" />'.
+                '<img src="images/free_icons/key_go.png" class="icon16" alt="" title="" align="middle" />'.
                 '&nbsp;<b>' . tr('password_to_log') .
                 ': <input class="input100" type="text" name="log_pw" maxlength="20" value="" /> (' .
                 tr('only_for_found_it') .

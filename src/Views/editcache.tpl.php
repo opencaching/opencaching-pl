@@ -203,11 +203,11 @@
     <input type="hidden" name="show_all_countries" value="{show_all_countries}"/>
     <input type="hidden" id ="any_changes" name="any_changes" value="no"/>
 
-    <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="" />&nbsp;{{edit_cache}} &#8211; <a href="viewcache.php?cacheid={cacheid}">{name}</a></div>
+    <div class="content2-pagetitle"><img src="/images/blue/cache.png" class="icon32" alt="" />&nbsp;{{edit_cache}} &#8211; <a href="viewcache.php?cacheid={cacheid}">{name}</a></div>
     {general_message}
     <div class="buffer"></div>
     <div class="content2-container bg-blue02">
-        <p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/basic2.png" class="icon32" alt=""/>&nbsp;{{basic_information}}</p>
+        <p class="content-title-noshade-size1"><img src="/images/blue/basic2.png" class="icon32" alt=""/>&nbsp;{{basic_information}}</p>
     </div>
     <div class="buffer"></div>
     <table class="table" border="0">
@@ -298,7 +298,7 @@
                 <select name="region" id="region1" class="form-control input200" onChange="yes_change();">
 
                 </select>
-                &nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/help.png" class="icon16" alt=""/>&nbsp;<button class="btn btn-default btn-sm" onclick="return extractregion()">{{region_from_coord}}</button>
+                &nbsp;&nbsp;<img src="images/free_icons/help.png" class="icon16" alt=""/>&nbsp;<button class="btn btn-default btn-sm" onclick="return extractregion()">{{region_from_coord}}</button>
 
             </td>
         </tr>
@@ -372,7 +372,7 @@
         </tr>
         <tr>
             <td colspan="2">
-                <div class="content2-container bg-blue02"><p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/attributes.png" class="icon32" alt=""/>&nbsp;{{cache_attributes}}</p></div>
+                <div class="content2-container bg-blue02"><p class="content-title-noshade-size1"><img src="/images/blue/attributes.png" class="icon32" alt=""/>&nbsp;{{cache_attributes}}</p></div>
             </td>
         </tr>
         <tr><td class="buffer" colspan="2"></td></tr>
@@ -385,7 +385,7 @@
             </td></tr>
         <tr>
             <td colspan="2">
-                <div class="content2-container bg-blue02"><p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/describe.png" class="icon32" alt=""/>&nbsp;{{descriptions}}</p></div>
+                <div class="content2-container bg-blue02"><p class="content-title-noshade-size1"><img src="/images/blue/describe.png" class="icon32" alt=""/>&nbsp;{{descriptions}}</p></div>
                 <div class="content2-newline"><p class="content-title-noshade"><img src="images/actions/list-add-20.png" align="middle" border="0" alt="" title="Dodaj nowy opis"/>&nbsp;<a href="newdesc.php?cacheid={cacheid_urlencode}" onclick="return check_if_proceed();">{{add_new_desc}}</a></p></div>
             </td>
         </tr>
@@ -395,7 +395,7 @@
         {waypoints_start}
         <tr>
             <td colspan="2">
-                <div class="content2-container bg-blue02"><p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/compas.png" class="icon32" alt=""/>&nbsp;{{additional_waypoints}}</p></div>
+                <div class="content2-container bg-blue02"><p class="content-title-noshade-size1"><img src="/images/blue/compas.png" class="icon32" alt=""/>&nbsp;{{additional_waypoints}}</p></div>
                 <div class="content2-newline"><p class="content-title-noshade"><img src="images/actions/list-add-20.png" align="middle" border="0" alt=""/>&nbsp;<a onclick="return check_if_proceed();" href="newwp.php?cacheid={cacheid}" >{{add_new_waypoint}}</a></p></div>
             </td>
         </tr>
@@ -412,7 +412,7 @@
         <tr><td class="buffer" colspan="2"></td></tr>
         <tr>
             <td colspan="2">
-                <div class="content2-container bg-blue02"><p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/picture.png" class="icon32" alt=""/>&nbsp;&nbsp;{{pictures_label}}</p></div>
+                <div class="content2-container bg-blue02"><p class="content-title-noshade-size1"><img src="/images/blue/picture.png" class="icon32" alt=""/>&nbsp;&nbsp;{{pictures_label}}</p></div>
                 <div class="content2-newline"><p class="content-title-noshade"><img src="images/actions/list-add-20.png" align="middle" border="0" alt=""/>&nbsp;<a href="newpic.php?objectid={cacheid_urlencode}&type=2&def_seq={def_seq}" onclick="return check_if_proceed();">{{add_new_pict}}</a></p></div>
             </td>
         </tr>
@@ -423,7 +423,7 @@
         {hidemp3_start}
         <tr>
             <td colspan="2">
-                <div class="content2-container bg-blue02"><p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/podcache-mp3.png" class="icon32" alt=""/>&nbsp;&nbsp;{{mp3_label}}</p></div>
+                <div class="content2-container bg-blue02"><p class="content-title-noshade-size1"><img src="/images/blue/podcache-mp3.png" class="icon32" alt=""/>&nbsp;&nbsp;{{mp3_label}}</p></div>
                 <div class="content2-newline"><p class="content-title-noshade"><img src="images/actions/list-add-20.png" align="middle" border="0" alt=""/>&nbsp;<a href="newmp3.php?objectid={cacheid_urlencode}&type=2&def_seq_m={def_seq_m}" onclick="return check_if_proceed();">{{add_new_mp3}}</a></p></div>
             </td>
         </tr>
@@ -434,7 +434,7 @@
         <!-- End Text Container -->
         <tr>
             <td colspan="2">
-                <div class="content2-container bg-blue02"><p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/crypt.png" class="icon32"/>{{other}}</p></div>
+                <div class="content2-container bg-blue02"><p class="content-title-noshade-size1"><img src="/images/blue/crypt.png" class="icon32"/>{{other}}</p></div>
             </td>
         </tr>
         <tr><td class="buffer" colspan="2"></td></tr>

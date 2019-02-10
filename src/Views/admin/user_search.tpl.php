@@ -14,7 +14,7 @@ use src\Models\GeoCache\GeoCacheLog;
       <label for="username"><?=tr('loginForm_userOrEmail')?>:</label>
       <input type="text" name="username" value="<?=$view->userName?>" class="form-control input300">
       <button type="submit" name="submit" class="btn btn-default">
-        <img class="icon16" src="/tpl/stdstyle/images/misc/magnifying-glass.svg" alt="<?=tr('search')?>">
+        <img class="icon16" src="/images/misc/magnifying-glass.svg" alt="<?=tr('search')?>">
         <?=tr('search')?>
       </button>
     </p>

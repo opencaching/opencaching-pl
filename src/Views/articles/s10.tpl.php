@@ -11,7 +11,7 @@ if (isset($_REQUEST['region'])) {
 ?>
 <div class="content2-container">
   <div class="content2-pagetitle">
-    <img src="tpl/stdstyle/images/blue/stat1.png" class="icon32" alt="">
+    <img src="/images/blue/stat1.png" class="icon32" alt="">
     {{statistics}}
   </div>
 

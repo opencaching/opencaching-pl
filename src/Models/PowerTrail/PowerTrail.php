@@ -95,7 +95,7 @@ class PowerTrail extends BaseObject
                     break;
                 case 'image':
                     if ($val === '') { /* no image was loaded by user, set default image */
-                        $val = '/tpl/stdstyle/images/blue/powerTrailGenericLogo.png';
+                        $val = '/images/blue/powerTrailGenericLogo.png';
                     }
                     $this->image = $val;
                     break;
@@ -158,7 +158,7 @@ class PowerTrail extends BaseObject
 
     public static function GetPowerTrailIconsByType($typeId = null)
     {
-        $imgPath = '/tpl/stdstyle/images/blue/';
+        $imgPath = '/images/blue/';
         $icon = '';
         if ($typeId === null) {
             $typeId = $this->type;

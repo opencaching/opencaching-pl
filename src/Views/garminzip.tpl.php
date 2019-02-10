@@ -15,7 +15,7 @@
     </ol>
 </p>
 <br/><br/>
-<img src="tpl/stdstyle/images/misc/16x16-info.png" class="icon16" alt="Info" />{{GarminZip_03}}.
+<img src="images/misc/16x16-info.png" class="icon16" alt="Info" />{{GarminZip_03}}.
 <p>&nbsp;</p>
 <p style="font-size:12px;">{{GarminZip_04}}:
 <ol>
@@ -24,7 +24,7 @@
     <li>{{GarminZip_07}}</li>
 </ol>
 </p> <p>&nbsp;</p>
-<img src="tpl/stdstyle/images/misc/16x16-info.png" class="icon16" alt="Info" />{{GarminZip_08}} <a class="links" href="{wiki_link_main}">wiki</a>.
+<img src="images/misc/16x16-info.png" class="icon16" alt="Info" />{{GarminZip_08}} <a class="links" href="{wiki_link_main}">wiki</a>.
 <p>&nbsp;</p>
 <p style="font-size:12px;">
 <ul>

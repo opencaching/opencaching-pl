@@ -1,8 +1,8 @@
 <?php
 
 $submit = 'Wyslij';
-$coord_empty_message = '<img src="tpl/stdstyle/images/misc/32x32-impressum.png" class="icon32" alt=""  />&nbsp;&nbsp;<span class="errormsg">' . tr('empty_coordinatest') . '</span>';
-$logtext_empty_message = '<img src="tpl/stdstyle/images/misc/32x32-impressum.png" class="icon32" alt=""  />&nbsp;&nbsp;<span class="errormsg">' . tr('empty_log_text') . '</span>';
+$coord_empty_message = '<img src="images/misc/32x32-impressum.png" class="icon32" alt=""  />&nbsp;&nbsp;<span class="errormsg">' . tr('empty_coordinatest') . '</span>';
+$logtext_empty_message = '<img src="images/misc/32x32-impressum.png" class="icon32" alt=""  />&nbsp;&nbsp;<span class="errormsg">' . tr('empty_log_text') . '</span>';
 
 $error_wrong_node = tr('log_wrong_node');
 

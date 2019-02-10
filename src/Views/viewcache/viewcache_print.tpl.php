@@ -21,8 +21,8 @@ use src\Models\GeoKret\GeoKretyApi;
         <p class="cache-title">
             <img src="<?=$view->cacheMainIcon?>" class="icon32" id="viewcache-cacheicon" alt="{cachetype}" title="{cachetype}" align="absmiddle"><?=$view->cachename?>
         </p>
-        <img src="tpl/stdstyle/images/free_icons/arrow_in.png" class="icon16" alt="" title="">&nbsp;<b><?=$view->geoCache->getWaypointId()?>
-        <img src="tpl/stdstyle/images/blue/kompas.png" class="icon32" alt="" title=""  align="absmiddle"><?=$view->geoCache->getCoordinates()->getAsText()?></b><br>
+        <img src="images/free_icons/arrow_in.png" class="icon16" alt="" title="">&nbsp;<b><?=$view->geoCache->getWaypointId()?>
+        <img src="/images/blue/kompas.png" class="icon32" alt="" title=""  align="absmiddle"><?=$view->geoCache->getCoordinates()->getAsText()?></b><br>
 
         <img src='<?=$view->geoCache->getDifficultyIcon()?>' class='img-difficulty' width='19' height='16' alt='' title='<?=$view->diffTitle?>'>
         <img src='<?=$view->geoCache->getTerrainIcon()?>' class='img-difficulty' width='19' height='16' alt='' title='<?=$view->terrainTitle?>'>
@@ -31,12 +31,12 @@ use src\Models\GeoKret\GeoKretyApi;
          <?=$view->geoCacheDesc->getShortDescToDisplay()?>
         {{hidden_by}} <a href="<?=$view->geoCache->getOwner()->getProfileUrl() ?>"><?=$view->ownerName?></a>
 
-        <img src="tpl/stdstyle/images/free_icons/package.png" class="icon16" alt="" title="">&nbsp;
+        <img src="images/free_icons/package.png" class="icon16" alt="" title="">&nbsp;
         <b><?=tr($view->geoCache->getSizeTranslationKey())?></b>
 
 
         <?php if ($view->geoCache->getWayLenght() || $view->geoCache->getSearchTime()) { ?>
-            <img src="tpl/stdstyle/images/free_icons/time.png" class="icon16" alt="" title="">&nbsp;
+            <img src="images/free_icons/time.png" class="icon16" alt="" title="">&nbsp;
             <?php if ($view->geoCache->getSearchTime()) { ?>
               <?=$view->geoCache->getSearchTimeFormattedString() ?>
             <?php } else { // no-search-time ?>
@@ -44,7 +44,7 @@ use src\Models\GeoKret\GeoKretyApi;
             <?php } //no-search-time ?>
             &nbsp;&nbsp;
 
-            <img src="tpl/stdstyle/images/free_icons/arrow_switch.png" class="icon16" alt="" title="">&nbsp;
+            <img src="images/free_icons/arrow_switch.png" class="icon16" alt="" title="">&nbsp;
             <?php if ($view->geoCache->getWayLenght()) { ?>
               <?=$view->geoCache->getWayLenghtFormattedString() ?>
             <?php } else { // no-way-len ?>
@@ -56,7 +56,7 @@ use src\Models\GeoKret\GeoKretyApi;
         <?=tr('score_label')?>: <b style="color:<?=$view->scoreColor?>"><?=$view->score?></b>
 
         <?php if (!empty($view->otherSitesListing)) { ?>
-          <img src="tpl/stdstyle/images/free_icons/link.png" class="icon16" alt="" title="">&nbsp;{{listed_also_on}}:
+          <img src="images/free_icons/link.png" class="icon16" alt="" title="">&nbsp;{{listed_also_on}}:
           <span class="listed-on">
           <?php foreach ($view->otherSitesListing as $site) { ?>
             <a href=<?=$site->link?> target="_blank"><?=$site->sitename?> (<?=$site->wp?>)</a>
@@ -69,7 +69,7 @@ use src\Models\GeoKret\GeoKretyApi;
 
 <div class="content2-container bg-blue02">
     <p class="content-title-noshade-size1">
-        <img src="tpl/stdstyle/images/blue/describe.png" class="icon32" alt="" align="absmiddle">
+        <img src="/images/blue/describe.png" class="icon32" alt="" align="absmiddle">
         <b>{{descriptions}}</b>&nbsp;<br>
         <?php foreach ($view->geoCache->getCacheAttributesList() as $attr) { ?>
           <img src="<?=$attr->iconLarge?>" title="<?=$attr->text?>" alt="<?=$attr->text?>">&nbsp;
@@ -88,7 +88,7 @@ use src\Models\GeoKret\GeoKretyApi;
 
 <div class="content2-container bg-blue02">
     <p class="content-title-noshade-size1">
-        <img src="tpl/stdstyle/images/blue/crypt.png" class="icon32" alt="" align="absmiddle">
+        <img src="/images/blue/crypt.png" class="icon32" alt="" align="absmiddle">
         <b>{{additional_hints}}</b>&nbsp;&nbsp;
     </p>
 </div>
@@ -119,7 +119,7 @@ use src\Models\GeoKret\GeoKretyApi;
 <?php if ($view->isUserAuthorized) { ?>
     <div class="content2-container bg-blue02">
         <p class="content-title-noshade-size2">
-            <img src="tpl/stdstyle/images/blue/logs.png" style="align: left; margin-right: 10px;" alt="{{personal_cache_note}}">
+            <img src="/images/blue/logs.png" style="align: left; margin-right: 10px;" alt="{{personal_cache_note}}">
             <b>{{personal_cache_note}}</b>
         </p>
     </div>
@@ -141,7 +141,7 @@ use src\Models\GeoKret\GeoKretyApi;
 
 <div class="content2-container bg-blue02">
     <p class="content-title-noshade-size1">
-        <img src="tpl/stdstyle/images/blue/compas.png" alt="">
+        <img src="/images/blue/compas.png" alt="">
         <b>{{additional_waypoints}}</b>
     </p>
 </div>
@@ -198,7 +198,7 @@ use src\Models\GeoKret\GeoKretyApi;
 
 <div class="content2-container bg-blue02">
     <p class="content-title-noshade-size1">
-        <img src="tpl/stdstyle/images/blue/npav1.png" class="icon32" alt="" align="absmiddle">
+        <img src="/images/blue/npav1.png" class="icon32" alt="" align="absmiddle">
         <b>{{natura2000}}</b>
     </p>
 </div>
@@ -228,7 +228,7 @@ use src\Models\GeoKret\GeoKretyApi;
                                     <br>
                                   </td>
                                   <td align="center" valign="middle">
-                                    <img src="tpl/stdstyle/images/pnk/<?=$npa['npalogo']?>">
+                                    <img src="/images/pnk/<?=$npa['npalogo']?>">
                                   </td>
                                 </tr>
                             <?php } //foreach ?>
@@ -252,14 +252,14 @@ use src\Models\GeoKret\GeoKretyApi;
                                 <?php } //foreach ?>
 
                               </td>
-                              <td align="center" valign="middle"><img src="/tpl/stdstyle/images/misc/natura2000.png"></td>
+                              <td align="center" valign="middle"><img src="/images/misc/natura2000.png"></td>
                             </tr>
                             </table>
 
 
                          <?php } //if-Natura2000-presents ?>
 
-                </td><td align="center" valign="middle"><a class="links" href="http://www.natura2000.pl/" target="_blank"><img src="tpl/stdstyle/images/misc/natura2000.png" alt="" title=""></a></td>
+                </td><td align="center" valign="middle"><a class="links" href="http://www.natura2000.pl/" target="_blank"><img src="images/misc/natura2000.png" alt="" title=""></a></td>
             </tr>
         </table>
     </center>
@@ -274,7 +274,7 @@ use src\Models\GeoKret\GeoKretyApi;
 
 <div  class="content2-container bg-blue02">
     <p class="content-title-noshade-size1">
-        <img src="tpl/stdstyle/images/blue/signature1.png" class="icon32" alt="" align="absmiddle">
+        <img src="/images/blue/signature1.png" class="icon32" alt="" align="absmiddle">
         <b>{{coords_modifier}}</b>
     </p>
 </div>
@@ -292,7 +292,7 @@ use src\Models\GeoKret\GeoKretyApi;
 <?php if ( !empty($view->geoCache->getGeokretsHosted())) { ?>
 <div class="content2-container bg-blue02">
     <p class="content-title-noshade-size1">
-        <img src="tpl/stdstyle/images/blue/travelbug.png" class="icon32" alt="" align="absmiddle">
+        <img src="/images/blue/travelbug.png" class="icon32" alt="" align="absmiddle">
         <b>Geokrety</b>
     </p>
 </div>
@@ -313,7 +313,7 @@ use src\Models\GeoKret\GeoKretyApi;
 <?php if ( !empty($view->picturesToDisplay) ) { ?>
 <div class="content2-container bg-blue02">
     <p class="content-title-noshade-size1">
-        <img src="tpl/stdstyle/images/blue/picture.png" class="icon32" alt="" align="absmiddle">
+        <img src="/images/blue/picture.png" class="icon32" alt="" align="absmiddle">
         <b>{{images}}</b>
     </p>
 </div>
@@ -368,25 +368,25 @@ use src\Models\GeoKret\GeoKretyApi;
 
     <div class="content2-container bg-blue02 logs">
         <p class="content-title-noshade-size1">
-            <img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="" align="absmiddle">
+            <img src="/images/blue/logs.png" class="icon32" alt="" align="absmiddle">
             <b>{{log_entries}}</b>
             &nbsp;&nbsp;
             <?php if ($view->geoCache->isEvent()) { ?>
-              <img src="tpl/stdstyle/images/log/16x16-attend.png" class="icon16" alt="" title="">
+              <img src="images/log/16x16-attend.png" class="icon16" alt="" title="">
               <?=$view->geoCache->getFounds()?>
 
-              <img src="tpl/stdstyle/images/log/16x16-will_attend.png" class="icon16" alt="" title="">
+              <img src="images/log/16x16-will_attend.png" class="icon16" alt="" title="">
               <?=$view->geoCache->getNotFounds()?>
 
             <?php } else { //if-not-event ?>
-              <img src="tpl/stdstyle/images/log/16x16-found.png" class="icon16" alt="<?=tr('found')?>">
+              <img src="images/log/16x16-found.png" class="icon16" alt="<?=tr('found')?>">
               <?=$view->geoCache->getFounds()?>x
 
-              <img src="tpl/stdstyle/images/log/16x16-dnf.png" class="icon16" alt="{{not_found}}">
+              <img src="images/log/16x16-dnf.png" class="icon16" alt="{{not_found}}">
               <?=$view->geoCache->getNotFounds()?>x
             <?php } //if-not-event ?>
 
-            <img src="tpl/stdstyle/images/log/16x16-note.png" class="icon16" alt="{{log_note}}">
+            <img src="images/log/16x16-note.png" class="icon16" alt="{{log_note}}">
             <?=$view->geoCache->getNotesCount()?>x
 
         </p>

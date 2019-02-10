@@ -42,7 +42,7 @@ $logController = new LogEntryController();
             <img src="<?=$cache->getTerrainIcon()?>" alt="<?=tr('terrain_difficulty')?>: <?=$cache->getTerrain() / 2?>" title="<?=tr('terrain_difficulty')?>: <?=$cache->getTerrain() / 2?>">
             <?=tr($cache->getSizeTranslationKey())?></span> |
             <span class="nbh-nowrap"><?=round(Gis::distanceBetween($view->coords, $cache->getCoordinates()))?> km
-            <img src="/tpl/stdstyle/images/misc/arrow-north.svg" class="nbh-arrow-north" alt="<?=tr('direction')?>" style="transform: rotate(<?=round(Gis::calcBearingBetween($view->coords, $cache->getCoordinates()))?>deg)"></span>
+            <img src="/images/misc/arrow-north.svg" class="nbh-arrow-north" alt="<?=tr('direction')?>" style="transform: rotate(<?=round(Gis::calcBearingBetween($view->coords, $cache->getCoordinates()))?>deg)"></span>
             <?php if ($cache->getRecommendations() > 0) { ?>
               | <img src="/images/rating-star.png" alt="<?=tr('number_obtain_recommendations')?>">
               (<?=$cache->getRecommendations()?>)

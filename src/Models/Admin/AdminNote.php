@@ -141,10 +141,10 @@ class AdminNote extends BaseObject
     {
         switch ($this->isAutomatic()) {
             case true:
-                $result = '/tpl/stdstyle/images/misc/gears.svg';
+                $result = '/images/misc/gears.svg';
                 break;
             case false:
-                $result = '/tpl/stdstyle/images/log/octeam.svg';
+                $result = '/images/log/octeam.svg';
                 break;
         }
         return $result;

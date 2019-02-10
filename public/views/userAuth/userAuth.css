@@ -57,11 +57,11 @@ meter[value="10"]::-moz-meter-bar { background: green; }
 }
 
 .newpw-eyeopen {
-	background: url(/tpl/stdstyle/images/misc/eye.svg) no-repeat top left;
+	background: url(/images/misc/eye.svg) no-repeat top left;
 }
 
 .newpw-eyeclosed {
-	background: url(/tpl/stdstyle/images/misc/eye-off.svg) no-repeat top left;
+	background: url(/images/misc/eye-off.svg) no-repeat top left;
 }
 
 .newpw-nodisplay {

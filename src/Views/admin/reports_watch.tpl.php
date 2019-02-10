@@ -7,7 +7,7 @@ use src\Models\Admin\ReportCommons;
     <div class="content-title-noshade-size0" style="float: right;">
       <button type="button" class="btn btn-primary" onclick="location.href='/admin_reports.php';">{{admin_reports_title_reportslist}}</button>
     </div>
-    <img src="tpl/stdstyle/images/blue/rproblems.png" class="icon32" alt=""> {{reports}}: {{admin_reports_watch_on}}
+    <img src="/images/blue/rproblems.png" class="icon32" alt=""> {{reports}}: {{admin_reports_watch_on}}
   </div>
   <table class="table table-striped full-width">
     <tr>
@@ -23,16 +23,16 @@ use src\Models\Admin\ReportCommons;
         <a href="/admin_reports.php?action=showreport&amp;id=<?=$report->getId()?>" class="links">
         <?php switch ($report->getPollStatus()) {
             case ReportCommons::POLLS_ACTIVE :  ?>
-                <img src="/tpl/stdstyle/images/misc/poll-vote.svg" class="report-vote-img" alt="{{admin_reports_poll_active}}" title="{{admin_reports_poll_active}}"><br>
+                <img src="/images/misc/poll-vote.svg" class="report-vote-img" alt="{{admin_reports_poll_active}}" title="{{admin_reports_poll_active}}"><br>
                 <?php
                 break;
             case ReportCommons::POLLS_ACTIVE_VOTED : ?>
-                <img src="/tpl/stdstyle/images/misc/poll-voted.svg" class="report-vote-img" alt="{{admin_reports_poll_voted}}" title="{{admin_reports_poll_voted}}"><br>
+                <img src="/images/misc/poll-voted.svg" class="report-vote-img" alt="{{admin_reports_poll_voted}}" title="{{admin_reports_poll_voted}}"><br>
                 <?php
                 break; }?>
         <?=$report->getId()?></a><br>
-        <img src="/tpl/stdstyle/images/misc/eye.svg" class="report-watch-img" alt="{{admin_reports_watch_on}}" title="{{admin_reports_watch_on}} | {{admin_reports_watch_info}}" onclick="watchOff(<?=$report->getId()?>)" id="img-on-<?=$report->getId()?>" <?php if (!$report->isReportWatched($view->user->getUserId())) {?>style="display: none;"<?php }?>>
-        <img src="/tpl/stdstyle/images/misc/eye-off.svg" class="report-watch-img" alt="{{admin_reports_watch_off}}" title="{{admin_reports_watch_off}} | {{admin_reports_watch_info}}" onclick="watchOn(<?=$report->getId()?>)" id="img-off-<?=$report->getId()?>" <?php if ($report->isReportWatched($view->user->getUserId())) {?>style="display: none;"<?php }?>>
+        <img src="/images/misc/eye.svg" class="report-watch-img" alt="{{admin_reports_watch_on}}" title="{{admin_reports_watch_on}} | {{admin_reports_watch_info}}" onclick="watchOff(<?=$report->getId()?>)" id="img-on-<?=$report->getId()?>" <?php if (!$report->isReportWatched($view->user->getUserId())) {?>style="display: none;"<?php }?>>
+        <img src="/images/misc/eye-off.svg" class="report-watch-img" alt="{{admin_reports_watch_off}}" title="{{admin_reports_watch_off}} | {{admin_reports_watch_info}}" onclick="watchOn(<?=$report->getId()?>)" id="img-off-<?=$report->getId()?>" <?php if ($report->isReportWatched($view->user->getUserId())) {?>style="display: none;"<?php }?>>
       </td>
       <td>
         <a href="<?=$report->getCache()->getCacheUrl()?>" class="links" target="_blank"><img src="<?=$report->getCache()->getCacheIcon($view->user)?>" height=20 title="<?=tr($report->getCache()->getStatusTranslationKey())?>" alt="<?=tr($report->getCache()->getStatusTranslationKey())?>"> <?=$report->getCache()->getCacheName()?> (<?=$report->getCache()->getWaypointId()?>)</a><br>
@@ -55,5 +55,5 @@ use src\Models\Admin\ReportCommons;
   </table>
   <?php $view->callChunk('pagination', $view->paginationModel); ?>
 </div>
-<link rel="prefetch" href="/tpl/stdstyle/images/loader/spinning-circles.svg">
+<link rel="prefetch" href="/images/loader/spinning-circles.svg">
 <link rel="prefetch" href="https://www.gstatic.com/charts/loader.js">

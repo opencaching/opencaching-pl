@@ -30,11 +30,11 @@ function displayAllCachesOfPowerTrail(PowerTrail $powerTrail, $choseFinalCaches)
     }
 
     $statusIcons = array(
-        1 => '/tpl/stdstyle/images/log/16x16-published.png',
-        2 => '/tpl/stdstyle/images/log/16x16-temporary.png',
-        3 => '/tpl/stdstyle/images/log/16x16-trash.png',
-        5 => '/tpl/stdstyle/images/log/16x16-need-maintenance.png',
-        6 => '/tpl/stdstyle/images/log/16x16-stop.png'
+        1 => '/images/log/16x16-published.png',
+        2 => '/images/log/16x16-temporary.png',
+        3 => '/images/log/16x16-trash.png',
+        5 => '/images/log/16x16-need-maintenance.png',
+        6 => '/images/log/16x16-stop.png'
     );
 
     $statusDesc = array(
@@ -54,7 +54,7 @@ function displayAllCachesOfPowerTrail(PowerTrail $powerTrail, $choseFinalCaches)
     }
     $cacheRows .=
             '   <th>' . tr('pt077') . '</th>
-        <th><img src="tpl/stdstyle/images/log/16x16-found.png" /></th>
+        <th><img src="images/log/16x16-found.png" /></th>
         <th>' . tr('pt078') . '</th>
         <th><img src="images/rating-star.png" /></th>
     </tr>';

@@ -18,7 +18,7 @@
     }
 </script>
 
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/picture.png" class="icon32" alt="" />&nbsp;<b>{pictypedesc} &nbsp;<a href="/viewcache.php?cacheid={cacheid}">{cachename}</a></b></div>
+<div class="content2-pagetitle"><img src="/images/blue/picture.png" class="icon32" alt="" />&nbsp;<b>{pictypedesc} &nbsp;<a href="/viewcache.php?cacheid={cacheid}">{cachename}</a></b></div>
 
 <form action="newpic.php" method="post" enctype="multipart/form-data" name="newpic_form" dir="ltr" onsubmit="return checkForm();">
     <input type="hidden" name="objectid" value="{objectid}" />
@@ -62,7 +62,7 @@
         <tr><td class="spacer" colspan="2"></td></tr>
         <tr>
             <td class="help" colspan="2">
-                <img src="tpl/stdstyle/images/misc/hint.gif" border="0" width="15" height="11" alt="Uwaga" title="Uwaga" />
+                <img src="images/misc/hint.gif" border="0" width="15" height="11" alt="Uwaga" title="Uwaga" />
                 {{pictures_intro}}
             </td>
         </tr>

@@ -4,7 +4,7 @@ use src\Models\Admin\ReportCommons;
 <script src="<?=$view->report_js?>"></script>
 <div class="content2-container">
   <div class="content2-pagetitle">
-    <img src="tpl/stdstyle/images/blue/rproblems.png" class="icon32" alt=""> {{reports_user_title}}
+    <img src="/images/blue/rproblems.png" class="icon32" alt=""> {{reports_user_title}}
   </div>
   <form action="?action=save" method="post" class="reports-form">
     <input type="hidden" name="cacheid" value="<?=$view->cacheid?>">

@@ -1,6 +1,6 @@
 
 <script src="lib/js/wz_tooltip.js"></script>
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="" />&nbsp;{{mycache_note}} </div>
+<div class="content2-pagetitle"><img src="/images/blue/logs.png" class="icon32" alt="" />&nbsp;{{mycache_note}} </div>
 
 
 

@@ -2,7 +2,7 @@
 function removeRecommendation(icon, cacheId) {
   var jQueryIcon = $(icon);
 
-  jQueryIcon.attr("src", "tpl/stdstyle/images/loader/spinning-circles.svg");
+  jQueryIcon.attr("src", "images/loader/spinning-circles.svg");
   jQueryIcon.attr("title", tr.myRecommendations_actionRemove);
 
   $.ajax({

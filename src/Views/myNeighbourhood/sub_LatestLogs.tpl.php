@@ -39,7 +39,7 @@ use src\Models\Neighbourhood\Neighbourhood;
         <?php } // end of if isRecommendedByUser ?>
         <span class="nbh-nowrap"><?=Formatter::date($log->getDate())?></span>
         | <span class="nbh-nowrap"><?=round(Gis::distanceBetween($view->neighbourhoodsList[$view->selectedNbh]->getCoords(), $log->getGeoCache()->getCoordinates()))?> km
-        <img src="/tpl/stdstyle/images/misc/arrow-north.svg" class="nbh-arrow-north" alt="<?=tr('direction')?>" style="transform: rotate(<?=round(Gis::calcBearingBetween($view->neighbourhoodsList[$view->selectedNbh]->getCoords(), $log->getGeoCache()->getCoordinates()))?>deg)"></span>
+        <img src="/images/misc/arrow-north.svg" class="nbh-arrow-north" alt="<?=tr('direction')?>" style="transform: rotate(<?=round(Gis::calcBearingBetween($view->neighbourhoodsList[$view->selectedNbh]->getCoords(), $log->getGeoCache()->getCoordinates()))?>deg)"></span>
         | <strong><?=$log->getUser()->getUserName()?></strong>
       </a>
       </div>

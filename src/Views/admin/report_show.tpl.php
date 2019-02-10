@@ -31,14 +31,14 @@ use src\Utils\Text\Formatter;
   <div class="content2-pagetitle">
     <div style="float: right;">
       <button type="button" class="btn btn-default" onclick="watchOff(<?=$view->report->getId()?>)" id="report-btn-on" <?php if (!$view->report->isReportWatched($view->user->getUserId())) {?>style="display: none;"<?php }?>>
-        <img src="/tpl/stdstyle/images/misc/eye.svg" class="report-watch-img" alt="{{admin_reports_watch_on}}" id="report-img-on"> {{admin_reports_watch_on}}
+        <img src="/images/misc/eye.svg" class="report-watch-img" alt="{{admin_reports_watch_on}}" id="report-img-on"> {{admin_reports_watch_on}}
       </button>
       <button type="button" class="btn btn-default" onclick="watchOn(<?=$view->report->getId()?>)" id="report-btn-off" <?php if ($view->report->isReportWatched($view->user->getUserId())) {?>style="display: none;"<?php }?>>
-        <img src="/tpl/stdstyle/images/misc/eye-off.svg" class="report-watch-img" alt="{{admin_reports_watch_off}}" id="report-img-off"> {{admin_reports_watch_off}}
+        <img src="/images/misc/eye-off.svg" class="report-watch-img" alt="{{admin_reports_watch_off}}" id="report-img-off"> {{admin_reports_watch_off}}
       </button>
       <button type="button" class="btn btn-primary" onclick="window.location.href='/admin_reports.php'">{{admin_reports_title_reportslist}}</button>
     </div>
-    <img src="tpl/stdstyle/images/blue/rproblems.png" class="icon32" alt=""> {{admin_reports_title_reportshow}}
+    <img src="/images/blue/rproblems.png" class="icon32" alt=""> {{admin_reports_title_reportshow}}
   </div>
   <?=$view->callChunk('infoBar', $view->cleanUri, $view->infoMsg, $view->errorMsg)?>
   <table class="table full-width">
@@ -100,14 +100,14 @@ use src\Utils\Text\Formatter;
         <a href="<?=$view->report->getCache()->getCacheUrl()?>" class="links" target="_blank"><?=$view->report->getCache()->getCacheName()?> (<?=$view->report->getCache()->getWaypointId()?>)</a><br>
         <?=$view->report->getCache()->getCacheLocationObj()->getLocationDesc(' &gt; ')?><br>
         <?php if ($view->report->getCache()->getCacheType() == GeoCache::TYPE_EVENT) { ?>
-            <img src="/tpl/stdstyle/images/log/16x16-attend.png" class="icon16" alt="{{attendends}}"> x<?=$view->report->getCache()->getFounds()?>
-            <img src="/tpl/stdstyle/images/log/16x16-will_attend.png" class="icon16" alt="{{will_attend}}"> x<?=$view->report->getCache()->getNotFounds()?>
-            <img src="/tpl/stdstyle/images/log/16x16-note.png" class="icon16" alt="{{note}}"> x<?=$view->report->getCache()->getNotesCount()?>
+            <img src="/images/log/16x16-attend.png" class="icon16" alt="{{attendends}}"> x<?=$view->report->getCache()->getFounds()?>
+            <img src="/images/log/16x16-will_attend.png" class="icon16" alt="{{will_attend}}"> x<?=$view->report->getCache()->getNotFounds()?>
+            <img src="/images/log/16x16-note.png" class="icon16" alt="{{note}}"> x<?=$view->report->getCache()->getNotesCount()?>
             <br>
         <?php  } else { ?>
-            <img src="/tpl/stdstyle/images/log/16x16-found.png" class="icon16" alt="{{found}}"> x<?=$view->report->getCache()->getFounds()?>
-            <img src="/tpl/stdstyle/images/log/16x16-dnf.png" class="icon16" alt="{{not_found}}"> x<?=$view->report->getCache()->getNotFounds()?>
-            <img src="/tpl/stdstyle/images/log/16x16-note.png" class="icon16" alt="{{note}}"> x<?=$view->report->getCache()->getNotesCount()?>
+            <img src="/images/log/16x16-found.png" class="icon16" alt="{{found}}"> x<?=$view->report->getCache()->getFounds()?>
+            <img src="/images/log/16x16-dnf.png" class="icon16" alt="{{not_found}}"> x<?=$view->report->getCache()->getNotFounds()?>
+            <img src="/images/log/16x16-note.png" class="icon16" alt="{{note}}"> x<?=$view->report->getCache()->getNotesCount()?>
             <img src="/images/rating-star.png" class="icon16" alt="{{recommendations}}"> x<?=$view->report->getCache()->getRecommendations()?>
         <?php }?>
       </td>
@@ -207,7 +207,7 @@ use src\Utils\Text\Formatter;
           <button type="button" class="btn btn-sm btn-default" id="reports-btn-email" onclick="enableEmail()">{{admin_reports_lbl_email}}</button>
           <button type="button" class="btn btn-sm btn-default" id="reports-btn-poll" onclick="enablePoll()">{{admin_reports_lbl_poll}}</button>
         </span>
-        <img src="/tpl/stdstyle/images/loader/spinning-circles.svg" class="report-watch-img" alt="" id="email-spinning-img" style="display: none;">
+        <img src="/images/loader/spinning-circles.svg" class="report-watch-img" alt="" id="email-spinning-img" style="display: none;">
         </p>
       </td>
     </tr>
@@ -324,4 +324,4 @@ use src\Utils\Text\Formatter;
     <?php }?>
   </table>
 </div>
-<link rel="prefetch" href="/tpl/stdstyle/images/loader/spinning-circles.svg">
+<link rel="prefetch" href="/images/loader/spinning-circles.svg">

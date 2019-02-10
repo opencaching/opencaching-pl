@@ -51,9 +51,9 @@ class MyRecommendationsController extends BaseController
 
         //load lightPopup
         $this->view->addLocalCss(
-            Uri::getLinkWithModificationTime('/tpl/stdstyle/js/lightPopup/lightPopup.css'));
+            Uri::getLinkWithModificationTime('/js/lightPopup/lightPopup.css'));
         $this->view->addLocalJs(
-            Uri::getLinkWithModificationTime('/tpl/stdstyle/js/lightPopup/lightPopup.js'));
+            Uri::getLinkWithModificationTime('/js/lightPopup/lightPopup.js'));
 
         if ($userId == null || $userId == $this->loggedUser->getUserId()) {
             $this->myRecommendations();
@@ -114,7 +114,7 @@ class MyRecommendationsController extends BaseController
                 $model->addColumn(new Column_OnClickActionIcon(tr('myRecommendations_actionRemove'),
                     function ($row) {
                         return [
-                            'icon' => '/tpl/stdstyle/images/log/16x16-trash.png',
+                            'icon' => '/images/log/16x16-trash.png',
                             'onClick' => "removeRecommendation(this, {$row['cache_id']})",
                             'title' => tr('myRecommendations_removeRecommendation')
                         ];

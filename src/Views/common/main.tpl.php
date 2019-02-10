@@ -104,10 +104,10 @@ global $tpl_subtitle;
               <input type="hidden" name="searchto" value="searchbywaypointname" id="search_by">
               <input id="search_input" type="text" name="waypointname" placeholder="<?=tr('search')?>: <?=tr('waypointname_label')?>" class="form-control input200 btn-right-straight">
                 <button class="btn btn-sm btn-default btn-left-straight btn-right-straight topline-btn-wide" type="submit">
-                  <img class="icon16" src="/tpl/stdstyle/images/misc/magnifying-glass.svg" alt="<?=tr('search')?>" title="<?=tr('search')?>">
+                  <img class="icon16" src="/images/misc/magnifying-glass.svg" alt="<?=tr('search')?>" title="<?=tr('search')?>">
                 </button>
               <button class="btn btn-sm btn-default btn-left-straight" type="button" onclick="topmenuTogle()">
-                <img class="topline-dropdown-icon" src="/tpl/stdstyle/images/misc/dropdown.svg" alt="<?=tr('search')?>" title="<?=tr('search')?>">
+                <img class="topline-dropdown-icon" src="/images/misc/dropdown.svg" alt="<?=tr('search')?>" title="<?=tr('search')?>">
               </button>
               <div id="topline-search-dropdown" class="topline-dropdown-content">
                 <div class="" onclick="chname('waypointname', '<?=tr('search')?>: <?=tr('waypointname_label')?>' , 'searchbywaypointname', '/search.php');"><?=tr('waypointname_label')?></div>
@@ -130,21 +130,21 @@ global $tpl_subtitle;
 
             <div class="btn-group btn-group-sm">
               <a href="/viewprofile.php" class="btn btn-default btn-sm topline-btn-wide">
-                <img src="/tpl/stdstyle/images/misc/user.svg" class="icon16" alt="<?=tr('user_profile')?>" title="<?=tr('user_profile')?>">
+                <img src="/images/misc/user.svg" class="icon16" alt="<?=tr('user_profile')?>" title="<?=tr('user_profile')?>">
                 <?=$view->_username?>
               </a>
               <a href="<?=SRouter::getLink('UserAuthorization', 'logout')?>" class="btn btn-default btn-sm topline-btn-wide">
-                <img src="/tpl/stdstyle/images/misc/exit.svg" class="icon16" alt="<?=tr('logout')?>" title="<?=tr('logout')?>"> <?=tr('logout')?>
+                <img src="/images/misc/exit.svg" class="icon16" alt="<?=tr('logout')?>" title="<?=tr('logout')?>"> <?=tr('logout')?>
               </a>
             </div>
           <?php } else { //user-not-logged ?>
             <form action="<?=SRouter::getLink('UserAuthorization', 'login')?>" method="post" name="login" class="form-group-sm">
               <label for="top-form-email" class="btn btn-sm btn-default btn-right-straight">
-                <img src="/tpl/stdstyle/images/misc/user.svg" class="icon16" alt="<?=tr('loginForm_userOrEmail')?>" title="<?=tr('loginForm_userOrEmail')?>">
+                <img src="/images/misc/user.svg" class="icon16" alt="<?=tr('loginForm_userOrEmail')?>" title="<?=tr('loginForm_userOrEmail')?>">
               </label>
               <input name="email" id="top-form-email" type="text" class="form-control input120 btn-left-straight" value="" autocomplete="username" placeholder="<?=tr('loginForm_userOrEmail')?>" required>
               <label for="top-form-password" class="btn btn-sm btn-default btn-right-straight">
-                <img src="/tpl/stdstyle/images/misc/key.svg" class="icon16" alt="<?=tr('loginForm_password')?>" title="<?=tr('loginForm_password')?>">
+                <img src="/images/misc/key.svg" class="icon16" alt="<?=tr('loginForm_password')?>" title="<?=tr('loginForm_password')?>">
               </label>
               <input name="password" id="top-form-password" type="password" class="form-control input120 btn-left-straight" value="" autocomplete="current-password" placeholder="<?=tr('loginForm_password')?>" required>
               <input type="hidden" name="target" value="<?=$view->_target?>">

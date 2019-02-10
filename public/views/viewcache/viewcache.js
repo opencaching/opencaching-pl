@@ -46,7 +46,7 @@ function revertLog(event, logId) {
 			$("#log-content-" + logId).removeClass('show_deleted');
 	})
 	.fail(function(response, textStatus, jqXHR) {
-		$("#revertLogHrefSection-" + logId).html('<img src="/tpl/stdstyle/images/free_icons/cancel.png" class="icon16" alt="Cancel icon">');
+		$("#revertLogHrefSection-" + logId).html('<img src="/images/free_icons/cancel.png" class="icon16" alt="Cancel icon">');
 		$("#revertLogHrefSection-" + logId).show();
 	});
 	$("#revertLogLoader-" + logId).hide();
@@ -259,7 +259,7 @@ $(document).ready(function() {
         $("#cacheCoordinates").after(
             ''
             + '<img id="copy-coords"'
-            + ' src="tpl/stdstyle/images/misc/copy-coords.svg"'
+            + ' src="images/misc/copy-coords.svg"'
             + ' onclick="copyCoords(event)"'
             + ' class="coords-image"'
             + ' alt="' + tr['copy_coords_prompt'] + '"'

@@ -51,15 +51,15 @@ use src\Models\User\UserNotify;
 
   <div class="buffer"></div>
   <div class="content-title-noshade-size1"><?=tr('notify_settings_caches')?></div>
-  <img src="/tpl/stdstyle/images/misc/on.svg" alt="<?=tr('yes')?>" title="<?=tr('yes')?>" class="notify-switch-img<?php if (! $view->notifyCaches) {?> no-display <?php }?>" id="notifyCachesOn" onclick="notifyCachesChange(0)">
-  <img src="/tpl/stdstyle/images/misc/off.svg" alt="<?=tr('no')?>" title="<?=tr('no')?>" class="notify-switch-img<?php if ($view->notifyCaches) {?> no-display <?php }?>" id="notifyCachesOff" onclick="notifyCachesChange(1)">
+  <img src="/images/misc/on.svg" alt="<?=tr('yes')?>" title="<?=tr('yes')?>" class="notify-switch-img<?php if (! $view->notifyCaches) {?> no-display <?php }?>" id="notifyCachesOn" onclick="notifyCachesChange(0)">
+  <img src="/images/misc/off.svg" alt="<?=tr('no')?>" title="<?=tr('no')?>" class="notify-switch-img<?php if ($view->notifyCaches) {?> no-display <?php }?>" id="notifyCachesOff" onclick="notifyCachesChange(1)">
   <?=tr('notify_settings_cachesonoff')?>
   <div class="notify-add-nbh<?php if (! $view->notifyCaches) {?> no-display <?php }?>" id="notify-add-nbh">
     <?php if (! empty($view->neighbourhoods)) {?>
       <?=tr('notify_settings_addnbh')?>:<br>
       <?php foreach ($view->neighbourhoods as $nbh) { ?>
-        <img src="/tpl/stdstyle/images/misc/on.svg" alt="<?=tr('yes')?>" title="<?=tr('yes')?>" class="notify-switch-img<?php if (! $nbh->getNotify()) {?> no-display <?php }?>" id="notifyNbhOn-<?=$nbh->getSeq()?>" onclick="notifyNbhChange(<?=$nbh->getSeq()?>, 0)">
-        <img src="/tpl/stdstyle/images/misc/off.svg" alt="<?=tr('no')?>" title="<?=tr('no')?>" class="notify-switch-img<?php if ($nbh->getNotify()) {?> no-display <?php }?>" id="notifyNbhOff-<?=$nbh->getSeq()?>" onclick="notifyNbhChange(<?=$nbh->getSeq()?>, 1)">
+        <img src="/images/misc/on.svg" alt="<?=tr('yes')?>" title="<?=tr('yes')?>" class="notify-switch-img<?php if (! $nbh->getNotify()) {?> no-display <?php }?>" id="notifyNbhOn-<?=$nbh->getSeq()?>" onclick="notifyNbhChange(<?=$nbh->getSeq()?>, 0)">
+        <img src="/images/misc/off.svg" alt="<?=tr('no')?>" title="<?=tr('no')?>" class="notify-switch-img<?php if ($nbh->getNotify()) {?> no-display <?php }?>" id="notifyNbhOff-<?=$nbh->getSeq()?>" onclick="notifyNbhChange(<?=$nbh->getSeq()?>, 1)">
         <?=$nbh->getName()?><br>
       <?php } // end foreach ?>
     <?php } // end if ?>
@@ -67,8 +67,8 @@ use src\Models\User\UserNotify;
 
   <div class="buffer"></div>
   <div class="content-title-noshade-size1"><?=tr('notify_settings_logs')?></div>
-  <img src="/tpl/stdstyle/images/misc/on.svg" alt="<?=tr('yes')?>" title="<?=tr('yes')?>" class="notify-switch-img<?php if (! $view->notifyLogs) {?> no-display <?php }?>" id="notifyLogsOn" onclick="notifyLogsChange(0)">
-  <img src="/tpl/stdstyle/images/misc/off.svg" alt="<?=tr('no')?>" title="<?=tr('no')?>" class="notify-switch-img<?php if ($view->notifyLogs) {?> no-display <?php }?>" id="notifyLogsOff" onclick="notifyLogsChange(1)">
+  <img src="/images/misc/on.svg" alt="<?=tr('yes')?>" title="<?=tr('yes')?>" class="notify-switch-img<?php if (! $view->notifyLogs) {?> no-display <?php }?>" id="notifyLogsOn" onclick="notifyLogsChange(0)">
+  <img src="/images/misc/off.svg" alt="<?=tr('no')?>" title="<?=tr('no')?>" class="notify-switch-img<?php if ($view->notifyLogs) {?> no-display <?php }?>" id="notifyLogsOff" onclick="notifyLogsChange(1)">
   <?=tr('notify_settings_logsonoff')?>
 
   <div class="callout callout-warning<?php if ($view->notifyLogs) {?> no-display <?php }?>" id="notifyLogsWarning"><?=tr('notify_settings_watchinfo')?></div>

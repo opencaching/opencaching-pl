@@ -54,7 +54,7 @@ if ($usr == false) {
     $cache_line = '<li style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.6em; font-size: 12px;">{cacheimage}&nbsp;{cachestatus} &nbsp; {date} &nbsp; <a class="links" href="viewcache.php?cacheid={cacheid}">{cachename}</a>&nbsp;&nbsp;<strong>[{wpname}]</strong></li>';
     $cache_notpublished_line = '<li style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.6em; font-size: 115%;">{cacheimage}&nbsp;{cachestatus} &nbsp; <a class="links" href="editcache.php?cacheid={cacheid}">{date}</a> &nbsp; <a class="links" href="viewcache.php?cacheid={cacheid}">{cachename}</a>&nbsp;&nbsp;<strong>[{wpname}]</strong></li>';
     $log_line = '<li style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.6em; font-size: 12px;">{gkimage}&nbsp;{rateimage}&nbsp; {logimage} &nbsp; <a class="links" href="viewcache.php?cacheid={cacheid}"><img src="tpl/stdstyle/images/{cacheimage}" border="0" alt=""></a>&nbsp; {date} &nbsp; <a class="links" href="viewlogs.php?logid={logid}" onmouseover="Tip(\'{logtext}\', PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()">{cachename}</a>&nbsp;&nbsp;<strong>[{wpname}]</strong></li>';
-    $cache_line_my_caches = '<li style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.6em; font-size: 12px;">{gkimage}&nbsp; {rateimage} &nbsp;{logimage} &nbsp; <a class="links" href="viewcache.php?cacheid={cacheid}"><img src="tpl/stdstyle/images/{cacheimage}" border="0" alt=""></a>&nbsp; {date} &nbsp; <a class="links" href="viewlogs.php?logid={logid}" onmouseover="Tip(\'{logtext}\', PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()">{cachename}</a>&nbsp;&nbsp;<strong>[{wpname}]</strong>&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="">&nbsp; <a class="links" href="viewprofile.php?userid={userid}">{username}</a></li>';
+    $cache_line_my_caches = '<li style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.6em; font-size: 12px;">{gkimage}&nbsp; {rateimage} &nbsp;{logimage} &nbsp; <a class="links" href="viewcache.php?cacheid={cacheid}"><img src="tpl/stdstyle/images/{cacheimage}" border="0" alt=""></a>&nbsp; {date} &nbsp; <a class="links" href="viewlogs.php?logid={logid}" onmouseover="Tip(\'{logtext}\', PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()">{cachename}</a>&nbsp;&nbsp;<strong>[{wpname}]</strong>&nbsp;<img src="/images/blue/arrow.png" alt="">&nbsp; <a class="links" href="viewprofile.php?userid={userid}">{username}</a></li>';
 
     // check for old-style parameters
     if (isset($_REQUEST['userid'])) {
@@ -132,7 +132,7 @@ if ($usr == false) {
         $guides = OcConfig::instance()->getGuidesConfig();
 
         if ($nrecom >= $guides['guideGotRecommendations'] && !$user->isGuide() && $user_id == $usr['userid']) {
-            $guide_info = '<div class="content-title-noshade box-blue"><table><tr><td><img style="margin-right: 10px;margin-left:10px;" src="tpl/stdstyle/images/blue/info-b.png" alt="guide"></td><td>
+            $guide_info = '<div class="content-title-noshade box-blue"><table><tr><td><img style="margin-right: 10px;margin-left:10px;" src="/images/blue/info-b.png" alt="guide"></td><td>
                 <span style="font-size:12px;"> ' . tr('guru_17') . '
                 <a class="links" href="myprofile.php?action=change"> ' . tr('guru_18') . '</a>.
                 ' . tr('guru_19') . ' <a class="links" href="/guide">' . tr('guru_20') . '</a>.</span>
@@ -160,8 +160,8 @@ if ($usr == false) {
 
     //Admin Note (table only)
     if ($usr['admin']) {
-        $content .= '<div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="/tpl/stdstyle/images/blue/logs.png" class="icon32" alt="Cog Note" title="Cog Note"> ' . tr('admin_notes') . '</p></div>';
-        $content .= '<div class="notice">'.tr('admin_notes_visible').'</div><p><a href="' . SimpleRouter::getLink('Admin.UserAdmin', 'index', $user_id) . '" class="links">'.tr('admin_user_management').' <img src="/tpl/stdstyle/images/misc/linkicon.png" alt="user admin"></a></p>';
+        $content .= '<div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="/images/blue/logs.png" class="icon32" alt="Cog Note" title="Cog Note"> ' . tr('admin_notes') . '</p></div>';
+        $content .= '<div class="notice">'.tr('admin_notes_visible').'</div><p><a href="' . SimpleRouter::getLink('Admin.UserAdmin', 'index', $user_id) . '" class="links">'.tr('admin_user_management').' <img src="/images/misc/linkicon.png" alt="user admin"></a></p>';
         $adminNotes = AdminNoteSet::getNotesForUser($user, ADMINNOTES_PER_PAGE);
 
 
@@ -204,7 +204,7 @@ if ($usr == false) {
         $act = $user->getFoundGeocachesCount() + $user->getNotFoundGeocachesCount() + $user->getHiddenGeocachesCount();
     }
 
-    $content .= '<br><p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="tpl/stdstyle/images/blue/event.png" class="icon32" alt="Caches Find" title="Caches Find">&nbsp;&nbsp;&nbsp;' . tr('user_activity01') . '</p></div><br><p><span class="content-title-noshade txt-blue08">' . tr('user_activity02') . '</span>:&nbsp;<strong>' . $act . '</strong></p>';
+    $content .= '<br><p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="/images/blue/event.png" class="icon32" alt="Caches Find" title="Caches Find">&nbsp;&nbsp;&nbsp;' . tr('user_activity01') . '</p></div><br><p><span class="content-title-noshade txt-blue08">' . tr('user_activity02') . '</span>:&nbsp;<strong>' . $act . '</strong></p>';
 
     //////////////////////////////////////////////////////////////////////////////
 
@@ -237,7 +237,7 @@ if ($usr == false) {
     }
 
     // -----------  begin Find section -------------------------------------
-    $content .= '<p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="tpl/stdstyle/images/blue/cache-open.png" class="icon32" alt="Caches Find" title="Caches Find">&nbsp;&nbsp;&nbsp;' . tr('stat_number_found') . '</p></div><br>';
+    $content .= '<p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="/images/blue/cache-open.png" class="icon32" alt="Caches Find" title="Caches Find">&nbsp;&nbsp;&nbsp;' . tr('stat_number_found') . '</p></div><br>';
 
     $seek = XDb::xMultiVariableQueryValue(
         "SELECT COUNT(*) FROM cache_logs
@@ -304,7 +304,7 @@ if ($usr == false) {
         if ($found == 0) {
             $content .= '</p>';
         } else {
-            $content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt=""> [<a class="links" href="my_logs.php?userid=' . $user_id . '&logtypes=1">' . tr('show') . '</a>]</p>';
+            $content .= '&nbsp;&nbsp;&nbsp;<img src="/images/blue/arrow.png" alt=""> [<a class="links" href="my_logs.php?userid=' . $user_id . '&logtypes=1">' . tr('show') . '</a>]</p>';
         }
 
         $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('total_dnf_caches') . ':</span> <strong>' . $userNotFounds . '</strong>';
@@ -312,25 +312,25 @@ if ($usr == false) {
         if ($userNotFounds == 0) {
             $content .= '</p>';
         } else {
-            $content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt=""> [<a class="links" href="my_logs.php?userid=' . $user_id . '&logtypes=2">' . tr('show') . '</a>]</p>';
+            $content .= '&nbsp;&nbsp;&nbsp;<img src="/images/blue/arrow.png" alt=""> [<a class="links" href="my_logs.php?userid=' . $user_id . '&logtypes=2">' . tr('show') . '</a>]</p>';
         }
         $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('total_comments') . ':</span> <strong>' . $user->getLogNotesCount() . '</strong>';
         if ($user->getLogNotesCount() == 0) {
             $content .= '</p>';
         } else {
-            $content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt=""> [<a class="links" href="my_logs.php?userid=' . $user_id . '&logtypes=3">' . tr('show') . '</a>]</p>';
+            $content .= '&nbsp;&nbsp;&nbsp;<img src="/images/blue/arrow.png" alt=""> [<a class="links" href="my_logs.php?userid=' . $user_id . '&logtypes=3">' . tr('show') . '</a>]</p>';
         }
         $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('total_moved') . ':</span> <strong>' . $moved . '</strong>';
         if ($moved == 0) {
             $content .= '</p>';
         } else {
-            $content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt=""> [<a class="links" href="my_logs.php?userid=' . $user_id . '&logtypes=4">' . tr('show') . '</a>]</p>';
+            $content .= '&nbsp;&nbsp;&nbsp;<img src="/images/blue/arrow.png" alt=""> [<a class="links" href="my_logs.php?userid=' . $user_id . '&logtypes=4">' . tr('show') . '</a>]</p>';
         }
         $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('total_attended_events') . ':</span> <strong>' . $events_count . '</strong>';
         if ($events_count == 0) {
             $content .= '</p>';
         } else {
-            $content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt=""> [<a class="links" href="my_logs.php?userid=' . $user_id . '&logtypes=7">' . tr('show') . '</a>]</p>';
+            $content .= '&nbsp;&nbsp;&nbsp;<img src="/images/blue/arrow.png" alt=""> [<a class="links" href="my_logs.php?userid=' . $user_id . '&logtypes=7">' . tr('show') . '</a>]</p>';
         }
 
         $recomendf = XDb::xMultiVariableQueryValue(
@@ -346,7 +346,7 @@ if ($usr == false) {
             } else {
                 $link_togo = SimpleRouter::getLink(MyRecommendationsController::class, 'recommendations', $user_id);
             }
-            $content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt=""> [<a class="links" href="' . $link_togo . '">' . tr('show') . '</a>]</p>';
+            $content .= '&nbsp;&nbsp;&nbsp;<img src="/images/blue/arrow.png" alt=""> [<a class="links" href="' . $link_togo . '">' . tr('show') . '</a>]</p>';
         }
 
         $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('days_caching') . ':</span> <strong>' . $num_rows . '</strong>&nbsp;' . tr('from_total_days') . ': <strong>' . $ddays['diff'] . '</strong></p>';
@@ -403,7 +403,7 @@ if ($usr == false) {
         //ftf Ajax
         $content .= '<hr><center>
         <a href="javascript:void(0);" onclick="ajaxGetFTF();" id="showFtfBtn">' . tr('viewprofileFTF') . '</a>
-        <center><img style="display:none" id="commentsLoader" src="tpl/stdstyle/images/misc/ptPreloader.gif"></center>
+        <center><img style="display:none" id="commentsLoader" src="images/misc/ptPreloader.gif"></center>
         <div id="ftfDiv" style="display:none"></div></center><input type="hidden" id="userId" value="' . $user_id . '">';
 
         //------------ begin owner section
@@ -435,8 +435,8 @@ if ($usr == false) {
 
         if (XDb::xNumRows($rs_logs) != 0) {
 
-            $content .= '<p>&nbsp;</p><p><span class="content-title-noshade txt-blue08">' . tr('latest_logs_by_user') . ':</span>&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt=""> [<a class="links" href="my_logs.php?userid=' . $user_id . '">' . tr('show_all') . '</a>] ';
-            $content .= ' <a class="links" href="/rss/my_logs.xml?userid=' . $user_id . '"><img src="/tpl/stdstyle/images/misc/rss.svg" class="icon16" alt="RSS icon"></a>';
+            $content .= '<p>&nbsp;</p><p><span class="content-title-noshade txt-blue08">' . tr('latest_logs_by_user') . ':</span>&nbsp;&nbsp;<img src="/images/blue/arrow.png" alt=""> [<a class="links" href="my_logs.php?userid=' . $user_id . '">' . tr('show_all') . '</a>] ';
+            $content .= ' <a class="links" href="/rss/my_logs.xml?userid=' . $user_id . '"><img src="/images/misc/rss.svg" class="icon16" alt="RSS icon"></a>';
             $content .= '</p><br><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 115%;">';
 
             while( $record_logs = XDb::xFetchArray($rs_logs) ) {
@@ -472,11 +472,11 @@ if ($usr == false) {
 
         //          }
         // ----------- end owner section
-        //          $content .='<p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="tpl/stdstyle/images/blue/event.png" class="icon32" alt="Caches Find" title="Caches Find">&nbsp;&nbsp;&nbsp;Odwiedzone województwa podczas poszukiwań (w przygotowaniu)</p></div><p><img src="images/PLmapa250.jpg" alt=""></p>';
+        //          $content .='<p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="/images/blue/event.png" class="icon32" alt="Caches Find" title="Caches Find">&nbsp;&nbsp;&nbsp;Odwiedzone województwa podczas poszukiwań (w przygotowaniu)</p></div><p><img src="images/PLmapa250.jpg" alt=""></p>';
     }
     //------------ end find section
     //------------ begin created caches ---------------------------
-    $content .= '<p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="Caches created" title="Caches created">&nbsp;&nbsp;&nbsp;' . tr('stat_created_caches') . '</p></div><br>';
+    $content .= '<p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="/images/blue/cache.png" class="icon32" alt="Caches created" title="Caches created">&nbsp;&nbsp;&nbsp;' . tr('stat_created_caches') . '</p></div><br>';
 
     if ($user->getHiddenGeocachesCount() == 0) {
         $content .= '<br><p> <b>' . tr('not_caches_created') . '</b></p>';
@@ -537,7 +537,7 @@ if ($usr == false) {
         if ($total_owned_caches == 0) {
             $content .= '</p>';
         } else {
-            $content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt=""> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bycreated&amp;ownerid=' . $user_id . '&amp;cachetype=1111101111&amp;searchbyowner=&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">' . tr('show') . '</a>]</p>';
+            $content .= '&nbsp;&nbsp;&nbsp;<img src="/images/blue/arrow.png" alt=""> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bycreated&amp;ownerid=' . $user_id . '&amp;cachetype=1111101111&amp;searchbyowner=&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">' . tr('show') . '</a>]</p>';
             if ($total_owned_caches_adopted > 0) {
                 $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('total_owned_caches_adopted') . ':  </span><strong>' . $total_owned_caches_adopted . '</strong></p>';
             }
@@ -553,7 +553,7 @@ if ($usr == false) {
         if ($hidden == 0) {
             $content .= '</p>';
         } else {
-            $content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt=""> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bycreated&amp;ownerid=' . $user_id . '&amp;cachetype=1111101111&amp;searchbyowner=&amp;f_inactive=1&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">' . tr('show') . '</a>]</p>';
+            $content .= '&nbsp;&nbsp;&nbsp;<img src="/images/blue/arrow.png" alt=""> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bycreated&amp;ownerid=' . $user_id . '&amp;cachetype=1111101111&amp;searchbyowner=&amp;f_inactive=1&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">' . tr('show') . '</a>]</p>';
         }
 
         $hidden_temp = XDb::xMultiVariableQueryValue(
@@ -570,7 +570,7 @@ if ($usr == false) {
         if ($hidden_event == 0) {
             $content .= '</p>';
         } else {
-            $content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt=""> [<a class="links" href="search.php?searchto=searchbyowner&amp;showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bycreated&amp;ownerid=' . $user_id . '&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;f_geokret=0&amp;country=&amp;cachetype=0000010000">' . tr('show') . '</a>]</p>';
+            $content .= '&nbsp;&nbsp;&nbsp;<img src="/images/blue/arrow.png" alt=""> [<a class="links" href="search.php?searchto=searchbyowner&amp;showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bycreated&amp;ownerid=' . $user_id . '&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;f_geokret=0&amp;country=&amp;cachetype=0000010000">' . tr('show') . '</a>]</p>';
         }
         $recomendr = XDb::xMultiVariableQueryValue(
             "SELECT COUNT(*) FROM `cache_rating`, caches
@@ -583,7 +583,7 @@ if ($usr == false) {
 
         if ($recomendr != 0) {
             $ratio = sprintf("%u", ($recommend_caches / $total_owned_caches) * 100);
-            $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('number_obtain_recommendations') . ':</span> <strong>' . $recomendr . '</strong> ' . tr('for') . ' <strong>' . $recommend_caches . '</strong> ' . tr('_caches_') . ' &nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt=""> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;output=HTML&amp;cachetype=1111101111&amp;sort=bycreated&amp;ownerid=' . $user_id . '&amp;searchbyowner=&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;cacherating=1">' . tr('show') . '</a>]</p>
+            $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('number_obtain_recommendations') . ':</span> <strong>' . $recomendr . '</strong> ' . tr('for') . ' <strong>' . $recommend_caches . '</strong> ' . tr('_caches_') . ' &nbsp;&nbsp;&nbsp;<img src="/images/blue/arrow.png" alt=""> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;output=HTML&amp;cachetype=1111101111&amp;sort=bycreated&amp;ownerid=' . $user_id . '&amp;searchbyowner=&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;cacherating=1">' . tr('show') . '</a>]</p>
                          <p><span class="content-title-noshade txt-blue08">' . tr('ratio_recommendations') . ':</span> <strong>' . $ratio . '%</strong></p>';
         }
 
@@ -676,8 +676,8 @@ if ($usr == false) {
 
 
         if (XDb::xNumRows($rs_logs) != 0) {
-            $content .= '<p>&nbsp;</p><p><span class="content-title-noshade txt-blue08">' . tr('latest_logs_in_caches') . ':</span> <img src="tpl/stdstyle/images/blue/arrow.png" alt=""> [<a class="links" href="mycaches_logs.php?userid=' . $user_id . '">' . tr('show_all') . '</a>] ';
-            $content .= ' <a class="links" href="/rss/mycaches_logs.xml?userid=' . $user_id . '"><img src="/tpl/stdstyle/images/misc/rss.svg" class="icon16" alt="RSS icon"></a>';
+            $content .= '<p>&nbsp;</p><p><span class="content-title-noshade txt-blue08">' . tr('latest_logs_in_caches') . ':</span> <img src="/images/blue/arrow.png" alt=""> [<a class="links" href="mycaches_logs.php?userid=' . $user_id . '">' . tr('show_all') . '</a>] ';
+            $content .= ' <a class="links" href="/rss/mycaches_logs.xml?userid=' . $user_id . '"><img src="/images/misc/rss.svg" class="icon16" alt="RSS icon"></a>';
 
             $content .= '</p><br><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.6em; font-size: 12px;">';
 
@@ -879,7 +879,7 @@ $content = "<form action='/viewprofile.php' style='display:inline;'>";
 $content .= "<div class='content2-container bg-blue02'>
                                 <table style='width: 100%; padding: 5px;'><tr><td>
                                 <p class='content-title-noshade-size1'>
-                                <img src='/tpl/stdstyle/images/blue/$pic' width='33' class='icon32' alt='$title' title='$title'>&nbsp;$txt".
+                                <img src='/images/blue/$pic' width='33' class='icon32' alt='$title' title='$title'>&nbsp;$txt".
                                 "</p></td>";
 
 $content .= "<td style='text-align: right'>

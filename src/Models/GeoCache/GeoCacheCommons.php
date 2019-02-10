@@ -44,7 +44,7 @@ class GeoCacheCommons extends BaseObject {
     const MIN_SCORE_OF_RATING_3 = 0.1;
     const MIN_SCORE_OF_RATING_2 = -1.0;
 
-    const ICON_PATH = '/tpl/stdstyle/images/cache/'; //path to the dir with cache icons
+    const ICON_PATH = '/images/cache/'; //path to the dir with cache icons
 
     const TYPE_TRADITIONAL_TR_KEY    = 'cacheType_1';
     const TYPE_OTHERTYPE_TR_KEY      = 'cacheType_5';

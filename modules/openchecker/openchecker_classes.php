@@ -77,7 +77,7 @@ class OpenCheckerCore {
                     tpl_set_var("attempts_counter", $_SESSION["openchecker_counter"]);
                     tpl_set_var("result_title", tr('openchecker_attempts_too_many'));
                     tpl_set_var("score", '');
-                    tpl_set_var("image_yesno", '<image src="tpl/stdstyle/images/blue/openchecker_stop.png" />');
+                    tpl_set_var("image_yesno", '<image src="/images/blue/openchecker_stop.png" />');
                     tpl_set_var("result_text", tr('openchecker_attempts_info_01') . ' ' . $OpenCheckerSetup->count_limit .
                         ' ' . tr('openchecker_attempts_info_02') . ' ' . $OpenCheckerSetup->time_limit . ' ' . tr('openchecker_attempts_info_03') .
                         '<br />' . tr('openchecker_attempts_info_04') . ' ' . $elapsed_time . ' ' . tr('openchecker_attempts_info_05'));
@@ -212,7 +212,7 @@ class OpenCheckerCore {
             }
 
             tpl_set_var("result_title", tr('openchecker_success'));
-            tpl_set_var("image_yesno", '<image src="tpl/stdstyle/images/blue/openchecker_yes.png" />');
+            tpl_set_var("image_yesno", '<image src="/images/blue/openchecker_yes.png" />');
             tpl_set_var("save_mod_coord", $post_viewcache_form);
             if ($OpenCheckerSetup->show_wpt_desc) {
                 $desc = '
@@ -241,7 +241,7 @@ class OpenCheckerCore {
                 exit;
             }
             tpl_set_var("result_title", tr('openchecker_fail'));
-            tpl_set_var("image_yesno", '<image src="tpl/stdstyle/images/blue/openchecker_no.png" />');
+            tpl_set_var("image_yesno", '<image src="/images/blue/openchecker_no.png" />');
             tpl_set_var("save_mod_coord", '');
             tpl_set_var("waypoint_desc",'');
         }
@@ -349,12 +349,12 @@ class OpenCheckerCore {
  */
 
             $status = array(
-                '1' => '<img src="tpl/stdstyle/images/log/16x16-found.png" border="0" alt="Gotowa do szukania">',
-                '2' => '<img src="tpl/stdstyle/images/log/16x16-temporary.png" border="0" alt="Tymczasowo niedost�pna">',
-                '3' => '<img src="tpl/stdstyle/images/log/16x16-dnf.png" border="0" alt="zarchiwizowana">',
-                '4' => '<img src="tpl/stdstyle/images/log/16x16-temporary.png" border="0" alt="Ukryta do czasu weryfikacji">',
-                '5' => '<img src="tpl/stdstyle/images/log/16x16-temporary.png" border="0" alt="jeszcze niedost�pna">',
-                '6' => '<img src="tpl/stdstyle/images/log/16x16-dnf.png" border="0" alt="Zablokowana przez COG">'
+                '1' => '<img src="images/log/16x16-found.png" border="0" alt="Gotowa do szukania">',
+                '2' => '<img src="images/log/16x16-temporary.png" border="0" alt="Tymczasowo niedost�pna">',
+                '3' => '<img src="images/log/16x16-dnf.png" border="0" alt="zarchiwizowana">',
+                '4' => '<img src="images/log/16x16-temporary.png" border="0" alt="Ukryta do czasu weryfikacji">',
+                '5' => '<img src="images/log/16x16-temporary.png" border="0" alt="jeszcze niedost�pna">',
+                '6' => '<img src="images/log/16x16-dnf.png" border="0" alt="Zablokowana przez COG">'
             );
 
             $conn = XDb::instance();
@@ -411,10 +411,10 @@ class OpenCheckerCore {
 
             $caches_table .= '
         <tr>
-            <td colspan="7"><img src="tpl/stdstyle/images/blue/dot_blue.png" height="1" width="100%"/></td>
+            <td colspan="7"><img src="/images/blue/dot_blue.png" height="1" width="100%"/></td>
         </tr>
         <tr>
-            <td colspan="7"><img src="/tpl/stdstyle/images/misc/16x16-info.png" />'
+            <td colspan="7"><img src="/images/misc/16x16-info.png" />'
                 . tr('openchecker_count') . ' ' . $openchecker_caches_count . '
             </td>
         </tr>

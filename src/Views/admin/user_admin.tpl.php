@@ -13,14 +13,14 @@ use src\Utils\Uri\SimpleRouter;
   <?=tr('username')?>:
   <a href="<?=$view->user->getProfileUrl()?>" class="links">
     <?=$view->user->getUserName()?>
-    <img src="/tpl/stdstyle/images/misc/linkicon.png" alt="user profile"></a>
+    <img src="/images/misc/linkicon.png" alt="user profile"></a>
   <br>
   <p><?=tr('lastlogins')?>: <span class="<?=$view->user->getLastLoginPeriodClass()?>"><?=Formatter::dateTime($view->user->getLastLoginDate())?></span><br>
   <?=tr('registered_since_label')?>: <strong><?=Formatter::dateTime($view->user->getDateCreated())?></strong><br>
   <?=tr('email_address')?>:
   <a href="<?=SimpleRouter::getLink('UserProfile', 'mailTo', $view->user->getUserId())?>" class="links">
     <?=$view->user->getEmail()?>
-    <img src="/tpl/stdstyle/images/free_icons/email.png" alt="<?=tr('email_user')?>" title="<?=tr('email_user')?>"></a>
+    <img src="/images/free_icons/email.png" alt="<?=tr('email_user')?>" title="<?=tr('email_user')?>"></a>
   <div class="buffer"></div>
 
 
@@ -28,20 +28,20 @@ use src\Utils\Uri\SimpleRouter;
 
   <?php if ($view->user->getNotifyCaches()) { ?>
     <a href="<?=SimpleRouter::getLink('Admin.UserAdmin','notifyCaches', [$view->user->getUserId(), "0"])?>">
-      <img src="/tpl/stdstyle/images/misc/on.svg" alt="<?=tr('yes')?>" title="<?=tr('yes')?>" class="admin-onoff-switch"></a>
+      <img src="/images/misc/on.svg" alt="<?=tr('yes')?>" title="<?=tr('yes')?>" class="admin-onoff-switch"></a>
   <?php } else { ?>
     <a href="<?=SimpleRouter::getLink('Admin.UserAdmin','notifyCaches', [$view->user->getUserId(), "1"])?>">
-      <img src="/tpl/stdstyle/images/misc/off.svg" alt="<?=tr('no')?>" title="<?=tr('no')?>" class="admin-onoff-switch"></a>
+      <img src="/images/misc/off.svg" alt="<?=tr('no')?>" title="<?=tr('no')?>" class="admin-onoff-switch"></a>
   <?php } // if ?>
   <?=tr('admin_user_notifycaches')?>
   <div class="buffer"></div>
 
   <?php if ($view->user->getNotifyLogs()) { ?>
     <a href="<?=SimpleRouter::getLink('Admin.UserAdmin','notifyLogs', [$view->user->getUserId(), "0"])?>">
-      <img src="/tpl/stdstyle/images/misc/on.svg" alt="<?=tr('yes')?>" title="<?=tr('yes')?>" class="admin-onoff-switch"></a>
+      <img src="/images/misc/on.svg" alt="<?=tr('yes')?>" title="<?=tr('yes')?>" class="admin-onoff-switch"></a>
   <?php } else { ?>
     <a href="<?=SimpleRouter::getLink('Admin.UserAdmin','notifyLogs', [$view->user->getUserId(), "1"])?>">
-      <img src="/tpl/stdstyle/images/misc/off.svg" alt="<?=tr('no')?>" title="<?=tr('no')?>" class="admin-onoff-switch"></a>
+      <img src="/images/misc/off.svg" alt="<?=tr('no')?>" title="<?=tr('no')?>" class="admin-onoff-switch"></a>
   <?php } // if ?>
   <?=tr('admin_user_notifylogs')?>
     <div class="buffer"></div>
@@ -50,40 +50,40 @@ use src\Utils\Uri\SimpleRouter;
 
   <?php if ($view->user->getIsActive()) { ?>
     <a href="<?=SimpleRouter::getLink('Admin.UserAdmin','userBan', [$view->user->getUserId(), "1"])?>">
-      <img src="/tpl/stdstyle/images/misc/off.svg" alt="<?=tr('no')?>" title="<?=tr('no')?>" class="admin-onoff-switch"></a>
+      <img src="/images/misc/off.svg" alt="<?=tr('no')?>" title="<?=tr('no')?>" class="admin-onoff-switch"></a>
   <?php } else { ?>
     <a href="<?=SimpleRouter::getLink('Admin.UserAdmin','userBan', [$view->user->getUserId(), "0"])?>">
-      <img src="/tpl/stdstyle/images/misc/on.svg" alt="<?=tr('yes')?>" title="<?=tr('yes')?>" class="admin-onoff-switch"></a>
+      <img src="/images/misc/on.svg" alt="<?=tr('yes')?>" title="<?=tr('yes')?>" class="admin-onoff-switch"></a>
   <?php } // if ?>
   <?=tr('admin_user_userban')?>
   <div class="buffer"></div>
 
   <?php if ($view->user->getStatBan()) { ?>
     <a href="<?=SimpleRouter::getLink('Admin.UserAdmin','statBan', [$view->user->getUserId(), "0"])?>">
-      <img src="/tpl/stdstyle/images/misc/on.svg" alt="<?=tr('yes')?>" title="<?=tr('yes')?>" class="admin-onoff-switch"></a>
+      <img src="/images/misc/on.svg" alt="<?=tr('yes')?>" title="<?=tr('yes')?>" class="admin-onoff-switch"></a>
   <?php } else { ?>
     <a href="<?=SimpleRouter::getLink('Admin.UserAdmin','statBan', [$view->user->getUserId(), "1"])?>">
-      <img src="/tpl/stdstyle/images/misc/off.svg" alt="<?=tr('no')?>" title="<?=tr('no')?>" class="admin-onoff-switch"></a>
+      <img src="/images/misc/off.svg" alt="<?=tr('no')?>" title="<?=tr('no')?>" class="admin-onoff-switch"></a>
   <?php } // if ?>
   <?=tr('admin_user_statban')?>
   <div class="buffer"></div>
 
   <?php if ($view->user->getVerifyAll()) { ?>
     <a href="<?=SimpleRouter::getLink('Admin.UserAdmin','verifyAll', [$view->user->getUserId(), "0"])?>">
-      <img src="/tpl/stdstyle/images/misc/on.svg" alt="<?=tr('yes')?>" title="<?=tr('yes')?>" class="admin-onoff-switch"></a>
+      <img src="/images/misc/on.svg" alt="<?=tr('yes')?>" title="<?=tr('yes')?>" class="admin-onoff-switch"></a>
   <?php } else { ?>
     <a href="<?=SimpleRouter::getLink('Admin.UserAdmin','verifyAll', [$view->user->getUserId(), "1"])?>">
-      <img src="/tpl/stdstyle/images/misc/off.svg" alt="<?=tr('no')?>" title="<?=tr('no')?>" class="admin-onoff-switch"></a>
+      <img src="/images/misc/off.svg" alt="<?=tr('no')?>" title="<?=tr('no')?>" class="admin-onoff-switch"></a>
   <?php } // if ?>
   <?=tr('admin_user_verifyall')?>
   <div class="buffer"></div>
 
   <?php if ($view->user->getNewCachesNoLimit()) { ?>
     <a href="<?=SimpleRouter::getLink('Admin.UserAdmin','createNoLimit', [$view->user->getUserId(), "0"])?>">
-      <img src="/tpl/stdstyle/images/misc/on.svg" alt="<?=tr('yes')?>" title="<?=tr('yes')?>" class="admin-onoff-switch"></a>
+      <img src="/images/misc/on.svg" alt="<?=tr('yes')?>" title="<?=tr('yes')?>" class="admin-onoff-switch"></a>
   <?php } else { ?>
     <a href="<?=SimpleRouter::getLink('Admin.UserAdmin','createNoLimit', [$view->user->getUserId(), "1"])?>">
-      <img src="/tpl/stdstyle/images/misc/off.svg" alt="<?=tr('no')?>" title="<?=tr('no')?>" class="admin-onoff-switch"></a>
+      <img src="/images/misc/off.svg" alt="<?=tr('no')?>" title="<?=tr('no')?>" class="admin-onoff-switch"></a>
   <?php } // if ?>
   <?=tr('admin_user_nolimit')?>
   <div class="buffer"></div>

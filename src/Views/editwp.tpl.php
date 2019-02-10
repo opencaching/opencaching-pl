@@ -31,7 +31,7 @@
         return false;
     }
 </script>
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/compas.png" class="icon32" alt="" />&nbsp;{{edit_wp}} {{for_cache}}: <font color="black">{cache_name}</font></div>
+<div class="content2-pagetitle"><img src="/images/blue/compas.png" class="icon32" alt="" />&nbsp;{{edit_wp}} {{for_cache}}: <font color="black">{cache_name}</font></div>
 {general_message}
 <form action="editwp.php" method="post" enctype="application/x-www-form-urlencoded" name="waypoints_form" dir="ltr">
     <input type="hidden" name="cacheid" value="{cacheid}"/>

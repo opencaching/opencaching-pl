@@ -78,7 +78,7 @@ class CacheSet extends CacheSetCommon
                 case 'image':
                     if($val === ''){
                         /* no image was loaded by user, set default image */
-                        $val = 'tpl/stdstyle/images/blue/powerTrailGenericLogo.png';
+                        $val = '/images/blue/powerTrailGenericLogo.png';
                     }
                     $this->image = $val;
                     break;

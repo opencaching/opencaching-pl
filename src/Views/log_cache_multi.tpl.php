@@ -42,7 +42,7 @@ function get_icon_for_cache_type($type)
     .bgcolorM1 {background-color: rgb(170,187,182);}
 
 </style>
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="Cache" title="Cache" align="middle"/>{{log01}}</div>
+<div class="content2-pagetitle"><img src="/images/blue/cache.png" class="icon32" alt="Cache" title="Cache" align="middle"/>{{log01}}</div>
 <p>
     {{log02}}.
 </p>

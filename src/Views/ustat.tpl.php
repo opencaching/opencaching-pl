@@ -2,7 +2,7 @@
 <!--    CONTENT -->
 <div class="content2-container">
     <div class="content2-pagetitle">
-      <img src="tpl/stdstyle/images/blue/stat1.png" class="icon32" alt="{title_text}" title="{title_text}">
+      <img src="/images/blue/stat1.png" class="icon32" alt="{title_text}" title="{title_text}">
       &nbsp;{{statistics_users}} {username}
     </div>
 

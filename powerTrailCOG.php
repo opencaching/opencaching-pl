@@ -85,7 +85,7 @@ function preparePtCaches(PowerTrail $powerTrail)
             <td>' . $geocache->getOwner()->getUserName() . '</td>
             <td><a href="'.$geocache->getWaypointId().'">' . $geocache->getWaypointId() . '</a></td>
             <td style="text-align: center;">' . $geocache->getFounds() . '</td>
-            <td style="text-align: center;"><a href="javascript:void(0);" onclick="rmCache(' . $geocache->getCacheId() . ');" class="editPtDataButton">' . tr('pt130') . '</a> <img src="tpl/stdstyle/images/misc/ptPreloader.gif"  style="display: none" id="rmCacheLoader' . $geocache->getCacheId() . '" alt=""> </td>
+            <td style="text-align: center;"><a href="javascript:void(0);" onclick="rmCache(' . $geocache->getCacheId() . ');" class="editPtDataButton">' . tr('pt130') . '</a> <img src="images/misc/ptPreloader.gif"  style="display: none" id="rmCacheLoader' . $geocache->getCacheId() . '" alt=""> </td>
         </tr>';
     }
     $table .= '</table>';

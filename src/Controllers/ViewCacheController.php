@@ -257,7 +257,7 @@ class ViewCacheController extends BaseController
                 $geoPath->id = $pt['id'];
                 $geoPath->name = $pt['name'];
                 if ($pt['image'] == '') {
-                    $geoPath->img = 'tpl/stdstyle/images/blue/powerTrailGenericLogo.png';
+                    $geoPath->img = '/images/blue/powerTrailGenericLogo.png';
                 } else {
                     $geoPath->img = $pt['image'];
                 }

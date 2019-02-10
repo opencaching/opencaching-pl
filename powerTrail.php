@@ -403,9 +403,9 @@ function displayCaches($caches, $pTrails)
         }
         $ptSelector .= '</select>';
         $rows .= '<tr><td><a href="' . $cache['wp_oc'] . '">' . $cache['wp_oc'] . '</a></td><td>' . $cache['name'] . '</td><td>' . $ptSelector . '</td>
-        <td width="50"><img style="display: none" id="addCacheLoader' . $cache['cache_id'] . '" src="tpl/stdstyle/images/misc/ptPreloader.gif" alt="">
-        <span id="cacheInfo' . $cache['cache_id'] . '" style="display: none "><img src="tpl/stdstyle/images/free_icons/accept.png" alt=""></span>
-        <span id="cacheInfoNOK' . $cache['cache_id'] . '" style="display: none "><img src="tpl/stdstyle/images/free_icons/exclamation.png" alt=""></span>' .
+        <td width="50"><img style="display: none" id="addCacheLoader' . $cache['cache_id'] . '" src="images/misc/ptPreloader.gif" alt="">
+        <span id="cacheInfo' . $cache['cache_id'] . '" style="display: none "><img src="images/free_icons/accept.png" alt=""></span>
+        <span id="cacheInfoNOK' . $cache['cache_id'] . '" style="display: none "><img src="images/free_icons/exclamation.png" alt=""></span>' .
                 $hidden .
                 '</td></tr>';
     }
@@ -474,7 +474,7 @@ function displayPtOwnerList(PowerTrail $powerTrail)
     foreach ($ptOwners as $owner) {
         $ownerList .= '<a href="viewprofile.php?userid=' . $owner->getUserId() . '">' . $owner->getUserName() . '</a>';
         if ($owner->getUserId() != $userLogged) {
-            $ownerList .= '<span style="display: none" class="removeUserIcon"><img onclick="ajaxRemoveUserFromPt(' . $owner->getUserId() . ');" src="tpl/stdstyle/images/free_icons/cross.png" width=10 title="' . tr('pt029') . '" /></span>, ';
+            $ownerList .= '<span style="display: none" class="removeUserIcon"><img onclick="ajaxRemoveUserFromPt(' . $owner->getUserId() . ');" src="images/free_icons/cross.png" width=10 title="' . tr('pt029') . '" /></span>, ';
         } else {
             $ownerList .= ', ';
         }
@@ -572,7 +572,7 @@ function displayPowerTrailLogo($ptId, $img)
 {
     // global $picurl;
     if (empty($img)){
-        return '/tpl/stdstyle/images/blue/powerTrailGenericLogo.png';
+        return '/images/blue/powerTrailGenericLogo.png';
     }else {
         return $img;
     }

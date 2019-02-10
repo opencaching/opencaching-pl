@@ -4,7 +4,7 @@
     </colgroup>
     <tr>
         <td width="600" class="content2-pagetitle">
-            <img src="tpl/stdstyle/images/blue/world.png" class="icon32" alt="World icon" align="middle">
+            <img src="/images/blue/world.png" class="icon32" alt="World icon" align="middle">
             <font size="4">  <b>{{links_01}}</b></font>
         </td>
     </tr>

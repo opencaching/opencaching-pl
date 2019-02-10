@@ -3,7 +3,7 @@ function watchOn(reportId) {
 	var btn_old = document.getElementById("report-btn-off");
 	var img_new = document.getElementById("report-img-on");
 	var btn_new = document.getElementById("report-btn-on");
-	img_old.src = "/tpl/stdstyle/images/loader/spinning-circles.svg";
+	img_old.src = "/images/loader/spinning-circles.svg";
 	$.ajax({
 		type : "get",
 		url : "/admin_reports.php?action=watchOn&ajax=true&id=" + reportId,
@@ -13,7 +13,7 @@ function watchOn(reportId) {
 		},
 		success : function() {
 			btn_old.style = "display: none;";
-			img_new.src = "/tpl/stdstyle/images/misc/eye.svg";
+			img_new.src = "/images/misc/eye.svg";
 			btn_new.style = "";
 		}
 	});
@@ -24,7 +24,7 @@ function watchOff(reportId) {
 	var btn_old = document.getElementById("report-btn-on");
 	var img_new = document.getElementById("report-img-off");
 	var btn_new = document.getElementById("report-btn-off");
-	img_old.src = "/tpl/stdstyle/images/loader/spinning-circles.svg";
+	img_old.src = "/images/loader/spinning-circles.svg";
 	$.ajax({
 		type : "get",
 		url : "/admin_reports.php?action=watchOff&ajax=true&id=" + reportId,
@@ -34,7 +34,7 @@ function watchOff(reportId) {
 		},
 		success : function() {
 			btn_old.style = "display: none;";
-			img_new.src = "/tpl/stdstyle/images/misc/eye-off.svg";
+			img_new.src = "/images/misc/eye-off.svg";
 			btn_new.style = "";
 		}
 	});
@@ -43,7 +43,7 @@ function watchOff(reportId) {
 function changeStatus(reportId) {
 	var status = document.getElementById("statusSelectCtrl").value;
 	var inform = document.getElementById("report-status");
-	inform.innerHTML = "<img src=\"/tpl/stdstyle/images/loader/spinning-circles.svg\" class=\"report-watch-img\">";
+	inform.innerHTML = "<img src=\"/images/loader/spinning-circles.svg\" class=\"report-watch-img\">";
 	$
 			.ajax({
 				type : "get",
@@ -66,7 +66,7 @@ function changeStatus(reportId) {
 function changeLeader(reportId) {
 	var leader = document.getElementById("leaderSelectCtrl").value;
 	var inform = document.getElementById("report-leader");
-	inform.innerHTML = "<img src=\"/tpl/stdstyle/images/loader/spinning-circles.svg\" class=\"report-watch-img\">";
+	inform.innerHTML = "<img src=\"/images/loader/spinning-circles.svg\" class=\"report-watch-img\">";
 	$
 			.ajax({
 				type : "get",
@@ -89,7 +89,7 @@ function changeLeader(reportId) {
 function changeCacheStatus(reportId) {
 	var status = document.getElementById("cacheStatusSelectCtrl").value;
 	var inform = document.getElementById("cache-status");
-	inform.innerHTML = "<img src=\"/tpl/stdstyle/images/loader/spinning-circles.svg\" class=\"report-watch-img\">";
+	inform.innerHTML = "<img src=\"/images/loader/spinning-circles.svg\" class=\"report-watch-img\">";
 	$
 			.ajax({
 				type : "get",

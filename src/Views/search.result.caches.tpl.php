@@ -6,8 +6,8 @@ use src\Utils\I18n\I18n;
 <script src="https://www.google.com/jsapi"></script>
 <script src="lib/js/GCT.js"></script>
 <script src="lib/js/GCT.lang.php"></script>
-<script src="tpl/stdstyle/js/search.js"></script>
-<script src="tpl/stdstyle/js/okapiGpxFormatterWidget.js?v=3"></script>
+<script src="/js/search.js"></script>
+<script src="/js/okapiGpxFormatterWidget.js?v=3"></script>
 <script>
     $(function() {
 
@@ -121,7 +121,7 @@ if ( !$SearchWithSort &&  $NrColSortSearch != -1 )
     echo "</script>";
 ?>
 
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt=""> {{search_results}} {results_count}</div>
+<div class="content2-pagetitle"><img src="/images/blue/cache.png" class="icon32" alt=""> {{search_results}} {results_count}</div>
 <div class="content2-container">
     <p>
         <a href="search.php?queryid={queryid}&amp;showresult=0" class="btn btn-default">{{change_search_criteria}}</a>

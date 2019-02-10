@@ -7,10 +7,10 @@ use src\Controllers\CacheLogController;
 <div class="content2-container">
 
   <div class="content2-pagetitle">
-    <img src="tpl/stdstyle/images/blue/logs.png" class="icon22" alt="">
+    <img src="/images/blue/logs.png" class="icon22" alt="">
     {{latest_logs}}
     <a href="/rss/newlogs.xml">
-      <img src="/tpl/stdstyle/images/misc/rss.svg" class="icon16" alt="RSS icon">
+      <img src="/images/misc/rss.svg" class="icon16" alt="RSS icon">
     </a>
   </div>
 

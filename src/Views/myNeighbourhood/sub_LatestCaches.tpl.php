@@ -36,7 +36,7 @@ use src\Models\Neighbourhood\Neighbourhood;
         <span class="nbh-nowrap"><?=Formatter::date($cache->getDatePlaced())?></span> |
         <span class="nbh-full-only"><?=tr($cache->getSizeTranslationKey())?> |</span>
         <span class="nbh-nowrap"><?=round(Gis::distanceBetween($view->neighbourhoodsList[$view->selectedNbh]->getCoords(), $cache->getCoordinates()))?> km
-        <img src="/tpl/stdstyle/images/misc/arrow-north.svg" class="nbh-arrow-north" alt="<?=tr('direction')?>" style="transform: rotate(<?=round(Gis::calcBearingBetween($view->neighbourhoodsList[$view->selectedNbh]->getCoords(), $cache->getCoordinates()))?>deg)"></span>
+        <img src="/images/misc/arrow-north.svg" class="nbh-arrow-north" alt="<?=tr('direction')?>" style="transform: rotate(<?=round(Gis::calcBearingBetween($view->neighbourhoodsList[$view->selectedNbh]->getCoords(), $cache->getCoordinates()))?>deg)"></span>
         <?php if ($cache->getRecommendations() > 0) { ?>
           | <img src="/images/rating-star.png" alt="<?=tr('number_obtain_recommendations')?>">
           (<?=$cache->getRecommendations()?>)

@@ -6,7 +6,7 @@ $view->callChunk('tinyMCE');
     <input type="hidden" name="post" value="1"/>
     <input type="hidden" name="descid" value="{descid}"/>
     <input type="hidden" name="show_all_langs_value" value="{show_all_langs_value}"/>
-    <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/describe.png" class="icon32" alt="">&nbsp;{{edit_cache_description}} <a href="viewcache.php?cacheid={cacheid}">{cachename}</a></div>
+    <div class="content2-pagetitle"><img src="/images/blue/describe.png" class="icon32" alt="">&nbsp;{{edit_cache_description}} <a href="viewcache.php?cacheid={cacheid}">{cachename}</a></div>
     <table class="table">
         <tr class="form-group-sm">
             <td class="content-title-noshade">{{language}}:</td>

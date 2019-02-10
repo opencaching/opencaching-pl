@@ -6,9 +6,9 @@ use src\Utils\Uri\Uri;
 ?>
 
 <link rel="stylesheet" type="text/css" media="screen,projection" href="/tpl/stdstyle/css/Badge.css">
-<link rel="stylesheet" href="/tpl/stdstyle/js/PieProgress/dist/css/asPieProgress.css">
-<script src="/tpl/stdstyle/js/PieProgress/js/jquery.js"></script>
-<script src="/tpl/stdstyle/js/PieProgress/dist/jquery-asPieProgress.js"></script>
+<link rel="stylesheet" href="/js/pieProgress/dist/css/asPieProgress.css">
+<script src="/js/pieProgress/js/jquery.js"></script>
+<script src="/js/pieProgress/dist/jquery-asPieProgress.js"></script>
 
 <script>
 jQuery(function($) {
@@ -69,11 +69,11 @@ jQuery(function($) {
     <div class="content-title-noshade">
         <table border="0" cellspacing="2" cellpadding="1" style="margin-left: 10px;font-size: 115%;" width="97%">
             <tr>
-                <td rowspan="3" width="64"><img src="tpl/stdstyle/images/blue/{profile_img}.png"  alt="" title="{profile_info}" align="middle"/></td>
+                <td rowspan="3" width="64"><img src="/images/blue/{profile_img}.png"  alt="" title="{profile_info}" align="middle"/></td>
                 <td><span class="txt-blue08" >{{registered_since_label}}:</span> <span class="txt-black"> {registered}</span><br></td>
                 <td rowspan="3" width="30%">
-                    <img src="tpl/stdstyle/images/blue/email.png" class="icon32" alt="Email" title="Email" align="middle">&nbsp;<a href="<?=SimpleRouter::getLink('UserProfile', 'mailTo', $view->userid)?>" class="links">{{email_user}}</a><br />
-                    <img src="tpl/stdstyle/images/blue/world.png" class="icon32" alt="Mapa" title="Map" align="middle">&nbsp;
+                    <img src="/images/blue/email.png" class="icon32" alt="Email" title="Email" align="middle">&nbsp;<a href="<?=SimpleRouter::getLink('UserProfile', 'mailTo', $view->userid)?>" class="links">{{email_user}}</a><br />
+                    <img src="/images/blue/world.png" class="icon32" alt="Mapa" title="Map" align="middle">&nbsp;
                     <a href="<?=Uri::setOrReplaceParamValue('userid', $view->userid, SimpleRouter::getLink('MainMap', 'embeded'))?>"
                        class="links">{{show_user_map}}</a>
                 </td>

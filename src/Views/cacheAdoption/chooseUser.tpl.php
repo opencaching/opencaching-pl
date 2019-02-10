@@ -1,6 +1,6 @@
 
 <div class="content2-pagetitle">
-    <img src="tpl/stdstyle/images/blue/email.png" class="icon32" align="middle" alt="email" />
+    <img src="/images/blue/email.png" class="icon32" align="middle" alt="email" />
     {{adopt_04}}
     <a href="viewcache.php?cacheid={cacheid}">{cachename}</a>
 </div>

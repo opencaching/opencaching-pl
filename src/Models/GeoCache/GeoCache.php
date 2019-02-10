@@ -1494,7 +1494,7 @@ class GeoCache extends GeoCacheCommons
         if ($changeUrlForSpoilers) {
             array_walk($result, function($pic) {
                 if ($pic->spoiler) {
-                    $pic->url = 'tpl/stdstyle/images/thumb/thumbspoiler.gif';
+                    $pic->url = 'images/thumb/thumbspoiler.gif';
                 }
             });
         }
@@ -1576,7 +1576,7 @@ class GeoCache extends GeoCacheCommons
      */
     public function getDifficultyIcon()
     {
-        return sprintf("/tpl/stdstyle/images/difficulty/diff-%d.gif", $this->difficulty);
+        return sprintf("/images/difficulty/diff-%d.gif", $this->difficulty);
     }
 
     /**
@@ -1584,7 +1584,7 @@ class GeoCache extends GeoCacheCommons
      */
     public function getTerrainIcon()
     {
-        return sprintf("/tpl/stdstyle/images/difficulty/terr-%d.gif", $this->terrain);
+        return sprintf("/images/difficulty/terr-%d.gif", $this->terrain);
     }
 
     /**

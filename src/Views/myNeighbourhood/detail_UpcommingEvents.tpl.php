@@ -33,8 +33,8 @@ $logController = new LogEntryController();
           <div class="nbh-desc-container">
             <strong><?=$cache->getCacheName() ?></strong>
             <span class="nbh-nowrap"><?=round(Gis::distanceBetween($view->coords, $cache->getCoordinates()))?> km
-            <img src="/tpl/stdstyle/images/misc/arrow-north.svg" class="nbh-arrow-north" alt="<?=tr('direction')?>" style="transform: rotate(<?=round(Gis::calcBearingBetween($view->coords, $cache->getCoordinates()))?>deg)"></span>
-            | <img src="/tpl/stdstyle/images/log/16x16-will_attend.png" alt="<?=tr('will_attend')?>" title="<?=tr('will_attend')?>" class="icon16"> <?=$cache->getNotFounds()?></span>
+            <img src="/images/misc/arrow-north.svg" class="nbh-arrow-north" alt="<?=tr('direction')?>" style="transform: rotate(<?=round(Gis::calcBearingBetween($view->coords, $cache->getCoordinates()))?>deg)"></span>
+            | <img src="/images/log/16x16-will_attend.png" alt="<?=tr('will_attend')?>" title="<?=tr('will_attend')?>" class="icon16"> <?=$cache->getNotFounds()?></span>
           </div>
         </td>
         <td>

@@ -3,10 +3,10 @@ use src\Utils\Uri\SimpleRouter;
 ?>
 <div class="content2-container">
   <div class="content2-pagetitle">
-    <img src="/tpl/stdstyle/images/blue/newspaper.png" class="icon22" alt="Newspaper icon">
+    <img src="/images/blue/newspaper.png" class="icon22" alt="Newspaper icon">
     <?=tr('news')?>
     <a href="/rss/newnews.xml">
-      <img src="/tpl/stdstyle/images/misc/rss.svg" class="icon16" alt="RSS icon">
+      <img src="/images/misc/rss.svg" class="icon16" alt="RSS icon">
     </a>
   </div>
 

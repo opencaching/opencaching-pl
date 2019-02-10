@@ -18,7 +18,7 @@
     }
 </script>
 
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/podcache-mp3.png" class="icon32" alt="" />&nbsp;<b>{mp3typedesc}: </b><a href="/viewcache.php?cacheid={cacheid}">{cachename}</a></div>
+<div class="content2-pagetitle"><img src="/images/blue/podcache-mp3.png" class="icon32" alt="" />&nbsp;<b>{mp3typedesc}: </b><a href="/viewcache.php?cacheid={cacheid}">{cachename}</a></div>
 
 <form action="newmp3.php" method="post" enctype="multipart/form-data" name="newmp3_form" dir="ltr" onsubmit="return checkForm();">
     <input type="hidden" name="objectid" value="{objectid}" />
@@ -55,7 +55,7 @@
 
             <tr><td class="spacer" colspan="2"></td></tr>
             <tr>
-                <td class="help" colspan="2"><img src="tpl/stdstyle/images/misc/16x16-info.png" border="0" alt="Uwaga" title="{{newmp3_17}}" /> {{newmp3_18}}</td>
+                <td class="help" colspan="2"><img src="images/misc/16x16-info.png" border="0" alt="Uwaga" title="{{newmp3_17}}" /> {{newmp3_18}}</td>
             </tr>
             <tr><td class="spacer" colspan="2"></td></tr>
 

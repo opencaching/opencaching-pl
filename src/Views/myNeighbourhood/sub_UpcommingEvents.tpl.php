@@ -30,8 +30,8 @@ use src\Utils\Uri\SimpleRouter;
         <span class="nbh-full-only"><br></span><span class="nbh-min-only">|</span>
         <span class="nbh-nowrap"><?=Formatter::date($cache->getDatePlaced())?></span> |
         <span class="nbh-nowrap"><?=round(Gis::distanceBetween($view->neighbourhoodsList[$view->selectedNbh]->getCoords(), $cache->getCoordinates()))?> km
-        <img src="/tpl/stdstyle/images/misc/arrow-north.svg" class="nbh-arrow-north" alt="<?=tr('direction')?>" style="transform: rotate(<?=round(Gis::calcBearingBetween($view->neighbourhoodsList[$view->selectedNbh]->getCoords(), $cache->getCoordinates()))?>deg)"></span>
-        <span class="nbh-full-only">| <img src="/tpl/stdstyle/images/log/16x16-will_attend.png" alt="<?=tr('will_attend')?>" title="<?=tr('will_attend')?>" class="icon16"> <?=$cache->getNotFounds()?></span>
+        <img src="/images/misc/arrow-north.svg" class="nbh-arrow-north" alt="<?=tr('direction')?>" style="transform: rotate(<?=round(Gis::calcBearingBetween($view->neighbourhoodsList[$view->selectedNbh]->getCoords(), $cache->getCoordinates()))?>deg)"></span>
+        <span class="nbh-full-only">| <img src="/images/log/16x16-will_attend.png" alt="<?=tr('will_attend')?>" title="<?=tr('will_attend')?>" class="icon16"> <?=$cache->getNotFounds()?></span>
       </div>
     </a>
   </div>

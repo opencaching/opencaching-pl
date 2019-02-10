@@ -4,7 +4,7 @@
     <div class="dynamicMap_mapPopup-table">
         <div class="dynamicMap_mapPopup-tableRow">
             <div class="dynamicMap_mapPopup-tableCell">
-                <img src="/tpl/stdstyle/images/free_icons/vcard.png" alt="img">
+                <img src="/images/free_icons/vcard.png" alt="img">
             </div>
             <div class="dynamicMap_mapPopup-tableCell">
                 <a href="{{link}}" class="links" target="_blank">{{username}}</a>
@@ -26,7 +26,7 @@
         </div>
         <div class="dynamicMap_mapPopup-tableRow">
             <div class="dynamicMap_mapPopup-tableCell">
-                <img src="/tpl/stdstyle/images/free_icons/email.png" alt="mailTo">
+                <img src="/images/free_icons/email.png" alt="mailTo">
             </div>
             <div class="dynamicMap_mapPopup-tableCell">
                 <a class="links" href="/UserProfile/mailTo/{{userId}}" target="_blank"><?=tr('guides_sendemail')?></a>

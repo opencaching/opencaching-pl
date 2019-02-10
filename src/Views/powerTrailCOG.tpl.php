@@ -72,7 +72,7 @@ $view->callChunk('tinyMCE', false);
     </div>
 
     <div class="content2-pagetitle">
-        <img src="tpl/stdstyle/images/blue/050242-blue-jelly-icon-natural-wonders-flower13-sc36_32x32.png" class="icon32" alt="geocache" title="geocache">
+        <img src="/images/blue/050242-blue-jelly-icon-natural-wonders-flower13-sc36_32x32.png" class="icon32" alt="geocache" title="geocache">
         {{pt208}}
     </div>
 
@@ -108,13 +108,13 @@ $view->callChunk('tinyMCE', false);
                     <a id="stbtn1" href="javascript:void(0);" onclick="$('#stbtn1').hide();
                             $('#ptStatus').hide();
                             $('#ptStatSelectSpan').show();" class="editPtDataButton">{{pt064}}</a>
-                    <img src="tpl/stdstyle/images/misc/ptPreloader.gif" style="display: none" id="ajaxLoaderStatus" alt="">
+                    <img src="images/misc/ptPreloader.gif" style="display: none" id="ajaxLoaderStatus" alt="">
                 </td>
             </tr>
         </table>
     <div class="buffer"></div>
     <div class="content2-container bg-blue02">
-        <p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/basic2.png" class="icon32" alt=""/>{{pt020}}</p>
+        <p class="content-title-noshade-size1"><img src="/images/blue/basic2.png" class="icon32" alt=""/>{{pt020}}</p>
     </div>
     <div class="content2-container">
       {ptCaches}

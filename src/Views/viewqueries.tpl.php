@@ -1,7 +1,7 @@
 <?php
 
 ?>
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/colected.png" class="icon32" alt="" />&nbsp;{{collected_queries}}</div>
+<div class="content2-pagetitle"><img src="/images/blue/colected.png" class="icon32" alt="" />&nbsp;{{collected_queries}}</div>
 <div class="searchdiv">
     <table class="table" width="740">
         <colgroup>

@@ -14,7 +14,7 @@ use src\Models\Coordinates\Coordinates;
       ?>
     <a class="btn btn-md <?=$btnClassMod?>" href="<?=SimpleRouter::getLink('MyNeighbourhood', 'index', $nbh->getSeq())?>"><?=$nbh->getName()?></a>
   <?php } // end foreach neighbourhoodsList ?>
-  <a class="btn btn-md btn-success" href="<?=SimpleRouter::getLink('MyNeighbourhood', 'config', $view->selectedNbh)?>"><img src="/tpl/stdstyle/images/free_icons/cog.png" class="icon16" alt="<?=tr('config')?>">&nbsp;<?=tr('config')?></a>
+  <a class="btn btn-md btn-success" href="<?=SimpleRouter::getLink('MyNeighbourhood', 'config', $view->selectedNbh)?>"><img src="/images/free_icons/cog.png" class="icon16" alt="<?=tr('config')?>">&nbsp;<?=tr('config')?></a>
 
   <div class="nbh-sort-list">
   <?php

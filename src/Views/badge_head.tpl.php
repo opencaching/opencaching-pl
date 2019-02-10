@@ -1,12 +1,12 @@
-<link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/js/jquery.1.10.3/css/myCupertino/jquery-ui-1.10.3.custom.css" />
-<script src="tpl/stdstyle/js/jquery.1.10.3/js/jquery-1.9.1.js"></script>
-<script src="tpl/stdstyle/js/jquery.1.10.3/js/jquery-ui-1.10.3.custom.js"></script>
+<link rel="stylesheet" type="text/css" media="screen,projection" href="/js/jquery.1.10.3/css/myCupertino/jquery-ui-1.10.3.custom.css" />
+<script src="/js/jquery.1.10.3/js/jquery-1.9.1.js"></script>
+<script src="/js/jquery.1.10.3/js/jquery-ui-1.10.3.custom.js"></script>
 
 <link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/Badge.css" />
-<link rel="stylesheet" href="tpl/stdstyle/js/PieProgress/dist/css/asPieProgress.css">
-<script src="tpl/stdstyle/js/PieProgress/js/jquery.js"></script>
-<script src="tpl/stdstyle/js/PieProgress/dist/jquery-asPieProgress.js"></script>
-<script src="tpl/stdstyle/js/PieProgress/badge.js"></script>
+<link rel="stylesheet" href="/js/pieProgress/dist/css/asPieProgress.css">
+<script src="/js/pieProgress/js/jquery.js"></script>
+<script src="/js/pieProgress/dist/jquery-asPieProgress.js"></script>
+<script src="/js/pieProgress/badge.js"></script>
 
 <link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/GCT.css" />
 <link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/GCTStats.css" />
@@ -18,7 +18,7 @@
 
 
 <div class="content2-pagetitle">
-<img src="tpl/stdstyle/images/blue/merit_badge.png" class="icon32" alt="" title="" align="middle" />&nbsp;
+<img src="/images/blue/merit_badge.png" class="icon32" alt="" title="" align="middle" />&nbsp;
 {{merit_badge}}
 </div>
 

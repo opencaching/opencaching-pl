@@ -33,7 +33,7 @@ $rsGeneralStat = XDb::xSql(
 $user_record = XDb::xFetchArray($rsGeneralStat);
 tpl_set_var('username', htmlspecialchars($user_record['username']));
 if ($user_record['founds_count'] == 0) {
-    $content .= '<p>&nbsp;</p><p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="Caches Find" title="Caches Find" />&nbsp;&nbsp;&nbsp;' . tr("graph_find") . '</p></div><br /><br /><p> <b>' . tr("there_is_no_caches_found") . '</b></p>';
+    $content .= '<p>&nbsp;</p><p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="/images/blue/logs.png" class="icon32" alt="Caches Find" title="Caches Find" />&nbsp;&nbsp;&nbsp;' . tr("graph_find") . '</p></div><br /><br /><p> <b>' . tr("there_is_no_caches_found") . '</b></p>';
 } else {
 
     // calculate diif days between date of register on OC  to current date
@@ -49,7 +49,7 @@ if ($user_record['founds_count'] == 0) {
 
         tpl_set_var('username', htmlspecialchars($user_record['username']));
     }
-    $content .='<p>&nbsp;</p><p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="Caches Find" title="Caches Find" />&nbsp;&nbsp;&nbsp;' . tr("graph_find") . '</p></div><br />';
+    $content .='<p>&nbsp;</p><p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="/images/blue/logs.png" class="icon32" alt="Caches Find" title="Caches Find" />&nbsp;&nbsp;&nbsp;' . tr("graph_find") . '</p></div><br />';
     $content .= '<p><img src="graphs/PieGraphustat.php?userid=' . $user_id . '&amp;t=cf"  border="0" alt="" width="500" height="300" /></p>';
 
     $year = date("Y");

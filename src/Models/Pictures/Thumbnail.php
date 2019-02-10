@@ -15,9 +15,9 @@ class Thumbnail extends BaseObject
 
     public static function placeholderUri($placeholder)
     {
-        $path = 'tpl/stdstyle/images/thumb/'.I18n::getCurrentLang().'/'.$placeholder;
+        $path = 'images/thumb/'.I18n::getCurrentLang().'/'.$placeholder;
         if (!file_exists($path)) {
-            $path = 'tpl/stdstyle/images/thumb/en/'.$placeholder;
+            $path = 'images/thumb/en/'.$placeholder;
         }
         return self::OcConfig()->getAbsolute_server_URI() . $path;
     }
