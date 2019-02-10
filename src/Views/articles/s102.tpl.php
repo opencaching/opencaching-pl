@@ -2,8 +2,8 @@
 use src\Utils\Uri\OcCookie;
 use src\Utils\I18n\I18n;
 ?>
-<link rel="stylesheet" type="text/css" media="screen,projection" href="/tpl/stdstyle/css/GCT.css" />
-<link rel="stylesheet" type="text/css" media="screen,projection" href="/tpl/stdstyle/css/GCTStats.css" />
+<link rel="stylesheet" type="text/css" media="screen,projection" href="/css/GCT.css" />
+<link rel="stylesheet" type="text/css" media="screen,projection" href="/css/GCTStats.css" />
 <script src='https://www.google.com/jsapi'></script>
 <script src="/lib/js/GCT.js"></script>
 <script src="/lib/js/GCT.lang.php"></script>

@@ -56,7 +56,7 @@ class EmailSender
 
     public static function sendRemoveLogNotification(GeoCacheLog $log, User $loggedUser)
     {
-        $emailTemplateFile = __DIR__.'/../../../tpl/stdstyle/email/removed_log.email.html';
+        $emailTemplateFile = __DIR__.'/../../../resources/email/removed_log.email.html';
 
         $formattedMessage = new EmailFormatter($emailTemplateFile);
         $formattedMessage->setVariable("log_owner", $log->getUser()->getUserName());
@@ -83,7 +83,7 @@ class EmailSender
 
     public static function sendNotifyOfOcTeamCommentToCache(GeoCache $cache, User $admin, $message)
     {
-        $emailTemplateFile = __DIR__ . '/../../../tpl/stdstyle/email/octeam_comment.email.html';
+        $emailTemplateFile = __DIR__ . '/../../../resources/email/octeam_comment.email.html';
 
         $formattedMessage = new EmailFormatter($emailTemplateFile);
         $formattedMessage->setVariable("ocTeamComment_01", tr("ocTeamComment_01"));

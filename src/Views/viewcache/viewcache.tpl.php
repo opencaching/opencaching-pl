@@ -7,7 +7,7 @@ use src\Utils\Text\UserInputFilter;
 use src\Utils\Text\Formatter;
 use src\Controllers\MainMapController;
 ?>
-<link rel="stylesheet" href="tpl/stdstyle/css/lightTooltip.css">
+<link rel="stylesheet" href="/css/lightTooltip.css">
 
 <script>
     var confirmRmLogTranslation = '{{confirm_remove_log}}';

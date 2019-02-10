@@ -29,7 +29,7 @@ class GuideController extends BaseController
 
         $this->view->setTemplate('guide/guides');
         $this->view->addLocalCss(
-            Uri::getLinkWithModificationTime('/tpl/stdstyle/guide/guides.css'));
+            Uri::getLinkWithModificationTime('/views/guide/guides.css'));
 
         $guidesList = OcMemCache::getOrCreate('currentGuides', 8*3600, function(){
             return MultiUserQueries::getCurrentGuidesList();

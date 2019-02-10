@@ -4,7 +4,7 @@ use src\Models\MeritBadge\MeritBadge;
 use src\Controllers\MeritBadgeController;
 
 require_once (__DIR__.'/lib/common.inc.php');
-require_once (__DIR__.'/tpl/stdstyle/user_badges.inc.php');
+require_once (__DIR__.'/src/Views/user_badges.inc.php');
 
 global $content_table;
 

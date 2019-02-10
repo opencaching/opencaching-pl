@@ -49,7 +49,7 @@ class CacheSetAdminController extends BaseController
         $this->view->setTemplate('admin/cacheSet/cacheSetsToArchive');
         $this->view->addLocalCss(
             Uri::getLinkWithModificationTime(
-                '/tpl/stdstyle/admin/cacheSet/cacheSetsToArchive.css'));
+                '/views/admin/cacheSet/cacheSetsToArchive.css'));
 
         $this->view->loadJQuery();
 

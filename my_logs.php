@@ -31,7 +31,7 @@ if ($usr == false) {
     //get the news
     $tplname = 'my_logs';
     tpl_set_var('latest_logs_cache', tr('latest_logs'));
-    require(__DIR__.'/tpl/stdstyle/newlogs.inc.php');
+    require(__DIR__.'/src/Views/newlogs.inc.php');
 
     $username = XDb::xMultiVariableQueryValue(
         "SELECT username FROM user WHERE user_id= :1 LIMIT 1", '', $user_id);
@@ -158,8 +158,8 @@ if ($usr == false) {
                 } else {
                     $file_content .= '<td width="22">&nbsp;</td>';
                 }
-                $file_content .= '<td width="22"><img src="tpl/stdstyle/images/'.$log_record['icon_small'].'" border="0" alt="" /></td>';
-                $file_content .= '<td width="22"><a class="links" href="viewcache.php?cacheid='.$log_record['cache_id'].'"><img src="tpl/stdstyle/images/'.$log_record['cache_icon_small'].'" border="0" alt=""/></a></td>';
+                $file_content .= '<td width="22"><img src="/images/'.$log_record['icon_small'].'" border="0" alt="" /></td>';
+                $file_content .= '<td width="22"><a class="links" href="viewcache.php?cacheid='.$log_record['cache_id'].'"><img src="/images/'.$log_record['cache_icon_small'].'" border="0" alt=""/></a></td>';
                 $file_content .= '<td><b><a class="links" href="viewlogs.php?logid='.htmlspecialchars($log_record['id'],
                         ENT_COMPAT, 'UTF-8').'" onmouseover="Tip(\'';
                 $file_content .= '<b>'.htmlspecialchars($log_record['user_name']).'</b>:<br>';

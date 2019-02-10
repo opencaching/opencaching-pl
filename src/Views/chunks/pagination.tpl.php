@@ -24,7 +24,7 @@ return function (PaginationModel $pagination){
         return;
     }
 
-    $chunkCSS = Uri::getLinkWithModificationTime('/tpl/stdstyle/chunks/pagination.css');
+    $chunkCSS = Uri::getLinkWithModificationTime('/views/chunks/pagination.css');
 
 ?>
 

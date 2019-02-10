@@ -57,8 +57,8 @@ class ReportCacheController extends BaseController
         $this->checkParam('cacheid');
         $this->view->setVar('cacheid', $_REQUEST['cacheid']);
         $this->view->setVar('reasonSelect', ReportCommons::generateTypeSelect());
-        $this->view->setVar('report_js', Uri::getLinkWithModificationTime('/tpl/stdstyle/report/report.js'));
-        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/admin/reports.css'));
+        $this->view->setVar('report_js', Uri::getLinkWithModificationTime('/views/report/report.js'));
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/views/admin/reports.css'));
         $this->view->setTemplate('report/report_add');
         $this->view->buildView();
         exit();

@@ -132,7 +132,7 @@ class ErrorHandler
             // No calls to tpl_ or View:: here, to avoid generating an error
             // within the error handler (code may be unstable).
 
-            include __DIR__ . '/../../../tpl/stdstyle/page_error.tpl.php';
+            include __DIR__ . '/../../../src/Views/page_error.tpl.php';
         }
     }
 }

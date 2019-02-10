@@ -68,7 +68,7 @@ if ($error == false) {
 
                 $tplname = 'editwp';
                 require_once(__DIR__.'/lib/caches.inc.php');
-                require('./tpl/stdstyle/newcache.inc.php');
+                require(__DRI__.'/src/Views/newcache.inc.php');
 
                 $wp_type = isset($_POST['type']) ? $_POST['type'] : $wp_record['type'];
                 //build typeoptions

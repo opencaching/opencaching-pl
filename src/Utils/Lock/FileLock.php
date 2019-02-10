@@ -1,6 +1,6 @@
 <?php
 /**
- * Contains \Utils\Lock\FileLock class definition.
+ * Contains \src\Utils\Lock\FileLock class definition.
  */
 namespace src\Utils\Lock;
 

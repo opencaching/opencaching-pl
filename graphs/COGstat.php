@@ -256,7 +256,7 @@ if (count($x4) == 0) {
 
 if (!$graph && !$graph2 && !$graph3 && !$graph4) {
     header('Content-type: image/png');
-    die(file_get_contents(__DIR__ . '/../tpl/stdstyle/images/misc/nodata.png'));
+    die(file_get_contents(__DIR__ . '/../images/misc/nodata.png'));
 }
 
 //-----------------------

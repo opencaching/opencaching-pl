@@ -112,7 +112,7 @@ class AtomFeedEntry
     /**
      * Returns entry author object
      *
-     * @return \Utils\Feed\AtomFeedAuthor
+     * @return \src\Utils\Feed\AtomFeedAuthor
      */
     public function getAuthor()
     {
@@ -207,7 +207,7 @@ class AtomFeedEntry
      * Sets author of the entry
      *
      * @param AtomFeedAuthor $author
-     * @return \Utils\Feed\AtomFeedAuthor
+     * @return \src\Utils\Feed\AtomFeedAuthor
      */
     public function setAuthor(AtomFeedAuthor $author)
     {

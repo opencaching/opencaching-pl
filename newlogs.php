@@ -5,11 +5,11 @@ use src\Utils\Text\Formatter;
 use src\Models\GeoCache\GeoCacheLog;
 
 require_once (__DIR__.'/lib/common.inc.php');
-require_once (__DIR__.'/tpl/stdstyle/lib/icons.inc.php');
+require_once (__DIR__.'/src/Views/lib/icons.inc.php');
 
 //get the news
 $tplname = 'newlogs';
-require (__DIR__.'/tpl/stdstyle/newlogs.inc.php');
+require (__DIR__.'/src/Views/newlogs.inc.php');
 $LOGS_PER_PAGE = 50;
 $PAGES_LISTED = 10;
 
@@ -140,11 +140,11 @@ if( !empty($log_ids) ){
         };
         $file_content .= '<td style="width: 22px;">' . $PT_icon . '</td>';
 
-        $file_content .= '<td style="width: 22px;"><img src="tpl/stdstyle/images/' . $log_record['icon_small'] . '" alt="" title=" ' . tr('logType'.$log_record['log_type']) . ' "></td>';
+        $file_content .= '<td style="width: 22px;"><img src="/images/' . $log_record['icon_small'] . '" alt="" title=" ' . tr('logType'.$log_record['log_type']) . ' "></td>';
         $cacheicon = myninc::checkCacheStatusByUser($log_record, $usr['userid']);
         $file_content .= '<td style="width: 22px;">&nbsp;<a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($log_record['cache_id'], ENT_COMPAT, 'UTF-8') . '"><img src="' . $cacheicon . '" alt="' . $tr_myn_click_to_view_cache . '" title="' . $tr_myn_click_to_view_cache . '"></a></td>';
 
-        //$file_content .= '<td style="width: 22px;"><a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($log_record['cache_id'], ENT_COMPAT, 'UTF-8') . '"><img src="tpl/stdstyle/images/' . $log_record['cache_icon_small'] . '" border="0" alt="" title="Kliknij aby zobaczyć skrzynke" /></a></td>';
+        //$file_content .= '<td style="width: 22px;"><a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($log_record['cache_id'], ENT_COMPAT, 'UTF-8') . '"><img src="/images/' . $log_record['cache_icon_small'] . '" border="0" alt="" title="Kliknij aby zobaczyć skrzynke" /></a></td>';
         $file_content .= '<td><b><a class="links" href="viewlogs.php?logid=' . htmlspecialchars($log_record['id'], ENT_COMPAT, 'UTF-8') . '" onmouseover="Tip(\'';
         $file_content .= '<b>' . htmlspecialchars($log_record['user_name']) . '</b>:<br>';
         $file_content .= GeoCacheLog::cleanLogTextForToolTip( $log_record['log_text'] );

@@ -35,7 +35,7 @@ function ()
                 SELECT DISTINCT `user_id` FROM `caches`
         ) AS `t`', 0);
 
-    $countriesQuoted = array_map('\Utils\Database\XDb::xQuote',OcConfig::getSitePrimaryCountriesList());
+    $countriesQuoted = array_map('\src\Utils\Database\XDb::xQuote',OcConfig::getSitePrimaryCountriesList());
     $rsfCR = XDb::xSql(
         "SELECT COUNT(*) `count`, `cache_location`.`adm3` region, `cache_location`.`code3` code_region
         FROM `cache_location`

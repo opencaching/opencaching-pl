@@ -51,7 +51,7 @@ if ($usr == false) {
 
         $tplname = 'search';
         $view->loadJQueryUI();
-        require(__DIR__.'/tpl/stdstyle/search.inc.php');
+        require(__DIR__.'/src/Views/search.inc.php');
         require(__DIR__.'/lib/caches.inc.php');
 
         sanitize($_REQUEST);
@@ -1177,7 +1177,7 @@ function outputSearchForm($options)
     global $config;
 
     //simple mode (only one easy filter)
-    $filters = file_get_contents('./tpl/stdstyle/search.simple.tpl.php');
+    $filters = file_get_contents(__DIR__.'/src/Views/search.simple.tpl.php');
     tpl_set_var('filters', $filters, false);
     tpl_set_var('formmethod', 'get');
 
@@ -1513,8 +1513,8 @@ function outputSearchForm($options)
 
 
         $hidden_css = "position: absolute; visibility: hidden;";
-        $cachetype_options .= '<img id="cachetype_' . htmlspecialchars($record['id'], ENT_COMPAT, 'UTF-8') . '"    src="' . htmlspecialchars("/tpl/stdstyle/images/" . $cachetype_icon   , ENT_COMPAT, 'UTF-8') . '" title="' . htmlspecialchars($record[$lang_db], ENT_COMPAT, 'UTF-8') . '" alt="' . htmlspecialchars($record[$lang_db], ENT_COMPAT, 'UTF-8') . '" onmousedown="javascript:switchCacheType(\'cachetype_' . htmlspecialchars($record['id'], ENT_COMPAT, 'UTF-8') . '\')" style="cursor: pointer;'.$icon_hidden.'" />';
-        $cachetype_options .= '<img id="cachetype_' . htmlspecialchars($record['id'], ENT_COMPAT, 'UTF-8') . '_bw" src="' . htmlspecialchars("/tpl/stdstyle/images/" . $cachetype_icon_bw, ENT_COMPAT, 'UTF-8') . '" title="' . htmlspecialchars($record[$lang_db], ENT_COMPAT, 'UTF-8') . '" alt="' . htmlspecialchars($record[$lang_db], ENT_COMPAT, 'UTF-8') . '" onmousedown="javascript:switchCacheType(\'cachetype_' . htmlspecialchars($record['id'], ENT_COMPAT, 'UTF-8') . '\')" style="cursor: pointer;'.$icon_bw_hidden.'" />';
+        $cachetype_options .= '<img id="cachetype_' . htmlspecialchars($record['id'], ENT_COMPAT, 'UTF-8') . '"    src="' . htmlspecialchars("/images/" . $cachetype_icon   , ENT_COMPAT, 'UTF-8') . '" title="' . htmlspecialchars($record[$lang_db], ENT_COMPAT, 'UTF-8') . '" alt="' . htmlspecialchars($record[$lang_db], ENT_COMPAT, 'UTF-8') . '" onmousedown="javascript:switchCacheType(\'cachetype_' . htmlspecialchars($record['id'], ENT_COMPAT, 'UTF-8') . '\')" style="cursor: pointer;'.$icon_hidden.'" />';
+        $cachetype_options .= '<img id="cachetype_' . htmlspecialchars($record['id'], ENT_COMPAT, 'UTF-8') . '_bw" src="' . htmlspecialchars("/images/" . $cachetype_icon_bw, ENT_COMPAT, 'UTF-8') . '" title="' . htmlspecialchars($record[$lang_db], ENT_COMPAT, 'UTF-8') . '" alt="' . htmlspecialchars($record[$lang_db], ENT_COMPAT, 'UTF-8') . '" onmousedown="javascript:switchCacheType(\'cachetype_' . htmlspecialchars($record['id'], ENT_COMPAT, 'UTF-8') . '\')" style="cursor: pointer;'.$icon_bw_hidden.'" />';
         if ($i == 2) { $cachetype_options .= '&nbsp;&nbsp;&nbsp;'; }
         $cachetype_options .= "\n";
     }
@@ -1684,7 +1684,7 @@ function outputUniidSelectionForm($uniSql, $urlparams)
     global $next_img_inactive, $prev_img_inactive, $last_img_inactive, $first_img_inactive;
     global $secondlocationname;
 
-    require_once(__DIR__.'/tpl/stdstyle/selectlocid.inc.php');
+    require_once(__DIR__.'/src/Views/selectlocid.inc.php');
 
     unset($urlparams['queryid']);
     unset($urlparams['locid']);
@@ -1853,7 +1853,7 @@ function outputLocidSelectionForm($locSql, $urlparams)
 {
     global $tplname, $locline, $bgcolor1, $bgcolor2;
 
-    require_once(__DIR__.'/tpl/stdstyle/selectlocid.inc.php');
+    require_once(__DIR__.'/src/Views/selectlocid.inc.php');
 
     unset($urlparams['queryid']);
     unset($urlparams['locid']);

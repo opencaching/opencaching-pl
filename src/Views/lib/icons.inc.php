@@ -3,7 +3,7 @@
 
 function icon_log_type($icon_small, $text)
 {
-    return "<img src='/tpl/stdstyle/images/$icon_small' class='icon16' alt='$text' title='$text'>";
+    return "<img src='/images/$icon_small' class='icon16' alt='$text' title='$text'>";
 }
 
 function icon_cache_status($status, $text)
@@ -25,7 +25,7 @@ function icon_cache_status($status, $text)
         default: $icon = "log/16x16-go.png";
             break;
     }
-    return "<img src='/tpl/stdstyle/images/$icon' class='icon16' alt='$text' title='$text'>";
+    return "<img src='/images/$icon' class='icon16' alt='$text' title='$text'>";
 }
 
 

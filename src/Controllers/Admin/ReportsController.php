@@ -272,12 +272,12 @@ class ReportsController extends BaseController
         $this->view->setVar('typeSelect', ReportCommons::generateTypeSelect($_SESSION['reportType'], true));
         $this->view->setVar('statusSelect', ReportCommons::generateStatusSelect(true, $_SESSION['reportStatus']));
         $this->view->setVar('userSelect', ReportCommons::generateUserSelect(false, $_SESSION['reportUser']));
-        $this->view->setVar('reports_js', Uri::getLinkWithModificationTime('/tpl/stdstyle/admin/reports_list.js'));
+        $this->view->setVar('reports_js', Uri::getLinkWithModificationTime('/views/admin/reports_list.js'));
         $this->view->setVar('infoMsg', $this->infoMsg);
         $this->view->setVar('errorMsg', $this->errorMsg);
         $this->view->setVar('cleanUri', $this->getCleanUri());
         $this->view->loadJQuery();
-        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/admin/reports.css'));
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/views/admin/reports.css'));
         $this->view->setTemplate('admin/reports_list');
         $this->view->buildView();
         exit();
@@ -299,7 +299,7 @@ class ReportsController extends BaseController
         $this->view->setVar('report', $report);
         $this->view->setVar('leaderSelect', ReportCommons::generateUserSelect(true, $report->getUserIdLeader()));
         $this->view->setVar('statusSelect', ReportCommons::generateStatusSelect(false, $report->getStatus()));
-        $this->view->setVar('reports_js', Uri::getLinkWithModificationTime('/tpl/stdstyle/admin/report_show.js'));
+        $this->view->setVar('reports_js', Uri::getLinkWithModificationTime('/views/admin/report_show.js'));
         $this->view->setVar('reportLogs', ReportLog::getLogs($id));
         $this->view->setVar('activePolls', ReportPoll::getActivePolls($id));
         $this->view->setVar('inactivePolls', $inactivePolls);
@@ -309,7 +309,7 @@ class ReportsController extends BaseController
         $this->view->setVar('errorMsg', $this->errorMsg);
         $this->view->setVar('cleanUri', $this->getCleanUri());
         $this->view->loadJQuery();
-        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/admin/reports.css'));
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/views/admin/reports.css'));
         $this->view->setTemplate('admin/report_show');
         $this->view->buildView();
         exit();
@@ -325,9 +325,9 @@ class ReportsController extends BaseController
         $this->view->setVar('paginationModel', $paginationModel);
         $this->view->setVar('reports', $reports);
         $this->view->setVar('dateFormat', $this->ocConfig->getDatetimeFormat());
-        $this->view->setVar('reports_js', Uri::getLinkWithModificationTime('/tpl/stdstyle/admin/reports_list.js'));
+        $this->view->setVar('reports_js', Uri::getLinkWithModificationTime('/views/admin/reports_list.js'));
         $this->view->loadJQuery();
-        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/admin/reports.css'));
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/views/admin/reports.css'));
         $this->view->setTemplate('admin/reports_watch');
         $this->view->buildView();
         exit();

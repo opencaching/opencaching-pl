@@ -97,16 +97,16 @@ class MainMapController extends BaseController
 
         $this->view->addLocalCss(
             Uri::getLinkWithModificationTime(
-                '/tpl/stdstyle/mainMap/mainMap.css'));
+                '/views/mainMap/mainMap.css'));
 
         $this->view->addLocalCss(
             Uri::getLinkWithModificationTime(
-                '/tpl/stdstyle/mainMap/mainMapPopup.css'));
+                '/views/mainMap/mainMapPopup.css'));
 
         $this->view->addHeaderChunk('handlebarsJs');
 
         $this->view->addLocalJs(
-            Uri::getLinkWithModificationTime('/tpl/stdstyle/mainMap/mainMap.js'));
+            Uri::getLinkWithModificationTime('/views/mainMap/mainMap.js'));
 
         // find user for this map display
         $user = null;

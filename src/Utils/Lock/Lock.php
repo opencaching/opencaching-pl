@@ -1,6 +1,6 @@
 <?php
 /**
- * Contains \Utils\Lock\Lock class definition. This is the entry class to
+ * Contains \src\Utils\Lock\Lock class definition. This is the entry class to
  * common locking mechanism, providing sufficient abstraction layer where the
  * real locking is performed by one of subclasses, based on configuration.
  *
@@ -30,7 +30,7 @@
  * option is provided for future use, when another locking mechanism will be
  * implemented too.
  *
- * To implement another locking mechanism extend the \Utils\Lock\RealLock
+ * To implement another locking mechanism extend the \src\Utils\Lock\RealLock
  * class and add corresponding settings to Config files
  * (f.ex. Config/lock.default.php).
  */

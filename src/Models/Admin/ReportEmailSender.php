@@ -13,7 +13,7 @@ use src\Utils\Uri\SimpleRouter;
 class ReportEmailSender
 {
 
-    const TEMPLATE_PATH = __DIR__ . '/../../../tpl/stdstyle/email/admin/reports/';
+    const TEMPLATE_PATH = __DIR__ . '/../../../resources/email/admin/reports/';
 
     /**
      * Sends e-mail for user who watch report

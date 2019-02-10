@@ -120,9 +120,9 @@ function notifyOwner($cacheid, $msgType)
 
     $cachename = getCachename($cacheid);
     if ($msgType == 0) {
-        $email_content = file_get_contents('./tpl/stdstyle/email/activated_cache.email');
+        $email_content = file_get_contents(__DIR__.'/resources/email/activated_cache.email');
     } else {
-        $email_content = file_get_contents('./tpl/stdstyle/email/archived_cache.email');
+        $email_content = file_get_contents(__DIR__.'/resources/email/archived_cache.email');
     }
     $email_headers = "Content-Type: text/plain; charset=utf-8\r\n";
     $email_headers .= "From: ".OcConfig::getSiteName()." <".OcConfig::getEmailAddrOcTeam().">\r\n";

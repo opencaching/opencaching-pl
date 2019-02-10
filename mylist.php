@@ -14,7 +14,7 @@ if ($usr == false) {
     exit;
 }
 
-include(__DIR__.'/tpl/stdstyle/mylist.inc.php');
+include(__DIR__.'/src/Views/mylist.inc.php');
 $tplname = 'mylist';
 
 $bml_id = 0;

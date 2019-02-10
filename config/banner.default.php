@@ -15,7 +15,7 @@ $bannerTxt = [
 ];
 
 $bannerVideo = [
-    "/tpl/stdstyle/video/header/1.mp4",
-    "/tpl/stdstyle/video/header/2.mp4",
-    "/tpl/stdstyle/video/header/3.mp4",
+    "/images/video/header/1.mp4",
+    "/images/video/header/2.mp4",
+    "/images/video/header/3.mp4",
 ];

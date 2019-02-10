@@ -86,7 +86,7 @@ class NewsAdminController extends BaseController
     {
         $this->view->setVar('dateformat_jQuery', Converter::dateformat_PHP_to_jQueryUI($this->ocConfig->getDateFormat()));
         $this->view->setVar('news', $news);
-        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/news/news.css'));
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/views/news/news.css'));
         $this->view->loadJQueryUI();
 
         $this->view->setTemplate('news/newsAdminEdit');
@@ -97,7 +97,7 @@ class NewsAdminController extends BaseController
     private function showAdminNewsList(array $newsList)
     {
         $this->view->setVar('newsList', $newsList);
-        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/news/news.css'));
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/views/news/news.css'));
 
         $this->view->setTemplate('news/newsAdmin');
         $this->view->buildView();

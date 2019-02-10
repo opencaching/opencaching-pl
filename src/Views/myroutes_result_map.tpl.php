@@ -46,7 +46,7 @@ $polyline = $encoder->encode($points);
         var infowindow = new google.maps.InfoWindow({
             content:
                     '<table border="0"><tr><td>' +
-                    '<img src="tpl/stdstyle/images/' + icon + '" border="0" alt=""/>&nbsp;<a href="viewcache.php?cacheid=' + cacheid + '" target="_blank">' + cachename + '</a>' +
+                    '<img src="/images/' + icon + '" border="0" alt=""/>&nbsp;<a href="viewcache.php?cacheid=' + cacheid + '" target="_blank">' + cachename + '</a>' +
                     ' - <b>' + wp + '</b></td></tr><tr><td width="70%" valign="top">' + '<b>{{created_by}}:</b> ' + username + topratings + '</td></tr></td></tr></table>'
         });
 

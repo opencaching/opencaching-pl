@@ -1,6 +1,6 @@
 <?php
 /**
- * Configuration settings for \Utils\Lock objects:
+ * Configuration settings for src\Utils\Lock objects:
  * - "type":
  *      The locking mechanism used in objects; currently supported values:
  *      - "file": uses flock with filenames based on locking identifiers
@@ -11,7 +11,7 @@
  * - "file":
  *      Settings used in file lock mechanism
  *      - "class":
- *           Must be the 'Utils\Lock\FileLock' string
+ *           Must be the 'src\Utils\Lock\FileLock' string
  *      - "dir":
  *           Path (subdirectory of $dynbasepath) of directory used in "file"
  *           locking mechanism to store locks.
@@ -20,7 +20,7 @@
 $lock = [
     "type" => "file",
     "file" => [
-        "class" => "Utils\Lock\FileLock",
+        "class" => "src\Utils\Lock\FileLock",
         "dir" => "oc_lock"
     ]
 ];

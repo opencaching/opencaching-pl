@@ -98,7 +98,7 @@ class CacheSetsListController extends BaseController
     private function showList()
     {
         $this->view->setTemplate('cacheSet/cacheSetsList');
-        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/cacheSet/cacheSetsList.css'));
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/views/cacheSet/cacheSetsList.css'));
 
         $this->view->loadJQuery();
 

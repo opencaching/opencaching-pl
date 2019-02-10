@@ -152,9 +152,9 @@ class ViewCacheController extends BaseController
         }
 
         $this->view->setVar('hideLogbook',isset($_REQUEST['logbook']) && $_REQUEST['logbook'] == 'no');
-        $this->view->setVar('viewcache_js', Uri::getLinkWithModificationTime('/tpl/stdstyle/viewcache/viewcache.js'));
+        $this->view->setVar('viewcache_js', Uri::getLinkWithModificationTime('/views/viewcache/viewcache.js'));
 
-        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/viewcache/viewcache.css'));
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/views/viewcache/viewcache.css'));
 
         $this->processUserCoordsModification();
         $this->processDistanceToCache();

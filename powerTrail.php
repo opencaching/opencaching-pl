@@ -60,8 +60,8 @@ if ($error == false) {
     }
 
     $tplname = 'powerTrail';
-    $view->addLocalCss(Uri::getLinkWithModificationTime('tpl/stdstyle/css/powerTrail.css'));
-    $view->addLocalCss(Uri::getLinkWithModificationTime('tpl/stdstyle/css/ptMenuCss/style.css'));
+    $view->addLocalCss(Uri::getLinkWithModificationTime('/css/powerTrail.css'));
+    $view->addLocalCss(Uri::getLinkWithModificationTime('/css/ptMenuCss/style.css'));
     $view->loadJQuery();
     $view->loadJQueryUI();
     $view->loadTimepicker();

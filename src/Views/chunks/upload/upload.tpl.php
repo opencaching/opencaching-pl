@@ -10,8 +10,8 @@ use src\Utils\Uri\Uri;
  */
 return function () {
 
-  $chunkCss = Uri::getLinkWithModificationTime('/tpl/stdstyle/chunks/upload/upload.css');
-  $chunkJs  = Uri::getLinkWithModificationTime('/tpl/stdstyle/chunks/upload/upload.js');
+  $chunkCss = Uri::getLinkWithModificationTime('/views/chunks/upload/upload.css');
+  $chunkJs  = Uri::getLinkWithModificationTime('/views/chunks/upload/upload.js');
 
 ?>
 

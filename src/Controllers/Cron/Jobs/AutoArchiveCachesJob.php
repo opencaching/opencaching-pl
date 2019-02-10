@@ -20,7 +20,7 @@ class AutoArchiveCachesJob extends Job
     const STEP_3_ARCHIVED = 3;
     const ARCHIVE_EVENT = 100;
 
-    const TEMPLATE_DIR = __DIR__.'/../../../../tpl/stdstyle/email/autoarchive/';
+    const TEMPLATE_DIR = __DIR__.'/../../../../resources/email/autoarchive/';
 
     public function run()
     {

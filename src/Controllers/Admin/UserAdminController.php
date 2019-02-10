@@ -46,7 +46,7 @@ class UserAdminController extends BaseController
         $this->view->setVar('infoMsg', $this->infoMsg);
         $this->view->setVar('errorMsg', $this->errorMsg);
         $this->view->setVar('userNotes', AdminNoteSet::getNotesForUser($this->viewedUser, 10000));
-        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/admin/admin.css'));
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/views/admin/admin.css'));
         $this->view->loadJQuery();
         $this->view->setTemplate('admin/user_admin');
         $this->view->buildView();

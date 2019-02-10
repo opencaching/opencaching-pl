@@ -59,7 +59,7 @@ class NewsListController extends BaseController
     {
         $this->view->setTemplate('news/newsList');
         $this->view->setVar('newsList', $newsList);
-        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/news/news.css'));
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/views/news/news.css'));
         $this->view->buildView();
     }
 
@@ -76,7 +76,7 @@ class NewsListController extends BaseController
            exit();
         }
         $this->view->setVar('news', $news);
-        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/news/news.css'));
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/views/news/news.css'));
         $this->view->setTemplate('news/newsItem');
         $this->view->buildView();
     }

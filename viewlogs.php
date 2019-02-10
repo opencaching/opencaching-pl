@@ -19,10 +19,10 @@ if ($error == false) {
     $view = tpl_getView();
     $view->loadFancyBox();
 
-    tpl_set_var('viewcache_js', Uri::getLinkWithModificationTime("tpl/stdstyle/viewcache/viewcache.js"));
-    require (__DIR__.'/tpl/stdstyle/lib/icons.inc.php');
-    require (__DIR__.'/tpl/stdstyle/viewcache.inc.php');
-    require (__DIR__.'/tpl/stdstyle/viewlogs.inc.php');
+    tpl_set_var('viewcache_js', Uri::getLinkWithModificationTime("/src/Views/viewcache/viewcache.js"));
+    require (__DIR__.'/src/Views/lib/icons.inc.php');
+    require (__DIR__.'/src/Views/viewcache.inc.php');
+    require (__DIR__.'/src/Views/viewlogs.inc.php');
 
     global $usr;
     $view->setVar('isUserAuthorized', $usr != false);
@@ -205,7 +205,7 @@ if ($error == false) {
             'enableLogsFiltering',
             !empty($logfilterConfig['enable_logs_filtering'])
         );
-        $tmpSrcLog = file_get_contents('./tpl/stdstyle/viewcache_log.tpl.php');
+        $tmpSrcLog = file_get_contents(__DIR__.'/src/Views/viewcache_log.tpl.php');
 
         foreach ($logEneries as $record) {
             $record['text_listing'] = ucfirst(tr('logType' . $record['type'])); //add new attrib 'text_listing based on translation (instead of query as before)'

@@ -38,7 +38,7 @@ $view->loadJquery();
 
 
 require_once(__DIR__.'/lib/caches.inc.php');
-require(__DIR__.'/tpl/stdstyle/rating.inc.php');
+require(__DIR__.'/src/Views/rating.inc.php');
 
 if(!isset($_REQUEST['cacheid'])){
     tpl_errorMsg('log_cache', "No cacheid param!");

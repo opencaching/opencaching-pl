@@ -47,7 +47,7 @@ class UserWatchedCachesController extends BaseController
         $this->view->setTemplate('userWatchedCaches/mapOfWatched');
         $this->view->addLocalCss(
             Uri::getLinkWithModificationTime(
-                '/tpl/stdstyle/userWatchedCaches/userWatchedCaches.css'));
+                '/views/userWatchedCaches/userWatchedCaches.css'));
         $this->view->loadJQuery();
 
         $this->view->addHeaderChunk('openLayers5');
@@ -105,7 +105,7 @@ class UserWatchedCachesController extends BaseController
         $this->view->setTemplate('userWatchedCaches/userWatchedCaches');
         $this->view->addLocalCss(
             Uri::getLinkWithModificationTime(
-                '/tpl/stdstyle/userWatchedCaches/userWatchedCaches.css'));
+                '/views/userWatchedCaches/userWatchedCaches.css'));
 
         $this->view->loadJQuery();
 

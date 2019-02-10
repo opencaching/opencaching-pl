@@ -13,7 +13,7 @@ use src\Models\User\User;
 class NotifyEmailSender
 {
 
-    const EMAIL_TEMPLATE_PATH = __DIR__ . '/../../../tpl/stdstyle/email/';
+    const EMAIL_TEMPLATE_PATH = __DIR__ . '/../../../resources/email/';
 
     /**
      * Sends email to $user with notifies about new caches in neighbourhoods

@@ -39,7 +39,7 @@ class UserUtilsController extends BaseController
 
         $this->view->setTemplate('qrCodeGen/qrcode');
         $this->view->addLocalCss(
-            Uri::getLinkWithModificationTime('tpl/stdstyle/qrCodeGen/qrcode.css'));
+            Uri::getLinkWithModificationTime('/views/qrCodeGen/qrcode.css'));
 
 
         //set it to writable location, a place for temp generated PNG files

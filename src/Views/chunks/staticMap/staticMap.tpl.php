@@ -12,7 +12,7 @@ return function (StaticMapModel $m){
     //start of chunk
 
     $chunkCSS = Uri::getLinkWithModificationTime(
-        '/tpl/stdstyle/chunks/staticMap/staticMap.css');
+        '/views/chunks/staticMap/staticMap.css');
     ?>
 
 <script>

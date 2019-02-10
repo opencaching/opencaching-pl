@@ -81,7 +81,7 @@ if ($error == false) {
 
             if ($cache_record['user_id'] == $usr['userid'] || $usr['admin']) {
                 require_once(__DIR__.'/lib/caches.inc.php');
-                require(__DIR__.'/tpl/stdstyle/editcache.inc.php');
+                require(__DIR__.'/src/Views/editcache.inc.php');
                 //here we read all used information from the form if submitted, otherwise from DB
                 // wihout virtuals and webcams
                 if (isset($_POST['type'])) {

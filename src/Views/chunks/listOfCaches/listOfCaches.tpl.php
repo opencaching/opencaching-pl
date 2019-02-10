@@ -11,7 +11,7 @@ use src\Utils\Uri\Uri;
 return function (ListOfCachesModel $listModel){
 
     $chunkCSS = Uri::getLinkWithModificationTime(
-        '/tpl/stdstyle/chunks/listOfCaches/listOfCaches.css');
+        '/views/chunks/listOfCaches/listOfCaches.css');
 
 ?>
 

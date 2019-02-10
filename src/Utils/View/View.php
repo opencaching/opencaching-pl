@@ -11,7 +11,7 @@ use src\Utils\I18n\I18n;
 
 class View {
 
-    const TPL_DIR = __DIR__ . '/../../../tpl/stdstyle';
+    const TPL_DIR = __DIR__ . '/../../../src/Views';
     const CHUNK_DIR = self::TPL_DIR . '/chunks/';
 
     //NOTE: local View vars should be prefixed by "_"
@@ -118,7 +118,7 @@ class View {
      * Please note the meaning of context in subtemplate -
      * subtemplate used only $view var
      *
-     * @param string $subTplPath - relative to: /tpl/stdstyle
+     * @param string $subTplPath - relative to: /src/Views
      * @return string
      */
     public function callSubTpl($subTplPath)

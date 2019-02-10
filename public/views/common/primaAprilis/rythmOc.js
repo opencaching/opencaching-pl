@@ -19,7 +19,7 @@ $( document ).ready(function() {
 
 function prepeareMusic()
 {
-  rythm.setMusic('/tpl/stdstyle/common/primaAprilis/rythmC.mp3')
+  rythm.setMusic('/views/common/primaAprilis/rythmC.mp3')
   rythm.setGain(0.1)
 
   rythm.addRythm('btn', 'borderWidth', 0, 5)

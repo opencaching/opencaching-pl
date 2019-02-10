@@ -70,7 +70,7 @@ function fHideColumn($nr, $set)
 }
 
 global $dbcSearch, $usr, $hide_coords, $NrColSortSearch, $OrderSortSearch, $SearchWithSort, $TestStartTime, $queryFilter;
-require_once (__DIR__.'/../tpl/stdstyle/lib/icons.inc.php');
+require_once (__DIR__.'/../src/Views/lib/icons.inc.php');
 require_once (__DIR__.'/calculation.inc.php');
 
 set_time_limit(1800);
@@ -229,12 +229,12 @@ if ($resultcount <= 5000 && $NrColSortSearch != - 1) {
     $SearchWithSort = true;
     $tplname = 'search.result.caches'; // prepare the output
     $caches_per_page = 999999;
-    $cache_line = tpl_do_translate(file_get_contents(__DIR__.'/../tpl/stdstyle/search.result.caches.row.tpl.php')); // build lines
+    $cache_line = tpl_do_translate(file_get_contents(__DIR__.'/../src/Views/search.result.caches.row.tpl.php')); // build lines
 } else {
     $SearchWithSort = false;
     $tplname = 'search.result.caches'; // without sort
     $caches_per_page = 20;
-    $cache_line = tpl_do_translate(file_get_contents(__DIR__.'/../tpl/stdstyle/search.result.caches.row.tpl.php')); // build lines
+    $cache_line = tpl_do_translate(file_get_contents(__DIR__.'/../src/Views/search.result.caches.row.tpl.php')); // build lines
 }
 
 if ($resultcount)
@@ -644,8 +644,8 @@ if ($usr || ! $hide_coords)
     else
         tpl_set_var('distanceunit', $distance_unit);
 
-    $view->addLocalCss(Uri::getLinkWithModificationTime('tpl/stdstyle/css/GCT.css'));
-    $view->addLocalCss(Uri::getLinkWithModificationTime('tpl/stdstyle/css/GCTStats.css'));
+    $view->addLocalCss(Uri::getLinkWithModificationTime('/css/GCT.css'));
+    $view->addLocalCss(Uri::getLinkWithModificationTime('/css/GCTStats.css'));
 
     tpl_BuildTemplate();
 

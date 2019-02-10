@@ -126,7 +126,7 @@ class AtomFeed
     /**
      * Returns feed author object
      *
-     * @return \Utils\Feed\AtomFeedAuthor
+     * @return \src\Utils\Feed\AtomFeedAuthor
      */
     public function getAuthor()
     {
@@ -209,7 +209,7 @@ class AtomFeed
      * Sets feed author
      *
      * @param AtomFeedAuthor $author
-     * @return \Utils\Feed\AtomFeedAuthor
+     * @return \src\Utils\Feed\AtomFeedAuthor
      */
     public function setAuthor(AtomFeedAuthor $author)
     {

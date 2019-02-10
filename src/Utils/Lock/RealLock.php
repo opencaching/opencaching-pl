@@ -1,6 +1,6 @@
 <?php
 /**
- * Contains \Utils\Lock\RealLock class definition.
+ * Contains \src\Utils\Lock\RealLock class definition.
  */
 namespace src\Utils\Lock;
 
@@ -13,7 +13,7 @@ use \RuntimeException;
 abstract class RealLock extends Lock
 {
     /**
-     * Checks if object creation is done exactly from \Utils\Lock\Lock
+     * Checks if object creation is done exactly from \src\Utils\Lock\Lock
      * class, not from external code. If so, calls {@see internalConstruct()}
      * then.
      *

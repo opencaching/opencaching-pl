@@ -181,7 +181,7 @@ class CacheAdoptionController extends BaseController
         $message = str_replace('{cacheName}', $cacheObj->getCacheName(), $message);
         $this->infoMsg = $message;
 
-        EmailSender::sendAdoptionSuccessMessage(__DIR__.'/../../tpl/stdstyle/email/adoption.email.html',
+        EmailSender::sendAdoptionSuccessMessage(__DIR__.'/../../resources/email/adoption.email.html',
             $cacheObj->getCacheName(), $this->loggedUser->getUserName(), $oldOwner->getUserName(), $oldOwner->getEmail());
 
     }
@@ -209,7 +209,7 @@ class CacheAdoptionController extends BaseController
         if (!is_null($oldOwner)) {
 
             $this->infoMsg = tr('adopt_27');
-            EmailSender::sendAdoptionRefusedMessage(__DIR__.'/../../tpl/stdstyle/email/adoption.email.html',
+            EmailSender::sendAdoptionRefusedMessage(__DIR__.'/../../resources/email/adoption.email.html',
                 $cacheObj->getCacheName(), $this->loggedUser->getUserName(), $oldOwner->getUserName(), $oldOwner->getEmail());
         }
     }
@@ -272,7 +272,7 @@ class CacheAdoptionController extends BaseController
                 $cacheObj->getCacheId(), $newUserObj->getUserId());
 
             if ($this->db->rowCount($stmt) > 0) {
-                EmailSender::sendAdoptionOffer(__DIR__.'/../../tpl/stdstyle/email/adoption.email.html', $cacheObj->getCacheName(),
+                EmailSender::sendAdoptionOffer(__DIR__.'/../../resources/email/adoption.email.html', $cacheObj->getCacheName(),
                     $newUserObj->getUserName(), $this->loggedUser->getUserName(), $newUserObj->getEmail());
                 $this->infoMsg = tr('adopt_24');
             } else {
@@ -291,7 +291,7 @@ class CacheAdoptionController extends BaseController
 
         tpl_set_var ( 'cachename', $cacheObj->getCacheName() );
         tpl_set_var ( 'cacheid', $cacheObj->getCacheId() );
-        $this->view->addLocalCss(Uri::getLinkWithModificationTime('tpl/stdstyle/cacheAdoption/cacheAdoption.css'));
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/views/cacheAdoption/cacheAdoption.css'));
 
         tpl_BuildTemplate();
         exit;
@@ -320,7 +320,7 @@ class CacheAdoptionController extends BaseController
         $this->view->setVar('userCaches', $this->getUserCaches());
 
         tpl_set_tplname('cacheAdoption/cacheList');
-        $this->view->addLocalCss(Uri::getLinkWithModificationTime('tpl/stdstyle/cacheAdoption/cacheAdoption.css'));
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/views/cacheAdoption/cacheAdoption.css'));
 
         $this->view->setVar('errorMsg', $this->errorMsg);
         $this->view->setVar('infoMsg', $this->infoMsg);

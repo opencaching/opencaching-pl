@@ -1,5 +1,6 @@
 <?php
 use src\Models\PowerTrail\PowerTrail;
+use src\Utils\Database\OcDb;
 
 session_start();
 if (!isset($_SESSION['user_id'])) {
@@ -8,7 +9,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 require_once __DIR__ . '/../lib/ClassPathDictionary.php';
 $ptAPI = new powerTrailBase;
-$db = \Utils\Database\OcDb::instance();
+$db = OcDb::instance();
 
 $projectId = $_REQUEST['projectId'];
 $userId = $_REQUEST['userId'];

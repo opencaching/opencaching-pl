@@ -9,7 +9,7 @@ use src\Models\OcConfig\OcConfig;
 class UserEmailSender
 {
 
-    const TEMPLATE_PATH = __DIR__ . '/../../../tpl/stdstyle/email/user/';
+    const TEMPLATE_PATH = __DIR__ . '/../../../resources/email/user/';
 
     /**
      * Sends user2user message (used by mailTo)

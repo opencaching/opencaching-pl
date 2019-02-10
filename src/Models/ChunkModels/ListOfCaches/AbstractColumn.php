@@ -10,7 +10,7 @@ use src\Utils\Generators\TextGen;
  * This is an abstract column for listOfCaches chunk.
  * Every implementation of this class should:
  *  - define getChunkName method which should return the chunk name in
- *    /tpl/stdstyle/chunks/listOfCaches/
+ *    /srv/Views/chunks/listOfCaches/
  *  - has proper dataExtractor
  *
  * If 'dataExtractor' is not define every "row" is passing to chunk as is.
@@ -18,7 +18,7 @@ use src\Utils\Generators\TextGen;
  */
 
 abstract class AbstractColumn {
-    const COLUMN_CHUNK_DIR = __DIR__.'/../../../../tpl/stdstyle/chunks/listOfCaches/';
+    const COLUMN_CHUNK_DIR = __DIR__.'/../../../../srv/Views/chunks/listOfCaches/';
     private $dataExtractor = null;
     private $header = '';
     private $additionalClass = '';

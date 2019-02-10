@@ -69,7 +69,7 @@ if ($error == false) {
                 $tplname = 'newwp';
 
                 require_once(__DIR__.'/lib/caches.inc.php');
-                require_once(__DIR__.'/tpl/stdstyle/newcache.inc.php');
+                require_once(__DIR__.'/src/Views/newcache.inc.php');
 
                 //set template replacements
                 tpl_set_var('lon_message', '');

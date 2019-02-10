@@ -53,7 +53,7 @@ final class OcConfig extends ConfigReader
     private $dbHost;
     private $dbName;
 
-    /** @var array the \Utils\Lock objects configuration array */
+    /** @var array the \src\Utils\Lock objects configuration array */
     private $lockConfig;
 
     /** @var array the watchlist configuration array */
@@ -321,9 +321,9 @@ final class OcConfig extends ConfigReader
 
 
     /**
-     * Gives \Utils\Lock objects configuration, tries to initialize it if null
+     * Gives \src\Utils\Lock objects configuration, tries to initialize it if null
      *
-     * @return array \Utils\Lock objects configuration
+     * @return array \src\Utils\Lock objects configuration
      *               ({@see /Config/lock.default.php})
      */
     public function getLockConfig()

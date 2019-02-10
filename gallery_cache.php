@@ -53,7 +53,7 @@ $view->setVar('cachepictures', $cache->getPicturesList(false));
 $view->setVar('hidespoilers', ($app->getLoggedUser() === null && $hide_coords));
 $view->setVar('cache', $cache);
 $view->setVar('cacheicon', $cache->getCacheIcon($app->getLoggedUser()));
-$view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/viewcache/viewcache.css'));
+$view->addLocalCss(Uri::getLinkWithModificationTime('/views/viewcache/viewcache.css'));
 $view->loadFancyBox();
 $view->setTemplate('gallery_cache');
 $view->buildView();

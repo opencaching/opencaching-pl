@@ -43,9 +43,9 @@ if ($error == false) {
         $log_record = XDb::xFetchArray($log_rs);
         if ($log_record) {
 
-            require(__DIR__.'/tpl/stdstyle/editlog.inc.php');
+            require(__DIR__.'/src/Views/editlog.inc.php');
             require_once(__DIR__.'/lib/caches.inc.php');
-            require(__DIR__.'/tpl/stdstyle/rating.inc.php');
+            require(__DIR__.'/src/Views/rating.inc.php');
 
             if ($log_record['node'] != OcConfig::getSiteNodeId()) {
                 tpl_errorMsg('editlog', $error_wrong_node);

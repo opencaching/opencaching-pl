@@ -75,7 +75,7 @@ class UserProfileController extends BaseController
         $this->view->setVar('neighbourhoods', $neighbourhoods);
         $this->view->setTemplate('userProfile/notifySettings');
         $this->view->loadJQuery();
-        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/userProfile/userProfile.css'));
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/views/userProfile/userProfile.css'));
         $this->view->buildView();
     }
 
@@ -191,7 +191,7 @@ class UserProfileController extends BaseController
         $this->view->setVar('content', $content);
         $this->view->setVar('errorMsg', $this->errorMsg);
         $this->view->setVar('infoMsg', $this->infoMsg);
-        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/userProfile/mailto.css'));
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/views/userProfile/mailto.css'));
         $this->view->setTemplate('userProfile/mailto');
         $this->view->buildView();
     }

@@ -41,12 +41,12 @@ class MyRecommendationsController extends BaseController
 
         $this->view->setTemplate('myRecommendations/myRecommendations');
         $this->view->addLocalCss(
-            Uri::getLinkWithModificationTime('/tpl/stdstyle/myRecommendations/myRecommendations.css'));
+            Uri::getLinkWithModificationTime('/views/myRecommendations/myRecommendations.css'));
 
         $this->view->addLocalJs(
-            Uri::getLinkWithModificationTime('/tpl/stdstyle/myRecommendations/myRecommendations.js'));
+            Uri::getLinkWithModificationTime('/views/myRecommendations/myRecommendations.js'));
 
-        $this->view->addLocalCss('/tpl/stdstyle/css/lightTooltip.css');
+        $this->view->addLocalCss('/css/lightTooltip.css');
         $this->view->loadJQuery();
 
         //load lightPopup

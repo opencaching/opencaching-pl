@@ -98,7 +98,7 @@ class CacheLogController extends BaseController
         $this->view->addHeaderChunk('openLayers5');
 
         $this->view->addLocalCss(
-            Uri::getLinkWithModificationTime('/tpl/stdstyle/lastLogs/lastLogs.css'));
+            Uri::getLinkWithModificationTime('/views/lastLogs/lastLogs.css'));
 
         $lastLogs = MultiLogStats::getLastLogs();
 

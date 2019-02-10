@@ -94,27 +94,27 @@ class MainLayoutController extends BaseController
             $this->view->setVar('_topBannerVideo', $this->ocConfig->getTopBannerVideo());
             $this->view->loadJQuery();
             $this->view->addLocalCss(
-                    Uri::getLinkWithModificationTime('/js/slick/slick.css'));
-            $this->view->addLocalCss(Uri::getLinkWithModificationTime('/js/slick/slick-theme.css'));
+                    Uri::getLinkWithModificationTime('/js/libs/slick/slick.css'));
+            $this->view->addLocalCss(Uri::getLinkWithModificationTime('/js/libs/slick/slick-theme.css'));
             $this->view->addLocalJs(
-                    Uri::getLinkWithModificationTime('/js/slick/slick.min.js'));
+                    Uri::getLinkWithModificationTime('/js/libs/slick/slick.min.js'));
 
         }
 
         if (!$this->legacyLayout) {
             $this->view->addLocalCss(Uri::getLinkWithModificationTime(
-                '/tpl/stdstyle/common/mainLayout.css'));
+                '/views/common/mainLayout.css'));
         }
 
         if (Year::isPrimaAprilisToday()) {
             // add rythm JS
             $this->view->addLocalJs(
                 Uri::getLinkWithModificationTime(
-                    '/tpl/stdstyle/common/primaAprilis/rythm.min.js'));
+                    '/views/common/primaAprilis/rythm.min.js'));
                 //'https://cdnjs.cloudflare.com/ajax/libs/rythm.js/2.2.3/rythm.min.js');
 
             $this->view->addLocalJs(Uri::getLinkWithModificationTime(
-                '/tpl/stdstyle/common/primaAprilis/rythmOc.js'));
+                '/views/common/primaAprilis/rythmOc.js'));
 
             $this->view->addLocalJs(Uri::getLinkWithModificationTime(
                 '/vendor/js-cookie/js-cookie/src/js.cookie.js'));

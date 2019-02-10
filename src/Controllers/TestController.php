@@ -64,7 +64,7 @@ class TestController extends BaseController
     public function oAuth()
     {
         $this->view->addLocalCss(
-            Uri::getLinkWithModificationTime('/tpl/stdstyle/test/oAuth.css'));
+            Uri::getLinkWithModificationTime('/views/test/oAuth.css'));
 
         $this->view->setTemplate('test/oAuth');
 
@@ -96,7 +96,7 @@ class TestController extends BaseController
     public function oAuthCallback($service=null)
     {
         $this->view->addLocalCss(
-            Uri::getLinkWithModificationTime('/tpl/stdstyle/test/oAuth.css'));
+            Uri::getLinkWithModificationTime('/views/test/oAuth.css'));
 
         $this->view->setTemplate('test/oAuthCallback');
 
@@ -202,7 +202,7 @@ class TestController extends BaseController
         $this->view->addHeaderChunk('openLayers5');
 
         $this->view->addLocalCss(
-            Uri::getLinkWithModificationTime('/tpl/stdstyle/test/dynamicMap.css'));
+            Uri::getLinkWithModificationTime('/views/test/dynamicMap.css'));
 
         $mapModel = new DynamicMapModel();
 
@@ -400,7 +400,7 @@ class TestController extends BaseController
         $this->view->setTemplate('test/userRegistration');
         // local css
         $this->view->addLocalCss( Uri::getLinkWithModificationTime(
-            '/tpl/stdstyle/test/userRegistration.css'));
+            '/views/test/userRegistration.css'));
 
 
         $this->view->buildView();

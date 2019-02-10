@@ -39,20 +39,20 @@ class StartPageController extends BaseController
         $this->view->setTemplate('startPage/startPage');
 
         // extended tooltips
-        $this->view->addLocalCss('/tpl/stdstyle/css/lightTooltip.css');
+        $this->view->addLocalCss('/css/lightTooltip.css');
 
         // local css
         $this->view->addLocalCss(
-            Uri::getLinkWithModificationTime('/tpl/stdstyle/startPage/startPage.css'));
+            Uri::getLinkWithModificationTime('/views/startPage/startPage.css'));
         $this->view->addLocalCss(
-            Uri::getLinkWithModificationTime('/js/slick/slick.css'));
-        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/js/slick/slick-theme.css'));
+            Uri::getLinkWithModificationTime('/js/libs/slick/slick.css'));
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/js/libs/slick/slick-theme.css'));
 
         // local JS
         $this->view->addLocalJs(
-            Uri::getLinkWithModificationTime('/js/slick/slick.min.js'));
+            Uri::getLinkWithModificationTime('/js/libs/slick/slick.min.js'));
         $this->view->addLocalJs(
-            Uri::getLinkWithModificationTime('/tpl/stdstyle/startPage/startPage.js'), true, true);
+            Uri::getLinkWithModificationTime('/views/startPage/startPage.js'), true, true);
 
         $this->view->loadJQuery();
 

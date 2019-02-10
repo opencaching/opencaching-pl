@@ -2,14 +2,14 @@
 <script src="/js/jquery.1.10.3/js/jquery-1.9.1.js"></script>
 <script src="/js/jquery.1.10.3/js/jquery-ui-1.10.3.custom.js"></script>
 
-<link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/Badge.css" />
+<link rel="stylesheet" type="text/css" media="screen,projection" href="/css/Badge.css" />
 <link rel="stylesheet" href="/js/pieProgress/dist/css/asPieProgress.css">
 <script src="/js/pieProgress/js/jquery.js"></script>
 <script src="/js/pieProgress/dist/jquery-asPieProgress.js"></script>
 <script src="/js/pieProgress/badge.js"></script>
 
-<link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/GCT.css" />
-<link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/GCTStats.css" />
+<link rel="stylesheet" type="text/css" media="screen,projection" href="/css/GCT.css" />
+<link rel="stylesheet" type="text/css" media="screen,projection" href="/css/GCTStats.css" />
 <script src='https://www.google.com/jsapi'></script>
 <script src="lib/js/GCT.lang.php"></script>
 <script src="lib/js/GCT.js"></script>

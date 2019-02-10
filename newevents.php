@@ -7,7 +7,7 @@ require_once(__DIR__.'/lib/common.inc.php');
 
 //get the news
 $tplname = 'newevents';
-require(__DIR__.'/tpl/stdstyle/newcaches.inc.php');
+require(__DIR__.'/src/Views/newcaches.inc.php');
 
 $startat = isset($_REQUEST['startat']) ? $_REQUEST['startat'] : 0;
 $startat = $startat + 0;
@@ -57,7 +57,7 @@ if (isset($newcaches)) {
             $file_content = '';
             $file_content .= '<tr>';
             $file_content .= '<td style="width: 90px;">'.date('d-m-Y', strtotime($cache_record['date'])).'</td>';
-            $file_content .= '<td style="width: 22px;">&nbsp;<img src="/tpl/stdstyle/images/'.$cache_record['icon_small'].'" alt=""></td>';
+            $file_content .= '<td style="width: 22px;">&nbsp;<img src="/images/'.$cache_record['icon_small'].'" alt=""></td>';
             $file_content .= '<td><b><a class="links" href="viewcache.php?cacheid='.htmlspecialchars($cache_record['cache_id'],
                     ENT_COMPAT, 'UTF-8').'">'.htmlspecialchars($cache_record['name'], ENT_COMPAT,
                     'UTF-8').'</a></b></td>';
@@ -91,7 +91,7 @@ if (isset($newcaches)) {
                 $data = GeoCacheLog::cleanLogTextForToolTip($r_log['log_text']);
 
                 $file_content .= $data;
-                $file_content .= '\',OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()"><img src="tpl/stdstyle/images/'.$r_log['icon_small'].'" alt=""></a></b></td>';
+                $file_content .= '\',OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()"><img src="/images/'.$r_log['icon_small'].'" alt=""></a></b></td>';
                 $file_content .= '<td>&nbsp;&nbsp;<b><a class="links" href="viewprofile.php?userid='.htmlspecialchars($r_log['user_id'],
                         ENT_COMPAT, 'UTF-8').'">'.htmlspecialchars($r_log['user_name'], ENT_COMPAT,
                         'UTF-8').'</a></b></td>';

@@ -82,7 +82,7 @@ class UserAuthorizationController extends BaseController
         $this->view->setVar('username', $username);
         $this->view->setVar('errorMsg', $errorMsg);
         $this->view->loadJQuery();
-        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/userAuth/userAuth.css'));
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/views/userAuth/userAuth.css'));
         $this->view->buildView();
     }
 
@@ -145,8 +145,8 @@ class UserAuthorizationController extends BaseController
             $code
         ]));
         $this->view->setVar('errorMsg', $errorMsg);
-        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/userAuth/userAuth.css'));
-        $this->view->addLocalJs(Uri::getLinkWithModificationTime('/tpl/stdstyle/userAuth/newPassword.js'), true, true);
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/views/userAuth/userAuth.css'));
+        $this->view->addLocalJs(Uri::getLinkWithModificationTime('/views/userAuth/newPassword.js'), true, true);
         $this->view->loadJQuery();
         $this->view->buildView();
     }
@@ -229,7 +229,7 @@ class UserAuthorizationController extends BaseController
 
         $this->view->setTemplate('userAuth/loginPage');
         $this->view->loadJQuery();
-        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/userAuth/userAuth.css'));
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/views/userAuth/userAuth.css'));
         $this->view->setVar('prevEmail', (isset($_POST['email']) ? $_POST['email'] : ''));
         $this->view->setVar('target', $this->getRedirectTarget());
         $this->view->setVar('errorMsg', $error);

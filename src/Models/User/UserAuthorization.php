@@ -407,7 +407,7 @@ class UserAuthorization extends BaseObject
         }
         // Stage 2 - send code via e-mail
         $userTxt = urlencode($user->getUserName());
-        $userMessage = new EmailFormatter(__DIR__ . '/../../../tpl/stdstyle/email/reminder_password.email.html', true);
+        $userMessage = new EmailFormatter(__DIR__ . '/../../../resources/email/reminder_password.email.html', true);
         $userMessage->setVariable('newPwUri', SimpleRouter::getAbsLink('UserAuthorization', 'newPasswordInput', [$userTxt, $code]));
         $userMessage->addFooterAndHeader($user->getUserName());
         $email = new Email();

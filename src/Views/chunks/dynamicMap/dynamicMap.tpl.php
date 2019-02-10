@@ -16,14 +16,14 @@ return function (DynamicMapModel $mapModel, $canvasId){
 
   // load chunk CSS
   View::callChunkInline('loadCssByJs',
-    Uri::getLinkWithModificationTime('/tpl/stdstyle/chunks/dynamicMap/dynamicMap.css'));
+    Uri::getLinkWithModificationTime('/views/chunks/dynamicMap/dynamicMap.css'));
 
   View::callChunkInline('handlebarsJs');
 
 ?>
 
 <script src="<?=Uri::getLinkWithModificationTime(
-    "/tpl/stdstyle/chunks/dynamicMap/dynamicMapCommons.js")?>"></script>
+    "/views/chunks/dynamicMap/dynamicMapCommons.js")?>"></script>
 
 <!-- load markers popup templates -->
 <?php foreach($mapModel->getMarkerTypes() as $markerType) { ?>

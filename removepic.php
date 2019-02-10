@@ -12,7 +12,7 @@ if ($error == false) {
         tpl_redirect('login.php?target=' . $target);
     } else {
         $tplname = 'removepic'; // gibt es nicht ...
-        require_once (__DIR__.'/tpl/stdstyle/removepic.inc.php');
+        require_once (__DIR__.'/src/Views/removepic.inc.php');
 
         $uuid = isset($_REQUEST['uuid']) ? $_REQUEST['uuid'] : '';
 

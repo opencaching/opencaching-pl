@@ -25,7 +25,7 @@ if ($error == false) {
     tpl_set_var('language4js', I18n::getCurrentLang());
 
     $view->loadJQuery();
-    $view->addLocalCss(Uri::getLinkWithModificationTime('tpl/stdstyle/css/powerTrail.css'));
+    $view->addLocalCss(Uri::getLinkWithModificationTime('/css/powerTrail.css'));
 
     if (isset($_REQUEST['ptSelector'])) {
         $powerTrail = new PowerTrail(array('id' => $_REQUEST['ptSelector']));

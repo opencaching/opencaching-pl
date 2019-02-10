@@ -44,12 +44,12 @@ class CacheNotesController extends BaseController
 
         $this->view->setTemplate('cacheNotes/cacheNotes');
         $this->view->addLocalCss(
-            Uri::getLinkWithModificationTime('/tpl/stdstyle/cacheNotes/cacheNotes.css'));
+            Uri::getLinkWithModificationTime('/views/cacheNotes/cacheNotes.css'));
 
         $this->view->addLocalJs(
-            Uri::getLinkWithModificationTime('/tpl/stdstyle/cacheNotes/cacheNotes.js'));
+            Uri::getLinkWithModificationTime('/views/cacheNotes/cacheNotes.js'));
 
-        $this->view->addLocalCss('/tpl/stdstyle/css/lightTooltip.css');
+        $this->view->addLocalCss('/css/lightTooltip.css');
         $this->view->loadJQuery();
 
         //load lightPopup

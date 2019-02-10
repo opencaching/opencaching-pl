@@ -23,7 +23,7 @@ abstract class BaseObject
     }
 
     /**
-     * @return \Utils\Database\OcDb
+     * @return \src\Utils\Database\OcDb
      */
     protected static function db()
     {

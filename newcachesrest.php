@@ -6,13 +6,13 @@ use src\Utils\I18n\I18n;
 
 //prepare the templates and include all neccessary
 require_once (__DIR__.'/lib/common.inc.php');
-require_once (__DIR__.'/tpl/stdstyle/lib/icons.inc.php');
+require_once (__DIR__.'/src/Views/lib/icons.inc.php');
 
 //Preprocessing
 if ($error == false) {
     //get the news
     $tplname = 'newcachesrest';
-    require(__DIR__.'/tpl/stdstyle/newcachesrest.inc.php');
+    require(__DIR__.'/src/Views/newcachesrest.inc.php');
 
     $content = '';
     $cache_country = '';
@@ -99,7 +99,7 @@ if ($error == false) {
                     LIMIT 1", $cache_record['cache_id']);
 
                 if ( $r_log = XDb::xFetchArray($rs_log) ) {
-                    $thisline = mb_ereg_replace('{logimage}', '<img src="tpl/stdstyle/images/' . $r_log['icon_small'] . '" alt="">', $thisline);
+                    $thisline = mb_ereg_replace('{logimage}', '<img src="/images/' . $r_log['icon_small'] . '" alt="">', $thisline);
                 } else {
                     $thisline = mb_ereg_replace('{logimage}', '&nbsp;', $thisline);
                 }
@@ -124,7 +124,7 @@ if ($error == false) {
                 $thisline = mb_ereg_replace('{cachename}', htmlspecialchars($cache_record['name'], ENT_COMPAT, 'UTF-8'), $thisline);
                 $thisline = mb_ereg_replace('{username}', htmlspecialchars($cache_record['username'], ENT_COMPAT, 'UTF-8'), $thisline);
                 $thisline = mb_ereg_replace('{date}', Formatter::date($cache_record['date']), $thisline);
-                $thisline = mb_ereg_replace('{imglink}', 'tpl/stdstyle/images/' . $cache_record['icon_small'], $thisline);
+                $thisline = mb_ereg_replace('{imglink}', '/images/' . $cache_record['icon_small'], $thisline);
                 $content .= $thisline . "\n";
             }$content .= '<tr><td colspan="7">&nbsp;</td></tr>';
         }

@@ -139,7 +139,7 @@ if ($_POST['spoiler_only'] == "&spoiler_only=1") {
         echo ' - '.tr('pagetitle_print'); ?></title>
     <link rel="shortcut icon" href="/images/<?php print $config['headerFavicon']; ?>">
     <link rel="stylesheet" type="text/css"
-          href="<?= Uri::getLinkWithModificationTime('tpl/stdstyle/css/style_print.css') ?>">
+          href="<?= Uri::getLinkWithModificationTime('/css/style_print.css') ?>">
 </head>
 
 <body onload="<?php echo $include_caches; ?>">

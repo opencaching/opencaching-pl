@@ -20,7 +20,7 @@
 
 require_once(__DIR__.'/../../lib/calculation.inc.php');
 require_once(__DIR__.'/../../lib/search.inc.php');
-require_once(__DIR__.'/../../tpl/stdstyle/selectlocid.inc.php');
+require_once(__DIR__.'/../../src/Views/selectlocid.inc.php');
 
 /* begin search index rebuild */
 

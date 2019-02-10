@@ -4,7 +4,7 @@ use src\Models\GeoCache\GeoCacheLogCommons;
 
 return function($isUserAuthorized, $cacheType) {
     $chunkCSS = Uri::getLinkWithModificationTime(
-        '/tpl/stdstyle/chunks/logFilter.css'
+        '/views/chunks/logFilter.css'
     );
 
     if ($isUserAuthorized) {

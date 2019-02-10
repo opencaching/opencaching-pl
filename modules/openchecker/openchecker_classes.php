@@ -399,7 +399,7 @@ class OpenCheckerCore {
                 $caches_table .= '
         <tr>
             <td><a class="links" href="viewcache.php?wp=' . $cache_data['wp_oc'] . '">' . $cache_data['wp_oc'] . '</a></td>
-            <td><a href="viewcache.php?wp=' . $cache_data['wp_oc'] . '"><img src="tpl/stdstyle/images/' . $cache_data['icon_small'] . '" /></a></td>
+            <td><a href="viewcache.php?wp=' . $cache_data['wp_oc'] . '"><img src="images/' . $cache_data['icon_small'] . '" /></a></td>
             <td><a class="links" href="' . $OpenCheckerSetup->scriptname . '?wp=' . $cache_data['wp_oc'] . '"> ' . $cache_data['name'] . '</a> </td>
             <td align="center">' . $status[$cache_data['status']] . '</td>
             <td><a href="viewprofile.php?userid=' . $cache_data['user_id'] . '">' . htmlspecialchars($cache_data['username']) . '</td>

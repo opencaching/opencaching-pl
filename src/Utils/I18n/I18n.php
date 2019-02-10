@@ -123,7 +123,7 @@ namespace src\Utils\I18n {
          * The only function to initilize I18n for OC code.
          * This should be called at the begining of every request.
          *
-         * @return \Utils\I18n\I18n
+         * @return \src\Utils\I18n\I18n
          */
         public static function init()
         {

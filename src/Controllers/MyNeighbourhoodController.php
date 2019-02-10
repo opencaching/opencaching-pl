@@ -125,10 +125,10 @@ class MyNeighbourhoodController extends BaseController
             });
         }
         $this->view->setVar('mapModel', $mapModel);
-        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/myNeighbourhood/myNeighbourhood-' . $preferences['style']['name'] . '.css'));
-        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/myNeighbourhood/common.css'));
-        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/css/lightTooltip.css'));
-        $this->view->addLocalJs(Uri::getLinkWithModificationTime('/tpl/stdstyle/myNeighbourhood/myNeighbourhood.js'), true, true);
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/views/myNeighbourhood/myNeighbourhood-' . $preferences['style']['name'] . '.css'));
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/views/myNeighbourhood/common.css'));
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/css/lightTooltip.css'));
+        $this->view->addLocalJs(Uri::getLinkWithModificationTime('/views/myNeighbourhood/myNeighbourhood.js'), true, true);
         $this->view->loadJQueryUI();
         $this->view->setTemplate('myNeighbourhood/myNeighbourhood');
         $this->view->buildView();
@@ -160,9 +160,9 @@ class MyNeighbourhoodController extends BaseController
         $this->view->setVar('selectedNbh', $selectedNbh);
         $this->view->setVar('user', $this->loggedUser);
         $this->view->setVar('coords', $coords);
-        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/myNeighbourhood/common.css'));
-        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/myNeighbourhood/myNeighbourhood-' . $preferences['style']['name'] . '.css'));
-        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/css/lightTooltip.css'));
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/views/myNeighbourhood/common.css'));
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/views/myNeighbourhood/myNeighbourhood-' . $preferences['style']['name'] . '.css'));
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/css/lightTooltip.css'));
         $this->view->setTemplate('myNeighbourhood/detail_LatestCaches');
         $this->view->buildView();
     }
@@ -193,9 +193,9 @@ class MyNeighbourhoodController extends BaseController
         $this->view->setVar('selectedNbh', $selectedNbh);
         $this->view->setVar('user', $this->loggedUser);
         $this->view->setVar('coords', $coords);
-        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/myNeighbourhood/common.css'));
-        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/myNeighbourhood/myNeighbourhood-' . $preferences['style']['name'] . '.css'));
-        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/css/lightTooltip.css'));
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/views/myNeighbourhood/common.css'));
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/views/myNeighbourhood/myNeighbourhood-' . $preferences['style']['name'] . '.css'));
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/css/lightTooltip.css'));
         $this->view->setTemplate('myNeighbourhood/detail_RecommendedCaches');
         $this->view->buildView();
     }
@@ -226,9 +226,9 @@ class MyNeighbourhoodController extends BaseController
         $this->view->setVar('selectedNbh', $selectedNbh);
         $this->view->setVar('user', $this->loggedUser);
         $this->view->setVar('coords', $coords);
-        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/myNeighbourhood/common.css'));
-        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/myNeighbourhood/myNeighbourhood-' . $preferences['style']['name'] . '.css'));
-        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/css/lightTooltip.css'));
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/views/myNeighbourhood/common.css'));
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/views/myNeighbourhood/myNeighbourhood-' . $preferences['style']['name'] . '.css'));
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/css/lightTooltip.css'));
         $this->view->setTemplate('myNeighbourhood/detail_FTFCaches');
         $this->view->buildView();
     }
@@ -259,9 +259,9 @@ class MyNeighbourhoodController extends BaseController
         $this->view->setVar('selectedNbh', $selectedNbh);
         $this->view->setVar('user', $this->loggedUser);
         $this->view->setVar('coords', $coords);
-        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/myNeighbourhood/common.css'));
-        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/myNeighbourhood/myNeighbourhood-' . $preferences['style']['name'] . '.css'));
-        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/css/lightTooltip.css'));
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/views/myNeighbourhood/common.css'));
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/views/myNeighbourhood/myNeighbourhood-' . $preferences['style']['name'] . '.css'));
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/css/lightTooltip.css'));
         $this->view->setTemplate('myNeighbourhood/detail_TitledCaches');
         $this->view->buildView();
     }
@@ -292,9 +292,9 @@ class MyNeighbourhoodController extends BaseController
         $this->view->setVar('selectedNbh', $selectedNbh);
         $this->view->setVar('user', $this->loggedUser);
         $this->view->setVar('coords', $coords);
-        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/myNeighbourhood/common.css'));
-        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/myNeighbourhood/myNeighbourhood-' . $preferences['style']['name'] . '.css'));
-        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/css/lightTooltip.css'));
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/views/myNeighbourhood/common.css'));
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/views/myNeighbourhood/myNeighbourhood-' . $preferences['style']['name'] . '.css'));
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/css/lightTooltip.css'));
         $this->view->setTemplate('myNeighbourhood/detail_UpcommingEvents');
         $this->view->buildView();
     }
@@ -325,9 +325,9 @@ class MyNeighbourhoodController extends BaseController
         $this->view->setVar('selectedNbh', $selectedNbh);
         $this->view->setVar('user', $this->loggedUser);
         $this->view->setVar('coords', $coords);
-        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/myNeighbourhood/common.css'));
-        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/myNeighbourhood/myNeighbourhood-' . $preferences['style']['name'] . '.css'));
-        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/css/lightTooltip.css'));
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/views/myNeighbourhood/common.css'));
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/views/myNeighbourhood/myNeighbourhood-' . $preferences['style']['name'] . '.css'));
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/css/lightTooltip.css'));
         $this->view->setTemplate('myNeighbourhood/detail_LatestLogs');
         $this->view->buildView();
     }
@@ -369,9 +369,9 @@ class MyNeighbourhoodController extends BaseController
         $mapModel = new DynamicMapModel();
         $mapModel->setZoom(6);
         $this->view->setVar('mapModel', $mapModel);
-        $this->view->addLocalJs(Uri::getLinkWithModificationTime('/tpl/stdstyle/myNeighbourhood/config.js'), true, true);
-        $this->view->addLocalJs(Uri::getLinkWithModificationTime('/tpl/stdstyle/myNeighbourhood/config_draw.js'));
-        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/myNeighbourhood/common.css'));
+        $this->view->addLocalJs(Uri::getLinkWithModificationTime('/views/myNeighbourhood/config.js'), true, true);
+        $this->view->addLocalJs(Uri::getLinkWithModificationTime('/views/myNeighbourhood/config_draw.js'));
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/views/myNeighbourhood/common.css'));
         $this->view->setTemplate('myNeighbourhood/config');
         $this->view->loadJQueryUI();
         $this->view->buildView();
