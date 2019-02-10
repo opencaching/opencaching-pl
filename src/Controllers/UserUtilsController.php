@@ -3,9 +3,9 @@
 namespace src\Controllers;
 
 use PHPQRCode\QRcode;
-use Utils\FileSystem\FileManager;
-use Utils\Uri\Uri;
-use Utils\Generators\TextGen;
+use src\Utils\FileSystem\FileManager;
+use src\Utils\Uri\Uri;
+use src\Utils\Generators\TextGen;
 
 class UserUtilsController extends BaseController
 {

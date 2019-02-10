@@ -1,12 +1,12 @@
 <?php
 
-use Utils\Database\OcDb;
-use Utils\Gis\Gis;
-use Utils\Text\Formatter;
-use Utils\Uri\Uri;
-use Utils\Uri\OcCookie;
+use src\Utils\Database\OcDb;
+use src\Utils\Gis\Gis;
+use src\Utils\Text\Formatter;
+use src\Utils\Uri\Uri;
+use src\Utils\Uri\OcCookie;
 use src\Models\Coordinates\Coordinates;
-use Utils\I18n\I18n;
+use src\Utils\I18n\I18n;
 
 /**
  * This script is used (can be loaded) by /search.php

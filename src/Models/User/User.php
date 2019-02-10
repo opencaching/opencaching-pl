@@ -1,8 +1,8 @@
 <?php
 namespace src\Models\User;
 
-use Utils\Generators\TextGen;
-use Utils\Generators\Uuid;
+use src\Utils\Generators\TextGen;
+use src\Utils\Generators\Uuid;
 use src\Models\Coordinates\Coordinates;
 use src\Models\GeoCache\GeoCache;
 use src\Models\OcConfig\OcConfig;

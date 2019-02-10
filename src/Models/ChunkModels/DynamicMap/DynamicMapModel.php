@@ -4,7 +4,7 @@ namespace src\Models\ChunkModels\DynamicMap;
 
 use src\Models\Coordinates\Coordinates;
 use src\Models\OcConfig\OcConfig;
-use Utils\Debug\Debug;
+use src\Utils\Debug\Debug;
 
 /**
  * This is model of the dynamic map

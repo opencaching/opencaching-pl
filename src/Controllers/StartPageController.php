@@ -2,11 +2,11 @@
 namespace src\Controllers;
 
 use src\Controllers\News\NewsListController;
-use Utils\Cache\OcMemCache;
-use Utils\Feed\RssFeed;
-use Utils\Text\Formatter;
-use Utils\Uri\SimpleRouter;
-use Utils\Uri\Uri;
+use src\Utils\Cache\OcMemCache;
+use src\Utils\Feed\RssFeed;
+use src\Utils\Text\Formatter;
+use src\Utils\Uri\SimpleRouter;
+use src\Utils\Uri\Uri;
 use src\Models\CacheSet\CacheSet;
 use src\Models\CacheSet\CacheSetOwner;
 use src\Models\ChunkModels\StaticMap\StaticMapMarker;

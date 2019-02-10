@@ -1,8 +1,8 @@
 <?php
 
-use Utils\Database\XDb;
+use src\Utils\Database\XDb;
 use src\Models\Admin\AdminNote;
-use Utils\Generators\Uuid;
+use src\Utils\Generators\Uuid;
 use src\Models\OcConfig\OcConfig;
 use src\Models\User\User;
 

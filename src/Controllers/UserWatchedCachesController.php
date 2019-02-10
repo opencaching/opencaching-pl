@@ -1,8 +1,8 @@
 <?php
 namespace src\Controllers;
 
-use Utils\Text\Formatter;
-use Utils\Uri\Uri;
+use src\Utils\Text\Formatter;
+use src\Utils\Uri\Uri;
 use src\Models\ChunkModels\PaginationModel;
 use src\Models\ChunkModels\DynamicMap\CacheWithLogMarkerModel;
 use src\Models\ChunkModels\DynamicMap\DynamicMapModel;

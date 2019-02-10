@@ -9,7 +9,7 @@
         <td>
 <?php
 
-use Utils\Database\XDb;
+use src\Utils\Database\XDb;
 
 echo '<table width="97%"><tr><td align="center"><center><b>' . tr('Stats_t3_01') . '</b></center></td></tr> </table>';
 echo '<br />';

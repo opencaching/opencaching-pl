@@ -1,8 +1,8 @@
 <?php
 namespace src\Models\Stats;
 
-use Utils\Cache\OcMemCache;
-use Utils\Text\Formatter;
+use src\Utils\Cache\OcMemCache;
+use src\Utils\Text\Formatter;
 use src\Models\BaseObject;
 use src\Models\CacheSet\CacheSet;
 use src\Models\GeoCache\MultiCacheStats;

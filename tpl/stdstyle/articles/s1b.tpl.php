@@ -1,5 +1,5 @@
 <?php
-use Utils\Database\XDb;
+use src\Utils\Database\XDb;
 
 $userscount = XDb::xSimpleQueryValue(
     'SELECT COUNT(DISTINCT user_id) FROM caches WHERE (status=1 OR `status`=2 OR `status`=3)', 0);

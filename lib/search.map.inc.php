@@ -3,7 +3,7 @@
  * This script is used (can be loaded) by /search.php
  */
 
-use Utils\Database\OcDb;
+use src\Utils\Database\OcDb;
 use src\Models\OcConfig\OcConfig;
 
 global $content, $bUseZip, $usr, $hide_coords, $dbcSearch;

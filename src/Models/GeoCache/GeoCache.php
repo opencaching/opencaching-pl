@@ -1,15 +1,15 @@
 <?php
 namespace src\Models\GeoCache;
 
-use Utils\Database\XDb;
+use src\Utils\Database\XDb;
 use src\Models\Coordinates\Altitude;
 use src\Models\Coordinates\Coordinates;
 use src\Models\OcConfig\OcConfig;
 use src\Models\PowerTrail\PowerTrail;
 use src\Models\User\MultiUserQueries;
 use src\Models\User\User;
-use Utils\EventHandler\EventHandler;
-use Utils\I18n\I18n;
+use src\Utils\EventHandler\EventHandler;
+use src\Utils\I18n\I18n;
 
 /**
  * Description of geoCache

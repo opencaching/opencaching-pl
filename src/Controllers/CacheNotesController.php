@@ -6,7 +6,7 @@ namespace src\Controllers;
  * This controller handled user notes list view
  */
 
-use Utils\Uri\Uri;
+use src\Utils\Uri\Uri;
 use src\Models\ChunkModels\PaginationModel;
 use src\Models\ChunkModels\ListOfCaches\Column_CacheLastLog;
 use src\Models\ChunkModels\ListOfCaches\Column_CacheName;

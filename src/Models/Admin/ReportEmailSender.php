@@ -1,14 +1,14 @@
 <?php
 namespace src\Models\Admin;
 
-use Utils\Email\Email;
-use Utils\Email\EmailFormatter;
+use src\Utils\Email\Email;
+use src\Utils\Email\EmailFormatter;
 use src\Models\GeoCache\GeoCache;
 use src\Models\GeoCache\GeoCacheCommons;
 use src\Models\OcConfig\OcConfig;
 use src\Models\User\User;
 use src\Models\User\UserCommons;
-use Utils\Uri\SimpleRouter;
+use src\Utils\Uri\SimpleRouter;
 
 class ReportEmailSender
 {

@@ -1,6 +1,6 @@
 <?php
 
-use Utils\Database\OcDb;
+use src\Utils\Database\OcDb;
 use src\Models\OcConfig\OcConfig;
 require_once __DIR__.'/../lib/ClassPathDictionary.php';
 

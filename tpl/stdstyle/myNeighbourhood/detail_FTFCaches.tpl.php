@@ -1,7 +1,7 @@
 <?php
-use Utils\Gis\Gis;
-use Utils\Text\Formatter;
-use Utils\Uri\SimpleRouter;
+use src\Utils\Gis\Gis;
+use src\Utils\Text\Formatter;
+use src\Utils\Uri\SimpleRouter;
 
 ?>
 <div class="content2-container">

@@ -1,6 +1,6 @@
 <?php
-use Utils\Uri\Uri;
-use Utils\I18n\I18n;
+use src\Utils\Uri\Uri;
+use src\Utils\I18n\I18n;
 
 /**
  * This chunk is used to load TinyMCE

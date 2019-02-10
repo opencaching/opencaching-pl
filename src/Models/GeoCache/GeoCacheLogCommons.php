@@ -1,7 +1,7 @@
 <?php
 namespace src\Models\GeoCache;
 
-use Utils\Debug\Debug;
+use src\Utils\Debug\Debug;
 use src\Models\BaseObject;
 
 /**

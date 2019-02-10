@@ -1,6 +1,6 @@
 <?php
 
-use Utils\Database\OcDb;
+use src\Utils\Database\OcDb;
 use src\Models\GeoCache\GeoCache;
 
 //prepare the templates and include all neccessary

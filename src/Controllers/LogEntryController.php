@@ -4,14 +4,14 @@ namespace src\Controllers;
 
 use src\Models\GeoCache\GeoCacheLog;
 use src\Models\OcConfig\OcConfig;
-use Utils\Database\OcDb;
-use Utils\Email\EmailSender;
-use Utils\Gis\Gis;
+use src\Utils\Database\OcDb;
+use src\Utils\Email\EmailSender;
+use src\Utils\Gis\Gis;
 use src\Models\ApplicationContainer;
 use src\Controllers\MeritBadgeController;
 use src\Models\GeoCache\GeoCache;
 use src\Models\Coordinates\Coordinates;
-use Utils\EventHandler\EventHandler;
+use src\Utils\EventHandler\EventHandler;
 use src\Models\User\User;
 
  class LogEntryController

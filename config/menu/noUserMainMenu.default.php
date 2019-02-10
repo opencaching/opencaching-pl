@@ -1,5 +1,5 @@
 <?php
-use Utils\Uri\SimpleRouter;
+use src\Utils\Uri\SimpleRouter;
 
 /**
  * This is simple configuration of links presented in sidebar of the page

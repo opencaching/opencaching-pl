@@ -1,10 +1,10 @@
 <?php
 
-use Utils\View\View;
-use Utils\Uri\Uri;
-use Utils\I18n\I18n;
+use src\Utils\View\View;
+use src\Utils\Uri\Uri;
+use src\Utils\I18n\I18n;
 use src\Controllers\PageLayout\MainLayoutController;
-use Utils\Uri\OcCookie;
+use src\Utils\Uri\OcCookie;
 
 //set the global template-name variable
 function tpl_set_tplname($local_tpl_name){

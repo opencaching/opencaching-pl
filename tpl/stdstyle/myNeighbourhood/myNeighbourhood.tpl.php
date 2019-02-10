@@ -1,5 +1,5 @@
 <?php
-use Utils\Uri\SimpleRouter;
+use src\Utils\Uri\SimpleRouter;
 use src\Models\Neighbourhood\Neighbourhood;
 use src\Models\Coordinates\Coordinates;
 

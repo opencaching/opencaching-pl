@@ -1,7 +1,7 @@
 <?php
 
-use Utils\Uri\SimpleRouter;
-use Utils\Uri\Uri;
+use src\Utils\Uri\SimpleRouter;
+use src\Utils\Uri\Uri;
 
 ?>
 

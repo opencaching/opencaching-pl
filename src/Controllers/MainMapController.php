@@ -2,7 +2,7 @@
 namespace src\Controllers;
 
 use src\Models\Coordinates\GeoCode;
-use Utils\Uri\Uri;
+use src\Utils\Uri\Uri;
 use src\Models\User\UserPreferences\MainMapSettings;
 use src\Models\User\UserPreferences\UserPreferences;
 use src\Models\User\User;

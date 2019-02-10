@@ -3,9 +3,9 @@
 namespace src\Models\Coordinates;
 
 use src\Models\OcConfig\OcConfig;
-use Utils\Debug\Debug;
+use src\Utils\Debug\Debug;
 use Exception;
-use Utils\I18n\I18n;
+use src\Utils\I18n\I18n;
 
 class GeoCode
 {

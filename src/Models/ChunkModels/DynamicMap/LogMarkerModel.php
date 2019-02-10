@@ -3,7 +3,7 @@ namespace src\Models\ChunkModels\DynamicMap;
 
 use src\Models\GeoCache\GeoCacheLog;
 use src\Models\User\User;
-use Utils\Text\Formatter;
+use src\Utils\Text\Formatter;
 
 /**
  * This is map marker which has log information in infowindow

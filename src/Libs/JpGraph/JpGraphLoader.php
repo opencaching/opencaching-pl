@@ -1,7 +1,7 @@
 <?php
 namespace src\Libs\JpGraph;
 
-use Utils\Debug\Debug;
+use src\Utils\Debug\Debug;
 
 /**
  * This class based on code from:

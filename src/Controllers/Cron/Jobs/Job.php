@@ -4,7 +4,7 @@ namespace src\Controllers\Cron\Jobs;
 
 use src\Models\OcConfig\OcConfig;
 use okapi\Facade;
-use Utils\Database\OcDb;
+use src\Utils\Database\OcDb;
 
 // Base class for all cron jobs. To add a new job:
 //

@@ -2,7 +2,7 @@
 namespace src\Controllers\Cron;
 
 use src\Controllers\BaseController;
-use Utils\Lock\Lock;
+use src\Utils\Lock\Lock;
 use src\Models\Notify\Notify;
 use src\Models\User\User;
 use src\Models\Notify\NotifyEmailSender;

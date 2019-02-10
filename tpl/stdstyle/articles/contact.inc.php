@@ -1,6 +1,6 @@
 <?php
 
-use Utils\I18n\I18n;
+use src\Utils\I18n\I18n;
 
 class contactDataProcessor
 {

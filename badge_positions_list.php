@@ -1,6 +1,6 @@
 <?php
 
-use Utils\Text\Formatter;
+use src\Utils\Text\Formatter;
 use src\Controllers\MeritBadgeController;
 use src\Controllers\ViewBadgeHeadController;
 

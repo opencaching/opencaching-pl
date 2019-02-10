@@ -1,6 +1,6 @@
 <?php
-use Utils\Database\XDb;
-use Utils\Uri\Uri;
+use src\Utils\Database\XDb;
+use src\Utils\Uri\Uri;
 use src\Libs\PolylineEncoder\PolylineEncoder;
 
 $route_id = $_REQUEST['routeid'];

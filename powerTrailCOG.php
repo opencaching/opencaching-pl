@@ -2,8 +2,8 @@
 
 use src\Models\PowerTrail\PowerTrail;
 use src\Models\GeoCache\GeoCache;
-use Utils\Uri\Uri;
-use Utils\I18n\I18n;
+use src\Utils\Uri\Uri;
+use src\Utils\I18n\I18n;
 
 require_once (__DIR__.'/lib/common.inc.php');
 

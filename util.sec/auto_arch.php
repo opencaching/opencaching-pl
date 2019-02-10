@@ -4,11 +4,11 @@
  * It should be called from CRON quite often (to not delay messages)
  */
 
-use Utils\Database\OcDb;
-use Utils\Log\Log;
+use src\Utils\Database\OcDb;
+use src\Utils\Log\Log;
 use src\Models\OcConfig\OcConfig;
 use src\Models\GeoCache\GeoCache;
-use Utils\Generators\Uuid;
+use src\Utils\Generators\Uuid;
 
 require_once(__DIR__.'/../lib/common.inc.php');
 

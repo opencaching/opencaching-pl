@@ -1,5 +1,5 @@
 <?php
-use Utils\Uri\Uri;
+use src\Utils\Uri\Uri;
 
 ?>
 <div class="content2-container">

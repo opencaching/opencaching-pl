@@ -5,8 +5,8 @@
 
 ob_start();
 
-use Utils\Database\XDb;
-use Utils\I18n\I18n;
+use src\Utils\Database\XDb;
+use src\Utils\I18n\I18n;
 
 global $content, $bUseZip, $usr, $hide_coords, $dbcSearch;
 

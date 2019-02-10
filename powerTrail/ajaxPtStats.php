@@ -1,5 +1,5 @@
 <?php
-use Utils\Database\OcDb;
+use src\Utils\Database\OcDb;
 
 require_once __DIR__.'/../lib/common.inc.php';
 

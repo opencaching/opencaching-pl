@@ -3,8 +3,8 @@
 namespace src\Models\Coordinates;
 
 use src\Models\BaseObject;
-use Utils\Debug\Debug;
-use Utils\I18n\I18n;
+use src\Utils\Debug\Debug;
+use src\Utils\I18n\I18n;
 
 /**
  * Class represents location of the point in NUTS nomenclature.

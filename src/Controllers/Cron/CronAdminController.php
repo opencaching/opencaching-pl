@@ -2,8 +2,8 @@
 namespace src\Controllers\Cron;
 
 use src\Controllers\BaseController;
-use Utils\Uri\SimpleRouter;
-use Utils\Uri\Uri;
+use src\Utils\Uri\SimpleRouter;
+use src\Utils\Uri\Uri;
 
 class CronAdminController extends BaseController
 {

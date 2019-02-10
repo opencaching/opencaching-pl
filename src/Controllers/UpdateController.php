@@ -2,8 +2,8 @@
 
 namespace src\Controllers;
 
-use Utils\Database\DbUpdates;
-use Utils\Lock\Lock;
+use src\Utils\Database\DbUpdates;
+use src\Utils\Lock\Lock;
 use okapi\Facade;
 
 /**

@@ -1,5 +1,5 @@
 <?php
-use Utils\Uri\SimpleRouter;
+use src\Utils\Uri\SimpleRouter;
 use src\Controllers\CacheLogController;
 ?>
 <script src="lib/js/wz_tooltip.js"></script>

@@ -6,7 +6,7 @@ namespace src\Models\Watchlist;
 
 use src\Models\OcConfig\OcConfig;
 use src\Models\GeoCache\GeoCacheLogCommons;
-use Utils\Text\Formatter;
+use src\Utils\Text\Formatter;
 use src\Models\GeoCache\GeoCache;
 
 /**

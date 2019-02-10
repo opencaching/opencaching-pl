@@ -1,6 +1,6 @@
 <?php
-use Utils\Text\Formatter;
-use Utils\Uri\SimpleRouter;
+use src\Utils\Text\Formatter;
+use src\Utils\Uri\SimpleRouter;
 
 ?>
 <div class="content2-pagetitle">

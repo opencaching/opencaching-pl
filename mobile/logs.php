@@ -1,7 +1,7 @@
 <?php
 
-use Utils\Log\CacheAccessLog;
-use Utils\Text\Formatter;
+use src\Utils\Log\CacheAccessLog;
+use src\Utils\Text\Formatter;
 use src\Controllers\LogEntryController;
 use src\Models\GeoCache\GeoCache;
 use src\Models\OcConfig\OcConfig;

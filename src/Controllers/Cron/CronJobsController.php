@@ -2,7 +2,7 @@
 namespace src\Controllers\Cron;
 
 use src\Controllers\BaseController;
-use Utils\Lock\Lock;
+use src\Utils\Lock\Lock;
 use okapi\Facade;
 
 class CronJobsController extends BaseController

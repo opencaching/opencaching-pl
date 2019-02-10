@@ -1,6 +1,6 @@
 <?php
 
-use Utils\Database\OcDb;
+use src\Utils\Database\OcDb;
 use src\Models\OcConfig\OcConfig;
 /*
  * Simple script to delete user account. The script is intended for admins only,

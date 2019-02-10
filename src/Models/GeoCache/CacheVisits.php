@@ -2,7 +2,7 @@
 
 namespace src\Models\GeoCache;
 
-use Utils\Database\XDb;
+use src\Utils\Database\XDb;
 
 /**
  * Class for operations on cache_visits table

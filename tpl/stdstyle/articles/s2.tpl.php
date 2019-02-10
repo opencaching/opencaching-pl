@@ -9,8 +9,8 @@
     <tr>
         <td>
 <?php
-use Utils\Database\XDb;
-use Utils\Cache\OcMemCache;
+use src\Utils\Database\XDb;
+use src\Utils\Cache\OcMemCache;
 
 $userscount = XDb::xSimpleQueryValue(
     'SELECT COUNT( DISTINCT user_id) FROM cache_logs WHERE type=1 AND `deleted`=0', 0);

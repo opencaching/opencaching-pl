@@ -1,6 +1,6 @@
 <?php
 use src\Controllers\PowerTrailController;
-use Utils\I18n\I18n;
+use src\Utils\I18n\I18n;
 
 require_once(__DIR__.'/../../lib/common.inc.php');
 

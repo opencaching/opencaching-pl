@@ -1,6 +1,6 @@
 <?php
 
-use Utils\Cache\OcMemCache;
+use src\Utils\Cache\OcMemCache;
 
 global $usr;
 

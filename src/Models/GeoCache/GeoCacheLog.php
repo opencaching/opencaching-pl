@@ -2,8 +2,8 @@
 namespace src\Models\GeoCache;
 
 use src\Models\User\User;
-use Utils\Email\EmailSender;
-use Utils\Generators\Uuid;
+use src\Utils\Email\EmailSender;
+use src\Utils\Generators\Uuid;
 use Exception;
 use src\Controllers\MeritBadgeController;
 use okapi\Facade;

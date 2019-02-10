@@ -2,11 +2,11 @@
 
 namespace src\Controllers;
 
-use Utils\Gis\Gis;
-use Utils\Log\CacheAccessLog;
-use Utils\Text\Rot13;
-use Utils\Text\Formatter;
-use Utils\Uri\Uri;
+use src\Utils\Gis\Gis;
+use src\Utils\Log\CacheAccessLog;
+use src\Utils\Text\Rot13;
+use src\Utils\Text\Formatter;
+use src\Utils\Uri\Uri;
 use src\Controllers\MeritBadgeController;
 use src\Models\Coordinates\Coordinates;
 use src\Models\GeoCache\GeoCache;
@@ -15,7 +15,7 @@ use src\Models\GeoCache\GeoCacheDesc;
 use src\Models\GeoCache\OpenChecker;
 use src\Models\GeoCache\PrintList;
 use src\Models\GeoCache\Waypoint;
-use Utils\I18n\I18n;
+use src\Utils\I18n\I18n;
 
 class ViewCacheController extends BaseController
 {

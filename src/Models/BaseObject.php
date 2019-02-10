@@ -1,7 +1,7 @@
 <?php
 namespace src\Models;
 
-use Utils\Database\OcDb;
+use src\Utils\Database\OcDb;
 use okapi\Facade;
 use src\Models\OcConfig\OcConfig;
 

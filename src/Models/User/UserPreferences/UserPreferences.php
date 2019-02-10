@@ -3,7 +3,7 @@
 namespace src\Models\User\UserPreferences;
 
 use src\Models\BaseObject;
-use Utils\Debug\Debug;
+use src\Utils\Debug\Debug;
 
 /**
  * This class is used to manage user preferences at oc pages

@@ -4,19 +4,19 @@ use src\Models\OcConfig\OcConfig;
 use src\Models\ApplicationContainer;
 use src\Models\PowerTrail\PowerTrail;
 use src\Models\GeoCache\GeoCache;
-use Utils\Uri\Uri;
+use src\Utils\Uri\Uri;
 use src\Models\OcConfig\OcDynamicMapConfig;
-use Utils\View\View;
-use Utils\Uri\OcCookie;
+use src\Utils\View\View;
+use src\Utils\Uri\OcCookie;
 use src\Models\ChunkModels\DynamicMap\CacheMarkerModel;
 use src\Models\ChunkModels\DynamicMap\DynamicMapModel;
 use src\Models\ChunkModels\DynamicMap\CacheSetMarkerModel;
 use src\Models\CacheSet\CacheSetCommon;
 use src\Models\User\User;
-use Utils\Uri\SimpleRouter;
+use src\Utils\Uri\SimpleRouter;
 use src\Controllers\MainMapController;
-use Utils\Text\Formatter;
-use Utils\I18n\I18n;
+use src\Utils\Text\Formatter;
+use src\Utils\I18n\I18n;
 
 /**
  *  Power Trails in opencaching

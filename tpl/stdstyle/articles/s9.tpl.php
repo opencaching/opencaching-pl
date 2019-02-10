@@ -1,6 +1,6 @@
 <?php
 
-use Utils\Database\XDb;
+use src\Utils\Database\XDb;
 
 if (isset($_REQUEST['region'])) {
     $region = $_REQUEST['region'];

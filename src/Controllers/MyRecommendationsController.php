@@ -15,7 +15,7 @@ use src\Models\ChunkModels\PaginationModel;
 use src\Models\GeoCache\CacheRecommendation;
 use src\Models\GeoCache\MultiLogStats;
 use src\Models\User\User;
-use Utils\Uri\Uri;
+use src\Utils\Uri\Uri;
 
 class MyRecommendationsController extends BaseController
 {

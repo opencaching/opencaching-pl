@@ -1,6 +1,6 @@
 <?php
 
-use Utils\Uri\Uri;
+use src\Utils\Uri\Uri;
 
 /**
  * This chunk is purpose is to display info/error bar at the top of the page

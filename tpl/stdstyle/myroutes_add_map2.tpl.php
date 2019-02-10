@@ -1,5 +1,5 @@
 <?php
-use Utils\Uri\Uri;
+use src\Utils\Uri\Uri;
 ?>
 
 <script src="<?=Uri::getLinkWithModificationTime('/lib/js/gmap.js')?>"></script>

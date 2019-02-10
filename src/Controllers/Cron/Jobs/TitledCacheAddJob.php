@@ -2,7 +2,7 @@
 
 use src\Controllers\Cron\Jobs\Job;
 use src\Models\GeoCache\GeoCacheLog;
-use Utils\Generators\Uuid;
+use src\Utils\Generators\Uuid;
 use src\Controllers\MeritBadgeController;
 use src\Models\OcConfig\OcConfig;
 

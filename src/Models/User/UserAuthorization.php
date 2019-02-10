@@ -1,14 +1,14 @@
 <?php
 namespace src\Models\User;
 
-use Utils\Debug\Debug;
-use Utils\Email\Email;
-use Utils\Email\EmailFormatter;
-use Utils\Uri\CookieBase;
+use src\Utils\Debug\Debug;
+use src\Utils\Email\Email;
+use src\Utils\Email\EmailFormatter;
+use src\Utils\Uri\CookieBase;
 use src\Models\ApplicationContainer;
 use src\Models\BaseObject;
-use Utils\Uri\SimpleRouter;
-use Utils\Generators\TextGen;
+use src\Utils\Uri\SimpleRouter;
+use src\Utils\Generators\TextGen;
 use src\Models\OcConfig\OcConfig;
 
 class UserAuthorization extends BaseObject

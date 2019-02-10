@@ -2,9 +2,9 @@
 namespace src\Controllers\Admin;
 
 use src\Controllers\BaseController;
-use Utils\Text\UserInputFilter;
-use Utils\Uri\SimpleRouter;
-use Utils\Uri\Uri;
+use src\Utils\Text\UserInputFilter;
+use src\Utils\Uri\SimpleRouter;
+use src\Utils\Uri\Uri;
 use src\Models\Admin\AdminNote;
 use src\Models\Admin\AdminNoteSet;
 use src\Models\User\User;

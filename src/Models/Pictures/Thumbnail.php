@@ -2,7 +2,7 @@
 namespace src\Models\Pictures;
 
 use src\Models\BaseObject;
-use Utils\I18n\I18n;
+use src\Utils\I18n\I18n;
 
 class Thumbnail extends BaseObject
 {

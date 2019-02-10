@@ -1,10 +1,10 @@
 <?php
 
-use Utils\Database\XDb;
+use src\Utils\Database\XDb;
 use src\Models\GeoCache\GeoCache;
-use Utils\I18n\Languages;
-use Utils\Text\UserInputFilter;
-use Utils\I18n\I18n;
+use src\Utils\I18n\Languages;
+use src\Utils\Text\UserInputFilter;
+use src\Utils\I18n\I18n;
 
 //prepare the templates and include all neccessary
 require_once(__DIR__.'/lib/common.inc.php');

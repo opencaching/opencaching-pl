@@ -1,6 +1,6 @@
 <?php
 
-use Utils\Database\XDb;
+use src\Utils\Database\XDb;
 
 $view->callChunk('tinyMCE', false);
 ?>

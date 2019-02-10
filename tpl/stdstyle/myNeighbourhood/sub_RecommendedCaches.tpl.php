@@ -1,7 +1,7 @@
 <?php
-use Utils\Gis\Gis;
+use src\Utils\Gis\Gis;
 use src\Models\Neighbourhood\Neighbourhood;
-use Utils\Uri\SimpleRouter;
+use src\Utils\Uri\SimpleRouter;
 
 ?>
 <div class="nbh-block-header">

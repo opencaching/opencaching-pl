@@ -1,5 +1,5 @@
 <?php
-use Utils\Uri\SimpleRouter;
+use src\Utils\Uri\SimpleRouter;
 
 ?>
 <div class="content2-container">

@@ -9,8 +9,8 @@
  */
 namespace src\Models\User\OAuthSimpleUser;
 
-use Utils\Generators\Uuid;
-use Utils\Uri\Uri;
+use src\Utils\Generators\Uuid;
+use src\Utils\Uri\Uri;
 
 
 /**

@@ -1,7 +1,7 @@
 <?php
 namespace src\Controllers;
 
-use Utils\Text\UserInputFilter;
+use src\Utils\Text\UserInputFilter;
 use src\Models\CacheSet\CacheSet;
 
 class GeoPathController extends BaseController

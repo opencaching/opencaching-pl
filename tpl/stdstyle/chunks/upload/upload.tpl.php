@@ -1,5 +1,5 @@
 <?php
-use Utils\Uri\Uri;
+use src\Utils\Uri\Uri;
 
 /**
  * UploadChunk is a simple browser-side plugin to handle file upload dialog

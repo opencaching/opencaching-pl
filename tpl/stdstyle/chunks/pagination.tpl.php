@@ -13,7 +13,7 @@
  *     View::callChunkInline('pagination', $this->paginationModel);
  */
 use src\Models\ChunkModels\PaginationModel;
-use Utils\Uri\Uri;
+use src\Utils\Uri\Uri;
 
 return function (PaginationModel $pagination){
 

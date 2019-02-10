@@ -1,6 +1,6 @@
 <?php
 
-use Utils\Database\XDb;
+use src\Utils\Database\XDb;
 if (isset($_POST['submitDownloadGpx'])) {
     $fd = "";
     $fd .= "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n";

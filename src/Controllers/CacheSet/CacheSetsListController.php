@@ -3,7 +3,7 @@
 namespace src\Controllers\CacheSet;
 
 use src\Controllers\BaseController;
-use Utils\Uri\Uri;
+use src\Utils\Uri\Uri;
 use src\Models\CacheSet\CacheSet;
 use src\Models\ChunkModels\PaginationModel;
 use src\Models\CacheSet\CacheSetCommon;

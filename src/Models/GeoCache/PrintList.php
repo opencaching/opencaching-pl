@@ -2,7 +2,7 @@
 
 namespace src\Models\GeoCache;
 
-use Utils\Uri\Uri;
+use src\Utils\Uri\Uri;
 
 /**
  * This class handle old-style print-list used as a clippboard for list of caches to print

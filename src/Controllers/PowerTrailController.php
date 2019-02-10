@@ -5,7 +5,7 @@ namespace src\Controllers;
 use src\Models\PowerTrail\PowerTrail;
 use src\Models\PowerTrail\Log;
 use src\Models\User\User;
-use Utils\Database\OcDb;
+use src\Utils\Database\OcDb;
 
 class PowerTrailController
 {

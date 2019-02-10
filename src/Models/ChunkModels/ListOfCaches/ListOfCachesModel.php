@@ -3,7 +3,7 @@
 namespace src\Models\ChunkModels\ListOfCaches;
 
 use src\Models\ChunkModels\PaginationModel;
-use Utils\View\View;
+use src\Utils\View\View;
 
 /**
  * This is model for listOfCaches chunk.

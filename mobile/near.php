@@ -1,7 +1,7 @@
 <?php
-use Utils\Database\XDb;
+use src\Utils\Database\XDb;
 use src\Models\GeoCache\GeoCacheCommons;
-use Utils\I18n\I18n;
+use src\Utils\I18n\I18n;
 require_once("./lib/common.inc.php");
 
 function makeUrl($url)

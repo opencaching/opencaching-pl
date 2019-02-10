@@ -1,5 +1,5 @@
 <?php
-use Utils\I18n\I18n;
+use src\Utils\I18n\I18n;
 ?>
 <!DOCTYPE html>
 <html lang="<?=I18n::getCurrentLang()?>">

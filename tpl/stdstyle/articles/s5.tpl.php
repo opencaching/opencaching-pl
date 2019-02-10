@@ -5,7 +5,7 @@
   </div>
 
 <?php
-use Utils\Database\XDb;
+use src\Utils\Database\XDb;
 
 $tops = array();
 ?>

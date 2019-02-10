@@ -3,10 +3,10 @@ namespace src\Controllers\Admin;
 
 use src\Controllers\BaseController;
 use src\Controllers\UpdateController;
-use Utils\DataBase\OcDb;
-use Utils\Database\DbUpdates;
-use Utils\Uri\SimpleRouter;
-use Utils\Uri\Uri;
+use src\Utils\DataBase\OcDb;
+use src\Utils\Database\DbUpdates;
+use src\Utils\Uri\SimpleRouter;
+use src\Utils\Uri\Uri;
 
 class DbUpdateController extends BaseController
 {

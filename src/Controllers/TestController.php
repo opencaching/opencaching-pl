@@ -4,8 +4,8 @@ namespace src\Controllers;
 use src\Models\CacheSet\CacheSet;
 use src\Models\User\OAuthSimpleUser\FacebookOAuth;
 use src\Models\User\OAuthSimpleUser\GoogleOAuth;
-use Utils\Text\UserInputFilter;
-use Utils\Uri\Uri;
+use src\Utils\Text\UserInputFilter;
+use src\Utils\Uri\Uri;
 use src\Models\User\UserPreferences\UserPreferences;
 use src\Models\User\UserPreferences\TestUserPref;
 use src\Models\ChunkModels\UploadModel;
@@ -19,10 +19,10 @@ use src\Models\GeoCache\MultiLogStats;
 use src\Models\User\User;
 use src\Models\User\MultiUserQueries;
 use src\Models\GeoCache\GeoCacheLog;
-use Utils\Text\Formatter;
-use Utils\Uri\OcCookie;
+use src\Utils\Text\Formatter;
+use src\Utils\Uri\OcCookie;
 use src\Models\Coordinates\Coordinates;
-use Utils\FileSystem\FileUploadMgr;
+use src\Utils\FileSystem\FileUploadMgr;
 use src\Models\OcConfig\OcConfig;
 
 class TestController extends BaseController

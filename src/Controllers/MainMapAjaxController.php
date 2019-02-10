@@ -7,7 +7,7 @@ use src\Models\GeoCache\GeoCache;
 use src\Models\OcConfig\OcConfig;
 use src\Models\User\UserPreferences\MainMapSettings;
 use src\Models\User\UserPreferences\UserPreferences;
-use Utils\Text\Formatter;
+use src\Utils\Text\Formatter;
 
 /**
  * This class provides:

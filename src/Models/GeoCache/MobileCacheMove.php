@@ -5,7 +5,7 @@ namespace src\Models\GeoCache;
 use src\Models\BaseObject;
 use src\Models\Coordinates\Coordinates;
 use okapi\Facade;
-use Utils\Gis\Gis;
+use src\Utils\Gis\Gis;
 
 class MobileCacheMove extends BaseObject
 {

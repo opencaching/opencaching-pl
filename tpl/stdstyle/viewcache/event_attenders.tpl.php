@@ -1,5 +1,5 @@
 <?php
-use Utils\Text\Formatter;
+use src\Utils\Text\Formatter;
 use src\Models\User\User;
 
 ?>

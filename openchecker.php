@@ -22,10 +22,10 @@
  *  ================================================================================================
  */
 
-use Utils\Database\XDb;
+use src\Utils\Database\XDb;
 use src\Models\GeoCache\GeoCache;
 use src\Models\GeoCache\Waypoint;
-use Utils\View\View;
+use src\Utils\View\View;
 
 // variables required by opencaching.pl
 global $usr;

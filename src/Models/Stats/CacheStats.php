@@ -1,7 +1,7 @@
 <?php
 namespace src\Models\Stats;
 
-use Utils\Cache\OcMemCache;
+use src\Utils\Cache\OcMemCache;
 use src\Models\BaseObject;
 use src\Models\GeoCache\GeoCache;
 use src\Models\GeoCache\GeoCacheLog;

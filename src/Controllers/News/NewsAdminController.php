@@ -2,9 +2,9 @@
 namespace src\Controllers\News;
 
 use src\Controllers\BaseController;
-use Utils\DateTime\Converter;
-use Utils\Uri\SimpleRouter;
-use Utils\Uri\Uri;
+use src\Utils\DateTime\Converter;
+use src\Utils\Uri\SimpleRouter;
+use src\Utils\Uri\Uri;
 use src\Models\ChunkModels\PaginationModel;
 use src\Models\News\News;
 

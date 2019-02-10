@@ -5,8 +5,8 @@ namespace src\Controllers;
 use src\Models\ApplicationContainer;
 use src\Models\User\User;
 use src\Models\OcConfig\OcConfig;
-use Utils\View\View;
-use Utils\Uri\Uri;
+use src\Utils\View\View;
+use src\Utils\Uri\Uri;
 
 require_once(__DIR__.'/../../lib/common.inc.php');
 

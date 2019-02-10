@@ -5,8 +5,8 @@
 namespace src\Models\Watchlist;
 
 use src\Models\BaseObject;
-use Utils\Database\OcDb;
-use Utils\Log\Log;
+use src\Utils\Database\OcDb;
+use src\Utils\Log\Log;
 use src\Models\User\UserNotify;
 
 /**

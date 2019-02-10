@@ -4,7 +4,7 @@ namespace src\Models;
 
 use src\Models\User\User;
 use src\Models\OcConfig\OcConfig;
-use Utils\Database\OcDb;
+use src\Utils\Database\OcDb;
 
 final class ApplicationContainer
 {

@@ -1,6 +1,6 @@
 <?php
 
-use Utils\Text\TextConverter;
+use src\Utils\Text\TextConverter;
 
 define("CS2CS", "cs2cs");
 

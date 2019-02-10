@@ -1,10 +1,10 @@
 <?php
 
-use Utils\Database\XDb;
+use src\Utils\Database\XDb;
 use src\Models\User\User;
-use Utils\Text\TextConverter;
+use src\Utils\Text\TextConverter;
 use src\Models\User\UserStats;
-use Utils\I18n\I18n;
+use src\Utils\I18n\I18n;
 
 require_once (__DIR__.'/lib/common.inc.php');
 

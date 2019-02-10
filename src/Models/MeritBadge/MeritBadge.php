@@ -2,7 +2,7 @@
 
 namespace src\Models\MeritBadge;
 
-use Utils\Database\OcDb;
+use src\Utils\Database\OcDb;
 
 class MeritBadge
 {

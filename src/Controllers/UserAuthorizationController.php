@@ -1,9 +1,9 @@
 <?php
 namespace src\Controllers;
 
-use Utils\Text\Validator;
-use Utils\Uri\SimpleRouter;
-use Utils\Uri\Uri;
+use src\Utils\Text\Validator;
+use src\Utils\Uri\SimpleRouter;
+use src\Utils\Uri\Uri;
 use src\Models\User\PasswordManager;
 use src\Models\User\User;
 use src\Models\User\UserAuthorization;

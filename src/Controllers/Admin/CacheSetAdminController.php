@@ -2,7 +2,7 @@
 namespace src\Controllers\Admin;
 
 use src\Controllers\BaseController;
-use Utils\Uri\Uri;
+use src\Utils\Uri\Uri;
 use src\Models\CacheSet\CacheSet;
 use src\Models\ChunkModels\ListOfCaches\Column_CacheSetNameAndIcon;
 use src\Models\ChunkModels\ListOfCaches\ListOfCachesModel;

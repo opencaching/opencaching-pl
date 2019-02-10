@@ -2,7 +2,7 @@
 
 namespace src\Models\OcConfig;
 
-use Utils\Debug\Debug;
+use src\Utils\Debug\Debug;
 
 /**
  * This object reads and return requested configuration container

@@ -1,7 +1,7 @@
 <?php
 
-use Utils\Debug\Debug;
-use Utils\Uri\SimpleRouter as SRouter;
+use src\Utils\Debug\Debug;
+use src\Utils\Uri\SimpleRouter as SRouter;
 
 global $tpl_subtitle;
 

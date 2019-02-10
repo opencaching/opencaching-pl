@@ -1,6 +1,6 @@
 <?php
 
-use Utils\Database\XDb;
+use src\Utils\Database\XDb;
 
 if (isset($_REQUEST['region'])) {
     $region = $_REQUEST['region'];
@@ -8,7 +8,6 @@ if (isset($_REQUEST['region'])) {
     // This is a subpage of s8.
     tpl_redirect('articles.php?page=s8');
 }
-
 ?>
 <div class="content2-container">
   <div class="content2-pagetitle">

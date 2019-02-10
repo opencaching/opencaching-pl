@@ -1,9 +1,9 @@
 <?php
 namespace src\Models\ChunkModels\ListOfCaches;
 
-use Utils\Debug\Debug;
-use Utils\View\View;
-use Utils\Generators\TextGen;
+use src\Utils\Debug\Debug;
+use src\Utils\View\View;
+use src\Utils\Generators\TextGen;
 
 
 /**

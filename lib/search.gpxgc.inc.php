@@ -2,13 +2,13 @@
 
 ob_start();
 
-use Utils\Database\XDb;
-use Utils\Database\OcDb;
+use src\Utils\Database\XDb;
+use src\Utils\Database\OcDb;
 use src\Models\GeoCache\CacheNote;
 use src\Models\GeoCache\GeoCacheCommons;
 use src\Models\GeoCache\GeoCacheLog;
-use Utils\I18n\I18n;
-use Utils\Text\Validator;
+use src\Utils\I18n\I18n;
+use src\Utils\Text\Validator;
 use src\Models\OcConfig\OcConfig;
 
 global $content, $bUseZip, $usr, $hide_coords, $dbcSearch, $queryFilter;

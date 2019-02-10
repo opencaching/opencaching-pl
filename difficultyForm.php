@@ -1,7 +1,7 @@
 <?php
 
-use Utils\View\View;
-use Utils\Uri\Uri;
+use src\Utils\View\View;
+use src\Utils\Uri\Uri;
 
 
 require_once(__DIR__.'/lib/common.inc.php');

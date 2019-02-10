@@ -1,6 +1,6 @@
 <?php
 
-use Utils\Uri\SimpleRouter;
+use src\Utils\Uri\SimpleRouter;
 use src\Models\User\UserNotify;
 
 ?>

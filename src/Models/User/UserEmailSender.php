@@ -1,9 +1,9 @@
 <?php
 namespace src\Models\User;
 
-use Utils\Email\Email;
-use Utils\Email\EmailFormatter;
-use Utils\Uri\SimpleRouter;
+use src\Utils\Email\Email;
+use src\Utils\Email\EmailFormatter;
+use src\Utils\Uri\SimpleRouter;
 use src\Models\OcConfig\OcConfig;
 
 class UserEmailSender

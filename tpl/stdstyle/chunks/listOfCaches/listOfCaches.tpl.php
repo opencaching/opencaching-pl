@@ -1,7 +1,7 @@
 <?php
 
 use src\Models\ChunkModels\ListOfCaches\ListOfCachesModel;
-use Utils\Uri\Uri;
+use src\Utils\Uri\Uri;
 
 /**
  * This is generic list-of-caches. This list needs properly initialized model.

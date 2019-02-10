@@ -1,13 +1,13 @@
 <?php
 namespace src\Controllers;
 
-use Utils\Uri\Uri;
+use src\Utils\Uri\Uri;
 use src\Models\ChunkModels\DynamicMap\DynamicMapModel;
 use src\Models\User\MultiUserQueries;
 use src\Models\ChunkModels\DynamicMap\GuideMarkerModel;
 use src\Models\User\User;
-use Utils\Cache\OcMemCache;
-use Utils\Text\Formatter;
+use src\Utils\Cache\OcMemCache;
+use src\Utils\Text\Formatter;
 
 class GuideController extends BaseController
 {

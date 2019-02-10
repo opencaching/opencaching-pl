@@ -1,5 +1,5 @@
 <?php
-use Utils\Uri\Uri;
+use src\Utils\Uri\Uri;
 use src\Models\GeoCache\GeoCacheLogCommons;
 
 return function($isUserAuthorized, $cacheType) {

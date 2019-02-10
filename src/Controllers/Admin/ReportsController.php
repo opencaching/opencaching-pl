@@ -2,7 +2,7 @@
 namespace src\Controllers\Admin;
 
 use src\Controllers\BaseController;
-use Utils\Uri\Uri;
+use src\Utils\Uri\Uri;
 use src\Controllers\LogEntryController;
 use src\Models\Admin\Report;
 use src\Models\Admin\ReportEmailSender;

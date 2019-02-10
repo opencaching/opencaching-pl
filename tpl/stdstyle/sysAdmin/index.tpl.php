@@ -1,6 +1,6 @@
 <?php
 
-use Utils\Uri\SimpleRouter;
+use src\Utils\Uri\SimpleRouter;
 
 ?>
 <h1>Sysadmin panels</h1>

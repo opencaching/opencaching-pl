@@ -4,7 +4,7 @@ use src\Models\GeoCache\GeoCacheLogCommons;
 use src\Models\Admin\ReportEmailTemplate;
 use src\Models\Admin\ReportPoll;
 use src\Models\Admin\ReportCommons;
-use Utils\Text\Formatter;
+use src\Utils\Text\Formatter;
 ?>
 <?php if ($view->includeGCharts) {?>
 <script src="https://www.gstatic.com/charts/loader.js"></script>

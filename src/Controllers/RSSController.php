@@ -1,12 +1,12 @@
 <?php
 namespace src\Controllers;
 
-use Utils\Cache\OcMemCache;
-use Utils\Feed\AtomFeed;
-use Utils\Feed\AtomFeedAuthor;
-use Utils\Feed\AtomFeedEntry;
-use Utils\Text\Formatter;
-use Utils\Uri\Uri;
+use src\Utils\Cache\OcMemCache;
+use src\Utils\Feed\AtomFeed;
+use src\Utils\Feed\AtomFeedAuthor;
+use src\Utils\Feed\AtomFeedEntry;
+use src\Utils\Text\Formatter;
+use src\Utils\Uri\Uri;
 use src\Models\GeoCache\GeoCacheLog;
 use src\Models\GeoCache\MultiCacheStats;
 use src\Models\GeoCache\MultiLogStats;
@@ -14,8 +14,8 @@ use src\Models\News\News;
 use src\Models\User\User;
 use src\Models\Neighbourhood\MyNbhSets;
 use src\Models\Neighbourhood\Neighbourhood;
-use Utils\Uri\SimpleRouter;
-use Utils\I18n\I18n;
+use src\Utils\Uri\SimpleRouter;
+use src\Utils\I18n\I18n;
 
 class RSSController extends BaseController
 {

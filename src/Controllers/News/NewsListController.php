@@ -4,8 +4,8 @@ namespace src\Controllers\News;
 use src\Controllers\BaseController;
 use src\Models\News\News;
 use src\Models\ChunkModels\PaginationModel;
-use Utils\Uri\Uri;
-use Utils\Uri\SimpleRouter;
+use src\Utils\Uri\Uri;
+use src\Utils\Uri\SimpleRouter;
 
 class NewsListController extends BaseController
 {

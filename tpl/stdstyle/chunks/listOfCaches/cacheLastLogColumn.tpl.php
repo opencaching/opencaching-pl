@@ -1,7 +1,7 @@
 <?php
 
 use src\Models\GeoCache\GeoCacheLogCommons;
-use Utils\Text\Formatter;
+use src\Utils\Text\Formatter;
 
 /**
  * This is column with log-icon and log-text.

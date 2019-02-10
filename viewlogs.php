@@ -1,11 +1,11 @@
 <?php
 
-use Utils\Database\OcDb;
-use Utils\Uri\Uri;
+use src\Utils\Database\OcDb;
+use src\Utils\Uri\Uri;
 use src\Controllers\LogEntryController;
-use Utils\Text\TextConverter;
-use Utils\Text\SmilesInText;
-use Utils\Text\UserInputFilter;
+use src\Utils\Text\TextConverter;
+use src\Utils\Text\SmilesInText;
+use src\Utils\Text\UserInputFilter;
 use src\Models\OcConfig\OcConfig;
 use src\Models\Coordinates\Coordinates;
 

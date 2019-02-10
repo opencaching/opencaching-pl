@@ -1,11 +1,11 @@
 <?php
 namespace src\Models\Notify;
 
-use Utils\Email\Email;
-use Utils\Email\EmailFormatter;
-use Utils\Gis\Gis;
-use Utils\Text\Formatter;
-use Utils\Uri\SimpleRouter;
+use src\Utils\Email\Email;
+use src\Utils\Email\EmailFormatter;
+use src\Utils\Gis\Gis;
+use src\Utils\Text\Formatter;
+use src\Utils\Uri\SimpleRouter;
 use src\Models\GeoCache\GeoCache;
 use src\Models\OcConfig\OcConfig;
 use src\Models\User\User;

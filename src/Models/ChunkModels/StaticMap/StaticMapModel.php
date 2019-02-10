@@ -2,7 +2,7 @@
 namespace src\Models\ChunkModels\StaticMap;
 
 use src\Models\Coordinates\Coordinates;
-use Utils\Gis\Gis;
+use src\Utils\Gis\Gis;
 
 class StaticMapModel
 {

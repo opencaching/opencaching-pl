@@ -1,9 +1,9 @@
 <?php
 
 use src\Controllers\MyRecommendationsController;
-use Utils\Uri\SimpleRouter;
+use src\Utils\Uri\SimpleRouter;
 use src\Controllers\CacheNotesController;
-use Utils\I18n\I18n;
+use src\Utils\I18n\I18n;
 
 /**
  * This is simple configuration of links presented in sidebar of the page

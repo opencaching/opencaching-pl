@@ -5,8 +5,8 @@
 namespace src\Controllers\Cron;
 
 use src\Controllers\BaseController;
-use Utils\Email\Email;
-use Utils\Lock\Lock;
+use src\Utils\Email\Email;
+use src\Utils\Lock\Lock;
 use src\Models\User\UserNotify;
 use src\Models\Watchlist\Watchlist;
 use src\Models\Watchlist\WatchlistItem;

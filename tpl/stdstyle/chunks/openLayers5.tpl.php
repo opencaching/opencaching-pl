@@ -1,6 +1,6 @@
 <?php
 
-use Utils\Uri\Uri;
+use src\Utils\Uri\Uri;
 use src\Models\ChunkModels\DynamicMap\DynamicMapModel;
 
 /**

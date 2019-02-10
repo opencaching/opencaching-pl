@@ -1,7 +1,7 @@
 <?php
 
 use src\Controllers\Cron\Jobs\Job;
-use Utils\Database\XDb;
+use src\Utils\Database\XDb;
 use src\Models\GeoKret\GeoKretyApi;
 use okapi\Facade;
 

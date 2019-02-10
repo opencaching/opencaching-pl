@@ -1,8 +1,8 @@
 <?php
 namespace src\Controllers;
 
-use Utils\Uri\SimpleRouter;
-use Utils\Uri\Uri;
+use src\Utils\Uri\SimpleRouter;
+use src\Utils\Uri\Uri;
 use src\Models\ChunkModels\PaginationModel;
 use src\Models\ChunkModels\DynamicMap\CacheMarkerModel;
 use src\Models\ChunkModels\DynamicMap\DynamicMapModel;
@@ -11,7 +11,7 @@ use src\Models\Coordinates\Coordinates;
 use src\Models\Neighbourhood\MyNbhSets;
 use src\Models\Neighbourhood\Neighbourhood;
 use src\Models\User\UserPreferences\UserPreferences;
-use Utils\Text\UserInputFilter;
+use src\Utils\Text\UserInputFilter;
 use src\Models\User\UserPreferences\NeighbourhoodPref;
 
 class MyNeighbourhoodController extends BaseController

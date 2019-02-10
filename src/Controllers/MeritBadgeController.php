@@ -9,7 +9,7 @@ use lib\Objects\GeoCache\GeoCache;
 
 use lib\Controllers\LogEntryController;
 
-use Utils\Database\OcDb;
+use src\Utils\Database\OcDb;
 
 
 class MeritBadgeController{

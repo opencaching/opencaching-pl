@@ -1,6 +1,6 @@
 <?php
 
-use Utils\Uri\SimpleRouter;
+use src\Utils\Uri\SimpleRouter;
 
 ?>
 <div class="content2-pagetitle"><?=tr('loginForm_title')?></div>

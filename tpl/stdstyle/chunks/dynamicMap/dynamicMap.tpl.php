@@ -1,7 +1,7 @@
 <?php
 
-use Utils\Uri\Uri;
-use Utils\View\View;
+use src\Utils\Uri\Uri;
+use src\Utils\View\View;
 use src\Models\ChunkModels\DynamicMap\DynamicMapModel;
 
 /**

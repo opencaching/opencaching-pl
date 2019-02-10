@@ -1,7 +1,7 @@
 <?php
 
-use Utils\Database\XDb;
-use Utils\Text\Validator;
+use src\Utils\Database\XDb;
+use src\Utils\Text\Validator;
 use src\Models\OcConfig\OcConfig;
 
 global $absolute_server_URI;

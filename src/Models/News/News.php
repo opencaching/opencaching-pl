@@ -1,12 +1,12 @@
 <?php
 namespace src\Models\News;
 
-use Utils\Text\Formatter;
-use Utils\Text\UserInputFilter;
+use src\Utils\Text\Formatter;
+use src\Utils\Text\UserInputFilter;
 use src\Models\BaseObject;
 use src\Models\User\User;
 use src\Models\OcConfig\OcConfig;
-use Utils\Uri\SimpleRouter;
+use src\Utils\Uri\SimpleRouter;
 
 class News extends BaseObject
 {

@@ -1,10 +1,10 @@
 <?php
 
-use Utils\Database\XDb;
+use src\Utils\Database\XDb;
 use src\Models\GeoCache\GeoCacheCommons;
 use src\Models\OcConfig\OcConfig;
-use Utils\I18n\I18n;
-use Utils\Text\Validator;
+use src\Utils\I18n\I18n;
+use src\Utils\Text\Validator;
 /* begin configuration */
 
 require('../lib/common.inc.php');

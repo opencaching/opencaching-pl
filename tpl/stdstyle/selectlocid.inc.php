@@ -1,6 +1,6 @@
 <?php
 
-use Utils\Database\XDb;
+use src\Utils\Database\XDb;
 $locline = '<tr><td width="50px">{nr}.&nbsp;</td><td> <a href="search.php?{urlparams}">{locationname}</a>{secondlocationname}</td></tr>
                             <tr><td width="50px">&nbsp;</td><td><font size="1" color="black">{coords}</font></td></tr>
                             <tr><td width="50px">&nbsp;</td><td style="padding-bottom:3px;"><font size="1" color="#001BBC">{parentlocations}</font></td></tr>';

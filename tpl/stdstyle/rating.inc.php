@@ -1,7 +1,7 @@
 <?php
 
 use src\Controllers\MyRecommendationsController;
-use Utils\Uri\SimpleRouter;
+use src\Utils\Uri\SimpleRouter;
 
 $rating_tpl = '<tr class="form-group-sm">
                 <td class="content-title-noshade"><img src="images/rating-star.png" class="icon16" alt="">&nbsp;'. tr('my_recommend') . ':</td>

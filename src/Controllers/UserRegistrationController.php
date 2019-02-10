@@ -1,9 +1,9 @@
 <?php
 namespace src\Controllers;
 
-use Utils\Text\UserInputFilter;
-use Utils\Text\Validator;
-use Utils\Uri\Uri;
+use src\Utils\Text\UserInputFilter;
+use src\Utils\Text\Validator;
+use src\Utils\Uri\Uri;
 use src\Models\User\User;
 use src\Models\User\UserEmailSender;
 

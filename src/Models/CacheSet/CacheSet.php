@@ -4,11 +4,11 @@ namespace src\Models\CacheSet;
 
 
 use src\Models\Coordinates\Coordinates;
-use Utils\Database\OcDb;
-use Utils\Database\QueryBuilder;
+use src\Utils\Database\OcDb;
+use src\Utils\Database\QueryBuilder;
 use src\Models\GeoCache\GeoCache;
 use src\Models\Coordinates\NutsLocation;
-use Utils\Text\Formatter;
+use src\Utils\Text\Formatter;
 
 class CacheSet extends CacheSetCommon
 {

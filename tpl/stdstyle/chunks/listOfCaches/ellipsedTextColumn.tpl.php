@@ -1,6 +1,6 @@
 <?php
 
-use Utils\Generators\TextGen;
+use src\Utils\Generators\TextGen;
 
 /**
  * This class just display text returned by dataRowExtractor.

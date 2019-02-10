@@ -1,7 +1,7 @@
 <?php
 namespace src\Models\User;
 
-use Utils\Database\OcDb;
+use src\Utils\Database\OcDb;
 
 class PasswordManager
 {

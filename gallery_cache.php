@@ -1,5 +1,5 @@
 <?php
-use Utils\Uri\Uri;
+use src\Utils\Uri\Uri;
 use src\Models\ApplicationContainer;
 use src\Models\GeoCache\GeoCache;
 

@@ -1,7 +1,7 @@
 <?php
 namespace src\Models\OcConfig;
 
-use Utils\Email\Email;
+use src\Utils\Email\Email;
 
 
 /**

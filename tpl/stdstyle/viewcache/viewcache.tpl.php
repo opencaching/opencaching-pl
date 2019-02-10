@@ -2,9 +2,9 @@
 use src\Models\Coordinates\Coordinates;
 use src\Models\GeoKret\GeoKretyApi;
 use src\Models\GeoCache\GeoCacheLogCommons;
-use Utils\Uri\SimpleRouter;
-use Utils\Text\UserInputFilter;
-use Utils\Text\Formatter;
+use src\Utils\Uri\SimpleRouter;
+use src\Utils\Text\UserInputFilter;
+use src\Utils\Text\Formatter;
 use src\Controllers\MainMapController;
 ?>
 <link rel="stylesheet" href="tpl/stdstyle/css/lightTooltip.css">

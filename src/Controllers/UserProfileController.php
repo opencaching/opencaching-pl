@@ -1,9 +1,9 @@
 <?php
 namespace src\Controllers;
 
-use Utils\Log\Log;
-use Utils\Text\UserInputFilter;
-use Utils\Uri\Uri;
+use src\Utils\Log\Log;
+use src\Utils\Text\UserInputFilter;
+use src\Utils\Uri\Uri;
 use src\Models\Neighbourhood\Neighbourhood;
 use src\Models\User\User;
 use src\Models\User\UserEmailSender;

@@ -1,7 +1,7 @@
 <?php
 
-use Utils\Database\XDb;
-use Utils\Database\OcDb;
+use src\Utils\Database\XDb;
+use src\Utils\Database\OcDb;
 use src\Models\GeoCache\GeoCacheCommons;
 use src\Models\GeoCache\GeoCacheLog;
 use src\Models\GeoCache\GeoCache;
@@ -9,14 +9,14 @@ use src\Models\User\User;
 use src\Models\GeoKret\GeoKretLog;
 use src\Models\GeoKret\GeoKretyApi;
 use src\Controllers\MeritBadgeController;
-use Utils\Generators\Uuid;
+use src\Utils\Generators\Uuid;
 use src\Controllers\LogEntryController;
 use src\Models\ApplicationContainer;
 use src\Models\GeoCache\GeoCacheLogCommons;
-use Utils\EventHandler\EventHandler;
-use Utils\Text\InputFilter;
+use src\Utils\EventHandler\EventHandler;
+use src\Utils\Text\InputFilter;
 use src\Models\GeoCache\MobileCacheMove;
-use Utils\I18n\I18n;
+use src\Utils\I18n\I18n;
 use src\Models\OcConfig\OcConfig;
 
 /*

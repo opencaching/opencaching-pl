@@ -1,13 +1,13 @@
 <?php
 
-use Utils\Database\XDb;
-use Utils\Database\OcDb;
-use Utils\Text\Formatter;
+use src\Utils\Database\XDb;
+use src\Utils\Database\OcDb;
+use src\Utils\Text\Formatter;
 use src\Models\GeoCache\GeoCache;
 use okapi\Facade;
 use okapi\core\Exception\BadRequest;
 use src\Models\GeoCache\CacheNote;
-use Utils\I18n\I18n;
+use src\Utils\I18n\I18n;
 
 require_once (__DIR__.'/lib/common.inc.php');
 require_once (__DIR__.'/lib/export.inc.php');

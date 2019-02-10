@@ -4,7 +4,7 @@ namespace src\Models\GeoCache;
 
 use src\Models\BaseObject;
 use src\Models\Coordinates\NutsLocation;
-use Utils\Debug\Debug;
+use src\Utils\Debug\Debug;
 
 class CacheLocation extends BaseObject{
 

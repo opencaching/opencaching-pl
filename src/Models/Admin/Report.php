@@ -1,7 +1,7 @@
 <?php
 namespace src\Models\Admin;
 
-use Utils\Generators\Uuid;
+use src\Utils\Generators\Uuid;
 use src\Models\BaseObject;
 use src\Models\GeoCache\GeoCache;
 use src\Models\GeoCache\GeoCacheLogCommons;

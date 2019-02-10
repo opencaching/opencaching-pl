@@ -1,7 +1,7 @@
 <?php
 
-use Utils\Database\OcDb;
-use Utils\Text\Formatter;
+use src\Utils\Database\OcDb;
+use src\Utils\Text\Formatter;
 use src\Models\GeoCache\GeoCacheLog;
 
 require_once (__DIR__.'/lib/common.inc.php');
