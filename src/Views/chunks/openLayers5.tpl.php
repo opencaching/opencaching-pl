@@ -11,7 +11,7 @@ use src\Models\ChunkModels\DynamicMap\DynamicMapModel;
 return function (){
     //start of chunk
 
-$url = "/lib/js/openlayers/5.2.0";
+$url = "/js/libs/openlayers/5.2.0";
 
 ?>
   <link rel="stylesheet"

@@ -72,7 +72,7 @@ global $tpl_subtitle;
             <script src="<?=$js['url']?>"<?=$js['async'] ? ' async' : ''?>></script>
   <?php   }
       } //foreach-js ?>
-  <script src="/lib/js/CookiesInfo.js" async defer></script>
+  <script src="/js/CookiesInfo.js" async defer></script>
 
 </head>
 

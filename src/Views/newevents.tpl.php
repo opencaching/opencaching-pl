@@ -1,5 +1,5 @@
 
-<script src="lib/js/wz_tooltip.js"></script>
+<script src="/js/wz_tooltip.js"></script>
 <div class="content2-pagetitle"><img src="/images/blue/event.png" class="icon32" alt="Cache" title="Cache">&nbsp;{{incomming_events}}</div>
 <!-- Text container -->
 <p>&nbsp;</p>

@@ -4,8 +4,8 @@ use src\Utils\I18n\I18n;
 ?>
 
 <script src="https://www.google.com/jsapi"></script>
-<script src="lib/js/GCT.js"></script>
-<script src="lib/js/GCT.lang.php"></script>
+<script src="/js/GCT.js"></script>
+<script src="/js/GCT.lang.php"></script>
 <script src="/js/search.js"></script>
 <script src="/js/okapiGpxFormatterWidget.js?v=3"></script>
 <script>

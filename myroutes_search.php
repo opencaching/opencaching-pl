@@ -795,7 +795,7 @@ if (isset($_POST['submit_gpx'])) {
     $bUseZip = false;
     if ($bUseZip == true) {
         $content = '';
-        require_once(__DIR__.'/lib/phpzip/ss_zip.class.php');
+        require_once(__DIR__.'/src/Libs/PhpZip/ss_zip.class.php');
         $phpzip = new ss_zip('', 6);
     }
 

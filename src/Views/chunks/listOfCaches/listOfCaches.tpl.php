@@ -23,7 +23,7 @@ return function (ListOfCachesModel $listModel){
     document.head.appendChild(linkElement);
 </script>
 
-<script src="/lib/js/wz_tooltip.js"></script>
+<script src="/js/wz_tooltip.js"></script>
 <table class="listOfCaches bs-table table-striped">
 
     <?php if($listModel->isHeaderEnabled()) { ?>

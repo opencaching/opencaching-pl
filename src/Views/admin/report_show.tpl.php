@@ -16,7 +16,7 @@ use src\Utils\Text\Formatter;
   <?php }?>
 </script>
 <?php }?>
-<script src="/lib/js/wz_tooltip.js"></script>
+<script src="/js/wz_tooltip.js"></script>
 <script src="<?=$view->reports_js?>"></script>
 <div id="report-confirm-poll"><p><strong>{{admin_reports_poll_confirm}}</strong></p>
   <p style="text-align: left">{{admin_reports_lbl_question}}: <em><span id="confirm-dlg-question"></span></em></p>

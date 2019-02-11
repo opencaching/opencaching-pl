@@ -3,7 +3,7 @@
 @author Yuriy Horobey, smiledsoft.com
 @email info@smiledsoft.com
 */
-class ss_zip{
+class ss_zip {
     /** contains whole zipfile
     @see ss_zip::archive()
     @see ss_zip::ss_zip()
@@ -264,4 +264,4 @@ the only job for this function is take parameter $v and ouput it with print_r() 
 The $l is a label like l=myvar
 */
 function dbg($v,$l='var'){echo"<xmp>$l=";print_r($v);echo"</xmp>";}
-?>
+

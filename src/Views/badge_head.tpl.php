@@ -11,10 +11,10 @@
 <link rel="stylesheet" type="text/css" media="screen,projection" href="/css/GCT.css" />
 <link rel="stylesheet" type="text/css" media="screen,projection" href="/css/GCTStats.css" />
 <script src='https://www.google.com/jsapi'></script>
-<script src="lib/js/GCT.lang.php"></script>
-<script src="lib/js/GCT.js"></script>
-<script src="lib/js/GCTStats.js"></script>
-<script src="lib/js/wz_tooltip.js"></script>
+<script src="/js/GCT.lang.php"></script>
+<script src="/js/GCT.js"></script>
+<script src="/js/GCTStats.js"></script>
+<script src="/js/wz_tooltip.js"></script>
 
 
 <div class="content2-pagetitle">

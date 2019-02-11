@@ -7,9 +7,9 @@
  *
  * Simple exapmle:
  *   <script src='https://www.google.com/jsapi'></script>
- *   <script src="lib/js/GCT.js"></script>
- *   <script src="lib/js/GCT.lang.php"></script>
- *   <script src="lib/js/wz_tooltip.js"></script>
+ *   <script src="js/GCT.js"></script>
+ *   <script src="js/GCT.lang.php"></script>
+ *   <script src="js/wz_tooltip.js"></script>
  *
  *  <script>
  *      GCTLoad( 'TableChart' );

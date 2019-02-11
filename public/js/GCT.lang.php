@@ -1,13 +1,13 @@
 <?php
 
-require_once __DIR__.'/../common.inc.php';
+require_once __DIR__.'/../../lib/common.inc.php';
 
 header("Content-Type: text/javascript");
 
 ?>
 /* ************************************************************************
  * Provide proper translation strings to GCT javascript library
- * /lib/js/GCT.js
+ * /js/GCT.js
  * ************************************************************************
  */
 

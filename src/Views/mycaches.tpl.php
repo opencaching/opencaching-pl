@@ -1,5 +1,5 @@
 
-<script src="lib/js/wz_tooltip.js"></script>
+<script src="/js/wz_tooltip.js"></script>
 <div class="content2-pagetitle"><img src="/images/blue/cache.png" class="icon32" alt="" title="" align="middle"/>&nbsp;{{my_caches_status}}: <font color="black">{cache_stat}</font></div>
 
 

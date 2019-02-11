@@ -2,7 +2,7 @@
 use src\Utils\Uri\Uri;
 ?>
 
-<script src="<?=Uri::getLinkWithModificationTime('/lib/js/gmap.js')?>"></script>
+<script src="<?=Uri::getLinkWithModificationTime('/views/myRoutes/gmap.js')?>"></script>
 <script>
 //<![CDATA[
     function checkForm()

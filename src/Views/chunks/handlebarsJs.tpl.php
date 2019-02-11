@@ -9,7 +9,7 @@ return function (){
 
 ?>
 
-<script src="/lib/js/handlebarsjs/handlebars.min-v4.0.11.js"></script>
+<script src="/js/libs/handlebarsjs/handlebars.min-v4.0.11.js"></script>
 
 <?php
 }; //end of chunk

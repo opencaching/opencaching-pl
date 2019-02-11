@@ -125,7 +125,7 @@ if ($usr || ! $hide_coords) {
     $bUseZip = $bUseZip || (isset($_REQUEST['zip']) && ($_REQUEST['zip'] == '1'));
     // $bUseZip = false;
     if ($bUseZip == true) {
-        require_once (__DIR__.'/phpzip/ss_zip.class.php');
+        require_once (__DIR__.'/../src/Libs/PhpZip/ss_zip.class.php');
         $phpzip = new ss_zip('', 6);
     }
 

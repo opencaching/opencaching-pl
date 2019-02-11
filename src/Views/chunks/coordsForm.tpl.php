@@ -42,7 +42,7 @@ return function (Coordinates $initCoords = null, $inputPrefix='') {
     $bigFontStyle = "font-size: 15px;";
 
 ?>
-<script src="lib/js/jquery.mask.min.js"></script>
+<script src="/js/libs/jquery.mask.min.js"></script>
 <script>
 
   function <?=$prefix?>updateCoords(){

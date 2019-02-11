@@ -1,5 +1,5 @@
 
-<script src="lib/js/wz_tooltip.js"></script>
+<script src="/js/wz_tooltip.js"></script>
 <script>
 
     function check_logs() {
