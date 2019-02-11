@@ -663,10 +663,22 @@ function generateStatusSelector($currStatus)
 
 function saveCookie()
 {
-    OcCookie::set("ptFltr", $_REQUEST['filter']);
-    OcCookie::set("ptSrBy", $_REQUEST['sortBy']);
-    OcCookie::set("ptSrDr", $_REQUEST['sortDir']);
-    OcCookie::set("ptGaBool", $_REQUEST['gainedPowerTrailsBool']);
-    OcCookie::set("ptMyBool", $_REQUEST['myPowerTrailsBool']);
-    OcCookie::set("ptMiniBool", $_REQUEST['historicLimitBool']);
+    if (isset($_REQUEST['filter'])) {
+        OcCookie::set("ptFltr", $_REQUEST['filter']);
+    }
+    if (isset($_REQUEST['sortBy'])) {
+        OcCookie::set("ptSrBy", $_REQUEST['sortBy']);
+    }
+    if (isset($_REQUEST['sortDir'])) {
+        OcCookie::set("ptSrDr", $_REQUEST['sortDir']);
+    }
+    if (isset($_REQUEST['gainedPowerTrailsBool'])) {
+        OcCookie::set("ptGaBool", $_REQUEST['gainedPowerTrailsBool']);
+    }
+    if (isset($_REQUEST['myPowerTrailsBool'])) {
+        OcCookie::set("ptMyBool", $_REQUEST['myPowerTrailsBool']);
+    }
+    if (isset($_REQUEST['historicLimitBool'])) {
+        OcCookie::set("ptMiniBool", $_REQUEST['historicLimitBool']);
+    }
 }
