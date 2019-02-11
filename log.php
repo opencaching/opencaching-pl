@@ -1,23 +1,23 @@
 <?php
 
-use Utils\Database\XDb;
-use Utils\Database\OcDb;
-use lib\Objects\GeoCache\GeoCacheCommons;
-use lib\Objects\GeoCache\GeoCacheLog;
-use lib\Objects\GeoCache\GeoCache;
-use lib\Objects\User\User;
-use lib\Objects\GeoKret\GeoKretLog;
-use lib\Objects\GeoKret\GeoKretyApi;
-use lib\Controllers\MeritBadgeController;
-use Utils\Generators\Uuid;
-use lib\Controllers\LogEntryController;
-use lib\Objects\ApplicationContainer;
-use lib\Objects\GeoCache\GeoCacheLogCommons;
-use Utils\EventHandler\EventHandler;
-use Utils\Text\InputFilter;
-use lib\Objects\GeoCache\MobileCacheMove;
-use Utils\I18n\I18n;
-use lib\Objects\OcConfig\OcConfig;
+use src\Utils\Database\XDb;
+use src\Utils\Database\OcDb;
+use src\Models\GeoCache\GeoCacheCommons;
+use src\Models\GeoCache\GeoCacheLog;
+use src\Models\GeoCache\GeoCache;
+use src\Models\User\User;
+use src\Models\GeoKret\GeoKretLog;
+use src\Models\GeoKret\GeoKretyApi;
+use src\Controllers\MeritBadgeController;
+use src\Utils\Generators\Uuid;
+use src\Controllers\LogEntryController;
+use src\Models\ApplicationContainer;
+use src\Models\GeoCache\GeoCacheLogCommons;
+use src\Utils\EventHandler\EventHandler;
+use src\Utils\Text\InputFilter;
+use src\Models\GeoCache\MobileCacheMove;
+use src\Utils\I18n\I18n;
+use src\Models\OcConfig\OcConfig;
 
 /*
  * todo: create and set up 4 template selector with wybor_WE wybor_NS.
@@ -38,7 +38,7 @@ $view->loadJquery();
 
 
 require_once(__DIR__.'/lib/caches.inc.php');
-require(__DIR__.'/tpl/stdstyle/rating.inc.php');
+require(__DIR__.'/src/Views/rating.inc.php');
 
 if(!isset($_REQUEST['cacheid'])){
     tpl_errorMsg('log_cache', "No cacheid param!");
@@ -835,7 +835,7 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
     if ($geoCache->hasLogPassword()) {
         if ($pw_not_ok == true) {
             tpl_set_var('log_pw_field', '<tr><td colspan="2">'.
-                '<img src="tpl/stdstyle/images/free_icons/key_go.png" class="icon16" alt="" title="" align="middle" />&nbsp;<b>' .
+                '<img src="images/free_icons/key_go.png" class="icon16" alt="" title="" align="middle" />&nbsp;<b>' .
                 tr('password_to_log') .
                 ': <input type="text" name="log_pw" maxlength="20" size="20" value=""/><span class="errormsg"> ' .
                 tr('incorrect_password_to_log') .
@@ -843,7 +843,7 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
         } else {
             tpl_set_var('log_pw_field',
                 '<tr><td colspan="2">'.
-                '<img src="tpl/stdstyle/images/free_icons/key_go.png" class="icon16" alt="" title="" align="middle" />'.
+                '<img src="images/free_icons/key_go.png" class="icon16" alt="" title="" align="middle" />'.
                 '&nbsp;<b>' . tr('password_to_log') .
                 ': <input class="input100" type="text" name="log_pw" maxlength="20" value="" /> (' .
                 tr('only_for_found_it') .

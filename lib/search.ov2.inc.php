@@ -3,8 +3,8 @@
  * This script is used (can be loaded) by /search.php
  */
 
-use Utils\Database\XDb;
-use lib\Objects\GeoCache\GeoCacheCommons;
+use src\Utils\Database\XDb;
+use src\Models\GeoCache\GeoCacheCommons;
 
 ob_start();
 
@@ -132,7 +132,7 @@ if ($usr || ! $hide_coords) {
     $bUseZip = false;
     if ($bUseZip == true) {
         $content = '';
-        require_once (__DIR__.'/phpzip/ss_zip.class.php');
+        require_once (__DIR__.'/../src/Libs/PhpZip/ss_zip.class.php');
         $phpzip = new ss_zip('', 6);
     }
 

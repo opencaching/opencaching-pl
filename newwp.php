@@ -1,7 +1,7 @@
 <?php
 
-use Utils\Database\XDb;
-use Utils\I18n\I18n;
+use src\Utils\Database\XDb;
+use src\Utils\I18n\I18n;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
@@ -69,7 +69,7 @@ if ($error == false) {
                 $tplname = 'newwp';
 
                 require_once(__DIR__.'/lib/caches.inc.php');
-                require_once(__DIR__.'/tpl/stdstyle/newcache.inc.php');
+                require_once(__DIR__.'/src/Views/newcache.inc.php');
 
                 //set template replacements
                 tpl_set_var('lon_message', '');

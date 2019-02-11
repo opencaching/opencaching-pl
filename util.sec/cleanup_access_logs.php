@@ -1,6 +1,6 @@
 <?php
 
-use Utils\Database\XDb;
+use src\Utils\Database\XDb;
 
 require_once __DIR__ . '/../lib/ClassPathDictionary.php';
 

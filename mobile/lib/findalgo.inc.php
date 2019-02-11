@@ -1,8 +1,8 @@
 <?php
 
-use Utils\Database\XDb;
-use lib\Objects\GeoCache\GeoCacheCommons;
-use Utils\I18n\I18n;
+use src\Utils\Database\XDb;
+use src\Models\GeoCache\GeoCacheCommons;
+use src\Utils\I18n\I18n;
 
 require_once('../lib/ClassPathDictionary.php');
 

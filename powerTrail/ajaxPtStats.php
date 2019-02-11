@@ -1,5 +1,5 @@
 <?php
-use Utils\Database\OcDb;
+use src\Utils\Database\OcDb;
 
 require_once __DIR__.'/../lib/common.inc.php';
 
@@ -133,11 +133,11 @@ $stats2display .=
         <td>'.$totCacheDays.'</td>
     </tr>
     <tr>
-        <td>'.tr('pt120').' <a class="tooltip" href="javascript:void(0);">'.tr('pt125').'<span class="custom help"><img src="tpl/stdstyle/images/toltipsImages/Info.png" alt="Help" height="48" width="48"><em>'.tr('pt126').'</em>'.tr('pt124').'</span></a></td>
+        <td>'.tr('pt120').' <a class="tooltip" href="javascript:void(0);">'.tr('pt125').'<span class="custom help"><img src="images/toltipsImages/Info.png" alt="Help" height="48" width="48"><em>'.tr('pt126').'</em>'.tr('pt124').'</span></a></td>
         <td>'.$fullPtFoundCount.'</td>
     </tr>
     <tr>
-        <td>'.tr('pt121').' <a class="tooltip" href="javascript:void(0);">'.tr('pt125').'<span class="custom help"><img src="tpl/stdstyle/images/toltipsImages/Info.png" alt="Help" height="48" width="48"><em>'.tr('pt126').'</em>'.tr('pt124').'</span></a></td>
+        <td>'.tr('pt121').' <a class="tooltip" href="javascript:void(0);">'.tr('pt125').'<span class="custom help"><img src="images/toltipsImages/Info.png" alt="Help" height="48" width="48"><em>'.tr('pt126').'</em>'.tr('pt124').'</span></a></td>
         <td>'.$ads.'</td>
     </tr>
 </table>

@@ -1,7 +1,7 @@
 <?php
-use Utils\Uri\Uri;
-use lib\Objects\ApplicationContainer;
-use lib\Objects\GeoCache\GeoCache;
+use src\Utils\Uri\Uri;
+use src\Models\ApplicationContainer;
+use src\Models\GeoCache\GeoCache;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
@@ -41,7 +41,7 @@ $logpictures = [];
 while ($row = $app->db->dbResultFetch($stmt)) {
     $row['url'] = str_replace("images/uploads", "upload", $row['url']);
     if ($row['spoiler'] == '1') {
-        $row['thumbUrl'] = 'tpl/stdstyle/images/thumb/thumbspoiler.gif';
+        $row['thumbUrl'] = 'images/thumb/thumbspoiler.gif';
     } else {
         $row['thumbUrl'] = 'thumbs.php?uuid=' . $row['uuid'];
     }
@@ -53,7 +53,7 @@ $view->setVar('cachepictures', $cache->getPicturesList(false));
 $view->setVar('hidespoilers', ($app->getLoggedUser() === null && $hide_coords));
 $view->setVar('cache', $cache);
 $view->setVar('cacheicon', $cache->getCacheIcon($app->getLoggedUser()));
-$view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/viewcache/viewcache.css'));
+$view->addLocalCss(Uri::getLinkWithModificationTime('/views/viewcache/viewcache.css'));
 $view->loadFancyBox();
 $view->setTemplate('gallery_cache');
 $view->buildView();

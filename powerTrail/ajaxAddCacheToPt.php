@@ -1,11 +1,11 @@
 <?php
 
-use lib\Objects\GeoCache\GeoCache;
-use Utils\Database\OcDb;
-use Utils\Database\XDb;
-use lib\Objects\Coordinates\Altitude;
-use lib\Objects\Coordinates\Coordinates;
-use Utils\Generators\TextGen;
+use src\Models\GeoCache\GeoCache;
+use src\Utils\Database\OcDb;
+use src\Utils\Database\XDb;
+use src\Models\Coordinates\Altitude;
+use src\Models\Coordinates\Coordinates;
+use src\Utils\Generators\TextGen;
 
 /**
  * ajaxAddCacheToPt.php

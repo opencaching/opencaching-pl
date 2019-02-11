@@ -4,11 +4,11 @@
  * It should be called from CRON quite often (to not delay messages)
  */
 
-use Utils\Database\OcDb;
-use Utils\Log\Log;
-use lib\Objects\OcConfig\OcConfig;
-use lib\Objects\GeoCache\GeoCache;
-use Utils\Generators\Uuid;
+use src\Utils\Database\OcDb;
+use src\Utils\Log\Log;
+use src\Models\OcConfig\OcConfig;
+use src\Models\GeoCache\GeoCache;
+use src\Utils\Generators\Uuid;
 
 require_once(__DIR__.'/../lib/common.inc.php');
 
@@ -76,13 +76,13 @@ class AutoArch
         $cache = new GeoCache(array('cacheId' => (int) $cacheid));
         switch ($step) {
             case $this->step["START"]:
-                $email_content = file_get_contents(__DIR__.'/../tpl/stdstyle/email/arch1.email');
+                $email_content = file_get_contents(__DIR__.'/../resources/email/arch1.email');
                 break;
             case $this->step["AFTER_FIRST_MAIL_SENT"]:
-                $email_content = file_get_contents(__DIR__.'/../tpl/stdstyle/email/arch2.email');
+                $email_content = file_get_contents(__DIR__.'/../resources/email/arch2.email');
                 break;
             case $this->step["AFTER_SECOND_MAIL_SENT"]:
-                $email_content = file_get_contents(__DIR__.'/../tpl/stdstyle/email/arch3.email');
+                $email_content = file_get_contents(__DIR__.'/../resources/email/arch3.email');
                 break;
         }
         $email_content = mb_ereg_replace('{server}', $this->ocConfig->getAbsolute_server_URI(), $email_content);

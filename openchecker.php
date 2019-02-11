@@ -22,10 +22,10 @@
  *  ================================================================================================
  */
 
-use Utils\Database\XDb;
-use lib\Objects\GeoCache\GeoCache;
-use lib\Objects\GeoCache\Waypoint;
-use Utils\View\View;
+use src\Utils\Database\XDb;
+use src\Models\GeoCache\GeoCache;
+use src\Models\GeoCache\Waypoint;
+use src\Utils\View\View;
 
 // variables required by opencaching.pl
 global $usr;
@@ -109,7 +109,7 @@ if (!$record = Xdb::xFetchArray($rs)) {
 $cache_id = $record['cache_id'];
 
 tpl_set_var("wp_oc", $OpenChecker->cache_wp);
-tpl_set_var("cache_icon", '<img src="tpl/stdstyle/images/' . $record['icon_large'] . '" />');
+tpl_set_var("cache_icon", '<img src="/images/' . $record['icon_large'] . '" />');
 tpl_set_var("cacheid", $record['cache_id']);
 tpl_set_var("user_name", htmlspecialchars($record['username']));
 tpl_set_var("cachename", htmlspecialchars($record['name']));

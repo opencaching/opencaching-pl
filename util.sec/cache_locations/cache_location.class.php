@@ -3,9 +3,9 @@
  * This script sets cache location based on "nuts" data tables
  */
 
-use Utils\Database\XDb;
-use Utils\Gis\Gis;
-use Utils\I18n\I18n;
+use src\Utils\Database\XDb;
+use src\Utils\Gis\Gis;
+use src\Utils\I18n\I18n;
 
 /*
  *

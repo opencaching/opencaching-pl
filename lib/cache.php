@@ -107,7 +107,7 @@ final class cache
             'translation' => 'cacheType_10',
         ),
     );
-    private static $iconPath = 'tpl/stdstyle/images/cache/';
+    private static $iconPath = 'images/cache/';
     private static $iconSmallStr = '16x16-';
     private static $iconFoundStr = '-found';
     private static $iconArchivedStr = '-a';

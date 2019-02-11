@@ -1,0 +1,20 @@
+<?php
+
+?>
+<div class="content2-pagetitle"><img src="/images/blue/colected.png" class="icon32" alt="" />&nbsp;{{collected_queries}}</div>
+<div class="searchdiv">
+    <table class="table" width="740">
+        <colgroup>
+            <col width="250"/>
+            <col width="150"/>
+            <col width="40"/>
+        </colgroup>
+        <tr>
+            <td class="content-title-noshade-size2">{{name_label}}</td>
+            <td class="content-title-noshade-size2" >{{download}}</td>
+            <td class="content-title-noshade-size2" style="text-align: center" >{{delete}}</td>
+        </tr>
+        {queries}
+    </table>
+</div>
+<div class="notice">{{accept_terms_of_use}}</div>

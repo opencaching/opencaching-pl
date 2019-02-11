@@ -1,11 +1,11 @@
 <?php
 
-use Utils\Database\XDb;
+use src\Utils\Database\XDb;
 
 //prepare the templates and include all necessary
 require_once(__DIR__.'/lib/common.inc.php');
 require_once(__DIR__.'/lib/caches.inc.php');
-require_once(__DIR__.'/tpl/stdstyle/lib/icons.inc.php');
+require_once(__DIR__.'/src/Views/lib/icons.inc.php');
 
 global $usr;
 
@@ -14,7 +14,7 @@ if ($usr == false) {
     $target = urlencode(tpl_get_current_page());
     tpl_redirect('login.php?target='.$target);
 } else {
-    require(__DIR__.'/tpl/stdstyle/newcaches.inc.php');
+    require(__DIR__.'/src/Views/newcaches.inc.php');
     // get the news
     $tplname = 'cacheratings';
 

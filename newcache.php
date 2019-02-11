@@ -1,18 +1,18 @@
 <?php
-use Utils\Database\OcDb;
-use Utils\Database\XDb;
-use Utils\Email\EmailSender;
-use Utils\Generators\Uuid;
-use Utils\Text\UserInputFilter;
-use lib\Objects\ApplicationContainer;
-use lib\Objects\GeoCache\GeoCache;
-use lib\Objects\GeoCache\GeoCacheCommons;
-use lib\Objects\OcConfig\OcConfig;
-use lib\Objects\User\User;
-use Utils\Debug\Debug;
-use Utils\EventHandler\EventHandler;
-use Utils\I18n\I18n;
-use Utils\Text\Validator;
+use src\Utils\Database\OcDb;
+use src\Utils\Database\XDb;
+use src\Utils\Email\EmailSender;
+use src\Utils\Generators\Uuid;
+use src\Utils\Text\UserInputFilter;
+use src\Models\ApplicationContainer;
+use src\Models\GeoCache\GeoCache;
+use src\Models\GeoCache\GeoCacheCommons;
+use src\Models\OcConfig\OcConfig;
+use src\Models\User\User;
+use src\Utils\Debug\Debug;
+use src\Utils\EventHandler\EventHandler;
+use src\Utils\I18n\I18n;
+use src\Utils\Text\Validator;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
@@ -50,7 +50,7 @@ if (! $user->canCreateNewCache()) {
 }
 
 require_once (__DIR__.'/lib/caches.inc.php');
-require_once (__DIR__.'/tpl/stdstyle/newcache.inc.php');
+require_once (__DIR__.'/src/Views/newcache.inc.php');
 
 $errors = false; // set if there was any errors
 
@@ -750,7 +750,7 @@ if (isset($_POST['submitform'])) {
         }
 
         if ($needs_approvement) { // notify OC-Team that new cache has to be verified
-            EmailSender::sendNotifyAboutNewCacheToOcTeam(__DIR__ . '/tpl/stdstyle/email/oc_team_notify_new_cache.email.html', ApplicationContainer::Instance()->getLoggedUser(), $name, $cache_id, $adm3, $adm1);
+            EmailSender::sendNotifyAboutNewCacheToOcTeam(__DIR__ . '/resources/email/oc_team_notify_new_cache.email.html', ApplicationContainer::Instance()->getLoggedUser(), $name, $cache_id, $adm3, $adm1);
         }
 
         // redirection

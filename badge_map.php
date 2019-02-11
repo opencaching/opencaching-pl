@@ -1,10 +1,10 @@
 <?php
 
-use lib\Controllers\MeritBadgeController;
-use Utils\Database\OcDb;
-use Utils\Uri\SimpleRouter;
-use Controllers\MainMapController;
-use lib\Objects\OcConfig\OcConfig;
+use src\Controllers\MeritBadgeController;
+use src\Utils\Database\OcDb;
+use src\Utils\Uri\SimpleRouter;
+use src\Controllers\MainMapController;
+use src\Models\OcConfig\OcConfig;
 
 require_once(__DIR__.'/lib/common.inc.php');
 

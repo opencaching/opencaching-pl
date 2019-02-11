@@ -2,8 +2,8 @@
 // File for backward compatibility with old register.php system
 // Will be deleted in future
 
-use Utils\Uri\SimpleRouter;
-use Utils\Database\OcDb;
+use src\Utils\Uri\SimpleRouter;
+use src\Utils\Database\OcDb;
 
 require_once(__DIR__.'/lib/common.inc.php');
 

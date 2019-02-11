@@ -1,8 +1,8 @@
 <?php
 
-use lib\Objects\User\User;
-use lib\Objects\PowerTrail\PowerTrail;
-use lib\Controllers\PowerTrailController;
+use src\Models\User\User;
+use src\Models\PowerTrail\PowerTrail;
+use src\Controllers\PowerTrailController;
 
 require_once __DIR__.'/../lib/common.inc.php';
 

@@ -1,20 +1,20 @@
 <?php
 
-use Utils\Database\XDb;
-use Utils\Database\OcDb;
-use Utils\Text\Formatter;
-use lib\Objects\GeoCache\GeoCache;
+use src\Utils\Database\XDb;
+use src\Utils\Database\OcDb;
+use src\Utils\Text\Formatter;
+use src\Models\GeoCache\GeoCache;
 use okapi\Facade;
 use okapi\core\Exception\BadRequest;
-use lib\Objects\GeoCache\CacheNote;
-use Utils\I18n\I18n;
+use src\Models\GeoCache\CacheNote;
+use src\Utils\I18n\I18n;
 
 require_once (__DIR__.'/lib/common.inc.php');
 require_once (__DIR__.'/lib/export.inc.php');
 require_once (__DIR__.'/lib/format.gpx.inc.php');
 require_once (__DIR__.'/lib/calculation.inc.php');
 require_once (__DIR__.'/lib/caches.inc.php');
-require_once (__DIR__.'/tpl/stdstyle/lib/icons.inc.php');
+require_once (__DIR__.'/src/Views/lib/icons.inc.php');
 
 global $content, $bUseZip, $usr, $config;
 global $cache_attrib_jsarray_line, $cache_attrib_img_line;
@@ -614,7 +614,7 @@ if (isset($_POST['submit']) || isset($_POST['submit_map'])) {
             } else {
                 $file_content .= '<td style="width: 22px;">&nbsp;&nbsp;</td>';
             }
-            $file_content .= '<td width="22">&nbsp;<img src="tpl/stdstyle/images/' . $r['icon_small'] . '" border="0" alt=""/></td>';
+            $file_content .= '<td width="22">&nbsp;<img src="/images/' . $r['icon_small'] . '" border="0" alt=""/></td>';
             $file_content .= '<td><b><a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($r['cacheid'], ENT_COMPAT, 'UTF-8') . '" target="_blank" >' . htmlspecialchars($r['cachename'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
             $file_content .= '<td width="32"><b><a class="links" href="viewprofile.php?userid=' . htmlspecialchars($r['userid'], ENT_COMPAT, 'UTF-8') . '"  target="_blank">' . htmlspecialchars($r['username'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
 
@@ -644,7 +644,7 @@ if (isset($_POST['submit']) || isset($_POST['submit_map'])) {
                 $data = cleanup_text2(str_replace("\r\n", " ", $r_log['log_text']));
                 $data = str_replace("\n", " ", $data);
                 $file_content .=$data;
-                $file_content .= '\',OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()" target="_blank"><img src="tpl/stdstyle/images/' . $r_log['icon_small'] . '" border="0" alt=""/></a></b></td>';
+                $file_content .= '\',OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()" target="_blank"><img src="/images/' . $r_log['icon_small'] . '" border="0" alt=""/></a></b></td>';
                 $file_content .= '<td>&nbsp;&nbsp;<b><a class="links" href="viewprofile.php?userid=' . htmlspecialchars($r_log['user_id'], ENT_COMPAT, 'UTF-8') . '" target="_blank">' . htmlspecialchars($r_log['user_name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
             }
 
@@ -795,7 +795,7 @@ if (isset($_POST['submit_gpx'])) {
     $bUseZip = false;
     if ($bUseZip == true) {
         $content = '';
-        require_once(__DIR__.'/lib/phpzip/ss_zip.class.php');
+        require_once(__DIR__.'/src/Libs/PhpZip/ss_zip.class.php');
         $phpzip = new ss_zip('', 6);
     }
 

@@ -1,7 +1,7 @@
 <?php
-use Utils\Database\OcDb;
-use lib\Objects\ApplicationContainer;
-use lib\Controllers\PowerTrailController;
+use src\Utils\Database\OcDb;
+use src\Models\ApplicationContainer;
+use src\Controllers\PowerTrailController;
 
 
 require_once __DIR__.'/../lib/common.inc.php';
@@ -82,7 +82,7 @@ foreach ($result as $key => $dbEntry) {
             <span class="CommentDate" id="CommentDate-'.$dbEntry['id'].'">'. $logDateTime[0].'</span>
             <span class="commentTime" id="commentTime-'.$dbEntry['id'].'">'.substr($logDateTime[1],0,-3).'</span>
                 <a href="viewprofile.php?userid='.$dbEntry['userId'].'"><b>'.$dbEntry['username'].'</b></a>
-                (<img height="13" src="tpl/stdstyle/images/blue/thunder_ico.png" /><font size="-1">'.$userActivity.'</font>)
+                (<img height="13" src="/images/blue/thunder_ico.png" /><font size="-1">'.$userActivity.'</font>)
             - <span style="color: '.$commentsArr[$dbEntry['commentType']]['color'].';">'. tr($commentsArr[$dbEntry['commentType']]['translate']).'</span>';
 
     if (!is_null($loggedUserId)) {
@@ -90,18 +90,18 @@ foreach ($result as $key => $dbEntry) {
 
         if ($dbEntry['deleted']) {
             if ($ocTeamUser) {
-                $toDisplay .= '&nbsp;<img src="tpl/stdstyle/images/free_icons/accept.png" /> <a href="javascript:void(0);" onclick="restoreComment('.$dbEntry['id'].','.$loggedUserId.', true)">'.tr('restore').'</a>';
+                $toDisplay .= '&nbsp;<img src="images/free_icons/accept.png" /> <a href="javascript:void(0);" onclick="restoreComment('.$dbEntry['id'].','.$loggedUserId.', true)">'.tr('restore').'</a>';
             }
         } else {
             if (($loggedUserId == $dbEntry['userId'] || in_array($loggedUserId, $ownersIdArray))
                 && $dbEntry['userId'] != -1
                 && !in_array($dbEntry['commentType'], [3, 4, 5, 6])
             ) {
-                $toDisplay .= '&nbsp;<img src="tpl/stdstyle/images/free_icons/cross.png" /> <a href="javascript:void(0);" onclick="deleteComment('.$dbEntry['id'].','.$loggedUserId.', false)">'.tr('pt130').'</a>';
+                $toDisplay .= '&nbsp;<img src="images/free_icons/cross.png" /> <a href="javascript:void(0);" onclick="deleteComment('.$dbEntry['id'].','.$loggedUserId.', false)">'.tr('pt130').'</a>';
             }
             if ($loggedUserId == $dbEntry['userId'] ) {
                 $toDisplay .= '
-                    &nbsp;<img src="tpl/stdstyle/images/free_icons/pencil.png" />
+                    &nbsp;<img src="images/free_icons/pencil.png" />
                     <a href="javascript:void(0);" onclick="editComment('.$dbEntry['id'].','.$loggedUserId.')">'.tr('pt145').'</a>';
             }
         }

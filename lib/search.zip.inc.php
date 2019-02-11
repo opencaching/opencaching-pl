@@ -1,7 +1,7 @@
 <?php
 
 use okapi\Facade;
-use Utils\I18n\I18n;
+use src\Utils\I18n\I18n;
 
 function call_okapi($usr, $waypoints, $file_base_name, $zip_part)
 {

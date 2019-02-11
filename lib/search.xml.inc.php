@@ -1,9 +1,9 @@
 <?php
-use Utils\Database\XDb;
-use Utils\Database\OcDb;
-use lib\Objects\Coordinates\Coordinates;
-use lib\Objects\GeoCache\GeoCacheCommons;
-use Utils\I18n\I18n;
+use src\Utils\Database\XDb;
+use src\Utils\Database\OcDb;
+use src\Models\Coordinates\Coordinates;
+use src\Models\GeoCache\GeoCacheCommons;
+use src\Utils\I18n\I18n;
 /**
  * This script is used (can be loaded) by /search.php
  */

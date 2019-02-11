@@ -1,13 +1,13 @@
 <?php
 
-use Utils\Database\OcDb;
-use Utils\Uri\Uri;
-use lib\Controllers\LogEntryController;
-use Utils\Text\TextConverter;
-use Utils\Text\SmilesInText;
-use Utils\Text\UserInputFilter;
-use lib\Objects\OcConfig\OcConfig;
-use lib\Objects\Coordinates\Coordinates;
+use src\Utils\Database\OcDb;
+use src\Utils\Uri\Uri;
+use src\Controllers\LogEntryController;
+use src\Utils\Text\TextConverter;
+use src\Utils\Text\SmilesInText;
+use src\Utils\Text\UserInputFilter;
+use src\Models\OcConfig\OcConfig;
+use src\Models\Coordinates\Coordinates;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
@@ -19,10 +19,10 @@ if ($error == false) {
     $view = tpl_getView();
     $view->loadFancyBox();
 
-    tpl_set_var('viewcache_js', Uri::getLinkWithModificationTime("tpl/stdstyle/viewcache/viewcache.js"));
-    require (__DIR__.'/tpl/stdstyle/lib/icons.inc.php');
-    require (__DIR__.'/tpl/stdstyle/viewcache.inc.php');
-    require (__DIR__.'/tpl/stdstyle/viewlogs.inc.php');
+    tpl_set_var('viewcache_js', Uri::getLinkWithModificationTime("/src/Views/viewcache/viewcache.js"));
+    require (__DIR__.'/src/Views/lib/icons.inc.php');
+    require (__DIR__.'/src/Views/viewcache.inc.php');
+    require (__DIR__.'/src/Views/viewlogs.inc.php');
 
     global $usr;
     $view->setVar('isUserAuthorized', $usr != false);
@@ -205,7 +205,7 @@ if ($error == false) {
             'enableLogsFiltering',
             !empty($logfilterConfig['enable_logs_filtering'])
         );
-        $tmpSrcLog = file_get_contents('./tpl/stdstyle/viewcache_log.tpl.php');
+        $tmpSrcLog = file_get_contents(__DIR__.'/src/Views/viewcache_log.tpl.php');
 
         foreach ($logEneries as $record) {
             $record['text_listing'] = ucfirst(tr('logType' . $record['type'])); //add new attrib 'text_listing based on translation (instead of query as before)'
@@ -303,9 +303,9 @@ if ($error == false) {
 
             // display user activity (by Łza 2012)
             if ((date('m') == 4) and ( date('d') == 1)) {
-                $tmplog_username_aktywnosc = ' (<img src="tpl/stdstyle/images/blue/thunder_ico.png" alt="user activity" width="13" height="13" border="0" title="' . tr('viewlog_aktywnosc') . '"/>' . rand(1, 9) . ') ';
+                $tmplog_username_aktywnosc = ' (<img src="/images/blue/thunder_ico.png" alt="user activity" width="13" height="13" border="0" title="' . tr('viewlog_aktywnosc') . '"/>' . rand(1, 9) . ') ';
             } else {
-                $tmplog_username_aktywnosc = ' (<img src="tpl/stdstyle/images/blue/thunder_ico.png" alt="user activity" width="13" height="13" border="0" title="' . tr('viewlog_aktywnosc') . ' [' . $record['znalezione'] . '+' . $record['nieznalezione'] . '+' . $record['ukryte'] . ']"/>' . ($record['ukryte'] + $record['znalezione'] + $record['nieznalezione']) . ') ';
+                $tmplog_username_aktywnosc = ' (<img src="/images/blue/thunder_ico.png" alt="user activity" width="13" height="13" border="0" title="' . tr('viewlog_aktywnosc') . ' [' . $record['znalezione'] . '+' . $record['nieznalezione'] . '+' . $record['ukryte'] . ']"/>' . ($record['ukryte'] + $record['znalezione'] + $record['nieznalezione']) . ') ';
             }
 
             // hide nick of athor of COG(OC Team) for user
@@ -320,7 +320,7 @@ if ($error == false) {
             // mobile caches by Łza
             if (($record['type'] == 4) && ($record['mobile_latitude'] != 0) && ! $disable_spoiler_view) {
                 $tmplog_kordy_mobilnej = mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(Coordinates::donNotUse_latToDegreeStr($record['mobile_latitude']), ENT_COMPAT, 'UTF-8')) . '&nbsp;' . mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(Coordinates::donNotUse_lonToDegreeStr($record['mobile_longitude']), ENT_COMPAT, 'UTF-8'));
-                $tmplog = mb_ereg_replace('{kordy_mobilniaka}', $record['km'] . ' km [<img src="tpl/stdstyle/images/blue/arrow_mobile.png" title="' . tr('viewlog_kordy') . '" />' . $tmplog_kordy_mobilnej . ']', $tmplog);
+                $tmplog = mb_ereg_replace('{kordy_mobilniaka}', $record['km'] . ' km [<img src="/images/blue/arrow_mobile.png" title="' . tr('viewlog_kordy') . '" />' . $tmplog_kordy_mobilnej . ']', $tmplog);
             } else
                 $tmplog = mb_ereg_replace('{kordy_mobilniaka}', ' ', $tmplog);
 

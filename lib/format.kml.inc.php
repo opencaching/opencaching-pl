@@ -1,6 +1,6 @@
 <?php
 
-use lib\Objects\OcConfig\OcConfig;
+use src\Models\OcConfig\OcConfig;
 
 require_once(__DIR__.'/common.inc.php');
 
@@ -11,70 +11,70 @@ $kmlHead = '<?xml version="1.0" encoding="UTF-8"?>
         <Style id="traditional">
             <IconStyle>
                 <Icon>
-                    <href>{site_uri}tpl/stdstyle/images/cache/kml/traditional_kml.png</href>
+                    <href>{site_uri}images/cache/kml/traditional_kml.png</href>
                 </Icon>
             </IconStyle>
         </Style>
         <Style id="multi">
             <IconStyle>
                 <Icon>
-                    <href>{site_uri}tpl/stdstyle/images/cache/kml/multi_kml.png</href>
+                    <href>{site_uri}images/cache/kml/multi_kml.png</href>
                 </Icon>
             </IconStyle>
         </Style>
         <Style id="quiz">
             <IconStyle>
                 <Icon>
-                    <href>{site_uri}tpl/stdstyle/images/cache/kml/quiz_kml.png</href>
+                    <href>{site_uri}images/cache/kml/quiz_kml.png</href>
                 </Icon>
             </IconStyle>
         </Style>
         <Style id="virtual">
             <IconStyle>
                 <Icon>
-                    <href>{site_uri}tpl/stdstyle/images/cache/kml/virtual_kml.png</href>
+                    <href>{site_uri}images/cache/kml/virtual_kml.png</href>
                 </Icon>
             </IconStyle>
         </Style>
         <Style id="webcam">
             <IconStyle>
                 <Icon>
-                    <href>{site_uri}tpl/stdstyle/images/cache/kml/webcam_kml.png</href>
+                    <href>{site_uri}images/cache/kml/webcam_kml.png</href>
                 </Icon>
             </IconStyle>
         </Style>
         <Style id="event">
             <IconStyle>
                 <Icon>
-                    <href>{site_uri}tpl/stdstyle/images/cache/kml/event_kml.png</href>
+                    <href>{site_uri}images/cache/kml/event_kml.png</href>
                 </Icon>
             </IconStyle>
         </Style>
         <Style id="moving">
             <IconStyle>
                 <Icon>
-                    <href>{site_uri}tpl/stdstyle/images/cache/kml/moving_kml.png</href>
+                    <href>{site_uri}images/cache/kml/moving_kml.png</href>
                 </Icon>
             </IconStyle>
         </Style>
         <Style id="owncache">
             <IconStyle>
                 <Icon>
-                    <href>{site_uri}tpl/stdstyle/images/cache/kml/owncache_kml.png</href>
+                    <href>{site_uri}images/cache/kml/owncache_kml.png</href>
                 </Icon>
             </IconStyle>
         </Style>
         <Style id="podcache">
             <IconStyle>
                 <Icon>
-                    <href>{site_uri}tpl/stdstyle/images/cache/kml/podcache_kml.png</href>
+                    <href>{site_uri}images/cache/kml/podcache_kml.png</href>
                 </Icon>
             </IconStyle>
         </Style>
         <Style id="unknown">
             <IconStyle>
                 <Icon>
-                    <href>{site_uri}tpl/stdstyle/images/cache/kml/unknown_kml.png</href>
+                    <href>{site_uri}images/cache/kml/unknown_kml.png</href>
                 </Icon>
             </IconStyle>
         </Style>
@@ -83,70 +83,70 @@ $kmlHead = '<?xml version="1.0" encoding="UTF-8"?>
         <Style id="traditional-disabled">
             <IconStyle>
                 <Icon>
-                    <href>{site_uri}tpl/stdstyle/images/cache/kml/traditional_kml-disabled.png</href>
+                    <href>{site_uri}images/cache/kml/traditional_kml-disabled.png</href>
                 </Icon>
             </IconStyle>
         </Style>
         <Style id="multi-disabled">
             <IconStyle>
                 <Icon>
-                    <href>{site_uri}tpl/stdstyle/images/cache/kml/multi_kml-disabled.png</href>
+                    <href>{site_uri}images/cache/kml/multi_kml-disabled.png</href>
                 </Icon>
             </IconStyle>
         </Style>
         <Style id="quiz-disabled">
             <IconStyle>
                 <Icon>
-                    <href>{site_uri}tpl/stdstyle/images/cache/kml/quiz_kml-disabled.png</href>
+                    <href>{site_uri}images/cache/kml/quiz_kml-disabled.png</href>
                 </Icon>
             </IconStyle>
         </Style>
         <Style id="virtual-disabled">
             <IconStyle>
                 <Icon>
-                    <href>{site_uri}tpl/stdstyle/images/cache/kml/virtual_kml-disabled.png</href>
+                    <href>{site_uri}images/cache/kml/virtual_kml-disabled.png</href>
                 </Icon>
             </IconStyle>
         </Style>
         <Style id="webcam-disabled">
             <IconStyle>
                 <Icon>
-                    <href>{site_uri}tpl/stdstyle/images/cache/kml/webcam_kml-disabled.png</href>
+                    <href>{site_uri}images/cache/kml/webcam_kml-disabled.png</href>
                 </Icon>
             </IconStyle>
         </Style>
         <Style id="event-disabled">
             <IconStyle>
                 <Icon>
-                    <href>{site_uri}tpl/stdstyle/images/cache/kml/event_kml-disabled.png</href>
+                    <href>{site_uri}images/cache/kml/event_kml-disabled.png</href>
                 </Icon>
             </IconStyle>
         </Style>
         <Style id="moving-disabled">
             <IconStyle>
                 <Icon>
-                    <href>{site_uri}tpl/stdstyle/images/cache/kml/moving_kml-disabled.png</href>
+                    <href>{site_uri}images/cache/kml/moving_kml-disabled.png</href>
                 </Icon>
             </IconStyle>
         </Style>
         <Style id="owncache-disabled">
             <IconStyle>
                 <Icon>
-                    <href>{site_uri}tpl/stdstyle/images/cache/kml/owncache_kml-disabled.png</href>
+                    <href>{site_uri}images/cache/kml/owncache_kml-disabled.png</href>
                 </Icon>
             </IconStyle>
         </Style>
         <Style id="podcache-disabled">
             <IconStyle>
                 <Icon>
-                    <href>{site_uri}tpl/stdstyle/images/cache/kml/podcache_kml-disabled.png</href>
+                    <href>{site_uri}images/cache/kml/podcache_kml-disabled.png</href>
                 </Icon>
             </IconStyle>
         </Style>
         <Style id="unknown-disabled">
             <IconStyle>
                 <Icon>
-                    <href>{site_uri}tpl/stdstyle/images/cache/kml/unknown_kml-disabled.png</href>
+                    <href>{site_uri}images/cache/kml/unknown_kml-disabled.png</href>
                 </Icon>
             </IconStyle>
         </Style>
@@ -155,70 +155,70 @@ $kmlHead = '<?xml version="1.0" encoding="UTF-8"?>
         <Style id="traditional-archived">
             <IconStyle>
                 <Icon>
-                    <href>{site_uri}tpl/stdstyle/images/cache/kml/traditional_kml-archived.png</href>
+                    <href>{site_uri}images/cache/kml/traditional_kml-archived.png</href>
                 </Icon>
             </IconStyle>
         </Style>
         <Style id="multi-archived">
             <IconStyle>
                 <Icon>
-                    <href>{site_uri}tpl/stdstyle/images/cache/kml/multi_kml-archived.png</href>
+                    <href>{site_uri}images/cache/kml/multi_kml-archived.png</href>
                 </Icon>
             </IconStyle>
         </Style>
         <Style id="quiz-archived">
             <IconStyle>
                 <Icon>
-                    <href>{site_uri}tpl/stdstyle/images/cache/kml/quiz_kml-archived.png</href>
+                    <href>{site_uri}images/cache/kml/quiz_kml-archived.png</href>
                 </Icon>
             </IconStyle>
         </Style>
         <Style id="virtual-archived">
             <IconStyle>
                 <Icon>
-                    <href>{site_uri}tpl/stdstyle/images/cache/kml/virtual_kml-archived.png</href>
+                    <href>{site_uri}images/cache/kml/virtual_kml-archived.png</href>
                 </Icon>
             </IconStyle>
         </Style>
         <Style id="webcam-archived">
             <IconStyle>
                 <Icon>
-                    <href>{site_uri}tpl/stdstyle/images/cache/kml/webcam_kml-archived.png</href>
+                    <href>{site_uri}images/cache/kml/webcam_kml-archived.png</href>
                 </Icon>
             </IconStyle>
         </Style>
         <Style id="event-archived">
             <IconStyle>
                 <Icon>
-                    <href>{site_uri}tpl/stdstyle/images/cache/kml/event_kml-archived.png</href>
+                    <href>{site_uri}images/cache/kml/event_kml-archived.png</href>
                 </Icon>
             </IconStyle>
         </Style>
         <Style id="moving-archived">
             <IconStyle>
                 <Icon>
-                    <href>{site_uri}tpl/stdstyle/images/cache/kml/moving_kml-archived.png</href>
+                    <href>{site_uri}images/cache/kml/moving_kml-archived.png</href>
                 </Icon>
             </IconStyle>
         </Style>
         <Style id="owncache-archived">
             <IconStyle>
                 <Icon>
-                    <href>{site_uri}tpl/stdstyle/images/cache/kml/owncache_kml-archived.png</href>
+                    <href>{site_uri}images/cache/kml/owncache_kml-archived.png</href>
                 </Icon>
             </IconStyle>
         </Style>
         <Style id="podcache-archived">
             <IconStyle>
                 <Icon>
-                    <href>{site_uri}tpl/stdstyle/images/cache/kml/podcache_kml-archived.png</href>
+                    <href>{site_uri}images/cache/kml/podcache_kml-archived.png</href>
                 </Icon>
             </IconStyle>
         </Style>
         <Style id="unknown-archived">
             <IconStyle>
                 <Icon>
-                    <href>{site_uri}tpl/stdstyle/images/cache/kml/unknown_kml-archived.png</href>
+                    <href>{site_uri}images/cache/kml/unknown_kml-archived.png</href>
                 </Icon>
             </IconStyle>
         </Style>
@@ -279,7 +279,7 @@ $kmlFoot = '
 // (unused ?)
 $kmlTimeFormat = 'Y-m-d\TH:i:s\Z';
 
-$kmlTypeIMG = '<img src="{site_uri}tpl/stdstyle/images/cache/{type}.png" alt="{type_text}" title="{type_text}" />';
+$kmlTypeIMG = '<img src="{site_uri}images/cache/{type}.png" alt="{type_text}" title="{type_text}" />';
 $kmlTypeIMG = str_replace('{site_uri}', $absolute_server_URI, $kmlTypeIMG);
 
 // ************************************************************************

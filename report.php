@@ -1,5 +1,5 @@
 <?php
-use Controllers\Admin\ReportCacheController;
+use src\Controllers\Admin\ReportCacheController;
 
 require_once (__DIR__.'/lib/common.inc.php');
 

@@ -1,6 +1,6 @@
 <?php
 
-use Utils\Database\OcDb;
+use src\Utils\Database\OcDb;
 /**
  * text cache founded statistics year 2 year.
  * All caches in database.

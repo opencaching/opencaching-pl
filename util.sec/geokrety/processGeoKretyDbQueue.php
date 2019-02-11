@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../../lib/ClassPathDictionary.php';
 
-use Controllers\GeoKretyLogController;
+use src\Controllers\GeoKretyLogController;
 
 /**
  * This script run GK queue processing.

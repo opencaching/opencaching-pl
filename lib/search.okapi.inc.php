@@ -1,8 +1,8 @@
 <?php
-use Utils\Database\XDb;
+use src\Utils\Database\XDb;
 use okapi\core\Exception\BadRequest;
 use okapi\Facade;
-use Utils\I18n\I18n;
+use src\Utils\I18n\I18n;
 /**
  * This script is used (can be loaded) by /search.php
  */

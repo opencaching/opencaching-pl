@@ -1,6 +1,6 @@
 <?php
 
-use Utils\Database\OcDb;
+use src\Utils\Database\OcDb;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
@@ -12,7 +12,7 @@ if ($error == false) {
         tpl_redirect('login.php?target=' . $target);
     } else {
 
-        include(__DIR__.'/tpl/stdstyle/myignores.inc.php');
+        include(__DIR__.'/src/Views/myignores.inc.php');
         $tplname = 'myignores';
         tpl_set_var('title_text', $title_text);
 

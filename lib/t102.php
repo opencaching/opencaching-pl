@@ -1,5 +1,5 @@
 <?php
-use Utils\I18n\I18n;
+use src\Utils\I18n\I18n;
 ?>
 
 <div id='idGTC' align = "center"> </div>
@@ -23,7 +23,7 @@ echo "<script>";
 echo "gct.addChartOption('pagingSymbols', { prev: '" . tr('Prev1') . "', next: '" . tr('Next1') . "' });";
 echo "</script>";
 
-use Utils\Database\OcDb;
+use src\Utils\Database\OcDb;
 require_once (__DIR__ . '/ClassPathDictionary.php');
 $sRok = "";
 $sMc = "";

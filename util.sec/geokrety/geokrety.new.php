@@ -1,7 +1,7 @@
 <?php
 
-use Utils\Database\XDb;
-use lib\Objects\GeoKret\GeoKretyApi;
+use src\Utils\Database\XDb;
+use src\Models\GeoKret\GeoKretyApi;
 use okapi\Facade;
 
 

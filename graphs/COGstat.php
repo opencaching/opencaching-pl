@@ -1,12 +1,12 @@
 <?php
 
-use Libs\JpGraph\JpGraphLoader;
-use Utils\Database\XDb;
+use src\Libs\JpGraph\JpGraphLoader;
+use src\Utils\Database\XDb;
 
 require(__DIR__.'/../lib/common.inc.php');
 
 // jpgraph package doesn't contains fonts
-define('TTF_DIR',__DIR__.'/../lib/fonts/');
+define('TTF_DIR',__DIR__.'/../resource/fonts/');
 
 JpGraphLoader::load();
 JpGraphLoader::module('bar');
@@ -256,7 +256,7 @@ if (count($x4) == 0) {
 
 if (!$graph && !$graph2 && !$graph3 && !$graph4) {
     header('Content-type: image/png');
-    die(file_get_contents(__DIR__ . '/../tpl/stdstyle/images/misc/nodata.png'));
+    die(file_get_contents(__DIR__ . '/../images/misc/nodata.png'));
 }
 
 //-----------------------

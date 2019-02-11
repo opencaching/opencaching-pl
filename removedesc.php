@@ -1,10 +1,10 @@
 <?php
 
-use Utils\Database\XDb;
-use lib\Objects\GeoCache\GeoCache;
-use Utils\I18n\Languages;
-use Utils\I18n\I18n;
-use lib\Objects\OcConfig\OcConfig;
+use src\Utils\Database\XDb;
+use src\Models\GeoCache\GeoCache;
+use src\Utils\I18n\Languages;
+use src\Utils\I18n\I18n;
+use src\Models\OcConfig\OcConfig;
 
 require_once (__DIR__.'/lib/common.inc.php');
 

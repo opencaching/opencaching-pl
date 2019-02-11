@@ -1,10 +1,10 @@
 <?php
 
-use Utils\Text\Formatter;
-use lib\Objects\MeritBadge\MeritBadge; //for static functions
-use lib\Controllers\MeritBadgeController;
-use Controllers\ViewBadgeHeadController;
-use Controllers\ViewBadgeShowPositionsController;
+use src\Utils\Text\Formatter;
+use src\Models\MeritBadge\MeritBadge; //for static functions
+use src\Controllers\MeritBadgeController;
+use src\Controllers\ViewBadgeHeadController;
+use src\Controllers\ViewBadgeShowPositionsController;
 
 require_once(__DIR__.'/lib/common.inc.php');
 
@@ -34,7 +34,7 @@ $badge_id = $_REQUEST['badge_id'];
 
 
 $head= (new ViewBadgeHeadController())->index();
-$meritBadgeCtrl = new \lib\Controllers\MeritBadgeController;
+$meritBadgeCtrl = new \src\Controllers\MeritBadgeController;
 $userMeritBadge = $meritBadgeCtrl->buildUserBadge($userid, $badge_id);
 
 $currUserLevel = $userMeritBadge->getOlevel()->getLevel();

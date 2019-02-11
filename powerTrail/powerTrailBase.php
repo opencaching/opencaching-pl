@@ -1,7 +1,7 @@
 <?php
-use Utils\Database\OcDb;
-use lib\Objects\Coordinates\Altitude;
-use lib\Objects\Coordinates\Coordinates;
+use src\Utils\Database\OcDb;
+use src\Models\Coordinates\Altitude;
+use src\Models\Coordinates\Coordinates;
 /**
  *
  */
@@ -18,7 +18,7 @@ class powerTrailBase{
     const powerTrailLogoFileName = 'powerTrailLogoId';
     const commentsPaginateCount = 5;
     const cCountForMaxMagnifier = 50;
-    const iconPath = 'tpl/stdstyle/images/blue/';
+    const iconPath = '/images/blue/';
 
     public static function minimumCacheCount(){
         include __DIR__.'/../lib/settingsGlue.inc.php';

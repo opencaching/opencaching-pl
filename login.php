@@ -1,6 +1,6 @@
 <?php
 
-use Controllers\UserAuthorizationController;
+use src\Controllers\UserAuthorizationController;
 
 require_once (__DIR__.'/lib/common.inc.php');
 

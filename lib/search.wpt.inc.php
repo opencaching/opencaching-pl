@@ -5,8 +5,8 @@
 
 ob_start();
 
-use Utils\Database\XDb;
-use Utils\I18n\I18n;
+use src\Utils\Database\XDb;
+use src\Utils\I18n\I18n;
 
 global $content, $bUseZip, $usr, $hide_coords, $dbcSearch;
 
@@ -140,7 +140,7 @@ if( $usr || !$hide_coords ) {
     $bUseZip = false;
     if ($bUseZip == true) {
         $content = '';
-        require_once(__DIR__.'/phpzip/ss_zip.class.php');
+        require_once(__DIR__.'/../src/Libs/PhpZip/ss_zip.class.php');
         $phpzip = new ss_zip('',6);
     }
 
