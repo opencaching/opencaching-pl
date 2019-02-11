@@ -1828,6 +1828,7 @@ $translations = array(
     'statpic_hidden' => 'Ascunse:',
     'statpic_html_link' => '- Statistici pentru',
     'cog_user_name' => 'OC Team',
+    'page_not_found' => 'Page not found',
 
     'region_01' => 'Zonă după coordonate:',
     'region_03' => 'Zonă găsită în gaza de date locală (NUTS)',

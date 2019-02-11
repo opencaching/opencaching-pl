@@ -1828,6 +1828,7 @@ $translations = array(
     'statpic_hidden' => 'Placées :',
     'statpic_html_link' => '- Statistiques pour',
     'cog_user_name' => 'Équipe OC',
+    'page_not_found' => 'Page not found',
 
     'region_01' => 'Trouver la région a partir des coordonnées :',
     'region_03' => 'Région, trouvée via les données locales (NUTS)',

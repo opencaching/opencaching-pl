@@ -1828,6 +1828,7 @@ $translations = array(
     'statpic_hidden' => 'Geplaatst:',
     'statpic_html_link' => '- statistieken van',
     'cog_user_name' => 'OC Team',
+    'page_not_found' => 'Page not found',
 
     'region_01' => 'Provincie via opgegeven coördinaten:',
     'region_03' => 'Provincie gevonden via {site_name}',
