@@ -32,10 +32,10 @@ require_once __DIR__.'/common.inc.php';
 
 Class staticMapLite
 {
-
-
     protected $maxWidth = 1024;
     protected $maxHeight = 1024;
+    protected $minWidth = 64;
+    protected $minHeight = 64;
 
     protected $tileSize = 256;
     protected $tileSrcUrl = array('mapnik' => 'http://tile.openstreetmap.org/{Z}/{X}/{Y}.png', // -> http://openstreetmap.org
@@ -47,8 +47,6 @@ Class staticMapLite
     protected $tileDefaultSrc = 'mapnik';
     protected $markerBaseDir = '../images/markers';
     protected $atrribution = '(c) OpenStreetMap contributors';
-
-
 
     protected $markerPrototypes = array(
         'marker-blue' => array('regex' => '/^marker-blue([A-Z]+)$/',
@@ -69,10 +67,7 @@ Class staticMapLite
             'offsetImage' => '-8,-23',
             'offsetShadow' => false
         )
-
     );
-
-
 
     protected $useTileCache = true;
     protected $tileCacheBaseDir = '';
@@ -104,8 +99,7 @@ Class staticMapLite
     {
         if (!empty($_GET['show'])) {
            $this->parseOjwParams();
-        }
-        else {
+        } else {
            $this->parseLiteParams();
         }
     }
@@ -113,21 +107,42 @@ Class staticMapLite
     public function parseLiteParams()
     {
         // get zoom from GET paramter
-        $this->zoom = $_GET['zoom'] ? intval($_GET['zoom']) : 0;
-        if ($this->zoom > 18) $this->zoom = 18;
+        if (isset($_GET['zoom'])) {
+            $this->zoom = $_GET['zoom'];
+            if ($this->zoom > 18) {
+                $this->zoom = 18;
+            }
+            if ($this->zoom < 0) {
+                $this->zoom = 0;
+            }
+        }
 
         // get lat and lon from GET paramter
-        list($this->lat, $this->lon) = explode(',', $_GET['center']);
-        $this->lat = floatval($this->lat);
-        $this->lon = floatval($this->lon);
+        if (isset($_GET['center'])) {
+            list($this->lat, $this->lon) = explode(',', $_GET['center']);
+            $this->lat = floatval($this->lat);
+            $this->lon = floatval($this->lon);
+        }
 
         // get size from GET paramter
-        if ($_GET['size']) {
+        if (isset($_GET['size'])) {
             list($this->width, $this->height) = explode('x', $_GET['size']);
+
             $this->width = intval($this->width);
-            if ($this->width > $this->maxWidth) $this->width = $this->maxWidth;
+            if ($this->width > $this->maxWidth) {
+                $this->width = $this->maxWidth;
+            }
+            if ($this->width < $this->minWidth) {
+                $this->width = $this->minWidth;
+            }
+
             $this->height = intval($this->height);
-            if ($this->height > $this->maxHeight) $this->height = $this->maxHeight;
+            if ($this->height > $this->maxHeight) {
+                $this->height = $this->maxHeight;
+            }
+            if ($this->height < $this->minHeight) {
+                $this->height = $this->minHeight;
+            }
         }
         if (!empty($_GET['markers'])) {
             $markers = explode('|', $_GET['markers']);
@@ -140,24 +155,41 @@ Class staticMapLite
             }
 
         }
-        if ($_GET['maptype']) {
+        if (isset($_GET['maptype'])) {
             if (array_key_exists($_GET['maptype'], $this->tileSrcUrl)) $this->maptype = $_GET['maptype'];
         }
     }
 
     public function parseOjwParams()
     {
-        $this->lat = floatval($_GET['lat']);
-        $this->lon = floatval($_GET['lon']);
-        $this->zoom = intval($_GET['z']);
+        if (isset($_GET['lat']) && isset($_GET['lon'])) {
+            $this->lat = floatval($_GET['lat']);
+            $this->lon = floatval($_GET['lon']);
+        }
+        if (isset($_GET['z'])) {
+            $this->zoom = intval($_GET['z']);
+        }
 
-        $this->width = intval($_GET['w']);
-        if ($this->width > $this->maxWidth) $this->width = $this->maxWidth;
-        $this->height = intval($_GET['h']);
-        if ($this->height > $this->maxHeight) $this->height = $this->maxHeight;
+        if (isset($_GET['w']) && isset($_GET['h'])) {
 
+            $this->width = intval($_GET['w']);
+            if ($this->width > $this->maxWidth) {
+                $this->width = $this->maxWidth;
+            }
+            if ($this->width < $this->minWidth) {
+                $this->width = $this->minWidth;
+            }
 
-    if (!empty($_GET['mlat0'])) {
+            $this->height = intval($_GET['h']);
+            if ($this->height > $this->maxHeight) {
+                $this->height = $this->maxHeight;
+            }
+            if ($this->height < $this->minHeight) {
+                $this->height = $this->minHeight;
+            }
+        }
+
+        if (!empty($_GET['mlat0'])) {
             $markerLat = floatval($_GET['mlat0']);
             if (!empty($_GET['mlon0'])) {
                 $markerLon = floatval($_GET['mlon0']);
@@ -271,7 +303,6 @@ Class staticMapLite
             $destX = floor(($this->width / 2) - $this->tileSize * ($this->centerX - $this->lonToTile($markerLon, $this->zoom)));
             $destY = floor(($this->height / 2) - $this->tileSize * ($this->centerY - $this->latToTile($markerLat, $this->zoom)));
 
-
             // copy shadow on basemap
             if ($markerShadow && $markerShadowImg) {
                 imagecopy($this->image, $markerShadowImg, $destX + intval($markerShadowOffsetX), $destY + intval($markerShadowOffsetY),
@@ -281,7 +312,6 @@ Class staticMapLite
             // copy marker on basemap above shadow
             imagecopy($this->image, $markerImg, $destX + intval($markerImageOffsetX), $destY + intval($markerImageOffsetY),
                 0, 0, imagesx($markerImg), imagesy($markerImg));
-
         };
     }
 
@@ -359,7 +389,6 @@ Class staticMapLite
         $context = stream_context_create($opts);
         $tile = file_get_contents($url, false, $context);
 
-
         if ($tile && $this->useTileCache) {
             $this->writeTileToCache($url, $tile);
         }
@@ -369,7 +398,6 @@ Class staticMapLite
 
     public function copyrightNotice()
     {
-
         $string = $this->atrribution;
         $font_size = 1;
         $len = strlen($string);
@@ -384,7 +412,7 @@ Class staticMapLite
 
         $color = imagecolorallocate($img, 0, 0, 0);
         $ypos = 0;
-        for($i=0;$i<$len;$i++){
+        for($i = 0; $i < $len; $i++) {
             // Position of the character horizontally
             $xpos = $i * imagefontwidth($font_size);
             // Draw character
@@ -395,7 +423,6 @@ Class staticMapLite
         }
 
         imagecopy($this->image, $img, imagesx($this->image) - imagesx($img), imagesy($this->image) - imagesy($img), 0, 0, imagesx($img), imagesy($img));
-
     }
 
     public function sendHeader()
@@ -417,7 +444,6 @@ Class staticMapLite
 
     public function showMap()
     {
-
         $this->parseParams();
         if ($this->useMapCache) {
             // use map cache, so check cache for map
@@ -444,10 +470,8 @@ Class staticMapLite
 
             $this->sendHeader();
             return imagepng($this->image);
-
         }
     }
-
 }
 
 
