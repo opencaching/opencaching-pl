@@ -7,7 +7,7 @@ use src\Utils\I18n\I18n;
 require(__DIR__.'/../lib/common.inc.php');
 
 // jpgraph package doesn't contains fonts
-define('TTF_DIR',__DIR__.'/../resource/fonts/');
+define('TTF_DIR',__DIR__.'/../resources/fonts/');
 
 JpGraphLoader::load();
 JpGraphLoader::module('pie');
