@@ -7,7 +7,7 @@ require_once (__DIR__.'/lib/common.inc.php');
 
 // Parameter
 $jpeg_qualitaet = 80;
-$fontfile = "./resource/fonts/arial.ttf";
+$fontfile = __DIR__."/resources/fonts/arial.ttf";
 
 # get userid and style from URL
 $userid = isset($_REQUEST['userid']) ? $_REQUEST['userid'] : 0;
