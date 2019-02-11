@@ -1,14 +1,8 @@
 <?php
-namespace lib\Controllers;
+namespace src\Controllers;
 
-use lib\Objects\MeritBadge\MeritBadge;
-use lib\Objects\MeritBadge\LevelMeritBadge;
-use lib\Objects\MeritBadge\CategoryMeritBadge;
-use lib\Objects\MeritBadge\PositionMeritBadge;
-use lib\Objects\GeoCache\GeoCache;
-
-use lib\Controllers\LogEntryController;
-
+use src\Models\GeoCache\GeoCache;
+use src\Models\MeritBadge\MeritBadge;
 use src\Utils\Database\OcDb;
 
 
@@ -116,7 +110,7 @@ class MeritBadgeController{
     public function buildArrayLevels( $badge_id ){
         $condition = " WHERE badge_levels.badge_id=:1 ";
         $stm = $this->db->multiVariableQuery( $this->getLevelsQuery($condition), $badge_id );
-        return $this->buildArray( '\lib\Objects\MeritBadge\LevelMeritBadge', $stm );
+        return $this->buildArray( '\src\Models\MeritBadge\LevelMeritBadge', $stm );
 
     }
 
@@ -126,7 +120,7 @@ class MeritBadgeController{
         $stm = $this->db->multiVariableQuery( $this->getLevelsQuery($condition), $badge_id, $level );
         $rec = $this->db->dbResultFetch($stm);
 
-        $badgeLevel = new \lib\Objects\MeritBadge\LevelMeritBadge();
+        $badgeLevel = new \src\Models\MeritBadge\LevelMeritBadge();
         $badgeLevel->setFromRow($rec);
 
         return $badgeLevel;
@@ -136,14 +130,14 @@ class MeritBadgeController{
     //list of users who gained the badge (badge_id)
     public function buildArrayUsers( $badge_id ){
         $stm = $this->db->multiVariableQuery( $this->getArrayUserQuery(), $badge_id );
-        return $this->buildArray( '\lib\Objects\MeritBadge\UserMeritBadge', $stm );
+        return $this->buildArray( '\src\Models\MeritBadge\UserMeritBadge', $stm );
     }
 
 
     //categories list of the user (user_id)
     public function buildArrayUserCategories( $user_id ){
         $stm = $this->db->multiVariableQuery( $this->getArrayUserCategoriesQuery(), $user_id );
-        return $this->buildArray( '\lib\Objects\MeritBadge\CategoryMeritBadge', $stm );
+        return $this->buildArray( '\src\Models\MeritBadge\CategoryMeritBadge', $stm );
     }
 
 
@@ -152,7 +146,7 @@ class MeritBadgeController{
         $stm = $this->db->multiVariableQuery( $this->getMeritBadgeQuery( $condition ), $badge_id );
         $rec = $this->db->dbResultFetch($stm);
 
-        $badge = new \lib\Objects\MeritBadge\MeritBadge();
+        $badge = new \src\Models\MeritBadge\MeritBadge();
         $badge->setFromRow($rec);
         return $badge;
     }
@@ -160,11 +154,11 @@ class MeritBadgeController{
     public function buildArrayGainedPositions($user_id, $badge_id){
         $meritBadge = $this->buildMeritBadge( $badge_id );
         $stm = $this->preapareGainedPositions($user_id, $meritBadge);
-        return $this->buildArray( '\lib\Objects\MeritBadge\PositionMeritBadge', $stm );
+        return $this->buildArray( '\src\Models\MeritBadge\PositionMeritBadge', $stm );
     }
 
     public function buildArrayBelongingPositions($user_id, $badge_id){
-        $obj = '\lib\Objects\MeritBadge\PositionMeritBadge';
+        $obj = '\src\Models\MeritBadge\PositionMeritBadge';
         $meritBadge = $this->buildMeritBadge( $badge_id );
 
         $query = $meritBadge->getBelongingQuery();
@@ -264,7 +258,7 @@ class MeritBadgeController{
     private function buildArrayMeritBadgesTriggerBy( $trigger ){
         $condition = " WHERE trigger_type=".$trigger;
         $stm = $this->db->simpleQuery( $this->getMeritBadgeQuery( $condition ) );
-        return $this->buildArray( '\lib\Objects\MeritBadge\MeritBadge', $stm );
+        return $this->buildArray( '\src\Models\MeritBadge\MeritBadge', $stm );
     }
 
 
@@ -306,7 +300,7 @@ class MeritBadgeController{
 
     private function prepareUserBadgeObj( $rec )
     {
-        $userBadge = new \lib\Objects\MeritBadge\UserMeritBadge();
+        $userBadge = new \src\Models\MeritBadge\UserMeritBadge();
         $userBadge->buildOBadge();
         $userBadge->buildOLevel();
         $userBadge->buildOCategory();
