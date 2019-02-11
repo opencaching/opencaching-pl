@@ -19,7 +19,7 @@ if ($error == false) {
     $view = tpl_getView();
     $view->loadFancyBox();
 
-    tpl_set_var('viewcache_js', Uri::getLinkWithModificationTime("/src/Views/viewcache/viewcache.js"));
+    tpl_set_var('viewcache_js', Uri::getLinkWithModificationTime("/views/viewcache/viewcache.js"));
     require (__DIR__.'/src/Views/lib/icons.inc.php');
     require (__DIR__.'/src/Views/viewcache.inc.php');
     require (__DIR__.'/src/Views/viewlogs.inc.php');
