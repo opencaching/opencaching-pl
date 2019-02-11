@@ -1828,6 +1828,7 @@ $translations = array(
     'statpic_hidden' => 'Versteckt:',
     'statpic_html_link' => '– Statistik für',
     'cog_user_name' => 'OC-Team',
+    'page_not_found' => 'Page not found',
 
     'region_01' => 'Aus Koordinaten ermittelte Region:',
     'region_03' => 'Region per {site_name}',
