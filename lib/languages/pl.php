@@ -1828,7 +1828,7 @@ $translations = array(
     'statpic_hidden' => 'Ukrył:',
     'statpic_html_link' => '- Statystyka dla',
     'cog_user_name' => 'Centrum Obsługi Geocachera',
-    'page_not_found' => 'Page not found',
+    'page_not_found' => 'Strony nie znaleziono',
 
     'region_01' => 'Region dla współrzędnych',
     'region_03' => 'Region na podstawie danych lokalnych (NUTS)',
