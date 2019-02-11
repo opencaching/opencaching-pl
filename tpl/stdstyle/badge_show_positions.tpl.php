@@ -7,9 +7,9 @@
         <td  style='width: 50%;'>
             <button type='submit' name='pos' value='l' class='btn btn-primary btn-sm'>{{merit_badge_list}}
         </td>
-            
+
         <td>
-    
+
         <table class='Badge-div-table-InfoInside'>
 
         <tr><td>

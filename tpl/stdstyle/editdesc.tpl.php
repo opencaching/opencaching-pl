@@ -44,4 +44,3 @@ $view->callChunk('tinyMCE');
         <input type="submit" name="submitform" value="{{submit}}" class="btn btn-primary"/>
     </div>
 </form>
-

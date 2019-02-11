@@ -342,7 +342,7 @@ if (! $SearchWithSort) // without interactive sort
 
 if (isset($_REQUEST['startat'])) {
     $startat = OcDb::quoteLimit($_REQUEST['startat']);
-} else { 
+} else {
     $startat = 0;
 }
 
