@@ -1828,6 +1828,7 @@ $translations = array(
     'statpic_hidden' => 'crwdns7520:0crwdne7520:0',
     'statpic_html_link' => 'crwdns7521:0crwdne7521:0',
     'cog_user_name' => 'crwdns7522:0crwdne7522:0',
+    'page_not_found' => 'crwdns26760:0crwdne26760:0',
 
     'region_01' => 'crwdns7523:0crwdne7523:0',
     'region_03' => 'crwdns7525:0crwdne7525:0',
