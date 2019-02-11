@@ -381,7 +381,6 @@ $translations = array(
     'postActivation_mail_04' => 'Zanim założysz swoje pierwsze skrzynki w serwisie {site_name}, znajdź przynajmniej {NEED_FIND_LIMIT} skrzynek, by zdobyć doświadczenie.',
     'postActivation_mail_cacheguides' => 'Przewodnicy-wolontariusze po geocachingu',
 
-
     'password_confirm' => 'Potwierdź hasło',
     'register_msg1' => 'W celu rejestracji na {site_name} musisz posiadać rzeczywisty adres e-mail, na który zostanie wysłany link aktywacyjny. Na jeden adres e-mail możesz zarejestrować tylko jednego użytkownika.',
     'register_msg2' => 'Pola zaznaczone * są obowiązkowe.',

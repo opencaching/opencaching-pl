@@ -1,5 +1,14 @@
 <?php
+
 use Utils\Database\XDb;
+
+if (isset($_REQUEST['region'])) {
+    $region = $_REQUEST['region'];
+} else {
+    // This is a subpage of s7.
+    tpl_redirect('articles.php?page=s7');
+}
+
 ?>
 <div class="content2-container">
   <div class="content2-pagetitle">
@@ -10,10 +19,6 @@ use Utils\Database\XDb;
 <table class="table" width="760" style="line-height: 1.6em; font-size: 10px;">
     <tr><td>
             <?php
-
-            if (isset($_REQUEST['region'])) {
-                $region = $_REQUEST['region'];
-            }
 
             echo '<table width="97%"><tr><td align="center"><center><b> ' . tr('ranking_by_number_of_created_caches') . ' </b><br />tylko aktywne skrzynki<br />';
 

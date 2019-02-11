@@ -464,5 +464,3 @@ $config['feed']['forum']['showAuthor'] = true;  // Do display author of post?
 $config['feed']['blog']['url'] = 'http://blog.opencaching.pl/feed/atom/';
 $config['feed']['blog']['posts'] = 5;
 $config['feed']['blog']['showAuthor'] = true;
-
-

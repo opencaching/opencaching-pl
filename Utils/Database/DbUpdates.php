@@ -44,12 +44,14 @@ class DbUpdates
         $developerName = str_replace(['"', "'", "\\"], '', $developerName);
         $creationDate = date('Y-m-d');
         $uuid = Uuid::create();
+        $className = 'C' . str_replace('.', '', microtime(true));
 
         $updatesDir = self::getUpdatesDir();
         $template = file_get_contents($updatesDir . '/template.php');
         $template = str_replace('{creation_date}', $creationDate, $template);
         $template = str_replace('{developer_name}', $developerName, $template);
         $template = str_replace('{update_uuid}', $uuid, $template);
+        $template = str_replace('{class_name}', $className, $template);
 
         $name = self::getNextVersionNumberString() . '_new';
         $path = $updatesDir . '/' . $name . '.php';

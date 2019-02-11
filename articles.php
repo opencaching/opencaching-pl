@@ -7,27 +7,17 @@ use Utils\I18n\I18n;
 require_once(__DIR__.'/lib/common.inc.php');
 
 // get the article name to display
-$article = '';
-
-if (isset($_REQUEST['region'])) {
-    tpl_set_var('region', $_REQUEST['region']);
-    $region = $_REQUEST['region'];
-}
-
 if (isset($_REQUEST['page']) &&
-   (mb_strpos($_REQUEST['page'], '.') === false) &&
-   (mb_strpos($_REQUEST['page'], '/') === false) &&
-   (mb_strpos($_REQUEST['page'], '\\') === false)
+    mb_ereg_match('^[A-Za-z0-9_]+$', $_REQUEST['page'])
 ) {
     $article = $_REQUEST['page'];
+} else {
+    $article = '';
 }
 
-if ($article == '') {
-    // no article specified => sitemap
-    $tplname = 'contact';
-} else if (! file_exists('./tpl/stdstyle/articles/' . $article . '.tpl.php')) {
-    // article doesn't exists => sitemap
-    $tplname = 'contact';
+if (!file_exists('./tpl/stdstyle/articles/' . $article . '.tpl.php')) {
+    // article doesn't exists
+    tpl_errorMsg('Article "'.$article.'"', tr('page_not_found'));
 } else {
     // set article inside the articles-directory
     switch ($_REQUEST['page']) {

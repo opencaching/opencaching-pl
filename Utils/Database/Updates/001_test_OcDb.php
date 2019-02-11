@@ -14,7 +14,7 @@ use PDOException;
  * everything is ok.
  */
 
-return new class extends UpdateScript
+class C001Test extends UpdateScript
 {
     public function getProperties()
     {
@@ -73,9 +73,11 @@ return new class extends UpdateScript
             $this->db->addIndexIfNotExists(
                 self::TABLE, 'uc', ['uuid', 'created']
             );
+            /*  not available at OC RO
             $this->db->addFulltextIfNotExists(
                 self::TABLE, 'uft', ['uuid']
             );
+            */
             $this->db->addForeignKeyIfNotExists(
                 self::TABLE, 'id', 'caches', 'cache_id', 'ON DELETE RESTRICT ON UPDATE RESTRICT'
             );
@@ -320,3 +322,5 @@ return new class extends UpdateScript
     }
 
 };
+
+return new C001Test;

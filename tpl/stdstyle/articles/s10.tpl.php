@@ -1,5 +1,14 @@
 <?php
+
 use Utils\Database\XDb;
+
+if (isset($_REQUEST['region'])) {
+    $region = $_REQUEST['region'];
+} else {
+    // This is a subpage of s8.
+    tpl_redirect('articles.php?page=s8');
+}
+
 ?>
 <div class="content2-container">
   <div class="content2-pagetitle">
@@ -11,9 +20,6 @@ use Utils\Database\XDb;
     <tr>
         <td>
             <?php
-            if (isset($_REQUEST['region'])) {
-                $region = $_REQUEST['region'];
-            }
             $woj = XDb::xMultiVariableQueryValue(
                 "SELECT nuts_codes.name FROM nuts_codes WHERE code= :1 ", 0, $region);
 

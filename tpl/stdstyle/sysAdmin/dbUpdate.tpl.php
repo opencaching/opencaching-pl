@@ -15,6 +15,10 @@ use Utils\Uri\SimpleRouter;
     </div>
 <?php } ?>
 
+<div style="float:right; text-align:right">
+    <p>DB server version:<br /><?= $view->mysqlVersion; ?></p>
+</div>
+
 <?php if (isset($view->viewScript)) { ?>
 
 <p><b><?= $view->scriptFilename ?></b></p>

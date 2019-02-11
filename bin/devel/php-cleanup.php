@@ -106,8 +106,7 @@ class StyleCleanup
                         && !preg_match("/^ *(\\*|\/\/|#) *\n$/", $line)) {
 
                         $oldLine = $line;
-                        # TODO: remove the second rtrim-param to trim all of " \t\n\r\0\x0B"
-                        $line = rtrim($line, " \t\n");
+                        $line = rtrim($line);
                         $line = $this->expandTabs($line);
                         $line .= "\n";
 

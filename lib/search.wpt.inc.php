@@ -89,7 +89,7 @@ if( $usr || !$hide_coords ) {
 
     if (isset($_REQUEST['startat'])) {
         $startat = XDb::quoteOffset($_REQUEST['startat']);
-    } else { 
+    } else {
         $startat = 0;
     }
 

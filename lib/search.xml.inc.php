@@ -96,7 +96,7 @@ if (isset($lat_rad) && isset($lon_rad) && ($sortby == 'bydistance')) {
 
 if (isset($_REQUEST['startat'])) {
     $startat = XDb::quoteOffset($_REQUEST['startat']);
-} else { 
+} else {
     $startat = 0;
 }
 

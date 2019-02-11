@@ -2,7 +2,7 @@
 
 namespace Utils\Database\Updates;
 
-return new class extends UpdateScript
+class C100Init extends UpdateScript
 {
     public function getProperties()
     {
@@ -45,7 +45,7 @@ return new class extends UpdateScript
         $this->db->updateColumnComment('cache_desc', 'desc_htmledit', 'Unused'); // NL
         $this->db->updateColumnType('cache_logs', 'text_html', 'tinyint(1) NOT NULL DEFAULT 0'); // NL
         $this->db->addIndexIfNotExists('cache_moved', 'log_id'); // NL
-        $this->db->updateColumnType('cache_notes', 'date', 'timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP'); // RO
+        $this->db->updateColumnType('cache_notes', 'date', 'timestamp NOT NULL DEFAULT current_timestamp()'); // RO
         $this->db->addIndexIfNotExists('cache_npa_areas', 'parki_id'); // all but PL
         $this->db->dropIndexIfExists('caches', 'wp_oc_2'); // NL
         $this->db->dropIndexIfExists('caches', 'date_hidden_2'); // NL
@@ -60,7 +60,7 @@ return new class extends UpdateScript
         $this->db->dropIndexIfExists('email_schemas', 'deleted_2'); // PL
         $this->db->dropIndexIfExists('email_user', 'date_generated_2'); // NL
         $this->db->dropIndexIfExists('logentries', 'logtime_2'); // NL
-        $this->db->updateColumnType('news', 'date_publication', 'datetime NOT NULL DEFAULT CURRENT_TIMESTAMP'); // RO
+        $this->db->updateColumnType('news', 'date_publication', 'datetime NOT NULL DEFAULT current_timestamp()'); // RO
         $this->db->updateColumnType('npa_areas', 'shape', 'geometry NOT NULL'); // RO
         $this->db->dropColumnIfExists('notify_waiting', 'type'); // NL
         $this->db->addIndexIfNotExists('opensprawdzacz', 'cache_id'); // all but PL
@@ -137,3 +137,5 @@ return new class extends UpdateScript
         $this->db->dropTableIfExists('db_updates__');
     }
 };
+
+return new C100Init;
