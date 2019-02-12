@@ -973,7 +973,7 @@ $translations = array(
     'no_logtype_choosen' => 'Kein Logtyp gewählt',
     'choose' => 'Auswählen',
     'nc01' => 'Liebe/r Geocacher/in,',
-    'nc02' => 'danke, dass du deinen Cache bei {site_name} einträgst! Falls du Hilfe beim Verstecken oder Eintragen des Caches benötigst, kannst du dich im <a class="links" href="{wiki_link_main}">Opencaching-Wiki <img src="images/misc/linkicon.png" alt="link"></a> informieren oder dich bei größeren Unklarheiten direkt an das OC-Team wenden. Bedenke, dass dein Cache auch etwas über dich selbst aussagt. Achte daher bitte auf die Qualität des Caches und stelle dir folgende Fragen:',
+    'nc02' => 'danke, dass du deinen Cache bei {site_name} einträgst! Falls du Hilfe beim Verstecken oder Eintragen des Caches benötigst, kannst du dich im <a class="links" href="{wiki_link_main}">Opencaching-Wiki <img src="/images/misc/linkicon.png" alt="link"></a> informieren oder dich bei größeren Unklarheiten direkt an das OC-Team wenden. Bedenke, dass dein Cache auch etwas über dich selbst aussagt. Achte daher bitte auf die Qualität des Caches und stelle dir folgende Fragen:',
     'nc03' => 'Ist der Cache an einem Ort versteckt, der betreten werden darf? Caches auf Privatgrund erfordern ein Einverständnis des Grundstückseigentümers.',
     'nc04' => 'Ist der Cache in einem Nationalpark, einem Naturschutzgebiet, an einem Denkmal, auf einem Friedhof oder in einem anderen durch Gesetze oder Verordnungen geschützten Gebiet versteckt? Wenn ja, dann beachte bitte die geltenden Vorschriften und Einschränkungen.',
     'nc05' => 'Wird der Mindestabstand zu anderen Caches (150 m) eingehalten?',
