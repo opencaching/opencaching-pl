@@ -67,7 +67,7 @@ if ($user_record['founds_count'] == 0) {
 
 // Parameter
 $jpeg_qualitaet = 80;
-$fontfile = "./resource/fonts/arial.ttf";
+$fontfile = "./resources/fonts/arial.ttf";
 $tplpath = 'images/PLmapa.gif';
 $im = ImageCreateFromGIF($tplpath);
 $clrWhite = ImageColorAllocate($im, 255, 255, 255);
