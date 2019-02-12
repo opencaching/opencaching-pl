@@ -1,13 +1,13 @@
 <?php
 
-use Utils\Database\XDb;
-use Utils\Text\Formatter;
-use Utils\View\View;
+use src\Utils\Database\XDb;
+use src\Utils\Text\Formatter;
+use src\Utils\View\View;
 
 require_once (__DIR__.'/lib/common.inc.php');
 require_once (__DIR__.'/lib/caches.inc.php');
-require_once (__DIR__.'/tpl/stdstyle/lib/icons.inc.php');
-require_once (__DIR__.'/tpl/stdstyle/newcaches.inc.php');
+require_once (__DIR__.'/src/Views/lib/icons.inc.php');
+require_once (__DIR__.'/src/Views/newcaches.inc.php');
 
 global $usr;
 
@@ -89,7 +89,7 @@ while ($r = XDb::xFetchArray($rs)) {
     if( $r_log = XDb::xFetchArray($rs_log)){
 
 
-        $thisline = mb_ereg_replace('{log_image}', '<img src="tpl/stdstyle/images/' . $r_log['icon_small'] . '" alt="">', $thisline);
+        $thisline = mb_ereg_replace('{log_image}', '<img src="/images/' . $r_log['icon_small'] . '" alt="">', $thisline);
     } else {
         $thisline = mb_ereg_replace('{log_image}', '&nbsp;', $thisline);
     }

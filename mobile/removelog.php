@@ -1,8 +1,8 @@
 <?php
-use Utils\Database\XDb;
-use lib\Controllers\LogEntryController;
+use src\Utils\Database\XDb;
+use src\Controllers\LogEntryController;
 use okapi\Facade;
-use lib\Objects\GeoCache\MobileCacheMove;
+use src\Models\GeoCache\MobileCacheMove;
 
 require_once("./lib/common.inc.php");
 

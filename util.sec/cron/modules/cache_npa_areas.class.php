@@ -7,7 +7,7 @@
  *
  * It should be called daily from CRON
  */
-use Utils\Database\XDb;
+use src\Utils\Database\XDb;
 
 require_once(__DIR__.'/../../../lib/common.inc.php');
 

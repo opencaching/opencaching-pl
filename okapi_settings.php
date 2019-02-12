@@ -2,7 +2,7 @@
 
 namespace okapi;
 
-use lib\Objects\OcConfig\OcConfig;
+use src\Models\OcConfig\OcConfig;
 
 function get_okapi_settings()
 {

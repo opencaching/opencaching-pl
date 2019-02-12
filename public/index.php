@@ -1,6 +1,6 @@
 <?php
 
-use Utils\Uri\SimpleRouter;
+use src\Utils\Uri\SimpleRouter;
 
 require_once (__DIR__.'/../lib/common.inc.php');
 

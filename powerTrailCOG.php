@@ -1,9 +1,9 @@
 <?php
 
-use lib\Objects\PowerTrail\PowerTrail;
-use lib\Objects\GeoCache\GeoCache;
-use Utils\Uri\Uri;
-use Utils\I18n\I18n;
+use src\Models\PowerTrail\PowerTrail;
+use src\Models\GeoCache\GeoCache;
+use src\Utils\Uri\Uri;
+use src\Utils\I18n\I18n;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
@@ -25,13 +25,13 @@ if ($error == false) {
     tpl_set_var('language4js', I18n::getCurrentLang());
 
     $view->loadJQuery();
-    $view->addLocalCss(Uri::getLinkWithModificationTime('tpl/stdstyle/css/powerTrail.css'));
+    $view->addLocalCss(Uri::getLinkWithModificationTime('/css/powerTrail.css'));
 
     if (isset($_REQUEST['ptSelector'])) {
         $powerTrail = new PowerTrail(array('id' => $_REQUEST['ptSelector']));
         $_SESSION['ptRmByCog'] = 1;
         $ptData = powerTrailBase::getPtDbRow($_REQUEST['ptSelector']);
-        $ptStatus = \lib\Controllers\PowerTrailController::getPowerTrailStatus();
+        $ptStatus = \src\Controllers\PowerTrailController::getPowerTrailStatus();
         $ptType = powerTrailBase::getPowerTrailTypes();
 
         tpl_set_var("ptCaches", preparePtCaches($powerTrail));
@@ -85,7 +85,7 @@ function preparePtCaches(PowerTrail $powerTrail)
             <td>' . $geocache->getOwner()->getUserName() . '</td>
             <td><a href="'.$geocache->getWaypointId().'">' . $geocache->getWaypointId() . '</a></td>
             <td style="text-align: center;">' . $geocache->getFounds() . '</td>
-            <td style="text-align: center;"><a href="javascript:void(0);" onclick="rmCache(' . $geocache->getCacheId() . ');" class="editPtDataButton">' . tr('pt130') . '</a> <img src="tpl/stdstyle/images/misc/ptPreloader.gif"  style="display: none" id="rmCacheLoader' . $geocache->getCacheId() . '" alt=""> </td>
+            <td style="text-align: center;"><a href="javascript:void(0);" onclick="rmCache(' . $geocache->getCacheId() . ');" class="editPtDataButton">' . tr('pt130') . '</a> <img src="images/misc/ptPreloader.gif"  style="display: none" id="rmCacheLoader' . $geocache->getCacheId() . '" alt=""> </td>
         </tr>';
     }
     $table .= '</table>';
@@ -95,7 +95,7 @@ function preparePtCaches(PowerTrail $powerTrail)
 function generateStatusSelector($currStatus)
 {
     $selector = '<select id="ptStatusSelector">';
-    foreach (\lib\Controllers\PowerTrailController::getPowerTrailStatus() as $val => $desc) {
+    foreach (\src\Controllers\PowerTrailController::getPowerTrailStatus() as $val => $desc) {
         if ($val == $currStatus)
             $selected = 'selected="selected"';
         else

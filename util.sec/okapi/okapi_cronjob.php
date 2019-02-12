@@ -2,7 +2,7 @@
 /**
  * Does OKAPI housekeeping, should be run in short intervals from cron.
  */
-use Controllers\Cron\OkapiController;
+use src\Controllers\Cron\OkapiController;
 
 require_once (__DIR__.'/../../lib/common.inc.php');
 

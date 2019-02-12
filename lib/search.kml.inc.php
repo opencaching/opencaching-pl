@@ -5,9 +5,9 @@
 
 ob_start();
 
-use Utils\Database\XDb;
-use lib\Objects\GeoCache\GeoCacheCommons;
-use Utils\I18n\I18n;
+use src\Utils\Database\XDb;
+use src\Models\GeoCache\GeoCacheCommons;
+use src\Utils\I18n\I18n;
 
 global $absolute_server_URI, $bUseZip, $usr, $hide_coords, $dbcSearch, $queryFilter;
 require_once (__DIR__.'/format.kml.inc.php');
@@ -125,7 +125,7 @@ if ($usr || ! $hide_coords) {
     $bUseZip = $bUseZip || (isset($_REQUEST['zip']) && ($_REQUEST['zip'] == '1'));
     // $bUseZip = false;
     if ($bUseZip == true) {
-        require_once (__DIR__.'/phpzip/ss_zip.class.php');
+        require_once (__DIR__.'/../src/Libs/PhpZip/ss_zip.class.php');
         $phpzip = new ss_zip('', 6);
     }
 

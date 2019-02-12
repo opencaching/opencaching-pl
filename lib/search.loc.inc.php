@@ -5,8 +5,8 @@
 
 ob_start();
 
-use Utils\Database\XDb;
-use lib\Objects\GeoCache\GeoCacheCommons;
+use src\Utils\Database\XDb;
+use src\Models\GeoCache\GeoCacheCommons;
 
 global $content, $bUseZip, $hide_coords, $usr, $dbcSearch;
 set_time_limit(1800);
@@ -148,7 +148,7 @@ if ($usr || ! $hide_coords) {
     $bUseZip = false;
     if ($bUseZip == true) {
         $content = '';
-        require_once (__DIR__.'/phpzip/ss_zip.class.php');
+        require_once (__DIR__.'/../src/Libs/PhpZip/ss_zip.class.php');
         $phpzip = new ss_zip('', 6);
     }
 

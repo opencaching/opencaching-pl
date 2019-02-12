@@ -1,6 +1,6 @@
 <?php
 
-use lib\Objects\OcConfig\OcConfig;
+use src\Models\OcConfig\OcConfig;
 
 /**
  * staticMapLite 0.3.1
@@ -45,7 +45,7 @@ Class staticMapLite
     );
 
     protected $tileDefaultSrc = 'mapnik';
-    protected $markerBaseDir = '../images/markers';
+    protected $markerBaseDir = __DIR__.'/../resources/images/staticMapMarkers';
     protected $atrribution = '(c) OpenStreetMap contributors';
 
     protected $markerPrototypes = array(

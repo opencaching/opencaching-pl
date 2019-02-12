@@ -1,5 +1,5 @@
 <?php
-use lib\Objects\News\News;
+use src\Models\News\News;
 
 require_once ("./lib/common.inc.php");
 

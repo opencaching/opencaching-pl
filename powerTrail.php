@@ -1,22 +1,22 @@
 <?php
 
-use lib\Objects\OcConfig\OcConfig;
-use lib\Objects\ApplicationContainer;
-use lib\Objects\PowerTrail\PowerTrail;
-use lib\Objects\GeoCache\GeoCache;
-use Utils\Uri\Uri;
-use lib\Objects\OcConfig\OcDynamicMapConfig;
-use Utils\View\View;
-use Utils\Uri\OcCookie;
-use lib\Objects\ChunkModels\DynamicMap\CacheMarkerModel;
-use lib\Objects\ChunkModels\DynamicMap\DynamicMapModel;
-use lib\Objects\ChunkModels\DynamicMap\CacheSetMarkerModel;
-use lib\Objects\CacheSet\CacheSetCommon;
-use lib\Objects\User\User;
-use Utils\Uri\SimpleRouter;
-use Controllers\MainMapController;
-use Utils\Text\Formatter;
-use Utils\I18n\I18n;
+use src\Models\OcConfig\OcConfig;
+use src\Models\ApplicationContainer;
+use src\Models\PowerTrail\PowerTrail;
+use src\Models\GeoCache\GeoCache;
+use src\Utils\Uri\Uri;
+use src\Models\OcConfig\OcDynamicMapConfig;
+use src\Utils\View\View;
+use src\Utils\Uri\OcCookie;
+use src\Models\ChunkModels\DynamicMap\CacheMarkerModel;
+use src\Models\ChunkModels\DynamicMap\DynamicMapModel;
+use src\Models\ChunkModels\DynamicMap\CacheSetMarkerModel;
+use src\Models\CacheSet\CacheSetCommon;
+use src\Models\User\User;
+use src\Utils\Uri\SimpleRouter;
+use src\Controllers\MainMapController;
+use src\Utils\Text\Formatter;
+use src\Utils\I18n\I18n;
 
 /**
  *  Power Trails in opencaching
@@ -60,8 +60,8 @@ if ($error == false) {
     }
 
     $tplname = 'powerTrail';
-    $view->addLocalCss(Uri::getLinkWithModificationTime('tpl/stdstyle/css/powerTrail.css'));
-    $view->addLocalCss(Uri::getLinkWithModificationTime('tpl/stdstyle/css/ptMenuCss/style.css'));
+    $view->addLocalCss(Uri::getLinkWithModificationTime('/css/powerTrail.css'));
+    $view->addLocalCss(Uri::getLinkWithModificationTime('/css/ptMenuCss/style.css'));
     $view->loadJQuery();
     $view->loadJQueryUI();
     $view->loadTimepicker();
@@ -130,7 +130,7 @@ if ($error == false) {
     tpl_set_var('cacheFound', '');
     tpl_set_var('powerTrailCacheLeft', '');
     tpl_set_var('PowerTrails', '');
-    tpl_set_var('demandPercentMinimum', lib\Controllers\PowerTrailController::MINIMUM_PERCENT_REQUIRED);
+    tpl_set_var('demandPercentMinimum', src\Controllers\PowerTrailController::MINIMUM_PERCENT_REQUIRED);
     tpl_set_var('powerTrailDemandPercent', '100');
     tpl_set_var('leadingUserId', '');
 
@@ -264,7 +264,7 @@ if ($error == false) {
                 ($appContainer->getLoggedUser() !== null && $appContainer->getLoggedUser()->hasOcTeamRole())) {
 
                 $ptTypesArr = powerTrailBase::getPowerTrailTypes();
-                $ptStatusArr = \lib\Controllers\PowerTrailController::getPowerTrailStatus();
+                $ptStatusArr = \src\Controllers\PowerTrailController::getPowerTrailStatus();
                 $foundCachsByUser = $powerTrail->getFoundCachsByUser($usr['userid']);
                 $leadingUser = powerTrailBase::getLeadingUser($powerTrail->getId());
                 if ($powerTrail->getConquestedCount() > 0){
@@ -403,9 +403,9 @@ function displayCaches($caches, $pTrails)
         }
         $ptSelector .= '</select>';
         $rows .= '<tr><td><a href="' . $cache['wp_oc'] . '">' . $cache['wp_oc'] . '</a></td><td>' . $cache['name'] . '</td><td>' . $ptSelector . '</td>
-        <td width="50"><img style="display: none" id="addCacheLoader' . $cache['cache_id'] . '" src="tpl/stdstyle/images/misc/ptPreloader.gif" alt="">
-        <span id="cacheInfo' . $cache['cache_id'] . '" style="display: none "><img src="tpl/stdstyle/images/free_icons/accept.png" alt=""></span>
-        <span id="cacheInfoNOK' . $cache['cache_id'] . '" style="display: none "><img src="tpl/stdstyle/images/free_icons/exclamation.png" alt=""></span>' .
+        <td width="50"><img style="display: none" id="addCacheLoader' . $cache['cache_id'] . '" src="images/misc/ptPreloader.gif" alt="">
+        <span id="cacheInfo' . $cache['cache_id'] . '" style="display: none "><img src="images/free_icons/accept.png" alt=""></span>
+        <span id="cacheInfoNOK' . $cache['cache_id'] . '" style="display: none "><img src="images/free_icons/exclamation.png" alt=""></span>' .
                 $hidden .
                 '</td></tr>';
     }
@@ -416,7 +416,7 @@ function displayPTrails($pTrails, $areOwnSeries)
 {
 
     $ptTypes = powerTrailBase::getPowerTrailTypes();
-    $ptStatus = \lib\Controllers\PowerTrailController::getPowerTrailStatus();
+    $ptStatus = \src\Controllers\PowerTrailController::getPowerTrailStatus();
 
     $dataForList = '';
     $dataForMap = '';
@@ -470,11 +470,11 @@ function displayPtOwnerList(PowerTrail $powerTrail)
     $ptOwners = $powerTrail->getOwners();
     $ownerList = '';
     isset($_SESSION['user_id']) ? $userLogged = $_SESSION['user_id'] : $userLogged = -1;
-    /* @var $owner lib\Objects\PowerTrail\Owner*/
+    /* @var $owner src\Models\PowerTrail\Owner*/
     foreach ($ptOwners as $owner) {
         $ownerList .= '<a href="viewprofile.php?userid=' . $owner->getUserId() . '">' . $owner->getUserName() . '</a>';
         if ($owner->getUserId() != $userLogged) {
-            $ownerList .= '<span style="display: none" class="removeUserIcon"><img onclick="ajaxRemoveUserFromPt(' . $owner->getUserId() . ');" src="tpl/stdstyle/images/free_icons/cross.png" width=10 title="' . tr('pt029') . '" /></span>, ';
+            $ownerList .= '<span style="display: none" class="removeUserIcon"><img onclick="ajaxRemoveUserFromPt(' . $owner->getUserId() . ');" src="images/free_icons/cross.png" width=10 title="' . tr('pt029') . '" /></span>, ';
         } else {
             $ownerList .= ', ';
         }
@@ -526,7 +526,7 @@ function displayPtCommentsSelector($htmlid, PowerTrail $powerTrail, $selectedId 
     } else {
         $percentUserFound = 0;
     }
-    $commentsArr = lib\Controllers\PowerTrailController::getEntryTypes();
+    $commentsArr = src\Controllers\PowerTrailController::getEntryTypes();
 
     $ptOwners = powerTrailBase::getPtOwners($ptId);
     $selector = '<select id="' . $htmlid . '" name="' . $htmlid . '">';
@@ -548,7 +548,7 @@ function displayPtCommentsSelector($htmlid, PowerTrail $powerTrail, $selectedId 
             continue;
         }
 
-        if($id === \lib\Objects\PowerTrail\Log::TYPE_ADD_WARNING && !$appContainer->getLoggedUser()->hasOcTeamRole()){
+        if($id === \src\Models\PowerTrail\Log::TYPE_ADD_WARNING && !$appContainer->getLoggedUser()->hasOcTeamRole()){
             continue;
         }
 
@@ -572,7 +572,7 @@ function displayPowerTrailLogo($ptId, $img)
 {
     // global $picurl;
     if (empty($img)){
-        return '/tpl/stdstyle/images/blue/powerTrailGenericLogo.png';
+        return '/images/blue/powerTrailGenericLogo.png';
     }else {
         return $img;
     }
@@ -646,7 +646,7 @@ function generateStatusSelector($currStatus)
     if ($currStatus == 3) { //permanently closed
         $selector .= '<option value="3">' . tr('cs_statusClosed') . '</option>';
     } else {
-        foreach (\lib\Controllers\PowerTrailController::getPowerTrailStatus() as $val => $desc) {
+        foreach (\src\Controllers\PowerTrailController::getPowerTrailStatus() as $val => $desc) {
             if ($val == $currStatus)
                 $selected = 'selected="selected"';
             else
@@ -663,10 +663,22 @@ function generateStatusSelector($currStatus)
 
 function saveCookie()
 {
-    OcCookie::set("ptFltr", $_REQUEST['filter']);
-    OcCookie::set("ptSrBy", $_REQUEST['sortBy']);
-    OcCookie::set("ptSrDr", $_REQUEST['sortDir']);
-    OcCookie::set("ptGaBool", $_REQUEST['gainedPowerTrailsBool']);
-    OcCookie::set("ptMyBool", $_REQUEST['myPowerTrailsBool']);
-    OcCookie::set("ptMiniBool", $_REQUEST['historicLimitBool']);
+    if (isset($_REQUEST['filter'])) {
+        OcCookie::set("ptFltr", $_REQUEST['filter']);
+    }
+    if (isset($_REQUEST['sortBy'])) {
+        OcCookie::set("ptSrBy", $_REQUEST['sortBy']);
+    }
+    if (isset($_REQUEST['sortDir'])) {
+        OcCookie::set("ptSrDr", $_REQUEST['sortDir']);
+    }
+    if (isset($_REQUEST['gainedPowerTrailsBool'])) {
+        OcCookie::set("ptGaBool", $_REQUEST['gainedPowerTrailsBool']);
+    }
+    if (isset($_REQUEST['myPowerTrailsBool'])) {
+        OcCookie::set("ptMyBool", $_REQUEST['myPowerTrailsBool']);
+    }
+    if (isset($_REQUEST['historicLimitBool'])) {
+        OcCookie::set("ptMiniBool", $_REQUEST['historicLimitBool']);
+    }
 }

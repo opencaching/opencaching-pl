@@ -1,5 +1,6 @@
 <?php
-use lib\Objects\PowerTrail\PowerTrail;
+use src\Models\PowerTrail\PowerTrail;
+use src\Utils\Database\OcDb;
 
 session_start();
 if (!isset($_SESSION['user_id'])) {
@@ -8,7 +9,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 require_once __DIR__ . '/../lib/ClassPathDictionary.php';
 $ptAPI = new powerTrailBase;
-$db = \Utils\Database\OcDb::instance();
+$db = OcDb::instance();
 
 $projectId = $_REQUEST['projectId'];
 $userId = $_REQUEST['userId'];
@@ -39,7 +40,7 @@ function displayPtOwnerList($ptOwners)
     foreach ($ptOwners as $user) {
         $ownerList .= '<a href="viewprofile.php?userid=' . $user->getUserId() . '">' . $user->getUsername() . '</a>';
         if ($user->getUserId() != $_SESSION['user_id']) {
-            $ownerList .= '<span style="display: none" class="removeUserIcon"><img onclick="ajaxRemoveUserFromPt(' . $user->getUserId() . ');" src="tpl/stdstyle/images/free_icons/cross.png" width=10 " /></span>, ';
+            $ownerList .= '<span style="display: none" class="removeUserIcon"><img onclick="ajaxRemoveUserFromPt(' . $user->getUserId() . ');" src="images/free_icons/cross.png" width=10 " /></span>, ';
         } else {
             $ownerList .= ', ';
         }

@@ -1,17 +1,17 @@
 <?php
 
-use Utils\Database\XDb;
-use Utils\Text\UserInputFilter;
-use lib\Objects\GeoCache\GeoCacheCommons;
-use lib\Objects\GeoCache\GeoCacheLog;
-use lib\Controllers\LogEntryController;
-use lib\Controllers\MeritBadgeController;
+use src\Utils\Database\XDb;
+use src\Utils\Text\UserInputFilter;
+use src\Models\GeoCache\GeoCacheCommons;
+use src\Models\GeoCache\GeoCacheLog;
+use src\Controllers\LogEntryController;
+use src\Controllers\MeritBadgeController;
 use okapi\Facade;
-use Utils\EventHandler\EventHandler;
-use Utils\Text\InputFilter;
-use lib\Objects\GeoCache\MobileCacheMove;
-use lib\Objects\OcConfig\OcConfig;
-use Utils\I18n\I18n;
+use src\Utils\EventHandler\EventHandler;
+use src\Utils\Text\InputFilter;
+use src\Models\GeoCache\MobileCacheMove;
+use src\Models\OcConfig\OcConfig;
+use src\Utils\I18n\I18n;
 +
 //prepare the templates and include all neccessary
 require_once(__DIR__.'/lib/common.inc.php');
@@ -43,9 +43,9 @@ if ($error == false) {
         $log_record = XDb::xFetchArray($log_rs);
         if ($log_record) {
 
-            require(__DIR__.'/tpl/stdstyle/editlog.inc.php');
+            require(__DIR__.'/src/Views/editlog.inc.php');
             require_once(__DIR__.'/lib/caches.inc.php');
-            require(__DIR__.'/tpl/stdstyle/rating.inc.php');
+            require(__DIR__.'/src/Views/rating.inc.php');
 
             if ($log_record['node'] != OcConfig::getSiteNodeId()) {
                 tpl_errorMsg('editlog', $error_wrong_node);

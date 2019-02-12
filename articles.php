@@ -1,7 +1,7 @@
 <?php
 
-use lib\Objects\Stats\CacheStats;
-use Utils\I18n\I18n;
+use src\Models\Stats\CacheStats;
+use src\Utils\I18n\I18n;
 
 //prepare the templates and include all neccessary
 require_once(__DIR__.'/lib/common.inc.php');
@@ -15,9 +15,10 @@ if (isset($_REQUEST['page']) &&
     $article = '';
 }
 
-if (!file_exists('./tpl/stdstyle/articles/' . $article . '.tpl.php')) {
+if (!file_exists(__DIR__.'/src/Views/articles/' . $article . '.tpl.php')) {
     // article doesn't exists
     tpl_errorMsg('Article "'.$article.'"', tr('page_not_found'));
+
 } else {
     // set article inside the articles-directory
     switch ($_REQUEST['page']) {
@@ -31,8 +32,8 @@ if (!file_exists('./tpl/stdstyle/articles/' . $article . '.tpl.php')) {
         default:
             break;
     }
-    if (file_exists(__DIR__.'/tpl/stdstyle/articles/' . $article . '.inc.php')) {
-        require_once __DIR__.'/tpl/stdstyle/articles/' . $article . '.inc.php';
+    if (file_exists(__DIR__.'/src/Views/articles/' . $article . '.inc.php')) {
+        require_once __DIR__.'/src/Views/articles/' . $article . '.inc.php';
     }
     $tplname = 'articles/' . $article;
 }

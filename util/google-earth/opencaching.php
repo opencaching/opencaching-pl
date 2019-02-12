@@ -2,8 +2,8 @@
 
 ob_start();
 
-use Utils\Database\XDb;
-use lib\Objects\OcConfig\OcConfig;
+use src\Utils\Database\XDb;
+use src\Models\OcConfig\OcConfig;
 
 global $usr;
 

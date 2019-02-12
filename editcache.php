@@ -1,15 +1,15 @@
 <?php
 
-use lib\Objects\GeoCache\GeoCache;
-use Utils\Database\XDb;
-use Utils\Database\OcDb;
-use Utils\I18n\Languages;
-use lib\Objects\Coordinates\Coordinates;
-use Utils\EventHandler\EventHandler;
-use lib\Objects\GeoCache\GeoCacheLog;
-use lib\Objects\OcConfig\OcConfig;
-use Utils\I18n\I18n;
-use Utils\Text\Validator;
+use src\Models\GeoCache\GeoCache;
+use src\Utils\Database\XDb;
+use src\Utils\Database\OcDb;
+use src\Utils\I18n\Languages;
+use src\Models\Coordinates\Coordinates;
+use src\Utils\EventHandler\EventHandler;
+use src\Models\GeoCache\GeoCacheLog;
+use src\Models\OcConfig\OcConfig;
+use src\Utils\I18n\I18n;
+use src\Utils\Text\Validator;
 
 require_once(__DIR__.'/lib/common.inc.php');
 
@@ -81,7 +81,7 @@ if ($error == false) {
 
             if ($cache_record['user_id'] == $usr['userid'] || $usr['admin']) {
                 require_once(__DIR__.'/lib/caches.inc.php');
-                require(__DIR__.'/tpl/stdstyle/editcache.inc.php');
+                require(__DIR__.'/src/Views/editcache.inc.php');
                 //here we read all used information from the form if submitted, otherwise from DB
                 // wihout virtuals and webcams
                 if (isset($_POST['type'])) {
@@ -745,7 +745,7 @@ if ($error == false) {
 
                     if (count($descList) > 1) {
                         $remove_url = 'removedesc.php?cacheid=' . urlencode($cache_id) . '&desclang=' . urlencode($descLang);
-                        $removedesc = '&nbsp;&nbsp;<img src="tpl/stdstyle/images/log/16x16-trash.png" border="0" align="middle" class="icon16" alt="">'.
+                        $removedesc = '&nbsp;&nbsp;<img src="images/log/16x16-trash.png" border="0" align="middle" class="icon16" alt="">'.
                             ' [<a href="' . htmlspecialchars($remove_url, ENT_COMPAT, 'UTF-8') . '" onclick="return check_if_proceed();">' . tr('delete') . '</a>]';
                     } else {
                         $removedesc = '';
@@ -963,21 +963,21 @@ if ($error == false) {
                             }
 
                             if ($wp_record['status'] == GeoCache::STATUS_READY) {
-                                $status_icon = "tpl/stdstyle/images/free_icons/accept.png";
+                                $status_icon = "images/free_icons/accept.png";
                             }
                             if ($wp_record['status'] == GeoCache::STATUS_UNAVAILABLE) {
-                                $status_icon = "tpl/stdstyle/images/free_icons/error.png";
+                                $status_icon = "images/free_icons/error.png";
                             }
                             if ($wp_record['status'] == GeoCache::STATUS_ARCHIVED) {
-                                $status_icon = "tpl/stdstyle/images/free_icons/stop.png";
+                                $status_icon = "images/free_icons/stop.png";
                             }
                             $tmpline1 = mb_ereg_replace('{status}', $status_icon, $tmpline1);
                             $waypoints .= $tmpline1;
                         }//while row
                         $waypoints .= '</table>';
-                        $waypoints .= '<br><img src="tpl/stdstyle/images/free_icons/accept.png" class="icon16" alt="">&nbsp;<span>' . tr('wp_status1') . '</span>';
-                        $waypoints .= '<br><img src="tpl/stdstyle/images/free_icons/error.png" class="icon16" alt="">&nbsp;<span>' . tr('wp_status2') . '</span>';
-                        $waypoints .= '<br><img src="tpl/stdstyle/images/free_icons/stop.png" class="icon16" alt="">&nbsp;<span>' . tr('wp_status3') . '</span>';
+                        $waypoints .= '<br><img src="images/free_icons/accept.png" class="icon16" alt="">&nbsp;<span>' . tr('wp_status1') . '</span>';
+                        $waypoints .= '<br><img src="images/free_icons/error.png" class="icon16" alt="">&nbsp;<span>' . tr('wp_status2') . '</span>';
+                        $waypoints .= '<br><img src="images/free_icons/stop.png" class="icon16" alt="">&nbsp;<span>' . tr('wp_status3') . '</span>';
                         tpl_set_var('cache_wp_list', $waypoints);
                     } else {
                         tpl_set_var('cache_wp_list', $nowp);

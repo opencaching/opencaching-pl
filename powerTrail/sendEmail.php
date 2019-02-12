@@ -1,6 +1,6 @@
 <?php
 
-use lib\Objects\OcConfig\OcConfig;
+use src\Models\OcConfig\OcConfig;
 
 class sendEmail
 {
@@ -11,7 +11,7 @@ class sendEmail
         $siteDateTimeFormat = 'Y-m-d H:i';
 
         $owners = powerTrailBase::getPtOwners($ptId);
-        $commentTypes = lib\Controllers\PowerTrailController::getEntryTypes();
+        $commentTypes = src\Controllers\PowerTrailController::getEntryTypes();
         $ptDbRow = powerTrailBase::getPtDbRow($ptId);
 
         //remove images

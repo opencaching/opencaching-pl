@@ -1,11 +1,11 @@
 <?php
 
-use Utils\Database\XDb;
-use Utils\Database\OcDb;
-use Utils\Generators\Uuid;
+use src\Utils\Database\XDb;
+use src\Utils\Database\OcDb;
+use src\Utils\Generators\Uuid;
 
 require(__DIR__.'/lib/common.inc.php');
-require(__DIR__.'/tpl/stdstyle/query.inc.php');
+require(__DIR__.'/src/Views/query.inc.php');
 
 if ($error == false) {
     $action = isset($_REQUEST['action']) ? $_REQUEST['action'] : 'view';

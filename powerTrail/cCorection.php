@@ -1,6 +1,6 @@
 <?php
 
-use lib\Objects\GeoCache\GeoCache;
+use src\Models\GeoCache\GeoCache;
 
 /**
  * class is used for correct coordinates of geopath center point. (point used to represent geoPtah

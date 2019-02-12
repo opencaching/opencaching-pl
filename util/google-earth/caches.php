@@ -2,9 +2,9 @@
 
 ob_start();
 
-use Utils\Database\XDb;
-use lib\Objects\GeoCache\GeoCacheCommons;
-use Utils\I18n\I18n;
+use src\Utils\Database\XDb;
+use src\Models\GeoCache\GeoCacheCommons;
+use src\Utils\I18n\I18n;
 
 /* Bounding Box:
   BBOX=2.38443,48.9322,27.7053,55.0289

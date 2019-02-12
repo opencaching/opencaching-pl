@@ -1,7 +1,7 @@
 <?php
 
-use Utils\View\View;
-use Utils\Uri\Uri;
+use src\Utils\View\View;
+use src\Utils\Uri\Uri;
 
 
 require_once(__DIR__.'/lib/common.inc.php');
@@ -9,7 +9,7 @@ require_once(__DIR__.'/lib/common.inc.php');
 set_tpl_subtitle('Geocache Difficulty Rating System');
 
 $view = tpl_getView();
-$view->addLocalCss(Uri::getLinkWithModificationTime('tpl/stdstyle/cacheEdit/difficultyForm.css'));
+$view->addLocalCss(Uri::getLinkWithModificationTime('/views/cacheEdit/difficultyForm.css'));
 
 if ( isset($_POST["Rating"]) && $_POST["Rating"] == "TRUE") {
     // print results

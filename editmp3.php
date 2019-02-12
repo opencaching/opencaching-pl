@@ -1,6 +1,6 @@
 <?php
 
-use Utils\Database\XDb;
+use src\Utils\Database\XDb;
 //prepare the templates and include all neccessary
 require_once(__DIR__.'/lib/common.inc.php');
 
@@ -16,7 +16,7 @@ if ($error == false) {
         $tplname = 'editmp3';
         $view = tpl_getView();
         $view->setVar('maxmp3size', $maxmp3size);
-        require_once(__DIR__.'/tpl/stdstyle/editmp3.inc.php');
+        require_once(__DIR__.'/src/Views/editmp3.inc.php');
 
         $uuid = isset($_REQUEST['uuid']) ? $_REQUEST['uuid'] : 0;
         if (!$uuid)

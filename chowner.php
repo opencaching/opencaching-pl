@@ -1,6 +1,6 @@
 <?php
 
-use Controllers\CacheAdoptionController;
+use src\Controllers\CacheAdoptionController;
 
 /**
  * This script allow user to:

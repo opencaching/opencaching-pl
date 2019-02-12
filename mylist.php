@@ -1,8 +1,8 @@
 <?php
 
-use Utils\Database\XDb;
-use lib\Objects\GeoCache\PrintList;
-use lib\Objects\GeoCache\UserCacheCoords;
+use src\Utils\Database\XDb;
+use src\Models\GeoCache\PrintList;
+use src\Models\GeoCache\UserCacheCoords;
 
 //prepare the templates and include all neccessary
 require_once (__DIR__ . '/lib/common.inc.php');
@@ -14,7 +14,7 @@ if ($usr == false) {
     exit;
 }
 
-include(__DIR__.'/tpl/stdstyle/mylist.inc.php');
+include(__DIR__.'/src/Views/mylist.inc.php');
 $tplname = 'mylist';
 
 $bml_id = 0;

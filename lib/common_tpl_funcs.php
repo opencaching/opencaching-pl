@@ -1,10 +1,10 @@
 <?php
 
-use Utils\View\View;
-use Utils\Uri\Uri;
-use Utils\I18n\I18n;
-use Controllers\PageLayout\MainLayoutController;
-use Utils\Uri\OcCookie;
+use src\Utils\View\View;
+use src\Utils\Uri\Uri;
+use src\Utils\I18n\I18n;
+use src\Controllers\PageLayout\MainLayoutController;
+use src\Utils\Uri\OcCookie;
 
 //set the global template-name variable
 function tpl_set_tplname($local_tpl_name){
@@ -166,24 +166,24 @@ function tpl_BuildTemplate($minitpl = false, $noCommonTemplate=false)
 
     //load main template
     if ($minitpl){
-        $sCode = file_get_contents(__DIR__.'/../tpl/stdstyle/common/mini.tpl.php');
+        $sCode = file_get_contents(__DIR__.'/../src/Views/common/mini.tpl.php');
     }else if ($noCommonTemplate){
         $sCode = '{template}';
     }else if (isset($_REQUEST['print']) && $_REQUEST['print'] == 'y'){
-        $sCode = file_get_contents(__DIR__.'/../tpl/stdstyle/common/main_print.tpl.php');
+        $sCode = file_get_contents(__DIR__.'/../src/Views/common/main_print.tpl.php');
     }else if (isset($_REQUEST['popup']) && $_REQUEST['popup'] == 'y'){
-        $sCode = file_get_contents(__DIR__.'/../tpl/stdstyle/common/popup.tpl.php');
+        $sCode = file_get_contents(__DIR__.'/../src/Views/common/popup.tpl.php');
     }else {
-        $sCode = file_get_contents(__DIR__.'/../tpl/stdstyle/common/main.tpl.php');
+        $sCode = file_get_contents(__DIR__.'/../src/Views/common/main.tpl.php');
     }
 
     //global css files:
-    $view->setVar('screenCss', Uri::getLinkWithModificationTime('/tpl/stdstyle/css/style_screen.css'));
-    $view->setVar('printCss', Uri::getLinkWithModificationTime('/tpl/stdstyle/css/style_print.css'));
+    $view->setVar('screenCss', Uri::getLinkWithModificationTime('/css/style_screen.css'));
+    $view->setVar('printCss', Uri::getLinkWithModificationTime('/css/style_print.css'));
     $view->setVar('backgroundSeason', $view->getSeasonCssName());
 
     //does template exist?
-    if (!file_exists(__DIR__.'/../tpl/stdstyle/' . $tplname . '.tpl.php')) {
+    if (!file_exists(__DIR__.'/../src/Views/' . $tplname . '.tpl.php')) {
         //set up the error template
         tpl_set_var('error_msg', tr('page_not_found'));
         tpl_set_var('tplname', $tplname);
@@ -191,7 +191,7 @@ function tpl_BuildTemplate($minitpl = false, $noCommonTemplate=false)
     }
 
     //read the template
-    $sTemplate = file_get_contents(__DIR__.'/../tpl/stdstyle/' . $tplname . '.tpl.php');
+    $sTemplate = file_get_contents(__DIR__.'/../src/Views/' . $tplname . '.tpl.php');
     $sCode = mb_ereg_replace('{template}', $sTemplate, $sCode);
 
 

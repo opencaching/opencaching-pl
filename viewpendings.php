@@ -1,10 +1,10 @@
 <?php
 
-use Utils\Database\XDb;
-use lib\Objects\Admin\AdminNote;
-use Utils\Generators\Uuid;
-use lib\Objects\OcConfig\OcConfig;
-use lib\Objects\User\User;
+use src\Utils\Database\XDb;
+use src\Models\Admin\AdminNote;
+use src\Utils\Generators\Uuid;
+use src\Models\OcConfig\OcConfig;
+use src\Models\User\User;
 
 global $bgcolor1, $bgcolor2;
 
@@ -120,9 +120,9 @@ function notifyOwner($cacheid, $msgType)
 
     $cachename = getCachename($cacheid);
     if ($msgType == 0) {
-        $email_content = file_get_contents('./tpl/stdstyle/email/activated_cache.email');
+        $email_content = file_get_contents(__DIR__.'/resources/email/activated_cache.email');
     } else {
-        $email_content = file_get_contents('./tpl/stdstyle/email/archived_cache.email');
+        $email_content = file_get_contents(__DIR__.'/resources/email/archived_cache.email');
     }
     $email_headers = "Content-Type: text/plain; charset=utf-8\r\n";
     $email_headers .= "From: ".OcConfig::getSiteName()." <".OcConfig::getEmailAddrOcTeam().">\r\n";
@@ -291,9 +291,9 @@ if ($usr['admin']) {
                 <a class=\"truncated\" href='viewlogs.php?logid=". $report['last_log_id'] ."' title='". strip_tags($report['last_log_text']) ."'>". strip_tags($report['last_log_text']) . "</a>
                 </td>\n";
 
-        $content .= "<td class='" . $bgcolor . "'><img src=\"tpl/stdstyle/images/blue/arrow.png\" alt=\"\" />&nbsp;<a class=\"links\" href='viewpendings.php?user_id=".$report['user_id']."&amp;cacheid=" . $report['cache_id'] . "&amp;action=1'>" . tr('accept') . "</a><br/>
-            <img src=\"tpl/stdstyle/images/blue/arrow.png\" alt=\"\" />&nbsp;<a class=\"links\" href='viewpendings.php?user_id=".$report['user_id']."&amp;cacheid=" . $report['cache_id'] . "&amp;action=2'>" . tr('block') . "</a><br/>
-            <img src=\"tpl/stdstyle/images/blue/arrow.png\" alt=\"\" />&nbsp;<a class=\"links\" href='viewpendings.php?cacheid=" . $report['cache_id'] . "&amp;assign=" . $usr['userid'] . "'>" . tr('assign_yourself') . "</a></td>\n";
+        $content .= "<td class='" . $bgcolor . "'><img src=\"/images/blue/arrow.png\" alt=\"\" />&nbsp;<a class=\"links\" href='viewpendings.php?user_id=".$report['user_id']."&amp;cacheid=" . $report['cache_id'] . "&amp;action=1'>" . tr('accept') . "</a><br/>
+            <img src=\"/images/blue/arrow.png\" alt=\"\" />&nbsp;<a class=\"links\" href='viewpendings.php?user_id=".$report['user_id']."&amp;cacheid=" . $report['cache_id'] . "&amp;action=2'>" . tr('block') . "</a><br/>
+            <img src=\"/images/blue/arrow.png\" alt=\"\" />&nbsp;<a class=\"links\" href='viewpendings.php?cacheid=" . $report['cache_id'] . "&amp;assign=" . $usr['userid'] . "'>" . tr('assign_yourself') . "</a></td>\n";
         $content .= "<td class='" . $bgcolor . "'><a class=\"links\" href='viewprofile.php?userid=" . $assignedUserId . "'>" . getUsername($assignedUserId) . "</a><br/></td>";
         $content .= "</tr>\n";
         $row_num++;

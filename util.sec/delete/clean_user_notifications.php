@@ -1,6 +1,6 @@
 <?php
 
-use Utils\Database\OcDb;
+use src\Utils\Database\OcDb;
 /*
  * Simple script to disable notifications send by OC server to a specific user.
  * The script is intended for admins only, in cases when the user wants to opt-out

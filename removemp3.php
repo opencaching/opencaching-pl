@@ -1,7 +1,7 @@
 <?php
 
-use Utils\Database\XDb;
-use lib\Objects\OcConfig\OcConfig;
+use src\Utils\Database\XDb;
+use src\Models\OcConfig\OcConfig;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
@@ -12,7 +12,7 @@ if ($error == false) {
         tpl_redirect('login.php?target=' . $target);
     } else {
         $tplname = 'removemp3'; // gibt es nicht ...
-        require_once (__DIR__.'/tpl/stdstyle/removemp3.inc.php');
+        require_once (__DIR__.'/src/Views/removemp3.inc.php');
 
         $uuid = isset($_REQUEST['uuid']) ? $_REQUEST['uuid'] : '';
 

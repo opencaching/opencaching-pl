@@ -1,11 +1,11 @@
 <?php
 
-use lib\Objects\GeoCache\PrintList;
-use lib\Objects\OcConfig\OcConfig;
-use Utils\Database\XDb;
-use Utils\Uri\Uri;
-use Utils\View\View;
-use Utils\I18n\I18n;
+use src\Models\GeoCache\PrintList;
+use src\Models\OcConfig\OcConfig;
+use src\Utils\Database\XDb;
+use src\Utils\Uri\Uri;
+use src\Utils\View\View;
+use src\Utils\I18n\I18n;
 
 require_once(__DIR__.'/lib/common.inc.php');
 
@@ -139,7 +139,7 @@ if ($_POST['spoiler_only'] == "&spoiler_only=1") {
         echo ' - '.tr('pagetitle_print'); ?></title>
     <link rel="shortcut icon" href="/images/<?php print $config['headerFavicon']; ?>">
     <link rel="stylesheet" type="text/css"
-          href="<?= Uri::getLinkWithModificationTime('tpl/stdstyle/css/style_print.css') ?>">
+          href="<?= Uri::getLinkWithModificationTime('/css/style_print.css') ?>">
 </head>
 
 <body onload="<?php echo $include_caches; ?>">
@@ -200,7 +200,7 @@ if ($_POST['spoiler_only'] == "&spoiler_only=1") {
     <input type="hidden" id="showlogs" value="<?= $showlogs ?>">
 
     <?php View::callChunkInline('jQuery') ?>
-    <script src="<?= Uri::getLinkWithModificationTime('/tpl/stdstyle/js/printcache.js') ?>"></script>
+    <script src="<?= Uri::getLinkWithModificationTime('/js/printcache.js') ?>"></script>
 
     <form action="/printcache.php?cacheid=<?php print $cache_id; ?>" method="post">
         <?php

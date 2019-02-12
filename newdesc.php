@@ -1,11 +1,11 @@
 <?php
 
-use Utils\Database\XDb;
-use lib\Objects\GeoCache\GeoCache;
-use Utils\Generators\Uuid;
-use Utils\Text\UserInputFilter;
-use Utils\I18n\I18n;
-use lib\Objects\OcConfig\OcConfig;
+use src\Utils\Database\XDb;
+use src\Models\GeoCache\GeoCache;
+use src\Utils\Generators\Uuid;
+use src\Utils\Text\UserInputFilter;
+use src\Utils\I18n\I18n;
+use src\Models\OcConfig\OcConfig;
 
 require_once (__DIR__.'/lib/common.inc.php');
 

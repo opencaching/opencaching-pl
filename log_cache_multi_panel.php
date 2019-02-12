@@ -1,6 +1,6 @@
 <?php
 
-use Utils\Database\XDb;
+use src\Utils\Database\XDb;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
@@ -13,8 +13,8 @@ if ($usr == false || (!isset($_FILES['userfile']) && !isset($_SESSION['log_cache
     <html>
         <head>
             <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-            <link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/style_screen.css" />
-            <link rel="stylesheet" type="text/css" media="print" href="tpl/stdstyle/css/style_print.css" />
+            <link rel="stylesheet" type="text/css" media="screen,projection" href="/css/style_screen.css" />
+            <link rel="stylesheet" type="text/css" media="print" href="/css/style_print.css" />
 
             <style>
                 a:link {
@@ -99,14 +99,14 @@ if ($usr == false || (!isset($_FILES['userfile']) && !isset($_SESSION['log_cache
                             }
                             ?>
                             <tr class="<?php echo $styl; ?>">
-                                <td width=210><?php echo isset($v['cache_name']) ? "<img src=\"tpl/stdstyle/images/" . get_icon_for_cache_type($v['cache_type']) . "\" /> " . $v['kod_str'] . " " . $v['cache_name'] : " "; ?></td>
+                                <td width=210><?php echo isset($v['cache_name']) ? "<img src=\"/images/" . get_icon_for_cache_type($v['cache_type']) . "\" /> " . $v['kod_str'] . " " . $v['cache_name'] : " "; ?></td>
                                 <td width=70 style="text-align: right"><?php
                                     echo isset($v['data']) ? str_replace(" ", "<br />", $v['data']) : " ";
                                     echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-                                    echo isset($v['status']) ? "<img src=\"tpl/stdstyle/images/" . get_icon_for_status($v['status']) . "\" />" : " ";
+                                    echo isset($v['status']) ? "<img src=\"/images/" . get_icon_for_status($v['status']) . "\" />" : " ";
                                     ?></td>
                                 <td width=70 style="text-align: right"><?php
-                                    echo isset($v['got_last_activity']) ? str_replace(" ", "<br />", $v['last_date']) . "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" . (isset($v['last_status']) ? "<img src=\"tpl/stdstyle/images/" . get_icon_for_status($v['last_status']) . "\" />" : " ") : " ";
+                                    echo isset($v['got_last_activity']) ? str_replace(" ", "<br />", $v['last_date']) . "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" . (isset($v['last_status']) ? "<img src=\"/images/" . get_icon_for_status($v['last_status']) . "\" />" : " ") : " ";
                                     ?></td>
                             </tr><tr class="<?php echo $styl; ?>">
                                 <td width="280" colspan=2><?php echo isset($v['koment']) ? $v['koment'] : " "; ?>&nbsp;</td>

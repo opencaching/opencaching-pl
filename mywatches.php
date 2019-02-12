@@ -1,5 +1,5 @@
 <?php
-use Controllers\UserWatchedCachesController;
+use src\Controllers\UserWatchedCachesController;
 
 require_once (__DIR__.'/lib/common.inc.php');
 

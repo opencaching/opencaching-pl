@@ -973,7 +973,7 @@ $translations = array(
     'no_logtype_choosen' => 'Nu ai ales tipul de însemnare!',
     'choose' => 'Selectează',
     'nc01' => 'Dragă Utilizatorule',
-    'nc02' => 'Thank you for registering your cache at {site_name}. If you need help with hiding or registering the cache, please read the information at <a class="links" href="{wiki_link_main}">OpenGeoWiki <img src="images/misc/linkicon.png" alt="link"></a> or contact the OC Team {contact_mail}. Remember that your cache tells something about you. Please ensure it is the best quality, and ask yourself these questions:',
+    'nc02' => 'Îţi mulţumim că îţi adaugi geocutia pe {site_name}. Dacă ai nevoie de ajutor când ascunzi sau înregistrezi geocutia, citeşte informaţiile din <a class="links" href="{wiki_link_main}">OpenGeoWiki <img src="images/misc/linkicon.png" alt="link"></a> sau contactează Echipa Opencaching România - la adresa de e-mail: {contact_mail}. Nu uita că geocutia te reprezintă. Cu siguranţă că îţi doreşti să fie una de calitate şi de aceea te rugăm să îţi pui următoarele întrebări:',
     'nc03' => 'Este geocutia într-un loc care nu încalcă legea, un loc care nu este pe proprietatea privată a cuiva fără ca proprietarul să îşi fi dat acordul?',
     'nc04' => 'Este geocutia ascunsă într-un Parc Naţional, o rezervaţie, un monument, un cimitir sau în alte zone protejate prin lege?',
     'nc05' => 'Mai sunt şi alte geocutii în zonă, dacă da, este respectată distanţa minimă de 50 de metri?',

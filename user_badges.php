@@ -1,10 +1,10 @@
 <?php
 
-use lib\Objects\MeritBadge\MeritBadge;
-use lib\Controllers\MeritBadgeController;
+use src\Models\MeritBadge\MeritBadge;
+use src\Controllers\MeritBadgeController;
 
 require_once (__DIR__.'/lib/common.inc.php');
-require_once (__DIR__.'/tpl/stdstyle/user_badges.inc.php');
+require_once (__DIR__.'/src/Views/user_badges.inc.php');
 
 global $content_table;
 
@@ -26,7 +26,7 @@ if (isset($_REQUEST['user_id'])) {
     $userid = $usr['userid'];
 }
 
-$meritBadgeCtrl = new \lib\Controllers\MeritBadgeController;
+$meritBadgeCtrl = new \src\Controllers\MeritBadgeController;
 $userCategories = $meritBadgeCtrl->buildArrayUserCategories($userid);
 
 

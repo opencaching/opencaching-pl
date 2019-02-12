@@ -1,10 +1,10 @@
 <?php
 
-use Utils\Database\XDb;
-use lib\Objects\User\User;
-use Utils\Text\TextConverter;
-use lib\Objects\User\UserStats;
-use Utils\I18n\I18n;
+use src\Utils\Database\XDb;
+use src\Models\User\User;
+use src\Utils\Text\TextConverter;
+use src\Models\User\UserStats;
+use src\Utils\I18n\I18n;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
@@ -21,8 +21,8 @@ if ($error == false) {
         else
             tpl_set_var('reports', '');
 
-        require(__DIR__.'/tpl/stdstyle/myhome.inc.php');
-        require(__DIR__.'/tpl/stdstyle/lib/icons.inc.php');
+        require(__DIR__.'/src/Views/myhome.inc.php');
+        require(__DIR__.'/src/Views/lib/icons.inc.php');
 
         $tplname = 'myhome';
         tpl_set_var('username', htmlspecialchars($usr['username'], ENT_COMPAT, 'UTF-8'));

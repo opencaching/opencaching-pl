@@ -1,5 +1,5 @@
 <?php
-use Utils\Database\OcDb;
+use src\Utils\Database\OcDb;
 session_start();
 if(!isset($_SESSION['user_id'])){
     print 'no hacking please!';

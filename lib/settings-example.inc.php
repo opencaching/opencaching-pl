@@ -52,9 +52,6 @@ $absolute_server_URI = '//localhost/';
 
 // location for dynamically generated files
 $dynbasepath = '/var/www/ocpl-data/';
-$config['path']['dynamicFilesDir'] = '/var/www/ocpl-data/';
-
-$dynstylepath = $dynbasepath . 'tpl/stdstyle/html/';
 
 // location of cache images
 if (!isset($picdir))

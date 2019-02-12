@@ -1,16 +1,16 @@
 <?php
 
-use lib\Objects\GeoCache\GeoCacheLog;
-use Utils\Database\OcDb;
-use Utils\Database\XDb;
-use Utils\Text\Formatter;
-use Utils\I18n\I18n;
+use src\Models\GeoCache\GeoCacheLog;
+use src\Utils\Database\OcDb;
+use src\Utils\Database\XDb;
+use src\Utils\Text\Formatter;
+use src\Utils\I18n\I18n;
 
 global $usr;
 
 //include template handling
 require_once(__DIR__.'/lib/common.inc.php');
-require_once(__DIR__.'/tpl/stdstyle/lib/icons.inc.php');
+require_once(__DIR__.'/src/Views/lib/icons.inc.php');
 
 //user logged in?
 if ($usr == false) {
@@ -27,7 +27,7 @@ if ($usr == false) {
     }
     //get the news
     $tplname = 'mycaches';
-    require(__DIR__.'/tpl/stdstyle/newlogs.inc.php');
+    require(__DIR__.'/src/Views/newlogs.inc.php');
 
     $eLang = I18n::getLangForDbTranslations('cache_status');
 
@@ -222,8 +222,8 @@ if ($usr == false) {
         $table .= '<td style="width: 90px;">'.htmlspecialchars(Formatter::date($log_record['date_hidden']),
                 ENT_COMPAT, 'UTF-8').'</td>';
         $table .= '<td ><a href="editcache.php?cacheid='.htmlspecialchars($log_record['cache_id'], ENT_COMPAT,
-                'UTF-8').'"><img src="tpl/stdstyle/images/free_icons/pencil.png" alt="'.$edit_geocache_tr.'" title="'.$edit_geocache_tr.'"/></a></td>';
-        $table .= '<td ><img src="tpl/stdstyle/images/'.$log_record['cache_icon_small'].'" border="0" alt=""/></td>';
+                'UTF-8').'"><img src="images/free_icons/pencil.png" alt="'.$edit_geocache_tr.'" title="'.$edit_geocache_tr.'"/></a></td>';
+        $table .= '<td ><img src="/images/'.$log_record['cache_icon_small'].'" border="0" alt=""/></td>';
         $table .= '<td><b><a class="links" href="viewcache.php?cacheid='.htmlspecialchars($log_record['cache_id'],
                 ENT_COMPAT, 'UTF-8').'">'.htmlspecialchars($log_record['name'], ENT_COMPAT, 'UTF-8').'</a></b></td>';
         $table .= '<td align="right">&nbsp;'.intval($log_record['founds']).'&nbsp;</td>';
@@ -275,7 +275,7 @@ if ($usr == false) {
             } else {
                 $oznacz = '';
             }
-            $table .= '\',OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()"><img src="tpl/stdstyle/images/'.$logs['icon_small'].'" border="0" '.$oznacz.' alt=""/></a></b>';
+            $table .= '\',OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()"><img src="/images/'.$logs['icon_small'].'" border="0" '.$oznacz.' alt=""/></a></b>';
             if ($stat_cache == 1) { //obsluga DNF i serwisu tylko dla skrzynek aktywnych
                 if ($sprawdzaj < 2) { // sprawdzaj logi
                     if ($logs['log_type'] == 10) {
