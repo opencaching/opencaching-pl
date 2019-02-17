@@ -6,6 +6,7 @@ use src\Models\GeoCache\GeoCacheLog;
 use src\Models\GeoCache\GeoCacheLogCommons;
 use src\Models\GeoCache\GeoCacheCommons;
 use src\Models\GeoCache\GeoCache;
+use src\Utils\Database\QueryBuilder;
 
 /**
  * This class should contains mostly static, READ-ONLY queries
@@ -35,6 +36,23 @@ class MultiUserQueries extends BaseObject
                 UNION DISTINCT
                     SELECT DISTINCT user_id FROM caches
             ) AS activeUsers", 0);
+    }
+
+    public static function getCountOfNewUsers($year, $activeOnly=false)
+    {
+        $db = self::db();
+
+        $query = QueryBuilder::instance();
+
+        $query->select("COUNT(*) AS usersCount, MONTH(date_created) AS month")->from("user")->where("YEAR(date_created)", $year);
+
+        if($activeOnly) {
+            $query->where("is_active_flag", 1);
+        }
+        $query->groupBy("MONTH(date_created)");
+
+        $rs = $db->simpleQuery( $query->build() );
+        return $db->dbFetchAsKeyValArray($rs, "month", "usersCount");
     }
 
     public static function getUsersRegistratedCount($fromLastdays)
