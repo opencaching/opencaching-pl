@@ -189,7 +189,7 @@ class CookieBase
         $domain = (string) $domain;
 
         // if the cookie should be valid for the current host only
-        if ($domain === '') {
+        if (empty($domain)) {
             // no need for further normalization
             return null;
         }

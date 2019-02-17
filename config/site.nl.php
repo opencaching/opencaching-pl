@@ -24,3 +24,8 @@ $site['pageTitle'] = 'Opencaching.nl';
  * @see https://wiki.opencaching.eu/index.php?title=Node_IDs
  */
 $site['ocNodeId'] = 14;
+
+/**
+ * Site main domain - this shoudl be only main part of domain eg. opencaching.pl for OCPL
+ */
+$site['mainDomain'] = 'opencaching.nl';
