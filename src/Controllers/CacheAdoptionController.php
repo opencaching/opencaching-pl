@@ -1,5 +1,4 @@
 <?php
-
 namespace src\Controllers;
 
 use src\Models\User\User;
@@ -9,6 +8,7 @@ use src\Utils\Database\OcDb;
 use src\Utils\Uri\Uri;
 use src\Utils\Generators\Uuid;
 use src\Models\OcConfig\OcConfig;
+use src\Utils\Uri\SimpleRouter;
 
 class CacheAdoptionController extends BaseController
 {
@@ -24,6 +24,9 @@ class CacheAdoptionController extends BaseController
     {
         parent::__construct();
 
+        // check if user is authorized
+        $this->redirectNotLoggedUsers();
+
         $this->db = OcDb::instance(); //TODO: create model for cacheAdoption...
     }
 
@@ -34,78 +37,45 @@ class CacheAdoptionController extends BaseController
     }
 
     /**
-     * This method allow user to:
-     * - create adoption offer
-     * - accept or refuse offer from other users
-     * - abort adoption offer created before
-     *
+     * This is default view - print list of adoption offers for current user + caches owned by current user
      */
     public function index()
     {
 
-        // check if user is authorized
-        $this->redirectNotLoggedUsers();
+        // print list of caches which are offered for current user
+        if ( $this->loggedUser->isAdoptionApplicable() ) {
 
-        if (isset($_GET['action']) ) {
+            // there are caches which are waiting for this user adoption decision
+            $this->view->setVar('adoptionOffers', $this->getAdoptionOffers() );
 
-            if (isset ( $_REQUEST['cacheid'] ) ) {
-
-                // retrive cache information
-                /* @var $cacheObj GeoCache */
-                $cacheObj = GeoCache::fromCacheIdFactory( $_REQUEST['cacheid'] );
-
-                switch($_GET['action']) {
-                    case 'accept':
-                        $this->actionAccept($cacheObj);
-                        break;
-                    case 'refuse':
-                        $this->actionRefuse($cacheObj);
-                        break;
-                    case 'abort':
-                        $this->actionAbort($cacheObj);
-                        break;
-                    case 'selectUser':
-                        $this->actionSelectUser($cacheObj);
-                        break;
-                    case 'addAdoptionOffer':
-                        if (isset( $_POST['username'] ) ) {
-
-                            /* @var User */
-                            $newUserObj = User::fromUsernameFactory($_POST['username']);
-                            if (! $newUserObj) {
-
-                                // no such user or different error during loading from DB
-                                $this->errorMsg = str_replace('{userName}', $_POST['username'], tr('adopt_23'));
-
-                            } else {
-                                $this->actionAddAdoptionOffer($newUserObj, $cacheObj);
-                            }
-
-                        } else {
-                            $this->errorMsg = str_replace('{userName}', $_POST['username'], tr('adopt_23'));
-                        }
-                        break;
-                    default:
-                        header("Location: chowner.php");
-                        exit;
-                }
-            } else {
-                header("Location: chowner.php");
-                exit;
-            }
+        } else {
+            // there are caches which are waiting for this user adoption decision
+            $this->view->setVar('adoptionOffers',  null);
+            $this->infoMsg = tr('adopt_02');
         }
 
-        //display main view after all...
-        $this->mainView();
+        // print list of caches own by current user which user can offer for adoption
+        $this->view->setVar('userCaches', $this->getUserCaches());
+
+        $this->view->setTemplate('cacheAdoption/cacheList');
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/views/cacheAdoption/cacheAdoption.css'));
+
+        $this->view->setVar('errorMsg', $this->errorMsg);
+        $this->view->setVar('infoMsg', $this->infoMsg);
+
+        $this->view->buildView();
     }
-
-
 
     /**
      * accept geocache
      */
-    private function actionAccept(GeoCache $cacheObj)
+    public function accept( $cacheId )
     {
+
+        if( is_null($cacheObj = GeoCache::fromCacheIdFactory( $cacheId )) ){
+            $this->index();
+            return;
+        }
 
         //check if current user is able to accept cache and has this offer
         if (! $this->loggedUser->isAdoptionApplicable() ||
@@ -114,8 +84,8 @@ class CacheAdoptionController extends BaseController
                 // it shouldn't happens - someone try to hack smth?!
 
                 // redirect to main script
-                header("Location: chowner.php");
-                return;
+                $this->view->redirect(SimpleRouter::getLink(self::class));
+                exit;
         }
 
         // owner changing
@@ -143,8 +113,8 @@ class CacheAdoptionController extends BaseController
             $cacheObj->getCacheId(), $this->loggedUser->getUserId());
 
         // this should be kept consistent by a trigger
-        // $q = "UPDATE user SET hidden_count = hidden_count - 1 WHERE user_id = $oldUserId";
-        // $q = "UPDATE user SET hidden_count = hidden_count + 1 WHERE user_id = $newUserId";
+        // "UPDATE user SET hidden_count = hidden_count - 1 WHERE user_id = $oldUserId";
+        // "UPDATE user SET hidden_count = hidden_count + 1 WHERE user_id = $newUserId";
 
         // put log into cache logs.
 
@@ -184,25 +154,33 @@ class CacheAdoptionController extends BaseController
         EmailSender::sendAdoptionSuccessMessage(__DIR__.'/../../resources/email/adoption.email.html',
             $cacheObj->getCacheName(), $this->loggedUser->getUserName(), $oldOwner->getUserName(), $oldOwner->getEmail());
 
+
+        $this->index();
+
     }
 
     /**
      * adoption offer was refused
      */
-    private function actionRefuse(GeoCache $cacheObj)
+    public function refuse($cacheId)
     {
+        if( is_null($cacheObj = GeoCache::fromCacheIdFactory( $cacheId )) ){
+            // redirect to main script
+            $this->view->redirect(SimpleRouter::getLink(self::class));
+            exit;
+        }
 
         // first check if this offer can be refused by this user
         if (!$this->checkOffer($cacheObj, $this->loggedUser)) {
             // it shouldn't happens - someone try to hack smth?!
 
             // redirect to main script
-            header("Location: chowner.php");
-            return;
+            $this->view->redirect(SimpleRouter::getLink(self::class));
+            exit;
         }
 
         // user refused to adopt this cache
-        $s = $this->db->multiVariableQuery(
+        $this->db->multiVariableQuery(
             "DELETE FROM chowner WHERE cache_id = :1", $cacheObj->getCacheId());
 
         $oldOwner = User::fromUserIdFactory($cacheObj->getOwnerId());
@@ -212,39 +190,62 @@ class CacheAdoptionController extends BaseController
             EmailSender::sendAdoptionRefusedMessage(__DIR__.'/../../resources/email/adoption.email.html',
                 $cacheObj->getCacheName(), $this->loggedUser->getUserName(), $oldOwner->getUserName(), $oldOwner->getEmail());
         }
+
+        $this->index();
     }
 
     /**
      * adoption offer was canceled
      */
-    private function actionAbort(GeoCache $cacheObj)
+    public function abort($cacheId)
     {
+        if( is_null($cacheObj = GeoCache::fromCacheIdFactory( $cacheId )) ){
+            // redirect to main script
+            $this->view->redirect(SimpleRouter::getLink(self::class));
+            exit;
+        }
 
         // check if current user is an owner of selected cache
         if ($this->loggedUser->getUserId() == $cacheObj->getOwnerId() ) {
 
             // old owner of the cache cancel adoption offer
-            $s = $this->db->multiVariableQuery(
+            $this->db->multiVariableQuery(
                 "DELETE FROM chowner WHERE cache_id = :1", $cacheObj->getCacheId() );
 
             $this->infoMsg = tr('adopt_16');
         } else {
             $this->errorMsg = tr('adopt_35_notOwner');
         }
+
+        // redirect to main script
+        $this->view->redirect(SimpleRouter::getLink(self::class));
+        exit;
     }
 
     /**
      * user created new adoption offer - save it!
      */
-    private function actionAddAdoptionOffer(User $newUserObj, GeoCache $cacheObj)
+    public function addAdoptionOffer($cacheId)
     {
+        $cacheObj = GeoCache::fromCacheIdFactory($cacheId);
+        if(is_null($cacheObj)){
+            $this->index();
+            exit;
+        }
+
+        if( !isset( $_POST['username']) || is_null($newUserObj = User::fromUsernameFactory($_POST['username']) ) ) {
+            // redirect to main script
+            $this->view->redirect(SimpleRouter::getLink(self::class));
+            exit;
+        }
+
         //first check if current user is an owner of cache for adoption
         if ($this->loggedUser->getUserId() != $cacheObj->getOwnerId() ) {
             //it shouldn't happens - someone hack us?!
 
             // redirect to main script
-            header("Location: chowner.php");
-            return;
+            $this->view->redirect(SimpleRouter::getLink(self::class));
+            exit;
         }
 
         // check if the new owner is not the old owner :)
@@ -258,13 +259,15 @@ class CacheAdoptionController extends BaseController
             //check if user is able to adopt caches
             if (!$newUserObj->isAdoptionApplicable()) {
                 $this->errorMsg = tr('adopt_34');
-                return;
+                $this->index();
+                exit;
             }
 
             //check if there is no such offer
             if ($this->checkOffer( $cacheObj )) {
                 $this->errorMsg = "There is such adoption offer already!";
-                return;
+                $this->index();
+                exit;
             }
 
             $stmt = $this->db->multiVariableQuery(
@@ -279,55 +282,31 @@ class CacheAdoptionController extends BaseController
                 $this->errorMsg = tr('adopt_22');
             }
         }
+
+        $this->index();
     }
 
     /**
      *  Display view which allow to select user for the new cache adoption offer
      *  TODO: it should be done in dialog instead of new view
      */
-    private function actionSelectUser(GeoCache $cacheObj)
+    public function selectUser($cacheId)
     {
-        tpl_set_tplname('cacheAdoption/chooseUser');
-
-        tpl_set_var ( 'cachename', $cacheObj->getCacheName() );
-        tpl_set_var ( 'cacheid', $cacheObj->getCacheId() );
-        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/views/cacheAdoption/cacheAdoption.css'));
-
-        tpl_BuildTemplate();
-        exit;
-    }
-
-    /**
-     * This is default view - print list of adoption offers for current user + caches owned by current user
-     */
-    public function mainView()
-    {
-
-        // print list of caches which are offered for current user
-        if ( $this->loggedUser->isAdoptionApplicable() ) {
-
-            // there are caches which are waiting for this user adoption decision
-            $this->view->setVar('adoptionOffers', $this->getAdoptionOffers() );
-
-        } else {
-            // there are caches which are waiting for this user adoption decision
-            $this->view->setVar('adoptionOffers',  null);
-            $this->infoMsg = tr('adopt_02');
+        $cacheObj = GeoCache::fromCacheIdFactory($cacheId);
+        if(is_null($cacheObj)){
+            $this->index();
+            exit;
         }
 
-        // print list of caches own by current user which user can offer for adoption
-
-        $this->view->setVar('userCaches', $this->getUserCaches());
-
-        tpl_set_tplname('cacheAdoption/cacheList');
+        $this->view->setTemplate('cacheAdoption/chooseUser');
         $this->view->addLocalCss(Uri::getLinkWithModificationTime('/views/cacheAdoption/cacheAdoption.css'));
 
-        $this->view->setVar('errorMsg', $this->errorMsg);
-        $this->view->setVar('infoMsg', $this->infoMsg);
+        $this->view->setVar('listOfCachesUrl', SimpleRouter::getLink(CacheAdoptionController::class));
+        $this->view->setVar('cacheObj', $cacheObj);
 
-        tpl_BuildTemplate();
+        $this->view->buildView();
+        exit;
     }
-
 
     /**
      * // check if there is an adoption offer for this cache and this user
@@ -338,7 +317,6 @@ class CacheAdoptionController extends BaseController
      */
     private function checkOffer(GeoCache $cacheObj, User $userObj = null)
     {
-
         if ($userObj == null) {
             $offers = $this->db->multiVariableQueryValue(
                 "SELECT COUNT(*) FROM chowner WHERE cache_id = :1 LIMIT 1",
@@ -353,9 +331,9 @@ class CacheAdoptionController extends BaseController
 
     private function getUserCaches()
     {
-
         // lists all approved caches belonging to user + id of adoption offer (if present)
-        $rs = $this->db->multiVariableQuery(
+        return $this->db->dbResultFetchAll(
+            $this->db->multiVariableQuery(
             "SELECT c.cache_id, name, chowner.id AS adoptionOfferId, username AS offeredToUserName
              FROM caches AS c LEFT JOIN chowner
                 ON chowner.cache_id = c.cache_id
@@ -363,23 +341,19 @@ class CacheAdoptionController extends BaseController
              WHERE c.user_id= :1
                 AND status <> 4
              ORDER BY name",
-            $this->loggedUser->getUserId() );
-
-        return $this->db->dbResultFetchAll($rs);
+            $this->loggedUser->getUserId() ));
     }
 
     private function getAdoptionOffers()
     {
-
-        $rs = $this->db->multiVariableQuery(
+        return $this->db->dbResultFetchAll(
+            $this->db->multiVariableQuery(
             "SELECT cache_id, name, date_hidden, username AS offeredFromUserName
             FROM caches LEFT JOIN user
                 ON caches.user_id = user.user_id
             WHERE cache_id IN (
                 SELECT cache_id FROM chowner WHERE user_id = :1
             )",
-            $this->loggedUser->getUserId());
-
-        return $this->db->dbResultFetchAll($rs);
+            $this->loggedUser->getUserId()));
     }
 }

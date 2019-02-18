@@ -924,7 +924,7 @@ $translations = array(
     'adopt_02' => 'Nie możesz adoptować skrzynek',
     'adopt_03' => 'Nie masz skrzynek, które można przekazać do adopcji',
     'adopt_04' => 'Przekazujesz skrzynkę:',
-    'adopt_05' => 'Proszę wpisać nazwę użytkownika, który ma stać się nowym właścicielem Twojej skrzynki. Gdy tylko potwierdzi on chęć przejęcia skrzynki, procedura zostanie zakończona.<br/>Aby unieważnić prośbę o zmianę właściciela, wróć do <a href="chowner.php">listy skrzynek</a> i wybierz odnośnik "Anuluj przekazanie".',
+    'adopt_05' => 'Proszę wpisać nazwę użytkownika, który ma stać się nowym właścicielem Twojej skrzynki. Gdy tylko potwierdzi on chęć przejęcia skrzynki, procedura zostanie zakończona.<br/>Aby unieważnić prośbę o zmianę właściciela, wróć do <a href="%s">listy skrzynek</a> i wybierz odnośnik "Anuluj przekazanie".',
     'adopt_06' => 'UWAGA! Opcja ta będzie aktywna, dopóki nowy właściciel nie potwierdzi zmiany.',
     'adopt_07' => 'Podaj nazwę nowego właściciela:',
     'adopt_08' => 'Zmień właściciela',

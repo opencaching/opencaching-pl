@@ -924,7 +924,7 @@ $translations = array(
     'adopt_02' => 'Du darfst keine Caches adoptieren.',
     'adopt_03' => 'Du besitzt keine Caches, die du zur Adoption anbieten könntest.',
     'adopt_04' => 'Cache zur Adoption anbieten:',
-    'adopt_05' => 'Gib den Name des Benutzers an, dem du den Cache anbieten möchtest. Er muss die Adoption anschließend bestätigen, um sie abzuschließen.<br/><br /><a class="btn btn-default btn-sm" href="chowner.php">Vorgang abbrechen</a>',
+    'adopt_05' => 'Gib den Name des Benutzers an, dem du den Cache anbieten möchtest. Er muss die Adoption anschließend bestätigen, um sie abzuschließen.<br/><br /><a class="btn btn-default btn-sm" href="%s">Vorgang abbrechen</a>',
     'adopt_06' => 'Das Adoptionangebot bleibt so lange offen, bis der neue Besitzer es akzeptiert hat oder du es zurückziehst.',
     'adopt_07' => 'Name des neuen Besitzers:',
     'adopt_08' => 'Cache zur Adoption anbieten',

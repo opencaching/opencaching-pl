@@ -924,7 +924,7 @@ $translations = array(
     'adopt_02' => 'Nu ai dreptul să adoptezi geocutii.',
     'adopt_03' => 'Nu ai nici o geocutie de oferit spre adopţie',
     'adopt_04' => 'Această geocutie va fi dată spre adopţie:',
-    'adopt_05' => 'Introdu numele utilizatorului căruia îi dai geocutia. Procedura se încheie atunci când utilizatorul confirmă.<br/>Renunţă la această adopţie şi revin-o la <a href="chowner.php"> "Adopţii geocutii" </a>.',
+    'adopt_05' => 'Introdu numele utilizatorului căruia îi dai geocutia. Procedura se încheie atunci când utilizatorul confirmă.<br/>Renunţă la această adopţie şi revin-o la <a href="%s"> "Adopţii geocutii" </a>.',
     'adopt_06' => 'ATENŢIE!!! Cererea de adopţie rămâne valabilă până când noul proprietar face ceva.',
     'adopt_07' => 'Introdu numele noului proprietar:',
     'adopt_08' => 'Schimbă proprietarul',

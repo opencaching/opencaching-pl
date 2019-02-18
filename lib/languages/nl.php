@@ -924,7 +924,7 @@ $translations = array(
     'adopt_02' => 'Je kunt nog geen caches adopteren.',
     'adopt_03' => 'Je hebt nog geen caches om ter adoptie aan te bieden',
     'adopt_04' => 'Deze cache wordt ter adoptie aangeboden:',
-    'adopt_05' => 'Voer de gebruikersnaam in die de cache adopteert. Zodra deze gebruiker bevestigt, is de procedure voltooid.<br/>Annuleer om terug te keren naar <a href="chowner.php"> "Cache adoptie" </a>.',
+    'adopt_05' => 'Voer de gebruikersnaam in die de cache adopteert. Zodra deze gebruiker bevestigt, is de procedure voltooid.<br/>Annuleer om terug te keren naar <a href="%s"> "Cache adoptie" </a>.',
     'adopt_06' => 'Deze adoptie blijft open staan zolang de nieuwe eigenaar niet reageert of de adoptie wordt geannuleerd.',
     'adopt_07' => 'Voer de naam in van de nieuwe eigenaar:',
     'adopt_08' => 'Wijzig eigenaar',

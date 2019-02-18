@@ -924,7 +924,7 @@ $translations = array(
     'adopt_02' => 'You are not allowed to adopt caches.',
     'adopt_03' => 'You do not have any caches to offer for adoption',
     'adopt_04' => 'Offer cache for adoption:',
-    'adopt_05' => 'Enter the username who will adopt the cache. Once the user confirms, the procedure is complete.<br/>Cancel the adoption and return to <a href="chowner.php"> "Cache adoption" </a>.',
+    'adopt_05' => 'Enter the username who will adopt the cache. Once the user confirms, the procedure is complete.<br/>Cancel the adoption and return to <a href="%s"> "Cache adoption" </a>.',
     'adopt_06' => 'This adoption remains open for as long as the new owner does not react or the adoption offer is cancelled.',
     'adopt_07' => 'Enter the name of the new owner:',
     'adopt_08' => 'Offer cache for adoption',

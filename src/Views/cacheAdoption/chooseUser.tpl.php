@@ -1,13 +1,21 @@
+<?php
+use src\Utils\Uri\SimpleRouter;
+use src\Controllers\CacheAdoptionController;
+?>
 
 <div class="content2-pagetitle">
-    <img src="/images/blue/email.png" class="icon32" align="middle" alt="email" />
     {{adopt_04}}
-    <a href="viewcache.php?cacheid={cacheid}">{cachename}</a>
+    <a href="<?=$view->cacheObj->getCacheUrl()?>"><?=$view->cacheObj->getCacheName()?></a>
 </div>
 
-<form action="chowner.php?action=addAdoptionOffer" method="post">
+<form
+  action="<?=SimpleRouter::getLink(
+      CacheAdoptionController::class,
+      'addAdoptionOffer',
+      $view->cacheObj->getCacheId())?>"
+  method="post">
     <div>
-      <p>{{adopt_05}}</p>
+      <p><?=tr('adopt_05',[$view->listOfCachesUrl])?></p>
     </div>
 
     <div class="alertMsg">
@@ -20,5 +28,4 @@
         <input type="submit" class="btn btn-sm btn-primary" value="{{adopt_08}}" />
     </div>
 
-    <input type="hidden" name ="cacheid" value="{cacheid}" />
 </form>
