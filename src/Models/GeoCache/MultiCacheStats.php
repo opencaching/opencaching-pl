@@ -138,6 +138,31 @@ class MultiCacheStats extends BaseObject
             )", 0);
     }
 
+    public static function getNewCachesCountMonthly($year)
+    {
+        $db = self::db();
+        $year = (int) $year;
+
+        $countedStatuses = implode(',',[
+            GeoCache::STATUS_ARCHIVED,
+            GeoCache::STATUS_UNAVAILABLE,
+            GeoCache::STATUS_READY
+        ]);
+
+        $rs = $db->multiVariableQuery(
+            "SELECT COUNT(*) AS newCaches, adm3 AS region
+            FROM caches JOIN cache_location USING (cache_id)
+            WHERE status IN ($countedStatuses)
+            AND YEAR(date_published) = :1
+            GROUP BY adm3
+            ORDER BY newCaches DESC", $year);
+
+        return $db->dbFetchAsKeyValArray($rs, "region", "newCaches");
+
+    }
+
+
+
     /**
      * Return array of Geocaches based on given cache Ids
      * @param array $cacheIds

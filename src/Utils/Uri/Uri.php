@@ -1,6 +1,8 @@
 <?php
 namespace src\Utils\Uri;
 
+use src\Models\OcConfig\OcConfig;
+
 class Uri {
 
     /**
@@ -117,11 +119,32 @@ class Uri {
      * Return current domain used by server
      * for example: opencaching.pl
      *
-     * @return string
+     * IMPORTANT: Returned value can't be trust - it can be spoofed by malicious or broken request
+     *
+     * @param $verifyDomain - allow to skip domain verification if this is not a necessary for usage case
+     *
+     * @return string|null
      */
-    public static function getCurrentDomain()
+    public static function getCurrentDomain($verifyDomain = true)
     {
-        return $_SERVER['HTTP_HOST'];
+        if(!isset($_SERVER['HTTP_HOST'])){
+            // HOST not set in request - just ignore the domain
+            return null;
+        }
+
+        $domain = $_SERVER['HTTP_HOST'];
+
+        if (!$verifyDomain) {
+            return $domain;
+        }
+
+        // main domain or any its subdomain
+        $domainRegex = "/([a-z0-9|-]+\.)*".OcConfig::getSiteMainDomain()."$/";
+        if(preg_match($domainRegex, $domain)){
+            return $domain;
+        } else {
+            return null;
+        }
     }
 
     /**

@@ -39,6 +39,17 @@ trait SiteConfigTrait {
     }
 
     /**
+     * Returns nodeId from config
+     * Possible values: @see https://wiki.opencaching.eu/index.php?title=Node_IDs
+     *
+     * @return string
+     */
+    public static function getSiteMainDomain()
+    {
+        return self::getSiteVar('mainDomain');
+    }
+
+    /**
      * Retruns the list of primaryCountries
      *
      * @return array

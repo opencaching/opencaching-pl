@@ -18,4 +18,9 @@ class Year
         //return TRUE;
         return (date('m') == 4) && ( date('d') == 1);
     }
+
+    public static function current()
+    {
+        return date("Y");
+    }
 }

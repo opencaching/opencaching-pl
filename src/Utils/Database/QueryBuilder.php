@@ -30,11 +30,14 @@ class QueryBuilder
     private $fromTable;
     private $wheres = [];
     private $joins = [];
+    private $groupBy = [];
 
     private $columns = "*";
 
     private $limit = null;
     private $offset = null;
+
+
 
 
     public function __construct()
@@ -90,9 +93,14 @@ class QueryBuilder
     {
         if(!empty($arrayOfValues)){
             $queryStr = self::escapeStr(implode(',',$arrayOfValues));
-            $this->where[] = "$column IN ($queryStr)";
+            $this->wheres[] = "$column IN ($queryStr)";
         }
         return $this;
+    }
+
+    public function groupBy($column)
+    {
+        $this->groupBy[] = $column;
     }
 
     public function limit($limit=null, $offset=null)
@@ -113,8 +121,16 @@ class QueryBuilder
 
     private function getWhereString()
     {
-        if(!empty($this->where)){
-            return ' WHERE '.implode(' AND ', $this->where);
+        if(!empty($this->wheres)){
+            return ' WHERE '.implode(' AND ', $this->wheres);
+        }
+        return '';
+    }
+
+    private function getGroupByString()
+    {
+        if(!empty($this->groupBy)){
+            return ' GROUP BY '.implode(',', $this->groupBy);
         }
         return '';
     }
@@ -136,6 +152,7 @@ class QueryBuilder
         $result .= " ".$this->columns;
         $result .= $this->getFromString();
         $result .= $this->getWhereString();
+        $result .= $this->getGroupByString();
         $result .= $this->getLimitString();
         return $result;
     }
