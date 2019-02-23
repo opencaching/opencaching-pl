@@ -10,6 +10,7 @@ use src\Models\User\MultiUserQueries;
 use src\Models\User\User;
 use src\Utils\EventHandler\EventHandler;
 use src\Utils\I18n\I18n;
+use src\Models\User\UserWatchedCache;
 
 /**
  * Description of geoCache
@@ -1557,9 +1558,7 @@ class GeoCache extends GeoCacheCommons
      */
     public function isWatchedBy($userId)
     {
-        return '1' == XDb::xMultiVariableQueryValue(
-            "SELECT 1 FROM cache_watches WHERE cache_id=:1 AND user_id=:2 LIMIT 1",
-            0, $this->id, $userId);
+        return UserWatchedCache::isCacheWatchedByUser($this->getCacheId(), $userId);
     }
 
     /**

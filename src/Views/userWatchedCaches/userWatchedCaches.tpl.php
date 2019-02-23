@@ -1,5 +1,6 @@
 <?php
 use src\Utils\Uri\SimpleRouter;
+use src\Controllers\UserWatchedCachesController;
 
 ?>
 <div class="content2-container">
@@ -7,7 +8,8 @@ use src\Utils\Uri\SimpleRouter;
     <div class="align-right">
       <a href="<?=SimpleRouter::getLink('UserProfile', 'notifySettings')?>" class="btn btn-default btn-sm">
         <?=tr('settings_notifications')?></a>
-      <a class="btn btn-default btn-sm" href="/mywatches.php?action=map">
+      <a class="btn btn-default btn-sm"
+         href="<?=SimpleRouter::getLink(UserWatchedCachesController::class, 'mapOfWatches')?>">
         <?=tr('map_watched_caches')?></a>
     </div>
 
@@ -52,18 +54,18 @@ use src\Utils\Uri\SimpleRouter;
 
         var jQueryIcon = $(icon);
 
-        jQueryIcon.attr("src", "images/loader/spinning-circles.svg");
+        jQueryIcon.attr("src", "/images/loader/spinning-circles.svg");
         jQueryIcon.attr("title", "<?=tr('usrWatch_removeWatched')?>");
 
         $.ajax({
           type:  "get",
           cache: false,
-          url:   "mywatches.php?action=remove&cacheWp="+cacheWp,
+          url:   "/UserWatchedCaches/removeFromWatchesAjax/"+cacheWp,
           error: function (xhr) {
 
               console.log("removedFromWatched: " + xhr.responseText);
 
-              jQueryIcon.attr("src", "images/redcross.gif");
+              jQueryIcon.attr("src", "/images/redcross.gif");
               jQueryIcon.attr("title", "<?=tr('usrWatch_removingError')?>");
           },
           success: function (data, status) {

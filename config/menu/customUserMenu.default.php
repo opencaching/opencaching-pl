@@ -5,6 +5,7 @@ use src\Utils\Uri\SimpleRouter;
 use src\Controllers\CacheNotesController;
 use src\Utils\I18n\I18n;
 use src\Controllers\UserIgnoredCachesController;
+use src\Controllers\UserWatchedCachesController;
 
 /**
  * This is simple configuration of links presented in sidebar of the page
@@ -32,7 +33,7 @@ $menu = [ // DON'T CHANGE $menu var name!
 
     'mnu_myRoutes'      => '/myroutes.php',
     'mnu_myCacheNotes'  => SimpleRouter::getLink(CacheNotesController::class),
-    'mnu_watchedCaches' => '/mywatches.php',
+    'mnu_watchedCaches' => SimpleRouter::getLink(UserWatchedCachesController::class),
     'mnu_ignoredCaches' => SimpleRouter::getLink(UserIgnoredCachesController::class),
     'mnu_myRecommends'  => SimpleRouter::getLink(MyRecommendationsController::class, 'recommendations'),
     'mnu_savedQueries'  => '/query.php',

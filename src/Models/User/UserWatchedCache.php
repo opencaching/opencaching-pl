@@ -6,6 +6,13 @@ use src\Models\BaseObject;
 
 class UserWatchedCache extends BaseObject
 {
+    public static function isCacheWatchedByUser($cacheId, $userId)
+    {
+        return '1' == self::db()->multiVariableQueryValue(
+            "SELECT 1 FROM cache_watches WHERE cache_id=:1 AND user_id=:2 LIMIT 1",
+            0, $cacheId, $userId);
+    }
+
     public static function addCacheToWatched($userId, $cacheWp){
         $params = [
             'cache_code' => $cacheWp,

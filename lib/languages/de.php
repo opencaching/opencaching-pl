@@ -2241,7 +2241,7 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'notify_freq' => 'Benachrichtigungseinstellungen',
     'notify_radius' => 'Benachrichtigungsradius ändern',
 
-    'notify_settings_intro' => 'Wenn du <a href="/MyNeighbourhood/index">deine Umgebung</a> festgelegt hast, kann {site_name} dich über neue Caches in dieser Gegend benachrichtigen. Außerdem sind Benachrichtigungen über Logs für <a href="/mywatches.php">beobachtete Caches</a> möglich. Hier kannst du auswählen, wie häufig und worüber du benachrichtigt werden möchtest.',
+    'notify_settings_intro' => 'Wenn du <a href="/MyNeighbourhood/index">deine Umgebung</a> festgelegt hast, kann {site_name} dich über neue Caches in dieser Gegend benachrichtigen. Außerdem sind Benachrichtigungen über Logs für <a href="/UserWatchedCaches">beobachtete Caches</a> möglich. Hier kannst du auswählen, wie häufig und worüber du benachrichtigt werden möchtest.',
     'notify_settings_freq' => 'Häufigkeit der Benachrichtigungen',
     'notify_settings_freq2' => 'Benachrichtigungen senden:',
     'notify_settings_caches' => 'Benachrichtigungen über neue Caches',
