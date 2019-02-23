@@ -6,6 +6,7 @@ use src\Utils\Uri\SimpleRouter;
 use src\Utils\Text\UserInputFilter;
 use src\Utils\Text\Formatter;
 use src\Controllers\MainMapController;
+use src\Controllers\ViewCacheController;
 ?>
 <link rel="stylesheet" href="/css/lightTooltip.css">
 
@@ -537,11 +538,14 @@ use src\Controllers\MainMapController;
         <?php } //foreach-available-desc-langs ?>
     </span>
     <?php if ($view->isAdminAuthorized) { ?>
-        <a class="btn btn-sm btn-default" href="add_octeam_comment.php?cacheid=<?=$view->geoCache->getCacheId()?>">
+        <a class="btn btn-sm btn-default" href="<?=SimpleRouter::getLink(
+               ViewCacheController::class, 'ocTeamCommentForm', $view->geoCache->getCacheId())?>">
             <?=tr('add_rr_comment')?>
         </a>
-        <a class="btn btn-sm btn-default" href="viewcache.php?cacheid=<?=$view->geoCache->getCacheId()?>&amp;rmAdminComment=1"
-            onclick="return confirm('<?=tr("confirm_remove_rr_comment")?>');"><?=tr('remove_rr_comment')?>
+        <a class="btn btn-sm btn-default"
+              href="<?=SimpleRouter::getLink(ViewCacheController::class, 'rmOcTeamComments', $view->geoCache->getCacheId())?>"
+              onclick="return confirm('<?=tr("confirm_remove_rr_comment")?>');">
+           <?=tr('remove_rr_comment')?>
         </a>
     <?php } //if-admin-authorized ?>
 </div>
