@@ -107,7 +107,6 @@ $translations = array(
     'map_watched_caches' => 'Harta geocutiilor urmărite',
     'settings' => 'Setări',
     'settings_notifications' => 'Notificări',
-    'ignored_caches' => 'Geocutii ignorate',
     'my_recommendations' => 'Recomandările mele',
     'search_cache' => 'Caută o geocutie',
     'caches' => 'Geocutii',
@@ -681,8 +680,6 @@ $translations = array(
     'old_options' => 'Old search query overwritten',
     'select_queries' => 'Select stored query to overwrite',
     'last_found' => 'Ultima găsire',
-    'off_ignore' => 'Anulează ignorarea',
-    'no_ignores' => 'Nu ai geocutii ignorate în listă.',
     'oc_stat' => 'Statistici geocutii pe {site_name}',
     'administration' => 'ADMINISTRARE',
     'cache_notfound' => 'Not found geocache',
@@ -1894,7 +1891,6 @@ $translations = array(
     'usrWatch_removingError' => 'Eroare la scoaterea din lista celor urmărite!',
     'usrWatch_removingSuccess' => 'Geocutia a fost scoasă din lista celor urmărite.',
 
-    'myignores_1' => 'Vrei să anulezi ignorarea acestei geocutii?',
     'myviewqueries_1' => 'Vrei să ştergi această colecţie de căutări?',
     'search_gpxgc_01' => 'ATENŢIE! Ai nevoie de o PAROLĂ ca să-ţi anunţi găsirea. Trebuie s-o găseşti în cutie (ţine minte să ţi-o notezi) sau să o obţii din altă parte, vezi descrierea!!!',
     'search_gpxgc_02' => 'Personal cache note',
@@ -2923,4 +2919,8 @@ $translations = array(
     'mobile_skip_inactive' => 'inactivă',
     'mobile_404_title' => 'eroare 404',
     'mobile_404_text' => 'pagina nu a fost găsită',
+
+    'usrIgnore_ignored_caches' => 'Geocutii ignorate',
+    'usrIgnore_off_ignore' => 'Anulează ignorarea',
+    'usrIgnore_no_ignores' => 'Nu ai geocutii ignorate în listă.',
 );

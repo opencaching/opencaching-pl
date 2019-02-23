@@ -107,7 +107,6 @@ $translations = array(
     'map_watched_caches' => 'Karte der beobachteten Caches',
     'settings' => 'Einstellungen',
     'settings_notifications' => 'Benachrichtigungseinstellungen',
-    'ignored_caches' => 'Ignorierte Caches',
     'my_recommendations' => 'Meine Empfehlungen',
     'search_cache' => 'Caches suchen',
     'caches' => 'Geocaches',
@@ -681,8 +680,6 @@ $translations = array(
     'old_options' => 'Zu überschreibende Suche',
     'select_queries' => 'Wähle die zu überschreibende Suche',
     'last_found' => 'Letzter Fund',
-    'off_ignore' => 'Nicht mehr ignorieren',
-    'no_ignores' => 'Du ignorierst keine Caches',
     'oc_stat' => '{site_name}-Cachestatistik',
     'administration' => 'OC-Verwaltung',
     'cache_notfound' => 'Nicht gefundene Caches',
@@ -1894,7 +1891,6 @@ $translations = array(
     'usrWatch_removingError' => 'Interner Fehler beim Entfernen von der Beobachtungsliste',
     'usrWatch_removingSuccess' => 'Cache wurde von der Beobachtungsliste entfernt.',
 
-    'myignores_1' => 'Cache nicht mehr ignorieren?',
     'myviewqueries_1' => 'Gespeicherte Suche löschen?',
     'search_gpxgc_01' => 'ACHTUNG! Um diesen Cache als „gefunden“ zu loggen, benötigst du ein KENNWORT. Du findest es entweder im oder am Cache oder kannst es anhand der Cachebeschreibung ermitteln.',
     'search_gpxgc_02' => 'Persönliche Notiz',
@@ -2924,4 +2920,8 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'mobile_skip_inactive' => 'inaktive',
     'mobile_404_title' => 'Fehler 404',
     'mobile_404_text' => 'Datei nicht gefunden',
+
+    'usrIgnore_ignored_caches' => 'Ignorierte Caches',
+    'usrIgnore_off_ignore' => 'Nicht mehr ignorieren',
+    'usrIgnore_no_ignores' => 'Du ignorierst keine Caches',
 );

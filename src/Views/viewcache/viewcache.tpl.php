@@ -40,16 +40,23 @@ use src\Controllers\ViewCacheController;
                         <input type="checkbox" onclick="watchIt(this)"
                               value="<?=$view->geoCache->getWaypointId()?>"
                               <?=($view->watched)?'checked':''?> >
-                        <img src="images/actions/watch-16.png" alt="">&nbsp;
+                        <img src="/images/actions/watch-16.png" alt="">&nbsp;
                         <span class="checkedLabel"><?=tr('watch_not')?></span>
                         <span class="uncheckedLabel"><?=tr('watch')?></span>
                     </label>
                 <?php } //if-showWatchButton ?>
+
                 <?php if ($view->showIgnoreButton) { ?>
-                    <a class="btn btn-default btn-md" href="<?=$view->ignoreLink?>">
-                      <img src="images/actions/ignore-16.png" alt="">&nbsp;<?=$view->ignoreLabel?>
-                    </a>
-                <?php } //if-showIgnoreButton ?>
+                    <label class="btn btn-default btn-md two-state-btn">
+                        <input type="checkbox" onclick="ignoreIt(this)"
+                              value="<?=$view->geoCache->getWaypointId()?>"
+                              <?=($view->ignored)?'checked':''?> >
+                        <img src="/images/actions/ignore-16.png" alt="">&nbsp;
+                        <span class="checkedLabel"><?=tr('ignore_not')?></span>
+                        <span class="uncheckedLabel"><?=tr('ignore')?></span>
+                    </label>
+                <?php } //if-showWatchButton ?>
+
                 <a class="btn btn-default btn-md" href="printcache.php?cacheid=<?=$view->geoCache->getCacheId()?>">
                   <img src="images/actions/print-16.png" alt="">&nbsp;<?=tr('print')?>
                 </a>

@@ -107,7 +107,6 @@ $translations = array(
     'map_watched_caches' => 'Map of watched caches',
     'settings' => 'Configuración',
     'settings_notifications' => 'Notification settings',
-    'ignored_caches' => 'Ignorado cuadro',
     'my_recommendations' => 'Mis recomendaciones',
     'search_cache' => 'Buscar cajas',
     'caches' => 'Cajas',
@@ -681,8 +680,6 @@ $translations = array(
     'old_options' => 'Old search query overwritten',
     'select_queries' => 'Select stored query to overwrite',
     'last_found' => 'Last found',
-    'off_ignore' => 'Switch off ignore',
-    'no_ignores' => 'No ignored caches',
     'oc_stat' => '{site_name} geocache statistics',
     'administration' => 'ADMIN Panel',
     'cache_notfound' => 'Not found geocache',
@@ -1894,7 +1891,6 @@ $translations = array(
     'usrWatch_removingError' => 'Unexpected error on removing from watched!',
     'usrWatch_removingSuccess' => 'Geocache successful removed from watched.',
 
-    'myignores_1' => 'Do you want to switch off ignore?',
     'myviewqueries_1' => 'Do you want to remove this query collection?',
     'search_gpxgc_01' => 'WARNING! You need a PASSWORD to log this cache. You have to either find in the cache (and remember to write it down) or obtain it according to the description!!!',
     'search_gpxgc_02' => 'Personal cache note',
@@ -2923,4 +2919,8 @@ $translations = array(
     'mobile_skip_inactive' => 'inactive',
     'mobile_404_title' => 'error 404',
     'mobile_404_text' => 'file not found',
+
+    'usrIgnore_ignored_caches' => 'Ignorado cuadro',
+    'usrIgnore_off_ignore' => 'Switch off ignore',
+    'usrIgnore_no_ignores' => 'No ignored caches',
 );

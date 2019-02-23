@@ -107,7 +107,6 @@ $translations = array(
     'map_watched_caches' => 'Carte des caches surveillés',
     'settings' => 'Paramètres',
     'settings_notifications' => 'Préférences de notification',
-    'ignored_caches' => 'Caches ignorées',
     'my_recommendations' => 'Mes recommandations',
     'search_cache' => 'Rechercher une cache',
     'caches' => 'Caches',
@@ -681,8 +680,6 @@ $translations = array(
     'old_options' => 'Ancienne recherche écrasée',
     'select_queries' => 'Sélectionnez une recherche à écraser',
     'last_found' => 'Trouvé la dernière fois',
-    'off_ignore' => 'Ne plus ignorer',
-    'no_ignores' => 'Pas de caches ignorées',
     'oc_stat' => 'statistiques de caches de {site_name}',
     'administration' => 'Panneau d’administration',
     'cache_notfound' => 'Cache introuvable',
@@ -1894,7 +1891,6 @@ $translations = array(
     'usrWatch_removingError' => 'Erreur inattendue lors de la désactivation de la surveillance de cette cache !',
     'usrWatch_removingSuccess' => 'Désactivation de la surveillance de cette cache réussie.',
 
-    'myignores_1' => 'Souhaitez-vous ne plus ignorer cette cache ?',
     'myviewqueries_1' => 'Voulez-vous supprimer ce recherche ?',
     'search_gpxgc_01' => 'Attention ! Un mot de passe est nécessaire pour loguer cette cache. Vous le trouverez dans la cache (pensez a le noter) ou en le cherchant dans la description !',
     'search_gpxgc_02' => 'Note de cache personnelle',
@@ -2923,4 +2919,8 @@ $translations = array(
     'mobile_skip_inactive' => 'inactive',
     'mobile_404_title' => 'error 404',
     'mobile_404_text' => 'file not found',
+
+    'usrIgnore_ignored_caches' => 'Caches ignorées',
+    'usrIgnore_off_ignore' => 'Ne plus ignorer',
+    'usrIgnore_no_ignores' => 'Pas de caches ignorées',
 );

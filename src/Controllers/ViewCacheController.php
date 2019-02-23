@@ -329,7 +329,6 @@ class ViewCacheController extends BaseController
                 }
             }
 
-
             $this->view->setVar('showEditButton',$show_edit);
             $this->view->setVar('showWatchButton',$show_watch);
             $this->view->setVar('showIgnoreButton',$show_ignore);
@@ -346,14 +345,11 @@ class ViewCacheController extends BaseController
             }
 
             if ($show_ignore) {
-                //is this cache ignored by this user?
-
-                if (!$this->geocache->isIgnoredBy($this->loggedUser->getUserId())) {
-                    $this->view->setVar('ignoreLink',"addignore.php?cacheid=" . $this->cache_id . "&amp;target=" . Uri::getCurrentUri());
-                    $this->view->setVar('ignoreLabel',tr('ignore'));
+                //is this cache watched by this user?
+                if ($this->geocache->isIgnoredBy($this->loggedUser->getUserId())) {
+                    $this->view->setVar('ignored',true);
                 } else {
-                    $this->view->setVar('ignoreLink',"removeignore.php?cacheid=" . $this->cache_id . "&amp;target=" . Uri::getCurrentUri());
-                    $this->view->setVar('ignoreLabel',tr('ignore_not'));
+                    $this->view->setVar('ignored',false);
                 }
             }
 

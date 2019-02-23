@@ -146,13 +146,36 @@ function watchIt(input){
   $.ajax({
     type:  "get",
     cache: false,
-    url:   'mywatches.php?action='+action+'&cacheWp='+$(input).val(),
+    url:   '/mywatches.php?action='+action+'&cacheWp='+$(input).val(),
     error: function (xhr) {
         console.log("watchIt error: " + xhr.responseText);
     },
     success: function (result) {
         $('#watchersCount').html(result['message']);
         console.log("watchIt: success!");
+    }
+  });
+}
+
+function ignoreIt(input){
+
+  if(!input.checked){ //ignored
+    var action = 'removeFromIgnoredAjax';
+  }else{             //not-ignored
+    var action = 'addToIgnoredAjax';
+  }
+
+  console.log(action);
+
+  $.ajax({
+    type:  "get",
+    cache: false,
+    url:   '/UserIgnoredCaches/'+action+'/'+$(input).val(),
+    error: function (xhr) {
+        console.log("ignoreIt error: " + xhr.responseText);
+    },
+    success: function (result) {
+        console.log("ignoreIt: success!");
     }
   });
 }
