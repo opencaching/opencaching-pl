@@ -65,8 +65,7 @@ $pt_icon_title_tr = tr('pt139');
 
 $content = '';
 while ($r = XDb::xFetchArray($rs)) {
-    $rss = XDb::xSql("SELECT `pl` `country_name` FROM `countries` WHERE `short` = ? ", $r['country']);
-    $rr = XDb::xFetchArray($rss);
+
     $thisline = $tpl_line;
 
     $rs_log = XDb::xSql(
@@ -120,7 +119,7 @@ while ($r = XDb::xFetchArray($rs)) {
 
     $cacheicon = myninc::checkCacheStatusByUser($r, $usr['userid']);
     $thisline = mb_ereg_replace('{imglink}', $cacheicon, $thisline);
-    $thisline = mb_ereg_replace('{country_name}', htmlspecialchars($rr['country_name'], ENT_COMPAT, 'UTF-8'), $thisline);
+    $thisline = mb_ereg_replace('{country_name}', tr($r['country']), $thisline);
     $content .= $thisline . "\n";
     XDb::xFreeResults($rs_log);
 }

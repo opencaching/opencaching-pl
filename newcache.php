@@ -13,6 +13,7 @@ use src\Utils\Debug\Debug;
 use src\Utils\EventHandler\EventHandler;
 use src\Utils\I18n\I18n;
 use src\Utils\Text\Validator;
+use src\Utils\Gis\Countries;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
@@ -352,13 +353,8 @@ if ($show_all_countries == 1) {
     tpl_set_var('show_all_countries', '1');
     tpl_set_var('show_all_countries_submit', '');
 
-    $s = $db->simpleQuery("SELECT `short` FROM `countries` ORDER BY `short` ASC");
-    $dbResult = $db->dbResultFetchAll($s);
-
-    $defaultCountryList = array();
-    foreach ($dbResult as $value) {
-        $defaultCountryList[] = $value['short'];
-    }
+    // get all countries codes
+    $defaultCountryList = Countries::getCountriesList();
 } else {
     tpl_set_var('show_all_countries', '0');
     tpl_set_var('show_all_countries_submit', '<input class="btn btn-default btn-sm" type="submit" name="show_all_countries_submit" value="' . $show_all . '"/>');
@@ -366,9 +362,9 @@ if ($show_all_countries == 1) {
 
 foreach ($defaultCountryList as $record) {
     if ($record == $sel_country) {
-        $countriesoptions .= '<option value="' . htmlspecialchars($record, ENT_COMPAT, 'UTF-8') . '" selected="selected">' . tr($record) . '</option>';
+        $countriesoptions .= '<option value="' . $record . '" selected="selected">' . tr($record) . '</option>';
     } else {
-        $countriesoptions .= '<option value="' . htmlspecialchars($record, ENT_COMPAT, 'UTF-8') . '">' . tr($record) . '</option>';
+        $countriesoptions .= '<option value="' . $record . '">' . tr($record) . '</option>';
     }
     $countriesoptions .= "\n";
 }
@@ -695,9 +691,13 @@ if (isset($_POST['submitform'])) {
 
         // insert cache_location
         $code1 = $sel_country;
-        $eLang = XDb::xEscape(I18n::getCurrentLang());
-        $adm1 = XDb::xMultiVariableQueryValue("SELECT `countries`.$eLang FROM `countries`
-                                    WHERE `countries`.`short`= :1 ", 0, $code1);
+        if (I18n::isTranslationAvailable($code1)){
+            $adm1 = tr($code1);
+        } else {
+            Debug::errorLog("Unknown country translation: $code1");
+            $adm1 = $code1;
+        }
+
         // check if selected country has no districts, then use $default_region
         if ($sel_region == - 1) {
             $sel_region = $default_region;

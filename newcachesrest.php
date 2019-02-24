@@ -17,8 +17,6 @@ if ($error == false) {
     $content = '';
     $cache_country = '';
 
-    $lang_db = I18n::getLangForDbTranslations('countries');
-
     $rs = XDb::xSql(
         "SELECT `caches`.`cache_id` `cache_id`,
                 `caches`.`user_id` `userid`,
@@ -30,8 +28,8 @@ if ($error == false) {
                 `caches`.`name` `name`,
                 `caches`.`date_hidden` `date_hidden`,
                 `caches`.`date_created` `date_created`,
+                `caches`.`country` AS cache_country,
                 IF((`caches`.`date_hidden`>`caches`.`date_created`), `caches`.`date_hidden`, `caches`.`date_created`) AS `date`,
-                `countries`.$lang_db `country`,
                 `cache_type`.`icon_small` `icon_small`,
                 `PowerTrail`.`id` AS PT_ID,
                 `PowerTrail`.`name` AS PT_name,
@@ -39,9 +37,8 @@ if ($error == false) {
                 `PowerTrail`.`image` AS PT_image
         FROM (`caches`
             LEFT JOIN `powerTrail_caches` ON `caches`.`cache_id` = `powerTrail_caches`.`cacheId`
-            LEFT JOIN `PowerTrail` ON `PowerTrail`.`id` = `powerTrail_caches`.`PowerTrailId`  AND `PowerTrail`.`status` = 1 ), `user`, `countries`, `cache_type`
+            LEFT JOIN `PowerTrail` ON `PowerTrail`.`id` = `powerTrail_caches`.`PowerTrailId`  AND `PowerTrail`.`status` = 1 ), `user`, `cache_type`
         WHERE `caches`.`user_id`=`user`.`user_id`
-            AND `countries`.`short`=`caches`.`country`
             AND `caches`.`type` != 6
             AND `caches`.`status` = 1
             AND `caches`.`country` NOT IN($countryParamNewcacherestPhp)
@@ -59,7 +56,7 @@ if ($error == false) {
             'userid' => $record['userid'],
             'username' => $record['username'],
             'cache_id' => $record['cache_id'],
-            'country' => $record['countryshort'],
+            'country' => tr($record['cache_country']),
             'longitude' => $record['longitude'],
             'latitude' => $record['latitude'],
             'date' => $record['date'],

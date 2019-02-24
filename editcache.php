@@ -10,6 +10,8 @@ use src\Models\GeoCache\GeoCacheLog;
 use src\Models\OcConfig\OcConfig;
 use src\Utils\I18n\I18n;
 use src\Utils\Text\Validator;
+use src\Utils\Debug\Debug;
+use src\Utils\Gis\Countries;
 
 require_once(__DIR__.'/lib/common.inc.php');
 
@@ -484,11 +486,15 @@ if ($error == false) {
                              $cache_country, $sel_size, $cache_difficulty, $cache_terrain, $status,
                              $search_time, $way_length, $log_pw, $wp_gc, $wp_nc, $wp_ge, $wp_tc, $cache_id);
 
+
+                        if(I18n::isTranslationAvailable($cache_country)){
+                            $adm1 = tr($cache_country);
+                        } else {
+                            Debug::errorLog("Unknown country translation: $cache_country");
+                            $adm1 = $cache_country;
+                        }
+
                         $code1 = $cache_country;
-                        $adm1 = XDb::xMultiVariableQueryValue(
-                            "SELECT ".XDb::xEscape(I18n::getCurrentLang()).
-                            " FROM `countries`
-                             WHERE `countries`.`short`= :1 ", 0, $code1);
 
                         // check if selected country has no districts, then use $default_region
                         if ($cache_region == -1) {
@@ -593,35 +599,20 @@ if ($error == false) {
 
                 //check if selected country is in list_default
                 if ($show_all_countries == 0) {
-                    $eLang = XDb::xEscape(I18n::getCurrentLang());
-                    $rs = XDb::xSql(
-                        "SELECT `short` FROM `countries`
-                        WHERE (`list_default_$eLang`=1) AND (lower(`short`) = lower( ? ))",
-                        $cache_country);
-                    if (! XDb::xFetchArray($rs)) {//no records
+                    if (!array_search($cache_country, Countries::getCountriesList(true))) {
                         $show_all_countries = 1;
                     }
                 }
 
-                //get the record
-                $eLang = XDb::xEscape(I18n::getCurrentLang());
-                if ($show_all_countries == 0) {
-                    $rs = XDb::xSql('SELECT `' . $eLang . '`, `short` FROM `countries`
-                               WHERE `list_default_' . $eLang . '`=1
-                               ORDER BY `sort_' . $eLang . '` ASC');
-                } else {
-                    $rs = XDb::xSql('SELECT `' . $eLang . '`, `short` FROM `countries`
-                               ORDER BY `sort_' . $eLang . '` ASC');
-                }
-
-                while($record = XDb::xFetchArray($rs)){
-                    if ($record['short'] == $cache_country) {
-                        $countriesoptions .= '<option value="' . htmlspecialchars($record['short'], ENT_COMPAT, 'UTF-8') . '" selected="selected">' . tr(htmlspecialchars($record['short'], ENT_COMPAT, 'UTF-8')) . '</option>';
+                foreach (Countries::getCountriesList($show_all_countries == 0) as $countryCode) {
+                    if ($countryCode == $cache_country) { // this is cache country - select it
+                        $countriesoptions .= "<option value='$countryCode' selected='selected'>" . tr($countryCode) . '</option>';
                     } else {
-                        $countriesoptions .= '<option value="' . htmlspecialchars($record['short'], ENT_COMPAT, 'UTF-8') . '">' . tr(htmlspecialchars($record['short'], ENT_COMPAT, 'UTF-8')) . '</option>';
+                        $countriesoptions .= "<option value='$countryCode'>" . tr($countryCode) . '</option>';
                     }
                     $countriesoptions .= "\n";
                 }
+
                 tpl_set_var('countryoptions', $countriesoptions);
                 tpl_set_var('cache_region', $cache_region);
 

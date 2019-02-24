@@ -8,6 +8,7 @@ use src\Models\GeoCache\GeoCache;
 use src\Models\GeoCache\PrintList;
 use src\Models\Coordinates\Coordinates;
 use src\Utils\I18n\I18n;
+use src\Utils\Debug\Debug;
 
 require_once (__DIR__.'/lib/common.inc.php');
 require_once (__DIR__.'/lib/search.inc.php');
@@ -1442,15 +1443,23 @@ function outputSearchForm($options)
 
     //countryoptions
     $countriesoptions = $search_all_countries;
-    $rs = XDb::xSql('SELECT `short` FROM `countries` WHERE `short` IN (SELECT DISTINCT `country` FROM `caches`) ');
+    $rs = XDb::xSql('SELECT DISTINCT `country` FROM `caches`');
 
-    for ($i = 0; $i < XDb::xNumRows($rs); $i++)
-    {
-        $record = XDb::xFetchArray($rs);
-        if ($record['short'] == $options['country'])
-            $countriesoptions .= '<option value="' . htmlspecialchars($record['short'], ENT_COMPAT, 'UTF-8') . '" selected="selected">' . htmlspecialchars(tr($record['short']), ENT_COMPAT, 'UTF-8') . '</option>';
-        else
-            $countriesoptions .= '<option value="' . htmlspecialchars($record['short'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars(tr($record['short']), ENT_COMPAT, 'UTF-8') . '</option>';
+    while ($row = XDb::xFetchArray($rs)) {
+        $countryCode = $row['country'];
+
+        if (I18n::isTranslationAvailable($countryCode)) {
+            $countryName = tr($countryCode);
+        } else {
+            Debug::errorLog("Unknown translation for country code: $countryCode");
+            $countryName = $countryCode;
+        }
+
+        if ($countryCode == $options['country']) {
+            $countriesoptions .= "<option value='$countryCode' selected='selected'>$countryName</option>";
+        } else {
+            $countriesoptions .= "<option value='$countryCode'>$countryName</option>";
+        }
 
         $countriesoptions .= "\n";
     }
