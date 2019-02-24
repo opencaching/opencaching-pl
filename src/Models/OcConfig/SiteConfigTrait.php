@@ -65,6 +65,17 @@ trait SiteConfigTrait {
     }
 
     /**
+     * Retruns the list of dafaultCountries - used to isplay countries list for example in search.
+     *
+     * @return array
+     */
+    public static function getSiteDefaultCountriesList()
+    {
+        return self::getSiteVar('defaultCountriesList');
+    }
+
+
+    /**
      * Returns site properties
      *
      * @return array site properties

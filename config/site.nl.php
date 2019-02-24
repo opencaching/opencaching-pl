@@ -4,10 +4,7 @@
  * Configuration of general site properties of OC NL
  */
 
-/**
- * Primary countries for this node.
- */
-$site['primaryCountries'] = ['NL', 'BE', 'LU'];
+
 
 /**
  * Site name for the node
@@ -29,3 +26,15 @@ $site['ocNodeId'] = 14;
  * Site main domain - this shoudl be only main part of domain eg. opencaching.pl for OCPL
  */
 $site['mainDomain'] = 'opencaching.nl';
+
+/**
+ * Primary countries for this node.
+ */
+$site['primaryCountries'] = ['NL', 'BE', 'LU'];
+
+/**
+ * List of default countries used to present on countries list (for example in search).
+ * List will be presented in same order as below.
+ * Use only two-letters codes UPPERCASE.
+ */
+$site['defaultCountriesList'] = ['DE', 'NL', 'PL', 'RO', 'UK'];
