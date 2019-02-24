@@ -17,20 +17,24 @@ class Debug {
 
         array_shift($backtrace); //remove first element - call this method...
 
+        $i = 0;
         foreach($backtrace as $trace){
-            if( isset($trace['file']) && isset($trace['line']) ){
-                $traceStr.= ' | '.$trace['file'].':'.$trace['line'];
-            }else{
-                $traceStr.= ' | ? : ?';
-            }
+            d($trace);
+            $file = isset($trace['file']) ? $trace['file'] : '?';
+            $line = isset($trace['line']) ? $trace['line'] : '?';
+            $func = isset($trace['function']) ? $trace['function'] : '?';
+            $class = isset($trace['class']) ? $trace['class'].'::' : '';
+
+            $traceStr.= "\n  #$i: $file:$line [$class$func()]";
+            $i++;
         }
-        return $traceStr;
+        return $traceStr."\n";
     }
 
     public static function errorLog($message, $addStackTrace=true){
 
         if($addStackTrace){
-            $message .= " \n| STACKTRACE:".self::getTraceStr();
+            $message .= "\n  STACKTRACE:".self::getTraceStr();
         }
 
         error_log($message);
