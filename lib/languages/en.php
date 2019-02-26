@@ -1362,6 +1362,7 @@ $translations = array(
     'AM' => 'Armenia',
     'AN' => 'Netherlands Antilles',
     'AO' => 'Angola',
+    'AQ' => 'Antarctica',
     'AR' => 'Argentina',
     'AS' => 'American Samoa',
     'AT' => 'Austria',
