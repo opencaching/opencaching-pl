@@ -6,7 +6,7 @@ use src\Utils\Cache\OcMemCache;
 
 class Countries
 {
-    const ALL_COUNTRIES_JSON = __DIR__."/../../resources/gis/allCountriesCodes.json";
+    const ALL_COUNTRIES_JSON = __DIR__."/../../../resources/gis/allCountriesCodes.json";
 
     /**
      * Returns list of countries - all countries by default
