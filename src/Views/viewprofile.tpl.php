@@ -30,13 +30,13 @@ jQuery(function($) {
         $('#commentsLoader').show();
         $('#ftfDiv').fadeOut(1000);
         request = $.ajax({
-            url: "ajaxGetFTF.php",
-            type: "post",
-            data: {id: $('#userId').val()},
+            url: "/UserProfile/getUserFtfsAjax/"+$('#userId').val(),
+            type: "get",
         });
 
         request.done(function (response, textStatus, jqXHR) {
-            var ftfList = jQuery.parseJSON(response);
+            console.log(response);
+            var ftfList = response;
             html = '<table><tr><th>{{viewprofileDate}}</th><th>{{viewprofileTime}}</th><th>{{viewprofileCache}}</th></tr>';
             bgColor = '#eeeeff';
             var i = 0;

@@ -107,7 +107,6 @@ $translations = array(
     'map_watched_caches' => 'Mapa obserwowanych skrzynek',
     'settings' => 'Ustawienia',
     'settings_notifications' => 'Ustawienia powiadomień',
-    'ignored_caches' => 'Moje ignorowane skrzynki',
     'my_recommendations' => 'Moje rekomendacje',
     'search_cache' => 'Wyszukiwarka skrzynek',
     'caches' => 'Skrzynki',
@@ -681,8 +680,6 @@ $translations = array(
     'old_options' => 'Stare wyniki szukania nadpisz',
     'select_queries' => 'Wybierz zapisane poszukiwania w celu nadpisania',
     'last_found' => 'Ostatnio znaleziona',
-    'off_ignore' => 'Wyłącz ignorowanie',
-    'no_ignores' => 'Nie ma żadnych skrzynek ignorowanych',
     'oc_stat' => 'Statystyka skrzynek {site_name}',
     'administration' => 'Zarządzanie OC',
     'cache_notfound' => 'Skrzynki nieznalezione',
@@ -924,7 +921,7 @@ $translations = array(
     'adopt_02' => 'Nie możesz adoptować skrzynek',
     'adopt_03' => 'Nie masz skrzynek, które można przekazać do adopcji',
     'adopt_04' => 'Przekazujesz skrzynkę:',
-    'adopt_05' => 'Proszę wpisać nazwę użytkownika, który ma stać się nowym właścicielem Twojej skrzynki. Gdy tylko potwierdzi on chęć przejęcia skrzynki, procedura zostanie zakończona.<br/>Aby unieważnić prośbę o zmianę właściciela, wróć do <a href="chowner.php">listy skrzynek</a> i wybierz odnośnik "Anuluj przekazanie".',
+    'adopt_05' => 'Proszę wpisać nazwę użytkownika, który ma stać się nowym właścicielem Twojej skrzynki. Gdy tylko potwierdzi on chęć przejęcia skrzynki, procedura zostanie zakończona.<br/>Aby unieważnić prośbę o zmianę właściciela, wróć do <a href="%s">listy skrzynek</a> i wybierz odnośnik "Anuluj przekazanie".',
     'adopt_06' => 'UWAGA! Opcja ta będzie aktywna, dopóki nowy właściciel nie potwierdzi zmiany.',
     'adopt_07' => 'Podaj nazwę nowego właściciela:',
     'adopt_08' => 'Zmień właściciela',
@@ -1894,7 +1891,6 @@ $translations = array(
     'usrWatch_removingError' => 'Wystąpił nieoczekiwany błąd podczas usuwania z obserwowanych!',
     'usrWatch_removingSuccess' => 'Zaprzestałeś obserwacji tej skrzynki.',
 
-    'myignores_1' => 'Czy na pewno chcesz wyłączyć ignorowanie skrzynki?',
     'myviewqueries_1' => 'Czy na pewno chcesz usunąć zgromadzone poszukiwania?',
     'search_gpxgc_01' => 'UWAGA! W skrzynce znajduje się hasło - pamiętaj o jego zapisaniu!',
     'search_gpxgc_02' => 'Własna notatka do skrzynki',
@@ -2923,4 +2919,8 @@ $translations = array(
     'mobile_skip_inactive' => 'nieaktywne',
     'mobile_404_title' => 'błąd 404',
     'mobile_404_text' => 'brak żądanej strony',
+
+    'usrIgnore_ignored_caches' => 'Moje ignorowane skrzynki',
+    'usrIgnore_off_ignore' => 'Wyłącz ignorowanie',
+    'usrIgnore_no_ignores' => 'Nie ma żadnych skrzynek ignorowanych',
 );

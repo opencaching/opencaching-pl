@@ -6,6 +6,7 @@ use src\Utils\Uri\SimpleRouter;
 use src\Utils\Text\UserInputFilter;
 use src\Utils\Text\Formatter;
 use src\Controllers\MainMapController;
+use src\Controllers\ViewCacheController;
 ?>
 <link rel="stylesheet" href="/css/lightTooltip.css">
 
@@ -39,16 +40,23 @@ use src\Controllers\MainMapController;
                         <input type="checkbox" onclick="watchIt(this)"
                               value="<?=$view->geoCache->getWaypointId()?>"
                               <?=($view->watched)?'checked':''?> >
-                        <img src="images/actions/watch-16.png" alt="">&nbsp;
+                        <img src="/images/actions/watch-16.png" alt="">&nbsp;
                         <span class="checkedLabel"><?=tr('watch_not')?></span>
                         <span class="uncheckedLabel"><?=tr('watch')?></span>
                     </label>
                 <?php } //if-showWatchButton ?>
+
                 <?php if ($view->showIgnoreButton) { ?>
-                    <a class="btn btn-default btn-md" href="<?=$view->ignoreLink?>">
-                      <img src="images/actions/ignore-16.png" alt="">&nbsp;<?=$view->ignoreLabel?>
-                    </a>
-                <?php } //if-showIgnoreButton ?>
+                    <label class="btn btn-default btn-md two-state-btn">
+                        <input type="checkbox" onclick="ignoreIt(this)"
+                              value="<?=$view->geoCache->getWaypointId()?>"
+                              <?=($view->ignored)?'checked':''?> >
+                        <img src="/images/actions/ignore-16.png" alt="">&nbsp;
+                        <span class="checkedLabel"><?=tr('ignore_not')?></span>
+                        <span class="uncheckedLabel"><?=tr('ignore')?></span>
+                    </label>
+                <?php } //if-showWatchButton ?>
+
                 <a class="btn btn-default btn-md" href="printcache.php?cacheid=<?=$view->geoCache->getCacheId()?>">
                   <img src="images/actions/print-16.png" alt="">&nbsp;<?=tr('print')?>
                 </a>
@@ -537,11 +545,14 @@ use src\Controllers\MainMapController;
         <?php } //foreach-available-desc-langs ?>
     </span>
     <?php if ($view->isAdminAuthorized) { ?>
-        <a class="btn btn-sm btn-default" href="add_octeam_comment.php?cacheid=<?=$view->geoCache->getCacheId()?>">
+        <a class="btn btn-sm btn-default" href="<?=SimpleRouter::getLink(
+               ViewCacheController::class, 'ocTeamCommentForm', $view->geoCache->getCacheId())?>">
             <?=tr('add_rr_comment')?>
         </a>
-        <a class="btn btn-sm btn-default" href="viewcache.php?cacheid=<?=$view->geoCache->getCacheId()?>&amp;rmAdminComment=1"
-            onclick="return confirm('<?=tr("confirm_remove_rr_comment")?>');"><?=tr('remove_rr_comment')?>
+        <a class="btn btn-sm btn-default"
+              href="<?=SimpleRouter::getLink(ViewCacheController::class, 'rmOcTeamComments', $view->geoCache->getCacheId())?>"
+              onclick="return confirm('<?=tr("confirm_remove_rr_comment")?>');">
+           <?=tr('remove_rr_comment')?>
         </a>
     <?php } //if-admin-authorized ?>
 </div>

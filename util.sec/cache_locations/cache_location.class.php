@@ -6,6 +6,7 @@
 use src\Utils\Database\XDb;
 use src\Utils\Gis\Gis;
 use src\Utils\I18n\I18n;
+use src\Utils\Debug\Debug;
 
 /*
  *
@@ -100,16 +101,13 @@ while ($rCache = XDb::xFetchArray($rsCache)) {
         if (mb_strlen($sCode) == 2) {
             $code1 = $sCode;
 
-            $language = I18n::getLangForDbTranslations('countries');
-            // try to get localised name first
-            $adm1 = XDb::xSimpleQueryValue(
-                "SELECT `countries`.`$language`
-                FROM `countries`
-                WHERE `countries`.`short`='$sCode'", 0);
-
-            if ($adm1 == null)
+            if (I18n::isTranslationAvailable($sCode)){
+                $adm1 = tr($sCode);
+            } else {
+                Debug::errorLog("No country translation for: $sCode");
                 $adm1 = XDb::xSimpleQueryValue(
                     "SELECT `name` FROM `nuts_codes` WHERE `code`='$sCode'", 0);
+            }
         }
 
         XDb::xSql(

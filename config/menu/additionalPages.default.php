@@ -1,6 +1,7 @@
 <?php
 use src\Utils\Uri\SimpleRouter;
 use src\Controllers\UserUtilsController;
+use src\Controllers\CacheAdoptionController;
 
 /**
  * This is simple configuration of links presented in sidebar of the page
@@ -21,7 +22,7 @@ use src\Controllers\UserUtilsController;
 
 $menu = [ // DON'T CHANGE $menu var name!
     /* 'translation key' => 'url' */
-    'mnu_cacheAdoption' => '/chowner.php',
+    'mnu_cacheAdoption' => SimpleRouter::getLink(CacheAdoptionController::class),
     'mnu_searchUser'    => '/searchuser.php',
 
     'mnu_newCaches'         => '/newcaches.php',

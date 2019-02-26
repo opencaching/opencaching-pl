@@ -8,7 +8,11 @@ global $picurl, $picdir;
 
 $destination_path = $picdir.'/';
 
-$powerTrailId = $_REQUEST['powerTrailId'];
+if (isset($_REQUEST['powerTrailId'])){
+    $powerTrailId = $_REQUEST['powerTrailId'];
+} else {
+    $powerTrailId = null;
+}
 
 $valid_formats = array("jpg", "png", "gif", "bmp", "jpeg");
 
@@ -17,7 +21,7 @@ $result = "-error-";
 $name = $_FILES['myfile']['name'];
 $size = $_FILES['myfile']['size'];
 
-if (!empty($name) && !empty($_FILES['myfile']['tmp_name'])) {
+if (!is_null($powerTrailId) && !empty($name) && !empty($_FILES['myfile']['tmp_name'])) {
 
     $fileInfo = pathinfo($name);
     $txt = $fileInfo['filename'];

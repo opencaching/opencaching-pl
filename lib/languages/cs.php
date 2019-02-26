@@ -107,7 +107,6 @@ $translations = array(
     'map_watched_caches' => 'Mapa sledovaných keší',
     'settings' => 'Nastavení',
     'settings_notifications' => 'Notifikace',
-    'ignored_caches' => 'Ignorované keše',
     'my_recommendations' => 'Moje doporučení',
     'search_cache' => 'Vyhledat keše',
     'caches' => 'Keše',
@@ -681,8 +680,6 @@ $translations = array(
     'old_options' => 'Přepsat existující výsledek hledání',
     'select_queries' => 'Select stored query to overwrite',
     'last_found' => 'Last found',
-    'off_ignore' => 'Switch off ignore',
-    'no_ignores' => 'No ignored caches',
     'oc_stat' => '{site_name} geocache statistics',
     'administration' => 'ADMIN Panel',
     'cache_notfound' => 'Not found geocache',
@@ -924,7 +921,7 @@ $translations = array(
     'adopt_02' => 'You are not allowed to adopt caches.',
     'adopt_03' => 'Nemáte žádné keše, které byste mohli nabídnout k adopci.',
     'adopt_04' => 'Offer cache for adoption:',
-    'adopt_05' => 'Enter the username who will adopt the cache. Once the user confirms, the procedure is complete.<br/>Cancel the adoption and return to <a href="chowner.php"> "Cache adoption" </a>.',
+    'adopt_05' => 'Enter the username who will adopt the cache. Once the user confirms, the procedure is complete.<br/>Cancel the adoption and return to <a href="%s"> "Cache adoption" </a>.',
     'adopt_06' => 'This adoption remains open for as long as the new owner does not react or the adoption offer is cancelled.',
     'adopt_07' => 'Enter the name of the new owner:',
     'adopt_08' => 'Změnit vlastníka',
@@ -1894,7 +1891,6 @@ $translations = array(
     'usrWatch_removingError' => 'Unexpected error on removing from watched!',
     'usrWatch_removingSuccess' => 'Geocache successful removed from watched.',
 
-    'myignores_1' => 'Do you want to switch off ignore?',
     'myviewqueries_1' => 'Do you want to remove this query collection?',
     'search_gpxgc_01' => 'WARNING! You need a PASSWORD to log this cache. You have to either find in the cache (and remember to write it down) or obtain it according to the description!!!',
     'search_gpxgc_02' => 'Personal cache note',
@@ -2923,4 +2919,8 @@ $translations = array(
     'mobile_skip_inactive' => 'inactive',
     'mobile_404_title' => 'error 404',
     'mobile_404_text' => 'file not found',
+
+    'usrIgnore_ignored_caches' => 'Ignorované keše',
+    'usrIgnore_off_ignore' => 'Switch off ignore',
+    'usrIgnore_no_ignores' => 'No ignored caches',
 );

@@ -63,7 +63,6 @@ class RepairCacheScores
                     notfounds=:new_notfounds,
                     notes=:new_notes,
                     watcher=:new_watchers,
-                    ignorer_count=:new_ignorers,
                     last_found = :new_last_found
                 WHERE
                     cache_id=:cache_id
@@ -74,14 +73,12 @@ class RepairCacheScores
                         OR notfounds is null
                         OR notes is null
                         OR watcher is null
-                        OR ignorer_count is null
                         OR votes!=:new_votes
                         OR abs(score-:new_score)>0.0001
                         OR founds!=:new_founds
                         OR notfounds!=:new_notfounds
                         OR notes!=:new_notes
                         OR watcher!=:new_watchers
-                        OR ignorer_count!=:new_ignorers
                         OR last_found!=:new_last_found
                     )
             ";

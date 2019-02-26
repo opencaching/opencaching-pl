@@ -10,6 +10,7 @@ use src\Models\User\MultiUserQueries;
 use src\Models\User\User;
 use src\Utils\EventHandler\EventHandler;
 use src\Utils\I18n\I18n;
+use src\Models\User\UserWatchedCache;
 
 /**
  * Description of geoCache
@@ -59,7 +60,6 @@ class GeoCache extends GeoCacheCommons
     private $terrain;
     private $logPassword = false;
     private $watchingUsersCount;
-    private $ignoringUsersCount;
     private $descLanguagesList;
     private $mp3count;
     private $picturesCount;
@@ -386,7 +386,6 @@ class GeoCache extends GeoCacheCommons
         $this->searchTime = $geocacheDbRow['search_time'];
         $this->searchTime = $geocacheDbRow['search_time'];
         $this->watchingUsersCount = (int) $geocacheDbRow['watcher'];
-        $this->ignoringUsersCount = (int) $geocacheDbRow['ignorer_count'];
         $this->descLanguagesList = $geocacheDbRow['desc_languages'];
         $this->mp3count = (int) $geocacheDbRow['mp3count'];
         $this->picturesCount = (int) $geocacheDbRow['picturescount'];
@@ -1013,11 +1012,6 @@ class GeoCache extends GeoCacheCommons
         return $this->watchingUsersCount;
     }
 
-    public function getIgnoringUsersCount()
-    {
-        return $this->ignoringUsersCount;
-    }
-
     public function getDescLanguagesList()
     {
         return $this->descLanguagesList;
@@ -1553,9 +1547,7 @@ class GeoCache extends GeoCacheCommons
      */
     public function isIgnoredBy($userId)
     {
-        return '1' == XDb::xMultiVariableQueryValue(
-            "SELECT 1 FROM cache_ignore WHERE cache_id= :1 AND user_id =:2 LIMIT 1",
-            0, $this->id, $userId);
+        return UserIgnoredCache::isCacheIgnoredBy($this->getCacheId(), $userId);
     }
 
     /**
@@ -1566,9 +1558,7 @@ class GeoCache extends GeoCacheCommons
      */
     public function isWatchedBy($userId)
     {
-        return '1' == XDb::xMultiVariableQueryValue(
-            "SELECT 1 FROM cache_watches WHERE cache_id=:1 AND user_id=:2 LIMIT 1",
-            0, $this->id, $userId);
+        return UserWatchedCache::isCacheWatchedByUser($this->getCacheId(), $userId);
     }
 
     /**

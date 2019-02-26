@@ -107,7 +107,6 @@ $translations = array(
     'map_watched_caches' => 'Kaart met gevolgde caches',
     'settings' => 'Instellingen',
     'settings_notifications' => 'Instelling meldingen',
-    'ignored_caches' => 'Genegeerde caches',
     'my_recommendations' => 'Mijn aanbevelingen',
     'search_cache' => 'Zoek een cache',
     'caches' => 'Caches',
@@ -681,8 +680,6 @@ $translations = array(
     'old_options' => 'Opgeslagen zoek opdrachten',
     'select_queries' => 'Selecteer te overschrijven zoekopdracht',
     'last_found' => 'Laatst gevonden',
-    'off_ignore' => 'Schakel negeren uit',
-    'no_ignores' => 'Geen genegeerde caches',
     'oc_stat' => '{site_name} cache statistieken',
     'administration' => 'Administratie OC',
     'cache_notfound' => 'Niet gevonden caches',
@@ -924,7 +921,7 @@ $translations = array(
     'adopt_02' => 'Je kunt nog geen caches adopteren.',
     'adopt_03' => 'Je hebt nog geen caches om ter adoptie aan te bieden',
     'adopt_04' => 'Deze cache wordt ter adoptie aangeboden:',
-    'adopt_05' => 'Voer de gebruikersnaam in die de cache adopteert. Zodra deze gebruiker bevestigt, is de procedure voltooid.<br/>Annuleer om terug te keren naar <a href="chowner.php"> "Cache adoptie" </a>.',
+    'adopt_05' => 'Voer de gebruikersnaam in die de cache adopteert. Zodra deze gebruiker bevestigt, is de procedure voltooid.<br/>Annuleer om terug te keren naar <a href="%s"> "Cache adoptie" </a>.',
     'adopt_06' => 'Deze adoptie blijft open staan zolang de nieuwe eigenaar niet reageert of de adoptie wordt geannuleerd.',
     'adopt_07' => 'Voer de naam in van de nieuwe eigenaar:',
     'adopt_08' => 'Wijzig eigenaar',
@@ -1894,7 +1891,6 @@ $translations = array(
     'usrWatch_removingError' => 'Onverwachte fout bij verwijderen uit volglijst!',
     'usrWatch_removingSuccess' => 'Cache met succes verwijderd uit volglijst.',
 
-    'myignores_1' => 'Moet het negeren werkelijk uitgeschakeld worden?',
     'myviewqueries_1' => 'Moet deze zoekopdracht werkelijk verwijderd worden?',
     'search_gpxgc_01' => 'Let op! Dit is een cache met logwachtwoord, neem dit mee om te loggen.',
     'search_gpxgc_02' => 'Persoonlijke cache notitie',
@@ -2923,4 +2919,8 @@ $translations = array(
     'mobile_skip_inactive' => 'niet actieve caches',
     'mobile_404_title' => 'fout 404',
     'mobile_404_text' => 'bestand niet gevonden',
+
+    'usrIgnore_ignored_caches' => 'Genegeerde caches',
+    'usrIgnore_off_ignore' => 'Schakel negeren uit',
+    'usrIgnore_no_ignores' => 'Geen genegeerde caches',
 );

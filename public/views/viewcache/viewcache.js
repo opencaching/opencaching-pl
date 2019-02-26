@@ -138,21 +138,44 @@ function openGarminWindow(event, latitude, longitude, ocWaypoint, cachename)
 function watchIt(input){
 
   if(!input.checked){ // watched
-    var action = 'remove';
-  }else{             //not-watched
-    var action = 'add';
+    var action = 'removeFromWatchesAjax';
+  }else{              // not-watched
+    var action = 'addToWatchesAjax';
   }
 
   $.ajax({
     type:  "get",
     cache: false,
-    url:   'mywatches.php?action='+action+'&cacheWp='+$(input).val(),
+    url:   '/UserWatchedCaches/'+action+'/'+$(input).val(),
     error: function (xhr) {
         console.log("watchIt error: " + xhr.responseText);
     },
     success: function (result) {
         $('#watchersCount').html(result['message']);
         console.log("watchIt: success!");
+    }
+  });
+}
+
+function ignoreIt(input){
+
+  if(!input.checked){ // ignored
+    var action = 'removeFromIgnoredAjax';
+  }else{              // not-ignored
+    var action = 'addToIgnoredAjax';
+  }
+
+  console.log(action);
+
+  $.ajax({
+    type:  "get",
+    cache: false,
+    url:   '/UserIgnoredCaches/'+action+'/'+$(input).val(),
+    error: function (xhr) {
+        console.log("ignoreIt error: " + xhr.responseText);
+    },
+    success: function (result) {
+        console.log("ignoreIt: success!");
     }
   });
 }

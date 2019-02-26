@@ -158,6 +158,7 @@ function tpl_BuildTemplate($minitpl = false, $noCommonTemplate=false)
     /** @var View $view */
     global $view;
 
+
     MainLayoutController::initLegacy(); // init vars for main-layout
 
     if ($view->showGdprPage()) {
@@ -207,6 +208,7 @@ function tpl_BuildTemplate($minitpl = false, $noCommonTemplate=false)
     header('Content-type: text/html; charset=utf-8');
 
     //run the template code
+    $v = $view; // $v is tpl alias to $view
     eval('?>'.$sCode);
 }
 

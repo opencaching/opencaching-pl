@@ -83,7 +83,7 @@ if( $usr || !$hide_coords ) {
 
     $dbcSearch->simpleQuery( 'CREATE TEMPORARY TABLE `ovlcontent` ' . $query . $queryLimit);
 
-    $s = $dbcSearch->simpleQuery( 'SELECT COUNT(*) `count` FROM `ovlcontent`');
+    $s = $dbcSearch->simpleQuery( 'SELECT COUNT(*) AS `count` FROM `ovlcontent`');
     $rCount = $dbcSearch->dbResultFetchOneRowOnly($s);
 
     if ($rCount['count'] == 1) {

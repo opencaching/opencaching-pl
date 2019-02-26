@@ -366,15 +366,12 @@ namespace src\Utils\I18n {
          */
         public static function getTranslationTables()
         {
-            return [
-                'cache_size', 'cache_status', 'cache_type', 'log_types', 'waypoint_type',
-                'countries', 'languages'
-            ];
+            return [ 'cache_size', 'cache_status', 'cache_type', 'log_types', 'waypoint_type', 'languages' ];
         }
 
         public static function getTranslationIdColumnName($table)
         {
-            if ($table == 'countries' || $table == 'languages') {
+            if ($table == 'languages') {
                 return 'short';
             } elseif ($table == 'cache_type') {
                 return 'sort';  // not 'id' !
@@ -394,7 +391,6 @@ namespace src\Utils\I18n {
                     'cache_size' => 'cacheSize_',
                     'cache_status' => 'cacheStatus_',
                     'cache_type' => 'cacheType_',
-                    'countries' => '',
                     'languages' => 'language_',
                     'log_types' => 'logType',
                     'waypoint_type' => 'wayPointType'

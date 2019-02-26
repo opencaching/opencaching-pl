@@ -1,10 +1,14 @@
+<?php
+use src\Utils\Uri\SimpleRouter;
+use src\Controllers\CacheAdoptionController;
+use lib\SimpleImage;
+?>
 
-<?php $view->callChunk('infoBar', 'chowner.php', $view->infoMsg, $view->errorMsg ); ?>
+<?php $view->callChunk('infoBar', SimpleRouter::getLink(CacheAdoptionController::class), $view->infoMsg, $view->errorMsg ); ?>
 
 <?php if($view->adoptionOffers) { ?>
 
 <div class="content2-pagetitle">
-  <img src="/images/blue/email.png" class="icon32" align="middle" />
   <b>{{adopt_10}}</b>
 </div>
 
@@ -22,10 +26,10 @@
         <a href='viewcache.php?cacheid=<?=$cache['cache_id']?>'>
           <?=$cache['name']?>&nbsp;[<?=$cache['offeredFromUserName']?>]:&nbsp;&nbsp;
         </a>
-        <a href='chowner.php?cacheid=<?=$cache['cache_id']?>&action=accept'>
+        <a href='<?=SimpleRouter::getLink(CacheAdoptionController::class,'accept',$cache['cache_id'])?>'>
           <span class="btn btn-success btn-sm">{{adopt_12}}</span>
         </a>
-        <a href='chowner.php?cacheid=<?=$cache['cache_id']?>&action=refuse'>
+        <a href='<?=SimpleRouter::getLink(CacheAdoptionController::class,'refuse',$cache['cache_id'])?>'>
           <span class="btn btn-danger btn-sm">{{adopt_13}}</span>
         </a>
       </li>
@@ -40,7 +44,6 @@
 <!-- Caches owns by current user -->
 
 <div class="content2-pagetitle">
-  <img src="/images/blue/email.png" border="0" align="middle" />
   <b>{{adopt_00}}</b>
 </div>
 
@@ -63,13 +66,13 @@
               <?php if($cache['adoptionOfferId']) { ?>
                 <!-- cache offered for adoption - offer can be aborted -->
                 <?=$cache['name']?>
-                <a href='chowner.php?cacheid=<?=$cache['cache_id']?>&action=abort'>
+                <a href="<?=SimpleRouter::getLink(CacheAdoptionController::class,'abort',$cache['cache_id'])?>">
                   <span class="btn btn-danger btn-sm">{{adopt_14}} -> <?=$cache['offeredToUserName']?></span>
                 </a>
 
               <?php } else { ?>
                 <!-- cache is not offered for adoption - offer can be created -->
-                <a href='chowner.php?cacheid=<?=$cache['cache_id']?>&action=selectUser'>
+                <a href="<?=SimpleRouter::getLink(CacheAdoptionController::class,'selectUser',$cache['cache_id'])?>">
                   <?=$cache['name']?>
                 </a>
               <?php } ?>

@@ -5,6 +5,7 @@ use src\Models\GeoCache\GeoCacheCommons;
 use src\Models\OcConfig\OcConfig;
 use src\Utils\I18n\I18n;
 use src\Utils\Text\Validator;
+use src\Utils\Gis\Countries;
 /* begin configuration */
 
 require('../lib/common.inc.php');
@@ -152,10 +153,9 @@ else {
 
     // selection options
     if (isset($_REQUEST['country'])) {
-        $country = $_REQUEST['country'];
 
-        if ( 1 != XDb::xMultiVariableQueryValue(
-                'SELECT COUNT(*) FROM `countries` WHERE `short`= :1', 0, $country) ){
+        $country = $_REQUEST['country'];
+        if (!array_search($country, Countries::getCountriesList())) {
             die('Unknown country');
         }
 
@@ -306,13 +306,6 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
     }
     XDb::xFreeResults($rs);
 
-    $counties = array();
-    $rs = XDb::xSql('SELECT `short`, `pl` FROM countries');
-    while( $r = XDb::xFetchArray($rs) ){
-        $counties[$r['short']]['pl'] = $r['pl'];
-    }
-    XDb::xFreeResults($rs);
-
     foreach (GeoCacheCommons::CacheSizesArray() as $sizeID) {
         $cachesizes[$sizeID]['pl'] = I18n::translatePhrase(GeoCacheCommons::CacheSizeTranslationKey($sizeID),'pl');
     }
@@ -411,7 +404,7 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
         fwrite($f, $t2 . '<latitude>' . sprintf('%01.5f', $r['latitude']) . '</latitude>' . "\n");
         fwrite($f, $t2 . '<type id="' . $r['type'] . '" short="' . xmlentities2($cachetypes[$r['type']]['short']) . '">' . xmlcdata($cachetypes[$r['type']]['pl']) . '</type>' . "\n");
         fwrite($f, $t2 . '<status id="' . $r['status'] . '">' . xmlcdata($cachestatus[$r['status']]['pl']) . '</status>' . "\n");
-        fwrite($f, $t2 . '<country id="' . $r['country'] . '">' . xmlcdata($counties[$r['country']]['pl']) . '</country>' . "\n");
+        fwrite($f, $t2 . '<country id="' . $r['country'] . '">' . xmlcdata( tr($r['country']) ) . '</country>' . "\n");
         fwrite($f, $t2 . '<size id="' . $r['size'] . '">' . xmlcdata($cachesizes[$r['size']]['pl']) . '</size>' . "\n");
         fwrite($f, $t2 . '<desclanguages>' . $r['desclanguages'] . '</desclanguages>' . "\n");
         fwrite($f, $t2 . '<difficulty>' . sprintf('%01.1f', $r['difficulty'] / 2) . '</difficulty>' . "\n");

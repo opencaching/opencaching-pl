@@ -17,11 +17,13 @@ if ($error == false) {
         $view = tpl_getView();
         $view->setVar('maxPicSize',  $config['limits']['image']['filesize'] * 1024 * 1024);
 
-        require_once(__DIR__.'/src/Views/editpic.inc.php');
+        tpl_set_var('maxpicsizeMB', $config['limits']['image']['filesize']);
+        tpl_set_var('maxpicresolution', $config['limits']['image']['pixels_text']);
+        tpl_set_var('picallowedformats', $config['limits']['image']['extension_text']);
 
         $uuid = isset($_REQUEST['uuid']) ? $_REQUEST['uuid'] : 0;
         if (!$uuid) {
-            $message = $message_picture_not_found;
+            $message = tr('no_picture');
         }
 
         if (!$message) {
@@ -38,7 +40,7 @@ if ($error == false) {
                     $uuid, $owner);
 
                 if (!$row = XDb::xFetchArray($rs)) {
-                    $message = $message_picture_not_found;
+                    $message = tr('no_picture');
                 }
             } else {
                 $tplname = 'error';
@@ -58,10 +60,10 @@ if ($error == false) {
                     if ($_FILES['file']['error'] != 0) {
                         // oops ... no idea what I should do now
                         $tplname = 'message';
-                        tpl_set_var('messagetitle', $message_title_internal);
+                        tpl_set_var('messagetitle', tr('file_err_internal_title'));
                         tpl_set_var('message_start', '');
                         tpl_set_var('message_end', '');
-                        tpl_set_var('message', $message_internal);
+                        tpl_set_var('message', tr('file_err_internal_file'));
                         tpl_BuildTemplate();
                         exit;
                     } else {
@@ -71,10 +73,10 @@ if ($error == false) {
 
                         if (mb_strpos($config['limits']['image']['extension'], ';' . $extension . ';') === false) {
                             $tplname = 'message';
-                            tpl_set_var('messagetitle', $message_title_wrongext);
+                            tpl_set_var('messagetitle', tr('image_bad_format'));
                             tpl_set_var('message_start', '');
                             tpl_set_var('message_end', '');
-                            tpl_set_var('message', $message_wrongext);
+                            tpl_set_var('message', tr('image_bad_format_info'));
                             tpl_BuildTemplate();
                             exit;
                         }
@@ -82,10 +84,10 @@ if ($error == false) {
                         if ($_FILES['file']['size'] > round($config['limits']['image']['filesize'] * 1024 * 1024) ) {
                             // file too big
                             $tplname = 'message';
-                            tpl_set_var('messagetitle', $message_title_toobig);
+                            tpl_set_var('messagetitle', tr('image_err_too_big'));
                             tpl_set_var('message_start', '');
                             tpl_set_var('message_end', '');
-                            tpl_set_var('message', $message_toobig);
+                            tpl_set_var('message', tr('image_max_size'));
                             tpl_BuildTemplate();
                             exit;
                         }
@@ -158,7 +160,7 @@ if ($error == false) {
             tpl_set_var('cachename', htmlspecialchars($row['name'], ENT_COMPAT, 'UTF-8'));
             tpl_set_var('title', htmlspecialchars($row['title'], ENT_COMPAT, 'UTF-8'));
             if ($row['title'] <= "")
-                tpl_set_var('errnotitledesc', $errnotitledesc);
+                tpl_set_var('errnotitledesc', '<span class="errormsg">' . tr('image_err_no_title') . '</span>');
             else
                 tpl_set_var('errnotitledesc', "");
             tpl_set_var('uuid', htmlspecialchars($uuid, ENT_COMPAT, 'UTF-8'));
@@ -166,11 +168,11 @@ if ($error == false) {
             tpl_set_var('notdisplaychecked', $row['display'] == '0' ? 'checked' : '');
 
             if ($row['object_type'] == "2") {
-                tpl_set_var('pictypedesc', $pictypedesc_cache);
+                tpl_set_var('pictypedesc', tr('cache_pictures'));
                 tpl_set_var('begin_cacheonly', "");
                 tpl_set_var('end_cacheonly', "");
             } else if ($row['object_type'] == "1") {
-                tpl_set_var('pictypedesc', $pictypedesc_log);
+                tpl_set_var('pictypedesc', tr('log_pictures'));
                 tpl_set_var('begin_cacheonly', "<!--");
                 tpl_set_var('end_cacheonly', "-->");
             }

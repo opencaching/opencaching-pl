@@ -9,10 +9,14 @@ global $picdir;
 
 $destination_path = $picdir . DIRECTORY_SEPARATOR;
 
+
+$result = "No Data";
+
 $valid_formats = array("gpx");
 
 $name = $_FILES['myfile']['name'];
 $size = $_FILES['myfile']['size'];
+
 if (strlen($name)) {
     list($txt, $ext) = explode(".", $name);
     $ext = strtolower($ext);

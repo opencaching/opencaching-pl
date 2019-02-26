@@ -4,11 +4,6 @@
  */
 
 /**
- * Primary countries for this node.
- */
-$site['primaryCountries'] = ['RO'];
-
-/**
  * Site name for the node
  */
 $site['siteName']= 'Opencaching.ro';
@@ -28,3 +23,16 @@ $site['ocNodeId'] = 16;
  * Site main domain - this shoudl be only main part of domain eg. opencaching.pl for OCPL
  */
 $site['mainDomain'] = 'opencaching.ro';
+
+/**
+ * Primary countries for this node.
+ */
+$site['primaryCountries'] = ['RO'];
+
+/**
+ * List of default countries used to present on countries list (for example in search).
+ * List will be presented in same order as below.
+ * Use only two-letters codes UPPERCASE.
+ */
+$site['defaultCountriesList'] = ['DE', 'NL', 'PL', 'RO', 'UK'];
+

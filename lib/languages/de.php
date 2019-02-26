@@ -107,7 +107,6 @@ $translations = array(
     'map_watched_caches' => 'Karte der beobachteten Caches',
     'settings' => 'Einstellungen',
     'settings_notifications' => 'Benachrichtigungseinstellungen',
-    'ignored_caches' => 'Ignorierte Caches',
     'my_recommendations' => 'Meine Empfehlungen',
     'search_cache' => 'Caches suchen',
     'caches' => 'Geocaches',
@@ -681,8 +680,6 @@ $translations = array(
     'old_options' => 'Zu überschreibende Suche',
     'select_queries' => 'Wähle die zu überschreibende Suche',
     'last_found' => 'Letzter Fund',
-    'off_ignore' => 'Nicht mehr ignorieren',
-    'no_ignores' => 'Du ignorierst keine Caches',
     'oc_stat' => '{site_name}-Cachestatistik',
     'administration' => 'OC-Verwaltung',
     'cache_notfound' => 'Nicht gefundene Caches',
@@ -924,7 +921,7 @@ $translations = array(
     'adopt_02' => 'Du darfst keine Caches adoptieren.',
     'adopt_03' => 'Du besitzt keine Caches, die du zur Adoption anbieten könntest.',
     'adopt_04' => 'Cache zur Adoption anbieten:',
-    'adopt_05' => 'Gib den Name des Benutzers an, dem du den Cache anbieten möchtest. Er muss die Adoption anschließend bestätigen, um sie abzuschließen.<br/><br /><a class="btn btn-default btn-sm" href="chowner.php">Vorgang abbrechen</a>',
+    'adopt_05' => 'Gib den Name des Benutzers an, dem du den Cache anbieten möchtest. Er muss die Adoption anschließend bestätigen, um sie abzuschließen.<br/><br /><a class="btn btn-default btn-sm" href="%s">Vorgang abbrechen</a>',
     'adopt_06' => 'Das Adoptionangebot bleibt so lange offen, bis der neue Besitzer es akzeptiert hat oder du es zurückziehst.',
     'adopt_07' => 'Name des neuen Besitzers:',
     'adopt_08' => 'Cache zur Adoption anbieten',
@@ -1894,7 +1891,6 @@ $translations = array(
     'usrWatch_removingError' => 'Interner Fehler beim Entfernen von der Beobachtungsliste',
     'usrWatch_removingSuccess' => 'Cache wurde von der Beobachtungsliste entfernt.',
 
-    'myignores_1' => 'Cache nicht mehr ignorieren?',
     'myviewqueries_1' => 'Gespeicherte Suche löschen?',
     'search_gpxgc_01' => 'ACHTUNG! Um diesen Cache als „gefunden“ zu loggen, benötigst du ein KENNWORT. Du findest es entweder im oder am Cache oder kannst es anhand der Cachebeschreibung ermitteln.',
     'search_gpxgc_02' => 'Persönliche Notiz',
@@ -2245,7 +2241,7 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'notify_freq' => 'Benachrichtigungseinstellungen',
     'notify_radius' => 'Benachrichtigungsradius ändern',
 
-    'notify_settings_intro' => 'Wenn du <a href="/MyNeighbourhood/index">deine Umgebung</a> festgelegt hast, kann {site_name} dich über neue Caches in dieser Gegend benachrichtigen. Außerdem sind Benachrichtigungen über Logs für <a href="/mywatches.php">beobachtete Caches</a> möglich. Hier kannst du auswählen, wie häufig und worüber du benachrichtigt werden möchtest.',
+    'notify_settings_intro' => 'Wenn du <a href="/MyNeighbourhood/index">deine Umgebung</a> festgelegt hast, kann {site_name} dich über neue Caches in dieser Gegend benachrichtigen. Außerdem sind Benachrichtigungen über Logs für <a href="/UserWatchedCaches">beobachtete Caches</a> möglich. Hier kannst du auswählen, wie häufig und worüber du benachrichtigt werden möchtest.',
     'notify_settings_freq' => 'Häufigkeit der Benachrichtigungen',
     'notify_settings_freq2' => 'Benachrichtigungen senden:',
     'notify_settings_caches' => 'Benachrichtigungen über neue Caches',
@@ -2924,4 +2920,8 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'mobile_skip_inactive' => 'inaktive',
     'mobile_404_title' => 'Fehler 404',
     'mobile_404_text' => 'Datei nicht gefunden',
+
+    'usrIgnore_ignored_caches' => 'Ignorierte Caches',
+    'usrIgnore_off_ignore' => 'Nicht mehr ignorieren',
+    'usrIgnore_no_ignores' => 'Du ignorierst keine Caches',
 );

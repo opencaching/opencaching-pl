@@ -10,6 +10,7 @@ use src\Models\User\UserEmailSender;
 use src\Models\User\UserNotify;
 use src\Models\User\UserPreferences\UserPreferences;
 use src\Models\User\UserPreferences\UserProfilePref;
+use src\Models\GeoCache\MultiLogStats;
 
 class UserProfileController extends BaseController
 {
@@ -165,6 +166,11 @@ class UserProfileController extends BaseController
             $this->ajaxSuccessResponse();
         }
         $this->ajaxErrorResponse();
+    }
+
+    public function getUserFtfsAjax ($userId)
+    {
+        $this->ajaxJsonResponse(MultiLogStats::getUserFtfs($userId));
     }
 
     /**

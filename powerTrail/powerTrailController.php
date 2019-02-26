@@ -58,6 +58,10 @@ class powerTrailController
 
     private function mySeries()
     {
+        if( !isset($_SESSION['user_id'])){
+           return;
+        }
+
         // print $_SESSION['user_id'];
         $q = 'SELECT * FROM `PowerTrail` WHERE id IN (SELECT `PowerTrailId` FROM `PowerTrail_owners`
                 WHERE `userId` = :1 ) ORDER BY cacheCount DESC';
@@ -66,7 +70,6 @@ class powerTrailController
         $this->allSeries = $db->dbResultFetchAll($s);
         $this->action = 'showMySeries';
         $this->areOwnSeries = true;
-
     }
 
     private function getAllPowerTrails()

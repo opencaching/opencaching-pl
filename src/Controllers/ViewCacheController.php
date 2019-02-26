@@ -16,6 +16,8 @@ use src\Models\GeoCache\OpenChecker;
 use src\Models\GeoCache\PrintList;
 use src\Models\GeoCache\Waypoint;
 use src\Utils\I18n\I18n;
+use src\Utils\Text\UserInputFilter;
+use src\Utils\Uri\SimpleRouter;
 
 class ViewCacheController extends BaseController
 {
@@ -31,8 +33,6 @@ class ViewCacheController extends BaseController
     public function __construct()
     {
         parent::__construct();
-        $this->geocache = $this->loadGeocache();
-
     }
 
     public function isCallableFromRouter($actionName)
@@ -41,8 +41,67 @@ class ViewCacheController extends BaseController
         return true;
     }
 
+    public function ocTeamCommentForm($cacheId)
+    {
+        $this->redirectNotLoggedUsers();
+        if (!$this->loggedUser->hasOcTeamRole()) {
+            $this->displayCommonErrorPageAndExit("You're not an OcTeam member!");
+        }
+
+        $cache = GeoCache::fromCacheIdFactory($cacheId);
+        if (!$cache) {
+            $this->displayCommonErrorPageAndExit("No such geocache?!");
+        }
+
+        $this->view->setVar('cacheName', $cache->getCacheName());
+        $this->view->setVar('cacheUrl', $cache->getCacheUrl());
+        $this->view->setVar('cacheId', $cache->getCacheId());
+
+        $this->view->setTemplate('viewcache/add_octeam_comment');
+        $this->view->buildView();
+    }
+
+    public function saveOcTeamComments($cacheId)
+    {
+        $this->redirectNotLoggedUsers();
+        if (!$this->loggedUser->hasOcTeamRole()) {
+            $this->displayCommonErrorPageAndExit("You're not an OcTeam member!");
+        }
+
+        $cache = GeoCache::fromCacheIdFactory($cacheId);
+        if (!$cache) {
+            $this->displayCommonErrorPageAndExit("No such geocache?!");
+        }
+
+        if ( isset($_POST['ocTeamComment']) && !empty($_POST['ocTeamComment']) ) {
+            // add OC Team comment
+            GeoCacheDesc::UpdateAdminComment(
+                $cache, UserInputFilter::purifyHtmlString($_POST['ocTeamComment']), $this->loggedUser);
+
+            $this->view->redirect($cache->getCacheUrl());
+        }
+    }
+
+    public function rmOcTeamComments($cacheId)
+    {
+        $this->redirectNotLoggedUsers();
+        if (!$this->loggedUser->hasOcTeamRole()) {
+            $this->displayCommonErrorPageAndExit("You're not an OcTeam member!");
+        }
+
+        $cache = GeoCache::fromCacheIdFactory($cacheId);
+        if (!$cache) {
+            $this->displayCommonErrorPageAndExit("No such geocache?!");
+        }
+
+        // remove OC Team comment
+        GeoCacheDesc::RemoveAdminComment($cache);
+        $this->view->redirect($cache->getCacheUrl());
+    }
+
     public function index()
     {
+        $this->geocache = $this->loadGeocache();
 
         /* check if there is cache to display */
         if ( $this->geocache == null ||
@@ -67,8 +126,8 @@ class ViewCacheController extends BaseController
             )
         ) {
             // there is no cache to display...
-            tpl_set_tplname('viewcache/viewcache_error');
-            tpl_BuildTemplate();
+            $this->view->setTemplate('viewcache/viewcache_error');
+            $this->view->buildView();
             exit(0);
         }
 
@@ -102,7 +161,6 @@ class ViewCacheController extends BaseController
         }
 
         PrintList::HandleRequest($this->geocache->getCacheId());
-
 
         $this->cache_id = $this->geocache->getCacheId(); //TODO: refactor to $geocache...
 
@@ -167,7 +225,6 @@ class ViewCacheController extends BaseController
         $this->processDesc();
         $this->processOpenChecker();
         $this->processWayPoints();
-        $this->processOcTeamComments();
         $this->processPics();
         $this->processHint();
         $this->processLogs();
@@ -221,27 +278,6 @@ class ViewCacheController extends BaseController
         return null;
     }
 
-    private function processOcTeamComments()
-    {
-
-        if ($this->loggedUser && $this->loggedUser->hasOcTeamRole()) {
-
-            if ( isset($_POST['rr_comment']) && !empty($_POST['rr_comment']) ) {
-
-                // add OC Team comment
-                GeoCacheDesc::UpdateAdminComment( $this->geocache, $_POST['rr_comment'], $this->loggedUser);
-                $this->view->redirect(Uri::getCurrentUri(true));
-
-            }elseif ( isset($_GET['rmAdminComment']) && isset($_GET['cacheid'])) {
-
-                // remove OC Team comment
-                GeoCacheDesc::RemoveAdminComment($this->geocache);
-                $this->view->redirect(Uri::removeParam('rmAdminComment'));
-
-            }
-        }
-
-    }
 
     private function processGeoPaths()
     {
@@ -293,7 +329,6 @@ class ViewCacheController extends BaseController
                 }
             }
 
-
             $this->view->setVar('showEditButton',$show_edit);
             $this->view->setVar('showWatchButton',$show_watch);
             $this->view->setVar('showIgnoreButton',$show_ignore);
@@ -310,14 +345,11 @@ class ViewCacheController extends BaseController
             }
 
             if ($show_ignore) {
-                //is this cache ignored by this user?
-
-                if (!$this->geocache->isIgnoredBy($this->loggedUser->getUserId())) {
-                    $this->view->setVar('ignoreLink',"addignore.php?cacheid=" . $this->cache_id . "&amp;target=" . Uri::getCurrentUri());
-                    $this->view->setVar('ignoreLabel',tr('ignore'));
+                //is this cache watched by this user?
+                if ($this->geocache->isIgnoredBy($this->loggedUser->getUserId())) {
+                    $this->view->setVar('ignored',true);
                 } else {
-                    $this->view->setVar('ignoreLink',"removeignore.php?cacheid=" . $this->cache_id . "&amp;target=" . Uri::getCurrentUri());
-                    $this->view->setVar('ignoreLabel',tr('ignore_not'));
+                    $this->view->setVar('ignored',false);
                 }
             }
 

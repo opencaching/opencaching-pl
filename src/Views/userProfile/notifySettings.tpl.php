@@ -2,6 +2,7 @@
 
 use src\Utils\Uri\SimpleRouter;
 use src\Models\User\UserNotify;
+use src\Controllers\UserWatchedCachesController;
 
 ?>
 
@@ -77,8 +78,12 @@ use src\Models\User\UserNotify;
   <div class="notice"><?=tr('autosave')?></div>
 
   <div class="align-center">
-    <a href="<?=SimpleRouter::getLink('MyNeighbourhood','config')?>" class="btn btn-default btn-md"><?=tr('my_neighborhood')?> (<?=tr('config')?>)</a>
-    <a href="/mywatches.php" class="btn btn-default btn-md"><?=tr('usrWatch_title')?></a>
+    <a href="<?=SimpleRouter::getLink('MyNeighbourhood','config')?>" class="btn btn-default btn-md">
+        <?=tr('my_neighborhood')?> (<?=tr('config')?>)
+    </a>
+    <a href="<?=SimpleRouter::getLink(UserWatchedCachesController::class)?>" class="btn btn-default btn-md">
+        <?=tr('usrWatch_title')?>
+    </a>
   </div>
 </div>
 

@@ -1,22 +1,21 @@
 <?php
 
-namespace src\Models\User;
+namespace src\Models\GeoCache;
 
 use src\Models\BaseObject;
 
-class UserWatchedCache extends BaseObject
+class UserIgnoredCache extends BaseObject
 {
-    public static function isCacheWatchedByUser($cacheId, $userId)
-    {
+    public static function isCacheIgnoredBy($cacheId, $userId){
         return '1' == self::db()->multiVariableQueryValue(
-            "SELECT 1 FROM cache_watches WHERE cache_id=:1 AND user_id=:2 LIMIT 1",
+            "SELECT 1 FROM cache_ignore WHERE cache_id= :1 AND user_id =:2 LIMIT 1",
             0, $cacheId, $userId);
     }
 
-    public static function addCacheToWatched($userId, $cacheWp){
+    public static function addCacheToIgnored($userId, $cacheWp){
         $params = [
             'cache_code' => $cacheWp,
-            'watched' => 'true' // true need to be a string!!!
+            'ignored' => 'true' // true need to be a string!!!
         ];
 
         $okapiResp = self::callOkapi('services/caches/mark', $params);
@@ -24,11 +23,11 @@ class UserWatchedCache extends BaseObject
         return (isset($okapiResp['success']) && $okapiResp['success'] == true );
     }
 
-    public static function removeFromWatched($userId, $cacheWp){
+    public static function removeFromIgnored($userId, $cacheWp){
 
         $params = [
            'cache_code' => $cacheWp,
-           'watched' => 'false' // false need to be a string!!!
+           'ignored' => 'false' // false need to be a string!!!
         ];
 
         $okapiResp = self::callOkapi('services/caches/mark', $params);
@@ -37,13 +36,13 @@ class UserWatchedCache extends BaseObject
 
     }
 
-    public static function getWatchedCachesCount($userId){
+    public static function getIgnoredCachesCount($userId){
         return self::db()->multiVariableQueryValue(
-            "SELECT COUNT(*) FROM cache_watches
+            "SELECT COUNT(*) FROM cache_ignore
             WHERE user_id = :1  ", 0, $userId);
     }
 
-    public static function getWatchedCachesWithLastLogs(
+    public static function getIgnoredCachesWithLastLogs(
         $userId, $limit = null, $offset = null
     ){
         $db = self::db();
@@ -56,7 +55,7 @@ class UserWatchedCache extends BaseObject
                     cl.llog_id, cl.llog_text, cl.llog_type, cl.llog_date, cl.llog_user_id,
                     u.username AS llog_username,
                     sts.user_sts
-                FROM cache_watches AS cw
+                FROM cache_ignore AS cw
                 INNER JOIN caches AS c
                     ON (cw.cache_id = c.cache_id)
                 LEFT OUTER JOIN (
@@ -70,7 +69,7 @@ class UserWatchedCache extends BaseObject
                     JOIN
                         (SELECT MAX(date), MAX(id) AS id
                          FROM cache_logs llcl
-                         WHERE cache_id IN ( SELECT cache_id FROM cache_watches WHERE user_id = :1)
+                         WHERE cache_id IN ( SELECT cache_id FROM cache_ignore WHERE user_id = :1)
                            AND deleted = 0
                          GROUP BY llcl.cache_id
                         )y USING (id)
@@ -84,7 +83,7 @@ class UserWatchedCache extends BaseObject
                     JOIN (
                         SELECT MAX(date), MAX(id) as id
                         FROM cache_logs as mcl
-                        WHERE cache_id IN ( SELECT cache_id FROM cache_watches WHERE user_id = :1)
+                        WHERE cache_id IN ( SELECT cache_id FROM cache_ignore WHERE user_id = :1)
                           AND deleted = 0 AND user_id = :1 AND type IN (1,2)
                         GROUP BY mcl.cache_id
                     )x USING (id)

@@ -3,6 +3,10 @@ RewriteEngine on
 # redirect empty requests / -> public/index.php
 RewriteRule ^$                                                                      /public/index.php [L,NC]
 
+# redirect 
+RewriteRule ^register.php$                                                          /UserRegistration [R=301,R,L]
+
+
 RewriteRule ^search\.(gpx|kml|loc|ov2|ovl|txt|wpt|uam|xml|zip|ggz)$                 /search.php?%{QUERY_STRING} [L,NC]
 RewriteRule ^ocpl(\d+)\.(gpx|kml|loc|ov2|ovl|txt|wpt|uam|xml|zip|ggz|jsoncodes)$    /search.php?queryid=$1&output=$2&%{QUERY_STRING} [L,NC]
 RewriteRule ^ocplgpx(\d+)\.(gpx)$                                                   /search.php?queryid=$1&output=gpxgc&%{QUERY_STRING} [L,NC]
