@@ -19,7 +19,6 @@ class Debug {
 
         $i = 0;
         foreach($backtrace as $trace){
-            d($trace);
             $file = isset($trace['file']) ? $trace['file'] : '?';
             $line = isset($trace['line']) ? $trace['line'] : '?';
             $func = isset($trace['function']) ? $trace['function'] : '?';
