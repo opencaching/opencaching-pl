@@ -131,9 +131,11 @@ class C001Test extends UpdateScript
             $this->assertTrue('indexExists', 22,
                 $this->db->indexExists(self::TABLE, 'uc')
             );
+            /*  not available at OC RO
             $this->assertTrue('indexExists', 23,
                 $this->db->indexExists(self::TABLE, 'uft')
             );
+            */
             $this->assertTrue('foreignKeyExists', 24,
                 $this->db->foreignKeyExists(self::TABLE, 'id', 'caches')
             );
