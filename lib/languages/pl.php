@@ -921,7 +921,7 @@ $translations = array(
     'adopt_02' => 'Nie możesz adoptować skrzynek',
     'adopt_03' => 'Nie masz skrzynek, które można przekazać do adopcji',
     'adopt_04' => 'Przekazujesz skrzynkę:',
-    'adopt_05' => 'Proszę wpisać nazwę użytkownika, który ma stać się nowym właścicielem Twojej skrzynki. Gdy tylko potwierdzi on chęć przejęcia skrzynki, procedura zostanie zakończona.<br/>Aby unieważnić prośbę o zmianę właściciela, wróć do <a href="%s">listy skrzynek</a> i wybierz odnośnik "Anuluj przekazanie".',
+    'adopt_05' => 'Enter the username who will adopt the cache. Once the user confirms, the procedure is complete.<br/>Cancel the adoption and return to <a href="%s"> "Cache adoption" </a>.',
     'adopt_06' => 'UWAGA! Opcja ta będzie aktywna, dopóki nowy właściciel nie potwierdzi zmiany.',
     'adopt_07' => 'Podaj nazwę nowego właściciela:',
     'adopt_08' => 'Zmień właściciela',
@@ -2920,7 +2920,15 @@ $translations = array(
     'mobile_404_title' => 'błąd 404',
     'mobile_404_text' => 'brak żądanej strony',
 
-    'usrIgnore_ignored_caches' => 'Moje ignorowane skrzynki',
-    'usrIgnore_off_ignore' => 'Wyłącz ignorowanie',
-    'usrIgnore_no_ignores' => 'Nie ma żadnych skrzynek ignorowanych',
+    'usrIgnore_ignored_caches' => 'Ignored caches',
+    'usrIgnore_off_ignore' => 'Remove from ignored',
+    'usrIgnore_no_ignores' => 'No ignored caches',
+    'usrIgnore_statusColumn' => 'Icon',
+    'usrIgnore_ignoredCache' => 'Geocache',
+    'usrIgnore_lastLogColumn' => 'Last log entry',
+    'usrIgnore_actionRemoveColumn' => 'Action',
+    'usrIgnore_removeFromIgnored' => 'Remove from ignored',
+    'usrIgnore_removingError' => 'Error occured on removing from ignored',
+    'usrIgnore_removingSuccess' => 'Cache removed from ignored',
+
 );
