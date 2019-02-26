@@ -60,7 +60,7 @@ class C100Init extends UpdateScript
         $this->db->dropIndexIfExists('email_schemas', 'deleted_2'); // PL
         $this->db->dropIndexIfExists('email_user', 'date_generated_2'); // NL
         $this->db->dropIndexIfExists('logentries', 'logtime_2'); // NL
-        $this->db->updateColumnType('news', 'date_publication', 'datetime NOT NULL DEFAULT CURRENT_TIMESTAMP'); // RO
+        $this->db->updateColumnType('news', 'date_publication', 'timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP'); // RO
         $this->db->updateColumnType('npa_areas', 'shape', 'geometry NOT NULL'); // RO
         $this->db->dropColumnIfExists('notify_waiting', 'type'); // NL
         $this->db->addIndexIfNotExists('opensprawdzacz', 'cache_id'); // all but PL
