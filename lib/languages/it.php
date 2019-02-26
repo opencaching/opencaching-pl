@@ -2921,6 +2921,14 @@ $translations = array(
     'mobile_404_text' => 'file not found',
 
     'usrIgnore_ignored_caches' => 'Ignored caches',
-    'usrIgnore_off_ignore' => 'Switch off ignore',
+    'usrIgnore_off_ignore' => 'Remove from ignored',
     'usrIgnore_no_ignores' => 'No ignored caches',
+    'usrIgnore_statusColumn' => 'Icon',
+    'usrIgnore_ignoredCache' => 'Geocache',
+    'usrIgnore_lastLogColumn' => 'Last log entry',
+    'usrIgnore_actionRemoveColumn' => 'Action',
+    'usrIgnore_removeFromIgnored' => 'Remove from ignored',
+    'usrIgnore_removingError' => 'Error occured on removing from ignored',
+    'usrIgnore_removingSuccess' => 'Cache removed from ignored',
+
 );
