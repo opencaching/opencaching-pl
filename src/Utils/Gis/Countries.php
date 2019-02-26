@@ -17,7 +17,7 @@ class Countries
      */
     public static function getCountriesList($onlyDefaultsCountries = false)
     {
-        if (!$onlyDefaultsCountries) {
+        if ($onlyDefaultsCountries) {
             return OcConfig::getSiteDefaultCountriesList();
         }
 
