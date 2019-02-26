@@ -921,7 +921,7 @@ $translations = array(
     'adopt_02' => 'crwdns6566:0crwdne6566:0',
     'adopt_03' => 'crwdns6567:0crwdne6567:0',
     'adopt_04' => 'crwdns17886:0crwdne17886:0',
-    'adopt_05' => 'crwdns6569:0crwdne6569:0',
+    'adopt_05' => 'crwdns26768:0%scrwdne26768:0',
     'adopt_06' => 'crwdns6570:0crwdne6570:0',
     'adopt_07' => 'crwdns6571:0crwdne6571:0',
     'adopt_08' => 'crwdns17888:0crwdne17888:0',
@@ -2919,4 +2919,16 @@ $translations = array(
     'mobile_skip_inactive' => 'crwdns26670:0crwdne26670:0',
     'mobile_404_title' => 'crwdns26672:0crwdne26672:0',
     'mobile_404_text' => 'crwdns26674:0crwdne26674:0',
+
+    'usrIgnore_ignored_caches' => 'crwdns26770:0crwdne26770:0',
+    'usrIgnore_off_ignore' => 'crwdns26772:0crwdne26772:0',
+    'usrIgnore_no_ignores' => 'crwdns26774:0crwdne26774:0',
+    'usrIgnore_statusColumn' => 'crwdns26776:0crwdne26776:0',
+    'usrIgnore_ignoredCache' => 'crwdns26778:0crwdne26778:0',
+    'usrIgnore_lastLogColumn' => 'crwdns26780:0crwdne26780:0',
+    'usrIgnore_actionRemoveColumn' => 'crwdns26782:0crwdne26782:0',
+    'usrIgnore_removeFromIgnored' => 'crwdns26784:0crwdne26784:0',
+    'usrIgnore_removingError' => 'crwdns26786:0crwdne26786:0',
+    'usrIgnore_removingSuccess' => 'crwdns26788:0crwdne26788:0',
+
 );
