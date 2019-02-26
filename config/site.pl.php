@@ -34,5 +34,5 @@ $site['primaryCountries'] = ['PL'];
  * List will be presented in same order as below.
  * Use only two-letters codes UPPERCASE.
  */
-$site['defaultCountriesList'] = ['DE', 'NL', 'PL', 'RO', 'GB'];
+$site['defaultCountriesList'] = ['BY', 'CZ', 'DE', 'DK', 'LT', 'NL', 'PL', 'RO', 'SE', 'SK', 'GB', 'UA', 'HU'];
 
