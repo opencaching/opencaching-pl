@@ -921,7 +921,7 @@ $translations = array(
     'adopt_02' => 'Je kunt nog geen caches adopteren.',
     'adopt_03' => 'Je hebt nog geen caches om ter adoptie aan te bieden',
     'adopt_04' => 'Deze cache wordt ter adoptie aangeboden:',
-    'adopt_05' => 'Voer de gebruikersnaam in die de cache adopteert. Zodra deze gebruiker bevestigt, is de procedure voltooid.<br/>Annuleer om terug te keren naar <a href="%s"> "Cache adoptie" </a>.',
+    'adopt_05' => 'Enter the username who will adopt the cache. Once the user confirms, the procedure is complete.<br/>Cancel the adoption and return to <a href="%s"> "Cache adoption" </a>.',
     'adopt_06' => 'Deze adoptie blijft open staan zolang de nieuwe eigenaar niet reageert of de adoptie wordt geannuleerd.',
     'adopt_07' => 'Voer de naam in van de nieuwe eigenaar:',
     'adopt_08' => 'Wijzig eigenaar',
@@ -2920,7 +2920,15 @@ $translations = array(
     'mobile_404_title' => 'fout 404',
     'mobile_404_text' => 'bestand niet gevonden',
 
-    'usrIgnore_ignored_caches' => 'Genegeerde caches',
-    'usrIgnore_off_ignore' => 'Schakel negeren uit',
-    'usrIgnore_no_ignores' => 'Geen genegeerde caches',
+    'usrIgnore_ignored_caches' => 'Ignored caches',
+    'usrIgnore_off_ignore' => 'Remove from ignored',
+    'usrIgnore_no_ignores' => 'No ignored caches',
+    'usrIgnore_statusColumn' => 'Icon',
+    'usrIgnore_ignoredCache' => 'Geocache',
+    'usrIgnore_lastLogColumn' => 'Last log entry',
+    'usrIgnore_actionRemoveColumn' => 'Action',
+    'usrIgnore_removeFromIgnored' => 'Remove from ignored',
+    'usrIgnore_removingError' => 'Error occured on removing from ignored',
+    'usrIgnore_removingSuccess' => 'Cache removed from ignored',
+
 );
