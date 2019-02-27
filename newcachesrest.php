@@ -76,7 +76,7 @@ if ($error == false) {
 
         foreach ($newcaches AS $countryname => $country_record) {
             $cache_country = '<tr><td colspan="7" class="content-title-noshade-size3">' . htmlspecialchars($countryname, ENT_COMPAT, 'UTF-8') . '</td></tr>';
-            $content .= $cache_country;
+            $content .= tr($cache_country);
             foreach ($country_record AS $cache_record) {
                 $thisline = $tpl_line;
 
