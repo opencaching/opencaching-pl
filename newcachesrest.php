@@ -50,7 +50,7 @@ if ($error == false) {
 
     while( $record = XDb::xFetchArray($rs) ){
         //group by country
-        $newcaches[$record['country']][] = array(
+        $newcaches[$record['cache_country']][] = array(
             'name' => $record['name'],
             'wp_name' => $record['wp_name'],
             'userid' => $record['userid'],
