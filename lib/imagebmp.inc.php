@@ -1,4 +1,8 @@
 <?php
+/**
+ * kojoty: This code is used also by thumbs.* scripts
+ */
+
 /*
 *------------------------------------------------------------
 *                   BMP Image functions
