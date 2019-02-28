@@ -38,10 +38,6 @@ if (!isset($debug))
     $debug = false;
 
 
-//site in service? Set to false when doing bigger work on the database to prevent error's
-if (!isset($site_in_service))
-    $site_in_service = true;
-
 //if you are running this site on a other domain than staging.opencaching.de, you can set
 //this in private_db.inc.php, but don't forget the ending /
 $absolute_server_URI = '//localhost/';
