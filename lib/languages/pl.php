@@ -1394,7 +1394,7 @@ $translations = array(
     'CA' => 'Kanada',
     'CC' => 'Wyspy Kokosowe',
     'CF' => 'Republika Środkowoafrykańska',
-    'CD' => 'Kongo',
+    'CD' => 'Dem. Rep. Kongo',
     'CG' => 'Kongo',
     'CH' => 'Szwajcaria',
     'CI' => 'Wybrzeże Kości Słoniowej',
@@ -2940,7 +2940,7 @@ $translations = array(
     'mobile_404_text' => 'brak żądanej strony',
 
     'usrIgnore_ignored_caches' => 'Ignorowane skrzynki',
-    'usrIgnore_off_ignore' => 'Usuńz listy ignorowanych',
+    'usrIgnore_off_ignore' => 'Usuń z listy ignorowanych',
     'usrIgnore_no_ignores' => 'Nie ma żadnych skrzynek ignorowanych',
     'usrIgnore_statusColumn' => 'Ikona',
     'usrIgnore_ignoredCache' => 'Skrzynka',
