@@ -121,7 +121,6 @@ final class OcConfig extends ConfigReader
         $this->mainPageMapCenterLat = $main_page_map_center_lat;
         $this->mainPageMapCenterLon = $main_page_map_center_lon;
         $this->mainPageMapZoom = $main_page_map_zoom;
-        $this->siteInService = $site_in_service;
         $this->pictureDirectory = $picdir;
         $this->pictureUrl = $picurl;
         $this->dateFormat = $dateFormat;
