@@ -20,7 +20,6 @@ class GeoCacheLog extends GeoCacheLogCommons
     private $date;
     private $text;
     private $textHtml;
-    private $textHtmlEdit;
     private $lastModified;
     private $okapiSyncbase;
     private $uuid;
@@ -103,11 +102,6 @@ class GeoCacheLog extends GeoCacheLogCommons
     public function getTextHtml()
     {
         return $this->textHtml;
-    }
-
-    public function getTextHtmlEdit()
-    {
-        return $this->textHtmlEdit;
     }
 
     public function getLastModified()
@@ -257,11 +251,6 @@ class GeoCacheLog extends GeoCacheLogCommons
         return $this;
     }
 
-    public function setTextHtmlEdit($textHtmlEdit)
-    {
-        $this->textHtmlEdit = $textHtmlEdit;
-        return $this;
-    }
 
     public function setLastModified(\DateTime $lastModified)
     {
@@ -377,7 +366,6 @@ class GeoCacheLog extends GeoCacheLogCommons
         ->setPicturesCount($row['picturescount'])
         ->setText($row['text'])
         ->setTextHtml($row['text_html'])
-        ->setTextHtmlEdit($row['text_htmledit'])
         ->setType($row['type'])
         ->setUser($row['user_id'])
         ->setUuid($row['uuid']);
@@ -456,8 +444,8 @@ class GeoCacheLog extends GeoCacheLogCommons
 
         self::db()->multiVariableQuery(
             'INSERT INTO `cache_logs`
-                (`cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `last_modified`, `uuid`, `date_created`, `node`)
-            VALUES (:1 , :2, :3, :4, :5 , 2, 1, NOW(), :6, NOW(), :7)',
+                (`cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `last_modified`, `uuid`, `date_created`, `node`)
+            VALUES (:1 , :2, :3, :4, :5 , 2, NOW(), :6, NOW(), :7)',
             $cacheId, $userId, $logType, $date->format(self::OcConfig()->getDbDateTimeFormat()), $text, $uuid, OcConfig::getSiteNodeId()
             );
     }
