@@ -2,6 +2,7 @@
 namespace src\Models\GeoCache;
 
 use src\Models\BaseObject;
+use src\Utils\Debug\Debug;
 
 /**
  * Common consts etc. for geocaches
@@ -126,7 +127,7 @@ class GeoCacheCommons extends BaseObject {
             case self::SIZE_NONE:    return self::SIZE_NONE_TR_KEY;
 
             default:
-                error_log(__METHOD__ . ' Unknown cache sizeId: ' . $sizeId);
+                Debug::errorLog('Unknown cache sizeId: ' . $sizeId);
                 return 'size_04';
         }
     }
@@ -195,7 +196,7 @@ class GeoCacheCommons extends BaseObject {
             case 'Other':
                 return self::TYPE_OTHERTYPE;
             default:
-                error_log(__METHOD__ . ' Unknown cache type from OKAPI: ' . $okapiType);
+                Debug::errorLog('Unknown cache type from OKAPI: ' . $okapiType);
                 return self::TYPE_TRADITIONAL;
         }
     }
@@ -227,7 +228,7 @@ class GeoCacheCommons extends BaseObject {
             case 'other':
                 return self::SIZE_OTHER;
             default:
-                error_log(__METHOD__ . ' Unknown cache size from OKAPI: ' . $okapiSize);
+                Debug::errorLog('Unknown cache size from OKAPI: ' . $okapiSize);
                 return self::SIZE_OTHER;
         }
     }
@@ -248,7 +249,7 @@ class GeoCacheCommons extends BaseObject {
             case 'Archived':
                 return self::STATUS_ARCHIVED;
             default:
-                error_log(__METHOD__ . ' Unknown cache status from OKAPI: ' . $okapiStatus);
+                Debug::errorLog('Unknown cache status from OKAPI: ' . $okapiStatus);
                 return self::STATUS_READY;
         }
     }

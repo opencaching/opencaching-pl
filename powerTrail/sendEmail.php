@@ -1,6 +1,7 @@
 <?php
 
 use src\Models\OcConfig\OcConfig;
+use src\Utils\Debug\Debug;
 
 class sendEmail
 {
@@ -86,7 +87,7 @@ class sendEmail
             if($owner['power_trail_email'] == 1){
                 //TODO: Email class should be used here in future...
                 if(! mb_send_mail($to, $subject, $mailbody, $headers)){
-                    error_log(__FILE__.':'.__LINE__.': Mail sending failure: to:'.$to);
+                    Debug::errorLog('Mail sending failure: to:'.$to);
                 }
             }
             if ($commentOwnerId && $commentOwnerId == $owner["user_id"]) {
@@ -97,7 +98,7 @@ class sendEmail
             $userDetails = powerTrailBase::getUserDetails($commentOwnerId);
             if($userDetails['power_trail_email']) {
                 if(! mb_send_mail($userDetails['email'], $subject, $mailbody, $headers)){
-                    error_log(__FILE__.':'.__LINE__.': Mail sending failure: to:'.$userDetails['email']);
+                    Debug::errorLog('Mail sending failure: to:'.$userDetails['email']);
                 }
             }
         }

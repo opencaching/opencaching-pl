@@ -5,6 +5,7 @@ namespace src\Controllers;
 use src\Models\GeoKret\GeoKretLog;
 use src\Controllers\BaseController;
 use src\Models\GeoKret\GeoKretyApi;
+use src\Utils\Debug\Debug;
 
 /**
  * This class processing GeoKrety logs queue (stored in DB).
@@ -54,7 +55,7 @@ class GeoKretyLogController extends BaseController
     {
         if(!$this->tryLock()){
             $this->debug("Fatal error: Can't lock queue processing! Another instance is running?!");
-            error_log("GK-queue-processing ERROR: can't lock queue! Source: ".$runFrom);
+            Debug::errorLog("GK-queue-processing ERROR: can't lock queue! Source: ".$runFrom);
             return;
         }
 

@@ -11,6 +11,7 @@ use src\Models\User\User;
 use src\Utils\EventHandler\EventHandler;
 use src\Utils\I18n\I18n;
 use src\Models\User\UserWatchedCache;
+use src\Utils\Debug\Debug;
 
 /**
  * Description of geoCache
@@ -343,7 +344,7 @@ class GeoCache extends GeoCacheCommons
                     $this->datePlaced = new \DateTime($value);
                     break;
                 default:
-                    error_log("File:" . __METHOD__ . ": Unknown field: $field (value: $value)");
+                    Debug::errorLog("Unknown field: $field (value: $value)");
             }
         }
     }

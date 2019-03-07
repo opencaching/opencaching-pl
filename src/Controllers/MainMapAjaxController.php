@@ -8,6 +8,7 @@ use src\Models\OcConfig\OcConfig;
 use src\Models\User\UserPreferences\MainMapSettings;
 use src\Models\User\UserPreferences\UserPreferences;
 use src\Utils\Text\Formatter;
+use src\Utils\Debug\Debug;
 
 /**
  * This class provides:
@@ -192,7 +193,7 @@ class MainMapAjaxController extends BaseController
         );
 
         if (! is_a($okapiResp, "ArrayObject")) { // strange OKAPI return !?
-            error_log(__METHOD__.": ERROR: strange OKAPI response - not an ArrayObject!");
+            Debug::errorLog("Strange OKAPI response - not an ArrayObject!");
             $this->ajaxErrorResponse('Internal error', 500);
             exit;
         }

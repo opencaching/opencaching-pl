@@ -10,12 +10,11 @@ class Debug {
      *
      * @return string
      */
-    public static function getTraceStr()
+    public static function formTraceStr($backtrace)
     {
-        $traceStr = '';
-        $backtrace = debug_backtrace();
-
         array_shift($backtrace); //remove first element - call this method...
+
+        $traceStr = '\n  STACKTRACE:';
 
         $i = 0;
         foreach($backtrace as $trace){
@@ -30,12 +29,18 @@ class Debug {
         return $traceStr."\n";
     }
 
+    public static function logException($exception)
+    {
+        $message = get_class($exception).": " . $exception->getMessage();
+        $message .= self::formTraceStr($exception->getTrace());
+        error_log($message);
+    }
+
     public static function errorLog($message, $addStackTrace=true){
 
         if($addStackTrace){
-            $message .= "\n  STACKTRACE:".self::getTraceStr();
+            $message .= self::formTraceStr(debug_backtrace());
         }
-
         error_log($message);
     }
 

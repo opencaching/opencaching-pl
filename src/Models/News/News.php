@@ -7,6 +7,7 @@ use src\Models\BaseObject;
 use src\Models\User\User;
 use src\Models\OcConfig\OcConfig;
 use src\Utils\Uri\SimpleRouter;
+use src\Utils\Debug\Debug;
 
 class News extends BaseObject
 {
@@ -137,7 +138,7 @@ class News extends BaseObject
                 case 'no-date-mainpageexp':
                     break;
                 default:
-                    error_log(__METHOD__ . ": Unknown field: $key");
+                    Debug::errorLog("Unknown field: $key");
             }
         }
     }
@@ -229,7 +230,7 @@ class News extends BaseObject
                     $this->date_lastmod = new \DateTime($val);
                     break;
                 default:
-                    error_log(__METHOD__ . ": Unknown column: $key");
+                    Debug::errorLog("Unknown column: $key");
             }
         }
         $this->dataLoaded = true;

@@ -7,6 +7,7 @@ use src\Models\GeoCache\Collection;
 use src\Models\GeoCache\GeoCache;
 use src\Models\BaseObject;
 use src\Models\User\User;
+use src\Utils\Debug\Debug;
 
 class PowerTrail extends BaseObject
 {
@@ -131,7 +132,7 @@ class PowerTrail extends BaseObject
                 case 'uuid': //uuid is not supportet yet
                     break;
                 default:
-                    error_log(__METHOD__ . ": Unknown column: $key");
+                    Debug::errorLog("Unknown column: $key");
             }
         }
 

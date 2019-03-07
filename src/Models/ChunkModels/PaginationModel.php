@@ -11,6 +11,7 @@
 namespace src\Models\ChunkModels;
 
 use src\Utils\Uri\Uri;
+use src\Utils\Debug\Debug;
 
 class PaginationModel {
 
@@ -55,8 +56,8 @@ class PaginationModel {
      */
     private function getQueryOffset(){
         if( is_null($this->currentPage) || is_null($this->recordsPerPage) ){
-            // TODO: hot to handle errors?
-            error_log("Pagination model used without initialization!");
+            // TODO: how to handle errors?
+            Debug::errorLog("Pagination model used without initialization!");
             return 0;
         }
 
@@ -72,8 +73,8 @@ class PaginationModel {
      */
     private function getRecordsPerPageNum(){
         if( is_null($this->currentPage) || is_null($this->recordsPerPage) ){
-            // TODO: hot to handle errors?
-            error_log("Pagination model used without initialization!");
+            // TODO: how to handle errors?
+            Debug::errorLog("Pagination model used without initialization!");
             return 0;
         }
 

@@ -9,6 +9,7 @@ use src\Models\OcConfig\OcConfig;
 use src\Models\User\MultiUserQueries;
 use src\Models\User\User;
 use src\Models\GeoCache\GeoCacheLog;
+use src\Utils\Debug\Debug;
 
 class Report extends BaseObject
 {
@@ -889,7 +890,7 @@ class Report extends BaseObject
                     $this->secret = $val;
                     break;
                 default:
-                    error_log(__METHOD__ . ": Unknown column: $key");
+                    Debug::errorLog("Unknown column: $key");
             }
         }
         $this->isDataComplete(true);
