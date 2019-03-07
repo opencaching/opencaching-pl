@@ -156,8 +156,8 @@ function notifyOwner($cacheid, $msgType)
         $log_uuid = Uuid::create();
         XDb::xSql(
             "INSERT INTO `cache_logs`
-                (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`)
-            VALUES ('', ?, ?, '12', NOW(), ?, '2', '1', NOW(), NOW(), ?, ?)",
+                (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `date_created`, `last_modified`, `uuid`, `node`)
+            VALUES ('', ?, ?, '12', NOW(), ?, '2', NOW(), NOW(), ?, ?)",
             $cacheid, $usr['userid'], $log_text, $log_uuid, OcConfig::getSiteNodeId());
 
     } else {
@@ -171,9 +171,9 @@ function notifyOwner($cacheid, $msgType)
         $log_uuid = Uuid::create();
         XDb::xSql(
             "INSERT INTO `cache_logs`
-                (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`)
+                (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `date_created`, `last_modified`, `uuid`, `node`)
             VALUES ('', ?, ?, ?, NOW(), ?, ?, ?, NOW(), NOW(), ?, ?)",
-            $cacheid, $usr['userid'], 12, $log_text, 2, 1, $log_uuid, OcConfig::getSiteNodeId());
+            $cacheid, $usr['userid'], 12, $log_text, 2, $log_uuid, OcConfig::getSiteNodeId());
     }
 }
 

@@ -473,13 +473,12 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
         }
 
         $text_html = 2;  // see https://github.com/opencaching/opencaching-pl/issues/1218
-        $text_htmledit = 1;
 
         // This query INSERT cache_log entry ONLY IF such entry NOT EXISTS
         XDb::xSql(
            "INSERT INTO `cache_logs` (
                 `cache_id`, `user_id`, `type`, `date`, `text`,
-                `text_html`, `text_htmledit`, `date_created`, `last_modified`,
+                `text_html`, `date_created`, `last_modified`,
                 `uuid`, `node`)
             SELECT ?, ?, ?, ?, ?, ? ,? ,NOW(), NOW(), ?, ?
             FROM  `cache_logs`
@@ -492,17 +491,17 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
             LIMIT 1",
                 $geoCache->getCacheId(), $user->getUserId(),
                 $log_type, $log_date, $log_text,
-                $text_html, $text_htmledit, $log_uuid, OcConfig::getSiteNodeId(),
+                $text_html, $log_uuid, OcConfig::getSiteNodeId(),
                 $log_type, $user->getUserId(), $geoCache->getCacheId()
             );
 
     } else {
         XDb::xSql(
             "INSERT INTO `cache_logs` (`cache_id`, `user_id`, `type`, `date`, `text`, `text_html`,
-                         `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`)
+                         `date_created`, `last_modified`, `uuid`, `node`)
             VALUES ( ?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), ?, ?)",
             $geoCache->getCacheId(), $user->getUserId(), $log_type,
-            $log_date, $log_text, 2, 1, $log_uuid, OcConfig::getSiteNodeId());
+            $log_date, $log_text, 2, $log_uuid, OcConfig::getSiteNodeId());
     }
 
     // insert to database.
@@ -549,11 +548,11 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
 
             XDb::xSql(
                 "INSERT INTO `cache_logs` (
-                    `id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`,
+                    `id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`,
                     `date_created`, `last_modified`, `uuid`, `node`)
                 VALUES ('', ?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), ?, ?)",
                 $geoCache->getCacheId(), $init_log_userID, 4, $init_log_date,
-                $init_log_desc, 0, 0, $init_log_uuid, OcConfig::getSiteNodeId());
+                $init_log_desc, 0, $init_log_uuid, OcConfig::getSiteNodeId());
 
             // print $init_log_longitude; exit;
             XDb::xSql(

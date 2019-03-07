@@ -2,6 +2,7 @@
 
 use src\Utils\Database\OcDb;
 use src\Models\OcConfig\OcConfig;
+use src\Utils\Debug\Debug;
 require_once __DIR__.'/../lib/ClassPathDictionary.php';
 
 // sendEmailCacheCandidate.php
@@ -47,7 +48,7 @@ function emailCacheOwner($ptId, $cacheId, $linkCode){
     $mailbody = mb_ereg_replace('{pt190}', tr('pt190'), $mailbody);
 
     if(! mb_send_mail($cacheData['email'], tr('pt183'), $mailbody, $headers)){
-        error_log(__FILE__.':'.__LINE__.': Mail sending failure: to:'.$cacheData['email']);
+        Debug::errorLog('Mail sending failure: to:'.$cacheData['email']);
     }
 
     // for debug only

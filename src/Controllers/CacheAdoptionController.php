@@ -132,7 +132,6 @@ class CacheAdoptionController extends BaseController
                             date = NOW(),
                             text= :2,
                             text_html = 2,
-                            text_htmledit = 1,
                             date_created = NOW(),
                             last_modified = NOW(),
                             uuid = :3,

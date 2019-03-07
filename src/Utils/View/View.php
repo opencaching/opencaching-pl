@@ -204,7 +204,7 @@ class View {
 
     private function error($message)
     {
-        error_log($message);
+        Debug::errorLog($message);
     }
 
 

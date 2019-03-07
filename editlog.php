@@ -34,7 +34,7 @@ if ($error == false) {
         $log_rs = XDb::xSql(
             "SELECT `cache_logs`.`cache_id` AS `cache_id`, `cache_logs`.`node` AS `node`, `cache_logs`.`text` AS `text`,
                     `cache_logs`.`date` AS `date`, `cache_logs`.`user_id` AS `user_id`, `cache_logs`.`type` AS `logtype`,
-                    `cache_logs`.`text_html` AS `text_html`, `cache_logs`.`text_htmledit` AS `text_htmledit`,
+                    `cache_logs`.`text_html` AS `text_html`,
                     `cache_logs`.`last_modified` AS `last_modified`, `caches`.`name` AS `cachename`, `caches`.`status` AS `cachestatus`,
                     `caches`.`type` AS `cachetype`, `caches`.`user_id` AS `cache_user_id`, `caches`.`logpw` as `logpw`
             FROM `cache_logs` INNER JOIN `caches` ON (`caches`.`cache_id`=`cache_logs`.`cache_id`)
@@ -232,23 +232,23 @@ if ($error == false) {
                     if (floor((time() - strtotime($log_record['last_modified'])) / 60) <= $config['cache_log']['edit_time']) {
                         XDb::xSql(
                             "UPDATE `cache_logs`
-                        SET `type`=?, `date`=?, `text`=?, `text_html`=?, `text_htmledit`=?, `last_modified`=NOW(),
+                        SET `type`=?, `date`=?, `text`=?, `text_html`=?, `last_modified`=NOW(),
                             `edit_by_user_id` = ?
                         WHERE `id`=?",
                             /*1*/$log_type,
                             /*2*/date('Y-m-d H:i:s', mktime($log_date_hour, $log_date_min, 0, $log_date_month, $log_date_day, $log_date_year)),
                             /*3*/UserInputFilter::purifyHtmlString(((true) ? $log_text : nl2br($log_text))),
-                            /*4*/2, /*5*/1, $usr['userid'], $log_id);
+                            /*4*/2, $usr['userid'], $log_id);
                     } else {
                         XDb::xSql(
                             "UPDATE `cache_logs`
-                        SET `type`=?, `date`=?, `text`=?, `text_html`=?, `text_htmledit`=?, `last_modified`=NOW(),
+                        SET `type`=?, `date`=?, `text`=?, `text_html`=?, `last_modified`=NOW(),
                             `edit_by_user_id` = ?, `edit_count`= edit_count + 1
                         WHERE `id`=?",
                             /*1*/$log_type,
                             /*2*/date('Y-m-d H:i:s', mktime($log_date_hour, $log_date_min, 0, $log_date_month, $log_date_day, $log_date_year)),
                             /*3*/UserInputFilter::purifyHtmlString(((true) ? $log_text : nl2br($log_text))),
-                            /*4*/2, /*5*/1, $usr['userid'], $log_id);
+                            /*4*/2, $usr['userid'], $log_id);
                     }
 
                     //update user-stat if type changed

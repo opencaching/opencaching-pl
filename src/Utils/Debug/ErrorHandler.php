@@ -44,9 +44,7 @@ class ErrorHandler
     public static function handleException($e)
     {
         self::$errorHandled = true;
-        self::processError(
-            get_class($e).": " . $e->getMessage() . "\n\n" . $e->getTraceAsString()
-        );
+        self::processError(get_class($e).": " . $e->getMessage() . "\n\n" . $e->getTraceAsString(), $e);
     }
 
     /**
@@ -67,7 +65,7 @@ class ErrorHandler
         }
     }
 
-    private static function processError($msg)
+    private static function processError($msg, $exception = null)
     {
         global $debug_page;
 
@@ -96,7 +94,12 @@ class ErrorHandler
         // Try to log error
 
         try {
-            Debug::errorLog($msg);
+            if($exception){
+                Debug::logException($exception);
+            } else {
+                Debug::errorLog($msg);
+            }
+
         } catch (\Exception $e) {
             // logging failed
         }

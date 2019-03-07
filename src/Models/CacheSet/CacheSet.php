@@ -9,6 +9,7 @@ use src\Utils\Database\QueryBuilder;
 use src\Models\GeoCache\GeoCache;
 use src\Models\Coordinates\NutsLocation;
 use src\Utils\Text\Formatter;
+use src\Utils\Debug\Debug;
 
 class CacheSet extends CacheSetCommon
 {
@@ -115,7 +116,7 @@ class CacheSet extends CacheSetCommon
                     // cords are handled below...
                     break;
                 default:
-                    error_log(__METHOD__ . ": Unknown column: $key");
+                    Debug::errorLog("Unknown column: $key");
             }
         }
 

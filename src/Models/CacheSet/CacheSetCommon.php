@@ -4,6 +4,7 @@ namespace src\Models\CacheSet;
 
 
 use src\Models\BaseObject;
+use src\Utils\Debug\Debug;
 
 class CacheSetCommon extends BaseObject
 {
@@ -30,7 +31,7 @@ class CacheSetCommon extends BaseObject
             case self::TYPE_THEMATIC:   return 'cs_typeThematic';
 
             default:
-                error_log(__METHOD__.": Unknown type: $type");
+                Debug::errorLog("Unknown type: $type");
                 return '';
         }
     }
@@ -46,7 +47,7 @@ class CacheSetCommon extends BaseObject
             case self::TYPE_THEMATIC:   return $iconPath.'footprintYellow.png';
 
             default:
-                error_log(__METHOD__.": Unknown type: $type");
+                Debug::errorLog("Unknown type: $type");
                 return '';
         }
     }
@@ -60,7 +61,7 @@ class CacheSetCommon extends BaseObject
             case self::STATUS_INSERVICE:        return 'cs_statusInService';
 
             default:
-                error_log(__METHOD__.": Unknown status: $status");
+                Debug::errorLog("Unknown status: $status");
                 return '';
         }
     }

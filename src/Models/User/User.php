@@ -6,6 +6,7 @@ use src\Utils\Generators\Uuid;
 use src\Models\Coordinates\Coordinates;
 use src\Models\GeoCache\GeoCache;
 use src\Models\OcConfig\OcConfig;
+use src\Utils\Debug\Debug;
 
 /**
  * Description of user
@@ -224,7 +225,7 @@ class User extends UserCommons
                     $this->profileUrl = $value;
                     break;
                 default:
-                    error_log(__METHOD__ . ": Unknown field: $field (value: $value)");
+                    Debug::errorLog("Unknown field: $field (value: $value)");
             }
         }
 
@@ -382,7 +383,7 @@ class User extends UserCommons
                     break;
 
                 default:
-                    error_log(__METHOD__ . ": Unknown column: $key");
+                    Debug::errorLog("Unknown column: $key");
             }
         }
 

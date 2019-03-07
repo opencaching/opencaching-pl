@@ -9,6 +9,7 @@ use src\Utils\Log\Log;
 use src\Models\OcConfig\OcConfig;
 use src\Models\GeoCache\GeoCache;
 use src\Utils\Generators\Uuid;
+use src\Utils\Debug\Debug;
 
 require_once(__DIR__.'/../lib/common.inc.php');
 
@@ -105,7 +106,7 @@ class AutoArch
         $emailheaders .= "Reply-To: $siteName <$octeamEmailAddress>";
         $status = mb_send_mail($cache->getOwner()->getEmail(), tr('autoArchive_11'), $email_content, $emailheaders);
         if(!$status){
-            error_log(__FILE__.':'.__LINE__.': Mail sending failure: to:'.$cache->getOwner()->getEmail());
+            Debug::errorLog('Mail sending failure: to:'.$cache->getOwner()->getEmail());
         }
         Log::logentry(Log::EVENT_AUTOARCHIVE, $cache->getOwner()->getUserId(), $cache->getCacheId(), 0, 'Sending mail to ' . $cache->getOwner()->getEmail(), array('status' => $status));
     }

@@ -9,6 +9,7 @@ use src\Models\OcConfig\OcConfig;
 use src\Models\User\MultiUserQueries;
 use src\Models\User\User;
 use src\Models\GeoCache\GeoCacheLog;
+use src\Utils\Debug\Debug;
 
 class Report extends BaseObject
 {
@@ -651,13 +652,13 @@ class Report extends BaseObject
      */
     public function addOcTeamLog($content = '')
     {
-        $query = '
-            INSERT INTO `cache_logs`
-            (`cache_id`, `user_id`, `type`, `date`, `text`, `text_html`,
-            `text_htmledit`, `last_modified`, `uuid`, `date_created`, `node`)
-            VALUES
-            (:cache_id, :user_id, :type, NOW(), :text, 1, 1, NOW(), :uuid,
-            NOW(), :node)';
+        $query = 'INSERT INTO `cache_logs`
+                    (`cache_id`, `user_id`, `type`, `date`, `text`, `text_html`,
+                    `last_modified`, `uuid`, `date_created`, `node`)
+                    VALUES
+                    (:cache_id, :user_id, :type, NOW(), :text, 1, NOW(), :uuid,
+                    NOW(), :node)';
+
         $params = [];
         $params['cache_id']['value'] = $this->cacheId;
         $params['cache_id']['data_type'] = 'integer';
@@ -889,7 +890,7 @@ class Report extends BaseObject
                     $this->secret = $val;
                     break;
                 default:
-                    error_log(__METHOD__ . ": Unknown column: $key");
+                    Debug::errorLog("Unknown column: $key");
             }
         }
         $this->isDataComplete(true);

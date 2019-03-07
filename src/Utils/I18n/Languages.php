@@ -2,6 +2,7 @@
 namespace src\Utils\I18n;
 
 use src\Utils\Database\XDb;
+use src\Utils\Debug\Debug;
 
 /**
  *
@@ -69,7 +70,7 @@ class Languages
                 break;
             default:
                 if ($langCode != CrowdinInContextMode::getPseudoLang()) {
-                    error_log(__METHOD__.": Error: trying to load unsupported locale: $langCode !?");
+                    Debug::errorLog(": Error: trying to load unsupported locale: $langCode !?");
                 }
                 setlocale(LC_CTYPE, 'en_EN');
                 setlocale(LC_TIME, 'en_EN');

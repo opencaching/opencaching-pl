@@ -3,6 +3,7 @@ namespace src\Models\Admin;
 
 use src\Models\BaseObject;
 use src\Models\OcConfig\OcConfig;
+use src\Utils\Debug\Debug;
 
 class ReportPoll extends BaseObject
 {
@@ -516,7 +517,7 @@ class ReportPoll extends BaseObject
                     $this->ans3 = $val;
                     break;
                 default:
-                    error_log(__METHOD__ . ": Unknown column: $key");
+                    Debug::errorLog("Unknown column: $key");
             }
         }
     }
@@ -564,7 +565,7 @@ class ReportPoll extends BaseObject
         $params['report_id']['value'] = $reportId;
         $params['report_id']['data_type'] = 'integer';
         $stmt = self::db()->paramQuery($query, $params);
-        
+
         return self::db()->dbFetchAllAsObjects($stmt, function ($row) {
             return self::fromDbRowFactory($row);
         });

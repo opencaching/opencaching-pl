@@ -498,7 +498,7 @@ class OcDb extends OcPdo
 
         if (($key = array_search('STRICT_ALL_TABLES', $modes)) !== false) {
             $trace = Debug::getTraceStr();
-            error_log(__METHOD__.": Sql Strict-mode already enabled! ($trace)");
+            Debug::errorLog("Sql Strict-mode already enabled! ($trace)");
 
             return;
         }
@@ -522,7 +522,7 @@ class OcDb extends OcPdo
             unset($modes[$key]);
         } else {
             $trace = Debug::getTraceStr();
-            error_log(__METHOD__.": Sql Strict-mode already disabled! ($trace)");
+            Debug::errorLog("Sql Strict-mode already disabled! ($trace)");
 
             return;
         }

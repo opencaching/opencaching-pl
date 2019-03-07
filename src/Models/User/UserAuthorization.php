@@ -420,7 +420,7 @@ class UserAuthorization extends BaseObject
         $email->setHtmlBody($userMessage->getEmailContent());
         $result = $email->send();
         if (! $result) {
-            error_log(__METHOD__ . ': Mail sending failure to: ' . $user->getEmail());
+            Debug::errorLog('Mail sending failure to: ' . $user->getEmail());
         }
         return $result;
     }

@@ -150,28 +150,26 @@ class TitledCacheAddJob extends Job
         $this->db->multiVariableQuery($queryI, $rec[ "cacheId" ], $rec[ "RATE" ], $rec[ "ratio" ],
                 $rec[ "cRating" ], $rec[ "cFounds" ], $rec[ "cNrDays" ], $date_alg, $recL["logId"] );
 
-
-        $queryLogI = "
-            INSERT INTO cache_logs (
-                cache_id, user_id, type, date,
-                text, text_html, text_htmledit, last_modified , okapi_syncbase, uuid, picturescount, mp3count,
-                date_created, owner_notified, node, deleted,
-                del_by_user_id, last_deleted, edit_by_user_id, edit_count
-            )
-            VALUES (
-                :1, :2, :3, :4, :5, :6, :7, :8 , :9 , :10, :11, :12, :13, :14, :15,
-                '0', NULL, NULL, NULL , '0'
-            )";
-
         $SystemUser = -1;
         $LogType = GeoCacheLog::LOGTYPE_ADMINNOTE;
         $ntitled_cache = $titled_cache_period_prefix.'_titled_cache_congratulations';
         $msgText = str_replace('{ownerName}', htmlspecialchars($rec['userName']), tr($ntitled_cache));
         $LogUuid = Uuid::create();
 
-        $this->db->multiVariableQuery(
-            $queryLogI, $rec['cacheId'], $SystemUser, $LogType, $date_alg,
-            $msgText, '2', '1', $date_alg, $date_alg, $LogUuid, '0', '0',
+        $this->db->multiVariableQuery("
+            INSERT INTO cache_logs (
+                cache_id, user_id, type, date, text,
+                text_html, last_modified, okapi_syncbase, uuid, picturescount,
+                mp3count, date_created, owner_notified, node, deleted,
+                del_by_user_id, last_deleted, edit_by_user_id, edit_count
+            )
+            VALUES (
+                :1, :2, :3, :4, :5,
+                :6, :7, :8, :9, :10,
+                :11, :12, :13, :14,
+                '0', NULL, NULL, NULL , '0'
+            )", $rec['cacheId'], $SystemUser, $LogType, $date_alg,
+            $msgText, '2', $date_alg, $date_alg, $LogUuid, '0', '0',
             $date_alg, '0', OcConfig::getSiteNodeId()
         );
 

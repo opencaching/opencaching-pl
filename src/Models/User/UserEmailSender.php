@@ -5,6 +5,7 @@ use src\Utils\Email\Email;
 use src\Utils\Email\EmailFormatter;
 use src\Utils\Uri\SimpleRouter;
 use src\Models\OcConfig\OcConfig;
+use src\Utils\Debug\Debug;
 
 class UserEmailSender
 {
@@ -58,7 +59,7 @@ class UserEmailSender
         $email->setHtmlBody($userMessage->getEmailContent());
         $result = $email->send();
         if (! $result) {
-            error_log(__METHOD__ . ': Mail sending failure to: ' . $to->getEmail());
+            Debug::errorLog('Mail sending failure to: ' . $to->getEmail());
         }
         return $result;
     }
@@ -95,7 +96,7 @@ class UserEmailSender
         $email->setHtmlBody($userMessage->getEmailContent());
         $result = $email->send();
         if (! $result) {
-            error_log(__METHOD__ . ': Sender copy sending failure to: ' . $from->getEmail());
+            Debug::errorLog('Sender copy sending failure to: ' . $from->getEmail());
         }
         return $result;
     }

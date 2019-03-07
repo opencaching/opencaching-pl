@@ -59,7 +59,6 @@ use src\Models\User\User;
             ->setPicturesCount($row['picturescount'])
             ->setText($row['text'])
             ->setTextHtml($row['text_html'])
-            ->setTextHtmlEdit($row['text_htmledit'])
             ->setType($row['type'])
             ->setUser($row['user_id'])
             ->setUuid($row['uuid']);

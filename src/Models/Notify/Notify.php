@@ -4,6 +4,7 @@ namespace src\Models\Notify;
 use src\Models\BaseObject;
 use src\Models\GeoCache\GeoCache;
 use src\Models\User\User;
+use src\Utils\Debug\Debug;
 
 class Notify extends BaseObject
 {
@@ -74,7 +75,7 @@ class Notify extends BaseObject
                     $this->userId = $val;
                     break;
                 default:
-                    error_log(__METHOD__ . ": Unknown column: $key");
+                    Debug::errorLog("Unknown column: $key");
             }
         }
     }
