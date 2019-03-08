@@ -480,7 +480,7 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
                 `cache_id`, `user_id`, `type`, `date`, `text`,
                 `text_html`, `date_created`, `last_modified`,
                 `uuid`, `node`)
-            SELECT ?, ?, ?, ?, ?, ? ,? ,NOW(), NOW(), ?, ?
+            SELECT ?, ?, ?, ?, ? ,? ,NOW(), NOW(), ?, ?
             FROM  `cache_logs`
             WHERE NOT EXISTS (
                 SELECT * FROM `cache_logs`
