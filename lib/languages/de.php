@@ -2641,6 +2641,7 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'mnu_clipboard' => 'Zwischenablage',
     'mnu_privacyPolicy' => 'Datenschutzrichtlinie',
     'mnu_facebook' => 'Facebook',
+    'mnu_kwidzyn' => 'Open Kwidzyn',
 
     'admCs_degradedCs'  => 'Nicht mehr lösbare Geopfade',
     'admCs_cacheSet'  => 'Geopfade',
