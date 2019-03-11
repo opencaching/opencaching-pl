@@ -2640,6 +2640,7 @@ $translations = array(
     'mnu_clipboard' => 'Presse papier',
     'mnu_privacyPolicy' => 'Politique de Confidentialité',
     'mnu_facebook' => 'Facebook',
+    'mnu_kwidzyn' => 'Open Kwidzyn',
 
     'admCs_degradedCs'  => 'GeoPaths dégradées',
     'admCs_cacheSet'  => 'GeoPaths',

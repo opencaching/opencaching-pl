@@ -2640,6 +2640,7 @@ $translations = array(
     'mnu_clipboard' => 'crwdns8263:0crwdne8263:0',
     'mnu_privacyPolicy' => 'crwdns12280:0crwdne12280:0',
     'mnu_facebook' => 'crwdns12288:0crwdne12288:0',
+    'mnu_kwidzyn' => 'crwdns26830:0crwdne26830:0',
 
     'admCs_degradedCs'  => 'crwdns8264:0crwdne8264:0',
     'admCs_cacheSet'  => 'crwdns8265:0crwdne8265:0',

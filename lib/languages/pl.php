@@ -2640,6 +2640,7 @@ $translations = array(
     'mnu_clipboard' => 'Schowek',
     'mnu_privacyPolicy' => 'Polityka prywatności',
     'mnu_facebook' => 'Facebook',
+    'mnu_kwidzyn' => 'Open Kwidzyn',
 
     'admCs_degradedCs'  => 'Niezdobywalne GeoŚcieżki',
     'admCs_cacheSet'  => 'Geościeżka',
