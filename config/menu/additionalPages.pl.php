@@ -32,5 +32,6 @@ $menu = [ // DON'T CHANGE $menu var name!
     'mnu_FloppMap'      => 'https://flopp-caching.de',
     'mnu_massLogsSave'  => '/log_cache_multi_send.php',
     'mnu_openchecker'   => '/openchecker.php',
+    'mnu_download'      => [$links['wiki']['downloads']],
     'mnu_qrCode'        => SimpleRouter::getLink('UserUtils', 'qrCodeGen'),
 ];
