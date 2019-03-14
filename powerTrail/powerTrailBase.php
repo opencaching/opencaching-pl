@@ -324,6 +324,7 @@ class powerTrailBase{
             $counter++;
         }
 
+        $result = [];
         if($counter>0){
             $result['avgLat'] = $lat/$counter;
             $result['avgLon'] = $lon/$counter;
