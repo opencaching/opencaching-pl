@@ -4,8 +4,8 @@
 /tmp/watchlist-runwatch.lock
 
 #ignore local configs
-/Config/*.local.php
-/Config/Menu/*.local.php
+/config/*.local.php
+/config/Menu/*.local.php
 
 .buildpath
 .project
