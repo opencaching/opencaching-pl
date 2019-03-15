@@ -186,7 +186,8 @@ if ($error == false) {
             tpl_set_var('ptTypeSelector2', displayPtTypesSelector('filter', isset($_REQUEST['filter'])?$_REQUEST['filter']:0, true));
             tpl_set_var('sortSelector', getSortBySelector($_REQUEST['sortBy']));
             tpl_set_var('sortDirSelector', getSortDirSelector($_REQUEST['sortDir']));
-            tpl_set_var('myPowerTrailsBool', getMyPowerTrailsSelector($_REQUEST['myPowerTrailsBool']));
+            tpl_set_var('myPowerTrailsBool', getMyPowerTrailsSelector(
+                isset($_REQUEST['myPowerTrailsBool']) ? $_REQUEST['myPowerTrailsBool'] :"no" ));
             tpl_set_var('gainedPowerTrailsBool', getGainedPowerTrailsSelector(
                 isset($_REQUEST['gainedPowerTrailsBool'])?$_REQUEST['gainedPowerTrailsBool']:0));
             tpl_set_var('historicLimitBool', getMiniPowerTrailSelector($_REQUEST['historicLimitBool']));
