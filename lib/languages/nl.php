@@ -2774,6 +2774,7 @@ $translations = array(
     'ogpx_otherOptions_alt_wpts' => 'Voeg de extra waypoints van deze cache toe.',
     'ogpx_otherOptions_mark_found' => 'Markeer caches die al gevonden zijn. (gebruik een "gevonden" symbool hiervoor).',
     'ogpx_additionalDownloadsHeaderHTML' => '<p>Wanneer er meer dan 500 geocaches download worden, zal het GPX bestand worden gesplitst in een paar kleinere GPX bestanden. Elk van hen moet afzonderlijk worden gedownload:</p>',
+    'gpx_file_number' => 'GPX bestand #',
 
     'mobile_login' => '[inloggen]',
     'mobile_logout' => '[uitloggen]',

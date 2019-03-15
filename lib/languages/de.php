@@ -2775,6 +2775,7 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'ogpx_otherOptions_alt_wpts' => 'Include additional waypoints along with the geocache.',
     'ogpx_otherOptions_mark_found' => 'Mark geocaches which I have already found (use a "found cache" symbol for them).',
     'ogpx_additionalDownloadsHeaderHTML' => '<p>When downloading more than 500 geocaches, your GPX file is being split into a couple of smaller GPX files. Each of them needs to be downloaded separately:</p>',
+    'gpx_file_number' => 'GPX file #',
 
     'mobile_login' => '[Anmelden]',
     'mobile_logout' => '[Abmelden]',

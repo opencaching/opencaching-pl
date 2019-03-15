@@ -2774,6 +2774,7 @@ $translations = array(
     'ogpx_otherOptions_alt_wpts' => 'crwdns26748:0crwdne26748:0',
     'ogpx_otherOptions_mark_found' => 'crwdns26754:0crwdne26754:0',
     'ogpx_additionalDownloadsHeaderHTML' => 'crwdns26756:0crwdne26756:0',
+    'gpx_file_number' => 'crwdns26832:0crwdne26832:0',
 
     'mobile_login' => 'crwdns26348:0[login]crwdne26348:0',
     'mobile_logout' => 'crwdns26350:0[logout]crwdne26350:0',
