@@ -236,6 +236,7 @@
     var show = function(opts) {
         var defaultOptions = {
             cacheCodes: [],
+            gpxFileTitle: 'GPX file #'
         };
         var options = $.extend({}, defaultOptions, opts);
 
@@ -271,9 +272,10 @@
                     } else {
                         getTemplate("okapiGpxFormatterDialogContentsTemplate2").done(function(newContents) {
                             var ul = newContents.find("ul");
+                            var n = 1;
                             $.each(paramSets, function(_, paramSet) {
                                 ul.append($("<li>")
-                                    .append($("<a>")
+                                    .append($("<a title='" + options.gpxFileTitle + n.toString() + "'>")
                                         .text(paramSet['_filename'])
                                         .on("click", function() {
                                             performFormPost("/lib/okapi_gpx.php", {
@@ -282,6 +284,7 @@
                                         })
                                     )
                                 );
+                                ++n;
                             });
                             dialogContents.empty().append(newContents);
                             closeButton.text = strings.closeButtonLabel;

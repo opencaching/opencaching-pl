@@ -7,7 +7,7 @@ use src\Utils\I18n\I18n;
 <script src="/js/GCT.js"></script>
 <script src="/js/GCT.lang.php"></script>
 <script src="/js/search.js"></script>
-<script src="/js/okapiGpxFormatterWidget.js?v=3"></script>
+<script src="/js/okapiGpxFormatterWidget.js?v=4"></script>
 <script>
     $(function() {
 
@@ -21,7 +21,8 @@ use src\Utils\I18n\I18n;
         });
         btnFetchSelected.on("click", function() {
             $.okapiGpxFormatterWidget.show({
-                cacheCodes: GetSelectedCacheCodes()
+                cacheCodes: GetSelectedCacheCodes(),
+                gpxFileTitle: '{{gpx_file_number}}'
             });
         });
         btnFetchAll.on("click", function() {
@@ -29,7 +30,8 @@ use src\Utils\I18n\I18n;
                 url: "ocpl{queryid}.jsoncodes"
             }).done(function(cacheCodes) {
                 $.okapiGpxFormatterWidget.show({
-                    cacheCodes: cacheCodes
+                    cacheCodes: cacheCodes,
+                    gpxFileTitle: '{{gpx_file_number}}'
                 });
             });
         });
