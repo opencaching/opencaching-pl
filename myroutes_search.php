@@ -1323,9 +1323,6 @@ function set_route_options($route_id, $options)
 // end of function
 function getPictures($cacheid, $picturescount)
 {
-    global $thumb_max_width;
-    global $thumb_max_height;
-
     $database = OcDb::instance();
     $s = $database->multiVariableQuery(
         'SELECT uuid, title, url, spoiler FROM pictures

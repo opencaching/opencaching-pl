@@ -12,7 +12,7 @@ class Debug {
      */
     public static function formTraceStr($backtrace)
     {
-        array_shift($backtrace); //remove first element - call this method...
+       // array_shift($backtrace); //remove first element - call this method...
 
         $traceStr = '\n  STACKTRACE:';
 

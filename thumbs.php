@@ -8,6 +8,7 @@
 
 use src\Utils\Database\XDb;
 use src\Models\Pictures\Thumbnail;
+use src\Models\OcConfig\OcConfig;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
@@ -121,6 +122,8 @@ if ($error == false) {
 
             $imheight = imagesy($im);
             $imwidth = imagesx($im);
+
+            list($thumb_max_width, $thumb_max_height) = OcConfig::getPicMediumThumbnailSize();
 
             if (($imheight > $thumb_max_height) || ($imwidth > $thumb_max_width)) {
                 if ($imheight > $imwidth) {

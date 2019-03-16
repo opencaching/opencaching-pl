@@ -222,6 +222,12 @@ class View {
         SimpleRouter::redirect($uri);
     }
 
+    public function redirectAndExit($uri)
+    {
+        $this->redirect($uri);
+        exit;
+    }
+
     public function getSeasonCssName()
     {
 

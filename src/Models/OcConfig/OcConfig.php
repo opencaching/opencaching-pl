@@ -4,7 +4,7 @@ namespace src\Models\OcConfig;
 
 final class OcConfig extends ConfigReader
 {
-    use EmailConfigTrait, SiteConfigTrait, I18nConfigTrait;
+    use EmailConfigTrait, SiteConfigTrait, I18nConfigTrait, PicturesConfigTrait;
 
 /*
     const OCNODE_GERMANY    = 1;  // Opencaching Germany http://www.opencaching.de OC
@@ -221,9 +221,15 @@ final class OcConfig extends ConfigReader
         return $this->dbDatetimeFormat;
     }
 
-    public static function getDynFilesPath()
+    public static function getDynFilesPath($rmTrailingSlash = false)
     {
-        return self::instance()->getDynamicFilesPath();
+        $path = self::instance()->getDynamicFilesPath();
+        if($rmTrailingSlash){
+            if(preg_match('/\/$/', $path)){
+                return substr($path, 0, -1);
+            }
+        }
+        return $path;
     }
 
     public function getDynamicFilesPath()

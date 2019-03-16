@@ -55,13 +55,6 @@ if (!isset($picdir))
 if (!isset($picurl))
     $picurl = '//localhost/images/uploads';
 
-// Thumbsize
-$thumb_max_width = 175;
-$thumb_max_height = 175;
-// Small thumbsize
-$thumb2_max_width = 64;
-$thumb2_max_height = 64;
-
 // location of cache mp3 files
 if (!isset($mp3dir))
     $mp3dir = $dynbasepath . 'mp3';
