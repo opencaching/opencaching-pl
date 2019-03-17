@@ -49,10 +49,6 @@ $absolute_server_URI = '//localhost/';
 // location for dynamically generated files
 $dynbasepath = '/var/www/ocpl-data/';
 
-// location of cache images
-if (!isset($picurl))
-    $picurl = '//localhost/images/uploads';
-
 // location of cache mp3 files
 if (!isset($mp3dir))
     $mp3dir = $dynbasepath . 'mp3';

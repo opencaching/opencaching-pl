@@ -1,8 +1,10 @@
 <?php
 
 use src\Utils\Database\OcDb;
+use src\Utils\Uri\SimpleRouter;
 use src\Utils\Uri\Uri;
 use src\Controllers\LogEntryController;
+use src\Controllers\PictureController;
 use src\Utils\Text\TextConverter;
 use src\Utils\Text\SmilesInText;
 use src\Utils\Text\UserInputFilter;
@@ -428,7 +430,11 @@ if ($error == false) {
                         $thisline = mb_ereg_replace('{longdesc}', str_replace("images/uploads", "upload", $pic_record['url']), $thisline);
                     }
 
-                    $thisline = mb_ereg_replace('{imgsrc}', 'thumbs2.php?' . $showspoiler . 'uuid=' . urlencode($pic_record['uuid']), $thisline);
+                    $thisline = mb_ereg_replace(
+                        '{imgsrc}',
+                        SimpleRouter::getLink(PictureController::class, 'thumbSizeSmall', [$pic_record['uuid']]),
+                        $thisline);
+
                     $thisline = mb_ereg_replace('{title}', htmlspecialchars($pic_record['title'], ENT_COMPAT, 'UTF-8'), $thisline);
 
                     if ($pic_record['user_id'] == $usr['userid'] || $usr['admin']) {

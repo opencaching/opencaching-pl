@@ -36,10 +36,21 @@ trait PicturesConfigTrait {
     }
 
     /**
+     * former: $picdir
      * @return string - path to the folder where uploaded pictures should be stored
      */
-    public static function getPicUploadFolder(){
-        return self::getDynFilesPath(true) . self::getPicturesVar('pcituresUploadFolder');
+    public static function getPicUploadFolder()
+    {
+        return self::getDynFilesPath(true) . self::getPicturesVar('picturesUploadFolder');
+    }
+
+    /**
+     * former: $picurl
+     * @return string - base of the url under which pics are accessible
+     */
+    public static function getPicBaseUrl()
+    {
+        return self::getPicturesVar('picturesBaseUrl');
     }
 
     /**

@@ -12,7 +12,7 @@ class Debug {
      */
     public static function formTraceStr($backtrace)
     {
-        $traceStr = '\n  STACKTRACE:';
+        $traceStr = "\n  STACKTRACE:";
 
         $i = 0;
         foreach($backtrace as $trace){

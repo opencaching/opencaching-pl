@@ -2,6 +2,7 @@
 namespace src\Utils\Img;
 
 use src\Utils\System\PhpInfo;
+use src\Utils\Debug\Debug;
 
 /**
  *
@@ -14,6 +15,21 @@ class OcImage
     private $gdImage = null;
     private $gdImageType = null;
 
+    /**
+     * Fast track for thumbnail creation
+     * Extension to the $outputFile will be added automatically
+     *
+     * @param string $inputFile - path to the input image
+     * @param string $outputFile - path to the output image (with filename without extension)
+     * @param array $maxSize - array of max dimensions
+     * @return
+     */
+    public static function createThumbnail($inputFile, $outputFile, array $maxSize)
+    {
+        $img = new OcImage($inputFile);
+        $img->resizeToMaxDimensions($maxSize);
+        return $img->save($outputFile, true);
+    }
 
     public function __construct($inputImagePath)
     {
@@ -56,7 +72,7 @@ class OcImage
     {
         // check if input file exists
         if (!is_file($inputImagePath)){
-            throw new \Exception("Image not found");
+            throw new \Exception("Image not found: $inputImagePath");
         }
 
         // load img type
@@ -77,11 +93,12 @@ class OcImage
 
     /**
      * Resize the image to be sure this fit to max-dimensions
-     * @param int $maxWidth
-     * @param int $maxHeight
+     * @param int $maxWidth     *
      */
-    public function resizeToMaxDimensions($maxWidth, $maxHeight)
+    public function resizeToMaxDimensions(array $maxDimensions)
     {
+        list($maxWidth, $maxHeight) = $maxDimensions;
+
         if ($this->getWidth() > $maxWidth) {
             // width is too high - resize
             $this->scale($maxWidth / $this->getWidth());
@@ -173,19 +190,24 @@ class OcImage
         // there are only three possiblem outputs
         switch ($this->gdImageType) {
             case IMAGETYPE_PNG:
-                $result = @imagecreatefrompng($this->gdImage, $outputPath);
+                $outputPath .= ".png";
+                $result = imagepng($this->gdImage, $outputPath);
                 break;
             case IMAGETYPE_GIF:
-                $result = @imagegif($this->gdImage, $outputPath);
+                $outputPath .= ".gif";
+                $result = imagegif($this->gdImage, $outputPath);
                 break;
             case IMAGETYPE_JPEG:
             default:
-                $result = @imagecreatefrompng($this->gdImage, $outputPath, self::DEFAULT_JPEG_COMPRESSION);
+                $outputPath .= ".jpg";
+                $result = imagejpeg($this->gdImage, $outputPath, self::DEFAULT_JPEG_COMPRESSION);
         }
 
         if(!$result){
-            throw new \Exception("Can't save the output file");
+            throw new \Exception("Can't save the output file: $outputPath");
         }
+
+        return $outputPath;
     }
 
     private function loadType($inputImagePath)

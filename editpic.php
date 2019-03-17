@@ -2,7 +2,9 @@
 
 use src\Utils\Database\XDb;
 use src\Models\OcConfig\OcConfig;
-use src\Models\Pictures\Thumbnail;
+use src\Utils\Img\OcImage;
+
+
 //prepare the templates and include all neccessary
 require_once(__DIR__.'/lib/common.inc.php');
 
@@ -97,16 +99,15 @@ if ($error == false) {
 
                         if ($config['limits']['image']['resize'] == 1 && $_FILES['file']['size'] > round($config['limits']['image']['resize_larger'] * 1024 * 1024) ) {
                             // Apply resize to uploaded image
-                            Thumbnail::create(
+                            $filePath = OcImage::createThumbnail(
                                 $_FILES['file']['tmp_name'],
-                                OcConfig::getPicUploadFolder(true) . '/' . $uuid . '.' . $extension,
+                                OcConfig::getPicUploadFolder(true) . '/' . $uuid,
                                 [$config['limits']['image']['width'], $config['limits']['image']['height']]);
 
                         } else {
                             // Save uploaded image AS IS
-                            move_uploaded_file(
-                                $_FILES['file']['tmp_name'],
-                                OcConfig::getPicUploadFolder(true) . '/' . $uuid . '.' . $extension);
+                            $filePath = OcConfig::getPicUploadFolder(true) . '/' . $uuid . '.' . $extension;
+                            move_uploaded_file($_FILES['file']['tmp_name'], $filePath);
                         }
                     }
                 }
@@ -127,9 +128,11 @@ if ($error == false) {
 
                 if ($row['title']) {
                     XDb::xSql(
-                        "UPDATE `pictures` SET `title`= ?, `display`= ?, `spoiler`= ?, `last_modified` = NOW()
+                        "UPDATE `pictures` SET `title`= ?, `display`= ?, `spoiler`= ?, `last_modified` = NOW(), url = ?
                          WHERE `uuid`= ? ",
-                        $row['title'], (($row['display'] == 1) ? '1' : '0'), (($row['spoiler'] == 1) ? '1' : '0'), $uuid);
+                        $row['title'],
+                        (($row['display'] == 1) ? '1' : '0'), (($row['spoiler'] == 1) ? '1' : '0'),
+                        OcConfig::getPicBaseUrl().'/'.basename($filePath), $uuid);
 
                     switch ($row['object_type']) {
                         // log - currently not used, because log pictures cannot be edited

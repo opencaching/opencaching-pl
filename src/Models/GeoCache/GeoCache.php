@@ -2,6 +2,7 @@
 namespace src\Models\GeoCache;
 
 use src\Utils\Database\XDb;
+use src\Controllers\PictureController;
 use src\Models\Coordinates\Altitude;
 use src\Models\Coordinates\Coordinates;
 use src\Models\OcConfig\OcConfig;
@@ -10,8 +11,10 @@ use src\Models\User\MultiUserQueries;
 use src\Models\User\User;
 use src\Utils\EventHandler\EventHandler;
 use src\Utils\I18n\I18n;
+use src\Utils\Uri\SimpleRouter;
 use src\Models\User\UserWatchedCache;
 use src\Utils\Debug\Debug;
+use src\Models\Pictures\Thumbnail;
 
 /**
  * Description of geoCache
@@ -1467,7 +1470,7 @@ class GeoCache extends GeoCacheCommons
                 $pic->title = $row['title'];
                 $pic->titleHtml = htmlspecialchars($row['title']);
                 $pic->uuid = $row['uuid'];
-                $pic->thumbUrl = "thumbs.php?uuid=".$row['uuid'];
+                $pic->thumbUrl = SimpleRouter::getLink(PictureController::class, 'thumbSizeMedium', [$row['uuid']]);
 
                 // path to images was changes - why not to fix it in DB?
                 $pic->url = str_replace("images/uploads", "upload", $row['url']);
@@ -1489,7 +1492,7 @@ class GeoCache extends GeoCacheCommons
         if ($changeUrlForSpoilers) {
             array_walk($result, function($pic) {
                 if ($pic->spoiler) {
-                    $pic->url = 'images/thumb/thumbspoiler.gif';
+                    $pic->url = Thumbnail::placeholderUri(Thumbnail::PHD_SPOILER);
                 }
             });
         }

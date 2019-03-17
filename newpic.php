@@ -3,7 +3,7 @@
 use src\Utils\Database\XDb;
 use src\Utils\Generators\Uuid;
 use src\Models\OcConfig\OcConfig;
-use src\Models\Pictures\Thumbnail;
+use src\Utils\Img\OcImage;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
@@ -167,17 +167,20 @@ if ($error == false) {
 
                         $uuid = Uuid::create();
 
-                        if ($config['limits']['image']['resize'] == 1 && $_FILES['file']['size'] > round($config['limits']['image']['resize_larger'] * 1024 * 1024) ) {
+                        if ($config['limits']['image']['resize'] == 1 &&
+                            $_FILES['file']['size'] > round($config['limits']['image']['resize_larger'] * 1024 * 1024) ) {
+
                             // Apply resize to uploaded image
-                            Thumbnail::create(
+                            $filePath = OcImage::createThumbnail(
                                 $_FILES['file']['tmp_name'],
-                                OcConfig::getPicUploadFolder(true) . '/' . $uuid . '.' . $extension,
+                                OcConfig::getPicUploadFolder(true) . '/' . $uuid,
                                 [$config['limits']['image']['width'], $config['limits']['image']['height']]);
+
+
                         } else {
                             // Save uploaded image AS IS
-                            move_uploaded_file(
-                                $_FILES['file']['tmp_name'],
-                                OcConfig::getPicUploadFolder(true) . '/' . $uuid . '.' . $extension);
+                            $filePath = OcConfig::getPicUploadFolder(true) . '/' . $uuid . '.' . $extension;
+                            move_uploaded_file($_FILES['file']['tmp_name'], $filePath);
                         }
 
                         XDb::xSql(
@@ -187,7 +190,7 @@ if ($error == false) {
                                  `local`,`spoiler`,`display`,`node`,`seq`)
                             VALUES (?, ?, NOW(), ?, '', 0, NOW(), NOW(),?, ?,
                                     ?, 1, ?, ?, ?, ?)",
-                            $uuid, $picurl . '/' . $uuid . '.' . $extension, $title, $objectid, $type, $usr['userid'],
+                            $uuid, OcConfig::getPicBaseUrl().'/'.basename($filePath), $title, $objectid, $type, $usr['userid'],
                             ($bSpoiler == 1) ? '1' : '0', ($bNoDisplay == 1) ? '0' : '1', OcConfig::getSiteNodeId(), $def_seq);
 
                         switch ($type) {
@@ -209,7 +212,7 @@ if ($error == false) {
                                 break;
                         }
 
-                        tpl_redirect_absolute($picurl . '/' . $uuid . '.' . $extension);
+                        tpl_redirect_absolute(OcConfig::getPicBaseUrl() . '/' . $uuid . '.' . $extension);
                         exit;
                     }
                 }

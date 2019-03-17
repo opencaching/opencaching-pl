@@ -8,10 +8,16 @@ $pictures = [];
 
 
 /**
- * Folder used to store uploaded pictures
+ * Folder used to store uploaded pictures (former $picdir)
  * - related to "global folder for dynamic content - aka old: $dynbasepath "
  */
-$pictures['pcituresUploadFolder'] = "/images/upload";
+$pictures['picturesUploadFolder'] = "/images/uploads";
+
+/**
+ * Base of url to access pictures from browser (former $picurl)
+ */
+$pictures['picturesBaseUrl'] = "/images/uploads";
+
 
 /**
  * Folder used to store thumbnails for uploaded pictures

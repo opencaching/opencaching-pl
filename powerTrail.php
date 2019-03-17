@@ -571,7 +571,6 @@ function displayPtCommentsSelector($htmlid, PowerTrail $powerTrail, $selectedId 
 
 function displayPowerTrailLogo($ptId, $img)
 {
-    // global $picurl;
     if (empty($img)){
         return '/images/blue/powerTrailGenericLogo.png';
     }else {

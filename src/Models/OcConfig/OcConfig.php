@@ -34,7 +34,6 @@ final class OcConfig extends ConfigReader
     private $mainPageMapCenterLon;
     private $mainPageMapZoom;
     private $siteInService = false;
-    private $pictureUrl;
     private $dateFormat;
     private $mapsConfig;            //settings.inc: $config['mapsConfig']
     private $headerLogo;
@@ -120,7 +119,6 @@ final class OcConfig extends ConfigReader
         $this->mainPageMapCenterLat = $main_page_map_center_lat;
         $this->mainPageMapCenterLon = $main_page_map_center_lon;
         $this->mainPageMapZoom = $main_page_map_zoom;
-        $this->pictureUrl = $picurl;
         $this->dateFormat = $dateFormat;
         $this->headerLogo = $config['headerLogo'];
         $this->shortSiteName = $short_sitename;
