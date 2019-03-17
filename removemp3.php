@@ -45,7 +45,7 @@ if ($error == false) {
             $extension = mb_strtolower($fna[count($fna) - 1]);
 
             // remove file and DB entry
-            @unlink($picdir . '/' . $uuid . '.' . $extension);
+            @unlink(OcConfig::getPicUploadFolder(true) . '/' . $uuid . '.' . $extension);
             XDb::xSql("DELETE FROM `mp3` WHERE `uuid`= ? LIMIT 1", $uuid);
             XDb::xSql(
                 "INSERT INTO `removed_objects` (`localID`, `uuid`, `type`, `removed_date`, `node`)

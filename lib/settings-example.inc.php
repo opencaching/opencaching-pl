@@ -50,8 +50,6 @@ $absolute_server_URI = '//localhost/';
 $dynbasepath = '/var/www/ocpl-data/';
 
 // location of cache images
-if (!isset($picdir))
-    $picdir = $dynbasepath . 'images/uploads';
 if (!isset($picurl))
     $picurl = '//localhost/images/uploads';
 

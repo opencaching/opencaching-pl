@@ -176,10 +176,14 @@ if ($error == false) {
                             if ($image->getHeight() <= $image->getWidth() && $image->getWidth() > $config['limits']['image']['width'])  {
                             $image -> resizeToWidth($config['limits']['image']['width']);
                             }
-                            $image->save($picdir . '/' . $uuid . '.' . $extension, resolveImageTypeByFileExtension($extension));
+                            $image->save(
+                                OcConfig::getPicUploadFolder(true) . '/' . $uuid . '.' . $extension,
+                                resolveImageTypeByFileExtension($extension));
                         } else {
                             // Save uploaded image AS IS
-                            move_uploaded_file($_FILES['file']['tmp_name'], $picdir . '/' . $uuid . '.' . $extension);
+                            move_uploaded_file(
+                                $_FILES['file']['tmp_name'],
+                                OcConfig::getPicUploadFolder(true) . '/' . $uuid . '.' . $extension);
                         }
 
                         XDb::xSql(

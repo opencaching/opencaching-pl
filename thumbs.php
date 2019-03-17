@@ -16,8 +16,8 @@ $uuid = isset($_REQUEST['uuid']) ? $_REQUEST['uuid'] : '';
 $debug = isset($_REQUEST['debug']) ? $_REQUEST['debug'] : 0;
 
 // thumbs-dir/url
-global $picdir, $picurl;
-$thumbdir = $picdir . '/thumbs';
+global $picurl;
+$thumbdir = OcConfig::getPicUploadFolder(true) . '/thumbs';
 $thumburl = $picurl . '/thumbs';
 
 
@@ -45,7 +45,7 @@ if ($error == false) {
 
         $imgurl = $r['url'];
         $urlparts = mb_split('/', $imgurl);
-        if (!file_exists($picdir . '/' . $urlparts[count($urlparts) - 1]))
+        if (!file_exists(OcConfig::getPicUploadFolder(true) . '/' . $urlparts[count($urlparts) - 1]))
             if ($debug == 1)
                 die('Debug: line ' . __LINE__);
             else
@@ -89,20 +89,20 @@ if ($error == false) {
             try {
                 switch ($extension) {
                     case 'jpg':
-                        $im = imagecreatefromjpeg($picdir . '/' . $filename);
+                        $im = imagecreatefromjpeg(OcConfig::getPicUploadFolder(true) . '/' . $filename);
                         break;
 
                     case 'gif':
-                        $im = imagecreatefromgif($picdir . '/' . $filename);
+                        $im = imagecreatefromgif(OcConfig::getPicUploadFolder(true) . '/' . $filename);
                         break;
 
                     case 'png':
-                        $im = imagecreatefrompng($picdir . '/' . $filename);
+                        $im = imagecreatefrompng(OcConfig::getPicUploadFolder(true) . '/' . $filename);
                         break;
 
                     case 'bmp':
                         require(__DIR__.'/lib/imagebmp.inc.php');
-                        $im = imagecreatefrombmp($picdir . '/' . $filename);
+                        $im = imagecreatefrombmp(OcConfig::getPicUploadFolder(true) . '/' . $filename);
                         break;
                 }
             } catch (\Exception $e) {

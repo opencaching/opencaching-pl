@@ -34,7 +34,6 @@ final class OcConfig extends ConfigReader
     private $mainPageMapCenterLon;
     private $mainPageMapZoom;
     private $siteInService = false;
-    private $pictureDirectory;
     private $pictureUrl;
     private $dateFormat;
     private $mapsConfig;            //settings.inc: $config['mapsConfig']
@@ -121,7 +120,6 @@ final class OcConfig extends ConfigReader
         $this->mainPageMapCenterLat = $main_page_map_center_lat;
         $this->mainPageMapCenterLon = $main_page_map_center_lon;
         $this->mainPageMapZoom = $main_page_map_zoom;
-        $this->pictureDirectory = $picdir;
         $this->pictureUrl = $picurl;
         $this->dateFormat = $dateFormat;
         $this->headerLogo = $config['headerLogo'];
@@ -221,13 +219,11 @@ final class OcConfig extends ConfigReader
         return $this->dbDatetimeFormat;
     }
 
-    public static function getDynFilesPath($rmTrailingSlash = false)
+    public static function getDynFilesPath($trimTrailingSlash = false)
     {
         $path = self::instance()->getDynamicFilesPath();
-        if($rmTrailingSlash){
-            if(preg_match('/\/$/', $path)){
-                return substr($path, 0, -1);
-            }
+        if($trimTrailingSlash){
+            return rtrim($path, '/');
         }
         return $path;
     }

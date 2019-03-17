@@ -1,12 +1,13 @@
 <?php
 use src\Utils\Database\OcDb;
 use lib\SimpleImage;
+use src\Models\OcConfig\OcConfig;
 
 require_once __DIR__ . '/../lib/common.inc.php';
 
-global $picurl, $picdir;
+global $picurl;
 
-$destination_path = $picdir.'/';
+$destination_path = OcConfig::getPicUploadFolder(true).'/';
 
 if (isset($_REQUEST['powerTrailId'])){
     $powerTrailId = $_REQUEST['powerTrailId'];
