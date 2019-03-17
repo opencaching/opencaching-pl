@@ -3,6 +3,7 @@ namespace src\Models\Pictures;
 
 use src\Models\BaseObject;
 use src\Utils\I18n\I18n;
+use src\Utils\Img\OcImage;
 
 class Thumbnail extends BaseObject
 {
@@ -20,5 +21,12 @@ class Thumbnail extends BaseObject
             $path = 'images/thumb/en/'.$placeholder;
         }
         return self::OcConfig()->getAbsolute_server_URI() . $path;
+    }
+
+    public static function create($inputFile, $outputFile, array $maxSize)
+    {
+        $img = new OcImage($inputFile);
+        $img->resizeToMaxDimensions($maxSize);
+        $img->save($outputFile, true);
     }
 }

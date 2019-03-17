@@ -3,6 +3,7 @@
 use src\Utils\Database\XDb;
 use src\Utils\Generators\Uuid;
 use src\Models\OcConfig\OcConfig;
+use src\Models\Pictures\Thumbnail;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
@@ -168,17 +169,10 @@ if ($error == false) {
 
                         if ($config['limits']['image']['resize'] == 1 && $_FILES['file']['size'] > round($config['limits']['image']['resize_larger'] * 1024 * 1024) ) {
                             // Apply resize to uploaded image
-                            $image = new \lib\SimpleImage();
-                            $image->load($_FILES['file']['tmp_name']);
-                            if ($image->getHeight() > $image->getWidth() && $image->getHeight() > $config['limits']['image']['height']) { //portrait
-                            $image->resizeToHeight($config['limits']['image']['height']);
-                            }
-                            if ($image->getHeight() <= $image->getWidth() && $image->getWidth() > $config['limits']['image']['width'])  {
-                            $image -> resizeToWidth($config['limits']['image']['width']);
-                            }
-                            $image->save(
+                            Thumbnail::create(
+                                $_FILES['file']['tmp_name'],
                                 OcConfig::getPicUploadFolder(true) . '/' . $uuid . '.' . $extension,
-                                resolveImageTypeByFileExtension($extension));
+                                [$config['limits']['image']['width'], $config['limits']['image']['height']]);
                         } else {
                             // Save uploaded image AS IS
                             move_uploaded_file(
@@ -260,18 +254,3 @@ if ($error == false) {
 
 //make the template and send it out
 tpl_BuildTemplate();
-
-function resolveImageTypeByFileExtension($fileExtension)
-{
-    $extension = strtoupper($fileExtension);
-    switch ($extension){
-        case 'JPG':
-        case 'JPEG':
-            return IMAGETYPE_JPEG;
-        case 'PNG':
-            return IMAGETYPE_PNG;
-        case 'GIF':
-            return IMAGETYPE_GIF;
-    }
-    return IMAGETYPE_JPEG;
-}
