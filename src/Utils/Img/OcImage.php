@@ -1,6 +1,8 @@
 <?php
 namespace src\Utils\Img;
 
+use src\Utils\System\PhpInfo;
+
 /**
  *
  * This class may be used to perform simple operation on image
@@ -43,7 +45,7 @@ class OcImage
     }
 
     /**
-     * @return unknown - return the recognized type of the image: IMAGETYPE_*
+     * @return int - return the recognized type of the image: IMAGETYPE_*
      */
     public function getType()
     {
@@ -60,8 +62,13 @@ class OcImage
         // load img type
         $this->loadType($inputImagePath);
 
-        // open img
-        $this->gdImage = imagecreatefromstring(file_get_contents($inputImagePath));
+        if(!PhpInfo::versionAtLeast(7,2) && $this->gdImageType == IMAGETYPE_BMP){
+            // GD doens't support BMP import before PHP 7.2
+            $this->gdImage = $this->loadBmp($inputImagePath);
+        } else {
+            // open img
+            $this->gdImage = @imagecreatefromstring(file_get_contents($inputImagePath));
+        }
 
         if ($this->gdImage === false) {
             throw new \Exception("Can't open image - unsupported format.");
@@ -188,5 +195,109 @@ class OcImage
         } else {
             throw new \Exception("Can't read image type?");
         }
+    }
+
+    /**
+     * This function is necessary only for PHP<7.2 because of no support of BMP in GD
+     * This code based on comment here:
+     * http://php.net/manual/en/function.imagecreate.php#53879
+     * greetings to author: DHKold admin at dhkold.com
+     *
+     * @param string $inputImagePath
+     *            - path to the file
+     * @return boolean|resource
+     */
+    private function loadBmp($inputImagePath)
+    {
+        if (! $fileHandler = fopen($inputImagePath, "rb")) {
+            return false;
+        }
+
+        // 1 : read BMPFile header
+        $fileHeader = unpack("vfile_type/Vfile_size/Vreserved/Vbitmap_offset", fread($fileHandler, 14));
+        if ($fileHeader['file_type'] != "BM") {
+            return false;
+        }
+
+        // 2 : read BMP header
+        $bmp = unpack('Vheader_size/Vwidth/Vheight/vplanes/vbits_per_pixel' . '/Vcompression/Vsize_bitmap/Vhoriz_resolution' . '/Vvert_resolution/Vcolors_used/Vcolors_important', fread($fileHandler, 40));
+
+        $bmp['colors'] = pow(2, $bmp['bits_per_pixel']);
+        if ($bmp['size_bitmap'] == 0)
+            $bmp['size_bitmap'] = $fileHeader['file_size'] - $fileHeader['bitmap_offset'];
+        $bmp['bytes_per_pixel'] = $bmp['bits_per_pixel'] / 8;
+        $bmp['bytes_per_pixel2'] = ceil($bmp['bytes_per_pixel']);
+        $bmp['decal'] = ($bmp['width'] * $bmp['bytes_per_pixel'] / 4);
+        $bmp['decal'] -= floor($bmp['width'] * $bmp['bytes_per_pixel'] / 4);
+        $bmp['decal'] = 4 - (4 * $bmp['decal']);
+        if ($bmp['decal'] == 4) {
+            $bmp['decal'] = 0;
+        }
+
+        // 3 : palette decoding
+        $palette = array();
+        if ($bmp['colors'] < 0x1000000) {
+            $palette = unpack('V' . $bmp['colors'], fread($fileHandler, $bmp['colors'] * 4));
+        }
+
+        // 4 : Image creation
+        $img = fread($fileHandler, $bmp['size_bitmap']);
+        $vide = chr(0);
+
+        $res = imagecreatetruecolor($bmp['width'], $bmp['height']);
+        $p = 0;
+        $y = $bmp['height'] - 1;
+        while ($y >= 0) {
+            $x = 0;
+            while ($x < $bmp['width']) {
+                if ($bmp['bits_per_pixel'] == 24)
+                    $color = unpack("V", substr($img, $p, 3) . $vide);
+                elseif ($bmp['bits_per_pixel'] == 16) {
+                    $color = unpack("n", substr($img, $p, 2));
+                    $color[1] = $palette[$color[1] + 1];
+                } elseif ($bmp['bits_per_pixel'] == 8) {
+                    $color = unpack("n", $vide . substr($img, $p, 1));
+                    $color[1] = $palette[$color[1] + 1];
+                } elseif ($bmp['bits_per_pixel'] == 4) {
+                    $color = unpack("n", $vide . substr($img, floor($p), 1));
+                    if (($p * 2) % 2 == 0) {
+                        $color[1] = ($color[1] >> 4);
+                    } else {
+                        $color[1] = ($color[1] & 0x0F);
+                    }
+                    $color[1] = $palette[$color[1] + 1];
+                } elseif ($bmp['bits_per_pixel'] == 1) {
+                    $color = unpack("n", $vide . substr($img, floor($p), 1));
+                    if (($p * 8) % 8 == 0)
+                        $color[1] = $color[1] >> 7;
+                    elseif (($p * 8) % 8 == 1)
+                        $color[1] = ($color[1] & 0x40) >> 6;
+                    elseif (($p * 8) % 8 == 2)
+                        $color[1] = ($color[1] & 0x20) >> 5;
+                    elseif (($p * 8) % 8 == 3)
+                        $color[1] = ($color[1] & 0x10) >> 4;
+                    elseif (($p * 8) % 8 == 4)
+                        $color[1] = ($color[1] & 0x8) >> 3;
+                    elseif (($p * 8) % 8 == 5)
+                        $color[1] = ($color[1] & 0x4) >> 2;
+                    elseif (($p * 8) % 8 == 6)
+                        $color[1] = ($color[1] & 0x2) >> 1;
+                    elseif (($p * 8) % 8 == 7)
+                        $color[1] = ($color[1] & 0x1);
+                    $color[1] = $palette[$color[1] + 1];
+                } else
+                    return false;
+                imagesetpixel($res, $x, $y, $color[1]);
+                $x ++;
+                $p += $bmp['bytes_per_pixel'];
+            }
+            $y --;
+            $p += $bmp['decal'];
+        }
+
+        // Fermeture du fichier
+        fclose($fileHandler);
+
+        return $res;
     }
 }

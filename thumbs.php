@@ -101,7 +101,7 @@ if ($error == false) {
                         break;
 
                     case 'bmp':
-                        require(__DIR__.'/lib/imagebmp.inc.php');
+                        require(__DIR__.'/lib/imagebmp.inc.php'); //TO REMOVE!
                         $im = imagecreatefrombmp(OcConfig::getPicUploadFolder(true) . '/' . $filename);
                         break;
                 }
