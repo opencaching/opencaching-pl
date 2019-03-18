@@ -14,12 +14,16 @@ if (isset($_REQUEST['powerTrailId'])){
     $powerTrailId = null;
 }
 
+if(isset($_FILES['myfile'])){
+    $name = $_FILES['myfile']['name'];
+    $size = $_FILES['myfile']['size'];
+} else {
+    $name = null;
+    $size = null;
+}
+
 $valid_formats = array("jpg", "png", "gif", "bmp", "jpeg");
-
 $result = "-error-";
-
-$name = $_FILES['myfile']['name'];
-$size = $_FILES['myfile']['size'];
 
 if (!is_null($powerTrailId) && !empty($name) && !empty($_FILES['myfile']['tmp_name'])) {
 

@@ -146,9 +146,9 @@ function convert_lang($source,$dest,$str)
  * @param unknown $str
  */
 function convert_string($str) {
-   if ($str != null) {
+   if (!empty($str)) {
         $str = iconv("UTF-8", "ASCII//TRANSLIT//IGNORE", $str);
-        if ($str == false) {
+        if ($str === false) {
             $str = "--- charset error ---";
         }
     }

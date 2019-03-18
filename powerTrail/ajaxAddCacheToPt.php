@@ -220,15 +220,21 @@ function recalculate($projectId)
 {
     $db = OcDb::instance();
     $stmt = $db->multiVariableQuery(
-        'SELECT * FROM `caches` where `cache_id` IN (SELECT `cacheId` FROM `powerTrail_caches` WHERE `PowerTrailId` =:1 )',
+        'SELECT * FROM `caches` WHERE `cache_id` IN (
+            SELECT `cacheId` FROM `powerTrail_caches`
+            WHERE `PowerTrailId` =:1
+         )',
         $projectId);
     $allCaches = $db->dbResultFetchAll($stmt);
 
     $newData = powerTrailBase::recalculateCenterAndPoints($allCaches);
 
     $db->multiVariableQuery(
-        'UPDATE `PowerTrail` SET `cacheCount`= :1, `centerLatitude` = :3, `centerLongitude` = :4, `points` = :5 WHERE `id` = :2',
-        $newData['cacheCount'], $projectId, $newData['avgLat'], $newData['avgLon'], $newData['points']);
+        'UPDATE PowerTrail
+         SET cacheCount = :1, centerLatitude = :2, centerLongitude = :3, points = :4
+         WHERE id = :5
+         LIMIT 1',
+        $newData['cacheCount'], $newData['avgLat'], $newData['avgLon'], $newData['points'], $projectId);
 }
 
 /**
