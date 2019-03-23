@@ -438,7 +438,16 @@ if ($error == false) {
                     $thisline = mb_ereg_replace('{title}', htmlspecialchars($pic_record['title'], ENT_COMPAT, 'UTF-8'), $thisline);
 
                     if ($pic_record['user_id'] == $usr['userid'] || $usr['admin']) {
-                        $thisfunctions = $remove_picture;
+
+                        $thisfunctions =
+                            '<span class="removepic">
+                                <img src="/images/log/16x16-trash.png" class="icon16" alt="Trash icon">
+                                &nbsp;
+                                <a class="links" href="'.SimpleRouter::getLink(PictureController::class, 'remove', [$pic_record['uuid']]).'">'
+                                . tr("delete") .
+                                '</a>
+                              </span>';
+
                         $thisfunctions = mb_ereg_replace('{uuid}', urlencode($pic_record['uuid']), $thisfunctions);
                         $thisline = mb_ereg_replace('{functions}', $thisfunctions, $thisline);
                     } else

@@ -34,6 +34,7 @@ class Thumbnail extends BaseObject
     const SIZE_SMALL        = '/sizeSmall';
     const SIZE_MEDIUM       = '/sizeMedium';
 
+
     /**
      * Returns the uri to the thumbnail placeholder (like spoiler or error) in the current lang.
      *
@@ -128,6 +129,33 @@ class Thumbnail extends BaseObject
         }
 
         return OcConfig::getPicBaseUrl().$path.'/'.basename($outPath);
+    }
+
+    /**
+     * Remove all thumbnails under given uuid
+     * @param string $uuid
+     */
+    public static function remove ($uuid)
+    {
+        $basePath = OcConfig::getPicUploadFolder();
+
+        $allSizes = [self::SIZE_MEDIUM, self::SIZE_SMALL];
+        $spoilerDirs = [self::NON_SPOILER_DIR, self::SPOILER_DIR];
+
+        foreach ($allSizes as $size) {
+            foreach ($spoilerDirs as $spoiler) {
+
+                $path = self::buildPath($uuid, $spoiler, $size);
+                if ($result = glob("$basePath$path/$uuid.*")) {
+                    if (!empty($result) || !is_array($result)) {
+                        // thumbnail found
+                        foreach ($result as $thumb) {
+                            unlink ($thumb);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     /**

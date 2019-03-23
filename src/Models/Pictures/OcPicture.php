@@ -5,6 +5,9 @@ use Exception;
 use src\Models\BaseObject;
 use src\Utils\Debug\Debug;
 use src\Models\OcConfig\OcConfig;
+use src\Models\User\User;
+use src\Models\GeoCache\GeoCache;
+use src\Models\GeoCache\GeoCacheLog;
 
 /**
  * Generic representation of
@@ -14,14 +17,21 @@ use src\Models\OcConfig\OcConfig;
 
 class OcPicture extends BaseObject
 {
-    const DB_COLS = ['uuid', 'local', 'url', 'thumb_last_generated', 'last_modified',
-        'uuid', 'thumb_url', 'spoiler',
+    const TYPE_LOG = 1;
+    const TYPE_CACHE = 2;
+
+    const DB_COLS = ['id', 'uuid', 'local', 'url', 'thumb_last_generated', 'last_modified',
+        'uuid', 'thumb_url', 'spoiler', 'object_type', 'object_id'
     ];
 
     private $uuid;      // UUID of image
     private $url;       // full url to image
     private $isLocal;
     private $isSpoiler; // if this image can be a spoiler for a cache and should be hide by default
+
+    private $parentType;
+    private $parentId;
+    private $parent = null;
 
     private $fileUploadDate;
     private $filename = null;
@@ -83,6 +93,8 @@ class OcPicture extends BaseObject
     {
         foreach($row as $col=>$val){
             switch($col){
+                case 'id':
+                    $this->id = $val;
                 case 'uuid':
                     $this->uuid = $val;
                     break;
@@ -103,6 +115,12 @@ class OcPicture extends BaseObject
                     break;
                 case 'thumb_last_generated':
                     $this->thumbnailGenDate = new \DateTime($val);
+                    break;
+                case 'object_id':
+                    $this->parentId = $val;
+                    break;
+                case 'object_type':
+                    $this->parentType = $val;
                     break;
                 default:
                     Debug::errorLog("Column $col not supported ?");
@@ -140,6 +158,100 @@ class OcPicture extends BaseObject
         }
         return null;
     }
+
+    public function isUserAllowedToRemoveIt(User $user)
+    {
+        if ($user->hasOcTeamRole()) {
+            return true;
+        }
+
+        switch($this->parentType) {
+            case self::TYPE_CACHE:
+                $cache = $this->getParent();
+                return $cache->getOwnerId() == $user->getUserId();
+
+            case self::TYPE_LOG:
+                $log = $this->getParent();
+                return $log->getUserId() == $user->getUserId();
+
+            default:
+                Debug::errorLog("Unsupported parent type: {$this->parentType}");
+                return false;
+        }
+    }
+
+    public function remove(User $user)
+    {
+        if(!$this->isUserAllowedToRemoveIt($user)) {
+            return false;
+        }
+
+        $this->db->multiVariableQuery('DELETE FROM pictures WHERE uuid=:1 LIMIT 1', $this->uuid);
+
+        $this->db->multiVariableQuery(
+            'INSERT INTO removed_objects (localID, uuid, type, removed_date, node)
+             VALUES (:1, :2, 6, NOW(), :3)',
+            $this->id, $this->uuid, OcConfig::getSiteNodeId());
+
+
+        // updated picturescount in parent object
+        switch($this->parentType) {
+            case self::TYPE_CACHE:
+                $cache = $this->getParent();
+                $cache->addToPicturesCount(-1);
+                break;
+
+            case self::TYPE_LOG:
+                $log = $this->getParent();
+                $log->addToPicturesCount(-1);
+                break;
+
+            default:
+                Debug::errorLog("Unsupported parent type: {$this->parentType}");
+                return false;
+        }
+
+        // DB is cleared - remove files from disk
+
+        if (!$this->isLocalImg()){
+            // extenrla imgage - there is no more to do
+            return true;
+        }
+
+        $path = $this->getPathToImg();
+        if($path) {
+            // remove main image
+            unlink($path);
+        }
+
+        Thumbnail::remove($this->uuid);
+        return true;
+    }
+
+    public function getParent()
+    {
+        if($this->parent) {
+            return $this->parent;
+        }
+
+        switch($this->parentType) {
+            case self::TYPE_CACHE:
+                return $this->parent = GeoCache::fromCacheIdFactory($this->parentId);
+
+            case self::TYPE_LOG:
+                return $log = GeoCacheLog::fromLogIdFactory($this->parentId);
+
+            default:
+                Debug::errorLog("Unsupported parent type: {$this->parentType}");
+                return null;
+        }
+    }
+
+    public function getParentType()
+    {
+        return $this->parentType;
+    }
+
 
     private function regenerateThumbnail($size)
     {

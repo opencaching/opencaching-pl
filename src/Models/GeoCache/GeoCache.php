@@ -1700,4 +1700,15 @@ class GeoCache extends GeoCacheCommons
             self::SIZE_NANO
         ) != 0;
     }
+
+    /**
+     * Change the picturescount value by add $value to it
+     * @param int $value
+     */
+    public function addToPicturesCount($value)
+    {
+        $this->db->multiVariableQuery(
+            'UPDATE caches SET picturescount=picturescount + :1, last_modified = NOW()
+             WHERE cache_id = :2 LIMIT 1', $value, $this->getCacheId());
+    }
 }
