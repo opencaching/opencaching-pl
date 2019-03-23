@@ -22,6 +22,7 @@ use src\Utils\Text\Formatter;
 use src\Utils\Uri\OcCookie;
 use src\Utils\FileSystem\FileUploadMgr;
 use src\Models\OcConfig\OcConfig;
+use src\Utils\Uri\SimpleRouter;
 
 class TestController extends BaseController
 {
@@ -43,8 +44,23 @@ class TestController extends BaseController
 
     public function index()
     {
-        $this->view->setTemplate('test/testTemplate');
+        $methods = get_class_methods($this);
+        foreach ($methods as $method) {
+            switch($method){
+                case "__construct":
+                case "isCallableFromRouter":
+                case "index":
+                    // skip methods above
+                    break;
+                default:
+                    $link = SimpleRouter::getLink(self::class, $method);
+                    echo "<a href='$link'>$method</a> <br/>";
+            }
+        }
+    }
 
+    public function lorenIpsumContent(){
+        $this->view->setTemplate('test/testTemplate');
         $this->view->buildView();
     }
 
