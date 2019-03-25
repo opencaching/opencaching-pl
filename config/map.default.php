@@ -36,11 +36,11 @@ $map['keys']['OpenRouteService'] = '';
  * See map.default.pl for more examples.
  */
 $map['jsConfig'] = "
-{
-  OSM: new ol.layer.Tile ({
-    source: new ol.source.OSM(),
-  })
-}
+    {
+      OSM: new ol.layer.Tile ({
+        source: new ol.source.OSM(),
+      })
+    }
 ";
 
 /**
@@ -60,3 +60,4 @@ $map['keyInjectionCallback'] = function (array $mapConfig) {
 
     return true;
 };
+

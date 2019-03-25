@@ -4,6 +4,7 @@ namespace src\Controllers;
 use src\Controllers\News\NewsListController;
 use src\Utils\Cache\OcMemCache;
 use src\Utils\Feed\RssFeed;
+use src\Utils\Map\StaticMap;
 use src\Utils\Text\Formatter;
 use src\Utils\Uri\SimpleRouter;
 use src\Utils\Uri\Uri;
@@ -78,6 +79,24 @@ class StartPageController extends BaseController
         $this->view->setVar('staticMapModel', $this->staticMapModel);
 
         $this->view->buildView();
+    }
+
+    public function countryMap()
+    {
+        global $main_page_map_center_lat, $main_page_map_center_lon, $main_page_map_zoom;
+        global $main_page_map_width, $main_page_map_height;
+        global $config;
+
+        $center = Coordinates::FromCoordsFactory(
+            $main_page_map_center_lat, $main_page_map_center_lon);
+
+        if(!$center) {
+            $this->displayCommonErrorPageAndExit("Wrong coords?");
+        }
+
+        return StaticMap::displayPureMap(
+            $center, $main_page_map_zoom, [$main_page_map_width, $main_page_map_height],
+            $config['maps']['main_page_map']['source']);
     }
 
     private function processNewCaches()

@@ -156,16 +156,11 @@ $config['module']['openchecker']['show_final'] = true;
 // available options are roadmap, terrain, map, satellite, hybrid
 $config['maps']['cache_page_map']['layer'] = 'terrain';
 $config['maps']['cache_page_map']['zoom'] = 8;
-// choose color according to https://developers.google.com/maps/documentation/static-maps/intro#Markers
-$config['maps']['cache_page_map']['marker_color'] = 'blue';
 
-// available map source (for osm based  static map): mapnik, cycle, sterrain, stoner
-$config['maps']['cache_page_map']['source'] = 'mapnik';
+
 // available map source (for osm based  static map): mapnik, cycle, sterrain, stoner
 $config['maps']['main_page_map']['source'] = 'mapnik';
 
-/* Cache page minimap                                                       */
-$config['maps']['cache_mini_map']['zoom'] = 14;
 
 /* ************************************************************************
  * External maps on which to view a cache

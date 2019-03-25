@@ -18,6 +18,7 @@ use src\Models\GeoCache\Waypoint;
 use src\Utils\I18n\I18n;
 use src\Utils\Text\UserInputFilter;
 use src\Utils\Uri\SimpleRouter;
+use src\Utils\Map\StaticMap;
 
 class ViewCacheController extends BaseController
 {
@@ -234,6 +235,25 @@ class ViewCacheController extends BaseController
         $this->processMeritBadgePopUp(); //pop-up on new badge level achivement
 
         tpl_BuildTemplate();
+    }
+
+    /**
+     * This function returns the map tile with marker on given coords - used only for viewcache
+     */
+    public function getStaticMapImage($lat, $lon)
+    {
+        global $config;
+
+        $coords = Coordinates::FromCoordsFactory($lat, $lon);
+        if(!$coords) {
+            $this->displayCommonErrorPageAndExit("Wrong coords?");
+        }
+
+        $zoom = $config['maps']['cache_page_map']['zoom'];
+        $mapType = $config['maps']['cache_page_map']['layer'];
+        $size = [170, 170];
+
+        return StaticMap::displayMapWithMarkerAtCenter($coords, $zoom, $size, $mapType);
     }
 
     private function processMeritBadgePopUp()
@@ -704,8 +724,7 @@ class ViewCacheController extends BaseController
         $zoom = $config['maps']['cache_page_map']['zoom'];
         $mapType = $config['maps']['cache_page_map']['layer'];
 
-        $this->view->setVar('mapImgLink', "lib/staticmap.php?center=$lat,$lon&amp;zoom=$zoom&amp;size=170x170&amp;maptype=$mapType&amp;markers=$lat,$lon,mark-small-blue");
-
+        $this->view->setVar('mapImgLink',SimpleRouter::getLink(self::class, 'getStaticMapImage', [$lat, $lon]));
         $this->view->setVar('loginToSeeMapMsg', mb_ereg_replace("{target}", urlencode("viewcache.php?cacheid=".$this->geocache->getCacheId()), tr('map_msg')));
 
     }

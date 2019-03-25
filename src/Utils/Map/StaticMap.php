@@ -1,51 +1,60 @@
 <?php
 
-use src\Models\OcConfig\OcConfig;
+namespace src\Utils\Map;
 
 /**
- * staticMapLite 0.3.1
+ * This clkass based on great work Gerhard Koch <gerhard.koch AT ymail.com>:
  *
- * Copyright 2009 Gerhard Koch
+ *      staticMapLite 0.3.1
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ *      Copyright 2009 Gerhard Koch
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *      Licensed under the Apache License, Version 2.0 (the "License");
+ *      you may not use this file except in compliance with the License.
+ *      You may obtain a copy of the License at
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ *          http://www.apache.org/licenses/LICENSE-2.0
  *
- * @author Gerhard Koch <gerhard.koch AT ymail.com>
- * @link: https://github.com/dfacts/staticmaplite
+ *       Unless required by applicable law or agreed to in writing, software
+ *       distributed under the License is distributed on an "AS IS" BASIS,
+ *       WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *       See the License for the specific language governing permissions and
+ *       limitations under the License.
  *
- * USAGE:
- *
- *  staticmap.php?center=53.887267,14.335017&zoom=8&size=170x170&maptype=mapnik&markers=53.887267,14.335017,mark-small-blue|53.987267,14.335017,mark-small-orange
- *
+ *       @author Gerhard Koch <gerhard.koch AT ymail.com>
+ *       @link: https://github.com/dfacts/staticmaplite
  */
+use src\Models\OcConfig\OcConfig;
+use src\Models\Coordinates\Coordinates;
+use src\Utils\Uri\Uri;
 
-require_once __DIR__.'/common.inc.php';
-
-Class staticMapLite
+class StaticMap
 {
+    const MAP_MAPNIK    = 'mapnik';
+    const MAP_STERRAIN  = 'sterrain';
+    const MAP_STONER    = 'stoner';
+    const MAP_CYCLE     = 'cycle';
+
+    const MARKERS_DIR = '/resources/images/staticMapMarkers';
+    const MARKER_BLUE = 'mark-small-blue';
+    const MARKER_ORANGE = 'mark-small-orange';
+
     protected $maxWidth = 1024;
     protected $maxHeight = 1024;
     protected $minWidth = 64;
     protected $minHeight = 64;
 
     protected $tileSize = 256;
-    protected $tileSrcUrl = array('mapnik' => 'http://tile.openstreetmap.org/{Z}/{X}/{Y}.png', // -> http://openstreetmap.org
-        'sterrain' => 'http://d.tile.stamen.com/terrain/{Z}/{X}/{Y}.png',  // -> http://maps.stamen.com/
-        'stoner' => 'http://d.tile.stamen.com/toner/{Z}/{X}/{Y}.png',      // -> http://maps.stamen.com/
-        'cycle' => 'http://a.tile.opencyclemap.org/cycle/{Z}/{X}/{Y}.png', // -> http://opencyclemap.org
-    );
 
-    protected $tileDefaultSrc = 'mapnik';
-    protected $markerBaseDir = __DIR__.'/../resources/images/staticMapMarkers';
+    protected $tileSrcUrl = [
+        self::MAP_MAPNIK   => 'http://tile.openstreetmap.org/{Z}/{X}/{Y}.png',        // -> http://openstreetmap.org
+        self::MAP_STERRAIN => 'http://d.tile.stamen.com/terrain/{Z}/{X}/{Y}.png',     // -> http://maps.stamen.com/
+        self::MAP_STONER   => 'http://d.tile.stamen.com/toner/{Z}/{X}/{Y}.png',       // -> http://maps.stamen.com/
+        self::MAP_CYCLE    => 'http://a.tile.opencyclemap.org/cycle/{Z}/{X}/{Y}.png', // -> http://opencyclemap.org
+    ];
+
+    protected $markerBaseDir;       // where the markers imgs are stored
+
     protected $atrribution = '(c) OpenStreetMap contributors';
 
     protected $markerPrototypes = array(
@@ -72,7 +81,7 @@ Class staticMapLite
     protected $useTileCache = true;
     protected $tileCacheBaseDir = '';
 
-    protected $useMapCache = false;
+    protected $useMapCache = true;
     protected $mapCacheBaseDir = '';
     protected $mapCacheID = '';
     protected $mapCacheFile = '';
@@ -81,134 +90,138 @@ Class staticMapLite
     protected $zoom, $lat, $lon, $width, $height, $markers, $image, $maptype;
     protected $centerX, $centerY, $offsetX, $offsetY;
 
-    public function __construct()
+    public static function displayPureMap (Coordinates $center, $zoom, array $size, $mapType) {
+
+        $map = new self();
+        $map->lat = $center->getLatitude();
+        $map->lon = $center->getLongitude();
+        $map->zoom = $zoom;
+        $map->width = $size[0];
+        $map->height = $size[1];
+        $map->maptype = $mapType;
+
+        print $map->showMap();
+
+    }
+
+    public static function displayMapWithMarkerAtCenter(
+        Coordinates $center, $zoom, array $size, $mapType, $markerImg=null)
+    {
+        $map = new self();
+        $map->lat = $center->getLatitude();
+        $map->lon = $center->getLongitude();
+        $map->zoom = $zoom;
+        $map->width = $size[0];
+        $map->height = $size[1];
+        $map->maptype = $mapType;
+
+        $map->addMarker($center, $markerImg);
+
+        print $map->showMap();
+    }
+
+
+    private function __construct()
     {
         $this->zoom = 0;
         $this->lat = 0;
         $this->lon = 0;
         $this->width = 500;
         $this->height = 350;
-        $this->markers = array();
-        $this->maptype = $this->tileDefaultSrc;
+        $this->markers = [];
+        $this->maptype = self::MAP_MAPNIK;
 
         $this->tileCacheBaseDir = OcConfig::getDynFilesPath() .'images/staticmap/tiles';
         $this->mapCacheBaseDir = OcConfig::getDynFilesPath() .'images/staticmap/maps';
+        $this->markerBaseDir = Uri::getAbsServerPath(self::MARKERS_DIR);
     }
 
-    public function parseParams()
+    private function showMap()
     {
-        if (!empty($_GET['show'])) {
-           $this->parseOjwParams();
+        $this->parseParams();
+        if ($this->useMapCache) {
+            // use map cache, so check cache for map
+            if (!$this->checkMapCache()) {
+                // map is not in cache, needs to be build
+                $this->makeMap();
+                $this->mkdir_recursive(dirname($this->mapCacheIDToFilename()), 0755);
+                imagepng($this->image, $this->mapCacheIDToFilename(), 9);
+                $this->sendHeader();
+                if (file_exists($this->mapCacheIDToFilename())) {
+                    return file_get_contents($this->mapCacheIDToFilename());
+                } else {
+                    return imagepng($this->image);
+                }
+            } else {
+                // map is in cache
+                $this->sendHeader();
+                return file_get_contents($this->mapCacheIDToFilename());
+            }
+
         } else {
-           $this->parseLiteParams();
+            // no cache, make map, send headers and deliver png
+            $this->makeMap();
+
+            $this->sendHeader();
+            return imagepng($this->image);
         }
     }
 
-    public function parseLiteParams()
+    private function addMarker(Coordinates $coords, $type=null)
     {
-        // get zoom from GET paramter
-        if (isset($_GET['zoom'])) {
-            $this->zoom = $_GET['zoom'];
-            if ($this->zoom > 18) {
-                $this->zoom = 18;
-            }
-            if ($this->zoom < 0) {
-                $this->zoom = 0;
-            }
+        if(!$type) {
+            // default marker img
+            $type = self::MARKER_BLUE;
         }
 
-        // get lat and lon from GET paramter
-        if (isset($_GET['center'])) {
-            list($this->lat, $this->lon) = explode(',', $_GET['center']);
-            $this->lat = floatval($this->lat);
-            $this->lon = floatval($this->lon);
-        }
-
-        // get size from GET paramter
-        if (isset($_GET['size'])) {
-            list($this->width, $this->height) = explode('x', $_GET['size']);
-
-            $this->width = intval($this->width);
-            if ($this->width > $this->maxWidth) {
-                $this->width = $this->maxWidth;
-            }
-            if ($this->width < $this->minWidth) {
-                $this->width = $this->minWidth;
-            }
-
-            $this->height = intval($this->height);
-            if ($this->height > $this->maxHeight) {
-                $this->height = $this->maxHeight;
-            }
-            if ($this->height < $this->minHeight) {
-                $this->height = $this->minHeight;
-            }
-        }
-        if (!empty($_GET['markers'])) {
-            $markers = explode('|', $_GET['markers']);
-            foreach ($markers as $marker) {
-                list($markerLat, $markerLon, $markerType) = explode(',', $marker);
-                $markerLat = floatval($markerLat);
-                $markerLon = floatval($markerLon);
-                $markerType = basename($markerType);
-                $this->markers[] = array('lat' => $markerLat, 'lon' => $markerLon, 'type' => $markerType);
-            }
-
-        }
-        if (isset($_GET['maptype'])) {
-            if (array_key_exists($_GET['maptype'], $this->tileSrcUrl)) $this->maptype = $_GET['maptype'];
-        }
+        $this->markers[] = [
+            'lat' => $coords->getLatitude(),
+            'lon' => $coords->getLongitude(),
+            'type' => $type
+        ];
     }
 
-    public function parseOjwParams()
+    private function parseParams()
     {
-        if (isset($_GET['lat']) && isset($_GET['lon'])) {
-            $this->lat = floatval($_GET['lat']);
-            $this->lon = floatval($_GET['lon']);
+
+        if ($this->zoom > 18) {
+            $this->zoom = 18;
         }
-        if (isset($_GET['z'])) {
-            $this->zoom = intval($_GET['z']);
-        }
-
-        if (isset($_GET['w']) && isset($_GET['h'])) {
-
-            $this->width = intval($_GET['w']);
-            if ($this->width > $this->maxWidth) {
-                $this->width = $this->maxWidth;
-            }
-            if ($this->width < $this->minWidth) {
-                $this->width = $this->minWidth;
-            }
-
-            $this->height = intval($_GET['h']);
-            if ($this->height > $this->maxHeight) {
-                $this->height = $this->maxHeight;
-            }
-            if ($this->height < $this->minHeight) {
-                $this->height = $this->minHeight;
-            }
+        if ($this->zoom < 0) {
+            $this->zoom = 0;
         }
 
-        if (!empty($_GET['mlat0'])) {
-            $markerLat = floatval($_GET['mlat0']);
-            if (!empty($_GET['mlon0'])) {
-                $markerLon = floatval($_GET['mlon0']);
-                $this->markers[] = array('lat' => $markerLat, 'lon' => $markerLon, 'type' => "bullseye");
-            }
+        if ($this->width > $this->maxWidth) {
+            $this->width = $this->maxWidth;
+        }
+        if ($this->width < $this->minWidth) {
+            $this->width = $this->minWidth;
+        }
+
+        if ($this->height > $this->maxHeight) {
+            $this->height = $this->maxHeight;
+        }
+
+        if ($this->height < $this->minHeight) {
+            $this->height = $this->minHeight;
+        }
+
+        if (!array_key_exists($this->maptype, $this->tileSrcUrl)) {
+            $this->maptype = self::MAP_MAPNIK;
         }
     }
 
-    public function lonToTile($long, $zoom)
+    private function lonToTile($long, $zoom)
     {
         return (($long + 180) / 360) * pow(2, $zoom);
     }
 
-    public function latToTile($lat, $zoom)
+    private function latToTile($lat, $zoom)
     {
         return (1 - log(tan($lat * pi() / 180) + 1 / cos($lat * pi() / 180)) / pi()) / 2 * pow(2, $zoom);
     }
 
-    public function initCoords()
+    private function initCoords()
     {
         $this->centerX = $this->lonToTile($this->lon, $this->zoom);
         $this->centerY = $this->latToTile($this->lat, $this->zoom);
@@ -216,7 +229,7 @@ Class staticMapLite
         $this->offsetY = floor((floor($this->centerY) - $this->centerY) * $this->tileSize);
     }
 
-    public function createBaseMap()
+    private function createBaseMap()
     {
         $this->image = imagecreatetruecolor($this->width, $this->height);
         $startX = floor($this->centerX - ($this->width / $this->tileSize) / 2);
@@ -249,19 +262,21 @@ Class staticMapLite
     }
 
 
-    public function placeMarkers()
+    private function placeMarkers()
     {
-
         // loop thru marker array
         foreach ($this->markers as $marker) {
+
             // set some local variables
             $markerLat = $marker['lat'];
             $markerLon = $marker['lon'];
             $markerType = $marker['type'];
+
             // clear variables from previous loops
             $markerFilename = '';
             $markerShadow = '';
             $matches = false;
+
             // check for marker type, get settings from markerPrototypes
             if ($markerType) {
                 foreach ($this->markerPrototypes as $markerPrototype) {
@@ -281,7 +296,6 @@ Class staticMapLite
 
             // check required files or set default
             if ($markerFilename == '' || !file_exists($this->markerBaseDir . '/' . $markerFilename)) {
-                $markerIndex++;
                 $markerFilename = $this->markerBaseDir . '/mark-small-blue.png';
                 $markerImageOffsetX = -8;
                 $markerImageOffsetY = -23;
@@ -293,6 +307,7 @@ Class staticMapLite
             } else {
                 $markerImg = imagecreatefrompng($this->markerBaseDir . '/mark-small-blue.png');
             }
+
 
             // check for shadow + create shadow recource
             if ($markerShadow && file_exists($this->markerBaseDir . '/' . $markerShadow)) {
@@ -316,12 +331,12 @@ Class staticMapLite
     }
 
 
-    public function tileUrlToFilename($url)
+    private function tileUrlToFilename($url)
     {
         return $this->tileCacheBaseDir . "/" . str_replace(array('http://'), '', $url);
     }
 
-    public function checkTileCache($url)
+    private function checkTileCache($url)
     {
         $filename = $this->tileUrlToFilename($url);
         if (file_exists($filename)) {
@@ -329,61 +344,55 @@ Class staticMapLite
         }
     }
 
-    public function checkMapCache()
+    private function checkMapCache()
     {
         $this->mapCacheID = md5($this->serializeParams());
         $filename = $this->mapCacheIDToFilename();
-        if (file_exists($filename)) return true;
+        if (file_exists($filename)) {
+            return true;
+        }
     }
 
-    public function serializeParams()
+    private function serializeParams()
     {
         return join("&", array($this->zoom, $this->lat, $this->lon, $this->width, $this->height, serialize($this->markers), $this->maptype));
     }
 
-    public function mapCacheIDToFilename()
+    private function mapCacheIDToFilename()
     {
         if (!$this->mapCacheFile) {
-            $this->mapCacheFile = $this->mapCacheBaseDir . "/" . $this->maptype . "/" . $this->zoom . "/cache_" . substr($this->mapCacheID, 0, 2) . "/" . substr($this->mapCacheID, 2, 2) . "/" . substr($this->mapCacheID, 4);
+            $this->mapCacheFile = $this->mapCacheBaseDir . "/" . $this->maptype . "/" . $this->zoom .
+                "/cache_" . substr($this->mapCacheID, 0, 2) .
+                "/" . substr($this->mapCacheID, 2, 2) . "/" . substr($this->mapCacheID, 4);
         }
         return $this->mapCacheFile . "." . $this->mapCacheExtension;
     }
 
-
-    public function mkdir_recursive($pathname, $mode)
+    private function mkdir_recursive($pathname, $mode)
     {
         is_dir(dirname($pathname)) || $this->mkdir_recursive(dirname($pathname), $mode);
         return is_dir($pathname) || @mkdir($pathname, $mode);
     }
 
-    public function writeTileToCache($url, $data)
+    private function writeTileToCache($url, $data)
     {
         $filename = $this->tileUrlToFilename($url);
         $this->mkdir_recursive(dirname($filename), 0777);
         file_put_contents($filename, $data);
     }
 
-    public function fetchTile($url)
+    private function fetchTile($url)
     {
         if ($this->useTileCache && ($cached = $this->checkTileCache($url))) {
             return $cached;
         }
 
-/*
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/4.0");
-        curl_setopt($ch, CURLOPT_URL, $url);
-        $tile = curl_exec($ch);
-        curl_close($ch);
-*/
-
         $opts = array(
-                    'http' => array(
-                        'method' => "GET",
-                        'timeout' => 2.0,
-                        'header' => "User-Agent: https://github.com/opencaching/opencaching-pl",
-                    )
+            'http' => array(
+                'method' => "GET",
+                'timeout' => 2.0,
+                'header' => "User-Agent: https://github.com/opencaching/opencaching-pl",
+            )
         );
 
         $context = stream_context_create($opts);
@@ -396,7 +405,7 @@ Class staticMapLite
 
     }
 
-    public function copyrightNotice()
+    private function copyrightNotice()
     {
         $string = $this->atrribution;
         $font_size = 1;
@@ -419,13 +428,15 @@ Class staticMapLite
             imagechar($img, $font_size, $xpos, $ypos, $string, $color);
             // Remove character from string
             $string = substr($string, 1);
-
         }
 
-        imagecopy($this->image, $img, imagesx($this->image) - imagesx($img), imagesy($this->image) - imagesy($img), 0, 0, imagesx($img), imagesy($img));
+        imagecopy($this->image, $img,
+            imagesx($this->image) - imagesx($img),
+            imagesy($this->image) - imagesy($img),
+            0, 0, imagesx($img), imagesy($img));
     }
 
-    public function sendHeader()
+    private function sendHeader()
     {
         header('Content-Type: image/png');
         $expires = 60 * 60 * 24 * 14;
@@ -433,47 +444,19 @@ Class staticMapLite
         header('Expires: ' . gmdate('D, d M Y H:i:s', time() + $expires) . ' GMT');
     }
 
-    public function makeMap()
+    private function makeMap()
     {
         $this->initCoords();
 
         $this->createBaseMap();
-        if (count($this->markers)) $this->placeMarkers();
+        if (count($this->markers)) {
+            $this->placeMarkers();
+        }
         $this->copyrightNotice();
     }
 
-    public function showMap()
-    {
-        $this->parseParams();
-        if ($this->useMapCache) {
-            // use map cache, so check cache for map
-            if (!$this->checkMapCache()) {
-                // map is not in cache, needs to be build
-                $this->makeMap();
-                $this->mkdir_recursive(dirname($this->mapCacheIDToFilename()), 0777);
-                imagepng($this->image, $this->mapCacheIDToFilename(), 9);
-                $this->sendHeader();
-                if (file_exists($this->mapCacheIDToFilename())) {
-                    return file_get_contents($this->mapCacheIDToFilename());
-                } else {
-                    return imagepng($this->image);
-                }
-            } else {
-                // map is in cache
-                $this->sendHeader();
-                return file_get_contents($this->mapCacheIDToFilename());
-            }
 
-        } else {
-            // no cache, make map, send headers and deliver png
-            $this->makeMap();
-
-            $this->sendHeader();
-            return imagepng($this->image);
-        }
-    }
 }
 
 
-$map = new staticMapLite();
-print $map->showMap();
+

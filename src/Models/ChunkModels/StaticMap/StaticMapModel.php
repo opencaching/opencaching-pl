@@ -3,6 +3,8 @@ namespace src\Models\ChunkModels\StaticMap;
 
 use src\Models\Coordinates\Coordinates;
 use src\Utils\Gis\Gis;
+use src\Utils\Uri\SimpleRouter;
+use src\Controllers\StartPageController;
 
 class StaticMapModel
 {
@@ -17,25 +19,23 @@ class StaticMapModel
 
     private $markers = [];
 
-    public static function defaultFullCountryMap($scale=null)
+    private $mapProviderUrl = null;
+
+    public static function defaultFullCountryMap()
     {
         global $main_page_map_center_lat, $main_page_map_center_lon, $main_page_map_zoom;
         global $main_page_map_width, $main_page_map_height;
         global $config;
 
-        if(!$scale){
-            $scale = 1;
-        }
-        $imgWidth = $main_page_map_width * $scale;
-        $imgHeight = $main_page_map_height * $scale;
-        $zoom = $main_page_map_zoom;
-
         $mapCenter = Coordinates::FromCoordsFactory(
             $main_page_map_center_lat, $main_page_map_center_lon);
 
-        return self::fixedZoomMapFactory($mapCenter, $zoom,
-            $imgWidth, $imgHeight, $config['maps']['main_page_map']['source']);
+        $model = self::fixedZoomMapFactory($mapCenter, $main_page_map_zoom,
+            $main_page_map_width, $main_page_map_height, $config['maps']['main_page_map']['source']);
 
+        $model->mapProviderUrl = SimpleRouter::getLink(StartPageController::class, 'countryMap');
+
+        return $model;
     }
 
     public static function fixedZoomMapFactory(Coordinates $mapCenter, $mapZoom,
@@ -54,9 +54,7 @@ class StaticMapModel
 
     public function getMapImgSrc()
     {
-        return sprintf("/lib/staticmap.php?center=%F,%F&amp;zoom=%d&amp;size=%dx%d&amp;maptype=%s",
-            $this->mapCenter->getLatitude(), $this->mapCenter->getLongitude(),
-            $this->mapZoom, $this->imgWidth, $this->imgHeight, $this->mapType);
+        return $this->mapProviderUrl;
     }
 
     public function getMapTitle()
