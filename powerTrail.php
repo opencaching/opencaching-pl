@@ -5,7 +5,6 @@ use src\Models\ApplicationContainer;
 use src\Models\PowerTrail\PowerTrail;
 use src\Models\GeoCache\GeoCache;
 use src\Utils\Uri\Uri;
-use src\Models\OcConfig\OcDynamicMapConfig;
 use src\Utils\View\View;
 use src\Utils\Uri\OcCookie;
 use src\Models\ChunkModels\DynamicMap\CacheMarkerModel;
@@ -120,9 +119,6 @@ if ($error == false) {
     tpl_set_var('ocWaypoint', $oc_waypoint);
     tpl_set_var('commentsPaginateCount', powerTrailBase::commentsPaginateCount);
 
-    tpl_set_var('attributionMap', OcDynamicMapConfig::getJsAttributionMap());
-    tpl_set_var('mapItems', OcDynamicMapConfig::getJsMapItems());
-    tpl_set_var('mapWMSConfigLoader', OcDynamicMapConfig::getWMSImageMapTypeOptions());
 
 
     tpl_set_var('powerTrailId', '');
