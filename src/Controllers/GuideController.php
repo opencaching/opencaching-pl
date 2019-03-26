@@ -8,6 +8,7 @@ use src\Models\ChunkModels\DynamicMap\GuideMarkerModel;
 use src\Models\User\User;
 use src\Utils\Cache\OcMemCache;
 use src\Utils\Text\Formatter;
+use src\Models\OcConfig\OcConfig;
 
 class GuideController extends BaseController
 {
@@ -50,7 +51,7 @@ class GuideController extends BaseController
             $mapModel->setCoords($coords);
             $mapModel->setZoom(11);
         } else {
-            $mapModel->setZoom($this->ocConfig->getMainPageMapZoom());
+            $mapModel->setZoom(OcConfig::getStartPageMapZoom());
         }
 
         $mapModel->addMarkersWithExtractor(GuideMarkerModel::class, $guidesList,

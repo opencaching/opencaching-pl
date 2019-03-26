@@ -19,6 +19,7 @@ use src\Models\GeoCache\GeoCacheLog;
 use src\Models\GeoCache\MultiCacheStats;
 use src\Models\Stats\TotalStats;
 use src\Models\User\User;
+use src\Models\OcConfig\OcConfig;
 
 class StartPageController extends BaseController
 {
@@ -83,19 +84,15 @@ class StartPageController extends BaseController
 
     public function countryMap()
     {
-        global $main_page_map_center_lat, $main_page_map_center_lon, $main_page_map_zoom;
-        global $main_page_map_width, $main_page_map_height;
         global $config;
 
-        $center = Coordinates::FromCoordsFactory(
-            $main_page_map_center_lat, $main_page_map_center_lon);
-
+        $center = OcConfig::getMapDefaultCenter();
         if(!$center) {
-            $this->displayCommonErrorPageAndExit("Wrong coords?");
+            $this->displayCommonErrorPageAndExit("Wrong default coords?");
         }
 
         return StaticMap::displayPureMap(
-            $center, $main_page_map_zoom, [$main_page_map_width, $main_page_map_height],
+            $center, OcConfig::getStartPageMapZoom(), OcConfig::getStartPageMapDiemnsions(),
             $config['maps']['main_page_map']['source']);
     }
 

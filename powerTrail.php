@@ -173,8 +173,8 @@ if ($error == false) {
                 return $marker;
             });
 
-            tpl_set_var('mapCenterLat', $main_page_map_center_lat);
-            tpl_set_var('mapCenterLon', $main_page_map_center_lon);
+            tpl_set_var('mapCenterLat', OcConfig::getMapDefaultCenter()->getLatitude());
+            tpl_set_var('mapCenterLon', OcConfig::getMapDefaultCenter()->getLongitude());
 
             $mapModel->forceDefaultZoom();
 
@@ -218,8 +218,8 @@ if ($error == false) {
             });
 
 
-            tpl_set_var('mapCenterLat', $main_page_map_center_lat);
-            tpl_set_var('mapCenterLon', $main_page_map_center_lon);
+            tpl_set_var('mapCenterLat', OcConfig::getMapDefaultCenter()->getLatitude());
+            tpl_set_var('mapCenterLon', OcConfig::getMapDefaultCenter()->getLongitude());
             // no need to set coords in map-model - defaults are the same
 
             $view->setVar('dynamicMapModel', $mapModel);

@@ -4,7 +4,7 @@ namespace src\Models\OcConfig;
 
 final class OcConfig extends ConfigReader
 {
-    use EmailConfigTrait, SiteConfigTrait, I18nConfigTrait, PicturesConfigTrait;
+    use EmailConfigTrait, SiteConfigTrait, I18nConfigTrait, PicturesConfigTrait, MapConfigTrait;
 
 /*
     const OCNODE_GERMANY    = 1;  // Opencaching Germany http://www.opencaching.de OC
@@ -30,9 +30,6 @@ final class OcConfig extends ConfigReader
     private $dynamicFilesPath;
     private $powerTrailModuleSwitchOn;
     private $googleMapKey;
-    private $mainPageMapCenterLat;
-    private $mainPageMapCenterLon;
-    private $mainPageMapZoom;
     private $siteInService = false;
     private $dateFormat;
     private $mapsConfig;            //settings.inc: $config['mapsConfig']
@@ -65,9 +62,6 @@ final class OcConfig extends ConfigReader
 
     /** @var array */
     private $newsConfig;
-
-    /** @var array - array of map settings from /Config/map.* files */
-    private $mapConfig;
 
     /** @var array - array of user settings from /Config/user.* files */
     private $userConfig;
@@ -116,9 +110,6 @@ final class OcConfig extends ConfigReader
         $this->dynamicFilesPath = $dynbasepath;
         $this->powerTrailModuleSwitchOn = $powerTrailModuleSwitchOn;
         $this->googleMapKey = $googlemap_key;
-        $this->mainPageMapCenterLat = $main_page_map_center_lat;
-        $this->mainPageMapCenterLon = $main_page_map_center_lon;
-        $this->mainPageMapZoom = $main_page_map_zoom;
         $this->dateFormat = $dateFormat;
         $this->headerLogo = $config['headerLogo'];
         $this->shortSiteName = $short_sitename;
@@ -190,21 +181,6 @@ final class OcConfig extends ConfigReader
     public static function getWikiLink($wikiLinkKey)
     {
         return self::getWikiLinks()[$wikiLinkKey];
-    }
-
-    public function getMainPageMapCenterLat()
-    {
-        return $this->mainPageMapCenterLat;
-    }
-
-    public function getMainPageMapCenterLon()
-    {
-        return $this->mainPageMapCenterLon;
-    }
-
-    public function getMainPageMapZoom()
-    {
-        return $this->mainPageMapZoom;
     }
 
     public static function getAbsolute_server_URI()
@@ -374,19 +350,6 @@ final class OcConfig extends ConfigReader
         return $this->logfilterConfig;
     }
 
-    /**
-     * Gives map configuration, tries to initialize it if null
-     *
-     * @return array map configuration
-     *               ({@see /Config/map.default.php})
-     */
-    public function getMapConfig()
-    {
-        if ($this->mapConfig == null) {
-            $this->mapConfig = self::getConfig("map", "map");
-        }
-        return $this->mapConfig;
-    }
 
     public function getUserConfig()
     {

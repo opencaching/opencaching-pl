@@ -53,3 +53,21 @@ $map['keyInjectionCallback'] = function(array &$mapConfig){
 
     return true;
 };
+
+/**
+ * Coordinates of the default map center - used by default by many maps in service
+ * Format: float number
+ */
+$map['mapDefaultCenterLat'] = 54.1;
+$map['mapDefaultCenterLon'] = -4.0;
+$map['mapDefaultZoom'] = 5;
+
+/**
+ * Zoom of the static map from startPage
+ */
+$map['startPageMapZoom'] = 4;
+
+/**
+ * Dimensions of the static map from startPage[width,height]
+ */
+$map['startPageMapDimensions'] = [200, 240];

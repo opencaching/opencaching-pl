@@ -454,8 +454,6 @@ class StaticMap
         }
         $this->copyrightNotice();
     }
-
-
 }
 
 

@@ -5,6 +5,7 @@ use src\Models\Coordinates\Coordinates;
 use src\Utils\Gis\Gis;
 use src\Utils\Uri\SimpleRouter;
 use src\Controllers\StartPageController;
+use src\Models\OcConfig\OcConfig;
 
 class StaticMapModel
 {
@@ -23,15 +24,10 @@ class StaticMapModel
 
     public static function defaultFullCountryMap()
     {
-        global $main_page_map_center_lat, $main_page_map_center_lon, $main_page_map_zoom;
-        global $main_page_map_width, $main_page_map_height;
         global $config;
 
-        $mapCenter = Coordinates::FromCoordsFactory(
-            $main_page_map_center_lat, $main_page_map_center_lon);
-
-        $model = self::fixedZoomMapFactory($mapCenter, $main_page_map_zoom,
-            $main_page_map_width, $main_page_map_height, $config['maps']['main_page_map']['source']);
+        $model = self::fixedZoomMapFactory(OcConfig::getMapDefaultCenter(), OcConfig::getStartPageMapZoom(),
+            OcConfig::getStartPageMapDiemnsions(), $config['maps']['main_page_map']['source']);
 
         $model->mapProviderUrl = SimpleRouter::getLink(StartPageController::class, 'countryMap');
 
@@ -39,14 +35,14 @@ class StaticMapModel
     }
 
     public static function fixedZoomMapFactory(Coordinates $mapCenter, $mapZoom,
-        $imgWidth, $imgHeight, $mapType=null)
+        array $imgDimensions, $mapType=null)
     {
 
         $map = new self();
         $map->mapCenter = $mapCenter;
         $map->mapZoom = $mapZoom;
-        $map->imgHeight = $imgHeight;
-        $map->imgWidth = $imgWidth;
+        $map->imgHeight = $imgDimensions[1];
+        $map->imgWidth = $imgDimensions[0];
         $map->mapType = $mapType;
 
         return $map;
