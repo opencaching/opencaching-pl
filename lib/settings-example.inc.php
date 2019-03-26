@@ -135,12 +135,11 @@ $googleAnalytics_key = '';      // google Analytics key: UA-XXXXX-Y - if not set
 );
 */
 
-$rules_url = 'http://wiki.opencaching.pl/index.php/Regulamin_OC_PL';
+// DO NOT use it - used only OCRO translations now - used wiki links in /config/links*
 $cache_params_url = 'http://wiki.opencaching.pl/index.php/Parametry_skrzynki';
-$rating_desc_url = 'http://wiki.opencaching.pl/index.php/Oceny_skrzynek';
 
 // New caches outside country where server is:
-$SiteOutsideCountryString = 'poland_outside';
+$SiteOutsideCountryString = 'poland_outside'; // <-- node specific translation key...
 $countryParamNewcacherestPhp = " 'PL' ";
 
 /* power Trail module switch and settings */
@@ -285,7 +284,6 @@ $config['license_html'] = '<a rel="license" href="http://creativecommons.org/lic
 $dateFormat = 'Y-m-d';
 $datetimeFormat = 'Y-m-d H:i';
 
-$defaultCountryList = array("AT", "BE", "BY", "BG", "HR", "CZ", "DK", "EE", "FI", "FR", "GR", "ES", "NL", "IE", "LT", "MD", "DE", "NO", "PL", "PT", "SU", "RO", "SK", "SI", "CH", "SE", "TR", "UA", "IT", "HU", "GB",);
 
 // map of garmin keys,
 // key: domain name, value: garmin key value
