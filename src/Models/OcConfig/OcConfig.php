@@ -32,7 +32,6 @@ final class OcConfig extends ConfigReader
     private $googleMapKey;
     private $siteInService = false;
     private $dateFormat;
-    private $mapsConfig;            //settings.inc: $config['mapsConfig']
     private $headerLogo;
     private $shortSiteName;
     private $needFindLimit;
@@ -118,12 +117,6 @@ final class OcConfig extends ConfigReader
         $this->enableCacheAccessLogs = $enable_cache_access_logs;
         $this->minumumAge = $config['limits']['minimum_age'];
         $this->meritBadgesEnabled = $config['meritBadges'];
-
-        if (isset($config['mapsConfig']) && is_array($config['mapsConfig'])) {
-            $this->mapsConfig = $config['mapsConfig'];
-        } else {
-            $this->mapsConfig = array();
-        }
 
         $this->dbHost = $opt['db']['server'];
         $this->dbName = $opt['db']['name'];
@@ -235,20 +228,6 @@ final class OcConfig extends ConfigReader
     public function isMeritBadgesEnabled()
     {
         return $this->meritBadgesEnabled;
-    }
-
-    protected function getMapsConfig()
-    {
-        return $this->mapsConfig;
-    }
-
-    /**
-     * get $config['mapsConfig'] from settings.inc.php in a static way
-     * always return an array
-     */
-    public static function mapsConfig()
-    {
-        return self::instance()->getMapsConfig();
     }
 
     public function getDbUser($admin = false)
