@@ -20,9 +20,10 @@
  * **************************************************************************
  */
 
+use src\Utils\Text\TextConverter;
+
 ob_start();
 
-require_once (__DIR__."/../lib/cs2cs.inc.php");
 require_once (__DIR__.'/../lib/calculation.inc.php');
 
 set_time_limit(1800);
@@ -189,3 +190,57 @@ if ($usr || ! $hide_coords) {
 }
 
 exit();
+
+
+function cs2cs_core2($lat, $lon, $to) {
+
+    $descriptorspec = array(
+        0 => array("pipe", "r"),     // stdin is a pipe that the child will read from
+        1 => array("pipe", "w"),     // stdout is a pipe that the child will write to
+        2 => array("pipe", "w")      // stderr is a pipe that the child will write to
+    );
+
+    if (mb_eregi('^[a-z0-9_ ,.\+\-=]*$', $to) == 0) {
+        die("invalid arguments in command: " . $to ."\n");
+    }
+
+    $command = "cs2cs" . " +proj=latlong +ellps=WGS84 +to " . $to;
+
+    $process = proc_open($command, $descriptorspec, $pipes);
+
+    if (is_resource($process)) {
+
+        fwrite($pipes[0], $lon . " " . $lat);
+        fclose($pipes[0]);
+
+        $stdout = stream_get_contents($pipes[1]);
+        fclose($pipes[1]);
+
+        $stderr = stream_get_contents($pipes[2]);
+        fclose($pipes[2]);
+
+        //
+        // $procstat = proc_get_status($process);
+        //
+        // neither proc_close nor proc_get_status return reasonable results with PHP5 and linux 2.6.11,
+        // see http://bugs.php.net/bug.php?id=32533
+        //
+        // as temporary (?) workaround, check stderr output.
+        // (Vinnie, 2006-02-09)
+
+        if ($stderr) {
+            die("proc_open() failed:<br />command='$command'<br />stderr='" . $stderr . "'");
+        }
+
+        proc_close($process);
+
+        return mb_split("\t|\n| ", TextConverter::mb_trim($stdout));
+
+    } else {
+        die("proc_open() failed, command=$command\n");
+    }
+}
+
+function cs2cs_1992($lat, $lon) {
+    return cs2cs_core2($lat, $lon, "+proj=tmerc +k=0.9993 +ellps=GRS80 +lat_0=0 +lon_0=19 +x_0=500000 +y_0=-5300000 +units=m");
+}
