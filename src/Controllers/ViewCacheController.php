@@ -19,6 +19,7 @@ use src\Utils\I18n\I18n;
 use src\Utils\Text\UserInputFilter;
 use src\Utils\Uri\SimpleRouter;
 use src\Utils\Map\StaticMap;
+use src\Models\OcConfig\OcConfig;
 
 class ViewCacheController extends BaseController
 {
@@ -696,9 +697,6 @@ class ViewCacheController extends BaseController
 
     private function processExternalMaps()
     {
-        global $config;
-
-        $externalMaps = [];
         if (!$this->userModifiedCacheCoords) {
             $lat = $this->geocache->getCoordinates()->getLatitude();
             $lon = $this->geocache->getCoordinates()->getLongitude();
@@ -706,27 +704,22 @@ class ViewCacheController extends BaseController
             $lat = $this->userModifiedCacheCoords->getLatitude();
             $lon = $this->userModifiedCacheCoords->getLongitude();
         }
-        foreach($config['maps']['external'] as $key => $value) {
-            if ( $value == 1 ) {
-                if ($key == "Flopp's Map" || $key == "Flopp’s Map") {
-                    $name = tr('flopps_map');
-                } else {
-                    $name = $key;
-                }
-                $externalMaps[$name] = sprintf($config['maps']['external'][$key.'_URL'],
-                    $lat, $lon,
+
+        // read external maps urls
+        $externalMaps = [];
+        foreach(OcConfig::getMapExternalUrls() as $name => $url) {
+            if ($name == "Flopp's Map") {
+                $name = tr('flopps_map');
+            }
+            $externalMaps[$name] = sprintf($url, $lat, $lon,
                     $this->geocache->getCacheId(), $this->geocache->getWaypointId(),
                     urlencode($this->geocache->getCacheName()) );
-            }
         }
         $this->view->setVar('externalMaps', $externalMaps);
 
-        $zoom = $config['maps']['cache_page_map']['zoom'];
-        $mapType = $config['maps']['cache_page_map']['layer'];
-
-        $this->view->setVar('mapImgLink',SimpleRouter::getLink(self::class, 'getStaticMapImage', [$lat, $lon]));
-        $this->view->setVar('loginToSeeMapMsg', mb_ereg_replace("{target}", urlencode("viewcache.php?cacheid=".$this->geocache->getCacheId()), tr('map_msg')));
-
+        $this->view->setVar('mapImgLink', SimpleRouter::getLink(self::class, 'getStaticMapImage', [$lat, $lon]));
+        $this->view->setVar('loginToSeeMapMsg',
+            mb_ereg_replace("{target}", urlencode("viewcache.php?cacheid=".$this->geocache->getCacheId()), tr('map_msg')));
     }
 
     private function processOtherSites()

@@ -79,3 +79,36 @@ $map['startPageMapZoom'] = 5;
  */
 $map['startPageMapDimensions'] = [250, 260];
 
+/**
+ * Links to external maps used at least at viewpage
+ * (to disable map - just add key $map['external']['OSMapa']['enabled'] = false;)
+ *
+ * Url rules:
+ *  The following parameters are available for replacement using
+ * printf style syntax, in this order
+ *
+ *    1          2         3            4           5         6
+ * latitude, longitude, cache_id, cache_code, cache_name, link_text
+ *
+ * coordinates are float numbers (%f), the rest are strings (%s)
+ * cache_name is urlencoded
+ * escape % using %% (printf syntax)
+ *
+ * The level 3 key is also used as link_text.
+ */
+$map['external']['Opencaching']['url'] = '/MainMap/fullscreen?lat=%1$f&lon=%2$f&openPopup';
+$map['external']['OSM']['url'] = 'https://www.openstreetmap.org/index.html?mlat=%1$f&mlon=%2$f&zoom=16&layers=M';
+
+$map['external']['OSMapa']['enabled'] = false;  // PL specific
+$map['external']['OSMapa']['url'] = 'http://osmapa.pl?zoom=16&lat=%1$f&lon=%2$f&z=14&o=TFFT&map=1';
+
+$map['external']['UMP']['enabled'] = false;     // PL specific
+$map['external']['UMP']['url'] = 'http://mapa.ump.waw.pl/ump-www/?zoom=14&lat=%1$f&lon=%2$f&layers=B00000T&mlat=%1$f&mlon=%2$f';
+
+$map['external']['Google Maps']['url'] = 'https://maps.google.com/maps?hl=UTF-8&q=%1$f+%2$f+(%5$s)';
+
+$map['external']['Szukacz']['enabled'] = false; // PL specific
+$map['external']['Szukacz']['url'] = 'https://mapa.szukacz.pl/?n=%1$f&e=%2$f&z=4&t=Skrzynka%%20Geocache';
+
+$map['external']['Flopp\'s Map']['enabled'] = false;
+$map['external']['Flopp\'s Map']['url'] = 'http://flopp.net/?c=%1$f:%2$f&z=16&t=OSM&f=g&m=&d=&g=%4$s';

@@ -69,7 +69,24 @@ trait MapConfigTrait {
         return self::getMapVar('startPageMapZoom');
     }
 
+    public static function getMapExternalUrls()
+    {
+        $maps = self::getMapVar('external');
+        if(!is_array($maps) || empty($maps)) {
+            return [];
+        }
 
+        $result = [];
+        foreach($maps as $key=>$conf){
+            if(!is_array($conf)){
+                continue;
+            }
+            if(isset($conf['url']) && (!isset($conf['enabled']) || $conf['enabled'])) {
+                $result[$key] = $conf['url'];
+            }
+        }
+        return $result;
+    }
     /**
      * Returns map properties
      *

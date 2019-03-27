@@ -310,35 +310,6 @@ $config['maps']['cache_page_map']['zoom'] = 8;
 $config['maps']['main_page_map']['source'] = 'mapnik';
 
 
-/* ************************************************************************
- * External maps on which to view a cache
- *
- * The following parameters are available for replacement using
- * printf style syntax, in this order
- *    1          2         3            4           5         6
- * latitude, longitude, cache_id, cache_code, cache_name, link_text
- *
- * coordinates are float numbers (%f), the rest are strings (%s)
- * cache_name is urlencoded
- * escape % using %% (printf syntax)
- * The level 3 key is also used as link_text.
- *
- * Use this to define URLs to external mapping sites to display a cache
- * ************************************************************************ */
-
-/* Example:
- * $config['maps']['external']['MyMap'] = 1; // 1 = enabled; 0 = disabled
- * $config['maps']['external']['MyMap_URL'] = '<a href="http://site/file?lat=%1$f&lon=%2$f&id=%3$s&name=%5$s">%6$s</a>';
- */
-
-// Enable or disable the predefined external maps below:
-$config['maps']['external']['Opencaching'] = 1;
-$config['maps']['external']['OSMapa'] = 1;
-$config['maps']['external']['UMP'] = 1;
-$config['maps']['external']['Google Maps'] = 1;
-$config['maps']['external']['Szukacz'] = 1;
-$config['maps']['external']['Flopp\'s Map'] = 0;
-
 // Configuration of feeds displayed on the main page
 $config['feed']['enabled'] = array('forum', 'blog');    // This array defines which feeds to display and in what order.
                                                         // You can increase feeds number,
