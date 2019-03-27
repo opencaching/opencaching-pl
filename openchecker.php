@@ -32,7 +32,6 @@ global $usr;
 
 //prepare the templates and include all neccessary
 require_once (__DIR__.'/lib/common.inc.php');
-require_once (__DIR__.'/modules/openchecker/pagination_class.php');
 require_once (__DIR__.'/modules/openchecker/openchecker_classes.php');
 
 if ($usr == false) {
