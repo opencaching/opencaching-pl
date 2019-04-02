@@ -10,8 +10,7 @@ use src\Models\GeoCache\GeoCache;
 use src\Models\GeoCache\GeoCacheLog;
 
 /**
- * Generic representation of
- * @author kojoty
+ * Generic representation of picture atahed to log/cache/...
  *
  */
 
@@ -53,7 +52,7 @@ class OcPicture extends BaseObject
         return $obj;
     }
 
-    public static function getUrl($uuid, $showSpoiler, $size)
+    public static function getThumbUrl($uuid, $showSpoiler, $size)
     {
         // first just try to locate such thumbnail
         if($thumbUrl = Thumbnail::getUrl($uuid, $showSpoiler, $size)){
