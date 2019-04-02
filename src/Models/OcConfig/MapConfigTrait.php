@@ -32,17 +32,20 @@ trait MapConfigTrait {
      */
     public static function getMapJsConfig()
     {
-        $jsConfig = self::getMapVar('jsConfig');
         $keyInjectorFunc = self::getMapVar('keyInjectionCallback');
 
-        if(!is_callable($keyInjectorFunc)) {
-            throw new \Exception("Wrong keyInjectionCallback config value!");
+        if(!is_null($keyInjectorFunc)){
+            // only if keyInjector exists
+            if(!is_callable($keyInjectorFunc)) {
+                throw new \Exception("Wrong keyInjectionCallback config value!");
+            }
+
+            if ( !$keyInjectorFunc(self::instance()->mapConfig) ) {
+                throw new \Exception('MapConfig key injector init failed!');
+            }
         }
 
-        if ( !$keyInjectorFunc(self::instance()->mapConfig) ) {
-            throw new \Exception('MapConfig key injector init failed!');
-        }
-        return $jsConfig;
+        return self::getMapVar('jsConfig');
     }
 
     /**
