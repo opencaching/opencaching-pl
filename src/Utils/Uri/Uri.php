@@ -210,4 +210,25 @@ class Uri {
         }
         return $uri;
     }
+
+    /**
+     * From page-relative path returns the path as local server path (in server filesystem)
+     *
+     * @param string $pageRootPath
+     * @return string
+     */
+    public static function getAbsServerPath($pageRootPath)
+    {
+        $rootPath = self::getPageRootPathOnServer();
+        return $rootPath.$pageRootPath;
+    }
+
+    /**
+     * Returns the page root-path on server
+     * @return string
+     */
+    private static function getPageRootPathOnServer()
+    {
+        return preg_replace('/(\/[^\/]*){3}$/', '', __DIR__);
+    }
 }

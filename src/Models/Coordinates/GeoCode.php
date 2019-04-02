@@ -24,11 +24,7 @@ class GeoCode
      *
      */
     public static function isGeocodeServiceAvailable() {
-        $config = OcConfig::instance();
-        $config->getMapConfig();
-        $ors_key = $config->getMapConfig()['keys']['OpenRouteService'];
-
-        return !empty($ors_key);
+        return !(empty(OcConfig::getMapKey('OpenRouteService')));
     }
 
     /**
@@ -36,9 +32,7 @@ class GeoCode
      */
     public static function fromOpenRouteService($place) {
 
-        $config = OcConfig::instance();
-        $config->getMapConfig();
-        $ors_key = $config->getMapConfig()['keys']['OpenRouteService'];
+        $ors_key = OcConfig::getMapKey('OpenRouteService');
 
         if(empty($ors_key)) {
             Debug::errorLog("No api_key for OpenRouteService in configuration. Check /Config/map.default.php");

@@ -4,6 +4,7 @@ namespace src\Controllers;
 use src\Controllers\News\NewsListController;
 use src\Utils\Cache\OcMemCache;
 use src\Utils\Feed\RssFeed;
+use src\Utils\Map\StaticMap;
 use src\Utils\Text\Formatter;
 use src\Utils\Uri\SimpleRouter;
 use src\Utils\Uri\Uri;
@@ -18,6 +19,7 @@ use src\Models\GeoCache\GeoCacheLog;
 use src\Models\GeoCache\MultiCacheStats;
 use src\Models\Stats\TotalStats;
 use src\Models\User\User;
+use src\Models\OcConfig\OcConfig;
 
 class StartPageController extends BaseController
 {
@@ -78,6 +80,20 @@ class StartPageController extends BaseController
         $this->view->setVar('staticMapModel', $this->staticMapModel);
 
         $this->view->buildView();
+    }
+
+    public function countryMap()
+    {
+        global $config;
+
+        $center = OcConfig::getMapDefaultCenter();
+        if(!$center) {
+            $this->displayCommonErrorPageAndExit("Wrong default coords?");
+        }
+
+        return StaticMap::displayPureMap(
+            $center, OcConfig::getStartPageMapZoom(), OcConfig::getStartPageMapDiemnsions(),
+            $config['maps']['main_page_map']['source']);
     }
 
     private function processNewCaches()

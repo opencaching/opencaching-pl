@@ -2,9 +2,11 @@
 
 use src\Utils\Database\OcDb;
 use src\Controllers\LogEntryController;
+use src\Controllers\PictureController;
 use src\Utils\Text\TextConverter;
 use src\Utils\Text\SmilesInText;
 use src\Utils\Text\UserInputFilter;
+use src\Utils\Uri\SimpleRouter;
 use src\Models\GeoCache\GeoCache;
 use src\Models\OcConfig\OcConfig;
 use src\Models\Coordinates\Coordinates;
@@ -277,10 +279,6 @@ foreach ($logEntries as $record) {
                 $pictures -= 4;
             }
 
-            if (!isset($showspoiler)){
-               $showspoiler = '';
-            }
-
             $thisline = $logpictureline;
 
             if ($disable_spoiler_view && intval($pic_record['spoiler']) == 1) {  // if hide spoiler (due to user not logged in) option is on prevent viewing pic link and show alert
@@ -291,13 +289,23 @@ foreach ($logEntries as $record) {
                 $thisline = mb_ereg_replace('{longdesc}', str_replace("images/uploads", "upload", $pic_record['url']), $thisline);
             };
 
-            $thisline = mb_ereg_replace('{imgsrc}', 'thumbs2.php?' . $showspoiler . 'uuid=' . urlencode($pic_record['uuid']), $thisline);
+            $thisline = mb_ereg_replace(
+                '{imgsrc}',
+                SimpleRouter::getLink(PictureController::class, 'thumbSizeSmall', [$pic_record['uuid']]),
+                $thisline);
+
             $thisline = mb_ereg_replace('{title}', htmlspecialchars($pic_record['title'], ENT_COMPAT, 'UTF-8'), $thisline);
 
 
             if ($pic_record['user_id'] == $usr['userid'] || $usr['admin']) {
-                $thisfunctions = $remove_picture;
-                $thisfunctions = mb_ereg_replace('{uuid}', urlencode($pic_record['uuid']), $thisfunctions);
+                $thisfunctions = '<span class="removepic">
+                                    <img src="/images/log/16x16-trash.png" class="icon16" alt="Trash icon">
+                                    &nbsp;
+                                    <a class="links" href="'.SimpleRouter::getLink(PictureController::class, 'remove', [$pic_record['uuid']]).'">'
+                                        . tr("delete") .
+                                    '</a>
+                                  </span> ';
+
                 $thisline = mb_ereg_replace('{functions}', $thisfunctions, $thisline);
             } else
                 $thisline = mb_ereg_replace('{functions}', '', $thisline);

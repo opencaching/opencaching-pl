@@ -125,7 +125,7 @@ class SimpleRouter
     public static function redirect($uri, $absoluteUri=null)
     {
         if (is_null($absoluteUri)) {
-            // if the first char of $uri is not a slash add slash
+            // if the first char of $uri is not a slash - add slash
             if (substr($uri, 0, 1) !== '/') {
                 $uri = '/'.$uri;
             }

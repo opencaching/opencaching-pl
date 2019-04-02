@@ -1,12 +1,11 @@
 <?php
 use src\Utils\Database\OcDb;
-use lib\SimpleImage;
+use src\Models\OcConfig\OcConfig;
+use src\Utils\Img\OcImage;
 
 require_once __DIR__ . '/../lib/common.inc.php';
 
-global $picurl, $picdir;
-
-$destination_path = $picdir.'/';
+$destination_path = OcConfig::getPicUploadFolder(true).'/';
 
 if (isset($_REQUEST['powerTrailId'])){
     $powerTrailId = $_REQUEST['powerTrailId'];
@@ -37,22 +36,13 @@ if (!is_null($powerTrailId) && !empty($name) && !empty($_FILES['myfile']['tmp_na
 
             $target_path = $destination_path . $actual_image_name;
 
-            $image = new SimpleImage();
-            $image->load($_FILES['myfile']['tmp_name']);
-
-            if ($image->getHeight() > $image->getWidth() && $image->getHeight()>250) { //portrait
-                $image->resizeToHeight(250);
-            }
-            if ($image->getHeight() < $image->getWidth() && $image->getWidth()>250)  {
-                $image -> resizeToWidth(250);
-            }
-            $image -> save($target_path);
+            OcImage::createThumbnail($_FILES['myfile']['tmp_name'], $target_path, [250,250]);
 
             $query = 'UPDATE `PowerTrail` SET `image`= :1 WHERE `id` = :2';
             $db = OcDb::instance();
-            $db->multiVariableQuery($query, $picurl.'/'.$actual_image_name, $powerTrailId);
+            $db->multiVariableQuery($query, OcConfig::getPicBaseUrl().'/'.$actual_image_name, $powerTrailId);
 
-            $result = '<img src="'.$picurl.'/'.$actual_image_name.'?'.rand(1000, 9999).'" />';
+            $result = '<img src="'.OcConfig::getPicBaseUrl().'/'.$actual_image_name.'?'.rand(1000, 9999).'" />';
         }
     }
 }

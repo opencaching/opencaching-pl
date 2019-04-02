@@ -3,6 +3,7 @@
 use src\Utils\Database\XDb;
 use src\Utils\Generators\Uuid;
 use src\Models\OcConfig\OcConfig;
+use src\Utils\Img\OcImage;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
@@ -166,20 +167,20 @@ if ($error == false) {
 
                         $uuid = Uuid::create();
 
-                        if ($config['limits']['image']['resize'] == 1 && $_FILES['file']['size'] > round($config['limits']['image']['resize_larger'] * 1024 * 1024) ) {
+                        if ($config['limits']['image']['resize'] == 1 &&
+                            $_FILES['file']['size'] > round($config['limits']['image']['resize_larger'] * 1024 * 1024) ) {
+
                             // Apply resize to uploaded image
-                            $image = new \lib\SimpleImage();
-                            $image->load($_FILES['file']['tmp_name']);
-                            if ($image->getHeight() > $image->getWidth() && $image->getHeight() > $config['limits']['image']['height']) { //portrait
-                            $image->resizeToHeight($config['limits']['image']['height']);
-                            }
-                            if ($image->getHeight() <= $image->getWidth() && $image->getWidth() > $config['limits']['image']['width'])  {
-                            $image -> resizeToWidth($config['limits']['image']['width']);
-                            }
-                            $image->save($picdir . '/' . $uuid . '.' . $extension, resolveImageTypeByFileExtension($extension));
+                            $filePath = OcImage::createThumbnail(
+                                $_FILES['file']['tmp_name'],
+                                OcConfig::getPicUploadFolder(true) . '/' . $uuid,
+                                [$config['limits']['image']['width'], $config['limits']['image']['height']]);
+
+
                         } else {
                             // Save uploaded image AS IS
-                            move_uploaded_file($_FILES['file']['tmp_name'], $picdir . '/' . $uuid . '.' . $extension);
+                            $filePath = OcConfig::getPicUploadFolder(true) . '/' . $uuid . '.' . $extension;
+                            move_uploaded_file($_FILES['file']['tmp_name'], $filePath);
                         }
 
                         XDb::xSql(
@@ -189,7 +190,7 @@ if ($error == false) {
                                  `local`,`spoiler`,`display`,`node`,`seq`)
                             VALUES (?, ?, NOW(), ?, '', 0, NOW(), NOW(),?, ?,
                                     ?, 1, ?, ?, ?, ?)",
-                            $uuid, $picurl . '/' . $uuid . '.' . $extension, $title, $objectid, $type, $usr['userid'],
+                            $uuid, OcConfig::getPicBaseUrl().'/'.basename($filePath), $title, $objectid, $type, $usr['userid'],
                             ($bSpoiler == 1) ? '1' : '0', ($bNoDisplay == 1) ? '0' : '1', OcConfig::getSiteNodeId(), $def_seq);
 
                         switch ($type) {
@@ -211,7 +212,7 @@ if ($error == false) {
                                 break;
                         }
 
-                        tpl_redirect_absolute($picurl . '/' . $uuid . '.' . $extension);
+                        tpl_redirect_absolute(OcConfig::getPicBaseUrl() . '/' . $uuid . '.' . $extension);
                         exit;
                     }
                 }
@@ -256,18 +257,3 @@ if ($error == false) {
 
 //make the template and send it out
 tpl_BuildTemplate();
-
-function resolveImageTypeByFileExtension($fileExtension)
-{
-    $extension = strtoupper($fileExtension);
-    switch ($extension){
-        case 'JPG':
-        case 'JPEG':
-            return IMAGETYPE_JPEG;
-        case 'PNG':
-            return IMAGETYPE_PNG;
-        case 'GIF':
-            return IMAGETYPE_GIF;
-    }
-    return IMAGETYPE_JPEG;
-}

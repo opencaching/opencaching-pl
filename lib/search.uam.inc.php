@@ -161,7 +161,6 @@ if ($usr || ! $hide_coords) {
     while ($r = $dbcSearch->dbResultFetch($s)) {
         $lat = $r['latitude'];
         $lon = $r['longitude'];
-        // $utm = cs2cs_1992($lat, $lon);
         $utm = wgs2u1992($lat, $lon);
         $y = (int) $utm[0];
         $x = (int) $utm[1];

@@ -2,6 +2,7 @@
 
 use src\Utils\Database\XDb;
 use src\Utils\I18n\I18n;
+use src\Models\OcConfig\OcConfig;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
@@ -23,9 +24,9 @@ if ($error == false) {
             '&amp;language=' . I18n::getCurrentLang() . '"></script>');
 
         // set map center
-        tpl_set_var('map_lat',$main_page_map_center_lat);
-        tpl_set_var('map_lon',$main_page_map_center_lon);
-        tpl_set_var('map_zoom',$default_country_zoom);
+        tpl_set_var('map_lat',OcConfig::getMapDefaultCenter()->getLatitude());
+        tpl_set_var('map_lon',OcConfig::getMapDefaultCenter()->getLongitude());
+        tpl_set_var('map_zoom', OcConfig::getStartPageMapZoom() + 1);
 
         $user_id = $usr['userid'];
         $name = isset($_POST['name']) ? $_POST['name'] : '';

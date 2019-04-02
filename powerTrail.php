@@ -5,7 +5,6 @@ use src\Models\ApplicationContainer;
 use src\Models\PowerTrail\PowerTrail;
 use src\Models\GeoCache\GeoCache;
 use src\Utils\Uri\Uri;
-use src\Models\OcConfig\OcDynamicMapConfig;
 use src\Utils\View\View;
 use src\Utils\Uri\OcCookie;
 use src\Models\ChunkModels\DynamicMap\CacheMarkerModel;
@@ -120,9 +119,6 @@ if ($error == false) {
     tpl_set_var('ocWaypoint', $oc_waypoint);
     tpl_set_var('commentsPaginateCount', powerTrailBase::commentsPaginateCount);
 
-    tpl_set_var('attributionMap', OcDynamicMapConfig::getJsAttributionMap());
-    tpl_set_var('mapItems', OcDynamicMapConfig::getJsMapItems());
-    tpl_set_var('mapWMSConfigLoader', OcDynamicMapConfig::getWMSImageMapTypeOptions());
 
 
     tpl_set_var('powerTrailId', '');
@@ -173,8 +169,8 @@ if ($error == false) {
                 return $marker;
             });
 
-            tpl_set_var('mapCenterLat', $main_page_map_center_lat);
-            tpl_set_var('mapCenterLon', $main_page_map_center_lon);
+            tpl_set_var('mapCenterLat', OcConfig::getMapDefaultCenter()->getLatitude());
+            tpl_set_var('mapCenterLon', OcConfig::getMapDefaultCenter()->getLongitude());
 
             $mapModel->forceDefaultZoom();
 
@@ -218,8 +214,8 @@ if ($error == false) {
             });
 
 
-            tpl_set_var('mapCenterLat', $main_page_map_center_lat);
-            tpl_set_var('mapCenterLon', $main_page_map_center_lon);
+            tpl_set_var('mapCenterLat', OcConfig::getMapDefaultCenter()->getLatitude());
+            tpl_set_var('mapCenterLon', OcConfig::getMapDefaultCenter()->getLongitude());
             // no need to set coords in map-model - defaults are the same
 
             $view->setVar('dynamicMapModel', $mapModel);
@@ -571,7 +567,6 @@ function displayPtCommentsSelector($htmlid, PowerTrail $powerTrail, $selectedId 
 
 function displayPowerTrailLogo($ptId, $img)
 {
-    // global $picurl;
     if (empty($img)){
         return '/images/blue/powerTrailGenericLogo.png';
     }else {

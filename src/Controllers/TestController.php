@@ -16,14 +16,13 @@ use src\Models\ChunkModels\DynamicMap\CacheSetMarkerModel;
 use src\Models\GeoCache\GeoCache;
 use src\Models\GeoCache\MultiCacheStats;
 use src\Models\GeoCache\MultiLogStats;
-use src\Models\User\User;
 use src\Models\User\MultiUserQueries;
 use src\Models\GeoCache\GeoCacheLog;
 use src\Utils\Text\Formatter;
 use src\Utils\Uri\OcCookie;
-use src\Models\Coordinates\Coordinates;
 use src\Utils\FileSystem\FileUploadMgr;
 use src\Models\OcConfig\OcConfig;
+use src\Utils\Uri\SimpleRouter;
 
 class TestController extends BaseController
 {
@@ -45,9 +44,23 @@ class TestController extends BaseController
 
     public function index()
     {
+        $methods = get_class_methods($this);
+        foreach ($methods as $method) {
+            switch($method){
+                case "__construct":
+                case "isCallableFromRouter":
+                case "index":
+                    // skip methods above
+                    break;
+                default:
+                    $link = SimpleRouter::getLink(self::class, $method);
+                    echo "<a href='$link'>$method</a> <br/>";
+            }
+        }
+    }
 
+    public function lorenIpsumContent(){
         $this->view->setTemplate('test/testTemplate');
-
         $this->view->buildView();
     }
 

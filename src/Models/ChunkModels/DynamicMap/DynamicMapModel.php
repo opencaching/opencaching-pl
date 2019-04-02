@@ -33,11 +33,9 @@ class DynamicMapModel
 
         $this->ocConfig = OcConfig::instance();
 
-        $this->coords = Coordinates::FromCoordsFactory(
-            $this->ocConfig->getMainPageMapCenterLat(),
-            $this->ocConfig->getMainPageMapCenterLon());
+        $this->coords = OcConfig::getMapDefaultCenter();
 
-        $this->zoom = $this->ocConfig->getMainPageMapZoom();
+        $this->zoom = OcConfig::getStartPageMapZoom();
         $this->forceZoom = false;
         $this->startExtent = false;
         $this->mapLayerName = 'OSM';
@@ -94,16 +92,7 @@ class DynamicMapModel
      * Read OC map config from config and return map config JS
      */
     public static function getMapLayersJsConfig(){
-        $ocConfig = OcConfig::instance();
-
-        // read map config + run keys injector
-        $mapConfigArray = $ocConfig->getMapConfig();
-        $mapConfigInitFunc = $mapConfigArray['keyInjectionCallback'];
-        if ( !$mapConfigInitFunc($mapConfigArray)) {
-            Debug::errorLog('mapConfig init failed');
-            exit();
-        }
-        return $mapConfigArray['jsConfig'];
+        return OcConfig::getMapJsConfig();
     }
 
     public function getMarkersDataJson(){
@@ -176,7 +165,7 @@ class DynamicMapModel
     {
         $this->infoMessage = $msg;
     }
-    
+
     public function getInfoMessage()
     {
         return $this->infoMessage;

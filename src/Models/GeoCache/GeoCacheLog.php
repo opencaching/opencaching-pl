@@ -577,4 +577,15 @@ class GeoCacheLog extends GeoCacheLogCommons
         $this->getCurrentUser()->recalculateAndUpdateStats();
     }
 
+    /**
+     * Change the picturescount value by add $value to it
+     * @param int $value
+     */
+    public function addToPicturesCount($value)
+    {
+        $this->db->multiVariableQuery(
+            'UPDATE cache_logs SET picturescount=picturescount + :1, last_modified = NOW()
+             WHERE id = :2 LIMIT 1', $value, $this->getId());
+    }
+
 }

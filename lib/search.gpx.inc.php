@@ -19,8 +19,6 @@ set_time_limit(1800);
 
 function getPictures($cacheid, $picturescount)
 {
-    global $thumb_max_width;
-    global $thumb_max_height;
 
     $rs = XDb::xSql('SELECT uuid, title, url, spoiler FROM pictures
             WHERE object_id= ? AND object_type=2 AND display=1

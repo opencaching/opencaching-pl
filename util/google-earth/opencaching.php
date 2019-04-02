@@ -35,6 +35,7 @@ $kml = '<?xml version="1.0" encoding="utf-8"?>
     </Document>
 </kml>
 ';
+$countryCoords = OcConfig::getMapDefaultCenter();
 
 if ($usr) {
     // get the users home coords
@@ -43,12 +44,13 @@ if ($usr) {
 
     $record_coords = XDb::xFetchArray($rs_coords);
 
-    if ((($record_coords['latitude'] == NULL) || ($record_coords['longitude'] == NULL)) || (($record_coords['latitude'] == 0) || ($record_coords['longitude'] == 0))) {
+    if ((($record_coords['latitude'] == NULL) || ($record_coords['longitude'] == NULL)) ||
+        (($record_coords['latitude'] == 0) || ($record_coords['longitude'] == 0))) {
+
         // invalid or missing home coordinates
         // use default country coordinates
-        $coords = mb_split(',', $country_coordinates);
-        $lat = $coords[0];
-        $lon = $coords[1];
+        $lat = $countryCoords->getLatitude();
+        $lon = $countryCoords->getLongitude();
         $range = '500000';
     } else {
         $lat = $record_coords['latitude'];
@@ -58,9 +60,8 @@ if ($usr) {
     XDb::xFreeResults($rs_coords);
 } else {
     // use default country coordinates
-    $coords = mb_split(',', $country_coordinates);
-    $lat = $coords[0];
-    $lon = $coords[1];
+    $lat = $countryCoords->getLatitude();
+    $lon = $countryCoords->getLongitude();
     $range = '500000';
 }
 

@@ -49,19 +49,6 @@ $absolute_server_URI = '//localhost/';
 // location for dynamically generated files
 $dynbasepath = '/var/www/ocpl-data/';
 
-// location of cache images
-if (!isset($picdir))
-    $picdir = $dynbasepath . 'images/uploads';
-if (!isset($picurl))
-    $picurl = '//localhost/images/uploads';
-
-// Thumbsize
-$thumb_max_width = 175;
-$thumb_max_height = 175;
-// Small thumbsize
-$thumb2_max_width = 64;
-$thumb2_max_height = 64;
-
 // location of cache mp3 files
 if (!isset($mp3dir))
     $mp3dir = $dynbasepath . 'mp3';
@@ -76,19 +63,6 @@ if (!isset($maxmp3size))
 if (!isset($mp3extensions))
     $mp3extensions = ';mp3;';
 
-
-
-// default coordinates for cachemap, set to your country's center of gravity
-$country_coordinates = "52.5,19.2";
-// zoom at which your whole country/region is visible
-$default_country_zoom = 6;
-
-// Main page map parameters (customize as needed)
-$main_page_map_center_lat = 52.13;
-$main_page_map_center_lon = 19.20;
-$main_page_map_zoom = 5;
-$main_page_map_width = 250;
-$main_page_map_height = 260;
 
 // maximal size of images
 if (!isset($maxpicsize))
@@ -161,12 +135,11 @@ $googleAnalytics_key = '';      // google Analytics key: UA-XXXXX-Y - if not set
 );
 */
 
-$rules_url = 'http://wiki.opencaching.pl/index.php/Regulamin_OC_PL';
+// DO NOT use it - used only OCRO translations now - used wiki links in /config/links*
 $cache_params_url = 'http://wiki.opencaching.pl/index.php/Parametry_skrzynki';
-$rating_desc_url = 'http://wiki.opencaching.pl/index.php/Oceny_skrzynek';
 
 // New caches outside country where server is:
-$SiteOutsideCountryString = 'poland_outside';
+$SiteOutsideCountryString = 'poland_outside'; // <-- node specific translation key...
 $countryParamNewcacherestPhp = " 'PL' ";
 
 /* power Trail module switch and settings */
@@ -311,81 +284,6 @@ $config['license_html'] = '<a rel="license" href="http://creativecommons.org/lic
 $dateFormat = 'Y-m-d';
 $datetimeFormat = 'Y-m-d H:i';
 
-$defaultCountryList = array("AT", "BE", "BY", "BG", "HR", "CZ", "DK", "EE", "FI", "FR", "GR", "ES", "NL", "IE", "LT", "MD", "DE", "NO", "PL", "PT", "SU", "RO", "SK", "SI", "CH", "SE", "TR", "UA", "IT", "HU", "GB",);
-
-/**
- * Configuration for map v3 maps
- *
- * Two dimensional array:
- *
- * * first dimension
- * KEYS - internal names
- *
- * * second dimension
- * KEYS:
- *  - hidden: boolean attribute to hide the map entirerly, without removing it from config
- *  - attribution: the HTML snippet that will be shown in bottom-right part of the map
- *  - imageMapTypeJS: the complete JS expression returning instance of google.maps.ImageMapType,
- *      if set, not other properties below will work
- *  - name: the name of the map
- *  - tileUrl: URL to the tile, may contain following substitutions
- *      - {z} - zoom, may include shifts, in form of i.e. {z+1}, {z-3}
- *      - {x}, {y} - point coordinates
- *  - tileUrlJS: the complete JS expression returning function for tileUrl retrieval,
- *      if set, tileUrl property will not work
- *  - tileSize: the tile size, either in form of WIDTHxHEIGHT, i.e. 256x128, or complete
- *      JS expression returning instance of google.maps.Size
- *  - maxZoom: maximum zoom available
- *  - minZoom: minimum zoom available
- *
- * Other keys, will be passed as is, given that
- *  - numerical and boolean values are passed as is to JS
- *  - other types are passed as strings, unless they start with raw: prefix. In that case,
- *      they are passed as JS expressions
- */
-
-$mapsConfig = array(
-    'OSMapa' => array(
-        'attribution' => '&copy; <a href="//www.openstreetmap.org/" target="_blank">OpenStreetMap</a> contributors <a href="//creativecommons.org/licenses/by-sa/2.0/" target="_blank">CC BY-SA</a> | Hosting:<a href="http://trail.pl/" target="_blank">trail.pl</a> i <a href="http://centuria.pl/" target="_blank">centuria.pl</a>',
-        'name' => 'OSMapa',
-        'tileUrl' => 'http://tile.openstreetmap.pl/osmapa.pl/{z}/{x}/{y}.png',
-        'maxZoom' => 18,
-        'tileSize' => '256x256',
-    ),
-    'OSM' => array(
-        'name' => 'OSM',
-        'attribution' => '&copy; <a href="//www.openstreetmap.org/" target="_blank">OpenStreetMap</a> contributors <a href="//creativecommons.org/licenses/by-sa/2.0/" target="_blank">CC BY-SA</a>',
-        'tileUrl' => 'http://tile.openstreetmap.org/{z}/{x}/{y}.png',
-        'maxZoom' => 18,
-        'tileSize' => '256x256'
-    ),
-    'UMP' => array(
-        'name' => 'UMP',
-        'attribution' => '&copy; Mapa z <a href="http://ump.waw.pl/" target="_blank">UMP-pcPL</a>',
-        'tileUrl' => 'http://tiles.ump.waw.pl/ump_tiles/{z}/{x}/{y}.png',
-        'maxZoom' => 18,
-        'tileSize' => '256x256',
-    ),
-    'Topo' => array(
-        'attribution' => '&copy; <a href="http://geoportal.gov.pl/" target="_blank">geoportal.gov.pl</a>',
-        'imageMapTypeJS' => 'new google.maps.ImageMapType(new WMSImageMapTypeOptions(
-                                        "Topo",
-                                        "http://mapy.geoportal.gov.pl:80/wss/service/img/guest/TOPO/MapServer/WmsServer",
-                                        "Raster",
-                                        "",
-                                        "image/jpeg"))',
-    ),
-    'Orto' => array(
-        'attribution' => '&copy; <a href="http://geoportal.gov.pl/" target="_blank">geoportal.gov.pl</a>',
-        'imageMapTypeJS' => 'new google.maps.ImageMapType(new WMSImageMapTypeOptions(
-                                        "Orto",
-                                        "http://mapy.geoportal.gov.pl:80/wss/service/img/guest/ORTO/MapServer/WmsServer",
-                                        "Raster",
-                                        "",
-                                        "image/jpeg"))',
-    ),
-);
-$config['mapsConfig'] = $mapsConfig;
 
 // map of garmin keys,
 // key: domain name, value: garmin key value
@@ -407,45 +305,10 @@ $titled_cache_period_prefix='week';
 // available options are roadmap, terrain, map, satellite, hybrid
 $config['maps']['cache_page_map']['layer'] = 'terrain';
 $config['maps']['cache_page_map']['zoom'] = 8;
-// choose color according to https://developers.google.com/maps/documentation/static-maps/intro#Markers
-$config['maps']['cache_page_map']['marker_color'] = 'blue';
 
-// available source for osm static map: mapnik,cycle, sterrain, stoner
-$config['maps']['cache_page_map']['source'] = 'mapnik';
 // available source for osm static map: mapnik,cycle, sterrain, stoner
 $config['maps']['main_page_map']['source'] = 'mapnik';
 
-/* Cache page minimap                                                       */
-$config['maps']['cache_mini_map']['zoom'] = 14;
-
-/* ************************************************************************
- * External maps on which to view a cache
- *
- * The following parameters are available for replacement using
- * printf style syntax, in this order
- *    1          2         3            4           5         6
- * latitude, longitude, cache_id, cache_code, cache_name, link_text
- *
- * coordinates are float numbers (%f), the rest are strings (%s)
- * cache_name is urlencoded
- * escape % using %% (printf syntax)
- * The level 3 key is also used as link_text.
- *
- * Use this to define URLs to external mapping sites to display a cache
- * ************************************************************************ */
-
-/* Example:
- * $config['maps']['external']['MyMap'] = 1; // 1 = enabled; 0 = disabled
- * $config['maps']['external']['MyMap_URL'] = '<a href="http://site/file?lat=%1$f&lon=%2$f&id=%3$s&name=%5$s">%6$s</a>';
- */
-
-// Enable or disable the predefined external maps below:
-$config['maps']['external']['Opencaching'] = 1;
-$config['maps']['external']['OSMapa'] = 1;
-$config['maps']['external']['UMP'] = 1;
-$config['maps']['external']['Google Maps'] = 1;
-$config['maps']['external']['Szukacz'] = 1;
-$config['maps']['external']['Flopp\'s Map'] = 0;
 
 // Configuration of feeds displayed on the main page
 $config['feed']['enabled'] = array('forum', 'blog');    // This array defines which feeds to display and in what order.

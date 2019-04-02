@@ -3,6 +3,9 @@ namespace src\Models\ChunkModels\StaticMap;
 
 use src\Models\Coordinates\Coordinates;
 use src\Utils\Gis\Gis;
+use src\Utils\Uri\SimpleRouter;
+use src\Controllers\StartPageController;
+use src\Models\OcConfig\OcConfig;
 
 class StaticMapModel
 {
@@ -17,36 +20,29 @@ class StaticMapModel
 
     private $markers = [];
 
-    public static function defaultFullCountryMap($scale=null)
+    private $mapProviderUrl = null;
+
+    public static function defaultFullCountryMap()
     {
-        global $main_page_map_center_lat, $main_page_map_center_lon, $main_page_map_zoom;
-        global $main_page_map_width, $main_page_map_height;
         global $config;
 
-        if(!$scale){
-            $scale = 1;
-        }
-        $imgWidth = $main_page_map_width * $scale;
-        $imgHeight = $main_page_map_height * $scale;
-        $zoom = $main_page_map_zoom;
+        $model = self::fixedZoomMapFactory(OcConfig::getMapDefaultCenter(), OcConfig::getStartPageMapZoom(),
+            OcConfig::getStartPageMapDiemnsions(), $config['maps']['main_page_map']['source']);
 
-        $mapCenter = Coordinates::FromCoordsFactory(
-            $main_page_map_center_lat, $main_page_map_center_lon);
+        $model->mapProviderUrl = SimpleRouter::getLink(StartPageController::class, 'countryMap');
 
-        return self::fixedZoomMapFactory($mapCenter, $zoom,
-            $imgWidth, $imgHeight, $config['maps']['main_page_map']['source']);
-
+        return $model;
     }
 
     public static function fixedZoomMapFactory(Coordinates $mapCenter, $mapZoom,
-        $imgWidth, $imgHeight, $mapType=null)
+        array $imgDimensions, $mapType=null)
     {
 
         $map = new self();
         $map->mapCenter = $mapCenter;
         $map->mapZoom = $mapZoom;
-        $map->imgHeight = $imgHeight;
-        $map->imgWidth = $imgWidth;
+        $map->imgHeight = $imgDimensions[1];
+        $map->imgWidth = $imgDimensions[0];
         $map->mapType = $mapType;
 
         return $map;
@@ -54,9 +50,7 @@ class StaticMapModel
 
     public function getMapImgSrc()
     {
-        return sprintf("/lib/staticmap.php?center=%F,%F&amp;zoom=%d&amp;size=%dx%d&amp;maptype=%s",
-            $this->mapCenter->getLatitude(), $this->mapCenter->getLongitude(),
-            $this->mapZoom, $this->imgWidth, $this->imgHeight, $this->mapType);
+        return $this->mapProviderUrl;
     }
 
     public function getMapTitle()

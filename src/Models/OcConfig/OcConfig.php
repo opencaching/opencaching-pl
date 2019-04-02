@@ -4,7 +4,7 @@ namespace src\Models\OcConfig;
 
 final class OcConfig extends ConfigReader
 {
-    use EmailConfigTrait, SiteConfigTrait, I18nConfigTrait;
+    use EmailConfigTrait, SiteConfigTrait, I18nConfigTrait, PicturesConfigTrait, MapConfigTrait;
 
 /*
     const OCNODE_GERMANY    = 1;  // Opencaching Germany http://www.opencaching.de OC
@@ -30,14 +30,8 @@ final class OcConfig extends ConfigReader
     private $dynamicFilesPath;
     private $powerTrailModuleSwitchOn;
     private $googleMapKey;
-    private $mainPageMapCenterLat;
-    private $mainPageMapCenterLon;
-    private $mainPageMapZoom;
     private $siteInService = false;
-    private $pictureDirectory;
-    private $pictureUrl;
     private $dateFormat;
-    private $mapsConfig;            //settings.inc: $config['mapsConfig']
     private $headerLogo;
     private $shortSiteName;
     private $needFindLimit;
@@ -67,9 +61,6 @@ final class OcConfig extends ConfigReader
 
     /** @var array */
     private $newsConfig;
-
-    /** @var array - array of map settings from /Config/map.* files */
-    private $mapConfig;
 
     /** @var array - array of user settings from /Config/user.* files */
     private $userConfig;
@@ -118,11 +109,6 @@ final class OcConfig extends ConfigReader
         $this->dynamicFilesPath = $dynbasepath;
         $this->powerTrailModuleSwitchOn = $powerTrailModuleSwitchOn;
         $this->googleMapKey = $googlemap_key;
-        $this->mainPageMapCenterLat = $main_page_map_center_lat;
-        $this->mainPageMapCenterLon = $main_page_map_center_lon;
-        $this->mainPageMapZoom = $main_page_map_zoom;
-        $this->pictureDirectory = $picdir;
-        $this->pictureUrl = $picurl;
         $this->dateFormat = $dateFormat;
         $this->headerLogo = $config['headerLogo'];
         $this->shortSiteName = $short_sitename;
@@ -131,12 +117,6 @@ final class OcConfig extends ConfigReader
         $this->enableCacheAccessLogs = $enable_cache_access_logs;
         $this->minumumAge = $config['limits']['minimum_age'];
         $this->meritBadgesEnabled = $config['meritBadges'];
-
-        if (isset($config['mapsConfig']) && is_array($config['mapsConfig'])) {
-            $this->mapsConfig = $config['mapsConfig'];
-        } else {
-            $this->mapsConfig = array();
-        }
 
         $this->dbHost = $opt['db']['server'];
         $this->dbName = $opt['db']['name'];
@@ -196,21 +176,6 @@ final class OcConfig extends ConfigReader
         return self::getWikiLinks()[$wikiLinkKey];
     }
 
-    public function getMainPageMapCenterLat()
-    {
-        return $this->mainPageMapCenterLat;
-    }
-
-    public function getMainPageMapCenterLon()
-    {
-        return $this->mainPageMapCenterLon;
-    }
-
-    public function getMainPageMapZoom()
-    {
-        return $this->mainPageMapZoom;
-    }
-
     public static function getAbsolute_server_URI()
     {
         return self::instance()->absolute_server_URI;
@@ -221,9 +186,13 @@ final class OcConfig extends ConfigReader
         return $this->dbDatetimeFormat;
     }
 
-    public static function getDynFilesPath()
+    public static function getDynFilesPath($trimTrailingSlash = false)
     {
-        return self::instance()->getDynamicFilesPath();
+        $path = self::instance()->getDynamicFilesPath();
+        if($trimTrailingSlash){
+            return rtrim($path, '/');
+        }
+        return $path;
     }
 
     public function getDynamicFilesPath()
@@ -259,20 +228,6 @@ final class OcConfig extends ConfigReader
     public function isMeritBadgesEnabled()
     {
         return $this->meritBadgesEnabled;
-    }
-
-    protected function getMapsConfig()
-    {
-        return $this->mapsConfig;
-    }
-
-    /**
-     * get $config['mapsConfig'] from settings.inc.php in a static way
-     * always return an array
-     */
-    public static function mapsConfig()
-    {
-        return self::instance()->getMapsConfig();
     }
 
     public function getDbUser($admin = false)
@@ -374,19 +329,6 @@ final class OcConfig extends ConfigReader
         return $this->logfilterConfig;
     }
 
-    /**
-     * Gives map configuration, tries to initialize it if null
-     *
-     * @return array map configuration
-     *               ({@see /Config/map.default.php})
-     */
-    public function getMapConfig()
-    {
-        if ($this->mapConfig == null) {
-            $this->mapConfig = self::getConfig("map", "map");
-        }
-        return $this->mapConfig;
-    }
 
     public function getUserConfig()
     {

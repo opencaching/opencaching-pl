@@ -1,7 +1,10 @@
 <?php
 use src\Utils\Uri\Uri;
+use src\Controllers\PictureController;
 use src\Models\ApplicationContainer;
 use src\Models\GeoCache\GeoCache;
+use src\Models\Pictures\Thumbnail;
+use src\Utils\Uri\SimpleRouter;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
@@ -41,9 +44,9 @@ $logpictures = [];
 while ($row = $app->db->dbResultFetch($stmt)) {
     $row['url'] = str_replace("images/uploads", "upload", $row['url']);
     if ($row['spoiler'] == '1') {
-        $row['thumbUrl'] = 'images/thumb/thumbspoiler.gif';
+        $row['thumbUrl'] = Thumbnail::placeholderUri(Thumbnail::PHD_SPOILER);
     } else {
-        $row['thumbUrl'] = 'thumbs.php?uuid=' . $row['uuid'];
+        $row['thumbUrl'] = SimpleRouter::getLink(PictureController::class, 'thumbSizeMedium', [$row['uuid']]);
     }
     $logpictures[] = $row;
 }

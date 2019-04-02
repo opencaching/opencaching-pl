@@ -12,7 +12,6 @@ use src\Utils\Debug\Debug;
 
 require_once (__DIR__.'/lib/common.inc.php');
 require_once (__DIR__.'/lib/search.inc.php');
-require_once (__DIR__.'/lib/search-signatures.inc.php');
 require_once (__DIR__.'/lib/export.inc.php');
 require_once (__DIR__.'/lib/calculation.inc.php');
 
@@ -41,9 +40,7 @@ $TestStartTime = new DateTime('now');
 $dbcSearch = OcDb::instance();
 $dbc = OcDb::instance();
 
-// extract user data for KML search
-$usr = requestSigner::extract_user($usr);
-if ($usr == false) {
+if (isset($usr) && is_array($usr)) {
     $target = urlencode(tpl_get_current_page());
     tpl_redirect('login.php?target='.$target);
     exit;

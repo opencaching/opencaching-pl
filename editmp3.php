@@ -1,5 +1,6 @@
 <?php
 
+use src\Models\OcConfig\OcConfig;
 use src\Utils\Database\XDb;
 //prepare the templates and include all neccessary
 require_once(__DIR__.'/lib/common.inc.php');
@@ -16,7 +17,25 @@ if ($error == false) {
         $tplname = 'editmp3';
         $view = tpl_getView();
         $view->setVar('maxmp3size', $maxmp3size);
-        require_once(__DIR__.'/src/Views/editmp3.inc.php');
+
+        tpl_set_var('mail_oc', OcConfig::getEmailAddrTechAdmin());
+
+        $mp3typedesc_cache = tr('editmp3_06');
+        $mp3typedesc_log = tr('editmp3_07');
+
+        $errnotitledesc = '<span class="errormsg">' . tr('editmp3_08') . '</span>';
+
+        $message_title_internal = tr('editmp3_09');
+        $message_internal = tr('editmp3_10');
+
+        $message_title_toobig = tr('editmp3_11');
+        $message_toobig = tr('editmp3_12');
+
+        $message_title_wrongext = tr('editmp3_13');
+        $message_wrongext = tr('editmp3_14');
+
+        $message_mp3_not_found = tr('editmp3_15');
+
 
         $uuid = isset($_REQUEST['uuid']) ? $_REQUEST['uuid'] : 0;
         if (!$uuid)
