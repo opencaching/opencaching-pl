@@ -39,7 +39,7 @@ trait MapConfigTrait {
             throw new \Exception("Wrong keyInjectionCallback config value!");
         }
 
-        if ( !$keyInjectorFunc($jsConfig) ) {
+        if ( !$keyInjectorFunc(self::instance()->mapConfig) ) {
             throw new \Exception('MapConfig key injector init failed!');
         }
         return $jsConfig;
