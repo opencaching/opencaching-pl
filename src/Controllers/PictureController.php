@@ -82,7 +82,7 @@ class PictureController extends BaseController
 
         // check the UUID param
         if(!Uuid::isValidUpperCaseUuid($uuid)) {
-            $this->view->redirectAndExit(Thumbnail::placeholderUri(Thumbnail::ERROR_404));
+            $this->view->redirectAndExit(Thumbnail::placeholderUri(Thumbnail::PHD_ERROR_404));
         }
 
         if (!$size) {
