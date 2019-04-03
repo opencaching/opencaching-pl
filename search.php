@@ -40,7 +40,7 @@ $TestStartTime = new DateTime('now');
 $dbcSearch = OcDb::instance();
 $dbc = OcDb::instance();
 
-if (isset($usr) && is_array($usr)) {
+if (!isset($usr) || !is_array($usr)) {
     $target = urlencode(tpl_get_current_page());
     tpl_redirect('login.php?target='.$target);
     exit;
