@@ -29,7 +29,7 @@ class PictureController extends BaseController
     public function remove($uuid)
     {
         // check the UUID param
-        if(!Uuid::isValidUpperCaseUuid($uuid)) {
+        if(!Uuid::isValidUuid($uuid)) {
             $this->displayCommonErrorPageAndExit("Improper UUID!");
         }
 
@@ -81,7 +81,7 @@ class PictureController extends BaseController
     {
 
         // check the UUID param
-        if(!Uuid::isValidUpperCaseUuid($uuid)) {
+        if(!Uuid::isValidUuid($uuid)) {
             $this->view->redirectAndExit(Thumbnail::placeholderUri(Thumbnail::PHD_ERROR_404));
         }
 
@@ -90,7 +90,7 @@ class PictureController extends BaseController
         }
 
         // locate the thumbnail
-        if ($thumbUrl = OcPicture::getUrl($uuid, $showSpoiler, $size)) {
+        if ($thumbUrl = OcPicture::getThumbUrl($uuid, $showSpoiler, $size)) {
             $this->view->redirectAndExit($thumbUrl);
         } else {
             $this->view->redirectAndExit(Thumbnail::placeholderUri(Thumbnail::ERROR_INTERN));
