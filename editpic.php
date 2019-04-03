@@ -59,6 +59,7 @@ if ($error == false) {
 
             if (isset($_POST['submit'])) {
 
+                $filePath = null;
                 if ($_FILES['file']['name'] != '') {
                     // check if the file has been uploaded successfully
                     if ($_FILES['file']['error'] != 0) {
@@ -127,13 +128,22 @@ if ($error == false) {
                 $row['title'] = isset($_REQUEST['title']) ? stripslashes($_REQUEST['title']) : '';
 
                 if ($row['title']) {
-                    XDb::xSql(
-                        "UPDATE `pictures` SET `title`= ?, `display`= ?, `spoiler`= ?, `last_modified` = NOW(), url = ?
-                         WHERE `uuid`= ? ",
-                        $row['title'],
-                        (($row['display'] == 1) ? '1' : '0'), (($row['spoiler'] == 1) ? '1' : '0'),
-                        OcConfig::getPicBaseUrl().'/'.basename($filePath), $uuid);
-
+                    
+                    if($filePath) {
+                        XDb::xSql(
+                            "UPDATE `pictures` SET `title`= ?, `display`= ?, `spoiler`= ?, `last_modified` = NOW(), url = ?
+                             WHERE `uuid`= ? ",
+                            $row['title'],
+                            (($row['display'] == 1) ? '1' : '0'), (($row['spoiler'] == 1) ? '1' : '0'),
+                            OcConfig::getPicBaseUrl().'/'.basename($filePath), $uuid);
+                    } else {
+                        XDb::xSql(
+                            "UPDATE `pictures` SET `title`= ?, `display`= ?, `spoiler`= ?, `last_modified` = NOW()
+                             WHERE `uuid`= ? ",
+                            $row['title'], (($row['display'] == 1) ? '1' : '0'), (($row['spoiler'] == 1) ? '1' : '0'), $uuid);
+                    }
+                    
+                    
                     switch ($row['object_type']) {
                         // log - currently not used, because log pictures cannot be edited
                         case 1:
