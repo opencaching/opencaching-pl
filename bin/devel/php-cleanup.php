@@ -23,6 +23,11 @@
 # have a restricted environent like an old Windows PHP. Keep it simple and
 # do not include other OC code.
 
+if (php_sapi_name() != "cli") {
+    printf("This script should be run from command-line only.\n");
+    exit(1);
+}
+
 $exclude = array(
     'lib/phpzip',
     'Libs',
