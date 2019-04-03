@@ -51,7 +51,7 @@ class Uuid
      */
     public static function isValidUuid($str)
     {
-        return self::isValidUpperCaseUuid($str) || self::isValidUpperCaseUuid($str);
+        return self::isValidUpperCaseUuid($str) || self::isValidLowerCaseUuid($str);
     }
 
 
