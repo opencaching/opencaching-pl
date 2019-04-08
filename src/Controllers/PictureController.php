@@ -93,7 +93,7 @@ class PictureController extends BaseController
         if ($thumbUrl = OcPicture::getThumbUrl($uuid, $showSpoiler, $size)) {
             $this->view->redirectAndExit($thumbUrl);
         } else {
-            $this->view->redirectAndExit(Thumbnail::placeholderUri(Thumbnail::PDH_ERROR_INTERN));
+            $this->view->redirectAndExit(Thumbnail::placeholderUri(Thumbnail::PHD_ERROR_INTERN));
         }
     }
 }
