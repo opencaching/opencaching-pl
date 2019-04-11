@@ -250,7 +250,7 @@ $translations = array(
     'invalid_wp_ge' => 'Ongeldige GE waypoint',
     'cache_attributes_label' => 'Cache attributen',
     'attributes_edit_hint' => 'Attributen kunnen later ook verandert worden.',
-    'additional_attributes_hint' => 'You can add some more attributes to your caches description with this tool:',
+    'additional_attributes_hint' => 'Je kunt meer attributen toevoegen aan de beschrijving van je cache met deze tool:',
     'additional_attributes' => 'Additional cache attributes',
     'attributes_desc_hint' => 'Lees ook het <a href="{wiki_link_cacheAttrib}" target="_blank" rel="noopener">Opencaching attributen beschrijving</a> artikel.',
     'descriptions' => 'Beschrijving',
