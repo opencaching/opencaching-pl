@@ -77,9 +77,8 @@ $map['keyInjectionCallback'] = function(array &$mapConfig){
  * Coordinates of the default map center - used by default by many maps in service
  * Format: float number
  */
-$map['mapDefaultCenterLat'] = 39.4;
-$map['mapDefaultCenterLon'] = -93.8;
-$map['mapDefaultZoom'] = 3;
+$map['mapDefaultCenterLat'] = 46.4;
+$map['mapDefaultCenterLon'] = -99.8;
 
 /**
  * Zoom of the static map from startPage
@@ -89,7 +88,7 @@ $map['startPageMapZoom'] = 2;
 /**
  * Dimensions of the static map from startPage[width,height]
  */
-$map['startPageMapDimensions'] = [250, 300];
+$map['startPageMapDimensions'] = [275, 275];
 
 /**
  * Links to external maps used at least at viewpage
