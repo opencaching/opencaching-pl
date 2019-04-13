@@ -31,6 +31,13 @@ class UserAdminController extends BaseController
     public function __construct()
     {
         parent::__construct();
+
+        $this->redirectNotLoggedUsers();
+
+        if (! $this->loggedUser->hasOcTeamRole()) {
+            $this->view->redirect('/');
+        }
+
     }
 
     public function isCallableFromRouter($actionName)
@@ -40,7 +47,7 @@ class UserAdminController extends BaseController
 
     public function index($userId = null)
     {
-        $this->checkSecurityAndPrepare($userId);
+        $this->initViewedUser($userId);
 
         $this->view->setVar('user', $this->viewedUser);
         $this->view->setVar('infoMsg', $this->infoMsg);
@@ -57,11 +64,6 @@ class UserAdminController extends BaseController
      */
     public function search()
     {
-        $this->redirectNotLoggedUsers();
-        if (! $this->loggedUser->hasOcTeamRole()) {
-            $this->view->redirect('/');
-        }
-
         $usersTable = [];
         $userName = '';
 
@@ -123,7 +125,7 @@ class UserAdminController extends BaseController
      */
     public function addNote($userId = null)
     {
-        $this->checkSecurityAndPrepare($userId);
+        $this->initViewedUser($userId);
 
         if (isset($_POST['note_content']) && ! empty($_POST['note_content'])) {
             $note = UserInputFilter::purifyHtmlString($_POST['note_content']);
@@ -142,7 +144,7 @@ class UserAdminController extends BaseController
      */
     public function userBan($userId = null, $state = null)
     {
-        $this->checkSecurityAndPrepare($userId);
+        $this->initViewedUser($userId);
 
         if (! is_null($state)) {
             $state = boolval($state);
@@ -167,7 +169,7 @@ class UserAdminController extends BaseController
      */
     public function statBan($userId = null, $state = null)
     {
-        $this->checkSecurityAndPrepare($userId);
+        $this->initViewedUser($userId);
 
         if (! is_null($state)) {
             $state = boolval($state);
@@ -191,7 +193,7 @@ class UserAdminController extends BaseController
      */
     public function verifyAll($userId = null, $state = null)
     {
-        $this->checkSecurityAndPrepare($userId);
+        $this->initViewedUser($userId);
 
         if (! is_null($state)) {
             $state = boolval($state);
@@ -215,7 +217,7 @@ class UserAdminController extends BaseController
      */
     public function createNoLimit($userId = null, $state = null)
     {
-        $this->checkSecurityAndPrepare($userId);
+        $this->initViewedUser($userId);
 
         if (! is_null($state)) {
             $state = boolval($state);
@@ -239,7 +241,7 @@ class UserAdminController extends BaseController
      */
     public function notifyCaches($userId = null, $state = null)
     {
-        $this->checkSecurityAndPrepare($userId);
+        $this->initViewedUser($userId);
 
         if (! is_null($state)) {
             $state = boolval($state);
@@ -263,7 +265,7 @@ class UserAdminController extends BaseController
      */
     public function notifyLogs($userId = null, $state = null)
     {
-        $this->checkSecurityAndPrepare($userId);
+        $this->initViewedUser($userId);
 
         if (! is_null($state)) {
             $state = boolval($state);
@@ -286,7 +288,7 @@ class UserAdminController extends BaseController
      */
     public function activateUser($userId = null)
     {
-        $this->checkSecurityAndPrepare($userId);
+        $this->initViewedUser($userId);
 
         if (! $this->viewedUser->isUserActivated()) {
             User::activateUser($this->viewedUser->getUserId());
@@ -298,11 +300,11 @@ class UserAdminController extends BaseController
         $this->view->redirect(SimpleRouter::getLink('Admin.UserAdmin', 'index', $userId));
     }
 
-    private function checkSecurityAndPrepare($userId)
+    private function initViewedUser($userId)
     {
-        // Check if user is logged and is admin
-        $this->redirectNotLoggedUsers();
-        if (! $this->loggedUser->hasOcTeamRole() || is_null($this->viewedUser = User::fromUserIdFactory($userId))) {
+        $this->viewedUser = User::fromUserIdFactory($userId);
+
+        if (!$this->viewedUser) {
             $this->view->redirect('/');
         }
     }
