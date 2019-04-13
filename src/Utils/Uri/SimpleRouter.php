@@ -133,6 +133,7 @@ class SimpleRouter
         }
 
         header("Location: $uri");
+        exit;
     }
 
     /**

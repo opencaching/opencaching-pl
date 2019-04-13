@@ -28,7 +28,7 @@
           {{/if}}
 
           {{#if allowedTypesRegex}}
-          <div><?=tr('upload_allowedTypesOfFile')?>:<span class="limit">{{allowedTypesRegex}}</span></div>
+          <div><?=tr('upload_allowedTypesOfFile')?>: <span class="limit">{{allowedTypesRegex}}</span></div>
           {{/if}}
           <div><?=tr('upload_maxFileSize')?>: <span class="limit">{{formattedMaxFileSize}}</span></div>
       </div>
