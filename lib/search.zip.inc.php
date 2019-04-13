@@ -3,9 +3,9 @@
 use okapi\Facade;
 use src\Utils\I18n\I18n;
 
-function call_okapi($usr, $waypoints, $file_base_name, $zip_part)
+function call_okapi($usr, $waypoints, $lang, $file_base_name, $zip_part)
 {
-    $okapi_params = array('cache_codes' => $waypoints, 'langpref' => I18n::getCurrentLang(),
+    $okapi_params = array('cache_codes' => $waypoints, 'langpref' => $lang,
         'location_source' => 'alt_wpt:user-coords', 'location_change_prefix' => '(F)');
     // TODO: limit log entries per geocache?
     if (isset($_GET['format']))
