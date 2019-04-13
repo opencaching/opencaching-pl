@@ -2,6 +2,7 @@
 
 use src\Utils\Database\XDb;
 use src\Utils\Text\TextConverter;
+use src\Utils\Uri\SimpleRouter;
 
 require_once(__DIR__.'/lib/common.inc.php');
 require(__DIR__.'/src/Views/searchplugin.inc.php');
@@ -118,6 +119,6 @@ if (($sourceid == 'mozilla-search') && ($userinput != '')) {
                 }
                 break;
         }
+        SimpleRouter::redirect($targeturl);
     }
 }
-tpl_redirect($targeturl);
