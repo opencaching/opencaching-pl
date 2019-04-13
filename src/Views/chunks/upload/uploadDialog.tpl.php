@@ -22,13 +22,13 @@
 
     <div id="upload_dragFileBox">
       <h3><?=tr('upload_clickOrDropFile')?></h3>
-      <div class="info">
+      <div class="upload_info">
           {{#if multiplyFilesAllowed}}
-          <div><?=tr('upload_allowedNumberOfFiles')?>: <span class="limit">{{maxFilesNumber}}</span></div>
+          <div><?=tr('upload_allowedNumberOfFiles')?>: <span class="upload_limit">{{maxFilesNumber}}</span></div>
           {{/if}}
 
           {{#if allowedTypesRegex}}
-          <div><?=tr('upload_allowedTypesOfFile')?>:</div><div><span class="limit">{{allowedTypesRegex}}</span></div>
+          <div><?=tr('upload_allowedTypesOfFile')?>:<span class="limit">{{allowedTypesRegex}}</span></div>
           {{/if}}
           <div><?=tr('upload_maxFileSize')?>: <span class="limit">{{formattedMaxFileSize}}</span></div>
       </div>

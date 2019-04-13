@@ -140,7 +140,7 @@ function ocUpload(params, callback) {
     },
 
     /**
-     * called in loop for every attached file
+     * Called in loop for every attached file
      */
     addFileToPreviewList: function(file){
       console.log("File:", file);

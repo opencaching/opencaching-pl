@@ -17,23 +17,16 @@ class FileUploadMgr
      *
      * @param UploadModel $model
      *
-     * @return string[]|string - array of new files or error description on error
+     * @throws \RuntimeException on error
+     * @return string|string[] - file|array of files
      */
     public static function processFileUpload(UploadModel $model){
 
-        $varName = $model->formVarName;
-
-        try{
-            self::checkUploadErrors($varName);
-            self::checkNumberOfFiles($varName, $model->maxFilesNumber);
-            self::checkFileSizes($varName, $model->maxFileSize);
-            self::checkFileMimeType($varName, $model->allowedTypesRegex);
-
-            return self::saveUploadedFiles($varName, $model->getDirAtServer());
-
-        } catch (RuntimeException $e) {
-            return $e->getMessage();
-        }
+        self::checkUploadErrors($model);
+        self::checkNumberOfFiles($model);
+        self::checkFileSizes($model);
+        self::checkFileMimeType($model);
+        return self::saveUploadedFiles($model);
     }
 
     private static function checkDir($dir)
@@ -61,24 +54,30 @@ class FileUploadMgr
      *
      * @param string $formVarName
      * @param string $uploadDir - dir where to store the files
-     * @return string[] - array of filenames of files on server in given destination dir
+     * @return string|string[] - filename or array of filenames of files on server in given destination dir
      */
-    private static function saveUploadedFiles($formVarName, $uploadDir)
+    private static function saveUploadedFiles(UploadModel $model)
     {
         // first check the dir
-        self::checkDir($uploadDir);
+        self::checkDir($model->getDirAtServer());
 
         $newFiles = [];
-        foreach($_FILES[$formVarName]['name'] as $i => $name){
+        foreach($_FILES[$model->formVarName]['name'] as $i => $name){
 
             $extension = pathinfo($name, PATHINFO_EXTENSION);
             $fileName = Uuid::create() . ".$extension";
-            $fullPath = $uploadDir . '/' . $fileName;
+            $fullPath = $model->getDirAtServer() . '/' . $fileName;
 
-            move_uploaded_file($_FILES[$formVarName]['tmp_name'][$i], $fullPath);
+            move_uploaded_file($_FILES[$model->formVarName]['tmp_name'][$i], $fullPath);
 
             $newFiles[] = $fileName;
         }
+
+        if(count($newFiles) == 1 && $model->maxFilesNumber == 1){
+            // only single file is expected
+            return $newFiles[0];
+        }
+
         return $newFiles;
     }
 
@@ -94,11 +93,11 @@ class FileUploadMgr
      * @param string $allowedMimeTypes
      * @throws RuntimeException
      */
-    private static function checkFileMimeType($formVarName, $allowedMimeTypes)
+    private static function checkFileMimeType(UploadModel $model)
     {
-        foreach($_FILES[$formVarName]['type'] as $type){
-            if(!self::compareMimeType($type, $allowedMimeTypes)){
-                throw new RuntimeException("Not allowed mime type: $type != $allowedMimeTypes");
+        foreach($_FILES[$model->formVarName]['type'] as $type){
+            if(!self::compareMimeType($type, $model->allowedTypesRegex)){
+                throw new RuntimeException("Not allowed mime type: $type != {$model->allowedTypesRegex}");
             }
         }
     }
@@ -138,11 +137,11 @@ class FileUploadMgr
         return false; // pattern not matched
     }
 
-    private static function checkNumberOfFiles($formVarName, $maxFilesCount)
+    private static function checkNumberOfFiles(UploadModel $model)
     {
-        $uploadedFiles = count($_FILES[$formVarName]['name']);
-        if( $uploadedFiles > $maxFilesCount ){
-            throw new RuntimeException("Too many file uploaded at once: $uploadedFiles > $maxFilesCount");
+        $uploadedFiles = count($_FILES[$model->formVarName]['name']);
+        if( $uploadedFiles > $model->maxFilesNumber ){
+            throw new RuntimeException("Too many file uploaded at once: $uploadedFiles > {$model->maxFilesNumber}");
         }
     }
 
@@ -153,11 +152,11 @@ class FileUploadMgr
      * @param int $maxSize - max file size
      * @throws RuntimeException - if any file is too large
      */
-    private static function checkFileSizes($formVarName, $maxSize)
+    private static function checkFileSizes(UploadModel $model)
     {
-        foreach($_FILES[$formVarName]['size'] as $size){
-            if($size > $maxSize){
-                throw new RuntimeException("Too large file uploaded: $size > $maxSize.");
+        foreach($_FILES[$model->formVarName]['size'] as $size){
+            if($size > $model->maxFileSize){
+                throw new RuntimeException("Too large file uploaded: $size > {$model->maxFileSize}.");
             }
         }
     }
@@ -168,8 +167,10 @@ class FileUploadMgr
      * @param string $formVarName
      * @throws RuntimeException
      */
-    private static function checkUploadErrors($formVarName)
+    private static function checkUploadErrors(UploadModel $model)
     {
+        $formVarName = $model->formVarName;
+
         if ( !isset($_FILES[$formVarName], $_FILES[$formVarName]['error'])) {
             /*
              * if upload fails here check error.log and php.ini for at least:
@@ -190,8 +191,9 @@ class FileUploadMgr
             case UPLOAD_ERR_NO_FILE:
                 throw new RuntimeException('No file sent.');
             case UPLOAD_ERR_INI_SIZE:
+                throw new RuntimeException('Exceeded server filesize limit.');
             case UPLOAD_ERR_FORM_SIZE:
-                throw new RuntimeException('Exceeded filesize limit.');
+                throw new RuntimeException('Exceeded form filesize limit.');
             default:
                 throw new RuntimeException('Unknown error.');
             }

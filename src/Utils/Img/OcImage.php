@@ -19,7 +19,7 @@ class OcImage
      * Fast track for thumbnail creation
      * Extension to the $outputFile will be added automatically
      *
-     * @param string $inputFile - path to the input image
+     * @param string $inputFile - path to the input image (with filename)
      * @param string $outputFile - path to the output image (with filename without extension)
      * @param array $maxSize - array of max dimensions
      * @return
@@ -183,8 +183,16 @@ class OcImage
      */
     public function save($outputPath, $overwrite=false)
     {
-        if(!$overwrite && is_file($outputPath)){
+        if (!$overwrite && is_file($outputPath)) {
             throw new \Exception("Can't save - file already exists!");
+        }
+
+        if (!is_dir(dirname($outputPath))) {
+            // there is no such dir - try to create it
+            $dir = dirname($outputPath);
+            if ( ! mkdir($dir, 0755, true)) {
+                throw new \Exception("Can't save - there is no such directory and can't create it!");
+            }
         }
 
         // there are only three possiblem outputs

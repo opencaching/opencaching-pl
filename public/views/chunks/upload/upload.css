@@ -76,14 +76,14 @@
   cursor: pointer;
 }
 
-.info {
+.upload_info {
   font-weight: normal;
   margin: 0 auto;
   max-width: 90%;
   text-align: left;
 }
 
-.info .limit {
+.upload_info .upload_limit {
   font-weight: bold;
 }
 

@@ -148,6 +148,16 @@ class Uri {
     }
 
     /**
+     * Returns path with filename from uri
+     *
+     * @param uri $uri
+     * @return string
+     */
+    public static function getPathfromUrl($uri){
+        return parse_url($uri, PHP_URL_PATH);
+    }
+
+    /**
      * Returns protocol://domain
      * for example: https://opencaching.pl
      * @return string

@@ -115,4 +115,34 @@ class TextConverter
         $string = str_ireplace('grudzień', 'grudnia', $string);
         return $string;
     }
+
+
+    /**
+     * Retruns number of bytes from string like: 15M, 12k etc.
+     * @param string $val
+     * @return string|number
+     */
+    public static function bytesNumberWithUnitToBytes($val)
+    {
+        $val = trim($val);
+
+        if (is_numeric($val)){
+            return $val;
+        }
+
+        $unit = strtolower( $val[strlen($val)-1]);
+        $val  = substr($val, 0, -1); // necessary since PHP 7.1; otherwise optional
+
+        switch($unit) {
+            // The 'G' modifier is available since PHP 5.1.0
+            case 'g':
+                $val *= 1024;
+            case 'm':
+                $val *= 1024;
+            case 'k':
+                $val *= 1024;
+        }
+
+        return $val;
+    }
 }
