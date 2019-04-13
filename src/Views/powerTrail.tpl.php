@@ -1391,6 +1391,7 @@
                         <p id="toggleImageEditButton" style="text-align: center; display: {displayAddCachesButtons}">
                             <a id="uploadLogoBtn" href="javascript:void(0)" class="editPtDataButton">{{pt060}}</a>
                         </p>
+                        <?php if(isset($view->logoUploadModelJson)) { ?>
                         <script>
                           $('#uploadLogoBtn').click( function(e){
 
@@ -1430,7 +1431,7 @@
                             });
                           });
                         </script>
-
+                        <?php } //if-isset($view->logoUploadModelJson ?>
                     </td>
                     <td colspan="2">
                         <p style="text-align: center;">

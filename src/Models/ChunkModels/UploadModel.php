@@ -15,9 +15,11 @@ use src\Utils\Text\TextConverter;
 class UploadModel {
 
   const MIME_IMAGE = 'image/*';
+  const MIME_IMAGE_WITH_GD_SUPPORT = 'image/gif|image/jpeg|image/png'; // OcImage supported formats
   const MIME_AUDIO = 'audio/*';
   const MIME_ANYFILE = 'image/*|audio/*|application/*|video/*|text/*';
   const MIME_TEXT = 'text/*';
+
 
   const DEFAULT_TMP_DIR = 'move files to server tmp dir';
 

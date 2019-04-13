@@ -19,7 +19,7 @@ class GeopathLogoUploadModel extends UploadModel
         $obj = new self();
         $obj->dialog->title = tr('gp_logoUpdateTitle');
         $obj->dialog->preWarning = tr('gp_logoUpdateInfo');
-        $obj->allowedTypesRegex = self::MIME_IMAGE;
+        $obj->allowedTypesRegex = self::MIME_IMAGE_WITH_GD_SUPPORT;
         $obj->setMaxFileSize(3);
         $obj->setMaxFileNumber(1);
 
