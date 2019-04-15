@@ -2961,7 +2961,7 @@ $translations = array(
     'usrIgnore_removingError' => 'Wystąpił błąd przy usunięciu z ignorowanych',
     'usrIgnore_removingSuccess' => 'Skrzynkę usunięto z ignorowanych',
 
-    'gp_logoUpdateTitle' => 'Geopath logo upload',
+    'gp_logoUpdateTitle' => 'Nowe logo geościeżki',
     'gp_logoUpdateInfo' => 'Upload file which will be used as geopath logo. '.
                            'Don\'t forget that you need to have copyrights to uploaded file.',
 
