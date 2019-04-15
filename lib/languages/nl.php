@@ -2961,4 +2961,8 @@ $translations = array(
     'usrIgnore_removingError' => 'Fout opgetreden bij het verwijderen uit genegeerd',
     'usrIgnore_removingSuccess' => 'Cache verwijderd van genegeerd',
 
+    'gp_logoUpdateTitle' => 'Geopath logo upload',
+    'gp_logoUpdateInfo' => 'Upload file which will be used as geopath logo. '.
+                           'Don\'t forget that you need to have copyrights to uploaded file.',
+
 );
