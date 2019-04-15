@@ -2157,9 +2157,9 @@ $translations = array(
     'contact_us_title_1' => 'Kontakt',
     'contact_us_desc_1_1' => 'Pytania i sugestie mogą być wysyłane do octeam <b>opencaching.us</b>',
     'contact_us_title_2' => 'Zespół OCNA (linki do profili, gdzie można się skontaktować za pośrednictwem witryny)',
-    'contact_us_desc_2_1' => '<a href="https://www.opencaching.us/viewprofile.php?userid=47"><b>DudleyGrunt</b></a>: Admin strony',
-    'contact_us_desc_2_2' => '<a href="https://www.opencaching.us/viewprofile.php?userid=353"><b>TermiteHunter</b></a>: Admin strony',
-    'contact_us_desc_2_3' => '<a href="https://www.opencaching.us/viewprofile.php?userid=49"><b>Mr.Yuck</b></a>: Admin strony',
+    'contact_us_desc_2_1' => '<a href="https://www.opencaching.us/viewprofile.php?userid=47"><b>DudleyGrunt</b></a>: Administrator strony',
+    'contact_us_desc_2_2' => '<a href="https://www.opencaching.us/viewprofile.php?userid=353"><b>TermiteHunter</b></a>: Administrator strony',
+    'contact_us_desc_2_3' => '<a href="https://www.opencaching.us/viewprofile.php?userid=49"><b>Mr.Yuck</b></a>: Administrator strony',
     'contact_us_desc_2_4' => '<a href="https://www.opencaching.us/viewprofile.php?userid=19"><b>glorkar</b></a>: Główny moderator Forum',
     'contact_us_desc_2_5' => '<a href="https://www.opencaching.us/viewprofile.php?userid=558"><b>Sabrefan7</b></a>: Główny moderator Forum',
     'newCacheWpTitle' => 'Wybierz waypoint',
@@ -2960,5 +2960,9 @@ $translations = array(
     'usrIgnore_removeFromIgnored' => 'Usuń z listy ignorowanych',
     'usrIgnore_removingError' => 'Wystąpił błąd przy usunięciu z ignorowanych',
     'usrIgnore_removingSuccess' => 'Skrzynkę usunięto z ignorowanych',
+
+    'gp_logoUpdateTitle' => 'Geopath logo upload',
+    'gp_logoUpdateInfo' => 'Upload file which will be used as geopath logo. '.
+                           'Don\'t forget that you need to have copyrights to uploaded file.',
 
 );
