@@ -2962,7 +2962,7 @@ $translations = array(
     'usrIgnore_removingSuccess' => 'Skrzynkę usunięto z ignorowanych',
 
     'gp_logoUpdateTitle' => 'Nowe logo geościeżki',
-    'gp_logoUpdateInfo' => 'Upload file which will be used as geopath logo. '.
-                           'Don\'t forget that you need to have copyrights to uploaded file.',
+    'gp_logoUpdateInfo' => 'Prześlij nowe logo geościeżki. '.
+                           'Pamiętaj! Nie przesyłaj do serwisu plików do których nie posiadasz praw autorskich lub zgody właściciela na ich użycie.',
 
 );
