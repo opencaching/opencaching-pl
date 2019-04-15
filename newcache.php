@@ -349,6 +349,7 @@ buildDescriptionLanguageSelector($show_all_langs, I18n::getCurrentLang(), $confi
 
 // countryoptions
 $countriesoptions = '';
+$defaultCountryList = [];
 if ($show_all_countries == 1) {
     tpl_set_var('show_all_countries', '1');
     tpl_set_var('show_all_countries_submit', '');
@@ -358,6 +359,7 @@ if ($show_all_countries == 1) {
 } else {
     tpl_set_var('show_all_countries', '0');
     tpl_set_var('show_all_countries_submit', '<input class="btn btn-default btn-sm" type="submit" name="show_all_countries_submit" value="' . $show_all . '"/>');
+
 }
 
 foreach ($defaultCountryList as $record) {
