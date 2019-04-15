@@ -356,14 +356,13 @@ class TestController extends BaseController
         // use the same upload model
         $uploadModel = UploadModel::TestTxtUploadFactory();
 
-        // save uploaded files
-        $newFiles = FileUploadMgr::processFileUpload($uploadModel);
+        try{
+            // save uploaded files
+            $newFiles = FileUploadMgr::processFileUpload($uploadModel);
 
-        // check the upload status
-        if(!is_array($newFiles)){
-          // something goes wrong - error returned!
-          $this->ajaxErrorResponse($newFiles, 500);
-          exit;
+        } catch (\RuntimeException $e){
+            // some error occured on upload processing
+            $this->ajaxErrorResponse($e->getMessage(), 500);
         }
 
         // FileUploadMgr returns array of new files saved in given directory on server

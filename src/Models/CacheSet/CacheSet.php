@@ -7,12 +7,17 @@ use src\Models\Coordinates\Coordinates;
 use src\Utils\Database\OcDb;
 use src\Utils\Database\QueryBuilder;
 use src\Models\GeoCache\GeoCache;
+use src\Models\User\User;
 use src\Models\Coordinates\NutsLocation;
 use src\Utils\Text\Formatter;
 use src\Utils\Debug\Debug;
+use src\Utils\Uri\Uri;
+use src\Models\OcConfig\OcConfig;
 
 class CacheSet extends CacheSetCommon
 {
+    // This is path in DynBaseDir and in url a well
+    const DIR_LOGO_IMG = '/images/uploads/geopaths/logos';
 
     private $id;
     private $uuid;
@@ -369,4 +374,41 @@ class CacheSet extends CacheSetCommon
         parent::restoreAfterSerialization();
     }
 
+    /**
+     * Returns true if given user is an owner of this geopath
+     */
+    public function isOwner(User $user)
+    {
+        foreach($this->getOwners() as $owner) {
+            if($owner->getUserId() == $user->getUserId()) {
+                return true;
+            }
+        }
+        // there is no such user on the list of owners
+        return false;
+    }
+
+    /**
+     * Update geopath logo
+     * @param string $newLogoUrl
+     */
+    public function updateLogoImg($newLogoUrl)
+    {
+        // old logo url contained also hostname etc.
+        $oldLogo = Uri::getPathfromUrl($this->image);
+
+        // update logo in DB
+        $this->db->multiVariableQuery(
+            'UPDATE PowerTrail SET image=:1 WHERE id = :2',
+            $newLogoUrl, $this->id);
+
+        $this->image = $newLogoUrl;
+
+        if($oldLogo != $newLogoUrl){
+            // delete old logo
+            if (is_file(OcConfig::getDynFilesPath().$oldLogo)) {
+                unlink (OcConfig::getDynFilesPath().$oldLogo);
+            }
+        }
+    }
 }

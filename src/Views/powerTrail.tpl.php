@@ -423,11 +423,6 @@
     toggleNameEdit();
     }
 
-    function cancellImage() {
-    toggleImageEdit();
-    }
-
-
     function  ajaxGetPtCaches(getFinal){
     $('#cachesLoader').show();
             if (getFinal == 1){
@@ -548,22 +543,22 @@
     }
 
     function toggleImageEdit(){
-    if ($('#toggleImageEditButton').is(":visible")){
-    $("#toggleImageEditButton").fadeOut(800);
-            $(function() {
-            setTimeout(function() {
-            $("#newImage").fadeIn(800);
-            }, 801);
-            });
-    } else {
-    $("#newImage").fadeOut(800);
-            $(function() {
-            setTimeout(function() {
-            $("#toggleImageEditButton").fadeIn(800);
-                    $('#f1_upload_form').show();
-            }, 801);
-            });
-    }
+        if ($('#toggleImageEditButton').is(":visible")){
+            $("#toggleImageEditButton").fadeOut(800);
+                    $(function() {
+                    setTimeout(function() {
+                    $("#newImage").fadeIn(800);
+                    }, 801);
+                    });
+        } else {
+            $("#newImage").fadeOut(800);
+                    $(function() {
+                    setTimeout(function() {
+                    $("#toggleImageEditButton").fadeIn(800);
+                            $('#f1_upload_form').show();
+                    }, 801);
+                    });
+        }
     }
 
 
@@ -1382,7 +1377,8 @@
             <table style="border-collapse: collapse; width: 100%;">
                 <tr><!-- ptName & Logo -->
                     <td style="width: 251px;">
-                        <table style="height: 250px; width: 250px;"><tr><td style="vertical-align: middle; text-align: center;"><span id="powerTrailLogo"><img class="powerTrailLogo" src="{powerTrailLogo}" alt=""></span></td></tr></table>
+                        <table style="height: 250px; width: 250px;"><tr><td style="vertical-align: middle; text-align: center;">
+                        <span id="powerTrailLogo"><img class="powerTrailLogo" src="{powerTrailLogo}" alt=""></span></td></tr></table>
                         <img style="display: none" id="ajaxLoaderLogo" src="images/misc/ptPreloader.gif" alt="">
                     </td>
                     <td style="text-align: center;" colspan="2">
@@ -1391,19 +1387,51 @@
                 </tr>
                 <tr><!-- name&edit edit button -->
                     <td>
+
                         <p id="toggleImageEditButton" style="text-align: center; display: {displayAddCachesButtons}">
-                            <a href="javascript:void(0)" onclick="toggleImageEdit()" class="editPtDataButton">{{pt060}}</a>
+                            <a id="uploadLogoBtn" href="javascript:void(0)" class="editPtDataButton">{{pt060}}</a>
                         </p>
-                        <div id="newImage" style="display: none">
-                            <form action="powerTrail/ajaxImage.php" method="post" enctype="multipart/form-data" target="upload_target" onsubmit="startUpload();" >
-                                <p id="f1_upload_form" style="text-align: center;"><br>
-                                    File: <input name="myfile" type="file" size="30" />
-                                    <input type="hidden" name="powerTrailId" value="{powerTrailId}">
-                                    <a href="javascript:void(0)" onclick="cancellImage()" class="editPtDataButton">{{pt031}}</a>
-                                    <a href="javascript:void(0)" onclick="$(this).closest('form').submit()" class="editPtDataButton">{{pt044}}</a>
-                                </p>
-                                <iframe id="upload_target" src="about:blank" name="upload_target" style="width:0;height:0;border:0px solid #fff;"></iframe>
-                        </div>
+                        <?php if(isset($view->logoUploadModelJson)) { ?>
+                        <script>
+                          $('#uploadLogoBtn').click( function(e){
+
+                            /*
+                              ocUpload takes two params:
+                               - params json - see UploadModel
+                               - callback function
+
+                              on end of upload callback will be called with JSON param:
+                                {
+                                  success: true|false,                // true on success | false on error
+                                  message: 'error-description',       // tech. error description in english (usually not for end-user) (only on fail)
+                                  newfiles: ['fileA','fileB','fileC'] // list of urls to new files saved on server (only on success)
+                                }
+                            */
+                            ocUpload(<?=$view->logoUploadModelJson?>, function(uploadResult){
+
+                              if(uploadResult.success){
+                                //upload successed
+                                var newLogo = uploadResult.newFiles;
+                                if(Array.isArray(uploadResult.newFiles)){
+                                  newLogo = uploadResult.newFiles[0];
+                                }
+
+                                $('#powerTrailLogo').fadeOut(800);
+                                setTimeout(function() {
+                                  console.log('new geoPathImg: ', newLogo);
+                                  $('#powerTrailLogo img').attr("src", newLogo);
+                                  $("#powerTrailLogo").fadeIn(800);
+                                }, 801);
+
+                              } else {
+                                // upload fail
+                                console.log('upload fail');
+                              }
+
+                            });
+                          });
+                        </script>
+                        <?php } //if-isset($view->logoUploadModelJson ?>
                     </td>
                     <td colspan="2">
                         <p style="text-align: center;">

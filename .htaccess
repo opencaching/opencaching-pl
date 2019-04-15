@@ -29,3 +29,14 @@ RewriteCond %{REQUEST_FILENAME} !-d
 
 # redirect the all non-found -> /public
 RewriteRule ^(.*)$                                                                  /public/$1 [NC,L,QSA]
+
+
+# To be sure: apache site config should contains also aliases:
+#  /images/uploads/   -> */ocpl-dynamic-files/images/uploads/
+#  /uploads/          -> */ocpl-dynamic-files/images/uploads/
+#  /wigo/             -> */ocpl-dynamic-files/wigo/
+#  /download/         -> */ocpl-dynamic-files/download/
+#  /images/statpics/  -> */ocpl-dynamic-files/images/statpics/
+#  /images/mini-mapa/ -> */ocpl-dynamic-files/images/mini-mapa/
+#  /mp3/              -> */ocpl-dynamic-files/mp3/
+#  /tmp/              -> */ocpl-dynamic-files/tmp/

@@ -16,6 +16,7 @@ use src\Utils\Uri\SimpleRouter;
 use src\Controllers\MainMapController;
 use src\Utils\Text\Formatter;
 use src\Utils\I18n\I18n;
+use src\Models\CacheSet\GeopathLogoUploadModel;
 
 /**
  *  Power Trails in opencaching
@@ -307,6 +308,13 @@ if ($error == false) {
                     tpl_set_var('cacheCountUserActions', '<a href="javascript:void(0)" class="editPtDataButton" onclick="ajaxCountPtCaches(' . $powerTrail->getId() . ')">' . tr('pt033') . '</a>');
                     tpl_set_var('ownerListUserActions', '<a id="dddx" href="javascript:void(0)" class="editPtDataButton" onclick="clickShow(\'addUser\', \'dddx\'); ">' . tr('pt030') . '</a> <span style="display: none" id="addUser">' . tr('pt028') . '<input type="text" id="addNewUser2pt" /><br /><a href="javascript:void(0)" class="editPtDataButton" onclick="cancellAddNewUser2pt()" >' . tr('pt031') . '</a><a href="javascript:void(0)" class="editPtDataButton" onclick="ajaxAddNewUser2pt(' . $powerTrail->getId() . ')" >' . tr('pt032') . '</a></span>');
                     tpl_set_var('ptTypesSelector', displayPtTypesSelector('ptType1', $powerTrail->getType()));
+
+                    $view = tpl_getView();
+                    $view->addHeaderChunk('upload/upload');
+                    $view->addHeaderChunk('handlebarsJs');
+                    $uploadModel = GeopathLogoUploadModel::forGeopath($powerTrail->getId());
+                    $view->setVar('logoUploadModelJson', $uploadModel->getJsonParams());
+
                 } else {
                     tpl_set_var('ptStatus', '');
                     tpl_set_var('percentDemandUserActions', 'none');

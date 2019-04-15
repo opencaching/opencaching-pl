@@ -449,7 +449,11 @@ if ($error == false) {
                     if ($wpOk) {
                         tpl_set_var($wpMessageVar,'');
                     } else {
-                        tpl_set_var($wpMessageVar, ${'invalid_'.$wpVar.'_message'});
+                        tpl_set_var($wpMessageVar,
+                            '<img src="tpl/stdstyle/images/misc/32x32-impressum.png" class="icon32" alt=""  />' .
+                            '&nbsp;&nbsp;<span class="errormsg">' .
+                            tr("invalid_wp_$wpType") .
+                            '</span>');
                         $all_wp_ok = false;
                     }
                 }

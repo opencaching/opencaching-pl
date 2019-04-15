@@ -7,7 +7,7 @@ ob_start();
 
 use src\Utils\Database\XDb;
 
-global $content, $bUseZip, $hide_coords, $usr, $dbcSearch;
+global $content, $hide_coords, $usr, $dbcSearch;
 set_time_limit(1800);
 
 require_once (__DIR__.'/../lib/calculation.inc.php');
@@ -114,15 +114,6 @@ if( $usr || !$hide_coords ) {
         }
     }
 
-    $bUseZip = ($rCount['count'] > 50);
-    $bUseZip = $bUseZip || (isset($_REQUEST['zip']) && ($_REQUEST['zip'] == '1'));
-    $bUseZip = false;
-    if ($bUseZip == true) {
-        $content = '';
-        require_once(__DIR__.'/../src/Libs/PhpZip/ss_zip.class.php');
-        $phpzip = new ss_zip('',6);
-    }
-
     $nr = 1;
     $s = $dbcSearch->simpleQuery(
         'SELECT `ovlcontent`.`cache_id` `cacheid`, `ovlcontent`.`longitude` `longitude`,
@@ -161,20 +152,9 @@ if( $usr || !$hide_coords ) {
     echo $ovlFoot;
 
     // compress using phpzip
-    if ($bUseZip == true) {
-        $content = ob_get_clean();
-        $phpzip->add_data($sFilebasename . '.ovl', $content);
-        $out = $phpzip->save($sFilebasename . '.zip', 'b');
-
-        header("content-type: application/zip");
-        header('Content-Disposition: attachment; filename=' . $sFilebasename . '.zip');
-        echo $out;
-        ob_end_flush();
-    } else {
-        header("Content-type: application/ovl");
-        header("Content-Disposition: attachment; filename=" . $sFilebasename . ".ovl");
-        ob_end_flush();
-    }
+    header("Content-type: application/ovl");
+    header("Content-Disposition: attachment; filename=" . $sFilebasename . ".ovl");
+    ob_end_flush();
 }
 
 exit();

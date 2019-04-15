@@ -220,6 +220,7 @@ class View {
     public function redirect($uri)
     {
         SimpleRouter::redirect($uri);
+        exit;
     }
 
     public function redirectAndExit($uri)

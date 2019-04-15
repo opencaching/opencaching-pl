@@ -13,7 +13,7 @@ global $hide_coords;
 $view = tpl_getView();
 $app = ApplicationContainer::Instance();
 
-if (($cache = GeoCache::fromCacheIdFactory($_REQUEST['cacheid'])) === null) {
+if (!isset($_REQUEST['cacheid']) || ($cache = GeoCache::fromCacheIdFactory($_REQUEST['cacheid'])) === null) {
     $view->redirect('/');
     exit();
 }
