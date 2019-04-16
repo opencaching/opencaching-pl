@@ -2962,4 +2962,8 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'usrIgnore_removingError' => 'Error occured on removing from ignored',
     'usrIgnore_removingSuccess' => 'Cache removed from ignored',
 
+    'gp_logoUpdateTitle' => 'Geopath logo upload',
+    'gp_logoUpdateInfo' => 'Upload file which will be used as geopath logo. '.
+                           'Don\'t forget that you need to have copyrights to uploaded file.',
+
 );

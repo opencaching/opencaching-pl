@@ -2961,4 +2961,8 @@ $translations = array(
     'usrIgnore_removingError' => 'crwdns26786:0crwdne26786:0',
     'usrIgnore_removingSuccess' => 'crwdns26788:0crwdne26788:0',
 
+    'gp_logoUpdateTitle' => 'crwdns26868:0crwdne26868:0',
+    'gp_logoUpdateInfo' => 'crwdns26870:0crwdne26870:0'.
+                           'crwdns26872:0crwdne26872:0',
+
 );
