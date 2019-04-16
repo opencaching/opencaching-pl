@@ -187,7 +187,8 @@ if ($error == false) {
                 isset($_REQUEST['myPowerTrailsBool']) ? $_REQUEST['myPowerTrailsBool'] :"no" ));
             tpl_set_var('gainedPowerTrailsBool', getGainedPowerTrailsSelector(
                 isset($_REQUEST['gainedPowerTrailsBool'])?$_REQUEST['gainedPowerTrailsBool']:0));
-            tpl_set_var('historicLimitBool', getMiniPowerTrailSelector($_REQUEST['historicLimitBool']));
+            tpl_set_var('historicLimitBool', getMiniPowerTrailSelector(
+                isset($_REQUEST['historicLimitBool'])?$_REQUEST['historicLimitBool']:"no"));
             tpl_set_var('displayedPowerTrailsCount', $pt->getDisplayedPowerTrailsCount());
 
             tpl_set_var('displayPowerTrails', 'block');

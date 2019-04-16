@@ -466,7 +466,9 @@ use src\Controllers\ViewCacheController;
               <div class="img-shadow">
                 <a data-fancybox data-type="iframe"
                    data-src="<?=SimpleRouter::getLink(MainMapController::class, 'fullScreen')?>?lat=<?=$view->geoCache->getCoordinates()->getLatitude()?>&lon=<?=$view->geoCache->getCoordinates()->getLongitude()?>&openPopup" href="javascript:;">
+                  <?php if(!empty($view->mapImgLink)) { ?>
                   <img src="<?=$view->mapImgLink?>" alt="<?=tr('map')?>" title="<?=tr('map')?>">
+                  <?php } //if-!empty($view->mapImgLink ?>
                  </a>
               </div>
             <?php } else { ?>

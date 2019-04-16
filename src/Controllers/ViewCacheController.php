@@ -7,7 +7,6 @@ use src\Utils\Log\CacheAccessLog;
 use src\Utils\Text\Rot13;
 use src\Utils\Text\Formatter;
 use src\Utils\Uri\Uri;
-use src\Controllers\MeritBadgeController;
 use src\Models\Coordinates\Coordinates;
 use src\Models\GeoCache\GeoCache;
 use src\Models\GeoCache\GeoCacheLog;
@@ -717,7 +716,13 @@ class ViewCacheController extends BaseController
         }
         $this->view->setVar('externalMaps', $externalMaps);
 
-        $this->view->setVar('mapImgLink', SimpleRouter::getLink(self::class, 'getStaticMapImage', [$lat, $lon]));
+
+        if ($lat && $lon){
+            $this->view->setVar('mapImgLink', SimpleRouter::getLink(self::class, 'getStaticMapImage', [$lat, $lon]));
+        } else {
+            // if coordinates of the cache are not present - strange - maybe the very new cache
+            $this->view->setVar('mapImgLink', null);
+        }
         $this->view->setVar('loginToSeeMapMsg',
             mb_ereg_replace("{target}", urlencode("viewcache.php?cacheid=".$this->geocache->getCacheId()), tr('map_msg')));
     }
