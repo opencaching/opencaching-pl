@@ -12,6 +12,15 @@ require_once(__DIR__.'/../../lib/common.inc.php');
 
 abstract class BaseController
 {
+    const HTTP_STATUS_OK = 200;
+
+    const HTTP_STATUS_BAD_REQUEST = 400;
+    const HTTP_STATUS_FORBIDEN = 403;
+    const HTTP_STATUS_NOT_FOUND = 404;
+    const HTTP_STATUS_CONFLICT = 409;
+
+    const HTTP_STATUS_INTERNAL_ERROR = 500;
+
     /**
      * Every ctrl should have index method
      * which is called by router as a default action
@@ -67,23 +76,29 @@ abstract class BaseController
     protected function ajaxJsonResponse($response, $statusCode=null)
     {
         if(is_null($statusCode)){
-            $statusCode = 200;
+            $statusCode = self::HTTP_STATUS_OK;
         }
         http_response_code($statusCode);
         header('Content-Type: application/json; charset=UTF-8');
         print (json_encode($response));
         exit;
     }
-    protected function ajaxSuccessResponse($message=null){
+    protected function ajaxSuccessResponse($message=null, array $additionalResponseData=null){
         $response = [
             'status' => 'OK'
         ];
+
         if(!is_null($message)){
             $response['message'] = $message;
         }
+
+        if(is_array($additionalResponseData)){
+            $response = array_merge($additionalResponseData, $response);
+        }
+
         $this->ajaxJsonResponse($response);
     }
-    protected function ajaxErrorResponse($message=null, $statusCode=null){
+    protected function ajaxErrorResponse($message=null, $statusCode=null, array $additionalResponseData=null){
         $response = [
             'status' => 'ERROR'
         ];
@@ -91,7 +106,10 @@ abstract class BaseController
             $response['message'] = $message;
         }
         if(is_null($statusCode)){
-            $statusCode = 500;
+            $statusCode = self::HTTP_STATUS_BAD_REQUEST;
+        }
+        if(is_array($additionalResponseData)){
+            $response = array_merge($additionalResponseData, $response);
         }
         $this->ajaxJsonResponse($response, $statusCode);
     }

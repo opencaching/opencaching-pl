@@ -42,13 +42,12 @@ $view->callChunk('tinyMCE', false);
         $("#rmCacheLoader" + cacheId).show();
 
         request = $.ajax({
-            url: "powerTrail/ajaxAddCacheToPt.php",
-            type: "post",
-            data: {projectId: $('#ptId').val(), removeByCOG: 1, cacheId: cacheId},
+            url: "/GeoPath/rmCacheFromGeopathAjax/"+cacheId,
+            type: "get",
         });
 
         request.done(function (response, textStatus, jqXHR) {
-            if (response == 'removedByCOG') {
+            if (textStatus == "success") {
                 $('#tr' + cacheId).remove();
             }
 
@@ -57,7 +56,6 @@ $view->callChunk('tinyMCE', false);
 
         request.always(function () {
             $("#rmCacheLoader" + cacheId).hide();
-
         });
     }
 

@@ -1842,6 +1842,26 @@ $translations = array(
     'pt242' => 'Hide my own',
     'pt243' => 'Hide completed',
     'pt244' => 'Blocked by OC Team',
+
+    'gp_candidateIntro' => 'suggested to add your great geocache',
+    'gp_candidateToGeopath' => 'to geopath',
+    'gp_candidateDecisionDescription' => 'You can decide to accept or decline this proposal by clicking button:',
+    'gp_candidateAcceptBtn' => 'Accept proposal',
+    'gp_candidateCancleBtn' => 'Decline proposal',
+    'gp_candidateDisclaimer' => 'Of course you can also ignore this proposal - the the validity of the offer is 30 days.',
+    'gp_cacheCandidateEmailSubject' => 'Adding your geocache to geopath',
+    'gp_candidateDoubts' => 'In case of any concerns please contact with user',
+
+    'gp_ownedCacheAddDirect' => 'This cache is owned by you - just add it directly.',
+    'gp_candidateAlreadyInGeocache' => 'This cache is already assigned to geopath',
+    'gp_alreadyCandidateToThisGeopath' => 'This cache is already a candidate to this geopath.',
+    'gp_alreadyCandidateToOtherGeopath' => 'This cache is already a candidate to other geopath.',
+    'gp_candidateProposalSaved' => 'Proposal sent to this cache owner by email.',
+
+    'gp_ownCacheAddedToGeopath' => 'Your cache is already added to geopath.',
+    'gp_cacheRemovedFromGeopath' => 'Cache is already removed from geopath.',
+
+
     'statpic_found' => 'Found:',
     'statpic_hidden' => 'Hidden:',
     'statpic_html_link' => '- Statistics for',

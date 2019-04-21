@@ -6,9 +6,9 @@ use src\Utils\Database\XDb;
 use src\Models\Coordinates\Altitude;
 use src\Models\Coordinates\Coordinates;
 use src\Utils\Generators\TextGen;
+use src\Models\CacheSet\CacheSet;
 
 /**
- * ajaxAddCacheToPt.php
  * this script add or remove cache to specified power Trail.
  * do neccesary checks and calculations like gometrical power trail lat/lon.
  *
@@ -34,6 +34,9 @@ isset($_REQUEST['cacheId']) ? $cacheId = (int) $_REQUEST['cacheId'] : exit;
 isset($_REQUEST['rmOtherUserCacheFromPt']) ? $rmOtherUserCacheFromPt = true : $rmOtherUserCacheFromPt = false;
 
 $db = OcDb::instance();
+
+
+
 
 // check if cache is already cannected with any power trail
 $resultPowerTrailId['PowerTrailId'] = XDb::xMultiVariableQueryValue(
@@ -100,6 +103,10 @@ if ($projectId > 0 && $geocacheIsAttaschedToPt === true && $ptDbRow['conquestedC
     recalculate($resultPowerTrailId['PowerTrailId']);
 }
 
+
+
+
+
 function geocacheStatusCheck($cacheId)
 {
     $geocache = new GeoCache(array('cacheId' => $cacheId));
@@ -138,6 +145,7 @@ function addCacheToPowerTrail($cacheId, $projectId, $db, $ptAPI)
     $stmt = $db->multiVariableQuery(
         'SELECT longitude, latitude FROM caches WHERE cache_id = :1 LIMIT 1',
         $cacheId);
+
     $insertedCacheData = $db->dbResultFetchOneRowOnly($stmt);
 
     $stmt = $db->multiVariableQuery(
@@ -172,6 +180,7 @@ function addCacheToPowerTrail($cacheId, $projectId, $db, $ptAPI)
     print 'cacheAddedToPt';
 }
 
+// -> CacheSet->removeCache
 function removeCacheFromPowerTrail($cacheId, $resultPowerTrailId, $db, $ptAPI)
 {
     $db->multiVariableQuery(
