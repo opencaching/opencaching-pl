@@ -2160,7 +2160,7 @@ $translations = array(
     'contact_us_desc_2_1' => '<a href="https://www.opencaching.us/viewprofile.php?userid=47"><b>DudleyGrunt</b></a>: Administrator strony',
     'contact_us_desc_2_2' => '<a href="https://www.opencaching.us/viewprofile.php?userid=353"><b>TermiteHunter</b></a>: Administrator strony',
     'contact_us_desc_2_3' => '<a href="https://www.opencaching.us/viewprofile.php?userid=49"><b>Mr.Yuck</b></a>: Administrator strony',
-    'contact_us_desc_2_4' => '<a href="https://www.opencaching.us/viewprofile.php?userid=5270"><b>Bon Echo</b></a>: Site Admin',
+    'contact_us_desc_2_4' => '<a href="https://www.opencaching.us/viewprofile.php?userid=5270"><b>Bon Echo</b></a>: Administrator strony',
     'contact_us_desc_2_5' => '<a href="https://www.opencaching.us/viewprofile.php?userid=558"><b>Sabrefan7</b></a>: Główny moderator Forum',
     'newCacheWpTitle' => 'Wybierz waypoint',
     'newCacheWpDesc' => 'W pliku znajduje się kilka waypointów. Wskaż ten, którego chcesz użyć.',
@@ -2651,7 +2651,7 @@ $translations = array(
     'mnu_facebook' => 'Facebook',
     'mnu_kwidzyn' => 'OPENKWIDZYN',
     'mnu_OcSwag' => 'OCNA swag!',
-    'mnu_PhoneApps' => 'Smartphone Apps',
+    'mnu_PhoneApps' => 'Aplikacje na smartfony',
 
     'admCs_degradedCs'  => 'Niezdobywalne GeoŚcieżki',
     'admCs_cacheSet'  => 'Geościeżka',
