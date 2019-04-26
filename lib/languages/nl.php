@@ -1164,7 +1164,7 @@ $translations = array(
     'oc_subtitle_on_all_pages_ro' => 'Geocaching in Roemenië',
     'oc_on_all_pages_top_uk' => 'OPENCACHE.uk',
     'oc_subtitle_on_all_pages_uk' => 'Geocaching in het vereningd Koninkrijk',
-    'oc_on_all_pages_top_us' => 'OPENCACHING.na',
+    'oc_on_all_pages_top_us' => 'OPENCACHING.us',
     'oc_subtitle_on_all_pages_us' => 'Geocaching in Noord-Amerika.',
     'noaccess_error_01' => 'Je hebt geen machtiging om deze pagina te bekijken.',
     'noaccess_error_02' => 'Terug naar hoofdpagina',
@@ -2160,7 +2160,7 @@ $translations = array(
     'contact_us_desc_2_1' => '<a href="https://www.opencaching.us/viewprofile.php?userid=47"><b>DudleyGrunt</b></a>: Site Admin',
     'contact_us_desc_2_2' => '<a href="https://www.opencaching.us/viewprofile.php?userid=353"><b>TermiteHunter</b></a>: Site Admin',
     'contact_us_desc_2_3' => '<a href="https://www.opencaching.us/viewprofile.php?userid=49"><b>Mr.Yuck</b></a>: Site Admin',
-    'contact_us_desc_2_4' => '<a href="https://www.opencaching.us/viewprofile.php?userid=19"><b>glorkar</b></a>: Global Forum Moderator',
+    'contact_us_desc_2_4' => '<a href="https://www.opencaching.us/viewprofile.php?userid=5270"><b>Bon Echo</b></a>: Site Admin',
     'contact_us_desc_2_5' => '<a href="https://www.opencaching.us/viewprofile.php?userid=558"><b>Sabrefan7</b></a>: Global Forum Moderator',
     'newCacheWpTitle' => 'Selecteer waypoint',
     'newCacheWpDesc' => 'Bestand heeft meerdere waypoints. Kies er een.',
@@ -2650,6 +2650,8 @@ $translations = array(
     'mnu_privacyPolicy' => 'Privacyverklaringen',
     'mnu_facebook' => 'Facebook',
     'mnu_kwidzyn' => 'Open Kwidzyn',
+    'mnu_OcSwag' => 'OCNA swag!',
+    'mnu_PhoneApps' => 'Smartphone Apps',
 
     'admCs_degradedCs'  => 'Verwaarloosde GeoPaths',
     'admCs_cacheSet'  => 'GeoPaths',
@@ -2962,7 +2964,7 @@ $translations = array(
     'usrIgnore_removingSuccess' => 'Cache verwijderd van genegeerd',
 
     'gp_logoUpdateTitle' => 'Geopath logo upload',
-    'gp_logoUpdateInfo' => 'Upload file which will be used as geopath logo. '.
-                           'Don\'t forget that you need to have copyrights to uploaded file.',
+    'gp_logoUpdateInfo' => 'Upload bestand dat gebruikt wordt als geopath logo. '.
+                           'Vergeet niet dat je auteursrechten nodig hebt om het bestand te gebruiken.',
 
 );
