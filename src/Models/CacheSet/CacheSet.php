@@ -549,6 +549,24 @@ class CacheSet extends CacheSetCommon
         return $matchingRecords != 0;
     }
 
+    /**
+     * This method returns the geopathId + cacheId for given code
+     * @param string $code
+     */
+    public static function getCandidateDataBasedOnCode($code)
+    {
+        $stmt = self::db()->multiVariableQuery(
+            "SELECT PowerTrailId, cacheId FROM PowerTrail_cacheCandidate
+             WHERE link = :1 LIMIT 1", $code);
+
+        $row = self::db()->dbResultFetchOneRowOnly($stmt);
+        if(is_array($row) && !empty($row)){
+            return [$row['PowerTrailId'], $row['cacheId']];
+        } else {
+            return [null, null];
+        }
+    }
+
     public function deleteCandidateCode(Geocache $cache, $code=null){
         if($code){
             // delete only one candidate record assign to this cache (by code)

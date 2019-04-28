@@ -9,7 +9,6 @@ use src\Models\CacheSet\GeopathLogoUploadModel;
 use src\Models\OcConfig\OcConfig;
 use src\Utils\Generators\Uuid;
 use src\Models\GeoCache\GeoCache;
-use src\Utils\I18n\I18n;
 
 class GeoPathController extends BaseController
 {
@@ -230,44 +229,61 @@ class GeoPathController extends BaseController
             ['localizedMessage' => tr('gp_candidateProposalSaved')]);
     }
 
+    /**
+     * This method is added temporary to cover old-style links
+     * (called only from script confirmCacheCandidate.php
+     *
+     * @param string $code
+     * @param boolean $proposalAccepted
+     */
+    public function legacyCacheCandidate($code, $proposalAccepted){
+
+        list($geoPathId, $cacheId) = CacheSet::getCandidateDataBasedOnCode($code);
+
+        if(!$geoPathId || !$cacheId){
+            $this->displayCommonErrorPageAndExit("No such proposal?!");
+        }
+
+        $this->acceptCancelCandidate($geoPathId, $cacheId, $code, $proposalAccepted);
+    }
+
     public function acceptCacheCandidate($geopathId, $cacheId, $code)
     {
         $this->acceptCancelCandidate($geopathId, $cacheId, $code, true);
-        echo "ACCEPT OK!";
     }
 
     public function cancelCacheCandidate($geopathId, $cacheId, $code)
     {
         $this->acceptCancelCandidate($geopathId, $cacheId, $code, false);
-        echo "CANCEL OK!";
     }
 
     private function acceptCancelCandidate($geopathId, $cacheId, $code, $proposalAccepted)
     {
+        $this->redirectNotLoggedUsers();
+
         $cache = GeoCache::fromCacheIdFactory($cacheId);
-        if(!$cache){
+        if (!$cache) {
             $this->displayCommonErrorPageAndExit("Unknown cache!");
         }
 
         $geoPath = CacheSet::fromCacheSetIdFactory($geopathId);
-        if(!$geoPath){
+        if (!$geoPath) {
             $this->displayCommonErrorPageAndExit("There is no such geoPath");
         }
 
-        if($cache->isPowerTrailPart()){
+        if ($cache->isPowerTrailPart()) {
             $this->displayCommonErrorPageAndExit("This geocache is already part of the geopath!");
         }
 
-
-        if(!$geoPath->isCandiddateCodeExists($cache, $code)){
+        if (!$geoPath->isCandiddateCodeExists($cache, $code)) {
             $this->displayCommonErrorPageAndExit("There is no such proposal!");
         }
 
         // there was such proposal
-        if($proposalAccepted) {
-            try{
+        if ($proposalAccepted) {
+            try {
                 $geoPath->addCache($cache);
-            } catch (\RuntimeException $e){
+            } catch (\RuntimeException $e) {
                 $this->displayCommonErrorPageAndExit($e->getMessage());
             }
             // cache added to geopath - cancel all other proposals
@@ -276,5 +292,7 @@ class GeoPathController extends BaseController
             // cancel this proposal
             $geoPath->deleteCandidateCode($cache, $code);
         }
+
+        $this->view->redirect($geoPath->getUrl());
     }
 }
