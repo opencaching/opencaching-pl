@@ -61,7 +61,7 @@ function get_okapi_settings()
         'OC_COOKIE_NAME' => $config['cookie']['name'].'_auth',
         //'OCPL_ENABLE_GEOCACHE_ACCESS_LOGS' => isset($enable_cache_access_logs) ? $enable_cache_access_logs : false
         'OCPL_ENABLE_GEOCACHE_ACCESS_LOGS' => false,
-        'REGISTRATION_URL' => '/UserRegistration',
+        'REGISTRATION_URL' => (isset($OKAPI_server_URI) ? $OKAPI_server_URI : $absolute_server_URI) . 'UserRegistration',
         'USE_SQL_SUBQUERIES' => true,
     ];
 }
