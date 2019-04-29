@@ -996,8 +996,11 @@ function unlinkrecursiv($path)
                 if ((mb_substr($file, -4) == '.zip') ||
                         (mb_substr($file, -3) == '.gz') ||
                         (mb_substr($file, -4) == '.bz2') ||
-                        (mb_substr($file, -4) == '.xml'))
-                    unlink($path . $file);
+                        (mb_substr($file, -4) == '.xml')) {
+                    if(is_file($path . $file)){
+                        unlink($path . $file);
+                    }
+                }
                 else
                     $notunlinked++;
             }
