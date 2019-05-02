@@ -2606,7 +2606,7 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'mnu_shop' => 'Shop',
     'mnu_registration' => 'Registrieren',
     'mnu_news' => 'Aktuelles',
-    'mnu_rules' => 'Nutzungsbedingungen',
+    'mnu_rules' => 'Terms of Use',
     'mnu_newCaches' => 'Neueste Caches',
     'mnu_newLogs' => 'Neueste Logs',
     'mnu_incommingEvents' => 'Nächste Events',
