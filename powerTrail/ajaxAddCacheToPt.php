@@ -202,8 +202,10 @@ function getCachePoints($cacheId)
     $typePoints = $typePoints[$cacheData['type']];
     $sizePoints = $sizePoints[$cacheData['size']];
 
-    $altitude = Altitude::getAltitude(
-        Coordinates::FromCoordsFactory($cacheData['latitude'], $cacheData['longitude']));
+    $altitude = 0;
+    // kojoty: tmp disable altitude here...
+    //Altitude::getAltitude(
+    //    Coordinates::FromCoordsFactory($cacheData['latitude'], $cacheData['longitude']));
 
     $altitude = round($altitude);
     if ($altitude <= 400){
