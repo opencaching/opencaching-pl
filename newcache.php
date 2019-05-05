@@ -359,7 +359,7 @@ if ($show_all_countries == 1) {
 } else {
     tpl_set_var('show_all_countries', '0');
     tpl_set_var('show_all_countries_submit', '<input class="btn btn-default btn-sm" type="submit" name="show_all_countries_submit" value="' . $show_all . '"/>');
-
+    $defaultCountryList = Countries::getCountriesList(true);
 }
 
 foreach ($defaultCountryList as $record) {
