@@ -70,7 +70,6 @@ class ErrorHandler
         global $debug_page;
 
         // Try to send an admin email
-
         $mailFail = false;
         try {
             EmailSender::adminOnErrorMessage($msg);
@@ -94,26 +93,31 @@ class ErrorHandler
         // Try to log error
 
         try {
-            if($exception){
+            if ($exception) {
                 Debug::logException($exception);
             } else {
                 Debug::errorLog($msg);
             }
-
         } catch (\Exception $e) {
             // logging failed
+            error_log('OC ERROR HANDLER: Problem with logging.');
         }
 
         // Output error message
-
         if (PHP_SAPI == "cli") {
             echo $msg . "\n";
         } else {
             try {
-                $pageError = tr('page_error_1') . ' ';
-                $pageError .= tr($mailFail ? 'page_error_3' : 'page_error_2');
-                $mainPageLinkTitle = tr('page_error_back');
-
+                if (function_exists('tr')) {
+                    $pageError = tr('page_error_1') . ' ';
+                    $pageError .= tr($mailFail ? 'page_error_3' : 'page_error_2');
+                    $mainPageLinkTitle = tr('page_error_back');
+                } else {
+                    // sometimes error can occured befor I18n init...
+                    $pageError = 'An error occured while processing your request.' . ' ';
+                    $pageError .= 'If the problem persists, please <a href="/articles.php?page=contact">contact</a> the OC team and describe step by step how to reproduce this error.';
+                    $mainPageLinkTitle = 'Go to the main page';
+                }
             } catch (\Exception $e) {
                 $pageError = 'An error occured while processing your request. ';
                 $pageError .=
