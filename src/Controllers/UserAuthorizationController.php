@@ -126,7 +126,7 @@ class UserAuthorizationController extends BaseController
         try{
             $user = self::checkUserAndCode($usr, $code);
         } catch (\RuntimeException $e){
-            $this->showErrorMessage(tr("userAuth_codeCheckError", $e->getMessage()));
+            $this->showErrorMessage(tr("userAuth_codeCheckError", [$e->getMessage()]));
             return;
         }
 
