@@ -410,6 +410,7 @@ $translations = array(
     'error_tos' => 'crwdns11229:0{site_name}crwdne11229:0',
     'error_age' => 'crwdns11230:0crwdne11230:0',
     'security_error' => 'crwdns6001:0crwdne6001:0',
+    'userAuth_codeCheckError' => 'crwdns26884:0%scrwdne26884:0',
     'newpw_title' => 'crwdns6002:0crwdne6002:0',
     'newpw_info' => 'crwdns6003:0crwdne6003:0',
     'newpw_info_send' => 'crwdns6004:0crwdne6004:0',
