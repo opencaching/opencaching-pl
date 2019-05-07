@@ -410,6 +410,7 @@ $translations = array(
     'error_tos' => 'Vous devez accepter les Conditions d’Utilisation du site {site_name}.',
     'error_age' => 'Seules les personnes majeures peuvent utiliser le système.',
     'security_error' => 'Tentative de compromission de la sécurité du système.',
+    'userAuth_codeCheckError' => 'There was a problem with authorization of the password reset code! (More details: %s)',
     'newpw_title' => 'Changement de mot de passe',
     'newpw_info' => 'Pour changer votre mot de passe, entrez votre nom d’utilisateur ou votre adresse électronique ci-dessous. Un lien spécial sera envoyé à votre adresse e-mail. En cliquant sur ce lien, vous serez en mesure de changer votre mot de passe.',
     'newpw_info_send' => 'Le message avec le lien a été envoyé correctement.<br>Vérifier votre boîte aux lettres.',
