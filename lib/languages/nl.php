@@ -410,6 +410,7 @@ $translations = array(
     'error_tos' => 'Je dient de gebruiksvoorwaarden op van {site_name} te accepteren.',
     'error_age' => 'Alleen mensen die de meerdere jarige leeftijd hebben kunnen meedoen.',
     'security_error' => 'Er is een poging gedaan om de beveiliging te omzeilen.',
+    'userAuth_codeCheckError' => 'There was a problem with authorization of the password reset code! (More details: %s)',
     'newpw_title' => 'Verander wachtwoord',
     'newpw_info' => 'Om het wachtwoord te veranderen, vul je hier onder de gebruikersnaam of e-mailadres in. Een speciale link wordt per e-mail verzonden. Door op die link te klikken kan het wachtwoord veranderd worden.',
     'newpw_info_send' => 'Een bericht met een link is correct verzonden. <br> Controleer je mailbox.',
