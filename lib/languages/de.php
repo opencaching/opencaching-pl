@@ -410,6 +410,7 @@ $translations = array(
     'error_tos' => 'Du musst den Nutzungsbedingungen von {site_name} zustimmen.',
     'error_age' => 'Du musst mindestens 16 Jahre alt sein, um dich auf dieser Website zu registrieren.',
     'security_error' => 'Eingabe ungültig',
+    'userAuth_codeCheckError' => 'There was a problem with authorization of the password reset code! (More details: %s)',
     'newpw_title' => 'Passwort ändern',
     'newpw_info' => 'Gib unten deinen Benutzername oder die registrierte E-Mail-Adresse ein, um eine Passwortänderung einzuleiten. Du erhältst dann eine E-Mail mit einem speziellen Link. Mit einem Klick auf den Link lässt sich das Passwort ändern.',
     'newpw_info_send' => 'Die Nachricht mit dem Link wurde verschickt. Falls du im Posteingang keine E-Mail von Opencaching finden solltest, sieh bitte auch im Spamordner nach.',
