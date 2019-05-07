@@ -122,9 +122,14 @@ class UserAuthorizationController extends BaseController
     public function newPasswordInput($usr = null, $code = null)
     {
         $errorMsg = '';
-        if (is_null($user = self::checkUserAndCode($usr, $code))) {
-            $this->showErrorMessage(tr('security_error'));
+
+        try{
+            $user = self::checkUserAndCode($usr, $code);
+        } catch (\RuntimeException $e){
+            $this->showErrorMessage(tr("userAuth_codeCheckError", $e->getMessage()));
+            return;
         }
+
         if (isset($_POST['submitNewPw'])) {
             if (! isset($_POST['password'])) {
                 $this->showErrorMessage(tr('security_error'));
@@ -171,18 +176,19 @@ class UserAuthorizationController extends BaseController
     private function checkUserAndCode($usr, $code)
     {
         if (is_null($usr) || is_null($code)) {
-            return null;
+            throw new \RuntimeException("Wrongs parameters");
         }
         $usr = urldecode($usr);
         if (is_null($user = User::fromUsernameFactory($usr))) {
-            return null;
+            throw new \RuntimeException("There is no such user!");
         }
         if (! $user->isActive()) {
-            return null;
+            throw new \RuntimeException("Inactive user account!");
+
         }
         if (! UserAuthorization::checkPwCode($user, $code)) {
             UserAuthorization::removePwCode($user);
-            return null;
+            throw new \RuntimeException("Wrong authorization code!");
         }
         return $user;
     }
