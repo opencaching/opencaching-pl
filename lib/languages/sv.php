@@ -410,6 +410,7 @@ $translations = array(
     'error_tos' => 'Du behöver kryssa i att du har läst och accepterat Kundvillkor {site_name}',
     'error_age' => 'Only people who have reached the age of majority can use the system.',
     'security_error' => 'An attempt to compromise the security of the system.',
+    'userAuth_codeCheckError' => 'There was a problem with authorization of the password reset code! (More details: %s)',
     'newpw_title' => 'Change password',
     'newpw_info' => 'To change your password, enter your username or email address below. A special link will be sent to your e-mail address. By clicking this link you will be able to change your password.',
     'newpw_info_send' => 'The message with the link has been sent correctly. <br> Check your mailbox.',
