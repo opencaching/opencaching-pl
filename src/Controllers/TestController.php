@@ -437,4 +437,13 @@ class TestController extends BaseController
         d(OcConfig::getEmailSubjectPrefix());
     }
 
+    public function routerTester($arg1=null, $arg2=null)
+    {
+        d($_GET);
+        d($arg1);
+        d($arg2);
+
+        $link = SimpleRouter::getLink(self::class, 'routerTester',[$arg1, $arg2]);
+        echo "<a href='$link'>GO</a>";
+    }
 }
