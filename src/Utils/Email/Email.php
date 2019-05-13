@@ -42,10 +42,10 @@ class Email
     {
         // Check mandantory addresses
         if (empty($this->toAddr)) {
-            throw new Exception("Email recipient missing");
+            throw new \RuntimeException("Missing email recipient.");
         }
         if (empty($this->fromAddr)) {
-            throw new Exception("Email sender missing");
+            throw new \RuntimeException("Missing email sender.");
         }
         if (!self::isValidEmailAddr($this->toAddr) ||
             !self::isValidEmailAddr($this->fromAddr)
@@ -53,14 +53,15 @@ class Email
             // We cannot decide here how to handle that. Caller must evaluate
             // the return values of setFromAddr() and addToAddr() if handling
             // is needed.
-
-            return false;
+            $to = implode(',', $this->toAddr);
+            throw new \RuntimeException("Invalid recipient/sender address! $to/{$this->fromAddr}");
         }
+        $headers = [];
 
         // Check subject. It is technically allowed to send a email without
         // subject, but we don't want to do that.
         if ($this->subject == '') {
-            throw new Exception("Email subject missing");
+            throw new \RuntimeException("Email subject missing");
         }
 
         if (empty($this->senderName)) {
@@ -180,7 +181,7 @@ class Email
         }
 
         // Workaround for develsite problem -- following
-        if ($emailAddress == 'root@localhost') {
+        if (preg_match('/.*@localhost$/', $emailAddress)) {
             return true;
         }
 

@@ -146,14 +146,17 @@ class PowerTrail extends BaseObject
 
     }
 
-    public static function CheckForPowerTrailByCache($cacheId)
+    public static function CheckForPowerTrailByCache($cacheId, $includeHiddenGeoPath=false)
     {
         $queryPt = 'SELECT `id`, `name`, `image`, `type` FROM `PowerTrail`
                     WHERE `id` IN
-                        ( SELECT `PowerTrailId` FROM `powerTrail_caches` WHERE `cacheId` =:1 )
-                        AND `status` = 1 ';
-        $s = self::db()->multiVariableQuery($queryPt, $cacheId);
+                        ( SELECT `PowerTrailId` FROM `powerTrail_caches` WHERE `cacheId` =:1 )';
 
+        if(!$includeHiddenGeoPath){
+            $queryPt .= ' AND status = 1 ';
+        }
+
+        $s = self::db()->multiVariableQuery($queryPt, $cacheId);
         return self::db()->dbResultFetchAll($s);
     }
 
