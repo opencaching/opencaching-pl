@@ -6,13 +6,13 @@ FileETag None
 RewriteRule ^$  /public/index.php [L,NC]
 
 # IF the file exists or dir exists THEN just go there
-RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -f [NC,OR]
-RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d [NC]
+RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -f [OR]
+RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d
 RewriteRule .* - [L,NC,PT,QSA]
 
 # IF the file or dir exists in /public THEN just go /public
-RewriteCond %{DOCUMENT_ROOT}/public%{REQUEST_URI} -f [NC,OR]
-RewriteCond %{DOCUMENT_ROOT}/public%{REQUEST_URI} -d [NC]
+RewriteCond %{DOCUMENT_ROOT}/public%{REQUEST_URI} -f [OR]
+RewriteCond %{DOCUMENT_ROOT}/public%{REQUEST_URI} -d
 RewriteRule .* /public%{REQUEST_URI} [L,NC,PT,QSA]
 
 # redirect "old style" registration requests 
