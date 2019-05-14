@@ -1,34 +1,41 @@
 RewriteEngine on
-
-# redirect empty requests / -> public/index.php
-RewriteRule ^$                                                                      /public/index.php [L,NC]
-
-# redirect 
-RewriteRule ^register.php$                                                          /UserRegistration [R=301,R,L]
-
-
-RewriteRule ^search\.(gpx|kml|loc|ov2|ovl|txt|wpt|uam|xml|zip|ggz)$                 /search.php?%{QUERY_STRING} [L,NC]
-RewriteRule ^ocpl(\d+)\.(gpx|kml|loc|ov2|ovl|txt|wpt|uam|xml|zip|ggz|jsoncodes)$    /search.php?queryid=$1&output=$2&%{QUERY_STRING} [L,NC]
-RewriteRule ^ocplgpx(\d+)\.(gpx)$                                                   /search.php?queryid=$1&output=gpxgc&%{QUERY_STRING} [L,NC]
-
-RewriteRule ^statpics/([0-9]+)\.jpg$                                                /ocstats.php?userid=$1 [R,L]
-
-# redirect requests like /OP123F to viewcache page 
-RewriteRule ^(O[A-Z][0-9A-Z][0-9A-Z][0-9A-Z][0-9A-Z])$                              /viewcache.php?wp=$1 [R=301,L,NC]
-
-# permanentely block Wordpress login page - too many such requests 
-RewriteRule ^wp-login.php                                                           "-" [F]
-
 FileETag None
 
-# IF: there is no such file
-RewriteCond %{REQUEST_FILENAME} !-f
 
-# IF: there is no such directory 
-RewriteCond %{REQUEST_FILENAME} !-d
+# redirect empty requests / -> public/index.php
+RewriteRule ^$  /public/index.php [L,NC]
 
-# redirect the all non-found -> /public
-RewriteRule ^(.*)$                                                                  /public/$1 [NC,L,QSA]
+# IF the file exists or dir exists THEN just go there
+RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -f [OR]
+RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d
+RewriteRule .* - [L,NC,PT,QSA]
+
+# IF the file or dir exists in /public THEN just go /public
+RewriteCond %{DOCUMENT_ROOT}/public%{REQUEST_URI} -f [OR]
+RewriteCond %{DOCUMENT_ROOT}/public%{REQUEST_URI} -d
+RewriteRule .* /public%{REQUEST_URI} [L,NC,PT,QSA]
+
+# redirect "old style" registration requests 
+RewriteRule ^register.php$  /UserRegistration [R=301,R,L]
+
+RewriteRule ^search\.(gpx|kml|loc|ov2|ovl|txt|wpt|uam|xml|zip|ggz)$  /search.php?%{QUERY_STRING} [L,NC]
+RewriteRule ^ocpl(\d+)\.(gpx|kml|loc|ov2|ovl|txt|wpt|uam|xml|zip|ggz|jsoncodes)$  /search.php?queryid=$1&output=$2&%{QUERY_STRING} [L,NC]
+RewriteRule ^ocplgpx(\d+)\.(gpx)$  /search.php?queryid=$1&output=gpxgc&%{QUERY_STRING} [L,NC]
+
+RewriteRule ^statpics/([0-9]+)\.jpg$  /ocstats.php?userid=$1 [R,L]
+
+# redirect requests like /OP123F to viewcache page 
+RewriteRule ^(O[A-Z][0-9A-Z][0-9A-Z][0-9A-Z][0-9A-Z])$  /viewcache.php?wp=$1 [R=301,L,NC]
+
+# redirect from old tinyMCE emoticons to the new location of emoticons
+RewriteRule ^lib/tinymce4/plugins/emoticons/img/smiley-([a-z-]+)\.gif$  /public/images/emoticons/fromTinyMce/smiley-$1.gif [NC,L]
+
+# permanentely block Wordpress login page - too many such requests 
+RewriteRule ^wp-login.php "-" [F]
+
+
+# redirect the all OTHER requests -> /public/index.php
+RewriteRule ^(.*)$  /public/index.php?r=$1 [NC,L,QSA,B,NE,PT]
 
 
 # To be sure: apache site config should contains also aliases:

@@ -49,20 +49,27 @@ class SimpleRouter
 
         $link = "/$ctrl";
 
-        if(!is_null($action)){
+        if(!is_null($action)) {
             $link .= "/$action";
-        }else{
-            if(!is_null($params)){
+        } else {
+            if(!is_null($params)) {
                 // set default action only if $params are present
                 $link .= "/".self::DEFAULT_ACTION;
             }
         }
 
+        /**
+         * TODO: There is still a problem of slashes in arg. content
+         *  - default apache config prevents %2F in non-query part of URI
+         */
         if(!is_null($params)){
             if(is_array($params)){
-                $link .= '/'.implode("/",$params);
-            }else{
-                $link .= '/'.$params;
+                array_walk($params, function (&$val, $x){
+                    $val = urlencode($val);
+                });
+                $link .= '/'.implode('/',$params);
+            } else {
+                $link .= '/'.urlencode($params);
             }
         }
 
@@ -206,13 +213,13 @@ class SimpleRouter
             } else {
                 $action = $routeParts[1];
             }
+
             // and params...
-            $params = array_slice($routeParts, 2);
-        }
+                $params = array_slice($routeParts, 2);
+            }
 
         return array($ctrl, $action, $params);
     }
-
 
 
     private static function checkControllerName($ctrl)

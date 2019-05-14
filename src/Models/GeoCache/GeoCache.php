@@ -421,14 +421,14 @@ class GeoCache extends GeoCacheCommons
      *
      * @return boolean true if this cache belongs to any PowerTrail;
      */
-    public function isPowerTrailPart()
+    public function isPowerTrailPart($includeHiddenGeoPath=false)
     {
         if (! OcConfig::instance()->isPowerTrailModuleSwitchOn()) {
             return false;
         }
 
         if (is_null($this->isPowerTrailPart)) {
-            $ptArr = PowerTrail::CheckForPowerTrailByCache($this->id);
+            $ptArr = PowerTrail::CheckForPowerTrailByCache($this->id, $includeHiddenGeoPath);
             if (count($ptArr) > 0) {
                 // TODO: ASSUMPTION: cache belongs to ONLY one PT
                 $this->isPowerTrailPart = true;
@@ -511,7 +511,11 @@ class GeoCache extends GeoCacheCommons
 
     public function getPowerTrail()
     {
-        return $this->powerTrail;
+        if($this->isPowerTrailPart()){
+            return $this->powerTrail;
+        } else {
+            return null;
+        }
     }
 
     public function getCacheType()
@@ -1711,4 +1715,5 @@ class GeoCache extends GeoCacheCommons
             'UPDATE caches SET picturescount=picturescount + :1, last_modified = NOW()
              WHERE cache_id = :2 LIMIT 1', $value, $this->getCacheId());
     }
+
 }

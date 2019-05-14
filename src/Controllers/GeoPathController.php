@@ -5,10 +5,10 @@ use src\Utils\Text\UserInputFilter;
 use src\Models\CacheSet\CacheSet;
 use src\Utils\FileSystem\FileUploadMgr;
 use src\Utils\Img\OcImage;
-use src\Models\ChunkModels\UploadModel;
 use src\Models\CacheSet\GeopathLogoUploadModel;
 use src\Models\OcConfig\OcConfig;
 use src\Utils\Generators\Uuid;
+use src\Models\GeoCache\GeoCache;
 
 class GeoPathController extends BaseController
 {
@@ -46,9 +46,10 @@ class GeoPathController extends BaseController
     }
 
     /**
+     * Uploading of the new geoPath logo
      * This is fast replacement for ajaxImage.php
      */
-    public function upoadLogoAjax($geoPathId)
+    public function uploadLogoAjax($geoPathId)
     {
         if (!$this->loggedUser) {
             $this->ajaxErrorResponse("User not authorized!");
@@ -85,5 +86,213 @@ class GeoPathController extends BaseController
         $geoPath->updateLogoImg($newLogoFileUrl);
 
         $this->ajaxJsonResponse($newLogoFileUrl);
+    }
+
+    /**
+     * Add cache to the geoPath by cache owner and geopath
+     */
+    public function addOwnCacheToGeopathAjax($geoPathId, $cacheId)
+    {
+        $this->checkUserLoggedAjax();
+
+        $geoPath = CacheSet::fromCacheSetIdFactory($geoPathId);
+        if(!$geoPath) {
+            $this->ajaxErrorResponse("No such geoPath!", self::HTTP_STATUS_NOT_FOUND);
+        }
+
+        if(!$geoPath->isOwner($this->loggedUser)){
+            $this->ajaxErrorResponse("Logged user is not a geopath owner!", self::HTTP_STATUS_FORBIDEN);
+        }
+
+        $cache = GeoCache::fromCacheIdFactory($cacheId);
+        if(!$cache) {
+            $this->ajaxErrorResponse("No such cache!", self::HTTP_STATUS_NOT_FOUND);
+        }
+
+        if($cache->getOwnerId() != $this->loggedUser->getUserId()) {
+            $this->ajaxErrorResponse("Cache not belong to logged user!", self::HTTP_STATUS_CONFLICT);
+        }
+
+        if($cache->isPowerTrailPart()){
+            $this->ajaxErrorResponse("Already part of GeoPath", self::HTTP_STATUS_CONFLICT);
+        }
+
+        if(!CacheSet::isCacheStatusAllowedForGeoPathAdd($cache) ||
+           !CacheSet::isCacheTypeAllowedForGeoPath($cache)) {
+            $this->ajaxErrorResponse("Cache of improper type/state!", self::HTTP_STATUS_CONFLICT);
+        }
+
+        try{
+            $geoPath->addCache($cache);
+        }catch(\RuntimeException $e){
+            $this->ajaxErrorResponse($e->getMessage());
+        }
+
+        $this->ajaxSuccessResponse("Cache added.", ['localizedMessage' => tr('gp_ownCacheAddedToGeopath')]);
+    }
+
+    /**
+     * Remove cache from geopath
+     */
+    public function rmCacheFromGeopathAjax($cacheId)
+    {
+        $this->checkUserLoggedAjax();
+
+        if(!$this->loggedUser->hasOcTeamRole()){
+            $this->ajaxErrorResponse(
+                "Logged user is not allowed to removed caches from geoPath!",
+                self::HTTP_STATUS_FORBIDEN);
+        }
+
+        $cache = GeoCache::fromCacheIdFactory($cacheId);
+        if(!$cache) {
+            $this->ajaxErrorResponse("No such cache!", self::HTTP_STATUS_NOT_FOUND);
+        }
+
+        if(!$cache->isPowerTrailPart(true)){
+            $this->ajaxErrorResponse("This cache not belongs to geoPath!", self::HTTP_STATUS_CONFLICT);
+        }
+
+        $geoPath = CacheSet::fromCacheSetIdFactory($cache->getPowerTrail()->getId());
+        if(!$geoPath){
+            $this->ajaxErrorResponse("Cache belongs to unknown geoPath!", self::HTTP_STATUS_NOT_FOUND);
+        }
+
+        $geoPath->removeCache($cache);
+
+        $this->ajaxSuccessResponse("Cache removed.", ['localizedMessage' => tr('gp_cacheRemovedFromGeopath')]);
+    }
+
+    /**
+     * Add cache candidate to geoPath by geoPath owner
+     * Cache is not owned by logged user.
+     *
+     * @param integer $geoPathId
+     * @param integer $cacheId
+     */
+    public function addCacheCandidateAjax($geoPathId, $cacheId, $resendEmail=null)
+    {
+        $this->checkUserLoggedAjax();
+
+        $geoPath = CacheSet::fromCacheSetIdFactory($geoPathId);
+        if(!$geoPath) {
+            $this->ajaxErrorResponse("No such geoPath!", self::HTTP_STATUS_NOT_FOUND);
+        }
+
+        if(!$geoPath->isOwner($this->loggedUser)){
+            $this->ajaxErrorResponse("Logged user is not a geopath owner!", self::HTTP_STATUS_FORBIDEN);
+        }
+
+        $cache = GeoCache::fromCacheIdFactory($cacheId);
+        if(!$cache) {
+            $this->ajaxErrorResponse("No such cache!", self::HTTP_STATUS_NOT_FOUND);
+        }
+
+        if($cache->getOwnerId() == $this->loggedUser->getUserId()) {
+            $this->ajaxErrorResponse(
+                "Cache belongs to logged user! No need to create candidate.",
+                self::HTTP_STATUS_CONFLICT,
+                ['localizedMessage' => tr('gp_ownedCacheAddDirect')]);
+        }
+
+        // check if this cache is not a part of geocache already
+        if($cache->isPowerTrailPart(true)) {
+            // this cache is already a part of some geoPath
+            $this->ajaxErrorResponse(
+                "Already part of GeoPath",
+                self::HTTP_STATUS_CONFLICT,
+                ['localizedMessage' => tr('gp_candidateAlreadyInGeocache')]);
+        }
+
+        // check if geocache is alredy a candidate
+        if(!$resendEmail && $geoPath->isCandidateExists($cache)){
+            if($geoPath->isCandidateExists($cache, true)){
+                // this cache is already a candidate to THIS geopath
+                $this->ajaxErrorResponse(
+                    "This cache is already a candidate to this geopath!",
+                    self::HTTP_STATUS_CONFLICT,
+                    ['localizedMessage' => tr('gp_alreadyCandidateToThisGeopath')]);
+            } else {
+                // this cache is already a candidate but to OTHER geopath
+                $this->ajaxErrorResponse(
+                    "This cache is already a candidate to other geopath!",
+                    self::HTTP_STATUS_CONFLICT,
+                    ['localizedMessage' => tr('gp_alreadyCandidateToOtherGeopath')]);
+            }
+        }
+
+        // this cache is not a candidate to any geopath yet
+        $geoPath->addCacheCandidate($cache);
+
+        $this->ajaxSuccessResponse(
+            "Candidate saved. Email to cache owner is sent.",
+            ['localizedMessage' => tr('gp_candidateProposalSaved')]);
+    }
+
+    /**
+     * This method is added temporary to cover old-style links
+     * (called only from script confirmCacheCandidate.php
+     *
+     * @param string $code
+     * @param boolean $proposalAccepted
+     */
+    public function legacyCacheCandidate($code, $proposalAccepted){
+
+        list($geoPathId, $cacheId) = CacheSet::getCandidateDataBasedOnCode($code);
+
+        if(!$geoPathId || !$cacheId){
+            $this->displayCommonErrorPageAndExit("No such proposal?!");
+        }
+
+        $this->acceptCancelCandidate($geoPathId, $cacheId, $code, $proposalAccepted);
+    }
+
+    public function acceptCacheCandidate($geopathId, $cacheId, $code)
+    {
+        $this->acceptCancelCandidate($geopathId, $cacheId, $code, true);
+    }
+
+    public function cancelCacheCandidate($geopathId, $cacheId, $code)
+    {
+        $this->acceptCancelCandidate($geopathId, $cacheId, $code, false);
+    }
+
+    private function acceptCancelCandidate($geopathId, $cacheId, $code, $proposalAccepted)
+    {
+        $this->redirectNotLoggedUsers();
+
+        $cache = GeoCache::fromCacheIdFactory($cacheId);
+        if (!$cache) {
+            $this->displayCommonErrorPageAndExit("Unknown cache!");
+        }
+
+        $geoPath = CacheSet::fromCacheSetIdFactory($geopathId);
+        if (!$geoPath) {
+            $this->displayCommonErrorPageAndExit("There is no such geoPath");
+        }
+
+        if ($cache->isPowerTrailPart()) {
+            $this->displayCommonErrorPageAndExit("This geocache is already part of the geopath!");
+        }
+
+        if (!$geoPath->isCandiddateCodeExists($cache, $code)) {
+            $this->displayCommonErrorPageAndExit("There is no such proposal!");
+        }
+
+        // there was such proposal
+        if ($proposalAccepted) {
+            try {
+                $geoPath->addCache($cache);
+            } catch (\RuntimeException $e) {
+                $this->displayCommonErrorPageAndExit($e->getMessage());
+            }
+            // cache added to geopath - cancel all other proposals
+            $geoPath->deleteCandidateCode($cache);
+        } else {
+            // cancel this proposal
+            $geoPath->deleteCandidateCode($cache, $code);
+        }
+
+        $this->view->redirect($geoPath->getUrl());
     }
 }
