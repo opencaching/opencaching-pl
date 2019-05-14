@@ -1844,10 +1844,10 @@ $translations = array(
     'gp_candidateCancleBtn' => 'Odrzuć propozycję',
     'gp_candidateDisclaimer' => 'Oczywiście możesz zignorować tę propozycję - ważność oferty wynosi 30 dni.',
     'gp_cacheCandidateEmailSubject' => 'Dodaj swoją skrzynkę do GeoŚcieżki',
-    'gp_candidateDoubts' => 'In case of any concerns please contact with user',
+    'gp_candidateDoubts' => 'W razie jakichkolwiek wątpliwości prosimy o kontakt z użytkownikiem',
 
-    'gp_ownedCacheAddDirect' => 'This cache is owned by you - just add it directly.',
-    'gp_candidateAlreadyInGeocache' => 'This cache is already assigned to geopath',
+    'gp_ownedCacheAddDirect' => 'Ta skrzynka należy do Ciebie - po prostu dodaj ją bezpośrednio.',
+    'gp_candidateAlreadyInGeocache' => 'Ta skrzynka została dodana do GeoŚcieżki',
     'gp_alreadyCandidateToThisGeopath' => 'This cache is already a candidate to this geopath.',
     'gp_alreadyCandidateToOtherGeopath' => 'This cache is already a candidate to other geopath.',
     'gp_candidateProposalSaved' => 'Wniosek wysłany do właściciela skrzynki przez email.',
