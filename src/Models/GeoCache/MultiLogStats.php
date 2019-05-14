@@ -89,7 +89,7 @@ class MultiLogStats extends BaseObject
         return $db->dbResultFetchAll($rs);
     }
 
-    public static function getLastLogs($numberOfLogs = 100)
+    public static function getLastLogs($numberOfLogs = 100, $offset = 0)
     {
         $db = self::db();
 
@@ -119,7 +119,7 @@ class MultiLogStats extends BaseObject
                 AND cl.type IN ($allowedLogTypes)
                 AND c.status IN ($allowedCacheStatuses)
             ORDER BY  cl.date_created DESC
-            LIMIT $numberOfLogs");
+            LIMIT $numberOfLogs OFFSET $offset");
 
         return $db->dbResultFetchAll($stmt);
     }

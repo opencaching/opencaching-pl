@@ -1,6 +1,7 @@
 <?php
 use src\Utils\Uri\SimpleRouter;
 use src\Controllers\CacheAdoptionController;
+use src\Controllers\CacheLogController;
 use src\Controllers\UserUtilsController;
 
 /**
@@ -26,7 +27,7 @@ $menu = [ // DON'T CHANGE $menu var name!
     'mnu_searchUser'    => '/searchuser.php',
 
     'mnu_newCaches'         => '/newcaches.php',
-    'mnu_newLogs'           => '/newlogs.php',
+    'mnu_newLogs'           => SimpleRouter::getLink(CacheLogController::class, 'lastLogsList'),
     'mnu_incommingEvents'   => '/newevents.php',
     'mnu_recoCaches'        => '/cacheratings.php',
 
