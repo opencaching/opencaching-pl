@@ -1848,8 +1848,8 @@ $translations = array(
 
     'gp_ownedCacheAddDirect' => 'Ta skrzynka należy do Ciebie - po prostu dodaj ją bezpośrednio.',
     'gp_candidateAlreadyInGeocache' => 'Ta skrzynka została dodana do GeoŚcieżki',
-    'gp_alreadyCandidateToThisGeopath' => 'This cache is already a candidate to this geopath.',
-    'gp_alreadyCandidateToOtherGeopath' => 'This cache is already a candidate to other geopath.',
+    'gp_alreadyCandidateToThisGeopath' => 'Ta skrzynka jest już kandydatem do tej GeoŚcieżki.',
+    'gp_alreadyCandidateToOtherGeopath' => 'Ta skrzynka jest już kandydatem do innej GeoŚcieżki.',
     'gp_candidateProposalSaved' => 'Wniosek wysłany do właściciela skrzynki przez email.',
 
     'gp_ownCacheAddedToGeopath' => 'Twoja skrzynka została dodana do GeoŚcieżki.',
