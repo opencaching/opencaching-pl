@@ -1842,7 +1842,7 @@ $translations = array(
     'gp_candidateDecisionDescription' => 'Je kunt dit voorstel accepteren of te afwijzen door op de knop te klikken:',
     'gp_candidateAcceptBtn' => 'Voorstel accepteren',
     'gp_candidateCancleBtn' => 'Voorstel afwijzen',
-    'gp_candidateDisclaimer' => 'Natuurlijk kunt u ook dit voorstel negeren. De geldigheid van het aanbod is 30 dagen.',
+    'gp_candidateDisclaimer' => 'Natuurlijk kun je dit voorstel negeren. De geldigheid van het aanbod is 30 dagen.',
     'gp_cacheCandidateEmailSubject' => 'Voeg jouw geocache toe aan GeoPath',
     'gp_candidateDoubts' => 'Neem contact op met de gebruiker in geval van een probleem',
 
