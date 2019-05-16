@@ -2184,7 +2184,7 @@ $translations = array(
     'lastLogMap_pageName' => 'Carte des logs',
     'lastLogList_pageTitle' => 'List of latest logs entries',
     'lastLogList_geocacheName' => 'Geocache name',
-    'lastLogList_foundBy' => 'Found by user',
+    'lastLogList_foundBy' => 'Logs by user',
     'lastLogList_logEntry' => 'Log entry',
 
     'logbook_01' => 'Aperçu du journal',
