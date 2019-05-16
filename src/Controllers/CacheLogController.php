@@ -2,15 +2,19 @@
 namespace src\Controllers;
 
 use Exception;
-use src\Controllers\LogEntryController;
 use src\Models\GeoCache\GeoCacheLog;
-use src\Utils\EventHandler\EventHandler;
 use src\Utils\Uri\Uri;
 use src\Models\ChunkModels\DynamicMap\DynamicMapModel;
 use src\Models\GeoCache\MultiLogStats;
 use src\Models\ChunkModels\DynamicMap\LogMarkerModel;
 use src\Models\GeoCache\GeoCache;
 use src\Models\User\MultiUserQueries;
+use src\Models\ChunkModels\ListOfCaches\ListOfCachesModel;
+use src\Models\ChunkModels\PaginationModel;
+use src\Models\ChunkModels\ListOfCaches\Column_CacheName;
+use src\Models\ChunkModels\ListOfCaches\Column_CacheTypeIcon;
+use src\Models\ChunkModels\ListOfCaches\Column_UserName;
+use src\Models\ChunkModels\ListOfCaches\Column_CacheLastLog;
 
 class CacheLogController extends BaseController
 {
@@ -143,4 +147,77 @@ class CacheLogController extends BaseController
 
     }
 
+    /**
+     * Display list of last logs (former newlogs.php)
+     */
+    public function lastLogsList()
+    {
+        $this->redirectNotLoggedUsers();
+
+        $this->view->setTemplate('lastLogs/lastLogsList');
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/views/lastLogs/lastLogs.css'));
+
+        $this->view->loadJQuery();
+
+        // prepare pagination for list
+        $paginationModel = new PaginationModel(25);
+        $paginationModel->setRecordsCount( 1000 ); // present 1000 of newest logs
+
+        list($limit, $offset) = $paginationModel->getQueryLimitAndOffset();
+
+        $allLogs = MultiLogStats::getLastLogs($limit, $offset);
+
+        // find logAuthor usernames
+        $userIds = [];
+        foreach($allLogs as $row){
+            $userIds[$row['logAuthor']] = '';
+            $userIds[$row['cacheOwner']] = '';
+        }
+
+        $usernameDict = MultiUserQueries::GetUserNamesForListOfIds(array_keys($userIds));
+
+
+        // init model for list of watched geopaths
+        $listModel = new ListOfCachesModel();
+
+        $listModel->addColumn( new Column_CacheTypeIcon("", function($row){
+            return [
+                'type' => $row['cacheType'],
+                'status' => $row['status'],
+                'user_sts' => null
+            ];
+        }));
+
+        $listModel->addColumn( new Column_CacheName(tr('lastLogList_geocacheName'), function($row){
+            return [
+                'cacheWp' => $row['wp_oc'],
+                'cacheName' => $row['name']
+                ];
+        }));
+
+        $listModel->addColumn( new Column_UserName(tr('lastLogList_foundBy'), function($row) use($usernameDict){
+                return [
+                    'userId' => $row['logAuthor'],
+                    'userName'=> $usernameDict[$row['logAuthor']]
+                ];
+        }));
+
+        $listModel->addColumn( new Column_CacheLastLog(tr('lastLogList_logEntry'), function($row){
+            return [
+                'logId' => $row['id'],
+                'logType' => $row['type'],
+                'logText' => $row['text'],
+                'logUserName' => null,
+                'logDate' => $row['date']
+            ];
+        }));
+
+        $listModel->setPaginationModel($paginationModel);
+
+        // load rows to display
+        $listModel->addDataRows($allLogs);
+        $this->view->setVar('listOfLogsModel', $listModel);
+
+        $this->view->buildView();
+    }
 }
