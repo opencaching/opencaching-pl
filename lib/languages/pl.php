@@ -2182,10 +2182,10 @@ $translations = array(
 
     'lastLogMap_pageTitle' => 'Mapa 100 najnowszych logów',
     'lastLogMap_pageName' => 'Mapa logów',
-    'lastLogList_pageTitle' => 'List of latest logs entries',
-    'lastLogList_geocacheName' => 'Geocache name',
-    'lastLogList_foundBy' => 'Logs by user',
-    'lastLogList_logEntry' => 'Log entry',
+    'lastLogList_pageTitle' => 'Najnowsze logi',
+    'lastLogList_geocacheName' => 'Nazwa skrzynki',
+    'lastLogList_foundBy' => 'Logi według użytkownika',
+    'lastLogList_logEntry' => 'Wpis do logu',
 
     'logbook_01' => 'Podgląd dziennik',
     'logbook_02' => 'Rodzaj',
