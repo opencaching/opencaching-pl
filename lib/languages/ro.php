@@ -2179,8 +2179,14 @@ $translations = array(
     'contact_us_desc_2_5' => '<a href="https://www.opencaching.us/viewprofile.php?userid=558"><b>Sabrefan7</b></a>: Global Forum Moderator',
     'newCacheWpTitle' => 'Alege Punct',
     'newCacheWpDesc' => 'Fişierul conţine mai multe puncte. Alege punctul dorit.',
+
     'lastLogMap_pageTitle' => 'Harta cu ultimele 100 de însemnări',
     'lastLogMap_pageName' => 'Hartă însemnări',
+    'lastLogList_pageTitle' => 'List of latest logs entries',
+    'lastLogList_geocacheName' => 'Geocache name',
+    'lastLogList_foundBy' => 'Found by user',
+    'lastLogList_logEntry' => 'Log entry',
+
     'logbook_01' => 'Previzualizare jurnal',
     'logbook_02' => 'Tip',
     'logbook_03' => 'Alege',
