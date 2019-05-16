@@ -2185,7 +2185,7 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'lastLogMap_pageName' => 'Logkarte',
     'lastLogList_pageTitle' => 'List of latest logs entries',
     'lastLogList_geocacheName' => 'Geocache name',
-    'lastLogList_foundBy' => 'Found by user',
+    'lastLogList_foundBy' => 'Logs by user',
     'lastLogList_logEntry' => 'Log entry',
 
     'logbook_01' => 'Logbuchvorschau',
