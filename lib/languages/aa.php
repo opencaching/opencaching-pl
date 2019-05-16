@@ -2184,7 +2184,7 @@ $translations = array(
     'lastLogMap_pageName' => 'crwdns12331:0crwdne12331:0',
     'lastLogList_pageTitle' => 'crwdns26920:0crwdne26920:0',
     'lastLogList_geocacheName' => 'crwdns26922:0crwdne26922:0',
-    'lastLogList_foundBy' => 'crwdns26924:0crwdne26924:0',
+    'lastLogList_foundBy' => 'crwdns26928:0crwdne26928:0',
     'lastLogList_logEntry' => 'crwdns26926:0crwdne26926:0',
 
     'logbook_01' => 'crwdns7793:0crwdne7793:0',
