@@ -2179,8 +2179,14 @@ $translations = array(
     'contact_us_desc_2_5' => 'crwdns26852:0crwdne26852:0',
     'newCacheWpTitle' => 'crwdns7787:0crwdne7787:0',
     'newCacheWpDesc' => 'crwdns7788:0crwdne7788:0',
+
     'lastLogMap_pageTitle' => 'crwdns12330:0crwdne12330:0',
     'lastLogMap_pageName' => 'crwdns12331:0crwdne12331:0',
+    'lastLogList_pageTitle' => 'crwdns26920:0crwdne26920:0',
+    'lastLogList_geocacheName' => 'crwdns26922:0crwdne26922:0',
+    'lastLogList_foundBy' => 'crwdns26924:0crwdne26924:0',
+    'lastLogList_logEntry' => 'crwdns26926:0crwdne26926:0',
+
     'logbook_01' => 'crwdns7793:0crwdne7793:0',
     'logbook_02' => 'crwdns7794:0crwdne7794:0',
     'logbook_03' => 'crwdns7795:0crwdne7795:0',
