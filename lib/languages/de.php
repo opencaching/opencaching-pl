@@ -2180,8 +2180,14 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'contact_us_desc_2_5' => '<a href="https://www.opencaching.us/viewprofile.php?userid=558"><b>Sabrefan7</b></a>: Global Forum Moderator',
     'newCacheWpTitle' => 'Wegpunkt auswählen',
     'newCacheWpDesc' => 'Die Datei enthält zu wenige Wegpunkte.',
+
     'lastLogMap_pageTitle' => 'Karte mit den 100 neuesten Logeinträgen',
     'lastLogMap_pageName' => 'Logkarte',
+    'lastLogList_pageTitle' => 'List of latest logs entries',
+    'lastLogList_geocacheName' => 'Geocache name',
+    'lastLogList_foundBy' => 'Logs by user',
+    'lastLogList_logEntry' => 'Log entry',
+
     'logbook_01' => 'Logbuchvorschau',
     'logbook_02' => 'Typ',
     'logbook_03' => 'Auswählen',

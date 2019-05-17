@@ -2179,8 +2179,14 @@ $translations = array(
     'contact_us_desc_2_5' => '<a href="https://www.opencaching.us/viewprofile.php?userid=558"><b>Sabrefan7</b></a>: Global Forum Moderator',
     'newCacheWpTitle' => 'Pick waypoint',
     'newCacheWpDesc' => 'File contains too few waypoints.',
+
     'lastLogMap_pageTitle' => 'Map with 100 most recent log entries',
     'lastLogMap_pageName' => 'Logmap',
+    'lastLogList_pageTitle' => 'List of latest logs entries',
+    'lastLogList_geocacheName' => 'Geocache name',
+    'lastLogList_foundBy' => 'Logs by user',
+    'lastLogList_logEntry' => 'Log entry',
+
     'logbook_01' => 'Logbook preview',
     'logbook_02' => 'Type',
     'logbook_03' => 'Select',
