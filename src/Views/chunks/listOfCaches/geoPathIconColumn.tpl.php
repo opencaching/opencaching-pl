@@ -12,9 +12,14 @@ use src\Models\PowerTrail\PowerTrail;
 
 return function (array $data){
 
+    if(empty($data)){
+        // seems that no geopath data is present here
+        return;
+    }
+
     $geopathcIconSrc = PowerTrail::GetPowerTrailIconsByType($data['ptType']);
 ?>
-    <a href="powerTrail.php?ptAction=showSerie&amp;ptrail=<?=$data['ptId']?>">
+    <a href="/powerTrail.php?ptAction=showSerie&amp;ptrail=<?=$data['ptId']?>">
         <img src="<?=$geopathcIconSrc?>" class="icon16" target="_blank"
              alt="" title="<?=$data['ptName']?>" />
     </a>

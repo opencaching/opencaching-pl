@@ -89,37 +89,55 @@ class MultiLogStats extends BaseObject
         return $db->dbResultFetchAll($rs);
     }
 
-    public static function getLastLogs($numberOfLogs = 100, $offset = 0)
+    private static function getAllowedCacheStatusesList()
     {
-        $db = self::db();
-
-        $numberOfLogs = $db->quoteLimit($numberOfLogs);
-
-        $allowedCacheStatuses = implode(',', [
+        return implode(',', [
             GeoCache::STATUS_READY,
             GeoCache::STATUS_UNAVAILABLE,
             GeoCache::STATUS_ARCHIVED,
         ]);
+    }
 
-        $allowedLogTypes = implode(',', [
-            GeoCacheLog::LOGTYPE_COMMENT,
-            GeoCacheLog::LOGTYPE_DIDNOTFIND,
-            GeoCacheLog::LOGTYPE_FOUNDIT,
-            GeoCacheLog::LOGTYPE_MOVED,
-            GeoCacheLog::LOGTYPE_NEEDMAINTENANCE,
-        ]);
+    /**
+     * This is same query as below (getLastLogs) but returns the number of all logs
+     * which can taken to teh list
+     */
+    public static function getLastLogsNumber()
+    {
+        $allowedCacheStatuses = self::getAllowedCacheStatusesList();
 
+        return self::db()->simpleQueryValue(
+            "SELECT COUNT(*)
+            FROM cache_logs AS cl
+                STRAIGHT_JOIN caches AS c ON cl.cache_id = c.cache_id
+            WHERE cl.deleted = 0
+                AND c.status IN ($allowedCacheStatuses)",0);
+    }
+
+    public static function getLastLogs($numberOfLogs = 100, $offset = 0)
+    {
+
+        $allowedCacheStatuses = self::getAllowedCacheStatusesList();
+
+        $db = self::db();
+
+        list($limit, $offset) = $db->quoteLimitOffset($numberOfLogs, $offset);
+
+        /*
+         * This query has a VERY BAD performance without STRAIGHT_JOIN on mariaDB
+         * mysql: 0.05s  mariaDB-without-straight-join: ~25s.
+         */
         $stmt = $db->simpleQuery(
             "SELECT c.cache_id, c.type AS cacheType, c.status, c.wp_oc,
-                    c.name, c.latitude, c.longitude, c.user_id AS cacheOwner,
-                    cl.id, cl.user_id AS logAuthor, cl.text, cl.type, cl.date
-            FROM cache_logs AS cl, caches AS c
-            WHERE cl.cache_id = c.cache_id
-                AND cl.deleted = 0
-                AND cl.type IN ($allowedLogTypes)
+                    c.name, c.user_id AS cacheOwner,
+                    cl.id, cl.user_id AS logAuthor, cl.text,
+                    cl.type, cl.date, cl.date_created
+            FROM cache_logs AS cl
+                STRAIGHT_JOIN caches AS c ON cl.cache_id = c.cache_id
+            WHERE cl.deleted = 0
                 AND c.status IN ($allowedCacheStatuses)
             ORDER BY  cl.date_created DESC
-            LIMIT $numberOfLogs OFFSET $offset");
+            LIMIT $limit OFFSET $offset");
 
         return $db->dbResultFetchAll($stmt);
     }

@@ -15,6 +15,10 @@ use src\Models\ChunkModels\ListOfCaches\Column_CacheName;
 use src\Models\ChunkModels\ListOfCaches\Column_CacheTypeIcon;
 use src\Models\ChunkModels\ListOfCaches\Column_UserName;
 use src\Models\ChunkModels\ListOfCaches\Column_CacheLastLog;
+use src\Models\ChunkModels\ListOfCaches\Column_SimpleText;
+use src\Utils\Text\Formatter;
+use src\Models\CacheSet\MultiGeopathsStats;
+use src\Models\ChunkModels\ListOfCaches\Column_GeoPathIcon;
 
 class CacheLogController extends BaseController
 {
@@ -104,7 +108,7 @@ class CacheLogController extends BaseController
         $this->view->addLocalCss(
             Uri::getLinkWithModificationTime('/views/lastLogs/lastLogs.css'));
 
-        $lastLogs = MultiLogStats::getLastLogs();
+        $lastLogs = MultiLogStats::getLastLogs(100);
 
         // find cacheOwners and logAuthor usernames
         $userIds = [];
@@ -161,46 +165,77 @@ class CacheLogController extends BaseController
 
         // prepare pagination for list
         $paginationModel = new PaginationModel(25);
-        $paginationModel->setRecordsCount( 1000 ); // present 1000 of newest logs
 
+        $paginationModel->setRecordsCount( MultiLogStats::getLastLogsNumber() );
         list($limit, $offset) = $paginationModel->getQueryLimitAndOffset();
 
         $allLogs = MultiLogStats::getLastLogs($limit, $offset);
 
-        // find logAuthor usernames
+        // find logAuthor usernames, and status of the cache for current user (found/not-found etc.)
         $userIds = [];
+        $userStsDict = [];
+        $geopathDict = [];
         foreach($allLogs as $row){
-            $userIds[$row['logAuthor']] = '';
-            $userIds[$row['cacheOwner']] = '';
+            $userIds[$row['logAuthor']] = null;
+            $userStsDict[$row['cache_id']] = null;
+            $geopathDict[$row['cache_id']] = null;
         }
 
         $usernameDict = MultiUserQueries::GetUserNamesForListOfIds(array_keys($userIds));
 
+        foreach (MultiLogStats::getStatusForUser($this->loggedUser->getUserId(), array_keys($userStsDict)) as $userSts) {
+            $userStsDict[$userSts['cache_id']] = $userSts['type'];
+        }
+
+        foreach (MultiGeopathsStats::getGeopathForEachGeocache(array_keys($geopathDict)) as $gp) {
+            $geopathDict[$gp['cacheId']] = $gp;
+        }
+
+        d($geopathDict);
 
         // init model for list of watched geopaths
         $listModel = new ListOfCachesModel();
 
-        $listModel->addColumn( new Column_CacheTypeIcon("", function($row){
+        $listModel->addColumn( new Column_SimpleText(tr('lastLogList_logCreationDate'), function($row){
+            return Formatter::date($row['date_created']);
+        }, "width10"));
+
+        $listModel->addColumn( new Column_GeoPathIcon('', function($row) use($geopathDict){
+
+            if(!$geopathDict[$row['cache_id']]) {
+                return [];
+            }
+            return [
+                'ptId' => $geopathDict[$row['cache_id']]['id'],
+                'ptType' => $geopathDict[$row['cache_id']]['type'],
+                'ptName' => $geopathDict[$row['cache_id']]['name'],
+            ];
+        }, "width5"));
+
+        $listModel->addColumn( new Column_CacheTypeIcon("", function($row) use($userStsDict){
             return [
                 'type' => $row['cacheType'],
                 'status' => $row['status'],
-                'user_sts' => null
+                'user_sts' => $userStsDict[$row['cache_id']]
             ];
-        }));
+        }, "width5"));
 
         $listModel->addColumn( new Column_CacheName(tr('lastLogList_geocacheName'), function($row){
             return [
                 'cacheWp' => $row['wp_oc'],
                 'cacheName' => $row['name']
                 ];
-        }));
+        }, "width30"));
+
+
+
 
         $listModel->addColumn( new Column_UserName(tr('lastLogList_foundBy'), function($row) use($usernameDict){
                 return [
                     'userId' => $row['logAuthor'],
                     'userName'=> $usernameDict[$row['logAuthor']]
                 ];
-        }));
+        },"width10"));
 
         $listModel->addColumn( new Column_CacheLastLog(tr('lastLogList_logEntry'), function($row){
             return [
