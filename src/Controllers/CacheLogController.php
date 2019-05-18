@@ -191,8 +191,6 @@ class CacheLogController extends BaseController
             $geopathDict[$gp['cacheId']] = $gp;
         }
 
-        d($geopathDict);
-
         // init model for list of watched geopaths
         $listModel = new ListOfCachesModel();
 
