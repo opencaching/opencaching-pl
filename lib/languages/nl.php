@@ -2186,6 +2186,7 @@ $translations = array(
     'lastLogList_geocacheName' => 'Naam Geocache',
     'lastLogList_foundBy' => 'Logs van gebruiker',
     'lastLogList_logEntry' => 'Logs',
+    'lastLogList_logCreationDate' => 'Log created',
 
     'logbook_01' => 'Logboek voorbeeld',
     'logbook_02' => 'Soort',
