@@ -10,7 +10,7 @@ use src\Models\BaseObject;
  */
 class MultiGeopathsStats extends BaseObject
 {
-    protected function __construct()
+    public function __construct()
     {
         parent::__construct();
     }
