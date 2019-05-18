@@ -29,7 +29,7 @@ return function (ListOfCachesModel $listModel){
     <?php if($listModel->isHeaderEnabled()) { ?>
         <thead>
         <?php foreach ($listModel->getColumns() as /** @var AbstractColumn */ $column){ ?>
-          <th class="<?=$column->getCssClass()?>">
+          <th class="<?=$column->getCssClass()?> <?=$column->getAdditionalClass()?>">
               <?=$column->getHeader()?>
           </th>
         <?php } //foreach header ?>
@@ -40,7 +40,7 @@ return function (ListOfCachesModel $listModel){
     <?php foreach ($listModel->getRows() as $row){ ?>
         <tr>
           <?php foreach ($listModel->getColumns() as /** @var AbstractColumn */ $column){ ?>
-            <td class="<?=$column->getCssClass()?><?=$column->getAdditionalClass()?>">
+            <td class="<?=$column->getCssClass()?> <?=$column->getAdditionalClass()?>">
               <?=$column->callColumnChunk($row)?>
             </td>
           <?php } //foreach column ?>
