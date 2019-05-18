@@ -129,7 +129,7 @@ class MultiLogStats extends BaseObject
          */
         $stmt = $db->simpleQuery(
             "SELECT c.cache_id, c.type AS cacheType, c.status, c.wp_oc,
-                    c.name, c.user_id AS cacheOwner,
+                    c.name, c.user_id AS cacheOwner, c.latitude, c.longitude,
                     cl.id, cl.user_id AS logAuthor, cl.text,
                     cl.type, cl.date, cl.date_created
             FROM cache_logs AS cl
