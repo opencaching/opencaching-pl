@@ -1848,7 +1848,7 @@ $translations = array(
 
     'gp_ownedCacheAddDirect' => 'Dies ist dein eigener Cache – füge ihn einfach direkt hinzu.',
     'gp_candidateAlreadyInGeocache' => 'Dieser Cache ist bereits einem Geopfad zugewiesen.',
-    'gp_alreadyCandidateToThisGeopath' => 'Dieser Cache ist bereits ein Kandidat für diesen Gepfad.',
+    'gp_alreadyCandidateToThisGeopath' => 'Dieser Cache ist bereits Kandidat für diesen Gepfad.',
     'gp_alreadyCandidateToOtherGeopath' => 'Dieser Cache ist bereits Kandidat für einen andern Geopfad.',
     'gp_candidateProposalSaved' => 'Vorschlag wurde per Email an den Cachebesitzer gesendet.',
 
@@ -2783,31 +2783,31 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'ogpx_paramTrackablesHeader' => 'Sollen Informationen über Reisende (z.B. Geokrets) an die Cachebeschreibungen angehängt werden?',
     'ogpx_paramTrackables_none' => 'Keine Informationen über Reisende',
     'ogpx_paramTrackables_count' => 'Nur die Gesamtanzahl der Reisenden, die sich gerade im Cache befinden',
-    'ogpx_paramTrackables_all' => 'Liste aller Reisenden, die sich gerade im Geocache befinden',
+    'ogpx_paramTrackables_all' => 'Liste aller Reisenden, die sich gerade im Cache befinden',
     'ogpx_paramTrackables_gc' => 'Liste aller Reisenden',
     'ogpx_paramAttrsHeader' => 'Wie sollen Cacheattribute behandelt werden?',
     'ogpx_paramAttrs_desctext' => 'Liste der Attribute an die Cachebeschreibung anhängen',
-    'ogpx_paramAttrs_oxtags_HTML' => 'Generate <code>ox:tag</code>-Elements for die Attribute erzeugen (könnte mit Garmin-Geräten funktionieren).',
+    'ogpx_paramAttrs_oxtags_HTML' => '<code>ox:tag</code>-Elemente für die Attribute erzeugen (könnte mit Garmin-Geräten funktionieren)',
     'ogpx_paramAttrs_gcattrs_HTML' => 'Geocaching.com-kompatible Attribute erzeugen',
     'ogpx_paramMyNotesHeader' => 'Wie sollen persönliche Notizen behandelt werden?',
     'ogpx_paramMyNotes_desctext' => 'Persönliche Notizen an die Cachebeschreibungen anhängen',
     'ogpx_paramMyNotes_gcpersonalnote_HTML' => 'Persönliche Nutzen als <code>groundspeak:personal_note</code>-Elemente einschließen',
     'ogpx_paramLocationSourceHeader' => 'Welche Koordinaten sollen als Cachekoordinaten ausgegeben werden?',
     'ogpx_paramLocationSource_default' => 'Die Originalkoordinaten, die der Cachebesitzer angegeben hat',
-    'ogpx_paramLocationSource_usercoords' => 'Wenn vorhanden, die Final-Koordinaten, die ich selbst eingegeben habe',
+    'ogpx_paramLocationSource_usercoords' => 'Wenn vorhanden, die Final-Koordinaten, die du selbst eingegeben hast',
     'ogpx_paramLocationSource_parking' => 'Die Parkplatzkoordinaten, falls der Cachebesitzer sie angegeben hat',
     'ogpx_paramImagesHeader' => 'Sollen Bilder an die Cachebeschreibung angehängt werden?',
     'ogpx_paramImages_none' => 'Keine Bilder',
     'ogpx_paramImages_thumblinks' => 'Miniaturbilder mit Links auf die großen Bilder. Für Spoilerbilder werden Platzhalter verwendet.',
-    'ogpx_paramImages_nonspoilers' => 'All, except spoilers. No thumbnails (show bigger versions without the need to click on them).',
-    'ogpx_paramImages_all' => 'Alle einschließlich der Spoiler. Keine Miniaturbilder (direkt größere Bilder anzeigen). Spoilerbilder werden direkt angezeigt.',
+    'ogpx_paramImages_nonspoilers' => 'Alle Bilder in voller Größe, keine Spoiler',
+    'ogpx_paramImages_all' => 'Alle einschließlich der Spoiler. Keine Miniaturbilder (direkt größere Bilder anzeigen). Spoilerbilder werden offen angezeigt.',
     'ogpx_paramImages_oxall_HTML' => 'Keine <code>img</code>-Elemente in den Cachebeschreibungen; stattdessen <code>ox:image</code>-Verweise für Garmin-Geräte erzeugen.',
     'ogpx_otherOptionsHeader' => 'Andere Optionen:',
     'ogpx_otherOptions_protection_areas' => 'Mit Informationen über Schutzgebiete, in denen der Geocache liegen könnte',
     'ogpx_otherOptions_recommendations' => 'Mit Anzahl der Cacheempfehlungen',
     'ogpx_otherOptions_alt_wpts' => 'Mit zusätzlichen Wegpunkten',
     'ogpx_otherOptions_mark_found' => 'Von dir gefundene Caches mit dem „gefunden“-Symbol markieren',
-    'ogpx_additionalDownloadsHeaderHTML' => '<p>Wenn du mehr als 500 Geocaches herunterlädst, wird der Download in mehrere kleine GPX-Dateien aufgeteilt. Jede von ihnen muss separat heruntergeladen werden:</p>',
+    'ogpx_additionalDownloadsHeaderHTML' => '<p>Wenn du mehr als 500 Geocaches herunterlädst, wird der Download in mehrere GPX-Dateien aufgeteilt. Jede von ihnen muss separat heruntergeladen werden:</p>',
     'gpx_file_number' => 'GPX-Datei #',
 
     'mobile_login' => '[Anmelden]',
@@ -2987,7 +2987,7 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'usrIgnore_removingSuccess' => 'Cache wird nicht mehr ignoriert',
 
     'gp_logoUpdateTitle' => 'Geopfad-Logo hochladen',
-    'gp_logoUpdateInfo' => 'Datei hochladen, die als Geopfad-Logo verwendet wird. '.
+    'gp_logoUpdateInfo' => 'Datei hochladen, die als Geopfad-Logo verwendet werden soll. '.
                            'Beachte bitte das Urheberrecht. Du musst zum Veröffentlichen der Datei berechtigt sein.',
 
 );
