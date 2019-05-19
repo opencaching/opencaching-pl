@@ -337,7 +337,7 @@ $translations = array(
     'startPage_intro_en' => 'Geocaching ist ein Outoor-Sport, bei dem die Teilnehmer (Geocacher) einen GPS-Empfänger bzw. ein Smartphone nutzen, um von anderen Teilnehmern versteckte „Schätze“ zu finden. Es handelt sich meist um wasserdichte Behälter, die Tauschgegenstände und ein Logbuch enthalten, in dem die Sucher ihren Fund dokumentieren können. Die Koordinaten der Cacheverstecke sind in Online-Datenbanken wie Opencache.UK hinterlegt, zusammen mit einer Beschreibung und Hinweisen für die Suche.',
     'startPage_intro_ro' => 'Geocaching ist ein Outoor-Spiel, bei dem die Teilnehmer einen GPS-Empfänger bzw. ein Smartphone nutzen, um von anderen Teilnehmern versteckte „Schätze“ (Geocaches) zu finden. Es handelt sich meist um wasserdichte Behälter, die Tauschgegenstände und ein Logbuch enthalten, in dem die Sucher ihren Fund dokumentieren können. Die Koordinaten der Cacheverstecke sind in Online-Datenbanken wie Opencaching.ro hinterlegt, zusammen mit einer Beschreibung und Hinweisen für die Suche.<br/><br />Opencaching.ro gibt es seit April 2014. Die Website basiert auf der Open-Source-Software <span class="content-title-noshade"> opencaching-pl</span>.',
     'startPage_intro_uk' => 'Geocaching ist ein Outoor-Sport, bei dem die Teilnehmer (Geocacher) einen GPS-Empfänger bzw. ein Smartphone nutzen, um von anderen Teilnehmern versteckte „Schätze“ zu finden. Es handelt sich meist um wasserdichte Behälter, die Tauschgegenstände und ein Logbuch enthalten, in dem die Sucher ihren Fund dokumentieren können. Die Koordinaten der Cacheverstecke sind in Online-Datenbanken wie Opencache.UK hinterlegt, zusammen mit einer Beschreibung und Hinweisen für die Suche.',
-    'startPage_intro_us' => 'Welcome to OpenCaching North America! Geocaching is about having fun outdoors while using GPS-enabled devices to find "treasure" hidden by other participants. Typical geocaches are small watertight containers that holds a logbook in which the finder can record their visit. The container may also hold small trinkets that can be traded. To learn more about geocaching visit our <a href="http://wiki.opencaching.us/index.php/Main_Page" target="_blank">wiki pages</a>.<br /><br />This is the official OpenCaching site for North America (including Central America and the Caribbean) and all US Territories. This site went live on August 18, 2010. Our goal is to have a database of quality, unique caches that, once approved by the OC Team, are enjoyed and rated by YOU, the geocaching community. OCNA offers twelve cache types, including virtual, webcam, and moving caches. We also offer a number of unique cache types: BIT Caches, Guest Book Caches, MP3 (Podcast) Caches, and Benchmarks. The site is 100% free to use with no "regular vs premium member" functions or restrictions.',
+    'startPage_intro_us' => 'Willkommen bei Opencaching Nordamerika! Geocaching ist ein Outdoor-Spiel, bei dem es darum geht, mit GPS-fähigen Geräten „Schätze“ zu finden, die andere Teilnehmer versteckt haben. Geocaches sind meist kleine wasserdichte Behälter mit einem Logbuch, in dem Finder ihren Besuch dokumentieren können. Der Behälter kann auch kleine Tauschgegenstände enthalten. Mehr Informationen zum Geoaching findest du in unserem <a href="http://wiki.opencaching.us/index.php/Main_Page" target="_blank">Wiki</a>.<br /><br />Dies ist die offizielle Opencaching-Seite für Nordamerika, Zentralamerika und die Karibik sowie alle US-Territorien. Sie ging am 18. August 2010 online. Unser Ziel ist die Unterhaltung einer Datenbank mit qualitativ guten, einzigartigen Caches, die dir – nachdem sie vom OC-Team freigegeben wurden – Spaß machen und die du bewerten kannst. Bei OCNA gibt es zwölf Cachetypen, einschließlich virtueller Caches, Webcams und beweglichen Caches. Nur bei uns gibt es BIT-Caches, Gästebuchcaches, MP3-(Podcast-)Caches und Benchmarks. Die Website ist 100% werbefrei und kann ohne Einschränkungen von Jedem genutzt werden.',
     'filename_describe_cache' => '{wiki_link_cacheParams_en}',
     'map_msg' => 'Um die Koordinaten und die<br />Cachekarte zu sehen,<br /> musst du <a href="login.php?target={target}">angemeldet</a> sein.',
     'additional_hints' => 'Verschlüsselte Hinweise',
@@ -1843,7 +1843,7 @@ $translations = array(
     'gp_candidateAcceptBtn' => 'Vorschlag annehmen',
     'gp_candidateCancleBtn' => 'Vorschlag ablehnen',
     'gp_candidateDisclaimer' => 'Natürlich kannst du den Vorschlag auch ignorieren. Er bleibt 30 Tage lang gültig.',
-    'gp_cacheCandidateEmailSubject' => 'Geocache zu Geopath hinzufügen',
+    'gp_cacheCandidateEmailSubject' => 'Cache zu Geopath hinzufügen',
     'gp_candidateDoubts' => 'Bei Unklarheiten wende dich bitte an den Benutzer',
 
     'gp_ownedCacheAddDirect' => 'Dies ist dein eigener Cache – füge ihn einfach direkt hinzu.',
@@ -2673,7 +2673,7 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'mnu_privacyPolicy' => 'Datenschutzrichtlinie',
     'mnu_facebook' => 'Facebook',
     'mnu_kwidzyn' => 'Open Kwidzyn',
-    'mnu_OcSwag' => 'OCNA swag!',
+    'mnu_OcSwag' => 'OCNA-Beute!',
     'mnu_PhoneApps' => 'Smartphone-Apps',
 
     'admCs_degradedCs'  => 'Nicht mehr lösbare Geopfade',
