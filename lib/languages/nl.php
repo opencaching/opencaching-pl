@@ -1839,7 +1839,7 @@ $translations = array(
 
     'gp_candidateIntro' => 'stelde voor om je geweldige geocache toe te voegen',
     'gp_candidateToGeopath' => 'aan GeoPath',
-    'gp_candidateDecisionDescription' => 'Je kunt dit voorstel accepteren of te afwijzen door op de knop te klikken:',
+    'gp_candidateDecisionDescription' => 'Je kunt dit voorstel accepteren of afwijzen door op een knop te klikken:',
     'gp_candidateAcceptBtn' => 'Voorstel accepteren',
     'gp_candidateCancleBtn' => 'Voorstel afwijzen',
     'gp_candidateDisclaimer' => 'Natuurlijk kun je dit voorstel negeren. De geldigheid van het aanbod is 30 dagen.',
@@ -2186,7 +2186,7 @@ $translations = array(
     'lastLogList_geocacheName' => 'Naam Geocache',
     'lastLogList_foundBy' => 'Logs van gebruiker',
     'lastLogList_logEntry' => 'Logs',
-    'lastLogList_logCreationDate' => 'Log created',
+    'lastLogList_logCreationDate' => 'Log gemaakt op',
 
     'logbook_01' => 'Logboek voorbeeld',
     'logbook_02' => 'Soort',
@@ -2672,7 +2672,7 @@ $translations = array(
     'mnu_privacyPolicy' => 'Privacyverklaringen',
     'mnu_facebook' => 'Facebook',
     'mnu_kwidzyn' => 'Open Kwidzyn',
-    'mnu_OcSwag' => 'OCNA swag!',
+    'mnu_OcSwag' => 'OCNA buit!',
     'mnu_PhoneApps' => 'Smartphone Apps',
 
     'admCs_degradedCs'  => 'Verwaarloosde GeoPaths',
