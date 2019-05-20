@@ -2991,7 +2991,7 @@ $translations = array(
 
     'SmartPhone_Apps' => 'crwdns26932:0crwdne26932:0',
     'SmartPhone_Support' => 'crwdns26934:0crwdne26934:0',
-    'SmartPhone_GPX' => 'crwdns26936:0crwdne26936:0',
+    'SmartPhone_GPX' => 'crwdns26948:0crwdne26948:0',
     'SmartPhone_Tools' => 'crwdns26938:0crwdne26938:0',
     'SmartPhone_Android' => 'crwdns26940:0crwdne26940:0',
     'SmartPhone_Iphone' => 'crwdns26942:0crwdne26942:0',
