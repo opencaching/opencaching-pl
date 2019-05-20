@@ -2186,7 +2186,7 @@ $translations = array(
     'lastLogList_geocacheName' => 'Naam Geocache',
     'lastLogList_foundBy' => 'Logs van gebruiker',
     'lastLogList_logEntry' => 'Logs',
-    'lastLogList_logCreationDate' => 'Log created',
+    'lastLogList_logCreationDate' => 'Log gemaakt op',
 
     'logbook_01' => 'Logboek voorbeeld',
     'logbook_02' => 'Soort',
@@ -2990,11 +2990,11 @@ $translations = array(
                            'Vergeet niet dat je auteursrechten nodig hebt om het bestand te gebruiken.',
 
     'SmartPhone_Apps' => 'Smartphone Apps',
-    'SmartPhone_Support' => 'These Smartphone Geocaching Apps offer full live support for Opencaching:',
-    'SmartPhone_GPX' => 'Additionally, you can send our .GPX files to these Smartphone Apps:',
-    'SmartPhone_Tools' => 'Tools for Opencaching:',
-    'SmartPhone_Android' => 'For Android',
-    'SmartPhone_Iphone' => 'For iphone',
-    'SmartPhone_Windows' => 'For Windows Phone',
+    'SmartPhone_Support' => 'Deze Smartphone Geocaching Apps bieden volledige ondersteuning voor Opencaching:',
+    'SmartPhone_GPX' => 'Daarnaast kun je onze .GPX-bestanden naar deze Smartphone Apps sturen:',
+    'SmartPhone_Tools' => 'Tools voor Opencaching:',
+    'SmartPhone_Android' => 'Voor Android',
+    'SmartPhone_Iphone' => 'Voor iphone',
+    'SmartPhone_Windows' => 'Voor Windows telefoon',
 
 );
