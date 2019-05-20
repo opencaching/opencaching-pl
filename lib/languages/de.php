@@ -2187,7 +2187,6 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'lastLogList_geocacheName' => 'Geocache',
     'lastLogList_foundBy' => 'Logs von',
     'lastLogList_logEntry' => 'Logeintrag',
-    'lastLogList_logCreationDate' => 'Log erstellt',
 
     'logbook_01' => 'Logbuchvorschau',
     'logbook_02' => 'Typ',
@@ -2989,5 +2988,13 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'gp_logoUpdateTitle' => 'Geopfad-Logo hochladen',
     'gp_logoUpdateInfo' => 'Datei hochladen, die als Geopfad-Logo verwendet werden soll. '.
                            'Beachte bitte das Urheberrecht. Du musst zum Veröffentlichen der Datei berechtigt sein.',
+
+    'SmartPhone_Apps' => 'Smartphone Apps',
+    'SmartPhone_Support' => 'These Smartphone Geocaching Apps offer full live support for Opencaching:',
+    'SmartPhone_GPX' => 'Additionally, you can send our .GPX files to these Smartphone Apps:',
+    'SmartPhone_Tools' => 'Tools for Opencaching:',
+    'SmartPhone_Android' => 'For Android',
+    'SmartPhone_Iphone' => 'For iphone',
+    'SmartPhone_Windows' => 'For Windows Phone',
 
 );
