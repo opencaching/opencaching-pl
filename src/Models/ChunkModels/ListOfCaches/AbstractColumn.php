@@ -22,6 +22,7 @@ abstract class AbstractColumn {
     private $dataExtractor = null;
     private $header = '';
     private $additionalClass = '';
+    private $chunkFunction = null;
 
     public final function __construct($header, callable $dataFromRowExtractor=null, $additionalClass=null){
         if(!is_null($dataFromRowExtractor)){
@@ -35,10 +36,6 @@ abstract class AbstractColumn {
         $this->header = $header;
     }
 
-    public final function setDataExtractor(callable $func){
-        $this->dataExtractor = $func;
-    }
-
     protected abstract function getChunkName();
 
     public function __call($method, $args) {
@@ -50,18 +47,15 @@ abstract class AbstractColumn {
     }
 
     public final function callColumnChunk($row){
-        $methodName = 'ColChunkDynFunc';
 
-        if(!property_exists($this, $methodName)){
-            $chunkName = $this->getChunkName();
-            $func = View::getChunkFunc($chunkName);
-            $this->$methodName = $func;
+        if(!$this->chunkFunction){
+            $this->chunkFunction = View::getChunkFunc($this->getChunkName());
         }
 
         if(!is_null($this->dataExtractor)){
-            $this->$methodName($this->dataExtractor($row));
+            $this->chunkFunction($this->dataExtractor($row), $this);
         }else{
-            $this->$methodName($row);
+            $this->chunkFunction($row, $this);
         }
     }
 
