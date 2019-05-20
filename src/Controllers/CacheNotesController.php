@@ -8,7 +8,7 @@ namespace src\Controllers;
 
 use src\Utils\Uri\Uri;
 use src\Models\ChunkModels\PaginationModel;
-use src\Models\ChunkModels\ListOfCaches\Column_CacheLastLog;
+use src\Models\ChunkModels\ListOfCaches\Column_CacheLog;
 use src\Models\ChunkModels\ListOfCaches\Column_CacheName;
 use src\Models\ChunkModels\ListOfCaches\Column_CacheTypeIcon;
 use src\Models\ChunkModels\ListOfCaches\Column_EllipsedText;
@@ -82,7 +82,7 @@ class CacheNotesController extends BaseController
                         'cacheStatus' => $row['status'],
                     ];
                 }));
-            $model->addColumn(new Column_CacheLastLog(tr('myNotes_lastLogEntry'),
+            $model->addColumn(new Column_CacheLog(tr('myNotes_lastLogEntry'),
                 function($row){
                     if(isset($row['llog_id'])){
                         return [

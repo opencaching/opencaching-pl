@@ -6,7 +6,7 @@ use src\Utils\Uri\Uri;
 use src\Models\ChunkModels\PaginationModel;
 use src\Models\ChunkModels\DynamicMap\CacheWithLogMarkerModel;
 use src\Models\ChunkModels\DynamicMap\DynamicMapModel;
-use src\Models\ChunkModels\ListOfCaches\Column_CacheLastLog;
+use src\Models\ChunkModels\ListOfCaches\Column_CacheLog;
 use src\Models\ChunkModels\ListOfCaches\Column_CacheName;
 use src\Models\ChunkModels\ListOfCaches\Column_CacheTypeIcon;
 use src\Models\ChunkModels\ListOfCaches\Column_OnClickActionIcon;
@@ -106,6 +106,7 @@ class UserWatchedCachesController extends BaseController
         $this->view->addLocalCss(
             Uri::getLinkWithModificationTime(
                 '/views/userWatchedCaches/userWatchedCaches.css'));
+        $this->view->addLocalCss('/css/lightTooltip.css');
 
         $this->view->loadJQuery();
 
@@ -128,7 +129,7 @@ class UserWatchedCachesController extends BaseController
                         'cacheStatus' => $row['status'],
                     ];
                 }));
-            $model->addColumn(new Column_CacheLastLog(tr('usrWatch_lastLog'),
+            $model->addColumn(new Column_CacheLog(tr('usrWatch_lastLog'),
                 function($row){
                     return [
                         'logId'         => $row['llog_id'],

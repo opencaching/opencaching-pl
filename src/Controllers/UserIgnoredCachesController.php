@@ -2,7 +2,7 @@
 namespace src\Controllers;
 
 use src\Models\ChunkModels\PaginationModel;
-use src\Models\ChunkModels\ListOfCaches\Column_CacheLastLog;
+use src\Models\ChunkModels\ListOfCaches\Column_CacheLog;
 use src\Models\ChunkModels\ListOfCaches\Column_CacheName;
 use src\Models\ChunkModels\ListOfCaches\Column_CacheTypeIcon;
 use src\Models\ChunkModels\ListOfCaches\Column_OnClickActionIcon;
@@ -41,6 +41,8 @@ class UserIgnoredCachesController extends BaseController
         }
 
         $this->view->setTemplate('userIgnoredCaches/userIgnoredCaches');
+        $this->view->addLocalCss('/css/lightTooltip.css');
+
         $this->view->loadJQuery();
 
         // find the number of ignored caches
@@ -62,7 +64,7 @@ class UserIgnoredCachesController extends BaseController
                         'cacheStatus' => $row['status'],
                     ];
                 }));
-            $model->addColumn(new Column_CacheLastLog(tr('usrIgnore_lastLogColumn'),
+            $model->addColumn(new Column_CacheLog(tr('usrIgnore_lastLogColumn'),
                 function($row){
                     return [
                         'logId'         => $row['llog_id'],

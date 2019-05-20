@@ -131,9 +131,14 @@ class MultiLogStats extends BaseObject
             "SELECT c.cache_id, c.type AS cacheType, c.status, c.wp_oc,
                     c.name, c.user_id AS cacheOwner, c.latitude, c.longitude,
                     cl.id, cl.user_id AS logAuthor, cl.text,
-                    cl.type, cl.date, cl.date_created
+                    cl.type, cl.date, cl.date_created, cr.user_id AS recom
             FROM cache_logs AS cl
-                STRAIGHT_JOIN caches AS c ON cl.cache_id = c.cache_id
+                STRAIGHT_JOIN caches AS c
+                    ON cl.cache_id = c.cache_id
+                LEFT JOIN cache_rating AS cr
+                    ON cr.cache_id = cl.cache_id
+                    AND cr.user_id = cl.user_id
+                    AND cl.type = 1
             WHERE cl.deleted = 0
                 AND c.status IN ($allowedCacheStatuses)
             ORDER BY  cl.date_created DESC
@@ -141,7 +146,6 @@ class MultiLogStats extends BaseObject
 
         return $db->dbResultFetchAll($stmt);
     }
-
 
     /**
      *

@@ -14,7 +14,7 @@ use src\Models\ChunkModels\PaginationModel;
 use src\Models\ChunkModels\ListOfCaches\Column_CacheName;
 use src\Models\ChunkModels\ListOfCaches\Column_CacheTypeIcon;
 use src\Models\ChunkModels\ListOfCaches\Column_UserName;
-use src\Models\ChunkModels\ListOfCaches\Column_CacheLastLog;
+use src\Models\ChunkModels\ListOfCaches\Column_CacheLog;
 use src\Models\ChunkModels\ListOfCaches\Column_SimpleText;
 use src\Utils\Text\Formatter;
 use src\Models\CacheSet\MultiGeopathsStats;
@@ -160,6 +160,7 @@ class CacheLogController extends BaseController
 
         $this->view->setTemplate('lastLogs/lastLogsList');
         $this->view->addLocalCss(Uri::getLinkWithModificationTime('/views/lastLogs/lastLogs.css'));
+        $this->view->addLocalCss('/css/lightTooltip.css');
 
         $this->view->loadJQuery();
 
@@ -225,25 +226,18 @@ class CacheLogController extends BaseController
                 ];
         }, "width30"));
 
-
-
-
-        $listModel->addColumn( new Column_UserName(tr('lastLogList_foundBy'), function($row) use($usernameDict){
-                return [
-                    'userId' => $row['logAuthor'],
-                    'userName'=> $usernameDict[$row['logAuthor']]
-                ];
-        },"width10"));
-
-        $listModel->addColumn( new Column_CacheLastLog(tr('lastLogList_logEntry'), function($row){
+        $logColumn = new Column_CacheLog(tr('lastLogList_logEntry'), function($row) use($usernameDict){
             return [
                 'logId' => $row['id'],
                 'logType' => $row['type'],
                 'logText' => $row['text'],
-                'logUserName' => null,
-                'logDate' => $row['date']
+                'logUserName' => $usernameDict[$row['logAuthor']],
+                'logDate' => $row['date'],
+                'recommended' => $row['recom']
             ];
-        }));
+        });
+        $logColumn->showFullLogText();
+        $listModel->addColumn($logColumn);
 
         $listModel->setPaginationModel($paginationModel);
 
