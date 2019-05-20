@@ -2186,7 +2186,6 @@ $translations = array(
     'lastLogList_geocacheName' => 'crwdns26922:0crwdne26922:0',
     'lastLogList_foundBy' => 'crwdns26928:0crwdne26928:0',
     'lastLogList_logEntry' => 'crwdns26926:0crwdne26926:0',
-    'lastLogList_logCreationDate' => 'crwdns26930:0crwdne26930:0',
 
     'logbook_01' => 'crwdns7793:0crwdne7793:0',
     'logbook_02' => 'crwdns7794:0crwdne7794:0',
@@ -2988,5 +2987,13 @@ $translations = array(
     'gp_logoUpdateTitle' => 'crwdns26868:0crwdne26868:0',
     'gp_logoUpdateInfo' => 'crwdns26870:0crwdne26870:0'.
                            'crwdns26872:0crwdne26872:0',
+
+    'SmartPhone_Apps' => 'crwdns26932:0crwdne26932:0',
+    'SmartPhone_Support' => 'crwdns26934:0crwdne26934:0',
+    'SmartPhone_GPX' => 'crwdns26936:0crwdne26936:0',
+    'SmartPhone_Tools' => 'crwdns26938:0crwdne26938:0',
+    'SmartPhone_Android' => 'crwdns26940:0crwdne26940:0',
+    'SmartPhone_Iphone' => 'crwdns26942:0crwdne26942:0',
+    'SmartPhone_Windows' => 'crwdns26944:0crwdne26944:0',
 
 );
