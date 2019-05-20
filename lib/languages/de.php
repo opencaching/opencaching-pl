@@ -2992,7 +2992,7 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
 
     'SmartPhone_Apps' => 'Smartphone-Apps',
     'SmartPhone_Support' => 'Diese Smartphone-Apps bieten eine volle Live-Unterstützung für Opencaching:',
-    'SmartPhone_GPX' => 'Additionally, you can import our .GPX files to these Smartphone Apps:',
+    'SmartPhone_GPX' => 'Außerdem kannst du unsere GPX-Dateien mit folgende Smartphone-Apps verwenden:',
     'SmartPhone_Tools' => 'Tools für Opencaching:',
     'SmartPhone_Android' => 'Für Android',
     'SmartPhone_Iphone' => 'Für iPhone',
