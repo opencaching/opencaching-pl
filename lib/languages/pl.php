@@ -2186,7 +2186,7 @@ $translations = array(
     'lastLogList_geocacheName' => 'Nazwa skrzynki',
     'lastLogList_foundBy' => 'Logi według użytkownika',
     'lastLogList_logEntry' => 'Wpis do logu',
-    'lastLogList_logCreationDate' => 'Log created',
+    'lastLogList_logCreationDate' => 'Logowanie',
 
     'logbook_01' => 'Podgląd dziennik',
     'logbook_02' => 'Rodzaj',
