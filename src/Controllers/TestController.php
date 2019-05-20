@@ -23,6 +23,9 @@ use src\Utils\Uri\OcCookie;
 use src\Utils\FileSystem\FileUploadMgr;
 use src\Models\OcConfig\OcConfig;
 use src\Utils\Uri\SimpleRouter;
+use src\Models\Coordinates\Coordinates;
+use src\Models\Coordinates\Altitude;
+use src\Controllers\Cron\Jobs\AltitudeUpdateJob;
 
 class TestController extends BaseController
 {
@@ -445,5 +448,20 @@ class TestController extends BaseController
 
         $link = SimpleRouter::getLink(self::class, 'routerTester',[$arg1, $arg2]);
         echo "<a href='$link'>GO</a>";
+    }
+
+    public function altitudeTest($lat=null, $lon=null)
+    {
+        if(!$lat){
+            $lat = 54;
+        }
+        if(!$lon){
+            $lon = 18;
+        }
+
+        $coords = Coordinates::FromCoordsFactory($lat, $lon);
+        $altitude = Altitude::getAltitude($coords);
+        d($coords);
+        d($altitude);
     }
 }

@@ -1612,10 +1612,6 @@ class GeoCache extends GeoCacheCommons
     {
         $oldAltitude = $this->getAltitude();
 
-        if (is_null($newAltitude)) {
-            $newAltitude = Altitude::getAltitude($this->getCoordinates());
-        }
-
         if ($oldAltitude != $newAltitude) {
             $this->cacheAddtitions->updateAltitude($newAltitude);
         }
