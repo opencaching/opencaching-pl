@@ -2186,7 +2186,6 @@ $translations = array(
     'lastLogList_geocacheName' => 'Geocache name',
     'lastLogList_foundBy' => 'Logs by user',
     'lastLogList_logEntry' => 'Log entry',
-    'lastLogList_logCreationDate' => 'Log created',
 
     'logbook_01' => 'Logbook preview',
     'logbook_02' => 'Type',
@@ -2988,5 +2987,13 @@ $translations = array(
     'gp_logoUpdateTitle' => 'Geopath logo upload',
     'gp_logoUpdateInfo' => 'Upload file which will be used as geopath logo. '.
                            'Don\'t forget that you need to have copyrights to uploaded file.',
+
+    'SmartPhone_Apps' => 'Smartphone Apps',
+    'SmartPhone_Support' => 'These Smartphone Geocaching Apps offer full live support for Opencaching:',
+    'SmartPhone_GPX' => 'Additionally, you can send our .GPX files to these Smartphone Apps:',
+    'SmartPhone_Tools' => 'Tools for Opencaching:',
+    'SmartPhone_Android' => 'For Android',
+    'SmartPhone_Iphone' => 'For iphone',
+    'SmartPhone_Windows' => 'For Windows Phone',
 
 );
