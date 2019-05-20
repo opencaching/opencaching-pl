@@ -2992,9 +2992,9 @@ $translations = array(
     'SmartPhone_Apps' => 'Smartphone Apps',
     'SmartPhone_Support' => 'These Smartphone Geocaching Apps offer full live support for Opencaching:',
     'SmartPhone_GPX' => 'Additionally, you can send our .GPX files to these Smartphone Apps:',
-    'SmartPhone_Tools' => 'Tools for Opencaching:',
-    'SmartPhone_Android' => 'For Android',
-    'SmartPhone_Iphone' => 'For iphone',
-    'SmartPhone_Windows' => 'For Windows Phone',
+    'SmartPhone_Tools' => 'Narzędzia dla Opencachingu:',
+    'SmartPhone_Android' => 'Dla Androida',
+    'SmartPhone_Iphone' => 'Dla iPhona',
+    'SmartPhone_Windows' => 'Dla Windows Phone',
 
 );
