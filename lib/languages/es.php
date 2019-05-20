@@ -2989,4 +2989,12 @@ $translations = array(
     'gp_logoUpdateInfo' => 'Upload file which will be used as geopath logo. '.
                            'Don\'t forget that you need to have copyrights to uploaded file.',
 
+    'SmartPhone_Apps' => 'Smartphone Apps',
+    'SmartPhone_Support' => 'These Smartphone Geocaching Apps offer full live support for Opencaching:',
+    'SmartPhone_GPX' => 'Additionally, you can import our .GPX files to these Smartphone Apps:',
+    'SmartPhone_Tools' => 'Tools for Opencaching:',
+    'SmartPhone_Android' => 'For Android',
+    'SmartPhone_Iphone' => 'For iphone',
+    'SmartPhone_Windows' => 'For Windows Phone',
+
 );

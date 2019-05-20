@@ -2186,7 +2186,7 @@ $translations = array(
     'lastLogList_geocacheName' => 'Nazwa skrzynki',
     'lastLogList_foundBy' => 'Logi według użytkownika',
     'lastLogList_logEntry' => 'Wpis do logu',
-    'lastLogList_logCreationDate' => 'Log created',
+    'lastLogList_logCreationDate' => 'Logowanie',
 
     'logbook_01' => 'Podgląd dziennik',
     'logbook_02' => 'Rodzaj',
@@ -2988,5 +2988,13 @@ $translations = array(
     'gp_logoUpdateTitle' => 'Nowe logo geościeżki',
     'gp_logoUpdateInfo' => 'Prześlij nowe logo geościeżki. '.
                            'Pamiętaj! Nie przesyłaj do serwisu plików do których nie posiadasz praw autorskich lub zgody właściciela na ich użycie.',
+
+    'SmartPhone_Apps' => 'Aplikacje na smartfony',
+    'SmartPhone_Support' => 'These Smartphone Geocaching Apps offer full live support for Opencaching:',
+    'SmartPhone_GPX' => 'Additionally, you can import our .GPX files to these Smartphone Apps:',
+    'SmartPhone_Tools' => 'Narzędzia dla Opencachingu:',
+    'SmartPhone_Android' => 'Dla Androida',
+    'SmartPhone_Iphone' => 'Dla iPhona',
+    'SmartPhone_Windows' => 'Dla Windows Phone',
 
 );

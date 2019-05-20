@@ -2990,4 +2990,12 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'gp_logoUpdateInfo' => 'Datei hochladen, die als Geopfad-Logo verwendet werden soll. '.
                            'Beachte bitte das Urheberrecht. Du musst zum Veröffentlichen der Datei berechtigt sein.',
 
+    'SmartPhone_Apps' => 'Smartphone-Apps',
+    'SmartPhone_Support' => 'Diese Smartphone-Apps bieten eine volle Live-Unterstützung für Opencaching:',
+    'SmartPhone_GPX' => 'Außerdem kannst du unsere GPX-Dateien mit folgende Smartphone-Apps verwenden:',
+    'SmartPhone_Tools' => 'Tools für Opencaching:',
+    'SmartPhone_Android' => 'Für Android',
+    'SmartPhone_Iphone' => 'Für iPhone',
+    'SmartPhone_Windows' => 'Für Windows Phone',
+
 );
