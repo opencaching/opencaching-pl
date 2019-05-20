@@ -2991,7 +2991,7 @@ $translations = array(
 
     'SmartPhone_Apps' => 'Aplikacje na smartfony',
     'SmartPhone_Support' => 'These Smartphone Geocaching Apps offer full live support for Opencaching:',
-    'SmartPhone_GPX' => 'Additionally, you can send our .GPX files to these Smartphone Apps:',
+    'SmartPhone_GPX' => 'Additionally, you can import our .GPX files to these Smartphone Apps:',
     'SmartPhone_Tools' => 'Narzędzia dla Opencachingu:',
     'SmartPhone_Android' => 'Dla Androida',
     'SmartPhone_Iphone' => 'Dla iPhona',
