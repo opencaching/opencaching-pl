@@ -2989,7 +2989,7 @@ $translations = array(
     'gp_logoUpdateInfo' => 'Prześlij nowe logo geościeżki. '.
                            'Pamiętaj! Nie przesyłaj do serwisu plików do których nie posiadasz praw autorskich lub zgody właściciela na ich użycie.',
 
-    'SmartPhone_Apps' => 'Smartphone Apps',
+    'SmartPhone_Apps' => 'Aplikacje na smartfony',
     'SmartPhone_Support' => 'These Smartphone Geocaching Apps offer full live support for Opencaching:',
     'SmartPhone_GPX' => 'Additionally, you can send our .GPX files to these Smartphone Apps:',
     'SmartPhone_Tools' => 'Narzędzia dla Opencachingu:',
