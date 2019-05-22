@@ -5,6 +5,8 @@
 namespace src\Models\Coordinates;
 
 
+use src\Utils\Debug\Debug;
+
 class Altitude
 {
     /**
@@ -104,6 +106,10 @@ class Altitude
         if(!empty($data) && isset($data[0]->statistics) && isset($data[0]->statistics->elevation)){
             $stats = $data[0]->statistics->elevation;
             if($stats->units == 'meters'){
+                if (!is_numeric($stats->value)) {
+                    Debug::errorLog("External service: datasciencetoolkit returns unexpected" .
+                                    " non numeric value for coords: $coords->getAsText()?!");
+                }
                 return $stats->value;
             }
         }
