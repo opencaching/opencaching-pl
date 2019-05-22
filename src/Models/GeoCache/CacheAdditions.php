@@ -72,18 +72,12 @@ class CacheAdditions extends BaseObject
      */
     private function storeToDb()
     {
-        if(is_null($this->altitude)){
-            $altitude = 'NULL';
-        } else {
-            $altitude = $this->altitude;
-        }
-
         $this->db->multiVariableQuery(
             "INSERT INTO caches_additions
             (cache_id, altitude)
             VALUES (:1, :2)
-            ON DUPLICATE KEY UPDATE cache_id = VALUES(cache_id),
-            altitude = VALUES(altitude)", $this->cacheId, $altitude);
+            ON DUPLICATE KEY UPDATE cache_id = VALUES(cache_id), altitude = VALUES(altitude)",
+            $this->cacheId, $this->altitude);
     }
 
 }
