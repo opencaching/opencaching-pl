@@ -19,7 +19,7 @@
 
 $cronjobs['schedule'] = [
     'GeoKretyDbQueueJob'    => 'every 10 minutes',
-  //  'AltitudeUpdateJob'     => 'every 15 minutes', tmp. disable 
+    'AltitudeUpdateJob'     => 'every 15 minutes',
     'PublishCachesJob'      => 'hourly at :00',
     'WatchlistNotifyJob'    => 'hourly at :05',
     'NewCachesNotifyJob'    => 'hourly at :10',
