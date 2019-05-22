@@ -143,9 +143,10 @@ class MobileCacheMove extends BaseObject
         }
 
         if ($lastMove) {
-            // update cache coords if last if necessary
+            // update cache coords if last (if necessary)
             if (!$cache->getCoordinates()->areSameAs($lastMove->coordinates)) {
                 $cache->updateCoordinates($lastMove->coordinates);
+                $cache->updateAltitude(); // reset altitude of the position
             }
         }
     }

@@ -743,7 +743,7 @@ if (isset($_POST['submitform'])) {
 
         /* add cache altitude */
         $geoCache = Geocache::fromCacheIdFactory($cache_id);
-        //$geoCache->updateAltitude(); //temporary disable - external service does't work...
+        $geoCache->updateAltitude();
 
         // only if no approval is needed and cache is published NOW or activate_date is in the past
         if (! $needs_approvement && ($publish == 'now' || ($publish == 'later' && mktime($activate_hour, 0, 0, $activate_month, $activate_day, $activate_year) <= $today))) {

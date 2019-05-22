@@ -291,53 +291,6 @@ class powerTrailBase{
         return $db->dbResultFetchOneRowOnly($s);
     }
 
-    public static function getCachePoints($cacheData){
-        $typePoints = self::cacheTypePoints();
-        $sizePoints = self::cacheSizePoints();
-        $typePoints = $typePoints[$cacheData['type']];
-        $sizePoints = $sizePoints[$cacheData['size']];
-
-        $altitude = Altitude::getAltitude(
-            Coordinates::FromCoordsFactory($cacheData['latitude'], $cacheData['longitude']));
-
-        $altitude = round($altitude);
-        if ($altitude <= 400){
-            $altPoints = 1;
-        } else {
-            $altPoints = 1+($altitude-400)/200 ;
-        }
-        $difficPoint = round($cacheData['difficulty']/3,2);
-        $terrainPoints = round($cacheData['terrain']/3,2);
-        return ($altPoints + $typePoints + $sizePoints + $difficPoint + $terrainPoints);
-    }
-
-
-    public static function recalculateCenterAndPoints($caches){
-        $points = 0;
-        $lat = 0;
-        $lon = 0;
-        $counter = 0;
-        foreach ($caches as $cache){
-            $points += self::getCachePoints($cache);
-            $lat += $cache['latitude'];
-            $lon += $cache['longitude'];
-            $counter++;
-        }
-
-        $result = [];
-        if($counter>0){
-            $result['avgLat'] = $lat/$counter;
-            $result['avgLon'] = $lon/$counter;
-        } else {
-            $result['avgLat'] = 0;
-            $result['avgLon'] = 0;
-        }
-        $result['points'] = $points;
-        $result['cacheCount'] = $counter;
-        return $result;
-    }
-
-
     public static function getPtCaches($PtId){
         $db = OcDb::instance();
         $q = 'SELECT powerTrail_caches.isFinal, caches . * , user.username FROM  `caches` , user, powerTrail_caches WHERE cache_id IN ( SELECT  `cacheId` FROM  `powerTrail_caches`

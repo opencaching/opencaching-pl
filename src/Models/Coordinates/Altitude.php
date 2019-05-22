@@ -5,6 +5,8 @@
 namespace src\Models\Coordinates;
 
 
+use src\Utils\Debug\Debug;
+
 class Altitude
 {
     /**
@@ -15,12 +17,12 @@ class Altitude
      */
     public static function getAltitude(Coordinates $coords)
     {
-        // use OpenElevation service by default
-        return round(self::getAltitudeFromOpenElevation($coords));
-        //return round(self::getAltitudeFromGoogle($coords));
+        return self::getAltitudeFromDataScienceToolkit($coords);
     }
 
     /**
+     * Google API is now PAID and OC code can't use it
+     *
      * Retrivet altitude from Google elevaton service
      *
      * @param Coordinates $coords
@@ -49,6 +51,8 @@ class Altitude
     }
 
     /**
+     * OPEN-ELEVATION doesn't work now (and it seems it will not work)!
+     *
      * Retrive altitude data from open-elevation.com service
      * This service is free to use.
      *
@@ -68,6 +72,45 @@ class Altitude
                 if(isset($data->results[0]->elevation)){
                     return $data->results[0]->elevation;
                 }
+            }
+        }
+
+        return null;
+    }
+
+    private static function getAltitudeFromDataScienceToolkit(Coordinates $coords)
+    {
+        $url = "http://www.datasciencetoolkit.org/coordinates2statistics/" .
+                        "{$coords->getLatitude()},{$coords->getLongitude()}?statistics=elevation";
+
+        $resp = @file_get_contents($url);
+        $data = json_decode($resp);
+        /*
+         [
+          {
+            "location": {
+              "latitude": 37.769456,
+              "longitude": -122.429128
+            },
+            "statistics": {
+              "elevation": {
+                "units": "meters",
+                "value": 40,
+                "source_name": "NASA and the CGIAR Consortium for Spatial Information",
+                "description": "The height of the surface above sea level at this point."
+              }
+            }
+          }
+        ]
+         */
+        if(!empty($data) && isset($data[0]->statistics) && isset($data[0]->statistics->elevation)){
+            $stats = $data[0]->statistics->elevation;
+            if($stats->units == 'meters'){
+                if (!is_numeric($stats->value)) {
+                    Debug::errorLog("External service: datasciencetoolkit returns unexpected" .
+                                    " non numeric value for coords: $coords->getAsText()?!");
+                }
+                return $stats->value;
             }
         }
 

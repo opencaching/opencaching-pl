@@ -161,8 +161,6 @@ class MultiCacheStats extends BaseObject
 
     }
 
-
-
     /**
      * Return array of Geocaches based on given cache Ids
      * @param array $cacheIds
@@ -215,4 +213,5 @@ class MultiCacheStats extends BaseObject
             return GeoCache::fromCacheIdFactory($row['cache_id']);
         });
     }
+
 }

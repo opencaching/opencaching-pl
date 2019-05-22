@@ -41,6 +41,18 @@ class CacheAdditions extends BaseObject
     }
 
     /**
+     * Return cacheId without altitude or NULL if there is no such reords
+     */
+    public static function getRandomCacheIdWithoutAltitude()
+    {
+        return self::db()->simpleQueryValue(
+            "SELECT cache_id FROM caches_additions
+             WHERE altitude IS NULL
+             ORDER BY RAND()
+             LIMIT 1", null);
+    }
+
+    /**
      * Load local data from DB
      */
     private function loadFromDb()
@@ -64,7 +76,8 @@ class CacheAdditions extends BaseObject
             "INSERT INTO caches_additions
             (cache_id, altitude)
             VALUES (:1, :2)
-            ON DUPLICATE KEY UPDATE cache_id = VALUES(cache_id),
-            altitude = VALUES(altitude)", $this->cacheId, $this->altitude);
+            ON DUPLICATE KEY UPDATE cache_id = VALUES(cache_id), altitude = VALUES(altitude)",
+            $this->cacheId, $this->altitude);
     }
+
 }
