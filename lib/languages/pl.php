@@ -2990,8 +2990,8 @@ $translations = array(
                            'Pamiętaj! Nie przesyłaj do serwisu plików do których nie posiadasz praw autorskich lub zgody właściciela na ich użycie.',
 
     'SmartPhone_Apps' => 'Aplikacje na smartfony',
-    'SmartPhone_Support' => 'These Smartphone Geocaching Apps offer full live support for Opencaching:',
-    'SmartPhone_GPX' => 'Additionally, you can import our .GPX files to these Smartphone Apps:',
+    'SmartPhone_Support' => 'Te aplikacje Geocaching na smartfony oferują pełną obsługę Opencaching w czasie rzeczywistym:',
+    'SmartPhone_GPX' => 'Dodatkowo, możesz importować nasze pliki .GPX do aplikacji na smartfony:',
     'SmartPhone_Tools' => 'Narzędzia dla Opencachingu:',
     'SmartPhone_Android' => 'Dla Androida',
     'SmartPhone_Iphone' => 'Dla iPhona',
