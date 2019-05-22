@@ -463,14 +463,19 @@ class CacheSet extends CacheSetCommon
         $this->addActionLogEntry(self::ACTIONLOG_REMOVE_CACHE, $cache->getCacheId());
     }
 
+    /**
+     * Update the number of geocaches assigned to this geopath
+     */
     public function updateCachesCount()
     {
+        $this->cacheCount = $this->db->multiVariableQueryValue(
+            "SELECT COUNT(*) FROM powerTrail_caches WHERE PowerTrailId = :1", 0, $this->id);
+
         // update caches count
         $this->db->multiVariableQuery(
-            'UPDATE PowerTrail
-             SET cacheCount = ( SELECT COUNT(*) FROM powerTrail_caches WHERE PowerTrailId = :1 )
-             WHERE id = :2 LIMIT 1', $this->id, $this->id
-            );
+            'UPDATE PowerTrail SET cacheCount = :1 WHERE id = :2 LIMIT 1',
+            $this->cacheCount, $this->id);
+
     }
 
     public function addCacheCandidate(GeoCache $cache)
@@ -618,6 +623,12 @@ class CacheSet extends CacheSetCommon
                 centerLongitude = (calc.lon_sum / calc.count)
             WHERE id = :2',
             $this->id, $this->id);
+
+        $coords = $this->db->dbResultFetchOneRowOnly($this->db->multiVariableQuery(
+            "SELECT centerLatitude AS lat, centerLongitude AS lon
+             FROM PowerTrail WHERE id = :1 LIMIT 1", $this->id));
+
+        $this->centerCoordinates = Coordinates::FromCoordsFactory($coords['lat'], $coords['lon']);
     }
 
     public function updatePoints()

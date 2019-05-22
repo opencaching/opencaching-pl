@@ -229,6 +229,34 @@ class GeoPathController extends BaseController
             ['localizedMessage' => tr('gp_candidateProposalSaved')]);
     }
 
+
+    /**
+     * Allow geopath owner to update geopath: center point, points, caches count
+     *
+     * @param integer $geoPathId
+     */
+    public function refreshCachesNumberAjax ($geoPathId)
+    {
+        $this->checkUserLoggedAjax();
+
+        $geoPath = CacheSet::fromCacheSetIdFactory($geoPathId);
+        if(!$geoPath) {
+            $this->ajaxErrorResponse("No such geoPath!", self::HTTP_STATUS_NOT_FOUND);
+        }
+
+        if(!$geoPath->isOwner($this->loggedUser)){
+            $this->ajaxErrorResponse("Logged user is not a geopath owner!", self::HTTP_STATUS_FORBIDEN);
+        }
+
+        // recalculate Center adn Points
+        $geoPath->recalculateCenterPoint();
+        $geoPath->updatePoints();
+        $geoPath->updateCachesCount();
+
+        $this->ajaxSuccessResponse("Caches number, points and center point updated.",
+            ['newCachesCount' => $geoPath->getCacheCount()]);
+    }
+
     /**
      * This method is added temporary to cover old-style links
      * (called only from script confirmCacheCandidate.php
@@ -295,4 +323,5 @@ class GeoPathController extends BaseController
 
         $this->view->redirect($geoPath->getUrl());
     }
+
 }

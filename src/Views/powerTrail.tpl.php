@@ -1101,34 +1101,38 @@
     }
 
     var request;
-            function ajaxCountPtCaches(ptId) {
-            $('#ajaxLoaderCacheCount').show();
-                    $('#cacheCountUserActions').hide();
-                    request = $.ajax({
-                    url: "powerTrail/ajaxCachePtCount.php",
-                            type: "post",
-                            data:{projectId: ptId},
-                    });
-                    // callback handler that will be called on success
-                    request.done(function (response, textStatus, jqXHR){
-                    $('#powerTrailCacheCount').html(response);
-                            $('#cCountOKimg').fadeIn(500);
-                            $(function() {
-                            setTimeout(function() {
-                            $("#cCountOKimg").fadeOut(1000)
-                            }, 3000);
-                            });
-                            console.log("clickShow: " + response);
-                    });
-                    request.fail(function (jqXHR, textStatus, errorThrown){
-                    console.error("The following error occured: " + textStatus, errorThrown);
-                    });
-                    request.always(function () {
-                    $('#ajaxLoaderCacheCount').hide();
-                            $('#cacheCountUserActions').show();
-                    });
-                    return false;
-            }
+    function ajaxCountPtCaches(ptId) {
+        $('#ajaxLoaderCacheCount').show();
+        $('#cacheCountUserActions').hide();
+
+        request = $.ajax({
+            url: "/geoPath/refreshCachesNumberAjax/"+ptId,
+            type: "get"
+        });
+
+        // callback handler that will be called on success
+        request.done(function (response, textStatus, jqXHR){
+          $('#powerTrailCacheCount').html(response);
+          $('#cCountOKimg').fadeIn(500);
+          $(function() {
+            setTimeout(function() {
+              $("#cCountOKimg").fadeOut(1000)
+            }, 3000);
+          });
+          console.log("Cache count updated: ", response);
+        });
+
+        request.fail(function (jqXHR, textStatus, errorThrown) {
+          console.error("The following error occured: " + textStatus, errorThrown);
+        });
+
+        request.always(function () {
+          $('#ajaxLoaderCacheCount').hide();
+          $('#cacheCountUserActions').show();
+        });
+
+        return false;
+    }
 
     function ajaxAddCacheToPT(cacheId) {
         console.log("ajaxAddCacheToPT");
