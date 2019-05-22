@@ -1,7 +1,6 @@
 <?php
 
-namespace src\Controllers\Cron\Jobs;
-
+use src\Controllers\Cron\Jobs\Job;
 use src\Models\Coordinates\Altitude;
 use src\Models\GeoCache\CacheAdditions;
 use src\Models\GeoCache\GeoCache;
