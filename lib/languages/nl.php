@@ -897,7 +897,7 @@ $translations = array(
     'myprofile01' => 'Een gebruiker kan zich afmelden voor het gebruik van deze site. Hiermee zullen alle opgegeven gegevens tijdens de registratie en de gebruikersomschrijving verwijderd worden. Neem contact met ons op om je account te deactiveren via een e-mail. In onduidelijke gevallen neem contact op via <a href="/articles.php?page=contact">contact ons</a>. Bedankt.',
     'myprofile02' => 'Ja, ik heb mij aangemeld als vrijwillige hulp voor beginnende cachers. Zie:&nbsp;',
     'myprofile03' => 'Cache hulp',
-    'myprofile04' => 'Ja, ik wil mij aanmelden als vrijwillige hulp voor beginnende cachers.',
+    'myprofile04' => 'Ja, ik wil mij aanmelden als vrijwillige hulp voor beginnende cachers',
     'myprofile05' => 'Zie meer op pagina',
     'em00' => 'E-mail adres veranderen',
     'em01' => 'Om het e-mail adres te veranderen, moet je eerst een veiligheidscode opvragen die naar je nieuwe e-mail adres verstuurd wordt',
