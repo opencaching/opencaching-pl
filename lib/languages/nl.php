@@ -1833,8 +1833,8 @@ $translations = array(
     'pt239' => 'Status veranderd!',
     'pt240' => 'Kan deze GeoPath niet openen!',
     'pt241' => 'Geen rechten om status te veranderen!',
-    'pt242' => 'Verbergen mijn eigen',
-    'pt243' => 'Verbergen opgedaan',
+    'pt242' => 'Verberg mijn GeoPath',
+    'pt243' => 'Verberg voltooide',
     'pt244' => 'Geblokkeerd door OC Team',
 
     'gp_candidateIntro' => 'stelde voor om je geweldige geocache toe te voegen',
