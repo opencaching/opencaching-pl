@@ -2,7 +2,7 @@
 
 ### What is a database update?
 
-A database update is a script in the [Utils/Database/Updates](https://github.com/opencaching/opencaching-pl/tree/master/Utils/Database/Updates)
+A database update is a script in the [src/Utils/Database/Updates](https://github.com/opencaching/opencaching-pl/tree/master/src/Utils/Database/Updates)
 directory, which will change database structure or content. Database updates
 are maintained on the *Admin.DbUpdate* page, which is linked in the *sys* menu.
 
@@ -23,7 +23,7 @@ however the run order of those updates will be undefinied.
 - Hit the *Create new update* button. A new DB update will appear at the top of the list.
 - Click the *[rename]* link to give some descriptive name to the new DB update.
     You may also change its number, if there is any reason to do that.
-- Edit the new update script file, which is located in *Utils/Database/Updates*.
+- Edit the new update script file, which is located in *src/Utils/Database/Updates*.
     Follow the instructions given there.
 - Run/test it.
 - Commit the new DB update with your code.
@@ -32,12 +32,12 @@ however the run order of those updates will be undefinied.
 In the update script you may either use special OcDb methods like
 `createIndexIfNotExists()`, or run plain SQL code via `simpleQuery()` etc.
 Whatever fits your purpose. For the special OcDb methods, there are usage examples
-in [100_init.php](https://github.com/opencaching/opencaching-pl/blob/master/Utils/Database/Updates/100_init.php).
+in [100_init.php](https://github.com/opencaching/opencaching-pl/blob/master/src/Utils/Database/Updates/100_init.php).
 
 IMPORTANT: You can output diangostic information from your update by "echo",
 "print", "printf" etc. This information will by shown when running updates
 manually. As the update views are PUBLIC
-[why?](https://github.com/opencaching/opencaching-pl/pull/1923), you MUST NOT
+([why?](https://github.com/opencaching/opencaching-pl/pull/1923)), you MUST NOT
 output any sensitive data.
 
 ### Types of database updates
@@ -138,13 +138,13 @@ then it must be safe to run those updates in all of these orders:
 ### DB routines (triggers, procedures and functions)
 
 All routine definitions are in
-[Utils/Database/routines](https://github.com/opencaching/opencaching-pl/tree/master/Utils/Database/routines).
+[resources/sql/routines](https://github.com/opencaching/opencaching-pl/tree/master/resources/sql/routines).
 When one of these files has changed, it will automatically be executed on the
 production sites with next code deployment. On developer sites, use the
 *Run updates* button on the [Admin.DbUpdate](http://local.opencaching.pl/Admin.DbUpdate) page.
 
 The routine updates will run AFTER all other database updates (Why? See
-[DbUpdates](https://github.com/opencaching/opencaching-pl/tree/master/Utils/Database/DbUpdates.php)::run).
+[UpdateController](https://github.com/opencaching/opencaching-pl/tree/master/src/Controllers/UpdateController.php)::runOcDatabaseUpdate).
 So if some new routine is needed to run a new DB update, you additionally have
 to define the routine inside the DB update.
 
