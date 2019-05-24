@@ -173,4 +173,18 @@ class NutsLocation extends BaseObject
             "SELECT name FROM nuts_codes WHERE code= :1 LIMIT 1", 'Unknown?', $code);
     }
 
+    /**
+     * Returns list of the regions by given country code
+     *
+     * @param string $countryCode
+     */
+    public static function getRegionsListByCountryCode($countryCode)
+    {
+        $countryCode .= '__'; // add sql wildcard (two letters)
+        $db = self::db();
+        return $db->dbResultFetchAll($db->multiVariableQuery (
+            "SELECT code, name FROM nuts_codes
+             WHERE code LIKE :1
+             ORDER BY name ASC", $countryCode));
+    }
 }

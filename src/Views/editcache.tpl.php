@@ -26,21 +26,35 @@
         var hidden_a_c = document.getElementById('any_changes');
         hidden_a_c.value = "yes";
         //alert ('Change!');
-
     }
-    ;
+
     function chkcountry2() {
         $('#region1').hide();
         $('#regionAjaxLoader').show();
+
         request = $.ajax({
-            url: "ajaxGetRegionsByCountryCode.php",
-            type: "post",
-            data: {countryCode: $('#country').val(), selectedRegion: '{cache_region}'},
+          url: "/Location/getRegionsByCountryCodeAjax/"+$('#country').val(),
+          type: "get",
         });
+
         // callback handler that will be called on success
         request.done(function (response, textStatus, jqXHR) {
-            $('#region1').html(response);
+            var select = $('#region1');
+            select.empty();
+            if(response.regions.length == 0){
+              select.append('<option value="-1" disabled selected="selected">-</option>');
+            } else {
+                select.append('<option value="0" selected="selected"><?=tr('search01')?></option>');
+                response.regions.forEach(function(element) {
+                  if ( element.code == '{sel_region}') {
+                    select.append('<option selected="selected" value="'+element.code+'">'+element.name+'</option>')
+                  } else {
+                    select.append('<option value="'+element.code+'">'+element.name+'</option>')
+                  }
+                });
+            }
         });
+
         request.always(function () {
             $('#regionAjaxLoader').hide();
             $('#region1').fadeIn(1000);

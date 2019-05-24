@@ -27,4 +27,13 @@ class Countries
             return json_decode($allCountriesStr);
         });
     }
+
+    /**
+     * Returns true if country code is on the list of countries
+     * @param string $countryCode
+     */
+    public static function isKnownCountryCode($countryCode)
+    {
+        return array_search($countryCode, self::getCountriesList());
+    }
 }
