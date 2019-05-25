@@ -150,6 +150,21 @@ class NutsLocation extends BaseObject
         $this->names[$level] = $name;
     }
 
+    public function getDataTable()
+    {
+        return [
+            'adm1' => $this->getName(NutsLocation::LEVEL_COUNTRY),
+            'adm2' => $this->getName(NutsLocation::LEVEL_1),
+            'adm3' => $this->getName(NutsLocation::LEVEL_2),
+            'adm4' => $this->getName(NutsLocation::LEVEL_3),
+
+            'code1' => $this->getCode(NutsLocation::LEVEL_COUNTRY),
+            'code2' => $this->getCode(NutsLocation::LEVEL_1),
+            'code3' => $this->getCode(NutsLocation::LEVEL_2),
+            'code4' => $this->getCode(NutsLocation::LEVEL_3),
+        ];
+    }
+
     /**
      * This function check if given code is a proper NUTS code in the OC db
      *

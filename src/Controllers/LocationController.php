@@ -2,6 +2,7 @@
 
 namespace src\Controllers;
 
+use src\Models\Coordinates\Coordinates;
 use src\Models\Coordinates\NutsLocation;
 use src\Utils\Gis\Countries;
 
@@ -36,6 +37,21 @@ class LocationController extends BaseController
         $regions = NutsLocation::getRegionsListByCountryCode($countryCode);
 
         $this->ajaxSuccessResponse("Countries", ['regions' => $regions]);
+    }
+
+    public function getRegionsByLocation($lat, $lon)
+    {
+        $this->checkUserLoggedAjax();
+        $coords = Coordinates::FromCoordsFactory($lat, $lon);
+        if (!$coords) {
+            $this->ajaxErrorResponse("Improper coords!");
+        }
+
+        $nutsLocation = NutsLocation::fromCoordsFactory($coords);
+
+        $this->ajaxSuccessResponse("Location based on coords.",
+            ['locationTable' => $nutsLocation->getDataTable()]);
+
     }
 
 
