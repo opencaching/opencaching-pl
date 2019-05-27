@@ -28,7 +28,7 @@ class AltitudeUpdateJob extends Job
 
             $coords = $geocache->getCoordinates();
             $altitude = Altitude::getAltitude($coords);
-            if(!$altitude){
+            if(is_null($altitude)){
                 Debug::errorLog("Can't find altitude for geocache (cacheId=$cacheId, coords={$coords->getAsText()})");
                 continue;
             }
