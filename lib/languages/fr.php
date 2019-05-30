@@ -1296,6 +1296,7 @@ $translations = array(
     'benelux_outside' => 'En dehors du BeNeLux',
     'romania_outside' => 'En dehors de la Roumanie',
     'uk_outside' => 'En dehors du Royaume-Uni.',
+    'us_outside' => 'Outside USA / Canada',
     'dummy_outside' => "À l’étranger",
     'index_01' => 'Classement des caches par l’indice calculé',
     'index_02' => 'La liste suivante est générée automatiquement à partir de recommandations des utilisateurs. Les nombres dans la liste ci-dessous signifient :',

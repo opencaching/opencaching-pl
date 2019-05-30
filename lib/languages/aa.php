@@ -1296,6 +1296,7 @@ $translations = array(
     'benelux_outside' => 'crwdns6977:0crwdne6977:0',
     'romania_outside' => 'crwdns6978:0crwdne6978:0',
     'uk_outside' => 'crwdns6979:0crwdne6979:0',
+    'us_outside' => 'crwdns26950:0crwdne26950:0',
     'dummy_outside' => "crwdns6980:0crwdne6980:0",
     'index_01' => 'crwdns6981:0crwdne6981:0',
     'index_02' => 'crwdns6982:0crwdne6982:0',
