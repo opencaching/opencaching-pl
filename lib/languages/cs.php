@@ -1296,6 +1296,7 @@ $translations = array(
     'benelux_outside' => 'Mimo BeNeLux',
     'romania_outside' => 'Mimo Rumunsko',
     'uk_outside' => 'Outside the U.K.',
+    'us_outside' => 'Outside USA / Canada',
     'dummy_outside' => "Outside the country",
     'index_01' => 'Žebříček keší podle vypočteného indexu',
     'index_02' => 'Tento žebříček je vygenerovaný z uživatelských doporučení. Význam čísel v něm:',
