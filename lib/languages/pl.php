@@ -1296,6 +1296,7 @@ $translations = array(
     'benelux_outside' => 'poza krajami Benelux',
     'romania_outside' => 'Poza Rumunią',
     'uk_outside' => 'Poza U.K.',
+    'us_outside' => 'Outside USA / Canada',
     'dummy_outside' => "Poza granicami kraju",
     'index_01' => 'Ranking skrzynek według liczonego indeksu',
     'index_02' => 'Poniższy ranking jest generowany na podstawie rekomendacji użytkowników. Objaśnienie znaków:',
