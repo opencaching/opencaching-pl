@@ -1296,6 +1296,7 @@ $translations = array(
     'benelux_outside' => 'Außerhalb der BeNeLux',
     'romania_outside' => 'Außerhalb Rumäniens',
     'uk_outside' => 'Außerhalb Großbritanniens',
+    'us_outside' => 'Outside USA / Canada',
     'dummy_outside' => "Im Ausland",
     'index_01' => 'Berechneter Cacherang',
     'index_02' => 'Diese Liste wurde automatisch aus den Empfehlungen der Cachefinder berechnet. Die Zahlen in der Liste bedeuten:',
