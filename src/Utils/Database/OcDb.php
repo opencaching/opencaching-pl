@@ -567,12 +567,20 @@ class OcDb extends OcPdo
      */
     public static function quoteLimit($limit)
     {
+        if(is_null($limit)){
+            // nulled limit means that there is no limit
+            $limit = 'max';
+        }
         return self::quoteLimitNumber($limit);
     }
 
-    public static function quoteOffset($limit)
+    public static function quoteOffset($offset)
     {
-        return self::quoteLimitNumber($limit);
+        if (is_null($offset)) {
+            // nulled offset means that there is no offset
+            $offset = 0;
+        }
+        return self::quoteLimitNumber($offset);
     }
 
     /**
@@ -580,19 +588,15 @@ class OcDb extends OcPdo
      */
     private static function quoteLimitNumber($number)
     {
-        // We don't expect to ever reach > 1 billion rows in a table.
-        // Note that is somewhat less than PHP_INT_MAX/2.
-        $max = 1000000000;
-
-        if ($number === 'max' || $number >= $max) {
-            // 'max' is used by search.php.
-            return $max;
+        if ($number === 'max') {
+            // We don't expect to ever reach > 1 billion rows in a table.
+            // Note that is somewhat less than PHP_INT_MAX/2.
+            return 1000000000;
         }
         if ($number <= 0) {
             // This includes all non-numeric values. Previous implementation
             // returned 1000000000 for non_numeric limit, but that prevents
             // detection of some programming errors.
-
             return 0;
         }
 
