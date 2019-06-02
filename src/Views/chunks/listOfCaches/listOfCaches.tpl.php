@@ -37,15 +37,23 @@ return function (ListOfCachesModel $listModel){
     <?php } //if-display-header ?>
 
     <tbody>
-    <?php foreach ($listModel->getRows() as $row){ ?>
-        <tr>
-          <?php foreach ($listModel->getColumns() as /** @var AbstractColumn */ $column){ ?>
-            <td class="<?=$column->getCssClass()?> <?=$column->getAdditionalClass()?>">
-              <?=$column->callColumnChunk($row)?>
-            </td>
-          <?php } //foreach column ?>
-        </tr>
-    <?php } //foreach row?>
+        <?php if(!empty($listModel->getRows())) { ?>
+            <?php foreach ($listModel->getRows() as $row){ ?>
+                <tr>
+                  <?php foreach ($listModel->getColumns() as /** @var AbstractColumn */ $column){ ?>
+                    <td class="<?=$column->getCssClass()?> <?=$column->getAdditionalClass()?>">
+                      <?=$column->callColumnChunk($row)?>
+                    </td>
+                  <?php } //foreach column ?>
+                </tr>
+            <?php } //foreach row?>
+        <?php } else { // empty rows list ?>
+            <tr>
+                <td colspan="<?=count($listModel->getColumns())?>" class="center">
+                  <?=$listModel->getEmptyListMessage()?>.
+                </td>
+            </tr>
+        <?php } // empty rows list ?>
     </tbody>
 </table>
 

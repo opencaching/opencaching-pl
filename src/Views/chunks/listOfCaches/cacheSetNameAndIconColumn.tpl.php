@@ -7,7 +7,10 @@ use src\Models\CacheSet\CacheSet;
  * This is column with cache icon.
  * $date arg needs to contains:
  *
- * TODO...
+ * $row['type'] => '',
+ * $row['id'] => '',
+ * $row['name'] => '',
+ *
 */
 
 

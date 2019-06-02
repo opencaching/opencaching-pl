@@ -32,7 +32,7 @@ class ListOfCachesModel {
     private $paginationModel = null;
 
     private $displayHeader = true;
-
+    private $emptyListMessage = null;
 
     public function disableHeader(){
         $this->displayHeader = false;
@@ -66,5 +66,18 @@ class ListOfCachesModel {
 
     public function isHeaderEnabled(){
         return $this->displayHeader;
+    }
+
+    public function addEmptyListMessage($message)
+    {
+        $this->emptyListMessage = $message;
+    }
+
+    public function getEmptyListMessage()
+    {
+        if($this->emptyListMessage) {
+            return $this->emptyListMessage;
+        }
+        return tr('listOfCaches_defaultNoRowsMessage');
     }
 }

@@ -32,3 +32,56 @@ table.listOfCaches .column_cacheName_archived,
 table.listOfCaches .column_cacheName_archived:hover {
   color: rgba(75, 75, 75, 0.6);
 }
+
+table.listOfCaches .width5 {
+  width:5%;
+}
+
+table.listOfCaches .width10 {
+  width:10%;
+}
+
+table.listOfCaches .width15 {
+  width:15%;
+}
+
+table.listOfCaches .width20 {
+  width:20%;
+}
+
+table.listOfCaches .width25 {
+  width:25%;
+}
+
+table.listOfCaches .width30 {
+  width:30%;
+}
+
+table.listOfCaches .width35 {
+  width:35%;
+}
+
+table.listOfCaches .width40 {
+  width:40%;
+}
+
+table.listOfCaches .width45 {
+  width:45%;
+}
+
+table.listOfCaches .width50 {
+  width:50%;
+}
+
+table.listOfCaches .width55 {
+  width:55%;
+}
+
+table.listOfCaches .width60 {
+  width:60%;
+}
+
+table.listOfCaches .width65 {
+  width:65%;
+}
+

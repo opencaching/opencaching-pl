@@ -17,6 +17,7 @@ use src\Utils\Uri\Uri;
 use src\Models\OcConfig\OcConfig;
 use src\Utils\Email\EmailFormatter;
 use src\Utils\Email\Email;
+use src\Controllers\GeoPathController;
 
 class CacheSet extends CacheSetCommon
 {
@@ -75,7 +76,7 @@ class CacheSet extends CacheSetCommon
         return false;
     }
 
-    private function loadFromDbRow(array $dbRow)
+    public function loadFromDbRow(array $dbRow)
     {
         foreach ($dbRow as $key => $val) {
             switch ($key) {
@@ -480,24 +481,14 @@ class CacheSet extends CacheSetCommon
 
     public function addCacheCandidate(GeoCache $cache)
     {
-        $linkCode = TextGen::randomText(36);
-
-        $this->db->multiVariableQuery(
-            "INSERT INTO PowerTrail_cacheCandidate
-                (PowerTrailId, cacheId, link, date)
-             VALUES (:1, :2, :3, NOW())",
-            $this->id, $cache->getCacheId(), $linkCode);
+        GeopathCandidate::createNewCandidate($this, $cache);
 
         // send email with code to cache owner
-
         $candidateMessage = new EmailFormatter(
             Uri::getAbsServerPath('/resources/email/geopath/cacheCandidate.email.html'), true);
 
         $candidateMessage->setVariable('acceptUri',
-            SimpleRouter::getAbsLink('GeoPath', 'acceptCacheCandidate', [$this->id, $cache->getCacheId(), $linkCode]));
-
-        $candidateMessage->setVariable('cancelUri',
-            SimpleRouter::getAbsLink('GeoPath', 'cancelCacheCandidate', [$this->id, $cache->getCacheId(), $linkCode]));
+            SimpleRouter::getAbsLink(GeoPathController::class, 'myCandidates'));
 
         $candidateMessage->setVariable('gpOwner', $this->getCurrentUser()->getUserName());
         $candidateMessage->setVariable('gpOwnerUri', Uri::getAbsUri($this->getCurrentUser()->getProfileUrl()));

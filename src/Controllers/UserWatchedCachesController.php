@@ -144,7 +144,7 @@ class UserWatchedCachesController extends BaseController
             $model->addColumn(new Column_OnClickActionIcon(tr('usrWatch_actionRemove'),
                 function($row){
                     return [
-                        'icon' => 'images/log/16x16-trash.png',
+                        'icon' => '/images/log/16x16-trash.png',
                         'onClick' => "removeFromWatched(this, '".$row['wp_oc']."')",
                         'title' => tr('usrWatch_removeWatched')
                     ];

@@ -217,7 +217,7 @@ class CacheNotesController extends BaseController
 
         // fill caches data
         $cacheFields = ['cache_id', 'name', 'type', 'status', 'wp_oc'];
-        foreach ( MultiCacheStats::getGeocachesById($cacheIds, $cacheFields) as $c){
+        foreach ( MultiCacheStats::getGeocachesDataById($cacheIds, $cacheFields) as $c){
             foreach($cacheFields as $col){
                 $result[ $c['cache_id'] ][$col] = $c[$col];
             }

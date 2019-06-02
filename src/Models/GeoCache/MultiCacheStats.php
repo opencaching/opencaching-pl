@@ -165,7 +165,7 @@ class MultiCacheStats extends BaseObject
      * Return array of Geocaches based on given cache Ids
      * @param array $cacheIds
      */
-    public static function getGeocachesById(array $cacheIds, array $fieldsArr = null)
+    public static function getGeocachesDataById(array $cacheIds, array $fieldsArr = null)
     {
         if (empty($cacheIds)) {
             return [];
@@ -186,6 +186,29 @@ class MultiCacheStats extends BaseObject
             FROM caches WHERE cache_id IN ($cacheIdsStr)");
 
         return $db->dbResultFetchAll($rs);
+    }
+
+    public static function getGeocachesById(array $cacheIds)
+    {
+        if (empty($cacheIds)) {
+            return [];
+        }
+
+        $db = self::db();
+
+        $cacheIdsStr = implode(',', $cacheIds);
+        $limit = count($cacheIds);
+
+        $rs = $db->simpleQuery(
+            "SELECT * FROM caches WHERE cache_id IN ($cacheIdsStr) LIMIT $limit");
+
+        $result = [];
+        while($data = $db->dbResultFetch($rs)) {
+            $cache = new GeoCache();
+            $cache->loadFromRow($data);
+            $result[] = $cache;
+        }
+        return $result;
     }
 
     /**
