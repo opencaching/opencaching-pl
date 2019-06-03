@@ -9,6 +9,19 @@ use src\Models\CacheSet\GeopathLogoUploadModel;
 use src\Models\OcConfig\OcConfig;
 use src\Utils\Generators\Uuid;
 use src\Models\GeoCache\GeoCache;
+use src\Models\ChunkModels\ListOfCaches\ListOfCachesModel;
+use src\Models\ChunkModels\ListOfCaches\Column_GeoPathIcon;
+use src\Models\CacheSet\GeopathCandidate;
+use src\Models\ChunkModels\ListOfCaches\Column_CacheName;
+use src\Models\ChunkModels\ListOfCaches\Column_SimpleText;
+use src\Utils\Text\Formatter;
+use src\Models\ChunkModels\ListOfCaches\Column_CacheTypeIcon;
+use src\Models\ChunkModels\ListOfCaches\Column_OnClickActionIcon;
+use src\Models\ChunkModels\ListOfCaches\Column_CacheSetNameAndIcon;
+use src\Models\User\MultiUserQueries;
+use src\Models\ChunkModels\ListOfCaches\Column_UserName;
+use src\Models\ChunkModels\ListOfCaches\Column_ActionButton;
+use src\Models\ChunkModels\ListOfCaches\Column_ActionButtons;
 
 class GeoPathController extends BaseController
 {
@@ -324,4 +337,236 @@ class GeoPathController extends BaseController
         $this->view->redirect($geoPath->getUrl());
     }
 
+    public function cancelCacheCandidateAjax($candidateId)
+    {
+        $this->checkUserLoggedAjax();
+
+        // find candidate record
+        $candidate = GeopathCandidate::fromCandidateIdFactory($candidateId);
+        if(!$candidate){
+            $this->ajaxErrorResponse('No such candidate!');
+        }
+
+        // check if user is allowed to cancel offer (owner of geopath can cancel it)
+        $geopath = $candidate->getGeopath();
+        if(!$geopath->isOwner($this->loggedUser)) {
+            $this->ajaxErrorResponse('User is not owner of this geopath assign to offer!');
+        }
+
+        // everything is OK, cancle the candidate
+        $candidate->cancelOffer();
+        $this->ajaxSuccessResponse("Candidate offer canceled succesful.");
+    }
+
+    public function refuseCacheCandidateAjax($candidateId)
+    {
+        $this->checkUserLoggedAjax();
+
+        // find candidate record
+        $candidate = GeopathCandidate::fromCandidateIdFactory($candidateId);
+        if (!$candidate) {
+            $this->ajaxErrorResponse('No such candidate!');
+        }
+
+        // check if user is allowed to cancel offer (owner of geopath can cancel it)
+        $cache = $candidate->getGeoCache();
+        if ($cache->getOwnerId() != $this->loggedUser->getUserId()) {
+            $this->ajaxErrorResponse('User is not owner of this geocache assign to offer!');
+        }
+
+        $candidate->refuseOffer();
+        $this->ajaxSuccessResponse("Candidate offer refused succesful.");
+    }
+
+    public function acceptCacheCandidateAjax($candidateId)
+    {
+        $this->checkUserLoggedAjax();
+
+        // find candidate record
+        $candidate = GeopathCandidate::fromCandidateIdFactory($candidateId);
+        if (!$candidate) {
+            $this->ajaxErrorResponse('No such candidate!');
+        }
+
+        // check if user is allowed to cancel offer (owner of geopath can cancel it)
+        $cache = $candidate->getGeoCache();
+        if ($cache->getOwnerId() != $this->loggedUser->getUserId()) {
+            $this->ajaxErrorResponse('User is not owner of this geocache assign to offer!');
+        }
+
+        $candidate->acceptOffer();
+        $this->ajaxSuccessResponse("Candidate offer refused succesful.");
+    }
+
+    /**
+     * List of caches - candidates to given geopath
+     *
+     * @param  $geopathId
+     */
+    public function candidatesList($geopathId)
+    {
+        $this->redirectNotLoggedUsers();
+
+        if(!$geopath = CacheSet::fromCacheSetIdFactory($geopathId)){
+            $this->displayCommonErrorPageAndExit("No such geopath!");
+        }
+
+        if(!$geopath->isOwner($this->loggedUser)){
+            $this->displayCommonErrorPageAndExit("You are not an owner of this geopath!");
+        }
+
+        $this->view->setTemplate('geoPath/gpCandidatesList');
+        $this->view->loadJQuery();
+        $this->view->setVar('gp', $geopath);
+
+        // init model for list of watched geopaths
+        $listModel = new ListOfCachesModel();
+
+
+        // rows to display
+        $candidates = GeopathCandidate::getCacheCandidates($geopath);
+
+        $userDict = [];
+        foreach($candidates as $candidate){
+            $userDict[$candidate->getGeoCache()->getOwnerId()] = null;
+        }
+
+        $userDict = MultiUserQueries::GetUserNamesForListOfIds(array_keys($userDict));
+
+        $listModel->addDataRows(GeopathCandidate::getCacheCandidates($geopath));
+
+
+        $listModel->addColumn(new Column_SimpleText(tr('gpCandidates_submitedDate'), function(GeopathCandidate $candidate){
+            return Formatter::date($candidate->getSubmitedDate());
+        }, 'width15'));
+
+        $listModel->addColumn(new Column_CacheTypeIcon('', function(GeopathCandidate $candidate){
+            $cache = $candidate->getGeoCache();
+            return [
+                'type' => $cache->getCacheType(),
+                'status' => $cache->getStatus(),
+                'user_sts' => null,
+            ];
+        }, 'width5'));
+
+        $listModel->addColumn(new Column_CacheName(tr('gpCandidates_cacheName'), function(GeopathCandidate $candidate){
+            $cache = $candidate->getGeoCache();
+            return [
+                'cacheWp' => $cache->getWaypointId(),
+                'cacheName' => $cache->getCacheName(),
+                'isStatusAware' => true,
+                'cacheStatus' => $cache->getStatus()
+            ];
+        }));
+
+        $listModel->addColumn(new Column_UserName(tr('gpCandidates_cacheOwner'), function(GeopathCandidate $candidate) use($userDict){
+            $userId = $candidate->getGeoCache()->getOwnerId();
+            return [
+                'userId' => $userId,
+                'userName' => $userDict[$userId],
+            ];
+        }));
+
+        $listModel->addColumn(new Column_OnClickActionIcon(tr('gpCandidates_action'), function(GeopathCandidate $candidate){
+            return [
+                'icon' => '/images/log/16x16-trash.png',
+                'onClick' => 'cancelCandidateOffer(this, '.$candidate->getId().')',
+                'title' => tr('gpCandidates_cancelOffer'),
+                ];
+        }, 'width10'));
+
+
+
+        $this->view->setVar('listModel', $listModel);
+
+        $this->view->buildView();
+    }
+
+    /**
+     * Display the lists of offers of cache adding to geopath for curent user
+     */
+    public function myCandidates()
+    {
+        $this->redirectNotLoggedUsers();
+
+        $this->view->loadJQuery();
+        $this->view->setTemplate('geoPath/myCandidatesList');
+        $this->view->setVar('user', $this->loggedUser);
+
+        // init model for list of watched geopaths
+        $listModel = new ListOfCachesModel();
+
+        $listModel->addColumn(new Column_SimpleText(
+            tr('gpMyCandidates_submitedDate'),
+            function(GeopathCandidate $candidate){
+                return Formatter::date($candidate->getSubmitedDate());
+            },
+            'width15'
+        ));
+
+        $listModel->addColumn(new Column_CacheSetNameAndIcon(
+            tr('gpMyCandidates_geopathName'),
+            function(GeopathCandidate $candidate){
+                $gp = $candidate->getGeopath();
+                return [
+                    'type' => $gp->getType(),
+                    'id'   => $gp->getId(),
+                    'name' => $gp->getName(),
+                ];
+            }
+        ));
+
+        $listModel->addColumn(new Column_CacheTypeIcon(
+            '',
+            function(GeopathCandidate $candidate){
+                $cache = $candidate->getGeoCache();
+                return [
+                    'type' => $cache->getCacheType(),
+                    'status' => $cache->getStatus(),
+                    'user_sts' => null,
+                ];
+            },
+            'width5'
+        ));
+
+        $listModel->addColumn(new Column_CacheName(
+            tr('gpMyCandidates_cacheName'),
+            function(GeopathCandidate $candidate){
+                $cache = $candidate->getGeoCache();
+                return [
+                    'cacheWp' => $cache->getWaypointId(),
+                    'cacheName' => $cache->getCacheName(),
+                    'isStatusAware' => true,
+                    'cacheStatus' => $cache->getStatus()
+                ];
+            }
+        ));
+
+        $listModel->addColumn(new Column_ActionButtons(
+            tr('gpMyCandidates_actions'),
+            function(GeopathCandidate $candidate){
+                return [
+                    [
+                        'btnClasses' => 'btn-primary',
+                        'btnText' => tr('gpMyCandidates_acceptOffer'),
+                        'onClick' => 'acceptOffer(this, '.$candidate->getId().')',
+                        'title' => tr('gpMyCandidates_acceptOfferTitle'),
+                    ],
+                    [
+                        'btnClasses' => '',
+                        'btnText' => tr('gpMyCandidates_refuseOffer'),
+                        'onClick' => 'refuseOffer(this, '.$candidate->getId().')',
+                        'title' => tr('gpMyCandidates_refuseOfferTitle'),
+                    ],
+                ];
+            },
+            'width25'
+        ));
+
+        // load rows to display
+        $listModel->addDataRows(GeopathCandidate::getUserGeopathCandidates($this->loggedUser));
+        $this->view->setVar('listModel', $listModel);
+
+        $this->view->buildView();
+    }
 }

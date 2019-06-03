@@ -265,7 +265,7 @@ class TestController extends BaseController
         // get some caches with logs...
         $caches = [];
         $userIds = [];
-        foreach(MultiCacheStats::getGeocachesById([1,2,3,4,5]) as $c){
+        foreach(MultiCacheStats::getGeocachesDataById([1,2,3,4,5]) as $c){
             $caches[$c['cache_id']] = $c;
             $userIds[$c['user_id']] = null;
         }
