@@ -1838,12 +1838,11 @@ $translations = array(
     'pt243' => 'Masquer les caches déjà trouvées',
     'pt244' => 'Bloqué par l’équipe OC',
 
+    'gp_candidateIntroUser' => 'User',
     'gp_candidateIntro' => 'suggested to add your great geocache',
     'gp_candidateToGeopath' => 'to geopath',
-    'gp_candidateDecisionDescription' => 'You can decide to accept or decline this proposal by clicking button:',
-    'gp_candidateAcceptBtn' => 'Accept proposal',
-    'gp_candidateCancleBtn' => 'Decline proposal',
-    'gp_candidateDisclaimer' => 'Of course you can also ignore this proposal - the the validity of the offer is 30 days.',
+    'gp_candidateLinkDescription' => 'You can decide to accept or decline this proposal on page',
+    'gp_candidateDisclaimer' => 'Of course you can also ignore this proposal - the validity of the offer is 30 days.',
     'gp_cacheCandidateEmailSubject' => 'Adding your geocache to geopath',
     'gp_candidateDoubts' => 'In case of any concerns please contact with user',
 
@@ -2997,5 +2996,32 @@ $translations = array(
     'SmartPhone_Android' => 'For Android',
     'SmartPhone_Iphone' => 'For iphone',
     'SmartPhone_Windows' => 'For Windows Phone',
+
+    'listOfCaches_defaultNoRowsMessage' => 'There is no datat to display here',
+
+    'gpCandidates_title' => 'Candidates to geopath',
+    'gpCandidates_submitedDate' => 'Date',
+    'gpCandidates_cacheName' => 'Name of the cache',
+    'gpCandidates_action' => 'Action',
+    'gpCandidates_cacheOwner' => 'Owner',
+    'gpCandidates_cancelOffer' => 'Cancel this offer',
+    'gpCandidates_offerCanceled' => 'Offer canceled',
+    'gpCandidates_errorOnCancel' => 'Can not cancel this offer - error occured',
+    'gpCandidates_cancelOfferInProgress' => 'Cancelation in progress',
+
+
+    'gpMyCandidates_title' => 'Candidates to geopaths for user',
+    'gpMyCandidates_submitedDate' => 'Date',
+    'gpMyCandidates_geopathName' => 'Geopath',
+    'gpMyCandidates_cacheName' => 'Geocache',
+    'gpMyCandidates_actions' => 'Actions',
+    'gpMyCandidates_acceptOffer' => 'Accept',
+    'gpMyCandidates_acceptOfferTitle' => 'Accept this offer',
+    'gpMyCandidates_errorOnAccept' => 'Error occured',
+    'gpMyCandidates_offerAccepted' => 'Offer accepted',
+    'gpMyCandidates_refuseOffer' => 'Refuse',
+    'gpMyCandidates_refuseOfferTitle' => 'Refuse this offer',
+    'gpMyCandidates_errorOnRefuse' => 'Error occured',
+    'gpMyCandidates_offerRefused' => 'Offer refused',
 
 );
