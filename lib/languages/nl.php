@@ -1838,12 +1838,11 @@ $translations = array(
     'pt243' => 'Verberg voltooide',
     'pt244' => 'Geblokkeerd door OC Team',
 
+    'gp_candidateIntroUser' => 'User',
     'gp_candidateIntro' => 'stelde voor om je geweldige geocache toe te voegen',
     'gp_candidateToGeopath' => 'aan GeoPath',
-    'gp_candidateDecisionDescription' => 'Je kunt dit voorstel accepteren of afwijzen door op een knop te klikken:',
-    'gp_candidateAcceptBtn' => 'Voorstel accepteren',
-    'gp_candidateCancleBtn' => 'Voorstel afwijzen',
-    'gp_candidateDisclaimer' => 'Natuurlijk kun je dit voorstel negeren. De geldigheid van het aanbod is 30 dagen.',
+    'gp_candidateLinkDescription' => 'You can decide to accept or decline this proposal on page',
+    'gp_candidateDisclaimer' => 'Of course you can also ignore this proposal - the validity of the offer is 30 days.',
     'gp_cacheCandidateEmailSubject' => 'Voeg jouw geocache toe aan GeoPath',
     'gp_candidateDoubts' => 'Neem contact op met de gebruiker in geval van een probleem',
 
@@ -2997,5 +2996,32 @@ $translations = array(
     'SmartPhone_Android' => 'Voor Android',
     'SmartPhone_Iphone' => 'Voor iphone',
     'SmartPhone_Windows' => 'Voor Windows telefoon',
+
+    'listOfCaches_defaultNoRowsMessage' => 'There is no datat to display here',
+
+    'gpCandidates_title' => 'Candidates to geopath',
+    'gpCandidates_submitedDate' => 'Date',
+    'gpCandidates_cacheName' => 'Name of the cache',
+    'gpCandidates_action' => 'Action',
+    'gpCandidates_cacheOwner' => 'Owner',
+    'gpCandidates_cancelOffer' => 'Cancel this offer',
+    'gpCandidates_offerCanceled' => 'Offer canceled',
+    'gpCandidates_errorOnCancel' => 'Can not cancel this offer - error occured',
+    'gpCandidates_cancelOfferInProgress' => 'Cancelation in progress',
+
+
+    'gpMyCandidates_title' => 'Candidates to geopaths for user',
+    'gpMyCandidates_submitedDate' => 'Date',
+    'gpMyCandidates_geopathName' => 'Geopath',
+    'gpMyCandidates_cacheName' => 'Geocache',
+    'gpMyCandidates_actions' => 'Actions',
+    'gpMyCandidates_acceptOffer' => 'Accept',
+    'gpMyCandidates_acceptOfferTitle' => 'Accept this offer',
+    'gpMyCandidates_errorOnAccept' => 'Error occured',
+    'gpMyCandidates_offerAccepted' => 'Offer accepted',
+    'gpMyCandidates_refuseOffer' => 'Refuse',
+    'gpMyCandidates_refuseOfferTitle' => 'Refuse this offer',
+    'gpMyCandidates_errorOnRefuse' => 'Error occured',
+    'gpMyCandidates_offerRefused' => 'Offer refused',
 
 );
