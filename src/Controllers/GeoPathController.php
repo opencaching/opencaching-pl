@@ -21,6 +21,7 @@ use src\Models\ChunkModels\ListOfCaches\Column_CacheSetNameAndIcon;
 use src\Models\User\MultiUserQueries;
 use src\Models\ChunkModels\ListOfCaches\Column_UserName;
 use src\Models\ChunkModels\ListOfCaches\Column_ActionButtons;
+use src\Utils\Uri\SimpleRouter;
 
 class GeoPathController extends BaseController
 {
@@ -217,8 +218,8 @@ class GeoPathController extends BaseController
         }
 
         // check if geocache is alredy a candidate
-        if(!$resendEmail && $geoPath->isCandidateExists($cache)){
-            if($geoPath->isCandidateExists($cache, true)){
+        if(!$resendEmail && GeopathCandidate::isCandidateExists($cache)){
+            if(GeopathCandidate::isCandidateExists($cache, $geoPath)){
                 // this cache is already a candidate to THIS geopath
                 $this->ajaxErrorResponse(
                     "This cache is already a candidate to this geopath!",
@@ -276,64 +277,25 @@ class GeoPathController extends BaseController
      * @param string $code
      * @param boolean $proposalAccepted
      */
-    public function legacyCacheCandidate($code, $proposalAccepted){
-
-        list($geoPathId, $cacheId) = CacheSet::getCandidateDataBasedOnCode($code);
-
-        if(!$geoPathId || !$cacheId){
-            $this->displayCommonErrorPageAndExit("No such proposal?!");
-        }
-
-        $this->acceptCancelCandidate($geoPathId, $cacheId, $code, $proposalAccepted);
+    public function legacyCacheCandidate($code, $proposalAccepted)
+    {
+        // this function is only to cover legacy links
+        // can be removed around ~ 09.2019
+        $this->myCandidates();
     }
 
     public function acceptCacheCandidate($geopathId, $cacheId, $code)
     {
-        $this->acceptCancelCandidate($geopathId, $cacheId, $code, true);
+        // this function is only to cover legacy links
+        // can be removed around ~ 09.2019
+        $this->myCandidates();
     }
 
     public function cancelCacheCandidate($geopathId, $cacheId, $code)
     {
-        $this->acceptCancelCandidate($geopathId, $cacheId, $code, false);
-    }
-
-    private function acceptCancelCandidate($geopathId, $cacheId, $code, $proposalAccepted)
-    {
-        $this->redirectNotLoggedUsers();
-
-        $cache = GeoCache::fromCacheIdFactory($cacheId);
-        if (!$cache) {
-            $this->displayCommonErrorPageAndExit("Unknown cache!");
-        }
-
-        $geoPath = CacheSet::fromCacheSetIdFactory($geopathId);
-        if (!$geoPath) {
-            $this->displayCommonErrorPageAndExit("There is no such geoPath");
-        }
-
-        if ($cache->isPowerTrailPart()) {
-            $this->displayCommonErrorPageAndExit("This geocache is already part of the geopath!");
-        }
-
-        if (!$geoPath->isCandiddateCodeExists($cache, $code)) {
-            $this->displayCommonErrorPageAndExit("There is no such proposal!");
-        }
-
-        // there was such proposal
-        if ($proposalAccepted) {
-            try {
-                $geoPath->addCache($cache);
-            } catch (\RuntimeException $e) {
-                $this->displayCommonErrorPageAndExit($e->getMessage());
-            }
-            // cache added to geopath - cancel all other proposals
-            $geoPath->deleteCandidateCode($cache);
-        } else {
-            // cancel this proposal
-            $geoPath->deleteCandidateCode($cache, $code);
-        }
-
-        $this->view->redirect($geoPath->getUrl());
+        // this function is only to cover legacy links
+        // can be removed around ~ 09.2019
+        $this->myCandidates();
     }
 
     public function cancelCacheCandidateAjax($candidateId)

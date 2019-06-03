@@ -41,6 +41,30 @@ class GeopathCandidate extends BaseObject
              $geopath->getId(), $cache->getCacheId());
     }
 
+    /**
+     * Returns TRUE if geocache is a candidate to geopath
+     *
+     * @param GeoCache $cache -
+     * @param CacheSet $inGeopath - if geopath given check only this geopath
+     *
+     * @return boolean
+     */
+    public static function isCandidateExists(GeoCache $cache, CacheSet $inGeopath=null)
+    {
+        if(!$inGeopath) {
+            $matchingRecords = self::db()->multiVariableQueryValue(
+                "SELECT COUNT(*) FROM PowerTrail_cacheCandidate
+                WHERE cacheId = :1 LIMIT 1",
+                0, $cache->getCacheId());
+        } else {
+            $matchingRecords = self::db()->multiVariableQueryValue(
+                "SELECT COUNT(*) FROM PowerTrail_cacheCandidate
+                WHERE cacheId = :1 AND PowerTrailId = :2
+                LIMIT 1", 0, $cache->getCacheId(), $inGeopath->getId());
+        }
+        return $matchingRecords != 0;
+    }
+
     private function loadDataFromDb()
     {
         $stmt = $this->db->multiVariableQuery(

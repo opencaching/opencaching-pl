@@ -519,65 +519,6 @@ class CacheSet extends CacheSetCommon
         return true;
     }
 
-    public function isCandidateExists(GeoCache $cache, $toThisGeoPath=false)
-    {
-        if($toThisGeoPath) {
-            $matchingRecords = self::db()->multiVariableQueryValue(
-                "SELECT COUNT(*) FROM PowerTrail_cacheCandidate
-                WHERE cacheId = :1 LIMIT 1",
-                0, $cache->getCacheId());
-        } else {
-            $matchingRecords = self::db()->multiVariableQueryValue(
-                "SELECT COUNT(*) FROM PowerTrail_cacheCandidate
-                WHERE cacheId = :1 AND PowerTrailId = :2
-                LIMIT 1", 0, $cache->getCacheId(), $this->id);
-        }
-        return $matchingRecords != 0;
-    }
-
-    public function isCandiddateCodeExists(Geocache $cache, $code)
-    {
-        $matchingRecords = self::db()->multiVariableQueryValue(
-            "SELECT COUNT(*) FROM PowerTrail_cacheCandidate
-            WHERE cacheId = :1 AND link = :2 AND PowerTrailId = :3
-            LIMIT 1", 0, $cache->getCacheId(), $code, $this->id);
-
-        return $matchingRecords != 0;
-    }
-
-    /**
-     * This method returns the geopathId + cacheId for given code
-     * @param string $code
-     */
-    public static function getCandidateDataBasedOnCode($code)
-    {
-        $stmt = self::db()->multiVariableQuery(
-            "SELECT PowerTrailId, cacheId FROM PowerTrail_cacheCandidate
-             WHERE link = :1 LIMIT 1", $code);
-
-        $row = self::db()->dbResultFetchOneRowOnly($stmt);
-        if(is_array($row) && !empty($row)){
-            return [$row['PowerTrailId'], $row['cacheId']];
-        } else {
-            return [null, null];
-        }
-    }
-
-    public function deleteCandidateCode(Geocache $cache, $code=null){
-        if($code){
-            // delete only one candidate record assign to this cache (by code)
-            self::db()->multiVariableQuery(
-                "DELETE FROM PowerTrail_cacheCandidate
-                WHERE cacheId = :1 AND link = :2 LIMIT 1",
-                $cache->getCacheId(), $code);
-        } else {
-            // delete all candidate records assign to this cache
-            self::db()->multiVariableQuery(
-                "DELETE FROM PowerTrail_cacheCandidate
-                WHERE cacheId = :1", $cache->getCacheId());
-        }
-    }
-
     private function addActionLogEntry($actionLogType, $cacheId)
     {
         $actionLogDesc = [

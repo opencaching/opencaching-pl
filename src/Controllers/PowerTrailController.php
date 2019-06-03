@@ -102,7 +102,6 @@ class PowerTrailController
         }
         */
         $this->archiveAbandonPowerTrails();
-        $this->freeCacheCandidates();
     }
 
     private function archiveAbandonPowerTrails()
@@ -122,12 +121,6 @@ class PowerTrailController
         }
     }
 
-    private function freeCacheCandidates()
-    {
-        $db = OcDb::instance();
-        $query = 'DELETE FROM `PowerTrail_cacheCandidate` WHERE `date` < DATE_SUB(curdate(), INTERVAL 2 WEEK)';
-        $db->simpleQuery($query);
-    }
 
     /**
      * here power Trail status
