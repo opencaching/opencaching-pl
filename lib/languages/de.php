@@ -1838,12 +1838,11 @@ $translations = array(
     'pt243' => 'Abgeschlossene ausblenden',
     'pt244' => 'vom OC-Team gesperrt',
 
+    'gp_candidateIntroUser' => 'User',
     'gp_candidateIntro' => 'hat vorgeschlagen, deinen tollen Geocache hinzuzufügen',
     'gp_candidateToGeopath' => 'zum Geopfad',
-    'gp_candidateDecisionDescription' => 'Du kannst diesen Vorschlag annehmen oder ablehnen, indem du hier klickst:',
-    'gp_candidateAcceptBtn' => 'Vorschlag annehmen',
-    'gp_candidateCancleBtn' => 'Vorschlag ablehnen',
-    'gp_candidateDisclaimer' => 'Natürlich kannst du den Vorschlag auch ignorieren. Er bleibt 30 Tage lang gültig.',
+    'gp_candidateLinkDescription' => 'You can decide to accept or decline this proposal on page',
+    'gp_candidateDisclaimer' => 'Of course you can also ignore this proposal - the validity of the offer is 30 days.',
     'gp_cacheCandidateEmailSubject' => 'Cache zu Geopath hinzufügen',
     'gp_candidateDoubts' => 'Bei Unklarheiten wende dich bitte an den Benutzer',
 
@@ -2998,5 +2997,32 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'SmartPhone_Android' => 'Für Android',
     'SmartPhone_Iphone' => 'Für iPhone',
     'SmartPhone_Windows' => 'Für Windows Phone',
+
+    'listOfCaches_defaultNoRowsMessage' => 'There is no datat to display here',
+
+    'gpCandidates_title' => 'Candidates to geopath',
+    'gpCandidates_submitedDate' => 'Date',
+    'gpCandidates_cacheName' => 'Name of the cache',
+    'gpCandidates_action' => 'Action',
+    'gpCandidates_cacheOwner' => 'Owner',
+    'gpCandidates_cancelOffer' => 'Cancel this offer',
+    'gpCandidates_offerCanceled' => 'Offer canceled',
+    'gpCandidates_errorOnCancel' => 'Can not cancel this offer - error occured',
+    'gpCandidates_cancelOfferInProgress' => 'Cancelation in progress',
+
+
+    'gpMyCandidates_title' => 'Candidates to geopaths for user',
+    'gpMyCandidates_submitedDate' => 'Date',
+    'gpMyCandidates_geopathName' => 'Geopath',
+    'gpMyCandidates_cacheName' => 'Geocache',
+    'gpMyCandidates_actions' => 'Actions',
+    'gpMyCandidates_acceptOffer' => 'Accept',
+    'gpMyCandidates_acceptOfferTitle' => 'Accept this offer',
+    'gpMyCandidates_errorOnAccept' => 'Error occured',
+    'gpMyCandidates_offerAccepted' => 'Offer accepted',
+    'gpMyCandidates_refuseOffer' => 'Refuse',
+    'gpMyCandidates_refuseOfferTitle' => 'Refuse this offer',
+    'gpMyCandidates_errorOnRefuse' => 'Error occured',
+    'gpMyCandidates_offerRefused' => 'Offer refused',
 
 );
