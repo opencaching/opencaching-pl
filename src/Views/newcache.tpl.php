@@ -5,82 +5,90 @@ $view->callChunk('tinyMCE');
 
 <script>
 
-            $(function() {
-            $("#waypointsToChose").dialog({
+    $(function() {
+        $("#waypointsToChose").dialog({
             position: ['center', 150],
-                    autoOpen: false,
-                    width: 500,
-                    modal: true,
-                    show: {effect: 'bounce', duration: 350, /* SPECIF ARGUMENT */ times: 3},
-                    hide: "explode",
-                    buttons:
-            {
-            {{newCacheWpClose}}: function()
-            {
-            $(this).dialog("close");
+            autoOpen: false,
+            width: 500,
+            modal: true,
+            show: {effect: 'bounce', duration: 350, /* SPECIF ARGUMENT */ times: 3},
+            hide: "explode",
+            buttons: {
+              {{newCacheWpClose}}: function() {
+                $(this).dialog("close");
+              }
             }
-            }
-            });
-            });
-            function hiddenDatePickerChange(identifier){
-            var dateTimeStr = $('#' + identifier + 'DatePicker').val();
-                    var dateArr = dateTimeStr.split("-");
-                    $("#" + identifier + "_year").val(dateArr[0]);
-                    $("#" + identifier + "_month").val(dateArr[1]);
-                    $("#" + identifier + "_day").val(dateArr[2]);
-            }
+        });
+    });
+
+    function hiddenDatePickerChange(identifier){
+        var dateTimeStr = $('#' + identifier + 'DatePicker').val();
+        var dateArr = dateTimeStr.split("-");
+        $("#" + identifier + "_year").val(dateArr[0]);
+        $("#" + identifier + "_month").val(dateArr[1]);
+        $("#" + identifier + "_day").val(dateArr[2]);
+    }
 
     $(function() {
-            chkcountry2();
-            $.datepicker.setDefaults($.datepicker.regional['pl']);
-            $('#hiddenDatePicker, #activateDatePicker').datepicker(
-                $.datepicker.regional["{language4js}"]
-            ).datepicker("option", "dateFormat", "yy-mm-dd").val();
+        updateRegionsList();
+        $.datepicker.setDefaults($.datepicker.regional['pl']);
+        $('#hiddenDatePicker, #activateDatePicker').datepicker(
+          $.datepicker.regional["{language4js}"]
+      ).datepicker("option", "dateFormat", "yy-mm-dd").val();
     });
-            function checkRegion(){
-            // console.log($('#lat_min').val().length);
-            if ($('#lat_h').val().length > 0 &&
-                    $('#lon_h').val().length > 0 &&
-                    $('#lat_min').val().length > 0 &&
-                    $('#lon_min').val().length > 0) {
 
-            var latmin = parseFloat($('#lat_min').val());
-                    var lonmin = parseFloat($('#lon_min').val());
-                    var lat = parseFloat($('#lat_h').val()) + latmin / 60;
-                    if ($('#latNS').val() == 'S') lat = - lat;
-                    var lon = parseFloat($('#lon_h').val()) + lonmin / 60;
-                    if ($('#lonEW').val() == 'W') lon = - lon;
+    function checkRegion(){
+        if ($('#lat_h').val().length == 0 ||
+            $('#lon_h').val().length == 0 ||
+            $('#lat_min').val().length == 0 ||
+            $('#lon_min').val().length == 0) {
 
-                    request = $.ajax({
-                      url: "ajaxRetreiveRegionByCoordinates.php",
-                            type: "post",
-                            data:{lat: lat, lon: lon},
-                      });
+          return;
+        }
 
-                    // callback handler that will be called on success
-                    request.done(function (response, textStatus, jqXHR){
-                      if (response == 'false') {
-                        return false;
-                      }
-                    obj = JSON.parse(response);
+        var latmin = parseFloat($('#lat_min').val());
+        var lonmin = parseFloat($('#lon_min').val());
+        var lat = parseFloat($('#lat_h').val()) + latmin / 60;
+        if ($('#latNS').val() == 'S') {
+           lat = - lat;
+        }
 
-                    if ($('#country').val() == obj['code1']) {
-                      $('#region1').val(obj['code3']);
-                    } else {
-                      $('#country').val(obj['code1']);
-                            chkcountry2();
-                            $(function() {
-                              setTimeout(function() {
-                                $('#region1').val(obj['code3']);
-                              }, 2000);
-                            });
-                    }
-                    });
-                    request.always(function () {
-                    });
-                    // alert(lat+' / '+lon);
-            }
-            }
+        var lon = parseFloat($('#lon_h').val()) + lonmin / 60;
+        if ($('#lonEW').val() == 'W') {
+          lon = - lon;
+        }
+
+        request = $.ajax({
+          url: "/location/getRegionsByLocation/"+lat+'/'+lon,
+          type: "get",
+        });
+
+        // callback handler that will be called on success
+        request.done(function (response, textStatus, jqXHR){
+
+          locationData = response.locationTable;
+          if ( !locationData['code1'] ) {
+            // unknown country
+            return;
+          }
+
+          if ($('#country').val() == locationData['code1']) {
+            // same country, update region
+            $('#region1').val( locationData['code3'] );
+          } else {
+              // country changed
+              $('#country').val( locationData['code1'] );
+              //updateRegionsList();
+              $(function() {
+                  setTimeout(function() {
+                    $('#region1').val( locationData['code3'] );
+                  }, 2000);
+              });
+          }
+        });
+
+        request.always(function () { });
+    }
 
 
     var maAttributes = new Array({jsattributes_array});
@@ -91,24 +99,24 @@ $view->callChunk('tinyMCE');
             }
 
     function stopUpload(success){
-    $('#ajaxLoaderLogo').hide();
-            $('#f1_upload_form').show();
-            $('#wptInfo').show();
-            $(function() {
-            setTimeout(function() {
-            $('#wptInfo').fadeOut(1000);
-            }, 5000);
-            });
-            var gpx = jQuery.parseJSON(success);
-            var waypointsCount = count(gpx);
-            //console.log(waypointsCount);
-            //console.log(gpx);
+        $('#ajaxLoaderLogo').hide();
+        $('#f1_upload_form').show();
+        $('#wptInfo').show();
+        $(function() {
+        setTimeout(function() {
+        $('#wptInfo').fadeOut(1000);
+        }, 5000);
+        });
+        var gpx = jQuery.parseJSON(success);
+        var waypointsCount = count(gpx);
+        //console.log(waypointsCount);
+        //console.log(gpx);
 
-            if (waypointsCount == 1){
-    fillFormInputs(gpx[0])
-    }
-    if (waypointsCount > 1){
-    $('#gpxWaypointObject').val(success);
+        if (waypointsCount == 1){
+          fillFormInputs(gpx[0])
+        }
+        if (waypointsCount > 1){
+            $('#gpxWaypointObject').val(success);
             var i = 0;
             var costam = '{{newCacheWpDesc}}<br/><br/>';
             gpx.forEach(function(wayPoint) {
@@ -120,61 +128,74 @@ $view->callChunk('tinyMCE');
             $('#waypointsToChose').html(costam);
             $('#waypointsToChose').dialog('open');
             $(".ui-dialog-titlebar-close").hide();
-    }
-    return true;
+        }
+        return true;
     }
 
     function updateFromWaypoint(waypointId){
-    var gpxWaypointObject = $('#gpxWaypointObject').val();
-            var gpx = jQuery.parseJSON(gpxWaypointObject);
-            fillFormInputs(gpx[waypointId]);
-            $('#waypointsToChose').dialog("close");
-            $('#wptInfo').show();
-            $(function() {
+        var gpxWaypointObject = $('#gpxWaypointObject').val();
+        var gpx = jQuery.parseJSON(gpxWaypointObject);
+        fillFormInputs(gpx[waypointId]);
+        $('#waypointsToChose').dialog("close");
+        $('#wptInfo').show();
+        $(function() {
             setTimeout(function() {
             $('#wptInfo').fadeOut(1000);
             }, 5000);
-            });
+        });
     }
 
     function fillFormInputs(gpx){
-    var CacheHidedate = gpx.time.substring(0, 10);
-            $("#lat_h").val(gpx.coords_lat_h);
-            $("#lon_h").val(gpx.coords_lon_h);
-            $("#lat_min").val(gpx.coords_lat_min);
-            $("#lon_min").val(gpx.coords_lon_min);
-            $("#name").val(gpx.name);
-            tinyMCE.activeEditor.setContent(gpx.desc);
-            $("#desc").val(gpx.desc);
-            $("#hiddenDatePicker").val(CacheHidedate);
-            checkRegion();
+        var CacheHidedate = gpx.time.substring(0, 10);
+        $("#lat_h").val(gpx.coords_lat_h);
+        $("#lon_h").val(gpx.coords_lon_h);
+        $("#lat_min").val(gpx.coords_lat_min);
+        $("#lon_min").val(gpx.coords_lon_min);
+        $("#name").val(gpx.name);
+        tinyMCE.activeEditor.setContent(gpx.desc);
+        $("#desc").val(gpx.desc);
+        $("#hiddenDatePicker").val(CacheHidedate);
+        checkRegion();
     }
 
     function chkregion() {
-    if ($('#region').val() == "0") {
-    alert("Proszę wybrać region");
-            return false;
-    }
-    return true;
+        if ($('#region').val() == "0") {
+          alert("Proszę wybrać region");
+          return false;
+        }
+        return true;
     }
 
+    function updateRegionsList() {
+        $('#region1').hide();
+        $('#regionAjaxLoader').show();
 
-    function chkcountry2(){
-    $('#region1').hide();
-            $('#regionAjaxLoader').show();
-            request = $.ajax({
-            url: "ajaxGetRegionsByCountryCode.php",
-                    type: "post",
-                    data:{countryCode: $('#country').val(), selectedRegion: '{sel_region}' },
-            });
-            // callback handler that will be called on success
-            request.done(function (response, textStatus, jqXHR){
-            $('#region1').html(response);
-                    //console.log(response);
-            });
-            request.always(function () {
+        request = $.ajax({
+            url: "/Location/getRegionsByCountryCodeAjax/"+$('#country').val(),
+            type: "get",
+        });
+
+        // callback handler that will be called on success
+        request.done(function (response, textStatus, jqXHR){
+            var select = $('#region1');
+            select.empty();
+            if(response.regions.length == 0){
+              select.append('<option value="-1" disabled selected="selected">-</option>');
+            } else {
+                select.append('<option value="0" selected="selected"><?=tr('search01')?></option>');
+                response.regions.forEach(function(element) {
+                  if ( element.code == '{sel_region}') {
+                    select.append('<option selected="selected" value="'+element.code+'">'+element.name+'</option>')
+                  } else {
+                    select.append('<option value="'+element.code+'">'+element.name+'</option>')
+                  }
+                });
+            }
+        });
+
+        request.always(function () {
             $('#regionAjaxLoader').hide();
-                    $('#region1').fadeIn(1000);
+                $('#region1').fadeIn(1000);
             });
     }
 
@@ -538,7 +559,7 @@ $(document).ready(function(){
         <tr class="form-group-sm">
             <td><p class="content-title-noshade">{{country_label}}:</p></td>
             <td>
-                <select name="country"  id="country" class="form-control input200" onchange="javascript:chkcountry2()">
+                <select name="country"  id="country" class="form-control input200" onchange="updateRegionsList()">
                     {countryoptions}
                 </select>
                 {show_all_countries_submit}

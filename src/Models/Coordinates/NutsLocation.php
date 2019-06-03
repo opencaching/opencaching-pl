@@ -150,6 +150,21 @@ class NutsLocation extends BaseObject
         $this->names[$level] = $name;
     }
 
+    public function getDataTable()
+    {
+        return [
+            'adm1' => $this->getName(NutsLocation::LEVEL_COUNTRY),
+            'adm2' => $this->getName(NutsLocation::LEVEL_1),
+            'adm3' => $this->getName(NutsLocation::LEVEL_2),
+            'adm4' => $this->getName(NutsLocation::LEVEL_3),
+
+            'code1' => $this->getCode(NutsLocation::LEVEL_COUNTRY),
+            'code2' => $this->getCode(NutsLocation::LEVEL_1),
+            'code3' => $this->getCode(NutsLocation::LEVEL_2),
+            'code4' => $this->getCode(NutsLocation::LEVEL_3),
+        ];
+    }
+
     /**
      * This function check if given code is a proper NUTS code in the OC db
      *
@@ -173,4 +188,18 @@ class NutsLocation extends BaseObject
             "SELECT name FROM nuts_codes WHERE code= :1 LIMIT 1", 'Unknown?', $code);
     }
 
+    /**
+     * Returns list of the regions by given country code
+     *
+     * @param string $countryCode
+     */
+    public static function getRegionsListByCountryCode($countryCode)
+    {
+        $countryCode .= '__'; // add sql wildcard (two letters)
+        $db = self::db();
+        return $db->dbResultFetchAll($db->multiVariableQuery (
+            "SELECT code, name FROM nuts_codes
+             WHERE code LIKE :1
+             ORDER BY name ASC", $countryCode));
+    }
 }

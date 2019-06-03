@@ -14,15 +14,28 @@
         $('#region1').prop('disabled', false);
         $('#regionAjaxLoader').show();
         request = $.ajax({
-            url: "ajaxGetRegionsByCountryCode.php",
-            type: "post",
-            data: {countryCode: $('#country').val(), selectedRegion: '{region}', searchForm: 1},
+          url: "/Location/getRegionsByCountryCodeAjax/"+$('#country').val(),
+            type: "get",
+            //data: {countryCode: $('#country').val(), selectedRegion: '{region}', searchForm: 1},
         });
 
         // callback handler that will be called on success
         request.done(function (response, textStatus, jqXHR) {
-            $('#region1').html(response);
-            console.log(response);
+          var select = $('#region1');
+          select.empty();
+          if(response.regions.length == 0){
+            select.append('<option value="" disabled selected="selected"><?=tr('search01')?></option>');
+          } else {
+              select.append('<option value="" selected="selected"><?=tr('search01')?></option>');
+              response.regions.forEach(function(element) {
+                if ( element.code == '{sel_region}') {
+                  select.append('<option selected="selected" value="">'+element.name+'</option>')
+                } else {
+                  select.append('<option value="">'+element.name+'</option>')
+                }
+              });
+          }
+
         });
 
         request.always(function () {
