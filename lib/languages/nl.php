@@ -3010,7 +3010,7 @@ $translations = array(
     'gpCandidates_cancelOfferInProgress' => 'Annulering in uitvoering',
 
 
-    'gpMyCandidates_title' => 'Candidates to geopaths for user',
+    'gpMyCandidates_title' => 'Kandidaten Geopath voor gebruiker',
     'gpMyCandidates_submitedDate' => 'Datum',
     'gpMyCandidates_geopathName' => 'GeoPath',
     'gpMyCandidates_cacheName' => 'Geocache',
