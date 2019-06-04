@@ -1841,8 +1841,8 @@ $translations = array(
     'gp_candidateIntroUser' => 'Gebruiker',
     'gp_candidateIntro' => 'stelde voor om je geweldige geocache toe te voegen',
     'gp_candidateToGeopath' => 'aan GeoPath',
-    'gp_candidateLinkDescription' => 'You can decide to accept or decline this proposal on page',
-    'gp_candidateDisclaimer' => 'Of course you can also ignore this proposal - the validity of the offer is 30 days.',
+    'gp_candidateLinkDescription' => 'Je kunt dit voorstel op de pagina accepteren of weigeren',
+    'gp_candidateDisclaimer' => 'Natuurlijk kun je dit voorstel negeren. De geldigheid van het aanbod is 30 dagen.',
     'gp_cacheCandidateEmailSubject' => 'Voeg jouw geocache toe aan GeoPath',
     'gp_candidateDoubts' => 'Neem contact op met de gebruiker in geval van een probleem',
 
@@ -2997,7 +2997,7 @@ $translations = array(
     'SmartPhone_Iphone' => 'Voor iphone',
     'SmartPhone_Windows' => 'Voor Windows telefoon',
 
-    'listOfCaches_defaultNoRowsMessage' => 'There is no datat to display here',
+    'listOfCaches_defaultNoRowsMessage' => 'Er zijn geen gegevens om weer te geven',
 
     'gpCandidates_title' => 'Candidates to geopath',
     'gpCandidates_submitedDate' => 'Date',
