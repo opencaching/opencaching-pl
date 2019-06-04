@@ -3020,8 +3020,8 @@ $translations = array(
     'gpMyCandidates_errorOnAccept' => 'Wystąpił błąd',
     'gpMyCandidates_offerAccepted' => 'Oferta zaakceptowana',
     'gpMyCandidates_refuseOffer' => 'Odrzuć',
-    'gpMyCandidates_refuseOfferTitle' => 'Refuse this offer',
-    'gpMyCandidates_errorOnRefuse' => 'Error occured',
-    'gpMyCandidates_offerRefused' => 'Offer refused',
+    'gpMyCandidates_refuseOfferTitle' => 'Odrzuć tą ofertę',
+    'gpMyCandidates_errorOnRefuse' => 'Wystąpił błąd',
+    'gpMyCandidates_offerRefused' => 'Oferta odrzucona',
 
 );
