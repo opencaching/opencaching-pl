@@ -1838,7 +1838,7 @@ $translations = array(
     'pt243' => 'Verberg voltooide',
     'pt244' => 'Geblokkeerd door OC Team',
 
-    'gp_candidateIntroUser' => 'User',
+    'gp_candidateIntroUser' => 'Gebruiker',
     'gp_candidateIntro' => 'stelde voor om je geweldige geocache toe te voegen',
     'gp_candidateToGeopath' => 'aan GeoPath',
     'gp_candidateLinkDescription' => 'You can decide to accept or decline this proposal on page',
