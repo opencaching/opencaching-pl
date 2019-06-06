@@ -625,7 +625,7 @@ $translations = array(
     'myn_map_info1' => 'Een Eigen omgeving met grootte en de locatie kan gemaakt worden met de "Teken cirkel" knop. De eerste klik op de kaart bepaalt het centrum van deze omgeving, de tweede de radius van de te volgen caches. Er kan gekozen worden voor een plaats of een park die zich daarin bevind, een bepaald bos in de buurt of elke plek naar keuze.',
     'myn_map_info2' => 'Een eerder gemaakte cirkel kan met selecteren en slepen met de punt in het midden van de cirkel en de grootte met een punt aan de rand van de cirkel. De radius kan van 1 tot 150 km zijn.',
     'myn_map_drawbtn' => 'Teken een cirkel',
-    'myn_name_default' => 'Dit is de hoofd mijn omgeving. Er kunnen berichten ontvangen worden over nieuwe caches (gebruik hiervoor de Instelling meldingen), deze naam kan niet veranderd worden.',
+    'myn_name_default' => 'This is your primary Neighborhood. You will receive notifications about new caches (according to the notification settings), you cannot edit its name.',
     'myn_name_addition' => 'Dit is een extra mijn omgeving. Wanneer ook berichten ontvangen moeten worden over nieuwe caches, selecteer dit dan in de Instelling meldingen.',
     'myn_dragdrop' => 'De secties kunnen verplaatst worden door op de titel te "grijpen" en te slepen. Gebruik de kleine pijltjes om de sectie te verkleinen of over de hele pagina te verbreden.',
     'myn_distances' => 'De afstand tussen het middelpunt en de cache van deze mijn omgeving wordt weergegeven.',
@@ -2760,7 +2760,7 @@ $translations = array(
 
     'pictures_intro' => 'Toegestane formaten: {picallowedformats}. JPG is het beste voor foto’s.<br />Maximum grootte {maxpicsizeMB} MB. Aanbevolen resolutie: {maxpicresolution} pixels.',
 
-    'page_error_1' => 'Er is een fout opgetreden tijdens het verwerken van het verzoek.',
+    'page_error_1' => 'An error occurred while processing your request.',
     'page_error_2' => 'De admins van OC zijn op de hoogte gebracht.',
     'page_error_3' => 'Wanneer het probleem blijft bestaan, neem <a href="/articles.php?page=contact">contact</a> met het OC team en beschrijf duidelijk hoe deze fout ontstaat.',
     'page_error_back' => 'Ga naar de hoofdpagina',
@@ -2982,7 +2982,7 @@ $translations = array(
     'usrIgnore_lastLogColumn' => 'Laatste log',
     'usrIgnore_actionRemoveColumn' => 'Actie',
     'usrIgnore_removeFromIgnored' => 'Verwijderen uit genegeerd',
-    'usrIgnore_removingError' => 'Fout opgetreden bij het verwijderen uit genegeerd',
+    'usrIgnore_removingError' => 'Error occurred on removing from ignored',
     'usrIgnore_removingSuccess' => 'Cache verwijderd van genegeerd',
 
     'gp_logoUpdateTitle' => 'Geopath logo upload',
@@ -3006,7 +3006,7 @@ $translations = array(
     'gpCandidates_cacheOwner' => 'Eigenaar',
     'gpCandidates_cancelOffer' => 'Annuleren dit voorstel',
     'gpCandidates_offerCanceled' => 'Aanbod geannuleerd',
-    'gpCandidates_errorOnCancel' => 'Kan deze aanbieding niet annuleren. Er is een fout opgetreden',
+    'gpCandidates_errorOnCancel' => 'Cannot cancel this offer - error occurred',
     'gpCandidates_cancelOfferInProgress' => 'Annulering in uitvoering',
 
 
@@ -3017,11 +3017,11 @@ $translations = array(
     'gpMyCandidates_actions' => 'Acties',
     'gpMyCandidates_acceptOffer' => 'Accepteren',
     'gpMyCandidates_acceptOfferTitle' => 'Accepteer dit voorstel',
-    'gpMyCandidates_errorOnAccept' => 'Fout opgetreden',
+    'gpMyCandidates_errorOnAccept' => 'Error occurred',
     'gpMyCandidates_offerAccepted' => 'Aanbod geaccepteerd',
     'gpMyCandidates_refuseOffer' => 'Weigeren',
     'gpMyCandidates_refuseOfferTitle' => 'Dit aanbod weigeren',
-    'gpMyCandidates_errorOnRefuse' => 'Fout opgetreden',
+    'gpMyCandidates_errorOnRefuse' => 'Error occurred',
     'gpMyCandidates_offerRefused' => 'Aanbod geweigerd',
 
 );
