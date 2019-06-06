@@ -2760,7 +2760,7 @@ $translations = array(
 
     'pictures_intro' => 'Toegestane formaten: {picallowedformats}. JPG is het beste voor foto’s.<br />Maximum grootte {maxpicsizeMB} MB. Aanbevolen resolutie: {maxpicresolution} pixels.',
 
-    'page_error_1' => 'An error occurred while processing your request.',
+    'page_error_1' => 'Er is een fout opgetreden tijdens het verwerken van het verzoek.',
     'page_error_2' => 'De admins van OC zijn op de hoogte gebracht.',
     'page_error_3' => 'Wanneer het probleem blijft bestaan, neem <a href="/articles.php?page=contact">contact</a> met het OC team en beschrijf duidelijk hoe deze fout ontstaat.',
     'page_error_back' => 'Ga naar de hoofdpagina',
@@ -2982,7 +2982,7 @@ $translations = array(
     'usrIgnore_lastLogColumn' => 'Laatste log',
     'usrIgnore_actionRemoveColumn' => 'Actie',
     'usrIgnore_removeFromIgnored' => 'Verwijderen uit genegeerd',
-    'usrIgnore_removingError' => 'Error occurred on removing from ignored',
+    'usrIgnore_removingError' => 'Fout opgetreden bij het verwijderen uit genegeerd',
     'usrIgnore_removingSuccess' => 'Cache verwijderd van genegeerd',
 
     'gp_logoUpdateTitle' => 'Geopath logo upload',
@@ -3006,7 +3006,7 @@ $translations = array(
     'gpCandidates_cacheOwner' => 'Eigenaar',
     'gpCandidates_cancelOffer' => 'Annuleren dit voorstel',
     'gpCandidates_offerCanceled' => 'Aanbod geannuleerd',
-    'gpCandidates_errorOnCancel' => 'Cannot cancel this offer - error occurred',
+    'gpCandidates_errorOnCancel' => 'Kan deze aanbieding niet annuleren. Er is een fout opgetreden',
     'gpCandidates_cancelOfferInProgress' => 'Annulering in uitvoering',
 
 
