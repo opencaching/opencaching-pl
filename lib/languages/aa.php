@@ -625,7 +625,7 @@ $translations = array(
     'myn_map_info1' => 'crwdns6234:0crwdne6234:0',
     'myn_map_info2' => 'crwdns6235:0crwdne6235:0',
     'myn_map_drawbtn' => 'crwdns6236:0crwdne6236:0',
-    'myn_name_default' => 'crwdns6237:0crwdne6237:0',
+    'myn_name_default' => 'crwdns27004:0crwdne27004:0',
     'myn_name_addition' => 'crwdns6238:0crwdne6238:0',
     'myn_dragdrop' => 'crwdns6239:0crwdne6239:0',
     'myn_distances' => 'crwdns6240:0crwdne6240:0',
@@ -2760,7 +2760,7 @@ $translations = array(
 
     'pictures_intro' => 'crwdns6374:0{picallowedformats}crwdnd6374:0{maxpicsizeMB}crwdnd6374:0{maxpicresolution}crwdne6374:0',
 
-    'page_error_1' => 'crwdns23182:0crwdne23182:0',
+    'page_error_1' => 'crwdns27006:0crwdne27006:0',
     'page_error_2' => 'crwdns23184:0crwdne23184:0',
     'page_error_3' => 'crwdns23186:0crwdne23186:0',
     'page_error_back' => 'crwdns23188:0crwdne23188:0',
@@ -2982,7 +2982,7 @@ $translations = array(
     'usrIgnore_lastLogColumn' => 'crwdns26780:0crwdne26780:0',
     'usrIgnore_actionRemoveColumn' => 'crwdns26782:0crwdne26782:0',
     'usrIgnore_removeFromIgnored' => 'crwdns26784:0crwdne26784:0',
-    'usrIgnore_removingError' => 'crwdns26786:0crwdne26786:0',
+    'usrIgnore_removingError' => 'crwdns27008:0crwdne27008:0',
     'usrIgnore_removingSuccess' => 'crwdns26788:0crwdne26788:0',
 
     'gp_logoUpdateTitle' => 'crwdns26868:0crwdne26868:0',
@@ -3006,7 +3006,7 @@ $translations = array(
     'gpCandidates_cacheOwner' => 'crwdns26968:0crwdne26968:0',
     'gpCandidates_cancelOffer' => 'crwdns26970:0crwdne26970:0',
     'gpCandidates_offerCanceled' => 'crwdns26972:0crwdne26972:0',
-    'gpCandidates_errorOnCancel' => 'crwdns26974:0crwdne26974:0',
+    'gpCandidates_errorOnCancel' => 'crwdns27010:0crwdne27010:0',
     'gpCandidates_cancelOfferInProgress' => 'crwdns26976:0crwdne26976:0',
 
 
@@ -3017,11 +3017,11 @@ $translations = array(
     'gpMyCandidates_actions' => 'crwdns26986:0crwdne26986:0',
     'gpMyCandidates_acceptOffer' => 'crwdns26988:0crwdne26988:0',
     'gpMyCandidates_acceptOfferTitle' => 'crwdns26990:0crwdne26990:0',
-    'gpMyCandidates_errorOnAccept' => 'crwdns26992:0crwdne26992:0',
+    'gpMyCandidates_errorOnAccept' => 'crwdns27012:0crwdne27012:0',
     'gpMyCandidates_offerAccepted' => 'crwdns26994:0crwdne26994:0',
     'gpMyCandidates_refuseOffer' => 'crwdns26996:0crwdne26996:0',
     'gpMyCandidates_refuseOfferTitle' => 'crwdns26998:0crwdne26998:0',
-    'gpMyCandidates_errorOnRefuse' => 'crwdns27000:0crwdne27000:0',
+    'gpMyCandidates_errorOnRefuse' => 'crwdns27014:0crwdne27014:0',
     'gpMyCandidates_offerRefused' => 'crwdns27002:0crwdne27002:0',
 
 );
