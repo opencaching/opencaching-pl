@@ -625,7 +625,7 @@ $translations = array(
     'myn_map_info1' => 'Wielkość i położenie Okolicy ustawisz klikając na przycisk "Zacznij rysować". Pierwsze kliknięcie na mapie wyznaczy środek Okolicy, drugie - promień w którym chcesz obserwować kesze. Możesz wybrać np. swoje miasto czy też park w nim, las w okolicy czy inne miejsce, które zapragniesz.',
     'myn_map_info2' => 'Możesz przenieść wybrany wcześniej obszar przeciągając jego środek lub też zmienić promień - przeciągając punkt na brzegu okręgu. Promień może wynosić od 1 do 150km.',
     'myn_map_drawbtn' => 'Zacznij rysować',
-    'myn_name_default' => 'This is your primary Neighborhood. You will receive notifications about new caches (according to the notification settings), you cannot edit its name.',
+    'myn_name_default' => 'To jest Twoja podstawowa Okolica. Będziesz z niej otrzymywać powiadomienia o nowych keszach (zgodnie z ustawieniami powiadomień), nie możesz edytować jej nazwy.',
     'myn_name_addition' => 'To jest Twoja dodatkowa Okolica. Jeśli chcesz otrzymywać powiadomienia o nowych keszach - włącz odpowiednią opcję w Ustawieniach powiadomień.',
     'myn_dragdrop' => 'Możesz dowolnie przesuwać elementy tej strony "chwytając" za ich nagłówek. Za pomocą niewielkich strzałek obok nagłówka możesz albo zwinąć daną sekcję, albo też rozciągnąć ją na całą szerokość strony.',
     'myn_distances' => 'Wyświetlane są odległości pomiędzy daną skrzynką a wyznaczonym przez Ciebie środkiem Okolicy.',
@@ -2760,7 +2760,7 @@ $translations = array(
 
     'pictures_intro' => 'Akceptowane formaty: {picallowedformats} - dla zdjęć rekomendowany format JPG .<br />Maksymalna dozwolona wielkość pliku {maxpicsizeMB} MB. Zalecane wymiary obrazków: {maxpicresolution} pikseli. <br />Po potwierdzeniu przetwarzanie może potrwać dłuższą chwilę.',
 
-    'page_error_1' => 'An error occurred while processing your request.',
+    'page_error_1' => 'Wystąpił błąd podczas przetwarzania żądania.',
     'page_error_2' => 'Administratorzy systemu zostali o nim powiadomieni.',
     'page_error_3' => 'Jeśli problem będzie się powtarzał, proszę <a href="/articles.php?page=contact">skontaktuj się z nami</a> i opisz krok po kroku co należy zrobić, by problem wystąpił.',
     'page_error_back' => 'Przejdź do strony głównej',
@@ -2982,7 +2982,7 @@ $translations = array(
     'usrIgnore_lastLogColumn' => 'Ostatni wpis w logu',
     'usrIgnore_actionRemoveColumn' => 'Działanie',
     'usrIgnore_removeFromIgnored' => 'Usuń z listy ignorowanych',
-    'usrIgnore_removingError' => 'Error occurred on removing from ignored',
+    'usrIgnore_removingError' => 'Wystąpił błąd przy usunięciu z ignorowanych',
     'usrIgnore_removingSuccess' => 'Skrzynkę usunięto z ignorowanych',
 
     'gp_logoUpdateTitle' => 'Nowe logo geościeżki',
@@ -3006,7 +3006,7 @@ $translations = array(
     'gpCandidates_cacheOwner' => 'Właściciel',
     'gpCandidates_cancelOffer' => 'Anuluj tą ofertę',
     'gpCandidates_offerCanceled' => 'Oferta anulowana',
-    'gpCandidates_errorOnCancel' => 'Cannot cancel this offer - error occurred',
+    'gpCandidates_errorOnCancel' => 'Nie można anulować tej oferty - wystąpił błąd',
     'gpCandidates_cancelOfferInProgress' => 'Anulowanie w toku',
 
 
@@ -3017,11 +3017,11 @@ $translations = array(
     'gpMyCandidates_actions' => 'Akcja',
     'gpMyCandidates_acceptOffer' => 'Akceptuj',
     'gpMyCandidates_acceptOfferTitle' => 'Zaakceptuj tę ofertę',
-    'gpMyCandidates_errorOnAccept' => 'Error occurred',
+    'gpMyCandidates_errorOnAccept' => 'Wystąpił błąd',
     'gpMyCandidates_offerAccepted' => 'Oferta zaakceptowana',
     'gpMyCandidates_refuseOffer' => 'Odrzuć',
     'gpMyCandidates_refuseOfferTitle' => 'Odrzuć tą ofertę',
-    'gpMyCandidates_errorOnRefuse' => 'Error occurred',
+    'gpMyCandidates_errorOnRefuse' => 'Wystąpił błąd',
     'gpMyCandidates_offerRefused' => 'Oferta odrzucona',
 
 );
