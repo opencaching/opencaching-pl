@@ -253,144 +253,95 @@ $gpxLogType[12] = 'OC Team Comment';                    // OC: XXX_OC_TEAM_COMME
 /* ***********************************************************************
   Attributes
 
-  GPX ID mapping of all attributes of OC.PL .NL .RO .UK. .US, as of 3 October 2017.
-  If there is a matching DE attribute with other ID, the DE ID is given in the "DE" column.
-
-  IDs < 100 are original GC.com, 101-199 are pseudo-GC IDs for special Opencaching attributes.
-  Appended ".0" means inc="0".
-
-  Note that there are some redundant IDs, e.h. UK/RO 46 and NL/PL/US 83 both map to
-  GC 51 "Special tool required".
+  GPX ID mapping of all attributes of opencaching-pl member sites.
+  Complete documentation here: https://wiki.opencaching.eu/index.php?title=Cache_attributes
 */
 
-// common assignments
-$gpxAttribID[1] = '52';     $gpxAttribName[1] = 'Night cache';                // DE UK
-$gpxAttribID[6] = '106';    $gpxAttribName[6] = 'OC-only cache';              // DE UK RO NL
-$gpxAttribID[8] = '108';    $gpxAttribName[8] = 'Letterbox cache';            // DE UK RO
-$gpxAttribID[9] = '23';     $gpxAttribName[9] = 'Dangerous area';             // DE UK RO
-$gpxAttribID[10] = '110';   $gpxAttribName[10] = 'Active railway nearby';     // DE UK
-$gpxAttribID[11] = '21';    $gpxAttribName[11] = 'Cliff / falling rocks';     // DE UK
-$gpxAttribID[12] = '22';    $gpxAttribName[12] = 'Hunting';                   // DE UK RO NL
-$gpxAttribID[13] = '39';    $gpxAttribName[13] = 'Thorns';                    // DE UK RO NL
-$gpxAttribID[14] = '19';    $gpxAttribName[14] = 'Ticks';                     // DE UK RO NL
-$gpxAttribID[15] = '20';    $gpxAttribName[15] = 'Abandoned mines';           // DE UK
-$gpxAttribID[16] = '17';    $gpxAttribName[16] = 'Poisonous plants';          // DE UK
-$gpxAttribID[17] = '18';    $gpxAttribName[17] = 'Dangerous animals';         // DE UK
-$gpxAttribID[18] = '25';    $gpxAttribName[18] = 'Parking available';         // DE UK RO NL
-$gpxAttribID[19] = '26';    $gpxAttribName[19] = 'Public transportation';     // DE UK
-$gpxAttribID[20] = '27';    $gpxAttribName[20] = 'Drinking water nearby';     // DE UK RO
-$gpxAttribID[21] = '28';    $gpxAttribName[21] = 'Public restrooms nearby';   // DE UK
-$gpxAttribID[22] = '29';    $gpxAttribName[22] = 'Telephone nearby';          // DE UK
-$gpxAttribID[23] = '123';   $gpxAttribName[23] = 'First aid available';       // DE UK
-$gpxAttribID[24] = '53';    $gpxAttribName[24] = 'Park and grab';             // DE UK
-$gpxAttribID[25] = '9';     $gpxAttribName[25] = 'Significant hike';          // DE UK RO NL
-$gpxAttribID[26] = '11';    $gpxAttribName[26] = 'May require wading';        // DE UK
-$gpxAttribID[27] = '127';   $gpxAttribName[27] = 'Hilly area';                // DE UK
-$gpxAttribID[28] = '10';    $gpxAttribName[28] = 'Difficult climbing';        // DE UK
-$gpxAttribID[29] = '12';    $gpxAttribName[29] = 'May require swimming';      // DE UK
-$gpxAttribID[30] = '130';   $gpxAttribName[30] = 'Point of interest';         // DE UK
-$gpxAttribID[31] = '131';   $gpxAttribName[31] = 'Has a moving target';       // DE UK
-$gpxAttribID[32] = '132';   $gpxAttribName[32] = 'A webcam is involved';      // DE UK
-$gpxAttribID[33] = '133';   $gpxAttribName[33] = 'Hidden within enclosed room';// DE UK
-$gpxAttribID[34] = '134';   $gpxAttribName[34] = 'Hidden under water';        // DE UK
-$gpxAttribID[35] = '135';   $gpxAttribName[35] = 'No GPS required';           // DE UK
-$gpxAttribID[36] = '2';     $gpxAttribName[36] = 'Access or parking fee';     // DE UK
-$gpxAttribID[37] = '137';   $gpxAttribName[37] = 'Overnight stay necessary';  // DE UK
-$gpxAttribID[38] = '13';    $gpxAttribName[38] = 'Available at all times';    // DE UK RO NL
-$gpxAttribID[39] = '13.0';  $gpxAttribName[39] = 'Only available at specified times';
-                                                                              // DE UK RO NL
-$gpxAttribID[40] = '111';   $gpxAttribName[40] = 'Quick cache';               //       RO NL PL US
-$gpxAttribID[41] = '6';     $gpxAttribName[41] = 'Recommended for kids';      // (59)     NL PL US
-$gpxAttribID[42] = '62.0';  $gpxAttribName[42] = 'All seasons';               // DE UK
-$gpxAttribID[43] = '112';   $gpxAttribName[43] = 'GeoHotel';                  //       RO NL PL
-$gpxAttribID[44] = '24';    $gpxAttribName[44] = 'Wheelchair accessible';     //       RO NL PL US
-$gpxAttribID[45] = '40';    $gpxAttribName[45] = 'Stealth required';          //       RO NL
-$gpxAttribID[46] = '51';    $gpxAttribName[46] = 'Special tool required';     // DE UK RO
-$gpxAttribID[47] = '147';   $gpxAttribName[47] = 'Compass required';          // DE UK RO NL PL
-$gpxAttribID[48] = '113';   $gpxAttribName[48] = 'Bring your own pen';        //       RO NL PL US
-$gpxAttribID[49] = '149';   $gpxAttribName[49] = 'Magnetic';                  //       RO NL PL US
-$gpxAttribID[50] = '114';   $gpxAttribName[50] = 'Audio file';                //       RO NL PL
-$gpxAttribID[51] = '115';   $gpxAttribName[51] = 'Offset cache';              //       RO    PL US
-$gpxAttribID[52] = '60';    $gpxAttribName[52] = 'Wireless Beacon';           //       RO NL PL US
-$gpxAttribID[53] = '116';   $gpxAttribName[53] = 'USB Dead Drop cache';       //       RO NL PL
-$gpxAttribID[54] = '117';   $gpxAttribName[54] = 'Near a survey marker';      //       RO NL PL
-$gpxAttribID[55] = '118';   $gpxAttribName[55] = 'Wherigo cache';             //       RO    PL
-$gpxAttribID[56] = '108';   $gpxAttribName[56] = 'Letterbox cache';           // 8        NL PL
-$gpxAttribID[57] = '157';   $gpxAttribName[57] = 'Other cache type';          // DE UK
-$gpxAttribID[58] = '158';   $gpxAttribName[58] = 'Ask owner for start conditions';
-                                                                              // DE UK
-$gpxAttribID[59] = '6';     $gpxAttribName[59] = 'Recommended for kids';      // DE UK RO
-$gpxAttribID[60] = '119';   $gpxAttribName[60] = 'Hidden in natural surroundings';
-                                                                              //       RO NL PL US
-$gpxAttribID[61] = '120';   $gpxAttribName[61] = 'Historic site';             //       RO NL PL US
-$gpxAttribID[80] = '13.0';  $gpxAttribName[80] = 'Only available at specified times';
-                                                                              // 39    RO    PL US
-$gpxAttribID[81] = '121';   $gpxAttribName[81] = 'You may need a shovel';     //       RO NL PL
-$gpxAttribID[82] = '44';    $gpxAttribName[82] = 'Flashlight required';       // 48 UK RO NL PL US
-$gpxAttribID[83] = '51';    $gpxAttribName[83] = 'Special tool required';     // 46       NL PL US
-$gpxAttribID[84] = '122';   $gpxAttribName[84] = 'Access only by foot';       //       RO NL PL
-$gpxAttribID[85] = '32';    $gpxAttribName[85] = 'Bicycles';                  //       RO NL PL
-    // TODO: https://github.com/opencaching/opencaching-pl/issues/1244
-$gpxAttribID[86] = '4';     $gpxAttribName[86] = 'Boat required';             // 52 UK RO NL PL
-$gpxAttribID[90] = '23';    $gpxAttribName[90] = 'Dangerous area';            // 9        NL PL US
-$gpxAttribID[91] = '14';    $gpxAttribName[91] = 'Recommended at night';      //       RO NL PL
-$gpxAttribID[155] = '47';   $gpxAttribName[155] = 'Field puzzle';             // 55 UK RO
-$gpxAttribID[156] = '153';  $gpxAttribName[156] = 'Aircraft required';        // 53 UK
-$gpxAttribID[157] = '125';  $gpxAttribName[157] = 'Rated on Handicaching.com';//    UK
-$gpxAttribID[158] = '126';  $gpxAttribName[158] = 'Contains a Munzee';        //    UK
-
-/*
-ATTENTION:
-
-If you add a new attribute to your OC site, follow these steps to assign a GPX ID:
-
-1. Try to map it to an existing Groundspeak attribute. Consult the table in the
-   upper section of okapi/services/attrs/attribute-definitions.xml for all known
-   GS attribs. If no GS attribute is available:
-
-2. Try to map it to an existing OCDE attribute. You will find all OCDE attributes here:
-   https://github.com/OpencachingDeutschland/oc-server3/blob/development/sql/static-data/cache_attrib.sql
-   The column "gc_id" contains the GPX ID for the attribute, and the column "gc_inc"
-   the inc-value. If no OCDE attribute is available:
-
-3. Use the first number from this list of unassigned GPX IDs, and remove if from the list:
-   128, 129, 136, 138, 139, 140, 144, 146, 148, 151, 152, 155, 159, 160.
-
-4. Inform the Okapi project about your new attribute, so that it will be added to
-   okapi/services/attrs/attribute-definitions.
-*/
-
-// special UK assignemnts
-$gpxAI['UK'][40] = '14.0';  $gpxAInm['UK'][40] = 'Not recommended at night';  // DE UK
-$gpxAI['UK'][41] = '142';   $gpxAInm['UK'][41] = 'Not available during high tide';
-    // Due to a typo in OCDE code, #41 maps to #142 instead of #141.             DE UK
-    // It has inc="1" in spite of "negative logic", because there is
-    // not matching positive attribute.
-$gpxAI['UK'][43] = '143';   $gpxAInm['UK'][43] = 'Neature reserve / Breeding season';
-$gpxAI['UK'][44] = '15';    $gpxAInm['UK'][44] = 'Available during winter';   // DE UK
-$gpxAI['UK'][49] = '3';     $gpxAInm['UK'][49] = 'Climbing gear required';    // DE UK
-$gpxAI['UK'][50] = '150';   $gpxAInm['UK'][50] = 'Cave equipment required';   // DE UK
-$gpxAI['UK'][51] = '5';     $gpxAInm['UK'][51] = 'Scuba gear required';       // DE UK
-$gpxAI['UK'][54] = '154';   $gpxAInm['UK'][54] = 'Investigation required';    // DE UK
-$gpxAI['UK'][56] = '156';   $gpxAInm['UK'][56] = 'Mathematical problem';      // DE UK
-
-// special US assignments
-$gpxAI['US'][42] = '46';    $gpxAInm['US'][42] = 'Big rig friendly';          //                US
-$gpxAI['US'][43] = '2';     $gpxAInm['US'][43] = 'Access fee';                // 36             US
-$gpxAI['US'][45] = '19';    $gpxAInm['US'][45] = 'Ticks';                     // 14             US
-$gpxAI['US'][46] = '18';    $gpxAInm['US'][46] = 'Snakes';                    // (17)           US
-$gpxAI['US'][47] = '39';    $gpxAInm['US'][47] = 'Thorns';                    // 13             US
-$gpxAI['US'][50] = '15';    $gpxAInm['US'][50] = 'Available during winter';   // 44             US
-$gpxAI['US'][53] = '112';   $gpxAInm['US'][53] = 'GeoHotel';                  //                US
-$gpxAI['US'][54] = '17';    $gpxAInm['US'][54] = 'Poisonous plants';          // 16             US
-$gpxAI['US'][55] = '117';   $gpxAInm['US'][55] = 'Near a Survey Marker';      //                US
-$gpxAI['US'][56] = '126';   $gpxAInm['US'][56] = 'Munzee';                    //                US
-$gpxAI['US'][81] = '108';   $gpxAInm['US'][81] = 'Letterbox cache';           // 8              US
-$gpxAI['US'][91] = '52';    $gpxAInm['US'][91] = 'Night cache';               // 1              US
-$gpxAI['US'][92] = '106';   $gpxAInm['US'][92] = 'OC-only cache';             // 6              US
-$gpxAI['US'][94] = '40';    $gpxAInm['US'][94] = 'Stealth required';          //                US
-$gpxAI['US'][95] = '124';   $gpxAInm['US'][95] = 'Contains advertising';      //                US
-$gpxAI['US'][96] = '147';   $gpxAInm['US'][96] = 'Compass required';          // 47             US
+$gpxAttribID[9001] = '9001';        $gpxAttribName[9001] = 'Dogs not allowed';
+$gpxAttribID[2] = '2';        $gpxAttribName[2] = 'Access or parking fee';
+$gpxAttribID[3] = '3';        $gpxAttribName[3] = 'Climbing gear requried';
+$gpxAttribID[4] = '4';        $gpxAttribName[4] = 'Boat required';
+$gpxAttribID[5] = '5';        $gpxAttribName[5] = 'Diving equipment required';
+$gpxAttribID[6] = '6';        $gpxAttribName[6] = 'Suitable for children';
+$gpxAttribID[9] = '9';        $gpxAttribName[9] = 'Long walk or hike';
+$gpxAttribID[10] = '10';        $gpxAttribName[10] = 'Some climbing (no gear needed)';
+$gpxAttribID[11] = '11';        $gpxAttribName[11] = 'Swamp or marsh. May require wading';
+$gpxAttribID[12] = '12';        $gpxAttribName[12] = 'Swimming required';
+$gpxAttribID[13] = '13';        $gpxAttribName[13] = 'Available 24/7';
+$gpxAttribID[9013] = '9013';        $gpxAttribName[9013] = 'Available only during open hours';
+$gpxAttribID[14] = '14';        $gpxAttribName[14] = 'Recommended at night';
+$gpxAttribID[9014] = '9014';        $gpxAttribName[9014] = 'NOT recommended at night';
+$gpxAttribID[15] = '15';        $gpxAttribName[15] = 'Available during winter';
+$gpxAttribID[9015] = '9015';        $gpxAttribName[9015] = 'NOT available during winter';
+$gpxAttribID[17] = '17';        $gpxAttribName[17] = 'Poisonous plants';
+$gpxAttribID[18] = '18';        $gpxAttribName[18] = 'Dangerous animals';
+$gpxAttribID[19] = '19';        $gpxAttribName[19] = 'Ticks';
+$gpxAttribID[20] = '20';        $gpxAttribName[20] = 'Abandoned mine(s)';
+$gpxAttribID[21] = '21';        $gpxAttribName[21] = 'Cliffs / falling rocks hazard';
+$gpxAttribID[22] = '22';        $gpxAttribName[22] = 'Hunting grounds';
+$gpxAttribID[23] = '23';        $gpxAttribName[23] = 'Dangerous area';
+$gpxAttribID[24] = '24';        $gpxAttribName[24] = 'Wheelchair accessible';
+$gpxAttribID[25] = '25';        $gpxAttribName[25] = 'Parking area nearby';
+$gpxAttribID[26] = '26';        $gpxAttribName[26] = 'Public transportation';
+$gpxAttribID[27] = '27';        $gpxAttribName[27] = 'Drinking water nearby';
+$gpxAttribID[28] = '28';        $gpxAttribName[28] = 'Public restrooms nearby';
+$gpxAttribID[29] = '29';        $gpxAttribName[29] = 'Public phone nearby';
+$gpxAttribID[32] = '32';        $gpxAttribName[32] = 'Bycicles allowed';
+$gpxAttribID[39] = '39';        $gpxAttribName[39] = 'Thorns';
+$gpxAttribID[40] = '40';        $gpxAttribName[40] = 'Stealth required';
+$gpxAttribID[44] = '44';        $gpxAttribName[44] = 'Flashlight required';
+$gpxAttribID[46] = '46';        $gpxAttribName[46] = 'Truck / RV allowed';
+$gpxAttribID[47] = '47';        $gpxAttribName[47] = 'Puzzle can only be solved on-site';
+$gpxAttribID[48] = '48';        $gpxAttribName[48] = 'UV light required';
+$gpxAttribID[51] = '51';        $gpxAttribName[51] = 'Special tool / equipment required';
+$gpxAttribID[52] = '52';        $gpxAttribName[52] = 'Night cache - can only be found at night';
+$gpxAttribID[53] = '53';        $gpxAttribName[53] = 'Park and grab';
+$gpxAttribID[54] = '54';        $gpxAttribName[54] = 'Abandoned structure / ruin';
+$gpxAttribID[60] = '60';        $gpxAttribName[60] = 'Wireless beacon / Garmin Chirp™';
+$gpxAttribID[9062] = '9062';        $gpxAttribName[9062] = 'Available all seasons';
+$gpxAttribID[64] = '64';        $gpxAttribName[64] = 'Tree climbing required';
+$gpxAttribID[106] = '106';        $gpxAttribName[106] = 'OPENCACHING only cache';
+$gpxAttribID[108] = '108';        $gpxAttribName[108] = 'Letterbox';
+$gpxAttribID[110] = '110';        $gpxAttribName[110] = 'Active railway nearby';
+$gpxAttribID[123] = '123';        $gpxAttribName[123] = 'First aid available';
+$gpxAttribID[127] = '127';        $gpxAttribName[127] = 'Hilly area';
+$gpxAttribID[130] = '130';        $gpxAttribName[130] = 'Point of interest';
+$gpxAttribID[131] = '131';        $gpxAttribName[131] = 'Moving target';
+$gpxAttribID[132] = '132';        $gpxAttribName[132] = 'Webcam ';
+$gpxAttribID[133] = '133';        $gpxAttribName[133] = 'Indoors, withing enclosed space (building, cave, etc)';
+$gpxAttribID[134] = '134';        $gpxAttribName[134] = 'Under water';
+$gpxAttribID[135] = '135';        $gpxAttribName[135] = 'No GPS required';
+$gpxAttribID[137] = '137';        $gpxAttribName[137] = 'Overnight stay necessary';
+$gpxAttribID[142] = '142';        $gpxAttribName[142] = 'Not available during high tide';
+$gpxAttribID[143] = '143';        $gpxAttribName[143] = 'Nature preserve / Breeding season';
+$gpxAttribID[147] = '147';        $gpxAttribName[147] = 'Compass required';
+$gpxAttribID[150] = '150';        $gpxAttribName[150] = 'Cave equipment required';
+$gpxAttribID[153] = '153';        $gpxAttribName[153] = 'Aircraft required';
+$gpxAttribID[154] = '154';        $gpxAttribName[154] = 'Internet research required';
+$gpxAttribID[156] = '156';        $gpxAttribName[156] = 'Mathematical or logical problem';
+$gpxAttribID[157] = '157';        $gpxAttribName[157] = 'Other cache type';
+$gpxAttribID[158] = '158';        $gpxAttribName[158] = 'Ask owner for start conditions';
+$gpxAttribID[201] = '201';        $gpxAttribName[201] = 'Quick and easy cache';
+$gpxAttribID[202] = '202';        $gpxAttribName[202] = 'GeoHotel for trackables';
+$gpxAttribID[203] = '203';        $gpxAttribName[203] = 'Bring your own pen';
+$gpxAttribID[204] = '204';        $gpxAttribName[204] = 'Attached using magnet(s)';
+$gpxAttribID[205] = '205';        $gpxAttribName[205] = 'Information in  MP3 file';
+$gpxAttribID[206] = '206';        $gpxAttribName[206] = 'Container placed at an offset from given coordinates';
+$gpxAttribID[207] = '207';        $gpxAttribName[207] = 'Dead Drop USB container';
+$gpxAttribID[208] = '208';        $gpxAttribName[208] = 'Benchmark - geodetic point';
+$gpxAttribID[209] = '209';        $gpxAttribName[209] = 'Wherigo cartridge to play';
+$gpxAttribID[210] = '210';        $gpxAttribName[210] = 'Hidden in natural surroundings';
+$gpxAttribID[211] = '211';        $gpxAttribName[211] = 'Monument or historic site';
+$gpxAttribID[212] = '212';        $gpxAttribName[212] = 'Shovel required';
+$gpxAttribID[213] = '213';        $gpxAttribName[213] = 'Access only by walk';
+$gpxAttribID[214] = '214';        $gpxAttribName[214] = 'Rated on Handicaching.com';
+$gpxAttribID[215] = '215';        $gpxAttribName[215] = 'Contains a Munzee';
+$gpxAttribID[216] = '216';        $gpxAttribName[216] = 'Contains advertising';
+$gpxAttribID[217] = '217';        $gpxAttribName[217] = 'Military training area, some access restrictions - check before visit';
+$gpxAttribID[218] = '218';        $gpxAttribName[218] = 'Caution, area under video surveillance';
+$gpxAttribID[219] = '219';        $gpxAttribName[219] = 'Suitable to hold trackables';
+$gpxAttribID[220] = '220';        $gpxAttribName[220] = 'Officially designated historical monument';
+$gpxAttribID[999] = '999';        $gpxAttribName[999] = 'Log password';
 
 // node map
 $gpxNodemap = [2 => 'PL', 4 => 'DEVEL', 6 => 'UK', 10 => 'US', 14 => 'NL', 16 => 'RO'];

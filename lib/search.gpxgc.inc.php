@@ -264,15 +264,10 @@ while ( $r = XDb::xFetchArray($stmt) ) {
 
     while ($rAttrib = XDb::xFetchArray($rsAttributes)) {
         $attrib_id = $rAttrib['attrib_id'];
-        if ($nodeCode !== '' && isset($gpxAI[$nodeCode][$attrib_id])) {
-            # special attribute definition of one OC site
-            $gpx_id = (int) $gpxAI[$nodeCode][$attrib_id];
-            $gpx_inc = (substr($gpxAI[$nodeCode][$attrib_id], -2) == '.0' ? '0' : '1');
-            $gpx_name = $gpxAInm[$nodeCode][$attrib_id];
-        } elseif (isset($gpxAttribID[$attrib_id])) {
+        if (isset($gpxAttribID[$attrib_id])) {
             # common attribute definition
             $gpx_id = (int) $gpxAttribID[$attrib_id];
-            $gpx_inc = (substr($gpxAttribID[$attrib_id], -2) == '.0' ? '0' : '1');
+            $gpx_inc = (($gpxAttribID[$attrib_id] - 9000) > 0 ? '0' : '1');
             $gpx_name = $gpxAttribName[$attrib_id];
         } else {
             # definition is missing
