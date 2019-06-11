@@ -1838,11 +1838,10 @@ $translations = array(
     'pt243' => 'Verberg voltooide',
     'pt244' => 'Geblokkeerd door OC Team',
 
+    'gp_candidateIntroUser' => 'Gebruiker',
     'gp_candidateIntro' => 'stelde voor om je geweldige geocache toe te voegen',
     'gp_candidateToGeopath' => 'aan GeoPath',
-    'gp_candidateDecisionDescription' => 'Je kunt dit voorstel accepteren of afwijzen door op een knop te klikken:',
-    'gp_candidateAcceptBtn' => 'Voorstel accepteren',
-    'gp_candidateCancleBtn' => 'Voorstel afwijzen',
+    'gp_candidateLinkDescription' => 'Je kunt dit voorstel op de pagina accepteren of weigeren',
     'gp_candidateDisclaimer' => 'Natuurlijk kun je dit voorstel negeren. De geldigheid van het aanbod is 30 dagen.',
     'gp_cacheCandidateEmailSubject' => 'Voeg jouw geocache toe aan GeoPath',
     'gp_candidateDoubts' => 'Neem contact op met de gebruiker in geval van een probleem',
@@ -2997,5 +2996,32 @@ $translations = array(
     'SmartPhone_Android' => 'Voor Android',
     'SmartPhone_Iphone' => 'Voor iphone',
     'SmartPhone_Windows' => 'Voor Windows telefoon',
+
+    'listOfCaches_defaultNoRowsMessage' => 'Er zijn geen gegevens om weer te geven',
+
+    'gpCandidates_title' => 'Kandidaten voor Geopath',
+    'gpCandidates_submitedDate' => 'Datum',
+    'gpCandidates_cacheName' => 'Naam van de cache',
+    'gpCandidates_action' => 'Actie',
+    'gpCandidates_cacheOwner' => 'Eigenaar',
+    'gpCandidates_cancelOffer' => 'Annuleren dit voorstel',
+    'gpCandidates_offerCanceled' => 'Aanbod geannuleerd',
+    'gpCandidates_errorOnCancel' => 'Kan deze aanbieding niet annuleren. Er is een fout opgetreden',
+    'gpCandidates_cancelOfferInProgress' => 'Annulering in uitvoering',
+
+
+    'gpMyCandidates_title' => 'Kandidaten Geopath voor gebruiker',
+    'gpMyCandidates_submitedDate' => 'Datum',
+    'gpMyCandidates_geopathName' => 'GeoPath',
+    'gpMyCandidates_cacheName' => 'Geocache',
+    'gpMyCandidates_actions' => 'Acties',
+    'gpMyCandidates_acceptOffer' => 'Accepteren',
+    'gpMyCandidates_acceptOfferTitle' => 'Accepteer dit voorstel',
+    'gpMyCandidates_errorOnAccept' => 'Fout opgetreden',
+    'gpMyCandidates_offerAccepted' => 'Aanbod geaccepteerd',
+    'gpMyCandidates_refuseOffer' => 'Weigeren',
+    'gpMyCandidates_refuseOfferTitle' => 'Dit aanbod weigeren',
+    'gpMyCandidates_errorOnRefuse' => 'Fout opgetreden',
+    'gpMyCandidates_offerRefused' => 'Aanbod geweigerd',
 
 );

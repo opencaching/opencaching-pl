@@ -1838,11 +1838,10 @@ $translations = array(
     'pt243' => 'Ukryj zdobyte',
     'pt244' => 'Zablokowana przez COG',
 
+    'gp_candidateIntroUser' => 'Użytkownik',
     'gp_candidateIntro' => 'zasugerowano, aby dodać Twoją świetną skrzynkę',
     'gp_candidateToGeopath' => 'do GeoŚcieżki',
-    'gp_candidateDecisionDescription' => 'Możesz zaakceptować lub odrzucić tę propozycję, klikając przycisk:',
-    'gp_candidateAcceptBtn' => 'Akceptuj propozycję',
-    'gp_candidateCancleBtn' => 'Odrzuć propozycję',
+    'gp_candidateLinkDescription' => 'Możesz zaakceptować lub odrzucić tę propozycję na stronie',
     'gp_candidateDisclaimer' => 'Oczywiście możesz zignorować tę propozycję - ważność oferty wynosi 30 dni.',
     'gp_cacheCandidateEmailSubject' => 'Dodaj swoją skrzynkę do GeoŚcieżki',
     'gp_candidateDoubts' => 'W razie jakichkolwiek wątpliwości prosimy o kontakt z użytkownikiem',
@@ -2761,7 +2760,7 @@ $translations = array(
 
     'pictures_intro' => 'Akceptowane formaty: {picallowedformats} - dla zdjęć rekomendowany format JPG .<br />Maksymalna dozwolona wielkość pliku {maxpicsizeMB} MB. Zalecane wymiary obrazków: {maxpicresolution} pikseli. <br />Po potwierdzeniu przetwarzanie może potrwać dłuższą chwilę.',
 
-    'page_error_1' => 'Ups, wystąpił problem podczas przetwarzania danych.',
+    'page_error_1' => 'Wystąpił błąd podczas przetwarzania żądania.',
     'page_error_2' => 'Administratorzy systemu zostali o nim powiadomieni.',
     'page_error_3' => 'Jeśli problem będzie się powtarzał, proszę <a href="/articles.php?page=contact">skontaktuj się z nami</a> i opisz krok po kroku co należy zrobić, by problem wystąpił.',
     'page_error_back' => 'Przejdź do strony głównej',
@@ -2997,5 +2996,32 @@ $translations = array(
     'SmartPhone_Android' => 'Dla Androida',
     'SmartPhone_Iphone' => 'Dla iPhona',
     'SmartPhone_Windows' => 'Dla Windows Phone',
+
+    'listOfCaches_defaultNoRowsMessage' => 'Brak danych do wyświetlenia',
+
+    'gpCandidates_title' => 'Kandydaci do geościeżki',
+    'gpCandidates_submitedDate' => 'Data',
+    'gpCandidates_cacheName' => 'Nazwa skrzynki',
+    'gpCandidates_action' => 'Akcja',
+    'gpCandidates_cacheOwner' => 'Właściciel',
+    'gpCandidates_cancelOffer' => 'Anuluj tą ofertę',
+    'gpCandidates_offerCanceled' => 'Oferta anulowana',
+    'gpCandidates_errorOnCancel' => 'Nie można anulować tej oferty - wystąpił błąd',
+    'gpCandidates_cancelOfferInProgress' => 'Anulowanie w toku',
+
+
+    'gpMyCandidates_title' => 'Kandydaci do geościeżki dla użytkownika',
+    'gpMyCandidates_submitedDate' => 'Data',
+    'gpMyCandidates_geopathName' => 'GeoŚcieżka',
+    'gpMyCandidates_cacheName' => 'Skrzynka',
+    'gpMyCandidates_actions' => 'Akcja',
+    'gpMyCandidates_acceptOffer' => 'Akceptuj',
+    'gpMyCandidates_acceptOfferTitle' => 'Zaakceptuj tę ofertę',
+    'gpMyCandidates_errorOnAccept' => 'Wystąpił błąd',
+    'gpMyCandidates_offerAccepted' => 'Oferta zaakceptowana',
+    'gpMyCandidates_refuseOffer' => 'Odrzuć',
+    'gpMyCandidates_refuseOfferTitle' => 'Odrzuć tą ofertę',
+    'gpMyCandidates_errorOnRefuse' => 'Wystąpił błąd',
+    'gpMyCandidates_offerRefused' => 'Oferta odrzucona',
 
 );

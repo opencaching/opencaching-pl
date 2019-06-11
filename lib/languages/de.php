@@ -625,7 +625,7 @@ $translations = array(
     'myn_map_info1' => 'Die Größe und Position des Umgebung wird nach einem Klick auf „Zeichnen starten“ festgelegt. Ein Klick auf die Karte legt den Mittelpunkt fest, und dann ziehst du den Radius auf, in dem du dich über Caches informieren (lassen) möchtest. Du kannst zum Beispiel deine Stadt auswählen, ein Waldgebiet oder einen anderen Bereich, für den du dich interessierst.',
     'myn_map_info2' => 'Das ausgewählte Gebiet kannst du anschließend durch Ziehen des Mittelpunkts verschieben, oder durch Ziehen des Kreisumfangs den Radius ändern. Der Radius kann 1 bis 150 km betragen.',
     'myn_map_drawbtn' => 'Zeichnen starten',
-    'myn_name_default' => 'Dies ist deine primäre Umgebung. Du wirst (je nach <a href="/UserProfile/notifySettings">Benachrichtigungseinstellungen</a>) Mitteilungen über neue Caches erhalten. Die Bezeichnung der primären Umgebung ist nicht änderbar.',
+    'myn_name_default' => 'This is your primary Neighborhood. You will receive notifications about new caches (according to the notification settings), you cannot edit its name.',
     'myn_name_addition' => 'Dies ist eine zusätzliche Umgebung. Wenn du über neue Caches oder Logs benachrichtigt werden möchtest, aktiviere <a href="/UserProfile/notifySettings">hier</a> die entsprechende Benachrichtigungseinstellung.',
     'myn_dragdrop' => 'Du kannst die Abschnitte auf dieser Seite verschieben, indem du sie an den Überschriften „fasst“. Mit den kleinen Pfeilen daneben kannst du den jeweiligen Bereich einklappen oder auf die ganze Seitenbreite vergrößern.',
     'myn_distances' => 'Es wird jeweils der Abstand zwischen dem Cache und dem Mittelpunkt des Umkreises angezeigt.',
@@ -1838,12 +1838,11 @@ $translations = array(
     'pt243' => 'Abgeschlossene ausblenden',
     'pt244' => 'vom OC-Team gesperrt',
 
+    'gp_candidateIntroUser' => 'User',
     'gp_candidateIntro' => 'hat vorgeschlagen, deinen tollen Geocache hinzuzufügen',
     'gp_candidateToGeopath' => 'zum Geopfad',
-    'gp_candidateDecisionDescription' => 'Du kannst diesen Vorschlag annehmen oder ablehnen, indem du hier klickst:',
-    'gp_candidateAcceptBtn' => 'Vorschlag annehmen',
-    'gp_candidateCancleBtn' => 'Vorschlag ablehnen',
-    'gp_candidateDisclaimer' => 'Natürlich kannst du den Vorschlag auch ignorieren. Er bleibt 30 Tage lang gültig.',
+    'gp_candidateLinkDescription' => 'You can decide to accept or decline this proposal on page',
+    'gp_candidateDisclaimer' => 'Of course you can also ignore this proposal - the validity of the offer is 30 days.',
     'gp_cacheCandidateEmailSubject' => 'Cache zu Geopath hinzufügen',
     'gp_candidateDoubts' => 'Bei Unklarheiten wende dich bitte an den Benutzer',
 
@@ -2762,7 +2761,7 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
 
     'pictures_intro' => 'Zulässige Bildformate: {picallowedformats}. Für Fotos wird JPG empfohlen.<br />Maximale Dateigröße: {maxpicsizeMB} MB. Empfohlene Auflösung: {maxpicresolution} Pixel.',
 
-    'page_error_1' => 'Beim Ausführen deiner Abfrage ist ein Fehler aufgetreten.',
+    'page_error_1' => 'An error occurred while processing your request.',
     'page_error_2' => 'Die Opencachin-Admins wurden informiert.',
     'page_error_3' => 'Falls das Problem bestehen bleibt, <a href="/articles.php?page=contact">kontaktiere</a> bitte das OC-Team und beschreibe Schritt für Schritt, wie sich der Fehler reproduzieren lässt.',
     'page_error_back' => 'Zur Startseite',
@@ -2984,7 +2983,7 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'usrIgnore_lastLogColumn' => 'Letztes Log',
     'usrIgnore_actionRemoveColumn' => 'Aktion',
     'usrIgnore_removeFromIgnored' => 'Aus Ignorierliste entfernen',
-    'usrIgnore_removingError' => 'Fehler beim Entfernen aus der Ignorierliste',
+    'usrIgnore_removingError' => 'Error occurred on removing from ignored',
     'usrIgnore_removingSuccess' => 'Cache wird nicht mehr ignoriert',
 
     'gp_logoUpdateTitle' => 'Geopfad-Logo hochladen',
@@ -2998,5 +2997,32 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'SmartPhone_Android' => 'Für Android',
     'SmartPhone_Iphone' => 'Für iPhone',
     'SmartPhone_Windows' => 'Für Windows Phone',
+
+    'listOfCaches_defaultNoRowsMessage' => 'There is no datat to display here',
+
+    'gpCandidates_title' => 'Candidates to geopath',
+    'gpCandidates_submitedDate' => 'Date',
+    'gpCandidates_cacheName' => 'Name of the cache',
+    'gpCandidates_action' => 'Action',
+    'gpCandidates_cacheOwner' => 'Owner',
+    'gpCandidates_cancelOffer' => 'Cancel this offer',
+    'gpCandidates_offerCanceled' => 'Offer canceled',
+    'gpCandidates_errorOnCancel' => 'Cannot cancel this offer - error occurred',
+    'gpCandidates_cancelOfferInProgress' => 'Cancelation in progress',
+
+
+    'gpMyCandidates_title' => 'Candidates to geopaths for user',
+    'gpMyCandidates_submitedDate' => 'Date',
+    'gpMyCandidates_geopathName' => 'Geopath',
+    'gpMyCandidates_cacheName' => 'Geocache',
+    'gpMyCandidates_actions' => 'Actions',
+    'gpMyCandidates_acceptOffer' => 'Accept',
+    'gpMyCandidates_acceptOfferTitle' => 'Accept this offer',
+    'gpMyCandidates_errorOnAccept' => 'Error occurred',
+    'gpMyCandidates_offerAccepted' => 'Offer accepted',
+    'gpMyCandidates_refuseOffer' => 'Refuse',
+    'gpMyCandidates_refuseOfferTitle' => 'Refuse this offer',
+    'gpMyCandidates_errorOnRefuse' => 'Error occurred',
+    'gpMyCandidates_offerRefused' => 'Offer refused',
 
 );

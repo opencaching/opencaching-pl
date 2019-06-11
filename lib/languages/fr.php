@@ -625,7 +625,7 @@ $translations = array(
     'myn_map_info1' => 'La taille et l’emplacement du quartier peuvent être définis en cliquant sur le bouton « Commencer à dessiner ». Le premier clic sur le plan permettra de déterminer le centre de la zone, le second - le rayon de la zone à observer. Vous pouvez choisir, par exemple, votre ville ou votre parc préféré, la forêt de la région ou tout autre endroit que vous désirez.',
     'myn_map_info2' => 'Vous pouvez déplacer la zone précédemment sélectionnée en faisant glisser son centre ou changer le rayon en faisant glisser le point mis en évidence sur le bord du cercle. Le rayon peut varier de 1 à 150 km.',
     'myn_map_drawbtn' => 'Commencer à dessiner',
-    'myn_name_default' => 'Il s’agit de votre premier quartier. Vous recevrez des notifications à propos des nouvelles caches (selon vos paramètres de notification). Vous ne pouvez pas modifier son nom.',
+    'myn_name_default' => 'This is your primary Neighborhood. You will receive notifications about new caches (according to the notification settings), you cannot edit its name.',
     'myn_name_addition' => 'Il s’agit d’un de vos quartiers supplémentaires. Si vous souhaitez recevoir des notifications sur les nouvelles caches - activez l’option appropriée dans les « Paramètres de Notification ».',
     'myn_dragdrop' => 'Vous pouvez à tout moment déplacer des éléments de cette page en les « saisissant » par leur titre. En utilisant les petites flèches à cote de l’en-tête, vous pourrez replier la section ou l’étendre à toute la largeur de la page.',
     'myn_distances' => 'La distance entre la cache et le centre de la zone du quartier que vous avez défini est affichée.',
@@ -1838,12 +1838,11 @@ $translations = array(
     'pt243' => 'Masquer les caches déjà trouvées',
     'pt244' => 'Bloqué par l’équipe OC',
 
+    'gp_candidateIntroUser' => 'User',
     'gp_candidateIntro' => 'suggested to add your great geocache',
     'gp_candidateToGeopath' => 'to geopath',
-    'gp_candidateDecisionDescription' => 'You can decide to accept or decline this proposal by clicking button:',
-    'gp_candidateAcceptBtn' => 'Accept proposal',
-    'gp_candidateCancleBtn' => 'Decline proposal',
-    'gp_candidateDisclaimer' => 'Of course you can also ignore this proposal - the the validity of the offer is 30 days.',
+    'gp_candidateLinkDescription' => 'You can decide to accept or decline this proposal on page',
+    'gp_candidateDisclaimer' => 'Of course you can also ignore this proposal - the validity of the offer is 30 days.',
     'gp_cacheCandidateEmailSubject' => 'Adding your geocache to geopath',
     'gp_candidateDoubts' => 'In case of any concerns please contact with user',
 
@@ -2761,7 +2760,7 @@ $translations = array(
 
     'pictures_intro' => 'Formats d’image permis : {picallowedformats}. JPG fonctionne mieux pour les photos.<br />La taille maximale autorisée est de {maxpicsizeMB} mégaoctets. Résolution recommandée : {maxpicresolution} pixels.',
 
-    'page_error_1' => 'An error occured while processing your request.',
+    'page_error_1' => 'An error occurred while processing your request.',
     'page_error_2' => 'The OC site admins have been notified.',
     'page_error_3' => 'If the problem persists, please <a href="/articles.php?page=contact">contact</a> the OC team and describe step by step how to reproduce this error.',
     'page_error_back' => 'Go to the main page',
@@ -2983,7 +2982,7 @@ $translations = array(
     'usrIgnore_lastLogColumn' => 'Last log entry',
     'usrIgnore_actionRemoveColumn' => 'Action',
     'usrIgnore_removeFromIgnored' => 'Remove from ignored',
-    'usrIgnore_removingError' => 'Error occured on removing from ignored',
+    'usrIgnore_removingError' => 'Error occurred on removing from ignored',
     'usrIgnore_removingSuccess' => 'Cache removed from ignored',
 
     'gp_logoUpdateTitle' => 'Geopath logo upload',
@@ -2997,5 +2996,32 @@ $translations = array(
     'SmartPhone_Android' => 'For Android',
     'SmartPhone_Iphone' => 'For iphone',
     'SmartPhone_Windows' => 'For Windows Phone',
+
+    'listOfCaches_defaultNoRowsMessage' => 'There is no datat to display here',
+
+    'gpCandidates_title' => 'Candidates to geopath',
+    'gpCandidates_submitedDate' => 'Date',
+    'gpCandidates_cacheName' => 'Name of the cache',
+    'gpCandidates_action' => 'Action',
+    'gpCandidates_cacheOwner' => 'Owner',
+    'gpCandidates_cancelOffer' => 'Cancel this offer',
+    'gpCandidates_offerCanceled' => 'Offer canceled',
+    'gpCandidates_errorOnCancel' => 'Cannot cancel this offer - error occurred',
+    'gpCandidates_cancelOfferInProgress' => 'Cancelation in progress',
+
+
+    'gpMyCandidates_title' => 'Candidates to geopaths for user',
+    'gpMyCandidates_submitedDate' => 'Date',
+    'gpMyCandidates_geopathName' => 'Geopath',
+    'gpMyCandidates_cacheName' => 'Geocache',
+    'gpMyCandidates_actions' => 'Actions',
+    'gpMyCandidates_acceptOffer' => 'Accept',
+    'gpMyCandidates_acceptOfferTitle' => 'Accept this offer',
+    'gpMyCandidates_errorOnAccept' => 'Error occurred',
+    'gpMyCandidates_offerAccepted' => 'Offer accepted',
+    'gpMyCandidates_refuseOffer' => 'Refuse',
+    'gpMyCandidates_refuseOfferTitle' => 'Refuse this offer',
+    'gpMyCandidates_errorOnRefuse' => 'Error occurred',
+    'gpMyCandidates_offerRefused' => 'Offer refused',
 
 );
