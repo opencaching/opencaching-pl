@@ -6,4 +6,5 @@
  *
  */
 
+$guides['guideActivePeriod'] = 180;
 $guides['guideGotRecommendations'] = 3;

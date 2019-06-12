@@ -19,7 +19,7 @@ $menu = [ // DON'T CHANGE $menu var name!
     'mnu_news'          => SimpleRouter::getLink('News.NewsList'),
     'mnu_PhoneApps'     => '/articles.php?page=apps',
     'mnu_cacheMap'      => SimpleRouter::getLink('MainMap', 'embeded'),
-    'mnu_myNeighborhood'=> SimpleRouter::getLink('MyNeighbourhood','inex'),
+    'mnu_myNeighborhood'=> SimpleRouter::getLink('MyNeighbourhood','index'),
     'mnu_searchCache'   => '/search.php',
     'mnu_geoPaths'      => '/powerTrail.php',
     'mnu_rules'         => $links['wiki']['rules'],
