@@ -19,7 +19,7 @@ $map['jsConfig'] = "
 
     UMP: new ol.layer.Tile ({
         source: new ol.source.TileImage ({
-            url: 'http://tiles.ump.waw.pl/ump_tiles/{z}/{x}/{y}.png',
+            url: 'https://tiles.ump.waw.pl/ump_tiles/{z}/{x}/{y}.png',
             attributions: \"&copy; Mapa z <a href='http://ump.waw.pl/' target='_blank'>UMP-pcPL</a>\",
         })
     }),
