@@ -1200,6 +1200,7 @@ $translations = array(
     'newcache_import_wpt' => 'Načíst data z GPX souboru',
     'newcache_import_wpt_help' => 'Tato funkce umožňuje načíst waypointy (souřadnice, názvy) z GPX souboru.<br /> (např. z GPS navigace Garmin).',
     'newcache_import_wpt_ok' => 'Data byla načtena',
+    'newcache_pleaseSelectRegion' => 'Please select region',
     'email_submit' => 'Submit',
     'garmin_not_found' => 'No GPS device found',
     'garmin_search' => 'Search for GPS device',
