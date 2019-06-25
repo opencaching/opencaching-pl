@@ -1200,6 +1200,7 @@ $translations = array(
     'newcache_import_wpt' => 'Nieuwe cache importeren',
     'newcache_import_wpt_help' => 'Met deze functie kan waypoint gegevens uit GPX bestand van bijvoorbeeld Garmin (coördinaat, naam) als basis voor nieuwe cache verstuurd worden.',
     'newcache_import_wpt_ok' => 'De gegevens zijn geïmporteerd',
+    'newcache_pleaseSelectRegion' => 'Please select region',
     'email_submit' => 'Verzenden',
     'garmin_not_found' => 'Geen GPS apparaat gevonden',
     'garmin_search' => 'Zoeken naar GPS apparaat',
