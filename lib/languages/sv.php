@@ -1200,6 +1200,7 @@ $translations = array(
     'newcache_import_wpt' => 'Load data from GPX file',
     'newcache_import_wpt_help' => 'This feature allows you to load waypoint data (coords, name) from a GPX file.<br /> (e.g. from a Garmin GPS).',
     'newcache_import_wpt_ok' => 'Data was loaded',
+    'newcache_pleaseSelectRegion' => 'Please select region',
     'email_submit' => 'Submit',
     'garmin_not_found' => 'No GPS device found',
     'garmin_search' => 'Search for GPS device',
