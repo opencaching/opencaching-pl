@@ -1200,6 +1200,7 @@ $translations = array(
     'newcache_import_wpt' => 'Wczytaj dane z pliku gpx',
     'newcache_import_wpt_help' => 'Ta funkcja umożliwia wczytanie podstawowych danych (współrzędne, nazwa) waypointa z pliku gpx. (np.&nbsp;z Garmina). Jest to ułatwienie: nie musisz wówczas wypełniać niektórych poniższych pól ręcznie',
     'newcache_import_wpt_ok' => 'Dane zostały wczytane',
+    'newcache_pleaseSelectRegion' => 'Please select region',
     'email_submit' => 'Wyślij',
     'garmin_not_found' => 'Nie znalazłem GPSa',
     'garmin_search' => 'Szukam podłączonego GPS',
