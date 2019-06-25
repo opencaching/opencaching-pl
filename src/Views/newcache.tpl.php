@@ -21,6 +21,15 @@ $view->callChunk('tinyMCE');
         });
     });
 
+    // data picker init
+    $(function() {
+      updateRegionsList();
+      $.datepicker.setDefaults($.datepicker.regional['pl']);
+      $('#hiddenDatePicker, #activateDatePicker').datepicker (
+        $.datepicker.regional["{language4js}"]
+      ).datepicker("option", "dateFormat", "yy-mm-dd").val();
+    });
+
     function hiddenDatePickerChange(identifier){
         var dateTimeStr = $('#' + identifier + 'DatePicker').val();
         var dateArr = dateTimeStr.split("-");
@@ -29,25 +38,24 @@ $view->callChunk('tinyMCE');
         $("#" + identifier + "_day").val(dateArr[2]);
     }
 
-    $(function() {
-        updateRegionsList();
-        $.datepicker.setDefaults($.datepicker.regional['pl']);
-        $('#hiddenDatePicker, #activateDatePicker').datepicker(
-          $.datepicker.regional["{language4js}"]
-      ).datepicker("option", "dateFormat", "yy-mm-dd").val();
-    });
-
     function checkRegion(){
-        if ($('#lat_h').val().length == 0 ||
-            $('#lon_h').val().length == 0 ||
-            $('#lat_min').val().length == 0 ||
-            $('#lon_min').val().length == 0) {
+        console.log('checkRegion');
 
+        if ($('#lat_h').val().length == 0 ||
+            $('#lon_h').val().length == 0 ) {
           return;
         }
 
         var latmin = parseFloat($('#lat_min').val());
+        if(isNaN(latmin)) {
+          latmin = 0;
+        }
+
         var lonmin = parseFloat($('#lon_min').val());
+        if(isNaN(lonmin)) {
+          lonmin = 0;
+        }
+
         var lat = parseFloat($('#lat_h').val()) + latmin / 60;
         if ($('#latNS').val() == 'S') {
            lat = - lat;
@@ -78,25 +86,20 @@ $view->callChunk('tinyMCE');
           } else {
               // country changed
               $('#country').val( locationData['code1'] );
-              //updateRegionsList();
-              $(function() {
-                  setTimeout(function() {
-                    $('#region1').val( locationData['code3'] );
-                  }, 2000);
-              });
+              updateRegionsList(locationData['code3']);
           }
         });
 
         request.always(function () { });
     }
 
-
     var maAttributes = new Array({jsattributes_array});
-            function startUpload(){
-            $('#f1_upload_form').hide();
-                    $('#ajaxLoaderLogo').show();
-                    return true;
-            }
+
+    function startUpload(){
+      $('#f1_upload_form').hide();
+      $('#ajaxLoaderLogo').show();
+      return true;
+    }
 
     function stopUpload(success){
         $('#ajaxLoaderLogo').hide();
@@ -160,13 +163,18 @@ $view->callChunk('tinyMCE');
 
     function chkregion() {
         if ($('#region').val() == "0") {
-          alert("Proszę wybrać region");
+          alert('<?=tr('newcache_pleaseSelectRegion')?>');
           return false;
         }
         return true;
     }
 
-    function updateRegionsList() {
+    function updateRegionsList(regionToSelect) {
+
+      if (typeof(regionToSelect)==='undefined') {
+        regionToSelect = null;
+      }
+
         $('#region1').hide();
         $('#regionAjaxLoader').show();
 
@@ -196,152 +204,140 @@ $view->callChunk('tinyMCE');
         request.always(function () {
             $('#regionAjaxLoader').hide();
                 $('#region1').fadeIn(1000);
+
+                if(regionToSelect) {
+                  $('#region1').val( regionToSelect );
+                }
             });
     }
 
-    function _chkVirtual ()
-    {
-    chkiconcache();
-            // disable password for traditional cache
-            if ($('#cacheType').val() == "2")
-    {
-    $('#log_pw').attr('disabled', true);
-    }
-    else
-    {
-    $('#log_pw').removeAttr('disabled');
+    function _chkVirtual () {
+      chkiconcache();
+      // disable password for traditional cache
+      if ($('#cacheType').val() == "2") {
+        $('#log_pw').attr('disabled', true);
+      } else {
+        $('#log_pw').removeAttr('disabled');
+      }
+
+      if ($('#cacheType').val() == "4" || $('#cacheType').val() == "5" || $('#cacheType').val() == "6") {
+        // if( document.newcacheform.size.options[ $('#size option').length - 1].value != "7" && document.newcacheform.size.options[document.newcacheform.size.options.length - 2].value != "7")
+        if (!($("#size option[value='7']").length > 0)) {
+          var o = new Option("{{cacheSize_none}}", "7");
+          $(o).html("{{cacheSize_none}}");
+          $("#size").append(o);
+        }
+
+        $('#size').val(7);
+        $('#size').attr('disabled', true);
+      } else {
+        $('#size').attr('disabled', false);
+        $("#size option[value='7']").remove();
+      }
+
+      return false;
     }
 
-    if ($('#cacheType').val() == "4" || $('#cacheType').val() == "5" || $('#cacheType').val() == "6")
-    {
-
-    // if( document.newcacheform.size.options[ $('#size option').length - 1].value != "7" && document.newcacheform.size.options[document.newcacheform.size.options.length - 2].value != "7")
-    if (!($("#size option[value='7']").length > 0))
-    {
-    var o = new Option("{{cacheSize_none}}", "7");
-            $(o).html("{{cacheSize_none}}");
-            $("#size").append(o);
-    }
-    $('#size').val(7);
-            $('#size').attr('disabled', true);
-    }
-    else
-    {
-    $('#size').attr('disabled', false);
-            $("#size option[value='7']").remove();
-    }
-    return false;
-    }
-
-    function rebuildCacheAttr()
-    {
-    var i = 0;
-            var sAttr = '';
-            for (i = 0; i < maAttributes.length; i++)
-    {
-    if (maAttributes[i][1] == 1)
-    {
-    if (sAttr != '') sAttr += ';';
-            sAttr = sAttr + maAttributes[i][0];
-            document.getElementById('attr' + maAttributes[i][0]).src = maAttributes[i][3];
-    }
-    else
+    function rebuildCacheAttr() {
+      var i = 0;
+      var sAttr = '';
+      for (i = 0; i < maAttributes.length; i++) {
+        if (maAttributes[i][1] == 1) {
+          if (sAttr != '') sAttr += ';';
+          sAttr = sAttr + maAttributes[i][0];
+          document.getElementById('attr' + maAttributes[i][0]).src = maAttributes[i][3];
+        } else {
             document.getElementById('attr' + maAttributes[i][0]).src = maAttributes[i][2];
-            document.getElementById('cache_attribs').value = sAttr;
-    }
-    }
-
-    function chkcountry()
-    {
-
-    if (document.newcacheform.country.value != 'PL')
-    {
-    document.forms['newcacheform'].country.value = document.newcacheform.country.value;
-            $('#region0').hide();
-            $('#region1').hide();
-            $('#region2').hide();
-            $('#region3').hide();
-            $('#region1').val(0);
-            document.forms['newcacheform'].region.value = '0';
-            document.newcacheform.region.disable = true;
-    } else {
-    $('#region0').show();
-            $('#region1').show();
-            $('#region2').show();
-            $('#region3').show();
-            document.forms['newcacheform'].country.value = 'PL';
-//document.newcacheform.region.options[document.newcacheform.region.options.length] = new Option('--- Select name of region ---', '0')
-            document.newcacheform.region.disable = false;
-            document.forms['newcacheform'].region.value = document.newcacheform.region.value; }
+        }
+        document.getElementById('cache_attribs').value = sAttr;
+      }
     }
 
-    function chkiconcache()
-    {
-    var mode = $('#cacheType').val(); // document.newcacheform.type.value;
-            var iconarray = new Array();
-            iconarray['-1'] = 'arrow_left.png';
-            iconarray['1'] = 'unknown.png';
-            iconarray['2'] = 'traditional.png';
-            iconarray['3'] = 'multi.png';
-            iconarray['4'] = 'virtual.png';
-            iconarray['5'] = 'webcam.png';
-            iconarray['6'] = 'event.png';
-            iconarray['7'] = 'quiz.png';
-            iconarray['8'] = 'moving.png';
-            iconarray['10'] = 'owncache.png';
-            var image_cache = "/images/cache/" + iconarray[mode];
-            $('#actionicons').attr('src', image_cache);
+    function chkcountry() {
+      if (document.newcacheform.country.value != 'PL') {
+        document.forms['newcacheform'].country.value = document.newcacheform.country.value;
+        $('#region0').hide();
+        $('#region1').hide();
+        $('#region2').hide();
+        $('#region3').hide();
+        $('#region1').val(0);
+        document.forms['newcacheform'].region.value = '0';
+        document.newcacheform.region.disable = true;
+      } else {
+        $('#region0').show();
+        $('#region1').show();
+        $('#region2').show();
+        $('#region3').show();
+        document.forms['newcacheform'].country.value = 'PL';
+        //document.newcacheform.region.options[document.newcacheform.region.options.length] = new Option('--- Select name of region ---', '0')
+        document.newcacheform.region.disable = false;
+        document.forms['newcacheform'].region.value = document.newcacheform.region.value;
+      }
     }
 
-    function toggleAttr(id)
-    { // same func in newcache.tpl.php and editcache.tpl.php
-    var i = 0;
-//            var answ = ''; var bike_id = ''; var walk_id = ''; var boat_id = '';
-//            if (id == 85 || id == 84 || id == 86)
-//    { //toggle contradictory attribs
-//    for (i = 0; i < maAttributes.length; i++) //finding id of bike and walk_only attributes
-//    {
-//    if (maAttributes[i][0] == 84)  {walk_id = i; };
-//            if (maAttributes[i][0] == 85)  {bike_id = i; };
-//            if (maAttributes[i][0] == 86)  {boat_id = i; };
-//            if ((bike_id != '') && (walk_id != '') && (boat_id != '')) {break; };
-//    };
-//            if ((id == 84) && (maAttributes[walk_id][1] == 0) && ((maAttributes[bike_id][1] == 1) || (maAttributes[boat_id][1] == 1))) {
-//    //request confirmation if bike or boat is set and attemting to set Walk_only
-//    answ = confirm('{{ec_bike_set_msg}}');
-//            if (answ == false) { return false; };
-//            maAttributes[bike_id][1] = 0;
-//            maAttributes[boat_id][1] = 0;
-//    };
-//            if ((id == 85) && (maAttributes[bike_id][1] == 0) && ((maAttributes[walk_id][1] == 1) || (maAttributes[boat_id][1] == 1))) {
-//    //request confirmation if Walk or boat_only is set and attemting to set Bike
-//    answ = confirm('{{ec_walk_set_msg}}');
-//            if (answ == false) { return false; };
-//            maAttributes[walk_id][1] = 0;
-//            maAttributes[boat_id][1] = 0;
-//    };
-//            if ((id == 86) && (maAttributes[boat_id][1] == 0) && ((maAttributes[walk_id][1] == 1) || (maAttributes[bike_id][1] == 1))) {
-//    //request confirmation if bike or boat_only is set and attemting to set Boat
-//    answ = confirm('{{ec_boat_set_msg}}');
-//            if (answ == false) { return false; };
-//            maAttributes[bike_id][1] = 0;
-//            maAttributes[walk_id][1] = 0;
-//    };
-//            //alert(id);
-//    };
-            for (i = 0; i < maAttributes.length; i++)
-    {
-    if (maAttributes[i][0] == id)
-    {
+    function chkiconcache() {
+        var mode = $('#cacheType').val(); // document.newcacheform.type.value;
+        var iconarray = new Array();
+        iconarray['-1'] = 'arrow_left.png';
+        iconarray['1'] = 'unknown.png';
+        iconarray['2'] = 'traditional.png';
+        iconarray['3'] = 'multi.png';
+        iconarray['4'] = 'virtual.png';
+        iconarray['5'] = 'webcam.png';
+        iconarray['6'] = 'event.png';
+        iconarray['7'] = 'quiz.png';
+        iconarray['8'] = 'moving.png';
+        iconarray['10'] = 'owncache.png';
+        var image_cache = "/images/cache/" + iconarray[mode];
+        $('#actionicons').attr('src', image_cache);
+    }
 
-    if (maAttributes[i][1] == 0)
-            maAttributes[i][1] = 1;
-            else
-            maAttributes[i][1] = 0;
+    function toggleAttr(id) { // same func in newcache.tpl.php and editcache.tpl.php
+      var i = 0;
+        //            var answ = ''; var bike_id = ''; var walk_id = ''; var boat_id = '';
+        //            if (id == 85 || id == 84 || id == 86)
+        //    { //toggle contradictory attribs
+        //    for (i = 0; i < maAttributes.length; i++) //finding id of bike and walk_only attributes
+        //    {
+        //    if (maAttributes[i][0] == 84)  {walk_id = i; };
+        //            if (maAttributes[i][0] == 85)  {bike_id = i; };
+        //            if (maAttributes[i][0] == 86)  {boat_id = i; };
+        //            if ((bike_id != '') && (walk_id != '') && (boat_id != '')) {break; };
+        //    };
+        //            if ((id == 84) && (maAttributes[walk_id][1] == 0) && ((maAttributes[bike_id][1] == 1) || (maAttributes[boat_id][1] == 1))) {
+        //    //request confirmation if bike or boat is set and attemting to set Walk_only
+        //    answ = confirm('{{ec_bike_set_msg}}');
+        //            if (answ == false) { return false; };
+        //            maAttributes[bike_id][1] = 0;
+        //            maAttributes[boat_id][1] = 0;
+        //    };
+        //            if ((id == 85) && (maAttributes[bike_id][1] == 0) && ((maAttributes[walk_id][1] == 1) || (maAttributes[boat_id][1] == 1))) {
+        //    //request confirmation if Walk or boat_only is set and attemting to set Bike
+        //    answ = confirm('{{ec_walk_set_msg}}');
+        //            if (answ == false) { return false; };
+        //            maAttributes[walk_id][1] = 0;
+        //            maAttributes[boat_id][1] = 0;
+        //    };
+        //            if ((id == 86) && (maAttributes[boat_id][1] == 0) && ((maAttributes[walk_id][1] == 1) || (maAttributes[bike_id][1] == 1))) {
+        //    //request confirmation if bike or boat_only is set and attemting to set Boat
+        //    answ = confirm('{{ec_boat_set_msg}}');
+        //            if (answ == false) { return false; };
+        //            maAttributes[bike_id][1] = 0;
+        //            maAttributes[walk_id][1] = 0;
+        //    };
+        //            //alert(id);
+        //    };
+        for (i = 0; i < maAttributes.length; i++) {
+          if (maAttributes[i][0] == id) {
+            if (maAttributes[i][1] == 0) {
+                maAttributes[i][1] = 1;
+            } else {
+                maAttributes[i][1] = 0;
+            }
             rebuildCacheAttr();
             break;
-    }
-    }
+          }
+        }
     }
 
 
