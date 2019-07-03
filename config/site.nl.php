@@ -14,7 +14,7 @@ $site['siteName'] = 'Opencaching.nl';
 /**
  * Page title (to display on the browser titlebar)
  */
-$site['pageTitle'] = 'Opencaching.nl';
+$site['pageTitle'] = 'Opencaching Benelux';
 
 /**
  * NodeId: globally unique ID of opencaching node
@@ -37,4 +37,4 @@ $site['primaryCountries'] = ['NL', 'BE', 'LU'];
  * List will be presented in same order as below.
  * Use only two-letters codes UPPERCASE.
  */
-$site['defaultCountriesList'] = ['DE', 'NL', 'PL', 'RO', 'GB'];
+$site['defaultCountriesList'] = ['NL', 'DE', 'PL', 'RO', 'GB'];
