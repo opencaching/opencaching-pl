@@ -30,6 +30,22 @@ use src\Models\GeoCache\GeoCache;
                    alt="<?=tr('map_quizType')?>">
             </label>
           </div>
+          <div>
+            <input id="exTypeGuestbook" type="checkbox" class="filterParam">
+            <label for="exTypeGuestbook">
+              <?=tr('map_guestbokType')?>
+              <img src="/okapi/static/tilemap/legend_guestbook.png"
+                   alt="<?=tr('map_guestbookType')?>">
+            </label>
+          </div>
+          <div>
+            <input id="exTypeChallenge" type="checkbox" class="filterParam">
+            <label for="exTypeChallenge">
+              <?=tr('map_challengeType')?>
+              <img src="/okapi/static/tilemap/legend_challenge.png"
+                   alt="<?=tr('map_challengeType')?>">
+            </label>
+          </div>
         </div>
         <div class="col">
           <div>
@@ -56,6 +72,14 @@ use src\Models\GeoCache\GeoCache;
                    alt="<?=tr('map_otherType')?>">
             </label>
           </div>
+          <div>
+            <input id="exTypeBitcache" type="checkbox" class="filterParam">
+            <label for="exTypeBitcache">
+              <?=tr('map_bitcacheType')?>
+              <img src="/okapi/static/tilemap/legend_bitcache.png"
+                   alt="<?=tr('map_bitcacheType')?>">
+            </label>
+          </div>
         </div>
         <div class="col">
           <div>
@@ -72,6 +96,14 @@ use src\Models\GeoCache\GeoCache;
               <?=tr('map_movingType')?>
               <img src="/okapi/static/tilemap/legend_moving.png"
                    alt="<?=tr('map_movingType')?>">
+            </label>
+          </div>
+          <div>
+            <input id="exTypeBenchmark" type="checkbox" class="filterParam">
+            <label for="exTypeBenchmark">
+              <?=tr('map_benchmarkType')?>
+              <img src="/okapi/static/tilemap/legend_benchmark.png"
+                   alt="<?=tr('map_benchmarkType')?>">
             </label>
           </div>
           <div>
