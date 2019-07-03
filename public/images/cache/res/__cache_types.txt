@@ -1,0 +1,23 @@
+# cache types
+#
+# Format: cache_type_definition (according to GeoCacheCommons) {space} icon name
+# Lines starting with # are comments
+# Empty lines are ignored
+
+# All files 32x32 PNG or SVG images
+
+TYPE_OTHERTYPE  unknown
+TYPE_TRADITIONAL traditional
+TYPE_MULTICACHE multi
+TYPE_VIRTUAL virtual
+TYPE_WEBCAM webcam
+TYPE_EVENT event
+TYPE_QUIZ quiz
+TYPE_MOVING moving
+#TYPE_GEOPATHFINAL podcache ###TODO: old -podcast- type?
+TYPE_OWNCACHE owncache
+
+TYPE_GUESTBOOK guestbook
+TYPE_BITCACHE bitcache
+TYPE_BENCHMARK benchmark
+TYPE_CHALLENGE challenge
