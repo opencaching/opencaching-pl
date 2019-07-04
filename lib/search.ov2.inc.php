@@ -14,16 +14,21 @@ set_time_limit(1800);
 
 require_once (__DIR__.'/../lib/calculation.inc.php');
 
+// well known types
 $cacheTypeText[1] = 'Unknown Cache';
 $cacheTypeText[2] = 'Traditional Cache';
 $cacheTypeText[3] = 'Multi-Cache';
 $cacheTypeText[4] = 'Virtual Cache';
 $cacheTypeText[5] = 'Webcam Cache';
 $cacheTypeText[6] = 'Event Cache';
+// OC specific cache types
 $cacheTypeText[7] = 'Puzzle';
-$cacheTypeText[8] = 'Moving Cache';
-$cacheTypeText[9] = 'Podcast';
-$cacheTypeText[10] = 'Own Cache';
+$cacheTypeText[9] = 'Moving Cache';
+$cacheTypeText[11] = 'Own Cache';
+$cacheTypeText[12] = 'BIT Cache';
+$cacheTypeText[13] = 'Guestbook Cache';
+$cacheTypeText[14] = 'Benchmark Cache';
+$cacheTypeText[15] = 'Challenge Cache';
 
 if ($usr || ! $hide_coords) {
     // prepare the output

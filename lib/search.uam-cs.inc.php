@@ -38,19 +38,22 @@ $uamSize[6] = 'x'; // 'Large'
 $uamSize[7] = '-'; // 'No container'
 $uamSize[8] = 'n'; // 'Nano'
 
-// known by gpx
+// well known types
 $uamType[1] = 'O'; // 'Other'
 $uamType[2] = 'T'; // 'Traditional'
 $uamType[3] = 'M'; // 'Multi'
 $uamType[4] = 'V'; // 'Virtual'
 $uamType[5] = 'W'; // 'Webcam'
 $uamType[6] = 'E'; // 'Event'
+// OC specific cache types
+$uamType[7] = 'Q'; // 'Quiz'
+$uamType[9] = 'M'; // 'Moving'
+$uamType[11] = 'U'; // 'Own/user's cache'
+$uamType[12] = 'B'; // 'BIT cache'
+$uamType[13] = 'G'; // 'Guestbook cache'
+$uamType[14] = 'K'; // 'Benchmark cache'
+$uamType[15] = 'C'; // 'Challenge cache'
 
-// by OC
-$uamType[7] = 'Q'; // 'Puzzle / formerly Quiz'
-$uamType[8] = 'M'; // 'Moving'
-$uamType[9] = 'P'; // 'Podcast'
-$uamType[10] = 'U'; // 'Own/user's cache'
 
 if ($usr || ! $hide_coords) {
     // prepare the output

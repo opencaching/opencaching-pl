@@ -9,41 +9,41 @@ use src\Models\GeoCache\GeoCache;
           <div>
             <input id="exTypeTraditional" type="checkbox" class="filterParam">
             <label for="exTypeTraditional">
-              <?=tr('map_traditionalType')?>
+              <?=tr('cacheType_2')?>
               <img src="/okapi/static/tilemap/legend_traditional.png"
-                   alt="<?=tr('map_traditionalType')?>">
+                   alt="<?=tr('cacheType_2')?>">
             </label>
           </div>
           <div>
             <input id="exTypeMulti" type="checkbox" class="filterParam">
             <label for="exTypeMulti">
-              <?=tr('map_multicacheType')?>
+              <?=tr('cacheType_3')?>
               <img src="/okapi/static/tilemap/legend_multi.png"
-                   alt="<?=tr('map_multicacheType')?>">
+                   alt="<?=tr('cacheType_3')?>">
             </label>
           </div>
           <div>
             <input id="exTypeQuiz" type="checkbox" class="filterParam">
             <label for="exTypeQuiz">
-              <?=tr('map_quizType')?>
+              <?=tr('cacheType_7')?>
               <img src="/okapi/static/tilemap/legend_quiz.png"
-                   alt="<?=tr('map_quizType')?>">
+                   alt="<?=tr('cacheType_7')?>">
             </label>
           </div>
           <div>
             <input id="exTypeGuestbook" type="checkbox" class="filterParam">
             <label for="exTypeGuestbook">
-              <?=tr('map_guestbokType')?>
+              <?=tr('cacheType_13')?>
               <img src="/okapi/static/tilemap/legend_guestbook.png"
-                   alt="<?=tr('map_guestbookType')?>">
+                   alt="<?=tr('cacheType_13')?>">
             </label>
           </div>
           <div>
-            <input id="exTypeChallenge" type="checkbox" class="filterParam">
-            <label for="exTypeChallenge">
-              <?=tr('map_challengeType')?>
-              <img src="/okapi/static/tilemap/legend_challenge.png"
-                   alt="<?=tr('map_challengeType')?>">
+            <input id="exTypeBitcache" type="checkbox" class="filterParam">
+            <label for="exTypeBitcache">
+              <?=tr('cacheType_1')?>
+              <img src="/okapi/static/tilemap/legend_bitcache.png"
+                   alt="<?=tr('cacheType_12')?>">
             </label>
           </div>
         </div>
@@ -51,67 +51,67 @@ use src\Models\GeoCache\GeoCache;
           <div>
             <input id="exTypeVirtual" type="checkbox" class="filterParam">
             <label for="exTypeVirtual">
-              <?=tr('map_virtualType')?>
+              <?=tr('cacheType_4')?>
               <img src="/okapi/static/tilemap/legend_virtual.png"
-                   alt="<?=tr('map_virtualType')?>">
+                   alt="<?=tr('cacheType_4')?>">
             </label>
           </div>
-          <div>
-            <input id="exTypeEvent" type="checkbox" class="filterParam">
-            <label for="exTypeEvent">
-              <?=tr('map_eventType')?>
-              <img src="/okapi/static/tilemap/legend_event.png"
-                   alt="<?=tr('map_eventType')?>">
-            </label>
-          </div>
-          <div>
-            <input id="exTypeOther" type="checkbox" class="filterParam">
-            <label for="exTypeOther">
-              <?=tr('map_otherType')?>
-              <img src="/okapi/static/tilemap/legend_unknown.png"
-                   alt="<?=tr('map_otherType')?>">
-            </label>
-          </div>
-          <div>
-            <input id="exTypeBitcache" type="checkbox" class="filterParam">
-            <label for="exTypeBitcache">
-              <?=tr('map_bitcacheType')?>
-              <img src="/okapi/static/tilemap/legend_bitcache.png"
-                   alt="<?=tr('map_bitcacheType')?>">
-            </label>
-          </div>
-        </div>
-        <div class="col">
           <div>
             <input id="exTypeWebcam" type="checkbox" class="filterParam">
             <label for="exTypeWebcam">
-              <?=tr('map_webcamType')?>
+              <?=tr('cacheType_5')?>
               <img src="/okapi/static/tilemap/legend_webcam.png"
-                   alt="<?=tr('map_webcamType')?>">
-            </label>
-          </div>
-          <div>
-            <input id="exTypeMoving" type="checkbox" class="filterParam">
-            <label for="exTypeMoving">
-              <?=tr('map_movingType')?>
-              <img src="/okapi/static/tilemap/legend_moving.png"
-                   alt="<?=tr('map_movingType')?>">
+                   alt="<?=tr('cacheType_5')?>">
             </label>
           </div>
           <div>
             <input id="exTypeBenchmark" type="checkbox" class="filterParam">
             <label for="exTypeBenchmark">
-              <?=tr('map_benchmarkType')?>
+              <?=tr('cacheType_12')?>
               <img src="/okapi/static/tilemap/legend_benchmark.png"
-                   alt="<?=tr('map_benchmarkType')?>">
+                   alt="<?=tr('cacheType_12')?>">
+            </label>
+          </div>
+          <div>
+            <input id="exTypeEvent" type="checkbox" class="filterParam">
+            <label for="exTypeEvent">
+              <?=tr('cacheType_6')?>
+              <img src="/okapi/static/tilemap/legend_event.png"
+                   alt="<?=tr('cacheType_6')?>">
+            </label>
+          </div>
+        </div>
+        <div class="col">
+          <div>
+            <input id="exTypeOther" type="checkbox" class="filterParam">
+            <label for="exTypeOther">
+              <?=tr('cacheType_1')?>
+              <img src="/okapi/static/tilemap/legend_unknown.png"
+                   alt="<?=tr('cacheType_1')?>">
+            </label>
+          </div>
+          <div>
+            <input id="exTypeMoving" type="checkbox" class="filterParam">
+            <label for="exTypeMoving">
+              <?=tr('cacheType_9')?>
+              <img src="/okapi/static/tilemap/legend_moving.png"
+                   alt="<?=tr('cacheType_9')?>">
+            </label>
+          </div>
+          <div>
+            <input id="exTypeChallenge" type="checkbox" class="filterParam">
+            <label for="exTypeChallenge">
+              <?=tr('cacheType_15')?>
+              <img src="/okapi/static/tilemap/legend_challenge.png"
+                   alt="<?=tr('cacheType_15')?>">
             </label>
           </div>
           <div>
             <input id="exTypeOwn" type="checkbox" class="filterParam">
             <label for="exTypeOwn">
-              <?=tr('map_owncacheType')?>
+              <?=tr('cacheType_11')?>
               <img src="/okapi/static/tilemap/legend_own.png"
-                   alt="<?=tr('map_owncacheType')?>">
+                   alt="<?=tr('cacheType_11')?>">
             </label>
           </div>
         </div>

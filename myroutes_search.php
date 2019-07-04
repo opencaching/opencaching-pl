@@ -111,9 +111,12 @@ if (isset($_POST['submit']) || isset($_POST['submit_map'])) {
     $options['cachetype5'] = isset($_POST['cachetype5']) ? $_POST['cachetype5'] : '';
     $options['cachetype6'] = isset($_POST['cachetype6']) ? $_POST['cachetype6'] : '';
     $options['cachetype7'] = isset($_POST['cachetype7']) ? $_POST['cachetype7'] : '';
-    $options['cachetype8'] = isset($_POST['cachetype8']) ? $_POST['cachetype8'] : '';
     $options['cachetype9'] = isset($_POST['cachetype9']) ? $_POST['cachetype9'] : '';
-    $options['cachetype10'] = isset($_POST['cachetype10']) ? $_POST['cachetype10'] : '';
+    $options['cachetype11'] = isset($_POST['cachetype11']) ? $_POST['cachetype11'] : '';
+    $options['cachetype12'] = isset($_POST['cachetype12']) ? $_POST['cachetype12'] : '';
+    $options['cachetype13'] = isset($_POST['cachetype13']) ? $_POST['cachetype13'] : '';
+    $options['cachetype14'] = isset($_POST['cachetype14']) ? $_POST['cachetype14'] : '';
+    $options['cachetype15'] = isset($_POST['cachetype15']) ? $_POST['cachetype15'] : '';
 
     $options['cachesize_1'] = isset($_POST['cachesize_1']) ? $_POST['cachesize_1'] : '';
     $options['cachesize_2'] = isset($_POST['cachesize_2']) ? $_POST['cachesize_2'] : '';
@@ -157,9 +160,12 @@ if (isset($_POST['submit']) || isset($_POST['submit_map'])) {
     $options['cachetype5'] = isset($_POST['cachetype5']) ? $_POST['cachetype5'] : '1';
     $options['cachetype6'] = isset($_POST['cachetype6']) ? $_POST['cachetype6'] : '1';
     $options['cachetype7'] = isset($_POST['cachetype7']) ? $_POST['cachetype7'] : '1';
-    $options['cachetype8'] = isset($_POST['cachetype8']) ? $_POST['cachetype8'] : '1';
     $options['cachetype9'] = isset($_POST['cachetype9']) ? $_POST['cachetype9'] : '1';
-    $options['cachetype10'] = isset($_POST['cachetype10']) ? $_POST['cachetype10'] : '1';
+    $options['cachetype11'] = isset($_POST['cachetype11']) ? $_POST['cachetype11'] : '1';
+    $options['cachetype12'] = isset($_POST['cachetype12']) ? $_POST['cachetype12'] : '1';
+    $options['cachetype13'] = isset($_POST['cachetype13']) ? $_POST['cachetype13'] : '1';
+    $options['cachetype14'] = isset($_POST['cachetype14']) ? $_POST['cachetype14'] : '1';
+    $options['cachetype15'] = isset($_POST['cachetype15']) ? $_POST['cachetype15'] : '1';
 
     $options['cachesize_1'] = isset($_POST['cachesize_1']) ? $_POST['cachesize_1'] : '1';
     $options['cachesize_2'] = isset($_POST['cachesize_2']) ? $_POST['cachesize_2'] : '1';
@@ -326,14 +332,23 @@ if (isset($options['cachetype6'])) {
 if (isset($options['cachetype7'])) {
     tpl_set_var('cachetype7', ($options['cachetype7'] == 1) ? ' checked="checked"' : '');
 }
-if (isset($options['cachetype8'])) {
-    tpl_set_var('cachetype8', ($options['cachetype8'] == 1) ? ' checked="checked"' : '');
-}
 if (isset($options['cachetype9'])) {
     tpl_set_var('cachetype9', ($options['cachetype9'] == 1) ? ' checked="checked"' : '');
 }
-if (isset($options['cachetype10'])) {
-    tpl_set_var('cachetype10', ($options['cachetype10'] == 1) ? ' checked="checked"' : '');
+if (isset($options['cachetype11'])) {
+    tpl_set_var('cachetype11', ($options['cachetype11'] == 1) ? ' checked="checked"' : '');
+}
+if (isset($options['cachetype12'])) {
+    tpl_set_var('cachetype12', ($options['cachetype12'] == 1) ? ' checked="checked"' : '');
+}
+if (isset($options['cachetype13'])) {
+    tpl_set_var('cachetype13', ($options['cachetype13'] == 1) ? ' checked="checked"' : '');
+}
+if (isset($options['cachetype14'])) {
+    tpl_set_var('cachetype14', ($options['cachetype14'] == 1) ? ' checked="checked"' : '');
+}
+if (isset($options['cachetype15'])) {
+    tpl_set_var('cachetype15', ($options['cachetype15'] == 1) ? ' checked="checked"' : '');
 }
 
 for ($size = 1; $size <= 8; ++$size) {
@@ -423,14 +438,23 @@ if (isset($options['cachetype6']) && ($options['cachetype6'] == '1')) {
 if (isset($options['cachetype7']) && ($options['cachetype7'] == '1')) {
     $cachetype[] = '7';
 }
-if (isset($options['cachetype8']) && ($options['cachetype8'] == '1')) {
-    $cachetype[] = '8';
-}
 if (isset($options['cachetype9']) && ($options['cachetype9'] == '1')) {
     $cachetype[] = '9';
 }
-if (isset($options['cachetype10']) && ($options['cachetype10'] == '1')) {
-    $cachetype[] = '10';
+if (isset($options['cachetype11']) && ($options['cachetype11'] == '1')) {
+    $cachetype[] = '11';
+}
+if (isset($options['cachetype12']) && ($options['cachetype12'] == '1')) {
+    $cachetype[] = '12';
+}
+if (isset($options['cachetype13']) && ($options['cachetype13'] == '1')) {
+    $cachetype[] = '13';
+}
+if (isset($options['cachetype14']) && ($options['cachetype14'] == '1')) {
+    $cachetype[] = '14';
+}
+if (isset($options['cachetype15']) && ($options['cachetype15'] == '1')) {
+    $cachetype[] = '15;
 }
 
 if ((sizeof($cachetype) > 0) && (sizeof($cachetype) < 10)) {

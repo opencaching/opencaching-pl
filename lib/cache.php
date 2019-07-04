@@ -11,19 +11,20 @@ final class cache
     const TYPE_EVENT		= 6;
     const TYPE_QUIZ         = 7;
     const TYPE_MOVING		= 9;
-    const TYPE_GEOPATHFINAL	= 21;
-    const TYPE_OWNCACHE		= 22;
-    const TYPE_GUESTBOOK	= 23;
-    const TYPE_BITCACHE		= 24;
-    const TYPE_BENCHMARK	= 25;
-    const TYPE_CHALLENGE	= 26;
+    const TYPE_OWNCACHE		= 11;
+    const TYPE_BITCACHE		= 12;
+    const TYPE_GUESTBOOK	= 13;
+    const TYPE_BENCHMARK	= 14;
+    const TYPE_CHALLENGE	= 15;
 
+    const SIZE_OTHER = 1;           // Not specified
     const SIZE_MICRO = 2;
     const SIZE_SMALL = 3;
     const SIZE_NORMAL = 4;
     const SIZE_LARGE = 5;
     const SIZE_VERYLARGE = 6;
-    const SIZE_NOCONTAINER = 7;
+    const SIZE_NONE = 7;            // No container
+    const SIZE_NANO = 8;
 
     const STATUS_READY = 1;
     const STATUS_UNAVAILABLE = 2;
@@ -100,36 +101,30 @@ final class cache
             'icon' => 'moving.png',
             'translation' => 'cacheType_9'
         ),
-        self::TYPE_GEOPATHFINAL => array(
-            'name' => 'geopath',
-            'icon' => 'geopath.png',
-            'translation' => 'cacheType_21'
-        ),
         self::TYPE_OWNCACHE => array(
             'name' => 'own-cache',
             'icon' => 'owncache.png',
-            'translation' => 'cacheType_22',
-        ),
-
-        self::TYPE_GUESTBOOK => array(
-            'name' => 'guestbook',
-            'icon' => 'guestbook.png',
-            'translation' => 'cacheType_23',
+            'translation' => 'cacheType_11',
         ),
         self::TYPE_BITCACHE => array(
             'name' => 'bit-cache',
             'icon' => 'bitcache.png',
-            'translation' => 'cacheType_24',
+            'translation' => 'cacheType_12',
+        ),
+        self::TYPE_GUESTBOOK => array(
+            'name' => 'guestbook',
+            'icon' => 'guestbook.png',
+            'translation' => 'cacheType_13',
         ),
         self::TYPE_BENCHMARK => array(
             'name' => 'benchmark',
             'icon' => 'benchmark.png',
-            'translation' => 'cacheType_25',
+            'translation' => 'cacheType_14',
         ),
         self::TYPE_CHALLENGE => array(
             'name' => 'challenge',
             'icon' => 'challenge.png',
-            'translation' => 'cacheType_26',
+            'translation' => 'cacheType_15',
         ),
     );
     private static $iconPath = 'images/cache/';

@@ -55,9 +55,12 @@
         document.forms['optionsform'].cachetype5.value = document.optionsform.cachetype5.checked ? 1 : 0;
         document.forms['optionsform'].cachetype6.value = document.optionsform.cachetype6.checked ? 1 : 0;
         document.forms['optionsform'].cachetype7.value = document.optionsform.cachetype7.checked ? 1 : 0;
-        document.forms['optionsform'].cachetype8.value = document.optionsform.cachetype8.checked ? 1 : 0;
         document.forms['optionsform'].cachetype9.value = document.optionsform.cachetype9.checked ? 1 : 0;
-        document.forms['optionsform'].cachetype10.value = document.optionsform.cachetype10.checked ? 1 : 0;
+        document.forms['optionsform'].cachetype11.value = document.optionsform.cachetype11.checked ? 1 : 0;
+        document.forms['optionsform'].cachetype12.value = document.optionsform.cachetype12.checked ? 1 : 0;
+        document.forms['optionsform'].cachetype13.value = document.optionsform.cachetype13.checked ? 1 : 0;
+        document.forms['optionsform'].cachetype14.value = document.optionsform.cachetype14.checked ? 1 : 0;
+        document.forms['optionsform'].cachetype15.value = document.optionsform.cachetype15.checked ? 1 : 0;
 
         document.forms['optionsform'].cachesize_1.value = document.optionsform.cachesize_1.checked ? 1 : 0;
         document.forms['optionsform'].cachesize_2.value = document.optionsform.cachesize_2.checked ? 1 : 0;
@@ -161,22 +164,25 @@
 
                         <table class="table">
                             <tr>
-                                <td><input type="checkbox" id="cachetype2" name="cachetype2" value="1" onclick="javascript:sync_options(this)" class="checkbox"  {cachetype2} /> <label for="cachetype2">{{traditional}}</label></td>
-                                <td><input type="checkbox" id="cachetype3" name="cachetype3" value="1" onclick="javascript:sync_options(this)" class="checkbox"  {cachetype3} /> <label for="cachetype3">{{multicache}}</label></td>
-                                <td><input type="checkbox" id="cachetype5" name="cachetype5" value="1" onclick="javascript:sync_options(this)" class="checkbox"  {cachetype5} /> <label for="cachetype5">{{webcam}}</label></td>
-                                <td><input type="checkbox" id="cachetype6" name="cachetype6" value="1" onclick="javascript:sync_options(this)" class="checkbox"  {cachetype6} /> <label for="cachetype6">{{event}}</label></td>
-
+                                <td><input type="checkbox" id="cachetype2" name="cachetype2" value="1" onclick="javascript:sync_options(this)" class="checkbox"  {cachetype2} /> <label for="cachetype2">{{cacheType_2}}</label></td>
+                                <td><input type="checkbox" id="cachetype3" name="cachetype3" value="1" onclick="javascript:sync_options(this)" class="checkbox"  {cachetype3} /> <label for="cachetype3">{{cacheType_3}}</label></td>
+                                <td><input type="checkbox" id="cachetype7" name="cachetype7" value="1" onclick="javascript:sync_options(this)" class="checkbox"  {cachetype7} /> <label for="cachetype7">{{cacheType_7}}</label></td>
+                                <td><input type="checkbox" id="cachetype13" name="cachetype13" value="1" onclick="javascript:sync_options(this)" class="checkbox"  {cachetype13} /> <label for="cachetype13">{{cacheType_13}}</label></td>
                             </tr>
                             <tr>
-                                <td><input type="checkbox" id="cachetype7" name="cachetype7" value="1" onclick="javascript:sync_options(this)" class="checkbox"  {cachetype7} /> <label for="cachetype7">{{quiz}}</label></td>
-                                <td><input type="checkbox" id="cachetype8" name="cachetype8" value="1" onclick="javascript:sync_options(this)" class="checkbox"  {cachetype8} /> <label for="cachetype8">{{moving}}</label></td>
-                                <td><input type="checkbox" id="cachetype9" name="cachetype9" value="1" onclick="javascript:sync_options(this)" class="checkbox"  {cachetype9} /> <label for="cachetype9">{{podcast}}</label></td>
-                                <td><input type="checkbox" id="cachetype10" name="cachetype10" value="1" onclick="javascript:sync_options(this)" class="checkbox"  {cachetype10} /> <label for="cachetype10">{{owncache}}</label></td>
-
+                                <td><input type="checkbox" id="cachetype5" name="cachetype5" value="1" onclick="javascript:sync_options(this)" class="checkbox"  {cachetype5} /> <label for="cachetype5">{{cacheType_5}}</label></td>
+                                <td><input type="checkbox" id="cachetype6" name="cachetype6" value="1" onclick="javascript:sync_options(this)" class="checkbox"  {cachetype6} /> <label for="cachetype6">{{cacheType_6}}</label></td>
+                                <td><input type="checkbox" id="cachetype1" name="cachetype1" value="1" onclick="javascript:sync_options(this)" class="checkbox"  {cachetype1} /> <label for="cachetype1">{{cacheType_1}}</label></td>
+                                <td><input type="checkbox" id="cachetype9" name="cachetype9" value="1" onclick="javascript:sync_options(this)" class="checkbox"  {cachetype9} /> <label for="cachetype9">{{cacheType_9}}</label></td>
                             </tr>
                             <tr>
-                                <td><input type="checkbox" id="cachetype4" name="cachetype4" value="1" onclick="javascript:sync_options(this)" class="checkbox"  {cachetype4} /> <label for="cachetype4">{{virtual}}</label></td>
-                                <td><input type="checkbox" id="cachetype1" name="cachetype1" value="1" onclick="javascript:sync_options(this)" class="checkbox"  {cachetype1} /> <label for="cachetype1">{{unknown_type}}</label></td>
+                                <td><input type="checkbox" id="cachetype11" name="cachetype11" value="1" onclick="javascript:sync_options(this)" class="checkbox"  {cachetype11} /> <label for="cachetype11">{{cacheType_11}}</label></td>
+                                <td><input type="checkbox" id="cachetype12" name="cachetype12" value="1" onclick="javascript:sync_options(this)" class="checkbox"  {cachetype12} /> <label for="cachetype12">{{cacheType_12}}</label></td>
+                                <td><input type="checkbox" id="cachetype14" name="cachetype14" value="1" onclick="javascript:sync_options(this)" class="checkbox"  {cachetype14} /> <label for="cachetype14">{{cacheType_14}}</label></td>
+                                <td><input type="checkbox" id="cachetype15" name="cachetype15" value="1" onclick="javascript:sync_options(this)" class="checkbox"  {cachetype15} /> <label for="cachetype15">{{cacheType_15}}</label></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" id="cachetype4" name="cachetype4" value="1" onclick="javascript:sync_options(this)" class="checkbox"  {cachetype4} /> <label for="cachetype4">{{cacheType_4}}</label></td>
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
                             </tr>

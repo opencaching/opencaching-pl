@@ -8,6 +8,13 @@ $kmlHead = '<?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://earth.google.com/kml/2.0">
     <Document>
         <!-- ACTIVE cache icons =========================================== -->
+        <Style id="unknown">
+            <IconStyle>
+                <Icon>
+                    <href>{site_uri}images/cache/kml/unknown_kml.png</href>
+                </Icon>
+            </IconStyle>
+        </Style>
         <Style id="traditional">
             <IconStyle>
                 <Icon>
@@ -19,13 +26,6 @@ $kmlHead = '<?xml version="1.0" encoding="UTF-8"?>
             <IconStyle>
                 <Icon>
                     <href>{site_uri}images/cache/kml/multi_kml.png</href>
-                </Icon>
-            </IconStyle>
-        </Style>
-        <Style id="quiz">
-            <IconStyle>
-                <Icon>
-                    <href>{site_uri}images/cache/kml/quiz_kml.png</href>
                 </Icon>
             </IconStyle>
         </Style>
@@ -50,6 +50,13 @@ $kmlHead = '<?xml version="1.0" encoding="UTF-8"?>
                 </Icon>
             </IconStyle>
         </Style>
+        <Style id="quiz">
+            <IconStyle>
+                <Icon>
+                    <href>{site_uri}images/cache/kml/quiz_kml.png</href>
+                </Icon>
+            </IconStyle>
+        </Style>
         <Style id="moving">
             <IconStyle>
                 <Icon>
@@ -64,22 +71,43 @@ $kmlHead = '<?xml version="1.0" encoding="UTF-8"?>
                 </Icon>
             </IconStyle>
         </Style>
-        <Style id="podcache">
+        <Style id="bitcache">
             <IconStyle>
                 <Icon>
-                    <href>{site_uri}images/cache/kml/podcache_kml.png</href>
+                    <href>{site_uri}images/cache/kml/bitcache_kml.png</href>
                 </Icon>
             </IconStyle>
         </Style>
-        <Style id="unknown">
+        <Style id="guestbook">
             <IconStyle>
                 <Icon>
-                    <href>{site_uri}images/cache/kml/unknown_kml.png</href>
+                    <href>{site_uri}images/cache/kml/guestbook_kml.png</href>
                 </Icon>
             </IconStyle>
         </Style>
-
+        <Style id="benchmark">
+            <IconStyle>
+                <Icon>
+                    <href>{site_uri}images/cache/kml/benchmark_kml.png</href>
+                </Icon>
+            </IconStyle>
+        </Style>
+        <Style id="challenge">
+            <IconStyle>
+                <Icon>
+                    <href>{site_uri}images/cache/kml/challenge_kml.png</href>
+                </Icon>
+            </IconStyle>
+        </Style>
+        
         <!-- DISABLED cache icons ========================================= -->
+        <Style id="unknown-disabled">
+            <IconStyle>
+                <Icon>
+                    <href>{site_uri}images/cache/kml/unknown_kml-disabled.png</href>
+                </Icon>
+            </IconStyle>
+        </Style>
         <Style id="traditional-disabled">
             <IconStyle>
                 <Icon>
@@ -91,13 +119,6 @@ $kmlHead = '<?xml version="1.0" encoding="UTF-8"?>
             <IconStyle>
                 <Icon>
                     <href>{site_uri}images/cache/kml/multi_kml-disabled.png</href>
-                </Icon>
-            </IconStyle>
-        </Style>
-        <Style id="quiz-disabled">
-            <IconStyle>
-                <Icon>
-                    <href>{site_uri}images/cache/kml/quiz_kml-disabled.png</href>
                 </Icon>
             </IconStyle>
         </Style>
@@ -122,6 +143,13 @@ $kmlHead = '<?xml version="1.0" encoding="UTF-8"?>
                 </Icon>
             </IconStyle>
         </Style>
+        <Style id="quiz-disabled">
+            <IconStyle>
+                <Icon>
+                    <href>{site_uri}images/cache/kml/quiz_kml-disabled.png</href>
+                </Icon>
+            </IconStyle>
+        </Style>
         <Style id="moving-disabled">
             <IconStyle>
                 <Icon>
@@ -136,22 +164,43 @@ $kmlHead = '<?xml version="1.0" encoding="UTF-8"?>
                 </Icon>
             </IconStyle>
         </Style>
-        <Style id="podcache-disabled">
+        <Style id="bitcache-disabled">
             <IconStyle>
                 <Icon>
-                    <href>{site_uri}images/cache/kml/podcache_kml-disabled.png</href>
+                    <href>{site_uri}images/cache/kml/bitcache_kml-disabled.png</href>
                 </Icon>
             </IconStyle>
         </Style>
-        <Style id="unknown-disabled">
+        <Style id="guestbook-disabled">
             <IconStyle>
                 <Icon>
-                    <href>{site_uri}images/cache/kml/unknown_kml-disabled.png</href>
+                    <href>{site_uri}images/cache/kml/guestbook_kml-disabled.png</href>
+                </Icon>
+            </IconStyle>
+        </Style>
+        <Style id="benchmark-disabled">
+            <IconStyle>
+                <Icon>
+                    <href>{site_uri}images/cache/kml/benchmark_kml-disabled.png</href>
+                </Icon>
+            </IconStyle>
+        </Style>
+        <Style id="challenge-disabled">
+            <IconStyle>
+                <Icon>
+                    <href>{site_uri}images/cache/kml/challenge_kml-disabled.png</href>
                 </Icon>
             </IconStyle>
         </Style>
 
         <!-- ARCHIVED cache icons =========================================== -->
+        <Style id="unknown-archived">
+            <IconStyle>
+                <Icon>
+                    <href>{site_uri}images/cache/kml/unknown_kml-archived.png</href>
+                </Icon>
+            </IconStyle>
+        </Style>
         <Style id="traditional-archived">
             <IconStyle>
                 <Icon>
@@ -163,13 +212,6 @@ $kmlHead = '<?xml version="1.0" encoding="UTF-8"?>
             <IconStyle>
                 <Icon>
                     <href>{site_uri}images/cache/kml/multi_kml-archived.png</href>
-                </Icon>
-            </IconStyle>
-        </Style>
-        <Style id="quiz-archived">
-            <IconStyle>
-                <Icon>
-                    <href>{site_uri}images/cache/kml/quiz_kml-archived.png</href>
                 </Icon>
             </IconStyle>
         </Style>
@@ -194,6 +236,13 @@ $kmlHead = '<?xml version="1.0" encoding="UTF-8"?>
                 </Icon>
             </IconStyle>
         </Style>
+        <Style id="quiz-archived">
+            <IconStyle>
+                <Icon>
+                    <href>{site_uri}images/cache/kml/quiz_kml-archived.png</href>
+                </Icon>
+            </IconStyle>
+        </Style>
         <Style id="moving-archived">
             <IconStyle>
                 <Icon>
@@ -208,17 +257,31 @@ $kmlHead = '<?xml version="1.0" encoding="UTF-8"?>
                 </Icon>
             </IconStyle>
         </Style>
-        <Style id="podcache-archived">
+        <Style id="bitcache-archived">
             <IconStyle>
                 <Icon>
-                    <href>{site_uri}images/cache/kml/podcache_kml-archived.png</href>
+                    <href>{site_uri}images/cache/kml/bitcache_kml-archived.png</href>
                 </Icon>
             </IconStyle>
         </Style>
-        <Style id="unknown-archived">
+        <Style id="guestbook-archived">
             <IconStyle>
                 <Icon>
-                    <href>{site_uri}images/cache/kml/unknown_kml-archived.png</href>
+                    <href>{site_uri}images/cache/kml/guestbook_kml-archived.png</href>
+                </Icon>
+            </IconStyle>
+        </Style>
+        <Style id="benchmark-archived">
+            <IconStyle>
+                <Icon>
+                    <href>{site_uri}images/cache/kml/benchmark_kml-archived.png</href>
+                </Icon>
+            </IconStyle>
+        </Style>
+        <Style id="challenge-archived">
+            <IconStyle>
+                <Icon>
+                    <href>{site_uri}images/cache/kml/challenge_kml-archived.png</href>
                 </Icon>
             </IconStyle>
         </Style>
@@ -314,12 +377,16 @@ $kmlType[5] = 'webcam';             // OC: TYPE_WEBCAM
 $kmlType[6] = 'event';              // OC: TYPE_EVENT
 // OC specific cache types
 $kmlType[7] = 'quiz';               // OC: TYPE_QUIZ
-$kmlType[8] = 'moving';             // OC: TYPE_MOVING
-$kmlType[9] = 'podcache';           // OC: TYPE_GEOPATHFINAL
-$kmlType[10] = 'owncache';          // OC: TYPE_OWNCACHE
+$kmlType[9] = 'moving';             // OC: TYPE_MOVING
+$kmlType[11] = 'owncache';          // OC: TYPE_OWNCACHE
+
+$kmlType[12] = 'bitcache';          // OC: TYPE_BITCACHE
+$kmlType[13] = 'guestbook';         // OC: TYPE_GUESTBOOK
+$kmlType[14] = 'benchmark';         // OC: TYPE_BENCHMARK
+$kmlType[15] = 'challenge';         // OC: TYPE_CHALLENGE
 
 // OC type names
-// Note: these names should be defined with cache types. See well_defined project.
+// Note: these names should be defined with cache types.
 $kmlGeocacheTypeText[1] = 'Unknown Cache';
 $kmlGeocacheTypeText[2] = 'Traditional Cache';
 $kmlGeocacheTypeText[3] = 'Multi-Cache';
@@ -327,9 +394,12 @@ $kmlGeocacheTypeText[4] = 'Virtual Cache';
 $kmlGeocacheTypeText[5] = 'Webcam Cache';
 $kmlGeocacheTypeText[6] = 'Event Cache';
 $kmlGeocacheTypeText[7] = 'Puzzle Cache';
-$kmlGeocacheTypeText[8] = 'Moving Cache';
-$kmlGeocacheTypeText[9] = 'Podcast cache';
-$kmlGeocacheTypeText[10] = 'Own cache';
+$kmlGeocacheTypeText[9] = 'Moving Cache';
+$kmlGeocacheTypeText[11] = 'Own cache';
+$kmlGeocacheTypeText[12] = 'BIT cache';
+$kmlGeocacheTypeText[13] = 'Guestbook cache';
+$kmlGeocacheTypeText[14] = 'Benchmark cache';
+$kmlGeocacheTypeText[15] = 'Challenge cache';
 
 // ************************************************************************
 // Waypoints
