@@ -28,16 +28,19 @@ $locLine = '
 
 $locFoot = '</loc>';
 
-$cacheTypeText[1] = "" . tr('cacheType_5') . "";
-$cacheTypeText[2] = "" . tr('cacheType_1') . "";
-$cacheTypeText[3] = "" . tr('cacheType_2') . "";
-$cacheTypeText[4] = "" . tr('cacheType_8') . "";
-$cacheTypeText[5] = "" . tr('cacheType_7') . "";
+$cacheTypeText[1] = "" . tr('cacheType_1') . "";
+$cacheTypeText[2] = "" . tr('cacheType_2') . "";
+$cacheTypeText[3] = "" . tr('cacheType_3') . "";
+$cacheTypeText[4] = "" . tr('cacheType_4') . "";
+$cacheTypeText[5] = "" . tr('cacheType_5') . "";
 $cacheTypeText[6] = "" . tr('cacheType_6') . "";
-$cacheTypeText[7] = "" . tr('cacheType_3') . "";
-$cacheTypeText[8] = "" . tr('cacheType_4') . "";
+$cacheTypeText[7] = "" . tr('cacheType_7') . "";
 $cacheTypeText[9] = "" . tr('cacheType_9') . "";
-$cacheTypeText[10] = "" . tr('cacheType_10') . "";
+$cacheTypeText[11] = "" . tr('cacheType_11') . "";
+$cacheTypeText[12] = "" . tr('cacheType_12') . "";
+$cacheTypeText[13] = "" . tr('cacheType_13') . "";
+$cacheTypeText[14] = "" . tr('cacheType_14') . "";
+$cacheTypeText[15] = "" . tr('cacheType_15') . "";
 
 if ($usr || ! $hide_coords) {
     // prepare the output

@@ -11,20 +11,19 @@ use src\Utils\Debug\Debug;
 
 class GeoCacheCommons extends BaseObject {
 
-    const TYPE_OTHERTYPE	= 1;
-    const TYPE_TRADITIONAL	= 2;
-    const TYPE_MULTICACHE	= 3;
-    const TYPE_VIRTUAL		= 4;
-    const TYPE_WEBCAM		= 5;
-    const TYPE_EVENT		= 6;
+    const TYPE_OTHERTYPE    = 1;
+    const TYPE_TRADITIONAL  = 2;
+    const TYPE_MULTICACHE   = 3;
+    const TYPE_VIRTUAL      = 4;
+    const TYPE_WEBCAM       = 5;
+    const TYPE_EVENT        = 6;
     const TYPE_QUIZ         = 7;
-    const TYPE_MOVING		= 9;
-    const TYPE_GEOPATHFINAL	= 21;
-    const TYPE_OWNCACHE		= 22;
-    const TYPE_GUESTBOOK	= 23;
-    const TYPE_BITCACHE		= 24;
-    const TYPE_BENCHMARK	= 25;
-    const TYPE_CHALLENGE	= 26;
+    const TYPE_MOVING       = 9;
+    const TYPE_OWNCACHE     = 11;
+    const TYPE_BITCACHE     = 12;
+    const TYPE_GUESTBOOK    = 13;
+    const TYPE_BENCHMARK    = 14;
+    const TYPE_CHALLENGE    = 15;
 
     const STATUS_READY = 1;
     const STATUS_UNAVAILABLE = 2;
@@ -33,14 +32,14 @@ class GeoCacheCommons extends BaseObject {
     const STATUS_NOTYETAVAILABLE = 5;
     const STATUS_BLOCKED = 6;
 
-    const SIZE_NONE = 7;
+    const SIZE_NONE = 7;            // No container
     const SIZE_NANO = 8;
     const SIZE_MICRO = 2;
     const SIZE_SMALL = 3;
     const SIZE_REGULAR = 4;
     const SIZE_LARGE = 5;
     const SIZE_XLARGE = 6;
-    const SIZE_OTHER = 1;
+    const SIZE_OTHER = 1;           // Not specified
 
     const RECOMENDATION_RATIO = 10; //percentage of founds which can be recomeded by user
 
@@ -59,12 +58,11 @@ class GeoCacheCommons extends BaseObject {
     const TYPE_EVENT_TR_KEY          = 'cacheType_6';
     const TYPE_QUIZ_TR_KEY           = 'cacheType_7';
     const TYPE_MOVING_TR_KEY         = 'cacheType_9';
-    const TYPE_GEOPATHFINAL_TR_KEY   = 'cacheType_21';
-    const TYPE_OWNCACHE_TR_KEY       = 'cacheType_22';
-    const TYPE_GUESTBOOK_TR_KEY      = 'cacheType_23';
-    const TYPE_BITCACHE_TR_KEY       = 'cacheType_24';
-    const TYPE_BENCHMARK_TR_KEY      = 'cacheType_25';
-    const TYPE_CHALLENGE_TR_KEY      = 'cacheType_26';
+    const TYPE_OWNCACHE_TR_KEY       = 'cacheType_11';
+    const TYPE_BITCACHE_TR_KEY       = 'cacheType_12';
+    const TYPE_GUESTBOOK_TR_KEY      = 'cacheType_13';
+    const TYPE_BENCHMARK_TR_KEY      = 'cacheType_14';
+    const TYPE_CHALLENGE_TR_KEY      = 'cacheType_15';
 
     const STATUS_READY_TR_KEY            = 'cacheStatus_1';
     const STATUS_UNAVAILABLE_TR_KEY      = 'cacheStatus_2';
@@ -99,10 +97,9 @@ class GeoCacheCommons extends BaseObject {
             case self::TYPE_EVENT:          return self::TYPE_EVENT_TR_KEY;
             case self::TYPE_QUIZ:           return self::TYPE_QUIZ_TR_KEY;
             case self::TYPE_MOVING:         return self::TYPE_MOVING_TR_KEY;
-            case self::TYPE_GEOPATHFINAL:   return self::TYPE_GEOPATHFINAL_TR_KEY;
             case self::TYPE_OWNCACHE:       return self::TYPE_OWNCACHE_TR_KEY;
-            case self::TYPE_GUESTBOOK:       return self::TYPE_GUESTBOOK_TR_KEY;
             case self::TYPE_BITCACHE:       return self::TYPE_BITCACHE_TR_KEY;
+            case self::TYPE_GUESTBOOK:       return self::TYPE_GUESTBOOK_TR_KEY;
             case self::TYPE_BENCHMARK:       return self::TYPE_BENCHMARK_TR_KEY;
             case self::TYPE_CHALLENGE:       return self::TYPE_CHALLENGE_TR_KEY;
         }
@@ -205,14 +202,12 @@ class GeoCacheCommons extends BaseObject {
                 return self::TYPE_QUIZ;
             case 'Moving':
                 return self::TYPE_MOVING;
-            case 'GeoPath FINAL':
-                return self::TYPE_GEOPATHFINAL;
             case 'Own':
                 return self::TYPE_OWNCACHE;
-            case 'Guestbook':
-                return self::TYPE_GUESTBOOK;
             case 'BIT Cache':
                 return self::TYPE_BITCACHE;
+            case 'Guestbook':
+                return self::TYPE_GUESTBOOK;
             case 'Benchmark':
                 return self::TYPE_BENCHMARK;
             case 'Challenge':
@@ -363,12 +358,12 @@ class GeoCacheCommons extends BaseObject {
                 $typePart = 'owncache';
                 break;
 
-            case self::TYPE_GUESTBOOK:
-                $typePart = 'guestbook';
-                break;
-
             case self::TYPE_BITCACHE:
                 $typePart = 'bitcache';
+                break;
+
+            case self::TYPE_GUESTBOOK:
+                $typePart = 'guestbook';
                 break;
 
             case self::TYPE_BENCHMARK:

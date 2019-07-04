@@ -122,7 +122,7 @@ $gpxStatus[1] = 'Available';
 $gpxStatus[2] = 'Unavailable';
 $gpxStatus[3] = 'Archived';
 
-$gpxContainer[0] = 'Other';
+$gpxContainer[1] = 'Other';
 $gpxContainer[2] = 'Micro';
 $gpxContainer[3] = 'Small';
 $gpxContainer[4] = 'Regular';
@@ -131,40 +131,56 @@ $gpxContainer[6] = 'Large';
 $gpxContainer[7] = 'Virtual';
 $gpxContainer[8] = 'Micro';
 
-// known by gpx
+// GS compatibile GPX mapping
+// well known types
 $gpxType[1] = 'Other';
 $gpxType[2] = 'Traditional';
 $gpxType[3] = 'Multi';
 $gpxType[4] = 'Virtual';
 $gpxType[5] = 'Webcam';
 $gpxType[6] = 'Event';
-// unknown ... converted
-$gpxType[7] = 'Multi';
-$gpxType[8] = 'Multi';
-$gpxType[9] = 'Traditional';
-$gpxType[10] = 'Traditional';
+// OC specific cache types
+$gpxType[7] = 'Other';          // Quiz
+$gpxType[9] = 'Traditional';    // Moving cache
+$gpxType[11] = 'Traditional';   // Own cache
+$gpxType[12] = 'Virtual';       // BIT cache
+$gpxType[13] = 'Traditional';   // Guestbook cache
+$gpxType[14] = 'Virtual';       // Benchmark cache
+$gpxType[15] = 'Other';         // Challenge cache
 
-// nazwy skrzynek zgodne z Geocaching / Garmin
+// Groundspeak compatibility
+// well known types
 $gpxGeocacheType[1] = 'Unknown Cache';
 $gpxGeocacheType[2] = 'Traditional Cache';
 $gpxGeocacheType[3] = 'Multi-Cache';
 $gpxGeocacheType[4] = 'Virtual Cache';
 $gpxGeocacheType[5] = 'Webcam Cache';
 $gpxGeocacheType[6] = 'Event Cache';
-$gpxGeocacheType[7] = 'Multi-cache';
-$gpxGeocacheType[8] = 'Multi-cache';
-$gpxGeocacheType[9] = 'Unknown Cache';
+// OC specific cache types
+$gpxGeocacheType[7] = 'Other';
+$gpxGeocacheType[9] = 'Traditional';
+$gpxGeocacheType[11] = 'Traditional';
+$gpxGeocacheType[12] = 'Virtual';
+$gpxGeocacheType[13] = 'Traditional';
+$gpxGeocacheType[14] = 'Virtual';
+$gpxGeocacheType[15] = 'Other';
 
-// nazwy skrzynek do description
+// Cache type - actual OC names
+// well known types
 $gpxGeocacheTypeText[1] = 'Unknown Cache';
 $gpxGeocacheTypeText[2] = 'Traditional Cache';
 $gpxGeocacheTypeText[3] = 'Multi-Cache';
 $gpxGeocacheTypeText[4] = 'Virtual Cache';
 $gpxGeocacheTypeText[5] = 'Webcam Cache';
 $gpxGeocacheTypeText[6] = 'Event Cache';
+// OC specific cache types
 $gpxGeocacheTypeText[7] = 'Quiz';
-$gpxGeocacheTypeText[8] = 'Moving Cache';
-$gpxGeocacheTypeText[9] = 'Podcast cache';
+$gpxGeocacheTypeText[9] = 'Moving Cache';
+$gpxGeocacheTypeText[11] = 'Own Cache';
+$gpxGeocacheTypeText[12] = 'BIT Cache';
+$gpxGeocacheTypeText[13] = 'Guestbook Cache';
+$gpxGeocacheTypeText[14] = 'Benchmark Cache';
+$gpxGeocacheTypeText[15] = 'Challenge Cache';
 
 $gpxLogType[0] = 'Write note'; // OC: Other
 $gpxLogType[1] = 'Found it'; // OC: Found
@@ -558,7 +574,7 @@ if ($usr || ! $hide_coords) {
         if (isset($gpxContainer[$r['size']]))
             $thisline = str_replace('{container}', $gpxContainer[$r['size']], $thisline);
         else
-            $thisline = str_replace('{container}', $gpxContainer[0], $thisline);
+            $thisline = str_replace('{container}', $gpxContainer[1], $thisline);
 
         if (isset($gpxStatus[$r['status']]))
             $thisline = str_replace('{status}', $gpxStatus[$r['status']], $thisline);

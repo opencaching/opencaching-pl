@@ -286,8 +286,12 @@ $view->callChunk('tinyMCE');
         iconarray['5'] = 'webcam.png';
         iconarray['6'] = 'event.png';
         iconarray['7'] = 'quiz.png';
-        iconarray['8'] = 'moving.png';
-        iconarray['10'] = 'owncache.png';
+        iconarray['9'] = 'moving.png';
+        iconarray['11'] = 'owncache.png';
+        iconarray['12'] = 'bitcache.png';
+        iconarray['13'] = 'guestbook.png';
+        iconarray['14'] = 'benchmark.png';
+        iconarray['15'] = 'challenge.png';
         var image_cache = "/images/cache/" + iconarray[mode];
         $('#actionicons').attr('src', image_cache);
     }
