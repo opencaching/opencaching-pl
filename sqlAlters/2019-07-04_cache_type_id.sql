@@ -39,15 +39,13 @@ INSERT INTO `cache_type` VALUES (5,7,'Webcam.','Webcam','Webcam','Webcam Cache',
 INSERT INTO `cache_type` VALUES (6,6,'Event','Wydarzenie','Event','Evenement','Eveniment','Event-Cache','Événement','cache/event.png','cache/16x16-event.png','#FF80FF');
 INSERT INTO `cache_type` VALUES (7,3,'Quiz','Quiz','Puzzle','Puzzel Cache','Puzzle','Rätselcache','Énigme','cache/quiz.png','cache/16x16-quiz.png','#FF8000');
 INSERT INTO `cache_type` VALUES (9,4,'Moving','Mobilna','Moving','Reizend','Mobilă','Beweglicher Cache','Mobile','cache/moving.png','cache/16x16-moving.png','#FF99FF');
-INSERT INTO `cache_type` VALUES (21,9,'GeoPath FINAL','FINAŁ GeoŚcieżki','GeoPath FINAL','GeoPath FINAL','FINAL GeoTraseu','GeoPath FINALE','GeoPath FINALE','cache/geopath.png','cache/16x16-geopath.png','#00CC00');
-INSERT INTO `cache_type` VALUES (22,99,'Owncache','Own cache','Own cache','Eigen Cache','Personală','Persönlicher Cache','Votre cache','cache/owncache.png','cache/16x16-owncache.png','#009900');
-INSERT INTO `cache_type` VALUES (23,23,'Guestbook','Księga gości','Guestbook','Gastenboek','Carte de oaspeţi','Gästebuch','Livre d\'or','cache/guestbook.png','cache/16x16-guestbook.png','#CC9900');
-INSERT INTO `cache_type` VALUES (24,24,'BIT cache','BIT cache','BIT cache','BIT cache','BIT cache','BIT cache','BIT cache','cache/bitcache.png','cache/16x16-bitcache.png','#000000');
-INSERT INTO `cache_type` VALUES (25,25,'Benchmark','Punkt geodezyjny','Benchmark','Meetpunt','Marcaj topografic','Vermessungspunkt','Point géodésique','cache/benchmark.png','cache/16x16-benchmark.png','#666666');
-INSERT INTO `cache_type` VALUES (26,26,'Challenge','Wyzwanie','Challenge','Uitdaging','Provocare','Herausforderung','Défi','cache/challenge.png','cache/16x16-challenge.png','#FF0000');
+INSERT INTO `cache_type` VALUES (11,99,'Owncache','Own cache','Own cache','Eigen Cache','Personală','Persönlicher Cache','Votre cache','cache/owncache.png','cache/16x16-owncache.png','#009900');
+INSERT INTO `cache_type` VALUES (12,12,'BIT cache','BIT cache','BIT cache','BIT cache','BIT cache','BIT cache','BIT cache','cache/bitcache.png','cache/16x16-bitcache.png','#000000');
+INSERT INTO `cache_type` VALUES (13,13,'Guestbook','Księga gości','Guestbook','Gastenboek','Carte de oaspeţi','Gästebuch',"Livre d'or",'cache/guestbook.png','cache/16x16-guestbook.png','#CC9900');
+INSERT INTO `cache_type` VALUES (14,14,'Benchmark','Punkt geodezyjny','Benchmark','Meetpunt','Marcaj topografic','Vermessungspunkt','Point géodésique','cache/benchmark.png','cache/16x16-benchmark.png','#666666');
+INSERT INTO `cache_type` VALUES (15,15,'Challenge','Wyzwanie','Challenge','Uitdaging','Provocare','Herausforderung','Défi','cache/challenge.png','cache/16x16-challenge.png','#FF0000');
 /*!40000 ALTER TABLE `cache_type` ENABLE KEYS */;
 UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 -- ########################################################################
 -- Implement cache_type_id changes in caches table
@@ -64,7 +62,7 @@ UPDATE `caches`
 UPDATE `caches`
     SET `type`=9 WHERE `type`=8;
     
--- Owncache ID=10 => 22
+-- Owncache ID=10 => 11
 UPDATE `caches`
-    SET `type`=22 WHERE `type`=10;
+    SET `type`=11 WHERE `type`=10;
 
