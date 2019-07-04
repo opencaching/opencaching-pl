@@ -17,9 +17,9 @@ class GeoCacheCommons extends BaseObject {
     const TYPE_VIRTUAL		= 4;
     const TYPE_WEBCAM		= 5;
     const TYPE_EVENT		= 6;
-    const TYPE_QUIZ		= 7;
-    const TYPE_MOVING		= 20;
-    const TYPE_GEOPATHFINAL	= 21;    //TODO: old -podcast- type?
+    const TYPE_QUIZ         = 7;
+    const TYPE_MOVING		= 9;
+    const TYPE_GEOPATHFINAL	= 21;
     const TYPE_OWNCACHE		= 22;
     const TYPE_GUESTBOOK	= 23;
     const TYPE_BITCACHE		= 24;
@@ -58,10 +58,9 @@ class GeoCacheCommons extends BaseObject {
     const TYPE_WEBCAM_TR_KEY         = 'cacheType_5';
     const TYPE_EVENT_TR_KEY          = 'cacheType_6';
     const TYPE_QUIZ_TR_KEY           = 'cacheType_7';
-    const TYPE_MOVING_TR_KEY         = 'cacheType_20';
+    const TYPE_MOVING_TR_KEY         = 'cacheType_9';
     const TYPE_GEOPATHFINAL_TR_KEY   = 'cacheType_21';
     const TYPE_OWNCACHE_TR_KEY       = 'cacheType_22';
-
     const TYPE_GUESTBOOK_TR_KEY      = 'cacheType_23';
     const TYPE_BITCACHE_TR_KEY       = 'cacheType_24';
     const TYPE_BENCHMARK_TR_KEY      = 'cacheType_25';

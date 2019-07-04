@@ -9,8 +9,8 @@ final class cache
     const TYPE_VIRTUAL		= 4;
     const TYPE_WEBCAM		= 5;
     const TYPE_EVENT		= 6;
-    const TYPE_QUIZ		= 7;
-    const TYPE_MOVING		= 20;
+    const TYPE_QUIZ         = 7;
+    const TYPE_MOVING		= 9;
     const TYPE_GEOPATHFINAL	= 21;
     const TYPE_OWNCACHE		= 22;
     const TYPE_GUESTBOOK	= 23;
@@ -98,11 +98,11 @@ final class cache
         self::TYPE_MOVING => array(
             'name' => 'moving',
             'icon' => 'moving.png',
-            'translation' => 'cacheType_20'
+            'translation' => 'cacheType_9'
         ),
         self::TYPE_GEOPATHFINAL => array(
-            'name' => 'podcast',
-            'icon' => 'podcache.png',
+            'name' => 'geopath',
+            'icon' => 'geopath.png',
             'translation' => 'cacheType_21'
         ),
         self::TYPE_OWNCACHE => array(

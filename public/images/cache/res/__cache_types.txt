@@ -14,7 +14,7 @@ TYPE_WEBCAM webcam
 TYPE_EVENT event
 TYPE_QUIZ quiz
 TYPE_MOVING moving
-#TYPE_GEOPATHFINAL podcache ###TODO: old -podcast- type?
+TYPE_GEOPATHFINAL geopath
 TYPE_OWNCACHE owncache
 
 TYPE_GUESTBOOK guestbook
