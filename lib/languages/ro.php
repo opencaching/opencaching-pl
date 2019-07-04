@@ -1200,6 +1200,7 @@ $translations = array(
     'newcache_import_wpt' => 'Preia din fişier GPX',
     'newcache_import_wpt_help' => 'Această funcţie permite încărcarea de informaţii despre un punct (coordonate, denumire) dintr-un fişier GPX. (de ex.&nbsp; provenind dintr-un dispozitiv Garmin)',
     'newcache_import_wpt_ok' => 'Informaţiile au fost încărcate',
+    'newcache_pleaseSelectRegion' => 'Please select region',
     'email_submit' => 'Trimite',
     'garmin_not_found' => 'Nu a fost găsit nici un dispozitiv GPS',
     'garmin_search' => 'Caută dispozitive GPS',

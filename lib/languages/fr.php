@@ -1200,6 +1200,7 @@ $translations = array(
     'newcache_import_wpt' => 'Charger les données depuis un fichier GPX',
     'newcache_import_wpt_help' => 'Cette fonctionnalité vous permet de charger des données (coordonnées, noms) depuis un fichier GPX.<br />(ex: depuis un GPS Garmin).',
     'newcache_import_wpt_ok' => 'Les données ont été chargées',
+    'newcache_pleaseSelectRegion' => 'Please select region',
     'email_submit' => 'Envoyer',
     'garmin_not_found' => 'Aucun récepteur GPS trouvé',
     'garmin_search' => 'Recherche d’un récepteur GPS',
