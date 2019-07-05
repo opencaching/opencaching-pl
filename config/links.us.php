@@ -10,10 +10,10 @@
 
 
 //former $blogsite_url from settings.inc.php
-$links['blog'] = 'http://blog.opencaching.us';
+$links['blog'] = 'https://blog.opencaching.us';
 
 //former $forum_url from settings.inc.php
-$links['forum'] = 'http://forum.opencaching.us';
+$links['forum'] = 'https://forum.opencaching.us';
 
 // former $config['geokrety_url']
 $links['geokrety'] = 'https://geokrety.org';
@@ -22,7 +22,7 @@ $links['geokrety'] = 'https://geokrety.org';
  * This is local base for wiki links
  * (former $wiki_url in /lib/setting.inc.php)
  */
-$_wiki  = 'http://wiki.opencaching.us';
+$_wiki  = 'https://wiki.opencaching.us';
 
 $links['wiki']['main'] = $_wiki;
 
