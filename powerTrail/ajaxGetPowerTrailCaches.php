@@ -129,7 +129,7 @@ function displayAllCachesOfPowerTrail(PowerTrail $powerTrail, $choseFinalCaches)
         <td align="center" style="font-size: 9px;">' . $totalTopRatings . '</td>
     </tr>
     </table>';
-    $restCaches = $cachetypes[4] + $cachetypes[5] + $cachetypes[6] + $cachetypes[8] + $cachetypes[9] + $cachetypes[10];
+    $restCaches = $cachetypes[4] + $cachetypes[5] + $cachetypes[6] + $cachetypes[8] + $cachetypes[9] + $cachetypes[11];
     $countCaches = $powerTrail->getCacheCount();
     if($countCaches > 0) {
         $restCachesPercent = round(($restCaches * 100) / $countCaches);

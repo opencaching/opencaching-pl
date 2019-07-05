@@ -220,7 +220,8 @@ $view->callChunk('tinyMCE');
         $('#log_pw').removeAttr('disabled');
       }
 
-      if ($('#cacheType').val() == "4" || $('#cacheType').val() == "5" || $('#cacheType').val() == "6") {
+      if ($('#cacheType').val() == "4" || $('#cacheType').val() == "5" || $('#cacheType').val() == "6" ||
+                $('#cacheType').val() == "12" || $('#cacheType').val() == "13" || $('#cacheType').val() == "14" || $('#cacheType').val() == "15") {
         // if( document.newcacheform.size.options[ $('#size option').length - 1].value != "7" && document.newcacheform.size.options[document.newcacheform.size.options.length - 2].value != "7")
         if (!($("#size option[value='7']").length > 0)) {
           var o = new Option("{{cacheSize_none}}", "7");

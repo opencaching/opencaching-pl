@@ -155,9 +155,9 @@ class powerTrailBase{
             9 => 2,     // Moving cache
             11 => 1,    // Own cache
             12 => 1,    // BIT cache
-            13 => 2,    // Guestbook
-            14 => 1,    // Benchmark
-            15 => 1,    // Challenge
+            13 => 1,    // Guestbook
+            14 => 2,    // Benchmark
+            15 => 0,    // Challenge
         );
     }
 

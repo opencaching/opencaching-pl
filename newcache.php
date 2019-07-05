@@ -110,14 +110,18 @@ if (! isset($cache_type)) {
 }
 $sel_type = isset($_POST['type']) ? $_POST['type'] : - 1;
 if (! isset($_POST['size'])) {
-    if ($sel_type == GeoCache::TYPE_VIRTUAL || $sel_type == GeoCache::TYPE_WEBCAM || $sel_type == GeoCache::TYPE_EVENT) {
+    if ($sel_type == GeoCache::TYPE_VIRTUAL || $sel_type == GeoCache::TYPE_WEBCAM || $sel_type == GeoCache::TYPE_EVENT ||
+            $sel_type == GeoCache::TYPE_BITCACHE || $sel_type == GeoCache::TYPE_GUESTBOOK ||
+            $sel_type == GeoCache::TYPE_BENCHMARK || $sel_type == GeoCache::TYPE_CHALLENGE) {
         $sel_size = GeoCache::SIZE_NONE;
     } else {
         $sel_size = - 1;
     }
 } else {
     $sel_size = isset($_POST['size']) ? $_POST['size'] : - 1;
-    if ($sel_type == GeoCache::TYPE_VIRTUAL || $sel_type == GeoCache::TYPE_WEBCAM || $sel_type == GeoCache::TYPE_EVENT) {
+    if ($sel_type == GeoCache::TYPE_VIRTUAL || $sel_type == GeoCache::TYPE_WEBCAM || $sel_type == GeoCache::TYPE_EVENT ||
+            $sel_type == GeoCache::TYPE_BITCACHE || $sel_type == GeoCache::TYPE_GUESTBOOK ||
+            $sel_type == GeoCache::TYPE_BENCHMARK || $sel_type == GeoCache::TYPE_CHALLENGE) {
         $sel_size = GeoCache::SIZE_NONE;
     }
 }
@@ -612,7 +616,10 @@ if (isset($_POST['submitform'])) {
         $error = true;
         $type_not_ok = true;
     }
-    if ($sel_size != 7 && ($sel_type == 4 || $sel_type == 5 || $sel_type == 6)) {
+    if ($sel_size != GeoCache::SIZE_NONE && 
+            ( $sel_type == GeoCache::TYPE_VIRTUAL || $sel_type == GeoCache::TYPE_WEBCAM || $sel_type == GeoCache::TYPE_EVENT ||
+                            $sel_type == GeoCache::TYPE_BITCACHE || $sel_type == GeoCache::TYPE_GUESTBOOK ||
+                            $sel_type == GeoCache::TYPE_BENCHMARK || $sel_type == GeoCache::TYPE_CHALLENGE )) {
         if (! $size_not_ok) {
             tpl_set_var('size_message', $sizemismatch_message);
         }

@@ -191,15 +191,18 @@ if ($error == false) {
                 // mp3 update end()
 
                 if (!isset($_POST['size'])) {
-                    if ($cache_type == GeoCache::TYPE_VIRTUAL || $cache_type == GeoCache::TYPE_WEBCAM ||
-                            $cache_type == GeoCache::TYPE_EVENT) {
+                    if ($cache_type == GeoCache::TYPE_VIRTUAL || $cache_type == GeoCache::TYPE_WEBCAM || $cache_type == GeoCache::TYPE_EVENT ||
+                            $cache_type == GeoCache::TYPE_BITCACHE || $cache_type == GeoCache::TYPE_GUESTBOOK ||
+                            $cache_type == GeoCache::TYPE_BENCHMARK || $cache_type == GeoCache::TYPE_CHALLENGE) {
                         $sel_size = GeoCache::SIZE_NONE;
                     } else {
                         $sel_size = $cache_record['size'];
                     }
                 } else {
                     $sel_size = isset($_POST['size']) ? $_POST['size'] : $cache_record['size'];
-                    if ($cache_type == GeoCache::TYPE_VIRTUAL || $cache_type == GeoCache::TYPE_WEBCAM || $cache_type == GeoCache::TYPE_EVENT) {
+                    if ($cache_type == GeoCache::TYPE_VIRTUAL || $cache_type == GeoCache::TYPE_WEBCAM || $cache_type == GeoCache::TYPE_EVENT ||
+                            $cache_type == GeoCache::TYPE_BITCACHE || $cache_type == GeoCache::TYPE_GUESTBOOK ||
+                            $cache_type == GeoCache::TYPE_BENCHMARK || $cache_type == GeoCache::TYPE_CHALLENGE) {
                         $sel_size = GeoCache::SIZE_NONE;
                     }
                 }
@@ -406,9 +409,9 @@ if ($error == false) {
                 //check cache size
                 $size_not_ok = false;
                 if ($sel_size != GeoCache::SIZE_NONE &&
-                        ( $cache_type == GeoCache::TYPE_VIRTUAL ||
-                        $cache_type == GeoCache::TYPE_WEBCAM ||
-                        $cache_type == GeoCache::TYPE_EVENT )) {
+                        ( $cache_type == GeoCache::TYPE_VIRTUAL || $cache_type == GeoCache::TYPE_WEBCAM || $cache_type == GeoCache::TYPE_EVENT ||
+                            $cache_type == GeoCache::TYPE_BITCACHE || $cache_type == GeoCache::TYPE_GUESTBOOK ||
+                            $cache_type == GeoCache::TYPE_BENCHMARK || $cache_type == GeoCache::TYPE_CHALLENGE )) {
                     $error = true;
                     $size_not_ok = true;
                 }
