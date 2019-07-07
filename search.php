@@ -1463,9 +1463,7 @@ function outputSearchForm($options)
 
     tpl_set_var('countryoptions', $countriesoptions);
 
-    //regionoptions
-    $regionsoptions = '<option value="" selected="selected">'.tr('all_regions').'</option>';
-    tpl_set_var('regionoptions', $regionsoptions);
+    tpl_set_var('regionoptions', '<option value="" selected="selected">'.tr('all_regions').'</option>');
 
 
     // Typ skrzynki
@@ -1533,7 +1531,11 @@ function outputSearchForm($options)
     $cachesize_options = '';
     foreach (array_intersect(GeoCache::CacheSizesArray(), GeoCache::getSizesInUse()) as $sizeId)
     {
-        $cachesize_options .= '<span style="white-space:nowrap"><input type="checkbox" name="cachesize_' . $sizeId . '" value="1" id="l_cachesize_' . $sizeId . '" class="checkbox" onclick="javascript:sync_options(this)"' . (empty($options['cachesize_' . $sizeId]) ? '' : ' checked="checked"') . ' /> <label for="l_cachesize_' . $sizeId . '">' . htmlspecialchars(tr(GeoCache::CacheSizeTranslationKey($sizeId))) . '</label></span> &nbsp;';
+        $cachesize_options .= '<span style="white-space:nowrap">';
+        $cachesize_options .= '<input type="checkbox" name="cachesize_' . $sizeId . '" value="1" ';
+        $cachesize_options .=        'id="l_cachesize_' . $sizeId . '" class="checkbox"'.
+                                     'onclick="javascript:sync_options(this)"' . (empty($options['cachesize_' . $sizeId]) ? '' : ' checked="checked"') . ' />'.
+                                     '<label for="l_cachesize_' . $sizeId . '">' . htmlspecialchars(tr(GeoCache::CacheSizeTranslationKey($sizeId))) . '</label></span> &nbsp;';
         $cachesize_options .= "\n";
     }
 
