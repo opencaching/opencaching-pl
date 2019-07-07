@@ -149,7 +149,7 @@
         return true;
     }
 
-    function sync_options(element)
+    function sync_options(element) {
 
         var sortby = "";
         if (document.optionsform.sort[0].checked == true) {
