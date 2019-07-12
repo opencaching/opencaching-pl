@@ -5,6 +5,7 @@ namespace src\Models\GeoCache;
 use src\Models\BaseObject;
 use src\Models\Coordinates\NutsLocation;
 use src\Utils\Debug\Debug;
+use src\Models\Coordinates\Coordinates;
 
 class CacheLocation extends BaseObject{
 
@@ -120,4 +121,93 @@ class CacheLocation extends BaseObject{
         $this->loadFromDbRow($dbResult);
 
     }
+
+
+    /**
+     * Review all caches and add cacheLocation record when there is no any
+     */
+    public static function fixCachesWithoutLocation()
+    {
+        $db = self::db();
+
+        // select 100 caches where is no cache location assigned
+        $rs = $db->simpleQuery(
+            "SELECT c.cache_id, c.name, c.wp_oc, c.longitude, c.latitude
+             FROM caches AS c
+                LEFT JOIN cache_location AS cl USING (cache_id)
+             WHERE ISNULL(cl.cache_id)
+                AND cl.last_modified < (NOW() - INTERVAL 30 MINUTE)
+                AND c.status NOT IN (".GeoCache::STATUS_NOTYETAVAILABLE.")
+             LIMIT 100
+            ");
+
+        while ($row = $db->dbResultFetch($rs)){
+            d($row);
+            $location = new self();
+
+            $location->cacheId = $row['cache_id'];
+            $location->location = NutsLocation::fromCoordsFactory(
+                Coordinates::FromCoordsFactory($row['latitude'], $row['longitude']));
+
+            if($location->location->isAnyDataFound()){
+                $location->updateInDb();
+            }
+
+            d($location);
+        }
+
+        echo __METHOD__.": done...";
+    }
+
+    /**
+     * Review all caches and add cacheLocation record when there is no any
+     */
+    public static function fixCachesWithNulledLocation()
+    {
+        $db = self::db();
+
+        $found = 0;
+        $fixed = 0;
+        $notFixed = 0;
+
+        // select 100 caches where is no cache location assigned
+        $rs = $db->simpleQuery(
+            "SELECT c.cache_id, c.name, c.wp_oc, c.longitude, c.latitude
+             FROM caches AS c
+                LEFT JOIN cache_location AS cl USING (cache_id)
+             WHERE ( ISNULL(cl.code1) OR ISNULL(cl.code3) )
+                AND cl.last_modified < (NOW() - INTERVAL 30 MINUTE)
+                AND c.status NOT IN (".GeoCache::STATUS_NOTYETAVAILABLE.")
+             LIMIT 100
+            ");
+
+        while ($row = $db->dbResultFetch($rs)){
+            d($row);
+            $found++;
+
+            $location = new self();
+
+            $location->cacheId = $row['cache_id'];
+
+            $coords = Coordinates::FromCoordsFactory($row['latitude'], $row['longitude']);
+            if(!$coords) {
+                // improper coords!
+                d("WRONG COORDS!");
+                $notFixed++;
+                continue;
+            }
+            $location->location = NutsLocation::fromCoordsFactory ($coords);
+
+            if($location->location->isAnyDataFound()){
+                $fixed++;
+            } else {
+                $notFixed++;
+            }
+            $location->updateInDb();
+            d($location);
+        }
+
+        echo __METHOD__.": done: FOUND/FIX/NOFIX: $found/$fixed/$notFixed";
+    }
+
 }
