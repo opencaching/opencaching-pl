@@ -54,5 +54,4 @@ class LocationController extends BaseController
 
     }
 
-
 }
