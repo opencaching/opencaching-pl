@@ -22,7 +22,6 @@ $menu = [ // DON'T CHANGE $menu var name!
     'mnu_api'       => '/okapi',
     'mnu_rss'       => '/RSS',
     'mnu_contact'   => '/articles.php?page=contact',
-    'mnu_cooperation' => 'https://wiki.opencaching.pl/index.php?title=Wsp%C3%B3%C5%82praca'
     'mnu_mainPage' => '/',
 
 ];
