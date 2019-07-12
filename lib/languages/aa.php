@@ -2675,6 +2675,7 @@ $translations = array(
     'mnu_kwidzyn' => 'crwdns26830:0crwdne26830:0',
     'mnu_OcSwag' => 'crwdns26878:0crwdne26878:0',
     'mnu_PhoneApps' => 'crwdns26880:0crwdne26880:0',
+    'mnu_Cooperation' => 'crwdns27018:0crwdne27018:0',
 
     'admCs_degradedCs'  => 'crwdns8264:0crwdne8264:0',
     'admCs_cacheSet'  => 'crwdns8265:0crwdne8265:0',

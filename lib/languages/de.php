@@ -2676,6 +2676,7 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'mnu_kwidzyn' => 'Open Kwidzyn',
     'mnu_OcSwag' => 'OCNA-Beute!',
     'mnu_PhoneApps' => 'Smartphone-Apps',
+    'mnu_Cooperation' => 'Cooperation',
 
     'admCs_degradedCs'  => 'Nicht mehr lösbare Geopfade',
     'admCs_cacheSet'  => 'Geopfade',

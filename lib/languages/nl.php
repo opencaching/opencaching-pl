@@ -2675,6 +2675,7 @@ $translations = array(
     'mnu_kwidzyn' => 'Open Kwidzyn',
     'mnu_OcSwag' => 'OCNA buit!',
     'mnu_PhoneApps' => 'Smartphone Apps',
+    'mnu_Cooperation' => 'Cooperation',
 
     'admCs_degradedCs'  => 'Verwaarloosde GeoPaths',
     'admCs_cacheSet'  => 'GeoPaths',

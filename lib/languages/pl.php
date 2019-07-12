@@ -1200,7 +1200,7 @@ $translations = array(
     'newcache_import_wpt' => 'Wczytaj dane z pliku gpx',
     'newcache_import_wpt_help' => 'Ta funkcja umożliwia wczytanie podstawowych danych (współrzędne, nazwa) waypointa z pliku gpx. (np.&nbsp;z Garmina). Jest to ułatwienie: nie musisz wówczas wypełniać niektórych poniższych pól ręcznie',
     'newcache_import_wpt_ok' => 'Dane zostały wczytane',
-    'newcache_pleaseSelectRegion' => 'Please select region',
+    'newcache_pleaseSelectRegion' => 'Proszę wybrać województwo',
     'email_submit' => 'Wyślij',
     'garmin_not_found' => 'Nie znalazłem GPSa',
     'garmin_search' => 'Szukam podłączonego GPS',
@@ -2675,6 +2675,7 @@ $translations = array(
     'mnu_kwidzyn' => 'OPENKWIDZYN',
     'mnu_OcSwag' => 'OCNA swag!',
     'mnu_PhoneApps' => 'Aplikacje na smartfony',
+    'mnu_Cooperation' => 'Współpraca',
 
     'admCs_degradedCs'  => 'Niezdobywalne GeoŚcieżki',
     'admCs_cacheSet'  => 'Geościeżka',
