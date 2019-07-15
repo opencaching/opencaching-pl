@@ -53,7 +53,7 @@ $translations = array(
     'podcast' => 'Podcast',
     'owncache' => 'Saját láda',
 
-    'ignored' => 'ignored',
+    'ignored' => 'kihagyva',
     'founds' => 'found',
 
     'map_excludeCaches' => 'Hide caches',
