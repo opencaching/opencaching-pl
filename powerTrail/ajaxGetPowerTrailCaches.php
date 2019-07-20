@@ -62,7 +62,7 @@ function displayAllCachesOfPowerTrail(PowerTrail $powerTrail, $choseFinalCaches)
     $totalTopRatings = 0;
     $bgcolor = '#ffffff';
     $cachetypes = array(1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0, 6 => 0, 7 => 0, 8 => 0, 9 => 0, 10 => 0,);
-    $cacheSize = array(2 => 0, 3 => 0, 4 => 0, 5 => 0, 6 => 0, 7 => 0,);
+    $cacheSize = array(2 => 0, 3 => 0, 4 => 0, 5 => 0, 6 => 0, 7 => 0, 8 => 0,);
     unset($_SESSION['geoPathCacheList']);
 
     /* @var $geocache GeoCache */
@@ -142,7 +142,7 @@ function displayAllCachesOfPowerTrail(PowerTrail $powerTrail, $choseFinalCaches)
             $cacheSizePercent[$key] = round(($value * 100) / $countCaches);
         }
         $img = '<table align="center"><tr><td align=center width="50%">' . tr('pt107') . '<br /><img src="https://chart.googleapis.com/chart?chs=350x100&chd=t:' . $cachetypes[2] . ',' . $cachetypes[3] . ',' . $cachetypes[7] . ',' . $cachetypes[1] . ',' . $restCaches . '&cht=p3&chl=' . $cachetypes[2] . '|' . $cachetypes[3] . '|' . $cachetypes[7] . '|' . $cachetypes[1] . '|' . $restCaches . '&chco=00aa00|FFEB0D|0000cc|cccccc|eeeeee&&chdl=%20' . tr('pt108') . '%20(' . $cachePercent[2] . '%)|' . tr('pt109') . '%20(' . $cachePercent[3] . '%)|' . tr('pt110') . '%20(' . $cachePercent[7] . '%)|' . urlencode(tr('pt111')) . '%20(' . $cachePercent[1] . '%)|' . urlencode(tr('pt112')) . '%20(' . $restCachesPercent . '%)" /></td>';
-        $img .= '<td align=center width="50%">' . tr('pt106') . '<br /><img src="https://chart.googleapis.com/chart?chs=350x100&chd=t:' . $cacheSize[2] . ',' . $cacheSize[3] . ',' . $cacheSize[4] . ',' . $cacheSize[5] . ',' . $cacheSize[6] . '&cht=p3&chl=%20' . $cacheSize[2] . '|' . $cacheSize[3] . '|' . $cacheSize[4] . '|' . $cacheSize[5] . '|' . $cacheSize[6] . '&chco=0000aa|00aa00|aa0000|aaaa00|00aaaa&&chdl=' . urlencode(tr('pt113')) . '%20(' . $cacheSizePercent[2] . '%)|' . urlencode(tr('pt114')) . '%20(' . $cacheSizePercent[3] . '%)|' . urlencode(tr('pt115')) . '%20(' . $cacheSizePercent[4] . '%)|' . urlencode(tr('pt116')) . '%20(' . $cacheSizePercent[5] . '%)|' . urlencode(tr('pt117')) . '%20(' . $cacheSizePercent[6] . '%)" /></td></tr></table><br /><br />';
+        $img .= '<td align=center width="50%">' . tr('pt106') . '<br /><img src="https://chart.googleapis.com/chart?chs=350x100&chd=t:' . $cacheSize[8] . ',' . $cacheSize[2] . ',' . $cacheSize[3] . ',' . $cacheSize[4] . ',' . $cacheSize[5] . ',' . $cacheSize[6] . '&cht=p3&chl=%20' . $cacheSize[8] . '|' . $cacheSize[2] . '|' . $cacheSize[3] . '|' . $cacheSize[4] . '|' . $cacheSize[5] . '|' . $cacheSize[6] . '&chco=FFEB0D|0000aa|00aa00|aa0000|aaaa00|00aaaa&&chdl=' . urlencode(tr('cacheSize_nano')) . '%20(' . $cacheSizePercent[8] . '%)|' . urlencode(tr('cacheSize_micro')) . '%20(' . $cacheSizePercent[2] . '%)|' . urlencode(tr('cacheSize_small')) . '%20(' . $cacheSizePercent[3] . '%)|' . urlencode(tr('cacheSize_regular')) . '%20(' . $cacheSizePercent[4] . '%)|' . urlencode(tr('cacheSize_large')) . '%20(' . $cacheSizePercent[5] . '%)|' . urlencode(tr('cacheSize_xLarge')) . '%20(' . $cacheSizePercent[6] . '%)" /></td></tr></table><br /><br />';
     } else {
         $img = '';
     }
