@@ -20,7 +20,6 @@ use src\Models\ChunkModels\ListOfCaches\Column_OnClickActionIcon;
 use src\Models\ChunkModels\ListOfCaches\Column_CacheSetNameAndIcon;
 use src\Models\User\MultiUserQueries;
 use src\Models\ChunkModels\ListOfCaches\Column_UserName;
-use src\Models\ChunkModels\ListOfCaches\Column_ActionButton;
 use src\Models\ChunkModels\ListOfCaches\Column_ActionButtons;
 
 class GeoPathController extends BaseController
@@ -394,7 +393,12 @@ class GeoPathController extends BaseController
             $this->ajaxErrorResponse('User is not owner of this geocache assign to offer!');
         }
 
-        $candidate->acceptOffer();
+        try{
+            $candidate->acceptOffer();
+        } catch (\RuntimeException $e) {
+            $this->displayCommonErrorPageAndExit($e->getMessage());
+        }
+
         $this->ajaxSuccessResponse("Candidate offer refused succesful.");
     }
 
