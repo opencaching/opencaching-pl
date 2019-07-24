@@ -2,6 +2,7 @@
 
 use src\Models\GeoCache\GeoCacheCommons;
 use src\Models\PowerTrail\PowerTrail;
+use src\Models\GeoCache\GeoCache;
 
 require_once __DIR__ . '/../lib/common.inc.php';
 
@@ -13,7 +14,11 @@ if (isset($_REQUEST['choseFinalCaches'])) {
     $choseFinalCaches = false;
 }
 
-print displayAllCachesOfPowerTrail($powerTrail, $choseFinalCaches);
+displayAllCachesOfPowerTrail($powerTrail, $choseFinalCaches);
+
+
+
+
 
 function displayAllCachesOfPowerTrail(PowerTrail $powerTrail, $choseFinalCaches)
 {
@@ -61,12 +66,15 @@ function displayAllCachesOfPowerTrail(PowerTrail $powerTrail, $choseFinalCaches)
     $totalFounds = 0;
     $totalTopRatings = 0;
     $bgcolor = '#ffffff';
-    $cachetypes = array(1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0, 6 => 0, 7 => 0, 8 => 0, 9 => 0, 10 => 0,);
-    $cacheSize = array(2 => 0, 3 => 0, 4 => 0, 5 => 0, 6 => 0, 7 => 0, 8 => 0,);
+
+    $cachetypes = array_fill_keys(GeoCache::CacheTypesArray(), 0); // array of all types
+    $cacheSize = array_fill_keys(GeoCache::CacheSizesArray(), 0); // array of all types
+
     unset($_SESSION['geoPathCacheList']);
 
     /* @var $geocache GeoCache */
     foreach ($powerTrail->getGeocaches() as $geocache) {
+
         $_SESSION['geoPathCacheList'][] = $geocache->getCacheId();
         $totalFounds += $geocache->getFounds();
         $totalTopRatings += $geocache->getRecommendations();
@@ -94,7 +102,11 @@ function displayAllCachesOfPowerTrail(PowerTrail $powerTrail, $choseFinalCaches)
             $cacheRows .= '<td align="center"><img src="' . $cacheTypesIcons[$geocache->getCacheType()]['iconSet'][1]['iconSmall'] . '" /></td>';
         }
         //cachename, username
-        $cacheRows .= '<td><b><a href="' . $geocache->getWaypointId() . '">' . $fontColor . $geocache->getCacheName() . '</b></a> (' . $geocache->getOwner()->getUserName() . ') ';
+        $cacheRows .= '<td><b>'.
+                           '<a href="' . $geocache->getWaypointId() . '">'.
+                                $fontColor . $geocache->getCacheName().
+                           '</a></b>('.$geocache->getOwner()->getUserName().') ';
+
         if ($geocache->isIsPowerTrailFinalGeocache()) {
             $cacheRows .= '<span class="finalCache">' . tr('pt148') . '</span>';
         }
@@ -107,7 +119,12 @@ function displayAllCachesOfPowerTrail(PowerTrail $powerTrail, $choseFinalCaches)
             } else {
                 $checked = '';
             }
-            $cacheRows .= '<td><span class="ownerFinalChoice"><input type="checkbox" id="fcCheckbox' . $geocache->getCacheId() . '" onclick="setFinalCache(' . $geocache->getCacheId() . ')" ' . $checked . ' /></span></td>';
+            $cacheRows .= '<td>
+                                <span class="ownerFinalChoice">
+                                    <input type="checkbox" id="fcCheckbox'.$geocache->getCacheId().'"
+                                           onclick="setFinalCache(' . $geocache->getCacheId() . ')" ' . $checked . ' />
+                                </span>
+                           </td>';
         }
         //status
         $cacheRows .= '<td align="center"><img src="' . $statusIcons[$geocache->getStatus()] . '" title="' . $statusDesc[$geocache->getStatus()] . '"/></td>';
@@ -129,24 +146,72 @@ function displayAllCachesOfPowerTrail(PowerTrail $powerTrail, $choseFinalCaches)
         <td align="center" style="font-size: 9px;">' . $totalTopRatings . '</td>
     </tr>
     </table>';
-    $restCaches = $cachetypes[4] + $cachetypes[5] + $cachetypes[6] + $cachetypes[8] + $cachetypes[9] + $cachetypes[10];
+
     $countCaches = $powerTrail->getCacheCount();
+
     if($countCaches > 0) {
-        $restCachesPercent = round(($restCaches * 100) / $countCaches);
-        $cachePercent = [];
-        $cacheSizePercent = [];
-        foreach ($cachetypes as $key => $value) {
-            $cachePercent[$key] = round(($value * 100) / $countCaches);
+
+        // filter-out absent types and sizes
+        $typesToShow = [GeoCache::TYPE_TRADITIONAL, GeoCache::TYPE_MULTICACHE, GeoCache::TYPE_QUIZ, GeoCache::TYPE_OTHERTYPE];
+        $typesNumberList = [];
+        $typesLabelsList = [];
+        foreach($typesToShow as $type) {
+            if($cachetypes[$type] > 0) {
+                // there is at least one cache of such type
+                $typesNumberList[] = $cachetypes[$type];
+                $typesLabelsList[] = tr(GeoCache::CacheTypeTranslationKey($type)).' ('.round(($cachetypes[$type]*100)/$countCaches).'%)';
+            }
         }
-        foreach ($cacheSize as $key => $value) {
-            $cacheSizePercent[$key] = round(($value * 100) / $countCaches);
+
+        // count the rest of types
+        $restOfTypes = 0;
+        foreach (array_diff_key(GeoCache::CacheTypesArray(), $typesToShow) as $type) {
+            $restOfTypes += $cachetypes[$type];
         }
-        $img = '<table align="center"><tr><td align=center width="50%">' . tr('pt107') . '<br /><img src="https://chart.googleapis.com/chart?chs=350x100&chd=t:' . $cachetypes[2] . ',' . $cachetypes[3] . ',' . $cachetypes[7] . ',' . $cachetypes[1] . ',' . $restCaches . '&cht=p3&chl=' . $cachetypes[2] . '|' . $cachetypes[3] . '|' . $cachetypes[7] . '|' . $cachetypes[1] . '|' . $restCaches . '&chco=00aa00|FFEB0D|0000cc|cccccc|eeeeee&&chdl=%20' . tr('pt108') . '%20(' . $cachePercent[2] . '%)|' . tr('pt109') . '%20(' . $cachePercent[3] . '%)|' . tr('pt110') . '%20(' . $cachePercent[7] . '%)|' . urlencode(tr('pt111')) . '%20(' . $cachePercent[1] . '%)|' . urlencode(tr('pt112')) . '%20(' . $restCachesPercent . '%)" /></td>';
-        $img .= '<td align=center width="50%">' . tr('pt106') . '<br /><img src="https://chart.googleapis.com/chart?chs=350x100&chd=t:' . $cacheSize[8] . ',' . $cacheSize[2] . ',' . $cacheSize[3] . ',' . $cacheSize[4] . ',' . $cacheSize[5] . ',' . $cacheSize[6] . '&cht=p3&chl=%20' . $cacheSize[8] . '|' . $cacheSize[2] . '|' . $cacheSize[3] . '|' . $cacheSize[4] . '|' . $cacheSize[5] . '|' . $cacheSize[6] . '&chco=FFEB0D|0000aa|00aa00|aa0000|aaaa00|00aaaa&&chdl=' . urlencode(tr('cacheSize_nano')) . '%20(' . $cacheSizePercent[8] . '%)|' . urlencode(tr('cacheSize_micro')) . '%20(' . $cacheSizePercent[2] . '%)|' . urlencode(tr('cacheSize_small')) . '%20(' . $cacheSizePercent[3] . '%)|' . urlencode(tr('cacheSize_regular')) . '%20(' . $cacheSizePercent[4] . '%)|' . urlencode(tr('cacheSize_large')) . '%20(' . $cacheSizePercent[5] . '%)|' . urlencode(tr('cacheSize_xLarge')) . '%20(' . $cacheSizePercent[6] . '%)" /></td></tr></table><br /><br />';
-    } else {
-        $img = '';
+        if ($restOfTypes > 0) {
+            // there is at least one cache of such type
+            $typesNumberList[] = $restOfTypes;
+            $typesLabelsList[] = tr('pt112').' ('.round(($restOfTypes*100)/$countCaches).'%)';
+        }
+
+        // same for sizes
+        $sizesToShow = [ GeoCache::SIZE_NANO, GeoCache::SIZE_MICRO, GeoCache::SIZE_SMALL,
+                         GeoCache::SIZE_REGULAR, GeoCache::SIZE_LARGE, GeoCache::SIZE_XLARGE];
+        $sizesNumberList = [];
+        $sizesLabelsList = [];
+        foreach($sizesToShow as $size) {
+            if($cacheSize[$size] > 0) {
+                // there is at least one cache of such type
+                $sizesNumberList[] = $cacheSize[$size];
+                $sizesLabelsList[] = tr(GeoCache::CacheSizeTranslationKey($size)).' ('.round(($cacheSize[$size]*100)/$countCaches).'%)';
+            }
+        }
+
+        echo '<table align="center">
+                    <tr>
+                        <td align=center width="50%">'.
+                            tr('pt107').'<br />
+                            <img src="https://chart.googleapis.com/chart?chs=350x100'.
+                                        '&chd=t:'. implode(',', $typesNumberList).
+                                        '&cht=p3'.
+                                        '&chl='. implode('|', $typesNumberList).
+                                        '&chco=00aa00|FFEB0D|0000cc|cccccc|eeeeee&'.
+                                        'chdl='.rawurlencode(implode('|',$typesLabelsList)).'" />
+                        </td>
+                        <td align=center width="50%">'.
+                            tr('pt106').'<br />
+                            <img src="https://chart.googleapis.com/chart?chs=350x100'.
+                            '&chd=t:'.implode(',', $sizesNumberList).
+                                '&cht=p3'.
+                                '&chl='.implode('|', $sizesNumberList).
+                                '&chco=FFEB0D|0000aa|00aa00|aa0000|aaaa00|00aaaa'.
+                                '&chdl='.rawurlencode(implode('|', $sizesLabelsList)).'" />
+                        </td>
+                    </tr>
+                </table><br /><br />';
     }
-    return $img . $cacheRows;
+
+    echo $cacheRows;
 }
 
 function ratings($score, $votes)
