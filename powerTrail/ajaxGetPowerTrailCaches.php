@@ -191,7 +191,7 @@ function displayAllCachesOfPowerTrail(PowerTrail $powerTrail, $choseFinalCaches)
                     <tr>
                         <td align=center width="50%">'.
                             tr('pt107').'<br />
-                            <img src="https://chart.googleapis.com/chart?chs=360x120'.
+                            <img src="https://chart.googleapis.com/chart?chs=370x120'.
                                         '&chd=t:'. implode(',', $typesNumberList).
                                         '&cht=p3'.
                                         '&chl='. implode('|', $typesNumberList).
@@ -200,7 +200,7 @@ function displayAllCachesOfPowerTrail(PowerTrail $powerTrail, $choseFinalCaches)
                         </td>
                         <td align=center width="50%">'.
                             tr('pt106').'<br />
-                            <img src="https://chart.googleapis.com/chart?chs=360x120'.
+                            <img src="https://chart.googleapis.com/chart?chs=370x120'.
                             '&chd=t:'.implode(',', $sizesNumberList).
                                 '&cht=p3'.
                                 '&chl='.implode('|', $sizesNumberList).
