@@ -176,7 +176,7 @@ function displayAllCachesOfPowerTrail(PowerTrail $powerTrail, $choseFinalCaches)
 
         // same for sizes
         $sizesToShow = [ GeoCache::SIZE_NANO, GeoCache::SIZE_MICRO, GeoCache::SIZE_SMALL,
-                         GeoCache::SIZE_REGULAR, GeoCache::SIZE_LARGE, GeoCache::SIZE_XLARGE];
+                         GeoCache::SIZE_REGULAR, GeoCache::SIZE_LARGE, GeoCache::SIZE_XLARGE, GeoCache::SIZE_NONE];
         $sizesNumberList = [];
         $sizesLabelsList = [];
         foreach($sizesToShow as $size) {
@@ -191,7 +191,7 @@ function displayAllCachesOfPowerTrail(PowerTrail $powerTrail, $choseFinalCaches)
                     <tr>
                         <td align=center width="50%">'.
                             tr('pt107').'<br />
-                            <img src="https://chart.googleapis.com/chart?chs=350x100'.
+                            <img src="https://chart.googleapis.com/chart?chs=360x120'.
                                         '&chd=t:'. implode(',', $typesNumberList).
                                         '&cht=p3'.
                                         '&chl='. implode('|', $typesNumberList).
@@ -200,11 +200,11 @@ function displayAllCachesOfPowerTrail(PowerTrail $powerTrail, $choseFinalCaches)
                         </td>
                         <td align=center width="50%">'.
                             tr('pt106').'<br />
-                            <img src="https://chart.googleapis.com/chart?chs=350x100'.
+                            <img src="https://chart.googleapis.com/chart?chs=360x120'.
                             '&chd=t:'.implode(',', $sizesNumberList).
                                 '&cht=p3'.
                                 '&chl='.implode('|', $sizesNumberList).
-                                '&chco=FFEB0D|0000aa|00aa00|aa0000|aaaa00|00aaaa'.
+                                '&chco=FFEB0D|0000aa|00aa00|aa0000|aaaa00|00aaaa|cccccc'.
                                 '&chdl='.rawurlencode(implode('|', $sizesLabelsList)).'" />
                         </td>
                     </tr>
