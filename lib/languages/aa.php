@@ -1182,6 +1182,7 @@ $translations = array(
     'newcache_import_wpt' => 'crwdns6856:0crwdne6856:0',
     'newcache_import_wpt_help' => 'crwdns6857:0crwdne6857:0',
     'newcache_import_wpt_ok' => 'crwdns6858:0crwdne6858:0',
+    'newcache_pleaseSelectRegion' => 'crwdns27016:0crwdne27016:0',
     'email_submit' => 'crwdns6859:0crwdne6859:0',
     'garmin_not_found' => 'crwdns6860:0crwdne6860:0',
     'garmin_search' => 'crwdns6861:0crwdne6861:0',
@@ -2660,6 +2661,7 @@ $translations = array(
     'mnu_kwidzyn' => 'crwdns26830:0crwdne26830:0',
     'mnu_OcSwag' => 'crwdns26878:0crwdne26878:0',
     'mnu_PhoneApps' => 'crwdns26880:0crwdne26880:0',
+    'mnu_Cooperation' => 'crwdns27018:0crwdne27018:0',
 
     'admCs_degradedCs'  => 'crwdns8264:0crwdne8264:0',
     'admCs_cacheSet'  => 'crwdns8265:0crwdne8265:0',

@@ -105,6 +105,22 @@ class GeoCacheCommons extends BaseObject {
         }
     }
 
+    public static function CacheTypesArray()
+    {
+        return [
+            self::TYPE_OTHERTYPE,
+            self::TYPE_TRADITIONAL,
+            self::TYPE_MULTICACHE,
+            self::TYPE_VIRTUAL,
+            self::TYPE_WEBCAM,
+            self::TYPE_EVENT,
+            self::TYPE_QUIZ,
+            self::TYPE_MOVING,
+            self::TYPE_GEOPATHFINAL,    //TODO: old -podcast- type?
+            self::TYPE_OWNCACHE,
+        ];
+    }
+
     public static function CacheStatusTranslationKey($type)
     {
         switch ($type) {

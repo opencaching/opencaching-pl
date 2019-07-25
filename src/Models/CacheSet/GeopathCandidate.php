@@ -240,13 +240,7 @@ class GeopathCandidate extends BaseObject
     public function acceptOffer() {
 
         $geoPath = $this->getGeopath();
-
-        try {
-            $geoPath->addCache($this->getGeoCache());
-        } catch (\RuntimeException $e) {
-            $this->displayCommonErrorPageAndExit($e->getMessage());
-        }
-
+        $geoPath->addCache($this->getGeoCache());
         $this->cancelOffer();
     }
 

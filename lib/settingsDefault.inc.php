@@ -44,7 +44,7 @@ $config = array(
     'headerLogo1stApril' => 'oc_logo_1A.png',
     /** qrcode logo: show qrcode image and link the prefered way.  */
     'qrCodeLogo' => 'qrcode_bg.jpg',
-    'qrCodeUrl' => 'http://opencaching.pl/viewcache.php?wp=OP3C90',
+    'qrCodeUrl' => 'https://opencaching.pl/viewcache.php?wp=OP3C90',
     /**
      * website icon (favicon); (to be placed in /images/)
      * Format: 16x16 pixels; PNG 8bit indexed or 24bit true color, transparency supported

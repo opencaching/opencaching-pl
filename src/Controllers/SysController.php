@@ -1,6 +1,8 @@
 <?php
 namespace src\Controllers;
 
+use src\Models\GeoCache\CacheLocation;
+
 class SysController extends BaseController
 {
     public function __construct(){
@@ -57,4 +59,12 @@ class SysController extends BaseController
         phpinfo();
     }
 
+    /**
+     * Review cache location and insert cachelocation when needed
+     */
+    public function fixCachesLocation()
+    {
+        CacheLocation::fixCachesWithoutLocation();
+        CacheLocation::fixCachesWithNulledLocation();
+    }
 }

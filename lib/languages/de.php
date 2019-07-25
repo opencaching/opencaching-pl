@@ -1182,6 +1182,7 @@ $translations = array(
     'newcache_import_wpt' => 'Cachedaten aus GPX-Datei laden:',
     'newcache_import_wpt_help' => 'Hiermit kannst du Wegpunktdaten (Koordinaten, Name) aus einer GPX-Datei laden, zum Beispiel von einem Garmin-Gerät.',
     'newcache_import_wpt_ok' => 'Daten wurden geladen',
+    'newcache_pleaseSelectRegion' => 'Please select region',
     'email_submit' => 'Absenden',
     'garmin_not_found' => 'Kein GPS-Gerät gefunden',
     'garmin_search' => 'GPS-Gerät suchen',
@@ -2661,6 +2662,7 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'mnu_kwidzyn' => 'Open Kwidzyn',
     'mnu_OcSwag' => 'OCNA-Beute!',
     'mnu_PhoneApps' => 'Smartphone-Apps',
+    'mnu_Cooperation' => 'Cooperation',
 
     'admCs_degradedCs'  => 'Nicht mehr lösbare Geopfade',
     'admCs_cacheSet'  => 'Geopfade',

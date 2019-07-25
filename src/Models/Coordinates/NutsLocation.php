@@ -166,6 +166,20 @@ class NutsLocation extends BaseObject
     }
 
     /**
+     * @return TRUE if any of location data is not NULL
+     */
+    public function isAnyDataFound()
+    {
+        foreach($this->codes as $code){
+            if(!is_null($code)){
+                return TRUE;
+            }
+        }
+
+        return FALSE;
+    }
+
+    /**
      * This function check if given code is a proper NUTS code in the OC db
      *
      * @param String $code - NUTS code for example 'PL63'
@@ -202,4 +216,6 @@ class NutsLocation extends BaseObject
              WHERE code LIKE :1
              ORDER BY name ASC", $countryCode));
     }
+
+
 }
