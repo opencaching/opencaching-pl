@@ -2676,7 +2676,7 @@ $translations = array(
     'mnu_OcSwag' => 'OCNA buit!',
     'mnu_PhoneApps' => 'Smartphone Apps',
     'mnu_Cooperation' => 'Samenwerking',
-    'mnu_ChallengeCaches' => 'Challenge Caches',
+    'mnu_ChallengeCaches' => 'Uitdaging Caches',
 
     'admCs_degradedCs'  => 'Verwaarloosde GeoPaths',
     'admCs_cacheSet'  => 'GeoPaths',
