@@ -166,7 +166,7 @@ class Validator
      * @return bool|string
      * @throws Exception
      */
-    public function xxWaypoint($wpType, $code)
+    public static function xxWaypoint($wpType, $code)
     {
         switch (strtoupper($wpType)) {
             case 'GC': return self::gcWaypoint($code);
