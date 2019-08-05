@@ -1,17 +1,19 @@
 <?php
 namespace src\Controllers;
 
-use src\Utils\Text\Validator;
-use src\Utils\Uri\SimpleRouter;
-use src\Utils\Uri\Uri;
+use Exception;
+use RuntimeException;
 use src\Models\User\PasswordManager;
 use src\Models\User\User;
 use src\Models\User\UserAuthorization;
+use src\Utils\Text\Validator;
+use src\Utils\Uri\SimpleRouter;
+use src\Utils\Uri\Uri;
 
 class UserAuthorizationController extends BaseController
 {
 
-    const DEFAULT_TARGET = '/index.php';
+    const DEFAULT_TARGET = '/';
 
     public function __construct()
     {
@@ -32,7 +34,7 @@ class UserAuthorizationController extends BaseController
     public function login()
     {
         if ($this->isUserLogged()) {
-            // alredy logged in...
+            // already logged in...
             $this->redirectToAuthCookieVerify();
             return;
         }
@@ -77,7 +79,6 @@ class UserAuthorizationController extends BaseController
                 $this->showSuccessMessage(tr('newpw_info_send'), tr('newpw_title'));
             }
         }
-        $username = (isset($_POST['email'])) ? $_POST['email'] : '';
         $username = ($this->isUserLogged()) ? $this->loggedUser->getUserName() : '';
         $this->view->setVar('username', $username);
         $this->view->setVar('errorMsg', $errorMsg);
@@ -108,7 +109,6 @@ class UserAuthorizationController extends BaseController
         } else {
             return tr('newpw_err_notusr');
         }
-        return null;
     }
 
     /**
@@ -118,14 +118,17 @@ class UserAuthorizationController extends BaseController
      *            - urlencoded username
      * @param string $code
      *            - new password code (send by e-mail)
+     * @throws Exception
      */
     public function newPasswordInput($usr = null, $code = null)
     {
         $errorMsg = '';
 
-        try{
+        $this->view->setRedirectToMainPageAfterLogin(true);
+
+        try {
             $user = self::checkUserAndCode($usr, $code);
-        } catch (\RuntimeException $e){
+        } catch (RuntimeException $e){
             $this->showErrorMessage(tr("userAuth_codeCheckError", [$e->getMessage()]));
             return;
         }
@@ -157,13 +160,13 @@ class UserAuthorizationController extends BaseController
     }
 
     /**
-     * Security check of parametrs given.
+     * Security check of parameters given.
      * This method checks if:
      * - params are not null
      * - $usr is real username
      * - user is active
      * - $code is valid and not expired
-     * If all above are true - returns User object. Null is returned elsewise.
+     * If all above are true - returns User object. Null is returned otherwise.
      * If code is not valid or expired - removes code from DB for security
      * reason (anti brute-force strategy)
      *
@@ -171,24 +174,24 @@ class UserAuthorizationController extends BaseController
      *            - urlencoded username
      * @param string $code
      *            - new password code
-     * @return NULL|\src\Models\User\User
+     * @return NULL|User
      */
     private function checkUserAndCode($usr, $code)
     {
         if (is_null($usr) || is_null($code)) {
-            throw new \RuntimeException("Wrongs parameters");
+            throw new RuntimeException("Wrong parameters");
         }
         $usr = urldecode($usr);
         if (is_null($user = User::fromUsernameFactory($usr))) {
-            throw new \RuntimeException("There is no such user!");
+            throw new RuntimeException("There is no such user!");
         }
         if (! $user->isActive()) {
-            throw new \RuntimeException("Inactive user account!");
+            throw new RuntimeException("Inactive user account!");
 
         }
         if (! UserAuthorization::checkPwCode($user, $code)) {
             UserAuthorization::removePwCode($user);
-            throw new \RuntimeException("Wrong authorization code!");
+            throw new RuntimeException("Wrong authorization code!");
         }
         return $user;
     }
