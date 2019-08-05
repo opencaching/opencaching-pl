@@ -2676,6 +2676,7 @@ $translations = array(
     'mnu_OcSwag' => 'crwdns26878:0crwdne26878:0',
     'mnu_PhoneApps' => 'crwdns26880:0crwdne26880:0',
     'mnu_Cooperation' => 'crwdns27018:0crwdne27018:0',
+    'mnu_ChallengeCaches' => 'crwdns27020:0crwdne27020:0',
 
     'admCs_degradedCs'  => 'crwdns8264:0crwdne8264:0',
     'admCs_cacheSet'  => 'crwdns8265:0crwdne8265:0',
