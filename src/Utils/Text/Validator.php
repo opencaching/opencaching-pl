@@ -1,6 +1,8 @@
 <?php
 namespace src\Utils\Text;
 
+use Exception;
+
 class Validator
 {
 
@@ -63,7 +65,7 @@ class Validator
         if (preg_match('/[0-9]/', $password)) {
             $diff += 1;
         }
-        if (preg_match('/[!,%,&,@,#,$,^,*,?,_,~]/', $password)) {
+        if (preg_match('/[!%&@#$^*?_~]/', $password)) {
             $diff += 1;
         }
         if (mb_strlen($password) >= self::MIN_PASSWORD_LENGTH && $diff > 1) {
@@ -147,6 +149,9 @@ class Validator
     /**
      * Pro-forma validator for obsolete NC waypoints
      * Must not return false, because we did not define an NC error message.
+     *
+     * @param $code
+     * @return string
      */
     public static function ncWaypoint($code)
     {
@@ -155,8 +160,13 @@ class Validator
 
     /**
      * Validate waypoint code by type
+     *
+     * @param $wpType
+     * @param $code
+     * @return bool|string
+     * @throws Exception
      */
-    public function xxWaypoint($wpType, $code)
+    public static function xxWaypoint($wpType, $code)
     {
         switch (strtoupper($wpType)) {
             case 'GC': return self::gcWaypoint($code);
@@ -164,7 +174,7 @@ class Validator
             case 'GE': return self::geWaypoint($code);
             case 'NC': return self::ncWaypoint($code);
             case 'QC': return $code;  // obsolete
-            default:   throw new \Exception('Invalid waypoint code type: '.$code);
+            default:   throw new Exception('Invalid waypoint code type: '.$code);
         }
     }
 }

@@ -3,7 +3,7 @@
 namespace src\Utils\Map;
 
 /**
- * This clkass based on great work Gerhard Koch <gerhard.koch AT ymail.com>:
+ * This class based on great work Gerhard Koch <gerhard.koch AT ymail.com>:
  *
  *      staticMapLite 0.3.1
  *
@@ -47,7 +47,7 @@ class StaticMap
     protected $tileSize = 256;
 
     protected $tileSrcUrl = [
-        self::MAP_MAPNIK   => 'http://tile.openstreetmap.org/{Z}/{X}/{Y}.png',        // -> http://openstreetmap.org
+        self::MAP_MAPNIK   => 'https://tile.openstreetmap.org/{Z}/{X}/{Y}.png',        // -> https://openstreetmap.org
         self::MAP_STERRAIN => 'http://d.tile.stamen.com/terrain/{Z}/{X}/{Y}.png',     // -> http://maps.stamen.com/
         self::MAP_STONER   => 'http://d.tile.stamen.com/toner/{Z}/{X}/{Y}.png',       // -> http://maps.stamen.com/
         self::MAP_CYCLE    => 'http://a.tile.opencyclemap.org/cycle/{Z}/{X}/{Y}.png', // -> http://opencyclemap.org
@@ -55,7 +55,7 @@ class StaticMap
 
     protected $markerBaseDir;       // where the markers imgs are stored
 
-    protected $atrribution = '(c) OpenStreetMap contributors';
+    protected $attribution = '(c) OpenStreetMap contributors';
 
     protected $markerPrototypes = array(
         'marker-blue' => array('regex' => '/^marker-blue([A-Z]+)$/',
@@ -169,7 +169,7 @@ class StaticMap
 
     private function addMarker(Coordinates $coords, $type=null)
     {
-        if(!$type) {
+        if (!$type) {
             // default marker img
             $type = self::MARKER_BLUE;
         }
@@ -342,6 +342,7 @@ class StaticMap
         if (file_exists($filename)) {
             return file_get_contents($filename);
         }
+        return null;
     }
 
     private function checkMapCache()
@@ -351,6 +352,7 @@ class StaticMap
         if (file_exists($filename)) {
             return true;
         }
+        return false;
     }
 
     private function serializeParams()
@@ -407,7 +409,7 @@ class StaticMap
 
     private function copyrightNotice()
     {
-        $string = $this->atrribution;
+        $string = $this->attribution;
         $font_size = 1;
         $len = strlen($string);
         $width  = imagefontwidth($font_size)*$len;
@@ -455,6 +457,3 @@ class StaticMap
         $this->copyrightNotice();
     }
 }
-
-
-

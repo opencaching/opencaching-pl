@@ -30,6 +30,13 @@ RewriteRule ^(O[A-Z][0-9A-Z][0-9A-Z][0-9A-Z][0-9A-Z])$  /viewcache.php?wp=$1 [R=
 # redirect from old tinyMCE emoticons to the new location of emoticons
 RewriteRule ^lib/tinymce4/plugins/emoticons/img/smiley-([a-z-]+)\.gif$  /public/images/emoticons/fromTinyMce/smiley-$1.gif [NC,L]
 
+# Remap old /rss directory into new RSS controller
+RewriteRule ^rss/newcaches\.xml$ %{DOCUMENT_ROOT}/RSS/newCaches [L]
+RewriteRule ^rss/newnews\.xml$ %{DOCUMENT_ROOT}/RSS/newNews [L]
+RewriteRule ^rss/newlogs\.xml$ %{DOCUMENT_ROOT}/RSS/newLogs [L]
+RewriteRule ^rss/my_logs\.xml$ %{DOCUMENT_ROOT}/RSS/myLogs [L]
+RewriteRule ^rss/mycaches_logs\.xml$ %{DOCUMENT_ROOT}/RSS/myCachesLogs [L]
+
 # permanentely block Wordpress login page - too many such requests 
 RewriteRule ^wp-login.php "-" [F]
 

@@ -31,6 +31,8 @@ class View {
     private $_showGdprPage = false;
     private $_showVideoBannerState = false;
 
+    private $_redirectToMainPageAfterLogin = false;
+
     private $_headerChunks = []; // chunks to load in <head> of the page
 
     public function __construct()
@@ -138,7 +140,7 @@ class View {
 
     public function handleCrowdinInContextMode()
     {
-        if(!CrowdinInContextMode::enabled()){
+        if (!CrowdinInContextMode::enabled()) {
             // crowdin-in-context mode is not enabled
             return;
         }
@@ -257,7 +259,6 @@ class View {
 
     /**
      * @param boolean $state
-     * @return boolean
      */
     public function setShowGdprPage($state)
     {
@@ -308,8 +309,21 @@ class View {
     }
 
     /**
+     * Set if user after login in top page form should be redirected into main page
+     * or current (shown before "Login" click) page. Default is false.
+     *
+     * @param boolean $state
+     * @return View
+     */
+    public function setRedirectToMainPageAfterLogin($state)
+    {
+        $this->_redirectToMainPageAfterLogin = boolval($state);
+        return $this;
+    }
+
+    /**
      * Add css which will be loaded in page header
-     * @param $url - url to css
+     * @param $css_url - url to css
      */
     public function addLocalCss($css_url)
     {
@@ -415,9 +429,9 @@ class View {
 
     /**
      * TODO
-     * @param unknown $template
+     * @param string $template
      */
-    public function _callTemplate($template=null)
+    public function _callTemplate($template = null)
     {
         if (is_null($template)) {
             $template = $this->_template;
@@ -440,5 +454,13 @@ class View {
             header('Content-type: text/plain');
         }
         die($text);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isRedirectToMainPageAfterLogin()
+    {
+        return $this->_redirectToMainPageAfterLogin;
     }
 }

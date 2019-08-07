@@ -2,6 +2,7 @@
 
 namespace src\Controllers\PageLayout;
 
+use DateTime;
 use src\Controllers\BaseController;
 use src\Utils\DateTime\Year;
 use src\Utils\I18n\I18n;
@@ -13,6 +14,7 @@ use src\Models\OcConfig\OcConfig;
 use src\Models\User\UserAuthorization;
 use src\Utils\Cache\OcMemCache;
 use src\Utils\I18n\CrowdinInContextMode;
+use stdClass;
 
 /**
  * This controller prepares common data used by almost every page at oc
@@ -68,7 +70,7 @@ class MainLayoutController extends BaseController
             $this->view->setVar('_isUserLogged', true);
             $this->view->setVar('_username', $this->loggedUser->getUserName());
             // GDPR check and prepare template
-            if (new \DateTime() > new \DateTime("2018-05-25 00:00:00") && ! $this->loggedUser->areRulesConfirmed()) {
+            if (new DateTime() > new DateTime("2018-05-25 00:00:00") && ! $this->loggedUser->areRulesConfirmed()) {
                 $this->view->setShowGdprPage(true);
                 $this->view->setVar('_currentUri', urlencode(Uri::getCurrentUri(true)));
                 $this->view->setVar('_wikiLinkRules', $this->ocConfig->getWikiLink('rules'));
@@ -78,7 +80,11 @@ class MainLayoutController extends BaseController
             }
         } else {
             $this->view->setVar('_isUserLogged', false);
-            $this->view->setVar('_target',Uri::getCurrentUri(true));
+            if ($this->view->isRedirectToMainPageAfterLogin()) {
+                $this->view->setVar('_target', '/');
+            } else {
+                $this->view->setVar('_target', Uri::getCurrentUri(true));
+            }
         }
 
         $this->view->setVar('_siteName', OcConfig::getSiteName());
@@ -331,7 +337,7 @@ class MainLayoutController extends BaseController
         }
 
         return OcMemCache::getOrCreate(__METHOD__, 5*60, function() {
-            $obj = new \stdClass();
+            $obj = new stdClass();
             $obj->listOfUsers = UserAuthorization::getOnlineUsersFromDb();
             $obj->validAt = time();
             return $obj;
