@@ -14,7 +14,8 @@
     "ext-pdo": "*",
     "ext-iconv": "*",
     "ext-simplexml": "*",
-    "ext-libxml": "*"
+    "ext-libxml": "*",
+    "ext-openssl": "*"
   },
   "extra": {
     "patches": {
