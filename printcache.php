@@ -17,7 +17,7 @@ if (isset($_POST['flush_print_list'])) {
 $cache_id = isset($_GET['cacheid']) ? $_GET['cacheid'] + 0 : 0;
 if (!$cache_id) {
     if (!$usr ||
-        ((empty(PrintList::GetContent())) && ($_GET['source'] != 'mywatches'))) {
+        (empty(PrintList::GetContent()) && (isset($_GET['source']) && $_GET['source'] != 'mywatches'))) {
         header("Location:index.php");
         die();
     }
