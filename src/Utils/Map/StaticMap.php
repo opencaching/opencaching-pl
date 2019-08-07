@@ -389,13 +389,17 @@ class StaticMap
             return $cached;
         }
 
-        $opts = array(
-            'http' => array(
+        $opts = [
+            'http' => [
                 'method' => "GET",
                 'timeout' => 2.0,
-                'header' => "User-Agent: https://github.com/opencaching/opencaching-pl",
-            )
-        );
+                'header' => "User-Agent: https://github.com/opencaching/opencaching-pl"
+                ],
+            'ssl' => [
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+                ]
+            ];
 
         $context = stream_context_create($opts);
         $tile = file_get_contents($url, false, $context);
