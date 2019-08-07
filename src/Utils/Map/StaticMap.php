@@ -47,7 +47,7 @@ class StaticMap
     protected $tileSize = 256;
 
     protected $tileSrcUrl = [
-        self::MAP_MAPNIK   => 'https://tile.openstreetmap.org/{Z}/{X}/{Y}.png',        // -> https://openstreetmap.org
+        self::MAP_MAPNIK   => 'http://tile.openstreetmap.org/{Z}/{X}/{Y}.png',        // -> https://openstreetmap.org
         self::MAP_STERRAIN => 'http://d.tile.stamen.com/terrain/{Z}/{X}/{Y}.png',     // -> http://maps.stamen.com/
         self::MAP_STONER   => 'http://d.tile.stamen.com/toner/{Z}/{X}/{Y}.png',       // -> http://maps.stamen.com/
         self::MAP_CYCLE    => 'http://a.tile.opencyclemap.org/cycle/{Z}/{X}/{Y}.png', // -> http://opencyclemap.org
@@ -395,10 +395,10 @@ class StaticMap
                 'timeout' => 2.0,
                 'header' => "User-Agent: https://github.com/opencaching/opencaching-pl"
                 ],
-            'ssl' => [
-                    'verify_peer' => false,
-                    'verify_peer_name' => false,
-                ]
+//            'ssl' => [
+//                    'verify_peer' => false,
+//                    'verify_peer_name' => false,
+//                ]
             ];
 
         $context = stream_context_create($opts);
