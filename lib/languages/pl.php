@@ -1840,7 +1840,7 @@ $translations = array(
     'pt244' => 'Zablokowana przez COG',
 
     'gp_candidateIntroUser' => 'Użytkownik',
-    'gp_candidateIntro' => 'zasugerowano, aby dodać Twoją świetną skrzynkę',
+    'gp_candidateIntro' => 'zasugerował/-a, aby dodać Twoją świetną skrzynkę',
     'gp_candidateToGeopath' => 'do GeoŚcieżki',
     'gp_candidateLinkDescription' => 'Możesz zaakceptować lub odrzucić tę propozycję na stronie',
     'gp_candidateDisclaimer' => 'Oczywiście możesz zignorować tę propozycję - ważność oferty wynosi 30 dni.',
@@ -2676,6 +2676,7 @@ $translations = array(
     'mnu_OcSwag' => 'OCNA swag!',
     'mnu_PhoneApps' => 'Aplikacje na smartfony',
     'mnu_Cooperation' => 'Współpraca',
+    'mnu_ChallengeCaches' => 'Challenge Caches',
 
     'admCs_degradedCs'  => 'Niezdobywalne GeoŚcieżki',
     'admCs_cacheSet'  => 'Geościeżka',
