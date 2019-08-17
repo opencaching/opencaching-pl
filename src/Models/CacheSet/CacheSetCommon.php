@@ -143,6 +143,7 @@ class CacheSetCommon extends BaseObject
             5 => 1,     # Large [from 3 to 10 litres]
             6 => 0.5,   # Very large [more than 10 litres]
             7 => 0,     # no container
+            8 => 3,     # Nano
         ];
         $sizePoints = $sizePointsArray[$cache->getSizeId()];
 
