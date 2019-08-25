@@ -7,7 +7,7 @@
  * Address used to send technical notifications from the OC server/code etc.
  * ALL HASHES WILL BE AUTOMATICALLY REMOVED FROM EMAIL ADDRESS!
  */
-$config['technicalNotificationEmail'] = 'techNotify@o#pencaching.pl';
+$config['technicalNotificationEmail'] = 'techNotifyUK@o#pencaching.pl';
 
 /**
  * Technical contact address for users of this OC node
