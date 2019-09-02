@@ -105,7 +105,7 @@ function displayAllCachesOfPowerTrail(PowerTrail $powerTrail, $choseFinalCaches)
         $cacheRows .= '<td><b>'.
                            '<a href="' . $geocache->getWaypointId() . '">'.
                                 $fontColor . $geocache->getCacheName().
-                           '</a></b>('.$geocache->getOwner()->getUserName().') ';
+                           '</a></b> ('.$geocache->getOwner()->getUserName().') ';
 
         if ($geocache->isIsPowerTrailFinalGeocache()) {
             $cacheRows .= '<span class="finalCache">' . tr('pt148') . '</span>';
