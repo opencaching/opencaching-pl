@@ -27,12 +27,14 @@ class AltitudeUpdateJob extends Job
             }
 
             $coords = $geocache->getCoordinates();
-            $altitude = Altitude::getAltitude($coords);
-            if(is_null($altitude)){
-                Debug::errorLog("Can't find altitude for geocache (cacheId=$cacheId, coords={$coords->getAsText()})");
-                continue;
+            if($coords){
+                $altitude = Altitude::getAltitude($coords);
+                if(is_null($altitude)){
+                    Debug::errorLog("Can't find altitude for geocache (cacheId=$cacheId, coords={$coords->getAsText()})");
+                    continue;
+                }
+                $geocache->updateAltitude($altitude);
             }
-            $geocache->updateAltitude($altitude);
         } // for
     }
 }
