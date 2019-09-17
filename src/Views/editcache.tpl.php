@@ -1,25 +1,28 @@
 
 <script>
     $(function () {
+        // load country based on coords
         chkcountry2();
     });
-            var maAttributes = new Array({jsattributes_array});
-            function check_if_proceed() {
-//purpose: to warn user on changes lost - warning appears in case any change has been done (hidden any_changes set to "yes" by"yes_change func")
-                var any_change = document.getElementById('any_changes').value;
-                if (any_change == "yes")
-                {
-                    var answ = confirm('{{ec_proceed_without_save}}');
-                    if (answ == true) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                    ;
-                } else {
-                    return true;
-                }
+
+    var maAttributes = new Array({jsattributes_array});
+    function check_if_proceed() {
+        //purpose: to warn user on changes lost - warning appears in case any change has been done
+        //  (hidden any_changes set to "yes" by"yes_change func")
+        var any_change = document.getElementById('any_changes').value;
+        if (any_change == "yes")
+        {
+            var answ = confirm('{{ec_proceed_without_save}}');
+            if (answ == true) {
+                return true;
+            } else {
+                return false;
             }
+            ;
+        } else {
+            return true;
+        }
+    }
 
     function yes_change() {
         //purpose: set any_changes flag to "yes" - in order to trigger warning in check_if_proceed func
@@ -46,7 +49,7 @@
             } else {
                 select.append('<option value="0" selected="selected"><?=tr('search01')?></option>');
                 response.regions.forEach(function(element) {
-                  if ( element.code == '{sel_region}') {
+                  if ( element.code == '{cache_region}') {
                     select.append('<option selected="selected" value="'+element.code+'">'+element.name+'</option>')
                   } else {
                     select.append('<option value="'+element.code+'">'+element.name+'</option>')
@@ -86,6 +89,7 @@
         }
         return false;
     }
+
     function extractregion()
     {
         var latNS = document.forms['editcache_form'].latNS.value;
