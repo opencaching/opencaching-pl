@@ -21,8 +21,12 @@ use src\Models\GeoKret\GeoKretyApi;
         <p class="cache-title">
             <img src="<?=$view->cacheMainIcon?>" class="icon32" id="viewcache-cacheicon" alt="{cachetype}" title="{cachetype}" align="absmiddle"><?=$view->cachename?>
         </p>
-        <img src="images/free_icons/arrow_in.png" class="icon16" alt="" title="">&nbsp;<b><?=$view->geoCache->getWaypointId()?>
-        <img src="/images/blue/kompas.png" class="icon32" alt="" title=""  align="absmiddle"><?=$view->geoCache->getCoordinates()->getAsText()?></b><br>
+        <img src="images/free_icons/arrow_in.png" class="icon16" alt="" title="">&nbsp;
+          <b>
+            <?=$view->geoCache->getWaypointId()?>
+            <img src="/images/blue/kompas.png" class="icon32" alt="" title=""  align="absmiddle"><?=$view->geoCache->getCoordinates()?$view->geoCache->getCoordinates()->getAsText():''?>
+          </b>
+          <br>
 
         <img src='<?=$view->geoCache->getDifficultyIcon()?>' class='img-difficulty' width='19' height='16' alt='' title='<?=$view->diffTitle?>'>
         <img src='<?=$view->geoCache->getTerrainIcon()?>' class='img-difficulty' width='19' height='16' alt='' title='<?=$view->terrainTitle?>'>

@@ -120,7 +120,7 @@ class CacheNotesController extends BaseController
 
             $model->addColumn(new Column_SimpleText(tr('myNotes_modCacheCoords'),
                 function($row){
-                    if(isset($row['coords'])){
+                    if(isset($row['coords']) && $row['coords']){
                         return $row['coords']->getAsText();
                     }else{
                         return '-';

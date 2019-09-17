@@ -247,9 +247,8 @@ class StaticMap
             for ($y = $startY; $y <= $endY; $y++) {
                 $url = str_replace(array('{Z}', '{X}', '{Y}'), array($this->zoom, $x, $y), $this->tileSrcUrl[$this->maptype]);
                 $tileData = $this->fetchTile($url);
-                if ($tileData) {
-                    $tileImage = imagecreatefromstring($tileData);
-                } else {
+                if (!$tileData || !$tileImage = @imagecreatefromstring($tileData)) {
+                    // error on fetch tile image or error on image creation
                     $tileImage = imagecreate($this->tileSize, $this->tileSize);
                     $color = imagecolorallocate($tileImage, 255, 255, 255);
                     @imagestring($tileImage, 1, 127, 127, 'err', $color);

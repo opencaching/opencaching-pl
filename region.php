@@ -27,7 +27,11 @@ if (isset($_REQUEST['lon'])) {
 }
 
 $coords = Coordinates::FromCoordsFactory($lat, $lon);
-tpl_set_var('coords_str', $coords->getAsText(Coordinates::COORDINATES_FORMAT_DEG_MIN));
+if(!is_null($coords)){
+    tpl_set_var('coords_str', $coords->getAsText(Coordinates::COORDINATES_FORMAT_DEG_MIN));
+} else {
+    tpl_set_var('coords_str', '');
+}
 
 // NUTS local data
 $nutsData = NutsLocation::fromCoordsFactory($coords);
