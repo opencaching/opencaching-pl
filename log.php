@@ -88,13 +88,13 @@ if (isset($_SESSION["lastLogSendTime"]) && isset($_SESSION["lastLogDateTime"])) 
 
 
 $log_text = isset($_POST['logtext']) ? ($_POST['logtext']) : '';
-$log_type = isset($_POST['logtype']) ? ($_POST['logtype'] + 0) : -2;
-$log_date_min = isset($_POST['logmin']) ? ($_POST['logmin'] + 0) : $proposedDateTime->format('i');
-$log_date_hour = isset($_POST['loghour']) ? ($_POST['loghour'] + 0) : $proposedDateTime->format('H');
-$log_date_day = isset($_POST['logday']) ? ($_POST['logday'] + 0) : $proposedDateTime->format('d');
-$log_date_month = isset($_POST['logmonth']) ? ($_POST['logmonth'] + 0) : $proposedDateTime->format('m');
-$log_date_year = isset($_POST['logyear']) ? ($_POST['logyear'] + 0) : $proposedDateTime->format('Y');
-$top_cache = isset($_POST['rating']) ? $_POST['rating'] + 0 : 0;
+$log_type = isset($_POST['logtype']) ? ($_POST['logtype']) : -2;
+$log_date_min = isset($_POST['logmin']) ? ($_POST['logmin']) : $proposedDateTime->format('i');
+$log_date_hour = isset($_POST['loghour']) ? ($_POST['loghour']) : $proposedDateTime->format('H');
+$log_date_day = isset($_POST['logday']) ? ($_POST['logday']) : $proposedDateTime->format('d');
+$log_date_month = isset($_POST['logmonth']) ? ($_POST['logmonth']) : $proposedDateTime->format('m');
+$log_date_year = isset($_POST['logyear']) ? ($_POST['logyear']) : $proposedDateTime->format('Y');
+$top_cache = isset($_POST['rating']) ? $_POST['rating'] : 0;
 
 $wybor_NS = isset($_POST['wybor_NS']) ? $_POST['wybor_NS'] : 0;
 $wsp_NS_st = isset($_POST['wsp_NS_st']) ? $_POST['wsp_NS_st'] : null;
@@ -479,7 +479,7 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
            "INSERT INTO `cache_logs` (
                 `cache_id`, `user_id`, `type`, `date`, `text`,
                 `text_html`, `date_created`, `last_modified`, `uuid`, `node`)
-            SELECT ?, ?, ?, ?, ?, 
+            SELECT ?, ?, ?, ?, ?,
                    ?, NOW(), NOW(), ?, ?
             FROM  `cache_logs`
             WHERE NOT EXISTS (
@@ -489,7 +489,7 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
                     AND `deleted` = '0'
                 LIMIT 1)
             LIMIT 1",
-                $geoCache->getCacheId(), $user->getUserId(), $log_type, $log_date, $log_text, 
+                $geoCache->getCacheId(), $user->getUserId(), $log_type, $log_date, $log_text,
                 $text_html, $log_uuid, OcConfig::getSiteNodeId(),
                 $log_type, $user->getUserId(), $geoCache->getCacheId()
             );
@@ -497,11 +497,11 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
     } else {
         XDb::xSql(
             "INSERT INTO `cache_logs` (
-                `cache_id`, `user_id`, `type`, `date`, `text`, 
+                `cache_id`, `user_id`, `type`, `date`, `text`,
                 `text_html`, `date_created`, `last_modified`, `uuid`, `node`)
-            VALUES ( ?, ?, ?, ?, ?, 
+            VALUES ( ?, ?, ?, ?, ?,
                      ?, NOW(), NOW(), ?, ?)",
-            $geoCache->getCacheId(), $user->getUserId(), $log_type, $log_date, $log_text, 
+            $geoCache->getCacheId(), $user->getUserId(), $log_type, $log_date, $log_text,
             2, $log_uuid, OcConfig::getSiteNodeId());
     }
 
@@ -549,14 +549,14 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
 
             XDb::xSql(
                 "INSERT INTO `cache_logs` (
-                    `id`, `cache_id`, `user_id`, `type`, `date`, 
-                    `text`, `text_html`, `date_created`, `last_modified`, `uuid`, 
+                    `id`, `cache_id`, `user_id`, `type`, `date`,
+                    `text`, `text_html`, `date_created`, `last_modified`, `uuid`,
                     `node`)
-                VALUES ('', ?, ?, ?, ?, 
+                VALUES ('', ?, ?, ?, ?,
                         ?, ?, NOW(), NOW(), ?,
                         ?)",
                 $geoCache->getCacheId(), $init_log_userID, 4, $init_log_date,
-                $init_log_desc, 0, $init_log_uuid, 
+                $init_log_desc, 0, $init_log_uuid,
                 OcConfig::getSiteNodeId());
 
             // print $init_log_longitude; exit;
