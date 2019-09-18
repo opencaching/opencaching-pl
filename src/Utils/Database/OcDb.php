@@ -345,7 +345,7 @@ class OcDb extends OcPdo
                     case 'integer':
                     case 'int':
                     case 'i':
-                        $stmt->bindParam($key, $val['value'], self::PARAM_INT);
+                        $stmt->bindParam($key, $val['value'], \PDO::PARAM_INT);
                         break;
                     case 'boolean':
                         $stmt->bindParam($key, $val['value'], self::PARAM_BOOL);
