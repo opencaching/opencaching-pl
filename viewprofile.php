@@ -253,9 +253,11 @@ if ($usr == false) {
             "SELECT COUNT(*) events_count FROM cache_logs
             WHERE user_id= :1 AND type=7 AND deleted=0", 0, $user_id );
 
+        // !!! LIMIT 3: logically should be limit 1 but LIMIT 3 has much better performance
+        // more detail for example here: https://stackoverflow.com/questions/17747871/why-is-mysql-slow-when-using-limit-in-my-query
         $days_since_first_find = XDb::xMultiVariableQueryValue(
             "SELECT datediff(now(), date) as old FROM cache_logs
-            WHERE deleted=0 AND user_id = :1 AND type=1 ORDER BY date LIMIT 1",
+            WHERE deleted=0 AND user_id = :1 AND type=1 ORDER BY date LIMIT 3",
             0, $user_id);
 
         $rsfc2 = XDb::xSql(
