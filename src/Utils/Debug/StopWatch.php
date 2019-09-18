@@ -36,7 +36,7 @@ class StopWatch {
     public static function getResults()
     {
         if(! $instance = self::instance()){
-            return;
+            return null;
         }
 
         $instance->stages['__now'] = microtime();
@@ -66,6 +66,16 @@ class StopWatch {
 
         }
         return $result;
+    }
+
+    /**
+     * Display results by Kint debug
+     */
+    public static function displayResults()
+    {
+        if($results = self::getResults()) {
+            d($results);
+        }
     }
 
     /**
