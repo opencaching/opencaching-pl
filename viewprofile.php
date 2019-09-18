@@ -445,6 +445,7 @@ if ($seek == 0) {
     //------------ begin owner section
     //          if ($user_id == $usr['userid'])
     //          {
+    StopWatch::click(__LINE__);
 
     $rs_logs = XDb::xSql(
         "SELECT cache_logs.id, cache_logs.cache_id AS cache_id, cache_logs.type AS log_type,
@@ -468,6 +469,7 @@ if ($seek == 0) {
             GROUP BY cache_logs.id
             ORDER BY cache_logs.date_created DESC
             LIMIT 5", $user_id);
+    StopWatch::click(__LINE__);
 
     if (XDb::xNumRows($rs_logs) != 0) {
 
