@@ -5,6 +5,9 @@ FileETag None
 # redirect empty requests / -> public/index.php
 RewriteRule ^$  /public/index.php [L,NC]
 
+# Deny access to .git directory
+RewriteRule "(^|/)\.git" - [F]
+
 # IF the file exists or dir exists THEN just go there
 RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -f [OR]
 RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d
