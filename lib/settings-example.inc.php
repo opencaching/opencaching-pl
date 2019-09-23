@@ -63,17 +63,7 @@ if (!isset($maxmp3size))
 if (!isset($mp3extensions))
     $mp3extensions = ';mp3;';
 
-
-// maximal size of images
-if (!isset($maxpicsize))
-    $maxpicsize = 152400;
-
-// allowed extensions of images
-if (!isset($picextensions))
-    $picextensions = ';jpg;jpeg;gif;png;';
-
 //local database settings
-$dbpconnect = false;
 $dbserver = 'localhost';
 $dbname = 'ocpl';
 $dbusername = 'ocdbu';
@@ -88,8 +78,6 @@ $opt['db']['admin_password'] = 'AdminPassword';
 
 // Your own Google map API key
 $googlemap_key = "";
-$googlemap_type = "G_MAP_TYPE"; // alternativ: _HYBRID_TYPE
-$googleAnalytics_key = '';      // google Analytics key: UA-XXXXX-Y - if not set google analytics will not be used
 
 //Links to blog page on oc site
 //NOT-USED: $blogsite_url = 'http://blog.opencaching.pl';

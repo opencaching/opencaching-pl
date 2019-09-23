@@ -35,7 +35,6 @@ $config['server']['db']['password'] = 'my_password';
 
 --- in settings.inc.php ---------------------------------------------------
     //local database settings
-    $dbpconnect = false;
     $dbserver = 'localhost';
     $dbname = 'ocXX';
     $dbusername = 'ocXX';
