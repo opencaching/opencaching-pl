@@ -86,10 +86,6 @@ $opt['db']['admin_username'] = 'ocdbua';
 $opt['db']['admin_password'] = 'AdminPassword';
 
 
-// replacements for sql()
-$sql_replacements['db'] = $dbname;
-$sql_replacements['tmpdb'] = 'test';
-
 // Your own Google map API key
 $googlemap_key = "";
 $googlemap_type = "G_MAP_TYPE"; // alternativ: _HYBRID_TYPE
