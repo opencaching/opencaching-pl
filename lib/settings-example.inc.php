@@ -68,11 +68,8 @@ $dbserver = 'localhost';
 $dbname = 'ocpl';
 $dbusername = 'ocdbu';
 $dbpasswd = 'PassworD';
-$opt['db']['server'] = $dbserver;
-$opt['db']['name'] = $dbname;
-$opt['db']['username'] = $dbusername;
-$opt['db']['password'] = $dbpasswd;
-$opt['db']['admin_username'] = 'ocdbua';
+
+$opt['db']['admin_username'] = 'ocdbua';        //username for automatic DB updates
 $opt['db']['admin_password'] = 'AdminPassword';
 
 
