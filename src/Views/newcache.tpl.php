@@ -188,8 +188,12 @@ $view->callChunk('tinyMCE');
             var select = $('#region1');
             select.empty();
             if(response.regions.length == 0){
-              select.append('<option value="-1" disabled selected="selected">-</option>');
+              select.append('<option value="-1" selected="selected">- ? -</option>');
+              select.prop('disabled', 'disabled'); // disabled select is not submited!
+              $('#hiddenRegion').removeAttr('disabled');
             } else {
+                $('#hiddenRegion').prop('disabled', 'disabled');
+                select.removeAttr('disabled');
                 select.append('<option value="0" selected="selected"><?=tr('search01')?></option>');
                 response.regions.forEach(function(element) {
                   if ( element.code == '{sel_region}') {
@@ -565,7 +569,7 @@ $(document).ready(function(){
         <tr class="form-group-sm">
             <td><p id="region0" class="content-title-noshade">{{regiononly}}:</p></td>
             <td>
-                <!-- <select name="region" id="region1" class="input200" onchange="javascript:chkcountry()" ></select> -->
+                <input type="hidden" name="region" disabled="disabled" id="hiddenRegion" value="-1" />
                 <select name="region" id="region1" class="form-control input200" >
                 </select>&nbsp;<button class="btn btn-default btn-sm" id="region3" onclick="extractregion()">{{region_from_coord}}</button>
                 <img id="regionAjaxLoader" style="display: none" src="images/misc/ptPreloader.gif" alt="">
