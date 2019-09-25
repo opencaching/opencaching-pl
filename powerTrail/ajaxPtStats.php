@@ -3,8 +3,13 @@ use src\Utils\Database\OcDb;
 
 require_once __DIR__.'/../lib/common.inc.php';
 
+if (!isset( $_REQUEST['ptId']) || !is_numeric($_REQUEST['ptId'])) {
+    print tr('pt105');
+    exit;
+}
 
 $ptId = (int) $_REQUEST['ptId'];
+
 $ptTotalCacheesCount = powerTrailBase::getPtCacheCount($ptId);
 if($ptTotalCacheesCount == 0){ // power Trail has no caches!
     print tr('pt105');

@@ -12,7 +12,14 @@ if(!isset($_SESSION['user_id'])){
 }
 
 $text = htmlspecialchars($_REQUEST['text']);
-$dateTime = new DateTime($_REQUEST['datetime']);
+try{
+    $dateTime = new DateTime($_REQUEST['datetime']);
+} catch (Exception $e) {
+    // improper request
+    echo "improper datetime format";
+    exit;
+}
+
 $user = new User(array('userId' => (int) $usr['userid']));
 $powerTrail = new PowerTrail(array('id' => (int) $_REQUEST['projectId']));
 $type = (int) $_REQUEST['type'];

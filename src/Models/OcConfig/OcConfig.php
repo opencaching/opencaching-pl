@@ -118,10 +118,10 @@ final class OcConfig extends ConfigReader
         $this->minumumAge = $config['limits']['minimum_age'];
         $this->meritBadgesEnabled = $config['meritBadges'];
 
-        $this->dbHost = $opt['db']['server'];
-        $this->dbName = $opt['db']['name'];
-        $this->dbUser = $opt['db']['username'];
-        $this->dbPass = $opt['db']['password'];
+        $this->dbHost = $dbserver;
+        $this->dbName = $dbname;
+        $this->dbUser = $dbusername;
+        $this->dbPass = $dbpasswd;
 
         if (isset($opt['db']['admin_username'])) {
             $this->dbAdminUser = $opt['db']['admin_username'];
