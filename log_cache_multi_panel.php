@@ -1,5 +1,7 @@
 <?php
 
+use src\Models\GeoCache\GeoCacheCommons;
+use src\Models\GeoCache\GeoCacheLogCommons;
 use src\Utils\Database\XDb;
 
 require_once (__DIR__.'/lib/common.inc.php');
@@ -8,7 +10,6 @@ $no_tpl_build = false;
 if ($usr == false || (!isset($_FILES['userfile']) && !isset($_SESSION['log_cache_multi_data']))) {
     tpl_redirect('log_cache_multi_send.php');
 } else {
-    require_once(__DIR__.'/lib/caches.inc.php');
     ?>
     <html>
         <head>
@@ -99,14 +100,16 @@ if ($usr == false || (!isset($_FILES['userfile']) && !isset($_SESSION['log_cache
                             }
                             ?>
                             <tr class="<?php echo $styl; ?>">
-                                <td width=210><?php echo isset($v['cache_name']) ? "<img src=\"/images/" . get_icon_for_cache_type($v['cache_type']) . "\" /> " . $v['kod_str'] . " " . $v['cache_name'] : " "; ?></td>
+                                <td width=210><?php echo isset($v['cache_name']) ?
+                                "<img src=\"" . GeoCacheCommons::CacheIconByType($v['cache_type'], GeoCacheCommons::STATUS_READY) . "\" /> " .
+                                        $v['kod_str'] . " " . $v['cache_name'] : " "; ?></td>
                                 <td width=70 style="text-align: right"><?php
                                     echo isset($v['data']) ? str_replace(" ", "<br />", $v['data']) : " ";
                                     echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-                                    echo isset($v['status']) ? "<img src=\"/images/" . get_icon_for_status($v['status']) . "\" />" : " ";
+                                    echo isset($v['status']) ? "<img src=\"" . GeoCacheLogCommons::GetIconForType($v['status']) . "\" />" : " ";
                                     ?></td>
                                 <td width=70 style="text-align: right"><?php
-                                    echo isset($v['got_last_activity']) ? str_replace(" ", "<br />", $v['last_date']) . "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" . (isset($v['last_status']) ? "<img src=\"/images/" . get_icon_for_status($v['last_status']) . "\" />" : " ") : " ";
+                                echo isset($v['got_last_activity']) ? str_replace(" ", "<br />", $v['last_date']) . "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" . (isset($v['last_status']) ? "<img src=\"" . GeoCacheLogCommons::GetIconForType($v['last_status']) . "\" />" : " ") : " ";
                                     ?></td>
                             </tr><tr class="<?php echo $styl; ?>">
                                 <td width="280" colspan=2><?php echo isset($v['koment']) ? $v['koment'] : " "; ?>&nbsp;</td>
@@ -124,22 +127,3 @@ if ($usr == false || (!isset($_FILES['userfile']) && !isset($_SESSION['log_cache
             }
 }
 
-function get_icon_for_status($status)
-{
-    $typyStatusow = get_log_types_from_database();
-    foreach ($typyStatusow as $k => $v) {
-        if ($v['id'] == $status) {
-            return $v['icon_small'];
-        }
-    }
-}
-
-function get_icon_for_cache_type($type)
-{
-    $typySkrzynek = get_cache_types_from_database();
-    foreach ($typySkrzynek as $k => $v) {
-        if ($v['id'] == $type) {
-            return $v['icon_large'];
-        }
-    }
-}

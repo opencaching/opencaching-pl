@@ -22,7 +22,7 @@ if ($usr == false) {
         tpl_set_var('userid', $user_id);
     }
 
-    $logTypes = GeoCacheLog::logTypes();
+    $logTypes = GeoCacheLog::logTypesArray();
     if (isset($_REQUEST['logtypes'])) {
         $logTypes = array_intersect($logTypes, explode(',', $_REQUEST['logtypes']));
     }
@@ -61,7 +61,7 @@ if ($usr == false) {
     $startat = max(0, floor((($start / $LOGS_PER_PAGE) + 1) / $PAGES_LISTED) * $PAGES_LISTED);
 
     $logsPage = 'my_logs.php?userid='.$user_id;
-    if (array_diff(GeoCacheLog::logTypes(), $logTypes)) {
+    if (array_diff(GeoCacheLog::logTypesArray(), $logTypes)) {
         $logsPage .= '&amp;logtypes='.implode(',',$logTypes);
     }
     $logsPage .= '&amp;start=';

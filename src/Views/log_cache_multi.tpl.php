@@ -1,24 +1,8 @@
 <?php
 
-function get_icon_for_status($status)
-{
-    $typyStatusow = get_log_types_from_database();
-    foreach ($typyStatusow as $k => $v) {
-        if ($v['id'] == $status) {
-            return $v['icon_small'];
-        }
-    }
-}
+use src\Models\GeoCache\GeoCacheLogCommons;
+use src\Models\GeoCache\GeoCacheCommons;
 
-function get_icon_for_cache_type($type)
-{
-    $typySkrzynek = get_cache_types_from_database();
-    foreach ($typySkrzynek as $k => $v) {
-        if ($v['id'] == $type) {
-            return $v['icon_large'];
-        }
-    }
-}
 ?>
 <style>
     a:link {
@@ -95,21 +79,25 @@ function get_icon_for_cache_type($type)
                         }
                         ?>
                         <tr class="<?php echo $styl; ?>">
-                            <td width=560><?php echo isset($v['cache_name']) ? "<A href=\"viewcache.php?cacheid=" . $v['cache_id'] . "\" target=\"_blank\">" . "<img src=\"/images/" . get_icon_for_cache_type($v['cache_type']) . "\" /> " . $v['kod_str'] . " " . $v['cache_name'] . "</a>" : " "; ?></td>
+                            <td width=560><?php echo isset($v['cache_name']) ?
+                                "<a href=\"viewcache.php?cacheid=" . $v['cache_id'] . "\" target=\"_blank\">" .
+                                    "<img src=\"" . GeoCacheCommons::CacheIconByType($v['cache_type'], GeoCacheCommons::STATUS_READY) . "\" /> " .
+                                        $v['kod_str'] . " " . $v['cache_name'] . "</a>" : " "; ?></td>
+
                             <td width=70 style="text-align: right"><?php
                                 $v['data'] = date($datetimeFormat, strtotime($v['data']));
 
 
                                 echo isset($v['data']) ? str_replace(" ", "<br />", $v['data']) : " ";
                                 echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-                                echo isset($v['status']) ? "<img src=\"/images/" . get_icon_for_status($v['status']) . "\" />" : " ";
+                                echo isset($v['status']) ? "<img src=\"".GeoCacheLogCommons::GetIconForType($v['status'])."\" />" : " ";
                                 ?></td>
                             <td width=70 style="text-align: right"><?php
                                 if (isset($v['got_last_activity'])) {
                                     $v['last_date'] = date($datetimeFormat, strtotime($v['last_date']));
                                     echo str_replace(" ", "<br />", $v['last_date']) . "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
                                     if (isset($v['last_status'])) {
-                                        echo "<img src=\"/images/" . get_icon_for_status($v['last_status']) . "\" />";
+                                        echo "<img src=\"" . GeoCacheLogCommons::GetIconForType($v['last_status']) . "\" />";
                                     } else {
                                         echo " ";
                                     }

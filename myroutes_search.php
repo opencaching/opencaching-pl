@@ -13,7 +13,6 @@ require_once (__DIR__.'/lib/common.inc.php');
 require_once (__DIR__.'/lib/export.inc.php');
 require_once (__DIR__.'/lib/format.gpx.inc.php');
 require_once (__DIR__.'/lib/calculation.inc.php');
-require_once (__DIR__.'/lib/caches.inc.php');
 require_once (__DIR__.'/src/Views/lib/icons.inc.php');
 
 global $content, $bUseZip, $usr, $config;

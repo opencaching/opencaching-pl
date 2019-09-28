@@ -50,7 +50,6 @@ if (! $user->canCreateNewCache()) {
     exit();
 }
 
-require_once (__DIR__.'/lib/caches.inc.php');
 require_once (__DIR__.'/src/Views/newcache.inc.php');
 
 $errors = false; // set if there was any errors

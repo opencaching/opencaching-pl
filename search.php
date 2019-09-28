@@ -50,7 +50,6 @@ if (!isset($usr) || !is_array($usr)) {
         $tplname = 'search';
         $view->loadJQueryUI();
         require(__DIR__.'/src/Views/search.inc.php');
-        require(__DIR__.'/lib/caches.inc.php');
 
         sanitize($_REQUEST);
 
