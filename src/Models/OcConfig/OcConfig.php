@@ -5,6 +5,7 @@ namespace src\Models\OcConfig;
 final class OcConfig extends ConfigReader
 {
     use EmailConfigTrait, SiteConfigTrait, I18nConfigTrait, PicturesConfigTrait, MapConfigTrait;
+    use PrimaAprilisTrait;
 
 /*
     const OCNODE_GERMANY    = 1;  // Opencaching Germany http://www.opencaching.de OC

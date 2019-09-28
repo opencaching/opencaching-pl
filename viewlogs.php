@@ -10,6 +10,7 @@ use src\Utils\Text\SmilesInText;
 use src\Utils\Text\UserInputFilter;
 use src\Models\OcConfig\OcConfig;
 use src\Models\Coordinates\Coordinates;
+use src\Utils\DateTime\Year;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
@@ -303,8 +304,8 @@ if ($error == false) {
             $dateTimeTmpArray = explode(' ', $record['date']);
             $tmplog = mb_ereg_replace('{time}', substr($dateTimeTmpArray[1], 0, -3), $tmplog);
 
-            // display user activity (by Łza 2012)
-            if ((date('m') == 4) and ( date('d') == 1)) {
+            // display user activity
+            if (Year::isPrimaAprilisToday() && OcConfig::isPAUserStatsRandEnabled()) {
                 $tmplog_username_aktywnosc = ' (<img src="/images/blue/thunder_ico.png" alt="user activity" width="13" height="13" border="0" title="' . tr('viewlog_aktywnosc') . '"/>' . rand(1, 9) . ') ';
             } else {
                 $tmplog_username_aktywnosc = ' (<img src="/images/blue/thunder_ico.png" alt="user activity" width="13" height="13" border="0" title="' . tr('viewlog_aktywnosc') . ' [' . $record['znalezione'] . '+' . $record['nieznalezione'] . '+' . $record['ukryte'] . ']"/>' . ($record['ukryte'] + $record['znalezione'] + $record['nieznalezione']) . ') ';
@@ -319,7 +320,7 @@ if ($error == false) {
 
             $tmplog = mb_ereg_replace('{username_aktywnosc}', $tmplog_username_aktywnosc, $tmplog);
 
-            // mobile caches by Łza
+            // mobile caches
             if (($record['type'] == 4) && ($record['mobile_latitude'] != 0) && ! $disable_spoiler_view) {
                 $tmplog_kordy_mobilnej = mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(Coordinates::donNotUse_latToDegreeStr($record['mobile_latitude']), ENT_COMPAT, 'UTF-8')) . '&nbsp;' . mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(Coordinates::donNotUse_lonToDegreeStr($record['mobile_longitude']), ENT_COMPAT, 'UTF-8'));
                 $tmplog = mb_ereg_replace('{kordy_mobilniaka}', $record['km'] . ' km [<img src="/images/blue/arrow_mobile.png" title="' . tr('viewlog_kordy') . '" />' . $tmplog_kordy_mobilnej . ']', $tmplog);
