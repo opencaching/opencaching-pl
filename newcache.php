@@ -323,7 +323,7 @@ $cacheTypes = $cache->getCacheTypes();
 $types = '<option value="-1" disabled selected="selected">' . tr('select_one') . '</option>';
 foreach ($cacheTypes as $typeId => $type) {
     /* block creating forbidden cache types */
-    if (in_array($typeId, $config['forbidenCacheTypes'])) {
+    if (in_array($typeId, OcConfig::getNoNewCacheOfTypesArray())) {
         continue;
     }
     /* apply cache limit by type per user */
@@ -607,7 +607,7 @@ if (isset($_POST['submitform'])) {
     // cache-type
     $type_not_ok = false;
     // block forbiden cache types
-    if ($sel_type == - 1 || in_array($sel_type, $config['forbidenCacheTypes'])) {
+    if ($sel_type == - 1 || in_array($sel_type, OcConfig::getNoNewCacheOfTypesArray())) {
         tpl_set_var('type_message', $type_not_ok_message);
         $error = true;
         $type_not_ok = true;
@@ -773,7 +773,7 @@ function buildCacheSizeSelector($sel_type, $sel_size)
     $sizes = '<option value="-1" disabled selected="selected">' . tr('select_one') . '</option>';
     foreach (GeoCacheCommons::CacheSizesArray() as $size) {
 
-        if (!in_array($size, OcConfig::instance()->getGeoCacheConfig('enabledSizes'))) {
+        if (!in_array($size, OcConfig::getEnabledCacheSizesArray())) {
             continue;
         }
 

@@ -5,7 +5,7 @@ namespace src\Models\OcConfig;
 final class OcConfig extends ConfigReader
 {
     use EmailConfigTrait, SiteConfigTrait, I18nConfigTrait, PicturesConfigTrait, MapConfigTrait;
-    use PrimaAprilisTrait;
+    use PrimaAprilisTrait, GeocacheConfigTrait;
 
 /*
     const OCNODE_GERMANY    = 1;  // Opencaching Germany http://www.opencaching.de OC
@@ -50,9 +50,6 @@ final class OcConfig extends ConfigReader
 
     /** @var array the \src\Utils\Lock objects configuration array */
     private $lockConfig;
-
-    /** @var array the watchlist configuration array */
-    private $geoCacheConfig;
 
     /** @var array the watchlist configuration array */
     private $watchlistConfig;
@@ -287,19 +284,6 @@ final class OcConfig extends ConfigReader
             $this->lockConfig = self::getConfig("lock", "lock");
         }
         return $this->lockConfig;
-    }
-
-
-    public function getGeoCacheConfig($setting = null)
-    {
-        if ($this->geoCacheConfig == null) {
-            $this->geoCacheConfig = self::getConfig("geocache", "geocache");
-        }
-        if ($setting !== null) {
-            return $this->geoCacheConfig[$setting];
-        } else {
-            return $this->geoCacheConfig;
-        }
     }
 
     /**

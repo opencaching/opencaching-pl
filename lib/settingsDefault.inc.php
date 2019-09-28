@@ -64,16 +64,6 @@ $config = array(
      */
     'otherSites_minfinds' => 100,
     /**
-     * not allowed cache types (user cannot create caches of this types).
-     *
-     * Cachetypes must be lib/cache.php constant TYPE_*
-     */
-    'forbidenCacheTypes' => array(
-        cache::TYPE_VIRTUAL,
-        cache::TYPE_WEBCAM,
-        cache::TYPE_GEOPATHFINAL
-    ),
-    /**
      * cache limits for user. If user is allowed to place limited nomber of specified cache type,
      * place cachetype and limit here.
      *

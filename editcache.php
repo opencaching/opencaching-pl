@@ -742,7 +742,7 @@ if ($error == false) {
                 foreach (get_cache_types_from_database() as $type) {
 
                     // blockforbidden cache types
-                    if (($type['id'] != $cache_type) && in_array($type['id'], $config['forbidenCacheTypes']) && !$usr['admin']) {
+                    if (($type['id'] != $cache_type) && in_array($type['id'], OcConfig::getNoNewCacheOfTypesArray()) && !$usr['admin']) {
                         continue;
                     }
                     if (isset($config['cacheLimitByTypePerUser'][$cache_type]) && $cacheLimitByTypePerUser[$cache_type] >= $config['cacheLimitByTypePerUser'][$cache_type] && !$usr['admin']) {
@@ -766,7 +766,7 @@ if ($error == false) {
 
                     // blockforbidden cache sizes
                     if ($size != $sel_size
-                        && !in_array($size, OcConfig::instance()->getGeocacheConfig('enabledSizes'))
+                        && !in_array($size, OcConfig::getEnabledCacheSizesArray())
                     ) {
                         continue;
                     }

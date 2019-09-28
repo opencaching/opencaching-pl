@@ -55,7 +55,7 @@ trait PrimaAprilisTrait {
     }
 
     /**
-     * Get Var from site.* files
+     * Get Var from geocache.* files
      *
      * @param string $varName
      * @throws \Exception
