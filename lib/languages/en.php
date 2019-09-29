@@ -1839,6 +1839,7 @@ $translations = array(
     'pt243' => 'Hide completed',
     'pt244' => 'Blocked by OC Team',
 
+    'gp_candidatesButton' => 'Sent invitations to geopath',
     'gp_candidateIntroUser' => 'User',
     'gp_candidateIntro' => 'suggested to add your great geocache',
     'gp_candidateToGeopath' => 'to geopath',
@@ -1855,7 +1856,6 @@ $translations = array(
 
     'gp_ownCacheAddedToGeopath' => 'Your cache is already added to geopath.',
     'gp_cacheRemovedFromGeopath' => 'Cache is already removed from geopath.',
-
 
     'statpic_found' => 'Found:',
     'statpic_hidden' => 'Hidden:',

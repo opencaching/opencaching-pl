@@ -1693,8 +1693,15 @@
                     <td style="text-align: right;">
                         <div style="display: {displayAddCachesButtons}">
                             <div class="padding1"><a href="powerTrail.php?ptAction=selectCaches" id="toggleSearchCacheSection0" class="editPtDataButton">{{pt049}}</a></div>
-                            <div class="padding1"><a href="javascript:void(0)" id="finalCachesbtn" onclick="reloadWithFinalsChoice();" class="editPtDataButton">{{pt149}}</a></div>
-                            <div class="padding1"><a href="javascript:void(0)" id="toggleSearchCacheSection2" onclick="toggleSearchCacheSection()" class="editPtDataButton">{{pt048}}</a><span id="removeCacheButton" style="display: {removeCacheButtonDisplay};">&nbsp;<a href="javascript:void(0)" id="toggleSearchCacheSection3" onclick="toggleSearchCacheSection2()" class="editPtDataButton">{{pt156}}</a></span></div>
+                            <div class="padding1">
+                              <a href="/GeoPath/candidatesList/{powerTrailId}" id="toggleSearchCacheSection0" class="editPtDataButton">{{gp_candidatesButton}}</a>
+                              <a href="javascript:void(0)" id="finalCachesbtn" onclick="reloadWithFinalsChoice();" class="editPtDataButton">{{pt149}}</a>
+                            </div>
+                            <div class="padding1">
+                              <a href="javascript:void(0)" id="toggleSearchCacheSection2" onclick="toggleSearchCacheSection()" class="editPtDataButton">{{pt048}}</a>
+                              <span id="removeCacheButton" style="display: {removeCacheButtonDisplay};">&nbsp;
+                                <a href="javascript:void(0)" id="toggleSearchCacheSection3" onclick="toggleSearchCacheSection2()" class="editPtDataButton">{{pt156}}</a>
+                              </span></div>
                         </div>
                     </td>
                 </tr>
