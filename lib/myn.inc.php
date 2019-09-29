@@ -3,6 +3,11 @@ use src\Models\GeoCache\GeoCacheCommons;
 use src\Models\GeoCache\GeoCacheLog;
 use src\Utils\Database\OcDb;
 
+/**
+ * @deprecated
+ *
+ * Don't use this - myn class should be removed soon
+ */
 class myninc
 {
 
@@ -36,7 +41,11 @@ class myninc
         }
     }
 
-
+/**
+ * @deprecated
+ *
+ * Don't use this - myn class should be removed soon
+ */
     public static function checkCacheStatusByUser($record, $userId)
     {
         if (isset($record['user_id']) && $record['user_id'] == $userId) { //for owner
