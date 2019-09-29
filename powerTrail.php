@@ -30,8 +30,6 @@ require_once (__DIR__.'/lib/common.inc.php');
 $ocConfig = OcConfig::instance();
 $appContainer = ApplicationContainer::Instance();
 
-require_once(__DIR__.'/lib/cache.php');
-
 $_SESSION['powerTrail']['userFounds'] = $usr['userFounds'];
 
 if ($ocConfig->isPowerTrailModuleSwitchOn() === false) {

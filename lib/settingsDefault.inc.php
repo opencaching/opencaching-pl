@@ -5,7 +5,7 @@
  * settings.inc.php file (e.g. $config['debugDB'] = true;).
  */
 
-require_once (__DIR__.'/cache.php');
+use src\Models\GeoCache\GeoCacheCommons;
 
 // enable detailed cache access logging
 $enable_cache_access_logs = false;
@@ -67,10 +67,10 @@ $config = array(
      * cache limits for user. If user is allowed to place limited nomber of specified cache type,
      * place cachetype and limit here.
      *
-     * Cachetypes must be lib/cache.php constant TYPE_*
+     * Cachetypes must be GeoCacheCommons constant TYPE_*
      */
     'cacheLimitByTypePerUser' => array(
-        cache::TYPE_OWNCACHE => 1,
+        GeoCacheCommons::TYPE_OWNCACHE => 1,
     ),
     /** The filter fragment selecting provinces from nuts_codes table. */
     'provinceNutsCondition' => '`code` like \'PL__\'',

@@ -316,23 +316,25 @@ if ($sel_type == GeoCache::TYPE_VIRTUAL || $sel_type == GeoCache::TYPE_WEBCAM ||
 }
 
 // typeoptions
-
-$cache = cache::instance();
-$cacheTypes = $cache->getCacheTypes();
 $types = '<option value="-1" disabled selected="selected">' . tr('select_one') . '</option>';
-foreach ($cacheTypes as $typeId => $type) {
+foreach (GeoCacheCommons::CacheTypesArray() as $typeId) {
     /* block creating forbidden cache types */
     if (in_array($typeId, OcConfig::getNoNewCacheOfTypesArray())) {
         continue;
     }
+
     /* apply cache limit by type per user */
-    if (isset($config['cacheLimitByTypePerUser'][$typeId]) && isset($cacheLimitByTypePerUser[$typeId]) && $cacheLimitByTypePerUser[$typeId] >= $config['cacheLimitByTypePerUser'][$typeId]) {
+    if (isset($config['cacheLimitByTypePerUser'][$typeId]) &&
+        isset($cacheLimitByTypePerUser[$typeId]) &&
+        $cacheLimitByTypePerUser[$typeId] >= $config['cacheLimitByTypePerUser'][$typeId]) {
         continue;
     }
     if ($typeId == $sel_type) {
-        $types .= '<option value="' . $typeId . '" selected="selected">' . tr($type['translation']) . '</option>';
+        $types .= '<option value="' . $typeId . '" selected="selected">' .
+            tr(GeoCacheCommons::CacheTypeTranslationKey($typeId)) . '</option>';
     } else {
-        $types .= '<option value="' . $typeId . '">' . tr($type['translation']) . '</option>';
+        $types .= '<option value="' . $typeId . '">' .
+            tr(GeoCacheCommons::CacheTypeTranslationKey($typeId)) . '</option>';
     }
 }
 tpl_set_var('typeoptions', $types);

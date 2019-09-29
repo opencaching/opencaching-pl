@@ -81,9 +81,6 @@ class GeoCache extends GeoCacheCommons
      */
     private $distance = -1;
 
-    /** @var $dictionary \cache */
-    public $dictionary;
-
     private $ownerId;
 
     /** @var $owner User */
@@ -182,8 +179,6 @@ class GeoCache extends GeoCacheCommons
         } elseif (isset($params['cacheUUID'])) {
             $this->loadByUUID($params['cacheUUID']);
         }
-
-        $this->dictionary = \cache::instance();
     }
 
     /**
