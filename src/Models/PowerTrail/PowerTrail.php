@@ -226,14 +226,14 @@ class PowerTrail extends BaseObject
     {
         if (!$this->geocaches->isReady()) {
 
-            $query = 'SELECT powerTrail_caches.isFinal, caches . * , user.username
-                      FROM  `caches` , user, powerTrail_caches
-                      WHERE cache_id IN (
-                            SELECT  `cacheId` FROM  `powerTrail_caches`
-                            WHERE  `PowerTrailId` =:1)
-                        AND user.user_id = caches.user_id
-                        AND powerTrail_caches.cacheId = caches.cache_id
-                      ORDER BY caches.name';
+            $query = 'SELECT pc.isFinal, c.*, u.username
+                      FROM  powerTrail_caches AS pc
+                        JOIN caches AS c ON c.cache_id = pc.cacheId
+                        JOIN user AS u ON u.user_id = c.user_id
+                      WHERE pc.PowerTrailId = :1
+                      ORDER BY c.name';
+
+
             $s = $this->db->multiVariableQuery($query, $this->id);
             $geoCachesDbResult = $this->db->dbResultFetchAll($s);
 
