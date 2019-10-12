@@ -14,6 +14,7 @@ use src\Utils\EventHandler\EventHandler;
 use src\Utils\I18n\I18n;
 use src\Utils\Text\Validator;
 use src\Utils\Gis\Countries;
+use src\Models\Coordinates\NutsLocation;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
@@ -706,8 +707,7 @@ if (isset($_POST['submitform'])) {
         }
         if ($sel_region != "0") {
             $code3 = $sel_region;
-            $adm3 = XDb::xMultiVariableQueryValue("SELECT `name` FROM `nuts_codes`
-                        WHERE `code`= :1 ", 0, $sel_region);
+            $adm3 = NutsLocation::getNameForCode($sel_region, true);
         } else {
             $code3 = null;
             $adm3 = null;

@@ -1,5 +1,6 @@
 <?php
 
+use src\Models\Coordinates\NutsLocation;
 use src\Utils\Database\XDb;
 
 if (isset($_REQUEST['region'])) {
@@ -22,8 +23,7 @@ if (isset($_REQUEST['region'])) {
 
             echo '<table width="97%"><tr><td align="center"><center><b> ' . tr('ranking_by_number_of_created_caches') . ' </b><br />tylko aktywne skrzynki<br />';
 
-            $woj = XDb::xMultiVariableQueryValue(
-                "SELECT nuts_codes.name FROM nuts_codes WHERE code= :1 ", 0, $region);
+            $woj = NutsLocation::getNameForCode($region);
 
             echo '<br /><b><font color="blue">' . $woj . '</font></b></center></td></tr></table>';
             echo '<table border="1" bgcolor="white" width="97%">' . "\n";
