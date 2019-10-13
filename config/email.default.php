@@ -12,7 +12,7 @@
 $config = [];
 
 /**
- * Address used to send technical notifications from the OC server/code etc.
+ * Address (or array of addresses) used to send technical notifications from the OC server/code etc.
  * ALL HASHES WILL BE AUTOMATICALLY REMOVED FROM EMAIL ADDRESS!
  */
 $config['technicalNotificationEmail'] = 'techNotify#@opencac#hing.pl';

@@ -59,11 +59,16 @@ trait EmailConfigTrait {
 
     /**
      * Returns email address used to send technical notifications
-     * @return string - techNotify addr.
+     * @return array - array of addresses to send techNotify emails
      */
     public static function getEmailAddrTechAdminNotification()
     {
-        return self::getEmailAddrVar('technicalNotificationEmail');
+        $email = self::getEmailAddrVar('technicalNotificationEmail');
+        if (!is_array ($email)){
+            return [$email];
+        } else {
+            return $email;
+        }
     }
 
     /**

@@ -76,11 +76,9 @@ class ErrorHandler
 
         } catch (\Exception $e) {
             try {
-                mail(
-                    OcConfig::getEmailAddrTechAdminNotification(),
-                    "OC site error",
-                    $msg
-                );
+              foreach (OcConfig::getEmailAddrTechAdminNotification() as $techAdminAddr) {
+                mail ($techAdminAddr, "OC site error", $msg);
+              }
             } catch (\Exception $e) {
                 try {
                     mail("root@localhost", "OC site error", $msg);
