@@ -35,23 +35,22 @@ class EmailSender
         }
 
         //ok, mail allowed - build it
-        $email = new Email();
+        foreach (OcConfig::getEmailAddrTechAdminNotification() as $techAdmAddress) {
 
-        $email->addToAddr( OcConfig::getEmailAddrTechAdminNotification());
-        $email->setReplyToAddr( OcConfig::getEmailAddrTechAdminNotification());
-        $email->setFromAddr( OcConfig::getEmailAddrNoReply());
+            $email = new Email();
+            $email->addToAddr($techAdmAddress);
+            $email->setReplyToAddr($techAdmAddress);
+            $email->setFromAddr( OcConfig::getEmailAddrNoReply());
 
-        $email->addSubjectPrefix("OC Admin Email");
-        $email->setSubject('Error in domain: '.$spamDomain); //TODO
-        $email->setPlainTextBody($message);
+            $email->addSubjectPrefix("OC Admin Email");
+            $email->setSubject('Error in domain: '.$spamDomain); //TODO
+            $email->setPlainTextBody($message);
 
-        if (!$email->send()) {
-            // The only available fallback here is logging.
-            Debug::errorLog(
-                __METHOD__.": Admin email sending failed! Message:\n" . $message,
-                false
-            );
-        }
+            if (!$email->send()) {
+                // The only available fallback here is logging.
+                Debug::errorLog( __METHOD__.": Admin email sending failed! Message:\n" . $message, false);
+            }
+        } // foreach
     }
 
     public static function sendRemoveLogNotification(GeoCacheLog $log, User $loggedUser)
