@@ -1,3 +1,6 @@
+<?php
+    use src\Models\OcConfig\OcConfig;
+?>
 <!DOCTYPE html>
 <html lang="<?=$view->getLang()?>">
 <head>
@@ -6,9 +9,13 @@
 
   <link rel="stylesheet" type="text/css" media="screen" href="<?=$view->screenCss?>">
   <link rel="stylesheet" type="text/css" media="print" href="<?=$view->printCss?>">
-  <link rel="shortcut icon" href="/images/<?=$config['headerFavicon']?>">
-  <link rel="apple-touch-icon-precomposed" href="/images/oc_logo_144.png">
 
+  <link rel="shortcut icon" href="<?=OcConfig::getSiteMainViewIcon('shortcutIcon')?>">
+  <link rel="apple-touch-icon" sizes="180x180" href="<?=OcConfig::getSiteMainViewIcon('appleTouch')?>">
+  <link rel="icon" type="image/png" sizes="32x32" href="<?=OcConfig::getSiteMainViewIcon('icon32')?>">
+  <link rel="icon" type="image/png" sizes="16x16" href="<?=OcConfig::getSiteMainViewIcon('icon16')?>">
+  <link rel="manifest" href="<?=OcConfig::getSiteMainViewIcon('webmanifest')?>">
+  <link rel="mask-icon" href="<?=OcConfig::getSiteMainViewIcon('maskIcon')?>" color="#5bbad5">
 
 
   <?php foreach( $view->getLocalCss() as $css ) { ?>

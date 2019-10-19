@@ -45,13 +45,7 @@ $config = array(
     /** qrcode logo: show qrcode image and link the prefered way.  */
     'qrCodeLogo' => 'qrcode_bg.jpg',
     'qrCodeUrl' => 'https://opencaching.pl/viewcache.php?wp=OP3C90',
-    /**
-     * website icon (favicon); (to be placed in /images/)
-     * Format: 16x16 pixels; PNG 8bit indexed or 24bit true color, transparency supported
-     * A file /favicon.ico (windows icon ICO format, 16x16) should also exist as fallback
-     * mainly for MSIE
-     */
-    'headerFavicon' => 'oc_icon.png',
+
     /** Language list for new caches and for GPX */
     'defaultLanguageList' => array(
         'PL', 'EN', 'FR', 'DE', 'NL', 'RO'
@@ -216,9 +210,6 @@ $config['feed']['blog']['showAuthor'] = true;
 
 // customization of the start page
 $config['startPage']['latestCacheSetsCount'] = 3;
-
-// logo displayed as apple-touch-icon-precomposed
-$config['header']['appleLogo'] = '/images/oc_logo_144.png';
 
 // FB login conf
 $config['oAuth']['facebook']['prodEnabled'] = false;

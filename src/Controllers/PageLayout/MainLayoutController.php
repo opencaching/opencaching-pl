@@ -88,8 +88,8 @@ class MainLayoutController extends BaseController
         }
 
         $this->view->setVar('_siteName', OcConfig::getSiteName());
-        $this->view->setVar('_favicon', '/images/'.$config['headerFavicon']);
-        $this->view->setVar('_appleLogo', $config['header']['appleLogo']);
+        $this->view->setVar('_favicon', OcConfig::getSiteMainViewIcon('shortcutIcon'));
+        $this->view->setVar('_appleLogo', OcConfig::getSiteMainViewIcon('appleTouch'));  //xxx
 
         $this->view->setVar('_title', "TODO-title"); //TODO!
         $this->view->setVar('_backgroundSeason', $this->view->getSeasonCssName());

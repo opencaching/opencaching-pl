@@ -8,8 +8,8 @@
 <head>
     <title>Opencaching - Error</title>
     <meta charset="utf-8" />
-    <link rel="shortcut icon" href="/images/oc_icon.png" />
-    <link rel="apple-touch-icon-precomposed" href="/images/oc_logo_144.png" />
+    <link rel="shortcut icon" href="/images/icons/oc_icon.png" />
+    <link rel="apple-touch-icon-precomposed" href="/images/icons/oc_logo_144.png" />
     <link rel="stylesheet" type="text/css" media="screen" href="/css/style_screen.css" />
 </head>
 <body style="margin:20px 40px 0 40px; background:white">

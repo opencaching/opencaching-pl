@@ -74,6 +74,19 @@ trait SiteConfigTrait {
         return self::getSiteVar('defaultCountriesList');
     }
 
+    /**
+     * Retruns the icon (with path) to the icon
+     * @param string $iconName
+     */
+    public static function getSiteMainViewIcon($iconName)
+    {
+        $iconsArr = self::getSiteVar('mainViewIcons');
+        if (isset($iconsArr[$iconName])) {
+            return $iconsArr[$iconName];
+        } else {
+            return "Unknown-icon-$iconName";
+        }
+    }
 
     /**
      * Returns site properties
