@@ -224,7 +224,8 @@ $view->callChunk('tinyMCE');
         $('#log_pw').removeAttr('disabled');
       }
 
-      if ($('#cacheType').val() == "4" || $('#cacheType').val() == "5" || $('#cacheType').val() == "6") {
+      if ($('#cacheType').val() == "4" || $('#cacheType').val() == "5" || $('#cacheType').val() == "6" ||
+                $('#cacheType').val() == "12" || $('#cacheType').val() == "13" || $('#cacheType').val() == "14" || $('#cacheType').val() == "15") {
         // if( document.newcacheform.size.options[ $('#size option').length - 1].value != "7" && document.newcacheform.size.options[document.newcacheform.size.options.length - 2].value != "7")
         if (!($("#size option[value='7']").length > 0)) {
           var o = new Option("{{cacheSize_none}}", "7");
@@ -290,8 +291,12 @@ $view->callChunk('tinyMCE');
         iconarray['5'] = 'webcam.png';
         iconarray['6'] = 'event.png';
         iconarray['7'] = 'quiz.png';
-        iconarray['8'] = 'moving.png';
-        iconarray['10'] = 'owncache.png';
+        iconarray['9'] = 'moving.png';
+        iconarray['11'] = 'owncache.png';
+        iconarray['12'] = 'bitcache.png';
+        iconarray['13'] = 'guestbook.png';
+        iconarray['14'] = 'benchmark.png';
+        iconarray['15'] = 'challenge.png';
         var image_cache = "/images/cache/" + iconarray[mode];
         $('#actionicons').attr('src', image_cache);
     }

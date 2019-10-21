@@ -160,6 +160,7 @@ if ($error == false) {
                     $date_not_ok = true;
                 }
 
+                // TYPE_EVENT
                 if ($cache_type == 6) {
                     switch ($log_type) {
                         case 1:
@@ -449,7 +450,7 @@ if ($error == false) {
                             continue;
                         }
                     }
-                    if ($cache_type == 6 || $cache_type == 8) {
+                    if ($cache_type == 6 || $cache_type == 9) {
                         // Event cache
                         if ($cache_type == 6) {
                             if ($type['id'] == 1 || $type['id'] == 2 || $type['id'] == 4 || $type['id'] == 5 || $type['id'] == 9 || $type['id'] == 10 || $type['id'] == 11) {
@@ -457,7 +458,7 @@ if ($error == false) {
                             }
                         }
                         // Mobile cache
-                        if ($cache_type == 8) {
+                        if ($cache_type == 9) {
                             if ($type['id'] == 7 || $type['id'] == 8 || $type['id'] == 9) {
                                 continue;
                             }

@@ -151,7 +151,7 @@ $gpxContainer[3] = 'Small';         // OC: SIZE_SMALL
 $gpxContainer[4] = 'Regular';       // OC: SIZE_REGULAR
 $gpxContainer[5] = 'Large';         // OC: SIZE_LARGE
 $gpxContainer[6] = 'Very Large';    // OC: SIZE_XLARGE
-$gpxContainer[7] = 'No container';  // OC: SIZE_NONE
+$gpxContainer[7] = 'Virtual';       // OC: SIZE_NONE
 $gpxContainer[8] = 'Nano';          // OC: SIZE_NANO
 
 // size strings for oc:size (OC GPX extension)
@@ -177,9 +177,12 @@ $gpxType[5] = 'Webcam Cache';       // OC: TYPE_WEBCAM
 $gpxType[6] = 'Event Cache';        // OC: TYPE_EVENT
 // OC specific cache types
 $gpxType[7] = 'Unknown Cache';      // OC: TYPE_QUIZ
-$gpxType[8] = 'Unknown Cache';      // OC: TYPE_MOVING
-$gpxType[9] = 'Unknown Cache';      // OC: TYPE_GEOPATHFINAL
-$gpxType[10] = 'Unknown Cache';     // OC: TYPE_OWNCACHE
+$gpxType[9] = 'Traditional';        // OC: TYPE_MOVING
+$gpxType[11] = 'Traditional';       // OC: TYPE_OWNCACHE
+$gpxType[12] = 'Virtual';           // OC: TYPE_BITCACHE
+$gpxType[13] = 'Traditional';       // OC: TYPE_GUESTBOOK
+$gpxType[14] = 'Virtual';           // OC: TYPE_BENCHMARK
+$gpxType[15] = 'Unknown Cache';     // OC: TYPE_CHALLENGE
 
 // type strings for oc:type (OC GPX extension)
 $gpxOcType[1] = 'Other Cache';
@@ -189,9 +192,12 @@ $gpxOcType[4] = 'Virtual Cache';
 $gpxOcType[5] = 'Webcam Cache';
 $gpxOcType[6] = 'Event Cache';
 $gpxOcType[7] = 'Quiz Cache';
-$gpxOcType[8] = 'Moving Cache';
-$gpxOcType[9] = 'Podcast Cache';
-$gpxOcType[10] = 'Own Cache';
+$gpxOcType[9] = 'Moving Cache';
+$gpxOcType[11] = 'Own Cache';
+$gpxOcType[12] = 'BIT Cache';
+$gpxOcType[13] = 'Guestbook Cache';
+$gpxOcType[14] = 'Benchmark Cache';
+$gpxOcType[15] = 'Challenge Cache';
 
 /* Groundspeak IDs:
 2       Traditional Cache
@@ -220,16 +226,21 @@ https://gist.github.com/DieBatzen/5814dc7368c1034470c8/
 
 // OC type names
 // Note: these names should be defined with cache types. See well_defined project.
+// well known types
 $gpxGeocacheTypeText[1] = 'Unknown Cache';
 $gpxGeocacheTypeText[2] = 'Traditional Cache';
 $gpxGeocacheTypeText[3] = 'Multi-Cache';
 $gpxGeocacheTypeText[4] = 'Virtual Cache';
 $gpxGeocacheTypeText[5] = 'Webcam Cache';
 $gpxGeocacheTypeText[6] = 'Event Cache';
-$gpxGeocacheTypeText[7] = 'Puzzle Cache';
-$gpxGeocacheTypeText[8] = 'Moving Cache';
-$gpxGeocacheTypeText[9] = 'Podcast cache';
-$gpxGeocacheTypeText[10] = 'Own cache';
+// OC specific cache types
+$gpxGeocacheTypeText[7] = 'Quiz';
+$gpxGeocacheTypeText[9] = 'Moving Cache';
+$gpxGeocacheTypeText[11] = 'Own Cache';
+$gpxGeocacheTypeText[12] = 'BIT Cache';
+$gpxGeocacheTypeText[13] = 'Guestbook Cache';
+$gpxGeocacheTypeText[14] = 'Benchmark Cache';
+$gpxGeocacheTypeText[15] = 'Challenge Cache';
 
 // ************************************************************************
 // Logs

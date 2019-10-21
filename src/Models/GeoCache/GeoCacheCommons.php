@@ -11,16 +11,19 @@ use src\Utils\Debug\Debug;
 
 class GeoCacheCommons extends BaseObject {
 
-    const TYPE_OTHERTYPE = 1;
-    const TYPE_TRADITIONAL = 2;
-    const TYPE_MULTICACHE = 3;
-    const TYPE_VIRTUAL = 4;
-    const TYPE_WEBCAM = 5;
-    const TYPE_EVENT = 6;
-    const TYPE_QUIZ = 7;
-    const TYPE_MOVING = 8;
-    const TYPE_GEOPATHFINAL = 9;    //TODO: old -podcast- type?
-    const TYPE_OWNCACHE = 10;
+    const TYPE_OTHERTYPE    = 1;
+    const TYPE_TRADITIONAL  = 2;
+    const TYPE_MULTICACHE   = 3;
+    const TYPE_VIRTUAL      = 4;
+    const TYPE_WEBCAM       = 5;
+    const TYPE_EVENT        = 6;
+    const TYPE_QUIZ         = 7;
+    const TYPE_MOVING       = 9;
+    const TYPE_OWNCACHE     = 11;
+    const TYPE_BITCACHE     = 12;
+    const TYPE_GUESTBOOK    = 13;
+    const TYPE_BENCHMARK    = 14;
+    const TYPE_CHALLENGE    = 15;
 
     const STATUS_READY = 1;
     const STATUS_UNAVAILABLE = 2;
@@ -29,14 +32,14 @@ class GeoCacheCommons extends BaseObject {
     const STATUS_NOTYETAVAILABLE = 5;
     const STATUS_BLOCKED = 6;
 
-    const SIZE_NONE = 7;
+    const SIZE_NONE = 7;            // No container
     const SIZE_NANO = 8;
     const SIZE_MICRO = 2;
     const SIZE_SMALL = 3;
     const SIZE_REGULAR = 4;
     const SIZE_LARGE = 5;
     const SIZE_XLARGE = 6;
-    const SIZE_OTHER = 1;
+    const SIZE_OTHER = 1;           // Not specified
 
     const RECOMENDATION_RATIO = 10; //percentage of founds which can be recomeded by user
 
@@ -47,16 +50,19 @@ class GeoCacheCommons extends BaseObject {
 
     const ICON_PATH = '/images/cache/'; //path to the dir with cache icons
 
-    const TYPE_TRADITIONAL_TR_KEY    = 'cacheType_1';
-    const TYPE_OTHERTYPE_TR_KEY      = 'cacheType_5';
-    const TYPE_MULTICACHE_TR_KEY     = 'cacheType_2';
-    const TYPE_VIRTUAL_TR_KEY        = 'cacheType_8';
-    const TYPE_WEBCAM_TR_KEY         = 'cacheType_7';
+    const TYPE_OTHERTYPE_TR_KEY      = 'cacheType_1';
+    const TYPE_TRADITIONAL_TR_KEY    = 'cacheType_2';
+    const TYPE_MULTICACHE_TR_KEY     = 'cacheType_3';
+    const TYPE_VIRTUAL_TR_KEY        = 'cacheType_4';
+    const TYPE_WEBCAM_TR_KEY         = 'cacheType_5';
     const TYPE_EVENT_TR_KEY          = 'cacheType_6';
-    const TYPE_QUIZ_TR_KEY           = 'cacheType_3';
-    const TYPE_MOVING_TR_KEY         = 'cacheType_4';
-    const TYPE_GEOPATHFINAL_TR_KEY   = 'cacheType_9';
-    const TYPE_OWNCACHE_TR_KEY       = 'cacheType_10';
+    const TYPE_QUIZ_TR_KEY           = 'cacheType_7';
+    const TYPE_MOVING_TR_KEY         = 'cacheType_9';
+    const TYPE_OWNCACHE_TR_KEY       = 'cacheType_11';
+    const TYPE_BITCACHE_TR_KEY       = 'cacheType_12';
+    const TYPE_GUESTBOOK_TR_KEY      = 'cacheType_13';
+    const TYPE_BENCHMARK_TR_KEY      = 'cacheType_14';
+    const TYPE_CHALLENGE_TR_KEY      = 'cacheType_15';
 
     const STATUS_READY_TR_KEY            = 'cacheStatus_1';
     const STATUS_UNAVAILABLE_TR_KEY      = 'cacheStatus_2';
@@ -83,16 +89,19 @@ class GeoCacheCommons extends BaseObject {
     {
 
         switch ($type) {
-            case self::TYPE_TRADITIONAL:    return self::TYPE_TRADITIONAL_TR_KEY;
             case self::TYPE_OTHERTYPE:      return self::TYPE_OTHERTYPE_TR_KEY;
+            case self::TYPE_TRADITIONAL:    return self::TYPE_TRADITIONAL_TR_KEY;
             case self::TYPE_MULTICACHE:     return self::TYPE_MULTICACHE_TR_KEY;
             case self::TYPE_VIRTUAL:        return self::TYPE_VIRTUAL_TR_KEY;
             case self::TYPE_WEBCAM:         return self::TYPE_WEBCAM_TR_KEY;
             case self::TYPE_EVENT:          return self::TYPE_EVENT_TR_KEY;
             case self::TYPE_QUIZ:           return self::TYPE_QUIZ_TR_KEY;
             case self::TYPE_MOVING:         return self::TYPE_MOVING_TR_KEY;
-            case self::TYPE_GEOPATHFINAL:   return self::TYPE_GEOPATHFINAL_TR_KEY;
             case self::TYPE_OWNCACHE:       return self::TYPE_OWNCACHE_TR_KEY;
+            case self::TYPE_BITCACHE:       return self::TYPE_BITCACHE_TR_KEY;
+            case self::TYPE_GUESTBOOK:       return self::TYPE_GUESTBOOK_TR_KEY;
+            case self::TYPE_BENCHMARK:       return self::TYPE_BENCHMARK_TR_KEY;
+            case self::TYPE_CHALLENGE:       return self::TYPE_CHALLENGE_TR_KEY;
         }
     }
 
@@ -193,6 +202,8 @@ class GeoCacheCommons extends BaseObject {
     public static function CacheTypeIdFromOkapi($okapiType)
     {
         switch ($okapiType) {
+            case 'Other':
+                return self::TYPE_OTHERTYPE;
             case 'Traditional':
                 return self::TYPE_TRADITIONAL;
             case 'Multi':
@@ -209,8 +220,14 @@ class GeoCacheCommons extends BaseObject {
                 return self::TYPE_MOVING;
             case 'Own':
                 return self::TYPE_OWNCACHE;
-            case 'Other':
-                return self::TYPE_OTHERTYPE;
+            case 'BIT Cache':
+                return self::TYPE_BITCACHE;
+            case 'Guestbook':
+                return self::TYPE_GUESTBOOK;
+            case 'Benchmark':
+                return self::TYPE_BENCHMARK;
+            case 'Challenge':
+                return self::TYPE_CHALLENGE;
             default:
                 Debug::errorLog('Unknown cache type from OKAPI: ' . $okapiType);
                 return self::TYPE_TRADITIONAL;
@@ -356,6 +373,23 @@ class GeoCacheCommons extends BaseObject {
             case self::TYPE_OWNCACHE:
                 $typePart = 'owncache';
                 break;
+
+            case self::TYPE_BITCACHE:
+                $typePart = 'bitcache';
+                break;
+
+            case self::TYPE_GUESTBOOK:
+                $typePart = 'guestbook';
+                break;
+
+            case self::TYPE_BENCHMARK:
+                $typePart = 'benchmark';
+                break;
+
+            case self::TYPE_CHALLENGE:
+                $typePart = 'challenge';
+                break;
+
         }
 
         if ($fileNameOnly) {

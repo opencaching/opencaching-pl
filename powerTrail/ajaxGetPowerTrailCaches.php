@@ -66,7 +66,6 @@ function displayAllCachesOfPowerTrail(PowerTrail $powerTrail, $choseFinalCaches)
     $totalFounds = 0;
     $totalTopRatings = 0;
     $bgcolor = '#ffffff';
-
     $cachetypes = array_fill_keys(GeoCache::CacheTypesArray(), 0); // array of all types
     $cacheSize = array_fill_keys(GeoCache::CacheSizesArray(), 0); // array of all types
 

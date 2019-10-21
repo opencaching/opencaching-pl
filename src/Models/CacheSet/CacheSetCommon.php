@@ -96,6 +96,7 @@ class CacheSetCommon extends BaseObject
             GeoCache::TYPE_EVENT,
             GeoCache::TYPE_OWNCACHE,
             GeoCache::TYPE_WEBCAM,
+            GeoCache::TYPE_CHALLENGE,
         ];
 
         return !in_array($cache->getCacheType(), $forbiddenTypes);
@@ -123,16 +124,19 @@ class CacheSetCommon extends BaseObject
     {
         // cache type to points
         $typePointsArray = [
-            1 => 2, #Other
-            2 => 2, #Trad.
-            3 => 3, #Multi
-            4 => 1, #Virt.
-            5 => 0.2, #ICam.
-            6 => 0, #Event
-            7 => 4, #Quiz
-            8 => 2, #Moving
-            9 => 1, #podcast
-            10 => 1, #own
+            1 => 2,     // Other
+            2 => 2,     // Traditional 
+            3 => 3,     // Multicache
+            4 => 1,     // Virtual
+            5 => 0.2,   // Webcam
+            6 => 0,     // Event
+            7 => 4,     // Quiz
+            9 => 2,     // Moving cache
+            11 => 1,    // Own cache
+            12 => 1,    // BIT cache
+            13 => 1,    // Guestbook
+            14 => 2,    // Benchmark
+            15 => 0,    // Challenge
         ];
         $typePoints = $typePointsArray[$cache->getCacheType()];
 

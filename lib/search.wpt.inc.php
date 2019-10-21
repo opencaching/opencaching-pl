@@ -24,16 +24,21 @@ $wptSize[6] = 'Extra Large';
 $wptSize[7] = 'No container';
 $wptSize[8] = 'Nano';
 
+// well known types
 $wptType[1] = 'Unknown Cache';
 $wptType[2] = 'Traditional Cache';
 $wptType[3] = 'Multi-Cache';
 $wptType[4] = 'Virtual Cache';
 $wptType[5] = 'Webcam Cache';
 $wptType[6] = 'Event Cache';
+// OC specific cache types
 $wptType[7] = 'Puzzle';
-$wptType[8] = 'Moving Cache';
-$wptType[9] = 'Podcast';
-$wptType[10] = 'Own Cache';
+$wptType[9] = 'Moving Cache';
+$wptType[11] = 'Own Cache';
+$wptType[12] = 'BIT Cache';
+$wptType[13] = 'Guestbook Cache';
+$wptType[14] = 'Benchmark Cache';
+$wptType[15] = 'Challenge Cache';
 
 if( $usr || !$hide_coords ) {
     //prepare the output

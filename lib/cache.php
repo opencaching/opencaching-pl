@@ -3,23 +3,28 @@
 final class cache
 {
 
-    const TYPE_OTHERTYPE = 1;
-    const TYPE_TRADITIONAL = 2;
-    const TYPE_MULTICACHE = 3;
-    const TYPE_VIRTUAL = 4;
-    const TYPE_WEBCAM = 5;
-    const TYPE_EVENT = 6;
-    const TYPE_QUIZ = 7;
-    const TYPE_MOVING = 8;
-    const TYPE_GEOPATHFINAL = 9;
-    const TYPE_OWNCACHE = 10;
+    const TYPE_OTHERTYPE	= 1;
+    const TYPE_TRADITIONAL	= 2;
+    const TYPE_MULTICACHE	= 3;
+    const TYPE_VIRTUAL		= 4;
+    const TYPE_WEBCAM		= 5;
+    const TYPE_EVENT		= 6;
+    const TYPE_QUIZ         = 7;
+    const TYPE_MOVING		= 9;
+    const TYPE_OWNCACHE		= 11;
+    const TYPE_BITCACHE		= 12;
+    const TYPE_GUESTBOOK	= 13;
+    const TYPE_BENCHMARK	= 14;
+    const TYPE_CHALLENGE	= 15;
 
+    const SIZE_OTHER = 1;           // Not specified
     const SIZE_MICRO = 2;
     const SIZE_SMALL = 3;
     const SIZE_NORMAL = 4;
     const SIZE_LARGE = 5;
     const SIZE_VERYLARGE = 6;
-    const SIZE_NOCONTAINER = 7;
+    const SIZE_NONE = 7;            // No container
+    const SIZE_NANO = 8;
 
     const STATUS_READY = 1;
     const STATUS_UNAVAILABLE = 2;
@@ -59,27 +64,27 @@ final class cache
         self::TYPE_OTHERTYPE => array(
             'name' => 'other',
             'icon' => 'unknown.png',
-            'translation' => 'cacheType_5'
+            'translation' => 'cacheType_1'
         ),
         self::TYPE_TRADITIONAL => array(
             'name' => 'traditional',
             'icon' => 'traditional.png',
-            'translation' => 'cacheType_1'
+            'translation' => 'cacheType_2'
         ),
         self::TYPE_MULTICACHE => array(
             'name' => 'multicache',
             'icon' => 'multi.png',
-            'translation' => 'cacheType_2',
+            'translation' => 'cacheType_3',
         ),
         self::TYPE_VIRTUAL => array(
             'name' => 'virtual',
             'icon' => 'virtual.png',
-            'translation' => 'cacheType_8'
+            'translation' => 'cacheType_4'
         ),
         self::TYPE_WEBCAM => array(
             'name' => 'webcam',
             'icon' => 'webcam.png',
-            'translation' => 'cacheType_7'
+            'translation' => 'cacheType_5'
         ),
         self::TYPE_EVENT => array(
             'name' => 'event',
@@ -89,22 +94,37 @@ final class cache
         self::TYPE_QUIZ => array(
             'name' => 'quiz',
             'icon' => 'quiz.png',
-            'translation' => 'cacheType_3'
+            'translation' => 'cacheType_7'
         ),
         self::TYPE_MOVING => array(
             'name' => 'moving',
             'icon' => 'moving.png',
-            'translation' => 'cacheType_4'
-        ),
-        self::TYPE_GEOPATHFINAL => array(
-            'name' => 'podcast',
-            'icon' => 'podcache.png',
             'translation' => 'cacheType_9'
         ),
         self::TYPE_OWNCACHE => array(
             'name' => 'own-cache',
             'icon' => 'owncache.png',
-            'translation' => 'cacheType_10',
+            'translation' => 'cacheType_11',
+        ),
+        self::TYPE_BITCACHE => array(
+            'name' => 'bit-cache',
+            'icon' => 'bitcache.png',
+            'translation' => 'cacheType_12',
+        ),
+        self::TYPE_GUESTBOOK => array(
+            'name' => 'guestbook',
+            'icon' => 'guestbook.png',
+            'translation' => 'cacheType_13',
+        ),
+        self::TYPE_BENCHMARK => array(
+            'name' => 'benchmark',
+            'icon' => 'benchmark.png',
+            'translation' => 'cacheType_14',
+        ),
+        self::TYPE_CHALLENGE => array(
+            'name' => 'challenge',
+            'icon' => 'challenge.png',
+            'translation' => 'cacheType_15',
         ),
     );
     private static $iconPath = 'images/cache/';
