@@ -12,7 +12,6 @@
 
 use src\Utils\Database\XDb;
 use src\Utils\Cache\OcMemCache;
-use src\Models\OcConfig\OcConfig;
 use src\Utils\I18n\I18n;
 
 # This page took >60 seconds to render! Added daily caching.
