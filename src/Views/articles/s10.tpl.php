@@ -1,6 +1,7 @@
 <?php
 
 use src\Utils\Database\XDb;
+use src\Models\Coordinates\NutsLocation;
 
 if (isset($_REQUEST['region'])) {
     $region = $_REQUEST['region'];
@@ -19,8 +20,7 @@ if (isset($_REQUEST['region'])) {
     <tr>
         <td>
             <?php
-            $woj = XDb::xMultiVariableQueryValue(
-                "SELECT nuts_codes.name FROM nuts_codes WHERE code= :1 ", 0, $region);
+            $woj = NutsLocation::getNameForCode($region);
 
             echo '<center><table width="97%" border="0"><tr><td align="center"><center><b>' . tr('Stats_s10_01') . '  <b>';
             echo '<br /><br /><b><font color="blue">';
