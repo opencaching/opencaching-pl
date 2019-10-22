@@ -1,7 +1,5 @@
 <?php
 use src\Utils\Database\XDb;
-use src\Models\Coordinates\NutsLocation;
-use src\Models\OcConfig\OcConfig;
 ?>
 
 <div class="content2-container">
@@ -22,16 +20,21 @@ if ($debug_page)
             echo '<center><table width="97%"><tr><td align="center"><center><b>{{Stats_s3a_01}}<br/></b>';
             echo '<br>({{Stats_s3a_02}})</center></td></tr></table><br><table border="1" bgcolor="white" width="30%">' . "\n";
 
-            echo '<tr class="bgcolor2">
-                    <th align="right">{{Stats_s3a_03}}:</b></th>
-                  </tr><tr><td height="2"></td></tr>';
+            echo '
+<tr class="bgcolor2">
+    <th align="right">{{Stats_s3a_03}}:</b></th>
+</tr><tr><td height="2"></td></tr>';
 
-            foreach (NutsLocation::getRegionsListByCountryCodes(OcConfig::getSitePrimaryCountriesList()) as $record) {
+            $rs = XDb::xSql(
+                "SELECT `code`, `name` FROM `nuts_codes`
+                WHERE (" . $config['provinceNutsCondition'] . ") ORDER BY `name` ASC");
+
+            while( $record = XDb::xFetchArray($rs) ){
 
                 echo '<tr class="bgcolor2">
-                        <td align="right">
-                            <a class="links" href=articles.php?page=s11&region=' . $record['code'] . '>' . $record['name'] . '</a>
-                        </td>';
+            <td align="right">
+                <a class="links" href=articles.php?page=s11&region=' . $record['code'] . '>' . $record['name'] . '</a>
+            </td>';
             }
 
             echo '</table>' . "\n";

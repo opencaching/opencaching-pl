@@ -5,7 +5,6 @@ namespace src\Models\Coordinates;
 use src\Models\BaseObject;
 use src\Utils\Debug\Debug;
 use src\Utils\I18n\I18n;
-use src\Utils\Gis\Countries;
 
 /**
  * Class represents location of the point in NUTS nomenclature.
@@ -197,7 +196,7 @@ class NutsLocation extends BaseObject
      * Return name of region by given NUTS code
      * @param string $code
      */
-    private static function getRegionName($code){
+    public static function getRegionName($code){
 
         return self::db()->multiVariableQueryValue(
             "SELECT name FROM nuts_codes WHERE code= :1 LIMIT 1", 'Unknown?', $code);
@@ -210,34 +209,13 @@ class NutsLocation extends BaseObject
      */
     public static function getRegionsListByCountryCode($countryCode)
     {
-        return self::getRegionsListByCountryCodes([$countryCode]);
-    }
-
-    public static function getRegionsListByCountryCodes(array $countryCodes)
-    {
-        foreach ($countryCodes as &$code) {
-            $code = $code . '%';
-        }
-        $codesSqlStr = implode (' OR `code` LIKE ', $countryCodes);
-
-        return self::db()->dbResultFetchAll(self::db()->multiVariableQuery (
+        $countryCode .= '__'; // add sql wildcard (two letters)
+        $db = self::db();
+        return $db->dbResultFetchAll($db->multiVariableQuery (
             "SELECT code, name FROM nuts_codes
              WHERE code LIKE :1
-             ORDER BY name ASC", $codesSqlStr));
+             ORDER BY name ASC", $countryCode));
     }
 
-    public static function getNameForCode($code, $enOnly=false)
-    {
-        // first check if code is known county code
-        if (Countries::isKnownCountryCode($code)) {
-            if ($enOnly) {
-                return Countries::getNameEn($code);
-            } else {
-                return Countries::getNameLocalized($code);
-            }
-        }
 
-        // this is not a known country - try to find such region
-        return self::getRegionName($code);
-    }
 }
