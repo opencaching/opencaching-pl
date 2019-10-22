@@ -473,6 +473,7 @@ $translations = array(
     'cache_ranking' => 'Žebříčky keší',
     'ranking_by_maintenace' => 'Podle údržby keší',
     'ranking_by_number_of_created_caches' => 'Podle počtu založených keší',
+    'ranking_by_number_of_created_caches_active' => 'only active caches',
     'ranking_by_number_of_created_active_caches' => 'Podle počtu založených aktivních keší',
     'ranking_by_number_of_finds_new' => 'Počet počtu nálezů',
     'ranking_by_number_of_finds' => 'Podle počtu nálezů',
