@@ -473,6 +473,7 @@ $translations = array(
     'cache_ranking' => 'crwdns6067:0crwdne6067:0',
     'ranking_by_maintenace' => 'crwdns6068:0crwdne6068:0',
     'ranking_by_number_of_created_caches' => 'crwdns6069:0crwdne6069:0',
+    'ranking_by_number_of_created_caches_active' => 'crwdns27022:0crwdne27022:0',
     'ranking_by_number_of_created_active_caches' => 'crwdns6070:0crwdne6070:0',
     'ranking_by_number_of_finds_new' => 'crwdns6071:0crwdne6071:0',
     'ranking_by_number_of_finds' => 'crwdns6072:0crwdne6072:0',
