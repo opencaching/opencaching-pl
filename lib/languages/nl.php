@@ -473,6 +473,7 @@ $translations = array(
     'cache_ranking' => 'Statistieken per cache',
     'ranking_by_maintenace' => 'Gebruikers ranglijst met aantal caches in onderhoud',
     'ranking_by_number_of_created_caches' => 'Gebruikers ranglijst met aantal gemaakte caches',
+    'ranking_by_number_of_created_caches_active' => 'only active caches',
     'ranking_by_number_of_created_active_caches' => 'Gebruikers ranglijst met aantal gemaakte en actieve caches',
     'ranking_by_number_of_finds_new' => 'Gebruikers ranglijst met aantal gevonden caches',
     'ranking_by_number_of_finds' => 'Gebruikers ranglijst met aantal gevonden caches',
