@@ -473,6 +473,7 @@ $translations = array(
     'cache_ranking' => 'Classement des caches',
     'ranking_by_maintenace' => 'Maintenance des caches',
     'ranking_by_number_of_created_caches' => 'Nombre total de caches posées',
+    'ranking_by_number_of_created_caches_active' => 'only active caches',
     'ranking_by_number_of_created_active_caches' => 'Nombre de caches posées et actives',
     'ranking_by_number_of_finds_new' => 'Nombre de trouvailles',
     'ranking_by_number_of_finds' => 'Nombre cumulé de trouvailles',
