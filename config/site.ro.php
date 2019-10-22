@@ -36,3 +36,7 @@ $site['primaryCountries'] = ['RO'];
  */
 $site['defaultCountriesList'] = ['DE', 'NL', 'PL', 'RO', 'GB'];
 
+/**
+ * Icons customization
+ */
+$site['mainViewIcons']['shortcutIcon'] = '/images/icons/oc_icon-ro.png';

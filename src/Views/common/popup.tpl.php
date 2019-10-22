@@ -1,4 +1,5 @@
 <?php
+use src\Models\OcConfig\OcConfig;
 use src\Utils\I18n\I18n;
 ?>
 <!DOCTYPE html>
@@ -8,7 +9,7 @@ use src\Utils\I18n\I18n;
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <link rel="shortcut icon" href="/images/<?=$config['headerFavicon']?>">
+  <link rel="shortcut icon" href="<?=OcConfig::getSiteMainViewIcon('shortcutIcon')?>">
   <link rel="stylesheet" type="text/css" href="/css/popup.css">
 
   <?php foreach( $view->getLocalCss() as $css ) { ?>

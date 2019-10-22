@@ -2,6 +2,7 @@
 
 use src\Utils\Debug\Debug;
 use src\Utils\Uri\SimpleRouter as SRouter;
+use src\Models\OcConfig\OcConfig;
 
 global $tpl_subtitle;
 
@@ -13,12 +14,13 @@ global $tpl_subtitle;
 
   <title><?=$tpl_subtitle?>{title}</title>
 
-  <link rel="shortcut icon" href="/images/<?=$config['headerFavicon']?>">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/icons/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/icons/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/icons/favicon-16x16.png">
-  <link rel="manifest" href="/images/icons/site.webmanifest">
-  <link rel="mask-icon" href="/images/icons/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="shortcut icon" href="<?=OcConfig::getSiteMainViewIcon('shortcutIcon')?>">
+  <link rel="apple-touch-icon" sizes="180x180" href="<?=OcConfig::getSiteMainViewIcon('appleTouch')?>">
+  <link rel="icon" type="image/png" sizes="32x32" href="<?=OcConfig::getSiteMainViewIcon('icon32')?>">
+  <link rel="icon" type="image/png" sizes="16x16" href="<?=OcConfig::getSiteMainViewIcon('icon16')?>">
+  <link rel="manifest" href="<?=OcConfig::getSiteMainViewIcon('webmanifest')?>">
+  <link rel="mask-icon" href="<?=OcConfig::getSiteMainViewIcon('maskIcon')?>" color="#5bbad5">
+
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="apple-mobile-web-app-title" content="Opencaching">
   <meta name="application-name" content="Opencaching">

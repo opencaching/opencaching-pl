@@ -38,3 +38,8 @@ $site['primaryCountries'] = ['NL', 'BE', 'LU'];
  * Use only two-letters codes UPPERCASE.
  */
 $site['defaultCountriesList'] = ['NL', 'BE', 'LU', 'DE', 'FR', 'GB'];
+
+/**
+ * Icons customization
+ */
+$site['mainViewIcons']['shortcutIcon'] = '/images/icons/oc_icon-nl.png';
