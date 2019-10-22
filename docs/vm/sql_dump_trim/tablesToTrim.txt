@@ -63,5 +63,4 @@ user_settings
 watches_notified
 watches_waiting
 watches_waitingtypes
-xmlsession
-xmlsession_data
+
