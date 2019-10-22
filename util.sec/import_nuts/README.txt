@@ -1,19 +1,4 @@
 
-UPDATE: 10.2019 (kojoty)
-
-some sources of geodata shapefiles:
-
- - NUTS EU + countries data: https://ec.europa.eu/eurostat/web/gisco/geodata/reference-data
- - US data: https://www2.census.gov/geo/tiger/TIGER2019/
- - Canada: https://open.canada.ca/data/en/dataset/306e5004-534b-4110-9feb-58e3a5c3fd97
-           https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/bound-limit-2011-eng.cfm
- - Mexico: http://www.conabio.gob.mx/informacion/metadata/gis/dest_2010gw.xml?_httpcache=yes&_xsl=/db/metadata/xsl/fgdc_html.xsl&_indent=no
-           http://www.conabio.gob.mx/informacion/metadata/gis/muni_2012gw.xml?_xsl=/db/metadata/xsl/fgdc_html.xsl&_indent=no
-
-
-tip: cvs file can be easy imported to sql by phpmyadmin import 
-
-
 UPDATE: 01.11.2016 (kojoty):
 
 - NUTS source data: http://ec.europa.eu/eurostat/web/gisco/geodata/reference-data/administrative-units-statistical-units/nuts#nuts13
@@ -30,7 +15,20 @@ Conversion NUTS layers data -> OC nuts_layers db tables:
   INSERT nuts_layer(level, code, shape) SELECT stat_levl_, nuts_id, geomfromtext(astext(shape)) FROM <your-tmp0db-name>.nuts_rg_03m_2013
 
   geomfromtext(astext(shape)) was necessary because by default POLIGONS has SRID=1 - after it SRID = 0
-localat.ec.europa.eu/portal/page/portal/gisco/popups/references/administrative_units_statistical_units_1
+
+Conversion of NUTS codes -> OC nuts_codes db table:
+- util.sec/import_nuts/codes.php script can be used to import codes from csv file (NUTS_AT...csv file)
+- as a workaroud for chars encoding issues I used openoffice-calc to open dbf file and export data to csv file with UTF-8 encoding and then import proper data to OC db
+
+After everything cache_location table should be recreated...
+
+--------------------------------------------------------------------
+
+OLD VERSION:
+
+1. Download and unpack NUTS_RG_03M_2003 to data directory
+
+http://epp.eurostat.ec.europa.eu/portal/page/portal/gisco/popups/references/administrative_units_statistical_units_1
 (1:3 Mill.)
 
 2. Import data with shp2mysql.pl to database gis

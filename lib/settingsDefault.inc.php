@@ -84,6 +84,8 @@ $config = array(
     'cacheLimitByTypePerUser' => array(
         cache::TYPE_OWNCACHE => 1,
     ),
+    /** The filter fragment selecting provinces from nuts_codes table. */
+    'provinceNutsCondition' => '`code` like \'PL__\'',
     /** Nature2000 link - used in viewcache.php */
     'nature2000link' => '<a style="color:blue;" target="_blank" href="http://obszary.natura2000.org.pl/index.php?s=obszar&amp;id={linkid}">{sitename}&nbsp;&nbsp;-&nbsp;&nbsp;{sitecode}</a>',
     /** customization of cache-attribute icons */

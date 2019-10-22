@@ -3,7 +3,6 @@ namespace src\Utils\Gis;
 
 use src\Models\OcConfig\OcConfig;
 use src\Utils\Cache\OcMemCache;
-use src\Utils\I18n\I18n;
 
 class Countries
 {
@@ -37,27 +36,4 @@ class Countries
     {
         return array_search($countryCode, self::getCountriesList());
     }
-
-    /**
-     * Returns country name in curent language based on country code
-     *
-     * @param string $countryCode
-     * @return string
-     */
-    public static function getNameLocalized($countryCode)
-    {
-        return tr(strtoupper($countryCode));
-    }
-
-    /**
-     * Returns country name in curent language based on country code
-     *
-     * @param string $countryCode
-     * @return string
-     */
-    public static function getNameEn($countryCode)
-    {
-        return I18n::translatePhrase(strtoupper($countryCode), 'en');
-    }
-
 }

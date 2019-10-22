@@ -14,7 +14,6 @@ use src\Utils\Debug\Debug;
 use src\Utils\Gis\Countries;
 use src\Utils\Uri\SimpleRouter;
 use src\Controllers\PictureController;
-use src\Models\Coordinates\NutsLocation;
 
 require_once(__DIR__.'/lib/common.inc.php');
 
@@ -555,7 +554,9 @@ if ($error == false) {
                         }
                         if ($cache_region != "0") {
                             $code3 = $cache_region;
-                            $adm3 = NutsLocation::getNameForCode($cache_region, true);
+                            $adm3 = XDb::xMultiVariableQueryValue(
+                                "SELECT `name` FROM `nuts_codes`
+                                 WHERE `code`= :1", 0, $cache_region);
                         } else {
                             $code3 = null;
                             $adm3 = null;
