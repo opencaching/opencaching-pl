@@ -473,6 +473,7 @@ $translations = array(
     'cache_ranking' => 'Clasament geocutii',
     'ranking_by_maintenace' => 'Întreţinere geocutii',
     'ranking_by_number_of_created_caches' => 'Clasament utilizatori după numărul total de cutii ascunse',
+    'ranking_by_number_of_created_caches_active' => 'only active caches',
     'ranking_by_number_of_created_active_caches' => 'Clasament utilizatori după numărul de cutii ascunse care sunt active',
     'ranking_by_number_of_finds_new' => 'Număr de găsiri',
     'ranking_by_number_of_finds' => 'Clasament utilizatori după numărul de găsiri',
