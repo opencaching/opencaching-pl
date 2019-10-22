@@ -20,7 +20,7 @@ if (isset($_REQUEST['region'])) {
     <tr><td>
             <?php
 
-            echo '<table width="97%"><tr><td align="center"><center><b> ' . tr('ranking_by_number_of_created_caches') . ' </b><br />tylko aktywne skrzynki<br />';
+            echo '<table width="97%"><tr><td align="center"><center><b> ' . tr('ranking_by_number_of_created_caches') . ' </b><br />' . tr('ranking_by_number_of_created_caches_active') . '<br />';
 
             $woj = XDb::xMultiVariableQueryValue(
                 "SELECT nuts_codes.name FROM nuts_codes WHERE code= :1 ", 0, $region);
