@@ -473,6 +473,7 @@ $translations = array(
     'cache_ranking' => 'Cache-Ranglisten',
     'ranking_by_maintenace' => 'Benutzer nach Anahl der Cachewartungen',
     'ranking_by_number_of_created_caches' => 'Benutzer nach Zahl der versteckten Caches',
+    'ranking_by_number_of_created_caches_active' => 'only active caches',
     'ranking_by_number_of_created_active_caches' => 'Benutzer nach Zahl der aktiven eigenen Caches',
     'ranking_by_number_of_finds_new' => 'Benutzer nach Funden und Zeitraum',
     'ranking_by_number_of_finds' => 'Benutzer nach Funden und Cachetyp',
