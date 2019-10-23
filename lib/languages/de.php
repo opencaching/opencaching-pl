@@ -3002,7 +3002,7 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'SmartPhone_Iphone' => 'Für iPhone',
     'SmartPhone_Windows' => 'Für Windows Phone',
 
-    'listOfCaches_defaultNoRowsMessage' => 'There is no data to display here',
+    'listOfCaches_defaultNoRowsMessage' => 'Es sind keine anzuzeigenden Daten vorhanden',
 
     'gpCandidates_title' => 'Kandidaten für Geopfade',
     'gpCandidates_submitedDate' => 'Datum',
