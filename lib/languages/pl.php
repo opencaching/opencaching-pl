@@ -3001,7 +3001,7 @@ $translations = array(
     'SmartPhone_Iphone' => 'Dla iPhona',
     'SmartPhone_Windows' => 'Dla Windows Phone',
 
-    'listOfCaches_defaultNoRowsMessage' => 'Brak danych do wyświetlenia',
+    'listOfCaches_defaultNoRowsMessage' => 'There is no data to display here',
 
     'gpCandidates_title' => 'Kandydaci do geościeżki',
     'gpCandidates_submitedDate' => 'Data',
