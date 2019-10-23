@@ -3001,7 +3001,7 @@ $translations = array(
     'SmartPhone_Iphone' => 'Voor iphone',
     'SmartPhone_Windows' => 'Voor Windows telefoon',
 
-    'listOfCaches_defaultNoRowsMessage' => 'There is no data to display here',
+    'listOfCaches_defaultNoRowsMessage' => 'Er zijn geen gegevens om weer te geven',
 
     'gpCandidates_title' => 'Kandidaten voor Geopath',
     'gpCandidates_submitedDate' => 'Datum',
