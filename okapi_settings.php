@@ -41,7 +41,7 @@ function get_okapi_settings()
 
         'DATA_LICENSE_URL' => $config['okapi']['data_license_url'],
         'ADMINS' => ($config['okapi']['admin_emails'] ? $config['okapi']['admin_emails'] :
-            array('techNotify@opencaching.pl','rygielski@mimuw.edu.pl', 'following@online.de')),
+            array('techNotify@opencaching.pl','rygielski@mimuw.edu.pl')),
 
         'FROM_FIELD' => OcConfig::getEmailAddrNoReply(),
         'DEBUG' => $debug_page,
