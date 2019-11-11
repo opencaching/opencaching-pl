@@ -136,7 +136,6 @@ class CacheLocation extends BaseObject{
              FROM caches AS c
                 LEFT JOIN cache_location AS cl USING (cache_id)
              WHERE ISNULL(cl.cache_id)
-                AND cl.last_modified < (NOW() - INTERVAL 30 MINUTE)
                 AND c.status NOT IN (".GeoCache::STATUS_NOTYETAVAILABLE.")
              LIMIT 100
             ");
