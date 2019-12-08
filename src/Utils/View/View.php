@@ -49,18 +49,19 @@ class View {
      * Set given variable as local View variable
      * (inside template only View variables are accessible)
      *
-     *
-     * @param String $varName
-     * @param  $varValue
+     * @param string $varName
+     * @param mixed $varValue
+     * @return View
      */
-    public function setVar($varName, $varValue)
+    public function setVar(string $varName, $varValue): View
     {
         if (property_exists($this, $varName)) {
             $this->error("Can't set View variable with name: ".$varName);
-            return;
+            return $this;
         }
 
         $this->$varName = $varValue;
+        return $this;
     }
 
     public function __call($method, $args)
@@ -149,28 +150,32 @@ class View {
         $this->addHeaderChunk('crowdinInContext');
     }
 
-    public function loadJQuery()
+    public function loadJQuery(): View
     {
         $this->_loadJQuery = true;
+        return $this;
     }
 
-    public function loadJQueryUI()
+    public function loadJQueryUI(): View
     {
         $this->_loadJQueryUI = true;
         $this->_loadJQuery = true; // jQueryUI needs jQuery!
+        return $this;
     }
 
-    public function loadTimepicker()
+    public function loadTimepicker(): View
     {
         $this->_loadTimepicker = true;
         $this->_loadJQueryUI = true;
         $this->_loadJQuery = true;
+        return $this;
     }
 
-    public function loadFancyBox()
+    public function loadFancyBox(): View
     {
         $this->_loadFancyBox = true;
         $this->_loadJQuery = true; // fancyBox needs jQuery!
+        return $this;
     }
 
     /**
@@ -231,9 +236,8 @@ class View {
         exit;
     }
 
-    public function getSeasonCssName()
+    public function getSeasonCssName(): string
     {
-
         $season = Year::GetSeasonName();
         switch ($season) { //validate - for sure :)
             case 'spring':
@@ -242,6 +246,8 @@ class View {
             case 'summer':
                 return $season;
         }
+
+        return '';
     }
 
     public function getLang()
@@ -323,11 +329,14 @@ class View {
 
     /**
      * Add css which will be loaded in page header
+     *
      * @param $css_url - url to css
+     * @return View
      */
-    public function addLocalCss($css_url)
+    public function addLocalCss(string $css_url): View
     {
         $this->_localCss[] = $css_url;
+        return $this;
     }
 
     public function getLocalCss()
@@ -340,14 +349,16 @@ class View {
      * @param string $jsUrl - url to js Script
      * @param boolean $async - load script asynchronous
      * @param boolean $defer - load script after the page has loaded
+     * @return View
      */
-    public function addLocalJs($jsUrl, $async = false, $defer = false)
+    public function addLocalJs(string $jsUrl, bool $async = false, bool $defer = false): View
     {
         $this->_localJs[] = [
             'url' => $jsUrl,
             'async' => $async,
             'defer' => $defer
         ];
+        return $this;
     }
 
     public function getLocalJs()
@@ -377,13 +388,16 @@ class View {
 
     /**
      * Set template name (former tpl_set_tplname())
+     *
      * @param string $tplName
+     * @return View
      */
-    public function setTemplate($tplName)
+    public function setTemplate(string $tplName): View
     {
         //TODO: refactoring needed but this is still this way
         tpl_set_tplname($tplName);
         $this->_template = $tplName;
+        return $this;
     }
 
     /**
