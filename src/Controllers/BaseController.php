@@ -49,7 +49,7 @@ abstract class BaseController
     /** @var OcConfig $ocConfig */
     protected $ocConfig = null;
 
-    protected function __construct()
+    public function __construct()
     {
         $this->view = tpl_getView();
 
