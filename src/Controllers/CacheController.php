@@ -58,7 +58,6 @@ class CacheController extends BaseController
             ->addColumn(new Column_CacheRegionObject(tr('region')))
             ->addColumn(new Column_CacheLastLogObject(tr('new_logs')))
             ->setPaginationModel($pagination)
-            ->setPaginationModel($pagination)
             ->addDataRows(MultiCacheStats::getLatestNationalCachesForUser($this->loggedUser, $limit, $offset));
 
         $this->view->setVar('listCacheModel', $model)
@@ -186,7 +185,6 @@ class CacheController extends BaseController
                     return $row['cache'];
                 }))
             ->setPaginationModel($pagination)
-            ->setPaginationModel($pagination)
             ->addDataRows(MultiCacheStats::getTitledCachesForUser($this->loggedUser, $limit, $offset));
 
         $pageTitle = ($this->ocConfig->getTitledCachePeriod() == 'week') ? 'week_titled_caches' : 'month_titled_caches';
@@ -226,7 +224,6 @@ class CacheController extends BaseController
                 }))
             ->addColumn(new Column_CacheRegionObject(tr('region')))
             ->addColumn(new Column_CacheLastLogObject(tr('new_logs')))
-            ->setPaginationModel($pagination)
             ->setPaginationModel($pagination)
             ->addDataRows(MultiCacheStats::getRecommendedCaches($limit, $offset));
 
