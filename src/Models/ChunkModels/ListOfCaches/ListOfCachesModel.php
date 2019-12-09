@@ -34,6 +34,19 @@ class ListOfCachesModel
     private $displayHeader = true;
     private $emptyListMessage = null;
 
+    static private $idCounter = 1;
+    private $id = 0;
+
+    public function __construct()
+    {
+        $this->id = self::$idCounter;
+        self::$idCounter += 1;
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
     public function disableHeader()
     {
         $this->displayHeader = false;

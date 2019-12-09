@@ -1,10 +1,9 @@
 <?php
 
+use src\Models\ChunkModels\ListOfCaches\Column_CacheLog;
+use src\Models\GeoCache\GeoCacheLog;
 use src\Models\GeoCache\GeoCacheLogCommons;
 use src\Utils\Text\Formatter;
-use src\Models\GeoCache\GeoCacheLog;
-use src\Models\ChunkModels\ListOfCaches\Column_CacheLog;
-use src\Utils\Text\TextConverter;
 
 /**
  * This is column with log-icon and log-text.
@@ -15,14 +14,17 @@ use src\Utils\Text\TextConverter;
  * - logUserName - name of the author
  * - logDate - date of the log
  * - recommended - if not null means cache is recommended by user (shows only if log-type=FOUND)
+ *
+ * @param array $data
+ * @param Column_CacheLog|null $model
  */
 
-return function (array $data, Column_CacheLog $model=null){
+return function (array $data, Column_CacheLog $model = null) {
 
-    if( !isset($data['logId']) || is_null($data['logId']) ){
+    if (!isset($data['logId']) || is_null($data['logId'])) {
         // there is no log data - exit;
         $nolog = true;
-    }else{
+    } else {
         $nolog = false;
         $showFullLog = ($model && $model->isFullLogTextPresented()) ? true : false;
 
@@ -38,51 +40,51 @@ return function (array $data, Column_CacheLog $model=null){
         $logTextEllipsisNecessary = $showFullLog && mb_strlen($logText) > 150; // elipsis textx longer than...
 
     }
-?>
-  <?php if(!$nolog) { ?>
+    ?>
+    <?php if (!$nolog) { ?>
 
-      <?php if($showFullLog) { ?>
+        <?php if ($showFullLog) { ?>
 
-        <div>
-          <a href="<?=$logUrl?>" target="_blank" class="links">
-            <img src="<?=$logIcon?>" class="icon16" alt="<?=$logTypeName?>" title="<?=$logTypeName?>" />
-          </a>
-          <?=$logDate?>,
+            <div>
+                <a href="<?= $logUrl ?>" target="_blank" class="links">
+                    <img src="<?= $logIcon ?>" class="icon16" alt="<?= $logTypeName ?>" title="<?= $logTypeName ?>">
+                </a>
+                <?= $logDate ?>,
 
-          <?php if(isset($userName)) { ?>
-          <b><?=$userName?></b>
-          <?php } ?>
+                <?php if (isset($userName)) { ?>
+                    <b><?= $userName ?></b>
+                <?php } ?>
 
-          <?php if($recommended){?><img src="/images/rating-star.png"><?php } ?>
-        </div>
+                <?php if ($recommended) { ?><img src="/images/rating-star.png" alt=""><?php } ?>
+            </div>
 
-        <div>
-          <?php if($logTextEllipsisNecessary) { ?>
-            <span class="lightTipped"><?=Formatter::truncateText($logText, 120)?></span>
-            <div class="lightTip"><?=$logText?></div>
-          <?php } else { // !if-$logTextEllipsisNecessary ?>
-            <div><?=$logText?></div>
-          <?php } // if-$logTextEllipsisNecessary ?>
-        </div>
+            <div>
+                <?php if ($logTextEllipsisNecessary) { ?>
+                    <span class="lightTipped"><?= Formatter::truncateText($logText, 120) ?></span>
+                    <div class="lightTip"><?= $logText ?></div>
+                <?php } else { // !if-$logTextEllipsisNecessary ?>
+                    <div><?= $logText ?></div>
+                <?php } // if-$logTextEllipsisNecessary ?>
+            </div>
 
-      <?php } else { //if !showFullLog ?>
+        <?php } else { //if !showFullLog ?>
 
-          <a href="<?=$logUrl?>" target="_blank" class="lightTipped links">
-            <img src="<?=$logIcon?>" class="icon16" alt="<?=$logTypeName?>" title="<?=$logTypeName?>" />
-            <?=$logDate?>
-          </a>
+            <a href="<?= $logUrl ?>" target="_blank" class="lightTipped links">
+                <img src="<?= $logIcon ?>" class="icon16" alt="<?= $logTypeName ?>" title="<?= $logTypeName ?>"/>
+                <?= $logDate ?>
+            </a>
 
-          <div class="lightTip">
-            <b><?=$userName?> (<?=$logTypeName?>):</b>
-            <br/>
-            <?php if($recommended){?><img src="/images/rating-star.png"><?php } ?>
-            <?=$logText?>
-          </div>
+            <div class="lightTip">
+                <b><?= $userName ?> (<?= $logTypeName ?>):</b>
+                <br>
+                <?php if ($recommended) { ?><img src="/images/rating-star.png" alt=""><?php } ?>
+                <?= $logText ?>
+            </div>
 
-      <?php } //if-showFullLog ?>
+        <?php } //if-showFullLog ?>
 
-  <?php } else { // $nolog ?>
-      <?=tr('usrWatch_noLogs')?>
-  <?php } ?>
-<?php
+    <?php } else { // $nolog ?>
+        <?= tr('usrWatch_noLogs') ?>
+    <?php } ?>
+    <?php
 };

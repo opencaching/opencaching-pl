@@ -1,9 +1,11 @@
 <?php
 namespace src\Models\GeoCache;
 
+use cache;
+use DateTime;
+use Exception;
 use src\Utils\Database\XDb;
 use src\Controllers\PictureController;
-use src\Models\Coordinates\Altitude;
 use src\Models\Coordinates\Coordinates;
 use src\Models\OcConfig\OcConfig;
 use src\Models\PowerTrail\PowerTrail;
@@ -32,16 +34,16 @@ class GeoCache extends GeoCacheCommons
     private $cacheName;
     private $cacheType;
 
-    /** @var $datePlaced \DateTime */
+    /** @var $datePlaced DateTime */
     private $datePlaced;
 
-    /** @var $datePlaced \DateTime */
+    /** @var $datePlaced DateTime */
     private $dateCreated;
 
-    /** @var $dateActivate \DateTime */
+    /** @var $dateActivate DateTime */
     private $dateActivate;
 
-    /** @var \DateTime {@see GeoCache::setDatePublished()} */
+    /** @var DateTime {@see GeoCache::setDatePublished()} */
     private $datePublished;
 
     private $sizeId;
@@ -58,7 +60,7 @@ class GeoCache extends GeoCacheCommons
     private $willAttends;           //for events only
     private $natureRegions = false;
     private $natura2000Sites = false;
-    private $usersRecomeded = false;
+    private $usersRecommended = false;
     private $wayLenght;
     private $difficulty;
     private $terrain;
@@ -81,7 +83,7 @@ class GeoCache extends GeoCacheCommons
      */
     private $distance = -1;
 
-    /** @var $dictionary \cache */
+    /** @var $dictionary cache */
     public $dictionary;
 
     private $ownerId;
@@ -125,24 +127,17 @@ class GeoCache extends GeoCacheCommons
     private $isPowerTrailFinalGeocache = false;
 
     /**
-     *
-     * @var \ArrayObject
-     */
-    private $waypoints;
-
-    /**
-     *
      * @var $cacheLocationObj CacheLocation
      */
     private $cacheLocationObj = null;
 
     /**
-     * List of cache attribites
+     * List of cache attributes
      */
     private $cacheAttributesList = null;
 
     /**
-     * List of hosted geokrets
+     * List of hosted geoKrets
      * @var array
      */
     private $hostedGeokrets = false;
@@ -160,11 +155,17 @@ class GeoCache extends GeoCacheCommons
 
     private $picsInLogsCount = null;
 
+    /**
+     * Last active (not deleted) log for cache
+     * @var GeoCacheLog
+     */
+    private $lastLog = null;
 
     /**
      * @param array $params
      *            'cacheId' => (integer) database cache identifier
      *            'wpId' => (string) geoCache wayPoint (ex. OP21F4)
+     * @throws Exception
      */
     public function __construct(array $params = array())
     {
@@ -183,7 +184,7 @@ class GeoCache extends GeoCacheCommons
             $this->loadByUUID($params['cacheUUID']);
         }
 
-        $this->dictionary = \cache::instance();
+        $this->dictionary = cache::instance();
     }
 
     /**
@@ -195,7 +196,7 @@ class GeoCache extends GeoCacheCommons
     {
         try {
             return new self( array('cacheId' => $cacheId) );
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return null;
         }
     }
@@ -209,21 +210,21 @@ class GeoCache extends GeoCacheCommons
     {
         try {
             return new self( array('cacheWp' => $wp) );
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return null;
         }
     }
 
     /**
-     * Factory - creats Geocache object based on geocache UUID
-     * @param string $wp
+     * Factory - creates GeoCache object based on geocache UUID
+     * @param string $uuid
      * @return GeoCache object or null if no such geocache
      */
     public static function fromUUIDFactory($uuid)
     {
         try {
             return new self( array('cacheUUID' => $uuid) );
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return null;
         }
     }
@@ -238,7 +239,7 @@ class GeoCache extends GeoCacheCommons
         if (is_array($cacheDbRow)) {
             $this->loadFromRow($cacheDbRow);
         } else {
-            throw new \Exception("Cache not found");
+            throw new Exception("Cache not found");
         }
 
     }
@@ -267,15 +268,13 @@ class GeoCache extends GeoCacheCommons
         if (is_array($cacheDbRow)) {
             $this->loadFromRow($cacheDbRow);
         } else {
-            throw new \Exception("Cache not found");
+            throw new Exception("Cache not found");
         }
     }
 
     private function loadByUUID($uuid)
     {
-        $this->id = (int) $params['cacheId'];
-
-        //find cache by Id
+        //find cache by UUID
         $s = $this->db->multiVariableQuery(
             "SELECT * FROM caches WHERE uuid = :1 LIMIT 1", $uuid);
 
@@ -284,7 +283,7 @@ class GeoCache extends GeoCacheCommons
         if (is_array($cacheDbRow)) {
             $this->loadFromRow($cacheDbRow);
         } else {
-            throw new \Exception("Cache not found");
+            throw new Exception("Cache not found");
         }
     }
 
@@ -292,6 +291,7 @@ class GeoCache extends GeoCacheCommons
      * Load cache data based on OKAPI response data
      *
      * @param array $okapiRow
+     * @throws Exception
      */
     public function loadFromOkapiRow($okapiRow)
     {
@@ -344,7 +344,7 @@ class GeoCache extends GeoCacheCommons
                     $this->id = $value;
                     break;
                 case 'date_hidden':
-                    $this->datePlaced = new \DateTime($value);
+                    $this->datePlaced = new DateTime($value);
                     break;
                 default:
                     Debug::errorLog("Unknown field: $field (value: $value)");
@@ -356,6 +356,8 @@ class GeoCache extends GeoCacheCommons
      * Load object data based on DB data-row
      *
      * @param array $geocacheDbRow
+     * @return GeoCache
+     * @throws Exception
      */
     public function loadFromRow(array $geocacheDbRow)
     {
@@ -371,8 +373,8 @@ class GeoCache extends GeoCacheCommons
             'ge' => $geocacheDbRow['wp_ge'],
             'qc' => $geocacheDbRow['wp_qc'],
         );
-        $this->datePlaced = new \DateTime($geocacheDbRow['date_hidden']);
-        $this->dateCreated = new \DateTime($geocacheDbRow['date_created']);
+        $this->datePlaced = new DateTime($geocacheDbRow['date_hidden']);
+        $this->dateCreated = new DateTime($geocacheDbRow['date_created']);
         if (isset($geocacheDbRow['cache_id'])) {
             $this->id = (int) $geocacheDbRow['cache_id'];
         }
@@ -419,9 +421,10 @@ class GeoCache extends GeoCacheCommons
      * Function to check if current cache is part of any PowerTrail.
      * On success PowerTrail object is created.
      *
+     * @param bool $includeHiddenGeoPath
      * @return boolean true if this cache belongs to any PowerTrail;
      */
-    public function isPowerTrailPart($includeHiddenGeoPath=false)
+    public function isPowerTrailPart(bool $includeHiddenGeoPath = false)
     {
         if (! OcConfig::instance()->isPowerTrailModuleSwitchOn()) {
             return false;
@@ -565,7 +568,7 @@ class GeoCache extends GeoCacheCommons
 
     /**
      *
-     * @return \DateTime
+     * @return DateTime
      */
     public function getDatePlaced()
     {
@@ -773,8 +776,9 @@ class GeoCache extends GeoCacheCommons
     }
 
 
-        /**
+    /**
      * @param PowerTrail $powerTrail
+     * @return GeoCache
      */
     public function setPowerTrail(PowerTrail $powerTrail)
     {
@@ -877,7 +881,7 @@ class GeoCache extends GeoCacheCommons
 
     public function getUsersRecomeded()
     {
-        if ($this->usersRecomeded === false) {
+        if ($this->usersRecommended === false) {
             $s = $this->db->multiVariableQuery(
                 "SELECT user.username AS username
                  FROM `cache_rating` INNER JOIN user ON (cache_rating.user_id = user.user_id)
@@ -887,9 +891,9 @@ class GeoCache extends GeoCacheCommons
             foreach ($this->db->dbResultFetchAll($s) as $row) {
                 $usersArr[] = $row['username'];
             }
-            $this->usersRecomeded = implode($usersArr, ', ');
+            $this->usersRecommended = implode($usersArr, ', ');
         }
-        return $this->usersRecomeded;
+        return $this->usersRecommended;
     }
 
     public function getDifficulty()
@@ -983,7 +987,7 @@ class GeoCache extends GeoCacheCommons
 
     /**
      *
-     * @return \DateTime
+     * @return DateTime
      */
     public function getDateCreated()
     {
@@ -1069,7 +1073,7 @@ class GeoCache extends GeoCacheCommons
 
 
     /**
-     * get mobile cache distnace.
+     * get mobile cache distance.
      * (calculate mobile cache distance if were not counted before)
      *
      * @return float
@@ -1091,7 +1095,7 @@ class GeoCache extends GeoCacheCommons
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getDateActivate()
     {
@@ -1101,14 +1105,14 @@ class GeoCache extends GeoCacheCommons
     private function setDateActivate($dateActivate)
     {
         if ($dateActivate != null) {
-            $this->dateActivate = new \DateTime($dateActivate);
+            $this->dateActivate = new DateTime($dateActivate);
         }
     }
 
     /**
      * Gives the cache date of publication
      *
-     * @return \DateTime the cache date of publication, null if not set
+     * @return DateTime the cache date of publication, null if not set
      */
     public function getDatePublished()
     {
@@ -1119,11 +1123,12 @@ class GeoCache extends GeoCacheCommons
      * Sets the date of cache publication
      *
      * @param string the date to set
+     * @throws Exception
      */
     private function setDatePublished($datePublished)
     {
         if ($datePublished != null) {
-            $this->datePublished = new \DateTime($datePublished);
+            $this->datePublished = new DateTime($datePublished);
         }
     }
 
@@ -1165,6 +1170,7 @@ class GeoCache extends GeoCacheCommons
      * Returns the list of cache descriptions and its languages
      *
      * @param int $cacheId
+     * @return array
      */
     public static function getDescriptions($cacheId)
     {
@@ -1233,10 +1239,10 @@ class GeoCache extends GeoCacheCommons
     }
 
 
-
     /**
      * Returns last modification date
-     * @return \DateTime
+     * @return DateTime
+     * @throws Exception
      */
     public function getLastModificationDate()
     {
@@ -1249,7 +1255,7 @@ class GeoCache extends GeoCacheCommons
                    SELECT `last_modified` FROM `cache_desc` WHERE `cache_id` = :2 ) `tmp_result`",
             0, $this->id, $this->id );
 
-        return new \DateTime($lm);
+        return new DateTime($lm);
     }
 
     public function getCacheVisits()
@@ -1355,6 +1361,7 @@ class GeoCache extends GeoCacheCommons
 
     /**
      * Returns user modified coordinates or null if there is no such defined
+     * @param $userId
      * @return Coordinates
      */
     public function getUserCoordinates($userId)
@@ -1453,8 +1460,10 @@ class GeoCache extends GeoCacheCommons
     }
 
     /**
-     *
-     * @param string $changeUrlForSpilers - is used to hide spoilers if neccessary
+     * @param $returnSpoilersOnly - is used to hide spoilers if necessary
+     * @param bool $changeUrlForSpoilers
+     * @param bool $displayThumbsForSpoilers
+     * @return array|null
      */
     public function getPicturesList( $returnSpoilersOnly, $changeUrlForSpoilers = false, $displayThumbsForSpoilers=false )
     {
@@ -1552,10 +1561,23 @@ class GeoCache extends GeoCacheCommons
      *
      * @param int $userId
      * @return boolean
+     *
+     * @deprecated Use isIgnoredByUser instead
      */
-    public function isIgnoredBy($userId)
+    public function isIgnoredBy($userId): bool
     {
         return UserIgnoredCache::isCacheIgnoredBy($this->getCacheId(), $userId);
+    }
+
+    /**
+     * Returns true if this cache is ignored by User
+     *
+     * @param User $user
+     * @return boolean
+     */
+    public function isIgnoredByUser(User $user): bool
+    {
+        return UserIgnoredCache::isCacheIgnoredBy($this->getCacheId(), $user->getUserId());
     }
 
     /**
@@ -1570,7 +1592,7 @@ class GeoCache extends GeoCacheCommons
     }
 
     /**
-     * Returns url of the image which represents dificulty of the tasks
+     * Returns url of the image which represents difficulty of tasks
      */
     public function getDifficultyIcon()
     {
@@ -1586,7 +1608,7 @@ class GeoCache extends GeoCacheCommons
     }
 
     /**
-     * Check if $user on this cache alredy has not deleted $logType log
+     * Check if $user on this cache already has not deleted $logType log
      * and returns true/false
      *
      * @param User $user
@@ -1710,6 +1732,32 @@ class GeoCache extends GeoCacheCommons
         $this->db->multiVariableQuery(
             'UPDATE caches SET picturescount=picturescount + :1, last_modified = NOW()
              WHERE cache_id = :2 LIMIT 1', $value, $this->getCacheId());
+    }
+
+    /**
+     * Returns last active (not deleted) GeoCacheLog for GeoCache or null if there is no logs for cache
+     *
+     * @return GeoCacheLog|null
+     */
+    public function getLastLog()
+    {
+        if (is_null($this->lastLog)) {
+            $stmt = $this->db->multiVariableQuery(
+                'SELECT `id`
+                            FROM `cache_logs`
+                            WHERE `cache_id` = :1
+                                AND `deleted` = FALSE
+                            ORDER BY `date_created` DESC
+                            LIMIT 1',
+                $this->getCacheId()
+            );
+            $logItem = $this->db->dbResultFetch($stmt);
+            if (!empty($logItem)) {
+                $this->lastLog = GeoCacheLog::fromLogIdFactory($logItem['id']);
+            }
+        }
+
+        return $this->lastLog;
     }
 
 }

@@ -26,10 +26,10 @@ $menu = [ // DON'T CHANGE $menu var name!
     'mnu_cacheAdoption' => SimpleRouter::getLink(CacheAdoptionController::class),
     'mnu_searchUser'    => '/searchuser.php',
 
-    'mnu_newCaches'         => '/newcaches.php',
+    'mnu_newCaches'         => SimpleRouter::getLink('Cache','newCaches'),
     'mnu_newLogs'           => SimpleRouter::getLink(CacheLogController::class, 'lastLogsList'),
-    'mnu_incommingEvents'   => '/newevents.php',
-    'mnu_recoCaches'        => '/cacheratings.php',
+    'mnu_incommingEvents'   => SimpleRouter::getLink('Cache','incomingEvents'),
+    'mnu_recoCaches'        => SimpleRouter::getLink('Cache','recommended'),
 
     'mnu_FloppMap'      => ['https://flopp-caching.de'],
     'mnu_massLogsSave'  => '/log_cache_multi_send.php',

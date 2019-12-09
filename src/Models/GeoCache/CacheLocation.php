@@ -47,8 +47,14 @@ class CacheLocation extends BaseObject{
         return $instance;
     }
 
-    public function getLocationDesc($separator='-'){
+    public function getLocationDesc($separator='-')
+    {
         return $this->location->getDescription($separator);
+    }
+
+    public function getLocation(): NutsLocation
+    {
+        return $this->location;
     }
 
     /**

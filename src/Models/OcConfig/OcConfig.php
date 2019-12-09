@@ -76,6 +76,12 @@ final class OcConfig extends ConfigReader
     /** @var array - array of cronjob settings from /Config/cronjobs.* files */
     private $cronjobsConfig;
 
+    /** @var string */
+    private $ocCountry;
+
+    /** @var string - 'week' or 'month' - frequency of cache titled */
+    private $titledCachePeriod;
+
     /**
      * Call this method to get singleton
      * @return ocConfig
@@ -117,6 +123,8 @@ final class OcConfig extends ConfigReader
         $this->enableCacheAccessLogs = $enable_cache_access_logs;
         $this->minumumAge = $config['limits']['minimum_age'];
         $this->meritBadgesEnabled = $config['meritBadges'];
+        $this->ocCountry = trim(str_replace("'", "", $countryParamNewcacherestPhp));
+        $this->titledCachePeriod = $titled_cache_period_prefix;
 
         $this->dbHost = $dbserver;
         $this->dbName = $dbname;
@@ -228,6 +236,11 @@ final class OcConfig extends ConfigReader
     public function isMeritBadgesEnabled()
     {
         return $this->meritBadgesEnabled;
+    }
+
+    public function getOcCountry()
+    {
+        return $this->ocCountry;
     }
 
     public function getDbUser($admin = false)
@@ -400,6 +413,14 @@ final class OcConfig extends ConfigReader
             $this->topBannerVideo = self::getConfig("banner", "bannerVideo");
         }
         return $this->topBannerVideo;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitledCachePeriod(): string
+    {
+        return $this->titledCachePeriod;
     }
 
 }

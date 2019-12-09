@@ -195,7 +195,7 @@ class GeoCacheLog extends GeoCacheLogCommons
     public function isRecommendedByUser($userid)
     {
         $params = [];
-        $params['cacheid']['value'] = $this->geoCache->getCacheId();
+        $params['cacheid']['value'] = $this->getGeoCache()->getCacheId();
         $params['cacheid']['data_type'] = 'integer';
         $params['userid']['value'] = $userid;
         $params['userid']['data_type'] = 'integer';

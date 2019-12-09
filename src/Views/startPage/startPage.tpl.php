@@ -86,7 +86,8 @@
         <?php } //foreach ?>
 
           <li class="showMoreLink">
-            <a href="/newcaches.php" class="btn btn-sm btn-default">
+            <a href="<?= \src\Utils\Uri\SimpleRouter::getLink('Cache', 'newCaches') ?>"
+               class="btn btn-sm btn-default">
               <?=tr('startPage_showMore')?>
             </a>
           </li>
@@ -126,7 +127,8 @@
         <?php } //foreach ?>
 
           <li class="showMoreLink">
-            <a href="/newevents.php" class="btn btn-sm btn-default">
+            <a href="<?= \src\Utils\Uri\SimpleRouter::getLink('Cache', 'incomingEvents') ?>"
+               class="btn btn-sm btn-default">
               <?=tr('startPage_showMore')?>
             </a>
           </li>
@@ -228,7 +230,8 @@
           </div>
         </li>
         <li class="showMoreLink">
-          <a href="/cache_titled.php" class="btn btn-sm btn-default">
+          <a href="<?= \src\Utils\Uri\SimpleRouter::getLink('Cache','titled') ?>"
+             class="btn btn-sm btn-default">
             <?=tr('startPage_showMore')?>
           </a>
         </li>
