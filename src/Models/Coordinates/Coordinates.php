@@ -1,4 +1,5 @@
 <?php
+
 namespace src\Models\Coordinates;
 
 /**
@@ -20,10 +21,8 @@ class Coordinates
 
     /**
      * Default format from system setting
-     *
-     * @var string
      */
-    private $defaultFormat = self::COORDINATES_FORMAT_DEG_MIN;
+    const COORDINATES_FORMAT_DEFAULT = self::COORDINATES_FORMAT_DEG_MIN;
 
     /**
      * decimal degrees: 40.446321° N 79.982321° W
@@ -53,21 +52,26 @@ class Coordinates
      *            $coordinates = new Coordinates($params);
      *
      */
-    public function __construct(array $params = null)
+    public function __construct(array $params = [])
     {
         if (isset($params['dbRow'])) {
             $this->loadFromDb($params['dbRow']);
-        } elseif ($params['okapiRow']) {
+        } elseif (isset($params['okapiRow'])) {
             $this->loadFromOkapi($params['okapiRow']);
         }
     }
 
+    /**
+     * @param $lat
+     * @param $lon
+     * @return Coordinates|null
+     */
     public static function FromCoordsFactory($lat, $lon)
     {
         $coords = new Coordinates();
         $coords->setLatitude($lat);
         $coords->setLongitude($lon);
-        if(!$coords->areCordsReasonable()){
+        if (!$coords->areCordsReasonable()) {
             return null;
         }
 
@@ -83,8 +87,8 @@ class Coordinates
     public function loadFromDb($dbRow)
     {
         if (isset($dbRow['latitude'], $dbRow['longitude'])) {
-            $this->latitude = (float) $dbRow['latitude'];
-            $this->longitude = (float) $dbRow['longitude'];
+            $this->latitude = (float)$dbRow['latitude'];
+            $this->longitude = (float)$dbRow['longitude'];
         } else {
             // at least one cord is NULL => improper cords
             $this->latitude = null;
@@ -95,18 +99,18 @@ class Coordinates
     /**
      * Load this class data based on data from OKAPI
      *
-     * @param array $okapiLocation
+     * @param string $okapiLocation
      */
     public function loadFromOkapi($okapiLocation)
     {
         list ($lat, $lon) = explode("|", $okapiLocation);
-        $this->latitude = (float) $lat;
-        $this->longitude = (float) $lon;
+        $this->latitude = (float)$lat;
+        $this->longitude = (float)$lon;
     }
 
     /**
      * returns latitude as string.
-     * Result is in format selecdted by param $format. If param $format is not given, result is in default format.
+     * Result is in format selected by param $format. If param $format is not given, result is in default format.
      *
      * @param integer $format
      *            (optional) must be one of this class constants: COORDINATES_FORMAT_DECIMAL or COORDINATES_FORMAT_DEG_MIN or COORDINATES_FORMAT_DEG_MIN_SEC
@@ -117,16 +121,11 @@ class Coordinates
      *         $latitude = $coordinates->getLatitudeString();
      *
      */
-    public function getLatitudeString($format = false)
+    public function getLatitudeString($format = self::COORDINATES_FORMAT_DEFAULT): string
     {
-        if(is_null($this->latitude)) {
-            return null;
+        if (is_null($this->latitude)) {
+            return '';
         }
-
-        if ($format === false) { /* pick defaut format */
-            $format = $this->defaultFormat;
-        }
-
 
         $prefix = $this->getLatitudeHemisphereSymbol() . '&nbsp;';
         switch ($format) {
@@ -137,11 +136,12 @@ class Coordinates
             case self::COORDINATES_FORMAT_DEG_MIN_SEC:
                 return $prefix . $this->convertToDegMinSec(abs($this->latitude));
         }
+        return '';
     }
 
     /**
      * returns latitude as string.
-     * Result is in format selecdted by param $format. If param $format is not given, result is in default format.
+     * Result is in format selected by param $format. If param $format is not given, result is in default format.
      *
      * @param integer $format
      *            (optional) must be one of this class constants:
@@ -156,15 +156,12 @@ class Coordinates
      *         $latitude = $coordinates->getLatitudeString();
      *
      */
-    public function getLongitudeString($format = false)
+    public function getLongitudeString($format = self::COORDINATES_FORMAT_DEFAULT): string
     {
-        if( is_null($this->longitude) ){
-            return null;
+        if (is_null($this->longitude)) {
+            return '';
         }
 
-        if ($format === false) { /* pick defaut format */
-            $format = $this->defaultFormat;
-        }
         $prefix = $this->getLongitudeHemisphereSymbol() . '&nbsp;';
         switch ($format) {
             case self::COORDINATES_FORMAT_DECIMAL:
@@ -174,6 +171,7 @@ class Coordinates
             case self::COORDINATES_FORMAT_DEG_MIN_SEC:
                 return $prefix . $this->convertToDegMinSec(abs($this->longitude));
         }
+        return '';
     }
 
     public function getLatitude()
@@ -188,14 +186,11 @@ class Coordinates
 
     /**
      * returns parts of the coordinate according to given format
+     * @param int $format
      * @return array()
      */
-    public function getLongitudeParts($format = false)
+    public function getLongitudeParts($format = self::COORDINATES_FORMAT_DEFAULT): array
     {
-        if ($format === false) { /* pick defaut format */
-            $format = $this->defaultFormat;
-        }
-
         $prefix = $this->getLongitudeHemisphereSymbol();
 
         list($deg, $min, $sec) = $this->getParts($this->longitude);
@@ -203,17 +198,13 @@ class Coordinates
         return $this->getFormattedPartsArray($format, $prefix, $deg, $min, $sec);
     }
 
-
     /**
      * returns parts of the coordinate according to given format
+     * @param int $format
      * @return array()
      */
-    public function getLatitudeParts($format = false)
+    public function getLatitudeParts($format = self::COORDINATES_FORMAT_DEFAULT): array
     {
-        if ($format === false) { /* pick defaut format */
-            $format = $this->defaultFormat;
-        }
-
         $prefix = $this->getLatitudeHemisphereSymbol();
 
         list($deg, $min, $sec) = $this->getParts($this->latitude);
@@ -222,28 +213,29 @@ class Coordinates
 
     }
 
-    private function getFormattedPartsArray($format, $prefix, $deg, $min, $sec)
+    private function getFormattedPartsArray($format, $prefix, $deg, $min, $sec): array
     {
         switch ($format) {
             case self::COORDINATES_FORMAT_DECIMAL:
-                return array($prefix, sprintf("%02d",$deg));
+                return array($prefix, sprintf("%02d", $deg));
 
             case self::COORDINATES_FORMAT_DEG_MIN:
-                return array($prefix, sprintf("%02d",floor($deg)), sprintf("%06.3f",$min));
+                return array($prefix, sprintf("%02d", floor($deg)), sprintf("%06.3f", $min));
 
             case self::COORDINATES_FORMAT_DEG_MIN_SEC:
-                return array($prefix, sprintf("%02d",floor($deg)), sprintf("%02d",floor($min)), sprintf("%03d",$sec));
+                return array($prefix, sprintf("%02d", floor($deg)), sprintf("%02d", floor($min)), sprintf("%03d", $sec));
         }
+        return [];
     }
 
 
     /**
      * return true if cords in object are set to reasonable values
      */
-    public function areCordsReasonable()
+    public function areCordsReasonable(): bool
     {
         return ($this->latitude >= -90 && $this->latitude <= 90 &&
-                $this->longitude >= -180 && $this->longitude <= 180);
+            $this->longitude >= -180 && $this->longitude <= 180);
     }
 
     /**
@@ -251,7 +243,7 @@ class Coordinates
      * @param float $latitude
      * @return Coordinates
      */
-    public function setLatitude($latitude)
+    public function setLatitude($latitude): Coordinates
     {
         $this->latitude = $latitude;
         return $this;
@@ -262,7 +254,7 @@ class Coordinates
      * @param int $longitude
      * @return Coordinates
      */
-    public function setLongitude($longitude)
+    public function setLongitude($longitude): Coordinates
     {
         $this->longitude = $longitude;
         return $this;
@@ -270,35 +262,40 @@ class Coordinates
 
     /**
      * Returns coordinates string to display
+     * @param int $format
+     * @return string
      */
-    public function getAsText($format = false){
-        return $this->getLatitudeString($format).' '.$this->getLongitudeString($format);
+    public function getAsText(int $format = self::COORDINATES_FORMAT_DEFAULT): string
+    {
+        return $this->getLatitudeString($format) . ' ' . $this->getLongitudeString($format);
     }
 
-    public function getAsOpenLayersFormat(){
-        return '{ lat:'.$this->getLatitude().', lon:'.$this->getLongitude().' }';
+    public function getAsOpenLayersFormat(): string
+    {
+        return '{ lat:' . $this->getLatitude() . ', lon:' . $this->getLongitude() . ' }';
     }
 
     /**
      * Return TRUE if given coords are the same
      *
      * @param Coordinates $coords
-     * @return boolean
+     * @return bool
      */
-    public function areSameAs(Coordinates $coords){
+    public function areSameAs(Coordinates $coords): bool
+    {
 
         $latA = $this->getLatitudeParts();
         $latB = $coords->getLatitudeParts();
-        foreach($latA as $key=>$part){
-            if($latA[$key] != $latB[$key]){
+        foreach ($latA as $key => $part) {
+            if ($latA[$key] != $latB[$key]) {
                 return false;
             }
         }
 
         $lotA = $this->getLongitudeParts();
         $lotB = $coords->getLongitudeParts();
-        foreach($lotA as $key=>$part){
-            if($lotA[$key] != $lotB[$key]){
+        foreach ($lotA as $key => $part) {
+            if ($lotA[$key] != $lotB[$key]) {
                 return false;
             }
         }
@@ -306,7 +303,7 @@ class Coordinates
         return true;
     }
 
-    private function getParts($coordinate)
+    private function getParts($coordinate): array
     {
         $deg = abs($coordinate);
         $min = 60 * ($deg - floor($deg));
@@ -314,7 +311,7 @@ class Coordinates
         return array($deg, $min, $sec);
     }
 
-    private function convertToDegMin($decimalCoordinate)
+    private function convertToDegMin($decimalCoordinate): string
     {
         $degMinCoordinate = sprintf("%02d", floor($decimalCoordinate)) . '°&nbsp;';
         $coordinate = $decimalCoordinate - floor($decimalCoordinate);
@@ -322,23 +319,23 @@ class Coordinates
         return $degMinCoordinate;
     }
 
-    private function convertToDegMinSec($decimalCoordinate)
+    private function convertToDegMinSec($decimalCoordinate): string
     {
         $degMinSecCoordinate = sprintf("%02d", floor($decimalCoordinate)) . '°&nbsp;';
         $coordinate = $decimalCoordinate - floor($decimalCoordinate);
         $coordinate *= 60;
         $degMinSecCoordinate .= sprintf("%02d", floor($coordinate)) . '\'&nbsp;';
-        $latmin = $coordinate - floor($coordinate);
-        $degMinSecCoordinate .= sprintf("%02.02f", $latmin * 60) . '\'\'';
+        $latMin = $coordinate - floor($coordinate);
+        $degMinSecCoordinate .= sprintf("%02.02f", $latMin * 60) . '\'\'';
         return $degMinSecCoordinate;
     }
 
-    private function convertToDecString($coordinate, $afterComaPlacesCount = 5)
+    private function convertToDecString($coordinate, $afterComaPlacesCount = 5): string
     {
         return sprintf('%.' . $afterComaPlacesCount . 'f', $coordinate) . '°&nbsp;';
     }
 
-    private function getLatitudeHemisphereSymbol()
+    private function getLatitudeHemisphereSymbol(): string
     {
         if ($this->latitude < 0) {
             return 'S';
@@ -347,7 +344,7 @@ class Coordinates
         }
     }
 
-    private function getLongitudeHemisphereSymbol()
+    private function getLongitudeHemisphereSymbol(): string
     {
         if ($this->longitude < 0) {
             return 'W';
@@ -357,6 +354,8 @@ class Coordinates
     }
 
     /**
+     * @param float $lon
+     * @return string
      * @deprecated
      *
      * This is old-school method moved from common.inc.php
@@ -364,24 +363,26 @@ class Coordinates
      *
      * decimal longitude to string E/W hhh°mm.mmm
      *
-     * @param unknown $lon
      */
-    public static function donNotUse_lonToDegreeStr ($lon) {
+    public static function donNotUse_lonToDegreeStr($lon)
+    {
         if ($lon < 0) {
-            $retval = 'W ';
+            $retVal = 'W ';
             $lon = -$lon;
         } else {
-            $retval = 'E ';
+            $retVal = 'E ';
         }
 
-        $retval = $retval . sprintf("%02d", floor($lon)) . '° ';
+        $retVal = $retVal . sprintf("%02d", floor($lon)) . '° ';
         $lon = $lon - floor($lon);
-        $retval = $retval . sprintf("%06.3f", round($lon * 60, 3)) . '\'';
+        $retVal = $retVal . sprintf("%06.3f", round($lon * 60, 3)) . '\'';
 
-        return $retval;
+        return $retVal;
     }
 
     /**
+     * @param float $lat
+     * @return string
      * @deprecated
      *
      * This is old-school method moved from common.inc.php
@@ -389,174 +390,19 @@ class Coordinates
      *
      * decimal latitude to string N/S hh°mm.mmm
      *
-     * @param unknown $lon
      */
-    public static function donNotUse_latToDegreeStr ($lat) {
+    public static function donNotUse_latToDegreeStr($lat)
+    {
         if ($lat < 0) {
-            $retval = 'S ';
+            $retVal = 'S ';
             $lat = -$lat;
         } else {
-            $retval = 'N ';
+            $retVal = 'N ';
         }
-        $retval = $retval . sprintf("%02d", floor($lat)) . '° ';
+        $retVal = $retVal . sprintf("%02d", floor($lat)) . '° ';
         $lat = $lat - floor($lat);
-        $retval = $retval . sprintf("%06.3f", round($lat * 60, 3)) . '\'';
-        return $retval;
+        $retVal = $retVal . sprintf("%06.3f", round($lat * 60, 3)) . '\'';
+        return $retVal;
     }
 
 }
-
-/*
- THIS IS OLD VERSION OF FUNCTION WHICH CONVERT LAT-LON COORDS TO UTM
- DO WE NEED UTM AT ALL?
- IF YES LET'S USE THIS:
- https://www.phpclasses.org/browse/file/10671.html
-
-function ll2utm($Lat, $Lon, $NS = null, $EW = null)
-{
-    if ($Lat > 90)
-        die("Invalid Latitude");
-    if ($Lon > 180)
-        die("Invalid Lonitude");
-//$NS=(strtoupper(($NS)=='S') && ($Lat>0));
-//$EW=(strtoupper($EW)=='W');
-    if ($Lat < 0) {
-        $Lat = -$Lat;
-        $NS = 'S';
-    } else {
-        $NS = 'N';
-    };
-    if ($Lon < 0) {
-        $Lon = -$Lon;
-        $EW = 'W';
-    } else {
-        $EW = 'E';
-    };
-
-    $Deg2Rad = pi() / 180.0;
-//$Alpha100km='VQLFAVQLFAWRMGBWRMGBXSNHCXSNHCYTOJDYTOJDZUPKEZUPKEVQLFAVQLFAWRMGBWRMGBXSNHCXSNHCYTOJDYTOJDZUPKEZUPKE';
-// UTM WGS84 Ellipsoid
-    $F0 = 0.9996;
-    $A1 = 6378137.0 * $F0;
-    $B1 = 6356752.3142 * $F0;
-    $K0 = 0;
-    $N0 = 0;
-    $E0 = 500000;
-    $N1 = ($A1 - $B1) / ($A1 + $B1); // n
-    $N2 = $N1 * $N1;
-    $N3 = $N2 * $N1;
-    $E2 = (($A1 * $A1) - ($B1 * $B1)) / ($A1 * $A1); // e^2
-// przeliczenia
-    $K = $Lat * $Deg2Rad;
-    $L = $Lon * $Deg2Rad;
-    $SINK = sin($K);
-    $COSK = cos($K);
-    $TANK = $SINK / $COSK;
-    $TANK2 = $TANK * $TANK;
-    $COSK2 = $COSK * $COSK;
-    $COSK3 = $COSK2 * $COSK;
-    $K3 = $K - $K0;
-    $K4 = $K + $K0;
-
-
-
-    $Merid = floor(($Lon) / 6) * 6 + 3;
-    if (($Lat >= 72) && ($Lon >= 0)) {
-        if ($Lon < 9)
-            $Merid = 3;
-        else if ($Lon < 21)
-            $Merid = 15;
-        else if ($Lon < 33)
-            $Merid = 27;
-        else if ($Lon < 42)
-            $Merid = 39;
-    }
-    if (($Lat >= 56) && ($Lat < 64)) {
-        if (($Lon >= 3) && ($Lon < 12))
-            $Merid = 9;
-    }
-    $MeridEW = $Merid < 0;
-    if ($MeridEW) {
-        $MeridianEW = 'W';
-    } else {
-        $MeridianEW = 'E';
-    }
-    $Meridian = abs($Merid);
-    $L0 = $Merid * $Deg2Rad; // Lon of True Origin (3,9,15 etc)
-    // ArcofMeridian
-    $J3 = $K3 * (1 + $N1 + 1.25 * ($N2 + $N3));
-    $J4 = sin($K3) * cos($K4) * (3 * ($N1 + $N2 + 0.875 * $N3));
-    $J5 = sin(2 * $K3) * cos(2 * $K4) * (1.875 * ($N2 + $N3));
-    $J6 = sin(3 * $K3) * cos(3 * $K4) * 35 / 24 * $N3;
-    $M = ($J3 - $J4 + $J5 - $J6) * $B1;
-
-    // VRH2
-    $Temp = 1 - $E2 * $SINK * $SINK;
-    $V = $A1 / sqrt($Temp);
-    $R = $V * (1 - $E2) / $Temp;
-    $H2 = $V / $R - 1.0;
-
-    $P = $L - $L0;
-    $P2 = $P * $P;
-    $P4 = $P2 * $P2;
-    $J3 = $M + $N0;
-    $J4 = $V / 2 * $SINK * $COSK;
-    $J5 = $V / 24 * $SINK * ($COSK3) * (5 - ($TANK2) + 9 * $H2);
-    $J6 = $V / 720 * $SINK * $COSK3 * $COSK2 * (61 - 58 * ($TANK2) + $TANK2 * $TANK2);
-    $North = $J3 + $P2 * $J4 + $P4 * $J5 + $P4 * $P2 * $J6;
-//      if ($NS) $North=$North+10000000.0; // UTM S hemisphere , nie wiem dlaczego ale w oryginale dodawa³o siê 10000000.0
-    $J7 = $V * $COSK;
-    $J8 = $V / 6 * $COSK3 * ($V / $R - $TANK2);
-    $J9 = $V / 120 * $COSK3 * $COSK2;
-    $J9 = $J9 * (5 - 18 * $TANK2 + $TANK2 * $TANK2 + 14 * $H2 - 58 * $TANK2 * $H2);
-    $East = $E0 + $P * $J7 + $P2 * $P * $J8 + $P4 * $P * $J9;
-    $IEast = round($East);
-    $INorth = round($North); // should strictly be trunc
-    $Easting = $IEast;
-    $Northing = $INorth;
-    $EastStr = '' + abs($IEast);
-    $NorthStr = '' + abs($INorth);
-    //while (EastStr.length<7) EastStr='0'+EastStr;
-    $EastStr = sprintf("%07.0f", $EastStr);
-    //while (NorthStr.length<7) NorthStr='0'+NorthStr;
-    $NorthStr = sprintf("%07.0f", $NorthStr);
-    $GR100km = substr($EastStr, 1, 2 - 1) . substr($NorthStr, 1, 2 - 1);
-    $GRremainder = substr($EastStr, 2, 7 - 2) . ' ' . substr($NorthStr, 2, 7 - 2);
-
-
-    // UTM
-    $LonZone = ($Merid - 3) / 6 + 31;
-    if ($LonZone % 1 != 0)
-        $GR = 'non-UTM central meridian';
-    else {
-        if ($IEast < 100000 || $Lat < -80 || $IEast > 899999 || $Lat >= 84)
-            $GR = 'outside UTM grid area';
-        else {
-            $Letters = 'ABCDEFGHJKLMNPQRSTUVWXYZ';
-            $Pos = round($Lat / 8 - 0.5) + 10 + 2;
-            $LatZone = substr($Letters, $Pos, 1);
-            if ($LatZone > 'X')
-                $LatZone = 'X';
-            $Pos = round(abs($INorth) / 100000 - 0.5);
-            while ($Pos > 19)
-                $Pos = $Pos - 20;
-            if ($LonZone % 2 == 0) {
-                $Pos = $Pos + 5;
-                if ($Pos > 19)
-                    $Pos = $Pos - 20;
-            }
-            $N100km = substr($Letters, $Pos, 1);
-            $Pos = $GR100km / 10 - 1;
-            $P = $LonZone;
-            while ($P > 3)
-                $P = $P - 3;
-            $Pos = $Pos + (($P - 1) * 8);
-            $E100km = substr($Letters, $Pos, 1);
-            $GR = $LonZone . $LatZone . $E100km . $N100km . ' ' . $GRremainder;
-        }
-    }
-
-    return array($LonZone, $LatZone, $NS, $Northing, $EW, $Easting);
-
-}
- */
