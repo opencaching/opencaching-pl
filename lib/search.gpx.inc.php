@@ -181,55 +181,97 @@ $gpxLogType[11] = 'Temporarily Disable Listing'; // OC: Note
 $gpxLogType[12] = 'Post Reviewer Note'; // OC: Note
 
 if ($usr || ! $hide_coords) {
-    // 1st set of attributes - attributes that correlate to GC attributes
-    $gpxAttribID[6] = '106';
-    $gpxAttribName[6] = 'Only logable at Opencaching';
-    $gpxAttribID[12] = '22';
-    $gpxAttribName[12] = 'Hunting';
-    $gpxAttribID[13] = '39';
-    $gpxAttribName[13] = 'Thorns';
-    $gpxAttribID[14] = '19';
-    $gpxAttribName[14] = 'Ticks';
-    $gpxAttribID[18] = '25';
-    $gpxAttribName[18] = 'Parking available';
-    $gpxAttribID[25] = '57';
-    $gpxAttribName[25] = 'Significant Hike';
-    $gpxAttribID[30] = '8';
-    $gpxAttribName[30] = 'Point of interest';
-    $gpxAttribID[38] = '13';
-    $gpxAttribName[38] = 'Available at all times';
-    $gpxAttribID[40] = '53';
-    $gpxAttribName[40] = 'Park and Grab';
-    $gpxAttribID[41] = '6';
-    $gpxAttribName[41] = 'Recommended for kids';
-    $gpxAttribID[44] = '24';
-    $gpxAttribName[44] = 'Wheelchair accessible';
-    $gpxAttribID[45] = '40';
-    $gpxAttribName[45] = 'Stealth required';
-    $gpxAttribID[52] = '60';
-    $gpxAttribName[52] = 'Wireless Beacon';
-    $gpxAttribID[61] = '54';
-    $gpxAttribName[61] = 'Abandoned Structure';
-    $gpxAttribID[82] = '44';
-    $gpxAttribName[82] = 'Flashlight required';
-    $gpxAttribID[83] = '51';
-    $gpxAttribName[83] = 'Special Tool Required';
-    $gpxAttribID[85] = '32';
-    $gpxAttribName[85] = 'Bicycles';
-    $gpxAttribID[86] = '4';
-    $gpxAttribName[86] = 'Boat';
-    $gpxAttribID[90] = '23';
-    $gpxAttribName[90] = 'Dangerous area';
-    $gpxAttribID[91] = '14';
-    $gpxAttribName[91] = 'Recommended at night';
+    /* ***********************************************************************
+      Attributes
 
-    // 2nd set of attributes - OC only attributes, changed ID (+100) to be save in oc-gc-mixed environments
-    // $gpxAttribID[6] = '106';
-    // $gpxAttribName[6] = 'Only loggable at Opencaching';
-    // $gpxAttribID[43] = '143';
-    // $gpxAttribName[43] = 'GeoHotel';
-    // $gpxAttribID[47] = '147';
-    // $gpxAttribName[47] = 'Compass';
+      GPX ID mapping of all attributes of opencaching-pl member sites.
+      Complete documentation here: https://wiki.opencaching.eu/index.php?title=Cache_attributes
+    */
+$gpxAttribID[9001] = '9001';        $gpxAttribName[9001] = 'Dogs not allowed';
+$gpxAttribID[2] = '2';        $gpxAttribName[2] = 'Access or parking fee';
+$gpxAttribID[3] = '3';        $gpxAttribName[3] = 'Climbing gear requried';
+$gpxAttribID[4] = '4';        $gpxAttribName[4] = 'Boat required';
+$gpxAttribID[5] = '5';        $gpxAttribName[5] = 'Diving equipment required';
+$gpxAttribID[6] = '6';        $gpxAttribName[6] = 'Suitable for children';
+$gpxAttribID[9] = '9';        $gpxAttribName[9] = 'Long walk or hike';
+$gpxAttribID[10] = '10';        $gpxAttribName[10] = 'Some climbing (no gear needed)';
+$gpxAttribID[11] = '11';        $gpxAttribName[11] = 'Swamp or marsh. May require wading';
+$gpxAttribID[12] = '12';        $gpxAttribName[12] = 'Swimming required';
+$gpxAttribID[13] = '13';        $gpxAttribName[13] = 'Available 24/7';
+$gpxAttribID[9013] = '9013';        $gpxAttribName[9013] = 'Available only during open hours';
+$gpxAttribID[14] = '14';        $gpxAttribName[14] = 'Recommended at night';
+$gpxAttribID[9014] = '9014';        $gpxAttribName[9014] = 'NOT recommended at night';
+$gpxAttribID[15] = '15';        $gpxAttribName[15] = 'Available during winter';
+$gpxAttribID[9015] = '9015';        $gpxAttribName[9015] = 'NOT available during winter';
+$gpxAttribID[17] = '17';        $gpxAttribName[17] = 'Poisonous plants';
+$gpxAttribID[18] = '18';        $gpxAttribName[18] = 'Dangerous animals';
+$gpxAttribID[19] = '19';        $gpxAttribName[19] = 'Ticks';
+$gpxAttribID[20] = '20';        $gpxAttribName[20] = 'Abandoned mine(s)';
+$gpxAttribID[21] = '21';        $gpxAttribName[21] = 'Cliffs / falling rocks hazard';
+$gpxAttribID[22] = '22';        $gpxAttribName[22] = 'Hunting grounds';
+$gpxAttribID[23] = '23';        $gpxAttribName[23] = 'Dangerous area';
+$gpxAttribID[24] = '24';        $gpxAttribName[24] = 'Wheelchair accessible';
+$gpxAttribID[25] = '25';        $gpxAttribName[25] = 'Parking area nearby';
+$gpxAttribID[26] = '26';        $gpxAttribName[26] = 'Public transportation';
+$gpxAttribID[27] = '27';        $gpxAttribName[27] = 'Drinking water nearby';
+$gpxAttribID[28] = '28';        $gpxAttribName[28] = 'Public restrooms nearby';
+$gpxAttribID[29] = '29';        $gpxAttribName[29] = 'Public phone nearby';
+$gpxAttribID[32] = '32';        $gpxAttribName[32] = 'Bycicles allowed';
+$gpxAttribID[39] = '39';        $gpxAttribName[39] = 'Thorns';
+$gpxAttribID[40] = '40';        $gpxAttribName[40] = 'Stealth required';
+$gpxAttribID[44] = '44';        $gpxAttribName[44] = 'Flashlight required';
+$gpxAttribID[46] = '46';        $gpxAttribName[46] = 'Truck / RV allowed';
+$gpxAttribID[47] = '47';        $gpxAttribName[47] = 'Puzzle can only be solved on-site';
+$gpxAttribID[48] = '48';        $gpxAttribName[48] = 'UV light required';
+$gpxAttribID[51] = '51';        $gpxAttribName[51] = 'Special tool / equipment required';
+$gpxAttribID[52] = '52';        $gpxAttribName[52] = 'Night cache - can only be found at night';
+$gpxAttribID[53] = '53';        $gpxAttribName[53] = 'Park and grab';
+$gpxAttribID[54] = '54';        $gpxAttribName[54] = 'Abandoned structure / ruin';
+$gpxAttribID[60] = '60';        $gpxAttribName[60] = 'Wireless beacon / Garmin Chirp™';
+$gpxAttribID[9062] = '9062';        $gpxAttribName[9062] = 'Available all seasons';
+$gpxAttribID[64] = '64';        $gpxAttribName[64] = 'Tree climbing required';
+$gpxAttribID[106] = '106';        $gpxAttribName[106] = 'OPENCACHING only cache';
+$gpxAttribID[108] = '108';        $gpxAttribName[108] = 'Letterbox';
+$gpxAttribID[110] = '110';        $gpxAttribName[110] = 'Active railway nearby';
+$gpxAttribID[123] = '123';        $gpxAttribName[123] = 'First aid available';
+$gpxAttribID[127] = '127';        $gpxAttribName[127] = 'Hilly area';
+$gpxAttribID[130] = '130';        $gpxAttribName[130] = 'Point of interest';
+$gpxAttribID[131] = '131';        $gpxAttribName[131] = 'Moving target';
+$gpxAttribID[132] = '132';        $gpxAttribName[132] = 'Webcam ';
+$gpxAttribID[133] = '133';        $gpxAttribName[133] = 'Indoors, withing enclosed space (building, cave, etc)';
+$gpxAttribID[134] = '134';        $gpxAttribName[134] = 'Under water';
+$gpxAttribID[135] = '135';        $gpxAttribName[135] = 'No GPS required';
+$gpxAttribID[137] = '137';        $gpxAttribName[137] = 'Overnight stay necessary';
+$gpxAttribID[142] = '142';        $gpxAttribName[142] = 'Not available during high tide';
+$gpxAttribID[143] = '143';        $gpxAttribName[143] = 'Nature preserve / Breeding season';
+$gpxAttribID[147] = '147';        $gpxAttribName[147] = 'Compass required';
+$gpxAttribID[150] = '150';        $gpxAttribName[150] = 'Cave equipment required';
+$gpxAttribID[153] = '153';        $gpxAttribName[153] = 'Aircraft required';
+$gpxAttribID[154] = '154';        $gpxAttribName[154] = 'Internet research required';
+$gpxAttribID[156] = '156';        $gpxAttribName[156] = 'Mathematical or logical problem';
+$gpxAttribID[157] = '157';        $gpxAttribName[157] = 'Other cache type';
+$gpxAttribID[158] = '158';        $gpxAttribName[158] = 'Ask owner for start conditions';
+$gpxAttribID[201] = '201';        $gpxAttribName[201] = 'Quick and easy cache';
+$gpxAttribID[202] = '202';        $gpxAttribName[202] = 'GeoHotel for trackables';
+$gpxAttribID[203] = '203';        $gpxAttribName[203] = 'Bring your own pen';
+$gpxAttribID[204] = '204';        $gpxAttribName[204] = 'Attached using magnet(s)';
+$gpxAttribID[205] = '205';        $gpxAttribName[205] = 'Information in  MP3 file';
+$gpxAttribID[206] = '206';        $gpxAttribName[206] = 'Container placed at an offset from given coordinates';
+$gpxAttribID[207] = '207';        $gpxAttribName[207] = 'Dead Drop USB container';
+$gpxAttribID[208] = '208';        $gpxAttribName[208] = 'Benchmark - geodetic point';
+$gpxAttribID[209] = '209';        $gpxAttribName[209] = 'Wherigo cartridge to play';
+$gpxAttribID[210] = '210';        $gpxAttribName[210] = 'Hidden in natural surroundings';
+$gpxAttribID[211] = '211';        $gpxAttribName[211] = 'Monument or historic site';
+$gpxAttribID[212] = '212';        $gpxAttribName[212] = 'Shovel required';
+$gpxAttribID[213] = '213';        $gpxAttribName[213] = 'Access only by walk';
+$gpxAttribID[214] = '214';        $gpxAttribName[214] = 'Rated on Handicaching.com';
+$gpxAttribID[215] = '215';        $gpxAttribName[215] = 'Contains a Munzee';
+$gpxAttribID[216] = '216';        $gpxAttribName[216] = 'Contains advertising';
+$gpxAttribID[217] = '217';        $gpxAttribName[217] = 'Military training area, some access restrictions - check before visit';
+$gpxAttribID[218] = '218';        $gpxAttribName[218] = 'Caution, area under video surveillance';
+$gpxAttribID[219] = '219';        $gpxAttribName[219] = 'Suitable to hold trackables';
+$gpxAttribID[220] = '220';        $gpxAttribName[220] = 'Officially designated historical monument';
+$gpxAttribID[999] = '999';        $gpxAttribName[999] = 'Log password';
 
     // prepare the output
     $caches_per_page = 20;

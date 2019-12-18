@@ -229,10 +229,10 @@ while ($record = $database->dbResultFetch($s)) {
         $attributes_img .= $line;
 }
 
-$line = attr_jsline($cache_attrib_jsarray_line, $options, "99", tr("with_password"), $config['search-attr-icons']['password'][0], $config['search-attr-icons']['password'][1], $config['search-attr-icons']['password'][2], 0);
+$line = attr_jsline($cache_attrib_jsarray_line, $options, "999", tr("with_password"), $config['search-attr-icons']['password'][0], $config['search-attr-icons']['password'][1], $config['search-attr-icons']['password'][2], 0);
 $attributes_jsarray .= ",\n" . $line;
 
-$line = attr_image($cache_attrib_img_line, $options, "99", tr("with_password"), $config['search-attr-icons']['password'][0], $config['search-attr-icons']['password'][1], $config['search-attr-icons']['password'][2], 0);
+$line = attr_image($cache_attrib_img_line, $options, "999", tr("with_password"), $config['search-attr-icons']['password'][0], $config['search-attr-icons']['password'][1], $config['search-attr-icons']['password'][2], 0);
 $attributes_img .= $line;
 
 tpl_set_var('cache_attrib_list', $attributes_img);
@@ -379,7 +379,7 @@ if (isset($usr)) {
 
 if (isset($options['cache_attribs']) && count($options['cache_attribs']) > 0) {
     for ($i = 0; $i < count($options['cache_attribs']); $i++) {
-        if ($options['cache_attribs'][$i] == 99) // special password attribute case
+        if ($options['cache_attribs'][$i] == 999) // special password attribute case
             $q_where[] = '`caches`.`logpw` != ""';
         else {
             $q_from[] = '`caches_attributes` `a' . ($options['cache_attribs'][$i] + 0) . '`';
@@ -391,7 +391,7 @@ if (isset($options['cache_attribs']) && count($options['cache_attribs']) > 0) {
 
 if (isset($options['cache_attribs_not']) && count($options['cache_attribs_not']) > 0) {
     for ($i = 0; $i < count($options['cache_attribs_not']); $i++) {
-        if ($options['cache_attribs_not'][$i] == 99) // special password attribute case
+        if ($options['cache_attribs_not'][$i] == 999) // special password attribute case
             $q_where[] = '`caches`.`logpw` = ""';
         else
             $q_where[] = 'NOT EXISTS (SELECT `caches_attributes`.`cache_id` FROM `caches_attributes` WHERE `caches_attributes`.`cache_id`=`caches`.`cache_id` AND `caches_attributes`.`attrib_id`=\'' . XDb::xEscape($options['cache_attribs_not'][$i]) . '\')';
