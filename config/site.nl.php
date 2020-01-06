@@ -42,4 +42,13 @@ $site['defaultCountriesList'] = ['NL', 'BE', 'LU', 'DE', 'FR', 'GB'];
 /**
  * Icons customization
  */
-$site['mainViewIcons']['shortcutIcon'] = '/images/icons/oc_icon-nl.png';
+//$site['mainViewIcons']['shortcutIcon'] = '/images/icons/oc_icon-nl.png';
+
+$site['mainViewIcons'] = [
+    'shortcutIcon' => '/images/icons/oc_icon-nl.png',
+    'appleTouch' => '/images/icons/apple-touch-icon-nl.png',
+    'icon32' => '/images/icons/favicon-nl-32x32.png',
+    'icon16' => '/images/icons/favicon-nl-16x16.png',
+    //'webmanifest' => '/images/icons/site.webmanifest',    // <link rel="manifest"
+    //'maskIcon' => '/images/icons/safari-pinned-tab.svg',  // <link rel="mask-icon"
+];
