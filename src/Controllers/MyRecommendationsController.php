@@ -78,7 +78,7 @@ class MyRecommendationsController extends BaseController
 
     private function recommendationsTable($userId, $isRemovingAllowed)
     {
-        $rowCount = CacheRecommendation::getCountOfUserRecommendations($this->loggedUser->getUserId());
+        $rowCount = CacheRecommendation::getCountOfUserRecommendations($userId);
         $this->view->setVar('rowCount', $rowCount);
 
         if ($rowCount > 0) {
@@ -127,9 +127,8 @@ class MyRecommendationsController extends BaseController
             list($queryLimit, $queryOffset) = $pagination->getQueryLimitAndOffset();
             $model->setPaginationModel($pagination);
 
-            $model->addDataRows( self::completeDataRows(
-                    $userId, $queryLimit, $queryOffset));
 
+            $model->addDataRows(self::completeDataRows($userId, $queryLimit, $queryOffset));
             $this->view->setVar('listCacheModel', $model);
         }
 
