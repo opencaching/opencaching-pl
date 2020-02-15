@@ -175,7 +175,7 @@ function displayAllCachesOfPowerTrail(PowerTrail $powerTrail, $choseFinalCaches)
 
         // count the rest of types
         $restOfTypes = 0;
-        foreach (array_diff_key(GeoCache::CacheTypesArray(), $typesToShow) as $type) {
+        foreach (array_diff(GeoCache::CacheTypesArray(), $typesToShow) as $type) {
             $restOfTypes += $cachetypes[$type];
         }
         if ($restOfTypes > 0) {
