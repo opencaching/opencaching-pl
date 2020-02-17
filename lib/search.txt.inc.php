@@ -18,11 +18,6 @@ set_time_limit(1800);
 
 require_once (__DIR__.'/../lib/calculation.inc.php');
 
-
-$cache = cache::instance();
-$cacheTypesArr = $cache->getCacheTypeIcons();
-$cacheStatusArr = $cache->getCacheStatuses();
-
     $txtLine = chr(239) . chr(187) . chr(191) .tr('search_text_01')." {mod_suffix}{cachename} ".tr('search_text_02')." {owner}
 ".tr('search_text_03')." {lat} {lon}
 ".tr('search_text_04')." {status}
@@ -253,9 +248,9 @@ if( $usr || !$hide_coords ) {
         } else {
             $thisline = str_replace('{rr_comment}', html2txt("<br /><br />--------<br />".$r['rr_comment']), $thisline);
         }
-        $thisline = str_replace('{type}', tr($cacheTypesArr[$r['type_id']]['translation']), $thisline);
+        $thisline = str_replace('{type}', tr(GeoCacheCommons::CacheTypeTranslationKey($r['type_id']), $thisline);
         $thisline = str_replace('{container}', tr(GeoCacheCommons::CacheSizeTranslationKey($r['size'])), $thisline);
-        $thisline = str_replace('{status}', tr($cacheStatusArr[$r['status']]['translation']), $thisline);
+        $thisline = str_replace('{status}', tr(GeoCacheCommons::CacheStatusTranslationKey($r['status'])), $thisline);
 
         $difficulty = sprintf('%01.1f', $r['difficulty'] / 2);
         $thisline = str_replace('{difficulty}', $difficulty, $thisline);

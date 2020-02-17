@@ -1,5 +1,6 @@
 <?php
 
+use src\Models\GeoCache\WaypointCommons;
 use src\Utils\Database\XDb;
 use src\Utils\I18n\I18n;
 
@@ -68,7 +69,6 @@ if ($error == false) {
             if ($cache_record['user_id'] == $usr['userid'] || $usr['admin']) {
                 $tplname = 'newwp';
 
-                require_once(__DIR__.'/lib/caches.inc.php');
                 require_once(__DIR__.'/src/Views/newcache.inc.php');
 
                 //set template replacements
@@ -81,7 +81,6 @@ if ($error == false) {
 
                 //build typeoptions
                 $sel_type = isset($_POST['type']) ? $_POST['type'] : -1;
-                $lang_db = I18n::getLangForDbTranslations('waypoint_type');
 
                 $types = '<option disabled selected="selected">' . tr('choose_waypoint_type') . '</options>';
 //                  if ($cache_record['type'] == '2' || $cache_record['type'] == '6' || $cache_record['type'] == '8' || $cache_record['type'] == '9')
@@ -95,22 +94,22 @@ if ($error == false) {
                 else
                     $pomin = 0;
 
-                foreach ( get_wp_types_from_database($cache_record['type']) as $type ) {
-                    if ($type['id'] == $sel_type) {
-                        if (($type['id'] == 3) && ($pomin == 1)) {
+                    foreach ( WaypointCommons::getTypesArray($cache_record['type']) as $type ) {
+                    if ($type == $sel_type) {
+                        if (($type == WaypointCommons::TYPE_FINAL) && ($pomin == 1)) {
 
                         } // if final waypoint alreday exist for this cache do not allow create new waypoint type "final location"
                         else
-                            $types .= '<option value="' . $type['id'] . '" selected="selected">' .
-                                      htmlspecialchars($type[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>';
+                            $types .= '<option value="' . $type . '" selected="selected">' .
+                                htmlspecialchars(tr (WaypointCommons::typeTranslationKey($type)), ENT_COMPAT, 'UTF-8') . '</option>';
                     }
                     else {
                         if (($type['id'] == 3) && ($pomin == 1)) {
 
                         } //// if final waypoint alreday exist for this cache do not allow create new waypoint type "final location"
                         else
-                            $types .= '<option value="' . $type['id'] . '">' .
-                                      htmlspecialchars($type[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>';
+                            $types .= '<option value="' . $type . '">' .
+                                htmlspecialchars(tr (WaypointCommons::typeTranslationKey($type)), ENT_COMPAT, 'UTF-8') . '</option>';
                     }
                 }
 

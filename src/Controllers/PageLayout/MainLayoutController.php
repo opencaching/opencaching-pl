@@ -112,7 +112,7 @@ class MainLayoutController extends BaseController
                 '/views/common/mainLayout.css'));
         }
 
-        if (Year::isPrimaAprilisToday()) {
+        if (Year::isPrimaAprilisToday() && OcConfig::isPADanceEnabled()) {
             // add rythm JS
             $this->view->addLocalJs(
                 Uri::getLinkWithModificationTime(
@@ -124,15 +124,14 @@ class MainLayoutController extends BaseController
 
             $this->view->addLocalJs(Uri::getLinkWithModificationTime(
                 '/vendor/js-cookie/js-cookie/src/js.cookie.js'));
-
         }
 
-        if (Year::isPrimaAprilisToday()) {
+        if (Year::isPrimaAprilisToday() && OcConfig::isPADanceEnabled()) {
             $this->view->loadJQuery();
             $logo = $config['headerLogo'];
             $logoTitle = 'discoCaching';
             $logoSubtitle = 'The first discoCaching site!';
-        } else if (date('m') == 12 || date('m') == 1) {
+        } else if (Year::isChristmassTime()) {
             $logo = $config['headerLogoWinter'];
             $logoTitle = tr('oc_on_all_pages_top_' . $config['ocNode']);
             $logoSubtitle = tr('oc_subtitle_on_all_pages_' . $config['ocNode']);

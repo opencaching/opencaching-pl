@@ -4,7 +4,6 @@ use src\Utils\Database\XDb;
 
 //prepare the templates and include all necessary
 require_once(__DIR__.'/lib/common.inc.php');
-require_once(__DIR__.'/lib/caches.inc.php');
 require_once(__DIR__.'/src/Views/lib/icons.inc.php');
 
 global $usr;

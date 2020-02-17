@@ -14,6 +14,7 @@ use src\Utils\Debug\Debug;
 use src\Utils\Gis\Countries;
 use src\Utils\Uri\SimpleRouter;
 use src\Controllers\PictureController;
+use src\Models\GeoCache\GeoCacheCommons;
 
 require_once(__DIR__.'/lib/common.inc.php');
 
@@ -84,7 +85,6 @@ if ($error == false) {
         if ($cache_record = $dbc->dbResultFetch($s)) {
 
             if ($cache_record['user_id'] == $usr['userid'] || $usr['admin']) {
-                require_once(__DIR__.'/lib/caches.inc.php');
 
                 // from deleted editcache.inc.php:
                 $submit = 'Zapisz';
@@ -739,23 +739,30 @@ if ($error == false) {
 
                 //build typeoptions
                 $types = '';
-                foreach (get_cache_types_from_database() as $type) {
+                foreach (GeoCacheCommons::CacheTypesArray() as $type) {
 
                     // blockforbidden cache types
-                    if (($type['id'] != $cache_type) && in_array($type['id'], $config['forbidenCacheTypes']) && !$usr['admin']) {
+                    if (($type != $cache_type) && in_array($type, OcConfig::getNoNewCacheOfTypesArray()) && !$usr['admin']) {
                         continue;
                     }
-                    if (isset($config['cacheLimitByTypePerUser'][$cache_type]) && $cacheLimitByTypePerUser[$cache_type] >= $config['cacheLimitByTypePerUser'][$cache_type] && !$usr['admin']) {
+                    if (isset($config['cacheLimitByTypePerUser'][$cache_type]) &&
+                        $cacheLimitByTypePerUser[$cache_type] >= $config['cacheLimitByTypePerUser'][$cache_type] &&
+                        !$usr['admin']) {
                         continue;
                     }
-                    if (isset($cacheLimitByTypePerUser[$type['id']]) && isset($config['cacheLimitByTypePerUser'][$type['id']]) && $cacheLimitByTypePerUser[$type['id']] >= $config['cacheLimitByTypePerUser'][$type['id']] && !$usr['admin']) {
+                    if (isset($cacheLimitByTypePerUser[$type]) &&
+                        isset($config['cacheLimitByTypePerUser'][$type]) &&
+                        $cacheLimitByTypePerUser[$type] >= $config['cacheLimitByTypePerUser'][$type] &&
+                        !$usr['admin']) {
                         continue;
                     }
 
-                    if ($type['id'] == $cache_type) {
-                        $types .= '<option value="' . $type['id'] . '" selected="selected">' . htmlspecialchars($type[I18n::getCurrentLang()], ENT_COMPAT, 'UTF-8') . '</option>';
+                    if ($type == $cache_type) {
+                        $types .= '<option value="' . $type . '" selected="selected">' .
+                            htmlspecialchars( tr(GeoCacheCommons::CacheTypeTranslationKey($type)), ENT_COMPAT, 'UTF-8') . '</option>';
                     } else {
-                        $types .= '<option value="' . $type['id'] . '">' . htmlspecialchars($type[I18n::getCurrentLang()], ENT_COMPAT, 'UTF-8') . '</option>';
+                        $types .= '<option value="' . $type . '">' .
+                            htmlspecialchars( tr( GeoCacheCommons::CacheTypeTranslationKey($type)), ENT_COMPAT, 'UTF-8') . '</option>';
                     }
                 }
                 tpl_set_var('typeoptions', $types);
@@ -766,7 +773,7 @@ if ($error == false) {
 
                     // blockforbidden cache sizes
                     if ($size != $sel_size
-                        && !in_array($size, OcConfig::instance()->getGeocacheConfig('enabledSizes'))
+                        && !in_array($size, OcConfig::getEnabledCacheSizesArray())
                     ) {
                         continue;
                     }

@@ -12,6 +12,8 @@ use src\Utils\Text\InputFilter;
 use src\Models\GeoCache\MobileCacheMove;
 use src\Models\OcConfig\OcConfig;
 use src\Utils\I18n\I18n;
+use src\Models\GeoCache\GeoCacheLogCommons;
+use src\Models\GeoCache\GeoCache;
 +
 //prepare the templates and include all neccessary
 require_once(__DIR__.'/lib/common.inc.php');
@@ -44,7 +46,6 @@ if ($error == false) {
         if ($log_record) {
 
             require(__DIR__.'/src/Views/editlog.inc.php');
-            require_once(__DIR__.'/lib/caches.inc.php');
             require(__DIR__.'/src/Views/rating.inc.php');
 
             if ($log_record['node'] != OcConfig::getSiteNodeId()) {
@@ -432,51 +433,93 @@ if ($error == false) {
 
                 //build logtypeoptions
                 $logtypeoptions = '';
-                foreach (get_log_types_from_database() AS $type) {
-                    // skip if permission=O ???? and not owner or COG
-                    if ($type['permission'] == 'B' && $log_record['user_id'] != $cache_user_id && !($usr['admin']))
+                foreach (GeoCacheLogCommons::logTypesArray() as $type) {
+
+                    // skip types allowed only for cacheOwner (9,10,11)
+                    $allowedOnlyForOwner = [GeoCacheLogCommons::LOGTYPE_READYTOSEARCH,
+                                            GeoCacheLogCommons::LOGTYPE_ARCHIVED,
+                                            GeoCacheLogCommons::LOGTYPE_TEMPORARYUNAVAILABLE];
+                    if (in_array($type,$allowedOnlyForOwner) &&
+                        $log_record['user_id'] != $cache_user_id && !($usr['admin'])) {
                         continue;
+                    }
+
                     // Only COG can write or edit COG comment
-                    if ($type['id'] == 12 && !($usr['admin'])) {
+                    if ($type == GeoCacheLogCommons::LOGTYPE_ADMINNOTE && !($usr['admin'])) {
                         continue;
                     }
-                    if ($log_record['logtype'] != $type['id'] && $log_record['cachestatus'] != 1)
+
+                    // skip current type of log
+                    if ($log_record['logtype'] != $type && $log_record['cachestatus'] != GeoCacheCommons::STATUS_READY) {
                         continue;
-                    if ($log_record['logtype'] != $type['id'] && $log_record['cachestatus'] == 1 && $log_record['user_id'] == $cache_user_id && $type['id'] != 3 && $type['id'] != 6)
-                        continue;
+                    }
+
+                    if ($log_record['logtype'] != $type &&                                // not same as current type
+                        $log_record['cachestatus'] == GeoCacheCommons::STATUS_READY &&    // not ready-to-search
+                        $log_record['user_id'] == $cache_user_id &&                       // is owner
+                        $type != GeoCacheLogCommons::LOGTYPE_COMMENT &&
+                        $type != GeoCacheLogCommons::LOGTYPE_MADEMAINTENANCE) {
+
+                            continue;
+                    }
+
                     if ($already_found_in_other_comment) {
-                        if ($type['id'] == 1 || $type['id'] == 2 || $type['id'] == 7 || $type['id'] == 8 || $type['id'] == 9 || $type['id'] == 10 || $type['id'] == 11) {
-                            continue;
-                        }
-                    }
-                    if ($cache_type == 6 || $cache_type == 8) {
-                        // Event cache
-                        if ($cache_type == 6) {
-                            if ($type['id'] == 1 || $type['id'] == 2 || $type['id'] == 4 || $type['id'] == 5 || $type['id'] == 9 || $type['id'] == 10 || $type['id'] == 11) {
-                                continue;
-                            }
-                        }
-                        // Mobile cache
-                        if ($cache_type == 8) {
-                            if ($type['id'] == 7 || $type['id'] == 8 || $type['id'] == 9) {
-                                continue;
-                            }
-                        }
-                    } else {
-                        if ($log_record['user_id'] == $cache_user_id && ($type['id'] == 1 || $type['id'] == 2 || $type['id'] == 4 || $type['id'] == 5 || $type['id'] == 7 || $type['id'] == 8)) {
-                            continue;
-                        }
-                        if ($log_record['user_id'] != $cache_user_id && ($type['id'] == 4 || $type['id'] == 7 || $type['id'] == 8 || $type['id'] == 9 || $type['id'] == 10 || $type['id'] == 11)) {
+                        if ($type == GeoCacheLogCommons::LOGTYPE_FOUNDIT        ||
+                            $type == GeoCacheLogCommons::LOGTYPE_DIDNOTFIND     ||
+                            $type == GeoCacheLogCommons::LOGTYPE_ATTENDED       ||
+                            $type == GeoCacheLogCommons::LOGTYPE_WILLATTENDED   ||
+                            $type == GeoCacheLogCommons::LOGTYPE_ARCHIVED       ||
+                            $type == GeoCacheLogCommons::LOGTYPE_READYTOSEARCH  ||
+                            $type == GeoCacheLogCommons::LOGTYPE_TEMPORARYUNAVAILABLE) {
                             continue;
                         }
                     }
 
-                    $lang_db = I18n::getLangForDbTranslations('log_types');
-
-                    if ($type['id'] == $log_type) {
-                        $logtypeoptions .= '<option value="' . $type['id'] . '" selected="selected">' . htmlspecialchars($type[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>' . "\n";
+                    if ($cache_type == GeoCache::TYPE_EVENT) {
+                        if ($type == GeoCacheLogCommons::LOGTYPE_FOUNDIT            ||
+                            $type == GeoCacheLogCommons::LOGTYPE_DIDNOTFIND         ||
+                            $type == GeoCacheLogCommons::LOGTYPE_MOVED              ||
+                            $type == GeoCacheLogCommons::LOGTYPE_NEEDMAINTENANCE    ||
+                            $type == GeoCacheLogCommons::LOGTYPE_ARCHIVED           ||
+                            $type == GeoCacheLogCommons::LOGTYPE_READYTOSEARCH      ||
+                            $type == GeoCacheLogCommons::LOGTYPE_TEMPORARYUNAVAILABLE) {
+                            continue;
+                        }
+                    } else if ($cache_type == GeoCache::TYPE_MOVING) {
+                        if ($type == GeoCacheLogCommons::LOGTYPE_ATTENDED       ||
+                            $type == GeoCacheLogCommons::LOGTYPE_WILLATTENDED   ||
+                            $type == GeoCacheLogCommons::LOGTYPE_ARCHIVED) {
+                            continue;
+                        }
                     } else {
-                        $logtypeoptions .= '<option value="' . $type['id'] . '">' . htmlspecialchars($type[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>' . "\n";
+
+                        if ($log_record['user_id'] == $cache_user_id && // is owner
+                           ($type == GeoCacheLogCommons::LOGTYPE_FOUNDIT            ||
+                            $type == GeoCacheLogCommons::LOGTYPE_DIDNOTFIND         ||
+                            $type == GeoCacheLogCommons::LOGTYPE_MOVED              ||
+                            $type == GeoCacheLogCommons::LOGTYPE_NEEDMAINTENANCE    ||
+                            $type == GeoCacheLogCommons::LOGTYPE_ATTENDED           ||
+                            $type == GeoCacheLogCommons::LOGTYPE_WILLATTENDED)) {
+                            continue;
+                        }
+
+                        if ($log_record['user_id'] != $cache_user_id &&
+                           ($type == GeoCacheLogCommons::LOGTYPE_MOVED         ||
+                            $type == GeoCacheLogCommons::LOGTYPE_ATTENDED       ||
+                            $type == GeoCacheLogCommons::LOGTYPE_WILLATTENDED   ||
+                            $type == GeoCacheLogCommons::LOGTYPE_ARCHIVED       ||
+                            $type == GeoCacheLogCommons::LOGTYPE_READYTOSEARCH  ||
+                            $type == GeoCacheLogCommons::LOGTYPE_TEMPORARYUNAVAILABLE)) {
+                            continue;
+                        }
+                    }
+
+                    if ($type == $log_type) {
+                        $logtypeoptions .= '<option value="' . $type . '" selected="selected">' .
+                            htmlspecialchars(tr(GeoCacheLogCommons::typeTranslationKey($type)), ENT_COMPAT, 'UTF-8') . '</option>' . "\n";
+                    } else {
+                        $logtypeoptions .= '<option value="' . $type . '">' .
+                            htmlspecialchars(tr(GeoCacheLogCommons::typeTranslationKey($type)), ENT_COMPAT, 'UTF-8') . '</option>' . "\n";
                     }
                 }
 

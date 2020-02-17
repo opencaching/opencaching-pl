@@ -632,7 +632,7 @@ use src\Controllers\ViewCacheController;
                         <?=tr($wp->getTypeTranslationKey())?>
                     </td>
                     <td>
-                            <?php if (!$wp->areCoordsHidden()) { ?>
+                            <?php if ($view->isUserAuthorized && !$wp->areCoordsHidden()) { ?>
 
                               <?=$wp->getCoordinates()->getLatitudeString()?><br><?=$wp->getCoordinates()->getLongitudeString()?>
 

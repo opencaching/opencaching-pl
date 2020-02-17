@@ -1,6 +1,7 @@
 <?php
 
 use src\Models\GeoCache\GeoCacheCommons;
+use src\Models\GeoCache\GeoCacheLog;
 use src\Models\PowerTrail\PowerTrail;
 use src\Models\GeoCache\GeoCache;
 
@@ -50,7 +51,6 @@ function displayAllCachesOfPowerTrail(PowerTrail $powerTrail, $choseFinalCaches)
         6 => tr('pt244')
     );
 
-    $cacheTypesIcons = cache::getCacheIconsSet();
     $cacheRows = '<table class="ptCacheTable" align="center" width="90%"><tr>
         <th>' . tr('pt075') . '</th>
         <th>' . tr('pt076') . '</th>';
@@ -95,12 +95,22 @@ function displayAllCachesOfPowerTrail(PowerTrail $powerTrail, $choseFinalCaches)
         $cacheRows .= '<tr bgcolor="' . $bgcolor . '">';
         //display icon found/not found depend on current user
         if (isset($geocacheFoundArr[$geocache->getCacheId()])) {
-            $cacheRows .= '<td align="center"><img src="' . $cacheTypesIcons[$geocache->getCacheType()]['iconSet'][1]['iconSmallFound'] . '" /></td>';
+            $iconSrc = GeoCacheCommons::CacheIconByType(
+                $geocache->getCacheType(),
+                GeoCacheCommons::STATUS_READY,
+                GeoCacheLog::LOGTYPE_FOUNDIT);
+
         } elseif ($geocache->getOwner()->getUserId() == $userId) {
-            $cacheRows .= '<td align="center"><img src="' . $cacheTypesIcons[$geocache->getCacheType()]['iconSet'][1]['iconSmallOwner'] . '" /></td>';
+            $iconSrc = GeoCacheCommons::CacheIconByType(
+                $geocache->getCacheType(),
+                GeoCacheCommons::STATUS_READY,
+                null, false, true);
         } else {
-            $cacheRows .= '<td align="center"><img src="' . $cacheTypesIcons[$geocache->getCacheType()]['iconSet'][1]['iconSmall'] . '" /></td>';
+            $iconSrc = GeoCacheCommons::CacheIconByType(
+                $geocache->getCacheType(), GeoCacheCommons::STATUS_READY);
         }
+        $cacheRows .= '<td align="center"><img src="'.$iconSrc.'" /></td>';
+
         //cachename, username
         $cacheRows .= '<td><b>'.
                            '<a href="' . $geocache->getWaypointId() . '">'.
@@ -165,7 +175,7 @@ function displayAllCachesOfPowerTrail(PowerTrail $powerTrail, $choseFinalCaches)
 
         // count the rest of types
         $restOfTypes = 0;
-        foreach (array_diff_key(GeoCache::CacheTypesArray(), $typesToShow) as $type) {
+        foreach (array_diff(GeoCache::CacheTypesArray(), $typesToShow) as $type) {
             $restOfTypes += $cachetypes[$type];
         }
         if ($restOfTypes > 0) {

@@ -10,6 +10,7 @@ use src\Utils\Uri\SimpleRouter;
 use src\Models\GeoCache\GeoCache;
 use src\Models\OcConfig\OcConfig;
 use src\Models\Coordinates\Coordinates;
+use src\Utils\DateTime\Year;
 
 require_once (__DIR__.'/lib/common.inc.php');
 require(__DIR__.'/src/Views/lib/icons.inc.php');
@@ -164,8 +165,8 @@ foreach ($logEntries as $record) {
     $dateTimeTmpArray = explode(' ', $record['date']);
     $tmplog = mb_ereg_replace('{time}', substr($dateTimeTmpArray[1], 0, -3), $tmplog);
 
-    // display user activity (by Łza 2012)
-    if ((date('m') == 4) and ( date('d') == 1)) {
+    // display user activity
+    if (Year::isPrimaAprilisToday() && OcConfig::isPAUserStatsRandEnabled()) {
         $tmplog_username_aktywnosc = ' (<img src="/images/blue/thunder_ico.png" alt="user activity" width="13" height="13" border="0" title="' . tr('viewlog_aktywnosc') . '"/>' . rand(1, 9) . ') ';
     } else {
         $tmplog_username_aktywnosc = ' (<img src="/images/blue/thunder_ico.png" alt="user activity" width="13" height="13" border="0" title="' . tr('viewlog_aktywnosc') . ' [' . $record['znalezione'] . '+' . $record['nieznalezione'] . '+' . $record['ukryte'] . ']"/>' . ($record['ukryte'] + $record['znalezione'] + $record['nieznalezione']) . ') ';

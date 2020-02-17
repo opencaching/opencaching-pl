@@ -1,5 +1,9 @@
 <?php
 
+/*
+ * THIS CODE IS USED by search.* only
+ */
+
 use src\Utils\Database\XDb;
 
 /* begin conversion rules */

@@ -7,3 +7,4 @@ use src\Models\GeoCache\GeoCacheCommons;
  */
 
 $geocache['enabledSizes'][] = GeoCacheCommons::SIZE_NANO;
+

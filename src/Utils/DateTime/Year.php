@@ -23,4 +23,10 @@ class Year
     {
         return date("Y");
     }
+
+    public static function isChristmassTime()
+    {
+        $month = date('m');
+        return ($month == 12 || $month == 1);
+    }
 }

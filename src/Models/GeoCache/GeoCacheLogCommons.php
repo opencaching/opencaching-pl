@@ -107,7 +107,7 @@ class GeoCacheLogCommons extends BaseObject
         }
     }
 
-    public static function logTypes()
+    public static function logTypesArray()
     {
         return array(
             self::LOGTYPE_FOUNDIT,

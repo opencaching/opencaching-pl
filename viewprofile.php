@@ -97,7 +97,7 @@ if (is_null($user)) {
 StopWatch::click(__LINE__);
 
 tpl_set_var('username', htmlspecialchars($user->getUserName()));
-if ((date('m') == 4) and ( date('d') == 1)) {
+if (Year::isPrimaAprilisToday() && OcConfig::isPAFakeUserNameEnabled()) {
     tpl_set_var('username', tr('primaAprilis1'));
 }
 tpl_set_var('registered', Formatter::date($user->getDateCreated()));
@@ -211,7 +211,7 @@ if (AdminNoteSet::getNotesForUserCount($user) > ADMINNOTES_PER_PAGE) {
     $content .= '<a href="' . SimpleRouter::getLink('Admin.UserAdmin', 'index', $user_id) . '" class="btn btn-default btn-sm">' . tr('more') . '</a>';
 }
 
-if (Year::isPrimaAprilisToday()) {
+if (Year::isPrimaAprilisToday() && OcConfig::isPAUserStatsRandEnabled()) {
     $act = rand(-10, 10);
 } else {
     $act = $user->getFoundGeocachesCount() + $user->getNotFoundGeocachesCount() + $user->getHiddenGeocachesCount();
@@ -327,7 +327,7 @@ if ($seek == 0) {
     }
 
 
-    if (Year::isPrimaAprilisToday()) {
+    if (Year::isPrimaAprilisToday() && OcConfig::isPAUserStatsRandEnabled()) {
         $found = rand(-10, 10);
         $userNotFounds = rand(666, 9999);
     }

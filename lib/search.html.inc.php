@@ -7,6 +7,7 @@ use src\Utils\Uri\Uri;
 use src\Utils\Uri\OcCookie;
 use src\Models\Coordinates\Coordinates;
 use src\Utils\I18n\I18n;
+use src\Models\GeoCache\GeoCacheCommons;
 
 /**
  * This script is used (can be loaded) by /search.php
@@ -405,7 +406,7 @@ for ($i = 0; $i < $dbcSearch->rowCount($s); $i ++) {
         }
     }
     ;
-    $tmpline = str_replace('{cachetype}', htmlspecialchars(cache_type_from_id($caches_record['cache_type']), ENT_COMPAT, 'UTF-8'), $tmpline);
+    $tmpline = str_replace('{cachetype}', tr(GeoCacheCommons::CacheTypeTranslationKey($caches_record['cache_type'])), $tmpline);
 
     // sp2ong short_desc ermitteln TODO: nicht die erste sondern die richtige wĂ¤hlen
     $tmpline = str_replace('{wp_oc}', htmlspecialchars($caches_record['wp_oc'], ENT_COMPAT, 'UTF-8'), $tmpline);

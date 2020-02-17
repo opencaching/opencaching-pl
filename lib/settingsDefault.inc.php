@@ -5,7 +5,7 @@
  * settings.inc.php file (e.g. $config['debugDB'] = true;).
  */
 
-require_once (__DIR__.'/cache.php');
+use src\Models\GeoCache\GeoCacheCommons;
 
 // enable detailed cache access logging
 $enable_cache_access_logs = false;
@@ -40,8 +40,6 @@ $config = array(
     'headerLogo' => 'oc_logo.png',
     /** main logo; winter version, displayed during december and january. */
     'headerLogoWinter' => 'oc_logo_winter.png',
-    /** main logo; prima aprilis version (april fools), displayed only on april 1st. */
-    'headerLogo1stApril' => 'oc_logo_1A.png',
     /** qrcode logo: show qrcode image and link the prefered way.  */
     'qrCodeLogo' => 'qrcode_bg.jpg',
     'qrCodeUrl' => 'https://opencaching.pl/viewcache.php?wp=OP3C90',
@@ -66,23 +64,13 @@ $config = array(
      */
     'otherSites_minfinds' => 100,
     /**
-     * not allowed cache types (user cannot create caches of this types).
-     *
-     * Cachetypes must be lib/cache.php constant TYPE_*
-     */
-    'forbidenCacheTypes' => array(
-        cache::TYPE_VIRTUAL,
-        cache::TYPE_WEBCAM,
-        cache::TYPE_GEOPATHFINAL
-    ),
-    /**
      * cache limits for user. If user is allowed to place limited nomber of specified cache type,
      * place cachetype and limit here.
      *
-     * Cachetypes must be lib/cache.php constant TYPE_*
+     * Cachetypes must be GeoCacheCommons constant TYPE_*
      */
     'cacheLimitByTypePerUser' => array(
-        cache::TYPE_OWNCACHE => 1,
+        GeoCacheCommons::TYPE_OWNCACHE => 1,
     ),
     /** The filter fragment selecting provinces from nuts_codes table. */
     'provinceNutsCondition' => '`code` like \'PL__\'',

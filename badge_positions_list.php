@@ -3,6 +3,7 @@
 use src\Utils\Text\Formatter;
 use src\Controllers\MeritBadgeController;
 use src\Controllers\ViewBadgeHeadController;
+use src\Models\GeoCache\GeoCacheCommons;
 
 require_once(__DIR__.'/lib/common.inc.php');
 
@@ -33,7 +34,6 @@ $tplname = 'badge_positions_list';
 $content = "";
 
 $positionsMeritBadge = $meritBadgeCtrl->buildArrayGainedPositions($userid, $badge_id);
-$cacheTypesIcons = cache::getCacheIconsSet();
 
 foreach( $positionsMeritBadge as $onePositionBadge ){
 
@@ -55,8 +55,7 @@ foreach( $positionsMeritBadge as $onePositionBadge ){
 
     $typeIcon ='<img src="{src}" />';
     $typeIcon = str_replace( "{src}",
-            $cacheTypesIcons[$onePositionBadge->getType()]['iconSet'][1]['iconSmallFound'],
-            $typeIcon );
+        GeoCacheCommons::CacheIconByType($onePositionBadge->getType(), GeoCacheCommons::STATUS_READY), $typeIcon);
 
     $date = Formatter::date($onePositionBadge->getGainDate());
     $dateSort = date("y.m.d", strtotime($onePositionBadge->getGainDate()));

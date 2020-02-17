@@ -8,22 +8,9 @@ use src\Models\Coordinates\Coordinates;
 /**
  * Geocache Waypoint (place of interest)
  * represented in db by waypoints table
- *
- * @author Łza
  */
-class Waypoint
+class Waypoint extends WaypointCommons
 {
-    const TYPE_PHYSICAL = 1;
-    const TYPE_VIRTUAL = 2;
-    const TYPE_FINAL = 3;
-    const TYPE_INTERESTING = 4;
-    const TYPE_PARKING = 5;
-    const TYPE_TRAILHEAD = 6;
-
-    const STATUS_VISIBLE = 1;
-    const STATUS_VISIBLE_HIDDEN_COORDS = 2;
-    const STATUS_HIDDEN = 3;
-
     const OPENCHECKER_ENABLED = 1;
 
     private $id;
@@ -40,14 +27,7 @@ class Waypoint
     private $cacheId;
     private $openChecker;
 
-    private $iconNames = array(
-        self::TYPE_PHYSICAL => 'images/waypoints/wp_physical.png',
-        self::TYPE_VIRTUAL => 'images/waypoints/wp_virtual.png',
-        self::TYPE_FINAL => 'images/waypoints/wp_final.png',
-        self::TYPE_INTERESTING => 'images/waypoints/wp_reference.png',
-        self::TYPE_PARKING => 'images/waypoints/wp_parking.png',
-        self::TYPE_TRAILHEAD => 'images/waypoints/wp_trailhead.png'
-    );
+
 
 
 

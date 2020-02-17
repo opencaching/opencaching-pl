@@ -2,6 +2,7 @@
 
 use src\Utils\Database\XDb;
 use src\Utils\I18n\I18n;
+use src\Models\GeoCache\WaypointCommons;
 
 //prepare the templates and include all neccessary
 require_once(__DIR__.'/lib/common.inc.php');
@@ -67,18 +68,19 @@ if ($error == false) {
 
 
                 $tplname = 'editwp';
-                require_once(__DIR__.'/lib/caches.inc.php');
                 require(__DIR__.'/src/Views/newcache.inc.php');
 
                 $wp_type = isset($_POST['type']) ? $_POST['type'] : $wp_record['type'];
                 //build typeoptions
                 $types = '<option disabled selected="selected">' . tr('choose_waypoint_type') . '</options>';
-                foreach (get_wp_types_from_database($cache_record['type']) as $type) {
+                foreach (WaypointCommons::getTypesArray($cache_record['type']) as $type) {
 
                     if ($type['id'] == $wp_type) {
-                        $types .= '<option value="' . $type['id'] . '" selected="selected">' . htmlspecialchars($type[I18n::getCurrentLang()], ENT_COMPAT, 'UTF-8') . '</option>';
+                        $types .= '<option value="' . $type . '" selected="selected">' .
+                            htmlspecialchars(tr (WaypointCommons::typeTranslationKey($type)), ENT_COMPAT, 'UTF-8') . '</option>';
                     } else {
-                        $types .= '<option value="' . $type['id'] . '">' . htmlspecialchars($type[I18n::getCurrentLang()], ENT_COMPAT, 'UTF-8') . '</option>';
+                        $types .= '<option value="' . $type . '">' .
+                            htmlspecialchars(tr (WaypointCommons::typeTranslationKey($type)), ENT_COMPAT, 'UTF-8') . '</option>';
                     }
                 }
                 tpl_set_var('typeoptions', $types);
