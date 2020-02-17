@@ -4,6 +4,7 @@
  * This file contains default settings. All settings can be overriden in the
  * settings.inc.php file (e.g. $config['debugDB'] = true;).
  */
+require_once __DIR__ . '/ClassPathDictionary.php'; // class autoloader
 
 use src\Models\GeoCache\GeoCacheCommons;
 
