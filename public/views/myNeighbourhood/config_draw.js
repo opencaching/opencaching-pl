@@ -35,7 +35,7 @@ class ConfigDraw {
                             width: 1
                         }),
                     }),
-                }),
+                })
             );
 
         this.configDrawModifyStyles = Object.assign(
