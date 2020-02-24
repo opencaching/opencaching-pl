@@ -33,5 +33,5 @@ $menu = [
     'mnu_contact'       => '/articles.php?page=contact',
     'mnu_guides'        => '/guide',
     'mnu_OcSwag'        => '/articles.php?page=swag',
-    'mnu_clipboard'     => '/mylist.php', /* counters added in MainLayoutCtrl */
+    'mnu_clipboard'     => '/printList', /* counters added in MainLayoutCtrl */
 ];

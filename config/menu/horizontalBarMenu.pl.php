@@ -26,6 +26,6 @@ $menu = [ // DON'T CHANGE $menu var name!
     'mnu_guides'        => '/guide',
     'mnu_facebook'      => ['https://www.facebook.com/OpencachingPL/'],
     'mnu_kwidzyn'	=> ['https://open.kwidzyn.pl'],
-    'mnu_clipboard'     => '/mylist.php', /* counters added in MainLayoutCtrl */
+    'mnu_clipboard'     => '/printList', /* counters added in MainLayoutCtrl */
 
 ];
