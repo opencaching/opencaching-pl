@@ -29,7 +29,7 @@ $paginateCount = powerTrailBase::commentsPaginateCount;
 foreach ($ptOwners as $owner) {
     $ownersIdArray[] = $owner['user_id'];
 }
-$nextSearchStart = $_REQUEST['start'] + $_REQUEST['limit'];
+$nextSearchStart = int($_REQUEST['start']) + int($_REQUEST['limit']);
 
 $db = OcDb::instance();
 $q = 'SELECT count(*) AS `count` FROM  `PowerTrail_comments`
