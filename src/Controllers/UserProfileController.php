@@ -11,6 +11,8 @@ use src\Models\User\UserNotify;
 use src\Models\User\UserPreferences\UserPreferences;
 use src\Models\User\UserPreferences\UserProfilePref;
 use src\Models\GeoCache\MultiLogStats;
+use src\Utils\Text\InputFilter;
+use src\Models\Pictures\StatPic;
 
 class UserProfileController extends BaseController
 {
@@ -269,5 +271,41 @@ class UserProfileController extends BaseController
             $this->loggedUser->confirmRules();
         }
         $this->view->redirect($uri);
+    }
+
+    /**
+     * Display page to change statPic (small baner with user stats)
+     */
+    public function changeStatPic()
+    {
+        // this is only for logged user
+        $this->redirectNotLoggedUsers();
+
+        $this->view->setTemplate('userProfile/changeStatPic');
+
+        list ($statPicText, $statPicLogo) = $this->loggedUser->getStatPicDataArr();
+        $this->view->setVar('statPicText', $statPicText);
+        $this->view->setVar('statPicLogo', $statPicLogo);
+
+        $this->view->setVar('allStatPics', StatPic::getAll());
+
+        $this->view->buildView();
+    }
+
+    /**
+     * Update user statPic
+     */
+    public function saveStatPicSelection()
+    {
+        // this is only for logged user
+        $this->redirectNotLoggedUsers();
+
+        $statPicLogo = isset($_POST['statpic_logo']) ? (integer) $_POST['statpic_logo'] : 0;
+        $statPicText = isset($_POST['statpic_text']) ? mb_substr($_POST['statpic_text'], 0, 30) : 'Opencaching';
+        $statPicText = InputFilter::cleanupUserInput($statPicText);
+
+        $this->loggedUser->changeStatPic($statPicLogo, $statPicText);
+
+        $this->view->redirect('/myprofile.php');
     }
 }

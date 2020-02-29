@@ -4,7 +4,6 @@ namespace src\Utils\EventHandler;
 use src\Models\Notify\Notify;
 use src\Models\User\User;
 use src\Models\GeoCache\GeoCache;
-use src\Models\GeoCache\GeoCacheLog;
 
 class EventHandler
 {
@@ -26,10 +25,6 @@ class EventHandler
 
     // Old
     public static function event_change_log_type($userId)
-    {
-        User::deleteStatpic($userId);
-    }
-    public static function event_change_statpic($userId)
     {
         User::deleteStatpic($userId);
     }
