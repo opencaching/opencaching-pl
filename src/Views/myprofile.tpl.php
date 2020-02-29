@@ -88,7 +88,7 @@ use src\Utils\Uri\SimpleRouter;
     </tr>
     <tr>
       <td class="content-title-noshade" style="vertical-align:top;"><img src="images/free_icons/chart_bar.png" class="icon16" alt="" align="middle">&nbsp;{{statpic_label}}:</td>
-      <td><img src="statpics/{userid}.jpg" align="middle" alt=""></td>
+      <td><img src="stats/statPic/{userid}" align="middle" alt=""></td>
     </tr>
     <tr>
       <td class="buffer" colspan="2"></td>

@@ -990,11 +990,7 @@ class User extends UserCommons
                 "SELECT statpic_text, statpic_logo FROM user WHERE user_id=:1 LIMIT 1",
                 $this->getUserId()));
 
-        if (empty ($row)) {
-            return ['Opencaching', 0];
-        } else {
-            return [$row['statpic_text'],$row['statpic_logo']];
-        }
+        return [$row['statpic_text'],$row['statpic_logo']];
     }
 
     /**

@@ -18,9 +18,10 @@
             <p class="content-title-noshade"><?=$statPic->getDescription()?></p>
           </td>
           <td>
+            &nbsp;
             <input type="radio" name="statpic_logo" class="radio" value="<?=$statPic->getId()?>"
             <?=($v->statPicLogo == $statPic->getId())?'checked':''; ?> />
-
+            &nbsp;
             <img src="/<?=$statPic->getPreviewPath()?>" />
           </td>
         </tr>

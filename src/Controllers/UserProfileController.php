@@ -287,7 +287,7 @@ class UserProfileController extends BaseController
         $this->view->setVar('statPicText', $statPicText);
         $this->view->setVar('statPicLogo', $statPicLogo);
 
-        $this->view->setVar('allStatPics', StatPic::getAll());
+        $this->view->setVar('allStatPics', StatPic::getAllTpls());
 
         $this->view->buildView();
     }
