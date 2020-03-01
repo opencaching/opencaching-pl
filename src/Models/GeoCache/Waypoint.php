@@ -162,8 +162,7 @@ class Waypoint extends WaypointCommons
         return nl2br($this->description);
     }
 
-    public static function GetWaypointsForCacheId(GeoCache $geoCache, $skipHiddenWps=true){
-
+    public static function GetWaypointsForCache(GeoCache $geoCache, $skipHiddenWps=true){
 
         if($geoCache->getCacheType() == GeoCache::TYPE_MOVING){
             // mobiles can't have waypoints...

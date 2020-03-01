@@ -14,6 +14,8 @@ use src\Models\Coordinates\Coordinates;
  * Additionally, to handle if coords are ready check the value of hidden input with id: <$inputPrefix>FinalCoordsReady.
  * Also note thet OnChange event is triggered on this input when its value is changed
  *
+ * Example of use:
+ *   <?php $v->callChunk('coordsForm', $v->cache->getCoordinates(), 'coordsEdit'); ?>
  */
 
 return function (Coordinates $initCoords = null, $inputPrefix='') {

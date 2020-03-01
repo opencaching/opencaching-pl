@@ -652,7 +652,7 @@ class User extends UserCommons
             return true;
         }
 
-        //get published geocaches count
+        // get published geocaches count
         $activeCachesNum = $this->db->multiVariableQueryValue(
             "SELECT COUNT(*) FROM `caches`
              WHERE `user_id` = :1 AND status = 1",

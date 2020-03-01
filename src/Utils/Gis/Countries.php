@@ -36,4 +36,10 @@ class Countries
     {
         return array_search($countryCode, self::getCountriesList());
     }
+
+
+    public static function getFlagImg ($countryCode)
+    {
+        return '/images/flags/'.strtolower($countryCode).'.gif';
+    }
 }

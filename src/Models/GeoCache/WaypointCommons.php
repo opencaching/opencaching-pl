@@ -61,4 +61,32 @@ class WaypointCommons extends BaseObject {
         self::ICONS[$type];
     }
 
+    public static function getStatusIcon($status)
+    {
+        switch ($status) {
+            case self::STATUS_VISIBLE:
+                return '/images/free_icons/accept.png';
+            case self::STATUS_VISIBLE_HIDDEN_COORDS:
+                return '/images/free_icons/error.png';
+            case self::STATUS_HIDDEN:
+                return '/images/free_icons/stop.png';
+            default:
+                return '';
+        }
+    }
+
+    public static function statusTranslationKy($status)
+    {
+        switch ($status) {
+            case self::STATUS_VISIBLE:
+                return 'wp_status1';
+            case self::STATUS_VISIBLE_HIDDEN_COORDS:
+                return 'wp_status2';
+            case self::STATUS_HIDDEN:
+                return 'wp_status3';
+            default:
+                return '';
+        }
+    }
+
 }

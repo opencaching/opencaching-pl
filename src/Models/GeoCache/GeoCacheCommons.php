@@ -467,4 +467,14 @@ class GeoCacheCommons extends BaseObject {
     {
         return '/viewcache.php?wp=' . $ocWaypoint;
     }
+
+    public static function CacheDifficultyLevels()
+    {
+        return range(1, 10);
+    }
+
+    public static function TerreinDifficultyLevels()
+    {
+        return range(1, 10);
+    }
 }

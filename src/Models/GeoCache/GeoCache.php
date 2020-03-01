@@ -902,8 +902,12 @@ class GeoCache extends GeoCacheCommons
         return $this->wayLenght;
     }
 
-    public function getWayLenghtFormattedString() {
-        return sprintf('%01.2f km', $this->getWayLenght());
+    public function getWayLenghtFormattedString($withUnit=true) {
+        if($withUnit) {
+            return sprintf('%01.2f km', $this->getWayLenght());
+        } else {
+            return sprintf('%01.2f', $this->getWayLenght());
+        }
     }
 
     public function getSearchTime()
@@ -911,12 +915,12 @@ class GeoCache extends GeoCacheCommons
         return $this->searchTime;
     }
 
-    public function getSearchTimeFormattedString()
+    public function getSearchTimeFormattedString($withUnit=true)
     {
         $hours = floor($this->getSearchTime());
         $min = ( $this->getSearchTime() - $hours ) * 60;
         $min = sprintf('%02d', round($min, 1));
-        return $hours . ':' . $min . ' h';
+        return $hours . ':' . $min . (($withUnit)?' h':'');
     }
 
 
@@ -1078,11 +1082,6 @@ class GeoCache extends GeoCacheCommons
             $this->distance = round($dst['dystans'], 2);
         }
         return $this->distance;
-    }
-
-    public function getWaypoints()
-    {
-        return Waypoint::GetWaypointsForCacheId($this->id);
     }
 
     /**
@@ -1402,6 +1401,8 @@ class GeoCache extends GeoCacheCommons
 
     public function getMp3List()
     {
+        // TODO: refactor to Mp3Attchment::getAllForGeocache()
+
         if (is_null($this->mp3List)) {
 
         $this->mp3List = array();
@@ -1453,6 +1454,8 @@ class GeoCache extends GeoCacheCommons
      */
     public function getPicturesList( $returnSpoilersOnly, $changeUrlForSpoilers = false, $displayThumbsForSpoilers=false )
     {
+        // TODO: refactor to use OcPicture class
+
         if (is_null($this->picturesList)) {
 
             $this->picturesList = array();
@@ -1707,4 +1710,85 @@ class GeoCache extends GeoCacheCommons
              WHERE cache_id = :2 LIMIT 1', $value, $this->getCacheId());
     }
 
+    /**
+     * Return TRUE if give user can edit this geocache in current state
+     */
+    public function isEditableByUser (User $user)
+    {
+        if ($this->status == self::STATUS_BLOCKED) {
+            // blocked caches are RO for user
+        }
+
+        if ($user->hasOcTeamRole()) {
+            // OCTeam members can edit every geocache
+            return true;
+        }
+
+        if ($this->getOwnerId() == $user->getUserId()) {
+            // owner can edit his geocache
+            return true;
+        }
+
+        // not editable in all other cases
+        return false;
+    }
+
+    /**
+     * Get list of statuses which can be the next statuse for given cache/user
+     *
+     * @param User $user
+     */
+    public function getAllowedNextStatuses (User $user)
+    {
+        return GeoCacheRules::getAllowedNextStatus(
+            $this->getStatus(),                         // current status
+            $this->getOwnerId() == $user->getUserId(),  // isOwner
+            $user->hasOcTeamRole(),                     // is-OcTeam-member
+            $user->isUnderCacheVerification()           // isUserUnderVerification
+            );
+    }
+
+    /**
+     * Get list of all types which can be set for current geocache
+     *
+     * @return array|number
+     */
+    public function getAllowedTypes ()
+    {
+        $allTypes = self::CacheTypesArray();
+        $forbiddenTypes = OcConfig::getNoNewCacheOfTypesArray();
+
+        $allowedTypes = array_diff($allTypes, $forbiddenTypes);
+        if (!in_array($this->getCacheType(), $allowedTypes)) {
+            // allow to stay with the current geocache type
+            $allowedTypes[] = $this->getCacheType();
+        }
+        return $allowedTypes;
+    }
+
+    public function getAllowedSizes ()
+    {
+        $allowedSizes = OcConfig::getEnabledCacheSizesArray();
+        if (!in_array($this->getSizeId(), $allowedSizes)) {
+            // allow to stay with the current size
+            $allowedSizes[] = $this->getSizeId();
+        }
+        return $allowedSizes;
+    }
+
+    public function isMp3Allowed ()
+    {
+        // no mp3 in given types...
+        return in_array ($this->getCacheType(),
+            [ GeoCache::TYPE_OTHERTYPE,
+              GeoCache::TYPE_MULTICACHE,
+              GeoCache::TYPE_QUIZ
+            ]);
+    }
+
+    public function isPasswordAllowed()
+    {
+        // No passwords in traditiona caches
+        return in_array ($this->getCacheType(), [GeoCache::TYPE_TRADITIONAL]);
+    }
 }

@@ -15,6 +15,7 @@ use src\Utils\Gis\Countries;
 use src\Utils\Uri\SimpleRouter;
 use src\Controllers\PictureController;
 use src\Models\GeoCache\GeoCacheCommons;
+use src\Models\GeoCache\Waypoint;
 
 require_once(__DIR__.'/lib/common.inc.php');
 
@@ -67,6 +68,7 @@ if ($error == false) {
         $target = urlencode(tpl_get_current_page());
         tpl_redirect('login.php?target=' . $target);
     } else {
+        // find geocache
         $dbc = OcDb::instance();
         $thatquery =
             "SELECT user_id, name, picturescount, mp3count, type, size, date_hidden, date_activate, date_created, longitude, latitude,
@@ -84,7 +86,7 @@ if ($error == false) {
 
         if ($cache_record = $dbc->dbResultFetch($s)) {
 
-            if ($cache_record['user_id'] == $usr['userid'] || $usr['admin']) {
+            if ($cache_record['user_id'] == $usr['userid'] || $usr['admin']) { //is-owner || OCTEAM
 
                 // from deleted editcache.inc.php:
                 $submit = 'Zapisz';
@@ -115,23 +117,25 @@ if ($error == false) {
                 $cache_attrib_pic = '<img id="attr{attrib_id}" src="{attrib_pic}" border="0" alt="{attrib_text}" title="{attrib_text}" onmousedown="toggleAttr({attrib_id}); yes_change();" /> ';
 
                 $activation_form = '
-        <tr><td colspan="2">
-        <fieldset style="border: 1px solid black; width: 80%; height: 32%; background-color: #FFFFFF;">
-            <legend>&nbsp; <strong>' . tr("submit_new_cache") . '</strong> &nbsp;</legend>
-                <input type="radio" onChange="yes_change();" class="radio" name="publish" id="publish_now" value="now" {publish_now_checked}>&nbsp;<label for="publish_now">' . tr('publish_now') . '</label><br />
-                <input type="radio" onChange="yes_change();" class="radio" name="publish" id="publish_later" value="later" {publish_later_checked}>&nbsp;<label for="publish_later">' . tr('publish_date') . ':</label>
-                <input class="input40" type="text" name="activate_year" onChange="yes_change();" maxlength="4" value="{activate_year}"/> -
-                                <input class="input20" type="text" name="activate_month" onChange="yes_change();" maxlength="2" value="{activate_month}"/> -
-                <input class="input20" type="text" name="activate_day" onChange="yes_change();" maxlength="2" value="{activate_day}"/>&nbsp;
-                                <select name="activate_hour" class="input40" onChange="yes_change();" >
-                    {activation_hours}
-                </select>&nbsp;–&nbsp;{activate_on_message}<br />
-                <input type="radio" onChange="yes_change();" class="radio" name="publish" id="publish_notnow" value="notnow" {publish_notnow_checked}>&nbsp;<label for="publish_notnow">' . tr('dont_publish_yet') . '</label>
-                </fieldset>
-                </td>
-        </tr>
-        ';
+                    <tr><td colspan="2">
+                    <fieldset style="border: 1px solid black; width: 80%; height: 32%; background-color: #FFFFFF;">
+                        <legend>&nbsp; <strong>' . tr("submit_new_cache") . '</strong> &nbsp;</legend>
+                            <input type="radio" onChange="yes_change();" class="radio" name="publish" id="publish_now" value="now" {publish_now_checked}>&nbsp;<label for="publish_now">' . tr('publish_now') . '</label><br />
+                            <input type="radio" onChange="yes_change();" class="radio" name="publish" id="publish_later" value="later" {publish_later_checked}>&nbsp;<label for="publish_later">' . tr('publish_date') . ':</label>
+                            <input class="input40" type="text" name="activate_year" onChange="yes_change();" maxlength="4" value="{activate_year}"/> -
+                                            <input class="input20" type="text" name="activate_month" onChange="yes_change();" maxlength="2" value="{activate_month}"/> -
+                            <input class="input20" type="text" name="activate_day" onChange="yes_change();" maxlength="2" value="{activate_day}"/>&nbsp;
+                                            <select name="activate_hour" class="input40" onChange="yes_change();" >
+                                {activation_hours}
+                            </select>&nbsp;–&nbsp;{activate_on_message}<br />
+                            <input type="radio" onChange="yes_change();" class="radio" name="publish" id="publish_notnow" value="notnow" {publish_notnow_checked}>&nbsp;<label for="publish_notnow">' . tr('dont_publish_yet') . '</label>
+                            </fieldset>
+                            </td>
+                    </tr>
+                    ';
 
+
+       // type update
                 //here we read all used information from the form if submitted, otherwise from DB
                 // wihout virtuals and webcams
                 if (isset($_POST['type'])) {
@@ -190,6 +194,7 @@ if ($error == false) {
                 }
                 // mp3 update end()
 
+      // size update
                 if (!isset($_POST['size'])) {
                     if ($cache_type == GeoCache::TYPE_VIRTUAL || $cache_type == GeoCache::TYPE_WEBCAM ||
                             $cache_type == GeoCache::TYPE_EVENT) {
@@ -228,6 +233,7 @@ if ($error == false) {
                 $search_time = isset($_POST['search_time']) ? $_POST['search_time'] : $cache_record['search_time'];
                 $way_length = isset($_POST['way_length']) ? $_POST['way_length'] : $cache_record['way_length'];
 
+       // status update
                 if ($status_old == GeoCache::STATUS_NOTYETAVAILABLE &&
                         $status == GeoCache::STATUS_NOTYETAVAILABLE) {
                     if (isset($_POST['publish'])) {
@@ -1027,13 +1033,13 @@ if ($error == false) {
                                 $tmpline1 = mb_ereg_replace('{stagehide_start}', '<!--', $tmpline1);
                             }
 
-                            if ($wp_record['status'] == GeoCache::STATUS_READY) {
+                            if ($wp_record['status'] == Waypoint::STATUS_VISIBLE) {
                                 $status_icon = "images/free_icons/accept.png";
                             }
-                            if ($wp_record['status'] == GeoCache::STATUS_UNAVAILABLE) {
+                            if ($wp_record['status'] == Waypoint::STATUS_VISIBLE_HIDDEN_COORDS) {
                                 $status_icon = "images/free_icons/error.png";
                             }
-                            if ($wp_record['status'] == GeoCache::STATUS_ARCHIVED) {
+                            if ($wp_record['status'] == Waypoint::STATUS_HIDDEN) {
                                 $status_icon = "images/free_icons/stop.png";
                             }
                             $tmpline1 = mb_ereg_replace('{status}', $status_icon, $tmpline1);

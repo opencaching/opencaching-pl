@@ -51,6 +51,17 @@ class CacheLocation extends BaseObject{
         return $this->location->getDescription($separator);
     }
 
+    public function getCountryCode()
+    {
+        return $this->location->getCode(NutsLocation::LEVEL_COUNTRY);
+    }
+
+    public function getRegionCode()
+    {
+        // TODO:...
+        return $this->location->getCode(NutsLocation::LEVEL_COUNTRY);
+    }
+
     /**
      * Save (or update) current object to DB
      */
