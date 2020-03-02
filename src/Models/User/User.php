@@ -977,4 +977,36 @@ class User extends UserCommons
         }
     }
 
+
+    /**
+     * Returns array with statPicText and statPicLogo
+     *
+     * @return array
+     */
+    public function getStatPicDataArr()
+    {
+        $row = $this->db->dbResultFetchOneRowOnly(
+            $this->db->multiVariableQuery(
+                "SELECT statpic_text, statpic_logo FROM user WHERE user_id=:1 LIMIT 1",
+                $this->getUserId()));
+
+        return [$row['statpic_text'],$row['statpic_logo']];
+    }
+
+    /**
+     * Update user statPic
+     * (small banner with user statistics)
+     *
+     * @param int    $statPicLogo
+     * @param string $statPicText
+     */
+    public function changeStatPic($statPicLogo, $statPicText)
+    {
+        $this->db->multiVariableQuery (
+            "UPDATE user SET statpic_text=:1, statpic_logo=:2 WHERE user_id=:3 ",
+            $statPicText, $statPicLogo, $this->getUserId());
+
+        // delete previous statPic for the user
+        User::deleteStatpic($this->getUserId());
+    }
 }

@@ -3,6 +3,7 @@ use src\Utils\Database\XDb;
 use src\Utils\Text\Formatter;
 use src\Utils\Text\Validator;
 use src\Models\OcConfig\OcConfig;
+use src\Utils\Uri\Uri;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
@@ -50,7 +51,7 @@ if ($usr == false) {
     }
     tpl_set_var('userid', (int) $usr['userid']);
     tpl_set_var('profileurl', $absolute_server_URI . 'viewprofile.php?userid=' . ($usr['userid'] + 0));
-    tpl_set_var('statlink', $absolute_server_URI . 'statpics/' . ($usr['userid'] + 0) . '.jpg');
+    tpl_set_var('statlink', Uri::getAbsUri('/stats/statPic/'.$usr['userid']));
     tpl_set_var('username', htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8'));
     tpl_set_var('username_html', htmlspecialchars(htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8'), ENT_COMPAT, 'UTF-8'));
     tpl_set_var('email', htmlspecialchars($record['email'], ENT_COMPAT, 'UTF-8'));

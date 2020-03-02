@@ -25,7 +25,9 @@ RewriteRule ^search\.(gpx|kml|loc|ov2|ovl|txt|wpt|uam|xml|zip|ggz)$  /search.php
 RewriteRule ^ocpl(\d+)\.(gpx|kml|loc|ov2|ovl|txt|wpt|uam|xml|zip|ggz|jsoncodes)$  /search.php?queryid=$1&output=$2&%{QUERY_STRING} [L,NC]
 RewriteRule ^ocplgpx(\d+)\.(gpx)$  /search.php?queryid=$1&output=gpxgc&%{QUERY_STRING} [L,NC]
 
-RewriteRule ^statpics/([0-9]+)\.jpg$  /ocstats.php?userid=$1 [R,L]
+# statPic - used for backward compatibility
+RewriteRule ^statpics/([0-9]+)\.jpg$  /stats/statPic/$1 [R,L]
+
 
 # redirect requests like /OP123F to viewcache page 
 RewriteRule ^(O[A-Z][0-9A-Z][0-9A-Z][0-9A-Z][0-9A-Z])$  /viewcache.php?wp=$1 [R=301,L,NC]

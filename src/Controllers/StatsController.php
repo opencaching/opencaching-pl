@@ -6,15 +6,14 @@ namespace src\Controllers;
 use src\Utils\DateTime\Year;
 use src\Models\User\MultiUserQueries;
 use src\Models\GeoCache\MultiCacheStats;
+use src\Models\Pictures\StatPic;
+use src\Models\User\User;
 
 class StatsController extends BaseController
 {
     public function __construct()
     {
         parent::__construct();
-        if (!$this->isUserLogged()) {
-           $this->redirectNotLoggedUsers();
-        }
     }
 
     public function isCallableFromRouter($actionName)
@@ -27,6 +26,9 @@ class StatsController extends BaseController
 
     public function internalStats($year=null)
     {
+        // only for logged users
+        $this->redirectNotLoggedUsers();
+
         if (!$this->loggedUser->hasAdvUserRole()) {
             $this->index();
             exit;
@@ -46,8 +48,6 @@ class StatsController extends BaseController
         }
         $this->view->setVar('allNewUsersPerMonth', $allUsers);
 
-
-
         $allUsers = MultiUserQueries::getCountOfNewUsers($year, true);
         $allUsers['sum'] = 0;
         foreach ($allUsers as $value) {
@@ -62,17 +62,30 @@ class StatsController extends BaseController
         }
         $this->view->setVar('newCachesPerMonth', $allCaches);
 
-
-
-
         $this->view->buildView();
-
-
-
-
     }
 
+    /**
+     * Redirect to user statPic banner
+     * Banner will be created if necessary
+     *
+     * @param integer $userId
+     */
+    public function statPic($userId)
+    {
+        if (!is_numeric($userId)) {
+            $this->displayCommonErrorPageAndExit("improper userId");
+        }
 
+        if (1 || !StatPic::isStatPicPresent ($userId)) { //XXXY
+            $user = User::fromUserIdFactory($userId);
+            if (is_null($user)) {
+                $this->displayCommonErrorPageAndExit('Unknown user');
+            }
 
+            StatPic::generateStatPic($user);
+        }
 
+        $this->view->redirect(StatPic::getStatPicUrl($userId));
+    }
 }

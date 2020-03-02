@@ -9,7 +9,7 @@ use src\Utils\Uri\SimpleRouter;
     <a class="btn btn-success btn-sm" href="/myprofile.php?action=change">{{change_data}}</a>
     <a class="btn btn-default btn-sm" href="/newemail.php">{{change_email}}</a>
     <a class="btn btn-default btn-sm" href="<?=SimpleRouter::getLink('UserAuthorization', 'newPassword')?>">{{change_password}}</a>
-    <a class="btn btn-default btn-sm" href="/change_statpic.php">{{choose_statpic}}</a>
+    <a class="btn btn-default btn-sm" href="/userProfile/changeStatPic">{{choose_statpic}}</a>
     <a class="btn btn-default btn-sm" href="<?=SimpleRouter::getLink('UserProfile', 'notifySettings')?>">{{settings_notifications}}</a>
   </div>
 
@@ -88,7 +88,7 @@ use src\Utils\Uri\SimpleRouter;
     </tr>
     <tr>
       <td class="content-title-noshade" style="vertical-align:top;"><img src="images/free_icons/chart_bar.png" class="icon16" alt="" align="middle">&nbsp;{{statpic_label}}:</td>
-      <td><img src="statpics/{userid}.jpg" align="middle" alt=""></td>
+      <td><img src="stats/statPic/{userid}" align="middle" alt=""></td>
     </tr>
     <tr>
       <td class="buffer" colspan="2"></td>
