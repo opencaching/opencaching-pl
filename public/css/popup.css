@@ -33,7 +33,7 @@ a:hover {
 {
     padding-left:1ex;
     font-size:small;
-    letter-spacing:0px;
+    letter-spacing:0;
     line-height:3ex;
     vertical-align:top;
 }
@@ -129,10 +129,9 @@ td {
 }
 
 
-table.null {        margin: 0px; border-spacing: 0px; border-width: 0px; border-style: solid;
-                    padding-left: 0px; padding-right: 0px;
-                    padding-top: 0px; padding-bottom: 0px;
-                    width: 100%; }
+table.null {        margin: 0; border-spacing: 0; border-width: 0; border-style: solid;
+    padding: 0;
+    width: 100%; }
 
 
 /* styles for main content-table with new layout */
@@ -140,10 +139,7 @@ table.content {
     background-color:#E9E9E9;
     width:100%;
     font-size:small;
-    padding-left: 0px;
-    padding-right: 0px;
-    padding-top: 0px;
-    padding-bottom: 0px;
+    padding: 0;
     border-spacing: 0;}
 
 td.spacer {         height:5px; }
@@ -161,7 +157,7 @@ td.header
     height:32px;
     vertical-align:bottom;
     padding-left:5px; padding-right:5px;
-    border: 0px;
+    border: 0;
 }
 
 td.header-small {   background-color:#E6E2E6;
@@ -218,7 +214,7 @@ input {             border:1px solid black;
 
 input.checkbox {    width:12px; height:12px; font-size:12px; border:0; }
 
-input.radio {       border:0px;
+input.radio {       border:0;
                     width:14px; height:14px; font-size:12px; }
 
 textarea {          border:1px solid black;
@@ -237,7 +233,7 @@ textarea.hint {
 textarea.logs {     width:600px; height:300px; }    /* only log_editor */
 
 
-select {            border:0px;
+select {            border:0;
                     background-color:white;
                     padding:1px;
                     font-size:11px; }
@@ -246,7 +242,7 @@ select {            border:0px;
 input.formbuttons { background-color:white;
                     width:120px;
                     border:1px solid black;
-                    padding:0px; }
+                    padding:0; }
 
 .chbox {    width:15px; height:15px; font-size:12px; border:0; background-color: transparent; margin: 2px 2px 2px 2px;}
 
