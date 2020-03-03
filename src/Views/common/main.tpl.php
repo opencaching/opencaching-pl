@@ -34,9 +34,11 @@ global $tpl_subtitle;
   <link rel="stylesheet" type="text/css" href="/css/typography.css">
 
   <?php if ($view->_showVideoBanner) {
-    foreach($view->_topBannerVideo as $videoPath) { ?>
+    foreach($view->_topBannerVideo as $key => $videoPath) {
+        if ($key !== 0) { ?>
       <link rel="prefetch" href="<?=$videoPath?>">
     <?php }
+    }
   } ?>
 
   <?php foreach( $view->getLocalCss() as $css ) { ?>
