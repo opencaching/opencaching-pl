@@ -1,4 +1,5 @@
 <?php
+
 namespace src\Models\Coordinates;
 
 /**
@@ -20,10 +21,8 @@ class Coordinates
 
     /**
      * Default format from system setting
-     *
-     * @var string
-     */
-    private $defaultFormat = self::COORDINATES_FORMAT_DEG_MIN;
+     **/
+    const COORDINATES_FORMAT_DEFAULT = self::COORDINATES_FORMAT_DEG_MIN;
 
     /**
      * decimal degrees: 40.446321° N 79.982321° W
@@ -57,7 +56,7 @@ class Coordinates
     {
         if (isset($params['dbRow'])) {
             $this->loadFromDb($params['dbRow']);
-        } elseif ($params['okapiRow']) {
+        } elseif (isset($params['okapiRow'])) {
             $this->loadFromOkapi($params['okapiRow']);
         }
     }
@@ -67,7 +66,7 @@ class Coordinates
         $coords = new Coordinates();
         $coords->setLatitude($lat);
         $coords->setLongitude($lon);
-        if(!$coords->areCordsReasonable()){
+        if (!$coords->areCordsReasonable()) {
             return null;
         }
 
@@ -83,8 +82,8 @@ class Coordinates
     public function loadFromDb($dbRow)
     {
         if (isset($dbRow['latitude'], $dbRow['longitude'])) {
-            $this->latitude = (float) $dbRow['latitude'];
-            $this->longitude = (float) $dbRow['longitude'];
+            $this->latitude = (float)$dbRow['latitude'];
+            $this->longitude = (float)$dbRow['longitude'];
         } else {
             // at least one cord is NULL => improper cords
             $this->latitude = null;
@@ -95,38 +94,32 @@ class Coordinates
     /**
      * Load this class data based on data from OKAPI
      *
-     * @param array $okapiLocation
+     * @param string $okapiLocation
      */
     public function loadFromOkapi($okapiLocation)
     {
         list ($lat, $lon) = explode("|", $okapiLocation);
-        $this->latitude = (float) $lat;
-        $this->longitude = (float) $lon;
+        $this->latitude = (float)$lat;
+        $this->longitude = (float)$lon;
     }
 
     /**
      * returns latitude as string.
-     * Result is in format selecdted by param $format. If param $format is not given, result is in default format.
+     * Result is in format selected by param $format. If param $format is not given, result is in default format.
      *
-     * @param integer $format
+     * @param int $format
      *            (optional) must be one of this class constants: COORDINATES_FORMAT_DECIMAL or COORDINATES_FORMAT_DEG_MIN or COORDINATES_FORMAT_DEG_MIN_SEC
      * @return string example of use:
      *         $latitude = $coordinates->getLatitudeString(Coordinates::COORDINATES_FORMAT_DEG_MIN);
      *
      *         example of use:
      *         $latitude = $coordinates->getLatitudeString();
-     *
      */
-    public function getLatitudeString($format = false)
+    public function getLatitudeString($format = self::COORDINATES_FORMAT_DEFAULT)
     {
-        if(is_null($this->latitude)) {
+        if (is_null($this->latitude)) {
             return null;
         }
-
-        if ($format === false) { /* pick defaut format */
-            $format = $this->defaultFormat;
-        }
-
 
         $prefix = $this->getLatitudeHemisphereSymbol() . '&nbsp;';
         switch ($format) {
@@ -136,14 +129,16 @@ class Coordinates
                 return $prefix . $this->convertToDegMin(abs($this->latitude));
             case self::COORDINATES_FORMAT_DEG_MIN_SEC:
                 return $prefix . $this->convertToDegMinSec(abs($this->latitude));
+            default:
+                return '';
         }
     }
 
     /**
      * returns latitude as string.
-     * Result is in format selecdted by param $format. If param $format is not given, result is in default format.
+     * Result is in format selected by param $format. If param $format is not given, result is in default format.
      *
-     * @param integer $format
+     * @param int $format
      *            (optional) must be one of this class constants:
      *            COORDINATES_FORMAT_DECIMAL or COORDINATES_FORMAT_DEG_MIN or COORDINATES_FORMAT_DEG_MIN_SEC
      *
@@ -154,16 +149,11 @@ class Coordinates
      *
      *         example of use:
      *         $latitude = $coordinates->getLatitudeString();
-     *
      */
-    public function getLongitudeString($format = false)
+    public function getLongitudeString($format = self::COORDINATES_FORMAT_DEFAULT)
     {
-        if( is_null($this->longitude) ){
+        if (is_null($this->longitude)) {
             return null;
-        }
-
-        if ($format === false) { /* pick defaut format */
-            $format = $this->defaultFormat;
         }
         $prefix = $this->getLongitudeHemisphereSymbol() . '&nbsp;';
         switch ($format) {
@@ -173,6 +163,8 @@ class Coordinates
                 return $prefix . $this->convertToDegMin(abs($this->longitude));
             case self::COORDINATES_FORMAT_DEG_MIN_SEC:
                 return $prefix . $this->convertToDegMinSec(abs($this->longitude));
+            default:
+                return '';
         }
     }
 
@@ -188,14 +180,11 @@ class Coordinates
 
     /**
      * returns parts of the coordinate according to given format
+     * @param int $format
      * @return array()
      */
-    public function getLongitudeParts($format = false)
+    public function getLongitudeParts($format = self::COORDINATES_FORMAT_DEFAULT)
     {
-        if ($format === false) { /* pick defaut format */
-            $format = $this->defaultFormat;
-        }
-
         $prefix = $this->getLongitudeHemisphereSymbol();
 
         list($deg, $min, $sec) = $this->getParts($this->longitude);
@@ -206,14 +195,11 @@ class Coordinates
 
     /**
      * returns parts of the coordinate according to given format
+     * @param int $format
      * @return array()
      */
-    public function getLatitudeParts($format = false)
+    public function getLatitudeParts($format = self::COORDINATES_FORMAT_DEFAULT)
     {
-        if ($format === false) { /* pick defaut format */
-            $format = $this->defaultFormat;
-        }
-
         $prefix = $this->getLatitudeHemisphereSymbol();
 
         list($deg, $min, $sec) = $this->getParts($this->latitude);
@@ -226,13 +212,15 @@ class Coordinates
     {
         switch ($format) {
             case self::COORDINATES_FORMAT_DECIMAL:
-                return array($prefix, sprintf("%02d",$deg));
+                return array($prefix, sprintf("%02d", $deg));
 
             case self::COORDINATES_FORMAT_DEG_MIN:
-                return array($prefix, sprintf("%02d",floor($deg)), sprintf("%06.3f",$min));
+                return array($prefix, sprintf("%02d", floor($deg)), sprintf("%06.3f", $min));
 
             case self::COORDINATES_FORMAT_DEG_MIN_SEC:
-                return array($prefix, sprintf("%02d",floor($deg)), sprintf("%02d",floor($min)), sprintf("%03d",$sec));
+                return array($prefix, sprintf("%02d", floor($deg)), sprintf("%02d", floor($min)), sprintf("%03d", $sec));
+            default:
+                return '';
         }
     }
 
@@ -243,7 +231,7 @@ class Coordinates
     public function areCordsReasonable()
     {
         return ($this->latitude >= -90 && $this->latitude <= 90 &&
-                $this->longitude >= -180 && $this->longitude <= 180);
+            $this->longitude >= -180 && $this->longitude <= 180);
     }
 
     /**
@@ -270,13 +258,17 @@ class Coordinates
 
     /**
      * Returns coordinates string to display
+     * @param bool $format
+     * @return string
      */
-    public function getAsText($format = false){
-        return $this->getLatitudeString($format).' '.$this->getLongitudeString($format);
+    public function getAsText($format = false)
+    {
+        return $this->getLatitudeString($format) . ' ' . $this->getLongitudeString($format);
     }
 
-    public function getAsOpenLayersFormat(){
-        return '{ lat:'.$this->getLatitude().', lon:'.$this->getLongitude().' }';
+    public function getAsOpenLayersFormat()
+    {
+        return '{ lat:' . $this->getLatitude() . ', lon:' . $this->getLongitude() . ' }';
     }
 
     /**
@@ -285,20 +277,21 @@ class Coordinates
      * @param Coordinates $coords
      * @return boolean
      */
-    public function areSameAs(Coordinates $coords){
+    public function areSameAs(Coordinates $coords)
+    {
 
         $latA = $this->getLatitudeParts();
         $latB = $coords->getLatitudeParts();
-        foreach($latA as $key=>$part){
-            if($latA[$key] != $latB[$key]){
+        foreach ($latA as $key => $part) {
+            if ($latA[$key] != $latB[$key]) {
                 return false;
             }
         }
 
         $lotA = $this->getLongitudeParts();
         $lotB = $coords->getLongitudeParts();
-        foreach($lotA as $key=>$part){
-            if($lotA[$key] != $lotB[$key]){
+        foreach ($lotA as $key => $part) {
+            if ($lotA[$key] != $lotB[$key]) {
                 return false;
             }
         }
@@ -357,6 +350,8 @@ class Coordinates
     }
 
     /**
+     * @param $lon
+     * @return string
      * @deprecated
      *
      * This is old-school method moved from common.inc.php
@@ -364,9 +359,9 @@ class Coordinates
      *
      * decimal longitude to string E/W hhh°mm.mmm
      *
-     * @param unknown $lon
      */
-    public static function donNotUse_lonToDegreeStr ($lon) {
+    public static function donNotUse_lonToDegreeStr($lon)
+    {
         if ($lon < 0) {
             $retval = 'W ';
             $lon = -$lon;
@@ -382,16 +377,17 @@ class Coordinates
     }
 
     /**
+     * @param $lat
+     * @return string
      * @deprecated
      *
      * This is old-school method moved from common.inc.php
      * It will be removed - DO NOT USE IT!
      *
      * decimal latitude to string N/S hh°mm.mmm
-     *
-     * @param unknown $lon
      */
-    public static function donNotUse_latToDegreeStr ($lat) {
+    public static function donNotUse_latToDegreeStr($lat)
+    {
         if ($lat < 0) {
             $retval = 'S ';
             $lat = -$lat;
