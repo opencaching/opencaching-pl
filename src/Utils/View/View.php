@@ -233,15 +233,7 @@ class View {
 
     public function getSeasonCssName()
     {
-
-        $season = Year::GetSeasonName();
-        switch ($season) { //validate - for sure :)
-            case 'spring':
-            case 'winter':
-            case 'autumn':
-            case 'summer':
-                return $season;
-        }
+        return Year::GetSeasonName();
     }
 
     public function getLang()
@@ -328,6 +320,7 @@ class View {
     public function addLocalCss($css_url)
     {
         $this->_localCss[] = $css_url;
+        $this->_localCss = array_unique($this->_localCss);
     }
 
     public function getLocalCss()
@@ -348,6 +341,7 @@ class View {
             'async' => $async,
             'defer' => $defer
         ];
+        $this->_localJs = array_unique($this->_localJs, SORT_REGULAR);
     }
 
     public function getLocalJs()
@@ -356,7 +350,7 @@ class View {
     }
 
     /**
-     * Add chunk which shold be called in page header
+     * Add chunk which should be called in page header
      *
      * @param string $chunkName - chunk name
      * @param array $args - array of chunk arguments
