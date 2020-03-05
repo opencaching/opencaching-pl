@@ -24,8 +24,8 @@ use src\Utils\View\View;
  * $view->callChunk('listOfCaches/listOfCaches', $model);
  *
  */
-
-class ListOfCachesModel {
+class ListOfCachesModel
+{
 
     private $columns = [];
     private $rows = [];
@@ -34,37 +34,63 @@ class ListOfCachesModel {
     private $displayHeader = true;
     private $emptyListMessage = null;
 
-    public function disableHeader(){
+    public function disableHeader()
+    {
         $this->displayHeader = false;
     }
 
-    public function addColumn(AbstractColumn $column){
+    /**
+     * @param AbstractColumn $column
+     * @return ListOfCachesModel
+     */
+    public function addColumn(AbstractColumn $column)
+    {
         $this->columns[] = $column;
+
+        return $this;
     }
 
-    public function getColumns(){
+    public function getColumns()
+    {
         return $this->columns;
     }
 
-    public function addDataRows(array $rows){
+    /**
+     * @param array $rows
+     * @return ListOfCachesModel
+     */
+    public function addDataRows(array $rows)
+    {
         $this->rows = $rows;
+
+        return $this;
     }
 
-    public function getRows(){
+    public function getRows()
+    {
         return $this->rows;
     }
 
-    public function setPaginationModel(PaginationModel &$paginationModel){
+    /**
+     * @param PaginationModel $paginationModel
+     * @return ListOfCachesModel
+     */
+    public function setPaginationModel(PaginationModel &$paginationModel)
+    {
         $this->paginationModel = $paginationModel;
+
+        return $this;
     }
 
-    public function callPaginationChunk(){
-        if($this->paginationModel){
+    public function callPaginationChunk()
+    {
+        if ($this->paginationModel) {
             View::callChunkInline('pagination', $this->paginationModel);
         }
     }
 
-    public function isHeaderEnabled(){
+    public function isHeaderEnabled()
+    {
         return $this->displayHeader;
     }
 
@@ -75,7 +101,7 @@ class ListOfCachesModel {
 
     public function getEmptyListMessage()
     {
-        if($this->emptyListMessage) {
+        if ($this->emptyListMessage) {
             return $this->emptyListMessage;
         }
         return tr('listOfCaches_defaultNoRowsMessage');
