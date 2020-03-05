@@ -1,13 +1,12 @@
 <?php
 
-use src\Utils\View\View;
-use src\Utils\Uri\Uri;
-use src\Utils\I18n\I18n;
 use src\Controllers\PageLayout\MainLayoutController;
-use src\Utils\Uri\OcCookie;
+use src\Utils\Uri\Uri;
+use src\Utils\View\View;
 
 //set the global template-name variable
-function tpl_set_tplname($local_tpl_name){
+function tpl_set_tplname($local_tpl_name)
+{
     global $tplname;
     $tplname = $local_tpl_name;
 }
@@ -24,6 +23,9 @@ function tpl_set_var($name, $value, $no_eval = true)
     $no_eval_vars[$name] = $no_eval;
 }
 
+/*
+    UNUSED
+
 //get a template replacement, otherwise false
 function tpl_get_var($name)
 {
@@ -34,7 +36,7 @@ function tpl_get_var($name)
     } else {
         return false;
     }
-}
+}*/
 
 
 //redirect to another site to display, i.e. to view a cache after logging
@@ -103,7 +105,6 @@ function tpl_do_replace($str, $noeval = false)
     }
 
 
-
     return $str;
 }
 
@@ -121,14 +122,15 @@ function tpl_errorMsg($tplnameError, $msg)
 
 
 //TODO: this is temporary solution for backward compatibility
-// $view will be a context variable in further implementaion
+// $view will be a context variable in further implementation
 /**
  * @return View
  */
-function tpl_getView(){
+function tpl_getView()
+{
 
     global $view;
-    if(!$view) {
+    if (!$view) {
         $view = new View();
     }
 
@@ -136,23 +138,18 @@ function tpl_getView(){
 }
 
 // TODO: set PHP var which can be accessed inside tpl file
-function setViewVar($name, $value){
+function setViewVar($name, $value)
+{
 
     global $view;
     $view->setVar($name, $value);
 }
 
-function set_tpl_subtitle($title)
-{
-    global $tpl_subtitle;
-    $tpl_subtitle = $title;
-}
-
 //read the templates and echo it to the user
-function tpl_BuildTemplate($minitpl = false, $noCommonTemplate=false)
+function tpl_BuildTemplate($minitpl = false, $noCommonTemplate = false)
 {
     //template handling vars
-    global $tplname, $vars, $config, $usr;
+    global $tplname;
 
     // object
     /** @var View $view */
@@ -166,15 +163,15 @@ function tpl_BuildTemplate($minitpl = false, $noCommonTemplate=false)
 
     //load main template
     if ($minitpl) {
-        $sCode = file_get_contents(__DIR__.'/../src/Views/common/mini.tpl.php');
+        $sCode = file_get_contents(__DIR__ . '/../src/Views/common/mini.tpl.php');
     } else if ($noCommonTemplate) {
         $sCode = '{template}';
     } else if (isset($_REQUEST['print']) && $_REQUEST['print'] == 'y') {
-        $sCode = file_get_contents(__DIR__.'/../src/Views/common/main_print.tpl.php');
+        $sCode = file_get_contents(__DIR__ . '/../src/Views/common/main_print.tpl.php');
     } else if (isset($_REQUEST['popup']) && $_REQUEST['popup'] == 'y') {
-        $sCode = file_get_contents(__DIR__.'/../src/Views/common/popup.tpl.php');
+        $sCode = file_get_contents(__DIR__ . '/../src/Views/common/popup.tpl.php');
     } else {
-        $sCode = file_get_contents(__DIR__.'/../src/Views/common/main.tpl.php');
+        $sCode = file_get_contents(__DIR__ . '/../src/Views/common/main.tpl.php');
     }
 
     //global css files:
@@ -183,7 +180,7 @@ function tpl_BuildTemplate($minitpl = false, $noCommonTemplate=false)
     $view->setVar('backgroundSeason', $view->getSeasonCssName());
 
     //does template exist?
-    if (!file_exists(__DIR__.'/../src/Views/' . $tplname . '.tpl.php')) {
+    if (!file_exists(__DIR__ . '/../src/Views/' . $tplname . '.tpl.php')) {
         //set up the error template
         tpl_set_var('error_msg', tr('page_not_found'));
         tpl_set_var('tplname', $tplname);
@@ -191,7 +188,7 @@ function tpl_BuildTemplate($minitpl = false, $noCommonTemplate=false)
     }
 
     //read the template
-    $sTemplate = file_get_contents(__DIR__.'/../src/Views/' . $tplname . '.tpl.php');
+    $sTemplate = file_get_contents(__DIR__ . '/../src/Views/' . $tplname . '.tpl.php');
     $sCode = mb_ereg_replace('{template}', $sTemplate, $sCode);
 
 
@@ -208,7 +205,7 @@ function tpl_BuildTemplate($minitpl = false, $noCommonTemplate=false)
 
     //run the template code
     $v = $view; // $v is tpl alias to $view
-    eval('?>'.$sCode);
+    eval('?>' . $sCode);
 }
 
 function http_write_no_cache()

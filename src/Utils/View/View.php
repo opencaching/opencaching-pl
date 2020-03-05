@@ -17,6 +17,7 @@ class View {
     //NOTE: local View vars should be prefixed by "_"
 
     private $_template = null;              // template used by current view
+    private $_subtitle = '';                // Page subtitle
 
     private $_googleAnalyticsKey = '';      // GA key loaded from config
 
@@ -456,5 +457,25 @@ class View {
     public function isRedirectToMainPageAfterLogin()
     {
         return $this->_redirectToMainPageAfterLogin;
+    }
+
+    /**
+     * Set subtitle of the page
+     *
+     * @param string $subtitle
+     * @return View
+     */
+    public function setSubtitle($subtitle)
+    {
+        $this->_subtitle = $subtitle;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSubtitle()
+    {
+        return $this->_subtitle;
     }
 }

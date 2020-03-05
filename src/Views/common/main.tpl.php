@@ -1,10 +1,7 @@
 <?php
 
-use src\Utils\Debug\Debug;
 use src\Utils\Uri\SimpleRouter as SRouter;
 use src\Models\OcConfig\OcConfig;
-
-global $tpl_subtitle;
 
 ?>
 <!DOCTYPE html>
@@ -12,7 +9,7 @@ global $tpl_subtitle;
 <head>
   <meta charset="utf-8">
 
-  <title><?=$tpl_subtitle?>{title}</title>
+  <title><?=$view->getSubtitle()?>{title}</title>
 
   <link rel="shortcut icon" href="<?=OcConfig::getSiteMainViewIcon('shortcutIcon')?>">
   <link rel="apple-touch-icon" sizes="180x180" href="<?=OcConfig::getSiteMainViewIcon('appleTouch')?>">

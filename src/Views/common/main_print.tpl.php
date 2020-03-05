@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="<?=$view->getLang()?>">
 <head>
-  <title><?php echo isset($tpl_subtitle) ? $tpl_subtitle : ''; ?>{title}</title>
+  <title><?=$view->getSubtitle()?>{title}</title>
   <meta charset="UTF-8">
   <link rel="stylesheet" type="text/css" media="print" href="<?=$view->printCss?>">
   <?php foreach( $view->getLocalCss() as $css ) { ?>
@@ -26,7 +26,7 @@
   ?>
 
 </head>
-<body{bodyMod}>
+<body {bodyMod}>
   {template}
 </body>
 </html>
