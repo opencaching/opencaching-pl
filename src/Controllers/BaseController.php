@@ -15,7 +15,7 @@ abstract class BaseController
     const HTTP_STATUS_OK = 200;
 
     const HTTP_STATUS_BAD_REQUEST = 400;
-    const HTTP_STATUS_FORBIDEN = 403;
+    const HTTP_STATUS_FORBIDDEN = 403;
     const HTTP_STATUS_NOT_FOUND = 404;
     const HTTP_STATUS_CONFLICT = 409;
 
@@ -49,7 +49,7 @@ abstract class BaseController
     /** @var OcConfig $ocConfig */
     protected $ocConfig = null;
 
-    protected function __construct()
+    public function __construct()
     {
         $this->view = tpl_getView();
 

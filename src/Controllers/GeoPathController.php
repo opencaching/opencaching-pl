@@ -113,7 +113,7 @@ class GeoPathController extends BaseController
         }
 
         if(!$geoPath->isOwner($this->loggedUser)){
-            $this->ajaxErrorResponse("Logged user is not a geopath owner!", self::HTTP_STATUS_FORBIDEN);
+            $this->ajaxErrorResponse("Logged user is not a geopath owner!", self::HTTP_STATUS_FORBIDDEN);
         }
 
         $cache = GeoCache::fromCacheIdFactory($cacheId);
@@ -153,7 +153,7 @@ class GeoPathController extends BaseController
         if(!$this->loggedUser->hasOcTeamRole()){
             $this->ajaxErrorResponse(
                 "Logged user is not allowed to removed caches from geoPath!",
-                self::HTTP_STATUS_FORBIDEN);
+                self::HTTP_STATUS_FORBIDDEN);
         }
 
         $cache = GeoCache::fromCacheIdFactory($cacheId);
@@ -192,7 +192,7 @@ class GeoPathController extends BaseController
         }
 
         if(!$geoPath->isOwner($this->loggedUser)){
-            $this->ajaxErrorResponse("Logged user is not a geopath owner!", self::HTTP_STATUS_FORBIDEN);
+            $this->ajaxErrorResponse("Logged user is not a geopath owner!", self::HTTP_STATUS_FORBIDDEN);
         }
 
         $cache = GeoCache::fromCacheIdFactory($cacheId);
@@ -257,7 +257,7 @@ class GeoPathController extends BaseController
         }
 
         if(!$geoPath->isOwner($this->loggedUser)){
-            $this->ajaxErrorResponse("Logged user is not a geopath owner!", self::HTTP_STATUS_FORBIDEN);
+            $this->ajaxErrorResponse("Logged user is not a geopath owner!", self::HTTP_STATUS_FORBIDDEN);
         }
 
         // recalculate Center adn Points
