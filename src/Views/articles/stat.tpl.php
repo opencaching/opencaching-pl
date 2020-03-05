@@ -62,8 +62,11 @@
       <ul class="indent tick">
         <li><a class="links" href="articles.php?page=s4">{{cache_ranking_by_number_of_finds}}</a></li>
         <li><a class="links" href="articles.php?page=s11a">{{cache_ranking_by_finds_per_region}}</a></li>
-          <?php  if ($usr !== false) { ?>
-              <li><a class="links" href="<?= \src\Utils\Uri\SimpleRouter::getLink('Cache', 'recommended') ?>"> {{cache_ranking_by_number_of_recommendations}}</a></li>
+          <?php
+          use src\Controllers\CacheController;
+
+          if ($usr !== false) { ?>
+              <li><a class="links" href="<?= \src\Utils\Uri\SimpleRouter::getLink(CacheController::class, 'recommended') ?>"> {{cache_ranking_by_number_of_recommendations}}</a></li>
           <?php } ?>
         <li><a class="links" href="articles.php?page=s5">{{cache_ranking_by_calculated_indicator}}</a></li>
       </ul>

@@ -1,3 +1,8 @@
+<?php
+
+use src\Controllers\CacheController;
+
+?>
 <div class="content2-container">
 
     <div class="content2-pagetitle">
@@ -5,7 +10,7 @@
         <a href="/rss/newcaches.xml">
             <img src="/images/misc/rss.svg" class="icon16" alt="RSS icon">
         </a>
-        <a href="<?= \src\Utils\Uri\SimpleRouter::getLink('Cache', 'newForeignCaches') ?>" class="btn btn-sm btn-default float-right">
+        <a href="<?= \src\Utils\Uri\SimpleRouter::getLink(CacheController::class, 'newForeignCaches') ?>" class="btn btn-sm btn-default float-right">
             <?= tr('abroad_caches') ?>
         </a>
     </div>
