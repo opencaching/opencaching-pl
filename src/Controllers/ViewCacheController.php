@@ -2,6 +2,7 @@
 
 namespace src\Controllers;
 
+use powerTrailBase;
 use src\Utils\Gis\Gis;
 use src\Utils\Log\CacheAccessLog;
 use src\Utils\Text\Rot13;
@@ -19,6 +20,7 @@ use src\Utils\Text\UserInputFilter;
 use src\Utils\Uri\SimpleRouter;
 use src\Utils\Map\StaticMap;
 use src\Models\OcConfig\OcConfig;
+use stdClass;
 
 class ViewCacheController extends BaseController
 {
@@ -26,15 +28,16 @@ class ViewCacheController extends BaseController
     private $geocache = null;
     private $cache_id;
 
+    /** @var Coordinates|null */
     private $userModifiedCacheCoords = null;
 
     private $infoMsg = null;
     private $errorMsg = null;
 
-    public function __construct()
-    {
-        parent::__construct();
-    }
+    /**
+     * @var GeoCacheDesc
+     */
+    private $geoCacheDesc;
 
     public function isCallableFromRouter($actionName)
     {
@@ -179,8 +182,8 @@ class ViewCacheController extends BaseController
         $this->view->setVar('alwaysShowCoords', !$hide_coords);
         $this->view->setVar('cachename', htmlspecialchars($this->geocache->getCacheName()));
 
-        $this->view->setVar('diffTitle', tr('task_difficulty').': '.$this->geocache->getDifficulty()/2) . ' ' .tr('out_of') . ' ' . '5.0';
-        $this->view->setVar('terrainTitle', tr('terrain_difficulty').': '.$this->geocache->getTerrain()/2) . ' ' .tr('out_of') . ' ' . '5.0';
+        $this->view->setVar('diffTitle', tr('task_difficulty').': '.$this->geocache->getDifficulty()/2 . ' ' .tr('out_of') . ' ' . '5.0');
+        $this->view->setVar('terrainTitle', tr('terrain_difficulty').': '.$this->geocache->getTerrain()/2 . ' ' .tr('out_of') . ' ' . '5.0');
         $this->view->setVar('cacheMainIcon',$this->geocache->getCacheIcon($this->loggedUser));
 
         tpl_set_var('altitude', $this->geocache->getAltitude());
@@ -239,6 +242,8 @@ class ViewCacheController extends BaseController
 
     /**
      * This function returns the map tile with marker on given coords - used only for viewcache
+     * @param $lat
+     * @param $lon
      */
     public function getStaticMapImage($lat, $lon)
     {
@@ -253,7 +258,7 @@ class ViewCacheController extends BaseController
         $mapType = $config['maps']['cache_page_map']['layer'];
         $size = [170, 170];
 
-        return StaticMap::displayMapWithMarkerAtCenter($coords, $zoom, $size, $mapType);
+        StaticMap::displayMapWithMarkerAtCenter($coords, $zoom, $size, $mapType);
     }
 
     private function processMeritBadgePopUp()
@@ -308,8 +313,8 @@ class ViewCacheController extends BaseController
 
         if ($powerTrailModuleSwitchOn && $this->cache_id != null) {
             $geoPathsList = [];
-            foreach (\powerTrailBase::checkForPowerTrailByCache($this->cache_id) as $pt) {
-                $geoPath = new \stdClass();
+            foreach (powerTrailBase::checkForPowerTrailByCache($this->cache_id) as $pt) {
+                $geoPath = new stdClass();
                 $geoPath->id = $pt['id'];
                 $geoPath->name = $pt['name'];
                 if ($pt['image'] == '') {
@@ -525,8 +530,7 @@ class ViewCacheController extends BaseController
         ) {
             $this->view->setVar('showActivitiesTooltip', true);
 
-            // check if user has any activites based on cache type
-            $activityTypes = [];
+            // check if user has any activities based on cache type
             if ($this->geocache->getCacheType() == GeoCache::TYPE_EVENT) {
                 $activityTypes = [
                     GeoCacheLog::LOGTYPE_ATTENDED
@@ -610,7 +614,7 @@ class ViewCacheController extends BaseController
                             //TODO: improper coords!?
                         }
 
-                    }elseif ( isset($_POST['deleteUserModifiedCoords']) ) {
+                    } elseif ( isset($_POST['deleteUserModifiedCoords']) ) {
                         // user requested to delete user-modified-ccords
                         $this->geocache->deleteUserCoordinates($this->loggedUser->getUserId());
 
