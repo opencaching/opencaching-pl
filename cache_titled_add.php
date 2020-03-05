@@ -138,10 +138,6 @@ if ( $dDiff->days < $securityPeriod )
     $dbc->multiVariableQuery($queryI, $rec[ "cacheId" ], $rec[ "RATE" ], $rec[ "ratio" ],
             $rec[ "cRating" ], $rec[ "cFounds" ], $rec[ "cNrDays" ], $date_alg, $recL["logId"] );
 
-
-    $queryLogI =
-   ;
-
     $SystemUser = -1;
     $LogType = 12; //OCTeam
     $ntitled_cache = $titled_cache_period_prefix.'_titled_cache_congratulations';

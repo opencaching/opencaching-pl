@@ -7,7 +7,8 @@
         <?=$view->introText?>
       </div>
       <!-- /intro -->
-    <?php } //if-isUserLogged ?>
+    <?php } //if-isUserLogged
+    use src\Controllers\CacheController; ?>
 
 
     <?php if(!empty($view->newsList)){ ?>
@@ -86,8 +87,9 @@
         <?php } //foreach ?>
 
           <li class="showMoreLink">
-            <a href="/newcaches.php" class="btn btn-sm btn-default">
-              <?=tr('startPage_showMore')?>
+              <a href="<?= \src\Utils\Uri\SimpleRouter::getLink(CacheController::class, 'newCaches') ?>"
+                 class="btn btn-sm btn-default">
+                  <?=tr('startPage_showMore')?>
             </a>
           </li>
        </ul>
@@ -126,8 +128,9 @@
         <?php } //foreach ?>
 
           <li class="showMoreLink">
-            <a href="/newevents.php" class="btn btn-sm btn-default">
-              <?=tr('startPage_showMore')?>
+              <a href="<?= \src\Utils\Uri\SimpleRouter::getLink(CacheController::class, 'incomingEvents') ?>"
+                 class="btn btn-sm btn-default">
+                  <?=tr('startPage_showMore')?>
             </a>
           </li>
        </ul>
@@ -228,8 +231,9 @@
           </div>
         </li>
         <li class="showMoreLink">
-          <a href="/cache_titled.php" class="btn btn-sm btn-default">
-            <?=tr('startPage_showMore')?>
+            <a href="<?= \src\Utils\Uri\SimpleRouter::getLink(CacheController::class,'titled') ?>"
+               class="btn btn-sm btn-default">
+                <?=tr('startPage_showMore')?>
           </a>
         </li>
       </ul>

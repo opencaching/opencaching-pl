@@ -1,8 +1,10 @@
 <?php
-use src\Utils\Uri\SimpleRouter;
+
 use src\Controllers\CacheAdoptionController;
+use src\Controllers\CacheController;
 use src\Controllers\CacheLogController;
 use src\Controllers\UserUtilsController;
+use src\Utils\Uri\SimpleRouter;
 
 /**
  * This is simple configuration of links presented in sidebar of the page
@@ -24,15 +26,15 @@ use src\Controllers\UserUtilsController;
 $menu = [ // DON'T CHANGE $menu var name!
     /* 'translation key' => 'url' */
     'mnu_cacheAdoption' => SimpleRouter::getLink(CacheAdoptionController::class),
-    'mnu_searchUser'    => '/searchuser.php',
+    'mnu_searchUser' => '/searchuser.php',
 
-    'mnu_newCaches'         => '/newcaches.php',
-    'mnu_newLogs'           => SimpleRouter::getLink(CacheLogController::class, 'lastLogsList'),
-    'mnu_incommingEvents'   => '/newevents.php',
-    'mnu_recoCaches'        => '/cacheratings.php',
+    'mnu_newCaches' => SimpleRouter::getLink(CacheController::class, 'newCaches'),
+    'mnu_newLogs' => SimpleRouter::getLink(CacheLogController::class, 'lastLogsList'),
+    'mnu_incommingEvents' => SimpleRouter::getLink(CacheController::class, 'incomingEvents'),
+    'mnu_recoCaches' => SimpleRouter::getLink(CacheController::class, 'recommended'),
 
-    'mnu_FloppMap'      => ['https://flopp-caching.de'],
-    'mnu_massLogsSave'  => '/log_cache_multi_send.php',
-    'mnu_openchecker'   => '/openchecker.php',
-    'mnu_qrCode'        => SimpleRouter::getLink(UserUtilsController::class, 'qrCodeGen'),
+    'mnu_FloppMap' => ['https://flopp-caching.de'],
+    'mnu_massLogsSave' => '/log_cache_multi_send.php',
+    'mnu_openchecker' => '/openchecker.php',
+    'mnu_qrCode' => SimpleRouter::getLink(UserUtilsController::class, 'qrCodeGen'),
 ];

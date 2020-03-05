@@ -1330,3 +1330,7 @@ div.currentuser-log {
 tr.geoKretLog {
     height: 27px !important;
 }
+
+.float-right {
+    float: right;
+}

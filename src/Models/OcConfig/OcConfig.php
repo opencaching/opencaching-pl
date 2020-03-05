@@ -7,18 +7,18 @@ final class OcConfig extends ConfigReader
     use EmailConfigTrait, SiteConfigTrait, I18nConfigTrait, PicturesConfigTrait, MapConfigTrait;
     use PrimaAprilisTrait, GeocacheConfigTrait;
 
-/*
-    const OCNODE_GERMANY    = 1;  // Opencaching Germany http://www.opencaching.de OC
-    const OCNODE_POLAND     = 2;  // Opencaching Poland http://www.opencaching.pl OP
-    const OCNODE_CZECH      = 3;  // Opencaching Czech http://www.opencaching.cz OZ
-    const OCNODE_DEVELOPER  = 4;  // Local Development
-    const OCNODE_UK         = 6;  // Opencaching Great Britain http://www.opencaching.org.uk OK
-    const OCNODE_SWEDEN     = 7;  // Opencaching Sweden http://www.opencaching.se OS =>OC Scandinavia
-    const OCNODE_USA        = 10; // Opencaching United States http://www.opencaching.us OU
-    const OCNODE_RUSSIA     = 12; // Opencaching Russia http://www.opencaching.org.ru
-    const OCNODE_BENELUX    = 14; // Opencaching Nederland https://www.opencaching.nl OB => OC Benelux
-    const OCNODE_ROMANIA    = 16; // Opencaching Romania http://www.opencaching.ro OR
-*/
+    /*
+        const OCNODE_GERMANY    = 1;  // Opencaching Germany http://www.opencaching.de OC
+        const OCNODE_POLAND     = 2;  // Opencaching Poland http://www.opencaching.pl OP
+        const OCNODE_CZECH      = 3;  // Opencaching Czech http://www.opencaching.cz OZ
+        const OCNODE_DEVELOPER  = 4;  // Local Development
+        const OCNODE_UK         = 6;  // Opencaching Great Britain http://www.opencaching.org.uk OK
+        const OCNODE_SWEDEN     = 7;  // Opencaching Sweden http://www.opencaching.se OS =>OC Scandinavia
+        const OCNODE_USA        = 10; // Opencaching United States http://www.opencaching.us OU
+        const OCNODE_RUSSIA     = 12; // Opencaching Russia http://www.opencaching.org.ru
+        const OCNODE_BENELUX    = 14; // Opencaching Nederland https://www.opencaching.nl OB => OC Benelux
+        const OCNODE_ROMANIA    = 16; // Opencaching Romania http://www.opencaching.ro OR
+    */
 
 
 // old-style values - values from new-style config should be accessed through
@@ -74,6 +74,12 @@ final class OcConfig extends ConfigReader
     /** @var array - array of cronjob settings from /Config/cronjobs.* files */
     private $cronjobsConfig;
 
+    /** @var string */
+    private $ocCountry;
+
+    /** @var string - 'week' or 'month' - frequency of cache titled */
+    private $titledCachePeriod;
+
     /**
      * Call this method to get singleton
      * @return ocConfig
@@ -115,6 +121,8 @@ final class OcConfig extends ConfigReader
         $this->enableCacheAccessLogs = $enable_cache_access_logs;
         $this->minumumAge = $config['limits']['minimum_age'];
         $this->meritBadgesEnabled = $config['meritBadges'];
+        $this->ocCountry = trim(str_replace("'", "", $countryParamNewcacherestPhp));
+        $this->titledCachePeriod = $titled_cache_period_prefix;
 
         $this->dbHost = $dbserver;
         $this->dbName = $dbname;
@@ -187,7 +195,7 @@ final class OcConfig extends ConfigReader
     public static function getDynFilesPath($trimTrailingSlash = false)
     {
         $path = self::instance()->getDynamicFilesPath();
-        if($trimTrailingSlash){
+        if ($trimTrailingSlash) {
             return rtrim($path, '/');
         }
         return $path;
@@ -209,7 +217,6 @@ final class OcConfig extends ConfigReader
     }
 
 
-
     public function isCacheAccesLogEnabled()
     {
         return $this->enableCacheAccessLogs;
@@ -226,6 +233,11 @@ final class OcConfig extends ConfigReader
     public function isMeritBadgesEnabled()
     {
         return $this->meritBadgesEnabled;
+    }
+
+    public function getOcCountry()
+    {
+        return $this->ocCountry;
     }
 
     public function getDbUser($admin = false)
@@ -247,8 +259,6 @@ final class OcConfig extends ConfigReader
     {
         return $this->dbName;
     }
-
-
 
 
     public static function getHeaderLogo()
@@ -332,7 +342,6 @@ final class OcConfig extends ConfigReader
     }
 
 
-
     public function getCronjobSchedule($job = null)
     {
         if ($this->cronjobsConfig == null) {
@@ -385,6 +394,14 @@ final class OcConfig extends ConfigReader
             $this->topBannerVideo = self::getConfig("banner", "bannerVideo");
         }
         return $this->topBannerVideo;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitledCachePeriod()
+    {
+        return $this->titledCachePeriod;
     }
 
 }
