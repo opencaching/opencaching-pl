@@ -52,7 +52,7 @@ class Coordinates
      *            $coordinates = new Coordinates($params);
      *
      */
-    public function __construct(array $params = null)
+    public function __construct(array $params = [])
     {
         if (isset($params['dbRow'])) {
             $this->loadFromDb($params['dbRow']);
