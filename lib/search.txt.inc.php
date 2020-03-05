@@ -248,7 +248,7 @@ if( $usr || !$hide_coords ) {
         } else {
             $thisline = str_replace('{rr_comment}', html2txt("<br /><br />--------<br />".$r['rr_comment']), $thisline);
         }
-        $thisline = str_replace('{type}', tr(GeoCacheCommons::CacheTypeTranslationKey($r['type_id']), $thisline);
+        $thisline = str_replace('{type}', tr(GeoCacheCommons::CacheTypeTranslationKey($r['type_id'])), $thisline);
         $thisline = str_replace('{container}', tr(GeoCacheCommons::CacheSizeTranslationKey($r['size'])), $thisline);
         $thisline = str_replace('{status}', tr(GeoCacheCommons::CacheStatusTranslationKey($r['status'])), $thisline);
 
