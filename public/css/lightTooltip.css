@@ -2,7 +2,7 @@
     This is a simple way to present extended tooltip over any HTML tag.
     To use it:
         - mark element which needs tooltip with class: lightTipped
-        - insert tooltip conteiner (usually <div>) as a next element after element which needs tooltip, and mark it with class: lightTip
+        - insert tooltip container (usually <div>) as a next element after element which needs tooltip, and mark it with class: lightTip
         - optionally add css styles inline to rule the size of tooltip etc.
 
     Example:

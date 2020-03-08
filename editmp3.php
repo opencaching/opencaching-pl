@@ -2,13 +2,11 @@
 
 use src\Models\OcConfig\OcConfig;
 use src\Utils\Database\XDb;
-//prepare the templates and include all neccessary
+//prepare the templates and include all necessary
 require_once(__DIR__.'/lib/common.inc.php');
 
 $message = false;
 
-//Preprocessing
-if ($error == false) {
     //user logged in?
     if ($usr == false) {
         $target = urlencode(tpl_get_current_page());
@@ -42,7 +40,7 @@ if ($error == false) {
             $message = $message_mp3_not_found;
 
         if (!$message) {
-            // read from databese and check owner
+            // read from database and check owner
 
             $stmt = XDb::xSql(
                 "SELECT `mp3`.`display`, `mp3`.`title`, `mp3`.`object_id`, `mp3`.`object_type`,
@@ -149,7 +147,7 @@ if ($error == false) {
         if (!$message) {
             // display
             $tplname = 'editmp3';
-            $tpl_subtitle = htmlspecialchars($row['name'], ENT_COMPAT, 'UTF-8') . ' - ';
+            $view->setSubtitle(htmlspecialchars($row['name'], ENT_COMPAT, 'UTF-8') . ' - ');
             tpl_set_var('cacheid', htmlspecialchars($row['cache_id'], ENT_COMPAT, 'UTF-8'));
             tpl_set_var('cachename', htmlspecialchars($row['name'], ENT_COMPAT, 'UTF-8'));
             tpl_set_var('title', htmlspecialchars($row['title'], ENT_COMPAT, 'UTF-8'));
@@ -177,7 +175,7 @@ if ($error == false) {
             tpl_set_var('message', $message);
         }
     }
-}
+
 
 //make the template and send it out
 tpl_BuildTemplate();

@@ -76,17 +76,17 @@
     margin-top: 3px;
     border:1px solid black;
     width: 95%;
-    padding:0px;
+    padding:0;
     text-align: left;
     background-color:#CCCAC1;
 }
 
 #progressBarDisplay {
     position:absolute;
-    top:0px;
+    top:0;
     height:10px;
-    margin: 0px;
-    padding:0px;
+    margin: 0;
+    padding:0;
     text-align: left;
     background-color:#005E9D;
 }

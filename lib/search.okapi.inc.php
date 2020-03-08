@@ -13,7 +13,6 @@ set_time_limit(1800);
 
 require_once (__DIR__.'/../lib/calculation.inc.php');
 
-
 if ($usr || !$hide_coords) {
     //prepare the output
     $caches_per_page = 20;
@@ -144,7 +143,6 @@ if ($usr || !$hide_coords) {
     // too much caches for one zip file - generate webpage instead
     if (($caches_count > $okapi_max_caches) && ($zippart == 0 || $startat >= $caches_count)) {
         $tplname = get_pagination_template();
-        $tpl_subtitle = get_pagination_page_title(); // omfg :(
 
         tpl_set_var('zip_total_cache_count', $caches_count);
         tpl_set_var('zip_max_count', $okapi_max_caches);
