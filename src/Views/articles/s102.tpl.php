@@ -37,8 +37,6 @@ else
     {{statistics}}: <?php echo $sTitleOfStat ?>
   </div>
 
-<div class="searchdiv">
-
     <?php
 
     $sRok = "";
@@ -93,7 +91,7 @@ else
     <!-- content-title-noshade -->
     <div class="GCT-div" >
 
-        <table width="100%" >
+        <table>
             <tr>
                 <!-- Begin of Filter -->
                 <td>
@@ -107,9 +105,9 @@ else
                             <tr>
                                 <td><input type="radio" name="rRD" id="rR" value="R" <?php if ($sRD == "R") echo "checked" ?> ></td>
                                 <td width="10px">{{FiltrYear}}:</td>
-                                <td width="64px"> <input type="text" name="Rok" value="<?php echo $sRok ?>"; style="width:30px; text-align: center" maxlength="4" onclick="GCTStatsSetRadio('Rok')"></td>
+                                <td width="64px"> <input type="text" name="Rok" value="<?php echo $sRok ?>" style="width:30px; text-align: center" maxlength="4" onclick="GCTStatsSetRadio('Rok')"></td>
                                 <td >{{FiltrMonth}}: <input type="text" value="<?php echo $sMc ?>"  name="Mc" style="width:20px; text-align: center" maxlength="2" onclick="GCTStatsSetRadio('Rok')"></td>
-                                <td width="90px" rowspan=2; width="70px"  style="text-align: center"> <button type="submit" name="bFilterDate" />{{Filter}}</td>
+                                <td width="90px" rowspan=2; width="70px"  style="text-align: center"> <button type="submit" name="bFilterDate">{{Filter}}</button></td>
                             </tr>
 
                             <tr>
@@ -134,7 +132,6 @@ else
             </tr>
         </table>
 
-        <hr style="color: black">
         <br>
         <?php $view->callSubTpl('/articles/mypositionandcharts'); ?>
         <br>
@@ -162,4 +159,3 @@ else
     {{HelpHowToSelect}}
 </div>
 
-</div>
