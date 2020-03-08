@@ -6,7 +6,6 @@ use src\Utils\Generators\Uuid;
 class powerTrailController
 {
 
-    private $debug = true;
     private $action;
     private $user;
     private $userPTs;
@@ -38,19 +37,16 @@ class powerTrailController
                 break;
             case 'selectCaches':
                 $this->getUserPTs();
-
                 return $this->getUserCachesToChose();
                 break;
             case 'createNewPowerTrail':
                 $this->createNewPowerTrail();
                 break;
-            case 'showAllSeries':
-                $this->getAllPowerTrails();
-                break;
-            case 'showSerie':
+                case 'showSerie':
                 //$this->getPowerTrailCaches();
                 break;
-            default:
+            case 'showAllSeries':
+                default:
                 $this->getAllPowerTrails();
                 break;
         }
@@ -86,15 +82,13 @@ class powerTrailController
                 case 'dateCreated':
                     $sortBy = 'dateCreated';
                     break;
-                case 'cacheCount':
-                    $sortBy = 'cacheCount';
-                    break;
                 case 'points':
                     $sortBy = 'points';
                     break;
                 case 'conquestedCount':
                     $sortBy = 'conquestedCount';
                     break;
+                case 'cacheCount':
                 default:
                     $sortBy = 'cacheCount';
                     break;
@@ -125,8 +119,6 @@ class powerTrailController
                     $sortOder = 'ASC';
                     break;
                 case 'desc':
-                    $sortOder = 'DESC';
-                    break;
                 default:
                     $sortOder = 'DESC';
                     break;
@@ -139,7 +131,7 @@ class powerTrailController
         } else {
             $cacheCountLimit = powerTrailBase::minimumCacheCount();
         }
-        $userid = $this->user['userid'];
+        $userid = empty($this->user) ? null : $this->user['userid'];
         if (isset($_REQUEST['myPowerTrailsBool']) && isset($userid) && $_REQUEST['myPowerTrailsBool'] === "yes") {
             $myTrailsCondition = "and `id` NOT IN (SELECT `PowerTrailId` FROM `PowerTrail_owners`
             WHERE `userId` = $userid)";
@@ -172,11 +164,6 @@ class powerTrailController
     public function getPowerTrailOwn()
     {
         return $this->areOwnSeries;
-    }
-
-    public function getAllCachesOfPt()
-    {
-        return $this->allCachesOfSelectedPt;
     }
 
     public function getUserPowerTrails()
@@ -236,9 +223,7 @@ class powerTrailController
         $query = "SELECT cache_id, wp_oc, PowerTrailId, name FROM `caches` LEFT JOIN powerTrail_caches ON powerTrail_caches.cacheId = caches.cache_id WHERE caches.status NOT IN (3,6) AND `user_id` = :1";
         $db = OcDb::instance();
         $s = $db->multiVariableQuery($query, $this->user['userid']);
-        $userCaches = $db->dbResultFetchAll($s);
-
-        return $userCaches;
+        return $db->dbResultFetchAll($s);
     }
 
     private function getUserPTs()
