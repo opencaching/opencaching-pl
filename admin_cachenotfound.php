@@ -1,9 +1,17 @@
 <?php
 
+use src\Models\ApplicationContainer;
 use src\Utils\Database\XDb;
 
-//prepare the templates and include all neccessary
-require_once(__DIR__.'/lib/common.inc.php');
+//prepare the templates and include all necessary
+require_once(__DIR__ . '/lib/common.inc.php');
+
+$view = tpl_getView();
+$user = ApplicationContainer::Instance()->getLoggedUser();
+
+if (empty($user) || !$user->hasOcTeamRole()) {
+    $view->redirect('/');
+}
 
 /*
  * kojoty: This is temporary workaround for OCPL
@@ -11,7 +19,7 @@ require_once(__DIR__.'/lib/common.inc.php');
  *
  * - I'm going to change it soon...
  */
-if( $short_sitename == 'OC PL' ){
+if ($short_sitename == 'OC PL') {
 
     $GLOBALS['regions'] = array(
         'PL51' => 'dolnośląskie',
@@ -34,67 +42,65 @@ if( $short_sitename == 'OC PL' ){
         'XXX' => '* polskie-nie-ustalone'
     );
 
-}else{
+} else {
     //OC !PL
     $GLOBALS['regions'] = array(); //temporary empty list
     tpl_set_var('region_name', 'all country'); //temporary
 }
 
-if ($usr['admin']) {
+if (isset($_REQUEST['show_reported'])) {
+    tpl_set_var('show_reported', ($_REQUEST['show_reported'] == '1') ? ' checked="checked"' : '');
+    $skipReported = '';
+} else {
+    tpl_set_var('show_reported', '');
+    //$skipReported = 'AND c.cache_id NOT IN ( SELECT r.cache_id FROM reports r WHERE r.status <> 2 )';
+    $skipReported = ''; //temporary disable because of mysql perf...
+}
 
-    if( isset($_REQUEST['show_reported']) ){
-        tpl_set_var('show_reported', ($_REQUEST['show_reported'] == '1') ? ' checked="checked"' : '');
-        $skipReported = '';
-    }else{
-        tpl_set_var('show_reported', '');
-        //$skipReported = 'AND c.cache_id NOT IN ( SELECT r.cache_id FROM reports r WHERE r.status <> 2 )';
-        $skipReported = ''; //temporary disable because of mysql perf...
+if (isset($_REQUEST['show_duplicated'])) {
+    tpl_set_var('show_duplicated', ($_REQUEST['show_duplicated'] == '1') ? ' checked="checked"' : '');
+    $distinct = '';
+} else {
+    tpl_set_var('show_duplicated', '');
+    $distinct = 'DISTINCT';
+}
+
+if (isset($_REQUEST['regionSel'])) {
+    $region = $_REQUEST['regionSel'];
+
+    if (!isset($GLOBALS['regions'][$region])) {
+        $region = 'PL12'; //TODO: mazowieckie by default ?
     }
 
-    if ( isset($_REQUEST['show_duplicated']) ){
-        tpl_set_var('show_duplicated', ($_REQUEST['show_duplicated'] == '1') ? ' checked="checked"' : '');
-        $distinct = '';
-    }else{
-        tpl_set_var('show_duplicated', '');
-        $distinct = 'DISTINCT';
+    tpl_set_var('region_name', $GLOBALS['regions'][$region]); //temporary
+
+    if ($region === 'XXX') {
+        //polish caches with no-region set
+        $regionCondition = "AND loc.code3 = NULL";
+        $countryCondition = "AND loc.code1 = 'PL'";
+    } else if ($region === 'NON_PL') {
+        $regionCondition = "";
+        $countryCondition = "AND loc.code1 <> 'PL'";
+    } else {
+        $regionCondition = "AND loc.code3 = '$region'";
+        $countryCondition = "";
     }
 
-    if( isset($_REQUEST['regionSel']) ){
-        $region = $_REQUEST['regionSel'];
+} else {
 
-        if( !isset($GLOBALS['regions'][$region])) {
-            $region = 'PL12'; //TODO: mazowieckie by default ?
-        }
+    if ($short_sitename == 'OC PL') {
+        $regionCondition = "AND 1 = 0"; //block all results if region is not select
+        $countryCondition = "";
+        tpl_set_var('region_name', 'Wybierz region!'); //temporary solution
 
-        tpl_set_var('region_name', $GLOBALS['regions'][$region]); //temporary
-
-        if($region === 'XXX'){
-            //polish caches with no-region set
-            $regionCondition = "AND loc.code3 = NULL";
-            $countryCondition = "AND loc.code1 = 'PL'";
-        }else if($region === 'NON_PL'){
-            $regionCondition = "";
-            $countryCondition = "AND loc.code1 <> 'PL'";
-        }else{
-            $regionCondition = "AND loc.code3 = '$region'";
-            $countryCondition = "";
-        }
-
-    }else{
-
-        if( $short_sitename == 'OC PL' ){
-            $regionCondition = "AND 1 = 0"; //block all results if region is not select
-            $countryCondition = "";
-            tpl_set_var('region_name', 'Wybierz region!'); //temporary solution
-
-        }else{
-            $regionCondition = "";
-            $countryCondition = "";
-            tpl_set_var('region_name', '');
-        }
+    } else {
+        $regionCondition = "";
+        $countryCondition = "";
+        tpl_set_var('region_name', '');
     }
+}
 
-    $query = "
+$query = "
         SELECT COUNT( $distinct(cl.date) ) ilosc, c.cache_id, c.name
         FROM cache_logs cl, caches c, cache_location loc
         WHERE c.cache_id = cl.cache_id
@@ -126,30 +132,29 @@ if ($usr['admin']) {
         GROUP BY cl.cache_id HAVING COUNT( $distinct(cl.date) ) > 2
         ORDER BY ilosc DESC, cache_id DESC ";
 
-    $rs = XDb::xSql($query);
+$rs = XDb::xSql($query);
 
-    $file_content = '';
-    $i = 0;
-    while( $record = XDb::xFetchArray($rs) ) {
-        if (($i % 2) == 0) {
-            $bgcolor = '#eeeeee';
-        } else {
-            $bgcolor = '#e0e0e0';
-        }
-        $file_content .= '<tr>';
-        $file_content .= '<td bgcolor=' . $bgcolor . '>' . ($i + 1) . '</td>';
-        $file_content .= '<td bgcolor=' . $bgcolor . '><a href="viewcache.php?cacheid=' . htmlspecialchars($record['cache_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8') . '</a></td>';
-        $file_content .= '<td bgcolor=' . $bgcolor . '>' . htmlspecialchars($record['ilosc'], ENT_COMPAT, 'UTF-8') . '</td>';
-        $file_content .= '<td bgcolor=' . $bgcolor . '><a href="report.php?action=add&cacheid=' . htmlspecialchars($record['cache_id'], ENT_COMPAT, 'UTF-8') . '">' . tr('report_problem') . '</a></td>';
-        $file_content .= '</tr>';
-
-        $i++;
+$file_content = '';
+$i = 0;
+while ($record = XDb::xFetchArray($rs)) {
+    if (($i % 2) == 0) {
+        $bgcolor = '#eeeeee';
+    } else {
+        $bgcolor = '#e0e0e0';
     }
+    $file_content .= '<tr>';
+    $file_content .= '<td bgcolor=' . $bgcolor . '>' . ($i + 1) . '</td>';
+    $file_content .= '<td bgcolor=' . $bgcolor . '><a href="viewcache.php?cacheid=' . htmlspecialchars($record['cache_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8') . '</a></td>';
+    $file_content .= '<td bgcolor=' . $bgcolor . '>' . htmlspecialchars($record['ilosc'], ENT_COMPAT, 'UTF-8') . '</td>';
+    $file_content .= '<td bgcolor=' . $bgcolor . '><a href="report.php?action=add&cacheid=' . htmlspecialchars($record['cache_id'], ENT_COMPAT, 'UTF-8') . '">' . tr('report_problem') . '</a></td>';
+    $file_content .= '</tr>';
 
-    XDb::xFreeResults($rs);
-
-    tpl_set_var('results', $file_content);
-
-    $tplname = 'admin_cachenotfound';
-    tpl_BuildTemplate();
+    $i++;
 }
+
+XDb::xFreeResults($rs);
+
+tpl_set_var('results', $file_content);
+
+$view->setTemplate('admin_cachenotfound');
+$view->buildView();
