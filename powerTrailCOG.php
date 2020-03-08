@@ -1,54 +1,54 @@
 <?php
 
-use src\Models\PowerTrail\PowerTrail;
+use src\Models\ApplicationContainer;
 use src\Models\GeoCache\GeoCache;
-use src\Utils\Uri\Uri;
+use src\Models\PowerTrail\PowerTrail;
 use src\Utils\I18n\I18n;
+use src\Utils\Uri\Uri;
 
-require_once (__DIR__.'/lib/common.inc.php');
+require_once(__DIR__ . '/lib/common.inc.php');
+global $usr;
 
-if ($error == false) {
-    $tplname = 'powerTrailCOG';
+$user = ApplicationContainer::Instance()->getLoggedUser();
+$view = tpl_getView();
 
-    $pt = new powerTrailController($usr);
-    $result = $pt->run();
-    if ($usr['userid'] == 9067) {
-
-    } else {
-        if (!(isset($usr['admin']) && $usr['admin'])) {
-            print tr('pt236');
-            exit;
-        }
-    }
-    tpl_set_var("selPtDiv", 'none');
-    tpl_set_var("PtDetailsDiv", 'none');
-    tpl_set_var('language4js', I18n::getCurrentLang());
-
-    $view->loadJQuery();
-    $view->addLocalCss(Uri::getLinkWithModificationTime('/css/powerTrail.css'));
-
-    if (isset($_REQUEST['ptSelector'])) {
-        $powerTrail = new PowerTrail(array('id' => $_REQUEST['ptSelector']));
-        $_SESSION['ptRmByCog'] = 1;
-        $ptData = powerTrailBase::getPtDbRow($_REQUEST['ptSelector']);
-        $ptStatus = \src\Controllers\PowerTrailController::getPowerTrailStatus();
-        $ptType = powerTrailBase::getPowerTrailTypes();
-
-        tpl_set_var("ptCaches", preparePtCaches($powerTrail));
-        tpl_set_var("ptStatSelect", generateStatusSelector($powerTrail->getStatus()));
-        tpl_set_var("ptId", $powerTrail->getId());
-        tpl_set_var("ptName", $powerTrail->getName());
-        tpl_set_var("ptType", tr($ptType[$ptData['type']]['translate']));
-        tpl_set_var("ptStatus", tr($ptStatus[$ptData['status']]['translate']));
-
-        tpl_set_var("PtDetailsDiv", 'block');
-    } else {
-        tpl_set_var("ptSelector", makePtSelector(powerTrailBase::getAllPt('AND status != 2'), 'ptSelector'));
-        tpl_set_var("selPtDiv", 'block');
-    }
+if (empty($user) || ! $user->hasOcTeamRole()) {
+    $view->redirect('/');
 }
 
-tpl_BuildTemplate();
+$view->setTemplate('powerTrailCOG');
+
+$pt = new powerTrailController($usr);
+$result = $pt->run();
+
+tpl_set_var("selPtDiv", 'none');
+tpl_set_var("PtDetailsDiv", 'none');
+tpl_set_var('language4js', I18n::getCurrentLang());
+
+$view->loadJQuery();
+$view->addLocalCss(Uri::getLinkWithModificationTime('/css/powerTrail.css'));
+
+if (isset($_REQUEST['ptSelector'])) {
+    $powerTrail = new PowerTrail(array('id' => $_REQUEST['ptSelector']));
+    $_SESSION['ptRmByCog'] = 1;
+    $ptData = powerTrailBase::getPtDbRow($_REQUEST['ptSelector']);
+    $ptStatus = \src\Controllers\PowerTrailController::getPowerTrailStatus();
+    $ptType = powerTrailBase::getPowerTrailTypes();
+
+    tpl_set_var("ptCaches", preparePtCaches($powerTrail));
+    tpl_set_var("ptStatSelect", generateStatusSelector($powerTrail->getStatus()));
+    tpl_set_var("ptId", $powerTrail->getId());
+    tpl_set_var("ptName", $powerTrail->getName());
+    tpl_set_var("ptType", tr($ptType[$ptData['type']]['translate']));
+    tpl_set_var("ptStatus", tr($ptStatus[$ptData['status']]['translate']));
+
+    tpl_set_var("PtDetailsDiv", 'block');
+} else {
+    tpl_set_var("ptSelector", makePtSelector(powerTrailBase::getAllPt('AND status != 2'), 'ptSelector'));
+    tpl_set_var("selPtDiv", 'block');
+}
+
+$view->buildView();
 
 function makePtSelector($ptAll, $id)
 {
@@ -63,12 +63,12 @@ function makePtSelector($ptAll, $id)
 function preparePtCaches(PowerTrail $powerTrail)
 {
     $table = '<table class="table" style="width: 100%"><tr>'
-            . ' <th>' . tr('name_label') . '</th>'
-            . ' <th>' . tr('owner') . '</th>'
-            . ' <th>'. tr('waypoint') . '</th>'
-            . ' <th style="text-align: center;">' . tr('number_founds') . '</th>'
-            . ' <th>&nbsp;</th>'
-            . '</tr>';
+        . ' <th>' . tr('name_label') . '</th>'
+        . ' <th>' . tr('owner') . '</th>'
+        . ' <th>' . tr('waypoint') . '</th>'
+        . ' <th style="text-align: center;">' . tr('number_founds') . '</th>'
+        . ' <th>&nbsp;</th>'
+        . '</tr>';
     $color = '#eeeeff';
     /* @var $geocache GeoCache */
     foreach ($powerTrail->getGeocaches() as $geocache) {
@@ -77,13 +77,13 @@ function preparePtCaches(PowerTrail $powerTrail)
         } else {
             $color = '#eeffee';
         }
-        if($geocache->getFounds() > 0){
+        if ($geocache->getFounds() > 0) {
             $color = 'ffbbbb';
         }
         $table .= '<tr style="background-color: ' . $color . ';" id="tr' . $geocache->getCacheId() . '">
             <td>' . $geocache->getCacheName() . '</td>
             <td>' . $geocache->getOwner()->getUserName() . '</td>
-            <td><a href="'.$geocache->getWaypointId().'">' . $geocache->getWaypointId() . '</a></td>
+            <td><a href="' . $geocache->getWaypointId() . '">' . $geocache->getWaypointId() . '</a></td>
             <td style="text-align: center;">' . $geocache->getFounds() . '</td>
             <td style="text-align: center;"><a href="javascript:void(0);" onclick="rmCache(' . $geocache->getCacheId() . ');" class="editPtDataButton">' . tr('pt130') . '</a> <img src="images/misc/ptPreloader.gif"  style="display: none" id="rmCacheLoader' . $geocache->getCacheId() . '" alt=""> </td>
         </tr>';
