@@ -2,10 +2,9 @@ body, html {
     background-color: white;
 }
 
-.noprint, .navflag-container, .site-slogan-container, #loginbox-container, .footer, 
+.noprint, .navflag-container, .site-slogan-container, #loginbox-container, .footer,
 .page-container-1-2, #logo, .header, .site-name, #nav2, #nav3, div#seasonalBackground,
-.notlogged-cacheview, .img-navflag, #footer
-{
+.notlogged-cacheview, .img-navflag, #footer {
     display: none;
 }
 
@@ -18,24 +17,36 @@ body, html {
     border-bottom: 0.3em solid #CCC;
 }
 
-.content2-container {clear: both; float: none; width: 769px; margin: 0px 0px 15px 0px; padding: 0px;}
-.line-box {width:769px; border-bottom: solid 1px rgb(200,200,200); padding-bottom: 7px; margin: 0px 0px 15px 0px;}
+.content2-container {
+    clear: both;
+    float: none;
+    width: 769px;
+    margin: 0 0 15px 0;
+    padding: 0;
+}
+
+.line-box {
+    width: 769px;
+    border-bottom: solid 1px rgb(200, 200, 200);
+    padding-bottom: 7px;
+    margin: 0 0 15px 0;
+}
 
 div.frame {
     width: 94%;
     margin: 5px;
-    padding: 5px;   border: solid 1px rgb(219,230,241);
+    padding: 5px;
+    border: solid 1px rgb(219, 230, 241);
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
 }
 
 .img-shadow {
-    float:left;
+    float: left;
     background: url(shadowAlpha.png) no-repeat bottom right !important;
     /*  background: url(shadow.gif) no-repeat bottom right;*/
     /*  background-color: red;*/
     margin: 10px 0 0 10px !important;
-    margin: 10px 0 0 5px;
 }
 
 .img-shadow img {
@@ -46,19 +57,21 @@ div.frame {
     margin: -4px 4px 4px -4px;
     padding: 2px;
 }
+
 .icon32 {
-	width: 32px;
-	height: 32px;
-	margin-left: 0.2em;
-	margin-right: 0.2em;
-	vertical-align: middle;
+    width: 32px;
+    height: 32px;
+    margin-left: 0.2em;
+    margin-right: 0.2em;
+    vertical-align: middle;
 }
+
 .icon16 {
-	width: 16px;
-	height: 16px;
-	margin-left: 0.1em;
-	margin-right: 0.1em;
-	vertical-align: middle;
+    width: 16px;
+    height: 16px;
+    margin-left: 0.1em;
+    margin-right: 0.1em;
+    vertical-align: middle;
 }
 
 P.cache-title {
@@ -68,6 +81,7 @@ P.cache-title {
     font-size: 14pt;
     font-weight: bold;
 }
+
 .listed-on {
     font-size: 90%;
 }
@@ -77,9 +91,10 @@ P.cache-title {
     .text_gray {
         display: none;
     }
+
     .nodisplay-onprint {
-    display: none;
-    width:0;
-    height:0;
+        display: none;
+        width: 0;
+        height: 0;
     }
 }

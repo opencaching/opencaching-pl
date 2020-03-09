@@ -1,64 +1,124 @@
 /*
         GoogleTableChart -  JG (triPPer)
                             tripper1971@wp.pl
-
         2013.12
 */
 
-
-.GCT-background-color-white { background-color: #ffffff; }
-.GCT-background-color-whiteB { background-color:#FBFBFB; }
-.GCT-background-color-white2 { background-color:#F2F2F2; }
-.GCT-background-color-white6 { background-color:#F6F6F6 }
-.GCT-background-color-grey { background-color: #efefef; }
-.GCT-background-color-greyDD { background-color: #DDDDDD;  }
-.GCT-background-color-greyDE { background-color: #DEDEDE;  }
-.GCT-background-color-lightblue { background-color: #F5F5FF; }
-
-
-.GCT-border-color-greyEF{ border: 1px solid #efefef ;}
-.GCT-border-color-greyD9{ border: 1px solid #D9D9D9; }
-.GCT-border-color-black{ border: 1px solid #000000; }
-
-.GCT-color-black{ color: #000000; }
-.GCT-color-black22{ color: #111111; }
-.GCT-color-black77{ color: #777777; }
-.GCT-color-blueOC{ color: rgb(88,144,168); }
-.GCT-color-darkred{ color: #AA0000;  }
-.GCT-color-none {}
-
-
-.GCT-font-bold{font-weight: bold; }
-
-.GCT-font-size9{font-size: 9x; }
-.GCT-font-size10{font-size: 10px; }
-.GCT-font-size11{font-size: 11px; }
-.GCT-font-size12{font-size: 12px; }
-
-.GCTalign-left{ text-align: left; }
-.GCTalign-center{ text-align: center; }
-.GCTalign-right{ text-align: right; }
-
-
-.google-visualization-table-div-page [role="button"] .charts-custom-button-inner-box{
-    font-size:10px;
+.GCT-background-color-white {
+    background-color: #ffffff;
 }
 
-.google-visualization-table-page-numbers{font-size:13px;}
+.GCT-background-color-whiteB {
+    background-color: #FBFBFB;
+}
+
+.GCT-background-color-white2 {
+    background-color: #F2F2F2;
+}
+
+.GCT-background-color-white6 {
+    background-color: #F6F6F6
+}
+
+.GCT-background-color-grey {
+    background-color: #efefef;
+}
+
+.GCT-background-color-greyDD {
+    background-color: #DDDDDD;
+}
+
+.GCT-background-color-greyDE {
+    background-color: #DEDEDE;
+}
+
+.GCT-background-color-lightblue {
+    background-color: #F5F5FF;
+}
+
+.GCT-border-color-greyEF {
+    border: 1px solid #efefef;
+}
+
+.GCT-border-color-greyD9 {
+    border: 1px solid #D9D9D9;
+}
+
+.GCT-border-color-black {
+    border: 1px solid #000000;
+}
+
+.GCT-color-black {
+    color: #000000;
+}
+
+.GCT-color-black22 {
+    color: #111111;
+}
+
+.GCT-color-black77 {
+    color: #777777;
+}
+
+.GCT-color-blueOC {
+    color: rgb(88, 144, 168);
+}
+
+.GCT-color-darkred {
+    color: #AA0000;
+}
+
+.GCT-font-bold {
+    font-weight: bold;
+}
+
+.GCT-font-size9 {
+    font-size: 9px;
+}
+
+.GCT-font-size10 {
+    font-size: 10px;
+}
+
+.GCT-font-size11 {
+    font-size: 11px;
+}
+
+.GCT-font-size12 {
+    font-size: 12px;
+}
+
+.GCTalign-left {
+    text-align: left;
+}
+
+.GCTalign-center {
+    text-align: center;
+}
+
+.GCTalign-right {
+    text-align: right;
+}
+
+.google-visualization-table-div-page [role="button"] .charts-custom-button-inner-box {
+    font-size: 10px;
+}
+
+.google-visualization-table-page-numbers {
+    font-size: 13px;
+}
 
 .GCT-border-color-greyD9.google-visualization-table-sorthdr {
     padding-bottom: 10px;
     padding-top: 10px;
     padding-left: 5px;
-
-
     background-image: -webkit-gradient(
-        linear,
-        left top,
-        left bottom,
-        color-stop(0, #FFFFFF),
-        color-stop(1, #DDDDDD)
-        );
+            linear,
+            left top,
+            left bottom,
+            color-stop(0, #FFFFFF),
+            color-stop(1, #DDDDDD)
+    );
     background-image: -o-linear-gradient(bottom, #FFFFFF 0%, #DDDDDD 100%);
     background-image: -moz-linear-gradient(bottom, #FFFFFF 0%, #DDDDDD 100%);
     background-image: -webkit-linear-gradient(bottom, #FFFFFF 0%, #DDDDDD 100%);
