@@ -13,7 +13,6 @@
     background-color: #DBE6F1;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
-    -khtml-border-radius: 5px;
     border-radius: 5px;
     border:2px solid grey;
 
@@ -28,9 +27,9 @@
 
 
 .GCT-div button:hover{
-    -webkit-box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
-    -moz-box-shadow:    0px 0px 0px rgba(0, 0, 0, 0);
-    box-shadow:         0px 0px 0px rgba(0, 0, 0, 0);
+    -webkit-box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+    -moz-box-shadow:    0 0 0 rgba(0, 0, 0, 0);
+    box-shadow:         0 0 0 rgba(0, 0, 0, 0);
 }
 
 
@@ -56,6 +55,5 @@
     font-size:12px;
     background-color: #F5F5F5;
 }
-
 
 

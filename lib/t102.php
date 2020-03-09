@@ -1,8 +1,12 @@
 <?php
+
+use src\Models\ApplicationContainer;
 use src\Utils\I18n\I18n;
+
+$user = ApplicationContainer::Instance()->getLoggedUser();
 ?>
 
-<div id='idGTC' align = "center"> </div>
+<div id="idGTC"> </div>
 <script>GCTLoad( 'ChartTable', '" . <?=I18n::getCurrentLang()?> . "' );</script>
 
 <script>
@@ -218,7 +222,7 @@ while ($record = $dbc->dbResultFetch($s)) {
             gct.addToLastRow( 5, '$sUserID' );
         ";
 
-    if ($usr['userid'] == $record['user_id']) {
+    if (!empty($user) && $user->getUserId() == $record['user_id']) {
         $nMyRanking = $nRanking;
         $nMyRealPos = $nPos - 1;
     }
