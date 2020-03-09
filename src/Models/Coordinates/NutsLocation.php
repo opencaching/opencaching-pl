@@ -3,7 +3,6 @@
 namespace src\Models\Coordinates;
 
 use src\Models\BaseObject;
-use src\Utils\Debug\Debug;
 use src\Utils\I18n\I18n;
 
 /**
@@ -38,13 +37,13 @@ class NutsLocation extends BaseObject
     {
 
         $rs = $this->db->multiVariableQuery(
-            "SELECT level, code, AsText(shape) AS geometry
+            "SELECT `level`, code, AsText(shape) AS geometry
             FROM nuts_layer
             WHERE ST_WITHIN( GeomFromText( :1 ), shape)
-            ORDER BY level DESC",
+            ORDER BY `level` DESC",
             "POINT({$coords->getLongitude()} {$coords->getLatitude()})");
 
-        while($row = $this->db->dbResultFetch($rs)){
+        while ($row = $this->db->dbResultFetch($rs)) {
             $this->codes[$row['level']] = $row['code'];
         }
 
@@ -66,14 +65,14 @@ class NutsLocation extends BaseObject
             LIMIT $limit");
 
         $nutsNames = [];
-        while($row = $this->db->dbResultFetch($rs)){
+        while ($row = $this->db->dbResultFetch($rs)) {
             $nutsNames[$row['code']] = $row['name'];
         }
 
-        foreach($this->codes as $level=>$code){
-            if(isset($nutsNames[$code])){
+        foreach ($this->codes as $level => $code) {
+            if (isset($nutsNames[$code])) {
                 $this->names[$level] = $nutsNames[$code];
-            }else{
+            } else {
                 $this->names[$level] = null;
             }
         }
@@ -86,60 +85,73 @@ class NutsLocation extends BaseObject
         return $obj;
     }
 
+    /**
+     * @return string
+     */
     public function getCountryName()
     {
-        return $this->names[self::LEVEL_COUNTRY];
+        // try to translate country name
+        if (I18n::isTranslationAvailable($this->codes[self::LEVEL_COUNTRY])) {
+            return tr($this->codes[self::LEVEL_COUNTRY]);
+        } else {
+            return $this->names[self::LEVEL_COUNTRY];
+        }
     }
 
-    public function getDescription($separator='-'){
-
-        if(!isset($this->codes[self::LEVEL_COUNTRY])){
-            // location is unknown
-            return "? $separator ?";
-        }
-
-        // try to translate country name
-        if (I18n::isTranslationAvailable($this->codes[self::LEVEL_COUNTRY])){
-            $country = tr($this->codes[self::LEVEL_COUNTRY]);
-        } else {
-            $country = $this->names[self::LEVEL_COUNTRY];
-        }
-
+    /**
+     * @return mixed|string
+     */
+    public function getRegionName()
+    {
         // try to detect region name in order 2-1-3 (NUTS-levels)
         // (smaller countries has e.g. only 3-level names)
-        if(!empty($this->codes[self::LEVEL_2])){
+        if (!empty($this->codes[self::LEVEL_2])) {
             $region = $this->names[self::LEVEL_2];
 
-        }elseif(!empty($this->codes[self::LEVEL_1])){
+        } elseif (!empty($this->codes[self::LEVEL_1])) {
             $region = $this->names[self::LEVEL_1];
 
-        }else{
-            if(!empty($this->codes[self::LEVEL_3])){
+        } else {
+            if (!empty($this->codes[self::LEVEL_3])) {
                 $region = $this->names[self::LEVEL_3];
-            }else{
+            } else {
                 $region = '?';
                 // bug in NUTS data?! country present, no level names!?
                 //Debug::errorLog("NUTS data error? No code for ".$this->codes[self::LEVEL_COUNTRY]);
             }
         }
+        return $region;
+    }
 
-        return $country . $separator . $region;
+    /**
+     * @param string $separator
+     * @return string
+     */
+    public function getDescription($separator = '-')
+    {
+
+        if (!isset($this->codes[self::LEVEL_COUNTRY])) {
+            // location is unknown
+            return "? $separator ?";
+        }
+
+        return $this->getCountryName() . $separator . $this->getRegionName();
     }
 
     public function getCode($level)
     {
-        if(isset($this->codes[$level])){
+        if (isset($this->codes[$level])) {
             return $this->codes[$level];
-        }else{
+        } else {
             return null;
         }
     }
 
     public function getName($level)
     {
-        if(isset($this->names[$level])){
+        if (isset($this->names[$level])) {
             return $this->names[$level];
-        }else{
+        } else {
             return null;
         }
     }
@@ -170,8 +182,8 @@ class NutsLocation extends BaseObject
      */
     public function isAnyDataFound()
     {
-        foreach($this->codes as $code){
-            if(!is_null($code)){
+        foreach ($this->codes as $code) {
+            if (!is_null($code)) {
                 return TRUE;
             }
         }
@@ -185,37 +197,38 @@ class NutsLocation extends BaseObject
      * @param String $code - NUTS code for example 'PL63'
      * @return true if given code is found
      */
-    public static function checkProvinceCode($code){
+    public static function checkProvinceCode($code)
+    {
 
-        return ( 0 < self::db()->multiVariableQueryValue(
-            "SELECT COUNT(*) FROM nuts_codes WHERE code= :1 LIMIT 1", 0, $code)
-            );
+        return (0 < self::db()->multiVariableQueryValue(
+                "SELECT COUNT(*) FROM nuts_codes WHERE code= :1 LIMIT 1", 0, $code)
+        );
     }
 
-    /**
-     * Return name of region by given NUTS code
-     * @param string $code
-     */
-    public static function getRegionName($code){
-
-        return self::db()->multiVariableQueryValue(
-            "SELECT name FROM nuts_codes WHERE code= :1 LIMIT 1", 'Unknown?', $code);
-    }
+//    /**
+//     * Return name of region by given NUTS code
+//     * @param string $code
+//     */
+//    public static function getRegionName($code){
+//
+//        return self::db()->multiVariableQueryValue(
+//            "SELECT name FROM nuts_codes WHERE code= :1 LIMIT 1", 'Unknown?', $code);
+//    }
 
     /**
      * Returns list of the regions by given country code
      *
      * @param string $countryCode
+     * @return array
      */
     public static function getRegionsListByCountryCode($countryCode)
     {
         $countryCode .= '__'; // add sql wildcard (two letters)
         $db = self::db();
-        return $db->dbResultFetchAll($db->multiVariableQuery (
+        return $db->dbResultFetchAll($db->multiVariableQuery(
             "SELECT code, name FROM nuts_codes
              WHERE code LIKE :1
              ORDER BY name ASC", $countryCode));
     }
-
 
 }

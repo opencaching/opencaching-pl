@@ -1,15 +1,17 @@
 <?php
+
 namespace src\Utils\View;
 
-use src\Utils\DateTime\Year;
-use src\Models\ApplicationContainer;
-use src\Utils\Debug\Debug;
 use src\Controllers\PageLayout\MainLayoutController;
+use src\Models\ApplicationContainer;
+use src\Utils\DateTime\Year;
+use src\Utils\Debug\Debug;
 use src\Utils\I18n\CrowdinInContextMode;
-use src\Utils\Uri\SimpleRouter;
 use src\Utils\I18n\I18n;
+use src\Utils\Uri\SimpleRouter;
 
-class View {
+class View
+{
 
     const TPL_DIR = __DIR__ . '/../../../src/Views';
     const CHUNK_DIR = self::TPL_DIR . '/chunks/';
@@ -40,7 +42,7 @@ class View {
 
         // load google analytics key from the config
         $this->_googleAnalyticsKey = isset($GLOBALS['googleAnalytics_key']) ?
-                $GLOBALS['googleAnalytics_key'] : '';
+            $GLOBALS['googleAnalytics_key'] : '';
 
         $this->handleCrowdinInContextMode();
     }
@@ -49,18 +51,20 @@ class View {
      * Set given variable as local View variable
      * (inside template only View variables are accessible)
      *
-     *
-     * @param String $varName
+     * @param string $varName
      * @param  $varValue
+     * @return View
      */
     public function setVar($varName, $varValue)
     {
         if (property_exists($this, $varName)) {
-            $this->error("Can't set View variable with name: ".$varName);
-            return;
+            $this->error("Can't set View variable with name: " . $varName);
+            return $this;
         }
 
         $this->$varName = $varValue;
+
+        return $this;
     }
 
     public function __call($method, $args)
@@ -85,9 +89,9 @@ class View {
     public function callChunk($chunkName, ...$args)
     {
 
-        $method = $chunkName.'Chunk';
+        $method = $chunkName . 'Chunk';
 
-        if (! property_exists($this, $method)) {
+        if (!property_exists($this, $method)) {
             $func = self::getChunkFunc($chunkName);
             $this->$method = $func;
         }
@@ -112,7 +116,7 @@ class View {
 
     public static function getChunkFunc($chunkName)
     {
-        return require(self::CHUNK_DIR.$chunkName.'.tpl.php');
+        return require(self::CHUNK_DIR . $chunkName . '.tpl.php');
     }
 
     /**
@@ -125,9 +129,9 @@ class View {
      */
     public function callSubTpl($subTplPath)
     {
-        $subTplFile = self::TPL_DIR.$subTplPath.'.tpl.php';
+        $subTplFile = self::TPL_DIR . $subTplPath . '.tpl.php';
 
-        if (! is_file($subTplFile)) {
+        if (!is_file($subTplFile)) {
             $this->errorLog("Trying to call unknown sub-template: $subTplFile");
             return '';
         }
@@ -149,28 +153,48 @@ class View {
         $this->addHeaderChunk('crowdinInContext');
     }
 
+    /**
+     * @return View
+     */
     public function loadJQuery()
     {
         $this->_loadJQuery = true;
+
+        return $this;
     }
 
+    /**
+     * @return View
+     */
     public function loadJQueryUI()
     {
         $this->_loadJQueryUI = true;
         $this->_loadJQuery = true; // jQueryUI needs jQuery!
+
+        return $this;
     }
 
+    /**
+     * @return View
+     */
     public function loadTimepicker()
     {
         $this->_loadTimepicker = true;
         $this->_loadJQueryUI = true;
         $this->_loadJQuery = true;
+
+        return $this;
     }
 
+    /**
+     * @return View
+     */
     public function loadFancyBox()
     {
         $this->_loadFancyBox = true;
         $this->_loadJQuery = true; // fancyBox needs jQuery!
+
+        return $this;
     }
 
     /**
@@ -323,11 +347,14 @@ class View {
 
     /**
      * Add css which will be loaded in page header
-     * @param $css_url - url to css
+     * @param string $css_url - url to css
+     * @return View
      */
     public function addLocalCss($css_url)
     {
         $this->_localCss[] = $css_url;
+
+        return $this;
     }
 
     public function getLocalCss()
@@ -340,6 +367,7 @@ class View {
      * @param string $jsUrl - url to js Script
      * @param boolean $async - load script asynchronous
      * @param boolean $defer - load script after the page has loaded
+     * @return View
      */
     public function addLocalJs($jsUrl, $async = false, $defer = false)
     {
@@ -348,6 +376,8 @@ class View {
             'async' => $async,
             'defer' => $defer
         ];
+
+        return $this;
     }
 
     public function getLocalJs()
@@ -363,9 +393,9 @@ class View {
      */
     public function addHeaderChunk($chunkName, array $args = null)
     {
-        if(is_null($args)){
+        if (is_null($args)) {
             $this->_headerChunks[$chunkName] = [];
-        }else{
+        } else {
             $this->_headerChunks[$chunkName] = $args;
         }
     }
@@ -378,12 +408,15 @@ class View {
     /**
      * Set template name (former tpl_set_tplname())
      * @param string $tplName
+     * @return View
      */
     public function setTemplate($tplName)
     {
         //TODO: refactoring needed but this is still this way
         tpl_set_tplname($tplName);
         $this->_template = $tplName;
+
+        return $this;
     }
 
     /**
@@ -416,7 +449,7 @@ class View {
         if (is_null($layoutTemplate)) {
             $layoutTemplate = MainLayoutController::MAIN_TEMPLATE;
             MainLayoutController::init(); // init vars for main-layout
-        } else if($layoutTemplate = MainLayoutController::MINI_TEMPLATE) {
+        } else if ($layoutTemplate = MainLayoutController::MINI_TEMPLATE) {
             MainLayoutController::init();
         }
 
@@ -439,12 +472,12 @@ class View {
 
         // The only var accessed from within template code
         $view = $this;      // $view var for use inside template
-        $tr = function($arg) {
-          // TODO: it will be refactored to proper call
-          return tr($arg);
+        $tr = function ($arg) {
+            // TODO: it will be refactored to proper call
+            return tr($arg);
         };
 
-        require_once(self::TPL_DIR . '/'. $template . '.tpl.php');
+        require_once(self::TPL_DIR . '/' . $template . '.tpl.php');
 
     }
 

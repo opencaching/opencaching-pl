@@ -1,4 +1,6 @@
 <?php
+
+use src\Controllers\CacheController;
 use src\Utils\Uri\SimpleRouter;
 
 /**
@@ -26,12 +28,11 @@ use src\Utils\Uri\SimpleRouter;
 $menu = [ // DON'T CHANGE $menu var name!
 
     /* 'translation key' => 'url' */
-    'mnu_registration'     => SimpleRouter::getLink('UserRegistration'),
-    'mnu_news'             => SimpleRouter::getLink('News.NewsList'),
-    'mnu_PhoneApps'        => '/articles.php?page=apps',
-    'mnu_rules'            => [$links['wiki']['rules']],
-    'mnu_newCaches'        => '/newcaches.php',
-    'mnu_newLogs'          => SimpleRouter::getLink(CacheLogController::class, 'lastLogsList'),
-    'mnu_incommingEvents'  => '/newevents.php',
+    'mnu_registration' => SimpleRouter::getLink('UserRegistration'),
+    'mnu_news' => SimpleRouter::getLink('News.NewsList'),
+    'mnu_PhoneApps' => '/articles.php?page=apps',
+    'mnu_rules' => [$links['wiki']['rules']],
+    'mnu_newCaches' => SimpleRouter::getLink(CacheController::class, 'newCaches'),
+    'mnu_incommingEvents' => SimpleRouter::getLink(CacheController::class, 'incomingEvents'),
 
 ];

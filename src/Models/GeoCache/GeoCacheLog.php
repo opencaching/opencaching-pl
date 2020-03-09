@@ -1,13 +1,15 @@
 <?php
+
 namespace src\Models\GeoCache;
 
+use DateTime;
+use Exception;
+use okapi\Facade;
+use src\Controllers\MeritBadgeController;
+use src\Models\OcConfig\OcConfig;
 use src\Models\User\User;
 use src\Utils\Email\EmailSender;
 use src\Utils\Generators\Uuid;
-use Exception;
-use src\Controllers\MeritBadgeController;
-use okapi\Facade;
-use src\Models\OcConfig\OcConfig;
 
 class GeoCacheLog extends GeoCacheLogCommons
 {
@@ -45,8 +47,8 @@ class GeoCacheLog extends GeoCacheLogCommons
     }
 
     /**
-     *
      * @return GeoCache
+     * @throws Exception
      */
     public function getGeoCache()
     {
@@ -189,15 +191,16 @@ class GeoCacheLog extends GeoCacheLogCommons
 
     /**
      * Returns true if $userid recommended cache related with log
-     * @param integer $userid
+     * @param integer $userId
      * @return boolean
+     * @throws Exception
      */
-    public function isRecommendedByUser($userid)
+    public function isRecommendedByUser($userId)
     {
         $params = [];
-        $params['cacheid']['value'] = $this->geoCache->getCacheId();
+        $params['cacheid']['value'] = $this->getGeoCache()->getCacheId();
         $params['cacheid']['data_type'] = 'integer';
-        $params['userid']['value'] = $userid;
+        $params['userid']['value'] = $userId;
         $params['userid']['data_type'] = 'integer';
         $query = '
             SELECT COUNT(*)
@@ -205,7 +208,7 @@ class GeoCacheLog extends GeoCacheLogCommons
             WHERE `cache_id` = :cacheid
               AND `user_id` = :userid
         ';
-        return (bool) $this->db->paramQueryValue($query, 0, $params);
+        return (bool)$this->db->paramQueryValue($query, 0, $params);
     }
 
     public function setId($logId)
@@ -233,7 +236,7 @@ class GeoCacheLog extends GeoCacheLogCommons
         return $this;
     }
 
-    public function setDate(\DateTime $date)
+    public function setDate(DateTime $date)
     {
         $this->date = $date;
         return $this;
@@ -252,13 +255,13 @@ class GeoCacheLog extends GeoCacheLogCommons
     }
 
 
-    public function setLastModified(\DateTime $lastModified)
+    public function setLastModified(DateTime $lastModified)
     {
         $this->lastModified = $lastModified;
         return $this;
     }
 
-    public function setOkapiSyncbase(\DateTime $okapiSyncbase)
+    public function setOkapiSyncbase(DateTime $okapiSyncbase)
     {
         $this->okapiSyncbase = $okapiSyncbase;
         return $this;
@@ -282,7 +285,7 @@ class GeoCacheLog extends GeoCacheLogCommons
         return $this;
     }
 
-    public function setDateCreated(\DateTime $dateCreated)
+    public function setDateCreated(DateTime $dateCreated)
     {
         $this->dateCreated = $dateCreated;
         return $this;
@@ -320,7 +323,7 @@ class GeoCacheLog extends GeoCacheLogCommons
 
     public function setEditCount($editCount)
     {
-        $this->editCount = (int) $editCount;
+        $this->editCount = (int)$editCount;
         return $this;
     }
 
@@ -339,7 +342,7 @@ class GeoCacheLog extends GeoCacheLogCommons
 
         $logDbRow = $this->db->dbResultFetchOneRowOnly($s);
 
-        if(is_array($logDbRow)) {
+        if (is_array($logDbRow)) {
             $this->loadFromDbRow($logDbRow);
         } else {
             throw new \Exception("No such cache_log");
@@ -349,26 +352,26 @@ class GeoCacheLog extends GeoCacheLogCommons
     private function loadFromDbRow($row)
     {
         $this
-        ->setGeoCache($row['cache_id'])
-        ->setDate(new \DateTime($row['date']))
-        ->setDateCreated(new \DateTime($row['date_created']))
-        ->setDelByUserId($row['del_by_user_id'])
-        ->setDeleted($row['deleted'])
-        ->setEditByUserId($row['edit_by_user_id'])
-        ->setEditCount($row['edit_count'])
-        ->setLastDeleted($row['last_deleted'])
-        ->setLastModified(new \DateTime($row['last_modified']))
-        ->setId($row['id'])
-        ->setMp3count($row['mp3count'])
-        ->setNode($row['node'])
-        ->setOkapiSyncbase(new \DateTime($row['okapi_syncbase']))
-        ->setOwnerNotified($row['owner_notified'])
-        ->setPicturesCount($row['picturescount'])
-        ->setText($row['text'])
-        ->setTextHtml($row['text_html'])
-        ->setType($row['type'])
-        ->setUser($row['user_id'])
-        ->setUuid($row['uuid']);
+            ->setGeoCache($row['cache_id'])
+            ->setDate(new DateTime($row['date']))
+            ->setDateCreated(new DateTime($row['date_created']))
+            ->setDelByUserId($row['del_by_user_id'])
+            ->setDeleted($row['deleted'])
+            ->setEditByUserId($row['edit_by_user_id'])
+            ->setEditCount($row['edit_count'])
+            ->setLastDeleted($row['last_deleted'])
+            ->setLastModified(new DateTime($row['last_modified']))
+            ->setId($row['id'])
+            ->setMp3count($row['mp3count'])
+            ->setNode($row['node'])
+            ->setOkapiSyncbase(new DateTime($row['okapi_syncbase']))
+            ->setOwnerNotified($row['owner_notified'])
+            ->setPicturesCount($row['picturescount'])
+            ->setText($row['text'])
+            ->setTextHtml($row['text_html'])
+            ->setType($row['type'])
+            ->setUser($row['user_id'])
+            ->setUuid($row['uuid']);
     }
 
     /**
@@ -388,7 +391,8 @@ class GeoCacheLog extends GeoCacheLogCommons
         }
     }
 
-    private static function fromDbRowFactory($row) {
+    private static function fromDbRowFactory($row)
+    {
         $obj = new self();
         try {
             $obj->loadFromDbRow($row);
@@ -406,23 +410,22 @@ class GeoCacheLog extends GeoCacheLogCommons
      *   an another active log in this type (should be only one)
      *
      * @return boolean
+     * @throws Exception
      */
     public function canBeReverted()
     {
-        if (! $this->getDeleted())
-        {
+        if (!$this->getDeleted()) {
             return false; //log is NOT deleted
         }
         if (in_array($this->getType(),
             [GeoCacheLog::LOGTYPE_FOUNDIT,
-            GeoCacheLog::LOGTYPE_ATTENDED,
-            GeoCacheLog::LOGTYPE_WILLATTENDED])) {
-                // There can be only one log "found", "attended", "will attend"
-                return (! $this->getGeoCache()->hasUserLogByType($this->getUser(), $this->getType()));
-            }
+                GeoCacheLog::LOGTYPE_ATTENDED,
+                GeoCacheLog::LOGTYPE_WILLATTENDED])) {
+            // There can be only one log "found", "attended", "will attend"
+            return (!$this->getGeoCache()->hasUserLogByType($this->getUser(), $this->getType()));
+        }
         return true;
     }
-
 
 
     /**
@@ -433,12 +436,13 @@ class GeoCacheLog extends GeoCacheLogCommons
      * @param integer $userId
      * @param integer $logType
      * @param string $text
-     * @param \DateTime $date
+     * @param DateTime|null $date
+     * @throws Exception
      */
-    public static function newLog($cacheId, $userId, $logType, $text, \DateTime $date = null)
+    public static function newLog($cacheId, $userId, $logType, $text, DateTime $date = null)
     {
         if (is_null($date)) {
-            $date = new \DateTime();
+            $date = new DateTime();
         }
         $uuid = Uuid::create();
 
@@ -447,7 +451,7 @@ class GeoCacheLog extends GeoCacheLogCommons
                 (`cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `last_modified`, `uuid`, `date_created`, `node`)
             VALUES (:1 , :2, :3, :4, :5 , 2, NOW(), :6, NOW(), :7)',
             $cacheId, $userId, $logType, $date->format(self::OcConfig()->getDbDateTimeFormat()), $text, $uuid, OcConfig::getSiteNodeId()
-            );
+        );
     }
 
     /**
@@ -465,11 +469,12 @@ class GeoCacheLog extends GeoCacheLogCommons
      */
     public function getCacheLogsForUser(
         $cacheId, $userId, $types = null, $limit = null
-    ) {
+    )
+    {
         $params = [$cacheId, $userId];
         if ($types != null) {
             $typesInString = "";
-            foreach($types as $type) {
+            foreach ($types as $type) {
                 if (strlen($typesInString) > 0) {
                     $typesInString .= ",";
                 }
@@ -480,16 +485,15 @@ class GeoCacheLog extends GeoCacheLogCommons
         $stmt = $this->db->multiVariableQuery(
             "SELECT * FROM `cache_logs` WHERE
              `cache_id` = :1 AND `user_id` = :2 AND deleted = 0"
-             .(is_array($types) ? " AND `type` IN (" . $typesInString . ")" : "")
-             ." ORDER BY `date` DESC"
-             .($limit != null ? " LIMIT " . $this->db()->quoteLimit($limit) : ""),
-             $params
+            . (is_array($types) ? " AND `type` IN (" . $typesInString . ")" : "")
+            . " ORDER BY `date` DESC"
+            . ($limit != null ? " LIMIT " . $this->db()->quoteLimit($limit) : ""),
+            $params
         );
-        return $this->db->dbFetchAllAsObjects($stmt, function($row) {
+        return $this->db->dbFetchAllAsObjects($stmt, function ($row) {
             return self::fromDbRowFactory($row);
         });
     }
-
 
 
     /**
@@ -498,9 +502,9 @@ class GeoCacheLog extends GeoCacheLogCommons
     public function removeLog()
     {
         // check if current user is allowed to remove the log
-        if($this->getUserId() != $this->getCurrentUser()->getUserId() &&
-           $this->getGeoCache()->getOwnerId() != $this->getCurrentUser()->getUserId() &&
-           !$this->getCurrentUser()->hasOcTeamRole()) {
+        if ($this->getUserId() != $this->getCurrentUser()->getUserId() &&
+            $this->getGeoCache()->getOwnerId() != $this->getCurrentUser()->getUserId() &&
+            !$this->getCurrentUser()->hasOcTeamRole()) {
 
             // logged user is not an author of the log && not the owner of cache and not OCTeam
             throw new Exception("User not authorize to remove this log");
@@ -533,9 +537,9 @@ class GeoCacheLog extends GeoCacheLogCommons
 
             GeoCacheScore::updateScoreOnLogRemove($this);
 
-            if ( self::OcConfig()->isMeritBadgesEnabled() ){
+            if (self::OcConfig()->isMeritBadgesEnabled()) {
                 $ctrlMeritBadge = new MeritBadgeController;
-                $ctrlMeritBadge->updateTriggerLogCache($this->getGeoCache()->getCacheId(), $this->getCurrentUser()->getUserId() );
+                $ctrlMeritBadge->updateTriggerLogCache($this->getGeoCache()->getCacheId(), $this->getCurrentUser()->getUserId());
                 $ctrlMeritBadge->updateTriggerTitledCache($this->getGeoCache()->getCacheId(), $this->getCurrentUser()->getUserId());
                 $ctrlMeritBadge->updateTriggerCacheAuthor($this->getGeoCache()->getCacheId());
             }

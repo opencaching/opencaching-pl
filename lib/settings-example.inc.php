@@ -120,7 +120,6 @@ $googlemap_key = "";
 $cache_params_url = 'http://wiki.opencaching.pl/index.php/Parametry_skrzynki';
 
 // New caches outside country where server is:
-$SiteOutsideCountryString = 'poland_outside'; // <-- node specific translation key...
 $countryParamNewcacherestPhp = " 'PL' ";
 
 /* power Trail module switch and settings */

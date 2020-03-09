@@ -42,7 +42,6 @@ class ClassPathDictionary
      * !!! please preserve alphabetical order. !!!
      */
     private static $classDictionary = array(
-        'myninc' => 'lib/myn.inc.php',
         'powerTrailBase' => 'powerTrail/powerTrailBase.php',
         'powerTrailController' => 'powerTrail/powerTrailController.php',
         'sendEmail' => 'powerTrail/sendEmail.php',
