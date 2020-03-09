@@ -150,7 +150,7 @@ class ViewCacheController extends BaseController
             $this->view->setVar('infoMsg', $this->infoMsg);
             $this->view->setVar('errorMsg', $this->errorMsg);
         }
-        $this->view->setSubtitle(htmlspecialchars($this->geocache->getCacheName()) . ' - ');
+        set_tpl_subtitle(htmlspecialchars($this->geocache->getCacheName()) . ' - ');
 
         $this->geocache->incCacheVisits($this->loggedUser, $_SERVER["REMOTE_ADDR"]);
 

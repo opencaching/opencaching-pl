@@ -801,7 +801,6 @@ a.transparent::-moz-focus-inner {
 .input-group .form-control, .input-group-addon, .input-group-btn {
     display: table-cell;
 }
-
 .input-group .form-control {
     position: relative;
     z-index: 2;
@@ -854,6 +853,9 @@ a.transparent::-moz-focus-inner {
     width: 1%;
     white-space: nowrap;
     vertical-align: middle;
+}
+.input-group .form-control, .input-group-addon, .input-group-btn {
+    display: table-cell;
 }
 
 .input-group-addon + .form-control {

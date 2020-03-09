@@ -1,7 +1,10 @@
 <?php
 
+use src\Utils\Debug\Debug;
 use src\Utils\Uri\SimpleRouter as SRouter;
 use src\Models\OcConfig\OcConfig;
+
+global $tpl_subtitle;
 
 ?>
 <!DOCTYPE html>
@@ -9,7 +12,7 @@ use src\Models\OcConfig\OcConfig;
 <head>
   <meta charset="utf-8">
 
-  <title><?=$view->getSubtitle()?>{title}</title>
+  <title><?=$tpl_subtitle?>{title}</title>
 
   <link rel="shortcut icon" href="<?=OcConfig::getSiteMainViewIcon('shortcutIcon')?>">
   <link rel="apple-touch-icon" sizes="180x180" href="<?=OcConfig::getSiteMainViewIcon('appleTouch')?>">
@@ -31,11 +34,9 @@ use src\Models\OcConfig\OcConfig;
   <link rel="stylesheet" type="text/css" href="/css/typography.css">
 
   <?php if ($view->_showVideoBanner) {
-    foreach($view->_topBannerVideo as $key => $videoPath) {
-        if ($key !== 0) { ?>
+    foreach($view->_topBannerVideo as $videoPath) { ?>
       <link rel="prefetch" href="<?=$videoPath?>">
     <?php }
-    }
   } ?>
 
   <?php foreach( $view->getLocalCss() as $css ) { ?>

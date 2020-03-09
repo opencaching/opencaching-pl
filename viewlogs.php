@@ -14,6 +14,8 @@ use src\Utils\DateTime\Year;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
+if ($error == false) {
+
     //set here the template to process
     $tplname = 'viewlogs';
 
@@ -134,7 +136,7 @@ require_once (__DIR__.'/lib/common.inc.php');
 
         //cache data
         $cache_name = htmlspecialchars($cache_record['name'], ENT_COMPAT, 'UTF-8');
-        $view->setSubtitle($cache_name . ' - ');
+        $tpl_subtitle = $cache_name . ' - ';
         tpl_set_var('cachename', $cache_name);
         tpl_set_var('cacheid', $cache_id);
         $view->setVar('cacheType', $cache_record['type']);
@@ -466,7 +468,7 @@ require_once (__DIR__.'/lib/common.inc.php');
     else {
         exit;
     }
-
+}
 unset($dbc);
 //make the template and send it out
 tpl_BuildTemplate();

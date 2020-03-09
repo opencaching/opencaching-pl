@@ -1,8 +1,13 @@
 <?php
-
 namespace src\Controllers;
 
 use src\Controllers\News\NewsListController;
+use src\Utils\Cache\OcMemCache;
+use src\Utils\Feed\RssFeed;
+use src\Utils\Map\StaticMap;
+use src\Utils\Text\Formatter;
+use src\Utils\Uri\SimpleRouter;
+use src\Utils\Uri\Uri;
 use src\Models\CacheSet\CacheSet;
 use src\Models\CacheSet\CacheSetOwner;
 use src\Models\ChunkModels\StaticMap\StaticMapMarker;
@@ -12,17 +17,9 @@ use src\Models\GeoCache\CacheTitled;
 use src\Models\GeoCache\GeoCache;
 use src\Models\GeoCache\GeoCacheLog;
 use src\Models\GeoCache\MultiCacheStats;
-use src\Models\OcConfig\OcConfig;
 use src\Models\Stats\TotalStats;
-use src\Models\Stats\TotalStats\BasicStats;
 use src\Models\User\User;
-use src\Utils\Cache\OcMemCache;
-use src\Utils\Feed\RssFeed;
-use src\Utils\Map\StaticMap;
-use src\Utils\Text\Formatter;
-use src\Utils\Uri\SimpleRouter;
-use src\Utils\Uri\Uri;
-use stdClass;
+use src\Models\OcConfig\OcConfig;
 
 class StartPageController extends BaseController
 {
@@ -49,22 +46,27 @@ class StartPageController extends BaseController
         // local css
         $this->view->addLocalCss(
             Uri::getLinkWithModificationTime('/views/startPage/startPage.css'));
+        $this->view->addLocalCss(
+            Uri::getLinkWithModificationTime('/js/libs/slick/slick.css'));
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/js/libs/slick/slick-theme.css'));
 
         // local JS
+        $this->view->addLocalJs(
+            Uri::getLinkWithModificationTime('/js/libs/slick/slick.min.js'));
         $this->view->addLocalJs(
             Uri::getLinkWithModificationTime('/views/startPage/startPage.js'), true, true);
 
         $this->view->loadJQuery();
 
         $this->view->setVar('isUserLogged', $this->isUserLogged());
-        if ($this->isUserLogged()) {
+        if($this->isUserLogged()){
             $this->view->setVar('username', $this->loggedUser->getUserName());
         }
 
         $this->staticMapModel = StaticMapModel::defaultFullCountryMap();
 
         $this->view->setVar('introText',
-            tr('startPage_intro_' . $this->ocConfig->getOcNode()));
+            tr('startPage_intro_' . $this->ocConfig->getOcNode() ));
 
         $this->processNewCaches();
         $this->processNews();
@@ -85,7 +87,7 @@ class StartPageController extends BaseController
         global $config;
 
         $center = OcConfig::getMapDefaultCenter();
-        if (!$center) {
+        if(!$center) {
             $this->displayCommonErrorPageAndExit("Wrong default coords?");
         }
 
@@ -97,16 +99,16 @@ class StartPageController extends BaseController
     private function processNewCaches()
     {
         $newestCaches = OcMemCache::getOrCreate(
-            __CLASS__ . ':newestCaches', 3 * 60 * 60,
-            function () {
+            __CLASS__.':newestCaches', 3*60*60,
+            function(){
 
-                $result = new stdClass();
+                $result = new \stdClass();
                 $result->createdAt = time();
                 $result->latestCaches = [];
                 $result->incomingEvents = [];
 
                 // find latest caches
-                foreach (MultiCacheStats::getLatestCaches(7) as $c) {
+                foreach (MultiCacheStats::getLatestCaches(7) as $c){
 
                     $loc = $c['location'];
 
@@ -125,7 +127,7 @@ class StartPageController extends BaseController
                 }
 
                 // find incoming events
-                foreach (MultiCacheStats::getIncomingEvents(7) as $c) {
+                foreach (MultiCacheStats::getIncomingEvents(7) as $c){
 
                     $loc = $c['location'];
 
@@ -153,10 +155,10 @@ class StartPageController extends BaseController
             StaticMapMarker::getCssMarkerForLegend(StaticMapMarker::COLOR_CACHE));
 
         // add markers
-        foreach ($newestCaches->latestCaches as $c) {
+        foreach($newestCaches->latestCaches as $c){
             $this->staticMapModel->createMarker($c['markerId'], $c['coords'],
                 StaticMapMarker::COLOR_CACHE,
-                $c['markerId'] . ': ' . $c['cacheName'], $c['link']);
+                $c['markerId'].': '.$c['cacheName'], $c['link']);
         }
 
         $this->view->setVar('incomingEvents', $newestCaches->incomingEvents);
@@ -166,10 +168,10 @@ class StartPageController extends BaseController
             StaticMapMarker::getCssMarkerForLegend(StaticMapMarker::COLOR_EVENT));
 
         // add markers
-        foreach ($newestCaches->incomingEvents as $c) {
+        foreach($newestCaches->incomingEvents as $c){
             $this->staticMapModel->createMarker($c['markerId'], $c['coords'],
                 StaticMapMarker::COLOR_EVENT,
-                $c['markerId'] . ': ' . $c['cacheName'], $c['link']);
+                $c['markerId'].': '.$c['cacheName'], $c['link']);
         }
 
         $this->view->setVar('newestCachesValidAt',
@@ -181,13 +183,13 @@ class StartPageController extends BaseController
         $cacheSetsEnabledInConfig = $this->ocConfig->isPowertrailsEnabled();
 
         $this->view->setVar('displayLastCacheSets', $cacheSetsEnabledInConfig);
-        if (!$cacheSetsEnabledInConfig) {
+        if(!$cacheSetsEnabledInConfig){
             return;
         }
 
         $lastCacheSetsData = OcMemCache::getOrCreate(
-            __CLASS__ . ':latestCacheSets', 3 * 60 * 60,
-            function () {
+            __CLASS__.':latestCacheSets', 3*60*60,
+            function(){
                 global $config;
 
                 $lastCacheSets = CacheSet::getLastCreatedSets(
@@ -195,22 +197,22 @@ class StartPageController extends BaseController
 
                 $lastCacheSets = CacheSetOwner::setOwnersToCacheSets($lastCacheSets);
 
-                array_walk($lastCacheSets, function (&$cs) {
+                array_walk($lastCacheSets, function(&$cs){
                     /** @var CacheSet */
                     $cs->prepareForSerialization();
                 });
 
-                $result = new stdClass();
+                $result = new \stdClass();
                 $result->createdAt = time();
                 $result->lastCacheSets = $lastCacheSets;
                 return $result;
             });
 
-        if (is_object($lastCacheSetsData)) {
-            foreach ($lastCacheSetsData->lastCacheSets as $cs) {
-                if ($cs->getCoordinates() != null) {
+        if(is_object($lastCacheSetsData)){
+            foreach($lastCacheSetsData->lastCacheSets as $cs){
+                if($cs->getCoordinates() != null){
                     $this->staticMapModel->createMarker(
-                        'cs_' . $cs->getId(), $cs->getCoordinates(),
+                        'cs_'.$cs->getId(), $cs->getCoordinates(),
                         StaticMapMarker::COLOR_CACHESET, $cs->getName(), $cs->getUrl());
                 }
             }
@@ -220,7 +222,7 @@ class StartPageController extends BaseController
         } else {
             // something is wrong - no object returned from cache!
             $this->view->setVar('lastCacheSets', []);
-            $this->view->setVar('latestCacheSetsValidAt', null);
+            $this->view->setVar('latestCacheSetsValidAt',null);
         }
 
         //legend marker
@@ -248,22 +250,22 @@ class StartPageController extends BaseController
 
         // prepare total-stats array
         $totStsArr = [];
-        $totStsArr[] = ['val' => $ts->totalCaches, 'desc' => tr('startPage_totalCaches'), 'ldesc' => tr('startPage_totalCachesDesc')];
-        $totStsArr[] = ['val' => $ts->activeCaches, 'desc' => tr('startPage_readyToSearch'), 'ldesc' => tr('startPage_readyToSearchDesc')];
-        $totStsArr[] = ['val' => $ts->topRatedCaches, 'desc' => tr('startPage_topRatedCaches'), 'ldesc' => tr('startPage_topRatedCachesDesc')];
-        $totStsArr[] = ['val' => $ts->totalUsers, 'desc' => tr('startPage_totalUsers'), 'ldesc' => tr('startPage_totalUsersDesc')];
-        if ($this->ocConfig->isPowertrailsEnabled()) {
-            $totStsArr[] = ['val' => $ts->activeCacheSets, 'desc' => tr('startPage_activeCacheSets'), 'ldesc' => tr('startPage_activeCacheSetsDesc')];
+        $totStsArr[] = ['val'=>$ts->totalCaches, 'desc'=>tr('startPage_totalCaches'), 'ldesc'=>tr('startPage_totalCachesDesc')];
+        $totStsArr[] = ['val'=>$ts->activeCaches, 'desc'=>tr('startPage_readyToSearch'), 'ldesc'=>tr('startPage_readyToSearchDesc')];
+        $totStsArr[] = ['val'=>$ts->topRatedCaches, 'desc'=>tr('startPage_topRatedCaches'), 'ldesc'=>tr('startPage_topRatedCachesDesc')];
+        $totStsArr[] = ['val'=>$ts->totalUsers, 'desc'=>tr('startPage_totalUsers'), 'ldesc'=>tr('startPage_totalUsersDesc')];
+        if($this->ocConfig->isPowertrailsEnabled()){
+            $totStsArr[] = ['val'=>$ts->activeCacheSets, 'desc'=>tr('startPage_activeCacheSets'), 'ldesc'=>tr('startPage_activeCacheSetsDesc')];
         }
-        $totStsArr[] = ['val' => $ts->totalSearches, 'desc' => tr('startPage_totalSearches'), 'ldesc' => tr('startPage_totalSearchesDesc')];
-        $totStsArr[] = ['val' => $ts->latestCaches, 'desc' => tr('startPage_newCaches'), 'ldesc' => tr('startPage_newCachesDesc')];
-        $totStsArr[] = ['val' => $ts->newUsers, 'desc' => tr('startPage_newUsers'), 'ldesc' => tr('startPage_newUsersDesc')];
-        $totStsArr[] = ['val' => $ts->latestSearches, 'desc' => tr('startPage_newSearches'), 'ldesc' => tr('startPage_newSearchesDesc')];
-        $totStsArr[] = ['val' => $ts->latestRecomendations, 'desc' => tr('startPage_newoRecom'), 'ldesc' => tr('startPage_newoRecomDesc')];
+        $totStsArr[] = ['val'=>$ts->totalSearches, 'desc'=>tr('startPage_totalSearches'), 'ldesc'=>tr('startPage_totalSearchesDesc')];
+        $totStsArr[] = ['val'=>$ts->latestCaches, 'desc'=>tr('startPage_newCaches'), 'ldesc'=>tr('startPage_newCachesDesc')];
+        $totStsArr[] = ['val'=>$ts->newUsers, 'desc'=>tr('startPage_newUsers'), 'ldesc'=>tr('startPage_newUsersDesc')];
+        $totStsArr[] = ['val'=>$ts->latestSearches, 'desc'=>tr('startPage_newSearches'), 'ldesc'=>tr('startPage_newSearchesDesc')];
+        $totStsArr[] = ['val'=>$ts->latestRecomendations, 'desc'=>tr('startPage_newoRecom'), 'ldesc'=>tr('startPage_newoRecomDesc')];
 
-        // rotate stats table random number of times
-        $rotator = rand(0, 9);
-        for ($i = 0; $i < $rotator; $i++) {
+        // rotate stats tabele random number of times
+        $rotator = rand(0,9);
+        for($i=0; $i<$rotator; $i++){
             array_push($totStsArr, array_shift($totStsArr));
         }
 
@@ -275,11 +277,11 @@ class StartPageController extends BaseController
     private function processTitleCaches()
     {
         $titledCacheDataObj = OcMemCache::getOrCreate(
-            __CLASS__ . ':titledCacheData', 5 * 60 * 60,
-            function () {
+            __CLASS__.':titledCacheData', 5*60*60,
+            function(){
 
                 $lastTitledCache = CacheTitled::getLastCacheTitled();
-                if (is_null($lastTitledCache)) {
+                if(is_null($lastTitledCache)){
                     return null;
                 } else {
 
@@ -287,18 +289,18 @@ class StartPageController extends BaseController
 
                     /** @var GeoCache */
                     $geocache = GeoCache::fromCacheIdFactory($lastTitledCache->getCacheId());
-                    if (!$geocache) {
+                    if(!$geocache){
                         return null;
                     }
                     $geocache->prepareForSerialization();
 
                     $log = GeoCacheLog::fromLogIdFactory($lastTitledCache->getLogId());
-                    if (!$log) {
+                    if(!$log){
                         return null;
                     }
                     $log->prepareForSerialization();
 
-                    $titleCacheDataObj = new stdClass();
+                    $titleCacheDataObj = new \stdClass();
                     $titleCacheDataObj->geocache = $geocache;
                     $titleCacheDataObj->log = $log;
                     $titleCacheDataObj->cacheTitled = $lastTitledCache;
@@ -306,11 +308,11 @@ class StartPageController extends BaseController
 
                     return $titleCacheDataObj;
                 }
-            });
+        });
 
-        if (!$titledCacheDataObj) {
-            // there is no titledCache? - some error occurred?!
-            $this->view->setVar('titledCacheData', null);
+        if(!$titledCacheDataObj){
+            // there is no titledCache? - some errror occured?!
+            $this->view->setVar('titledCacheData',null);
             return;
         }
         /** @var GeoCache */
@@ -318,11 +320,11 @@ class StartPageController extends BaseController
         $log = $titledCacheDataObj->log;
         $lastTitledCache = $titledCacheDataObj->cacheTitled;
 
-        $markerId = 'titled_' . $geocache->getWaypointId();
+        $markerId = 'titled_'.$geocache->getWaypointId();
         $this->staticMapModel->createMarker(
             $markerId,
             $geocache->getCoordinates(), StaticMapMarker::COLOR_TITLED_CACHE,
-            $geocache->getWaypointId() . ': ' . $geocache->getCacheName(),
+            $geocache->getWaypointId().': '.$geocache->getCacheName(),
             $geocache->getCacheUrl());
 
         //legend marker
@@ -343,7 +345,7 @@ class StartPageController extends BaseController
             'markerId' => $markerId,
         ];
 
-        $this->view->setVar('titledCacheData', $titledCacheData);
+        $this->view->setVar('titledCacheData',$titledCacheData);
         $this->view->setVar('titledCacheValidAt',
             Formatter::dateTime($titledCacheDataObj->createdAt));
 
@@ -354,13 +356,13 @@ class StartPageController extends BaseController
         // check if feeds are ready in cache
         $feedsData = $this->getFeedsData(true);
 
-        if ($feedsData && is_object($feedsData)) {
-            // it seems that proper data is retried from APCu cache
-            $this->view->setVar('feedsData', $feedsData->feeds);
+        if($feedsData && is_object($feedsData)){
+            // it seems that proper data is retrived from APCu cache
+            $this->view->setVar('feedsData',$feedsData->feeds);
             $this->view->setVar('feedsDataValidAt',
                 Formatter::dateTime($feedsData->createdAt));
-            $this->view->setVar('feedsUrl', null);
-        } else {
+            $this->view->setVar('feedsUrl',null);
+        }else{
             // no feeds data so try to load it by AJAX
             $this->view->setVar('feedsData', null);
             $this->view->setVar('feedsUrl',
@@ -371,7 +373,7 @@ class StartPageController extends BaseController
     /**
      * This action is called by ajax from startPage.
      * This is loaded by ajax because feeds can be downloaded
-     * from remote server what can increase page load time to few seconds.
+     * from remote server what can increse page load time to few seconds.
      *
      */
     public function getFeeds()
@@ -380,28 +382,28 @@ class StartPageController extends BaseController
 
         $feedsData = $this->getFeedsData();
 
-        if ($feedsData && is_object($feedsData)) {
-            $this->view->setVar('feedsData', $feedsData->feeds);
+        if($feedsData && is_object($feedsData)){
+            $this->view->setVar('feedsData',$feedsData->feeds);
             $this->view->setVar('feedsDataValidAt',
                 Formatter::dateTime($feedsData->createdAt));
-        } else {
+        }else{
             $this->view->setVar('feedsData', null);
         }
 
         $this->view->buildOnlySelectedTpl();
     }
 
-    private function getFeedsData($onlyIfReady = false)
+    private function getFeedsData($onlyIfReady=false)
     {
-        $feedsKey = __CLASS__ . ':feeds';
-        if ($onlyIfReady) {
+        $feedsKey = __CLASS__.':feeds';
+        if($onlyIfReady){
             return OcMemCache::get($feedsKey);
-        } else {
-            return OcMemCache::getOrCreate($feedsKey, 60 * 60 /*1h*/,
-                function () {
+        }else{
+            return OcMemCache::getOrCreate($feedsKey, 60*60 /*1h*/,
+                function(){
                     global $config;//TODO
 
-                    $result = new stdClass();
+                    $result = new \stdClass();
                     $result->feeds = [];
 
                     foreach ($config['feed']['enabled'] as $feedName) {
@@ -410,15 +412,15 @@ class StartPageController extends BaseController
                         $postsCount = min($config['feed'][$feedName]['posts'], $feed->count());
                         $result->feeds[$feedName] = [];
 
-                        for ($i = 0; $i < $postsCount; $i++) {
-                            $post = new stdClass();
-                            $post->author = (!empty($feed->next()->author) &&
-                                $config['feed'][$feedName]['showAuthor']) ? $feed->current()->author : '';
+                        for ($i=0; $i<$postsCount; $i++) {
+                            $post = new \stdClass();
+                            $post->author = ( !empty($feed->next()->author) &&
+                                $config['feed'][$feedName]['showAuthor'] ) ? $feed->current()->author : '';
 
-                            $post->link = $feed->current()->link;
-                            $post->title = $feed->current()->title;
-                            $post->date = Formatter::date($feed->current()->date);
-                            $result->feeds[$feedName][] = $post;
+                                $post->link = $feed->current()->link;
+                                $post->title = $feed->current()->title;
+                                $post->date = Formatter::date($feed->current()->date);
+                                $result->feeds[$feedName][] = $post;
                         }
                     }//foreach
 

@@ -4,11 +4,14 @@ use src\Utils\Database\XDb;
 use src\Models\OcConfig\OcConfig;
 use src\Utils\Img\OcImage;
 
-//prepare the templates and include all necessary
+
+//prepare the templates and include all neccessary
 require_once(__DIR__.'/lib/common.inc.php');
 
 $message = false;
 
+//Preprocessing
+if ($error == false) {
     //user logged in?
     if ($usr == false) {
         $target = urlencode(tpl_get_current_page());
@@ -99,12 +102,12 @@ $message = false;
                             // Apply resize to uploaded image
                             $filePath = OcImage::createThumbnail(
                                 $_FILES['file']['tmp_name'],
-                                OcConfig::getPicUploadFolder() . '/' . $uuid,
+                                OcConfig::getPicUploadFolder(true) . '/' . $uuid,
                                 [$config['limits']['image']['width'], $config['limits']['image']['height']]);
 
                         } else {
                             // Save uploaded image AS IS
-                            $filePath = OcConfig::getPicUploadFolder() . '/' . $uuid . '.' . $extension;
+                            $filePath = OcConfig::getPicUploadFolder(true) . '/' . $uuid . '.' . $extension;
                             move_uploaded_file($_FILES['file']['tmp_name'], $filePath);
                         }
                     }
@@ -165,7 +168,7 @@ $message = false;
         if (!$message) {
             // display
             $tplname = 'editpic';
-            $view->setSubtitle(htmlspecialchars($row['name'], ENT_COMPAT, 'UTF-8') . ' - ');
+            $tpl_subtitle = htmlspecialchars($row['name'], ENT_COMPAT, 'UTF-8') . ' - ';
             tpl_set_var('cacheid', htmlspecialchars($row['cache_id'], ENT_COMPAT, 'UTF-8'));
             tpl_set_var('cachename', htmlspecialchars($row['name'], ENT_COMPAT, 'UTF-8'));
             tpl_set_var('title', htmlspecialchars($row['title'], ENT_COMPAT, 'UTF-8'));
@@ -194,6 +197,7 @@ $message = false;
             tpl_set_var('message', $message);
         }
     }
+}
 
 //make the template and send it out
 tpl_BuildTemplate();
