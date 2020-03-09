@@ -10,6 +10,7 @@ use src\Models\GeoKret\GeoKretLog;
 use src\Models\GeoKret\GeoKretyApi;
 use src\Controllers\MeritBadgeController;
 use src\Utils\Generators\Uuid;
+use src\Controllers\LogEntryController;
 use src\Models\ApplicationContainer;
 use src\Models\GeoCache\GeoCacheLogCommons;
 use src\Utils\EventHandler\EventHandler;
@@ -33,7 +34,6 @@ if (!$user) {
 
 //set here the template to process
 $tplname = 'log_cache';
-$view = tpl_getView();
 $view->loadJquery();
 
 
@@ -65,7 +65,9 @@ if(
     exit;
 }
 
-$view->setSubtitle(htmlspecialchars($geoCache->getCacheName(), ENT_COMPAT, 'UTF-8') . ' - ');
+
+$tpl_subtitle = htmlspecialchars($geoCache->getCacheName(), ENT_COMPAT, 'UTF-8') . ' - ';
+
 
 $all_ok = false;
 
@@ -137,7 +139,7 @@ if ($userRecoCountForThisCache == 0) { //not-yet-recommended
         $rating_msg = mb_ereg_replace('{max}', floor($user_founds * GeoCacheCommons::RECOMENDATION_RATIO / 100), $rating_msg);
         $rating_msg = mb_ereg_replace('{curr}', $user_tops, $rating_msg);
     } else {
-        // user needs more caches for next recommendation
+        // user needs more caches for next recomendation
         $top_cache = 0;
         $recommendationsNr = ((1+$user_tops) * 100 / GeoCacheCommons::RECOMENDATION_RATIO ) - $user_founds;
         $rating_msg = mb_ereg_replace('{recommendationsNr}', "$recommendationsNr", $rating_too_few_founds);
@@ -182,7 +184,7 @@ if ( $is_scored_query == 0 && $user->getUserId() != $geoCache->getOwnerId() ) {
             $break_line = "";
         } else {
             $break_line = "";
-        }
+        };
         if (isset($_POST['r']) && $score_radio == $_POST['r'])
             $checked = ' checked="true"';
         else
@@ -190,7 +192,7 @@ if ( $is_scored_query == 0 && $user->getUserId() != $geoCache->getOwnerId() ) {
 
         $score.= '
             <label><input type="radio" style="vertical-align: top" name="r" id="r' .
-            $line_cnt . '" value="' . $score_radio . '" onclick="clear_no_score ();" ' . $checked .
+            $line_cnt . '" value="' . $score_radio . '" onclick="clear_no_score ();"' . $checked .
             '><b><span style="color:' . $color_table[$line_cnt]. '" id="score_lbl_' . $line_cnt . '">' .
             ucfirst(tr(GeoCacheCommons::CacheRatingTranslationKey($score_radio))) .
             '</span></b></label>&nbsp;&nbsp;' . $break_line;
@@ -383,7 +385,7 @@ if (
 
     if (!isset($_POST['r'])) {
         $_POST['r'] = -15;
-    }
+    };
 
     // fix
     if ($log_type == GeoCacheLog::LOGTYPE_ATTENDED &&

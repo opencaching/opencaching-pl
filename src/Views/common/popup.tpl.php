@@ -5,7 +5,7 @@ use src\Utils\I18n\I18n;
 <!DOCTYPE html>
 <html lang="<?=I18n::getCurrentLang()?>">
 <head>
-  <title><?=$view->getSubtitle()?>{title}</title>
+  <title><?php echo isset($tpl_subtitle) ? $tpl_subtitle : ''; ?>{title}</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -36,7 +36,7 @@ use src\Utils\I18n\I18n;
       }
   ?>
 </head>
-<body {bodyMod}>
+<body{bodyMod}>
   <div id="content">
     {template}
   </div>
