@@ -94,6 +94,7 @@ class OcPicture extends BaseObject
             switch($col){
                 case 'id':
                     $this->id = $val;
+                    break;
                 case 'uuid':
                     $this->uuid = $val;
                     break;
