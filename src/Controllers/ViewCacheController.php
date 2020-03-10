@@ -3,23 +3,23 @@
 namespace src\Controllers;
 
 use powerTrailBase;
-use src\Utils\Gis\Gis;
-use src\Utils\Log\CacheAccessLog;
-use src\Utils\Text\Rot13;
-use src\Utils\Text\Formatter;
-use src\Utils\Uri\Uri;
 use src\Models\Coordinates\Coordinates;
 use src\Models\GeoCache\GeoCache;
-use src\Models\GeoCache\GeoCacheLog;
 use src\Models\GeoCache\GeoCacheDesc;
+use src\Models\GeoCache\GeoCacheLog;
 use src\Models\GeoCache\OpenChecker;
 use src\Models\GeoCache\PrintList;
 use src\Models\GeoCache\Waypoint;
+use src\Models\OcConfig\OcConfig;
+use src\Utils\Gis\Gis;
 use src\Utils\I18n\I18n;
+use src\Utils\Log\CacheAccessLog;
+use src\Utils\Map\StaticMap;
+use src\Utils\Text\Formatter;
+use src\Utils\Text\Rot13;
 use src\Utils\Text\UserInputFilter;
 use src\Utils\Uri\SimpleRouter;
-use src\Utils\Map\StaticMap;
-use src\Models\OcConfig\OcConfig;
+use src\Utils\Uri\Uri;
 use stdClass;
 
 class ViewCacheController extends BaseController
@@ -77,7 +77,7 @@ class ViewCacheController extends BaseController
             $this->displayCommonErrorPageAndExit("No such geocache?!");
         }
 
-        if ( isset($_POST['ocTeamComment']) && !empty($_POST['ocTeamComment']) ) {
+        if (isset($_POST['ocTeamComment']) && !empty($_POST['ocTeamComment'])) {
             // add OC Team comment
             GeoCacheDesc::UpdateAdminComment(
                 $cache, UserInputFilter::purifyHtmlString($_POST['ocTeamComment']), $this->loggedUser);
@@ -108,14 +108,14 @@ class ViewCacheController extends BaseController
         $this->geocache = $this->loadGeocache();
 
         /* check if there is cache to display */
-        if ( $this->geocache == null ||
+        if ($this->geocache == null ||
             (
-                ( $this->geocache->getStatus() == GeoCache::STATUS_NOTYETAVAILABLE ||
+                ($this->geocache->getStatus() == GeoCache::STATUS_NOTYETAVAILABLE ||
                     $this->geocache->getStatus() == GeoCache::STATUS_BLOCKED
                 ) &&
                 (
                     $this->loggedUser == null ||
-                    ( $this->loggedUser->getUserId() != $this->geocache->getOwnerId() && !$this->loggedUser->hasOcTeamRole() )
+                    ($this->loggedUser->getUserId() != $this->geocache->getOwnerId() && !$this->loggedUser->hasOcTeamRole())
                 )
             ) ||
             (
@@ -138,9 +138,9 @@ class ViewCacheController extends BaseController
 
         //set here the template to process
         if (isset($_REQUEST['print']) && $_REQUEST['print'] == 'y') {
-            tpl_set_tplname('viewcache/viewcache_print');
+            $this->view->setTemplate('viewcache/viewcache_print');
         } else {
-            tpl_set_tplname('viewcache/viewcache');
+            $this->view->setTemplate('viewcache/viewcache');
             $this->view->loadJQuery();
             $this->view->loadJQueryUI();
             $this->view->loadFancyBox();
@@ -153,7 +153,7 @@ class ViewCacheController extends BaseController
             $this->view->setVar('infoMsg', $this->infoMsg);
             $this->view->setVar('errorMsg', $this->errorMsg);
         }
-        set_tpl_subtitle(htmlspecialchars($this->geocache->getCacheName()) . ' - ');
+        $this->view->setSubtitle(htmlspecialchars($this->geocache->getCacheName()) . ' - ');
 
         $this->geocache->incCacheVisits($this->loggedUser, $_SERVER["REMOTE_ADDR"]);
 
@@ -171,9 +171,9 @@ class ViewCacheController extends BaseController
         tpl_set_var('cacheid', $this->cache_id);
 
         $this->view->setVar('geoCache', $this->geocache);
-        $this->view->setVar('isUserAuthorized', is_object($this->loggedUser) );
-        $this->view->setVar('isAdminAuthorized', $this->loggedUser && $this->loggedUser->hasOcTeamRole() );
-        $this->view->setVar('displayPrePublicationAccessInfo', $this->loggedUser && $this->loggedUser->hasOcTeamRole() );
+        $this->view->setVar('isUserAuthorized', is_object($this->loggedUser));
+        $this->view->setVar('isAdminAuthorized', $this->loggedUser && $this->loggedUser->hasOcTeamRole());
+        $this->view->setVar('displayPrePublicationAccessInfo', $this->loggedUser && $this->loggedUser->hasOcTeamRole());
 
         $this->view->setVar('ownerId', $this->geocache->getOwner()->getUserId());
         $this->view->setVar('ownerName', htmlspecialchars($this->geocache->getOwner()->getUserName()));
@@ -182,9 +182,9 @@ class ViewCacheController extends BaseController
         $this->view->setVar('alwaysShowCoords', !$hide_coords);
         $this->view->setVar('cachename', htmlspecialchars($this->geocache->getCacheName()));
 
-        $this->view->setVar('diffTitle', tr('task_difficulty').': '.$this->geocache->getDifficulty()/2 . ' ' .tr('out_of') . ' ' . '5.0');
-        $this->view->setVar('terrainTitle', tr('terrain_difficulty').': '.$this->geocache->getTerrain()/2 . ' ' .tr('out_of') . ' ' . '5.0');
-        $this->view->setVar('cacheMainIcon',$this->geocache->getCacheIcon($this->loggedUser));
+        $this->view->setVar('diffTitle', tr('task_difficulty') . ': ' . $this->geocache->getDifficulty() / 2 . ' ' . tr('out_of') . ' ' . '5.0');
+        $this->view->setVar('terrainTitle', tr('terrain_difficulty') . ': ' . $this->geocache->getTerrain() / 2 . ' ' . tr('out_of') . ' ' . '5.0');
+        $this->view->setVar('cacheMainIcon', $this->geocache->getCacheIcon($this->loggedUser));
 
         tpl_set_var('altitude', $this->geocache->getAltitude());
 
@@ -203,8 +203,8 @@ class ViewCacheController extends BaseController
         $this->view->setVar(
             'cachePublishedDate',
             empty($this->geocache->getDatePublished())
-            ? ""
-            : Formatter::date($this->geocache->getDatePublished())
+                ? ""
+                : Formatter::date($this->geocache->getDatePublished())
         );
 
         tpl_set_var('total_number_of_logs', $this->geocache->getFounds() + $this->geocache->getNotFounds() + $this->geocache->getNotesCount());
@@ -213,7 +213,7 @@ class ViewCacheController extends BaseController
             $this->view->setVar('founderName', htmlspecialchars($this->geocache->getFounder()->getUserName()));
         }
 
-        $this->view->setVar('hideLogbook',isset($_REQUEST['logbook']) && $_REQUEST['logbook'] == 'no');
+        $this->view->setVar('hideLogbook', isset($_REQUEST['logbook']) && $_REQUEST['logbook'] == 'no');
         $this->view->setVar('viewcache_js', Uri::getLinkWithModificationTime('/views/viewcache/viewcache.js'));
 
         $this->view->addLocalCss(Uri::getLinkWithModificationTime('/views/viewcache/viewcache.css'));
@@ -235,9 +235,9 @@ class ViewCacheController extends BaseController
         $this->processUserMenu();
         $this->processGeoPaths();
 
-        $this->processMeritBadgePopUp(); //pop-up on new badge level achivement
+        $this->processMeritBadgePopUp(); //pop-up on new badge level achievement
 
-        tpl_BuildTemplate();
+        $this->view->buildView();
     }
 
     /**
@@ -250,7 +250,7 @@ class ViewCacheController extends BaseController
         global $config;
 
         $coords = Coordinates::FromCoordsFactory($lat, $lon);
-        if(!$coords) {
+        if (!$coords) {
             $this->displayCommonErrorPageAndExit("Wrong coords?");
         }
 
@@ -266,13 +266,13 @@ class ViewCacheController extends BaseController
 
         if (!$this->isUserLogged()) {
             // there is no logged user
-            $this->view->setVar('badgesPopupHtml','');
+            $this->view->setVar('badgesPopupHtml', '');
             $this->view->setVar('badgesPopUp', false);
             return;
         }
 
 
-        if ( !isset($_REQUEST['badgesPopupFor']) || empty($_REQUEST['badgesPopupFor'])  ) {
+        if (!isset($_REQUEST['badgesPopupFor']) || empty($_REQUEST['badgesPopupFor'])) {
             $this->view->setVar('badgesPopUp', false);
             return;
         }
@@ -284,20 +284,20 @@ class ViewCacheController extends BaseController
 
         $this->view->setVar('badgesPopupHtml',
             $ctrlMeritBadge->prepareHtmlChangeLevelMeritBadges
-            ( explode( ',', $_REQUEST['badgesPopupFor'] ), $this->loggedUser->getUserId() ));
+            (explode(',', $_REQUEST['badgesPopupFor']), $this->loggedUser->getUserId()));
 
     }
 
     private function loadGeocache()
     {
         if (isset($_REQUEST['cacheid'])) {
-            return GeoCache::fromCacheIdFactory( $_REQUEST['cacheid'] );
+            return GeoCache::fromCacheIdFactory($_REQUEST['cacheid']);
 
         } elseif (isset($_REQUEST['uuid'])) {
-            return GeoCache::fromUUIDFactory( $_REQUEST['uuid'] );
+            return GeoCache::fromUUIDFactory($_REQUEST['uuid']);
 
         } elseif (isset($_REQUEST['wp'])) {
-            return GeoCache::fromWayPointFactory( $_REQUEST['wp'] );
+            return GeoCache::fromWayPointFactory($_REQUEST['wp']);
         }
 
         return null;
@@ -354,36 +354,36 @@ class ViewCacheController extends BaseController
                 }
             }
 
-            $this->view->setVar('showEditButton',$show_edit);
-            $this->view->setVar('showWatchButton',$show_watch);
-            $this->view->setVar('showIgnoreButton',$show_ignore);
-            $this->view->setVar('showReportProblemButton',$showReportProblemButton);
+            $this->view->setVar('showEditButton', $show_edit);
+            $this->view->setVar('showWatchButton', $show_watch);
+            $this->view->setVar('showIgnoreButton', $show_ignore);
+            $this->view->setVar('showReportProblemButton', $showReportProblemButton);
 
 
             if ($show_watch) {
                 //is this cache watched by this user?
                 if ($this->geocache->isWatchedBy($this->loggedUser->getUserId())) {
-                    $this->view->setVar('watched',true);
+                    $this->view->setVar('watched', true);
                 } else {
-                    $this->view->setVar('watched',false);
+                    $this->view->setVar('watched', false);
                 }
             }
 
             if ($show_ignore) {
                 //is this cache watched by this user?
-                if ($this->geocache->isIgnoredBy($this->loggedUser->getUserId())) {
-                    $this->view->setVar('ignored',true);
+                if ($this->geocache->isIgnoredByUser($this->loggedUser)) {
+                    $this->view->setVar('ignored', true);
                 } else {
-                    $this->view->setVar('ignored',false);
+                    $this->view->setVar('ignored', false);
                 }
             }
 
-            $this->view->setVar('printListLabel',PrintList::IsOnTheList($this->geocache->getCacheId()) ?
-                tr('remove_from_list'): tr('add_to_list'));
+            $this->view->setVar('printListLabel', PrintList::IsOnTheList($this->geocache->getCacheId()) ?
+                tr('remove_from_list') : tr('add_to_list'));
 
-            $this->view->setVar('printListLink',PrintList::AddOrRemoveCacheUrl($this->geocache->getCacheId()));
-            $this->view->setVar('printListIcon',PrintList::IsOnTheList($this->geocache->getCacheId()) ?
-                        'images/actions/list-remove-16.png' : 'images/actions/list-add-16.png');
+            $this->view->setVar('printListLink', PrintList::AddOrRemoveCacheUrl($this->geocache->getCacheId()));
+            $this->view->setVar('printListIcon', PrintList::IsOnTheList($this->geocache->getCacheId()) ?
+                'images/actions/list-remove-16.png' : 'images/actions/list-add-16.png');
 
         }
     }
@@ -413,20 +413,20 @@ class ViewCacheController extends BaseController
 
         $picturesToDisplay = null;
         if ($this->geocache->getPicturesCount() != 0 &&
-            !( isset($_REQUEST['print']) && isset($_REQUEST['pictures']) && $_REQUEST['pictures'] == 'no' )) {
+            !(isset($_REQUEST['print']) && isset($_REQUEST['pictures']) && $_REQUEST['pictures'] == 'no')) {
 
-                //there are any pictures to display
+            //there are any pictures to display
 
-                $hideSpoilersForAnonims = !$this->loggedUser && $hide_coords;
-                $showOnlySpoilers = isset($_REQUEST['spoiler_only']) && $_REQUEST['spoiler_only'] == 1;
-                $unHideSpoilersThumbs = $this->loggedUser && isset($_REQUEST['print']) &&  $_REQUEST['print'] = 'big' || $_REQUEST['print'] = 'small';
+            $hideSpoilersForAnonims = !$this->loggedUser && $hide_coords;
+            $showOnlySpoilers = isset($_REQUEST['spoiler_only']) && $_REQUEST['spoiler_only'] == 1;
+            $unHideSpoilersThumbs = $this->loggedUser && isset($_REQUEST['print']) && $_REQUEST['print'] = 'big' || $_REQUEST['print'] = 'small';
 
-                $picturesToDisplay = $this->geocache->getPicturesList($showOnlySpoilers, $hideSpoilersForAnonims, $unHideSpoilersThumbs);
+            $picturesToDisplay = $this->geocache->getPicturesList($showOnlySpoilers, $hideSpoilersForAnonims, $unHideSpoilersThumbs);
 
-                $this->view->setVar('displayBigPictures',
-                    isset($_REQUEST['print']) && $_REQUEST['print']=='y' && isset($_REQUEST['pictures']) && $_REQUEST['pictures'] == 'big');
-            }
-            $this->view->setVar('picturesToDisplay', $picturesToDisplay);
+            $this->view->setVar('displayBigPictures',
+                isset($_REQUEST['print']) && $_REQUEST['print'] == 'y' && isset($_REQUEST['pictures']) && $_REQUEST['pictures'] == 'big');
+        }
+        $this->view->setVar('picturesToDisplay', $picturesToDisplay);
     }
 
     private function processWayPoints()
@@ -436,12 +436,12 @@ class ViewCacheController extends BaseController
         $this->view->setVar('cacheWithStages',
             $this->geocache->getCacheType() == GeoCache::TYPE_OTHERTYPE ||
             $this->geocache->getCacheType() == GeoCache::TYPE_QUIZ ||
-            $this->geocache->getCacheType() == GeoCache::TYPE_MULTICACHE );
+            $this->geocache->getCacheType() == GeoCache::TYPE_MULTICACHE);
     }
 
     private function processOpenChecker()
     {
-        if ( OpenChecker::isEnabledInConfig() && $this->geocache->isOpenCheckerApplicable() ) {
+        if (OpenChecker::isEnabledInConfig() && $this->geocache->isOpenCheckerApplicable()) {
             $openChecker = OpenChecker::ForCacheIdFactory($this->geocache->getCacheId());
         } else {
             $openChecker = null;
@@ -455,10 +455,10 @@ class ViewCacheController extends BaseController
         $availableDescLangs = mb_split(',', $this->geocache->getDescLanguagesList());
 
         // check if user requests other lang of cache desc...
-        if ( isset($_REQUEST['desclang']) && (array_search($_REQUEST['desclang'], $availableDescLangs) !== false)) {
+        if (isset($_REQUEST['desclang']) && (array_search($_REQUEST['desclang'], $availableDescLangs) !== false)) {
             $descLang = $_REQUEST['desclang'];
 
-        } elseif ( array_search( mb_strtoupper(I18n::getCurrentLang()) , $availableDescLangs) ) { // or try current lang
+        } elseif (array_search(mb_strtoupper(I18n::getCurrentLang()), $availableDescLangs)) { // or try current lang
             $descLang = mb_strtoupper(I18n::getCurrentLang());
 
         } else { // use first available otherwise
@@ -475,7 +475,7 @@ class ViewCacheController extends BaseController
         $this->view->setVar('availableDescLangsLinks', $availableDescLangsLinks);
 
         $this->geoCacheDesc = $this->geocache->getCacheDescription($descLang);
-        if(is_null($this->geoCacheDesc)){
+        if (is_null($this->geoCacheDesc)) {
             $this->geoCacheDesc = GeoCacheDesc::getEmptyDesc();
         }
 
@@ -490,13 +490,13 @@ class ViewCacheController extends BaseController
         }
 
         $displayDeletedLogs = true;
-        if ( $this->loggedUser && $this->loggedUser->hasOcTeamRole() || !$this->geocache->hasDeletedLog() ) {
+        if ($this->loggedUser && $this->loggedUser->hasOcTeamRole() || !$this->geocache->hasDeletedLog()) {
             $showDeletedLogsDisplayLink = false; //admin always see deleted logs
 
         } else {
             $showDeletedLogsDisplayLink = true;
 
-            if ( isset($_SESSION['showdel']) && $_SESSION['showdel'] == 'y') {
+            if (isset($_SESSION['showdel']) && $_SESSION['showdel'] == 'y') {
                 //hide-link
                 $deletedLogsDisplayLink = Uri::addAnchorName('log_start', Uri::setOrReplaceParamValue('showdel', 'n'));
                 $deletedLogsDisplayText = tr('vc_HideDeletions');
@@ -508,14 +508,14 @@ class ViewCacheController extends BaseController
                 $displayDeletedLogs = false;
             }
 
-            $this->view->setVar('deletedLogsDisplayLink',$deletedLogsDisplayLink);
-            $this->view->setVar('deletedLogsDisplayText',$deletedLogsDisplayText);
+            $this->view->setVar('deletedLogsDisplayLink', $deletedLogsDisplayLink);
+            $this->view->setVar('deletedLogsDisplayText', $deletedLogsDisplayText);
         }
 
         $logEntriesCount = intval($this->geocache->getLogEntriesCount($displayDeletedLogs));
 
         $this->view->setVar('showDeletedLogsDisplayLink', $showDeletedLogsDisplayLink);
-        $this->view->setVar('displayAllLogsLink', 0 < $logEntriesCount );
+        $this->view->setVar('displayAllLogsLink', 0 < $logEntriesCount);
         $this->view->setVar('logEntriesCount', $logEntriesCount);
         $this->view->setVar('displayDeletedLogs', $displayDeletedLogs);
 
@@ -570,7 +570,6 @@ class ViewCacheController extends BaseController
                 $userNoteText = $_POST['userNoteText'];
 
 
-
                 if (!empty($userNoteText)) {
                     $this->geocache->saveUserNote($this->loggedUser->getUserId(), $userNoteText);
 
@@ -579,7 +578,7 @@ class ViewCacheController extends BaseController
                     // empty update = delete note
                     $this->geocache->deleteUserNote($this->loggedUser->getUserId());
                 }
-            }elseif (isset($_POST['removeUserNote'])) {
+            } elseif (isset($_POST['removeUserNote'])) {
                 $this->geocache->deleteUserNote($this->loggedUser->getUserId());
 
             } else {
@@ -596,44 +595,44 @@ class ViewCacheController extends BaseController
         /** @var Coordinates $userModifiedCacheCoords */
         $this->userModifiedCacheCoords = null;
         if ($this->loggedUser && (
-            $this->geocache->getCacheType() == GeoCache::TYPE_OTHERTYPE ||
-            $this->geocache->getCacheType() == GeoCache::TYPE_QUIZ ||
-            $this->geocache->getCacheType() == GeoCache::TYPE_MULTICACHE )) {
+                $this->geocache->getCacheType() == GeoCache::TYPE_OTHERTYPE ||
+                $this->geocache->getCacheType() == GeoCache::TYPE_QUIZ ||
+                $this->geocache->getCacheType() == GeoCache::TYPE_MULTICACHE)) {
 
-                $this->view->setVar('cacheCoordsModificationAllowed',true);
+            $this->view->setVar('cacheCoordsModificationAllowed', true);
 
-                // insert/edit modified coordinates
-                if (isset($_POST['userModifiedCoordsSubmited']) &&
-                    isset($_POST['userCoordsFinalLatitude']) &&
-                    isset($_POST['userCoordsFinalLongitude']) ) {
+            // insert/edit modified coordinates
+            if (isset($_POST['userModifiedCoordsSubmited']) &&
+                isset($_POST['userCoordsFinalLatitude']) &&
+                isset($_POST['userCoordsFinalLongitude'])) {
 
-                        $this->userModifiedCacheCoords = Coordinates::FromCoordsFactory($_POST['userCoordsFinalLatitude'], $_POST['userCoordsFinalLongitude']);
-                        if ($this->userModifiedCacheCoords) {
-                            $this->geocache->saveUserCoordinates($this->userModifiedCacheCoords, $this->loggedUser->getUserId());
-                        } else {
-                            //TODO: improper coords!?
-                        }
+                $this->userModifiedCacheCoords = Coordinates::FromCoordsFactory($_POST['userCoordsFinalLatitude'], $_POST['userCoordsFinalLongitude']);
+                if ($this->userModifiedCacheCoords) {
+                    $this->geocache->saveUserCoordinates($this->userModifiedCacheCoords, $this->loggedUser->getUserId());
+                } else {
+                    //TODO: improper coords!?
+                }
 
-                    } elseif ( isset($_POST['deleteUserModifiedCoords']) ) {
-                        // user requested to delete user-modified-ccords
-                        $this->geocache->deleteUserCoordinates($this->loggedUser->getUserId());
+            } elseif (isset($_POST['deleteUserModifiedCoords'])) {
+                // user requested to delete user-modified-ccords
+                $this->geocache->deleteUserCoordinates($this->loggedUser->getUserId());
 
-                    } else { //there are no new userCoords for this cache - check if user set something before
-                        $this->userModifiedCacheCoords = $this->geocache->getUserCoordinates($this->loggedUser->getUserId());
-                    }
-
-
-            } else {
-                $this->view->setVar('cacheCoordsModificationAllowed', false);
+            } else { //there are no new userCoords for this cache - check if user set something before
+                $this->userModifiedCacheCoords = $this->geocache->getUserCoordinates($this->loggedUser->getUserId());
             }
 
-            $this->view->setVar('userModifiedCacheCoords', $this->userModifiedCacheCoords);
+
+        } else {
+            $this->view->setVar('cacheCoordsModificationAllowed', false);
+        }
+
+        $this->view->setVar('userModifiedCacheCoords', $this->userModifiedCacheCoords);
 
     }
 
     private function processDistanceToCache()
     {
-        if ( $this->loggedUser && $this->loggedUser->getHomeCoordinates()->areCordsReasonable() ) {
+        if ($this->loggedUser && $this->loggedUser->getHomeCoordinates()->areCordsReasonable()) {
 
             $this->view->setVar('distanceToCache', sprintf("%.2f", Gis::distanceBetween($this->loggedUser->getHomeCoordinates(), $this->geocache->getCoordinates())));
             $this->view->setVar('displayDistanceToCache', true);
@@ -650,12 +649,22 @@ class ViewCacheController extends BaseController
             $score = tr('not_available');
             $scoreColor = "#000000";
         } else {
-            switch($this->geocache->getScoreAsRatingNum()) {
-                case 1: $scoreColor = "#DD0000"; break;
-                case 2: $scoreColor = "#F06464"; break;
-                case 3: $scoreColor = "#5A5A5A"; break;
-                case 4: $scoreColor = "#77CC00"; break;
-                case 5: $scoreColor = "#00DD00"; break;
+            switch ($this->geocache->getScoreAsRatingNum()) {
+                case 1:
+                    $scoreColor = "#DD0000";
+                    break;
+                case 2:
+                    $scoreColor = "#F06464";
+                    break;
+                case 3:
+                    $scoreColor = "#5A5A5A";
+                    break;
+                case 4:
+                    $scoreColor = "#77CC00";
+                    break;
+                case 5:
+                    $scoreColor = "#00DD00";
+                    break;
             }
             $score = $this->geocache->getScoreNameTranslation();
         }
@@ -667,7 +676,7 @@ class ViewCacheController extends BaseController
     private function processTitled()
     {
         global $titled_cache_period_prefix; //from config
-        $this->view->setVar('titledDesc',tr($titled_cache_period_prefix.'_titled_cache'));
+        $this->view->setVar('titledDesc', tr($titled_cache_period_prefix . '_titled_cache'));
     }
 
     private function processDetailedCoords()
@@ -710,25 +719,25 @@ class ViewCacheController extends BaseController
 
         // read external maps urls
         $externalMaps = [];
-        foreach(OcConfig::getMapExternalUrls() as $name => $url) {
+        foreach (OcConfig::getMapExternalUrls() as $name => $url) {
             if ($name == "Flopp's Map") {
                 $name = tr('flopps_map');
             }
             $externalMaps[$name] = sprintf($url, $lat, $lon,
-                    $this->geocache->getCacheId(), $this->geocache->getWaypointId(),
-                    urlencode($this->geocache->getCacheName()) );
+                $this->geocache->getCacheId(), $this->geocache->getWaypointId(),
+                urlencode($this->geocache->getCacheName()));
         }
         $this->view->setVar('externalMaps', $externalMaps);
 
 
-        if ($lat && $lon){
+        if ($lat && $lon) {
             $this->view->setVar('mapImgLink', SimpleRouter::getLink(self::class, 'getStaticMapImage', [$lat, $lon]));
         } else {
             // if coordinates of the cache are not present - strange - maybe the very new cache
             $this->view->setVar('mapImgLink', null);
         }
         $this->view->setVar('loginToSeeMapMsg',
-            mb_ereg_replace("{target}", urlencode("viewcache.php?cacheid=".$this->geocache->getCacheId()), tr('map_msg')));
+            mb_ereg_replace("{target}", urlencode("viewcache.php?cacheid=" . $this->geocache->getCacheId()), tr('map_msg')));
     }
 
     private function processOtherSites()
@@ -736,11 +745,11 @@ class ViewCacheController extends BaseController
         global $config;
 
         if ($this->loggedUser &&
-        ($this->loggedUser->getUserId() == $this->geocache->getOwnerId() ||
-        $this->loggedUser->hasOcTeamRole() ||
-        $this->loggedUser->isGuide() ||
-        $this->loggedUser->getFoundGeocachesCount() >= $config['otherSites_minfinds'])) {
-            $this->view->setVar('otherSitesListing', $this->geocache->getFullOtherWaypointsList() );
+            ($this->loggedUser->getUserId() == $this->geocache->getOwnerId() ||
+                $this->loggedUser->hasOcTeamRole() ||
+                $this->loggedUser->isGuide() ||
+                $this->loggedUser->getFoundGeocachesCount() >= $config['otherSites_minfinds'])) {
+            $this->view->setVar('otherSitesListing', $this->geocache->getFullOtherWaypointsList());
             $this->view->setVar('searchAtOtherSites', true);
         } else {
             $this->view->setVar('otherSitesListing', []);
@@ -757,7 +766,7 @@ class ViewCacheController extends BaseController
     public function eventAttenders($cacheWp)
     {
         $cache = GeoCache::fromWayPointFactory($cacheWp);
-        if (is_null($cache) || ! $cache->isEvent()) {
+        if (is_null($cache) || !$cache->isEvent()) {
             $this->view->redirect('/');
             die();
         }

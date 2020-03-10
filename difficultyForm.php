@@ -1,20 +1,17 @@
 <?php
 
-use src\Utils\View\View;
 use src\Utils\Uri\Uri;
 
-
-require_once(__DIR__.'/lib/common.inc.php');
-
-set_tpl_subtitle('Geocache Difficulty Rating System');
+require_once(__DIR__ . '/lib/common.inc.php');
 
 $view = tpl_getView();
+$view->setSubtitle('Geocache Difficulty Rating System - ');
 $view->addLocalCss(Uri::getLinkWithModificationTime('/views/cacheEdit/difficultyForm.css'));
 
-if ( isset($_POST["Rating"]) && $_POST["Rating"] == "TRUE") {
+if (isset($_POST["Rating"]) && $_POST["Rating"] == "TRUE") {
     // print results
 
-    tpl_set_tplname('cacheEdit/difficultyFormResult');
+    $view->setTemplate('cacheEdit/difficultyFormResult');
 
     $Equipment = $_POST["Equipment"];
     $Night = $_POST["Night"];
@@ -24,7 +21,6 @@ if ( isset($_POST["Rating"]) && $_POST["Rating"] == "TRUE") {
     $Elevation = $_POST["Elevation"];
 
     $Difficulty = $_POST["Difficulty"];
-
 
     $maximum = max($Equipment, $Night, $Length, $Trail, $Overgrowth, $Elevation);
 
@@ -36,7 +32,7 @@ if ( isset($_POST["Rating"]) && $_POST["Rating"] == "TRUE") {
             + 0.25 * ($Trail == $maximum)
             + 0.25 * ($Overgrowth == $maximum)
             + 0.25 * ($Elevation == $maximum) - 0.25 + 1;
-    }else{
+    } else {
         $terrain = 1;
     }
 
@@ -45,8 +41,7 @@ if ( isset($_POST["Rating"]) && $_POST["Rating"] == "TRUE") {
 
 } else {
     // print form
-    tpl_set_tplname('cacheEdit/difficultyForm');
+    $view->setTemplate('cacheEdit/difficultyForm');
 }
 
-
-tpl_BuildTemplate();
+$view->buildView();
