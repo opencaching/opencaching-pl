@@ -119,9 +119,6 @@ $googlemap_key = "";
 // DO NOT use it - used only OCRO translations now - used wiki links in /config/links*
 $cache_params_url = 'http://wiki.opencaching.pl/index.php/Parametry_skrzynki';
 
-// New caches outside country where server is:
-$countryParamNewcacherestPhp = " 'PL' ";
-
 /* power Trail module switch and settings */
 
 // true - swithed on; false - swithed off

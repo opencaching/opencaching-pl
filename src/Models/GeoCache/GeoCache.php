@@ -49,6 +49,8 @@ class GeoCache extends GeoCacheCommons
     private $sizeId;
     private $ratingId;              //OKAPI rating calculated from score
     private $status;
+    /** @var string */
+    private $country;
     private $searchTime;
     private $recommendations;       //number of recom.
     private $founds;
@@ -367,6 +369,7 @@ class GeoCache extends GeoCacheCommons
         $this->id = $geocacheDbRow['cache_id'];
         $this->lastFound = $geocacheDbRow['last_found'];
         $this->cacheType = (int) $geocacheDbRow['type'];
+        $this->country = $geocacheDbRow['country'];
         $this->cacheName = $geocacheDbRow['name'];
         $this->geocacheWaypointId = $geocacheDbRow['wp_oc'];
         $this->otherWaypointIds = array(
@@ -823,6 +826,14 @@ class GeoCache extends GeoCacheCommons
     public function getStatusTranslationKey()
     {
         return self::CacheStatusTranslationKey($this->status);
+    }
+
+    /**
+     * @return string
+     */
+    public function getCountry()
+    {
+        return $this->country;
     }
 
     /**
@@ -1762,5 +1773,6 @@ class GeoCache extends GeoCacheCommons
 
         return $this->lastLog;
     }
+
 
 }

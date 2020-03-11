@@ -169,8 +169,10 @@ class MultiCacheStats extends BaseObject
     /**
      * Return array of Geocaches based on given cache Ids
      * @param array $cacheIds
+     * @param array $fieldsArr
+     * @return array
      */
-    public static function getGeocachesDataById(array $cacheIds, array $fieldsArr = null)
+    public static function getGeocachesDataById(array $cacheIds, array $fieldsArr = [])
     {
         if (empty($cacheIds)) {
             return [];
@@ -252,6 +254,11 @@ class MultiCacheStats extends BaseObject
     private static function getLatestNationalCachesId()
     {
         return OcMemCache::getOrCreate(__CLASS__ . ':getLatestNationalCaches', 60 * 60, function () {
+            $countriesStr = '';
+            foreach (OcConfig::getSitePrimaryCountriesList() as $item) {
+                $countriesStr .= "'". self::db()->quoteString($item) ."', ";
+            }
+            $countriesStr = rtrim($countriesStr, ', ');
             $stmt = self::db()->multiVariableQuery("
             SELECT `cache_id`
             FROM `caches`
@@ -259,13 +266,12 @@ class MultiCacheStats extends BaseObject
                 AND `date_published` IS NOT NULL
                 AND `date_published` > NOW() - INTERVAL 365 DAY
                 AND `type` != :2
-                AND `country` LIKE :3
+                AND `country` IN (". $countriesStr.")
             ORDER BY
                 `date_published` DESC,
                 `cache_id` DESC",
                 GeoCache::STATUS_READY,
-                GeoCache::TYPE_EVENT,
-                OcConfig::instance()->getOcCountry());
+                GeoCache::TYPE_EVENT);
             return self::db()->dbFetchOneColumnArray($stmt, 'cache_id');
         });
     }
@@ -282,7 +288,7 @@ class MultiCacheStats extends BaseObject
     }
 
     /**
-     * Returns GeoCache[] of latest caches in OC country
+     * Returns GeoCache[] of latest caches in OC country if site supports only one country
      * Include only caches published in last 365 days
      * Exclude caches ignored by User
      *
@@ -291,7 +297,7 @@ class MultiCacheStats extends BaseObject
      * @param int $offset
      * @return array
      */
-    public static function getLatestNationalCachesForUser($user, $limit, $offset = 0)
+    public static function getLatestNationalCachesForUserOneCountry($user, $limit, $offset = 0)
     {
         $cachesId = self::getLatestNationalCachesId();
         $cachesCount = self::getLatestNationalCachesCount();
@@ -315,6 +321,39 @@ class MultiCacheStats extends BaseObject
     }
 
     /**
+     * Returns array of all latest ready for search GeoCaches in all supported by site OC countries.
+     * Include only caches published in last 365 days
+     * Exclude caches ignored by User
+     *
+     * Structure of returned array (example):
+     * ['NL' => [GeoCacheObj, GeoCacheObj, GeoCacheObj],  'LU' => [GeoCacheObj]]
+     *
+     * @param User|null $user
+     * @return array
+     */
+    public static function getLatestNationalCachesForUserMultiCountries($user = null)
+    {
+        $cachesList = self::getLatestNationalCachesId();
+        $result = [];
+        foreach ($cachesList as $cache) {
+            $cacheObj = GeoCache::fromCacheIdFactory($cache);
+            // Remove ignored caches
+            if (!is_null($user) && $cacheObj->isIgnoredByUser($user)) {
+                unset($cacheObj);
+                continue;
+            }
+            $result[$cacheObj->getCountry()][] = $cacheObj;
+            unset($cacheObj);
+        }
+
+        if (!empty($cachesList)) {
+            ksort($cachesList);
+        }
+
+        return $result;
+    }
+
+    /**
      * Returns array of all latest ready for search GeoCaches outside of OC country.
      * Include only caches published in last 365 days, limit - max 300 caches
      * Exclude caches ignored by User
@@ -328,19 +367,23 @@ class MultiCacheStats extends BaseObject
     public static function getLatestForeignCachesForUser($user = null)
     {
         $cachesList = OcMemCache::getOrCreate(__CLASS__ . ':getLatestForeignCaches', 60 * 60, function () {
+            $countriesStr = '';
+            foreach (OcConfig::getSitePrimaryCountriesList() as $item) {
+                $countriesStr .= "'". self::db()->quoteString($item) ."', ";
+            }
+            $countriesStr = rtrim($countriesStr, ', ');
             $stmt = self::db()->multiVariableQuery("
             SELECT `cache_id`, `country`
             FROM `caches`
             WHERE `status` = :1
                 AND `date_published` IS NOT NULL
                 AND `date_published` > NOW() - INTERVAL 365 DAY
-                AND `country` NOT LIKE :2
+                AND `country` NOT IN (".$countriesStr.")
             ORDER BY
                 `date_published` DESC,
                 `cache_id` DESC
             LIMIT 300",
-                GeoCache::STATUS_READY,
-                OcConfig::instance()->getOcCountry());
+                GeoCache::STATUS_READY);
             return self::db()->dbResultFetchAll($stmt);
         });
 

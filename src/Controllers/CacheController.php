@@ -33,6 +33,18 @@ class CacheController extends BaseController
      */
     public function newCaches()
     {
+        if (sizeof($this->ocConfig->getSitePrimaryCountriesList()) > 1) {
+            $this->newCachesMultipleCountries();
+        } else {
+            $this->newCachesOneCountry();
+        }
+
+        $this->view->addLocalCss('/css/lightTooltip.css')
+            ->buildView();
+
+    }
+
+    private function newCachesOneCountry() {
         $newCachesCount = MultiCacheStats::getLatestNationalCachesCount();
 
         $pagination = new PaginationModel(self::CACHES_PER_NEW_CACHES_PAGE);
@@ -58,13 +70,42 @@ class CacheController extends BaseController
             ->addColumn(new Column_CacheRegionObject(tr('region')))
             ->addColumn(new Column_CacheLastLogObject(tr('new_logs')))
             ->setPaginationModel($pagination)
-            ->addDataRows(MultiCacheStats::getLatestNationalCachesForUser($this->loggedUser, $limit, $offset));
+            ->addDataRows(MultiCacheStats::getLatestNationalCachesForUserOneCountry($this->loggedUser, $limit, $offset));
 
         $this->view->setVar('listCacheModel', $model)
             ->setVar('cachesCount', $newCachesCount)
-            ->addLocalCss('/css/lightTooltip.css')
-            ->setTemplate('cache/newCaches')
-            ->buildView();
+            ->setTemplate('cache/newCachesOneCountry');
+    }
+
+    private function newCachesMultipleCountries() {
+        $cacheList = MultiCacheStats::getLatestNationalCachesForUserMultiCountries($this->loggedUser);
+        $modelArray = [];
+        foreach ($cacheList as $country => $caches) {
+            $model = new ListOfCachesModel();
+            $model->addColumn(new Column_DateTime(tr('cs_publicationDate'),
+                function (GeoCache $row) {
+                    return [
+                        'date' => $row->getDatePublished(),
+                        'showTime' => false
+                    ];
+                }))
+                ->addColumn(new Column_CacheGeoKretIconObject(''))
+                ->addColumn(new Column_GeoPathIconObject(''))
+                ->addColumn(new Column_CacheTypeIconObject(''))
+                ->addColumn(new Column_CacheNameObject(tr('cache')))
+                ->addColumn(new Column_UserNameObject(tr('creator'),
+                    function (GeoCache $row) {
+                        return $row->getOwner();
+                    }))
+                ->addColumn(new Column_CacheRegionObject(tr('region')))
+                ->addColumn(new Column_CacheLastLogObject(tr('new_logs')))
+                ->addDataRows($caches);
+            $modelArray[$country] = $model;
+            unset($model);
+        }
+
+        $this->view->setVar('listCacheModelArray', $modelArray)
+            ->setTemplate('cache/newCachesMultipleCountries');
     }
 
     /**
