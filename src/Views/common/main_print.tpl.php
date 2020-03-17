@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="<?=$view->getLang()?>">
 <head>
-  <title><?php echo isset($tpl_subtitle) ? $tpl_subtitle : ''; ?>{title}</title>
+  <title><?=$view->getSubtitle()?>{title}</title>
   <meta charset="UTF-8">
   <link rel="stylesheet" type="text/css" media="print" href="<?=$view->printCss?>">
   <?php foreach( $view->getLocalCss() as $css ) { ?>
@@ -12,21 +12,21 @@
   {cachemap_header}
 
   <?php
-    if( $view->isGoogleAnalyticsEnabled() ) {
+    if ($view->isGoogleAnalyticsEnabled()) {
         $view->callChunkOnce( 'googleAnalytics', $view->getGoogleAnalyticsKey() );
     }
 
-    if( $view->isjQueryEnabled()) {
+    if ($view->isjQueryEnabled()) {
         $view->callChunk('jQuery');
     }
 
-    if( $view->isjQueryUIEnabled()) {
+    if ($view->isjQueryUIEnabled()) {
         $view->callChunk('jQueryUI');
     }
   ?>
 
 </head>
-<body{bodyMod}>
+<body {bodyMod}>
   {template}
 </body>
 </html>

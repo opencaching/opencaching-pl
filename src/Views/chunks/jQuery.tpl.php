@@ -14,8 +14,10 @@ return function (){
 ?>
 
 <!-- jQuery chunk -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<!-- <script src="https://code.jquery.com/jquery-migrate-3.0.1.min.js"></script> -->
+    <script
+            src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
 <!-- End of jQuery chunk -->
 
 <?php

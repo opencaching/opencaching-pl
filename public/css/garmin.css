@@ -1,7 +1,7 @@
-/* This css is used only by /garmin.php script */ 
+/* This css is used only by /garmin.php script */
 
 #garminDisplay {
-    font-size:11px;
+    font-size: 11px;
     font-weight: bold;
     color: #000000;
     text-align: left;
@@ -13,12 +13,12 @@
 }
 
 #garminDisplay input {
-    font-size:10px;
+    font-size: 10px;
     font-weight: bold;
-    color:#ffffff;
-    height:18px;
+    color: #ffffff;
+    height: 18px;
     background-color: #005E9D;
-    border:1px outset #3D3A21;
+    border: 1px outset #3D3A21;
     margin-right: 3px;
 }
 
@@ -27,7 +27,7 @@
 }
 
 #garminDisplay select {
-    font-size:10px;
+    font-size: 10px;
     font-weight: bold;
     background-color: #666699;
     color: #ffffff;
@@ -72,21 +72,21 @@
 }
 
 #progressBar {
-    height:10px;
+    height: 10px;
     margin-top: 3px;
-    border:1px solid black;
+    border: 1px solid black;
     width: 95%;
-    padding:0px;
+    padding: 0;
     text-align: left;
-    background-color:#CCCAC1;
+    background-color: #CCCAC1;
 }
 
 #progressBarDisplay {
-    position:absolute;
-    top:0px;
-    height:10px;
-    margin: 0px;
-    padding:0px;
+    position: absolute;
+    top: 0;
+    height: 10px;
+    margin: 0;
+    padding: 0;
     text-align: left;
-    background-color:#005E9D;
+    background-color: #005E9D;
 }

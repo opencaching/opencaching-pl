@@ -1,28 +1,27 @@
 <?php
 
-use src\Utils\Database\XDb;
-use src\Utils\Database\OcDb;
+use src\Controllers\MeritBadgeController;
+use src\Models\ApplicationContainer;
+use src\Models\GeoCache\GeoCache;
 use src\Models\GeoCache\GeoCacheCommons;
 use src\Models\GeoCache\GeoCacheLog;
-use src\Models\GeoCache\GeoCache;
-use src\Models\User\User;
+use src\Models\GeoCache\GeoCacheLogCommons;
+use src\Models\GeoCache\MobileCacheMove;
 use src\Models\GeoKret\GeoKretLog;
 use src\Models\GeoKret\GeoKretyApi;
-use src\Controllers\MeritBadgeController;
-use src\Utils\Generators\Uuid;
-use src\Controllers\LogEntryController;
-use src\Models\ApplicationContainer;
-use src\Models\GeoCache\GeoCacheLogCommons;
-use src\Utils\EventHandler\EventHandler;
-use src\Utils\Text\InputFilter;
-use src\Models\GeoCache\MobileCacheMove;
-use src\Utils\I18n\I18n;
 use src\Models\OcConfig\OcConfig;
+use src\Models\User\User;
+use src\Utils\Database\OcDb;
+use src\Utils\Database\XDb;
+use src\Utils\EventHandler\EventHandler;
+use src\Utils\Generators\Uuid;
+use src\Utils\I18n\I18n;
+use src\Utils\Text\InputFilter;
 
 /*
  * todo: create and set up 4 template selector with wybor_WE wybor_NS.
  */
-require_once (__DIR__.'/lib/common.inc.php');
+require_once(__DIR__ . '/lib/common.inc.php');
 
 $user = ApplicationContainer::Instance()->getLoggedUser();
 if (!$user) {
@@ -33,25 +32,25 @@ if (!$user) {
 }
 
 //set here the template to process
-$tplname = 'log_cache';
+$view = tpl_getView();
+$view->setTemplate('log_cache');
 $view->loadJquery();
 
+require(__DIR__ . '/src/Views/rating.inc.php');
 
-require(__DIR__.'/src/Views/rating.inc.php');
-
-if(!isset($_REQUEST['cacheid'])){
+if (!isset($_REQUEST['cacheid'])) {
     tpl_errorMsg('log_cache', "No cacheid param!");
     exit;
 }
 
 // only OC Team member and the owner allowed to make logs to not published caches
 $geoCache = GeoCache::fromCacheIdFactory($_REQUEST['cacheid']);
-if(
+if (
     is_null($geoCache) ||
 
     (
-        ( $geoCache->getStatus() == GeoCache::STATUS_NOTYETAVAILABLE ||
-          $geoCache->getStatus() == GeoCache::STATUS_BLOCKED ) &&
+        ($geoCache->getStatus() == GeoCache::STATUS_NOTYETAVAILABLE ||
+            $geoCache->getStatus() == GeoCache::STATUS_BLOCKED) &&
         $user->getUserId() != $geoCache->getOwnerId() && !$user->hasOcTeamRole()
     ) ||
 
@@ -60,14 +59,12 @@ if(
         !$user->hasOcTeamRole() && !$user->isGuide() &&
         $user->getUserId() != $geoCache->getOwnerId()
     )
-){
+) {
     tpl_errorMsg('log_cache', "Improper cache id param!");
     exit;
 }
 
-
-$tpl_subtitle = htmlspecialchars($geoCache->getCacheName(), ENT_COMPAT, 'UTF-8') . ' - ';
-
+$view->setSubtitle(htmlspecialchars($geoCache->getCacheName(), ENT_COMPAT, 'UTF-8') . ' - ');
 
 $all_ok = false;
 
@@ -83,7 +80,6 @@ if (isset($_SESSION["lastLogSendTime"]) && isset($_SESSION["lastLogDateTime"])) 
 } else {
     $proposedDateTime = new DateTime("now");
 }
-
 
 
 $log_text = isset($_POST['logtext']) ? ($_POST['logtext']) : '';
@@ -105,7 +101,7 @@ $wsp_WE_min = isset($_POST['wsp_WE_min']) ? $_POST['wsp_WE_min'] : null;
 
 $userRecoCountForThisCache = XDb::xMultiVariableQueryValue(
     "SELECT COUNT(*) FROM cache_rating
-    WHERE user_id = :1 AND cache_id = :2 ", 0, $user->getUserId(), $geoCache->getCacheId() );
+    WHERE user_id = :1 AND cache_id = :2 ", 0, $user->getUserId(), $geoCache->getCacheId());
 
 // check if user has exceeded his top5% limit
 $user_founds = XDb::xMultiVariableQueryValue(
@@ -116,7 +112,7 @@ $user_tops = XDb::xMultiVariableQueryValue(
 
 if ($userRecoCountForThisCache == 0) { //not-yet-recommended
 
-    if ( ($user_founds * GeoCacheCommons::RECOMENDATION_RATIO / 100) < 1) {
+    if (($user_founds * GeoCacheCommons::RECOMENDATION_RATIO / 100) < 1) {
         // user doesn't have enough founds to recommend anything
 
         $top_cache = 0;
@@ -125,9 +121,9 @@ if ($userRecoCountForThisCache == 0) { //not-yet-recommended
 
     } elseif ($user_tops < floor($user_founds * GeoCacheCommons::RECOMENDATION_RATIO / 100)) {
         // this user can recommend this cache
-        if ( $user->getUserId() != $geoCache->getOwnerId() ) {
+        if ($user->getUserId() != $geoCache->getOwnerId()) {
 
-            if ($top_cache){
+            if ($top_cache) {
                 $rating_msg = mb_ereg_replace('{chk_sel}', ' checked', $rating_allowed . '<br />' . $rating_stat);
             } else {
                 $rating_msg = mb_ereg_replace('{chk_sel}', '', $rating_allowed . '<br />' . $rating_stat);
@@ -139,9 +135,9 @@ if ($userRecoCountForThisCache == 0) { //not-yet-recommended
         $rating_msg = mb_ereg_replace('{max}', floor($user_founds * GeoCacheCommons::RECOMENDATION_RATIO / 100), $rating_msg);
         $rating_msg = mb_ereg_replace('{curr}', $user_tops, $rating_msg);
     } else {
-        // user needs more caches for next recomendation
+        // user needs more caches for next recommendation
         $top_cache = 0;
-        $recommendationsNr = ((1+$user_tops) * 100 / GeoCacheCommons::RECOMENDATION_RATIO ) - $user_founds;
+        $recommendationsNr = ((1 + $user_tops) * 100 / GeoCacheCommons::RECOMENDATION_RATIO) - $user_founds;
         $rating_msg = mb_ereg_replace('{recommendationsNr}', "$recommendationsNr", $rating_too_few_founds);
 
         $rating_msg .= '<br />' . $rating_maxreached;
@@ -158,8 +154,6 @@ if ($userRecoCountForThisCache == 0) { //not-yet-recommended
 }
 
 
-
-
 if ($geoCache->getCacheType() != GeoCache::TYPE_EVENT) {
     tpl_set_var('rating_message', mb_ereg_replace('{rating_msg}', $rating_msg, $rating_tpl));
 } else {
@@ -170,7 +164,7 @@ $is_scored_query = XDb::xMultiVariableQueryValue(
     "SELECT count(*) FROM scores WHERE user_id= :1 AND cache_id= :2",
     0, $user->getUserId(), $geoCache->getCacheId());
 
-if ( $is_scored_query == 0 && $user->getUserId() != $geoCache->getOwnerId() ) {
+if ($is_scored_query == 0 && $user->getUserId() != $geoCache->getOwnerId()) {
 
     $color_table = array("#DD0000", "#F06464", "#5A5A5A", "#77CC00", "#00DD00");
 
@@ -190,13 +184,13 @@ if ( $is_scored_query == 0 && $user->getUserId() != $geoCache->getOwnerId() ) {
         else
             $checked = "";
 
-        $score.= '
+        $score .= '
             <label><input type="radio" style="vertical-align: top" name="r" id="r' .
             $line_cnt . '" value="' . $score_radio . '" onclick="clear_no_score ();"' . $checked .
-            '><b><span style="color:' . $color_table[$line_cnt]. '" id="score_lbl_' . $line_cnt . '">' .
+            '><b><span style="color:' . $color_table[$line_cnt] . '" id="score_lbl_' . $line_cnt . '">' .
             ucfirst(tr(GeoCacheCommons::CacheRatingTranslationKey($score_radio))) .
             '</span></b></label>&nbsp;&nbsp;' . $break_line;
-            $line_cnt++;
+        $line_cnt++;
     }
 
     if (isset($_POST['r']) && $_POST['r'] == -10) {
@@ -206,10 +200,10 @@ if ( $is_scored_query == 0 && $user->getUserId() != $geoCache->getOwnerId() ) {
     }
 
     $score .= '<br><label><input type="radio" style="vertical-align: top" name="r" id="r' .
-                $line_cnt . '" value="-10"' . $checked .
-                ' onclick="encor_no_score ();" /><span id="score_lbl_' .
-                $line_cnt . '">' . tr('do_not_rate') .
-                '</span></label>';
+        $line_cnt . '" value="-10"' . $checked .
+        ' onclick="encor_no_score ();" /><span id="score_lbl_' .
+        $line_cnt . '">' . tr('do_not_rate') .
+        '</span></label>';
 
     $score_header = tr('rate_cache');
     if ($log_type == GeoCacheLog::LOGTYPE_FOUNDIT) {
@@ -237,7 +231,7 @@ tpl_set_var('log_reset_button', tr('log_reset_button'));
 if (isGeokretInCache($geoCache->getCacheId())) {
     tpl_set_var('log_geokret',
         "<br /><img src=\"images/gk.png\" class=\"icon16\" alt=\"\" title=\"GeoKrety\" align=\"middle\" />&nbsp;<b>" .
-        tr('geokret_log') . " <a href='".GeoKretyApi::GEOKRETY_URL."/ruchy.php'>geokrety.org</a></b>");
+        tr('geokret_log') . " <a href='" . GeoKretyApi::GEOKRETY_URL . "/ruchy.php'>geokrety.org</a></b>");
 } else {
     tpl_set_var('log_geokret', "");
 }
@@ -249,7 +243,7 @@ $s = $dbConWpt->paramQuery(
     array('user_id' => array('value' => $user->getUserId(), 'data_type' => 'integer')));
 
 
-if ( $databaseResponse = $dbConWpt->dbResultFetchOneRowOnly($s) ) {
+if ($databaseResponse = $dbConWpt->dbResultFetchOneRowOnly($s)) {
 
     tpl_set_var('GeoKretyApiNotConfigured', 'none');
     tpl_set_var('GeoKretyApiConfigured', 'block');
@@ -337,7 +331,7 @@ if ($geoCache->getCacheType() == GeoCache::TYPE_EVENT) {
     }
 }
 
-if ($log_type < 0){
+if ($log_type < 0) {
     $logtype_not_ok = true;
 }
 
@@ -349,9 +343,9 @@ if ($log_type == GeoCacheLog::LOGTYPE_MOVED) {
     $coords_not_ok = false;
 }
 
-if ( !$geoCache->hasUserLogByType($user, GeoCacheLog::LOGTYPE_FOUNDIT)) {
+if (!$geoCache->hasUserLogByType($user, GeoCacheLog::LOGTYPE_FOUNDIT)) {
     if ($log_type != GeoCacheLog::LOGTYPE_FOUNDIT &&
-        $log_type != GeoCacheLog::LOGTYPE_ATTENDED ) {
+        $log_type != GeoCacheLog::LOGTYPE_ATTENDED) {
 
         $top_cache = 0;
     }
@@ -363,7 +357,7 @@ if (isset($_POST['submitform'])) {
 
     if (($all_ok) && ($geoCache->hasLogPassword()) &&
         ($log_type == GeoCacheLog::LOGTYPE_FOUNDIT ||
-         $log_type == GeoCacheLog::LOGTYPE_ATTENDED)) {
+            $log_type == GeoCacheLog::LOGTYPE_ATTENDED)) {
 
         if (isset($_POST['log_pw'])) {
             if (mb_strtolower($geoCache->getLogPassword()) != mb_strtolower($_POST['log_pw'])) {
@@ -380,18 +374,18 @@ $mark_as_rated = false;
 if (
     isset($_POST['submitform']) &&
     ($log_type == GeoCacheLogCommons::LOGTYPE_FOUNDIT ||
-     $log_type == GeoCacheLogCommons::LOGTYPE_ATTENDED)
+        $log_type == GeoCacheLogCommons::LOGTYPE_ATTENDED)
 ) {
 
     if (!isset($_POST['r'])) {
         $_POST['r'] = -15;
-    };
+    }
 
     // fix
     if ($log_type == GeoCacheLog::LOGTYPE_ATTENDED &&
         $user->getUserId() == $geoCache->getOwnerId()) {
 
-            $_POST['r'] = -10;
+        $_POST['r'] = -10;
     }
     if ($_POST['r'] != -10 && $_POST['r'] != -15) {
         $_POST['r'] = GeoCache::ScoreFromRatingNum(intval($_POST['r'])); // convert ratingNum to Score
@@ -420,7 +414,7 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
             "SELECT count(*) FROM scores WHERE user_id= :1 AND cache_id= :2 ",
             -1, $user->getUserId(), $geoCache->getCacheId());
 
-        if ( $is_scored_query == 0 && $user->getUserId() != $geoCache->getOwnerId()) {
+        if ($is_scored_query == 0 && $user->getUserId() != $geoCache->getOwnerId()) {
 
             XDb::xSql(
                 "UPDATE caches SET score=(score*votes+" . XDb::xEscape(floatval($_POST['r'])) . ")/(votes+1), votes=votes+1
@@ -442,8 +436,7 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
     if (!compareTime($logDateTime, "PT1H")) { //if logging time is older then now-one_hour
         $_SESSION["lastLogDateTime"] = $logDateTime; //we store the time
         $_SESSION["lastLogSendTime"] = new DateTime("now");
-    }
-    else {
+    } else {
         unset($_SESSION["lastLogSendTime"]); //next time we log with "now" datetime
         unset($_SESSION["lastLogDateTime"]);
     }
@@ -455,15 +448,15 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
     }
 
     // if comment is empty, then do not insert data into db
-    if ( $log_type == GeoCacheLog::LOGTYPE_COMMENT && empty($log_text) ) {
+    if ($log_type == GeoCacheLog::LOGTYPE_COMMENT && empty($log_text)) {
         tpl_errorMsg('log_cache', "Empty comment log?!");
         exit;
     }
 
     if (in_array(
-            $log_type,
-            [ GeoCacheLog::LOGTYPE_FOUNDIT, GeoCacheLog::LOGTYPE_ATTENDED, GeoCacheLog::LOGTYPE_WILLATTENDED ]
-        )
+        $log_type,
+        [GeoCacheLog::LOGTYPE_FOUNDIT, GeoCacheLog::LOGTYPE_ATTENDED, GeoCacheLog::LOGTYPE_WILLATTENDED]
+    )
     ) {
 
         if ($log_type == GeoCacheLog::LOGTYPE_FOUNDIT) {
@@ -475,7 +468,7 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
 
         // This query INSERT cache_log entry ONLY IF such entry NOT EXISTS
         XDb::xSql(
-           "INSERT INTO `cache_logs` (
+            "INSERT INTO `cache_logs` (
                 `cache_id`, `user_id`, `type`, `date`, `text`,
                 `text_html`, `date_created`, `last_modified`, `uuid`, `node`)
             SELECT ?, ?, ?, ?, ?,
@@ -488,10 +481,10 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
                     AND `deleted` = '0'
                 LIMIT 1)
             LIMIT 1",
-                $geoCache->getCacheId(), $user->getUserId(), $log_type, $log_date, $log_text,
-                $text_html, $log_uuid, OcConfig::getSiteNodeId(),
-                $log_type, $user->getUserId(), $geoCache->getCacheId()
-            );
+            $geoCache->getCacheId(), $user->getUserId(), $log_type, $log_date, $log_text,
+            $text_html, $log_uuid, OcConfig::getSiteNodeId(),
+            $log_type, $user->getUserId(), $geoCache->getCacheId()
+        );
 
     } else {
         XDb::xSql(
@@ -507,8 +500,8 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
     // insert to database.
     if (
         $log_type == GeoCacheLog::LOGTYPE_MOVED &&
-        ( $geoCache->getCacheType() == GeoCache::TYPE_MOVING ||
-          $geoCache->getCacheType() == GeoCache::TYPE_OWNCACHE )
+        ($geoCache->getCacheType() == GeoCache::TYPE_MOVING ||
+            $geoCache->getCacheType() == GeoCache::TYPE_OWNCACHE)
     ) {
 
         ini_set('display_errors', 1);
@@ -579,10 +572,10 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
     }
 
     //inc cache stat and "last found"
-    if ($log_type == GeoCacheLog::LOGTYPE_FOUNDIT       ||
-        $log_type == GeoCacheLog::LOGTYPE_DIDNOTFIND    ||
-        $log_type == GeoCacheLog::LOGTYPE_COMMENT       ||
-        $log_type == GeoCacheLog::LOGTYPE_ATTENDED      ||
+    if ($log_type == GeoCacheLog::LOGTYPE_FOUNDIT ||
+        $log_type == GeoCacheLog::LOGTYPE_DIDNOTFIND ||
+        $log_type == GeoCacheLog::LOGTYPE_COMMENT ||
+        $log_type == GeoCacheLog::LOGTYPE_ATTENDED ||
         $log_type == GeoCacheLog::LOGTYPE_WILLATTENDED
     ) {
         $geoCache->recalculateCacheStats();
@@ -595,11 +588,11 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
     $cache_status = XDb::xMultiVariableQueryValue(
         "SELECT `log_types`.`cache_status` FROM `log_types` WHERE `id`= :1 LIMIT 1", 0, $log_type);
 
-        if ($cache_status != 0) {
-            $rs = XDb::xSql(
-                "UPDATE `caches` SET `last_modified` = NOW(), `status`= ?
+    if ($cache_status != 0) {
+        $rs = XDb::xSql(
+            "UPDATE `caches` SET `last_modified` = NOW(), `status`= ?
                 WHERE `cache_id`= ? ", $cache_status, $geoCache->getCacheId());
-        }
+    }
 
     // update top-list
     if ($log_type == GeoCacheLog::LOGTYPE_FOUNDIT ||
@@ -619,21 +612,21 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
 
     $badgetParam = "";
 
-    if ($config['meritBadges']){
+    if ($config['meritBadges']) {
         if ($log_type == GeoCacheLog::LOGTYPE_FOUNDIT ||
-            $log_type == GeoCacheLog::LOGTYPE_ATTENDED ){
+            $log_type == GeoCacheLog::LOGTYPE_ATTENDED) {
 
             $ctrlMeritBadge = new MeritBadgeController;
 
             $changedLevelBadgesIds = $ctrlMeritBadge->updateTriggerLogCache($geoCache->getCacheId(), $user->getUserId());
-            $titledIds= $ctrlMeritBadge->updateTriggerTitledCache($geoCache->getCacheId(), $user->getUserId());
+            $titledIds = $ctrlMeritBadge->updateTriggerTitledCache($geoCache->getCacheId(), $user->getUserId());
 
-            if ( $changedLevelBadgesIds != "" && $titledIds!= "")
+            if ($changedLevelBadgesIds != "" && $titledIds != "")
                 $changedLevelBadgesIds .= ",";
 
             $changedLevelBadgesIds .= $titledIds;
 
-            if ( $changedLevelBadgesIds != "" )
+            if ($changedLevelBadgesIds != "")
                 $badgetParam = "&badgesPopupFor=" . $changedLevelBadgesIds;
 
             $ctrlMeritBadge->updateTriggerCacheAuthor($geoCache->getCacheId());
@@ -653,7 +646,7 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
     if ($log_type < 0) { // neutral-default value is set above
         //-2 = Chose log type
 
-        if ($geoCache->getStatus() != GeoCache::STATUS_WAITAPPROVERS){
+        if ($geoCache->getStatus() != GeoCache::STATUS_WAITAPPROVERS) {
             $logtypeoptions .= '<option value="-2" selected="selected" disabled="disabled">' . tr('choose_log') . '</option>';
         }
 
@@ -672,34 +665,34 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
 
 
             //3 = Write a note;
-            if ($user->hasOcTeamRole() && $geoCache->getStatus() == GeoCache::STATUS_WAITAPPROVERS){
-                $logtypeoptions .= '<option selected="selected" value="'.GeoCacheLog::LOGTYPE_COMMENT.'">' .
+            if ($user->hasOcTeamRole() && $geoCache->getStatus() == GeoCache::STATUS_WAITAPPROVERS) {
+                $logtypeoptions .= '<option selected="selected" value="' . GeoCacheLog::LOGTYPE_COMMENT . '">' .
                     tr(GeoCacheLogCommons::typeTranslationKey(GeoCacheLog::LOGTYPE_COMMENT)) . '</option>' . "\n";
             } else {
-                $logtypeoptions .= '<option value="'.GeoCacheLog::LOGTYPE_COMMENT.'">' .
+                $logtypeoptions .= '<option value="' . GeoCacheLog::LOGTYPE_COMMENT . '">' .
                     tr(GeoCacheLogCommons::typeTranslationKey(GeoCacheLog::LOGTYPE_COMMENT)) . '</option>' . "\n";
             }
 
             //4 = Moved
             if ($geoCache->getCacheType() == GeoCache::TYPE_MOVING ||
-                $geoCache->getCacheType() == GeoCache::TYPE_OWNCACHE ) {
+                $geoCache->getCacheType() == GeoCache::TYPE_OWNCACHE) {
 
-                    $logtypeoptions .= '<option value="'.GeoCacheLog::LOGTYPE_MOVED.'">' .
-                        tr(GeoCacheLogCommons::typeTranslationKey(GeoCacheLog::LOGTYPE_MOVED)) . '</option>' . "\n";
+                $logtypeoptions .= '<option value="' . GeoCacheLog::LOGTYPE_MOVED . '">' .
+                    tr(GeoCacheLogCommons::typeTranslationKey(GeoCacheLog::LOGTYPE_MOVED)) . '</option>' . "\n";
             }
 
             //5 = Needs maintenace
             if ($user->getUserId() != $geoCache->getOwnerId()) {
-                $logtypeoptions .= '<option value="'.GeoCacheLog::LOGTYPE_NEEDMAINTENANCE.'">' .
+                $logtypeoptions .= '<option value="' . GeoCacheLog::LOGTYPE_NEEDMAINTENANCE . '">' .
                     tr(GeoCacheLogCommons::typeTranslationKey(GeoCacheLog::LOGTYPE_NEEDMAINTENANCE)) . '</option>' . "\n";
             }
 
-            $logtypeoptions .= '<option value="'.GeoCacheLog::LOGTYPE_MADEMAINTENANCE.'">' .
+            $logtypeoptions .= '<option value="' . GeoCacheLog::LOGTYPE_MADEMAINTENANCE . '">' .
                 tr(GeoCacheLogCommons::typeTranslationKey(GeoCacheLog::LOGTYPE_MADEMAINTENANCE)) . '</option>' . "\n";
 
             //12 = OC Team Comment
             if ($user->hasOcTeamRole()) {
-                $logtypeoptions .= '<option value="'.GeoCacheLog::LOGTYPE_ADMINNOTE.'">' .
+                $logtypeoptions .= '<option value="' . GeoCacheLog::LOGTYPE_ADMINNOTE . '">' .
                     tr(GeoCacheLogCommons::typeTranslationKey(GeoCacheLog::LOGTYPE_ADMINNOTE)) . '</option>' . "\n";
             }
 
@@ -709,25 +702,25 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
             //11 = Temporarily unavailable
             if ($user->getUserId() == $geoCache->getOwnerId() && $geoCache->getStatus() == GeoCache::STATUS_READY) {
 
-                $logtypeoptions .= '<option value="'.GeoCacheLog::LOGTYPE_TEMPORARYUNAVAILABLE.'">' .
+                $logtypeoptions .= '<option value="' . GeoCacheLog::LOGTYPE_TEMPORARYUNAVAILABLE . '">' .
                     tr(GeoCacheLogCommons::typeTranslationKey(GeoCacheLog::LOGTYPE_TEMPORARYUNAVAILABLE)) . '</option>' . "\n";
             }
 
             // if curently logged user is a cache owner and cache status is "temp. unavailable"
             // then add log type option "avilable"
             // 10 = Ready to find
-            if ( $user->getUserId() == $geoCache->getOwnerId() &&
-                 $geoCache->getStatus() == GeoCache::STATUS_UNAVAILABLE ) {
+            if ($user->getUserId() == $geoCache->getOwnerId() &&
+                $geoCache->getStatus() == GeoCache::STATUS_UNAVAILABLE) {
 
-                     $logtypeoptions .= '<option value="'.GeoCacheLog::LOGTYPE_READYTOSEARCH.'">' .
-                         tr(GeoCacheLogCommons::typeTranslationKey(GeoCacheLog::LOGTYPE_READYTOSEARCH)) . '</option>' . "\n";
+                $logtypeoptions .= '<option value="' . GeoCacheLog::LOGTYPE_READYTOSEARCH . '">' .
+                    tr(GeoCacheLogCommons::typeTranslationKey(GeoCacheLog::LOGTYPE_READYTOSEARCH)) . '</option>' . "\n";
             }
             break;
         }
 
         // if virtual, webcam = archived -> allow only comment log type
         if (($geoCache->getCacheType() == GeoCache::TYPE_VIRTUAL ||
-             $geoCache->getCacheType() == GeoCache::TYPE_WEBCAM )
+                $geoCache->getCacheType() == GeoCache::TYPE_WEBCAM)
             && $geoCache->getStatus() == GeoCache::STATUS_ARCHIVED) {
 
             if ($type != GeoCacheLog::LOGTYPE_COMMENT) {
@@ -736,7 +729,7 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
         }
 
         if ($geoCache->getCacheType() == GeoCache::TYPE_EVENT) {
-           // $datePlaced = ($geoCache->getDatePlaced()->format("Y-m-d H:i:s"));
+            // $datePlaced = ($geoCache->getDatePlaced()->format("Y-m-d H:i:s"));
             $now = new DateTime("now");
             $now->setTime(0, 0, 0); //there is no time in $geoCache->getDatePlaced(),
             //so zero time here to allow logging WILLATTENDED or ATTENDED in the day of event
@@ -752,27 +745,27 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
             //do not display logtype 'attended'
             if ($type == GeoCacheLog::LOGTYPE_ATTENDED) {
                 if ($geoCache->hasUserLogByType($user, GeoCacheLog::LOGTYPE_ATTENDED) ||
-                $now < $geoCache->getDatePlaced()) {
+                    $now < $geoCache->getDatePlaced()) {
                     continue;
                 }
             }
             if ($user->hasOcTeamRole()) {
-                if ($type == GeoCacheLog::LOGTYPE_FOUNDIT           ||
-                    $type == GeoCacheLog::LOGTYPE_DIDNOTFIND        ||
-                    $type == GeoCacheLog::LOGTYPE_MOVED             ||
-                    $type == GeoCacheLog::LOGTYPE_NEEDMAINTENANCE   ||
-                    $type == GeoCacheLog::LOGTYPE_ARCHIVED          ||
-                    $type == GeoCacheLog::LOGTYPE_READYTOSEARCH     ||
+                if ($type == GeoCacheLog::LOGTYPE_FOUNDIT ||
+                    $type == GeoCacheLog::LOGTYPE_DIDNOTFIND ||
+                    $type == GeoCacheLog::LOGTYPE_MOVED ||
+                    $type == GeoCacheLog::LOGTYPE_NEEDMAINTENANCE ||
+                    $type == GeoCacheLog::LOGTYPE_ARCHIVED ||
+                    $type == GeoCacheLog::LOGTYPE_READYTOSEARCH ||
                     $type == GeoCacheLog::LOGTYPE_TEMPORARYUNAVAILABLE) {
                     continue;
                 }
             } else {
-                if ($type == GeoCacheLog::LOGTYPE_FOUNDIT           ||
-                    $type == GeoCacheLog::LOGTYPE_DIDNOTFIND        ||
-                    $type == GeoCacheLog::LOGTYPE_MOVED             ||
-                    $type == GeoCacheLog::LOGTYPE_NEEDMAINTENANCE   ||
-                    $type == GeoCacheLog::LOGTYPE_ARCHIVED          ||
-                    $type == GeoCacheLog::LOGTYPE_READYTOSEARCH     ||
+                if ($type == GeoCacheLog::LOGTYPE_FOUNDIT ||
+                    $type == GeoCacheLog::LOGTYPE_DIDNOTFIND ||
+                    $type == GeoCacheLog::LOGTYPE_MOVED ||
+                    $type == GeoCacheLog::LOGTYPE_NEEDMAINTENANCE ||
+                    $type == GeoCacheLog::LOGTYPE_ARCHIVED ||
+                    $type == GeoCacheLog::LOGTYPE_READYTOSEARCH ||
                     $type == GeoCacheLog::LOGTYPE_TEMPORARYUNAVAILABLE ||
                     $type == GeoCacheLog::LOGTYPE_ADMINNOTE) {
                     continue;
@@ -782,19 +775,19 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
             if ($geoCache->getCacheType() == GeoCache::TYPE_MOVING) {
                 if ($user->hasOcTeamRole()) {
                     // skip will attend/attended if the cache no event
-                    if ($type == GeoCacheLog::LOGTYPE_ATTENDED          ||
-                        $type == GeoCacheLog::LOGTYPE_WILLATTENDED      ||
-                        $type == GeoCacheLog::LOGTYPE_ARCHIVED          ||
-                        $type == GeoCacheLog::LOGTYPE_READYTOSEARCH     ||
+                    if ($type == GeoCacheLog::LOGTYPE_ATTENDED ||
+                        $type == GeoCacheLog::LOGTYPE_WILLATTENDED ||
+                        $type == GeoCacheLog::LOGTYPE_ARCHIVED ||
+                        $type == GeoCacheLog::LOGTYPE_READYTOSEARCH ||
                         $type == GeoCacheLog::LOGTYPE_TEMPORARYUNAVAILABLE) {
                         continue;
                     }
                 } else {
-                    if ($type == GeoCacheLog::LOGTYPE_ATTENDED          ||
-                        $type == GeoCacheLog::LOGTYPE_WILLATTENDED      ||
-                        $type == GeoCacheLog::LOGTYPE_ARCHIVED          ||
-                        $type == GeoCacheLog::LOGTYPE_READYTOSEARCH     ||
-                        $type == GeoCacheLog::LOGTYPE_TEMPORARYUNAVAILABLE    ||
+                    if ($type == GeoCacheLog::LOGTYPE_ATTENDED ||
+                        $type == GeoCacheLog::LOGTYPE_WILLATTENDED ||
+                        $type == GeoCacheLog::LOGTYPE_ARCHIVED ||
+                        $type == GeoCacheLog::LOGTYPE_READYTOSEARCH ||
+                        $type == GeoCacheLog::LOGTYPE_TEMPORARYUNAVAILABLE ||
                         $type == GeoCacheLog::LOGTYPE_ADMINNOTE) {
                         continue;
                     }
@@ -860,7 +853,7 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
 
     if ($geoCache->hasLogPassword()) {
         if ($pw_not_ok == true) {
-            tpl_set_var('log_pw_field', '<tr><td colspan="2">'.
+            tpl_set_var('log_pw_field', '<tr><td colspan="2">' .
                 '<img src="images/free_icons/key_go.png" class="icon16" alt="" title="" align="middle" />&nbsp;<b>' .
                 tr('password_to_log') .
                 ': <input type="text" name="log_pw" maxlength="20" size="20" value=""/><span class="errormsg"> ' .
@@ -868,8 +861,8 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
                 '!</span></b></td></tr><tr><td class="spacer" colspan="2"></td></tr>');
         } else {
             tpl_set_var('log_pw_field',
-                '<tr><td colspan="2">'.
-                '<img src="images/free_icons/key_go.png" class="icon16" alt="" title="" align="middle" />'.
+                '<tr><td colspan="2">' .
+                '<img src="images/free_icons/key_go.png" class="icon16" alt="" title="" align="middle" />' .
                 '&nbsp;<b>' . tr('password_to_log') .
                 ': <input class="input100" type="text" name="log_pw" maxlength="20" value="" /> (' .
                 tr('only_for_found_it') .
@@ -902,14 +895,9 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
 
 }
 
-
-
-
 //make the template and send it out
 tpl_set_var('language4js', I18n::getCurrentLang());
-tpl_BuildTemplate();
-
-
+$view->buildView();
 
 
 function validate_coords($lat_h, $lat_min, $lon_h, $lon_min, $lonEW, $latNS)
@@ -1031,7 +1019,6 @@ function validate_coords($lat_h, $lat_min, $lon_h, $lon_min, $lonEW, $latNS)
     $lat_not_ok = $lat_min_not_ok || $lat_h_not_ok;
 
 
-
     /*
       if ($lon_not_ok == false) print "lon_ok<br>";
       if ($lat_not_ok == false) print "lat_ok<br>";
@@ -1100,8 +1087,7 @@ function buildGeoKretyLog(User $user, GeoCache $geoCache, $i, DateTime $logDateT
         ->setGeoKretName($_POST['GeoKretIDAction' . $i]['nm'])
         ->setLogType($_POST['GeoKretIDAction' . $i]['action'])
         ->setComment(substr($_POST['GeoKretIDAction' . $i]['tx'], 0, 80))
-        ->setLogDateTime($logDateTime)
-    ;
+        ->setLogDateTime($logDateTime);
     return $geoKretyLog;
 }
 
@@ -1113,14 +1099,14 @@ function enqueueGeoKretyLog(DateTime $logDateTime, User $user, GeoCache $geoCach
             $geoKretyLogs[] = buildGeoKretyLog($user, $geoCache, $i, $logDateTime);
         }
     }
-    if(count($geoKretyLogs) > 0){
+    if (count($geoKretyLogs) > 0) {
         GeoKretLog::EnqueueLogs($geoKretyLogs);
     }
 }
 
 function processGeoKrety(DateTime $logDateTime, $user, $geoCache)
 {
-    $MaxNr = isset($_POST['MaxNr']) ? (int) $_POST['MaxNr'] : 0;
+    $MaxNr = isset($_POST['MaxNr']) ? (int)$_POST['MaxNr'] : 0;
     if ($MaxNr > 0) {
         enqueueGeoKretyLog($logDateTime, $user, $geoCache, $MaxNr);
     }
@@ -1140,20 +1126,20 @@ function isGeokretInCache($cacheid)
 
     // get cache waypoint
     $cache_wp = '';
-    if ($cache_record['wp_oc'] != ''){
+    if ($cache_record['wp_oc'] != '') {
         $cache_wp = $cache_record['wp_oc'];
-    } else if ($cache_record['wp_gc'] != ''){
+    } else if ($cache_record['wp_gc'] != '') {
         $cache_wp = $cache_record['wp_gc'];
-    } else if ($cache_record['wp_nc'] != ''){
+    } else if ($cache_record['wp_nc'] != '') {
         $cache_wp = $cache_record['wp_nc'];
-    } else if ($cache_record['wp_ge'] != ''){
+    } else if ($cache_record['wp_ge'] != '') {
         $cache_wp = $cache_record['wp_ge'];
-    } else if ($cache_record['wp_tc'] != ''){
+    } else if ($cache_record['wp_tc'] != '') {
         $cache_wp = $cache_record['wp_tc'];
     }
 
     $gkNum = XDb::xMultiVariableQueryValue(
-       "SELECT COUNT(*) FROM gk_item
+        "SELECT COUNT(*) FROM gk_item
         WHERE id IN (
             SELECT id FROM gk_item_waypoint
             WHERE wp = :1
@@ -1161,9 +1147,9 @@ function isGeokretInCache($cacheid)
             AND stateid<>1 AND stateid<>4
             AND stateid <>5 AND typeid<>2", 0, $cache_wp);
 
-                        if($gkNum == 0){
-                            return 0;
-                        } else {
-                            return 1;
-                        }
+    if ($gkNum == 0) {
+        return 0;
+    } else {
+        return 1;
+    }
 }

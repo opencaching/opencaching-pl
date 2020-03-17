@@ -1,24 +1,25 @@
-Allow From 127.0.0.1
+allow from 127.0.0.1
 
 #opencaching.pl
-Allow From 185.243.55.91
+allow from 185.243.55.91
 
 #opencaching.ro
-Allow From 185.232.66.203
+allow from 185.232.66.203
 
 #opencaching.nl
-Allow From 80.211.176.147
+allow from 80.211.176.147
 
 #Opencaching UK
-Allow From 89.36.221.105
-
-# Bogus z Polska
-allow from 194.242.0.188
-
-# allow from private IP range (dev platforms etc)
-allow from 192.168.0.0/16
+allow from 89.36.221.105
 
 # andrixnet's development server
 allow from 80.211.139.78
 
-Deny From All
+# deg's development server
+allow from 80.211.254.191
+allow from 2a00:6d47:10:6bf::1
+
+# allow from private IP range (dev platforms etc)
+allow from 192.168.0.0/16
+
+deny from all

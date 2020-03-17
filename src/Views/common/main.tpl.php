@@ -4,15 +4,13 @@ use src\Utils\Debug\Debug;
 use src\Utils\Uri\SimpleRouter as SRouter;
 use src\Models\OcConfig\OcConfig;
 
-global $tpl_subtitle;
-
 ?>
 <!DOCTYPE html>
 <html lang="<?=$view->getLang()?>">
 <head>
   <meta charset="utf-8">
 
-  <title><?=$tpl_subtitle?>{title}</title>
+  <title><?=$view->getSubtitle()?>{title}</title>
 
   <link rel="shortcut icon" href="<?=OcConfig::getSiteMainViewIcon('shortcutIcon')?>">
   <link rel="apple-touch-icon" sizes="180x180" href="<?=OcConfig::getSiteMainViewIcon('appleTouch')?>">
@@ -34,9 +32,11 @@ global $tpl_subtitle;
   <link rel="stylesheet" type="text/css" href="/css/typography.css">
 
   <?php if ($view->_showVideoBanner) {
-    foreach($view->_topBannerVideo as $videoPath) { ?>
-      <link rel="prefetch" href="<?=$videoPath?>">
-    <?php }
+      foreach($view->_topBannerVideo as $key => $videoPath) {
+          if ($key !== 0) { ?>
+              <link rel="prefetch" href="<?= $videoPath ?>">
+          <?php }
+      }
   } ?>
 
   <?php foreach( $view->getLocalCss() as $css ) { ?>
@@ -53,23 +53,23 @@ global $tpl_subtitle;
   {cachemap_header}
 
   <?php
-      if( $view->isGoogleAnalyticsEnabled() ){
+      if ($view->isGoogleAnalyticsEnabled()) {
           $view->callChunkOnce( 'googleAnalytics', $view->getGoogleAnalyticsKey() );
       }
-      if( $view->isjQueryEnabled()){
+      if ($view->isjQueryEnabled()) {
           $view->callChunk('jQuery');
       }
-      if( $view->isjQueryUIEnabled()){
+      if ($view->isjQueryUIEnabled()) {
           $view->callChunk('jQueryUI');
       }
-      if( $view->isTimepickerEnabled()){
+      if ($view->isTimepickerEnabled()) {
           $view->callChunk('timepicker');
       }
-      if( $view->isFancyBoxEnabled()){
+      if ($view->isFancyBoxEnabled()) {
           $view->callChunk('fancyBoxLoader', true, false);
       }
 
-      foreach( $view->getLocalJs() as $js ) {
+      foreach ($view->getLocalJs() as $js) {
           if (! $js['defer']) {?>
             <script src="<?=$js['url']?>"<?=$js['async'] ? ' async' : ''?>></script>
   <?php   }
@@ -171,29 +171,28 @@ global $tpl_subtitle;
         </div>
 
         <script>
-        var videoSource = new Array();
-        <?php foreach($view->_topBannerVideo as $key => $val) { ?>
-          videoSource[<?=$key?>]='<?=$val?>';
-        <?php } // foreach topBannerVideo ?>
-        var videoCount = videoSource.length;
-        var i = 0;
-
-       document.getElementById("topline-video-player").setAttribute("src",videoSource[0]);
+            let topVideoSource = [];
+            <?php foreach($view->_topBannerVideo as $key => $val) { ?>
+                topVideoSource[<?=$key?>]='<?=$val?>';
+            <?php } // foreach topBannerVideo ?>
+            let topVideoIndex = 0;
+            let topVideoPlayer = document.getElementById("topline-video-player");
+            topVideoPlayer.setAttribute("src",topVideoSource[0]);
 
        function videoPlay(videoNum) {
-         document.getElementById("topline-video-player").setAttribute("src", videoSource[videoNum]);
-         document.getElementById("topline-video-player").load();
-         document.getElementById("topline-video-player").play();
+           topVideoPlayer.setAttribute("src", topVideoSource[videoNum]);
+           topVideoPlayer.load();
+           topVideoPlayer.play();
        }
 
-       document.getElementById('topline-video-player').addEventListener('ended', toplineVideoHandler, false);
+       topVideoPlayer.addEventListener('ended', toplineVideoHandler, false);
 
        function toplineVideoHandler() {
-         i++;
-         if (i == (videoCount)) {
-           i = 0;
+         topVideoIndex++;
+         if (topVideoIndex === topVideoSource.length) {
+           topVideoIndex = 0;
          }
-         videoPlay(i);
+         videoPlay(topVideoIndex);
        }
 
         $('.top-video-slider').slick({
@@ -203,7 +202,6 @@ global $tpl_subtitle;
           autoplaySpeed: 5000,
           arrows: false,
         });
-
         </script>
       <?php } // if - showVideoBanner?>
 
@@ -350,7 +348,7 @@ global $tpl_subtitle;
                     <img class="img-navflag" src="<?=$langFlag['img']?>"
                          alt="<?=$langFlag['name']?> version" title="<?=$langFlag['name']?> version">
                   </a>
-                <?php } //forach-lang-flags ?>
+                <?php } //foreach-lang-flags ?>
               </span>
           <?php } //$view->_crowdinInContextEnabled ?>
 
@@ -405,6 +403,6 @@ global $tpl_subtitle;
             <script src="<?=$js['url']?>"<?=$js['async'] ? ' async' : ''?> defer></script>
   <?php   } //if
       } //foreach-js ?>
-  <!-- (C) The Opencaching Project 2019 -->
+  <!-- (C) The Opencaching Project 2020 -->
 </body>
 </html>
