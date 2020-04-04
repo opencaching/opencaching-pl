@@ -4,7 +4,7 @@ allow from 127.0.0.1
 allow from 185.243.55.91
 
 #opencaching.ro
-allow from 185.232.66.203
+allow from 185.232.66.122
 
 #opencaching.nl
 allow from 80.211.176.147
@@ -12,7 +12,7 @@ allow from 80.211.176.147
 #Opencaching UK
 allow from 89.36.221.105
 
-# andrixnet's development server
+#opencaching.us
 allow from 80.211.139.78
 
 # deg's development server
