@@ -644,7 +644,7 @@ class GeoCache extends GeoCacheCommons
      */
     public function isAdopted()
     {
-        return $this->founder && $this->founder->getUserId() != $this->ownerId;
+        return $this->founderId && $this->founderId != $this->ownerId;
     }
 
     public function getOwnerId()
