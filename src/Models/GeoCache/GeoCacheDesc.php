@@ -128,6 +128,11 @@ class GeoCacheDesc extends BaseObject
         return $this->hint;
     }
 
+    public function getId()
+    {
+        return $this->id;
+    }
+
     public function getAdminComment(){
         return $this->rr_comment;
     }

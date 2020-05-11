@@ -546,6 +546,11 @@ use src\Controllers\ViewCacheController;
             </a>
         <?php } //foreach-available-desc-langs ?>
     </span>
+    <?php if ($view->isUserAuthorized && $view->showEditButton) { ?>
+        <a class="btn btn-success btn-sm" href="editdesc.php?descid=<?=$view->geoCacheDesc->getId()?>">
+            <img src="images/actions/edit-16.png" alt="">&nbsp;<?=tr('edit_description')?>
+        </a>
+    <?php } //if-is-user-authorized-and-show-edit-button?>
     <?php if ($view->isAdminAuthorized) { ?>
         <a class="btn btn-sm btn-default" href="<?=SimpleRouter::getLink(
                ViewCacheController::class, 'ocTeamCommentForm', $view->geoCache->getCacheId())?>">
