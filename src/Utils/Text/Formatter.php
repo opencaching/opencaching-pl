@@ -2,6 +2,7 @@
 namespace src\Utils\Text;
 
 use DateTime;
+use Exception;
 use src\Models\OcConfig\OcConfig;
 
 /**
@@ -55,7 +56,7 @@ class Formatter
 
             try {
                 $dateObj = new DateTime($date);
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 return '-';
             }
         }
@@ -76,9 +77,20 @@ class Formatter
     public static function dateTime($datetime = null)
     {
         if(!$datetime){
-            $datetime = new \DateTime();
+            $datetime = new DateTime();
         }
         return self::date($datetime, true);
+    }
+
+    /**
+     * Formats $dateTime to use in SQL queries
+     *
+     * @param DateTime $dateTime
+     * @return string
+     */
+    public static function dateTimeForSql(DateTime $dateTime): string
+    {
+        return $dateTime->format(OcConfig::instance()->getDbDateTimeFormat());
     }
 
     /**
@@ -91,7 +103,6 @@ class Formatter
      */
     public static function truncateText($text, $length)
     {
-        $result = "";
         if (mb_strlen($text) > $length) {
             $result = mb_substr($text, 0, $length - 5)
             . "(...)";

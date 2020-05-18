@@ -17,7 +17,7 @@ return function (GeoCache $cache) {
     if (empty($log)) {
         echo tr('usrWatch_noLogs');
     } else {
-        $recommended = ($log->getType() == GeoCacheLog::LOGTYPE_FOUNDIT && $log->isRecommendedByUser($log->getUserId()))
+        $recommended = ($log->getType() == GeoCacheLog::LOGTYPE_FOUNDIT && $log->isRecommendedByUser($log->getUser()))
         ?>
         <a href="<?= $log->getLogUrl() ?>" target="_blank" class="lightTipped links">
             <img src="<?= $log->getLogIcon() ?>" class="icon16" alt="<?= tr($log->getTypeTranslationKey()) ?>"
