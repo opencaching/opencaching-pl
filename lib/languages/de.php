@@ -2156,7 +2156,7 @@ $translations = array(
 Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches in der Region Limburg, Belgien etc. etc.',
     'contact_nl_desc_2_2' => '<a href="https://www.opencaching.nl/viewprofile.php?userid=2249"><b>Odlaniger</b></a> (Reggy): Prüft deine neuen Caches in der Region Gelderland, Niederlande.',
     'contact_nl_desc_2_3' => '<a href="https://www.opencaching.nl/viewprofile.php?userid=4456"><b>Raven</b></a> (Roelof): Prüft deine neuen Caches in der Region Zeeland, Niederlande.',
-    'contact_nl_desc_2_4' => '<a href="https://www.opencaching.nl/viewprofile.php?userid=1195"><b>Raven</b></a> (Jos): Prüft deine neuen Caches in der Provinz Antwerpen, Belgien.',
+    'contact_nl_desc_2_4' => '<a href="https://www.opencaching.nl/viewprofile.php?userid=1195"><b>zjefke</b></a> (Jos): Prüft deine neuen Caches in der Provinz Antwerpen, Belgien.',
     'contact_nl_title_3' => 'Nutzung der Website, Anregungen und Kritik',
     'contact_nl_desc_3_1' => 'Dafür gibt es ein Unterforum auf <a href="http://forum.opencaching.nl/viewforum.php?f=4">forum.opencaching.nl</a>. Du findest dort Antworten auf viele Fragen, und Informationen zum Mitmachen in unserem Opencaching-Team.',
     'contact_nl_title_4' => 'Opencaching Benelux findest du auch in folgenden sozialen Medien:',
