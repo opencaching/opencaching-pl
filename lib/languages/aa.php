@@ -3027,4 +3027,5 @@ $translations = array(
     'gpMyCandidates_errorOnRefuse' => 'crwdns27014:0crwdne27014:0',
     'gpMyCandidates_offerRefused' => 'crwdns27002:0crwdne27002:0',
 
+    'edit_description' => 'crwdns27204:0crwdne27204:0',
 );

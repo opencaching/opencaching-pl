@@ -3028,4 +3028,5 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'gpMyCandidates_errorOnRefuse' => 'Es ist ein Fehler aufgetreten.',
     'gpMyCandidates_offerRefused' => 'Angebot abgelehnt',
 
+    'edit_description' => 'Edit description',
 );
