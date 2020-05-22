@@ -3028,4 +3028,5 @@ $translations = array(
     'gpMyCandidates_offerRefused' => 'Aanbod geweigerd',
 
     'edit_description' => 'Bewerk beschrijving',
+
 );
