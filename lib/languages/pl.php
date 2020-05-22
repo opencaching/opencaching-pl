@@ -3027,4 +3027,5 @@ $translations = array(
     'gpMyCandidates_errorOnRefuse' => 'Wystąpił błąd',
     'gpMyCandidates_offerRefused' => 'Oferta odrzucona',
 
+    'edit_description' => 'Edit description',
 );
