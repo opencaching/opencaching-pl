@@ -50,7 +50,7 @@ use src\Models\GeoCache\GeoCacheLog;
             <a href="<?=$log->getLogUrl()?>">
               <span class="nbh-nowrap"><?=Formatter::date($log->getDate())?></span>
               <strong><?=$log->getUser()->getUserName()?></strong>
-              <?php if ($log->getType() == GeoCacheLog::LOGTYPE_FOUNDIT && $log->isRecommendedByUser($log->getUser()->getUserId())) { ?>
+              <?php if ($log->getType() == GeoCacheLog::LOGTYPE_FOUNDIT && $log->isRecommendedByUser($log->getUser())) { ?>
                 <img src="/images/rating-star.png" alt="<?=tr('number_obtain_recommendations')?>">
               <?php } // end of if isRecommendedByUser ?>
               <span class="nbh-full-only"><br>

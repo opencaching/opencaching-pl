@@ -306,7 +306,7 @@ class GeoCacheLog extends GeoCacheLogCommons
         $params = [];
         $params['cacheid']['value'] = $this->getGeoCacheId();
         $params['cacheid']['data_type'] = 'integer';
-        $params['userid']['value'] = $user;
+        $params['userid']['value'] = $user->getUserId();
         $params['userid']['data_type'] = 'integer';
         $query = '
             SELECT COUNT(*)
