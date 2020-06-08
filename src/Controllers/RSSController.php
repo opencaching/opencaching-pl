@@ -336,7 +336,7 @@ class RSSController extends BaseController
             $content = '<img src="' . Uri::getAbsUri($log->getLogIcon()) .'" alt="' . tr($log->getTypeTranslationKey()) . '" /> ';
             $content .= '<strong>' . tr($log->getTypeTranslationKey()) . '</strong>';
             if ($log->getType() == GeoCacheLog::LOGTYPE_FOUNDIT
-                && $log->isRecommendedByUser($log->getUser()->getUserId())) {
+                && $log->isRecommendedByUser($log->getUser())) {
                     $content .= ' <img src="' . Uri::getAbsUri('images/rating-star.png') . '" alt="' . tr('recommended') . '" />';
                 }
                 $content .= ' (' . Formatter::dateTime($log->getDate()) . ')<br>';
