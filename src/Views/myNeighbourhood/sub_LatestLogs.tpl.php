@@ -34,7 +34,7 @@ use src\Models\Neighbourhood\Neighbourhood;
           <img src="<?=$log->getGeoCache()->getPowerTrail()->getFootIcon()?>" alt="<?=tr('pt002')?>" title="<?=htmlspecialchars($log->getGeoCache()->getPowerTrail()->getName())?>">
         <?php } // end of if isPowerTrailPart?>
         <span class="nbh-full-only"><?=tr('hidden_by')?> <strong><?=$log->getGeoCache()->getOwner()->getUserName()?></strong><br></span>
-        <?php if ($log->getType() == GeoCacheLog::LOGTYPE_FOUNDIT && $log->isRecommendedByUser($log->getUser()->getUserId())) { ?>
+        <?php if ($log->getType() == GeoCacheLog::LOGTYPE_FOUNDIT && $log->isRecommendedByUser($log->getUser())) { ?>
           <img src="/images/rating-star.png" alt="<?=tr('number_obtain_recommendations')?>"> |
         <?php } // end of if isRecommendedByUser ?>
         <span class="nbh-nowrap"><?=Formatter::date($log->getDate())?></span>
