@@ -22,11 +22,6 @@ class RSSController extends BaseController
 
     const ENTRIES_PER_FEED = 20;
 
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     public function isCallableFromRouter($actionName)
     {
         return true;
@@ -107,7 +102,7 @@ class RSSController extends BaseController
             $entry['content'] = '<img src="' . Uri::getAbsUri($log->getLogIcon()) .'" alt="' . tr($log->getTypeTranslationKey()) . '" /> ';
             $entry['content'] .= '<strong>' . tr($log->getTypeTranslationKey()) . '</strong>';
             if ($log->getType() == GeoCacheLog::LOGTYPE_FOUNDIT
-                && $log->isRecommendedByUser($log->getUser()->getUserId())) {
+                && $log->isRecommendedByUser($log->getUser())) {
                     $entry['content'] .= ' <img src="' . Uri::getAbsUri('images/rating-star.png') . '" alt="' . tr('recommended') . '" />';
             }
             $entry['content'] .= ' (' . Formatter::dateTime($log->getDate()) . ')<br>';
@@ -207,7 +202,7 @@ class RSSController extends BaseController
             __CLASS__ . '::newNews',
             1 * 60 * 60,
             function() {
-                return self::newNewsDataPrepare(I18n::getCurrentLang());
+                return self::newNewsDataPrepare();
             });
 
         foreach ($allNews as $news) {
@@ -295,7 +290,7 @@ class RSSController extends BaseController
             $content = '<img src="' . Uri::getAbsUri($log->getLogIcon()) .'" alt="' . tr($log->getTypeTranslationKey()) . '" /> ';
             $content .= '<strong>' . tr($log->getTypeTranslationKey()) . '</strong>';
             if ($log->getType() == GeoCacheLog::LOGTYPE_FOUNDIT
-                && $log->isRecommendedByUser($log->getUser()->getUserId())) {
+                && $log->isRecommendedByUser($log->getUser())) {
                     $content .= ' <img src="' . Uri::getAbsUri('images/rating-star.png') . '" alt="' . tr('recommended') . '" />';
                 }
                 $content .= ' (' . Formatter::dateTime($log->getDate()) . ')<br>';
@@ -408,14 +403,14 @@ class RSSController extends BaseController
 
     }
 
-    public function nbhLatestLogs($userId = null, $nbhId = null)
-    {
-        $user = User::fromUserIdFactory($userId);
-        if (is_null($user)) {
-            $this->index('message_user_not_found');
-            exit();
-        }
-    }
+//    public function nbhLatestLogs($userId = null, $nbhId = null)
+//    {
+//        $user = User::fromUserIdFactory($userId);
+//        if (is_null($user)) {
+//            $this->index('message_user_not_found');
+//            exit();
+//        }
+//    }
 
     /**
      * Checks if there is userid param ($_GET)

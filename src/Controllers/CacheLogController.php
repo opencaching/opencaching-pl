@@ -1,32 +1,27 @@
 <?php
+
 namespace src\Controllers;
 
 use Exception;
-use src\Models\GeoCache\GeoCacheLog;
-use src\Utils\Uri\Uri;
+use src\Models\CacheSet\MultiGeopathsStats;
 use src\Models\ChunkModels\DynamicMap\DynamicMapModel;
-use src\Models\GeoCache\MultiLogStats;
 use src\Models\ChunkModels\DynamicMap\LogMarkerModel;
-use src\Models\GeoCache\GeoCache;
-use src\Models\User\MultiUserQueries;
-use src\Models\ChunkModels\ListOfCaches\ListOfCachesModel;
-use src\Models\ChunkModels\PaginationModel;
+use src\Models\ChunkModels\ListOfCaches\Column_CacheLog;
 use src\Models\ChunkModels\ListOfCaches\Column_CacheName;
 use src\Models\ChunkModels\ListOfCaches\Column_CacheTypeIcon;
-use src\Models\ChunkModels\ListOfCaches\Column_UserName;
-use src\Models\ChunkModels\ListOfCaches\Column_CacheLog;
-use src\Models\ChunkModels\ListOfCaches\Column_SimpleText;
-use src\Utils\Text\Formatter;
-use src\Models\CacheSet\MultiGeopathsStats;
 use src\Models\ChunkModels\ListOfCaches\Column_GeoPathIcon;
+use src\Models\ChunkModels\ListOfCaches\Column_SimpleText;
+use src\Models\ChunkModels\ListOfCaches\ListOfCachesModel;
+use src\Models\ChunkModels\PaginationModel;
+use src\Models\GeoCache\GeoCache;
+use src\Models\GeoCache\GeoCacheLog;
+use src\Models\GeoCache\MultiLogStats;
+use src\Models\User\MultiUserQueries;
+use src\Utils\Text\Formatter;
+use src\Utils\Uri\Uri;
 
 class CacheLogController extends BaseController
 {
-
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
     public function isCallableFromRouter($actionName)
     {
@@ -41,7 +36,7 @@ class CacheLogController extends BaseController
 
     /**
      * Remove cache log
-     * Called via AJAX like /CacheLog/removeLogAjax/{logid}
+     * Called via AJAX like /CacheLog/removeLogAjax/{logId}
      *
      * @param int $logId
      */
@@ -49,18 +44,18 @@ class CacheLogController extends BaseController
     {
         $this->checkUserLoggedAjax();
 
-        if(!$logId || !is_numeric($logId)){
+        if (!$logId || !is_numeric($logId)) {
             $this->ajaxErrorResponse('Improper logId', 400);
         }
 
         $log = GeoCacheLog::fromLogIdFactory($logId);
-        if(!$log){
+        if (!$log) {
             $this->ajaxErrorResponse('Incorrect logId', 400);
         }
 
-        try{
+        try {
             $log->removeLog();
-        }catch (Exception $ex){
+        } catch (Exception $ex) {
             $this->ajaxErrorResponse('Can\'t remove log', 400);
             exit;
         }
@@ -70,7 +65,7 @@ class CacheLogController extends BaseController
 
     /**
      * Reverts (undelete) cache log
-     * Called via AJAX like /CacheLog/revertLogAjax/{logid}
+     * Called via AJAX like /CacheLog/revertLogAjax/{logId}
      *
      * @param int $logId
      */
@@ -83,9 +78,9 @@ class CacheLogController extends BaseController
             $this->ajaxErrorResponse('Incorrect logId', 400);
         }
 
-        try{
+        try {
             $log->revertLog();
-        }catch (Exception $ex){
+        } catch (Exception $ex) {
             $this->ajaxErrorResponse('Can\'t revert log', 400);
             exit;
         }
@@ -112,7 +107,7 @@ class CacheLogController extends BaseController
 
         // find cacheOwners and logAuthor usernames
         $userIds = [];
-        foreach($lastLogs as $row){
+        foreach ($lastLogs as $row) {
             $userIds[$row['logAuthor']] = '';
             $userIds[$row['cacheOwner']] = '';
         }
@@ -121,27 +116,27 @@ class CacheLogController extends BaseController
 
         $mapModel = new DynamicMapModel();
         $mapModel->addMarkersWithExtractor(
-            LogMarkerModel::class, $lastLogs, function ($row) use($usernameDict){
+            LogMarkerModel::class, $lastLogs, function ($row) use ($usernameDict) {
 
-                $marker = new LogMarkerModel();
+            $marker = new LogMarkerModel();
 
-                $marker->log_link = GeoCacheLog::getLogUrlByLogId($row['id']);
-                $marker->log_text = $row['text'];
-                $marker->log_icon = GeoCacheLog::GetIconForType($row['type']);
-                $marker->log_typeName = tr(GeoCacheLog::getLogTypeTplKeys($row['cacheType'])[$row['type']]);
+            $marker->log_link = GeoCacheLog::getLogUrlByLogId($row['id']);
+            $marker->log_text = $row['text'];
+            $marker->log_icon = GeoCacheLog::GetIconForType($row['type']);
+            $marker->log_typeName = tr(GeoCacheLog::getLogTypeTplKeys($row['cacheType'])[$row['type']]);
 
-                $marker->log_username = $usernameDict[$row['logAuthor']];
-                $marker->log_date = $row['date'];
+            $marker->log_username = $usernameDict[$row['logAuthor']];
+            $marker->log_date = $row['date'];
 
-                $marker->icon = GeoCache::CacheIconByType($row['cacheType'], $row['status']);
-                $marker->lat = $row['latitude'];
-                $marker->lon = $row['longitude'];
-                $marker->link = GeoCache::GetCacheUrlByWp($row['wp_oc']);
-                $marker->name = $row['name'];
-                $marker->wp = $row['wp_oc'];
-                $marker->username = $usernameDict[$row['cacheOwner']];
+            $marker->icon = GeoCache::CacheIconByType($row['cacheType'], $row['status']);
+            $marker->lat = $row['latitude'];
+            $marker->lon = $row['longitude'];
+            $marker->link = GeoCache::GetCacheUrlByWp($row['wp_oc']);
+            $marker->name = $row['name'];
+            $marker->wp = $row['wp_oc'];
+            $marker->username = $usernameDict[$row['cacheOwner']];
 
-                return $marker;
+            return $marker;
         });
         $this->view->setVar('mapModel', $mapModel);
 
@@ -166,7 +161,7 @@ class CacheLogController extends BaseController
         // prepare pagination for list
         $paginationModel = new PaginationModel(25);
 
-        $paginationModel->setRecordsCount( MultiLogStats::getLastLogsNumber() );
+        $paginationModel->setRecordsCount(MultiLogStats::getLastLogsNumber());
         list($limit, $offset) = $paginationModel->getQueryLimitAndOffset();
 
         $allLogs = MultiLogStats::getLastLogs($limit, $offset);
@@ -175,7 +170,7 @@ class CacheLogController extends BaseController
         $userIds = [];
         $userStsDict = [];
         $geopathDict = [];
-        foreach($allLogs as $row){
+        foreach ($allLogs as $row) {
             $userIds[$row['logAuthor']] = null;
             $userStsDict[$row['cache_id']] = null;
             $geopathDict[$row['cache_id']] = null;
@@ -194,13 +189,13 @@ class CacheLogController extends BaseController
         // init model for list of watched geopaths
         $listModel = new ListOfCachesModel();
 
-        $listModel->addColumn( new Column_SimpleText(tr('lastLogList_logCreationDate'), function($row){
+        $listModel->addColumn(new Column_SimpleText(tr('lastLogList_logCreationDate'), function ($row) {
             return Formatter::date($row['date_created']);
         }, "width10"));
 
-        $listModel->addColumn( new Column_GeoPathIcon('', function($row) use($geopathDict){
+        $listModel->addColumn(new Column_GeoPathIcon('', function ($row) use ($geopathDict) {
 
-            if(!$geopathDict[$row['cache_id']]) {
+            if (!$geopathDict[$row['cache_id']]) {
                 return [];
             }
             return [
@@ -210,7 +205,7 @@ class CacheLogController extends BaseController
             ];
         }, "width5"));
 
-        $listModel->addColumn( new Column_CacheTypeIcon("", function($row) use($userStsDict){
+        $listModel->addColumn(new Column_CacheTypeIcon("", function ($row) use ($userStsDict) {
             return [
                 'type' => $row['cacheType'],
                 'status' => $row['status'],
@@ -218,14 +213,14 @@ class CacheLogController extends BaseController
             ];
         }, "width5"));
 
-        $listModel->addColumn( new Column_CacheName(tr('lastLogList_geocacheName'), function($row){
+        $listModel->addColumn(new Column_CacheName(tr('lastLogList_geocacheName'), function ($row) {
             return [
                 'cacheWp' => $row['wp_oc'],
                 'cacheName' => $row['name']
-                ];
+            ];
         }, "width30"));
 
-        $logColumn = new Column_CacheLog(tr('lastLogList_logEntry'), function($row) use($usernameDict){
+        $logColumn = new Column_CacheLog(tr('lastLogList_logEntry'), function ($row) use ($usernameDict) {
             return [
                 'logId' => $row['id'],
                 'logType' => $row['type'],
