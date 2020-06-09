@@ -4,16 +4,16 @@ use src\Libs\JpGraph\JpGraphLoader;
 use src\Utils\Database\XDb;
 use src\Utils\I18n\I18n;
 
-require(__DIR__.'/../lib/common.inc.php');
+require(__DIR__ . '/../lib/common.inc.php');
 
 // jpgraph package doesn't contains fonts
-define('TTF_DIR',__DIR__.'/../resources/fonts/');
+define('TTF_DIR', __DIR__ . '/../resources/fonts/');
 
 JpGraphLoader::load();
 JpGraphLoader::module('pie');
 JpGraphLoader::module('pie3d');
 
- // check for old-style parameters
+// check for old-style parameters
 if (isset($_REQUEST['cacheid'])) {
     $cache_id = $_REQUEST['cacheid'];
 }
@@ -31,9 +31,9 @@ $rsCSF = XDb::xSql(
     GROUP BY `cache_logs`.`type`
     ORDER BY `log_types`.`pl` ASC", $cache_id);
 
-if ($rsCSF !== false) {
-    $xtitle = "";
-    $ry = XDb::xFetchArray($rsCSF);
+$xtitle = "";
+$ry = XDb::xFetchArray($rsCSF);
+if ($ry !== false) {
     $y[] = $ry['count'];
     $x[] = $ry['type'];
 } else {
@@ -45,11 +45,11 @@ $rsCSNF = XDb::xSql(
     FROM `cache_logs` INNER JOIN `log_types` ON (`cache_logs`.`type`=`log_types`.`id`)
     WHERE type=2 AND cache_logs.deleted=0 AND cache_logs.cache_id= ?
     GROUP BY `cache_logs`.`type`
-    ORDER BY `log_types`.`pl` ASC", $cache_id );
+    ORDER BY `log_types`.`pl` ASC", $cache_id);
+$xtitle = "";
+$ry = XDb::xFetchArray($rsCSNF);
 
-if ($rsCSNF !== false) {
-    $xtitle = "";
-    $ry = XDb::xFetchArray($rsCSNF);
+if ($ry !== false) {
     $y[] = $ry['count'];
     $x[] = $ry['type'];
 } else {
@@ -57,17 +57,16 @@ if ($rsCSNF !== false) {
     $y[] = '0';
 }
 
-
 $rsCSC = XDb::xSql(
     "SELECT COUNT(`cache_logs`.`type`) `count`, `log_types`.`$lang_db` AS `type`
     FROM `cache_logs` INNER JOIN `log_types` ON (`cache_logs`.`type`=`log_types`.`id`)
     WHERE type=3 AND cache_logs.deleted=0 AND cache_logs.cache_id= ?
     GROUP BY `cache_logs`.`type`
-    ORDER BY `log_types`.`pl` ASC", $cache_id );
+    ORDER BY `log_types`.`pl` ASC", $cache_id);
 
-if ($rsCSC !== false) {
-    $xtitle = "";
-    $ry = XDb::xFetchArray($rsCSC);
+$xtitle = "";
+$ry = XDb::xFetchArray($rsCSC);
+if ($ry !== false) {
     $y[] = $ry['count'];
     $x[] = $ry['type'];
 } else {

@@ -108,7 +108,7 @@ class Image {
             imageantialias($this->img,$aFlg);
         }
         else {
-            // PATCH: skip this error // JpGraphError::RaiseL(25128);JpGraphError::RaiseL(25128);//('The function imageantialias() is not available in your PHP installation. Use the GD version that comes with PHP and not the standalone version.')
+            JpGraphError::RaiseL(25128);//('The function imageantialias() is not available in your PHP installation. Use the GD version that comes with PHP and not the standalone version.')
         }
     }
 
@@ -220,17 +220,11 @@ class Image {
         }
     }
 
-    static function GetWidth($aImg=null) {
-        if( $aImg === null ) {
-            $aImg = $this->img;
-        }
+    static function GetWidth($aImg) {
         return imagesx($aImg);
     }
 
-    static function GetHeight($aImg=null) {
-        if( $aImg === null ) {
-            $aImg = $this->img;
-        }
+    static function GetHeight($aImg) {
         return imagesy($aImg);
     }
 
@@ -2270,7 +2264,7 @@ class ImgStreamCache {
     // image file doesn't exist or exists but is to old
     function GetAndStream($aImage,$aCacheFileName) {
         if( $this->Isvalid($aCacheFileName) ) {
-            $this->StreamImgFile($aImage,$aCacheFileName);
+            return $this->StreamImgFile($aImage,$aCacheFileName);
         }
         else {
             return false;

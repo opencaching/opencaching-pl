@@ -19,7 +19,7 @@ require_once('jpgraph_theme.inc.php');
 require_once('gd_image.inc.php');
 
 // Version info
-define('JPG_VERSION','4.2.4');
+define('JPG_VERSION','4.3.1');
 
 // Minimum required PHP version
 define('MIN_PHPVERSION','5.1.0');
@@ -1569,8 +1569,10 @@ class Graph {
             foreach( $this->y2plots as $p ) {
                 list($xmin,$ymin) = $p->Min();
                 list($xmax,$ymax) = $p->Max();
-                $min = Min($xmin,$min);
-                $max = Max($xmax,$max);
+                if( $xmin !== null && $xmax !== null ) {
+                    $min = Min($xmin, $min);
+                    $max = Max($xmax, $max);
+                }
             }
         }
 
@@ -1580,8 +1582,10 @@ class Graph {
                 foreach( $this->ynplots[$i] as $p ) {
                     list($xmin,$ymin) = $p->Min();
                     list($xmax,$ymax) = $p->Max();
-                    $min = Min($xmin,$min);
-                    $max = Max($xmax,$max);
+                    if( $xmin !== null && $xmax !== null ) {
+                        $min = Min($xmin, $min);
+                        $max = Max($xmax, $max);
+                    }
                 }
             }
         }
@@ -5006,7 +5010,7 @@ class LinearScale {
             $this->off=$img->left_margin;
             $this->scale_factor = 0;
             if( $this->world_size > 0 ) {
-                $this->scale_factor=$this->world_abs_size/($this->world_size*1.0);
+                $this->scale_factor=$this->world_abs_size/($this->world_size*0.999999);
             }
         }
         else { // y scale
@@ -5014,7 +5018,7 @@ class LinearScale {
             $this->off=$img->top_margin+$this->world_abs_size;
             $this->scale_factor = 0;
             if( $this->world_size > 0 ) {
-                $this->scale_factor=-$this->world_abs_size/($this->world_size*1.0);
+                $this->scale_factor=-$this->world_abs_size/($this->world_size*0.999999);
             }
         }
         $size = $this->world_size * $this->scale_factor;
@@ -5566,7 +5570,7 @@ class Plot {
 
     function Clear() {
         $this->isRunningClear = true;
-        $this->__construct($this->inputValues['aDatay'], $this->inputValues['aDatax']);
+        Plot::__construct($this->inputValues['aDatay'], $this->inputValues['aDatax']);
         $this->isRunningClear = false;
     }
 

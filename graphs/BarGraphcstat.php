@@ -3,10 +3,10 @@
 use src\Libs\JpGraph\JpGraphLoader;
 use src\Utils\Database\XDb;
 
-require(__DIR__.'/../lib/common.inc.php');
+require(__DIR__ . '/../lib/common.inc.php');
 
 // jpgraph package doesn't contains fonts
-define('TTF_DIR',__DIR__.'/../resources/fonts/');
+define('TTF_DIR', __DIR__ . '/../resources/fonts/');
 
 JpGraphLoader::load();
 JpGraphLoader::module('bar');
@@ -66,7 +66,6 @@ if ($tit == "csm") {
     }
     XDb::xFreeResults($rsCachesFindMonth);
 }
-
 
 
 // Create the graph. These two calls are always required
