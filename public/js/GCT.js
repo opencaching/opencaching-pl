@@ -63,14 +63,22 @@ function GCTLoad( ct, lang, disableLoad )
     if (disableLoad == 1)
         return;
 
-    if ( ct == 'ChartTable')
-        google.load('visualization', '1', {packages: ['table'], 'language': lang });
-    else if ( ct == 'ChartMotion')
-        google.load('visualization', '1', {packages: ['motionchart'], 'language': lang });
-    else if ( ct == 'ChartLine')
-        google.load('visualization', '1', {packages: ['corechart'], 'language': lang});
-    else if ( ct == 'ChartBar')
-        google.load('visualization', '1', {packages: ['corechart'], 'language': lang});
+    if ( ct == 'ChartTable'){
+        //google.load('visualization', '1', {packages: ['table'], 'language': lang });
+        google.charts.load('current', {packages: ['table'], 'language': lang });
+    }
+    else if ( ct == 'ChartMotion'){
+        //google.load('visualization', '1', {packages: ['motionchart'], 'language': lang });
+        google.charts.load('current', {packages: ['motionchart'], 'language': lang });
+    }
+    else if ( ct == 'ChartLine'){
+        //google.load('visualization', '1', {packages: ['corechart'], 'language': lang});
+        google.charts.load('current', {packages: ['corechart'], 'language': lang});
+    }
+    else if ( ct == 'ChartBar'){
+        //google.load('visualization', '1', {packages: ['corechart'], 'language': lang});
+        google.charts.load('current', {packages: ['corechart'], 'language': lang});
+    }
 
 }
 
