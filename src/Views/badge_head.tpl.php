@@ -10,7 +10,8 @@
 
 <link rel="stylesheet" type="text/css" media="screen,projection" href="/css/GCT.css" />
 <link rel="stylesheet" type="text/css" media="screen,projection" href="/css/GCTStats.css" />
-<script src='https://www.google.com/jsapi'></script>
+ <!--<script src='https://www.google.com/jsapi'></script>-->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="/js/GCT.lang.php"></script>
 <script src="/js/GCT.js"></script>
 <script src="/js/GCTStats.js"></script>
