@@ -3,7 +3,8 @@ use src\Utils\I18n\I18n;
 
 ?>
 
-<script src="https://www.google.com/jsapi"></script>
+ <!--<script src='https://www.google.com/jsapi'></script>-->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="/js/GCT.js"></script>
 <script src="/js/GCT.lang.php"></script>
 <script src="/js/search.js"></script>
