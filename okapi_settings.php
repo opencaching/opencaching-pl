@@ -63,5 +63,6 @@ function get_okapi_settings()
         'OCPL_ENABLE_GEOCACHE_ACCESS_LOGS' => false,
         'REGISTRATION_URL' => (isset($OKAPI_server_URI) ? $OKAPI_server_URI : $absolute_server_URI) . 'UserRegistration',
         'USE_SQL_SUBQUERIES' => true,
+        'CRON_JOBS_BLACKLIST' => OcConfig::getOkapiCronJobBlacklist(),
     ];
 }
