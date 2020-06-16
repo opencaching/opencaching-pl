@@ -85,7 +85,7 @@ function GCTLoad( ct, lang, disableLoad )
 
 
 
-function GCT( divId ){
+function GCT(divId, disableLoad) {
 
 
     this.divId = divId;
@@ -176,7 +176,10 @@ function GCT( divId ){
     //delete this.TblOptions.allowHtml;
     this.ColOption = [];
 
-    this.GCTdata = new google.visualization.DataTable();
+    this.GCTdata = {
+        cols: [],
+        rows: []
+    };
     this.GCTview;
     this.GCTdv;
 
@@ -229,244 +232,409 @@ function GCT( divId ){
     //Event
     this.addSelectEvent; /* function( eventFunction ) */
     this.addPageEvent; /* function( eventFunction ) */
+
+    this.onAPILoaded; /* function() */
+
+    this.setViewCalled = false;
+    this.drawChartCalled = false;
+    this.columnsToHide = [];
+    this.listeners = [];
+
+    if (typeof disableLoad == 'undefined' || !disableLoad) {
+        var self = this;
+        google.setOnLoadCallback(function() {
+            self.onAPILoaded();
+        });
+    }
 }
 
+GCT.prototype.onAPILoaded = function() {
+    this.GCTdata = new google.visualization.DataTable(this.GCTdata);
+    this.__setView = function() {
+        this.GCTview = new google.visualization.DataView( this.GCTdata );
+        return this.GCTview;
+    };
+    this.addColumn = function(colType, colName, colProperty) {
+        var nrCol = this.GCTdata.addColumn(colType, colName);
+        if (colProperty != '') {
+            this.ColOption[nrCol] = colProperty;
+        }
+    };
+    this.removeAllRows = function() {
+        this.GCTdata.removeRows(0, this.GCTdata.getNumberOfRows());
+    };
+    this.__addRow = function(row) {
+        var nrRow = this.GCTdata.addRow(row);
+        for (var i = 0; i < this.ColOption.length; i++) {
+            if (this.ColOption[i] != '') {
+                this.GCTdata.setProperty(nrRow ,i, 'style', this.ColOption[i]);
+            }
+        }
+    };
+    this.modifyValue = function(nrRow, nrCol, value, formatValue) {
+        this.GCTdata.setCell(nrRow , nrCol, value, formatValue);
 
-GCT.prototype.getSelection = function(){
-    return this.chart.getSelection();
+        if (this.ColOption[ nrCol ] != '') {
+            this.GCTdata.setProperty(
+                nrRow, nrCol, 'style', this.ColOption[nrCol]
+            );
+        }
+    };
+    this.addSelectEvent = function(eventFunction) {
+        google.visualization.events.addListener(
+            this.chart, 'select', eventFunction
+        );
+    };
+    this.addPageEvent = function(eventFunction) {
+        google.visualization.events.addListener(
+            this.chart, 'page', eventFunction
+        );
+    };
+    if (this.setViewCalled) {
+        this.__setView();
+        this.setViewCalled = false;
+    }
+    if (this.columnsToHide.length > 0) {
+        this.hideColumns(this.columnsToHide);
+        this.columnsToHide = [];
+    }
+    if (this.drawChartCalled) {
+        this.__getFunDrawChart(this.__getDV(), this.__getChartOptions());
+        this.setDrawChartCalled = false;
+    }
+    for (var i = 0 ; i < this.listeners.length; i++) {
+        google.visualization.events.addListener(
+            this.chart, this.listeners[i].type, this.listeners[i].listener
+        );
+    }
+    this.listeners = [];
+};
+
+GCT.prototype.getSelection = function() {
+    var result = null;
+    if (typeof this.chart != 'undefined') {
+        result = this.chart.getSelection();
+    }
+    return result;
 };
 
 //setSelection([{'row': 4}])
-GCT.prototype.setSelection = function( nrRow ){
-    this.chart.setSelection( nrRow );
-};
-
-
-GCT.prototype.setAsSelected = function( nrRow )
-{
-    var style;
-
-
-    for (var i = 0; i < this.GCTdata.getNumberOfColumns(); i++)
-    {
-        if ( typeof this.ColOption[ i ] != 'undefined' )
-            style = this.ColOption[ i ] + this.GCTSelectColor;
-        else
-            style = this.GCTSelectColor;
-
-        this.GCTdata.setProperty( nrRow, i, 'style', style );
+GCT.prototype.setSelection = function(nrRow) {
+    if (typeof this.chart != 'undefined') {
+        this.chart.setSelection(nrRow);
     }
-
 };
 
-GCT.prototype.showRows = function( rowArray, dt )
-{
-    if ( typeof this.GCTview == 'undefined')
-        this.__setView();
-
-    this.GCTview.setRows( rowArray );
-
-    if ( dt == 1)
-        this.__drawTable( this.GCTview, this.TblOptions );
+GCT.prototype.setAsSelected = function(nrRow) {
+    if (typeof this.GCTdata.getNumberOfColumns == 'function') {
+        for (var i = 0; i < this.GCTdata.getNumberOfColumns(); i++) {
+            var style;
+            if (typeof this.ColOption[i] != 'undefined') {
+                style = this.ColOption[i] + this.GCTSelectColor;
+            } else {
+                style = this.GCTSelectColor;
+            }
+            this.GCTdata.setProperty(nrRow, i, 'style', style);
+        }
+    }
 };
 
-
-GCT.prototype.hideColumns = function( colArray )
-{
-    if ( typeof this.GCTview == 'undefined')
-        this.__setView();
-
-    this.GCTview.hideColumns( colArray );
+GCT.prototype.showRows = function(rowArray, dt) {
+    if (typeof this.GCTview != 'undefined' || this.__setView()) {
+        this.GCTview.setRows(rowArray);
+        if (dt == 1) {
+            this.__drawTable(this.GCTview, this.TblOptions);
+        }
+    } else {
+        this.setViewCalled = true;
+    }
 };
 
-GCT.prototype.getViewColumns = function()
-{
-    if ( typeof this.GCTview == 'undefined')
-        this.__setView();
-
-    return this.GCTview.getViewColumns();
+GCT.prototype.hideColumns = function(colArray) {
+    if (typeof this.GCTview != 'undefined' || this.__setView()) {
+        this.GCTview.hideColumns(colArray);
+    } else {
+        this.setViewCalled = true;
+        this.columnsToHide = this.columnsToHide.concat(colArray);
+    }
 };
 
-
-GCT.prototype.addColumn = function( ColType, ColName, ColProperty) {
-
-    var nrCol = this.GCTdata.addColumn(ColType, ColName);
-
-    if ( ColProperty != '' )
-        this.ColOption[ nrCol ] = ColProperty;
-
-
+GCT.prototype.getViewColumns = function() {
+    var result = null;
+    if (typeof this.GCTview != 'undefined' || this.__setView()) {
+        result = this.GCTview.getViewColumns();
+    } else {
+        this.setViewCalled = true;
+    }
 };
 
-GCT.prototype.removeAllRows = function (){
-    this.GCTdata.removeRows(0, this.GCTdata.getNumberOfRows() );
+GCT.prototype.addColumn = function(colType, colName, colProperty) {
+    this.GCTdata.cols.push({
+        type: colType,
+        label: colName
+    });
+
+    if (colProperty != '') {
+        this.ColOption[this.GCTdata.length - 1] = colProperty;
+    }
+};
+
+GCT.prototype.removeAllRows = function () {
+    this.GCTData.rows = [];
 }
 
+GCT.prototype.__addRow = function(row) {
+    for (var i = 0; i < row.length; i++) {
+        if (typeof row[i].v == 'undefined') {
+            row[i] = {
+                v: row[i]
+            };
+        }
+        if (i < this.ColOption.length && this.ColOption[i] != '') {
+            row[i].p = {
+                style: this.ColOption[i]
+            };
+        }
+    }
+    this.GCTdata.rows.push({
+        c: row
+    });
+}
 
-
-
-GCT.prototype.addRow = function ( row )
-{
+GCT.prototype.addRow = function(row) {
     if (!isNaN(this.GCTview)) {
         alert("You try to add records after settings view !!!");
         return;
     }
 
-    var nrRow = this.GCTdata.addRow( row );
-
-    for( var i = 0; i < this.ColOption.length; i++ )
-    {
-        if ( this.ColOption[ i ] != '' )
-            this.GCTdata.setProperty( nrRow ,i, 'style', this.ColOption[ i ] );
-    }
+    this.__addRow(row);
 };
 
-GCT.prototype.addEmptyRow = function ()
-{
+GCT.prototype.addEmptyRow = function () {
     if (!isNaN(this.GCTview)) {
         alert("You try to add records after settings view !!!");
         return;
     }
 
-    this.GCTdata.addRow();
+    this.__addRow([]);
 };
 
-GCT.prototype.getNumberOfRows = function ()
-{
-    return this.GCTdata.getNumberOfRows()-1;
+GCT.prototype.getNumberOfRows = function () {
+    return (
+        typeof this.GCTdata.getNumberOfRows == 'function'
+        ? this.GCTdata.getNumberOfRows() - 1
+        : this.GCTdata.rows.length - 1
+    );
 }
 
-GCT.prototype.addToLastRow = function ( nrCol, value, formatValue )
-{
-    var nrRow = this.GCTdata.getNumberOfRows()-1;
+GCT.prototype.addToLastRow = function(nrCol, value, formatValue) {
+    this.modifyValue(this.getNumberOfRows(), nrCol, value, formatValue);
+};
 
-    this.modifyValue( nrRow, nrCol, value, formatValue );
+GCT.prototype.modifyValue = function(nrRow, nrCol, value, formatValue) {
+    if (typeof this.GCTdata.rows[nrRow] == 'undefined') {
+        this.GCTdata.rows[nrRow] = {
+            c: []
+        };
+    }
+    if (typeof this.GCTdata.rows[nrRow].c[nrCol] == 'undefined') {
+        this.GCTdata.rows[nrRow].c[nrCol] = {};
+    }
+    if (typeof this.GCTdata.rows[nrRow].c[nrCol].v == 'undefined') {
+        this.GCTdata.rows[nrRow].c[nrCol] = {
+            v: ''
+        };
+    }
+    this.GCTdata.rows[nrRow].c[nrCol].v = value;
+    if (typeof formatValue != 'undefined') {
+        this.GCTdata.rows[nrRow].c[nrCol].f = formatValue;
+    }
+    if (this.ColOption[nrCol] != '' ) {
+        this.GCTdata.rows[nrRow].c[nrCol].p = {
+            style: this.ColOption[nrCol]
+        };
+    }
+};
+
+GCT.prototype.getValueFromLastRow = function(nrCol) {
+    return this.getValue(this.getNumberOfRows(), nrCol);
+};
+
+GCT.prototype.getValue = function(nrRow, nrCol) {
+    var result = null;
+    if (typeof this.GCTdata.getValue == 'function') {
+        result = this.GCTdata.getValue(nrRow, nrCol);
+    } else {
+        result =
+            typeof this.GCTdata.rows[nrRow].c[nrCol].v != 'undefined'
+            ? this.GCTdata.rows[nrRow].c[nrCol].v
+            : null;
+    }
+    return result;
 };
 
 
-GCT.prototype.modifyValue = function ( nrRow, nrCol, value, formatValue )
-{
-    this.GCTdata.setCell( nrRow , nrCol, value, formatValue );
-
-    if ( this.ColOption[ nrCol ] != '' )
-            this.GCTdata.setProperty( nrRow , nrCol, 'style', this.ColOption[ nrCol ] );
+GCT.prototype.drawChart = function(directDraw) {
+    if (typeof directDraw != 'undefined' && directDraw) {
+        this.__getFunDrawChart(this.__getDV(), this.__getChartOptions());
+    } else {
+        this.drawChartCalled = true;
+    }
 };
 
-
-GCT.prototype.getValueFromLastRow = function( nrCol )
-{
-    var nrRow = this.GCTdata.getNumberOfRows()-1;
-    return this.getValue(nrRow, nrCol );
-};
-
-GCT.prototype.getValue = function(nrRow, nrCol ){
-    return this.GCTdata.getValue(nrRow, nrCol );
-};
-
-
-GCT.prototype.drawChart = function ( directDraw )
-{
-    if ( directDraw == 1 )
-        this.__getFunDrawChart( this.__getDV(), this.__getChartOptions() );
-    else
-        google.setOnLoadCallback( this.__getFunDrawChart( this.__getDV(), this.__getChartOptions() ) );
-
-};
-
-GCT.prototype.getChartOption = function(){
+GCT.prototype.getChartOption = function() {
     return this.__getChartOptions();
 };
 
 
-GCT.prototype.addChartOption = function(key, value){
-    this.__getChartOptions()[ key ] = value;
+GCT.prototype.addChartOption = function(key, value) {
+    this.__getChartOptions()[key] = value;
 };
 
-GCT.prototype.addVisualOptionVC = function(key, value){
-    this.vcssClassNames[ key ] = value;
+GCT.prototype.addVisualOptionVC = function(key, value) {
+    this.vcssClassNames[key] = value;
 };
 
-GCT.prototype.delChartOption = function( key ){
-    delete this.__getChartOptions[ key ];
+GCT.prototype.delChartOption = function(key) {
+    delete this.__getChartOptions[key];
 };
 
-GCT.prototype.delTblOptionVC = function(key, value){
-    delete this.vcssClassNames[ key ];
+GCT.prototype.delTblOptionVC = function(key, value) {
+    delete this.vcssClassNames[key];
 };
 
-GCT.prototype.sortByColumnsView = function( sortArray )
-{
-    if ( typeof this.GCTview == 'undefined')
-        this.__setView();
+GCT.prototype.__getSortedRows = function(sortColumns, indices) {
+    var result = [];
+    var sortArray = [];
+    if (typeof sortColumns != 'undefined') {
+        if (typeof sortColumns == 'number') {
+            sortArray.push({
+                column: sortColumns
+            });
+        } else if (Array.isArray(sortColumns)) {
+            for (var i = 0; i < sortColumns.length; i++) {
+                if (typeof sortColumns[i] == 'number') {
+                    sortArray.push({
+                        column: sortColumns[i]
+                    });
+                } else {
+                    sortArray.push(sortColumns[i]);
+                }
+            }
+        }
+        for (var i = 0; i < this.GCTdata.rows.length; i++) {
+            data[i] = [this.GCTdata.rows[i], i];
+        }
+        data.sort(function(a, b) {
+            var cmpResult = 0;
+            for (var i = 0; i < sortArray.length && cmpResult == 0; i++) {
+                var vA = a[0].c[sortArray[i].column].v;
+                var vB = b[0].c[sortArray[i].column].v;
+                cmpResult = (vA < vB) ? -1 : (vA === vB ? 0 : 1);
+                if (cmpResult != 0
+                    && typeof sortArray[i].desc != 'undefined'
+                    && typeof sortArray[i].desc
+                ) {
+                    cmpResult = -cmpResult;
+                }
+            }
+            return cmpResult;
+        });
+        var resultTypeInd = (typeof indices != 'undefined' && indices) ? 1 : 0;
+        for (var i = 0; i < data.length; i++) {
+            result.push(data[i][resultTypeDesc]);
+        }
+    }
+    return result;
+};
 
-    //this.GCTview.setRows( data.getSortedRows( sortArray );
-    this.GCTview.setRows(this.GCTdata.getSortedRows(sortArray));
+GCT.prototype.sortByColumnsView = function(sortArray) {
+    if (typeof this.GCTview != 'undefined' || this.__setView()) {
+        // probably unnecessary check below, GCTdata should be from google by now
+        this.GCTview.setRows(
+            typeof this.GCTdata.getSortedRows == 'function'
+            ? this.GCTdata.getSortedRows(sortArray)
+            : this.__getSortedRows(sortArray, true)
+        );
+    } else {
+        this.setViewCalled = true;
+    }
+};
+
+GCT.prototype.sortByColumns = function(sortArray) {
+    if (typeof this.GCTdata.getNumberOfRows == 'function') {
+        this.GCTdata.sort(sortArray);
+    } else {
+        this.GCTdata.rows = this.__getSortedRows(sortArray);
+    }
+};
+
+/* == TODO for offline == */
+GCT.prototype.getFilteredRows = function(filterArray) {
+    var result = null;
+    if (typeof this.GCTdata.getFilteredRows == 'function') {
+        result = this.GCTdata.getFilteredRows(filterArray);
+    }
+    return result;
+};
+
+GCT.prototype.goToPage = function(nrPage, dt) {
+    this.addChartOption('startPage', nrPage);
+
+    if (dt == 1) {
+        this.__drawTable(this.__getDV(), this.TblOptions);
+    }
+};
+
+GCT.prototype.goToPosition = function(nrPos, dt) {
+    var page = Math.floor((nrPos)/this.TblOptions['pageSize']);
+    this.goToPage(page, dt);
+};
+
+GCT.prototype.addSelectEvent = function(eventFunction) {
+    this.listeners.push({
+        type: 'select',
+        listener: eventFunction
+    });
+};
+
+GCT.prototype.addPageEvent = function(eventFunction) {
+    this.listeners.push({
+        type: 'page',
+        listener: eventFunction
+    });
 };
 
 
-GCT.prototype.sortByColumns = function( sortArray )
-{
-    this.GCTdata.sort( sortArray );
+GCT.prototype.__getFunDrawChart = function(dv, co) {
+    var result = null;
+    if (ChartType == 'ChartTable') {
+        result = this.__drawTable(dv, co);
+    } else if (ChartType == 'ChartMotion') {
+        result = this.__drawMotion(dv, co);
+    } else if (ChartType == 'ChartLine') {
+        result = this.__drawLine(dv, co);
+    } else if (ChartType == 'ChartBar') {
+        result = this.__drawBar(dv, co);
+    }
+    return result;
 };
 
-
-GCT.prototype.getFilteredRows = function( filterArray )
-{
-    return this.GCTdata.getFilteredRows( filterArray );
+GCT.prototype.__getChartOptions = function () {
+    var result = null;
+    if (ChartType == 'ChartTable') {
+        result = this.TblOptions;
+    } else if (ChartType == 'ChartMotion') {
+        result = this.MotionOptions;
+    } else if (ChartType == 'ChartLine') {
+        result = this.LineOptions;
+    } else if (ChartType == 'ChartBar') {
+        result = this.BarOptions;
+    }
+    return result;
 };
 
-GCT.prototype.goToPage = function( nrPage, dt )
-{
-    this.addChartOption( 'startPage', nrPage );
-
-    if ( dt == 1)
-        this.__drawTable( this.__getDV(), this.TblOptions );
-};
-
-GCT.prototype.goToPosition = function( nrPos, dt )
-{
-    var page = Math.floor( (nrPos)/this.TblOptions[ 'pageSize' ] );
-    this.goToPage( page, dt );
-};
-
-
-GCT.prototype.addSelectEvent = function( eventFunction ){
-    google.visualization.events.addListener(this.chart, 'select', eventFunction );
-};
-
-GCT.prototype.addPageEvent = function( eventFunction ){
-    google.visualization.events.addListener(this.chart, 'page', eventFunction );
-};
-
-GCT.prototype.__getFunDrawChart = function ( dv, co )
-{
-    if (ChartType == 'ChartTable')
-        return this.__drawTable( dv, co );
-    else if ( ChartType == 'ChartMotion')
-        return this.__drawMotion( dv, co );
-    else if ( ChartType == 'ChartLine')
-        return this.__drawLine( dv, co );
-    else if ( ChartType == 'ChartBar')
-        return this.__drawBar( dv, co );
-};
-
-
-GCT.prototype.__getChartOptions = function ()
-{
-    if (ChartType == 'ChartTable')
-        return this.TblOptions;
-    else if ( ChartType == 'ChartMotion')
-        return this.MotionOptions;
-    else if ( ChartType == 'ChartLine')
-        return this.LineOptions;
-    else if ( ChartType == 'ChartBar')
-        return this.BarOptions;
-};
-
-
-
-GCT.prototype.__getDV = function ()
-{
+GCT.prototype.__getDV = function () {
     if ( typeof this.GCTview != 'undefined') {
         this.GCTdv = this.GCTview;
     }
@@ -477,51 +645,42 @@ GCT.prototype.__getDV = function ()
     return this.GCTdv;
 };
 
-
-
-GCT.prototype.__drawTable = function( data, options ){
-
-    if ( typeof this.chart == 'undefined' )
-        this.chart = new google.visualization.Table(document.getElementById(this.divId));
-
-    this.chart.draw( data, options );
-};
-
-
-GCT.prototype.__drawMotion = function(data, options){
-    if ( typeof this.chart == 'undefined' )
-        this.chart = new google.visualization.MotionChart(document.getElementById(this.divId));
-
+GCT.prototype.__drawTable = function(data, options) {
+    if (typeof this.chart == 'undefined') {
+        this.chart = new google.visualization.Table(
+            document.getElementById(this.divId)
+        );
+    }
     this.chart.draw(data, options);
 };
 
-
-GCT.prototype.__drawLine = function(data, options){
-    if ( typeof this.chart == 'undefined' )
-        this.chart = new google.visualization.LineChart(document.getElementById(this.divId));
-
+GCT.prototype.__drawMotion = function(data, options) {
+    if (typeof this.chart == 'undefined') {
+        this.chart = new google.visualization.MotionChart(
+            document.getElementById(this.divId)
+        );
+    }
     this.chart.draw(data, options);
 };
 
-
-GCT.prototype.__drawBar = function(data, options){
-    if ( typeof this.chart == 'undefined' )
-        this.chart = new google.visualization.BarChart(document.getElementById(this.divId));
-
+GCT.prototype.__drawLine = function(data, options) {
+    if (typeof this.chart == 'undefined' ) {
+        this.chart = new google.visualization.LineChart(
+            document.getElementById(this.divId)
+        );
+    }
     this.chart.draw(data, options);
 };
 
-
-GCT.prototype.__setView = function()
-{
-    this.GCTview = new google.visualization.DataView( this.GCTdata );
-    return this.GCTview;
+GCT.prototype.__drawBar = function(data, options) {
+    if (typeof this.chart == 'undefined') {
+        this.chart = new google.visualization.BarChart(
+            document.getElementById(this.divId)
+        );
+    }
+    this.chart.draw(data, options);
 };
 
-
-
-
-
-
-
-
+GCT.prototype.__setView = function() {
+    return null;
+};
