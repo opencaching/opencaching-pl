@@ -25,7 +25,7 @@ $menu = [ // DON'T CHANGE $menu var name!
     'mnu_contact'       => ['/articles.php?page=contact'],
     'mnu_guides'        => '/guide',
     'mnu_facebook'      => ['https://www.facebook.com/OpencachingPL/'],
-    'mnu_kwidzyn'	=> ['https://open.kwidzyn.pl'],
+    // 'mnu_kwidzyn'	=> ['https://open.kwidzyn.pl'],
     'mnu_clipboard'     => '/printList', /* counters added in MainLayoutCtrl */
 
 ];
