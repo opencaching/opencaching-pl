@@ -3,10 +3,10 @@
 use src\Libs\JpGraph\JpGraphLoader;
 use src\Utils\Database\XDb;
 
-require(__DIR__.'/../lib/common.inc.php');
+require(__DIR__ . '/../lib/common.inc.php');
 
 // jpgraph package doesn't contains fonts
-define('TTF_DIR',__DIR__.'/../resources/fonts/');
+define('TTF_DIR', __DIR__ . '/../resources/fonts/');
 
 JpGraphLoader::load();
 JpGraphLoader::module('bar');
@@ -75,8 +75,8 @@ if ($tit == "csm") {
             ORDER BY YEAR(`date`) ASC, MONTH(`date`) ASC",
             $cache_id, $year, $month);
 
-        if ($rsCachesFindMonth1 !== false) {
-            $rfm = XDb::xFetchArray($rsCachesFindMonth1);
+        $rfm = XDb::xFetchArray($rsCachesFindMonth1);
+        if ($rfm !== false) {
             $y1[] = $rfm['count'];
             $x1[] = $rfm['month'];
         } else {
@@ -95,9 +95,8 @@ if ($tit == "csm") {
             ORDER BY YEAR(`date`) ASC, MONTH(`date`) ASC",
             $cache_id, $year, $month);
 
-        if ($rsCachesFindMonth2 !== false) {
-
-            $rfm = XDb::xFetchArray($rsCachesFindMonth2);
+        $rfm = XDb::xFetchArray($rsCachesFindMonth2);
+        if ($rfm !== false) {
             $y2[] = $rfm['count'];
             $x2[] = $rfm['month'];
         } else {

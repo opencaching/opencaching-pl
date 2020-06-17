@@ -3,10 +3,10 @@
 use src\Libs\JpGraph\JpGraphLoader;
 use src\Utils\Database\XDb;
 
-require(__DIR__.'/../lib/common.inc.php');
+require(__DIR__ . '/../lib/common.inc.php');
 
 // jpgraph package doesn't contains fonts
-define('TTF_DIR',__DIR__.'/../resources/fonts/');
+define('TTF_DIR', __DIR__ . '/../resources/fonts/');
 
 JpGraphLoader::load();
 JpGraphLoader::module('bar');
@@ -58,15 +58,15 @@ if ($tit == "ccm") {
             ORDER BY YEAR(`date_created`) ASC, MONTH(`date_created`) ASC",
             $user_id, $year, $month);
 
-        if ($rsCreateCachesMonth !== false) {
-            $descibe = tr("monthly_stat_created_user");
-            $xtitle = $year;
-            $rm = XDb::xFetchArray($rsCreateCachesMonth);
-            $y[] = $rm['count'];
+        $descibe = tr("monthly_stat_created_user");
+        $xtitle = $year;
+        $rm = XDb::xFetchArray($rsCreateCachesMonth);
+        if ($rm !== false) {
             $x[] = $rm['month'];
+            $y[] = $rm['count'];
         } else {
-            $y1[] = $i;
-            $x1[] = 0;
+            $x[] = $i;
+            $y[] = 0;
         }
     }
 
@@ -101,22 +101,21 @@ if ($tit == "cfm") {
             ORDER BY YEAR(`date`) ASC, MONTH(`date`) ASC",
             $user_id, $year, $month);
 
-        if ($rsCachesFindMonth !== false) {
-            $descibe = tr("monthly_stat_founds_user");
-            $xtitle = $year;
+        $descibe = tr("monthly_stat_founds_user");
+        $xtitle = $year;
 
-            $rfm = XDb::xFetchArray($rsCachesFindMonth);
-            $y[] = $rfm['count'];
+        $rfm = XDb::xFetchArray($rsCachesFindMonth);
+        if ($rfm !== false) {
             $x[] = $rfm['month'];
+            $y[] = $rfm['count'];
         } else {
-            $y1[] = $i;
-            $x1[] = 0;
+            $x[] = $i;
+            $y[] = 0;
         }
     }
 
     XDb::xFreeResults($rsCachesFindMonth);
 }
-
 
 
 // Create the graph. These two calls are always required

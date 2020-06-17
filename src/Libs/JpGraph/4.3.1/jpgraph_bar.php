@@ -309,6 +309,17 @@ class BarPlot extends Plot {
         }
     }
 
+
+    /**
+     * @override
+     * Without overriding this method, $this->numpoints does not updated correctly.
+     */
+    function Clear() {
+        $this->isRunningClear = true;
+        $this->__construct($this->inputValues['aDatay'], $this->inputValues['aDatax']);
+        $this->isRunningClear = false;
+    }
+
     function Stroke($img,$xscale,$yscale) {
 
         $numpoints = count($this->coords[0]);
@@ -716,7 +727,7 @@ class GroupBarPlot extends BarPlot {
         $n = count($this->plots);
         for($i=0; $i < $n; ++$i) {
             list($xm,$ym) = $this->plots[$i]->Min();
-            $xmin = max($xmin,$xm);
+            $xmin = min($xmin,$xm);
             $ymin = min($ymin,$ym);
         }
         return array($xmin,$ymin);
