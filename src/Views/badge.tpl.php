@@ -5,11 +5,11 @@ use src\Utils\I18n\I18n;
     function gctUShowUsers( level ){
         gctU.removeAllRows();
         {contentUsr}
-        gctU.drawChart();
+        gctU.drawTable('idGCTUser');
     }
 
 
-    function GCTEventBadgeLevel( event )
+    function gctEventBadgeLevel( event )
     {
         var recArray =  gct.getSelection();
         var item = recArray[0];
@@ -55,42 +55,59 @@ use src\Utils\I18n\I18n;
 
 
 <script>
-<?php echo "GCTLoad( 'ChartTable', '" . I18n::getCurrentLang() . "' );"?>
+<?php echo "gctLoadTable( '" . I18n::getCurrentLang() . "' );"?>
 </script>
 
 <script>
-var gct = new GCT('idGCTLevel');
-gct.addColumn('string', ''); //0
-gct.addColumn('string',  '', 'font-size: 12px; ' ); //1
-gct.addColumn('string',  '<?php echo tr("merit_badge_level") ?>', 'font-size: 12px; ' ); //2
-gct.addColumn('string', '<?php echo tr("merit_badge_number_threshold"); ?>', 'width: 90px; font-size: 12px; text-align:left;' ); //3
-gct.addColumn('string', '<?php echo tr("merit_badge_gain_count") ?>', 'width: 50px; font-size: 12px; text-align:right;' ); //4
-gct.addColumn('string', '<?php echo tr("merit_badge_gain_last_date") ?>', 'width: 100px;font-size: 12px; ' ); //5
 
-gct.hideColumns( [0] );
+var gct = new GCT();
+gctSetCallback( levelCB );
 
-gct.addChartOption('width', 410);
-gct.addChartOption('page', 'disable' );
-gct.addChartOption('sort', 'disable' );
-gct.addChartOption('pageSize', 0 );
+function levelCB(){
 
-{contentLvl}
+    gct.setDataTable();
 
-gct.setAsSelected({userLevel});
-gct.drawChart();
-gct.setSelection([{'row': {userLevel}}]);
-gct.addSelectEvent( GCTEventBadgeLevel );
+    gct.addColumn( 'string', ''); //0
+    gct.addColumn( 'string',  '', 'font-size: 12px; ' ); //1
+    gct.addColumn( 'string',  '<?php echo tr("merit_badge_level") ?>', 'font-size: 12px; ' ); //2
+    gct.addColumn( 'string', '<?php echo tr("merit_badge_number_threshold"); ?>', 'width: 90px; font-size: 12px; text-align:left;' ); //3
+    gct.addColumn( 'string', '<?php echo tr("merit_badge_gain_count") ?>', 'width: 50px; font-size: 12px; text-align:right;' ); //4
+    gct.addColumn( 'string', '<?php echo tr("merit_badge_gain_last_date") ?>', 'width: 100px;font-size: 12px; ' ); //5
+
+    gct.hideColumns( [0] );
+
+    gct.addOption('width', 410);
+    gct.addOption('page', 'disable' );
+    gct.addOption('sort', 'disable' );
+    gct.addOption('pageSize', 0 );
 
 
-var gctU = new GCT('idGCTUser');
-gctU.addColumn('string', "<?php echo tr('user') ?>", 'font-size: 12px;'); //0
-gctU.addColumn('number', "<?php echo tr('merit_badge_number') ?>", 'font-size: 12px;text-align:right;'); //1
-gctU.addColumn('string', '<?php echo tr("merit_badge_gain_date") ?>', 'font-size: 12px;' ); //2
+    {contentLvl}
 
-gctU.addChartOption('width', 300);
-gctU.addChartOption('pageSize', 20 );
+    gct.setColorForSelected({userLevel});
 
-gctUShowUsers({userLevel});
+    gct.drawTable( 'idGCTLevel' );
+
+    gct.setSelection([{'row': {userLevel}}]);
+    gct.addSelectEvent( gctEventBadgeLevel );
+};
+
+var gctU = new GCT();
+gctSetCallback( userCB );
+
+function userCB(){
+
+    gctU.setDataTable();
+
+    gctU.addColumn('string', "<?php echo tr('user') ?>", 'font-size: 12px;'); //0
+    gctU.addColumn('number', "<?php echo tr('merit_badge_number') ?>", 'font-size: 12px;text-align:right;'); //1
+    gctU.addColumn('string', '<?php echo tr("merit_badge_gain_date") ?>', 'font-size: 12px;' ); //2
+
+    gctU.addOption('width', 300);
+    gctU.addOption('pageSize', 20 );
+
+    gctUShowUsers({userLevel});
+}
 
 </script>
 <br>
