@@ -87,13 +87,14 @@ foreach( $levelsMeritBadge as $oneLevel ){
     }
 
     $contentLvl .= "
-        gct.addEmptyRow();
-        gct.addToLastRow( 0, \"$pure_level\" );
-        gct.addToLastRow( 1, \"$level\" );
-        gct.addToLastRow( 2, \"$name\" );
-        gct.addToLastRow( 3, \"$threshold\" );
-        gct.addToLastRow( 4, \"$gain\" );
-        gct.addToLastRow( 5, \"$max_date\" ); ";
+            gct.addEmptyRow();
+
+            gct.addToLastRow( 0, \"$pure_level\" );
+            gct.addToLastRow( 1, \"$level\" );
+            gct.addToLastRow( 2, \"$name\" );
+            gct.addToLastRow( 3, \"$threshold\" );
+            gct.addToLastRow( 4, \"$gain\" );
+            gct.addToLastRow( 5, \"$max_date\" ); ";
 }
 
 
@@ -138,6 +139,7 @@ foreach( $usersMeritBadge as $oneUserBadge ){
 
     $contentUsr .= "
         gctU.addEmptyRow();
+
         gctU.addToLastRow( 0, \"$user_name\" );
         gctU.addToLastRow( 1, \"$curr_val\" );
         gctU.addToLastRow( 2, \"$curr_level_date\" );";
