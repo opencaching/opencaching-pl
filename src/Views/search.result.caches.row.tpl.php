@@ -1,4 +1,3 @@
-<script>
 gct.addEmptyRow();
 gct.addToLastRow( 0, "{CacheID}" );
 gct.addToLastRow( 1, "<img span='{cachetype}' src='/images/{icon_large}' alt='{cachetype}' title='{cachetype}' height='16' width='16' />" );
@@ -26,4 +25,5 @@ gct.addToLastRow( 17, "{diffpic}{terrpic}" );
 
 gct.addToLastRow( 18, "{sendtogpsnew}" );
 gct.addToLastRow( 19, "{wp_oc}" );
-</script>
+
+

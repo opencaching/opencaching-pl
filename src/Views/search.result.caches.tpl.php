@@ -53,7 +53,7 @@ if ( !$SearchWithSort )
 }
 
 echo "<script>";
-echo " GCTLoad( 'ChartTable', '". I18n::getCurrentLang() ."' );";
+echo " gctLoadTable( '". I18n::getCurrentLang() ."' );";
 echo "</script>";
 
 $NrColSortToSet = $NrColSortSearch-1;
@@ -69,7 +69,12 @@ if ( !$SearchWithSort &&  $NrColSortSearch != -1 )
 ?>
 
 <script>
-    var gct = new GCT( 'idGTC' );
+var gct = new GCT();
+gctSetCallback( searchCB );
+
+function searchCB(){
+
+    gct.setDataTable();
 
     /* 0 */gct.addColumn('string', "<?php echo $colNameSearch[0]["C"]?>", 'text-align: center; font-size: 12px;');
     /* 1 */gct.addColumn('string', "<?php echo $colNameSearch[1]["C"]?>", 'text-align: center; font-size: 12px;');
@@ -98,29 +103,42 @@ if ( !$SearchWithSort &&  $NrColSortSearch != -1 )
     /* 18 */gct.addColumn('string', "<?php echo $colNameSearch[18]["C"]?>", 'font-size: 12px; text-align: left; ');
     /* 19 */gct.addColumn('string', "<?php echo $colNameSearch[19]["C"]?>", 'font-size: 12px; text-align: left; ');
 
+    {results}
+
     gct.hideColumns( [0, 19] );
 
-    gct.addChartOption('showRowNumber', true );
-    gct.addChartOption('width', '780' );
+    gct.addOption('showRowNumber', true );
+    gct.addOption('width', '780' );
 
     gct.addVisualOptionVC('headerRow', 'GCT-background-color-white6 GCT-color-black11 GCTalign-center GCT-font-bold GCT-font-size11 ');
     gct.addVisualOptionVC('rowNumberCell', 'GCT-color-none GCT-font-size11 ');
+
+    hideProperColumns();
+    turnOnOProperOptions();
+
+    gct.drawTable('idGTC');
+
+    gct.addSelectEvent( EventSelectPosFunction );
+    gct.addPageEvent( EventPageFunction );
+}
 </script>
 
 <?php
     echo "<script>";
+    echo "function turnOnOProperOptions(){";
     if ($SearchWithSort)
     {
-        echo "gct.addChartOption('sortColumn', $NrColSortToSet );";
-        echo "gct.addChartOption('sortAscending',"; if ($OrderSortSearch == 'M') echo 'false'; else echo 'true'; echo" );";
-        echo "gct.addChartOption('pageSize', 20);";
+        echo "gct.addOption('sortColumn', $NrColSortToSet );";
+        echo "gct.addOption('sortAscending',"; if ($OrderSortSearch == 'M') echo 'false'; else echo 'true'; echo" );";
+        echo "gct.addOption('pageSize', 20);";
     }
     else
     {
-        echo "gct.addChartOption('showRowNumber', false );";
-        echo "gct.addChartOption('sort', 'disable' );";
-        echo "gct.addChartOption('page', 'disable' );";
+        echo "gct.addOption('showRowNumber', false );";
+        echo "gct.addOption('sort', 'disable' );";
+        echo "gct.addOption('page', 'disable' );";
     }
+    echo "}";
     echo "</script>";
 ?>
 
@@ -142,7 +160,7 @@ if ( !$SearchWithSort &&  $NrColSortSearch != -1 )
 ?>
 
 <div class="buffer"></div>
-{results}
+
 
 <?php
 $selectList = "";
@@ -157,6 +175,8 @@ $selectList.="<optgroup style='color:green' label='".$descCol."'>";
 
 $NrColVisable = 0;
 
+echo "<script>";
+echo "function hideProperColumns(){";
 $C1 = fHideColumn( 1, true );
 $C2 = fHideColumn( 2, true );
 $C3 = fHideColumn( 3, true );
@@ -175,13 +195,10 @@ $C15 = fHideColumn( 15, true );
 $C16 = fHideColumn( 16, true );
 $C17 = fHideColumn( 17, true );
 $C18 = fHideColumn( 18, true );
+echo "}";
+echo "</script>";
 ?>
 
-<script>
-    gct.drawChart();
-    gct.addSelectEvent( EventSelectPosFunction );
-    gct.addPageEvent( EventPageFunction );
-</script>
 
 <?php
 echo "<div class='GCT-div' style='font-size:12px'>

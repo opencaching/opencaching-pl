@@ -55,9 +55,8 @@ function fHideColumn($nr, $set)
         return $C;
 
     if ($C == 1) {
-        echo "<script>
-        gct.hideColumns([$nr]);
-        </script>";
+                    echo "
+                    gct.hideColumns([$nr])";
     } else {
         $descCol = $colNameSearch[$nr]['O'];
         $NrColVisable += 1;
