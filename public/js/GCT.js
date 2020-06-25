@@ -225,6 +225,9 @@ GCT.prototype.addOption = function(key, value){
     this.tblOptions[ key ] = value;
 };
 
+GCT.prototype.addVisualOptionVC = function(key, value){
+    this.vcssClassNames[ key ] = value;
+};
 
 GCT.prototype.setColorForSelected = function( nrRow )
 {
@@ -254,6 +257,10 @@ GCT.prototype.getSelection = function(){
 GCT.prototype.addSelectEvent = function( eventFunction ){
     google.visualization.events.addListener(this.table, 'select', eventFunction );
 }
+
+GCT.prototype.addPageEvent = function( eventFunction ){
+    google.visualization.events.addListener(this.table, 'page', eventFunction );
+};
 
 // Operation
 ////////////////////////////////////////////////////////////////
