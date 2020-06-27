@@ -15,29 +15,32 @@ use src\Utils\I18n\I18n;
 </div>
 
 <br>
-
-
 <br>
 
-<script>
-<?php echo "GCTLoad( 'ChartTable', '" . I18n::getCurrentLang() . "' );"?>
-</script>
 
 <script>
-    var gct = new GCT('idGCTPosition');
+<?php echo "gctLoadTable( '" . I18n::getCurrentLang() . "' );"?>
+
+var gct = new GCT();
+gctSetCallback( positionsCB );
+
+function positionsCB(){
+
+    gct.setDataTable();
+
     gct.addColumn('string', '' ); //
     gct.addColumn('string',  '<?php echo tr("geocache") ?>', 'font-size: 12px; ' ); //1
     gct.addColumn('string', '<?php echo tr("owner") ?>', 'font-size: 12px; ' ); //2
     gct.addColumn('string', '<?php echo tr("merit_badge_gain_date") ?>', 'font-size: 12px; ' ); //3
 
-    gct.addChartOption('sortColumn', 3 ); //Date
-    gct.addChartOption('sortAscending', false );
-    gct.addChartOption('pageSize', 30);
-</script>
+    gct.addOption('sortColumn', 3 ); //Date
+    gct.addOption('sortAscending', false );
+    gct.addOption('pageSize', 30);
 
-<script>
-{content}
-gct.drawChart();
+    {content}
+
+    gct.drawTable( 'idGCTPosition' );
+}
 </script>
 
 <br>
