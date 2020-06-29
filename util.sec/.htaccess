@@ -16,8 +16,7 @@ allow from 89.36.221.105
 allow from 80.211.139.78
 
 # deg's development server
-allow from 80.211.254.191
-allow from 2a00:6d47:10:6bf::1
+allow from 188.68.236.126
 
 # allow from private IP range (dev platforms etc)
 allow from 192.168.0.0/16
