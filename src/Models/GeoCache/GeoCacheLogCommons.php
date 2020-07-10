@@ -4,6 +4,8 @@ namespace src\Models\GeoCache;
 use src\Utils\Debug\Debug;
 use src\Models\BaseObject;
 
+use \ReflectionClass;
+
 /**
  * Common consts etc. for geocache log
  */
@@ -233,6 +235,28 @@ class GeoCacheLogCommons extends BaseObject
         foreach ($logTypes as $logType) {
             $result[$logType] = self::typeTranslationKey($logType);
         }
+        return $result;
+    }
+
+    /**
+     * Returns a JSON structure containing a (constant_name, constant_value)
+     * pairs for all defined log types
+     *
+     * @return string JSON structure, ready for use in javascript f.ex.
+     */
+    public static function LogTypeListJson()
+    {
+        $result = '{';
+        $gccClass = new ReflectionClass(__CLASS__);
+        foreach ($gccClass->getConstants() as $name => $value) {
+            if (preg_match('/^LOGTYPE\_/', $name) === 1 && is_numeric($value)) {
+                if (strlen($result) > 1) {
+                    $result .= ',';
+                }
+                $result .= '"' . $name . '":"' . $value . '"';
+            }
+        }
+        $result .= '}';
         return $result;
     }
 }

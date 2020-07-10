@@ -3028,4 +3028,7 @@ $translations = array(
     'gpMyCandidates_offerRefused' => 'Offer refused',
 
     'edit_description' => 'Edit description',
+
+    'map_popup_next' => 'Next',
+    'map_popup_previous' => 'Previous'
 );

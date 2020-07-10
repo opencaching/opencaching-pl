@@ -90,6 +90,12 @@ trait MapConfigTrait {
         }
         return $result;
     }
+
+    public static function getMapMarkersFamily()
+    {
+        return self::getMapVar('markersFamily');
+    }
+    
     /**
      * Returns map properties
      *

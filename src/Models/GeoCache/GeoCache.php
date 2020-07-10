@@ -704,6 +704,41 @@ class GeoCache extends GeoCacheCommons
         return tr(self::CacheRatingTranslationKey($this->ratingId));
     }
 
+    /**
+     * Computes the cache current log status for given user, based on the user
+     * log entries.
+     *
+     * @param \lib\Objects\User\User $forUser a user to compute current log
+     *     status for, may be null
+     *
+     * @return int current log status
+     */
+    public function getLogStatus(User $forUser=null)
+    {
+        $logStatus = null;
+        if (!is_null($forUser)) {
+            $logsCount = $this->getLogsCountByType(
+                $forUser,
+                array(
+                    GeoCacheLog::LOGTYPE_FOUNDIT,
+                    GeoCacheLog::LOGTYPE_DIDNOTFIND
+                )
+            );
+            if (
+                isset($logsCount[GeoCacheLog::LOGTYPE_FOUNDIT])
+                && $logsCount[GeoCacheLog::LOGTYPE_FOUNDIT]>0
+            ) {
+                $logStatus = GeoCacheLog::LOGTYPE_FOUNDIT;
+            } else if (
+                isset($logsCount[GeoCacheLog::LOGTYPE_DIDNOTFIND])
+                && $logsCount[GeoCacheLog::LOGTYPE_DIDNOTFIND]>0
+            ) {
+                $logStatus = GeoCacheLog::LOGTYPE_DIDNOTFIND;
+            }
+        }
+        return $logStatus;
+    }
+
     public function getCacheIcon(User $forUser=null)
     {
         $logStatus = null;

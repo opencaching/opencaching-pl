@@ -80,6 +80,12 @@ $map['startPageMapZoom'] = 5;
 $map['startPageMapDimensions'] = [250, 260];
 
 /**
+ * A family of marker styling used in interactive map.
+ * Currently supported values: 'simple'
+ */
+$map['markersFamily'] = 'simple';
+
+/**
  * Links to external maps used at least at viewpage
  * (to disable map - just add key $map['external']['OSMapa']['enabled'] = false;)
  *
