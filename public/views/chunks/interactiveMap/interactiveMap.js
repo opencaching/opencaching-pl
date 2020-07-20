@@ -221,14 +221,26 @@ function InteractiveMap(id, params) {
     this.enableZoomControls = true;
     this.enableCompass = true;
     this.enableGPSLocator = true;
-    this.enableCooordsUnderCursor = true;
+    this.enableCoordsUnderCursor = true;
     this.enableInfoMessage = true;
     this.enableMarkers = true;
+    this.enableBackgroundLayer = false;
     this.enablePopup = true;
     this.enableHighlight = true;
 
+    // Renders layers and features to have the ones with smaller ordeal number
+    // displayed on top. This should not be changed for now, because the
+    // opposite behaviour is untested.
+    this.renderOrderingReverse = true;
+
     this.compiledPopupTpls = [];
     this.layerSwitchCallbacks = [];
+
+    // Callbacks invoked when sections order is changed.
+    this.sectionsOrderChangeCallbacks = [];
+    // Callbacks invoked when section (layer) visibility is changed.
+    this.layerVisibilityChangeCallbacks = [];
+
     // rewrite params entries to corresponding attributes
     if (typeof params === "object") {
         for (var p in params) {
@@ -566,11 +578,34 @@ InteractiveMap.prototype._loadMarkers = function() {
         return;
     }
 
+    if (this.enableBackgroundLayer) {
+        this._backgroundLayer = new ol.layer.Tile({
+            source: new ol.source.TileImage({
+                url: "{x: {x}, y: {y}, z: {z}}",
+                tileLoadFunction: function(imageTile, src) {
+                    var im = imageTile.getImage();
+                    im.src="/images/map_markers/background_layer.png";
+                }
+            }),
+            opacity: 0,
+            zIndex: 50,
+            ocLayerName: 'oc__background',
+        });
+        this.map.addLayer(this._backgroundLayer);
+
+        var instance = this;
+        this.map.on('moveend', function(evt) {
+            var zoom = instance.map.getView().getZoom();
+            var opacity = 1 - (127 - (
+                (zoom >= 13) ? 15 : Math.max(0, zoom * 2 - 14)
+            )) / 127;
+            instance._backgroundLayer.setOpacity(opacity);
+        });
+    }
     var frontViewFeatures = {};
     var sources = {};
     var currentZIndex = this.markersBaseZIndex;
     var allExtent;
-    var renderOrderingReverse = true;
     var instance = this;
     Object.keys(this.markersData).forEach(function(section) {
         var featuresArr = [];
@@ -599,34 +634,9 @@ InteractiveMap.prototype._loadMarkers = function() {
                         instance.map, markerType, id, markerData, section
                     );
                     if (visible) {
-                        var geom = feature.getGeometry();
-                        if (typeof geom["getCoordinates"] === "function") {
-                            var coords = geom.getCoordinates();
-                            var key = "" + coords[0] + "," + coords[1];
-                            var isFirst = (
-                                typeof frontViewFeatures[key] === "undefined"
-                            );
-                            if (
-                                !isFirst
-                                && (
-                                    renderOrderingReverse
-                                    ? frontViewFeatures[key].zIndex < zIndex
-                                    : frontViewFeatures[key].zIndex <= zIndex
-                                )
-                            ) {
-                                frontViewFeatures[key].feature.set(
-                                    "isFirst", false
-                                );
-                                isFirst = true;
-                            }
-                            if (isFirst) {
-                                feature.set("isFirst", true);
-                                frontViewFeatures[key] = {
-                                    feature: feature,
-                                    zIndex: zIndex
-                                }
-                            }
-                        }
+                        instance._determineFirstFeature(
+                            feature, null, zIndex, frontViewFeatures
+                        );
                     }
                     featuresArr.push(feature);
                 }
@@ -655,7 +665,7 @@ InteractiveMap.prototype._loadMarkers = function() {
             ocLayerName: 'oc_markers_' + section,
             renderOrder: function(f1, f2) {
                 return (
-                    renderOrderingReverse
+                    instance.renderOrderingReverse
                     ? (
                         (f1["ol_uid"] > f2["ol_uid"])
                         ? -1
@@ -706,19 +716,6 @@ InteractiveMap.prototype._loadMarkers = function() {
     }
 
     if (this.enablePopup) {
-        // most top, foreground source and layer, where popped up features will
-        // be temporarily placed
-        this.foregroundSource = new ol.source.Vector();
-
-        var foregroundLayer = new ol.layer.Vector ({
-            zIndex: 500,
-            visible: true,
-            source: this.foregroundSource,
-            ocLayerName: 'oc__foreground',
-        });
-
-        this.map.addLayer(foregroundLayer);
-
         this._popup = new InteractiveMapPopup()
         this._popup.addToMap(this);
     }
@@ -734,8 +731,9 @@ InteractiveMap.prototype._getFeature = function(markerType, localId, section) {
         markerType, localId, section ? section : "_DEFAULT_"
     );
 
+    var instance = this;
     this.map.getLayerGroup().getLayersArray().some(function(layer) {
-        if (OcLayerServices.isOcInternalLayer(layer)) {
+        if (OcLayerServices.isOcInternalCommonLayer(layer)) {
             result = layer.getSource().getFeatureById(featureId);
         }
         return (result != null);
@@ -745,37 +743,196 @@ InteractiveMap.prototype._getFeature = function(markerType, localId, section) {
 }
 
 /**
+ * Returns an array of OC features from given source, ordered by markerId. This
+ * should ensure order as displayed on map.
+ */
+InteractiveMap.prototype._getOCFeatures = function(source) {
+    var result = undefined;
+    if (source && typeof source.getFeatures !== "undefined") {
+        result = source.getFeatures().sort(function(fA, fB) {
+            var cmpResult = 0;
+            if (fA.get("ocData") && fB.get("ocData")) {
+                cmpResult =
+                    fA.get("ocData").markerId - fB.get("ocData").markerId;
+            }
+            return cmpResult;
+        });
+    }
+    return result;
+}
+
+/**
+ * Invokes an operation for all (or some, see later) marker layers. An operation
+ * sshould be a function taking a least a layer as a parameter. If a
+ * firstMatchOnly is true, operations are invoked sequentially until one return
+ * true (typical "some" Array behaviour).
+ */
+InteractiveMap.prototype._doForOCMarkersLayers = function(
+    operation, firstMatchOnly
+) {
+    var iterator = (
+        (typeof firstMatchOnly != "undefined" && firstMatchOnly)
+        ? "some"
+        : "forEach"
+    );
+    return this.map.getLayerGroup().getLayersArray()[iterator](function(layer) {
+        var match = /^oc_markers_(.+)/.exec(
+            OcLayerServices.getOcLayerName(layer)
+        );
+        if (match != null) {
+            return operation(layer, match[1], arguments);
+        }
+    });
+}
+
+/**
+ * Modifies "isFirst" settings for features in every markers layer.
+ */
+InteractiveMap.prototype.determineFirstFeatures = function() {
+    var frontViewFeatures = [];
+    var instance = this;
+    this._doForOCMarkersLayers(function(layer) {
+        var features = instance._getOCFeatures(layer.getSource());
+        features.forEach(function(feature) {
+            instance._determineFirstFeature(
+                feature,
+                layer,
+                layer.getZIndex(),
+                frontViewFeatures
+            );
+        });
+    });
+}
+
+/**
+ * Modifies "isFirst" settings for given feature. A layer parameter can be null,
+ * if not its visibility is included into computation. A zIndex parameter should
+ * be given feature zIndex level and frontViewFeatures: current set of features
+ * with "isFirst" value set.
+ */
+InteractiveMap.prototype._determineFirstFeature = function(
+    feature, layer, zIndex, frontViewFeatures
+) {
+    var geom = feature.getGeometry();
+    if (typeof geom["getCoordinates"] === "function") {
+        var coords = geom.getCoordinates();
+        var key = "" + coords[0] + "," + coords[1];
+        var isFirst = (
+            typeof frontViewFeatures[key] === "undefined"
+            && (!layer || layer.getVisible())
+        );
+        if (
+            !isFirst
+            && (!layer || layer.getVisible())
+            && (
+                this.renderOrderingReverse
+                ? frontViewFeatures[key].zIndex < zIndex
+                : frontViewFeatures[key].zIndex >= zIndex
+            )
+        ) {
+            frontViewFeatures[key].feature.unset("isFirst");
+            isFirst = true;
+        }
+        if (isFirst) {
+            feature.set("isFirst", true);
+            frontViewFeatures[key] = {
+                feature: feature,
+                zIndex: zIndex
+            }
+        } else if (feature.get("isFirst")) {
+            feature.unset("isFirst");
+        }
+    }
+}
+
+/**
+ * Adds another callback to callbacks invoked when sections orders has changed.
+ * A callback is a function with an array of changed section layers as
+ * a parameter. If a callback is an object method, the object should be passed
+ * as a second parameter.
+ */
+InteractiveMap.prototype.addSectionsOrderChangeCallback = function(
+    callback, obj
+) {
+    this._addCallback(this.sectionsOrderChangeCallbacks, callback, obj);
+}
+
+/**
+ * Adds another callback to callbacks invoked when section (layer) visibility
+ * has changed.
+ * A callback is a function with section name and corresponding layer as
+ * parameters. If a callback is an object method, the object should be passed
+ * as a second parameter.
+ */
+InteractiveMap.prototype.addLayerVisibilityChangeCallback = function(
+    callback, obj
+) {
+    this._addCallback(this.layerVisibilityChangeCallbacks, callback, obj);
+}
+
+/**
+ * Adds another callback to callbacks collection if it do not exists there
+ * already.
+ */
+InteractiveMap.prototype._addCallback = function(collection, callback, obj) {
+    if (typeof callback === "function") {
+        if (typeof obj !== "object") {
+            obj = null;
+        }
+        var element = [callback, obj];
+        if (collection.indexOf(element) < 0) {
+            collection.push([callback, obj]);
+        }
+    }
+}
+
+/**
  * Reorders sections basing on given orders array, by setting z-index
  */
 InteractiveMap.prototype.reorderSections = function(orders) {
     var instance = this;
-    this.map.getLayerGroup().getLayersArray().forEach(function(layer) {
-        var match = /^oc_markers_(.+)/.exec(layer.get('ocLayerName'));
-        if (match != null) {
-            var section= match[1];
-            if (orders[section] !== undefined) {
-                layer.setZIndex(instance.markersBaseZIndex - orders[section]);
-            }
+    var sectionsChanged = []
+    this._doForOCMarkersLayers(function(layer, shortName) {
+        if (orders[shortName] !== undefined) {
+            layer.setZIndex(instance.markersBaseZIndex - orders[shortName]);
+            sectionsChanged.push(layer);
         }
     });
+    this.determineFirstFeatures();
+    this._doCallbacks(this.sectionsOrderChangeCallbacks, [sectionsChanged]);
     this.map.renderSync();
 }
 
 /**
- * Toggles visibility of given section
+ * Toggles visibility of given section.
  */
 InteractiveMap.prototype.toggleSectionVisibility = function(section) {
-    var instance = this;
-    this.map.getLayerGroup().getLayersArray().some(function(layer) {
-        var match = /^oc_markers_(.+)/.exec(layer.get('ocLayerName'));
-        if (match != null && match[1] == section) {
+    var toggledLayer = undefined;
+    if (this._doForOCMarkersLayers(function(layer, shortName) {
+        if (shortName == section) {
             layer.setVisible(!layer.getVisible());
-            if (typeof instance._popup !== "undefined") {
-                instance.map.once("postrender", function(evt) {
-                    instance._popup.adjustFeaturesByLayer(layer);
-                });
-            }
+            toggledLayer = layer;
             return true;
+        }
+    }, true)) {
+        this.determineFirstFeatures();
+        this._doCallbacks(
+            this.layerVisibilityChangeCallbacks,
+            [section, toggledLayer]
+        );
+        this.map.renderSync();
+    }
+}
+
+/**
+ * Invokes callbacks from given collection sequentially.
+ */
+InteractiveMap.prototype._doCallbacks = function(collection, args) {
+    collection.forEach(function(element) {
+        if (typeof element[1] === "object") {
+            element[0].apply(element[1], args);
+        } else {
+            element[0](args);
         }
     });
 }
@@ -816,7 +973,64 @@ InteractiveMap.prototype.toneDownFeature = function() {
     }
 }
 
+/**
+ * Returns a layer (a markers layer) containing given feature
+ */
+InteractiveMap.prototype.getFeatureLayer = function(feature) {
+    var result = null;
+    if (feature && feature.getId()) {
+        var instance = this;
+        this.map.getLayerGroup().getLayersArray().some(function(layer) {
+            if (OcLayerServices.isOcInternalCommonLayer(layer)) {
+                var source = layer.getSource();
+                if (source.getFeatureById(feature.getId())) {
+                    result = layer;
+                    return true;
+                }
+            }
+        });
+    }
+    return result;
+}
+
+/**
+ * Returns a layer with given OC name
+ */
+InteractiveMap.prototype.getOCLayerByName = function(name) {
+    var result = null;
+    this.map.getLayerGroup().getLayersArray().some(function(layer) {
+        if (OcLayerServices.getOcLayerName(layer) === name) {
+            result = layer;
+        }
+    });
+    return result;
+}
+
 // =================================================================
+// Popup class (proptotype) definitions
+// =================================================================
+
+/**
+ * An Array-based collection of features displayed in popup. Introduces rotate
+ * by one method.
+ */
+function InteractiveMapPopupFeatures() {}
+
+InteractiveMapPopupFeatures.prototype = Object.create(Array.prototype);
+
+InteractiveMapPopupFeatures.prototype.constructor = InteractiveMapPopupFeatures;
+
+/**
+ * Rotates elements by one in given direction.
+ */
+InteractiveMapPopupFeatures.prototype.rotate = function(forward) {
+    if (forward) {
+        this.push.apply(this, this.splice(0, 1));
+    } else {
+        this.unshift(this.pop());
+    }
+    return this;
+}
 
 /**
  * An InteractiveMapPopup prototype
@@ -834,9 +1048,10 @@ function InteractiveMapPopup() {
         },
         offsetYAdjusted: false,
     });
-    this.features = [];
-    this.featureIndex = -1;
+    this.features = new InteractiveMapPopupFeatures();
     this.offsetYAdjusted = false;
+    this.foregroundSource = undefined;
+    this.foregroundLayer = undefined;
 }
 
 /**
@@ -845,68 +1060,145 @@ function InteractiveMapPopup() {
  */
 InteractiveMapPopup.prototype.addToMap = function(interactiveMap) {
     this.interactiveMap = interactiveMap
-    this.interactiveMap.map.addOverlay(this.popup);
+
     var instance = this;
+
+    // most top, foreground source and layer, where popped up features will
+    // be temporarily placed
+    this.foregroundSource = new ol.source.Vector({
+        useSpatialIndex: false
+    });
+
+    this.foregroundLayer = new ol.layer.Vector ({
+        zIndex: 500,
+        visible: true,
+        source: this.foregroundSource,
+        ocLayerName: 'oc__foreground',
+        renderOrder: function(featureA, featureB) {
+            // order by current features, reversed to get the first one upmost
+            return (
+                instance.features.indexOf(featureB)
+                    - instance.features.indexOf(featureA)
+            );
+        }
+    });
+
+    this.interactiveMap.map.addLayer(this.foregroundLayer);
+
+    this.interactiveMap.map.addOverlay(this.popup);
+
+    this.interactiveMap.addSectionsOrderChangeCallback(
+        this.sectionsOrderChangeCallback, this
+    );
+    this.interactiveMap.addLayerVisibilityChangeCallback(
+        this.layerVisibilityChangeCallback, this
+    );
+
     this.interactiveMap.map.on('click', function(evt) {
         instance._mapClickEvent(evt);
     });
 }
 
 /**
- * Should be called after any oc layer visibility change to adjust current
- * features available in popup to the changed visibility. A layer where
- * visibility has been changed is passed as a parameter.
+ * A callback for reordering appropriate popup features when sections orded has
+ * changed
  */
-InteractiveMapPopup.prototype.adjustFeaturesByLayer = function(layer) {
-    var s = layer.getSource();
-    if (s && this.features.length > 0) {
-        var instance = this;
-        var oldFeatureSource = this.currentFeatureSource;
-        instance._clearFeature();
-        instance.interactiveMap.map.once("postrender", function(evt) {
-            var features = instance._getMapFeatures(
-                instance.interactiveMap.map.getPixelFromCoordinate(
-                    instance.popup.getPosition()
-                )
-            ).filter(function(feature) {
-                return (
-                    feature.getId()
-                    && (
-                        layer.getVisible()
-                        || !s.getFeatureById(feature.getId())
-                    )
-                );
+InteractiveMapPopup.prototype.sectionsOrderChangeCallback = function(
+    sectionsChanged
+) {
+    if (this.features.length > 1) {
+        var currentId = this.features[0].getId();
+        this.features.forEach(function(feature) {
+            sectionsChanged.some(function(section) {
+                if (
+                    OcLayerServices.getOcLayerName(section)
+                        === feature.get("sourceLayer").name
+                ) {
+                    feature.get("sourceLayer").index = section.getZIndex();
+                    return true;
+                }
             });
-            if (!layer.getVisible() && s === oldFeatureSource) {
-                // currently displayed pop feature is hidden in layer,
-                // so reset index
-                instance.featureIndex = -1;
-            } else {
-                // currently displayed pop feature is still visible,
-                // so determine its index in new array of features
-                var currentFeature = instance.features[instance.featureIndex];
-                features.some(function(feature, index) {
-                    if (feature == currentFeature) {
-                        // set new index before desired feature,
-                        // to be correctly used in _switchPopupContent
-                        instance.featureIndex = index -1;
-                        return true;
-                    }
-                });
-            }
-            instance.features = features;
-            if (instance.features.length > 0) {
-                instance._switchPopupContent(true);
-            } else {
-                instance.popup.setPosition(undefined);
+        });
+        this.features.sort(function(a, b) {
+            return b.get("sourceLayer").index - a.get("sourceLayer").index;
+        });
+        while (this.features[0].getId() !== currentId) {
+            this.features.rotate(true);
+        }
+    }
+}
+
+/**
+ * A callback updating 'visible' value of sourceLayer value for corresponding
+ * feature if the sourceLayer matches a layer given as a parameter. If currently
+ * displayed in popup feature layer is hidden, the next one visible is displayed
+ * or the popup is hidden if there is no features to display.
+ */
+InteractiveMapPopup.prototype.layerVisibilityChangeCallback = function(
+    section, layer
+) {
+    if (this.features.length > 0) {
+        var layerName = OcLayerServices.getOcLayerName(layer);
+        this.features.forEach(function(feature) {
+            if (feature.get("sourceLayer").name == layerName) {
+                feature.get("sourceLayer").visible = layer.getVisible();
             }
         });
-    };
+        if (!this.features[0].get("sourceLayer").visible) {
+            if (this._switchPopupContent(true) == 0) {
+                this._onHide();
+                this.popup.setPosition(undefined);
+            }
+        }
+    }
+}
+
+/**
+ * An event handler to be assigned to OL map 'click' event.
+ * Checks all features being under clicked pixel and selects them if coordinates
+ * match the first one selected.
+ * If an array of selected features is not empty, the popup is shown.
+ */
+InteractiveMapPopup.prototype._mapClickEvent = function(evt) {
+    this._onHide();
+    var features = this._getMapFeatures(evt.pixel);
+    if (features.length > 0) {
+        var instance = this;
+        features.forEach(function(feature, index) {
+            instance.interactiveMap.getOCLayerByName(
+                feature.get("sourceLayer").name
+            ).getSource().removeFeature(feature);
+            instance.foregroundSource.addFeature(feature);
+            instance.features.push(feature);
+        });
+        this._switchPopupContent(true);
+    } else {
+        this.popup.setPosition(undefined);
+    }
+}
+
+/**
+ * Should be invoked on popup hide or location change. Moves popup features back
+ * to source layers and resets some attributes.
+ */
+InteractiveMapPopup.prototype._onHide = function() {
+    var instance = this;
+    this.features.forEach(function(feature) {
+        instance.foregroundSource.removeFeature(feature);
+        instance.interactiveMap.getOCLayerByName(
+            feature.get("sourceLayer").name
+        ).getSource().addFeature(feature);
+        feature.unset("sourceLayer");
+    });
+    this.interactiveMap.determineFirstFeatures();
+    this.features = new InteractiveMapPopupFeatures();
+    this.offsetYAdjusted = false;
 }
 
 /**
  * Returns map features being under given pixel, with exclusion of foreground
- * (popup) layer.
+ * (popup) layer. The resulting features are prepared for popup, with
+ * 'sourceLayer' values set and are properly sorted.
  */
 InteractiveMapPopup.prototype._getMapFeatures = function(pixel) {
     var result = [];
@@ -917,9 +1209,7 @@ InteractiveMapPopup.prototype._getMapFeatures = function(pixel) {
         if (
             feature.getId()
             && (feature.get('ocData')) != undefined
-            && !instance.interactiveMap.foregroundSource.getFeatureById(
-                feature.getId()
-            )
+            && !instance.foregroundSource.getFeatureById(feature.getId())
         ) {
             var canAdd = true;
             if (fC == undefined) {
@@ -934,57 +1224,24 @@ InteractiveMapPopup.prototype._getMapFeatures = function(pixel) {
                 );
             }
             if (canAdd) {
-                result.push(feature);
+                var layer = instance.interactiveMap.getFeatureLayer(feature);
+                if (layer) {
+                    if (!feature.get("sourceLayer")) {
+                        feature.set("sourceLayer", {
+                            name: OcLayerServices.getOcLayerName(layer),
+                            index: layer.getZIndex(),
+                            visible: layer.getVisible()
+                        });
+                    }
+                    result.push(feature);
+                }
             }
         }
     });
-
+    result.sort(function(a, b) {
+        return b.get("sourceLayer").index - a.get("sourceLayer").index;
+    });
     return result;
-}
-
-/**
- * Clears from popup currently selected feature, movin it from the foreground
- * source to its original one.
- */
-InteractiveMapPopup.prototype._clearFeature = function(feature) {
-    if (feature === undefined && this.featureIndex >= 0) {
-        feature = this.features[this.featureIndex];
-    }
-    if (feature !== undefined && this.currentFeatureSource !== undefined) {
-        this.interactiveMap.foregroundSource.removeFeature(feature);
-        feature.set("isFirst", false);
-        this.currentFeatureSource.addFeature(feature);
-        this.currentFeatureSource = undefined;
-    }
-}
-
-/**
- * Should be called on popup hide or just before possible show, to clear all
- * variables and states related to previously displayed popup.
- */
-InteractiveMapPopup.prototype._onHide = function() {
-    this._clearFeature();
-    this.featureIndex = -1;
-    this.features = [];
-    this.offsetYAdjusted = false;
-}
-
-/**
- * An event handler to be assigned to OL map 'click' event.
- * Checks all features being under clicked pixel and selects them if coordinates
- * match the first one selected.
- * If an array of selected features is not empty, the popup is shown.
- */
-InteractiveMapPopup.prototype._mapClickEvent = function(evt) {
-    this._onHide();
-
-    var features = this._getMapFeatures(evt.pixel);
-    if (features.length > 0) {
-        this.features = features;
-        this._switchPopupContent(true);
-    } else {
-        this.popup.setPosition(undefined);
-    }
 }
 
 /**
@@ -1036,61 +1293,51 @@ InteractiveMapPopup.prototype._computePopupOffsetY = function() {
 /**
  * Selects the next or previous feature from features being under a popup point
  * when the map was clicked. The selection depends on a 'forward' parameter.
- * If there is no feature previously selected, the first one is chosen. Next,
- * the content and position of popup is set according to the selected feature
- * values.
+ * If there is no feature previously selected (offsetYAdjusted is not set),
+ * the first one is chosen. Next, the content and position of popup is set
+ * according to the selected feature values.
+ * Returns number of features available to display (visible ones).
  */
 InteractiveMapPopup.prototype._switchPopupContent = function(forward) {
-    var oldFeature;
-    var i = this.featureIndex;
-    if (i >= 0) {
-        oldFeature = this.features[i];
-        // (+/-1) modulo features.length, negative value workaround
-        i = (
-                ((forward ? (i + 1) : (i - 1)) % this.features.length)
-                + this.features.length
-            ) % this.features.length;
-    } else if (i < 0) {
-        i = 0;
+    var visibleFeaturesLength = 0;
+    this.features.forEach(function(feature) {
+        if (feature.get("sourceLayer").visible) {
+            visibleFeaturesLength++;
+        }
+    });
+    if (visibleFeaturesLength == 0) {
+        // no visible features, so return;
+        return visibleFeaturesLength;
     }
 
-    var feature = this.features[i];
-    var ocData = feature.get("ocData");
-
     if (!this.offsetYAdjusted) {
+        // no feature is displayed, so enforce forward
+        forward = true;
         var popupOffsetY = this._computePopupOffsetY();
         if (popupOffsetY) {
             this.popup.setOffset([0, popupOffsetY]);
         }
         this.offsetYAdjusted = true;
+    } else {
+        // unset first on current (old) feature
+        this.features[0].unset("isFirst");
+        //rotate to the next/previous feature
+        this.features.rotate(forward);
     }
 
-    // move currect feature to the foreground layer, replacing the previous
-    // one
-    var featureId = feature.getId();
-    if (featureId) {
-        var instance = this;
-        this.interactiveMap.map.getLayerGroup().getLayersArray().some(
-            function(layer) {
-                if (/^oc_[^_].*/.test( layer.get('ocLayerName') )) {
-                    var s = layer.getSource();
-                    if (s.getFeatureById(featureId) === feature) {
-                        if (oldFeature != undefined) {
-                            instance._clearFeature(oldFeature);
-                        }
-                        s.removeFeature(feature);
-                        feature.set("isFirst", true);
-                        instance.interactiveMap.foregroundSource.addFeature(
-                            feature
-                        );
-                        instance.currentFeatureSource = s;
-                        return true;
-                    }
-                }
-            }
-        );
+    // if current feature is not visible, rotate to the next/previous feature
+    while (!this.features[0].get("sourceLayer").visible) {
+        this.features.rotate(forward);
     }
 
+    // sync foreground with current features order
+    this.foregroundSource.clear(true);
+    this.foregroundSource.addFeatures(this.features);
+
+    var feature = this.features[0];
+    feature.set("isFirst", true);
+
+    var ocData = feature.get("ocData");
     var markerSection = ocData.markerSection;
     var markerType = ocData.markerType;
     var markerId = ocData.markerId;
@@ -1112,7 +1359,7 @@ InteractiveMapPopup.prototype._switchPopupContent = function(forward) {
         markerContext['sectionName'] =
             this.interactiveMap.sectionsNames[markerSection];
     }
-    if (this.features.length > 1) {
+    if (visibleFeaturesLength > 1) {
         markerContext['showNavi'] = true;
     } else {
         markerContext['showNavi'] = undefined;
@@ -1127,7 +1374,7 @@ InteractiveMapPopup.prototype._switchPopupContent = function(forward) {
         instance.popup.setPosition(undefined);
     });
 
-    if (this.features.length > 1) {
+    if (visibleFeaturesLength > 1) {
         $(".imp-navi .imp-backward > img").click(function(evt) {
             instance._switchPopupContent(false);
         });
@@ -1136,8 +1383,8 @@ InteractiveMapPopup.prototype._switchPopupContent = function(forward) {
         });
     }
 
-    this.featureIndex = i;
     this.popup.setPosition(feature.getGeometry().getCoordinates());
+    return visibleFeaturesLength;
 }
 
 // =================================================================
@@ -1352,6 +1599,10 @@ var OcLayerServices = {
 
     isOcInternalLayer: function (layer){
       return ( /^oc_.*/.test( layer.get('ocLayerName') ));
+    },
+
+    isOcInternalCommonLayer: function (layer){
+        return (/^oc_[^_].*/.test(layer.get('ocLayerName')));
     },
 
     setOcLayerName: function (layer, name){

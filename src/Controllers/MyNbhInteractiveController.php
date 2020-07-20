@@ -142,6 +142,7 @@ class MyNbhInteractiveController extends BaseController
         $this->view->addHeaderChunk('openLayers5');
 
         $mapModel = new InteractiveMapModel();
+        $mapModel->setMarkersFamily($preferences['family']);
         foreach ($preferences['items'] as $sectionName => $sectionConfig) {
             $sectionCaches = null;
             switch ($sectionName) {
@@ -496,6 +497,9 @@ class MyNbhInteractiveController extends BaseController
         $this->view->setVar('maxCaches', self::CACHES_PER_PAGE_MAX);
         $this->view->setVar('minRadius', self::NBH_RADIUS_MIN);
         $this->view->setVar('maxRadius', self::NBH_RADIUS_MAX);
+        $this->view->setVar(
+            'markersFamilies', InteractiveMapModel::MARKERS_FAMILIES
+        );
         $this->view->setVar('errorMsg', $this->errorMsg);
         $this->view->setVar('infoMsg', $this->infoMsg);
 
@@ -591,6 +595,8 @@ class MyNbhInteractiveController extends BaseController
             && isset($_POST['caches-perpage'])
             && isset($_POST['style'])
             && ($_POST['style'] == 'full' || $_POST['style'] == 'min')
+            && isset($_POST['family'])
+            && in_array($_POST['family'], InteractiveMapModel::MARKERS_FAMILIES)
         ) {
             $cachesPerpage = (int) $_POST['caches-perpage'];
             if ($cachesPerpage > self::CACHES_PER_PAGE_MAX) {
@@ -602,6 +608,7 @@ class MyNbhInteractiveController extends BaseController
                 UserPreferences::getUserPrefsByKey(NeighbourhoodPref::KEY)->getValues();
             $preferences['style']['name'] = $_POST['style'];
             $preferences['style']['caches-count'] = $cachesPerpage;
+            $preferences['family'] = $_POST['family'];
             if (
                 ! UserPreferences::savePreferencesJson(
                     NeighbourhoodPref::KEY, json_encode($preferences)

@@ -128,6 +128,16 @@ use src\Utils\Uri\SimpleRouter;
       <div id="nbh-custom-handle" class="ui-slider-handle"></div>
     </div>
   </fieldset>
+  <?php if (sizeof($view->markersFamilies) > 1) { ?>
+  <div class="buffer"></div>
+  <fieldset id="family-chooser-fset">
+    <legend>&nbsp;<?=tr('myn_family_lbl')?>&nbsp;</legend>
+    <?php foreach($view->markersFamilies as $family) { ?>
+    <label for="radio-family-<?=$family?>"><?=tr('myn_family_named_' . $family)?></label>
+    <input type="radio" name="family" value="<?=$family?>" id="radio-family-<?=$family?>" class="nbh-radio" <?=$view->preferences['family'] == $family ? 'checked' : ''?>>
+    <?php } // foreach $view->markersFamilies?>
+  </fieldset>
+  <?php } // if sizeof $view->markersFamilies ?>
   <div class="buffer"></div>
   <input type="hidden" name="caches-perpage" id="input-caches" value="<?=$view->preferences['style']['caches-count']?>">
   <div class="align-center">

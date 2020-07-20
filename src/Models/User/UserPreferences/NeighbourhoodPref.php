@@ -19,7 +19,8 @@ class NeighbourhoodPref extends UserPreferencesBaseData
                 Neighbourhood::ITEM_FTFCACHES => [ 'order' => 5, 'show' => 1, 'fullsize' => 0],
                 Neighbourhood::ITEM_TITLEDCACHES => [ 'order' => 6, 'show' => 1, 'fullsize' => 0],
                 Neighbourhood::ITEM_RECOMMENDEDCACHES => [ 'order' => 7, 'show' => 1, 'fullsize' => 0],
-            ]
+            ],
+            'family' => 'simple'
         ];
     }
 }

@@ -16,6 +16,10 @@ class InteractiveMapModel
     // use this value for real meaningful section naming
     const DEFAULT_SECTION = "_DEFAULT_";
 
+    // Available markers style families for user to choose one.
+    // Family name should be an identifier compliant (no spaces etc.)
+    const MARKERS_FAMILIES = [ "simple", "okapi" ];
+    
     private $ocConfig;
 
     /** @var Coordinates */
@@ -229,12 +233,14 @@ class InteractiveMapModel
         return $this->infoMessage;
     }
 
-    /**
-     * Since it is pre-configured, only a getter is available now
-     */
+    public function setMarkersFamily($markersFamily)
+    {
+        $this->markersFamily = $markersFamily;
+    }
+
     public function getMarkersFamily()
     {
-        return OcConfig::getMapMarkersFamily();
+        return $this->markersFamily;
     }
 
     public function setSectionProperties($section, $properties)

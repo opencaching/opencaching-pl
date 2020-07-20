@@ -3,7 +3,8 @@
 use src\Utils\Uri\Uri;
 use src\Utils\View\View;
 use src\Models\ChunkModels\InteractiveMap\InteractiveMapModel;
-
+use src\Models\GeoCache\GeoCacheCommons;
+use src\Models\GeoCache\GeoCacheLogCommons;
 /**
  * This chunk displays interactive map with different kinds of markers.
  * Markers should be passed by $mapModel.
@@ -22,9 +23,20 @@ return function (InteractiveMapModel $mapModel, $canvasId)
             $publicSrcPath . 'interactiveMap.css'
         )
     );
+    if ($mapModel->getMarkersFamily() === "okapi") {
+        // load css for okapi  markers
+        View::callChunkInline('loadCssByJs',
+            Uri::getLinkWithModificationTime(
+                $publicSrcPath . '/markers/okapi/okapiBasedMarker.css'
+            )
+        );
+    }
     View::callChunkInline('handlebarsJs');
 ?>
-
+<script>
+var cacheStatusList = <?=GeoCacheCommons::CacheStatusListJson()?>;
+var logTypeList = <?=GeoCacheLogCommons::LogTypeListJson()?>;
+</script>
 <script src="<?=Uri::getLinkWithModificationTime(
     $publicSrcPath . 'interactiveMap.js')?>"></script>
 
@@ -34,7 +46,15 @@ return function (InteractiveMapModel $mapModel, $canvasId)
     $markerLibs = [
         $publicSrcPath . "markers/ocMarker.js"
     ];
-
+    if ($mapModel->getMarkersFamily() === "okapi") {
+        // shared js necessary for okapi markers
+        array_push(
+            $markerLibs, $publicSrcPath . "markers/ocZoomCachedMarker.js"
+        );
+        array_push(
+            $markerLibs, $publicSrcPath . "markers/okapi/okapiBasedMarker.js"
+        );
+    }
     $markerLibsLoaded = false;
     $markerTypes = array_fill_keys($mapModel->getMarkerTypes(), true);
     $markerTypes["highlightedMarker"] = false;
@@ -91,6 +111,9 @@ $(document).ready(function() {
         <?php } //foreach $markerTypes ?>
         },
         markersFamily: "<?=$mapModel->getMarkersFamily() ?>",
+        enableBackgroundLayer: <?=
+            $mapModel->getMarkersFamily() == "okapi" ? "true" : "false"
+        ?>,
     }).init();
 });
 </script>
