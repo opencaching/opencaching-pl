@@ -5,7 +5,7 @@ $translations = array(
     'user_menu' => 'Menu uživatele',
     'new' => 'NEW',
     'save' => 'Uložit',
-    'save_changes' => 'Save changes',
+    'save_changes' => 'Uložit změny',
     'autosave' => 'Changes are saved automatically',
     'config' => 'Setup',
     'exit_config' => 'Exit from setup',
@@ -54,7 +54,7 @@ $translations = array(
     'owncache' => 'Owncache',
 
     'ignored' => 'ignored',
-    'founds' => 'found',
+    'founds' => 'nalezeno',
 
     'map_excludeCaches' => 'Hide políčko',
     'map_excludeIgnored' => 'ignorovat',
