@@ -1,0 +1,19 @@
+/*
+ * There css are used in editCache/pictures.tpl 
+ */
+.picSortHdlr {
+  cursor: move;
+}
+
+#picsTbody td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.input-error {
+  box-shadow: 0 0 3px red;
+}
+
+.picTableEmpty {
+  display: none;
+}

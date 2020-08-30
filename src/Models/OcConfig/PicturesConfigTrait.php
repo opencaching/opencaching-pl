@@ -1,6 +1,8 @@
 <?php
 namespace src\Models\OcConfig;
 
+use src\Controllers\PictureController;
+
 /**
  * This trait group access to email settings stored in /config/email.* conf. files
  * BEWARE OF FUNCTIONS NAME COLLISION BETWEEN CONFIG TRAITS!
@@ -45,8 +47,7 @@ trait PicturesConfigTrait {
     }
 
     /**
-     * @return string - path to the folder where uploaded pictures should be stored
-     *                  from in DynBasePath directory
+     * @return string - path to the folder where uploaded pictures should be stored related to DynBasePath directory
      */
     public static function getPicUploadFolderInDynBaseDir()
     {
@@ -67,6 +68,32 @@ trait PicturesConfigTrait {
      */
     public static function getPicThumbnailsFolder(){
         return self::getDynFilesPath(true) . self::getPicturesVar('thumbnailFolder');
+    }
+
+    /**
+     * Note: this size is internal - other limits can be set in http/php server config
+     * @return float - return the max size of picture
+     */
+    public static function getPicMaxSize(){
+        return self::getPicturesVar('maxFileSize');
+    }
+
+    /**
+     * @return float - minimal size of picture (in MB) to run resize
+     */
+    public static function getPicResizeLimit(){
+        return self::getPicturesVar('resizeLargerThan');
+    }
+
+    /**
+     * @return string  List of allowed picture extensions
+     */
+    public static function getPicAllowedExtensions($toDisplay = false){
+        if ($toDisplay) {
+            return self::getPicturesVar('allowedExtensionsText');
+        } else {
+            return self::getPicturesVar('allowedExtensions');
+        }
     }
 
     /**

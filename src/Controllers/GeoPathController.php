@@ -78,7 +78,8 @@ class GeoPathController extends BaseController
         $uploadModel = GeopathLogoUploadModel::forGeopath($geoPathId);
 
         try {
-            $tmpLogoFile = FileUploadMgr::processFileUpload($uploadModel);
+            $tmpLogoFileArr = FileUploadMgr::processFileUpload($uploadModel);
+            $tmpLogoFile = array_shift($tmpLogoFileArr);
         } catch (\RuntimeException $e){
             // some error occured on upload processing
             $this->ajaxErrorResponse($e->getMessage(), 500);

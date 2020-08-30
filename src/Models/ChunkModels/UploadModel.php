@@ -67,6 +67,19 @@ class UploadModel {
       return $obj;
   }
 
+  public static function PicUploadFactory($parentType, $parentId)
+  {
+      $uploadModel = new self();
+      $uploadModel->dialog->preInfo = null;                                         // no additional info
+      $uploadModel->dialog->preWarning = tr('cache_picture_intro');                 // long warning (with HTML!)
+      $uploadModel->dialog->title = tr('editCache_fileUploadTitle');                // dialog title
+      $uploadModel->setMaxFileSize(OcConfig::getPicMaxSize());                      // max pic size
+      $uploadModel->setMaxFileNumber(5);                                            // max 5 pics at once
+      $uploadModel->allowedTypesRegex = UploadModel::MIME_IMAGE;                    // allowed img mime types
+      $uploadModel->submitUrl = "/picture/uploadPicsAjax/$parentType/$parentId";    // server API to store the files over AJAX
+      $uploadModel->setDirs(OcConfig::getPicUploadFolderInDynBaseDir());            // where to store files on server
+      return $uploadModel;
+  }
   // add more upload configurations like TestTxtUploadFactory here...
 
   public function addUrlBaseToNewFilesArray(array &$newFiles){
@@ -97,7 +110,7 @@ class UploadModel {
   /**
    * Set the dir where uploaded files should be stored
    *
-   * self::DEFAULT_TMP_DIR can be used as $dirInDirBasePath to tore files in tmp dir
+   * self::DEFAULT_TMP_DIR can be used as $dirInDirBasePath to store files in tmp dir
    *
    * @param string $dirInDirBasePath - directory related to "dynamicBasePath"
    * @param string $urlPath - optional url path under which file can be accessed
@@ -123,7 +136,7 @@ class UploadModel {
       }
   }
 
-  protected function setMaxFileSize ($maxSizeInMB)
+  public function setMaxFileSize ($maxSizeInMB)
   {
       $this->maxFileSize = $maxSizeInMB * 1024 * 1024;
       $phpMaxFilesize = TextConverter::bytesNumberWithUnitToBytes(ini_get('upload_max_filesize'));
@@ -133,12 +146,11 @@ class UploadModel {
       }
   }
 
-  protected function setMaxFileNumber ($maxNumberOfFiles)
+  public function setMaxFileNumber ($maxNumberOfFiles)
   {
       $this->maxFilesNumber = $maxNumberOfFiles;
   }
 }
-
 
 class DialogContent
 {

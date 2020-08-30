@@ -25,4 +25,46 @@ class FileManager
         }
     }
 
+    /**
+     * Permanently remove given file.
+     * This is alias to unlink.
+     *
+     * @param unknown $file
+     */
+    public static function removeFile($file)
+    {
+        unlink($file);
+    }
+
+    /**
+     * Returns extension of the given file
+     *
+     * @param string $file  filename (can be with full path)
+     */
+    public static function getFileExtension($file)
+    {
+        return pathinfo($file, PATHINFO_EXTENSION);
+    }
+
+    /**
+     * Returns the name of file without extensions (file can be with path)
+     *
+     * @param string $file
+     * @return mixed
+     */
+    public static function getFileNameWithoutExtension($file)
+    {
+        return pathinfo($file, PATHINFO_FILENAME);
+    }
+
+    /**
+     * Returns filename with extensions from given path
+     *
+     * @param string $path  filename (with path)
+     */
+    public static function getFileNameWithExtension($path)
+    {
+        return pathinfo($path, PATHINFO_BASENAME);
+    }
+
 }
