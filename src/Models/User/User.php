@@ -872,11 +872,11 @@ class User extends UserCommons
 
         return (null !== self::db()->multiVariableQuery('
             INSERT INTO `user`
-                (`username`, `password`, `email`, `last_modified`,
+                (`username`, `password`, `email`, `role`, `last_modified`,
                 `is_active_flag`, `date_created`, `uuid`, `activation_code`,
                 `node`, `rules_confirmed`, `statpic_text`)
             VALUES
-                (:1, :2, :3, NOW(), 0 , NOW(), :4, :5, :6, :7, :8)
+                (:1, :2, :3, \'\', NOW(), 0 , NOW(), :4, :5, :6, :7, :8)
             ', $username, hash('sha512', md5($password)),
             $email, Uuid::create(), TextGen::randomText(13),
             OcConfig::getSiteNodeId(), boolval($rulesConfirmed),
