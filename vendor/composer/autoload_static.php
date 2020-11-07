@@ -8,7 +8,21 @@ class ComposerStaticInitbc2734a683d83694d4ac3dbad4ff4f7b
 {
     public static $files = array (
         '2cffec82183ee1cea088009cef9a6fc3' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
-        '35d1e42abf4d8c181ae544a92d8f3f6a' => __DIR__ . '/..' . '/kint-php/kint/Kint.class.php',
+        '3917c79c5052b270641b5a200963dbc2' => __DIR__ . '/..' . '/kint-php/kint/init.php',
+    );
+
+    public static $prefixLengthsPsr4 = array (
+        'K' => 
+        array (
+            'Kint\\' => 5,
+        ),
+    );
+
+    public static $prefixDirsPsr4 = array (
+        'Kint\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kint-php/kint/src',
+        ),
     );
 
     public static $prefixesPsr0 = array (
@@ -31,6 +45,8 @@ class ComposerStaticInitbc2734a683d83694d4ac3dbad4ff4f7b
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
+            $loader->prefixLengthsPsr4 = ComposerStaticInitbc2734a683d83694d4ac3dbad4ff4f7b::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitbc2734a683d83694d4ac3dbad4ff4f7b::$prefixDirsPsr4;
             $loader->prefixesPsr0 = ComposerStaticInitbc2734a683d83694d4ac3dbad4ff4f7b::$prefixesPsr0;
 
         }, null, ClassLoader::class);

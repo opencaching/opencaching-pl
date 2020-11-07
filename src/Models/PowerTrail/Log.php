@@ -118,7 +118,7 @@ class Log
             return false;
         }
         if($this->id){
-            ddd('TODO');
+            die('TODO');
         } else {
             if($this->type === self::TYPE_ADD_WARNING && $this->user->hasOcTeamRole() === false){
                 return false; /* regular user is not allowed to add entry of this type */
