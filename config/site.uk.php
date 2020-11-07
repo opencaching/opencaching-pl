@@ -9,7 +9,7 @@
 $site['siteName'] = 'OPENCACHE.uk';
 
 /**
- * Page title (to display on the browser titlebar)
+ * Page title (to display on the browser title bar)
  */
 $site['pageTitle'] = 'Geocaching Opencaching UK';
 
@@ -20,7 +20,7 @@ $site['pageTitle'] = 'Geocaching Opencaching UK';
 $site['ocNodeId'] = 6;
 
 /**
- * Site main domain - this shoudl be only main part of domain eg. opencaching.pl for OCPL
+ * Site main domain - this should be only main part of domain eg. opencaching.pl for OCPL
  */
 $site['mainDomain'] = 'opencache.uk';
 
@@ -38,3 +38,10 @@ $site['primaryCountries'] = ['GB'];
  */
 $site['defaultCountriesList'] = ['DE', 'NL', 'PL', 'RO', 'GB'];
 
+/**
+ * Settings for QR Code Generator /UserUtils/qrCodeGen
+ */
+$site['qrCode'] = [
+    'defaultText' => 'https://opencache.uk/viewcache.php?wp=OK0001',
+    'defaultImage' => 'qrcode_bg.jpg',
+];

@@ -6,7 +6,7 @@
     "php": ">=7.1 <7.4",
     "kint-php/kint": "^3.0",
     "ezyang/htmlpurifier": "^4.9",
-    "aferrandini/phpqrcode": "^1.0",
+    "endroid/qr-code": "^3.9",
     "js-cookie/js-cookie": "^2.1",
     "ext-json": "*",
     "ext-gettext": "*",

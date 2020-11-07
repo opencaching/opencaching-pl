@@ -25,7 +25,7 @@ $site['pageTitle'] = 'OpenCaching';
 $site['ocNodeId'] = 4;
 
 /**
- * Site main domain - this shoudl be only main part of domain eg. opencaching.pl for OCPL
+ * Site main domain - this should be only main part of domain eg. opencaching.pl for OCPL
  */
 $site['mainDomain'] = 'opencaching.pl';
 
@@ -58,4 +58,12 @@ $site['mainViewIcons'] = [
     'icon16' => '/images/icons/favicon-16x16.png',        // <link rel="icon" type="image/png" sizes="16x16"
     'webmanifest' => '/images/icons/site.webmanifest',    // <link rel="manifest"
     'maskIcon' => '/images/icons/safari-pinned-tab.svg',  // <link rel="mask-icon"
+];
+
+/**
+ * Settings for QR Code Generator /UserUtils/qrCodeGen
+ */
+$site['qrCode'] = [
+    'defaultText' => 'https://opencaching.pl/viewcache.php?wp=OP0002',
+    'defaultImage' => 'qrcode_bg.jpg',
 ];

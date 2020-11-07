@@ -9,7 +9,7 @@
 $site['siteName']= 'Opencaching.pl';
 
 /**
- * Page title (to display on the browser titlebar)
+ * Page title (to display on the browser title bar)
  */
 $site['pageTitle'] = 'Geocaching Opencaching Polska';
 
@@ -20,7 +20,7 @@ $site['pageTitle'] = 'Geocaching Opencaching Polska';
 $site['ocNodeId'] = 2;
 
 /**
- * Site main domain - this shoudl be only main part of domain eg. opencaching.pl for OCPL
+ * Site main domain - this should be only main part of domain eg. opencaching.pl for OCPL
  */
 $site['mainDomain'] = 'opencaching.pl';
 
