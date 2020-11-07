@@ -7,7 +7,6 @@
     "kint-php/kint": "^1.0",
     "ezyang/htmlpurifier": "^4.9",
     "aferrandini/phpqrcode": "^1.0",
-    "cweagans/composer-patches": "^1.6",
     "js-cookie/js-cookie": "^2.1",
     "ext-json": "*",
     "ext-gettext": "*",
@@ -24,11 +23,5 @@
     "ext-dom": "*",
     "ext-ctype": "*",
     "ext-bcmath": "*"
-  },
-  "extra": {
-    "patches": {
-      "jpgraph/jpgraph": {
-      }
-    }
   }
 }
