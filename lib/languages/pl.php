@@ -1165,7 +1165,7 @@ $translations = array(
     'report_problem_notice' => 'Możesz zgłosić problem związany ze skrzynką do właściciela skrzynki lub do Zespołu OC PL np. uwagę do lokalizacji wykorzystując formularz',
     'qrcode_title' => 'Generator etykietek z QR Code',
     'qrcode_desc' => 'Etykietkę z <a class="links" href="https://pl.wikipedia.org/wiki/Kod_QR" target="_blank">QR Code</a> (zalaminowaną lub w woreczku strunowym lub jako naklejkę) możesz użyć do zapisania krótkiej wskazówki max 77 znaków, współrzędnych następnego etapu multicache, hasła do logu itp. Do odczytania kodu użyj czytnika zainstalowanego np. w telefonie komórkowym.',
-    'qrcode_textLabel' => 'Dane w QR Code',
+    'qrcode_textLabel' => 'Tekst w QR Code',
     'qrcode_button' => 'Generuj',
     'qrcode_downloadLabeled' => 'Pobierz tę etykietkę',
     'qrcode_downloadQRCodeOnly' => 'Pobierz wyłącznie czysty QR Code',
