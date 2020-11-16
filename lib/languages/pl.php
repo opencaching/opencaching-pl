@@ -1169,7 +1169,6 @@ $translations = array(
     'qrcode_button' => 'Generuj',
     'qrcode_downloadLabeled' => 'Pobierz tę etykietkę',
     'qrcode_downloadQRCodeOnly' => 'Pobierz wyłącznie czysty QR Code',
-    'qrcode_appInfo' => '<a class="links" href="http://www.i-nigma.com/Downloadi-nigmaReader.html" target="_blank">Tu znajdziesz czytnik QR Code dla różnych telefonów</a>',
     'error_ort' => 'Nie znaleziono wskazanego miejsca',
     'alert_search_by_cachename' => 'Proszę w polu nazwa wprowadzić wartość!',
     'alert_search_by_dist_01' => 'Stopnie długości geograficznej muszą być cyfrą! Format: hh° mm.mmm',
