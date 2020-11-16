@@ -20,11 +20,11 @@ require(__DIR__.'/src/Views/viewlogs.inc.php');
 if(isset($_REQUEST['geocacheId']) && $_REQUEST['geocacheId'] != ''){
     $geocacheId = $_REQUEST['geocacheId'];
 } else {
-    die('error');
+    ddd('error');
 }
 $cache = GeoCache::fromCacheIdFactory($geocacheId);
 if ($cache == null) {
-    die('error - cache is not available');
+    ddd('error - cache is not available');
 }
 $owner_id = $cache->getOwnerId();
 if (
@@ -38,7 +38,7 @@ if (
         ]
     )
 ) {
-    die('error - cache is not available');
+    ddd('error - cache is not available');
 }
 if(isset($_REQUEST['offset']) && $_REQUEST['offset'] != ''){
     $offset = (int) $_REQUEST['offset'];

@@ -69,13 +69,7 @@ class HTMLPurifier_AttrDef_CSS_Number extends HTMLPurifier_AttrDef
             return false;
         }
 
-        // Remove leading zeros until positive number or a zero stays left
-        if (ltrim($left, '0') != '') {
-            $left = ltrim($left, '0');
-        } else {
-            $left = '0';
-        }
-
+        $left = ltrim($left, '0');
         $right = rtrim($right, '0');
 
         if ($right === '') {

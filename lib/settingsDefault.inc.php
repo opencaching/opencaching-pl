@@ -41,6 +41,9 @@ $config = array(
     'headerLogo' => 'oc_logo.png',
     /** main logo; winter version, displayed during december and january. */
     'headerLogoWinter' => 'oc_logo_winter.png',
+    /** qrcode logo: show qrcode image and link the prefered way.  */
+    'qrCodeLogo' => 'qrcode_bg.jpg',
+    'qrCodeUrl' => 'https://opencaching.pl/viewcache.php?wp=OP3C90',
 
     /** Language list for new caches and for GPX */
     'defaultLanguageList' => array(
