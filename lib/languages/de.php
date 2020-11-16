@@ -1169,7 +1169,6 @@ $translations = array(
     'qrcode_button' => 'Generieren',
     'qrcode_downloadLabeled' => 'Das QR-Code-Etikett herunterladen',
     'qrcode_downloadQRCodeOnly' => 'Nur den QR-Code herunterladen',
-    'qrcode_appInfo' => 'Eine Übersicht von QR-Code-Reader-Apps zum Download gibt es zum Beispiel <a class="links" href="https://www.heise.de/download/product/qr-code-scanner" target="_blank">HIER</a>.',
     'error_ort' => 'Ort nicht gefunden',
     'alert_search_by_cachename' => 'Bitte den gesuchten Name eingeben!',
     'alert_search_by_dist_01' => 'Die Längenkoordinate muss numerisch sein. Format: ddd mm.mmm',
