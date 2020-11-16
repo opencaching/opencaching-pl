@@ -1,8 +1,6 @@
 <?php
 namespace src\Models\OcConfig;
 
-use Exception;
-
 /**
  * This trait group access to email settings stored in /config/email.* conf. files
  * BEWARE OF FUNCTIONS NAME COLLISION BETWEEN CONFIG TRAITS!
@@ -91,30 +89,6 @@ trait SiteConfigTrait {
     }
 
     /**
-     * Return default text for QR Code Generator
-     *
-     * @return string
-     * @throws Exception
-     */
-    public static function getSiteQrCodeText(): string
-    {
-        $qrConfig = self::getSiteVar('qrCode');
-        return $qrConfig['defaultText'] ?? '';
-    }
-
-    /**
-     * Return default image for QR Code Generator
-     *
-     * @return string
-     * @throws Exception
-     */
-    public static function getSiteQrCodeImage(): string
-    {
-        $qrConfig = self::getSiteVar('qrCode');
-        return $qrConfig['defaultImage'] ?? '';
-    }
-
-    /**
      * Returns site properties
      *
      * @return array site properties
@@ -131,14 +105,14 @@ trait SiteConfigTrait {
      * Get Var from site.* files
      *
      * @param string $varName
-     * @throws Exception
+     * @throws \Exception
      * @return string|array
      */
     private static function getSiteVar($varName)
     {
         $siteConfig = self::instance()->getSiteConfig();
         if (!is_array($siteConfig)) {
-            throw new Exception("Invalid $varName setting: see /config/site.*");
+            throw new \Exception("Invalid $varName setting: see /config/site.*");
         }
         return $siteConfig[$varName];
     }

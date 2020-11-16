@@ -9,7 +9,7 @@
 $site['siteName']= 'Opencaching.ro';
 
 /**
- * Page title (to display on the browser title bar)
+ * Page title (to display on the browser titlebar)
  */
 $site['pageTitle'] = 'Opencaching România';
 
@@ -20,7 +20,7 @@ $site['pageTitle'] = 'Opencaching România';
 $site['ocNodeId'] = 16;
 
 /**
- * Site main domain - this should be only main part of domain eg. opencaching.pl for OCPL
+ * Site main domain - this shoudl be only main part of domain eg. opencaching.pl for OCPL
  */
 $site['mainDomain'] = 'opencaching.ro';
 
@@ -40,11 +40,3 @@ $site['defaultCountriesList'] = ['DE', 'NL', 'PL', 'RO', 'GB'];
  * Icons customization
  */
 $site['mainViewIcons']['shortcutIcon'] = '/images/icons/oc_icon-ro.png';
-
-/**
- * Settings for QR Code Generator /UserUtils/qrCodeGen
- */
-$site['qrCode'] = [
-    'defaultText' => 'https://www.opencaching.ro/viewcache.php?wp=OR0001',
-    'defaultImage' => 'qrcode_bg.jpg',
-];
