@@ -1169,7 +1169,6 @@ $translations = array(
     'qrcode_button' => 'Générer',
     'qrcode_downloadLabeled' => 'Télécharger cette étiquette de QR Code',
     'qrcode_downloadQRCodeOnly' => 'Télécharger seulement le QR Code',
-    'qrcode_appInfo' => 'Vous trouverez des applications permettant de « Scanner les code QR » pour les différents smartphones <a class="links" href="http://www.i-nigma.com/Downloadi-nigmaReader.html" target="_blank">ici</a>.',
     'error_ort' => 'Échec de la localisation',
     'alert_search_by_cachename' => 'Entrez le nom de la cache !',
     'alert_search_by_dist_01' => 'La longitude doit être au format suivant : ddd mm.mmm',
