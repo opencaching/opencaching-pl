@@ -1169,6 +1169,7 @@ $translations = array(
     'qrcode_button' => 'Generieren',
     'qrcode_downloadLabeled' => 'Das QR-Code-Etikett herunterladen',
     'qrcode_downloadQRCodeOnly' => 'Nur den QR-Code herunterladen',
+    'qrcode_appInfo' => 'You can find "QR Code reader" applications for various smartphones <a class="links" href="http://www.i-nigma.com/Downloadi-nigmaReader.html" target="_blank">HERE</a>.',
     'error_ort' => 'Ort nicht gefunden',
     'alert_search_by_cachename' => 'Bitte den gesuchten Name eingeben!',
     'alert_search_by_dist_01' => 'Die Längenkoordinate muss numerisch sein. Format: ddd mm.mmm',
