@@ -1,10 +1,12 @@
 {
+  "name": "opencaching/opencaching-pl",
+  "description": "The source code of Opencaching.PL (and some other domains)",
+  "license": "GPL-2.0-or-later",
   "require": {
-    "php" : ">=7.1 <7.4",
-    "kint-php/kint": "^1.0",
+    "php": ">=7.1 <7.4",
+    "kint-php/kint": "^3.0",
     "ezyang/htmlpurifier": "^4.9",
-    "aferrandini/phpqrcode": "^1.0",
-    "cweagans/composer-patches": "^1.6",
+    "endroid/qr-code": "^3.9",
     "js-cookie/js-cookie": "^2.1",
     "ext-json": "*",
     "ext-gettext": "*",
@@ -15,12 +17,11 @@
     "ext-iconv": "*",
     "ext-simplexml": "*",
     "ext-libxml": "*",
-    "ext-openssl": "*"
-  },
-  "extra": {
-    "patches": {
-      "jpgraph/jpgraph": {
-      }
-    }
+    "ext-openssl": "*",
+    "ext-zlib": "*",
+    "ext-tidy": "*",
+    "ext-dom": "*",
+    "ext-ctype": "*",
+    "ext-bcmath": "*"
   }
 }

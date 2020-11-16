@@ -12,7 +12,7 @@
 $site['siteName'] = 'Opencaching.nl';
 
 /**
- * Page title (to display on the browser titlebar)
+ * Page title (to display on the browser title bar)
  */
 $site['pageTitle'] = 'Opencaching Benelux';
 
@@ -23,7 +23,7 @@ $site['pageTitle'] = 'Opencaching Benelux';
 $site['ocNodeId'] = 14;
 
 /**
- * Site main domain - this shoudl be only main part of domain eg. opencaching.pl for OCPL
+ * Site main domain - this should be only main part of domain eg. opencaching.pl for OCPL
  */
 $site['mainDomain'] = 'opencaching.nl';
 
@@ -51,4 +51,12 @@ $site['mainViewIcons'] = [
     'icon16' => '/images/icons/favicon-nl-16x16.png',
     //'webmanifest' => '/images/icons/site.webmanifest',    // <link rel="manifest"
     //'maskIcon' => '/images/icons/safari-pinned-tab.svg',  // <link rel="mask-icon"
+];
+
+/**
+ * Settings for QR Code Generator /UserUtils/qrCodeGen
+ */
+$site['qrCode'] = [
+    'defaultText' => 'https://www.opencaching.nl/viewcache.php?wp=OB1A8D',
+    'defaultImage' => 'qrcode_bg-nl.jpg',
 ];

@@ -1,4 +1,3 @@
-
 <div class="content2-pagetitle">
     <?=tr('qrcode_title')?>
 </div>
@@ -8,9 +7,8 @@
 </div>
 
 <div id="qrCodeimage">
-    <img src="<?=$view->ocLabelImgUrl?>" alt="" width="171" height="284" />
+    <img src="<?=$view->ocLabelImgUrl?>" alt="" width="171" height="284">
 </div>
-
 
 <div id="qrCodeForm">
     <div>
@@ -33,9 +31,4 @@
     <a class="btn btn-default" href="<?=$view->qrCodeImgUrl?>" title="qrCode_image" download="QRcode.png">
         <?=tr('qrcode_downloadQRCodeOnly')?>
     </a>
-</div>
-
-<div>
-    <img src="/images/misc/16x16-info.png" class="icon16" alt="Info" />
-    <?=tr('qrcode_appInfo')?>
 </div>

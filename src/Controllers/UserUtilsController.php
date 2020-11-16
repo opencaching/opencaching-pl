@@ -2,18 +2,16 @@
 
 namespace src\Controllers;
 
-use PHPQRCode\QRcode;
+use Endroid\QrCode\ErrorCorrectionLevel;
+use Endroid\QrCode\QrCode;
 use src\Utils\FileSystem\FileManager;
-use src\Utils\Uri\Uri;
 use src\Utils\Generators\TextGen;
+use src\Utils\Uri\Uri;
 
 class UserUtilsController extends BaseController
 {
 
-    public function __construct()
-    {
-        parent::__construct();
-    }
+    private const QR_CODES_DIR_NAME = 'tmp/qrcodes/';
 
     public function isCallableFromRouter($actionName)
     {
@@ -30,53 +28,40 @@ class UserUtilsController extends BaseController
      */
     public function qrCodeGen()
     {
-        global $config; //TODO: remove it from here
-
-        if(!$this->isUserLogged()){
+        if (!$this->isUserLogged()) {
             $this->redirectToLoginPage();
-            exit;
         }
 
         $this->view->setTemplate('qrCodeGen/qrcode');
         $this->view->addLocalCss(
             Uri::getLinkWithModificationTime('/views/qrCodeGen/qrcode.css'));
 
+        $qrCodesDir = $this->ocConfig->getDynamicFilesPath() . self::QR_CODES_DIR_NAME;
 
-        //set it to writable location, a place for temp generated PNG files
-        $qrCodesDirName = 'tmp/qrcodes/';
-
-        $qrCodesDir = $this->ocConfig->getDynamicFilesPath() . $qrCodesDirName;
-
-        if (!file_exists($qrCodesDir)){
+        if (!file_exists($qrCodesDir)) {
             mkdir($qrCodesDir);
         }
 
-        $qrCodeText = null;
-        if ( isset($_REQUEST['qrCodeText']) ) {
-            $qrCodeText = trim($_REQUEST['qrCodeText']);
-        }
-
-        if( empty($qrCodeText)){ // load default text value if neccessary
-            $qrCodeText = $config['qrCodeUrl'];
-        }
-
         // remove images older then 1 hour
-        FileManager::removeFilesOlderThan($qrCodesDir, "*.png", 60*60);
+        FileManager::removeFilesOlderThan($qrCodesDir, "*.png", 60 * 60);
 
-        $labelFileName = TextGen::randomText(12).'.png';
-        $qrCodeFileName = 'qrCode_'.$labelFileName;
+        $qrCodeText = trim($_REQUEST['qrCodeText'] ?? $this->ocConfig::getSiteQrCodeText());
+
+        $labelFileName = TextGen::randomText(12) . '.png';
+        $qrCodeFileName = 'qrCode_' . $labelFileName;
 
         $qrCodeFile = $qrCodesDir . $qrCodeFileName;
         $labelFile = $qrCodesDir . $labelFileName;
 
-
         // generate QR-code with $qrCodeText to $filename png file
         $this->view->setVar('qrCodeText', $qrCodeText);
 
-        // const values best fit to our usage
-        $errorCorrectionLevel = 'L';
-        $matrixPointSize = 4;
-        QRcode::png($qrCodeText, $qrCodeFile, $errorCorrectionLevel, $matrixPointSize, 2);
+        $qrCode = new QrCode($qrCodeText);
+        $qrCode->setSize(132);
+        $qrCode->setMargin(5);
+        $qrCode->setEncoding('UTF-8');
+        $qrCode->setErrorCorrectionLevel(ErrorCorrectionLevel::MEDIUM());
+        $qrCode->writeFile($qrCodeFile);
 
         // add OC background to result image
         $qrCodeImg = imagecreatefrompng($qrCodeFile);
@@ -86,7 +71,7 @@ class UserUtilsController extends BaseController
         $xd = 86 - ($qrCodeWidth / 2);
         $yd = 142 - ($qrCodeWidth / 2);
 
-        $ocBackgroundImg = imagecreatefromjpeg(__DIR__.'/../../public/images/qrCodeGen/' . $config['qrCodeLogo']);
+        $ocBackgroundImg = imagecreatefromjpeg(__DIR__ . '/../../public/images/qrCodeGen/' . $this->ocConfig::getSiteQrCodeImage());
 
         // merge both images
         imagecopymerge($ocBackgroundImg, $qrCodeImg, $xd, $yd, 0, 0, $qrCodeWidth, $qrCodeWidth, 100);
@@ -97,8 +82,8 @@ class UserUtilsController extends BaseController
         imagedestroy($qrCodeImg);
         imagedestroy($ocBackgroundImg);
 
-        $this->view->setVar('ocLabelImgUrl', '/'.$qrCodesDirName.$labelFileName);
-        $this->view->setVar('qrCodeImgUrl', '/'.$qrCodesDirName.$qrCodeFileName);
+        $this->view->setVar('ocLabelImgUrl', '/' . self::QR_CODES_DIR_NAME . $labelFileName);
+        $this->view->setVar('qrCodeImgUrl', '/' . self::QR_CODES_DIR_NAME . $qrCodeFileName);
 
 
         $this->view->buildView();
