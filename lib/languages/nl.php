@@ -1169,7 +1169,7 @@ $translations = array(
     'qrcode_button' => 'Genereer',
     'qrcode_downloadLabeled' => 'Download deze QR Code met label',
     'qrcode_downloadQRCodeOnly' => 'Download alleen de QR Code',
-    'qrcode_appInfo' => 'You can find "QR Code reader" applications for various smartphones <a class="links" href="http://www.i-nigma.com/Downloadi-nigmaReader.html" target="_blank">HERE</a>.',
+    'qrcode_appInfo' => 'Hier kan een QR Code lezer voor verschillende smartphones <a class="links" href="http://www.i-nigma.com/Downloadi-nigmaReader.html" target="_blank">gedownload</a> worden.',
     'error_ort' => 'Opgegeven locatie niet gevonden',
     'alert_search_by_cachename' => 'Vul naam van de cache in',
     'alert_search_by_dist_01' => 'Lengtegraad moeten cijfers zijn in formaat: ggg° mm.mmm',
