@@ -1169,7 +1169,6 @@ $translations = array(
     'qrcode_button' => 'Generera',
     'qrcode_downloadLabeled' => 'Download this QR Code label',
     'qrcode_downloadQRCodeOnly' => 'Download only pure QR Code',
-    'qrcode_appInfo' => 'You can find "QR Code reader" applications for various smartphones <a class="links" href="http://www.i-nigma.com/Downloadi-nigmaReader.html" target="_blank">HERE</a>.',
     'error_ort' => 'Locating failed',
     'alert_search_by_cachename' => 'Enter the name!',
     'alert_search_by_dist_01' => 'Longitude degrees must be numeric! Format: ddd mm.mmm',
