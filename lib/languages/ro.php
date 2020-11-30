@@ -1169,7 +1169,7 @@ $translations = array(
     'qrcode_button' => 'Generează',
     'qrcode_downloadLabeled' => 'Descarcă această etichetă cu cod QR',
     'qrcode_downloadQRCodeOnly' => 'Descarcă doar codul QR',
-    'qrcode_appInfo' => '<a class="links" href="http://www.i-nigma.com/Downloadi-nigmaReader.html" target="_blank">AICI</a> poţi găsi aplicaţii pentru citit coduri QR pentru diferite modele de telefoane.',
+    'qrcode_appInfo' => 'You can find "QR Code reader" applications for various smartphones <a class="links" href="http://www.i-nigma.com/Downloadi-nigmaReader.html" target="_blank">HERE</a>.',
     'error_ort' => 'Locating failed',
     'alert_search_by_cachename' => 'Enter the name!***',
     'alert_search_by_dist_01' => 'Longitudinea trebuie să fie numerică! Format: GG° MM.mmm',
