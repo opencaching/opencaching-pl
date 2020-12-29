@@ -42,7 +42,7 @@ class PrintListController extends BaseController
                 function (GeoCache $cache) {
                     return [
                         'type' => $cache->getCacheType(),
-                        'status' => $cache->getCacheType(),
+                        'status' => $cache->getStatus(),
                         'user_sts' => null,
                     ];
                 }));
