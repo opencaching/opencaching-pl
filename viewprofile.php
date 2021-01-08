@@ -175,8 +175,6 @@ if ($usr['admin']) {
     $content .= '<div class="notice">'.tr('admin_notes_visible').'</div><p><a href="' . SimpleRouter::getLink('Admin.UserAdmin', 'index', $user_id) . '" class="links">'.tr('admin_user_management').' <img src="/images/misc/linkicon.png" alt="user admin"></a></p>';
     $adminNotes = AdminNoteSet::getNotesForUser($user, ADMINNOTES_PER_PAGE);
 
-
-
     if (empty($adminNotes)) {
         $content .= '<p>' . tr("admin_notes_no_infos") . '</p>';
     } else {
@@ -203,13 +201,13 @@ if ($usr['admin']) {
         }
         $content .= '</table>';
     }
+
+    if (AdminNoteSet::getNotesForUserCount($user) > ADMINNOTES_PER_PAGE) {
+        $content .= '<a href="' . SimpleRouter::getLink('Admin.UserAdmin', 'index', $user_id) . '" class="btn btn-default btn-sm">' . tr('more') . '</a>';
+    }
 }
 
 StopWatch::click(__LINE__);
-
-if (AdminNoteSet::getNotesForUserCount($user) > ADMINNOTES_PER_PAGE) {
-    $content .= '<a href="' . SimpleRouter::getLink('Admin.UserAdmin', 'index', $user_id) . '" class="btn btn-default btn-sm">' . tr('more') . '</a>';
-}
 
 if (Year::isPrimaAprilisToday() && OcConfig::isPAUserStatsRandEnabled()) {
     $act = rand(-10, 10);
