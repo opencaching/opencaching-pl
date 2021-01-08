@@ -879,11 +879,6 @@ function buildGeocacheHtml(GeoCache $geocache, $html)
 
 function buildMeritBadges($user_id) {
 
-global $content_table_badge, $content_row_pattern_badge, $content_tip_badge, $content_element_badge;
-
-require(__DIR__.'/src/Views/viewprofile.inc.php');
-
-
 $meritBadgeCtrl = new MeritBadgeController();
 $userCategories = $meritBadgeCtrl->buildArrayUserCategories($user_id);
 
@@ -904,8 +899,24 @@ foreach ($userCategories as $oneCategory) {
 
         $short_desc = mb_ereg_replace( "'", "\\'", $short_desc);
 
-        $element=$content_element_badge;
-        $element=mb_ereg_replace('{content_tip}', $content_tip_badge, $element);
+        $element='<div class="Badge-div-element-small">
+        <a href="badge.php?badge_id={badge_id}&user_id={user_id}" onmouseover="Tip(\'{content_tip}\', PADDING,10)" onmouseout="UnTip()">
+            <div class="Badge-pie-progress-small" role="progressbar" data-goal="{progresbar_curr_val}" data-trackcolor="#d9d9d9" data-barcolor="{progresbar_color}" data-barsize="{progresbar_size}" aria-valuemin="0" aria-valuemax="{progresbar_next_val}">
+            <div class="pie_progress__content"><img src="{picture}" class="Badge-pic-small" /><br>
+            </div>
+            </div>
+        </a>
+        </div>';
+
+        $element=mb_ereg_replace('{content_tip}',
+            "<div style =\'width:500px;\'><img src=\'{picture}\' style= \'float: left;margin-right:20px;\' /> \\
+             <p style=\'font-size:20px; font-weight:bold;\'> {name} <br>\\
+             <span style=\'font-size:13px; font-weight:normal; font-style:italic;\'> {short_desc} </span></p> \\
+             <p style=\'font-size:13px;font-weight:normal;\'>\\"
+            .tr('merit_badge_level_name').": <b>{level_name}</b><br>\\"
+            .tr('merit_badge_number').": <b>{curr_val}</b><br>\\"
+            .tr('merit_badge_next_level_threshold').": <b>{next_val}</b><br>\\
+             </p></div>", $element);
         $element=mb_ereg_replace('{name}', $oneBadge->getOBadge()->getName(), $element);
         $element=mb_ereg_replace('{short_desc}', $short_desc , $element);
         $element=mb_ereg_replace('{picture}', $oneBadge->getPicture(), $element );
@@ -922,11 +933,19 @@ foreach ($userCategories as $oneCategory) {
         $content_badge.= $element;
     }
 
-    $content_badge_rows .= mb_ereg_replace('{content_badge}', $content_badge, $content_row_pattern_badge);
+    $content_badge_rows .= mb_ereg_replace('{content_badge}', $content_badge,
+        "<tr class='Badge-table-view'><td><span class='Badge-category-small'>{category_table}</span><br>{content_badge}</tr></td>");
+
     $content_badge_rows = mb_ereg_replace('{category_table}', $oneCategory->getName(), $content_badge_rows);
 }
 
-$content .= mb_ereg_replace('{content_badge_rows}', $content_badge_rows, $content_table_badge);
+$content .= mb_ereg_replace('{content_badge_rows}', $content_badge_rows, '
+                <table width="770px">
+                    <tbody>
+                    {content_badge_rows}
+                    </tbody>
+                </table>
+                <br>');
 $content .= "<a class='links'  href='user_badges.php?user_id=$user_id'>[".tr('merit_badge_show_details')."]</a>&nbsp;&nbsp;&nbsp;&nbsp;";
 $content .= "<a class='links'  href='user_badges.php?user_id=999999'>[".tr('merit_badge_show_list')."]</a><br><br>";
 return $content;
