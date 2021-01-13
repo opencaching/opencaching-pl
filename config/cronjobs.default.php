@@ -18,14 +18,14 @@
 // Job that are scheduled for the same time will preferredly run in this order:
 
 $cronjobs['schedule'] = [
-    // temp. disable geokrety cronjob: 'GeoKretyDbQueueJob'    => 'every 10 minutes',
+    'GeoKretyDbQueueJob'    => 'every 10 minutes',
     'AltitudeUpdateJob'     => 'every 15 minutes',
     'PublishCachesJob'      => 'hourly at :00',
     'WatchlistNotifyJob'    => 'hourly at :05',
     'NewCachesNotifyJob'    => 'hourly at :10',
     'GeoPathJob'            => 'daily at 0:10',
     'AutoArchiveCachesJob'  => 'daily at 4:30',
-    // temp. disable geokrety cronjob: 'GeoKretyNewJob'        => 'daily at 4:45',
+    'GeoKretyNewJob'        => 'daily at 4:45',
     'TitledCacheAddJob'     => 'monthly on day 1 at 0:20',
 
     // Reentrant jobs; these will always run *after* non-reentrant jobs.
