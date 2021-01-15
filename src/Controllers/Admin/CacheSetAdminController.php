@@ -165,9 +165,9 @@ class CacheSetAdminController extends BaseController
             $this->ajaxErrorResponse("No such geocache: $cacheId");
         }
 
-        if ($this->loggedUser->hasOcTeamRole() &&
+        if (!$this->loggedUser->hasOcTeamRole() &&
             !$cache->getOwnerId() != $this->loggedUser->getUserId()) {
-            $this->ajaxErrorResponse("User is not allowed to remove this geocache from Goepath");
+            $this->ajaxErrorResponse("User is not allowed to remove this geocache from goepath");
         }
 
         // check if this cache is on the list of duplicates
