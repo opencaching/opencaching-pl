@@ -43,7 +43,7 @@ table.center {
     <?php /* @var $pt PowerTrail */ ?>
     <?php foreach ($v->pts[$c->getCacheId()] as $pt) { ?>
       <li class="gpdups">
-        <button onclick="removeCacheFromGp(<?=$c->getCacheId()?>, <?=$pt->getId()?>)">
+        <button onclick="removeCacheFromGp(this, <?=$c->getCacheId()?>, <?=$pt->getId()?>)">
           Remove from [<?=$pt->getName()?>]
         </button>
         &nbsp(<a href="<?=$pt->getPowerTrailUrl()?>"><?=$pt->getName()?></a>)
@@ -58,7 +58,14 @@ table.center {
 
 <script type="text/javascript">
 
-function removeCacheFromGp (cacheId, gpId) {
+function removeCacheFromGp (button, cacheId, gpId) {
+
+  var btn = $(button);
+
+  if (!confirm ("Do you realy want to remove this cache form geopath?")) {
+    return;
+  }
+
   $.ajax({
     type:  "get",
     cache: false,
@@ -66,11 +73,15 @@ function removeCacheFromGp (cacheId, gpId) {
     error: function (xhr) {
 
         console.debug("removeDuplicatedCachesAjax: " + xhr.responseText);
-
+        var jsonResponse = JSON.parse(xhr.responseText);
+        alert ("Error: "+ jsonResponse.message);
     },
     success: function (data, status) {
       console.debug(data);
 
+      btn.html('Done...');
+      btn.prop('disabled', true);
+      btn.attr("onclick","");
     }
   });
 }
