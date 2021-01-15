@@ -184,6 +184,7 @@ class CacheSet extends CacheSetCommon
         return self::db()->simpleQueryValue($query,0);
     }
 
+
     /**
      * Returns CacheSet[] of open GeoPaths with names containing $name.
      * If null $name given - all open GeoPaths will be returned

@@ -73,4 +73,14 @@ class MultiGeopathsStats extends BaseObject
 
         return $result;
     }
+
+    public static function getDuplicatedCachesList ()
+    {
+        $db = self::db();
+
+        $rs = $db->simpleQuery("SELECT COUNT(*) as c, cacheId FROM powerTrail_caches GROUP BY cacheId HAVING c > 1");
+        $caches = $db->dbFetchOneColumnArray($rs, 'cacheId');
+
+        return $caches;
+    }
 }
