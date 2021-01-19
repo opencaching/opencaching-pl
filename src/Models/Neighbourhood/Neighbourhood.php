@@ -17,7 +17,7 @@ class Neighbourhood extends BaseObject
     const ITEM_RECOMMENDEDCACHES = 7;
 
     // An array of Neighbourhood sections with corresponding translation keys
-    const SECTIONS = [
+    public const SECTIONS = [
         self::ITEM_MAP => 'map',
         self::ITEM_LATESTCACHES => 'newest_caches',
         self::ITEM_UPCOMINGEVENTS => 'incomming_events',

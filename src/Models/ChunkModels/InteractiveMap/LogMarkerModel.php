@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace src\Models\ChunkModels\InteractiveMap;
 
 use src\Models\GeoCache\GeoCacheLog;
@@ -20,15 +22,17 @@ class LogMarkerModel extends CacheMarkerModel
     public $logDate;
 
     public static function fromGeoCacheLogFactory(
-        GeoCacheLog $log, User $user = null
-    ) {
+        GeoCacheLog $log,
+        User $user = null
+    ): LogMarkerModel {
         $marker = new self();
         $marker->importDataFromGeoCacheLog($log, $user);
         return $marker;
     }
 
     protected function importDataFromGeoCacheLog(
-        GeoCacheLog $log, User $user = null
+        GeoCacheLog $log,
+        User $user = null
     ) {
         parent::importDataFromGeoCache($log->getGeoCache(), $user);
 
@@ -56,7 +60,7 @@ class LogMarkerModel extends CacheMarkerModel
      * Check if all necessary data is set in this marker class
      * @return boolean
      */
-    public function checkMarkerData()
+    public function checkMarkerData(): bool
     {
         return parent::checkMarkerData()
         && isset($this->logLink)

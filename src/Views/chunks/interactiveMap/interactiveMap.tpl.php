@@ -13,7 +13,7 @@ use src\Models\GeoCache\GeoCacheLogCommons;
  *  $this->view->addHeaderChunk('openLayers5');
  *
  */
-return function (InteractiveMapModel $mapModel, $canvasId)
+return function (InteractiveMapModel $mapModel, string $canvasId)
 {
     $publicSrcPath = '/views/chunks/interactiveMap/';
 
@@ -34,8 +34,8 @@ return function (InteractiveMapModel $mapModel, $canvasId)
     View::callChunkInline('handlebarsJs');
 ?>
 <script>
-var cacheStatusList = <?=GeoCacheCommons::CacheStatusListJson()?>;
-var logTypeList = <?=GeoCacheLogCommons::LogTypeListJson()?>;
+var cacheStatusList = <?=GeoCacheCommons::getCacheStatusListJson()?>;
+var logTypeList = <?=GeoCacheLogCommons::getLogTypeListJson()?>;
 </script>
 <script src="<?=Uri::getLinkWithModificationTime(
     $publicSrcPath . 'interactiveMap.js')?>"></script>

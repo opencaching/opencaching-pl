@@ -476,7 +476,7 @@ class GeoCacheCommons extends BaseObject {
      *
      * @return string JSON structure, ready for use in javascript f.ex.
      */
-    public static function CacheStatusListJson()
+    public static function getCacheStatusListJson(): string
     {
         $result = '{';
         $gccClass = new ReflectionClass(__CLASS__);

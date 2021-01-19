@@ -244,7 +244,7 @@ class GeoCacheLogCommons extends BaseObject
      *
      * @return string JSON structure, ready for use in javascript f.ex.
      */
-    public static function LogTypeListJson()
+    public static function getLogTypeListJson(): string
     {
         $result = '{';
         $gccClass = new ReflectionClass(__CLASS__);

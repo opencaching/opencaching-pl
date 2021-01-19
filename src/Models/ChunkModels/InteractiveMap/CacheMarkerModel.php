@@ -105,7 +105,7 @@ class CacheMarkerModel extends AbstractMarkerModelBase
      * Check if all necessary data is set in this marker class
      * @return boolean
      */
-    public function checkMarkerData()
+    public function checkMarkerData(): bool
     {
         return parent::checkMarkerData()
         && isset($this->wp)

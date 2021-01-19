@@ -711,9 +711,9 @@ class GeoCache extends GeoCacheCommons
      * @param \lib\Objects\User\User $forUser a user to compute current log
      *     status for, may be null
      *
-     * @return int current log status
+     * @return int current log status or null
      */
-    public function getLogStatus(User $forUser=null)
+    public function getLogStatus(User $forUser = null): ?int
     {
         $logStatus = null;
         if (!is_null($forUser)) {

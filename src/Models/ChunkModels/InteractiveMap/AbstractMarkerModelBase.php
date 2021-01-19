@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace src\Models\ChunkModels\InteractiveMap;
 
 use \ReflectionClass;
@@ -14,13 +16,13 @@ abstract class AbstractMarkerModelBase
     public $icon;           // icon of marker
     public $section;        // [optional] section the marker belongs to
 
-    public function getMarkerTypeName()
+    public function getMarkerTypeName(): string
     {
         $str = (new ReflectionClass(static::class))->getShortName();
         return preg_replace('/Model$/', '', lcfirst($str));
     }
 
-    public function getMarkerJsData()
+    public function getMarkerJsData(): string
     {
         return json_encode($this, JSON_PRETTY_PRINT);
     }
@@ -29,7 +31,7 @@ abstract class AbstractMarkerModelBase
      * Check if all necessary data is set in this marker class
      * @return boolean
      */
-    public function checkMarkerData()
+    public function checkMarkerData(): bool
     {
         return true
         && isset($this->id)
