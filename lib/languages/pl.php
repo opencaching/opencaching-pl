@@ -3030,20 +3030,20 @@ $translations = array(
 
     'edit_description' => 'Edycja opisu',
 
-    'editCache_fileUploadTitle' => 'Geocache pictures upload',
+    'editCache_fileUploadTitle' => 'Wysyłanie obrazków',
 
-    'editCache_picsTableOrderTh' => 'Order of pics',
-    'editCache_picsTableOrderThTite' => 'Pictures will be presented on the geocache page on the same order',
-    'editCache_picsTableImgTh' => 'Thumbnail',
-    'editCache_picsTableImgThTite' => 'Real thumbnail of the picture',
-    'editCache_picsTableTitleTh' => 'Title',
-    'editCache_picsTableTitleThTite' => 'Description of the picture',
+    'editCache_picsTableOrderTh' => 'Kolejność obrazków',
+    'editCache_picsTableOrderThTite' => 'Obrazki będą widoczne na stronie skrzynki w tej samej kolejności',
+    'editCache_picsTableImgTh' => 'Miniaturka',
+    'editCache_picsTableImgThTite' => 'Miniaturka obrazka',
+    'editCache_picsTableTitleTh' => 'Tytuł',
+    'editCache_picsTableTitleThTite' => 'Tytuł z opisem obrazka',
     'editCache_picsTableSpoilerTh' => 'Spoiler',
-    'editCache_picsTableSpoilerThTite' => 'Decide if picture is a spoiler for the geocache',
-    'editCache_picsTableHiddenTh' => 'Hidden',
-    'editCache_picsTableHiddenThTite' => 'Decide if the picture is not presented on geocache page',
-    'editCache_picsTableRemoveTh' => 'Remove this pic',
-    'editCache_picsTableRemoveThTite' => 'Remove this picture permanently',
+    'editCache_picsTableSpoilerThTite' => 'Obrazki z opcjonalnymi podpowiedziami - "spoilery" - mogą być zakryte',
+    'editCache_picsTableHiddenTh' => 'Ukryty',
+    'editCache_picsTableHiddenThTite' => 'Niektóre obrazki mogą być całkowicie ukryte - nie wyświetlać się na stronie skrzynki',
+    'editCache_picsTableRemoveTh' => 'Usuwanie obrazków',
+    'editCache_picsTableRemoveThTite' => 'Usuń ten obrazek',
 
     'editCache_actionInProgress' => 'Oczekiwanie na zakończenie akcji',
     'editCache_removePic' => 'Kliknij aby usunąć obrazek',
@@ -3062,8 +3062,8 @@ $translations = array(
     'editCache_editPicTitleSuccess' => 'Atrybut "ukryty" został zmieniony',
 
     'editCache_changePicsOrder' => 'Przesuń by zmienić kolejność obrazków',
-    'editCache_orderPicsSaveErr' => 'Problem with update pics order occured',
-    'editCache_orderPicsSaveSuccess' => 'Pics order has been changed',
+    'editCache_orderPicsSaveErr' => 'Wystąpił problem ze zmianą kolejności obrazków',
+    'editCache_orderPicsSaveSuccess' => 'Kolejność obrazków została zmieniona',
 
 
 );
