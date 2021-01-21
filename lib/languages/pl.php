@@ -3039,7 +3039,7 @@ $translations = array(
     'editCache_picsTableTitleTh' => 'Tytuł',
     'editCache_picsTableTitleThTite' => 'Tytuł z opisem obrazka',
     'editCache_picsTableSpoilerTh' => 'Spoiler',
-    'editCache_picsTableSpoilerThTite' => 'Obrazki z opcjonalnymi podpowiedziami - "spoilery" - mogą być zakryte',
+    'editCache_picsTableSpoilerThTite' => 'Obrazki z opcjonalnymi podpowiedziami - spoilery - mogą być zakryte',
     'editCache_picsTableHiddenTh' => 'Ukryty',
     'editCache_picsTableHiddenThTite' => 'Niektóre obrazki mogą być całkowicie ukryte - nie wyświetlać się na stronie skrzynki',
     'editCache_picsTableRemoveTh' => 'Usuwanie obrazków',
@@ -3051,15 +3051,15 @@ $translations = array(
     'editCache_removePicSuccess' => 'Obrazek został usunięty',
 
     'editCache_spoilerChangeErr' => 'Wystąpił problem ze zmianą parametru: spoiler',
-    'editCache_spoilerChangeSuccess' => 'Parametr "spoiler" został zmieniony',
+    'editCache_spoilerChangeSuccess' => 'Parametr _spoiler_ został zmieniony',
 
     'editCache_hiddenChangeErr' => 'Wystąpił problem ze zmianą parametru: ukryty',
-    'editCache_hiddenChangeSuccess' => 'Parametr "ukryty" został zmieniony',
+    'editCache_hiddenChangeSuccess' => 'Parametr _ukryty_ został zmieniony',
 
     'editCache_editPicTitle' => 'Kliknij by edytować tytuł obrazka',
     'editCache_editPicTitleSave' => 'Kliknij by zapisać tytuł obrazka',
     'editCache_editPicTitleErr' => 'Wystąpił problem ze zmianą tytułu obrazka',
-    'editCache_editPicTitleSuccess' => 'Atrybut "ukryty" został zmieniony',
+    'editCache_editPicTitleSuccess' => 'Atrybut _ukryty_ został zmieniony',
 
     'editCache_changePicsOrder' => 'Przesuń by zmienić kolejność obrazków',
     'editCache_orderPicsSaveErr' => 'Wystąpił problem ze zmianą kolejności obrazków',
