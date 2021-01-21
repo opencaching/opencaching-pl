@@ -18,10 +18,10 @@ use src\Utils\FileSystem\FileManager;
 
 class OcPicture extends BaseObject
 {
-    const TYPE_LOG = 1;
-    const TYPE_CACHE = 2;
+    public const TYPE_LOG = 1;
+    public const TYPE_CACHE = 2;
 
-    const DB_COLS = ['id', 'uuid', 'local', 'url', 'thumb_last_generated', 'last_modified',
+    private const DB_COLS = ['id', 'uuid', 'local', 'url', 'thumb_last_generated', 'last_modified',
         'thumb_url', 'spoiler', 'object_type', 'object_id', 'title', 'display', 'seq'
     ];
 
@@ -41,7 +41,7 @@ class OcPicture extends BaseObject
     private $order;
     private $title;
 
-    public function __construct()
+    private function __construct()
     {
         parent::__construct();
         $this->uuid = null;
@@ -114,11 +114,11 @@ class OcPicture extends BaseObject
         $this->db->multiVariableQuery("INSERT INTO pictures (
             uuid, local, url, thumb_last_generated, last_modified,
             thumb_url, spoiler, object_type, object_id, title,
-            display, seq, node) VALUES (
-            :1, :2, :3, :4, :5,
-            :6, :7, :8, :9, :10,
-            :11, :12, :13)",
-            $this->uuid, $this->isLocal, $this->url, 'NOW()', 'NOW()',
+            date_created, display, seq, node) VALUES (
+            :1, :2, :3, NOW(), NOW(),
+            :4, :5, :6, :7, :8,
+            NOW(), :9, :10, :11)",
+            $this->uuid, $this->isLocal, $this->url,
             $thumbUrl, $this->isSpoiler, $this->parentType, $this->parentId, $this->title,
             !$this->isHidden, $this->order, OcConfig::getSiteNodeId());
 
@@ -384,23 +384,29 @@ class OcPicture extends BaseObject
         return true;
     }
 
+    public static function getParentObj(int $parentType, int $parentId)
+    {
+        switch ($parentType) {
+            case self::TYPE_CACHE:
+                return GeoCache::fromCacheIdFactory($parentId);
+
+            case self::TYPE_LOG:
+                return GeoCacheLog::fromLogIdFactory($parentId);
+
+            default:
+                Debug::errorLog("Unsupported parent type: {$parentType}");
+                return null;
+        }
+    }
+
     public function getParent()
     {
         if($this->parent) {
             return $this->parent;
         }
 
-        switch($this->parentType) {
-            case self::TYPE_CACHE:
-                return $this->parent = GeoCache::fromCacheIdFactory($this->parentId);
-
-            case self::TYPE_LOG:
-                return $this->parent = GeoCacheLog::fromLogIdFactory($this->parentId);
-
-            default:
-                Debug::errorLog("Unsupported parent type: {$this->parentType}");
-                return null;
-        }
+        $this->parent = self::getParentObj($this->parentType, $this->parentId);
+        return $this->parent;
     }
 
     public function getParentType()
@@ -494,7 +500,9 @@ class OcPicture extends BaseObject
         $this->order = $index;
     }
 
-    public function getDataJson($doNotSerializeToJson=FALSE){
+
+    public function getData(): \stdClass
+    {
         $obj = new \stdClass();
         $obj->fullPicUrl = $this->getFullImgUrl();
         $obj->thumbUrl = $this->getThumbnail(Thumbnail::SIZE_SMALL, TRUE);
@@ -502,11 +510,11 @@ class OcPicture extends BaseObject
         $obj->title = $this->getTitle();
         $obj->isHidden = $this->isHidden();
         $obj->isSpoiler = $this->isSpoilerImg();
+        return $obj;
+    }
 
-        if ($doNotSerializeToJson) {
-            return $obj;
-        } else {
-            return json_encode($obj);
-        }
+    public function getDataJson(): string
+    {
+        return json_encode($this->getData());
     }
 }

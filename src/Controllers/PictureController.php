@@ -42,24 +42,9 @@ class PictureController extends BaseController
         }
 
         // create parent object
-        switch ($parentType) {
-            case OcPicture::TYPE_CACHE:
-                $cache = GeoCache::fromCacheIdFactory($parentId);
-                if ($cache == null) {
-                    $this->ajaxErrorResponse ("No such geocache");
-                }
-                $parentObj = $cache;
-                break;
-            case OcPicture::TYPE_LOG:
-                /* @var $log GeoCacheLog */
-                $log = GeoCacheLog::fromLogIdFactory($parentId);
-                if ($log == null) {
-                    $this->ajaxErrorResponse ("No such log");
-                }
-                $parentObj = $log;
-                break;
-            default:
-                $this->ajaxErrorResponse ("Improper form data (parent)!");
+        $parentObj = OcPicture::getParentObj($parentType, $parentId);
+        if (!$parentObj) {
+            $this->ajaxErrorResponse("Improper parent type/id");
         }
 
         // use the same upload model and store the files in the right place on server
@@ -91,8 +76,8 @@ class PictureController extends BaseController
                 $this->ajaxErrorResponse("User is no allowed to add pic to this object");
             }
 
-            $pic->markAsHidden(TRUE);
-            $pic->markAsSpoiler(FALSE);
+            $pic->markAsHidden(FALSE);  // added pics are not hidden
+            $pic->markAsSpoiler(FALSE); // added pics are not spoilers (assumption)
             $pic->setUuid(FileManager::getFileNameWithoutExtension($path));
             $pic->setFilenameForUrl(FileManager::getFileNameWithExtension($path));
 
@@ -100,7 +85,7 @@ class PictureController extends BaseController
             $pic->setOrderIndex($pic->getLastOrderIndexforParent());
 
             $pic->addToDb();
-            $pics[] = $pic->getDataJson(TRUE);
+            $pics[] = $pic->getData();
         }
 
         // return to browser the list of files saved on server
@@ -206,7 +191,7 @@ class PictureController extends BaseController
 
     /**
      * Add spoiler attribute to given pic
-     * @param unknown $uuid
+     * @param string $uuid
      */
     public function addSpoilerAttrAjax($uuid)
     {
@@ -215,7 +200,7 @@ class PictureController extends BaseController
 
     /**
      * Remove spoiler from given pic
-     * @param unknown $uuid
+     * @param string $uuid
      */
     public function rmSpoilerAttrAjax($uuid)
     {
@@ -224,7 +209,7 @@ class PictureController extends BaseController
 
     /**
      * Add hidden attribute to given pic
-     * @param unknown $uuid
+     * @param string $uuid
      */
     public function addHiddenAttrAjax($uuid)
     {
@@ -233,7 +218,7 @@ class PictureController extends BaseController
 
     /**
      * Remove hidden attribute from given pic
-     * @param unknown $uuid
+     * @param string $uuid
      */
     public function rmHiddenAttrAjax($uuid)
     {

@@ -62,8 +62,6 @@ function build_drop_seq($item_row, $selected_seq, $max_drop, $thisid, $drop_type
     };
 }
 
-
-
 //Preprocessing
 if ($error == false) {
     //cacheid
