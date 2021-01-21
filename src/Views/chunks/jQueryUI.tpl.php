@@ -17,6 +17,10 @@ return function (){
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/i18n/jquery-ui-i18n.min.js"></script>
+
+<?php // jquery.ui.touch-punch.min.js fix issues with jqueryUI sortable/draggable on mobiles ?>
+<script src="/js/jquery.ui.touch-punch.min.js"></script>
+
 <!-- End of jQuery UI chunk -->
 
 <?php
