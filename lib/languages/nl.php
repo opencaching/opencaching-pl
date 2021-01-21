@@ -2762,6 +2762,7 @@ $translations = array(
     'upload_startUpload' => 'Beginnen met uploaden',
 
     'pictures_intro' => 'Toegestane formaten: {picallowedformats}. JPG is het beste voor foto’s.<br />Maximum grootte {maxpicsizeMB} MB. Aanbevolen resolutie: {maxpicresolution} pixels.',
+    'picture_restrictions' => 'Permitted image formats: %s. JPG works best for photos. Maximum allowed size is %d MB.',
 
     'page_error_1' => 'Er is een fout opgetreden tijdens het verwerken van het verzoek.',
     'page_error_2' => 'De admins van OC zijn op de hoogte gebracht.',
@@ -3028,4 +3029,41 @@ $translations = array(
     'gpMyCandidates_offerRefused' => 'Aanbod geweigerd',
 
     'edit_description' => 'Bewerk beschrijving',
+
+    'editCache_fileUploadTitle' => 'Geocache pictures upload',
+
+    'editCache_picsTableOrderTh' => 'Order of pics',
+    'editCache_picsTableOrderThTite' => 'Pictures will be presented on the geocache page on the same order',
+    'editCache_picsTableImgTh' => 'Thumbnail',
+    'editCache_picsTableImgThTite' => 'Real thumbnail of the picture',
+    'editCache_picsTableTitleTh' => 'Title',
+    'editCache_picsTableTitleThTite' => 'Description of the picture',
+    'editCache_picsTableSpoilerTh' => 'Spoiler',
+    'editCache_picsTableSpoilerThTite' => 'Decide if picture is a spoiler for the geocache',
+    'editCache_picsTableHiddenTh' => 'Hidden',
+    'editCache_picsTableHiddenThTite' => 'Decide if the picture is not presented on geocache page',
+    'editCache_picsTableRemoveTh' => 'Remove this pic',
+    'editCache_picsTableRemoveThTite' => 'Remove this picture permanently',
+
+    'editCache_actionInProgress' => 'Action in progress...',
+    'editCache_removePic' => 'Click to remove this picture',
+    'editCache_removePicError' => 'Picture removing problem occured',
+    'editCache_removePicSuccess' => 'Picture has been removed',
+
+    'editCache_spoilerChangeErr' => 'Problem with update spoiler attr. occured',
+    'editCache_spoilerChangeSuccess' => 'Spoiler attr. has been changed',
+
+    'editCache_hiddenChangeErr' => 'Problem with update hidden attr. occured',
+    'editCache_hiddenChangeSuccess' => 'Hidden attr. has been changed',
+
+    'editCache_editPicTitle' => 'Click to edit title of this picture',
+    'editCache_editPicTitleSave' => 'Click to save title value',
+    'editCache_editPicTitleErr' => 'Problem with update hidden attr. occured',
+    'editCache_editPicTitleSuccess' => 'Hidden attr. has been changed',
+
+    'editCache_changePicsOrder' => 'Move to change pics order',
+    'editCache_orderPicsSaveErr' => 'Problem with update pics order occured',
+    'editCache_orderPicsSaveSuccess' => 'Pics order has been changed',
+
+
 );
