@@ -1203,8 +1203,8 @@ class GeoCache extends GeoCacheCommons
      */
     public static function touchCache($cacheId)
     {
-        XDb::xSql(
-            "UPDATE `caches` SET `last_modified`=NOW() WHERE `cache_id`= ? ", $cacheId);
+        self::updateLastModified ($this->getCacheId());
+
         XDb::xSql(
             "UPDATE `caches`, `cache_logs` SET `cache_logs`.`last_modified`=NOW()
             WHERE `caches`.`cache_id`=`cache_logs`.`cache_id`
@@ -1235,6 +1235,11 @@ class GeoCache extends GeoCacheCommons
             AND `cache_logs`.`deleted`= ? ", $cacheId, 0);
     }
 
+
+    public static function updateLastModified ($cacheId) {
+        self::db()->multiVariableQuery(
+            "UPDATE caches SET last_modified=NOW() WHERE cache_id= :1 ", $cacheId);
+    }
 
     public static function getUserActiveCachesCountByType($userId)
     {

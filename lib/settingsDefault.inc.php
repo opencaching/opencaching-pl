@@ -148,22 +148,13 @@ $config['limits']['minimum_age'] = 16;
 
   /** Limit for uplading pictures per node. */
 
-// Image file size limit in MB
-$config['limits']['image']['filesize'] = 3.5;
-// Resize large images ? (1=yes; 0=no)
-$config['limits']['image']['resize'] = 1;
-// If resize large images = 1
-// only resize files larger then this, in MB
-$config['limits']['image']['resize_larger'] = 0.1;
 // Image maximum width in pixels (aspect ratio preserved)
 $config['limits']['image']['width'] = 640;
 // Image maximum height in pixels (aspect ratio preserved)
 $config['limits']['image']['height'] = 640;
 // Image recommended size in pixels (for translations)
 $config['limits']['image']['pixels_text'] = '640 x 480';
-// Allowed extensions (image formats)
-$config['limits']['image']['extension'] = ';jpg;jpeg;gif;png;';
-$config['limits']['image']['extension_text'] = 'JPG, PNG, GIF';
+
 
 // Minimum distance between caches (physical containers) in meters
 $config['oc']['limits']['proximity'] = 150;

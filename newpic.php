@@ -4,6 +4,7 @@ use src\Utils\Database\XDb;
 use src\Utils\Generators\Uuid;
 use src\Models\OcConfig\OcConfig;
 use src\Utils\Img\OcImage;
+use src\Models\Pictures\OcPicture;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
@@ -24,10 +25,10 @@ if ($error == false) {
         $message_title_internal = tr('file_err_internal_title');
         $message_internal = tr('file_err_internal_desc');
 
-        tpl_set_var('maxpicsizeMB', $config['limits']['image']['filesize']);
-        tpl_set_var('maxpicsize',   $config['limits']['image']['filesize'] * 1024 * 1024);
+        tpl_set_var('maxpicsizeMB', OcConfig::getPicMaxSize());
+        tpl_set_var('maxpicsize',   OcConfig::getPicMaxSize() * 1024 * 1024);
         tpl_set_var('maxpicresolution', $config['limits']['image']['pixels_text']);
-        tpl_set_var('picallowedformats', $config['limits']['image']['extension_text']);
+        tpl_set_var('picallowedformats', OcConfig::getPicAllowedExtensions(TRUE));
 
         $message_title_toobig = tr('image_err_too_big');
         $message_toobig = tr('image_max_size');
@@ -144,7 +145,7 @@ if ($error == false) {
                         $fna = mb_split('\\.', $_FILES['file']['name']);
                         $extension = mb_strtolower($fna[count($fna) - 1]);
 
-                        if (mb_strpos($config['limits']['image']['extension'], ';' . $extension . ';') === false) {
+                        if (mb_strpos(OcConfig::getPicAllowedExtensions(), ';' . $extension . ';') === false) {
                             $tplname = 'message';
                             tpl_set_var('messagetitle', $message_title_wrongext);
                             tpl_set_var('message_start', '');
@@ -154,7 +155,7 @@ if ($error == false) {
                             exit;
                         }
 
-                        if ($_FILES['file']['size'] > ( round($config['limits']['image']['filesize'] * 1024 * 1024) )) {
+                        if ($_FILES['file']['size'] > ( round(OcConfig::getPicMaxSize() * 1024 * 1024) )) {
                             // file too big
                             $tplname = 'message';
                             tpl_set_var('messagetitle', $message_title_toobig);
@@ -167,11 +168,11 @@ if ($error == false) {
 
                         $uuid = Uuid::create();
 
-                        if ($config['limits']['image']['resize'] == 1 &&
-                            $_FILES['file']['size'] > round($config['limits']['image']['resize_larger'] * 1024 * 1024) ) {
+                        if ($_FILES['file']['size'] > round(OcConfig::getPicResizeLimit() * 1024 * 1024) ) {
 
                             // Apply resize to uploaded image
                             $filePath = OcImage::createThumbnail(
+                                $filePath = OcImage::createThumbnail(
                                 $_FILES['file']['tmp_name'],
                                 OcConfig::getPicUploadFolder(true) . '/' . $uuid,
                                 [$config['limits']['image']['width'], $config['limits']['image']['height']]);

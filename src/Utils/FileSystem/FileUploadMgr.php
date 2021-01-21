@@ -54,7 +54,8 @@ class FileUploadMgr
      *
      * @param string $formVarName
      * @param string $uploadDir - dir where to store the files
-     * @return string|string[] - filename or array of filenames of files on server in given destination dir
+     * @return string[] - array of filenames of files on server in given destination dir $this
+     *                    + orginal filename as a key of each row
      */
     private static function saveUploadedFiles(UploadModel $model)
     {
@@ -70,14 +71,8 @@ class FileUploadMgr
 
             move_uploaded_file($_FILES[$model->formVarName]['tmp_name'][$i], $fullPath);
 
-            $newFiles[] = $fileName;
+            $newFiles[$name] = $fileName;
         }
-
-        if(count($newFiles) == 1 && $model->maxFilesNumber == 1){
-            // only single file is expected
-            return $newFiles[0];
-        }
-
         return $newFiles;
     }
 

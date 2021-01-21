@@ -1,4 +1,6 @@
-
+<?php
+use src\Utils\View\View;
+?>
 <script>
     $(function () {
         // load country based on coords
@@ -428,15 +430,24 @@
         {waypoints_end}
 
         <tr><td class="buffer" colspan="2"></td></tr>
+
         <tr>
             <td colspan="2">
-                <div class="content2-container bg-blue02"><p class="content-title-noshade-size1"><img src="/images/blue/picture.png" class="icon32" alt=""/>&nbsp;&nbsp;{{pictures_label}}</p></div>
-                <div class="content2-newline"><p class="content-title-noshade"><img src="images/actions/list-add-20.png" align="middle" border="0" alt=""/>&nbsp;<a href="newpic.php?objectid={cacheid_urlencode}&type=2&def_seq={def_seq}" onclick="return check_if_proceed();">{{add_new_pict}}</a></p></div>
+                <div class="content2-container bg-blue02">
+                  <p class="content-title-noshade-size1">
+                    <img src="/images/blue/picture.png" class="icon32" alt=""/>
+                    &nbsp;&nbsp;{{pictures_label}}
+                  </p>
+                </div>
             </td>
         </tr>
+        <tr>
+          <!-- load pictures subtemplate -->
+          <?php /* @var $v View */ ?>
+          <td colspan="2"><?=$v->callSubTpl('/editCache/pictures')?></td>
+        </tr>
         <tr><td class="buffer" colspan="2"></td></tr>
-        {pictures}
-        <tr><td class="buffer" colspan="2"></td></tr>
+
         <!-- Text container -->
         {hidemp3_start}
         <tr>
