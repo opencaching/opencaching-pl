@@ -500,7 +500,6 @@ class OcPicture extends BaseObject
         $this->order = $index;
     }
 
-
     public function getData(): \stdClass
     {
         $obj = new \stdClass();
