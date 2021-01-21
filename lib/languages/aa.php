@@ -2762,6 +2762,7 @@ $translations = array(
     'upload_startUpload' => 'crwdns12482:0crwdne12482:0',
 
     'pictures_intro' => 'crwdns6374:0{picallowedformats}crwdnd6374:0{maxpicsizeMB}crwdnd6374:0{maxpicresolution}crwdne6374:0',
+    'picture_restrictions' => 'crwdns27208:0%scrwdnd27208:0%dcrwdne27208:0',
 
     'page_error_1' => 'crwdns27006:0crwdne27006:0',
     'page_error_2' => 'crwdns23184:0crwdne23184:0',
@@ -3028,4 +3029,41 @@ $translations = array(
     'gpMyCandidates_offerRefused' => 'crwdns27002:0crwdne27002:0',
 
     'edit_description' => 'crwdns27204:0crwdne27204:0',
+
+    'editCache_fileUploadTitle' => 'crwdns27210:0crwdne27210:0',
+
+    'editCache_picsTableOrderTh' => 'crwdns27212:0crwdne27212:0',
+    'editCache_picsTableOrderThTite' => 'crwdns27214:0crwdne27214:0',
+    'editCache_picsTableImgTh' => 'crwdns27216:0crwdne27216:0',
+    'editCache_picsTableImgThTite' => 'crwdns27218:0crwdne27218:0',
+    'editCache_picsTableTitleTh' => 'crwdns27220:0crwdne27220:0',
+    'editCache_picsTableTitleThTite' => 'crwdns27222:0crwdne27222:0',
+    'editCache_picsTableSpoilerTh' => 'crwdns27224:0crwdne27224:0',
+    'editCache_picsTableSpoilerThTite' => 'crwdns27226:0crwdne27226:0',
+    'editCache_picsTableHiddenTh' => 'crwdns27228:0crwdne27228:0',
+    'editCache_picsTableHiddenThTite' => 'crwdns27230:0crwdne27230:0',
+    'editCache_picsTableRemoveTh' => 'crwdns27232:0crwdne27232:0',
+    'editCache_picsTableRemoveThTite' => 'crwdns27234:0crwdne27234:0',
+
+    'editCache_actionInProgress' => 'crwdns27236:0crwdne27236:0',
+    'editCache_removePic' => 'crwdns27238:0crwdne27238:0',
+    'editCache_removePicError' => 'crwdns27240:0crwdne27240:0',
+    'editCache_removePicSuccess' => 'crwdns27242:0crwdne27242:0',
+
+    'editCache_spoilerChangeErr' => 'crwdns27244:0crwdne27244:0',
+    'editCache_spoilerChangeSuccess' => 'crwdns27246:0crwdne27246:0',
+
+    'editCache_hiddenChangeErr' => 'crwdns27248:0crwdne27248:0',
+    'editCache_hiddenChangeSuccess' => 'crwdns27250:0crwdne27250:0',
+
+    'editCache_editPicTitle' => 'crwdns27252:0crwdne27252:0',
+    'editCache_editPicTitleSave' => 'crwdns27254:0crwdne27254:0',
+    'editCache_editPicTitleErr' => 'crwdns27256:0crwdne27256:0',
+    'editCache_editPicTitleSuccess' => 'crwdns27258:0crwdne27258:0',
+
+    'editCache_changePicsOrder' => 'crwdns27260:0crwdne27260:0',
+    'editCache_orderPicsSaveErr' => 'crwdns27262:0crwdne27262:0',
+    'editCache_orderPicsSaveSuccess' => 'crwdns27264:0crwdne27264:0',
+
+
 );

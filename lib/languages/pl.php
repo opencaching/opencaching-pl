@@ -2762,6 +2762,7 @@ $translations = array(
     'upload_startUpload' => 'Rozpocznij przesyłanie',
 
     'pictures_intro' => 'Akceptowane formaty: {picallowedformats} - dla zdjęć rekomendowany format JPG .<br />Maksymalna dozwolona wielkość pliku {maxpicsizeMB} MB. Zalecane wymiary obrazków: {maxpicresolution} pikseli. <br />Po potwierdzeniu przetwarzanie może potrwać dłuższą chwilę.',
+    'picture_restrictions' => 'Permitted image formats: %s. JPG works best for photos. Maximum allowed size is %d MB.',
 
     'page_error_1' => 'Wystąpił błąd podczas przetwarzania żądania.',
     'page_error_2' => 'Administratorzy systemu zostali o nim powiadomieni.',
@@ -3028,4 +3029,41 @@ $translations = array(
     'gpMyCandidates_offerRefused' => 'Oferta odrzucona',
 
     'edit_description' => 'Edycja opisu',
+
+    'editCache_fileUploadTitle' => 'Wysyłanie obrazków',
+
+    'editCache_picsTableOrderTh' => 'Kolejność obrazków',
+    'editCache_picsTableOrderThTite' => 'Obrazki będą widoczne na stronie skrzynki w tej samej kolejności',
+    'editCache_picsTableImgTh' => 'Miniaturka',
+    'editCache_picsTableImgThTite' => 'Miniaturka obrazka',
+    'editCache_picsTableTitleTh' => 'Tytuł',
+    'editCache_picsTableTitleThTite' => 'Tytuł z opisem obrazka',
+    'editCache_picsTableSpoilerTh' => 'Spoiler',
+    'editCache_picsTableSpoilerThTite' => 'Obrazki z opcjonalnymi podpowiedziami - "spoilery" - mogą być zakryte',
+    'editCache_picsTableHiddenTh' => 'Ukryty',
+    'editCache_picsTableHiddenThTite' => 'Niektóre obrazki mogą być całkowicie ukryte - nie wyświetlać się na stronie skrzynki',
+    'editCache_picsTableRemoveTh' => 'Usuwanie obrazków',
+    'editCache_picsTableRemoveThTite' => 'Usuń ten obrazek',
+
+    'editCache_actionInProgress' => 'Oczekiwanie na zakończenie akcji',
+    'editCache_removePic' => 'Kliknij aby usunąć obrazek',
+    'editCache_removePicError' => 'Wystąpił problem z usunięciem tego obrazka',
+    'editCache_removePicSuccess' => 'Obrazek został usunięty',
+
+    'editCache_spoilerChangeErr' => 'Wystąpił problem ze zmianą parametru: spoiler',
+    'editCache_spoilerChangeSuccess' => 'Parametr "spoiler" został zmieniony',
+
+    'editCache_hiddenChangeErr' => 'Wystąpił problem ze zmianą parametru: ukryty',
+    'editCache_hiddenChangeSuccess' => 'Parametr "ukryty" został zmieniony',
+
+    'editCache_editPicTitle' => 'Kliknij by edytować tytuł obrazka',
+    'editCache_editPicTitleSave' => 'Kliknij by zapisać tytuł obrazka',
+    'editCache_editPicTitleErr' => 'Wystąpił problem ze zmianą tytułu obrazka',
+    'editCache_editPicTitleSuccess' => 'Atrybut "ukryty" został zmieniony',
+
+    'editCache_changePicsOrder' => 'Przesuń by zmienić kolejność obrazków',
+    'editCache_orderPicsSaveErr' => 'Wystąpił problem ze zmianą kolejności obrazków',
+    'editCache_orderPicsSaveSuccess' => 'Kolejność obrazków została zmieniona',
+
+
 );
