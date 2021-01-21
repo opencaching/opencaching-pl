@@ -3045,23 +3045,23 @@ $translations = array(
     'editCache_picsTableRemoveTh' => 'Remove this pic',
     'editCache_picsTableRemoveThTite' => 'Remove this picture permanently',
 
-    'editCache_actionInProgress' => 'Action in progress...',
-    'editCache_removePic' => 'Click to remove this picture',
-    'editCache_removePicError' => 'Picture removing problem occured',
-    'editCache_removePicSuccess' => 'Picture has been removed',
+    'editCache_actionInProgress' => 'Oczekiwanie na zakończenie akcji',
+    'editCache_removePic' => 'Kliknij aby usunąć obrazek',
+    'editCache_removePicError' => 'Wystąpił problem z usunięciem tego obrazka',
+    'editCache_removePicSuccess' => 'Obrazek został usunięty',
 
-    'editCache_spoilerChangeErr' => 'Problem with update spoiler attr. occured',
-    'editCache_spoilerChangeSuccess' => 'Spoiler attr. has been changed',
+    'editCache_spoilerChangeErr' => 'Wystąpił problem ze zmianą parametru: spoiler',
+    'editCache_spoilerChangeSuccess' => 'Parametr "spoiler" został zmieniony',
 
-    'editCache_hiddenChangeErr' => 'Problem with update hidden attr. occured',
-    'editCache_hiddenChangeSuccess' => 'Hidden attr. has been changed',
+    'editCache_hiddenChangeErr' => 'Wystąpił problem ze zmianą parametru: ukryty',
+    'editCache_hiddenChangeSuccess' => 'Parametr "ukryty" został zmieniony',
 
-    'editCache_editPicTitle' => 'Click to edit title of this picture',
-    'editCache_editPicTitleSave' => 'Click to save title value',
-    'editCache_editPicTitleErr' => 'Problem with update hidden attr. occured',
-    'editCache_editPicTitleSuccess' => 'Hidden attr. has been changed',
+    'editCache_editPicTitle' => 'Kliknij by edytować tytuł obrazka',
+    'editCache_editPicTitleSave' => 'Kliknij by zapisać tytuł obrazka',
+    'editCache_editPicTitleErr' => 'Wystąpił problem ze zmianą tytułu obrazka',
+    'editCache_editPicTitleSuccess' => 'Atrybut "ukryty" został zmieniony',
 
-    'editCache_changePicsOrder' => 'Move to change pics order',
+    'editCache_changePicsOrder' => 'Przesuń by zmienić kolejność obrazków',
     'editCache_orderPicsSaveErr' => 'Problem with update pics order occured',
     'editCache_orderPicsSaveSuccess' => 'Pics order has been changed',
 
