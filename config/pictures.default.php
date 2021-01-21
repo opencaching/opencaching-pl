@@ -33,17 +33,17 @@ $pictures['thumbnailMedium'] = [175, 175];
  * Max size (MB) of attached picture (this is internal only restriction)
  * Please note other additional http/php server side restrictions.
  */
-$pictures['maxFileSize'] = 3.5; //$config['limits']['image']['filesize'] = 3.5;
+$pictures['maxFileSize'] = 3.5; // former $config['limits']['image']['filesize']
 
 /**
  * Do not resize images smaller than this size (MB)
  */
-$pictures['resizeLargerThan'] = 0.1; // $config['limits']['image']['resize_larger'] = 0.2;
+$pictures['resizeLargerThan'] = 0.2; // former $config['limits']['image']['resize_larger']
 
 /**
  * Allowed picture extensions + its description
  */
-$pictures['allowedExtensions'] = 'jpg,jpeg,gif,png';  // $config['limits']['image']['extension'] = ';jpg;jpeg;gif;png;';
-$pictures['allowedExtensionsText'] = 'JPG, PNG, GIF'; // $config['limits']['image']['extension_text'] = 'JPG, PNG, GIF';
+$pictures['allowedExtensions'] = 'jpg,jpeg,gif,png';  // former $config['limits']['image']['extension']
+$pictures['allowedExtensionsText'] = 'JPG, PNG, GIF'; // former $config['limits']['image']['extension_text'];
 
 
