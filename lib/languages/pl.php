@@ -1169,7 +1169,7 @@ $translations = array(
     'qrcode_button' => 'Generuj',
     'qrcode_downloadLabeled' => 'Pobierz tę etykietkę',
     'qrcode_downloadQRCodeOnly' => 'Pobierz wyłącznie czysty QR Code',
-    'qrcode_appInfo' => 'You can find "QR Code reader" applications for various smartphones <a class="links" href="http://www.i-nigma.com/Downloadi-nigmaReader.html" target="_blank">HERE</a>.',
+    'qrcode_appInfo' => 'Możesz znaleźć czytnik kodów QR dla różnych smartfonów np. <a class="links" href="http://www.i-nigma.com/Downloadi-nigmaReader.html" target="_blank">TUTAJ</a>.',
     'error_ort' => 'Nie znaleziono wskazanego miejsca',
     'alert_search_by_cachename' => 'Proszę w polu nazwa wprowadzić wartość!',
     'alert_search_by_dist_01' => 'Stopnie długości geograficznej muszą być cyfrą! Format: hh° mm.mmm',
@@ -1981,7 +1981,7 @@ $translations = array(
     'attribute_135' => 'GPS nie jest wymagany',
     'attribute_137' => 'Konieczny nocleg',
     'attribute_142' => 'Niedostępna podczas przypływu',
-    'attribute_143' => 'Nature preserve / Breeding season',
+    'attribute_143' => 'Rezerwat przyrody / okres lęgowy',
     'attribute_147' => 'Potrzebny kompas',
     'attribute_150' => 'Konieczny sprzęt speleologiczny',
     'attribute_153' => 'Wymagany samolot',
@@ -3033,7 +3033,7 @@ $translations = array(
     'editCache_fileUploadTitle' => 'Wysyłanie obrazków',
 
     'editCache_picsTableOrderTh' => 'Kolejność obrazków',
-    'editCache_picsTableOrderThTitle' => 'Pictures will be presented on the geocache page on the same order',
+    'editCache_picsTableOrderThTitle' => 'Obrazki będą prezentowane na stronie skrzynki w tej samej kolejności',
     'editCache_picsTableImgTh' => 'Miniaturka',
     'editCache_picsTableImgThTitle' => 'Miniaturka obrazka',
     'editCache_picsTableTitleTh' => 'Tytuł',
@@ -3058,7 +3058,7 @@ $translations = array(
 
     'editCache_editPicTitle' => 'Kliknij by edytować tytuł obrazka',
     'editCache_editPicTitleSave' => 'Kliknij by zapisać tytuł obrazka',
-    'editCache_editPicTitleErr' => 'Problem with update title of the picture occured',
+    'editCache_editPicTitleErr' => 'Wystąpił problem ze zmianą tytułu obrazka',
     'editCache_editPicTitleSuccess' => 'Atrybut _ukryty_ został zmieniony',
 
     'editCache_changePicsOrder' => 'Przesuń by zmienić kolejność obrazków',
