@@ -1997,7 +1997,7 @@ $translations = array(
     'attribute_206' => 'Pojemnik umieszczony w oddaleniu od podanych współrzędnych',
     'attribute_207' => 'Dead Drop USB skrzynka',
     'attribute_208' => 'Benchmark - punkt geodezyjny',
-    'attribute_209' => 'Wherigo cartridge to play',
+    'attribute_209' => 'Zawiera kartridż zabawy WHERIGO',
     'attribute_210' => 'Ukryte na łonie natury',
     'attribute_211' => 'Pomnik lub miejsce historyczne',
     'attribute_212' => 'Wymagana łopatka',
@@ -2007,7 +2007,7 @@ $translations = array(
     'attribute_216' => 'Zawiera reklamę',
     'attribute_217' => 'Wojskowy obszar, niektóre ograniczenia dostępu - sprawdź przed wizytą',
     'attribute_218' => 'Zachowaj ostrożność, obszar pod nadzorem wideo',
-    'attribute_219' => 'Suitable to hold trackables',
+    'attribute_219' => 'Odpowiedni by zawierać geokrety',
     'attribute_220' => 'Oficjalny zabytek historyczny',
     'attribute_999' => 'Hasło do logu',
 // END Attributes
@@ -2762,7 +2762,7 @@ $translations = array(
     'upload_startUpload' => 'Rozpocznij przesyłanie',
 
     'pictures_intro' => 'Akceptowane formaty: {picallowedformats} - dla zdjęć rekomendowany format JPG .<br />Maksymalna dozwolona wielkość pliku {maxpicsizeMB} MB. Zalecane wymiary obrazków: {maxpicresolution} pikseli. <br />Po potwierdzeniu przetwarzanie może potrwać dłuższą chwilę.',
-    'picture_restrictions' => 'Permitted image formats: %s. JPG works best for photos. Maximum allowed size is %d MB.',
+    'picture_restrictions' => 'Dozwolone formaty obrazków: %s. Sugerowany format: JPG. Maksymalny rozmiar obrazka %d MB.',
 
     'page_error_1' => 'Wystąpił błąd podczas przetwarzania żądania.',
     'page_error_2' => 'Administratorzy systemu zostali o nim powiadomieni.',
