@@ -4,7 +4,7 @@
 <table id="picTable" class="picTableEmpty">
   <thead>
   <tr>
-    <th title="<?=tr('editCache_picsTableOrderThTite')?>"><?=tr('editCache_picsTableOrderTh')?></th>
+    <th title="<?=tr('editCache_picsTableOrderThTitle')?>"><?=tr('editCache_picsTableOrderTh')?></th>
     <th title="<?=tr('editCache_picsTableImgThTitle')?>"><?=tr('editCache_picsTableImgTh')?></th>
     <th title="<?=tr('editCache_picsTableTitleThTitle')?>"><?=tr('editCache_picsTableTitleTh')?></th>
     <th title="<?=tr('editCache_picsTableSpoilerThTitle')?>"><?=tr('editCache_picsTableSpoilerTh')?></th>
