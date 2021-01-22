@@ -3033,7 +3033,7 @@ $translations = array(
     'editCache_fileUploadTitle' => 'crwdns27210:0crwdne27210:0',
 
     'editCache_picsTableOrderTh' => 'crwdns27212:0crwdne27212:0',
-    'editCache_picsTableOrderThTilte' => 'crwdns27266:0crwdne27266:0',
+    'editCache_picsTableOrderThTitle' => 'crwdns27278:0crwdne27278:0',
     'editCache_picsTableImgTh' => 'crwdns27216:0crwdne27216:0',
     'editCache_picsTableImgThTitle' => 'crwdns27268:0crwdne27268:0',
     'editCache_picsTableTitleTh' => 'crwdns27220:0crwdne27220:0',
@@ -3058,7 +3058,7 @@ $translations = array(
 
     'editCache_editPicTitle' => 'crwdns27252:0crwdne27252:0',
     'editCache_editPicTitleSave' => 'crwdns27254:0crwdne27254:0',
-    'editCache_editPicTitleErr' => 'crwdns27256:0crwdne27256:0',
+    'editCache_editPicTitleErr' => 'crwdns27280:0crwdne27280:0',
     'editCache_editPicTitleSuccess' => 'crwdns27258:0crwdne27258:0',
 
     'editCache_changePicsOrder' => 'crwdns27260:0crwdne27260:0',

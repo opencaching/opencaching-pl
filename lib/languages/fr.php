@@ -3033,7 +3033,7 @@ $translations = array(
     'editCache_fileUploadTitle' => 'Geocache pictures upload',
 
     'editCache_picsTableOrderTh' => 'Order of pics',
-    'editCache_picsTableOrderThTilte' => 'Pictures will be presented on the geocache page on the same order',
+    'editCache_picsTableOrderThTitle' => 'Pictures will be presented on the geocache page on the same order',
     'editCache_picsTableImgTh' => 'Thumbnail',
     'editCache_picsTableImgThTitle' => 'Real thumbnail of the picture',
     'editCache_picsTableTitleTh' => 'Title',
@@ -3058,7 +3058,7 @@ $translations = array(
 
     'editCache_editPicTitle' => 'Click to edit title of this picture',
     'editCache_editPicTitleSave' => 'Click to save title value',
-    'editCache_editPicTitleErr' => 'Problem with update hidden attr. occured',
+    'editCache_editPicTitleErr' => 'Problem with update title of the picture occured',
     'editCache_editPicTitleSuccess' => 'Hidden attr. has been changed',
 
     'editCache_changePicsOrder' => 'Move to change pics order',

@@ -1169,7 +1169,7 @@ $translations = array(
     'qrcode_button' => 'Generuj',
     'qrcode_downloadLabeled' => 'Pobierz tę etykietkę',
     'qrcode_downloadQRCodeOnly' => 'Pobierz wyłącznie czysty QR Code',
-    'qrcode_appInfo' => 'You can find "QR Code reader" applications for various smartphones <a class="links" href="http://www.i-nigma.com/Downloadi-nigmaReader.html" target="_blank">HERE</a>.',
+    'qrcode_appInfo' => 'Możesz znaleźć czytnik kodów QR dla różnych smartfonów np. <a class="links" href="http://www.i-nigma.com/Downloadi-nigmaReader.html" target="_blank">TUTAJ</a>.',
     'error_ort' => 'Nie znaleziono wskazanego miejsca',
     'alert_search_by_cachename' => 'Proszę w polu nazwa wprowadzić wartość!',
     'alert_search_by_dist_01' => 'Stopnie długości geograficznej muszą być cyfrą! Format: hh° mm.mmm',
@@ -1981,7 +1981,7 @@ $translations = array(
     'attribute_135' => 'GPS nie jest wymagany',
     'attribute_137' => 'Konieczny nocleg',
     'attribute_142' => 'Niedostępna podczas przypływu',
-    'attribute_143' => 'Nature preserve / Breeding season',
+    'attribute_143' => 'Rezerwat przyrody / okres lęgowy',
     'attribute_147' => 'Potrzebny kompas',
     'attribute_150' => 'Konieczny sprzęt speleologiczny',
     'attribute_153' => 'Wymagany samolot',
@@ -1997,7 +1997,7 @@ $translations = array(
     'attribute_206' => 'Pojemnik umieszczony w oddaleniu od podanych współrzędnych',
     'attribute_207' => 'Dead Drop USB skrzynka',
     'attribute_208' => 'Benchmark - punkt geodezyjny',
-    'attribute_209' => 'Wherigo cartridge to play',
+    'attribute_209' => 'Zawiera kartridż zabawy WHERIGO',
     'attribute_210' => 'Ukryte na łonie natury',
     'attribute_211' => 'Pomnik lub miejsce historyczne',
     'attribute_212' => 'Wymagana łopatka',
@@ -2007,7 +2007,7 @@ $translations = array(
     'attribute_216' => 'Zawiera reklamę',
     'attribute_217' => 'Wojskowy obszar, niektóre ograniczenia dostępu - sprawdź przed wizytą',
     'attribute_218' => 'Zachowaj ostrożność, obszar pod nadzorem wideo',
-    'attribute_219' => 'Suitable to hold trackables',
+    'attribute_219' => 'Odpowiedni by zawierać geokrety',
     'attribute_220' => 'Oficjalny zabytek historyczny',
     'attribute_999' => 'Hasło do logu',
 // END Attributes
@@ -2762,7 +2762,7 @@ $translations = array(
     'upload_startUpload' => 'Rozpocznij przesyłanie',
 
     'pictures_intro' => 'Akceptowane formaty: {picallowedformats} - dla zdjęć rekomendowany format JPG .<br />Maksymalna dozwolona wielkość pliku {maxpicsizeMB} MB. Zalecane wymiary obrazków: {maxpicresolution} pikseli. <br />Po potwierdzeniu przetwarzanie może potrwać dłuższą chwilę.',
-    'picture_restrictions' => 'Permitted image formats: %s. JPG works best for photos. Maximum allowed size is %d MB.',
+    'picture_restrictions' => 'Dozwolone formaty obrazków: %s. Sugerowany format: JPG. Maksymalny rozmiar obrazka %d MB.',
 
     'page_error_1' => 'Wystąpił błąd podczas przetwarzania żądania.',
     'page_error_2' => 'Administratorzy systemu zostali o nim powiadomieni.',
@@ -3033,7 +3033,7 @@ $translations = array(
     'editCache_fileUploadTitle' => 'Wysyłanie obrazków',
 
     'editCache_picsTableOrderTh' => 'Kolejność obrazków',
-    'editCache_picsTableOrderThTilte' => 'Obrazki będą prezentowane na stronie skrzynki w tej samej kolejności',
+    'editCache_picsTableOrderThTitle' => 'Obrazki będą prezentowane na stronie skrzynki w tej samej kolejności',
     'editCache_picsTableImgTh' => 'Miniaturka',
     'editCache_picsTableImgThTitle' => 'Miniaturka obrazka',
     'editCache_picsTableTitleTh' => 'Tytuł',
