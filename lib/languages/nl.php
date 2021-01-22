@@ -2762,7 +2762,7 @@ $translations = array(
     'upload_startUpload' => 'Beginnen met uploaden',
 
     'pictures_intro' => 'Toegestane formaten: {picallowedformats}. JPG is het beste voor foto’s.<br />Maximum grootte {maxpicsizeMB} MB. Aanbevolen resolutie: {maxpicresolution} pixels.',
-    'picture_restrictions' => 'Permitted image formats: %s. JPG works best for photos. Maximum allowed size is %d MB.',
+    'picture_restrictions' => 'Toegestane afbeeldingsformaten: %s. JPG werkt het beste voor foto\'s. Maximaal toegestane grootte is %d MB.',
 
     'page_error_1' => 'Er is een fout opgetreden tijdens het verwerken van het verzoek.',
     'page_error_2' => 'De admins van OC zijn op de hoogte gebracht.',
@@ -3030,28 +3030,28 @@ $translations = array(
 
     'edit_description' => 'Bewerk beschrijving',
 
-    'editCache_fileUploadTitle' => 'Geocache pictures upload',
+    'editCache_fileUploadTitle' => 'Geocache afbeeldingen uploaden',
 
-    'editCache_picsTableOrderTh' => 'Order of pics',
+    'editCache_picsTableOrderTh' => 'Volgorde',
     'editCache_picsTableOrderThTilte' => 'Pictures will be presented on the geocache page on the same order',
-    'editCache_picsTableImgTh' => 'Thumbnail',
+    'editCache_picsTableImgTh' => 'Miniatuur',
     'editCache_picsTableImgThTitle' => 'Real thumbnail of the picture',
-    'editCache_picsTableTitleTh' => 'Title',
+    'editCache_picsTableTitleTh' => 'Titel',
     'editCache_picsTableTitleThTitle' => 'Description of the picture',
     'editCache_picsTableSpoilerTh' => 'Spoiler',
     'editCache_picsTableSpoilerThTitle' => 'Decide if picture is a spoiler for the geocache',
-    'editCache_picsTableHiddenTh' => 'Hidden',
+    'editCache_picsTableHiddenTh' => 'Verborgen',
     'editCache_picsTableHiddenThTitle' => 'Decide if the picture is not presented on geocache page',
-    'editCache_picsTableRemoveTh' => 'Remove this pic',
+    'editCache_picsTableRemoveTh' => 'Verwijder foto',
     'editCache_picsTableRemoveThTitle' => 'Remove this picture permanently',
 
     'editCache_actionInProgress' => 'Action in progress...',
-    'editCache_removePic' => 'Click to remove this picture',
-    'editCache_removePicError' => 'Picture removing problem occured',
-    'editCache_removePicSuccess' => 'Picture has been removed',
+    'editCache_removePic' => 'Klik om deze afbeelding te verwijderen',
+    'editCache_removePicError' => 'Fout bij het verwijderen van afbeelding',
+    'editCache_removePicSuccess' => 'Afbeelding is verwijderd',
 
-    'editCache_spoilerChangeErr' => 'Problem with update spoiler attr. occured',
-    'editCache_spoilerChangeSuccess' => 'Spoiler attr. has been changed',
+    'editCache_spoilerChangeErr' => 'Probleem met update spoiler attr. opgetreden',
+    'editCache_spoilerChangeSuccess' => 'Spoiler attr. is veranderd',
 
     'editCache_hiddenChangeErr' => 'Problem with update hidden attr. occured',
     'editCache_hiddenChangeSuccess' => 'Hidden attr. has been changed',
