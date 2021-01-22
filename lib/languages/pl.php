@@ -3042,7 +3042,7 @@ $translations = array(
     'editCache_picsTableSpoilerThTitle' => 'Spoiler - czy obrazek zawiera opcjonalną podpowiedź dla szukających',
     'editCache_picsTableHiddenTh' => 'Ukryty',
     'editCache_picsTableHiddenThTitle' => 'Ukryty - czy obrazek nie jest prezentowany na stronie skrzynki',
-    'editCache_picsTableRemoveTh' => 'Usuwanie obrazków',
+    'editCache_picsTableRemoveTh' => 'Usuwanie',
     'editCache_picsTableRemoveThTitle' => 'Bezpowrotne usuwanie obrazków',
 
     'editCache_actionInProgress' => 'Oczekiwanie na zakończenie akcji',
