@@ -3033,7 +3033,7 @@ $translations = array(
     'editCache_fileUploadTitle' => 'Wysyłanie obrazków',
 
     'editCache_picsTableOrderTh' => 'Kolejność obrazków',
-    'editCache_picsTableOrderThTilte' => 'Obrazki będą prezentowane na stronie skrzynki w tej samej kolejności',
+    'editCache_picsTableOrderThTitle' => 'Pictures will be presented on the geocache page on the same order',
     'editCache_picsTableImgTh' => 'Miniaturka',
     'editCache_picsTableImgThTitle' => 'Miniaturka obrazka',
     'editCache_picsTableTitleTh' => 'Tytuł',
@@ -3058,7 +3058,7 @@ $translations = array(
 
     'editCache_editPicTitle' => 'Kliknij by edytować tytuł obrazka',
     'editCache_editPicTitleSave' => 'Kliknij by zapisać tytuł obrazka',
-    'editCache_editPicTitleErr' => 'Wystąpił problem ze zmianą tytułu obrazka',
+    'editCache_editPicTitleErr' => 'Problem with update title of the picture occured',
     'editCache_editPicTitleSuccess' => 'Atrybut _ukryty_ został zmieniony',
 
     'editCache_changePicsOrder' => 'Przesuń by zmienić kolejność obrazków',
