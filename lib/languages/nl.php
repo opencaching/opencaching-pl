@@ -3033,19 +3033,19 @@ $translations = array(
     'editCache_fileUploadTitle' => 'Geocache afbeeldingen uploaden',
 
     'editCache_picsTableOrderTh' => 'Volgorde',
-    'editCache_picsTableOrderThTilte' => 'Pictures will be presented on the geocache page on the same order',
+    'editCache_picsTableOrderThTilte' => 'Afbeeldingen worden op de cache pagina in dezelfde volgorde getoond',
     'editCache_picsTableImgTh' => 'Miniatuur',
-    'editCache_picsTableImgThTitle' => 'Real thumbnail of the picture',
+    'editCache_picsTableImgThTitle' => 'Miniatuur van de afbeelding',
     'editCache_picsTableTitleTh' => 'Titel',
-    'editCache_picsTableTitleThTitle' => 'Description of the picture',
+    'editCache_picsTableTitleThTitle' => 'Beschrijving van de afbeelding',
     'editCache_picsTableSpoilerTh' => 'Spoiler',
-    'editCache_picsTableSpoilerThTitle' => 'Decide if picture is a spoiler for the geocache',
+    'editCache_picsTableSpoilerThTitle' => 'Bepaal of afbeelding een spoiler is voor de cache',
     'editCache_picsTableHiddenTh' => 'Verborgen',
-    'editCache_picsTableHiddenThTitle' => 'Decide if the picture is not presented on geocache page',
+    'editCache_picsTableHiddenThTitle' => 'Bepaal of de afbeelding niet getoond wordt op geocache pagina',
     'editCache_picsTableRemoveTh' => 'Verwijder foto',
-    'editCache_picsTableRemoveThTitle' => 'Remove this picture permanently',
+    'editCache_picsTableRemoveThTitle' => 'Verwijder deze afbeelding permanent',
 
-    'editCache_actionInProgress' => 'Action in progress...',
+    'editCache_actionInProgress' => 'Actie in uitvoering...',
     'editCache_removePic' => 'Klik om deze afbeelding te verwijderen',
     'editCache_removePicError' => 'Fout bij het verwijderen van afbeelding',
     'editCache_removePicSuccess' => 'Afbeelding is verwijderd',
@@ -3053,17 +3053,17 @@ $translations = array(
     'editCache_spoilerChangeErr' => 'Probleem met update spoiler attr. opgetreden',
     'editCache_spoilerChangeSuccess' => 'Spoiler attr. is veranderd',
 
-    'editCache_hiddenChangeErr' => 'Problem with update hidden attr. occured',
-    'editCache_hiddenChangeSuccess' => 'Hidden attr. has been changed',
+    'editCache_hiddenChangeErr' => 'Probleem met update verborgen attr. opgetreden',
+    'editCache_hiddenChangeSuccess' => 'Verborgen attr. is veranderd',
 
-    'editCache_editPicTitle' => 'Click to edit title of this picture',
-    'editCache_editPicTitleSave' => 'Click to save title value',
-    'editCache_editPicTitleErr' => 'Problem with update hidden attr. occured',
-    'editCache_editPicTitleSuccess' => 'Hidden attr. has been changed',
+    'editCache_editPicTitle' => 'Klik om de titel van de foto te bewerken',
+    'editCache_editPicTitleSave' => 'Klik om titel op te slaan',
+    'editCache_editPicTitleErr' => 'Probleem met update verborgen attr. opgetreden',
+    'editCache_editPicTitleSuccess' => 'Verborgen attr. is veranderd',
 
-    'editCache_changePicsOrder' => 'Move to change pics order',
-    'editCache_orderPicsSaveErr' => 'Problem with update pics order occured',
-    'editCache_orderPicsSaveSuccess' => 'Pics order has been changed',
+    'editCache_changePicsOrder' => 'Verplaats om de volgorde wijzigen',
+    'editCache_orderPicsSaveErr' => 'Probleem met de weergavevolgorde opgetreden',
+    'editCache_orderPicsSaveSuccess' => 'Volgorde foto\'s is gewijzigd',
 
 
 );
