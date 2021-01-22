@@ -3033,7 +3033,7 @@ $translations = array(
     'editCache_fileUploadTitle' => 'Geocache afbeeldingen uploaden',
 
     'editCache_picsTableOrderTh' => 'Volgorde',
-    'editCache_picsTableOrderThTilte' => 'Afbeeldingen worden op de cache pagina in dezelfde volgorde getoond',
+    'editCache_picsTableOrderThTitle' => 'Pictures will be presented on the geocache page on the same order',
     'editCache_picsTableImgTh' => 'Miniatuur',
     'editCache_picsTableImgThTitle' => 'Miniatuur van de afbeelding',
     'editCache_picsTableTitleTh' => 'Titel',
@@ -3058,7 +3058,7 @@ $translations = array(
 
     'editCache_editPicTitle' => 'Klik om de titel van de foto te bewerken',
     'editCache_editPicTitleSave' => 'Klik om titel op te slaan',
-    'editCache_editPicTitleErr' => 'Probleem met update verborgen attr. opgetreden',
+    'editCache_editPicTitleErr' => 'Problem with update title of the picture occured',
     'editCache_editPicTitleSuccess' => 'Verborgen attr. is veranderd',
 
     'editCache_changePicsOrder' => 'Verplaats om de volgorde wijzigen',
