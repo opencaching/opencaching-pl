@@ -1203,7 +1203,7 @@ class GeoCache extends GeoCacheCommons
      */
     public static function touchCache($cacheId)
     {
-        self::updateLastModified ($this->getCacheId());
+        self::updateLastModified ($cacheId);
 
         XDb::xSql(
             "UPDATE `caches`, `cache_logs` SET `cache_logs`.`last_modified`=NOW()
