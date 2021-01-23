@@ -145,7 +145,7 @@ if ($error == false) {
                         $fna = mb_split('\\.', $_FILES['file']['name']);
                         $extension = mb_strtolower($fna[count($fna) - 1]);
 
-                        if (mb_strpos(OcConfig::getPicAllowedExtensions(), ';' . $extension . ';') === false) {
+                        if (!in_array($extension, explode(',',OcConfig::getPicAllowedExtensions()))) {
                             $tplname = 'message';
                             tpl_set_var('messagetitle', $message_title_wrongext);
                             tpl_set_var('message_start', '');
@@ -172,7 +172,6 @@ if ($error == false) {
 
                             // Apply resize to uploaded image
                             $filePath = OcImage::createThumbnail(
-                                $filePath = OcImage::createThumbnail(
                                 $_FILES['file']['tmp_name'],
                                 OcConfig::getPicUploadFolder(true) . '/' . $uuid,
                                 [$config['limits']['image']['width'], $config['limits']['image']['height']]);
