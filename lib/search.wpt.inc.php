@@ -7,13 +7,15 @@ ob_start();
 
 use src\Utils\Database\XDb;
 use src\Utils\I18n\I18n;
+use src\Models\ApplicationContainer;
 
-global $content, $bUseZip, $usr, $hide_coords, $dbcSearch;
+global $content, $bUseZip, $hide_coords, $dbcSearch;
 
 set_time_limit(1800);
 
 require_once (__DIR__.'/../lib/calculation.inc.php');
 
+$loggedUser = ApplicationContainer::GetAuthorizedUser();
 
 $wptSize[1] = 'Not specified';
 $wptSize[2] = 'Micro';
@@ -35,21 +37,21 @@ $wptType[8] = 'Moving Cache';
 $wptType[9] = 'Podcast';
 $wptType[10] = 'Own Cache';
 
-if( $usr || !$hide_coords ) {
+if( $loggedUser || !$hide_coords ) {
     //prepare the output
     $caches_per_page = 20;
 
     $query = 'SELECT ';
 
     if (isset($lat_rad) && isset($lon_rad)) {
-        $query .= getCalcDistanceSqlFormula($usr !== false, $lon_rad * 180 / 3.14159, $lat_rad * 180 / 3.14159, 0, $multiplier[$distance_unit]) . ' `distance`, ';
-    } elseif ($usr === false) {
+        $query .= getCalcDistanceSqlFormula(is_object($loggedUser), $lon_rad * 180 / 3.14159, $lat_rad * 180 / 3.14159, 0, $multiplier[$distance_unit]) . ' `distance`, ';
+    } elseif (!$loggedUser) {
         $query .= '0 distance, ';
     } else {
         //get the users home coords
         $rs_coords = XDb::xSql(
             "SELECT `latitude`, `longitude` FROM `user`
-            WHERE `user_id`= ? ", $usr['userid']);
+            WHERE `user_id`= ? ", $loggedUser->getUserId());
 
         $record_coords = XDb::xFetchArray($rs_coords);
 
@@ -61,20 +63,22 @@ if( $usr || !$hide_coords ) {
             $lon_rad = $record_coords['longitude'] * 3.14159 / 180;
             $lat_rad = $record_coords['latitude'] * 3.14159 / 180;
 
-            $query .= getCalcDistanceSqlFormula($usr !== false, $record_coords['longitude'], $record_coords['latitude'], 0, $multiplier[$distance_unit]) . ' `distance`, ';
+            $query .= getCalcDistanceSqlFormula(
+                is_object($loggedUser), $record_coords['longitude'], $record_coords['latitude'],
+                0, $multiplier[$distance_unit]) . ' `distance`, ';
         }
         XDb::xFreeResults($rs_coords);
     }
 
     $query .= '`caches`.`cache_id` `cache_id`, `caches`.`status` `status`, `caches`.`type` `type`, `caches`.`size` `size`,
         `caches`.`user_id` `user_id`, ';
-    if ($usr === false) {
+    if (!$loggedUser) {
         $query .= ' `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude`, 0 as cache_mod_cords_id FROM `caches` ';
     } else {
         $query .= ' IFNULL(`cache_mod_cords`.`longitude`, `caches`.`longitude`) `longitude`, IFNULL(`cache_mod_cords`.`latitude`,
             `caches`.`latitude`) `latitude`, IFNULL(cache_mod_cords.latitude,0) as cache_mod_cords_id FROM `caches`
             LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id` AND `cache_mod_cords`.`user_id` = '
-            . $usr['userid'];
+            . $loggedUser->getUserId();
     }
     $query .= ' WHERE `caches`.`cache_id` IN (' . $queryFilter . ')';
 
@@ -146,7 +150,7 @@ if( $usr || !$hide_coords ) {
 
     $stmt = XDb::xSql(
         'SELECT `wptcontent`.`cache_id` `cacheid`, IF(wptcontent.cache_id IN
-                (SELECT cache_id FROM cache_logs WHERE deleted=0 AND user_id='.$usr['userid'].' AND (type=1 OR type=8)),1,0)
+                (SELECT cache_id FROM cache_logs WHERE deleted=0 AND user_id='.$loggedUser->getUserId().' AND (type=1 OR type=8)),1,0)
                 as found, `wptcontent`.`longitude` `longitude`, `wptcontent`.`latitude` `latitude`, `wptcontent`.cache_mod_cords_id,
                 `caches`.`date_hidden` `date_hidden`, `caches`.`name` `name`, `caches`.`wp_oc` `wp_oc`, `cache_type`.`short` `typedesc`,
                 `wptcontent`.`size` `size`,`caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `user`.`username` `username` ,
@@ -184,7 +188,7 @@ if( $usr || !$hide_coords ) {
         $userid = XDb::xMultiVariableQueryValue("SELECT user_id FROM caches WHERE cache_id = :1 LIMIT 1",0, $id);
 
         $kolor = 16776960;
-        if ($userid == $usr['userid']) {
+        if ($loggedUser && $userid == $loggedUser->getUserId()) {
             $kolor = 65280;
         }
         if ($r['status'] == 3 || $r['status'] == 2) {
@@ -196,7 +200,7 @@ if( $usr || !$hide_coords ) {
         $sss=
 
         $r['ozi_filips']= XDb::xMultiVariableQueryValue(
-            "SELECT ozi_filips FROM user WHERE user_id= :1 LIMIT 1", null, $usr['userid']);
+            "SELECT ozi_filips FROM user WHERE user_id= :1 LIMIT 1", null, $loggedUser->getUserId());
 
         if($r['ozi_filips']!=""||$r['ozi_filips']!=null) {
             $attach = $r['ozi_filips']."\\op\\".$r['wp_oc'][2]."\\".$r['wp_oc'][3]."\\".$r['wp_oc'][4].$r['wp_oc'][5].".html";

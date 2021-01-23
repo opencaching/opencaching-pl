@@ -19,7 +19,8 @@ if ($error) {
 $descid = ( isset($_REQUEST['descid']) && is_numeric($_REQUEST['descid']) ) ? $_REQUEST['descid'] : 0;
 
 //user logged in?
-if ($usr == false) {
+$loggedUser = ApplicationContainer::GetAuthorizedUser();
+if (!$loggedUser) {
     $target = urlencode(tpl_get_current_page());
     tpl_redirect('login.php?target=' . $target);
     exit;
@@ -39,8 +40,8 @@ if ( $desc_record = XDb::xFetchArray($desc_rs) ) {
     $desc_lang = $desc_record['language'];
     $cache_id = $desc_record['cache_id'];
 
-    if ($desc_record['user_id'] != $usr['userid'] &&
-        !ApplicationContainer::isLoggedUserHasRoleOcTeam()) {
+    if ($desc_record['user_id'] != $loggedUser->getUserId() &&
+        !$loggedUser->hasOcTeamRole()) {
         tpl_errorMsg('editdesc', "You're not an owner of this cache!");
         exit;
     }

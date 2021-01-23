@@ -9,17 +9,19 @@ use src\Models\ApplicationContainer;
 require_once(__DIR__.'/lib/common.inc.php');
 
 //user logged in?
-if ($usr == false) {
+$loggedUser = ApplicationContainer::GetAuthorizedUser();
+if (!$loggedUser) {
     $target = urlencode(tpl_get_current_page());
     tpl_redirect('login.php?target='.$target);
-} else {
+    exit;
+}
 
     if (isset($_REQUEST['userid'])) {
         $user_id = $_REQUEST['userid'];
         tpl_set_var('userid', $user_id);
     } else {
         //no param userid - display data for currently logged user
-        $user_id = $usr['userid'];
+        $user_id = $loggedUser->getUserId();
         tpl_set_var('userid', $user_id);
     }
 
@@ -90,7 +92,7 @@ if ($usr == false) {
     }
 
     $dateOrderSql =
-        $user_id == $usr['userid']
+        $user_id == $loggedUser->getUserId();
         ?  '`cache_logs`.`date` DESC, `cache_logs`.`date_created` DESC'
         :  '`cache_logs`.`date_created` DESC, `cache_logs`.`date` DESC';
 
@@ -183,7 +185,7 @@ if ($usr == false) {
 
     tpl_set_var('file_content', $file_content);
     tpl_set_var('pages', $pages);
-}
+
 
 //make the template and send it out
 tpl_BuildTemplate();
