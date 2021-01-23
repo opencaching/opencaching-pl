@@ -9,6 +9,7 @@ use src\Models\GeoCache\PrintList;
 use src\Models\Coordinates\Coordinates;
 use src\Utils\I18n\I18n;
 use src\Utils\Debug\Debug;
+use src\Models\ApplicationContainer;
 
 require_once (__DIR__.'/lib/common.inc.php');
 require_once (__DIR__.'/lib/search.inc.php');
@@ -460,7 +461,7 @@ if (!isset($usr) || !is_array($usr)) {
                 // show only published caches
                 $sql_where[] = '(`caches`.`status` != 4 OR `caches`.`user_id`=' . XDb::xEscape($usr['userid']) . ')';
                 $sql_where[] = '(`caches`.`status` != 5 OR `caches`.`user_id`=' . XDb::xEscape($usr['userid']) . ')';
-                if (!$usr['admin'])
+                if (!ApplicationContainer::isLoggedUserHasRoleOcTeam())
                 {
                     $sql_where[] = '`caches`.`status` != 6';
                 }

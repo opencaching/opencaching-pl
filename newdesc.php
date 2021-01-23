@@ -6,6 +6,7 @@ use src\Utils\Generators\Uuid;
 use src\Utils\Text\UserInputFilter;
 use src\Utils\I18n\I18n;
 use src\Models\OcConfig\OcConfig;
+use src\Models\ApplicationContainer;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
@@ -27,7 +28,7 @@ if ($error == false) {
         if( $cache_record = XDb::xFetchArray($cache_rs)){
             XDb::xFreeResults($cache_rs);
 
-            if ($cache_record['user_id'] == $usr['userid'] || $usr['admin']) {
+            if ($cache_record['user_id'] == $usr['userid'] || ApplicationContainer::isLoggedUserHasRoleOcTeam()) {
                 $tplname = 'newdesc';
 
                 tpl_set_var('desc_err', '');

@@ -5,6 +5,7 @@ use src\Models\GeoCache\GeoCache;
 use src\Utils\I18n\Languages;
 use src\Utils\Text\UserInputFilter;
 use src\Utils\I18n\I18n;
+use src\Models\ApplicationContainer;
 
 //prepare the templates and include all neccessary
 require_once(__DIR__.'/lib/common.inc.php');
@@ -38,7 +39,8 @@ if ( $desc_record = XDb::xFetchArray($desc_rs) ) {
     $desc_lang = $desc_record['language'];
     $cache_id = $desc_record['cache_id'];
 
-    if ($desc_record['user_id'] != $usr['userid'] && !$usr['admin']) {
+    if ($desc_record['user_id'] != $usr['userid'] &&
+        !ApplicationContainer::isLoggedUserHasRoleOcTeam()) {
         tpl_errorMsg('editdesc', "You're not an owner of this cache!");
         exit;
     }

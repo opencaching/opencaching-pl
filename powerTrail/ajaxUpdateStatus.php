@@ -3,6 +3,7 @@
 use src\Utils\Database\OcDb;
 use src\Models\PowerTrail\PowerTrail;
 use src\Utils\Generators\Uuid;
+use src\Models\ApplicationContainer;
 
 require_once __DIR__.'/../lib/common.inc.php';
 
@@ -22,7 +23,8 @@ if(isset($_REQUEST['commentTxt'])) {
 }
 
 // check if user is owner of selected power Trail
-if($ptAPI::checkIfUserIsPowerTrailOwner($usr['userid'], $powerTrailId) == 1 || (isset($usr['admin']) && $usr['admin'])) {
+if($ptAPI::checkIfUserIsPowerTrailOwner($usr['userid'], $powerTrailId) == 1 ||
+    ApplicationContainer::isLoggedUserHasRoleOcTeam()) {
     switch ($newStatus) {
         case PowerTrail::STATUS_OPEN: // publish
             $commentType = 3;

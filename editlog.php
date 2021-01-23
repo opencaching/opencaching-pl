@@ -14,6 +14,7 @@ use src\Models\OcConfig\OcConfig;
 use src\Utils\I18n\I18n;
 use src\Models\GeoCache\GeoCacheLogCommons;
 use src\Models\GeoCache\GeoCache;
+use src\Models\ApplicationContainer;
 +
 //prepare the templates and include all neccessary
 require_once(__DIR__.'/lib/common.inc.php');
@@ -54,7 +55,10 @@ if ($error == false) {
             }
 
             //is this log from this user?
-            if (($log_record['user_id'] == $usr['userid'] && ($usr['admin'] || ($log_record['cachestatus'] != 4 && $log_record['cachestatus'] != 6)))) {
+            if (($log_record['user_id'] == $usr['userid'] &&
+                (ApplicationContainer::isLoggedUserHasRoleOcTeam() ||
+                 ($log_record['cachestatus'] != 4 && $log_record['cachestatus'] != 6)))) {
+
                 $tplname = 'editlog';
                 $view->loadJquery();
 
@@ -440,12 +444,14 @@ if ($error == false) {
                                             GeoCacheLogCommons::LOGTYPE_ARCHIVED,
                                             GeoCacheLogCommons::LOGTYPE_TEMPORARYUNAVAILABLE];
                     if (in_array($type,$allowedOnlyForOwner) &&
-                        $log_record['user_id'] != $cache_user_id && !($usr['admin'])) {
+                        $log_record['user_id'] != $cache_user_id &&
+                        !ApplicationContainer::isLoggedUserHasRoleOcTeam()) {
                         continue;
                     }
 
                     // Only COG can write or edit COG comment
-                    if ($type == GeoCacheLogCommons::LOGTYPE_ADMINNOTE && !($usr['admin'])) {
+                    if ($type == GeoCacheLogCommons::LOGTYPE_ADMINNOTE &&
+                        !ApplicationContainer::isLoggedUserHasRoleOcTeam()) {
                         continue;
                     }
 

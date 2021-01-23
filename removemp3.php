@@ -2,6 +2,7 @@
 
 use src\Utils\Database\XDb;
 use src\Models\OcConfig\OcConfig;
+use src\Models\ApplicationContainer;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
@@ -35,7 +36,7 @@ if ($error == false) {
             $localid = $r['id'];
             $url = $r['url'];
 
-            if ($user_id != $usr['userid'] && !$usr['admin'])
+            if ($user_id != $usr['userid'] && !ApplicationContainer::isLoggedUserHasRoleOcTeam())
                 $allok = false;
         }
 

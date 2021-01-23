@@ -74,4 +74,22 @@ final class ApplicationContainer
         return $this->ocConfig;
     }
 
+    /**
+     * NOTE: DO NOT USE THIS FUNCTION IN ANY NEW CONTEXT!!!
+     *
+     * This funtion is only to fix php7.4 issues in legacy code
+     * to easy remove $usr['admin']
+     *
+     * @return bool
+     * @deprecated
+     */
+    public static function isLoggedUserHasRoleOcTeam(): bool
+    {
+        $user = self::GetAuthorizedUser();
+        if ($user) {
+            return $user->hasOcTeamRole();
+        }
+        return FALSE;
+    }
+
 }

@@ -3,6 +3,7 @@
 use src\Utils\Database\XDb;
 use src\Utils\I18n\I18n;
 use src\Models\GeoCache\WaypointCommons;
+use src\Models\ApplicationContainer;
 
 //prepare the templates and include all neccessary
 require_once(__DIR__.'/lib/common.inc.php');
@@ -56,7 +57,7 @@ if ($error == false) {
             }
 
 
-            if ($cache_record['user_id'] == $usr['userid'] || $usr['admin']) {
+            if ($cache_record['user_id'] == $usr['userid'] || ApplicationContainer::isLoggedUserHasRoleOcTeam()) {
 
                 if ($remove == 1) {
                     //remove

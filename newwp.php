@@ -3,6 +3,7 @@
 use src\Models\GeoCache\WaypointCommons;
 use src\Utils\Database\XDb;
 use src\Utils\I18n\I18n;
+use src\Models\ApplicationContainer;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
@@ -66,8 +67,10 @@ if ($error == false) {
                 tpl_set_var("nextstage", "1");
             }
 
-            if ($cache_record['user_id'] == $usr['userid'] || $usr['admin']) {
-                $tplname = 'newwp';
+            if ($cache_record['user_id'] == $usr['userid'] ||
+                ApplicationContainer::isLoggedUserHasRoleOcTeam()) {
+
+                    $tplname = 'newwp';
 
                 require_once(__DIR__.'/src/Views/newcache.inc.php');
 

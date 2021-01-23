@@ -5,6 +5,7 @@ use src\Utils\Generators\Uuid;
 use src\Models\OcConfig\OcConfig;
 use src\Utils\Img\OcImage;
 use src\Models\Pictures\OcPicture;
+use src\Models\ApplicationContainer;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
@@ -68,7 +69,9 @@ if ($error == false) {
                         $allok = false;
                     else {
 
-                        if ($r['user_id'] != $usr['userid'] && !$usr['admin'])
+                        if ($r['user_id'] != $usr['userid'] &&
+                            !ApplicationContainer::isLoggedUserHasRoleOcTeam())
+
                             $allok = false;
 
                         $cacheid = $r['cache_id'];
@@ -100,7 +103,9 @@ if ($error == false) {
                         tpl_set_var('cacheid', $r['cache_id']);
                         tpl_set_var('pictypedesc', $pictypedesc_cache);
 
-                        if ($r['user_id'] != $usr['userid'] && !$usr['admin'])
+                        if ($r['user_id'] != $usr['userid'] &&
+                            !ApplicationContainer::isLoggedUserHasRoleOcTeam())
+
                             $allok = false;
                     }
 

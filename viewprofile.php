@@ -18,6 +18,7 @@ use src\Utils\Text\Formatter;
 use src\Models\Admin\AdminNoteSet;
 use src\Models\User\UserStats;
 use src\Utils\Debug\StopWatch;
+use src\Models\ApplicationContainer;
 
 const ADMINNOTES_PER_PAGE = 10;
 
@@ -170,7 +171,7 @@ if (! $user->isActive()) {
 tpl_set_var('lastloginClass', $user->getLastLoginPeriodClass());
 
 //Admin Note (table only)
-if ($usr['admin']) {
+if (ApplicationContainer::isLoggedUserHasRoleOcTeam()) {
     $content .= '<div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="/images/blue/logs.png" class="icon32" alt="Cog Note" title="Cog Note"> ' . tr('admin_notes') . '</p></div>';
     $content .= '<div class="notice">'.tr('admin_notes_visible').'</div><p><a href="' . SimpleRouter::getLink('Admin.UserAdmin', 'index', $user_id) . '" class="links">'.tr('admin_user_management').' <img src="/images/misc/linkicon.png" alt="user admin"></a></p>';
     $adminNotes = AdminNoteSet::getNotesForUser($user, ADMINNOTES_PER_PAGE);
@@ -757,7 +758,7 @@ if ($user->getHiddenGeocachesCount() == 0) {
 
             // ukrywanie nicka autora komentarza COG przed zwykłym userem
             // (Łza)
-            if (($record_logs['log_type'] == 12) && (!$usr['admin'])) {
+            if (($record_logs['log_type'] == 12) && (!ApplicationContainer::isLoggedUserHasRoleOcTeam())) {
                 $record_logs['user_name'] = 'Centrum Obsługi Geocachera';
                 $record_logs['user_id'] = 0;
             }
@@ -782,7 +783,7 @@ if ($user->getHiddenGeocachesCount() == 0) {
 StopWatch::click(__LINE__);
 
 //  ----------------- begin  owner section  ----------------------------------
-if ($user_id == $usr['userid'] || $usr['admin']) {
+if ($user_id == $usr['userid'] || ApplicationContainer::isLoggedUserHasRoleOcTeam()) {
     $rscheck = XDb::xMultiVariableQueryValue(
         "SELECT count(*) FROM caches
         WHERE (status = 4 OR status = 5 OR status = 6) AND `user_id`= :1", 0, $user_id);

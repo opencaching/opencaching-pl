@@ -5,6 +5,7 @@ use src\Models\GeoCache\GeoCache;
 use src\Utils\I18n\Languages;
 use src\Utils\I18n\I18n;
 use src\Models\OcConfig\OcConfig;
+use src\Models\ApplicationContainer;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
@@ -33,7 +34,8 @@ if ($error == false) {
 
         if ( $cache_record = XDb::xFetchArray($cache_rs)) {
 
-            if ($cache_record['user_id'] == $usr['userid'] || $usr['admin']) {
+            if ($cache_record['user_id'] == $usr['userid'] ||
+                ApplicationContainer::isLoggedUserHasRoleOcTeam()) {
 
                 $desc_rs = XDb::xSql(
                     "SELECT `id`, `uuid` FROM `cache_desc` WHERE `cache_id`= ? AND `language`= ? LIMIT 1", $cache_id, $desclang);

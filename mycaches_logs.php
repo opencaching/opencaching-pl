@@ -3,6 +3,7 @@
 use src\Models\GeoCache\GeoCacheLog;
 use src\Utils\Database\XDb;
 use src\Utils\Text\Formatter;
+use src\Models\ApplicationContainer;
 
 global $usr;
 
@@ -149,7 +150,7 @@ if ($usr == false) {
                     ENT_COMPAT, 'UTF-8').'" onmouseover="Tip(\'';
             // ukrywanie nicka autora komentarza COG
             // Łza
-            if ($log_record['log_type'] == 12 && !$usr['admin']) {
+            if ($log_record['log_type'] == 12 && !ApplicationContainer::isLoggedUserHasRoleOcTeam()) {
                 $log_record['user_name'] = tr('cog_user_name');
                 $log_record['user_id'] = 0;
             }

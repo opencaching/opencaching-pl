@@ -34,6 +34,10 @@ if (php_sapi_name() != "cli") { // this is not neccesarry for command-line scrip
     $error = false;
 
     UserAuthorization::verify();
+    global $usr;
+    if (!is_array($usr)) {
+        $usr = [];
+    }
 
     initTemplateSystem();
     I18n::init();
