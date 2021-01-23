@@ -22,7 +22,7 @@ use src\Utils\Uri\Uri;
  *  this is display file. for API check dir powerTrail
  */
 
-global $usr, $absolute_server_URI;
+global $absolute_server_URI;
 
 require_once(__DIR__ . '/lib/common.inc.php');
 
@@ -65,14 +65,14 @@ $view->loadTimepicker();
 $view->addHeaderChunk('openLayers5');
 
 
-if (!$usr && $hide_coords) {
+if (!$user && $hide_coords) {
     $mapControls = 0;
     tpl_set_var('gpxOptionsTrDisplay', 'none');
 } else {
     $mapControls = 1;
     tpl_set_var('gpxOptionsTrDisplay', 'table-row');
 }
-if (!$usr) {
+if (!$user) {
     tpl_set_var('statsOptionsDisplay', 'display: none;');
 } else {
     tpl_set_var('statsOptionsDisplay', '');
@@ -127,19 +127,20 @@ tpl_set_var('demandPercentMinimum', src\Controllers\PowerTrailController::MINIMU
 tpl_set_var('powerTrailDemandPercent', '100');
 tpl_set_var('leadingUserId', '');
 
-if (!$usr)
+if (!$user){
     tpl_set_var('ptMenu', 'none');
-$ptMenu = new powerTrailMenu($usr);
+}
+$ptMenu = new powerTrailMenu($user);
 tpl_set_var("powerTrailMenu", buildPowerTrailMenu($ptMenu->getPowerTrailsMenu()));
 
 $view->setVar('csWikiLink', OcConfig::getWikiLink('geoPaths'));
 
-$pt = new powerTrailController($usr);
+$pt = new powerTrailController($user);
 $result = $pt->run();
 $actionPerformed = $pt->getActionPerformed();
 switch ($actionPerformed) {
     case 'createNewSerie':
-        if ($usr['userFounds'] >= powerTrailBase::userMinimumCacheFoundToSetNewPowerTrail()) {
+        if ($user->getFoundGeocachesCount() >= powerTrailBase::userMinimumCacheFoundToSetNewPowerTrail()) {
             tpl_set_var('displayCreateNewPowerTrailForm', 'block');
         } else {
             tpl_set_var('displayToLowUserFound', 'block');
@@ -247,19 +248,19 @@ switch ($actionPerformed) {
         $ptOwners = $pt->getPtOwners();
         $_SESSION['ptName'] = powerTrailBase::clearPtNames($powerTrail->getName());
         tpl_set_var('powerTrailId', $powerTrail->getId());
-        if (!$usr && $hide_coords) {
+        if (!$user && $hide_coords) {
             tpl_set_var('mapOuterdiv', 'none');
         } else {
             tpl_set_var('mapOuterdiv', 'block');
         }
 
-        $userIsOwner = empty($user) ? false : $powerTrail->isUserOwner($usr['userid']);
+        $userIsOwner = empty($user) ? false : $powerTrail->isUserOwner($user['userid']);
         if ($powerTrail->getStatus() == 1 || $userIsOwner ||
             ($user !== null && $user->hasOcTeamRole())) {
 
             $ptTypesArr = powerTrailBase::getPowerTrailTypes();
             $ptStatusArr = \src\Controllers\PowerTrailController::getPowerTrailStatus();
-            $foundCachsByUser = empty($user) ? [] : $powerTrail->getFoundCachsByUser($usr['userid']);
+            $foundCachsByUser = empty($user) ? [] : $powerTrail->getFoundCachsByUser($user['userid']);
             $leadingUser = powerTrailBase::getLeadingUser($powerTrail->getId());
             if ($powerTrail->getConquestedCount() > 0) {
                 $removeCacheButtonDisplay = 'none';
@@ -332,7 +333,7 @@ switch ($actionPerformed) {
             tpl_set_var('mapCenterLat', $powerTrail->getCenterCoordinates()->getLatitude());
             tpl_set_var('mapCenterLon', $powerTrail->getCenterCoordinates()->getLongitude());
 
-            if ($usr || !$hide_coords) {
+            if ($user || !$hide_coords) {
                 $mapModel->addMarkersWithExtractor(CacheMarkerModel::class, $powerTrail->getGeocaches()->getArrayCopy(), function ($geocache) use ($user) {
 
                     return CacheMarkerModel::fromGeocacheFactory($geocache, $user);
