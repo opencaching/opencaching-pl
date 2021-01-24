@@ -826,4 +826,9 @@ class GeoCacheLog extends GeoCacheLogCommons
              WHERE id = :3 LIMIT 1', $value, Formatter::dateTimeForSql($this->getLastModified()), $this->getId());
     }
 
+    public static function updateLastModified ($logId)
+    {
+        self::db()->multiVariableQuery(
+            'UPDATE cache_logs SET last_modified = NOW() WHERE id = :1 LIMIT 1', $logId);
+    }
 }

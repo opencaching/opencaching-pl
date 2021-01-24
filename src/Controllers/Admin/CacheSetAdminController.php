@@ -9,6 +9,12 @@ use src\Models\ChunkModels\ListOfCaches\ListOfCachesModel;
 use src\Models\ChunkModels\ListOfCaches\Column_SimpleText;
 use src\Models\ChunkModels\DynamicMap\DynamicMapModel;
 use src\Models\ChunkModels\DynamicMap\CacheSetMarkerModel;
+use src\Models\GeoCache\MultiCacheStats;
+use src\Models\CacheSet\MultiGeopathsStats;
+use src\Models\GeoCache\GeoCache;
+use src\Models\PowerTrail\PowerTrail;
+use src\Controllers\GeoPathController;
+use src\Utils\Debug\Debug;
 
 class CacheSetAdminController extends BaseController
 {
@@ -114,5 +120,71 @@ class CacheSetAdminController extends BaseController
 
         $this->view->buildView();
 
+    }
+
+    public function showDuplicatesInGeopaths()
+    {
+        $this->redirectNotLoggedUsers();
+
+        $this->view->loadJQuery();
+
+        $cacheIds = MultiGeopathsStats::getDuplicatedCachesList();
+        $caches = MultiCacheStats::getGeocachesById($cacheIds);
+
+        usort($caches, function($c1, $c2) {
+            return strcmp($c1->getOwner()->getUserName(), $c2->getOwner()->getUserName());
+        });
+
+        $this->view->setTemplate('cacheSet/duplicatedCachesList');
+        $this->view->setVar('caches', $caches);
+
+        $pts=[];
+        foreach ($cacheIds as $cacheid) {
+            $ptArr = PowerTrail::CheckForPowerTrailByCache($cacheid, TRUE);
+            $pts[$cacheid] = [];
+            foreach ($ptArr as $ptRow) {
+                $pts[$cacheid][] = new PowerTrail(array('dbRow' => $ptRow));
+            }
+        }
+        $this->view->setVar('pts', $pts);
+
+
+        $this->view->buildView();
+    }
+
+    public function removeDuplicatedCachesAjax($gpId, $cacheId) {
+
+        $this->checkUserLoggedAjax();
+
+        if (!is_numeric($gpId) || !is_numeric($cacheId)) {
+            $this->ajaxErrorResponse("Incorrect params");
+        }
+
+        $cache = GeoCache::fromCacheIdFactory($cacheId);
+        if (!$cache) {
+            $this->ajaxErrorResponse("No such geocache: $cacheId");
+        }
+
+        if (!$this->loggedUser->hasOcTeamRole() &&
+            !$cache->getOwnerId() != $this->loggedUser->getUserId()) {
+            $this->ajaxErrorResponse("User is not allowed to remove this geocache from goepath");
+        }
+
+        // check if this cache is on the list of duplicates
+        $cacheIds = MultiGeopathsStats::getDuplicatedCachesList();
+        Debug::dumpToLog($cacheIds);
+        Debug::dumpToLog($cacheId);
+
+        if (!in_array($cacheId, $cacheIds)) {
+            $this->ajaxErrorResponse("This cache is not a duplicate");
+        }
+
+        $gp = CacheSet::fromCacheSetIdFactory($gpId);
+        if (!$gp) {
+            $this->ajaxErrorResponse("No such GP");
+        }
+
+        $gp->removeCache($cache);
+        $this->ajaxSuccessResponse("Cache removed");
     }
 }

@@ -78,7 +78,8 @@ class GeoPathController extends BaseController
         $uploadModel = GeopathLogoUploadModel::forGeopath($geoPathId);
 
         try {
-            $tmpLogoFile = FileUploadMgr::processFileUpload($uploadModel);
+            $tmpLogoFileArr = FileUploadMgr::processFileUpload($uploadModel);
+            $tmpLogoFile = array_shift($tmpLogoFileArr);
         } catch (\RuntimeException $e){
             // some error occured on upload processing
             $this->ajaxErrorResponse($e->getMessage(), 500);
@@ -125,7 +126,7 @@ class GeoPathController extends BaseController
             $this->ajaxErrorResponse("Cache not belong to logged user!", self::HTTP_STATUS_CONFLICT);
         }
 
-        if($cache->isPowerTrailPart()){
+        if($cache->isPowerTrailPart(TRUE)){
             $this->ajaxErrorResponse("Already part of GeoPath", self::HTTP_STATUS_CONFLICT);
         }
 

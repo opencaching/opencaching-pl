@@ -1169,7 +1169,7 @@ $translations = array(
     'qrcode_button' => 'Generieren',
     'qrcode_downloadLabeled' => 'Das QR-Code-Etikett herunterladen',
     'qrcode_downloadQRCodeOnly' => 'Nur den QR-Code herunterladen',
-    'qrcode_appInfo' => 'Eine Übersicht von QR-Code-Reader-Apps zum Download gibt es zum Beispiel <a class="links" href="https://www.heise.de/download/product/qr-code-scanner" target="_blank">HIER</a>.',
+    'qrcode_appInfo' => 'You can find "QR Code reader" applications for various smartphones <a class="links" href="http://www.i-nigma.com/Downloadi-nigmaReader.html" target="_blank">HERE</a>.',
     'error_ort' => 'Ort nicht gefunden',
     'alert_search_by_cachename' => 'Bitte den gesuchten Name eingeben!',
     'alert_search_by_dist_01' => 'Die Längenkoordinate muss numerisch sein. Format: ddd mm.mmm',
@@ -2763,6 +2763,7 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'upload_startUpload' => 'Upload starten',
 
     'pictures_intro' => 'Zulässige Bildformate: {picallowedformats}. Für Fotos wird JPG empfohlen.<br />Maximale Dateigröße: {maxpicsizeMB} MB. Empfohlene Auflösung: {maxpicresolution} Pixel.',
+    'picture_restrictions' => 'Permitted image formats: %s. JPG works best for photos. Maximum allowed size is %d MB.',
 
     'page_error_1' => 'Beim Bearbeiten deiner Anfrage ist ein Fehler aufgetreten.',
     'page_error_2' => 'Die Opencachin-Admins wurden informiert.',
@@ -3029,4 +3030,41 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'gpMyCandidates_offerRefused' => 'Angebot abgelehnt',
 
     'edit_description' => 'Edit description',
+
+    'editCache_fileUploadTitle' => 'Geocache pictures upload',
+
+    'editCache_picsTableOrderTh' => 'Order of pics',
+    'editCache_picsTableOrderThTitle' => 'Pictures will be presented on the geocache page on the same order',
+    'editCache_picsTableImgTh' => 'Thumbnail',
+    'editCache_picsTableImgThTitle' => 'Real thumbnail of the picture',
+    'editCache_picsTableTitleTh' => 'Title',
+    'editCache_picsTableTitleThTitle' => 'Description of the picture',
+    'editCache_picsTableSpoilerTh' => 'Spoiler',
+    'editCache_picsTableSpoilerThTitle' => 'Decide if picture is a spoiler for the geocache',
+    'editCache_picsTableHiddenTh' => 'Hidden',
+    'editCache_picsTableHiddenThTitle' => 'Decide if the picture is not presented on geocache page',
+    'editCache_picsTableRemoveTh' => 'Remove this pic',
+    'editCache_picsTableRemoveThTitle' => 'Remove this picture permanently',
+
+    'editCache_actionInProgress' => 'Action in progress...',
+    'editCache_removePic' => 'Click to remove this picture',
+    'editCache_removePicError' => 'Picture removing problem occured',
+    'editCache_removePicSuccess' => 'Picture has been removed',
+
+    'editCache_spoilerChangeErr' => 'Problem with update spoiler attr. occured',
+    'editCache_spoilerChangeSuccess' => 'Spoiler attr. has been changed',
+
+    'editCache_hiddenChangeErr' => 'Problem with update hidden attr. occured',
+    'editCache_hiddenChangeSuccess' => 'Hidden attr. has been changed',
+
+    'editCache_editPicTitle' => 'Click to edit title of this picture',
+    'editCache_editPicTitleSave' => 'Click to save title value',
+    'editCache_editPicTitleErr' => 'Problem with update title of the picture occured',
+    'editCache_editPicTitleSuccess' => 'Hidden attr. has been changed',
+
+    'editCache_changePicsOrder' => 'Move to change pics order',
+    'editCache_orderPicsSaveErr' => 'Problem with update pics order occured',
+    'editCache_orderPicsSaveSuccess' => 'Pics order has been changed',
+
+
 );

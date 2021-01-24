@@ -3071,6 +3071,5 @@ $translations = array(
     'map_popup_next' => 'Next',
     'map_popup_previous' => 'Previous'
 
-  
-);
 
+);

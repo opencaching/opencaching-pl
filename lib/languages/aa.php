@@ -1169,7 +1169,7 @@ $translations = array(
     'qrcode_button' => 'crwdns6832:0crwdne6832:0',
     'qrcode_downloadLabeled' => 'crwdns6833:0crwdne6833:0',
     'qrcode_downloadQRCodeOnly' => 'crwdns6834:0crwdne6834:0',
-    'qrcode_appInfo' => 'crwdns6835:0crwdne6835:0',
+    'qrcode_appInfo' => 'crwdns27206:0crwdne27206:0',
     'error_ort' => 'crwdns6836:0crwdne6836:0',
     'alert_search_by_cachename' => 'crwdns6837:0crwdne6837:0',
     'alert_search_by_dist_01' => 'crwdns23190:0crwdne23190:0',
@@ -2762,6 +2762,7 @@ $translations = array(
     'upload_startUpload' => 'crwdns12482:0crwdne12482:0',
 
     'pictures_intro' => 'crwdns6374:0{picallowedformats}crwdnd6374:0{maxpicsizeMB}crwdnd6374:0{maxpicresolution}crwdne6374:0',
+    'picture_restrictions' => 'crwdns27208:0%scrwdnd27208:0%dcrwdne27208:0',
 
     'page_error_1' => 'crwdns27006:0crwdne27006:0',
     'page_error_2' => 'crwdns23184:0crwdne23184:0',
@@ -3028,4 +3029,41 @@ $translations = array(
     'gpMyCandidates_offerRefused' => 'crwdns27002:0crwdne27002:0',
 
     'edit_description' => 'crwdns27204:0crwdne27204:0',
+
+    'editCache_fileUploadTitle' => 'crwdns27210:0crwdne27210:0',
+
+    'editCache_picsTableOrderTh' => 'crwdns27212:0crwdne27212:0',
+    'editCache_picsTableOrderThTitle' => 'crwdns27278:0crwdne27278:0',
+    'editCache_picsTableImgTh' => 'crwdns27216:0crwdne27216:0',
+    'editCache_picsTableImgThTitle' => 'crwdns27268:0crwdne27268:0',
+    'editCache_picsTableTitleTh' => 'crwdns27220:0crwdne27220:0',
+    'editCache_picsTableTitleThTitle' => 'crwdns27270:0crwdne27270:0',
+    'editCache_picsTableSpoilerTh' => 'crwdns27224:0crwdne27224:0',
+    'editCache_picsTableSpoilerThTitle' => 'crwdns27272:0crwdne27272:0',
+    'editCache_picsTableHiddenTh' => 'crwdns27228:0crwdne27228:0',
+    'editCache_picsTableHiddenThTitle' => 'crwdns27274:0crwdne27274:0',
+    'editCache_picsTableRemoveTh' => 'crwdns27232:0crwdne27232:0',
+    'editCache_picsTableRemoveThTitle' => 'crwdns27276:0crwdne27276:0',
+
+    'editCache_actionInProgress' => 'crwdns27236:0crwdne27236:0',
+    'editCache_removePic' => 'crwdns27238:0crwdne27238:0',
+    'editCache_removePicError' => 'crwdns27240:0crwdne27240:0',
+    'editCache_removePicSuccess' => 'crwdns27242:0crwdne27242:0',
+
+    'editCache_spoilerChangeErr' => 'crwdns27244:0crwdne27244:0',
+    'editCache_spoilerChangeSuccess' => 'crwdns27246:0crwdne27246:0',
+
+    'editCache_hiddenChangeErr' => 'crwdns27248:0crwdne27248:0',
+    'editCache_hiddenChangeSuccess' => 'crwdns27250:0crwdne27250:0',
+
+    'editCache_editPicTitle' => 'crwdns27252:0crwdne27252:0',
+    'editCache_editPicTitleSave' => 'crwdns27254:0crwdne27254:0',
+    'editCache_editPicTitleErr' => 'crwdns27280:0crwdne27280:0',
+    'editCache_editPicTitleSuccess' => 'crwdns27258:0crwdne27258:0',
+
+    'editCache_changePicsOrder' => 'crwdns27260:0crwdne27260:0',
+    'editCache_orderPicsSaveErr' => 'crwdns27262:0crwdne27262:0',
+    'editCache_orderPicsSaveSuccess' => 'crwdns27264:0crwdne27264:0',
+
+
 );

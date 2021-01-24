@@ -55,7 +55,7 @@ function get_okapi_settings()
         'TILEMAP_FONT_PATH' => $config['okapi']['tilemap_font_path'],
         'IMAGES_DIR' => rtrim(OcConfig::getPicUploadFolder(), '/'),
         'IMAGES_URL' => rtrim((isset($OKAPI_server_URI) ? $OKAPI_server_URI : $absolute_server_URI) . OcConfig::getPicBaseUrl(), '/').'/',
-        'IMAGE_MAX_UPLOAD_SIZE' => $config['limits']['image']['filesize'] * 1024 * 1024,
+        'IMAGE_MAX_UPLOAD_SIZE' => OcConfig::getPicMaxSize() * 1024 * 1024,
         'IMAGE_MAX_PIXEL_COUNT' => $config['limits']['image']['height'] * $config['limits']['image']['width'],
         'OC_NODE_ID' => OcConfig::getSiteNodeId(),
         'OC_COOKIE_NAME' => $config['cookie']['name'].'_auth',

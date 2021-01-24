@@ -15,16 +15,13 @@ jQuery(function($) {
   $('.Badge-pie-progress-small').asPieProgress({
     namespace: 'pie_progress'
   });
-
   $('.pie_progress').asPieProgress('start');
-
 });
-
 </script>
 
 <script src="/js/wz_tooltip.js"></script>
-<script>
 
+<script>
     function ajaxGetFTF() {
         $('#showFtfBtn').hide();
         $('#commentsLoader').show();
@@ -59,9 +56,7 @@ jQuery(function($) {
         });
     }
 </script>
-<style>
 
-</style>
 <!--    CONTENT -->
 <div class="content2-container">
   <?php $view->callChunk('infoBar', '', $view->infoMsg, $view->errorMsg ); ?>

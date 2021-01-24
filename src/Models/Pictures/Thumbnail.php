@@ -90,6 +90,8 @@ class Thumbnail extends BaseObject
      * @param string $orginalImagePath
      * @param string $uuid
      * @param SIZE_* $thumbSize
+     *
+     * @return URL to generated thumbnail
      */
     public static function generateThumbnail($orginalImagePath, $uuid, $thumbSize, $isSpoiler)
     {

@@ -1165,11 +1165,11 @@ $translations = array(
     'report_problem_notice' => 'Możesz zgłosić problem związany ze skrzynką do właściciela skrzynki lub do Zespołu OC PL np. uwagę do lokalizacji wykorzystując formularz',
     'qrcode_title' => 'Generator etykietek z QR Code',
     'qrcode_desc' => 'Etykietkę z <a class="links" href="https://pl.wikipedia.org/wiki/Kod_QR" target="_blank">QR Code</a> (zalaminowaną lub w woreczku strunowym lub jako naklejkę) możesz użyć do zapisania krótkiej wskazówki max 77 znaków, współrzędnych następnego etapu multicache, hasła do logu itp. Do odczytania kodu użyj czytnika zainstalowanego np. w telefonie komórkowym.',
-    'qrcode_textLabel' => 'Dane w QR Code',
+    'qrcode_textLabel' => 'Tekst w QR Code',
     'qrcode_button' => 'Generuj',
     'qrcode_downloadLabeled' => 'Pobierz tę etykietkę',
     'qrcode_downloadQRCodeOnly' => 'Pobierz wyłącznie czysty QR Code',
-    'qrcode_appInfo' => '<a class="links" href="http://www.i-nigma.com/Downloadi-nigmaReader.html" target="_blank">Tu znajdziesz czytnik QR Code dla różnych telefonów</a>',
+    'qrcode_appInfo' => 'Możesz znaleźć czytnik kodów QR dla różnych smartfonów np. <a class="links" href="http://www.i-nigma.com/Downloadi-nigmaReader.html" target="_blank">TUTAJ</a>.',
     'error_ort' => 'Nie znaleziono wskazanego miejsca',
     'alert_search_by_cachename' => 'Proszę w polu nazwa wprowadzić wartość!',
     'alert_search_by_dist_01' => 'Stopnie długości geograficznej muszą być cyfrą! Format: hh° mm.mmm',
@@ -1981,7 +1981,7 @@ $translations = array(
     'attribute_135' => 'GPS nie jest wymagany',
     'attribute_137' => 'Konieczny nocleg',
     'attribute_142' => 'Niedostępna podczas przypływu',
-    'attribute_143' => 'Nature preserve / Breeding season',
+    'attribute_143' => 'Rezerwat przyrody / okres lęgowy',
     'attribute_147' => 'Potrzebny kompas',
     'attribute_150' => 'Konieczny sprzęt speleologiczny',
     'attribute_153' => 'Wymagany samolot',
@@ -1997,7 +1997,7 @@ $translations = array(
     'attribute_206' => 'Pojemnik umieszczony w oddaleniu od podanych współrzędnych',
     'attribute_207' => 'Dead Drop USB skrzynka',
     'attribute_208' => 'Benchmark - punkt geodezyjny',
-    'attribute_209' => 'Wherigo cartridge to play',
+    'attribute_209' => 'Zawiera kartridż zabawy WHERIGO',
     'attribute_210' => 'Ukryte na łonie natury',
     'attribute_211' => 'Pomnik lub miejsce historyczne',
     'attribute_212' => 'Wymagana łopatka',
@@ -2007,7 +2007,7 @@ $translations = array(
     'attribute_216' => 'Zawiera reklamę',
     'attribute_217' => 'Wojskowy obszar, niektóre ograniczenia dostępu - sprawdź przed wizytą',
     'attribute_218' => 'Zachowaj ostrożność, obszar pod nadzorem wideo',
-    'attribute_219' => 'Suitable to hold trackables',
+    'attribute_219' => 'Odpowiedni by zawierać geokrety',
     'attribute_220' => 'Oficjalny zabytek historyczny',
     'attribute_999' => 'Hasło do logu',
 // END Attributes
@@ -2762,6 +2762,7 @@ $translations = array(
     'upload_startUpload' => 'Rozpocznij przesyłanie',
 
     'pictures_intro' => 'Akceptowane formaty: {picallowedformats} - dla zdjęć rekomendowany format JPG .<br />Maksymalna dozwolona wielkość pliku {maxpicsizeMB} MB. Zalecane wymiary obrazków: {maxpicresolution} pikseli. <br />Po potwierdzeniu przetwarzanie może potrwać dłuższą chwilę.',
+    'picture_restrictions' => 'Dozwolone formaty obrazków: %s. Sugerowany format: JPG. Maksymalny rozmiar obrazka %d MB.',
 
     'page_error_1' => 'Wystąpił błąd podczas przetwarzania żądania.',
     'page_error_2' => 'Administratorzy systemu zostali o nim powiadomieni.',
@@ -3028,4 +3029,41 @@ $translations = array(
     'gpMyCandidates_offerRefused' => 'Oferta odrzucona',
 
     'edit_description' => 'Edycja opisu',
+
+    'editCache_fileUploadTitle' => 'Wysyłanie obrazków',
+
+    'editCache_picsTableOrderTh' => 'Kolejność obrazków',
+    'editCache_picsTableOrderThTitle' => 'Obrazki będą prezentowane na stronie skrzynki w tej samej kolejności',
+    'editCache_picsTableImgTh' => 'Miniaturka',
+    'editCache_picsTableImgThTitle' => 'Miniaturka obrazka',
+    'editCache_picsTableTitleTh' => 'Tytuł',
+    'editCache_picsTableTitleThTitle' => 'Opis obrazka wyświetlany na stronie skrzynki',
+    'editCache_picsTableSpoilerTh' => 'Spoiler',
+    'editCache_picsTableSpoilerThTitle' => 'Spoiler - czy obrazek zawiera opcjonalną podpowiedź dla szukających',
+    'editCache_picsTableHiddenTh' => 'Ukryty',
+    'editCache_picsTableHiddenThTitle' => 'Ukryty - czy obrazek nie jest prezentowany na stronie skrzynki',
+    'editCache_picsTableRemoveTh' => 'Usuwanie',
+    'editCache_picsTableRemoveThTitle' => 'Bezpowrotne usuwanie obrazków',
+
+    'editCache_actionInProgress' => 'Oczekiwanie na zakończenie akcji',
+    'editCache_removePic' => 'Kliknij aby usunąć obrazek',
+    'editCache_removePicError' => 'Wystąpił problem z usunięciem tego obrazka',
+    'editCache_removePicSuccess' => 'Obrazek został usunięty',
+
+    'editCache_spoilerChangeErr' => 'Wystąpił problem ze zmianą parametru: spoiler',
+    'editCache_spoilerChangeSuccess' => 'Parametr _spoiler_ został zmieniony',
+
+    'editCache_hiddenChangeErr' => 'Wystąpił problem ze zmianą parametru: ukryty',
+    'editCache_hiddenChangeSuccess' => 'Parametr _ukryty_ został zmieniony',
+
+    'editCache_editPicTitle' => 'Kliknij by edytować tytuł obrazka',
+    'editCache_editPicTitleSave' => 'Kliknij by zapisać tytuł obrazka',
+    'editCache_editPicTitleErr' => 'Wystąpił problem ze zmianą tytułu obrazka',
+    'editCache_editPicTitleSuccess' => 'Atrybut _ukryty_ został zmieniony',
+
+    'editCache_changePicsOrder' => 'Przesuń by zmienić kolejność obrazków',
+    'editCache_orderPicsSaveErr' => 'Wystąpił problem ze zmianą kolejności obrazków',
+    'editCache_orderPicsSaveSuccess' => 'Kolejność obrazków została zmieniona',
+
+
 );

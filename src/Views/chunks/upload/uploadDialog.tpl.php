@@ -7,7 +7,7 @@
   {{/if}}
 
   {{#if dialog.preWarning}}
-  <div class="callout callout-warning">{{dialog.preWarning}}</div>
+  <div class="callout callout-warning">{{{dialog.preWarning}}}</div>
   {{/if}}
 
   {{#if dialog.preInfo}}

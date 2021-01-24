@@ -1169,7 +1169,7 @@ $translations = array(
     'qrcode_button' => 'Genereer',
     'qrcode_downloadLabeled' => 'Download deze QR Code met label',
     'qrcode_downloadQRCodeOnly' => 'Download alleen de QR Code',
-    'qrcode_appInfo' => 'Hier kan een QR Code lezer <a class="links" href="http://www.i-nigma.com/Downloadi-nigmaReader.html" target="_blank">gedownload</a> worden.',
+    'qrcode_appInfo' => 'Hier kan een QR Code lezer voor verschillende smartphones <a class="links" href="http://www.i-nigma.com/Downloadi-nigmaReader.html" target="_blank">gedownload</a> worden.',
     'error_ort' => 'Opgegeven locatie niet gevonden',
     'alert_search_by_cachename' => 'Vul naam van de cache in',
     'alert_search_by_dist_01' => 'Lengtegraad moeten cijfers zijn in formaat: ggg° mm.mmm',
@@ -2762,6 +2762,7 @@ $translations = array(
     'upload_startUpload' => 'Beginnen met uploaden',
 
     'pictures_intro' => 'Toegestane formaten: {picallowedformats}. JPG is het beste voor foto’s.<br />Maximum grootte {maxpicsizeMB} MB. Aanbevolen resolutie: {maxpicresolution} pixels.',
+    'picture_restrictions' => 'Toegestane afbeeldingsformaten: %s. JPG werkt het beste voor foto\'s. Maximaal toegestane grootte is %d MB.',
 
     'page_error_1' => 'Er is een fout opgetreden tijdens het verwerken van het verzoek.',
     'page_error_2' => 'De admins van OC zijn op de hoogte gebracht.',
@@ -3028,5 +3029,41 @@ $translations = array(
     'gpMyCandidates_offerRefused' => 'Aanbod geweigerd',
 
     'edit_description' => 'Bewerk beschrijving',
+
+    'editCache_fileUploadTitle' => 'Geocache afbeeldingen uploaden',
+
+    'editCache_picsTableOrderTh' => 'Volgorde',
+    'editCache_picsTableOrderThTitle' => 'Afbeeldingen worden op de cache pagina in dezelfde volgorde getoond',
+    'editCache_picsTableImgTh' => 'Miniatuur',
+    'editCache_picsTableImgThTitle' => 'Miniatuur van de afbeelding',
+    'editCache_picsTableTitleTh' => 'Titel',
+    'editCache_picsTableTitleThTitle' => 'Beschrijving van de afbeelding',
+    'editCache_picsTableSpoilerTh' => 'Spoiler',
+    'editCache_picsTableSpoilerThTitle' => 'Bepaal of afbeelding een spoiler is voor de cache',
+    'editCache_picsTableHiddenTh' => 'Verborgen',
+    'editCache_picsTableHiddenThTitle' => 'Bepaal of de afbeelding niet getoond wordt op geocache pagina',
+    'editCache_picsTableRemoveTh' => 'Verwijder foto',
+    'editCache_picsTableRemoveThTitle' => 'Verwijder deze afbeelding permanent',
+
+    'editCache_actionInProgress' => 'Actie in uitvoering...',
+    'editCache_removePic' => 'Klik om deze afbeelding te verwijderen',
+    'editCache_removePicError' => 'Fout bij het verwijderen van afbeelding',
+    'editCache_removePicSuccess' => 'Afbeelding is verwijderd',
+
+    'editCache_spoilerChangeErr' => 'Probleem met update spoiler attr. opgetreden',
+    'editCache_spoilerChangeSuccess' => 'Spoiler attr. is veranderd',
+
+    'editCache_hiddenChangeErr' => 'Probleem met update verborgen attr. opgetreden',
+    'editCache_hiddenChangeSuccess' => 'Verborgen attr. is veranderd',
+
+    'editCache_editPicTitle' => 'Klik om de titel van de foto te bewerken',
+    'editCache_editPicTitleSave' => 'Klik om titel op te slaan',
+    'editCache_editPicTitleErr' => 'Probleem met de titel van de afbeelding',
+    'editCache_editPicTitleSuccess' => 'Verborgen attr. is veranderd',
+
+    'editCache_changePicsOrder' => 'Verplaats om de volgorde wijzigen',
+    'editCache_orderPicsSaveErr' => 'Probleem met de weergavevolgorde opgetreden',
+    'editCache_orderPicsSaveSuccess' => 'Volgorde foto\'s is gewijzigd',
+
 
 );
