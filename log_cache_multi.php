@@ -1,6 +1,7 @@
 <?php
 
 use src\Utils\Database\XDb;
+use src\Models\ApplicationContainer;
 if (isset($_POST['submitDownloadGpx'])) {
     $fd = "";
     $fd .= "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n";
@@ -94,9 +95,12 @@ if (isset($_POST['submitDownloadGpx'])) {
 require_once (__DIR__.'/lib/common.inc.php');
 
 $no_tpl_build = false;
-if ($usr == false || (!isset($_FILES['userfile']) && !isset($_SESSION['log_cache_multi_data']))) {
+$loggedUser = ApplicationContainer::GetAuthorizedUser();
+
+if (!$loggedUser || (!isset($_FILES['userfile']) && !isset($_SESSION['log_cache_multi_data']))) {
     tpl_redirect('log_cache_multi_send.php');
-} else {
+    exit;
+}
 
     $tplname = 'log_cache_multi';
     $myHtml = "";
@@ -251,7 +255,7 @@ if ($usr == false || (!isset($_FILES['userfile']) && !isset($_SESSION['log_cache
                         GROUP BY cache_id
                     ) as x
                     INNER JOIN `cache_logs` as c ON c.cache_id = x.cache_id
-                        AND c.date = x.date", $usr['userid']);
+                        AND c.date = x.date", $loggedUser->getUserId());
 
             while ($record = XDb::xFetchArray($rs)) {
 
@@ -341,7 +345,7 @@ if ($usr == false || (!isset($_FILES['userfile']) && !isset($_SESSION['log_cache
     tpl_set_var('filter_from', date("d-m-Y H:i", $filter_from));
     tpl_set_var('filter_to', date("d-m-Y H:i", $filter_to));
     tpl_set_var('log_cache_multi_html', $myHtml);
-} // EOF user logged i jest plik
+
 
 if ($no_tpl_build == false) {
     //make the template and send it out

@@ -25,8 +25,9 @@ require(__DIR__ . '/src/Views/lib/icons.inc.php');
 require(__DIR__ . '/src/Views/viewcache.inc.php');
 require(__DIR__ . '/src/Views/viewlogs.inc.php');
 
-global $usr;
-$view->setVar('isUserAuthorized', $usr != false);
+$loggedUser = ApplicationContainer::GetAuthorizedUser();
+
+$view->setVar('isUserAuthorized', is_object($loggedUser));
 
 $cache_id = 0;
 if (isset($_REQUEST['cacheid'])) {
@@ -54,7 +55,7 @@ if (isset($_REQUEST['count'])) {
     }
 }
 
-if ($usr == false && $hide_coords) {
+if (!$loggedUser && $hide_coords) {
     $disable_spoiler_view = true; //hide any kind of spoiler if usr not logged in
 } else {
     $disable_spoiler_view = false;
@@ -73,7 +74,7 @@ if ($cache_id != 0) {
         $cache_record = $dbc->dbResultFetchOneRowOnly($s);
         // check if the cache is published, if not only the owner is allowed to view the log
         if (($cache_record['status'] == 4 || $cache_record['status'] == 5 || $cache_record['status'] == 6) &&
-            ($cache_record['user_id'] != $usr['userid'] && !ApplicationContainer::isLoggedUserHasRoleOcTeam())) {
+            ($loggedUser && $cache_record['user_id'] != $loggedUser->getUserId() && !$loggedUser->hasOcTeamRole())) {
             $cache_id = 0;
         }
     }
@@ -95,7 +96,7 @@ if ($cache_id != 0) {
         $cache_record = $dbc->dbResultFetchOneRowOnly($s);
         // check if the cache is published, if not only the owner is allowed to view the log
         if (($cache_record['status'] == 4 || $cache_record['status'] == 5 || $cache_record['status'] == 6) &&
-            ($cache_record['user_id'] != $usr['userid'] && !ApplicationContainer::isLoggedUserHasRoleOcTeam())) {
+            ($loggedUser && $cache_record['user_id'] != $loggedUser->getUserId() && !$loggedUser->hasOcTeamRole())) {
             $cache_id = 0;
         } else {
             $cache_id = $cache_record['cache_id'];
@@ -110,7 +111,7 @@ if ($cache_id != 0) {
         if (!isset($dbc)) {
             $dbc = OcDb::instance();
         }
-        $user_id = $usr !== false ? $usr['userid'] : null;
+        $user_id = $loggedUser->getUserId() ?? null;
         $access_log = @$_SESSION['CACHE_ACCESS_LOG_VL_' . $user_id];
         if ($access_log === null) {
             $_SESSION['CACHE_ACCESS_LOG_VL_' . $user_id] = array();
@@ -169,7 +170,7 @@ if ($cache_id != 0) {
     } else if (isset($_SESSION["showdel"])) {
         $showDel = $_SESSION["showdel"];
     }
-    if (ApplicationContainer::isLoggedUserHasRoleOcTeam() || $logid) {
+    if (($loggedUser && $loggedUser->hasOcTeamRole()) || $logid) {
         $showhidedel_link = ""; //no need to hide/show deletion icon for COG (they always see deletions) or this is single log call
     } else {
         $del_count = $dbc->multiVariableQueryValue("SELECT count(*) number FROM `cache_logs` WHERE `deleted`=1 and `cache_id`=:1", 0, $cache_id);
@@ -190,7 +191,7 @@ if ($cache_id != 0) {
 
     isset($showDel) && $showDel == 'y' ? $HideDeleted = false : $HideDeleted = true;
     $includeDeletedLogs = true;
-    If (($HideDeleted && !$logid && !ApplicationContainer::isLoggedUserHasRoleOcTeam())) {
+    If (($HideDeleted && !$logid && !($loggedUser && $loggedUser->hasOcTeamRole()))) {
         //hide deletions if (hide_deletions opotions is on and this is single_log call=not and user is not COG)
         $includeDeletedLogs = false;
     }
@@ -217,7 +218,7 @@ if ($cache_id != 0) {
         $show_deleted = "";
         $processed_text = "";
         if (isset($record['deleted']) && $record['deleted']) {
-            if (ApplicationContainer::isLoggedUserHasRoleOcTeam()) {
+            if ($loggedUser && $loggedUser->hasOcTeamRole()) {
                 $show_deleted = "show_deleted";
                 $processed_text = $record['text'];
                 $processed_text .= "[" . tr('vl_Record_deleted');
@@ -234,11 +235,11 @@ if ($cache_id != 0) {
                 // for 'Needs maintenance', 'Ready to search' and 'Temporarly unavailable' log types
                 if ($record['type'] == 5 || $record['type'] == 10 || $record['type'] == 11) {
                     // hide if user is not logged in
-                    if (!isset($usr)) {
+                    if (!$loggedUser) {
                         continue;
                     }
                     // hide if user is neither a geocache owner nor log author
-                    if ($owner_id != $usr['userid'] && $record['userid'] != $usr['userid']) {
+                    if ($owner_id != $loggedUser->getUserId() && $record['userid'] != $loggedUser->getUserId()) {
                         continue;
                     }
                 }
@@ -277,7 +278,7 @@ if ($cache_id != 0) {
             //check if editted at all
             $edit_footer = "<div><small>" . tr('vl_Recently_modified_on') . " " . TextConverter::fixPlMonth(htmlspecialchars(
                     strftime($GLOBALS['config']['datetimeformat'], strtotime($record['last_modified'])), ENT_COMPAT, 'UTF-8'));
-            if (!ApplicationContainer::isLoggedUserHasRoleOcTeam() &&
+            if (!($loggedUser && $loggedUser->hasOcTeamRole()) &&
                 $record['edit_by_admin'] == true && $record['type'] == 12) {
 
                 $edit_footer .= " " . tr('vl_by_COG');
@@ -315,7 +316,7 @@ if ($cache_id != 0) {
         }
 
         // hide nick of athor of COG(OC Team) for user
-        if ($record['type'] == 12 && !ApplicationContainer::isLoggedUserHasRoleOcTeam()) {
+        if ($record['type'] == 12 && !($loggedUser && $loggedUser->hasOcTeamRole())) {
             $record['userid'] = '0';
             $tmplog_username_aktywnosc = '';
             $tmplog_username = tr('cog_user_name');
@@ -340,11 +341,9 @@ if ($cache_id != 0) {
 
         $tmplog_text = $processed_text . $edit_footer;
 
-        $logClasses =
-            !empty($logfilterConfig['mark_currentuser_logs'])
-            && $record['userid'] == $usr['userid']
-                ? " currentuser-log"
-                : "";
+        $logClasses = (!empty($logfilterConfig['mark_currentuser_logs']) && $loggedUser &&
+            $record['userid'] == $loggedUser->getUserId()) ? " currentuser-log" : "";
+
         $tmplog = mb_ereg_replace('{log_classes}', $logClasses, $tmplog);
 
         $filterable = "";
@@ -352,7 +351,7 @@ if ($cache_id != 0) {
             $filterable = ':' . $record['type'] . ':';
             if ($record['userid'] == 0) {
                 $filterable .= 'octeam';
-            } else if ($record['userid'] == $usr['userid']) {
+            } else if ($loggedUser && $record['userid'] == $loggedUser->getUserId()) {
                 $filterable .= 'current';
             } else if ($record['userid'] == $owner_id) {
                 $filterable .= 'owner';
@@ -386,19 +385,19 @@ if ($cache_id != 0) {
             $record['deleted'] = false;
         }
         if ($record['deleted'] != 1) {
-            if ($record['user_id'] == $usr['userid'] && ($record['type'] != 12 ||
-                ApplicationContainer::isLoggedUserHasRoleOcTeam())) {
+            if ($loggedUser && $record['user_id'] == $loggedUser->getUserId() && ($record['type'] != 12 ||
+                ($loggedUser && $loggedUser->hasOcTeamRole()))) {
 
                 // User is author of log. Can edit, remove and add pictures. If it is OC Team log - user MUST be ACTIVE admin AND owner of this log
                 $logfunctions = $functions_start . $tmpedit . $functions_middle . $tmpremove . $functions_middle . $tmpnewpic . $functions_end;
-            } elseif ($owner_id == $usr['userid'] && $record['type'] != 12) {
+            } elseif ($loggedUser && $owner_id == $loggedUser->getUserId() && $record['type'] != 12) {
                 // Cacheowner can only delete logs. Except of OC Team log.
                 $logfunctions = $functions_start . $tmpremove . $functions_end;
-            } elseif (ApplicationContainer::isLoggedUserHasRoleOcTeam()) {
+            } elseif ($loggedUser && $loggedUser->hasOcTeamRole()) {
                 // Active admin can remove any log. But not edit or add photos.
                 $logfunctions = $functions_start . $tmpremove . $functions_end;
             }
-        } else if (ApplicationContainer::isLoggedUserHasRoleOcTeam()) {
+        } else if ($loggedUser && $loggedUser->hasOcTeamRole()) {
             $logfunctions = $functions_start . $tmpRevert . $functions_end;
         }
 
@@ -406,7 +405,7 @@ if ($cache_id != 0) {
 
         // pictures
         if (($record['picturescount'] > 0) && (($record['deleted'] == false) ||
-            (ApplicationContainer::isLoggedUserHasRoleOcTeam()))) {
+            ($loggedUser && $loggedUser->hasOcTeamRole()))) {
             // show pictures if (any added) and ((not deleted) or (user is admin))
 
             $logpicturelines = '';
@@ -444,7 +443,7 @@ if ($cache_id != 0) {
 
                 $thisline = mb_ereg_replace('{title}', htmlspecialchars($pic_record['title'], ENT_COMPAT, 'UTF-8'), $thisline);
 
-                if ($pic_record['user_id'] == $usr['userid'] || ApplicationContainer::isLoggedUserHasRoleOcTeam()) {
+                if ($loggedUser && ($pic_record['user_id'] == $loggedUser->getUserId() || $loggedUser->hasOcTeamRole())) {
 
                     $thisfunctions =
                         '<span class="removepic">

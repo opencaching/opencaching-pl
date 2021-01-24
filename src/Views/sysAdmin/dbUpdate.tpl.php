@@ -123,8 +123,12 @@ use src\Utils\Uri\SimpleRouter;
             </td>
             <td style="white-space: nowrap">{{admin_dbupdate_auto}}</td>
             <td>
+                <?php if (is_array($lastRun)) { ?>
                 <?= substr(Formatter::dateTime($lastRun['runTime']), 0, 10) ?>&nbsp;
                 <?= substr(Formatter::dateTime($lastRun['runTime']), 11, 5) ?>
+                <?php } else { // if (is_array($lastRun)) ?>
+                  -?-
+                <?php } // if (is_array($lastRun)) ?>
             </td>
             <td>
                 [<a href="<?= SimpleRouter::getLink('Admin.DbUpdate', 'run', $name) ?>">run</a>]

@@ -143,7 +143,7 @@ if (!$loggedUser) {
         while ($log_record = XDb::xFetchArray($rs)) {
 
             //hide log type "COG comment" behind 'ordinary' users, displya all logs for admins
-            if (!(($log_record['log_type'] == 12) && (!ApplicationContainer::isLoggedUserHasRoleOcTeam()))) {
+            if (!(($log_record['log_type'] == 12) && (!$loggedUser->hasOcTeamRole()))) {
                 $file_content .= '<tr>';
                 $file_content .= '<td style="width: 70px;">'.htmlspecialchars(
                     Formatter::date($log_record['log_date']), ENT_COMPAT, 'UTF-8'

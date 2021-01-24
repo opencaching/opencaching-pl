@@ -53,7 +53,8 @@ if (isset($_REQUEST['region'])) {
             while( $line = XDb::xFetchArray($r) ) {
                 $color = "black";
                 $banned = "";
-                if (ApplicationContainer::isLoggedUserHasRoleOcTeam() || $line['stat_ban'] == 0) {
+                $loggedUser = ApplicationContainer::GetAuthorizedUser();
+                if (($loggedUser && $loggedUser->hasOcTeamRole()) || $line['stat_ban'] == 0) {
                     if ($line['stat_ban']) {
                         $color = "gray";
                         $banned = " (BAN)";

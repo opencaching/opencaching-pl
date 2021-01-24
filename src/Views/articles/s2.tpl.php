@@ -113,7 +113,8 @@ $cachelogscount = XDb::xSimpleQueryValue(
     foreach ($lines as $line) {
         $color = "black";
         $banned = "";
-        if (ApplicationContainer::isLoggedUserHasRoleOcTeam() || $line['stat_ban'] == 0) {
+        $loggedUser = ApplicationContainer::GetAuthorizedUser();
+        if (($loggedUser && $loggedUser->hasOcTeamRole()) || $line['stat_ban'] == 0) {
             if ($line['stat_ban']) {
                 $color = "gray";
                 $banned = " (BAN)";

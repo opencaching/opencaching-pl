@@ -63,19 +63,21 @@ function build_drop_seq($item_row, $selected_seq, $max_drop, $thisid, $drop_type
     };
 }
 
-//Preprocessing
-if ($error == false) {
-    //cacheid
-    $cache_id = 0;
-    if (isset($_REQUEST['cacheid'])) {
-        $cache_id = (int) $_REQUEST['cacheid'];
-    }
+//cacheid
+$cache_id = 0;
+if (isset($_REQUEST['cacheid'])) {
+    $cache_id = (int) $_REQUEST['cacheid'];
+}
 
-    //user logged in?
-    if ($usr == false) {
-        $target = urlencode(tpl_get_current_page());
-        tpl_redirect('login.php?target=' . $target);
-    } else {
+//user logged in?
+$loggedUser = ApplicationContainer::GetAuthorizedUser();
+if (!$loggedUser) {
+    $target = urlencode(tpl_get_current_page());
+    tpl_redirect('login.php?target=' . $target);
+    exit;
+}
+
+
         $dbc = OcDb::instance();
         $thatquery =
             "SELECT user_id, name, picturescount, mp3count, type, size, date_hidden, date_activate, date_created, longitude, latitude,
@@ -93,7 +95,7 @@ if ($error == false) {
 
         if ($cache_record = $dbc->dbResultFetch($s)) {
 
-            if ($cache_record['user_id'] == $usr['userid'] || ApplicationContainer::isLoggedUserHasRoleOcTeam()) {
+            if ($cache_record['user_id'] == $loggedUser->getUserId() || $loggedUser->hasOcTeamRole()) {
 
                 // from deleted editcache.inc.php:
                 $submit = 'Zapisz';
@@ -144,7 +146,7 @@ if ($error == false) {
                 if (isset($_POST['type'])) {
                     if (( ($_POST['type'] == GeoCache::TYPE_VIRTUAL && $cache_record['type'] != GeoCache::TYPE_VIRTUAL ) ||
                             ($_POST['type'] == GeoCache::TYPE_WEBCAM && $cache_record['type'] != GeoCache::TYPE_WEBCAM ) ) &&
-                            !ApplicationContainer::isLoggedUserHasRoleOcTeam()) {
+                            !$loggedUser->hasOcTeamRole()) {
                         $_POST['type'] = $cache_record['type'];
                     }
                 }
@@ -277,7 +279,7 @@ if ($error == false) {
                 if ($allow_pw) {
                     $log_pw = isset($_POST['log_pw']) ? mb_substr($_POST['log_pw'], 0, 20) : $cache_record['logpw'];
                     // don't display log password for admins
-                    if ($cache_record['user_id'] == $usr['userid']) {
+                    if ($cache_record['user_id'] == $loggedUser->getUserId()) {
                         tpl_set_var('logpw_start', '');
                         tpl_set_var('logpw_end', '');
                     } else {
@@ -504,7 +506,7 @@ if ($error == false) {
                 if (isset($_POST['submit'])) {
                     //prevent un archiving cache by non-admin users
                     if ($status_old == GeoCache::STATUS_ARCHIVED &&
-                       !ApplicationContainer::isLoggedUserHasRoleOcTeam() &&
+                        !$loggedUser->hasOcTeamRole() &&
                         $status!=GeoCache::STATUS_ARCHIVED) {
 
                         $status_not_ok = true;
@@ -612,7 +614,7 @@ if ($error == false) {
                                 // generate automatic log about status cache
                                 GeoCacheLog::newLog(
                                     $cache->getCacheId(),
-                                    $usr['userid'],
+                                    $loggedUser->getUserId(),
                                     GeoCacheLog::LOGTYPE_TEMPORARYUNAVAILABLE,
                                     tr(GeoCacheLog::translationKey4CacheStatus(GeoCache::STATUS_UNAVAILABLE)));
                         }
@@ -622,7 +624,7 @@ if ($error == false) {
                                 // generate automatic log about status cache
                                 GeoCacheLog::newLog(
                                     $cache->getCacheId(),
-                                    $usr['userid'],
+                                    $loggedUser->getUserId(),
                                     GeoCacheLog::LOGTYPE_ARCHIVED,
                                     tr(GeoCacheLog::translationKey4CacheStatus(GeoCache::STATUS_ARCHIVED)));
                         }
@@ -632,7 +634,7 @@ if ($error == false) {
                                 // generate automatic log about status cache
                                 GeoCacheLog::newLog(
                                     $cache->getCacheId(),
-                                    $usr['userid'],
+                                    $loggedUser->getUserId(),
                                     GeoCacheLog::LOGTYPE_READYTOSEARCH,
                                     tr(GeoCacheLog::translationKey4CacheStatus(GeoCache::STATUS_READY)));
                         }
@@ -642,7 +644,7 @@ if ($error == false) {
                                 // generate automatic log about status cache
                                 GeoCacheLog::newLog(
                                     $cache->getCacheId(),
-                                    $usr['userid'],
+                                    $loggedUser->getUserId(),
                                     GeoCacheLog::LOGTYPE_ADMINNOTE,
                                     tr(GeoCacheLog::translationKey4CacheStatus(GeoCache::STATUS_BLOCKED)));
                         }
@@ -745,7 +747,7 @@ if ($error == false) {
                 }
                 tpl_set_var('terrainoptions', $terrain_options);
 
-                $cacheLimitByTypePerUser = GeoCache::getUserActiveCachesCountByType($usr['userid']);
+                $cacheLimitByTypePerUser = GeoCache::getUserActiveCachesCountByType($loggedUser->getUserId());
 
                 //build typeoptions
                 $types = '';
@@ -753,18 +755,18 @@ if ($error == false) {
 
                     // blockforbidden cache types
                     if (($type != $cache_type) && in_array($type, OcConfig::getNoNewCacheOfTypesArray()) &&
-                        !ApplicationContainer::isLoggedUserHasRoleOcTeam()) {
+                        !$loggedUser->hasOcTeamRole()) {
                         continue;
                     }
                     if (isset($config['cacheLimitByTypePerUser'][$cache_type]) &&
                         $cacheLimitByTypePerUser[$cache_type] >= $config['cacheLimitByTypePerUser'][$cache_type] &&
-                        !ApplicationContainer::isLoggedUserHasRoleOcTeam()) {
+                        !$loggedUser->hasOcTeamRole()) {
                         continue;
                     }
                     if (isset($cacheLimitByTypePerUser[$type]) &&
                         isset($config['cacheLimitByTypePerUser'][$type]) &&
                         $cacheLimitByTypePerUser[$type] >= $config['cacheLimitByTypePerUser'][$type] &&
-                        !ApplicationContainer::isLoggedUserHasRoleOcTeam()) {
+                        !$loggedUser->hasOcTeamRole()) {
                         continue;
                     }
 
@@ -829,8 +831,8 @@ if ($error == false) {
                 //Status
                 $statusoptions = '';
                 if (( ( $status_old == GeoCache::STATUS_ARCHIVED || $status_old == GeoCache::STATUS_BLOCKED ) &&
-                        !ApplicationContainer::isLoggedUserHasRoleOcTeam() ) ||
-                        $status_old == GeoCache::STATUS_WAITAPPROVERS) {
+                    !$loggedUser->hasOcTeamRole() ) || $status_old == GeoCache::STATUS_WAITAPPROVERS) {
+
                     $disablestatusoption = ' disabled';
                 } else {
                     $disablestatusoption = '';
@@ -840,8 +842,9 @@ if ($error == false) {
                 foreach (GeoCache::CacheStatusArray() AS $tmpstatus) {
                     //hide id 4 => hidden by approvers, hide id 5 if it is not the current status
                     if (( $tmpstatus != GeoCache::STATUS_WAITAPPROVERS || $status_old == GeoCache::STATUS_WAITAPPROVERS ) &&
-                            ( $tmpstatus != GeoCache::STATUS_NOTYETAVAILABLE || $status_old == GeoCache::STATUS_NOTYETAVAILABLE ) &&
-                            ( $tmpstatus != GeoCache::STATUS_BLOCKED || ApplicationContainer::isLoggedUserHasRoleOcTeam() )) {
+                        ( $tmpstatus != GeoCache::STATUS_NOTYETAVAILABLE || $status_old == GeoCache::STATUS_NOTYETAVAILABLE ) &&
+                        ( $tmpstatus != GeoCache::STATUS_BLOCKED || $loggedUser->hasOcTeamRole())) {
+
                         if ($tmpstatus == $status) {
                             $statusoptions .= '<option value="' . $tmpstatus . '" selected="selected">' . tr(GeoCache::CacheStatusTranslationKey($tmpstatus)) . '</option>';
                         } else {
@@ -1070,8 +1073,7 @@ if ($error == false) {
         } else {
             //TODO: cache not exist
         }
-    }
-}
+
 unset($dbc);
 
 $view->loadJQuery();

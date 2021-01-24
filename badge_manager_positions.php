@@ -1,18 +1,21 @@
 <?php
 
+use src\Models\ApplicationContainer;
+
 require_once(__DIR__.'/lib/common.inc.php');
 
-if ($usr == false) {
+$loggedUser = ApplicationContainer::GetAuthorizedUser();
+
+if (!$loggedUser) {
     $target = urlencode(tpl_get_current_page());
     tpl_redirect('login.php?target=' . $target);
     exit;
 }
 
-$usrid = -1;
 if (isset($_REQUEST['user_id'])) {
     $userid = $_REQUEST['user_id'];
 } else {
-    $userid = $usr['userid'];
+    $userid = $loggedUser->getUserId();
 }
 
 $badge_id = $_REQUEST['badge_id'];

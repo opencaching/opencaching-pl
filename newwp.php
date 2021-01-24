@@ -8,13 +8,14 @@ use src\Models\ApplicationContainer;
 require_once (__DIR__.'/lib/common.inc.php');
 
 $no_tpl_build = false;
-//Preprocessing
-if ($error == false) {
-    //user logged in?
-    if ($usr == false) {
-        $target = urlencode(tpl_get_current_page());
-        tpl_redirect('login.php?target=' . $target);
-    } else {
+
+//user logged in?
+$loggedUser = ApplicationContainer::GetAuthorizedUser();
+if (!$loggedUser) {
+    $target = urlencode(tpl_get_current_page());
+    tpl_redirect('login.php?target=' . $target);
+    exit;
+}
 
         //New Waypoint
         if (isset($_REQUEST['cacheid'])) {
@@ -67,10 +68,9 @@ if ($error == false) {
                 tpl_set_var("nextstage", "1");
             }
 
-            if ($cache_record['user_id'] == $usr['userid'] ||
-                ApplicationContainer::isLoggedUserHasRoleOcTeam()) {
+            if ($cache_record['user_id'] == $loggedUser->getUserId() || $loggedUser->hasOcTeamRole()) {
 
-                    $tplname = 'newwp';
+                $tplname = 'newwp';
 
                 require_once(__DIR__.'/src/Views/newcache.inc.php');
 
@@ -367,8 +367,6 @@ if ($error == false) {
                 $no_tpl_build = true;
             }
         }
-    }
-}
 
 if ($no_tpl_build == false) {
     //make the template and send it out

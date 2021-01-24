@@ -202,7 +202,7 @@ if (!$user) {
                             $db->multiVariableQuery($q, (int) $user->getUserId());
                             $db->commit();
 
-                            // $usr['username'] = $username;
+                            // $usr['username'] = $username; //TODO: update username?!
                         }
 
                         tpl_set_tplname('myprofile');
