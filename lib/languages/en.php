@@ -3032,6 +3032,42 @@ $translations = array(
 
     'edit_description' => 'Edit description',
 
+    'editCache_fileUploadTitle' => 'Geocache pictures upload',
+
+    'editCache_picsTableOrderTh' => 'Order of pics',
+    'editCache_picsTableOrderThTitle' => 'Pictures will be presented on the geocache page on the same order',
+    'editCache_picsTableImgTh' => 'Thumbnail',
+    'editCache_picsTableImgThTitle' => 'Real thumbnail of the picture',
+    'editCache_picsTableTitleTh' => 'Title',
+    'editCache_picsTableTitleThTitle' => 'Description of the picture',
+    'editCache_picsTableSpoilerTh' => 'Spoiler',
+    'editCache_picsTableSpoilerThTitle' => 'Decide if picture is a spoiler for the geocache',
+    'editCache_picsTableHiddenTh' => 'Hidden',
+    'editCache_picsTableHiddenThTitle' => 'Decide if the picture is not presented on geocache page',
+    'editCache_picsTableRemoveTh' => 'Remove this pic',
+    'editCache_picsTableRemoveThTitle' => 'Remove this picture permanently',
+
+    'editCache_actionInProgress' => 'Action in progress...',
+    'editCache_removePic' => 'Click to remove this picture',
+    'editCache_removePicError' => 'Picture removing problem occured',
+    'editCache_removePicSuccess' => 'Picture has been removed',
+
+    'editCache_spoilerChangeErr' => 'Problem with update spoiler attr. occured',
+    'editCache_spoilerChangeSuccess' => 'Spoiler attr. has been changed',
+
+    'editCache_hiddenChangeErr' => 'Problem with update hidden attr. occured',
+    'editCache_hiddenChangeSuccess' => 'Hidden attr. has been changed',
+
+    'editCache_editPicTitle' => 'Click to edit title of this picture',
+    'editCache_editPicTitleSave' => 'Click to save title value',
+    'editCache_editPicTitleErr' => 'Problem with update title of the picture occured',
+    'editCache_editPicTitleSuccess' => 'Hidden attr. has been changed',
+
+    'editCache_changePicsOrder' => 'Move to change pics order',
+    'editCache_orderPicsSaveErr' => 'Problem with update pics order occured',
+    'editCache_orderPicsSaveSuccess' => 'Pics order has been changed',
+
     'map_popup_next' => 'Next',
     'map_popup_previous' => 'Previous'
 );
+
