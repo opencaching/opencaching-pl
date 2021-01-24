@@ -2765,6 +2765,7 @@ $translations = array(
     'upload_startUpload' => 'Start upload',
 
     'pictures_intro' => 'Permitted image formats: {picallowedformats}. JPG works best for photos.<br />Maximum allowed size is {maxpicsizeMB} MB. Recommended resolution: {maxpicresolution} pixels.',
+    'picture_restrictions' => 'Permitted image formats: %s. JPG works best for photos. Maximum allowed size is %d MB.',
 
     'page_error_1' => 'An error occurred while processing your request.',
     'page_error_2' => 'The OC site admins have been notified.',
@@ -3069,5 +3070,6 @@ $translations = array(
 
     'map_popup_next' => 'Next',
     'map_popup_previous' => 'Previous'
+
 );
 
