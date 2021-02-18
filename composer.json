@@ -17,6 +17,13 @@
         "ext-libxml": "*",
         "ext-openssl": "*"
     },
+    "autoload": {
+        "classmap": [
+            "powerTrail/powerTrailBase.php",
+            "powerTrail/powerTrailController.php",
+            "powerTrail/sendEmail.php"
+        ]
+    },
     "repositories": [
         {
             "type": "composer",

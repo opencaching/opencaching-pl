@@ -24,25 +24,11 @@ require __DIR__.'/../vendor/autoload.php';
  */
 class ClassPathDictionary
 {
-    /**
-     * When creating new class, use namespace leading to class php file.
-     * This enables classes to be automatically loaded by getClassPath() method.
-     *
-     * Use this property if using namespace is not possible for any reason.
-     *
-     * Please preserve alphabetical order.
-     */
-    private static $classDictionary = [
-        'powerTrailBase' => 'powerTrail/powerTrailBase.php',
-        'powerTrailController' => 'powerTrail/powerTrailController.php',
-        'sendEmail' => 'powerTrail/sendEmail.php',
-    ];
-
     public static function getClassPath($className)
     {
         $classPathArr = explode('\\', $className);
 
-        if (count($classPathArr) > 1) { /* namespace solution */
+        if (count($classPathArr) > 1) {
             $fileName = array_pop($classPathArr).'.php';
             $classPath = __DIR__.'/../'.implode('/', $classPathArr);
 
@@ -59,20 +45,6 @@ class ClassPathDictionary
             if (file_exists($fileToInclude)) {
                 // Check if classname exists
                 return $fileToInclude;
-            }
-
-            trigger_error(__METHOD__.": ERROR: Trying to load unknown class: {$className}");
-            return null;
-        }
-
-        // Try to look for this class in local dictionary.
-        if (isset(self::$classDictionary[$className])) {
-            $fileToInclude = __DIR__.'/../'.self::$classDictionary[$className];
-
-            if (file_exists($fileToInclude)) {
-                return $fileToInclude;
-            } else {
-                trigger_error(__METHOD__.": ERROR: Class {$className} found in dictionary, but the file is missing!");
             }
         }
 
