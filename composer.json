@@ -19,6 +19,7 @@
     },
     "autoload": {
         "classmap": [
+            "modules/openchecker/openchecker_classes.php",
             "powerTrail/powerTrailBase.php",
             "powerTrail/powerTrailController.php",
             "powerTrail/sendEmail.php"

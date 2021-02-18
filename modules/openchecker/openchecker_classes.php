@@ -1,5 +1,7 @@
 <?php
 
+namespace OpenChecker;
+
 use src\Utils\Database\XDb;
 use src\Models\GeoCache\GeoCache;
 use src\Models\GeoCache\Waypoint;

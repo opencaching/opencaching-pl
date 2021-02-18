@@ -22,6 +22,8 @@
  *  ================================================================================================
  */
 
+use OpenChecker\OpenCheckerCore;
+use OpenChecker\OpenCheckerSetup;
 use src\Utils\Database\XDb;
 use src\Models\GeoCache\GeoCache;
 use src\Models\GeoCache\Waypoint;
@@ -32,7 +34,6 @@ global $usr;
 
 //prepare the templates and include all neccessary
 require_once (__DIR__.'/lib/common.inc.php');
-require_once (__DIR__.'/modules/openchecker/openchecker_classes.php');
 
 if ($usr == false) {
     // not logged in, go to login page
