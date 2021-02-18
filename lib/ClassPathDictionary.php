@@ -1,45 +1,39 @@
 <?php
 
-/* include composer autoloader */
+// include composer autoloader
 if(file_exists(__DIR__.'/../vendor/autoload.php')){
     require __DIR__.'/../vendor/autoload.php';
 }
 
 /**
- *  Autoload class solution.
+ * Class autoloading solution.
  *
- * Classes can be loaded automaticly without need of use include statements.
- * While new class creating, try use namespace, leading to class php file. Then script can extract
- * path and class filename by namespace.
+ * Classes can be loaded automatically without the need to use include statements.
+ * When creating a new class, use namespace leading to class php file.
+ * The script will extract its path and filename from the namespace and class name.
  *
  * Example:
  *
- * place file Classname.php in directory lib/Directoryname:
- * <?php
- * namespace lib\Directoryname;
- * class Classname
- * {
- *    ... (class body)
- * }
+ *   Place file ClassName.php in directory lib/DirectoryName:
  *
- * then to use this class it is enough to call:
- * $variable = new \lib\Directoryname\Classname();
- * and file is included automaticly.
+ *     <?php
+ *     namespace lib\DirectoryName;
  *
+ *     class ClassName { }
+ *
+ *   Then this class may be used by calling:
+ *     $variable = new \lib\DirectoryName\ClassName();
  */
 class ClassPathDictionary
 {
 
     /**
-     * While new class creating, try use namespace, leading to class php file. Thanks to that class
-     * can be loaded automatically with function getClassPath().
+     * When creating new class, use namespace leading to class php file.
+     * This enables classes to be automatically loaded by getClassPath() method.
      *
-     * use this method if using namespace is not possible any reason
+     * Use this property if using namespace is not possible for any reason.
      *
-     * example:
-     * 'className' => 'path/to/filename.php',
-     *
-     * !!! please preserve alphabetical order. !!!
+     * Please preserve alphabetical order.
      */
     private static $classDictionary = array(
         'powerTrailBase' => 'powerTrail/powerTrailBase.php',
@@ -61,12 +55,12 @@ class ClassPathDictionary
                 return $fileToInclude;
             }
 
-            // there is no such file - okapi has lowercase filenames convension
-            // try to find file with lowercase filename
+            // Okapi has lowercase filenames convention. If there is no such file,
+            // try to find file with lowercase filename.
             $fileToInclude = $classPath . '/' . lcfirst($fileName);
 
             if( file_exists($fileToInclude) ){
-                // check if classname exists
+                // Check if classname exists
                 return $fileToInclude;
             }
 
@@ -74,7 +68,7 @@ class ClassPathDictionary
             return null;
         }
 
-        // try to look for this class in local dictionary
+        // Try to look for this class in local dictionary.
         if( isset(self::$classDictionary[$className] ) ){
             $fileToInclude = __DIR__ . '/../' . self::$classDictionary[$className];
             if( file_exists($fileToInclude) ){
