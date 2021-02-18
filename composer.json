@@ -18,6 +18,10 @@
         "ext-openssl": "*"
     },
     "autoload": {
+        "psr-4": {
+            "okapi\\": "okapi/",
+            "src\\": "src/"
+        },
         "classmap": [
             "modules/openchecker/openchecker_classes.php",
             "powerTrail/powerTrailBase.php",
