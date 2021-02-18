@@ -2,6 +2,7 @@
 /logbook/work
 /mobile/lib/settings.inc.php
 /tmp/watchlist-runwatch.lock
+/vendor/
 
 #ignore local configs
 /config/*.local.php
