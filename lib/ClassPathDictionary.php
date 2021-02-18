@@ -48,7 +48,6 @@ class ClassPathDictionary
             }
         }
 
-        trigger_error(__METHOD__.": ERROR: Trying to load unknown class: {$className}");
         return null;
     }
 }
