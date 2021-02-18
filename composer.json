@@ -1,26 +1,26 @@
 {
-  "require": {
-    "php" : ">=7.1 <7.4",
-    "kint-php/kint": "^1.0",
-    "ezyang/htmlpurifier": "^4.9",
-    "aferrandini/phpqrcode": "^1.0",
-    "cweagans/composer-patches": "^1.6",
-    "js-cookie/js-cookie": "^2.1",
-    "ext-json": "*",
-    "ext-gettext": "*",
-    "ext-gd": "*",
-    "ext-mbstring": "*",
-    "ext-apcu": "*",
-    "ext-pdo": "*",
-    "ext-iconv": "*",
-    "ext-simplexml": "*",
-    "ext-libxml": "*",
-    "ext-openssl": "*"
-  },
-  "extra": {
-    "patches": {
-      "jpgraph/jpgraph": {
-      }
-    }
-  }
+    "type": "project",
+    "require": {
+        "php": ">=7.1 <7.4",
+        "aferrandini/phpqrcode": "1.0.1",
+        "ezyang/htmlpurifier": "4.10.0",
+        "kint-php/kint": "1.1",
+        "npm-asset/js-cookie": "2.1.3",
+        "ext-json": "*",
+        "ext-gettext": "*",
+        "ext-gd": "*",
+        "ext-mbstring": "*",
+        "ext-apcu": "*",
+        "ext-pdo": "*",
+        "ext-iconv": "*",
+        "ext-simplexml": "*",
+        "ext-libxml": "*",
+        "ext-openssl": "*"
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ]
 }
