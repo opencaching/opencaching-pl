@@ -4,48 +4,34 @@
 require __DIR__.'/../vendor/autoload.php';
 
 /**
- * Class autoloading solution.
- *
- * Classes can be loaded automatically without the need to use include statements.
- * When creating a new class, use namespace leading to class php file.
- * The script will extract its path and filename from the namespace and class name.
- *
- * Example:
- *
- *   Place file ClassName.php in directory lib/DirectoryName:
- *
- *     <?php
- *     namespace lib\DirectoryName;
- *
- *     class ClassName { }
- *
- *   Then this class may be used by calling:
- *     $variable = new \lib\DirectoryName\ClassName();
+ * All classes should be automatically loaded by Composer autoloader.
+ * This autoloader is left as a fallback for classes which do not follow
+ * standard conventions and might have been overlooked during migration.
  */
 class ClassPathDictionary
 {
-    public static function getClassPath($className)
+    public static function getClassPath($className): ?string
     {
         $classPathArr = explode('\\', $className);
 
-        if (count($classPathArr) > 1) {
-            $fileName = array_pop($classPathArr).'.php';
-            $classPath = __DIR__.'/../'.implode('/', $classPathArr);
+        if (count($classPathArr) === 1) {
+            return null;
+        }
 
-            $fileToInclude = $classPath.'/'.$fileName;
+        $fileName = array_pop($classPathArr).'.php';
+        $classPath = __DIR__.'/../'.implode('/', $classPathArr);
 
-            if (file_exists($fileToInclude)) {
-                return $fileToInclude;
-            }
+        $fileToInclude = $classPath.'/'.$fileName;
 
-            // Okapi has lowercase filenames convention. If there is no such file,
-            // try to find file with lowercase filename.
-            $fileToInclude = $classPath.'/'.lcfirst($fileName);
+        if (file_exists($fileToInclude)) {
+            return $fileToInclude;
+        }
 
-            if (file_exists($fileToInclude)) {
-                // Check if classname exists
-                return $fileToInclude;
-            }
+        // If there is no such a file, try to find a file with lowercase filename.
+        $fileToInclude = $classPath.'/'.lcfirst($fileName);
+
+        if (file_exists($fileToInclude)) {
+            return $fileToInclude;
         }
 
         return null;
