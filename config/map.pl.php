@@ -1,7 +1,13 @@
 <?php
 
 /**
- * $map['jsConfig'] constains JS code with configuration for openlayers
+ * Configuration of maps in the OC code
+ *
+ * Those are configuration overrides for OCPL node only.
+ */
+
+/**
+ * $map['jsConfig'] contains JS code with configuration for openlayers
  * Be sure that all changes here are well tested.
  */
 $map['jsConfig'] = "

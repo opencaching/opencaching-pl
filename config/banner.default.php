@@ -1,9 +1,10 @@
 <?php
 
 /**
+ * Text displayed in the video banner in the header
  *
- * Texts for videobanner on header of pages
- *
+ * This is a default configuration.
+ * It may be customized in node-specific configuration file.
  */
 
 $bannerTxt = [

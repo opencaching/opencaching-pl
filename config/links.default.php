@@ -1,23 +1,19 @@
 <?php
 
 /**
- * This is simple configuration of external links used in many places in the OC code
- * for example in menu, descriptions (translations) etc.
+ * Configuration of external links used in many places in the OC code
+ *   e.g. in menu, descriptions (translations) etc.
  *
- * This is a DEFAULT configuration for ALL nodes, which contains necessary vars.
- *
- * If you want to customize links for your node
- * create config for your node and there override $links array values as needed.
- *
+ * This is a default configuration.
+ * It may be customized in node-specific configuration file.
  */
 
-// main links table - this is the only variable which is a returned of this file.
 $links = [];
 
-//former $blogsite_url from settings.inc.php
+// former $blogsite_url from settings.inc.php
 $links['blog'] = 'http://blog.opencaching.pl';
 
-//former $forum_url from settings.inc.php
+// former $forum_url from settings.inc.php
 $links['forum'] = 'https://forum.opencaching.pl';
 
 // former $config['geokrety_url']

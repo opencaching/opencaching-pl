@@ -1,7 +1,9 @@
 <?php
 
 /**
-  * Configuration of geocache properties for OCUS
+ * GeoCache properties configuration
+ *
+ * Those are configuration overrides for OCUS node only.
  */
 
 use src\Models\GeoCache\GeoCacheCommons;

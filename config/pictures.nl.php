@@ -1,7 +1,9 @@
 <?php
 
 /**
- * pictures.default.php overrides for OCNL node
+ * Pictures configuration
+ *
+ * Those are configuration overrides for OCNL node only.
  */
 
 /**

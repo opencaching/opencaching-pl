@@ -1,9 +1,9 @@
 <?php
 
 /**
+ * Text displayed in the video banner in the header.
  *
- * Texts videobanner for OC NL
- *
+ * Those are configuration overrides for OCNL node only.
  */
 
 $bannerTxt = [

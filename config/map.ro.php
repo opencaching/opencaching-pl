@@ -1,6 +1,12 @@
 <?php
 
 /**
+ * Configuration of maps in the OC code
+ *
+ * Those are configuration overrides for OCRO node only.
+ */
+
+/**
  * Coordinates of the default map center - used by default by many maps in service
  * Format: float number
  */

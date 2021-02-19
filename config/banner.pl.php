@@ -1,9 +1,9 @@
 <?php
 
 /**
+ * Text displayed in the video banner in the header.
  *
- * Texts for videobanner for OC PL
- *
+ * Those are configuration overrides for OCPL node only.
  */
 
 $bannerTxt = [

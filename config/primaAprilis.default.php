@@ -1,13 +1,16 @@
 <?php
 
 /**
- * DEFAULT general site properties for ALL nodes
+ * Configuration of April Fool's Day jokes
+ *
+ * This is a default configuration.
+ * It may be customized in node-specific configuration file.
  */
 
 $config = [];
 
 /**
- * Completly disable all prima-aprilis activities
+ * Completely disable all prima-aprilis activities
  */
 $config['disableAllPrimaAprilisChanges'] = false;
 

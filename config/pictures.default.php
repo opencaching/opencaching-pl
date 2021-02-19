@@ -1,8 +1,12 @@
 <?php
 
 /**
- * DEFAULT properties for pictures
+ * Pictures configuration
+ *
+ * This is a default configuration.
+ * It may be customized in node-specific configuration file.
  */
+
 $pictures = [];
 
 /**
@@ -45,5 +49,3 @@ $pictures['resizeLargerThan'] = 0.2; // former $config['limits']['image']['resiz
  */
 $pictures['allowedExtensions'] = 'jpg,jpeg,gif,png';  // former $config['limits']['image']['extension']
 $pictures['allowedExtensionsText'] = 'JPG, PNG, GIF'; // former $config['limits']['image']['extension_text'];
-
-

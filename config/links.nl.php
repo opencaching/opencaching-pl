@@ -1,18 +1,15 @@
 <?php
 
 /**
- * Thee are pl node overrides of external links config used in many places in the OC code
- * for example in menu, descriptions (translations) etc.
+ * Configuration of external links
  *
- * This is configuration for OCNL node only and contains only overrided values
- * from links.default.php.
- *
+ * Those are configuration overrides for OCNL node only.
  */
 
-//former $blogsite_url from settings.inc.php
+// former $blogsite_url from settings.inc.php
 $links['blog'] = 'http://blog.opencaching.nl';
 
-//former $forum_url from settings.inc.php
+// former $forum_url from settings.inc.php
 $links['forum'] = 'http://forum.opencaching.nl';
 
 // former $config['geokrety_url']

@@ -1,7 +1,9 @@
 <?php
 
 /**
- * pictures.default.php overrides for OCUK node
+ * Pictures configuration
+ *
+ * Those are configuration overrides for OCUK node only.
  */
 
 /**
