@@ -11,5 +11,7 @@ git stash
 git pull --rebase
 git stash pop
 
+composer install --no-progress --optimize-autoloader --no-interaction
+
 echo Running update scripts...
 wget -O - -q http://YOUR_OPENCACHING_HOSTNAME/update
