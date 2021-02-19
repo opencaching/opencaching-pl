@@ -5,5 +5,5 @@
  */
 
 $user = [
-    'defaultStatpicText' => 'Opencache.UK'
+    'defaultStatpicText' => 'Opencache.UK',
 ];

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This is simple configuration of translations and localizatin of the OC code
  *

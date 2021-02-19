@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Configuration setting for cache log filter:
  * - "mark_currentuser_logs":
@@ -15,8 +16,9 @@
  *      (title) for cache icon on the cache page regardless of current user
  *      activities
  */
+
 $logfilter = [
     'mark_currentuser_logs' => true,
     'enable_logs_filtering' => true,
-    'show_activities_tooltip' => true
+    'show_activities_tooltip' => true,
 ];

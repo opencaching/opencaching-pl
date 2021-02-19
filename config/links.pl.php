@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Thee are pl node overrides of external links config used in many places in the OC code
  * for example in menu, descriptions (translations) etc.

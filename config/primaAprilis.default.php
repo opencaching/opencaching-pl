@@ -16,7 +16,6 @@ $config['disableAllPrimaAprilisChanges'] = false;
  */
 $config['danceEnabled'] = true;
 
-
 /**
  * Enable randomization of user stats
  */

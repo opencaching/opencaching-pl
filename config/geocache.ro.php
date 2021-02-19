@@ -1,15 +1,13 @@
 <?php
 
-use src\Models\GeoCache\GeoCacheCommons;
-
 /**
  * Configuration of geocache properties for OC RO
  */
 
+use src\Models\GeoCache\GeoCacheCommons;
+
 $geocache['enabledSizes'][] = GeoCacheCommons::SIZE_NANO;
 $geocache['enabledSizes'][] = GeoCacheCommons::SIZE_OTHER;
-
-
 
 /**
  * Types of geocache which are forbidden on creation (it is possible thatsuch geocaches are still in DB,

@@ -17,7 +17,6 @@ $map['startPageMapZoom'] = 5;
  */
 $map['startPageMapDimensions'] = [250, 180];
 
-
 /**
  * Links to external maps used at least at viewpage
  * (to disable map - just add key $map['external']['OSMapa']['enabled'] = false;)
@@ -35,4 +34,4 @@ $map['startPageMapDimensions'] = [250, 180];
  *
  * The level 3 key is also used as link_text.
  */
-$map['external']['Flopp\'s Map']['enabled'] = true;
+$map['external']["Flopp's Map"]['enabled'] = true;

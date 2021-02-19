@@ -1,4 +1,5 @@
 <?php
+
 /**
  * User-related configuration
  *
@@ -11,5 +12,5 @@
  */
 
 $user = [
-    'defaultStatpicText' => 'Opencaching'
+    'defaultStatpicText' => 'Opencaching',
 ];

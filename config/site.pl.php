@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Configuration of general site properties of OCPL
  */

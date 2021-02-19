@@ -89,4 +89,4 @@ $map['startPageMapDimensions'] = [200, 240];
  *
  * The level 3 key is also used as link_text.
  */
-$map['external']['Flopp\'s Map']['enabled'] = true;
+$map['external']["Flopp's Map"]['enabled'] = true;

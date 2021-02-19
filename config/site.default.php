@@ -6,8 +6,6 @@
 
 $site = [];
 
-
-
 /**
  * Site name for the node
  */

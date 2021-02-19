@@ -1,4 +1,5 @@
 <?php
+
 /**
  * cronjob configuration overrides for Opencaching.PL
  *

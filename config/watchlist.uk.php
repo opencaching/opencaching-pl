@@ -1,4 +1,5 @@
 <?php
+
 $watchlist = [
-    'use_logentries' => false
+    'use_logentries' => false,
 ];

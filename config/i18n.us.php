@@ -1,9 +1,9 @@
 <?php
+
 /**
  * This is configuration specific for OCUS node
  * It contains only overrides to DEFAULT config
  */
-
 
 /**
  * List of supported languages

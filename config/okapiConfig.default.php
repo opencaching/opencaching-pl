@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Default OKPAI specific settings to set in okapi_settings.php file
  *

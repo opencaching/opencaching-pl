@@ -1,13 +1,12 @@
 <?php
 
-use src\Models\GeoCache\GeoCacheCommons;
-
 /**
  * DEFAULT config for geocache properties
  */
 
-$geocache = [];
+use src\Models\GeoCache\GeoCacheCommons;
 
+$geocache = [];
 
 /**
  * Theses sizes are available for

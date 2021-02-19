@@ -35,13 +35,13 @@ $map['keys']['OpenRouteService'] = '';
  *
  * See map.default.pl for more examples.
  */
-$map['jsConfig'] = "
+$map['jsConfig'] = '
     {
       OSM: new ol.layer.Tile ({
         source: new ol.source.OSM(),
       })
     }
-";
+';
 
 /**
  * This is function which is called to inject keys from "local" config (map.local.php)
@@ -110,5 +110,5 @@ $map['external']['Google Maps']['url'] = 'https://maps.google.com/maps?hl=UTF-8&
 $map['external']['Szukacz']['enabled'] = false; // PL specific
 $map['external']['Szukacz']['url'] = 'https://mapa.szukacz.pl/?n=%1$f&e=%2$f&z=4&t=Skrzynka%%20Geocache';
 
-$map['external']['Flopp\'s Map']['enabled'] = false;
-$map['external']['Flopp\'s Map']['url'] = 'https://flopp.net/?c=%1$f:%2$f&z=16&t=OSM&f=g&m=&d=&g=%4$s';
+$map['external']["Flopp's Map"]['enabled'] = false;
+$map['external']["Flopp's Map"]['url'] = 'https://flopp.net/?c=%1$f:%2$f&z=16&t=OSM&f=g&m=&d=&g=%4$s';

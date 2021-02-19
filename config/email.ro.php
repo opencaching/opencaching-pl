@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Configuration of emails for OCRO code
  *

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Configuration settings for src\Utils\Lock objects:
  * - "type":
@@ -17,10 +18,11 @@
  *           locking mechanism to store locks.
  *           Created on first use attempt (including parent dirs) if not exists.
  */
+
 $lock = [
-    "type" => "file",
-    "file" => [
-        "class" => "src\Utils\Lock\FileLock",
-        "dir" => "oc_lock"
+    'type' => 'file',
+    'file' => [
+        'class' => 'src\Utils\Lock\FileLock',
+        'dir' => 'oc_lock',
     ]
 ];

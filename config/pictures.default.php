@@ -9,18 +9,18 @@ $pictures = [];
  * Folder used to store uploaded pictures (former $picdir)
  * - related to "global folder for dynamic content - aka old: $dynbasepath "
  */
-$pictures['picturesUploadFolder'] = "/images/uploads";
+$pictures['picturesUploadFolder'] = '/images/uploads';
 
 /**
  * Base of url to access pictures from browser (former $picurl)
  */
-$pictures['picturesBaseUrl'] = "/images/uploads";
+$pictures['picturesBaseUrl'] = '/images/uploads';
 
 /**
  * Folder used to store thumbnails for uploaded pictures
  * - related to "global folder for dynamic content - aka old: $dynbasepath "
  */
-$pictures['thumbnailFolder'] = "/images/upload/thumbnails";
+$pictures['thumbnailFolder'] = '/images/upload/thumbnails';
 
 /**
  * Max size of the thumbnails in px

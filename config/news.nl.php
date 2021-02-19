@@ -1,4 +1,5 @@
 <?php
+
 /**
  * News configuration of OC NL
 */

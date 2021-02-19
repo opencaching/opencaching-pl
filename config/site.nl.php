@@ -4,8 +4,6 @@
  * Configuration of general site properties of OC NL
  */
 
-
-
 /**
  * Site name for the node
  */

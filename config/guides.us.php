@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This is configuration of guides criterias.
  *

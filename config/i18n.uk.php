@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This is configuration specific for UK node
  * It contains only overrides to DEFAULT config

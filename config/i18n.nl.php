@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This is configuration specific for NL node
  * It contains only overrides to DEFAULT config

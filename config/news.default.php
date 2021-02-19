@@ -1,4 +1,5 @@
 <?php
+
 /**
  * DEFAULT news configuration
 */
