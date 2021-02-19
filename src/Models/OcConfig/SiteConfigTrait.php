@@ -1,16 +1,20 @@
 <?php
+
 namespace src\Models\OcConfig;
+
+use Exception;
 
 /**
  * This trait group access to email settings stored in /config/email.* conf. files
  * BEWARE OF FUNCTIONS NAME COLLISION BETWEEN CONFIG TRAITS!
  */
-trait SiteConfigTrait {
-
+trait SiteConfigTrait
+{
     protected $siteConfig = null;
 
     /**
      * Returns pageTitle from config
+     *
      * @return string
      */
     public static function getSitePageTitle()
@@ -20,6 +24,7 @@ trait SiteConfigTrait {
 
     /**
      * Returns siteName from config
+     *
      * @return string
      */
     public static function getSiteName()
@@ -57,10 +62,12 @@ trait SiteConfigTrait {
     public static function getSitePrimaryCountriesList()
     {
         $primaryCountries = self::getSiteVar('primaryCountries');
-        if (!is_array($primaryCountries) || empty($primaryCountries)) {
-            // init primaryCountries for improper|empty config
+
+        if (! is_array($primaryCountries) || empty($primaryCountries)) {
+            // init primaryCountries for improper/empty config
             $primaryCountries = self::initPrimaryCountries();
         }
+
         return $primaryCountries;
     }
 
@@ -76,15 +83,17 @@ trait SiteConfigTrait {
 
     /**
      * Retruns the icon (with path) to the icon
+     *
      * @param string $iconName
      */
     public static function getSiteMainViewIcon($iconName)
     {
         $iconsArr = self::getSiteVar('mainViewIcons');
+
         if (isset($iconsArr[$iconName])) {
             return $iconsArr[$iconName];
         } else {
-            return "Unknown-icon-$iconName";
+            return "Unknown-icon-{$iconName}";
         }
     }
 
@@ -95,9 +104,10 @@ trait SiteConfigTrait {
      */
     protected function getSiteConfig()
     {
-        if (!$this->siteConfig) {
-            $this->siteConfig = self::getConfig("site", "site");
+        if (! $this->siteConfig) {
+            $this->siteConfig = self::getConfig('site', 'site');
         }
+
         return $this->siteConfig;
     }
 
@@ -105,15 +115,17 @@ trait SiteConfigTrait {
      * Get Var from site.* files
      *
      * @param string $varName
-     * @throws \Exception
      * @return string|array
+     * @throws Exception
      */
     private static function getSiteVar($varName)
     {
         $siteConfig = self::instance()->getSiteConfig();
-        if (!is_array($siteConfig)) {
-            throw new \Exception("Invalid $varName setting: see /config/site.*");
+
+        if (! is_array($siteConfig)) {
+            throw new Exception("Invalid {$varName} setting: see /config/site.*");
         }
+
         return $siteConfig[$varName];
     }
 
@@ -121,7 +133,7 @@ trait SiteConfigTrait {
     {
         $instance = self::instance();
         $instance->siteConfig['primaryCountries'] = [strtoupper(substr(self::getSiteName(), -2))];
+
         return $instance->siteConfig['primaryCountries'];
     }
-
 }

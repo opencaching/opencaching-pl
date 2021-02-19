@@ -1,16 +1,20 @@
 <?php
+
 namespace src\Models\OcConfig;
+
+use Exception;
 
 /**
  * This trait group access to email settings stored in /config/geocache.* conf. files
  * BEWARE OF FUNCTIONS NAME COLLISION BETWEEN CONFIG TRAITS!
  */
-trait GeocacheConfigTrait {
-
+trait GeocacheConfigTrait
+{
     protected $geocacheConfig = null;
 
     /**
      * Returns array of types enabled on this OC node
+     *
      * @return array
      */
     public static function getEnabledCacheSizesArray()
@@ -20,6 +24,7 @@ trait GeocacheConfigTrait {
 
     /**
      * Returns array of types which can't be created on this OC node (former forbiddenTypes)
+     *
      * @return array
      */
     public static function getNoNewCacheOfTypesArray()
@@ -34,9 +39,10 @@ trait GeocacheConfigTrait {
      */
     protected function getGeocacheConfig()
     {
-        if (!$this->geocacheConfig) {
-            $this->geocacheConfig = self::getConfig("geocache", "geocache");
+        if (! $this->geocacheConfig) {
+            $this->geocacheConfig = self::getConfig('geocache', 'geocache');
         }
+
         return $this->geocacheConfig;
     }
 
@@ -44,14 +50,14 @@ trait GeocacheConfigTrait {
      * Get Var from geocache.* files
      *
      * @param string $varName
-     * @throws \Exception
      * @return string|array
+     * @throws Exception
      */
     private static function getGeocacheConfigVar($varName)
     {
         $config = self::instance()->getGeocacheConfig();
-        if (!is_array($config)) {
-            throw new \Exception("Invalid $varName setting: see /config/geocache.*");
+        if (! is_array($config)) {
+            throw new Exception("Invalid {$varName} setting: see /config/geocache.*");
         }
         return $config[$varName];
     }

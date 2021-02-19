@@ -1,12 +1,15 @@
 <?php
+
 namespace src\Models\OcConfig;
+
+use Exception;
 
 /**
  * This trait group access to local OKAPI config settings - settings here are used in okapi_settings.php
  * BEWARE OF FUNCTIONS NAME COLLISION BETWEEN CONFIG TRAITS!
  */
-trait OkapiConfigTrait {
-
+trait OkapiConfigTrait
+{
     protected $okapiConfig = null;
 
     /**
@@ -18,6 +21,7 @@ trait OkapiConfigTrait {
     {
         return self::getOkapiConfigVar('cronJobsBlackList');
     }
+
     /**
      * Returns okpai config properties
      *
@@ -25,9 +29,10 @@ trait OkapiConfigTrait {
      */
     protected function getOkapiConfig()
     {
-        if (!$this->okapiConfig) {
-            $this->okapiConfig = self::getConfig("okapiConfig", "config");
+        if (! $this->okapiConfig) {
+            $this->okapiConfig = self::getConfig('okapiConfig', 'config');
         }
+
         return $this->okapiConfig;
     }
 
@@ -35,15 +40,17 @@ trait OkapiConfigTrait {
      * Get Var from okapiConfig.* files
      *
      * @param string $varName
-     * @throws \Exception
      * @return string|array
+     * @throws Exception
      */
     private static function getOkapiConfigVar($varName)
     {
         $okapiConfig = self::instance()->getOkapiConfig();
-        if (!is_array($okapiConfig)) {
-            throw new \Exception("Invalid $varName setting: see /config/okapiConfig.*");
+
+        if (! is_array($okapiConfig)) {
+            throw new Exception("Invalid {$varName} setting: see /config/okapiConfig.*");
         }
+
         return $okapiConfig[$varName];
     }
 }

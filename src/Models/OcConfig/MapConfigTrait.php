@@ -1,14 +1,16 @@
 <?php
+
 namespace src\Models\OcConfig;
 
+use Exception;
 use src\Models\Coordinates\Coordinates;
 
 /**
  * This trait group access to email settings stored in /config/email.* conf. files
  * BEWARE OF FUNCTIONS NAME COLLISION BETWEEN CONFIG TRAITS!
  */
-trait MapConfigTrait {
-
+trait MapConfigTrait
+{
     protected $mapConfig = null;
 
     /**
@@ -19,9 +21,11 @@ trait MapConfigTrait {
     public static function getMapKey($keyName)
     {
         $keys = self::getMapVar('keys');
-        if(is_array($keys) && isset($keys[$keyName]) && !empty($keys[$keyName])){
+
+        if (is_array($keys) && isset($keys[$keyName]) && ! empty($keys[$keyName])) {
             return $keys[$keyName];
         }
+
         return null;
     }
 
@@ -34,14 +38,14 @@ trait MapConfigTrait {
     {
         $keyInjectorFunc = self::getMapVar('keyInjectionCallback');
 
-        if(!is_null($keyInjectorFunc)){
+        if (! is_null($keyInjectorFunc)) {
             // only if keyInjector exists
-            if(!is_callable($keyInjectorFunc)) {
-                throw new \Exception("Wrong keyInjectionCallback config value!");
+            if (! is_callable($keyInjectorFunc)) {
+                throw new Exception('Wrong keyInjectionCallback config value!');
             }
 
-            if ( !$keyInjectorFunc(self::instance()->mapConfig) ) {
-                throw new \Exception('MapConfig key injector init failed!');
+            if (! $keyInjectorFunc(self::instance()->mapConfig)) {
+                throw new Exception('MapConfig key injector init failed!');
             }
         }
 
@@ -75,21 +79,25 @@ trait MapConfigTrait {
     public static function getMapExternalUrls()
     {
         $maps = self::getMapVar('external');
-        if(!is_array($maps) || empty($maps)) {
+
+        if (! is_array($maps) || empty($maps)) {
             return [];
         }
 
         $result = [];
-        foreach($maps as $key=>$conf){
-            if(!is_array($conf)){
+        foreach ($maps as $key => $conf) {
+            if (! is_array($conf)) {
                 continue;
             }
-            if(isset($conf['url']) && (!isset($conf['enabled']) || $conf['enabled'])) {
+
+            if (isset($conf['url']) && (! isset($conf['enabled']) || $conf['enabled'])) {
                 $result[$key] = $conf['url'];
             }
         }
+
         return $result;
     }
+
     /**
      * Returns map properties
      *
@@ -97,9 +105,10 @@ trait MapConfigTrait {
      */
     protected function getMapConfig()
     {
-        if (!$this->mapConfig) {
-            $this->mapConfig = self::getConfig("map", "map");
+        if (! $this->mapConfig) {
+            $this->mapConfig = self::getConfig('map', 'map');
         }
+
         return $this->mapConfig;
     }
 
@@ -107,15 +116,17 @@ trait MapConfigTrait {
      * Get Var from map.* files
      *
      * @param string $varName
-     * @throws \Exception
      * @return string|array
+     * @throws Exception
      */
     private static function getMapVar($varName)
     {
         $mapConfig = self::instance()->getMapConfig();
-        if (!is_array($mapConfig)) {
-            throw new \Exception("Invalid $varName setting: see /config/map.*");
+
+        if (! is_array($mapConfig)) {
+            throw new Exception("Invalid {$varName} setting: see /config/map.*");
         }
+
         return $mapConfig[$varName];
     }
 }

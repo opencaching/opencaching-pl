@@ -4,8 +4,14 @@ namespace src\Models\OcConfig;
 
 final class OcConfig extends ConfigReader
 {
-    use EmailConfigTrait, SiteConfigTrait, I18nConfigTrait, PicturesConfigTrait, MapConfigTrait;
-    use PrimaAprilisTrait, GeocacheConfigTrait, OkapiConfigTrait;
+    use EmailConfigTrait;
+    use GeocacheConfigTrait;
+    use I18nConfigTrait;
+    use MapConfigTrait;
+    use OkapiConfigTrait;
+    use PicturesConfigTrait;
+    use PrimaAprilisTrait;
+    use SiteConfigTrait;
 
     /*
         const OCNODE_GERMANY    = 1;  // Opencaching Germany http://www.opencaching.de OC
@@ -20,9 +26,8 @@ final class OcConfig extends ConfigReader
         const OCNODE_ROMANIA    = 16; // Opencaching Romania http://www.opencaching.ro OR
     */
 
-
-// old-style values - values from new-style config should be accessed through
-// $config[''] etc...
+    // old-style values - values from new-style config should be accessed through
+    // $config[''] etc...
 
     private $debugMode = false;
     private $dbDatetimeFormat = 'Y-m-d H:i:s';
@@ -79,14 +84,17 @@ final class OcConfig extends ConfigReader
 
     /**
      * Call this method to get singleton
+     *
      * @return ocConfig
      */
     public static function instance()
     {
         static $inst = null;
+
         if ($inst === null) {
             $inst = new self();
         }
+
         return $inst;
     }
 
@@ -96,12 +104,14 @@ final class OcConfig extends ConfigReader
     protected function __construct()
     {
         parent::__construct();
+
         $this->loadConfig();
     }
 
     private function loadConfig()
     {
         global $debug_page;
+
         require self::LEGACY_LOCAL_CONFIG;
 
         $this->debugMode = $debug_page;
@@ -136,9 +146,11 @@ final class OcConfig extends ConfigReader
         if (isset($config['lock']) && is_array($config['lock'])) {
             $this->lockConfig = $config['lock'];
         }
+
         if (isset($config['watchlist']) && is_array($config['watchlist'])) {
             $this->watchlistConfig = $config['watchlist'];
         }
+
         if (isset($config['logfilter']) && is_array($config['logfilter'])) {
             $this->logfilterConfig = $config['logfilter'];
         }
@@ -161,6 +173,7 @@ final class OcConfig extends ConfigReader
 
     /**
      * Returns array of wiki-links readed from config
+     *
      * @return array
      */
     public static function getWikiLinks()
@@ -170,6 +183,7 @@ final class OcConfig extends ConfigReader
 
     /**
      * Returns single link to wiki
+     *
      * @param string $wikiLinkKey
      * @return string - link to wiki
      */
@@ -191,9 +205,11 @@ final class OcConfig extends ConfigReader
     public static function getDynFilesPath($trimTrailingSlash = false)
     {
         $path = self::instance()->getDynamicFilesPath();
+
         if ($trimTrailingSlash) {
             return rtrim($path, '/');
         }
+
         return $path;
     }
 
@@ -211,7 +227,6 @@ final class OcConfig extends ConfigReader
     {
         return $this->powerTrailModuleSwitchOn;
     }
-
 
     public function isCacheAccesLogEnabled()
     {
@@ -251,7 +266,6 @@ final class OcConfig extends ConfigReader
         return $this->dbName;
     }
 
-
     public static function getHeaderLogo()
     {
         return self::instance()->headerLogo;
@@ -272,7 +286,6 @@ final class OcConfig extends ConfigReader
         return self::instance()->needApproveLimit;
     }
 
-
     /**
      * Gives \src\Utils\Lock objects configuration, tries to initialize it if null
      *
@@ -282,8 +295,9 @@ final class OcConfig extends ConfigReader
     public function getLockConfig()
     {
         if ($this->lockConfig == null) {
-            $this->lockConfig = self::getConfig("lock", "lock");
+            $this->lockConfig = self::getConfig('lock', 'lock');
         }
+
         return $this->lockConfig;
     }
 
@@ -296,8 +310,9 @@ final class OcConfig extends ConfigReader
     public function getWatchlistConfig()
     {
         if ($this->watchlistConfig == null) {
-            $this->watchlistConfig = self::getConfig("watchlist", "watchlist");
+            $this->watchlistConfig = self::getConfig('watchlist', 'watchlist');
         }
+
         return $this->watchlistConfig;
     }
 
@@ -310,34 +325,36 @@ final class OcConfig extends ConfigReader
     public function getLogfilterConfig()
     {
         if ($this->logfilterConfig == null) {
-            $this->logfilterConfig = self::getConfig("logfilter", "logfilter");
+            $this->logfilterConfig = self::getConfig('logfilter', 'logfilter');
         }
+
         return $this->logfilterConfig;
     }
-
 
     public function getUserConfig()
     {
         if ($this->userConfig == null) {
-            $this->userConfig = self::getConfig("user", "user");
+            $this->userConfig = self::getConfig('user', 'user');
         }
+
         return $this->userConfig;
     }
 
     public function getGuidesConfig()
     {
         if ($this->guidesConfig == null) {
-            $this->guidesConfig = self::getConfig("guides", "guides");
+            $this->guidesConfig = self::getConfig('guides', 'guides');
         }
+
         return $this->guidesConfig;
     }
-
 
     public function getCronjobSchedule($job = null)
     {
         if ($this->cronjobsConfig == null) {
             $this->cronjobsConfig = self::getConfig('cronjobs', 'cronjobs');
         }
+
         if ($job === null) {
             return $this->cronjobsConfig['schedule'];
         } elseif (isset($this->cronjobsConfig['schedule'][$job])) {
@@ -350,8 +367,9 @@ final class OcConfig extends ConfigReader
     public function getNewsConfig($setting = null)
     {
         if ($this->newsConfig == null) {
-            $this->newsConfig = self::getConfig("news", "news");
+            $this->newsConfig = self::getConfig('news', 'news');
         }
+
         if ($setting === null) {
             return $this->newsConfig;
         } else {
@@ -368,8 +386,9 @@ final class OcConfig extends ConfigReader
     public function getTopBannerTxt()
     {
         if ($this->topBannerTxt == null) {
-            $this->topBannerTxt = self::getConfig("banner", "bannerTxt");
+            $this->topBannerTxt = self::getConfig('banner', 'bannerTxt');
         }
+
         return $this->topBannerTxt;
     }
 
@@ -382,8 +401,9 @@ final class OcConfig extends ConfigReader
     public function getTopBannerVideo()
     {
         if ($this->topBannerVideo == null) {
-            $this->topBannerVideo = self::getConfig("banner", "bannerVideo");
+            $this->topBannerVideo = self::getConfig('banner', 'bannerVideo');
         }
+
         return $this->topBannerVideo;
     }
 
@@ -394,5 +414,4 @@ final class OcConfig extends ConfigReader
     {
         return $this->titledCachePeriod;
     }
-
 }

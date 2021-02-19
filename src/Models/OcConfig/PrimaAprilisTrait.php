@@ -1,21 +1,25 @@
 <?php
+
 namespace src\Models\OcConfig;
+
+use Exception;
 
 /**
  * This trait group access to email settings stored in /config/primaAprilis.* conf. files
  * BEWARE OF FUNCTIONS NAME COLLISION BETWEEN CONFIG TRAITS!
  */
-trait PrimaAprilisTrait {
-
+trait PrimaAprilisTrait
+{
     protected $primaAprilisConfig = null;
 
     private static function isPAEnabled()
     {
-        return !self::getPAVar('disableAllPrimaAprilisChanges');
+        return ! self::getPAVar('disableAllPrimaAprilisChanges');
     }
 
     /**
      * Returns TRUE if dane shoudl be activated
+     *
      * @return string
      */
     public static function isPADanceEnabled()
@@ -25,6 +29,7 @@ trait PrimaAprilisTrait {
 
     /**
      * Returns TRUE if dane shoudl be activated
+     *
      * @return string
      */
     public static function isPAUserStatsRandEnabled()
@@ -34,6 +39,7 @@ trait PrimaAprilisTrait {
 
     /**
      * Returns TRUE if dane shoudl be activated
+     *
      * @return string
      */
     public static function isPAFakeUserNameEnabled()
@@ -48,9 +54,10 @@ trait PrimaAprilisTrait {
      */
     protected function getPAConfig()
     {
-        if (!$this->primaAprilisConfig) {
-            $this->primaAprilisConfig = self::getConfig("primaAprilis", "config");
+        if (! $this->primaAprilisConfig) {
+            $this->primaAprilisConfig = self::getConfig('primaAprilis', 'config');
         }
+
         return $this->primaAprilisConfig;
     }
 
@@ -58,15 +65,17 @@ trait PrimaAprilisTrait {
      * Get Var from geocache.* files
      *
      * @param string $varName
-     * @throws \Exception
      * @return string|array
+     * @throws Exception
      */
     private static function getPAVar($varName)
     {
         $config = self::instance()->getPAConfig();
-        if (!is_array($config)) {
-            throw new \Exception("Invalid $varName setting: see /config/primaAprilis.*");
+
+        if (! is_array($config)) {
+            throw new Exception("Invalid {$varName} setting: see /config/primaAprilis.*");
         }
+
         return $config[$varName];
     }
 }

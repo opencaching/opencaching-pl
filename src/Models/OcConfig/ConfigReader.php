@@ -2,6 +2,7 @@
 
 namespace src\Models\OcConfig;
 
+use Exception;
 use src\Utils\Debug\Debug;
 
 /**
@@ -20,7 +21,6 @@ use src\Utils\Debug\Debug;
  *                                    DO NOT STORE LOCAL FILES IN GIT!
  *
  * Node-id is stored read from local site-config.
- *
  */
 abstract class ConfigReader
 {
@@ -47,7 +47,6 @@ abstract class ConfigReader
 
     protected function __construct()
     {
-
     }
 
     /**
@@ -56,34 +55,37 @@ abstract class ConfigReader
      *  - next return node-specific version of menu-config file if present
      *  - next return default version of menu file (always should be present!)
      *
-     * @param const-string $menuPrefix
-     * @return array $menu
+     * @param string $menuPrefix
+     * @return array
      */
     public static function getMenu($menuPrefix)
     {
         $menu = null;
         $links = self::getLinks();
 
-        $localMenuFile = self::MENU_DIR."$menuPrefix.local.php";
-        if(is_file($localMenuFile)){
-            include($localMenuFile);
+        $localMenuFile = self::MENU_DIR."{$menuPrefix}.local.php";
+        if (is_file($localMenuFile)) {
+            include $localMenuFile;
+
             return $menu;
         }
 
         $ocNode = self::getOcNode();
-        $nodeMenuFile = self::MENU_DIR."$menuPrefix.$ocNode.php";
-        if(is_file($nodeMenuFile)){
-            include($nodeMenuFile);
+        $nodeMenuFile = self::MENU_DIR."{$menuPrefix}.{$ocNode}.php";
+        if (is_file($nodeMenuFile)) {
+            include $nodeMenuFile;
+
             return $menu;
         }
 
-        $defaultMenuFile = self::MENU_DIR."$menuPrefix.default.php";
-        if(is_file($defaultMenuFile)){
-            include($defaultMenuFile);
+        $defaultMenuFile = self::MENU_DIR."{$menuPrefix}.default.php";
+        if (is_file($defaultMenuFile)) {
+            include $defaultMenuFile;
+
             return $menu;
         }
 
-        Debug::errorLog("ERROR: Can't load menu file: $menuPrefix");
+        Debug::errorLog("ERROR: Can't load menu file: {$menuPrefix}");
         return null;
     }
 
@@ -91,7 +93,8 @@ abstract class ConfigReader
     {
         /** @var /ConfigReader */
         $ctrl = static::instance();
-        if(!$ctrl->links){
+
+        if (! $ctrl->links) {
             $ctrl->links = self::getConfig(self::LINKS_PREFIX, 'links');
         }
 
@@ -109,11 +112,11 @@ abstract class ConfigReader
      *      (for example: links for links.* files, config for setting.* files etc.)
      * @return NULL
      */
-    protected static function getConfig($configName, $configVarName=null)
+    protected static function getConfig($configName, $configVarName = null)
     {
-        if(is_null($configVarName)){
+        if (is_null($configVarName)) {
             $localConfigArr = 'config';
-        }else{
+        } else {
             $localConfigArr = $configVarName;
         }
 
@@ -121,23 +124,23 @@ abstract class ConfigReader
         $$localConfigArr = null; //first init local variable
         $ocNode = self::getOcNode();
 
-        $defaultConfigFile  = self::CONFIG_DIR."$configName.default.php";
-        $nodeConfigFile     = self::CONFIG_DIR."$configName.$ocNode.php";
-        $localConfigFile    = self::CONFIG_DIR."$configName.local.php";
+        $defaultConfigFile = self::CONFIG_DIR."{$configName}.default.php";
+        $nodeConfigFile = self::CONFIG_DIR."{$configName}.{$ocNode}.php";
+        $localConfigFile = self::CONFIG_DIR."{$configName}.local.php";
 
         // load default config
-        if(is_file($defaultConfigFile)){
-            include($defaultConfigFile);
+        if (is_file($defaultConfigFile)) {
+            include $defaultConfigFile;
         }
 
         // load node config
-        if(is_file($nodeConfigFile)){
-            include($nodeConfigFile);
+        if (is_file($nodeConfigFile)) {
+            include $nodeConfigFile;
         }
 
         // load local config
-        if(is_file($localConfigFile)){
-            include($localConfigFile);
+        if (is_file($localConfigFile)) {
+            include $localConfigFile;
         }
 
         return $$localConfigArr;
@@ -151,69 +154,72 @@ abstract class ConfigReader
      * Save nodeId in the ApplicationContext.
      *
      * @return string identifier of the node
-     *
      */
     public static function getOcNode()
     {
-        if (!is_null(static::instance()->ocNode)) {
+        if (! is_null(static::instance()->ocNode)) {
             return static::instance()->ocNode;
         }
 
         // try to load from legacy config file
         $ocNode = self::getNodeIdFromLegacyConfig();
-        if (!is_null($ocNode)) {
+        if (! is_null($ocNode)) {
             self::setOcNode($ocNode);
+
             return $ocNode;
         }
-
 
         // try to load from local config file
         $ocNode = self::getNodeIdFromConfig();
-        if (!is_null($ocNode)) {
+        if (! is_null($ocNode)) {
             self::setOcNode($ocNode);
+
             return $ocNode;
         }
 
-        throw new \Exception("Can't locate both legacy and non-legacy config files:".
-            self::LEGACY_LOCAL_CONFIG.' and '.self::LOCAL_CONFIG);
+        throw new Exception(
+            "Can't locate both legacy and non-legacy config files:"
+            .self::LEGACY_LOCAL_CONFIG.' and '.self::LOCAL_CONFIG
+        );
     }
 
     private static function getNodeIdFromConfig()
     {
         $localConfigFile = self::LOCAL_CONFIG;
 
-        if(is_file($localConfigFile)){
+        if (is_file($localConfigFile)) {
             include $localConfigFile;
 
-            if(!isset($config['ocNode'])){
-                $config['ocNode'] = "pl";
+            if (! isset($config['ocNode'])) {
+                $config['ocNode'] = 'pl';
             }
+
             return $config['ocNode'];
         }
+
         return null;
     }
 
     private static function getNodeIdFromLegacyConfig()
     {
         // try to load from legacy config file
-        if(is_file(self::LEGACY_LOCAL_CONFIG)){
+        if (is_file(self::LEGACY_LOCAL_CONFIG)) {
             include self::LEGACY_LOCAL_CONFIG;
 
-            if(!isset($config['ocNode'])){
-                $config['ocNode'] = "pl";
+            if (! isset($config['ocNode'])) {
+                $config['ocNode'] = 'pl';
             }
 
             return $config['ocNode'];
         }
+
         return null;
     }
-
 
     private static function setOcNode($ocNode)
     {
         static::instance()->ocNode = $ocNode;
     }
-
 
     abstract public static function instance();
 }
