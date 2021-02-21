@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Text displayed in the video banner in the header
+ * Text and video displayed in the video banner in the header
  *
  * This is a default configuration.
  * It may be customized in node-specific configuration file.

@@ -89,7 +89,7 @@ class StartPageController extends BaseController
         }
 
         return StaticMap::displayPureMap(
-            $center, OcConfig::getStartPageMapZoom(), OcConfig::getStartPageMapDiemnsions(),
+            $center, OcConfig::getStartPageMapZoom(), OcConfig::getStartPageMapDimensions(),
             $config['maps']['main_page_map']['source']);
     }
 

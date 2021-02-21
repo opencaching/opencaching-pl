@@ -2,11 +2,10 @@
 
 namespace src\Models\OcConfig;
 
-use Exception;
-
 /**
- * This trait group access to email settings stored in /config/email.* conf. files
- * BEWARE OF FUNCTIONS NAME COLLISION BETWEEN CONFIG TRAITS!
+ * Loads configuration from i18n.*.php.
+ *
+ * @mixin OcConfig
  */
 trait I18nConfigTrait
 {
@@ -14,32 +13,27 @@ trait I18nConfigTrait
 
     public static function getI18nDefaultLang()
     {
-        return self::getI18nVar('defaultLang');
+        return self::getKeyFromI18nConfig('defaultLang');
     }
 
     public static function getI18nSupportedLangs()
     {
-        return self::getI18nVar('supportedLanguages');
+        return self::getKeyFromI18nConfig('supportedLanguages');
     }
 
     public static function isI18nCrowdinInContextSupported()
     {
-        return self::getI18nVar('crowdinInContextSupported');
+        return self::getKeyFromI18nConfig('crowdinInContextSupported');
     }
 
     public static function getI18nCrowdinInContextPseudoLang()
     {
-        return self::getI18nVar('crowdinInContextPseudoLang');
+        return self::getKeyFromI18nConfig('crowdinInContextPseudoLang');
     }
 
-    /**
-     * Read config from files
-     *
-     * @return array
-     */
-    private function getI18nConfig()
+    private function getI18nConfig(): array
     {
-        if ($this->i18nConfig == null) {
+        if (! $this->i18nConfig) {
             $this->i18nConfig = self::getConfig('i18n');
         }
 
@@ -47,20 +41,12 @@ trait I18nConfigTrait
     }
 
     /**
-     * Get Var from email.* files
-     *
-     * @param string $varName
-     * @return string
-     * @throws Exception
+     * @return mixed
      */
-    private static function getI18nVar($varName)
+    private static function getKeyFromI18nConfig(string $key)
     {
         $i18nConfig = self::instance()->getI18nConfig();
 
-        if (! is_array($i18nConfig)) {
-            throw new Exception("Invalid {$varName} setting: see /config/i18n.*");
-        }
-
-        return $i18nConfig[$varName];
+        return $i18nConfig[$key];
     }
 }

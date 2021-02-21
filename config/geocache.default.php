@@ -26,7 +26,7 @@ $geocache['enabledSizes'] = [
 ];
 
 /**
- * Types of geocache which are forbidden on creation (it is possible
- * that such geocaches are still in DB, but no NEW caches of this can be created).
+ * Geocache types which are forbidden on creation (it is possible that
+ * such geocaches are still in DB, but no new ones can be created).
  */
 $geocache['noNewCachesOfTypes'] = [];

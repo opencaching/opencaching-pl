@@ -18,7 +18,7 @@ function find_news($start, $limit)
     $logs = $logEntryController->loadLogsFromDb($cache->getCacheId(), false, $start, $limit);
 
     // detailed cache access logging
-    if (OcConfig::instance()->isCacheAccesLogEnabled()) {
+    if (OcConfig::instance()->isCacheAccessLogEnabled()) {
         $user_id = @$_SESSION['user_id'] > 0 ? $_SESSION['user_id'] : null;
         CacheAccessLog::logCacheAccess($cache->getCacheId(), $user_id, 'view_logs', CacheAccessLog::SOURCE_MOBILE);
     }

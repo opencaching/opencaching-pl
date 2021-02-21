@@ -3,22 +3,22 @@
 namespace src\Models\OcConfig;
 
 use Exception;
-use src\Controllers\PictureController;
 
 /**
- * This trait group access to email settings stored in /config/email.* conf. files
- * BEWARE OF FUNCTIONS NAME COLLISION BETWEEN CONFIG TRAITS!
+ * Loads configuration from pictures.*.php.
+ *
+ * @mixin OcConfig
  */
 trait PicturesConfigTrait
 {
     protected $picturesConfig = null;
 
     /**
-     * @return array [width, height] of max size of the small thumbnail
+     * @return array [width, height] of the maximum size of a small thumbnail.
      */
     public static function getPicSmallThumbnailSize()
     {
-        $conf = self::getPicturesVar('thumbnailSmall');
+        $conf = self::getKeyFromPicturesConfig('thumbnailSmall');
 
         if (! is_array($conf)) {
             throw new Exception('thumbnailSmall setting not an array?: see /config/pictures.*');
@@ -28,11 +28,11 @@ trait PicturesConfigTrait
     }
 
     /**
-     * @return array [width, height] of max size of the small thumbnail
+     * @return array [width, height] of the maximum size of a medium thumbnail.
      */
     public static function getPicMediumThumbnailSize()
     {
-        $conf = self::getPicturesVar('thumbnailMedium');
+        $conf = self::getKeyFromPicturesConfig('thumbnailMedium');
 
         if (! is_array($conf)) {
             throw new Exception('thumbnailMedium setting no an array?: see /config/pictures.*');
@@ -42,79 +42,72 @@ trait PicturesConfigTrait
     }
 
     /**
-     * former: $picdir
+     * Get absolute path of the directory where uploaded pictures should be stored.
+     */
+    public static function getPicUploadFolder(): string
+    {
+        return self::getDynFilesPath(true) . self::getPicUploadFolderInDynBaseDir();
+    }
+
+    /**
+     * Get the path of the directory where uploaded pictures should be stored
+     * relative to DynBasePath directory.
+     */
+    public static function getPicUploadFolderInDynBaseDir(): string
+    {
+        return self::getKeyFromPicturesConfig('picturesUploadFolder');
+    }
+
+    /**
+     * Get an absolute url under which pictures are accessible.
+     */
+    public static function getPicBaseUrl(): string
+    {
+        return self::getKeyFromPicturesConfig('picturesBaseUrl');
+    }
+
+    /**
+     * Get the path of the directory where thumbnails should be stored.
+     */
+    public static function getPicThumbnailsFolder(): string
+    {
+        return self::getDynFilesPath(true) . self::getKeyFromPicturesConfig('thumbnailFolder');
+    }
+
+    /**
+     * Note: this size is internal - other limits can be set in http/php server configuration.
      *
-     * @return string - path to the folder where uploaded pictures should be stored
-     */
-    public static function getPicUploadFolder()
-    {
-        return self::getDynFilesPath(true).self::getPicUploadFolderInDynBaseDir();
-    }
-
-    /**
-     * @return string - path to the folder where uploaded pictures should be stored related to DynBasePath directory
-     */
-    public static function getPicUploadFolderInDynBaseDir()
-    {
-        return self::getPicturesVar('picturesUploadFolder');
-    }
-
-    /**
-     * former: $picurl
-     *
-     * @return string - base of the url under which pics are accessible
-     */
-    public static function getPicBaseUrl()
-    {
-        return self::getPicturesVar('picturesBaseUrl');
-    }
-
-    /**
-     * @return string - path to the folder where thumbnails should be stored
-     */
-    public static function getPicThumbnailsFolder()
-    {
-        return self::getDynFilesPath(true).self::getPicturesVar('thumbnailFolder');
-    }
-
-    /**
-     * Note: this size is internal - other limits can be set in http/php server config
-     *
-     * @return float - return the max size of picture
+     * @return int|float
      */
     public static function getPicMaxSize()
     {
-        return self::getPicturesVar('maxFileSize');
+        return self::getKeyFromPicturesConfig('maxFileSize');
     }
 
     /**
-     * @return float - minimal size of picture (in MB) to run resize
+     * Get the maximum size of a picture that is allowed to be stored without
+     * resizing (in MB).
+     *
+     * @return float
      */
     public static function getPicResizeLimit()
     {
-        return self::getPicturesVar('resizeLargerThan');
+        return self::getKeyFromPicturesConfig('resizeLargerThan');
     }
 
     /**
-     * @return string  List of allowed picture extensions
+     * Get the list of allowed picture extensions.
      */
-    public static function getPicAllowedExtensions($toDisplay = false)
+    public static function getPicAllowedExtensions($toDisplay = false): string
     {
-        if ($toDisplay) {
-            return self::getPicturesVar('allowedExtensionsText');
-        } else {
-            return self::getPicturesVar('allowedExtensions');
-        }
+        return self::getKeyFromPicturesConfig(
+            $toDisplay ? 'allowedExtensionsText' : 'allowedExtensions'
+        );
     }
 
-    /**
-     * Read config from files
-     *
-     * @return array
-     */
-    private function getPicturesConfig()
+    private function getPicturesConfig(): array
     {
-        if ($this->picturesConfig == null) {
+        if (! $this->picturesConfig) {
             $this->picturesConfig = self::getConfig('pictures', 'pictures');
         }
 
@@ -122,20 +115,12 @@ trait PicturesConfigTrait
     }
 
     /**
-     * Get Var from pictures.* files
-     *
-     * @param string $varName
-     * @return string
-     * @throws Exception
+     * @return mixed
      */
-    private static function getPicturesVar($varName)
+    private static function getKeyFromPicturesConfig(string $key)
     {
-        $config = self::instance()->getPicturesConfig();
+        $picturesConfig = self::instance()->getPicturesConfig();
 
-        if (! is_array($config) || ! isset($config[$varName])) {
-            throw new Exception("Invalid {$varName} setting: see /config/pictures.*");
-        }
-
-        return $config[$varName];
+        return $picturesConfig[$key];
     }
 }
