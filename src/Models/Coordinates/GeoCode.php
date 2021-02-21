@@ -28,13 +28,14 @@ class GeoCode
     }
 
     /**
+     *
      * @throws Exception if there is some problem with fetching data from OpenRouteService
      */
-    public static function fromOpenRouteService($place) {
-
+    public static function fromOpenRouteService($place)
+    {
         $ors_key = OcConfig::getMapKey('OpenRouteService');
 
-        if(empty($ors_key)) {
+        if (empty($ors_key)) {
             Debug::errorLog("No api_key for OpenRouteService in configuration. Check /Config/map.default.php");
             return null;
         }
@@ -44,7 +45,7 @@ class GeoCode
         $data = @file_get_contents($url);
 
         if (!$data) {
-            Debug::errorLog("Problem with fetching data from ".$url);
+            Debug::errorLog("Problem with fetching data from " . $url);
             throw new Exception("Problem with fetching data from OpenRouteService");
             return;
         }
@@ -54,39 +55,37 @@ class GeoCode
         // response
         $results = [];
 
-        if(!empty($resp) && isset($resp->features) && is_array($resp->features)) {
-            foreach($resp->features as $feature) {
+        if (! empty($resp) && isset($resp->features) && is_array($resp->features)) {
+            foreach ($resp->features as $feature) {
                 $result = new GeoCodeServiceResult();
 
                 // skip incorrect feature
-                if(!isset($feature->bbox, $feature->properties)
-                    || !is_array($feature->bbox)
-                    || !is_object($feature->properties)) {
+                if (! isset($feature->bbox, $feature->properties) || ! is_array($feature->bbox) || ! is_object($feature->properties)) {
                     continue;
                 }
 
                 // skip useless feature
                 // according to OpenRouteService documentation localadmin means 'local administrative boundaries'
                 // it seems to have very narrow bbox though, not quite suitable
-                if(isset($feature->properties->layer) && $feature->properties->layer == 'localadmin') {
+                if (isset($feature->properties->layer) && $feature->properties->layer == 'localadmin') {
                     continue;
                 }
 
                 $result->bbox = $feature->bbox;
 
-                if(isset($feature->properties->name)) {
+                if (isset($feature->properties->name)) {
                     $result->name = $feature->properties->name;
                 }
 
-                if(isset($feature->properties->layer)) {
+                if (isset($feature->properties->layer)) {
                     $result->layer = $feature->properties->layer;
                 }
 
-                if(isset($feature->properties->country_a)) {
+                if (isset($feature->properties->country_a)) {
                     $result->countryCode = $feature->properties->country_a;
                 }
 
-                if(isset($feature->properties->region)) {
+                if (isset($feature->properties->region)) {
                     $result->region = $feature->properties->region;
                 }
 
