@@ -2,19 +2,15 @@
 
 use src\Utils\Database\XDb;
 use src\Models\OcConfig\OcConfig;
-use src\Models\ApplicationContainer;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
-//user logged in?
-$loggedUser = ApplicationContainer::GetAuthorizedUser();
-if (!$loggedUser) {
-    $target = urlencode(tpl_get_current_page());
-    tpl_redirect('login.php?target=' . $target);
-    exit;
-}
-
-
+if ($error == false) {
+    //user logged in?
+    if ($usr == false) {
+        $target = urlencode(tpl_get_current_page());
+        tpl_redirect('login.php?target=' . $target);
+    } else {
         $tplname = 'removemp3'; // gibt es nicht ...
         require_once (__DIR__.'/src/Views/removemp3.inc.php');
 
@@ -39,9 +35,8 @@ if (!$loggedUser) {
             $localid = $r['id'];
             $url = $r['url'];
 
-            if ($user_id != $loggedUser->getUserId() && !$loggedUser->hasOcTeamRole()) {
+            if ($user_id != $usr['userid'] && !$usr['admin'])
                 $allok = false;
-            }
         }
 
         if ($allok == true) {

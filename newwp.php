@@ -3,19 +3,17 @@
 use src\Models\GeoCache\WaypointCommons;
 use src\Utils\Database\XDb;
 use src\Utils\I18n\I18n;
-use src\Models\ApplicationContainer;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
 $no_tpl_build = false;
-
-//user logged in?
-$loggedUser = ApplicationContainer::GetAuthorizedUser();
-if (!$loggedUser) {
-    $target = urlencode(tpl_get_current_page());
-    tpl_redirect('login.php?target=' . $target);
-    exit;
-}
+//Preprocessing
+if ($error == false) {
+    //user logged in?
+    if ($usr == false) {
+        $target = urlencode(tpl_get_current_page());
+        tpl_redirect('login.php?target=' . $target);
+    } else {
 
         //New Waypoint
         if (isset($_REQUEST['cacheid'])) {
@@ -68,8 +66,7 @@ if (!$loggedUser) {
                 tpl_set_var("nextstage", "1");
             }
 
-            if ($cache_record['user_id'] == $loggedUser->getUserId() || $loggedUser->hasOcTeamRole()) {
-
+            if ($cache_record['user_id'] == $usr['userid'] || $usr['admin']) {
                 $tplname = 'newwp';
 
                 require_once(__DIR__.'/src/Views/newcache.inc.php');
@@ -367,6 +364,8 @@ if (!$loggedUser) {
                 $no_tpl_build = true;
             }
         }
+    }
+}
 
 if ($no_tpl_build == false) {
     //make the template and send it out

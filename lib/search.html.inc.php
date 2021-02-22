@@ -8,7 +8,6 @@ use src\Utils\Uri\OcCookie;
 use src\Models\Coordinates\Coordinates;
 use src\Utils\I18n\I18n;
 use src\Models\GeoCache\GeoCacheCommons;
-use src\Models\ApplicationContainer;
 
 /**
  * This script is used (can be loaded) by /search.php
@@ -70,13 +69,11 @@ function fHideColumn($nr, $set)
     return $C;
 }
 
-global $dbcSearch, $hide_coords, $NrColSortSearch, $OrderSortSearch, $SearchWithSort, $TestStartTime, $queryFilter;
+global $dbcSearch, $usr, $hide_coords, $NrColSortSearch, $OrderSortSearch, $SearchWithSort, $TestStartTime, $queryFilter;
 require_once (__DIR__.'/../src/Views/lib/icons.inc.php');
 require_once (__DIR__.'/calculation.inc.php');
 
 set_time_limit(1800);
-
-$loggedUser = ApplicationContainer::GetAuthorizedUser();
 
 $dbc = OcDb::instance();
 
@@ -277,14 +274,14 @@ $query = 'SELECT ';
 
 if (isset($lat_rad) && isset($lon_rad)) {
     if ($CalcDistance)
-        $query .= getCalcDistanceSqlFormula(is_object($loggedUser), $lon_rad * 180 / 3.14159, $lat_rad * 180 / 3.14159, 0, $multiplier[$distance_unit]) . ' `distance`, ';
+        $query .= getCalcDistanceSqlFormula($usr !== false, $lon_rad * 180 / 3.14159, $lat_rad * 180 / 3.14159, 0, $multiplier[$distance_unit]) . ' `distance`, ';
 } else {
-    if (!$loggedUser) {
+    if ($usr === false) {
         if ($CalcDistance)
             $query .= '0 distance, ';
     } elseif ($CalcDistance) {
         // get the users home coords
-        $s = $dbc->multiVariableQuery("SELECT `latitude`, `longitude` FROM `user` WHERE `user_id`=:1", $loggedUser->getUserId());
+        $s = $dbc->multiVariableQuery("SELECT `latitude`, `longitude` FROM `user` WHERE `user_id`=:1", $usr['userid']);
         $record_coords = $dbc->dbResultFetch($s);
 
         if ((($record_coords['latitude'] == NULL) || ($record_coords['longitude'] == NULL)) || (($record_coords['latitude'] == 0) || ($record_coords['longitude'] == 0))) {
@@ -296,9 +293,7 @@ if (isset($lat_rad) && isset($lon_rad)) {
             $lon_rad = $record_coords['longitude'] * 3.14159 / 180;
             $lat_rad = $record_coords['latitude'] * 3.14159 / 180;
 
-            $query .= getCalcDistanceSqlFormula(
-                is_object($loggedUser), $record_coords['longitude'], $record_coords['latitude'],
-                0, $multiplier[$distance_unit]) . ' `distance`, ';
+            $query .= getCalcDistanceSqlFormula($usr !== false, $record_coords['longitude'], $record_coords['latitude'], 0, $multiplier[$distance_unit]) . ' `distance`, ';
         }
     }
 }
@@ -308,7 +303,7 @@ $query .= '   `caches`.`name` `name`, `caches`.`status` `status`, `caches`.`wp_o
                 `user`.`username` `username`, `user`.`user_id` `user_id`,
                 `cache_type`.`icon_large` `icon_large`,
                 `caches`.`founds` `founds`, `caches`.`topratings` `toprating`, cache_desc.short_desc short_desc ';
-if (!$loggedUser) {
+if ($usr === false) {
     if ($CalcCoordinates)
         $query .= ', `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude`, 0 as cache_mod_cords_id ';
 
@@ -322,8 +317,7 @@ if (!$loggedUser) {
     $query .= ' FROM `caches` ';
 
     if ($CalcCoordinates) {
-        $query .= ' LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id`
-                        AND `cache_mod_cords`.`user_id` = ' . $loggedUser->getUserId() . ' ';
+        $query .= ' LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id` AND `cache_mod_cords`.`user_id` = ' . $usr['userid'] . ' ';
     }
 }
 $query .= ' LEFT JOIN cache_desc ON cache_desc.cache_id=caches.cache_id AND cache_desc.language=\'' . I18n::getCurrentLang() . '\',
@@ -378,8 +372,7 @@ for ($i = 0; $i < $dbcSearch->rowCount($s); $i ++) {
     }
     $tmpline = $cache_line;
 
-    list ($iconname, $inactive) = getCacheIcon($loggedUser->getUserId(), $caches_record['cache_id'],
-            $caches_record['status'], $caches_record['user_id'], $caches_record['icon_large']);
+    list ($iconname, $inactive) = getCacheIcon($usr['userid'], $caches_record['cache_id'], $caches_record['status'], $caches_record['user_id'], $caches_record['icon_large']);
 
     $tmpline = str_replace('{icon_large}', $iconname, $tmpline);
     // sp2ong
@@ -395,7 +388,7 @@ for ($i = 0; $i < $dbcSearch->rowCount($s); $i ++) {
     $tmpline = str_replace('{toprating}', $ratingA, $tmpline);
     $tmpline = str_replace('{ratpic}', $ratingimg, $tmpline);
 
-    if (!$loggedUser) {
+    if ($usr == false) {
         $tmpline = str_replace('{long}', tr('please_login'), $tmpline);
         $tmpline = str_replace('{lat}', tr('to_see_coords'), $tmpline);
     } else {
@@ -496,7 +489,7 @@ for ($i = 0; $i < $dbcSearch->rowCount($s); $i ++) {
 
     if ($CalcDistance) {
         // and now the direction ...
-        if ($caches_record['distance'] > 0 && ($loggedUser || ! $hide_coords)) {
+        if ($caches_record['distance'] > 0 && ($usr || ! $hide_coords)) {
             $tmpline = str_replace('{direction}',
                 Gis::bearing2Text(
                     Gis::calcBearing(
@@ -514,7 +507,7 @@ for ($i = 0; $i < $dbcSearch->rowCount($s); $i ++) {
         $availableDescLangs .= '<a href="viewcache.php?cacheid=' . urlencode($caches_record['cache_id']) . '&amp;desclang=' . urlencode($thislang) . '" style="text-decoration:none;"><b><font color="blue">' . htmlspecialchars($thislang, ENT_COMPAT, 'UTF-8') . '</font></b></a> ';
     }
     $tmpline = str_replace('{desclangs}', $availableDescLangs, $tmpline);
-    if ($loggedUser || ! $hide_coords) {
+    if ($usr || ! $hide_coords) {
         if ($CalcCoordinates) {
             if ($caches_record['coord_modified'] == true) {
                 $mod_suffix_garmin = '(F)';
@@ -541,7 +534,7 @@ for ($i = 0; $i < $dbcSearch->rowCount($s); $i ++) {
     $tmpline = str_replace('{style}', $caches_record['status'] >= 4 ? $unpublished_cache_style : '', $tmpline);
 
     if ($CalcDistance) {
-        if ($loggedUser || ! $hide_coords) {
+        if ($usr || ! $hide_coords) {
             $dist = htmlspecialchars(sprintf("%01.1f", $caches_record['distance']), ENT_COMPAT, 'UTF-8');
             $tmpline = str_replace('{distance}', $dist, $tmpline);
             $tmpline = str_replace('{distance_pad}', str_pad($dist, 5, 0, STR_PAD_LEFT), $tmpline);
@@ -630,13 +623,13 @@ $lhideColumns = 'search.php?queryid=' . $options['queryid'] . '&amp;startat=0';
 tpl_set_var('lhideColumns', $lhideColumns);
 
 // save-link
-if (!$loggedUser)
+if ($usr === false)
     tpl_set_var('safelink', '');
 else
     tpl_set_var('safelink', str_replace('{queryid}', $options['queryid'], $safelink));
 
 // downloads
-    if ($loggedUser || ! $hide_coords)
+if ($usr || ! $hide_coords)
     tpl_set_var('queryid', $options['queryid']);
     tpl_set_var('startat', $startat);
 

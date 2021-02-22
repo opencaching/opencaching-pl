@@ -4,7 +4,8 @@ ob_start();
 
 use src\Utils\Database\XDb;
 use src\Models\OcConfig\OcConfig;
-use src\Models\ApplicationContainer;
+
+global $usr;
 
 require_once(__DIR__.'/../../lib/common.inc.php');
 require_once(__DIR__.'/../../lib/export.inc.php');
@@ -36,11 +37,10 @@ $kml = '<?xml version="1.0" encoding="utf-8"?>
 ';
 $countryCoords = OcConfig::getMapDefaultCenter();
 
-$loggedUser = ApplicationContainer::GetAuthorizedUser();
-if ($loggedUser) {
+if ($usr) {
     // get the users home coords
     $rs_coords = XDb::xSql(
-        "SELECT `latitude`, `longitude` FROM `user` WHERE `user_id`= ? ", $loggedUser->getUserId());
+        "SELECT `latitude`, `longitude` FROM `user` WHERE `user_id`= ? ", $usr['userid']);
 
     $record_coords = XDb::xFetchArray($rs_coords);
 

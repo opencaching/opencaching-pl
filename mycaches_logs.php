@@ -3,25 +3,23 @@
 use src\Models\GeoCache\GeoCacheLog;
 use src\Utils\Database\XDb;
 use src\Utils\Text\Formatter;
-use src\Models\ApplicationContainer;
+
+global $usr;
 
 //include template handling
 require_once(__DIR__.'/lib/common.inc.php');
 
 //user logged in?
-$loggedUser = ApplicationContainer::GetAuthorizedUser();
-if (!$loggedUser) {
+if ($usr == false) {
     $target = urlencode(tpl_get_current_page());
     tpl_redirect('login.php?target='.$target);
-    exit;
-}
-
+} else {
 
     if (isset($_REQUEST['userid'])) {
         $user_id = $_REQUEST['userid'];
         tpl_set_var('userid', $user_id);
     } else {
-        $user_id = $loggedUser->getUserId();
+        $user_id = $usr['userid'];
     }
 
     //get the news
@@ -29,7 +27,7 @@ if (!$loggedUser) {
     require(__DIR__.'/src/Views/newlogs.inc.php');
 
     $user_record['username'] = XDb::xMultiVariableQueryValue(
-        "SELECT  username FROM user WHERE user_id= :1 LIMIT 1", '-noname-', $loggedUser->getUserId());
+        "SELECT  username FROM user WHERE user_id= :1 LIMIT 1", '-noname-', $user_id);
 
     tpl_set_var('username', htmlspecialchars($user_record['username']));
 
@@ -151,7 +149,7 @@ if (!$loggedUser) {
                     ENT_COMPAT, 'UTF-8').'" onmouseover="Tip(\'';
             // ukrywanie nicka autora komentarza COG
             // Łza
-            if ($log_record['log_type'] == 12 && !$loggedUser->hasOcTeamRole()) {
+            if ($log_record['log_type'] == 12 && !$usr['admin']) {
                 $log_record['user_name'] = tr('cog_user_name');
                 $log_record['user_id'] = 0;
             }
@@ -175,7 +173,7 @@ if (!$loggedUser) {
 
     tpl_set_var('file_content', $file_content);
     tpl_set_var('pages', $pages);
-
+}
 
 //make the template and send it out
 tpl_BuildTemplate();

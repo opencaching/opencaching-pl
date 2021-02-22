@@ -4,25 +4,22 @@ use src\Utils\Text\Formatter;
 use src\Utils\Text\Validator;
 use src\Models\OcConfig\OcConfig;
 use src\Utils\Uri\Uri;
-use src\Models\ApplicationContainer;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
 $db = XDb::instance();
 $description = "";
-
-$user = ApplicationContainer::GetAuthorizedUser();
-if (!$user) {
+// user logged in?
+if ($usr == false) {
     $target = urlencode(tpl_get_current_page());
     tpl_redirect('login.php?target=' . $target);
-}
-
+} else {
     $guidesConfig = OcConfig::instance()->getGuidesConfig();
     tpl_set_var('desc_updated', '');
     tpl_set_var('displayGeoPathSection', displayGeoPathSection('table'));
     if (isset($_POST['description'])) {
         $q = "UPDATE user SET description = :1 WHERE user_id=:2";
-        $db->multiVariableQuery($q, strip_tags($_POST['description']), (int) $user->getUserId());
+        $db->multiVariableQuery($q, strip_tags($_POST['description']), (int) $usr['userid']);
         tpl_set_var('desc_updated', "<font color='green'>" . tr('desc_updated') . "</font>");
     }
 
@@ -31,9 +28,7 @@ if (!$user) {
 
     // check user can set as Geocaching guide
     // Number of recommendations
-    $nrecom = $db->multiVariableQueryValue("SELECT SUM(topratings) as nrecom FROM caches WHERE `caches`.`user_id`= :1",
-        0, $user->getUserId());
-
+    $nrecom = $db->multiVariableQueryValue("SELECT SUM(topratings) as nrecom FROM caches WHERE `caches`.`user_id`= :1", 0, $usr['userid']);
     if ($nrecom >= $guidesConfig['guideGotRecommendations']) {
         tpl_set_var('guide_start', '');
         tpl_set_var('guide_end', '');
@@ -42,10 +37,7 @@ if (!$user) {
         tpl_set_var('guide_end', '-->');
     }
 
-    $s = $db->multiVariableQuery(
-            "SELECT `description`, `guru`,`username`, `email`, `date_created`, `permanent_login_flag`,
-                    `power_trail_email`, `ozi_filips` FROM `user` WHERE `user_id`=:1 ", $user->getUserId());
-
+    $s = $db->multiVariableQuery("SELECT `description`, `guru`,`username`, `email`, `date_created`, `permanent_login_flag`, `power_trail_email`, `ozi_filips` FROM `user` WHERE `user_id`=:1 ", $usr['userid']);
     $record = $db->dbResultFetchOneRowOnly($s);
     $description = $record['description'];
     tpl_set_var('description', $description);
@@ -57,9 +49,9 @@ if (!$user) {
         tpl_set_var('guides_start', '<!--');
         tpl_set_var('guides_end', '-->');
     }
-    tpl_set_var('userid', (int) $user->getUserId());
-    tpl_set_var('profileurl', $absolute_server_URI . 'viewprofile.php?userid=' . ($user->getUserId()));
-    tpl_set_var('statlink', Uri::getAbsUri('/stats/statPic/'.$user->getUserId()));
+    tpl_set_var('userid', (int) $usr['userid']);
+    tpl_set_var('profileurl', $absolute_server_URI . 'viewprofile.php?userid=' . ($usr['userid'] + 0));
+    tpl_set_var('statlink', Uri::getAbsUri('/stats/statPic/'.$usr['userid']));
     tpl_set_var('username', htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8'));
     tpl_set_var('username_html', htmlspecialchars(htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8'), ENT_COMPAT, 'UTF-8'));
     tpl_set_var('email', htmlspecialchars($record['email'], ENT_COMPAT, 'UTF-8'));
@@ -67,7 +59,7 @@ if (!$user) {
 
     /* GeoKretyApi - display if secid from geokrety is set; (by Łza) */
     $GKAPIKeyQuery = "SELECT `secid` FROM `GeoKretyAPI` WHERE `userID` =:1";
-    $s = $db->multiVariableQuery($GKAPIKeyQuery, $user->getUserId());
+    $s = $db->multiVariableQuery($GKAPIKeyQuery, $usr['userid']);
     if ($db->rowCount($s) > 0) {
         tpl_set_var('GeoKretyApiIntegration', tr('yes'));
     } else {
@@ -147,7 +139,7 @@ if (!$user) {
                 if ($username_not_ok) {
                     tpl_set_var('username_message', $error_username_not_ok);
                 } else {
-                    if ($username != $user->getUserName()) {
+                    if ($username != $usr['username']) {
                         $q = "SELECT `username` FROM `user` WHERE `username`=:1 LIMIT 1";
                         $s = $db->multiVariableQuery($q, $username);
                         if ($db->rowCount($s) > 0) {
@@ -164,14 +156,10 @@ if (!$user) {
 
                         /* GeoKretyApi - insert or update in DB user secid from Geokrety */
                         if (strlen($GeoKretyApiSecid) == 128) {
-                            $db->multiVariableQuery(
-                                "insert into `GeoKretyAPI` (`userID`, `secid`)
-                                 values (:1, :2) on duplicate key update `secid`=:2",
-                                $user->getUserId(), $GeoKretyApiSecid);
-
+                            $db->multiVariableQuery("insert into `GeoKretyAPI` (`userID`, `secid`) values (:1, :2) on duplicate key update `secid`=:2", $usr['userid'], $GeoKretyApiSecid);
                             tpl_set_var('GeoKretyApiIntegration', tr('yes'));
                         } elseif ($GeoKretyApiSecid == '') {
-                            $db->multiVariableQuery("DELETE FROM `GeoKretyAPI` WHERE `userID` = :1", $user->getUserId());
+                            $db->multiVariableQuery("DELETE FROM `GeoKretyAPI` WHERE `userID` = :1", $usr['userid']);
                             tpl_set_var('GeoKretyApiIntegration', tr('no'));
                         }
 
@@ -179,30 +167,29 @@ if (!$user) {
                                   SET `last_modified` = NOW(),
                                       `permanent_login_flag`=:1,
                                       `power_trail_email`=:2 , `ozi_filips`=:3, `guru`=:4
-                                  WHERE `user_id`=:5", $using_permantent_login, $geoPathsEmail, $ozi_path, $guide, (int) $user->getUserId());
+                                  WHERE `user_id`=:5", $using_permantent_login, $geoPathsEmail, $ozi_path, $guide, (int) $usr['userid']);
 
                         // update user nick
-                        if ($username != $user->getUserName()) {
+                        if ($username != $usr['username']) {
                             $db->beginTransaction();
                             $q = "select count(id) from user_nick_history where user_id = :1";
-                            $hist_count = $db->multiVariableQueryValue($q, 0, (int) $user->getUserId());
+                            $hist_count = $db->multiVariableQueryValue($q, 0, (int) $usr['userid']);
                             if ($hist_count == 0) {
                                 // no history at all
                                 $q = "insert into user_nick_history (user_id, date_from, date_to, username) select user_id, date_created, now(), username from user where user_id = :1";
-                                $db->multiVariableQuery($q, (int) $user->getUserId());
+                                $db->multiVariableQuery($q, (int) $usr['userid']);
                             } else {
                                 // close previous entry
                                 $q = "update user_nick_history set date_to = NOW() where date_to is null and user_id = :1";
-                                $db->multiVariableQuery($q, (int) $user->getUserId());
+                                $db->multiVariableQuery($q, (int) $usr['userid']);
                             }
                             // update and save current nick
                             $q = "update user set username = :1 where user_id = :2";
-                            $db->multiVariableQuery($q, $username, (int) $user->getUserId());
+                            $db->multiVariableQuery($q, $username, (int) $usr['userid']);
                             $q = "insert into user_nick_history (user_id, date_from, username) select user_id, now(), username from user where user_id = :1";
-                            $db->multiVariableQuery($q, (int) $user->getUserId());
+                            $db->multiVariableQuery($q, (int) $usr['userid']);
                             $db->commit();
-
-                            // $usr['username'] = $username; //TODO: update username?!
+                            $usr['username'] = $username;
                         }
 
                         tpl_set_tplname('myprofile');
@@ -270,7 +257,7 @@ if (!$user) {
     } else {
         tpl_set_var('ozi_path', $ozi_path);
     }
-
+}
 
 // make the template and send it out
 tpl_BuildTemplate();

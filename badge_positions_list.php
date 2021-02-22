@@ -4,25 +4,23 @@ use src\Utils\Text\Formatter;
 use src\Controllers\MeritBadgeController;
 use src\Controllers\ViewBadgeHeadController;
 use src\Models\GeoCache\GeoCacheCommons;
-use src\Models\ApplicationContainer;
 
 require_once(__DIR__.'/lib/common.inc.php');
 
 
 global $content_table, $config;
 
-$loggedUser = ApplicationContainer::GetAuthorizedUser();
-
-if (!$loggedUser) {
+if ($usr == false) {
     $target = urlencode(tpl_get_current_page());
     tpl_redirect('login.php?target=' . $target);
     exit;
 }
 
+$usrid = -1;
 if (isset($_REQUEST['user_id'])) {
     $userid = $_REQUEST['user_id'];
 } else {
-    $userid = $loggedUser->getUserId();
+    $userid = $usr['userid'];
 }
 
 $badge_id = $_REQUEST['badge_id'];

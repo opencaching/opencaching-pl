@@ -6,7 +6,6 @@ use src\Utils\Database\XDb;
 use src\Utils\Uri\Uri;
 use src\Utils\View\View;
 use src\Utils\I18n\I18n;
-use src\Models\ApplicationContainer;
 
 require_once(__DIR__.'/lib/common.inc.php');
 
@@ -14,10 +13,10 @@ if (isset($_POST['flush_print_list'])) {
     PrintList::Flush();
 }
 
+//Preprocessing
 $cache_id = isset($_GET['cacheid']) ? $_GET['cacheid'] + 0 : 0;
 if (!$cache_id) {
-    $loggedUser = ApplicationContainer::GetAuthorizedUser();
-    if (!$loggedUser ||
+    if (!$usr ||
         (empty(PrintList::GetContent()) && (isset($_GET['source']) && $_GET['source'] != 'mywatches'))) {
         header("Location:index.php");
         die();
@@ -58,7 +57,7 @@ if ($cache_id) {
 if ((isset($_GET['source'])) && ($_GET['source'] == 'mywatches')) {
 
     $rs = XDb::xSql("SELECT `cache_watches`.`cache_id` AS `cache_id`
-                         FROM `cache_watches` WHERE `cache_watches`.`user_id`= ? ", $loggedUser->getUserId());
+                         FROM `cache_watches` WHERE `cache_watches`.`user_id`= ? ", $usr['userid']);
     if (XDb::xNumRows($rs) > 0) {
         $caches_list = array();
         for ($i = 0; $i < XDb::xNumRows($rs); $i++) {

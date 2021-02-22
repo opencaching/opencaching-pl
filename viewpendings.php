@@ -116,13 +116,7 @@ function assignUserToCase($userid, $cacheid)
 function notifyOwner($cacheid, $msgType)
 {
     // msgType - 0 = cache accepted, 1 = cache declined (=archived)
-    global $absolute_server_URI;
-
-    $user = ApplicationContainer::GetAuthorizedUser();
-    if(!$user) {
-        return;
-    }
-
+    global $usr, $absolute_server_URI;
     $user_id = getCacheOwnerId($cacheid);
 
     $cachename = getCachename($cacheid);
@@ -157,7 +151,7 @@ function notifyOwner($cacheid, $msgType)
         //send email to owner
         mb_send_mail($owner_email['email'], tr('viewPending_01') . ": " . $cachename, $email_content, $email_headers);
         //send email to approver
-        mb_send_mail($user->getEmail(), tr('viewPending_01') . ": " . $cachename, tr('viewPending_02') . ":\n" . $email_content, $email_headers);
+        mb_send_mail($usr['email'], tr('viewPending_01') . ": " . $cachename, tr('viewPending_02') . ":\n" . $email_content, $email_headers);
         // generate automatic log about status cache
         $log_text = htmlspecialchars(tr("viewPending_03"));
         $log_uuid = Uuid::create();
@@ -165,26 +159,26 @@ function notifyOwner($cacheid, $msgType)
             "INSERT INTO `cache_logs`
                 (`cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `date_created`, `last_modified`, `uuid`, `node`)
             VALUES (?, ?, '12', NOW(), ?, '2', NOW(), NOW(), ?, ?)",
-            $cacheid, $user->getUserId(), $log_text, $log_uuid, OcConfig::getSiteNodeId());
+            $cacheid, $usr['userid'], $log_text, $log_uuid, OcConfig::getSiteNodeId());
 
     } else {
         //send email to owner
         mb_send_mail($owner_email['email'], tr('viewPending_04') . ": " . $cachename, $email_content, $email_headers);
         //send email to approver
-        mb_send_mail($user->getEmail(), tr('viewPending_04') . ": " . $cachename, tr('viewPending_05') . ":\n" . $email_content, $email_headers);
+        mb_send_mail($usr['email'], tr('viewPending_04') . ": " . $cachename, tr('viewPending_05') . ":\n" . $email_content, $email_headers);
 
         // generate automatic log about status cache
         $log_text = htmlspecialchars(tr("viewPending_06"));
         $log_uuid = Uuid::create();
         XDb::xSql(
             "INSERT INTO `cache_logs`
-                (`id`, `cache_id`, `user_id`, `type`, `date`,
+                (`id`, `cache_id`, `user_id`, `type`, `date`, 
                  `text`, `text_html`, `date_created`, `last_modified`, `uuid`,
                  `node`)
             VALUES ('', ?, ?, ?, NOW(),
                     ?, ?, NOW(), NOW(), ?,
                     ?)",
-            $cacheid, $user->getUserId(), 12,
+            $cacheid, $usr['userid'], 12,
             $log_text, 2, $log_uuid,
             OcConfig::getSiteNodeId());
     }

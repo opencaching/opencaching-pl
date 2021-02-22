@@ -3,20 +3,18 @@
 use src\Utils\Database\XDb;
 use src\Utils\Text\Validator;
 use src\Models\OcConfig\OcConfig;
-use src\Models\ApplicationContainer;
 
 global $absolute_server_URI;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
-$user = ApplicationContainer::GetAuthorizedUser();
-if (!$user) {
-    $target = urlencode(tpl_get_current_page());
-    tpl_redirect('login.php?target=' . $target);
-}
-
-
-
+//Preprocessing
+if ($error == false) {
+    //user logged in?
+    if ($usr == false) {
+        $target = urlencode(tpl_get_current_page());
+        tpl_redirect('login.php?target=' . $target);
+    } else {
         //set here the template to process
         $tplname = 'newemail';
 
@@ -61,7 +59,7 @@ if (!$user) {
                     //code in DB eintragen
                     XDb::xSql(
                         "UPDATE `user` SET `new_email_date`=?, `new_email_code`=?, `new_email`=?
-                        WHERE `user_id`=?", time(), $secure_code, $new_email, $user->getUserId());
+                        WHERE `user_id`=?", time(), $secure_code, $new_email, $usr['userid']);
 
                     $email_content = file_get_contents(__DIR__.'/resources/email/newemail.email');
                     $email_content = mb_ereg_replace('{server}', $absolute_server_URI, $email_content);
@@ -72,7 +70,7 @@ if (!$user) {
                     $email_content = mb_ereg_replace('{newEmailAddr_05}', tr('newEmailAddr_05'), $email_content);
                     $email_content = mb_ereg_replace('{newEmailAddr_06}', tr('newEmailAddr_06'), $email_content);
                     $email_content = mb_ereg_replace('{newEmailAddr_07}', tr('newEmailAddr_07'), $email_content);
-                    $email_content = mb_ereg_replace('{user}', $user->getUserName(), $email_content);
+                    $email_content = mb_ereg_replace('{user}', $usr['username'], $email_content);
                     $email_content = mb_ereg_replace('{date}', strftime(
                         $GLOBALS['config']['datetimeformat']), $email_content);
                     $email_content = mb_ereg_replace('{code}', $secure_code, $email_content);
@@ -91,7 +89,7 @@ if (!$user) {
 
                     $rs = XDb::xSql(
                         "SELECT `new_email_code`, `new_email`, `new_email_date` FROM `user` WHERE `user_id`=? ",
-                        $user->getUserName());
+                        $usr['userid']);
 
                     $record = XDb::xFetchArray($rs);
                     $new_email = $record['new_email'];
@@ -119,7 +117,7 @@ if (!$user) {
                                 "UPDATE `user` SET `new_email_date`=NULL, `new_email_code`=NULL,
                                         `new_email`=NULL, `email`= ? , `last_modified`=NOW()
                                 WHERE `user_id`= ? ",
-                                $new_email, $user->getUserId());
+                                $new_email, $usr['userid']);
 
                             //try to change the email
                             tpl_set_var('message', $email_changed);
@@ -128,6 +126,8 @@ if (!$user) {
                 }
             }
         }
+    }
+}
 
 //make the template and send it out
 tpl_BuildTemplate();

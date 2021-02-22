@@ -2,7 +2,6 @@
 
 use src\Utils\Database\OcDb;
 use src\Utils\Generators\Uuid;
-use src\Models\User\User;
 
 class powerTrailController
 {
@@ -17,7 +16,7 @@ class powerTrailController
     private $ptOwners;
     private $areOwnSeries = false;
 
-    function __construct(User $user)
+    function __construct($user)
     {
         if (isset($_REQUEST['ptAction'])) {
             $this->action = $_REQUEST['ptAction'];
@@ -132,7 +131,7 @@ class powerTrailController
         } else {
             $cacheCountLimit = powerTrailBase::minimumCacheCount();
         }
-        $userid = (!$this->user) ? null : $this->user->getUserId();
+        $userid = empty($this->user) ? null : $this->user['userid'];
         if (isset($_REQUEST['myPowerTrailsBool']) && isset($userid) && $_REQUEST['myPowerTrailsBool'] === "yes") {
             $myTrailsCondition = "and `id` NOT IN (SELECT `PowerTrailId` FROM `PowerTrail_owners`
             WHERE `userId` = $userid)";
@@ -206,9 +205,9 @@ class powerTrailController
             $newProjectId = $db->lastInsertId();
             // exit;
             $query = "INSERT INTO `PowerTrail_owners`(`PowerTrailId`, `userId`, `privileages`) VALUES (:1,:2,:3)";
-            $db->multiVariableQuery($query, $newProjectId, $this->user->getUserId(), 1);
+            $db->multiVariableQuery($query, $newProjectId, $this->user['userid'], 1);
             $logQuery = 'INSERT INTO `PowerTrail_actionsLog`(`PowerTrailId`, `userId`, `actionDateTime`, `actionType`, `description`) VALUES (:1,:2,NOW(),1,:3)';
-            $db->multiVariableQuery($logQuery, $newProjectId, $this->user->getUserId(),
+            $db->multiVariableQuery($logQuery, $newProjectId, $this->user['userid'],
                 $this->ptAPI->logActionTypes[1]['type']);
             header("location: powerTrail.php?ptAction=showSerie&ptrail=$newProjectId");
 
@@ -223,7 +222,7 @@ class powerTrailController
     {
         $query = "SELECT cache_id, wp_oc, PowerTrailId, name FROM `caches` LEFT JOIN powerTrail_caches ON powerTrail_caches.cacheId = caches.cache_id WHERE caches.status NOT IN (3,6) AND `user_id` = :1";
         $db = OcDb::instance();
-        $s = $db->multiVariableQuery($query, $this->user->getUserId());
+        $s = $db->multiVariableQuery($query, $this->user['userid']);
         return $db->dbResultFetchAll($s);
     }
 
@@ -231,7 +230,7 @@ class powerTrailController
     {
         $query = "SELECT * FROM `PowerTrail`, PowerTrail_owners  WHERE  PowerTrail_owners.userId = :1 AND PowerTrail_owners.PowerTrailId = PowerTrail.id";
         $db = OcDb::instance();
-        $s = $db->multiVariableQuery($query, $this->user->getUserId());
+        $s = $db->multiVariableQuery($query, $this->user['userid']);
         $userPTs = $db->dbResultFetchAll($s);
 
         $this->userPTs = $userPTs;

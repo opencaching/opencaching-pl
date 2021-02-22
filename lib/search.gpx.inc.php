@@ -11,14 +11,11 @@ use src\Models\GeoCache\GeoCacheCommons;
 use src\Models\GeoCache\CacheNote;
 use src\Utils\I18n\I18n;
 use src\Models\OcConfig\OcConfig;
-use src\Models\ApplicationContainer;
 
-global $content, $bUseZip, $hide_coords, $dbcSearch, $queryFilter;
+global $content, $bUseZip, $usr, $hide_coords, $dbcSearch, $queryFilter;
 require_once (__DIR__.'/common.inc.php');
 require_once (__DIR__.'/calculation.inc.php');
 set_time_limit(1800);
-
-$loggedUser = ApplicationContainer::GetAuthorizedUser();
 
 function getPictures($cacheid, $picturescount)
 {
@@ -183,7 +180,7 @@ $gpxLogType[10] = 'Enable Listing'; // OC: Note
 $gpxLogType[11] = 'Temporarily Disable Listing'; // OC: Note
 $gpxLogType[12] = 'Post Reviewer Note'; // OC: Note
 
-if ($loggedUser || ! $hide_coords) {
+if ($usr || ! $hide_coords) {
     /* ***********************************************************************
       Attributes
 
@@ -282,14 +279,13 @@ $gpxAttribID[999] = '999';        $gpxAttribName[999] = 'Log password';
     $query = 'SELECT ';
 
     if (isset($lat_rad) && isset($lon_rad)) {
-        $query .= getCalcDistanceSqlFormula(!is_null($loggedUser), $lon_rad * 180 / 3.14159, $lat_rad * 180 / 3.14159, 0, $multiplier[$distance_unit]) . ' `distance`, ';
+        $query .= getCalcDistanceSqlFormula($usr !== false, $lon_rad * 180 / 3.14159, $lat_rad * 180 / 3.14159, 0, $multiplier[$distance_unit]) . ' `distance`, ';
     } else {
-        if (!$loggedUser) {
+        if ($usr === false) {
             $query .= '0 distance, ';
         } else {
             // get the users home coords
-            $rs_coords = XDb::xSql("SELECT `latitude`, `longitude` FROM `user`
-                                    WHERE `user_id`= ? LIMIT 1", $loggedUser->getUserId());
+            $rs_coords = XDb::xSql("SELECT `latitude`, `longitude` FROM `user` WHERE `user_id`= ? LIMIT 1", $usr['userid']);
             $record_coords = XDb::xFetchArray($rs_coords);
 
             if ((($record_coords['latitude'] == NULL) || ($record_coords['longitude'] == NULL)) || (($record_coords['latitude'] == 0) || ($record_coords['longitude'] == 0))) {
@@ -301,20 +297,19 @@ $gpxAttribID[999] = '999';        $gpxAttribName[999] = 'Log password';
                 $lon_rad = $record_coords['longitude'] * 3.14159 / 180;
                 $lat_rad = $record_coords['latitude'] * 3.14159 / 180;
 
-                $query .= getCalcDistanceSqlFormula(!is_null($loggedUser), $record_coords['longitude'], $record_coords['latitude'], 0, $multiplier[$distance_unit]) . ' `distance`, ';
+                $query .= getCalcDistanceSqlFormula($usr !== false, $record_coords['longitude'], $record_coords['latitude'], 0, $multiplier[$distance_unit]) . ' `distance`, ';
             }
             XDb::xFreeResults($rs_coords);
         }
     }
 
     $query .= '`caches`.`cache_id` `cache_id`, `caches`.`status` `status`, `caches`.`type` `type`, `caches`.`size` `size`, `caches`.`user_id` `user_id`, `caches`.`votes` `votes`, `caches`.`score` `score`, `caches`.`topratings` `topratings`, ';
-    if (!$loggedUser) {
+    if ($usr === false) {
         $query .= ' `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude`, 0 as cache_mod_cords_id FROM `caches` ';
     } else {
         $query .= ' IFNULL(`cache_mod_cords`.`longitude`, `caches`.`longitude`) `longitude`, IFNULL(`cache_mod_cords`.`latitude`, `caches`.`latitude`) `latitude`, IFNULL(cache_mod_cords.latitude,0) as cache_mod_cords_id
             FROM `caches`
-            LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id`
-                AND `cache_mod_cords`.`user_id` = ' . $loggedUser->getUserId();
+            LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id` AND `cache_mod_cords`.`user_id` = ' . $usr['userid'];
     }
     $query .= ' WHERE `caches`.`cache_id` IN (' . $queryFilter . ')';
 
@@ -432,7 +427,7 @@ $gpxAttribID[999] = '999';        $gpxAttribName[999] = 'Log password';
             $dbc = OcDb::instance();
 
             $cache_id = $r['cacheid'];
-            $user_id = $loggedUser->getUserId() ?? null;
+            $user_id = $usr !== false ? $usr['userid'] : null;
             $access_log = @$_SESSION['CACHE_ACCESS_LOG_GPX_' . $user_id];
             if ($access_log === null) {
                 $_SESSION['CACHE_ACCESS_LOG_GPX_' . $user_id] = array();
@@ -485,9 +480,9 @@ $gpxAttribID[999] = '999';        $gpxAttribName[999] = 'Log password';
         $thisline = str_replace('{desc}', xmlencode_text($logpw . $r['desc']), $thisline);
 
         // add personal cache info if user login to OC
-        if ($loggedUser) {
+        if ($usr == true) {
 
-            $cacheNote = CacheNote::getNote($loggedUser->getUserId(), $r['cacheid']);
+            $cacheNote = CacheNote::getNote($usr['userid'], $r['cacheid']);
 
             if (!empty($cacheNote)) {
                 $thisline = str_replace('{personal_cache_note}',
