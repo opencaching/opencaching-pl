@@ -1,3 +1,8 @@
+<?php
+use src\Utils\Database\XDb;
+use src\Utils\Cache\OcMemCache;
+use src\Models\ApplicationContainer;
+?>
 <div class="content2-container">
   <div class="content2-pagetitle">
     <img src="/images/blue/stat1.png" class="icon32" alt="">
@@ -9,9 +14,6 @@
     <tr>
         <td>
 <?php
-use src\Utils\Database\XDb;
-use src\Utils\Cache\OcMemCache;
-
 $userscount = XDb::xSimpleQueryValue(
     'SELECT COUNT( DISTINCT user_id) FROM cache_logs WHERE type=1 AND `deleted`=0', 0);
 
@@ -111,7 +113,8 @@ $cachelogscount = XDb::xSimpleQueryValue(
     foreach ($lines as $line) {
         $color = "black";
         $banned = "";
-        if ($usr['admin'] || $line['stat_ban'] == 0) {
+        $loggedUser = ApplicationContainer::GetAuthorizedUser();
+        if (($loggedUser && $loggedUser->hasOcTeamRole()) || $line['stat_ban'] == 0) {
             if ($line['stat_ban']) {
                 $color = "gray";
                 $banned = " (BAN)";

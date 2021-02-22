@@ -3,14 +3,18 @@
 use src\Models\GeoCache\GeoCacheCommons;
 use src\Models\GeoCache\GeoCacheLogCommons;
 use src\Utils\Database\XDb;
+use src\Models\ApplicationContainer;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
 $no_tpl_build = false;
-if ($usr == false || (!isset($_FILES['userfile']) && !isset($_SESSION['log_cache_multi_data']))) {
+$loggedUser = ApplicationContainer::GetAuthorizedUser();
+
+if (!$loggedUser || (!isset($_FILES['userfile']) && !isset($_SESSION['log_cache_multi_data']))) {
     tpl_redirect('log_cache_multi_send.php');
-} else {
-    ?>
+    exit;
+}
+?>
     <html>
         <head>
             <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -63,7 +67,7 @@ if ($usr == false || (!isset($_FILES['userfile']) && !isset($_SESSION['log_cache
                                 WHERE user_id= ? AND cache_id IN (" . XDb::xEscape( implode(',',$cacheIdList) ) . ")
                                 GROUP BY cache_id
                             ) as x INNER JOIN `cache_logs` as c ON c.cache_id = x.cache_id
-                                AND c.date = x.date", $usr['userid']  );
+                                AND c.date = x.date", $loggedUser->getUserId()  );
 
                     while( $record = XDb::xFetchArray($rs) ){
                         foreach ($dane as $k => $v) {
@@ -125,5 +129,5 @@ if ($usr == false || (!isset($_FILES['userfile']) && !isset($_SESSION['log_cache
                     <?php
                 }
             }
-}
+
 

@@ -2,28 +2,26 @@
 
 use src\Models\MeritBadge\MeritBadge;
 use src\Controllers\MeritBadgeController;
+use src\Models\ApplicationContainer;
 
 require_once (__DIR__.'/lib/common.inc.php');
 require_once (__DIR__.'/src/Views/user_badges.inc.php');
 
 global $content_table;
 
-
-if ($usr == false) {
+$loggedUser = ApplicationContainer::GetAuthorizedUser();
+if (!$loggedUser) {
     $target = urlencode(tpl_get_current_page());
     tpl_redirect('login.php?target=' . $target);
     exit;
 }
 
-
 $tplname = 'user_badges';
-
-$usrid = -1;
 
 if (isset($_REQUEST['user_id'])) {
     $userid = $_REQUEST['user_id'];
 } else {
-    $userid = $usr['userid'];
+    $userid = $loggedUser->getUserId();
 }
 
 $meritBadgeCtrl = new \src\Controllers\MeritBadgeController;

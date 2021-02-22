@@ -3,31 +3,35 @@ use src\Utils\Database\XDb;
 use okapi\core\Exception\BadRequest;
 use okapi\Facade;
 use src\Utils\I18n\I18n;
+use src\Models\ApplicationContainer;
 /**
  * This script is used (can be loaded) by /search.php
  */
 
-global $content, $usr, $hide_coords, $dbcSearch;
+global $content, $hide_coords, $dbcSearch;
 
 set_time_limit(1800);
 
 require_once (__DIR__.'/../lib/calculation.inc.php');
 
+$loggedUser = ApplicationContainer::GetAuthorizedUser();
 
-if ($usr || !$hide_coords) {
+if ($loggedUser || !$hide_coords) {
     //prepare the output
     $caches_per_page = 20;
 
     $query = 'SELECT ';
 
     if (isset($lat_rad) && isset($lon_rad))
-        $query .= getCalcDistanceSqlFormula($usr !== false, $lon_rad * 180 / 3.14159, $lat_rad * 180 / 3.14159, 0, $multiplier[$distance_unit]) . ' `distance`, ';
+        $query .= getCalcDistanceSqlFormula(is_object($loggedUser), $lon_rad * 180 / 3.14159, $lat_rad * 180 / 3.14159,
+                                            0, $multiplier[$distance_unit]) . ' `distance`, ';
     else {
-        if ($usr === false)
+        if (!$loggedUser)
             $query .= '0 distance, ';
         else {
             //get the users home coords
-            $rs_coords = XDb::xSql("SELECT `latitude`, `longitude` FROM `user` WHERE `user_id`= ? LIMIT 1", $usr['userid']);
+            $rs_coords = XDb::xSql(
+                "SELECT `latitude`, `longitude` FROM `user` WHERE `user_id`= ? LIMIT 1", $loggedUser->getUserId());
             $record_coords = XDb::xFetchArray($rs_coords);
 
             if ((($record_coords['latitude'] == NULL) || ($record_coords['longitude'] == NULL)) || (($record_coords['latitude'] == 0) || ($record_coords['longitude'] == 0)))
@@ -42,12 +46,12 @@ if ($usr || !$hide_coords) {
         }
     }
     $query .= '`caches`.`cache_id`, `caches`.`wp_oc`';
-    if ($usr === false)
+    if (!$loggedUser)
         $query .= ' FROM `caches` ';
     else {
         $query .= ' FROM `caches`
                       LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id` AND `cache_mod_cords`.`user_id` = '
-                . $usr['userid'];
+                . $loggedUser->getUserId();
     }
     if(!empty($queryFilter)){
         $query .= ' WHERE `caches`.`cache_id` IN (' . $queryFilter . ')';
@@ -178,7 +182,7 @@ if ($usr || !$hide_coords) {
         // OKAPI services from within OC code.
 
         try {
-            $okapi_response = call_okapi($usr, $waypoints, I18n::getCurrentLang(), $sFilebasename, $zippart);
+            $okapi_response = call_okapi($loggedUser, $waypoints, I18n::getCurrentLang(), $sFilebasename, $zippart);
 
             // This outputs headers and the file content.
             $okapi_response->display();

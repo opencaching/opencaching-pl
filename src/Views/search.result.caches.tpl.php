@@ -40,7 +40,7 @@ use src\Utils\I18n\I18n;
 </script>
 
 <?php
-global $hide_coords, $colNameSearch, $NrColSortSearch, $OrderSortSearch, $SearchWithSort, $usr, $selectList, $NrColVisable;
+global $hide_coords, $colNameSearch, $NrColSortSearch, $OrderSortSearch, $SearchWithSort, $selectList, $NrColVisable;
 
 if ( !$SearchWithSort )
 {

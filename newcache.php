@@ -20,19 +20,19 @@ require_once (__DIR__.'/lib/common.inc.php');
 $ocWP = $GLOBALS['oc_waypoint'];
 $no_tpl_build = false;
 
-// Preprocessing
 $view = tpl_getView();
 
-if ($usr == false) { // user logged in?
+// user logged in?
+$loggedUser = ApplicationContainer::GetAuthorizedUser();
+if (!$loggedUser) {
     $target = urlencode(tpl_get_current_page());
     $view->redirect('/login.php?target=' . $target);
-    exit();
+    exit;
 }
+
 $db = OcDb::instance();
 
-$user = new User(array(
-    'userId' => $usr['userid']
-));
+$user = $loggedUser;
 
 if (isset($_REQUEST['newcache_info']) && $_REQUEST['newcache_info'] != 1) {
     // set here the template to process
@@ -55,11 +55,11 @@ require_once (__DIR__.'/src/Views/newcache.inc.php');
 $errors = false; // set if there was any errors
 
 $rsnc = XDb::xSql("SELECT COUNT(`caches`.`cache_id`) as num_caches FROM `caches`
-            WHERE `user_id` = ? AND status = 1", $usr['userid']);
+            WHERE `user_id` = ? AND status = 1", $loggedUser->getUserId());
 $record = XDb::xFetchArray($rsnc);
 $num_caches = $record['num_caches'];
 
-$cacheLimitByTypePerUser = GeoCache::getUserActiveCachesCountByType($usr['userid']);
+$cacheLimitByTypePerUser = GeoCache::getUserActiveCachesCountByType($loggedUser->getUserId());
 
 if ($num_caches < OcConfig::getNeedApproveLimit()) {
     // user needs approvement for first 3 caches to be published
@@ -686,7 +686,7 @@ if (isset($_POST['submitform'])) {
                         `founds` = 0, `notfounds` = 0, `watcher` = 0, `notes` = 0, `last_found` = NULL, `size` = ?, `difficulty` = ?,
                         `terrain` = ?, `uuid` = ?, `logpw` = ?, `search_time` = ?, `way_length` = ?, `wp_gc` = ?,
                         `wp_nc` = ?, `wp_ge` = ?, `wp_tc` = ?, `node` = ? ",
-            $usr['userid'], $name, $longitude, $latitude, $sel_type, $sel_status, $sel_country,
+            $loggedUser->getUserId(), $name, $longitude, $latitude, $sel_type, $sel_status, $sel_country,
             date('Y-m-d', $hidden_date), $activation_date, $sel_size, $difficulty, $terrain, $cache_uuid,
             $log_pw, $search_time, $way_length, $wp_gc, $wp_nc, $wp_ge, $wp_tc, OcConfig::getSiteNodeId());
 
