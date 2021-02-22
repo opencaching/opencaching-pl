@@ -8,7 +8,6 @@ use okapi\Facade;
 use okapi\core\Exception\BadRequest;
 use src\Models\GeoCache\CacheNote;
 use src\Utils\I18n\I18n;
-use src\Models\ApplicationContainer;
 
 require_once (__DIR__.'/lib/common.inc.php');
 require_once (__DIR__.'/lib/export.inc.php');
@@ -16,7 +15,7 @@ require_once (__DIR__.'/lib/format.gpx.inc.php');
 require_once (__DIR__.'/lib/calculation.inc.php');
 require_once (__DIR__.'/src/Views/lib/icons.inc.php');
 
-global $content, $bUseZip, $config;
+global $content, $bUseZip, $usr, $config;
 global $cache_attrib_jsarray_line, $cache_attrib_img_line;
 global $googlemap_key;
 
@@ -25,8 +24,7 @@ $database = OcDb::instance();
 set_time_limit(1800);
 
 //user logged in?
-$loggedUser = ApplicationContainer::GetAuthorizedUser();
-if (!$loggedUser) {
+if ($usr == false) {
     $target = urlencode(tpl_get_current_page());
     tpl_redirect('login.php?target=' . $target);
     exit;
@@ -34,7 +32,7 @@ if (!$loggedUser) {
 
 
 $tplname = 'myroutes_search';
-$user_id = $loggedUser->getUserId();
+$user_id = $usr['userid'];
 
 if (isset($_REQUEST['routeid'])) {
     $route_id = $_REQUEST['routeid'];
@@ -245,16 +243,19 @@ tpl_set_var('hidopt_attribs_not', implode(';', $options['cache_attribs_not']));
 tpl_set_var('f_inactive_checked', ($options['f_inactive'] == 1) ? ' checked="checked"' : '');
 tpl_set_var('hidopt_inactive', ($options['f_inactive'] == 1) ? '1' : '0');
 
-tpl_set_var('f_ignored_disabled', (FALSE) ? ' disabled="disabled"' : '');
-tpl_set_var('f_ignored_disabled', ($options['f_ignored'] == 1) ? ' checked="checked"' : '');
+tpl_set_var('f_ignored_disabled', ($usr['userid'] == 0) ? ' disabled="disabled"' : '');
+if ($usr['userid'] != 0)
+    tpl_set_var('f_ignored_disabled', ($options['f_ignored'] == 1) ? ' checked="checked"' : '');
 tpl_set_var('hidopt_ignored', ($options['f_ignored'] == 1) ? '1' : '0');
 
-tpl_set_var('f_userfound_disabled', (FALSE) ? ' disabled="disabled"' : '');
-tpl_set_var('f_userfound_disabled', ($options['f_userfound'] == 1) ? ' checked="checked"' : '');
+tpl_set_var('f_userfound_disabled', ($usr['userid'] == 0) ? ' disabled="disabled"' : '');
+if ($usr['userid'] != 0)
+    tpl_set_var('f_userfound_disabled', ($options['f_userfound'] == 1) ? ' checked="checked"' : '');
 tpl_set_var('hidopt_userfound', ($options['f_userfound'] == 1) ? '1' : '0');
 
-tpl_set_var('f_userowner_disabled', (FALSE) ? ' disabled="disabled"' : '');
-tpl_set_var('f_userowner_disabled', ($options['f_userowner'] == 1) ? ' checked="checked"' : '');
+tpl_set_var('f_userowner_disabled', ($usr['userid'] == 0) ? ' disabled="disabled"' : '');
+if ($usr['userid'] != 0)
+    tpl_set_var('f_userowner_disabled', ($options['f_userowner'] == 1) ? ' checked="checked"' : '');
 tpl_set_var('hidopt_userowner', ($options['f_userowner'] == 1) ? '1' : '0');
 
 
@@ -352,15 +353,13 @@ unset($enabled);
 if (!isset($options['f_userowner']))
     $options['f_userowner'] = '0';
 if ($options['f_userowner'] != 0) {
-    $q_where[] = '`caches`.`user_id`!=\'' . $loggedUser->getUserId() . '\'';
+    $q_where[] = '`caches`.`user_id`!=\'' . $usr['userid'] . '\'';
 }
 
 if (!isset($options['f_userfound']))
     $options['f_userfound'] = '0';
 if ($options['f_userfound'] != 0) {
-    $q_where[] = '`caches`.`cache_id` NOT IN (SELECT `cache_logs`.`cache_id` FROM `cache_logs`
-                WHERE `cache_logs`.`deleted`=0 AND `cache_logs`.`user_id`=\'' . XDb::xEscape($loggedUser->getUserId()) . '\'
-                AND `cache_logs`.`type` IN (1, 7))';
+    $q_where[] = '`caches`.`cache_id` NOT IN (SELECT `cache_logs`.`cache_id` FROM `cache_logs` WHERE `cache_logs`.`deleted`=0 AND `cache_logs`.`user_id`=\'' . XDb::xEscape($usr['userid']) . '\' AND `cache_logs`.`type` IN (1, 7))';
 }
 
 if (!isset($options['f_inactive']))
@@ -368,12 +367,14 @@ if (!isset($options['f_inactive']))
 if ($options['f_inactive'] != 0)
     $q_where[] = '`caches`.`status`=1';
 
-if (!isset($options['f_ignored']))
-    $options['f_ignored'] = '0';
-if ($options['f_ignored'] != 0) {
-    $q_where[] = '`caches`.`cache_id` NOT IN (SELECT `cache_ignore`.`cache_id` FROM `cache_ignore`
-                   WHERE `cache_ignore`.`user_id`=\'' . XDb::xEscape($loggedUser->getUserId()) . '\')';
+if (isset($usr)) {
+    if (!isset($options['f_ignored']))
+        $options['f_ignored'] = '0';
+    if ($options['f_ignored'] != 0) {
+        $q_where[] = '`caches`.`cache_id` NOT IN (SELECT `cache_ignore`.`cache_id` FROM `cache_ignore` WHERE `cache_ignore`.`user_id`=\'' . XDb::xEscape($usr['userid']) . '\')';
+    }
 }
+
 
 if (isset($options['cache_attribs']) && count($options['cache_attribs']) > 0) {
     for ($i = 0; $i < count($options['cache_attribs']); $i++) {
@@ -718,8 +719,7 @@ if (isset($_POST['submit_gpx_with_photos'])) {
         try {
             $waypoints = implode("|", $waypoints_tab);
             // TODO: why the langpref is fixed to pl? shouldn't it depend on current user/session language?
-            $okapi_response = Facade::service_call('services/caches/formatters/garmin', $loggedUser->getUserId(),
-                        array('cache_codes' => $waypoints, 'langpref' => 'pl',
+            $okapi_response = Facade::service_call('services/caches/formatters/garmin', $usr['userid'], array('cache_codes' => $waypoints, 'langpref' => 'pl',
                         'location_source' => 'alt_wpt:user-coords', 'location_change_prefix' => '(F)'));
 
             // Modifying OKAPI's default HTTP Response headers.
@@ -775,7 +775,7 @@ if (isset($_POST['submit_gpx'])) {
             `caches`.`topratings` `topratings`
         FROM `caches`
             LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id`
-                AND `cache_mod_cords`.`user_id` = " . $loggedUser->getUserId() . "
+                AND `cache_mod_cords`.`user_id` = " . $usr['userid'] . "
         WHERE `caches`.`wp_oc` IN ('" . implode("', '", $caches_list) . "')
             AND `caches`.`cache_id` IN (" . $qFilter . ")");
 
@@ -844,7 +844,7 @@ if (isset($_POST['submit_gpx'])) {
             $dbc = OcDb::instance();
 
             $cache_id = $r['cacheid'];
-            $user_id = $loggedUser->getUserId();
+            $user_id = $usr !== false ? $usr['userid'] : null;
             $access_log = @$_SESSION['CACHE_ACCESS_LOG_GPX_' . $user_id];
             if ($access_log === null) {
                 $_SESSION['CACHE_ACCESS_LOG_GPX_' . $user_id] = array();
@@ -896,18 +896,21 @@ if (isset($_POST['submit_gpx'])) {
 
         $thisline = str_replace('{shortdesc}', cleanup_text($r['short_desc']), $thisline);
         $thisline = str_replace('{desc}', cleanup_text($logpw . $r['desc']), $thisline);
+        if ($usr == true) {
 
-        $cacheNote = CacheNote::getNote($loggedUser->getUserId(), $r['cacheid']);
+            $cacheNote = CacheNote::getNote($usr['userid'], $r['cacheid']);
 
-        if ( !empty($cacheNote) ) {
+            if ( !empty($cacheNote) ) {
 
-            $thisline = str_replace('{personal_cache_note}',
-                cleanup_text("<br/><br/>-- " . cleanup_text(tr('search_gpxgc_02')) .
-                    ": -- <br/> " . $cacheNote . "<br/>"), $thisline);
+                $thisline = str_replace('{personal_cache_note}',
+                    cleanup_text("<br/><br/>-- " . cleanup_text(tr('search_gpxgc_02')) .
+                        ": -- <br/> " . $cacheNote . "<br/>"), $thisline);
+            } else {
+                $thisline = str_replace('{personal_cache_note}', "", $thisline);
+            }
         } else {
             $thisline = str_replace('{personal_cache_note}', "", $thisline);
         }
-
 
         // attributes
         $rsAttributes = XDb::xSql(

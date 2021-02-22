@@ -2,7 +2,6 @@
 
 use src\Utils\Database\XDb;
 use src\Models\GeoKret\GeoKretyApi;
-use src\Models\ApplicationContainer;
 
 $view->callChunk('tinyMCE', false);
 ?>
@@ -101,7 +100,7 @@ $view->callChunk('tinyMCE', false);
     function _chkFound() {
 
 <?php
-$loggedUser = ApplicationContainer::GetAuthorizedUser();
+
 $founds = XDb::xMultiVariableQueryValue(
     "SELECT count(cache_id)
     FROM cache_logs
@@ -109,8 +108,10 @@ $founds = XDb::xMultiVariableQueryValue(
         AND cache_id = :1
         AND user_id = :2
         AND type='1'",
-    0, $_REQUEST['cacheid'], $loggedUser->getUserId());
+    0, $_REQUEST['cacheid'], $usr['userid'] );
+
 ?>
+
 
         if (document.logform.logtype.value == "1" || (<?php echo $founds; ?> > 0 && document.logform.logtype.value == "3") || document.logform.logtype.value == "7") {
             document.logform.r.disabled = false;

@@ -5,30 +5,33 @@ use src\Models\MeritBadge\MeritBadge; //for static functions
 use src\Controllers\MeritBadgeController;
 use src\Controllers\ViewBadgeHeadController;
 use src\Controllers\ViewBadgeShowPositionsController;
-use src\Models\ApplicationContainer;
 
 require_once(__DIR__.'/lib/common.inc.php');
 
 
 global $content_table, $config;
 
-$loggedUser = ApplicationContainer::GetAuthorizedUser();
-
-if (!$loggedUser) {
+if ($usr == false) {
     $target = urlencode(tpl_get_current_page());
     tpl_redirect('login.php?target=' . $target);
     exit;
 }
 
+
 $tplname = 'badge';
+$usrid = -1;
+
 
 if (isset($_REQUEST['user_id'])) {
     $userid = $_REQUEST['user_id'];
 } else {
-    $userid = $loggedUser->getUserId();
+    $userid = $usr['userid'];
 }
 
+
+
 $badge_id = $_REQUEST['badge_id'];
+
 
 $head= (new ViewBadgeHeadController())->index();
 $meritBadgeCtrl = new \src\Controllers\MeritBadgeController;

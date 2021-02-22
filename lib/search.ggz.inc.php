@@ -1,10 +1,9 @@
 <?php
 
-use src\Models\User\User;
-
-function call_okapi(User $user, $waypoints, $language, $file_base_name, $zip_part)
+function call_okapi($usr, $waypoints, $language, $file_base_name, $zip_part)
 {
-    $okapi_response = \okapi\Facade::service_call('services/caches/formatters/ggz', $user->getUserId(), array(
+
+    $okapi_response = \okapi\Facade::service_call('services/caches/formatters/ggz', $usr['userid'], array(
                 'cache_codes' => $waypoints,
                 'langpref' => $language,
                 'ns_ground' => 'true',
@@ -16,7 +15,7 @@ function call_okapi(User $user, $waypoints, $language, $file_base_name, $zip_par
                 'recommendations' => 'desc:count',
                 'latest_logs' => 'true',
                 'lpc' => 'all', // TODO: is this configurable - somehow, someway - user entered parameter?
-                'my_notes' => isset($user) ? "desc:text" : "none",
+                'my_notes' => isset($usr) ? "desc:text" : "none",
                 'location_source' => 'alt_wpt:user-coords',
                 'location_change_prefix' => '(F)'));
     // Modifying OKAPI's default HTTP Response headers.

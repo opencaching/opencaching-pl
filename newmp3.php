@@ -3,18 +3,16 @@
 use src\Utils\Database\XDb;
 use src\Utils\Generators\Uuid;
 use src\Models\OcConfig\OcConfig;
-use src\Models\ApplicationContainer;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
-//user logged in?
-$loggedUser = ApplicationContainer::GetAuthorizedUser();
-if (!$loggedUser) {
-    $target = urlencode(tpl_get_current_page());
-    tpl_redirect('login.php?target=' . $target);
-    exit;
-}
-
+//Preprocessing
+if ($error == false) {
+    //user logged in?
+    if ($usr == false) {
+        $target = urlencode(tpl_get_current_page());
+        tpl_redirect('login.php?target=' . $target);
+    } else {
         $tplname = 'newmp3';
         $view = tpl_getView();
         $view->setVar('maxMp3Size', $maxmp3size);
@@ -50,7 +48,7 @@ if (!$loggedUser) {
                     if ( ! $r = XDb::xFetchArray($rs))
                         $allok = false;
                     else {
-                        if ($r['user_id'] != $loggedUser->getUserId())
+                        if ($r['user_id'] != $usr['userid'])
                             $allok = false;
 
                         $cacheid = $r['cache_id'];
@@ -83,7 +81,7 @@ if (!$loggedUser) {
                         tpl_set_var('cacheid', $r['cache_id']);
                         tpl_set_var('mp3typedesc', $mp3typedesc_cache);
 
-                        if ($r['user_id'] != $loggedUser->getUserId())
+                        if ($r['user_id'] != $usr['userid'])
                             $allok = false;
                     }
 
@@ -162,7 +160,7 @@ if (!$loggedUser) {
                                               `object_id`, `object_type`, `user_id`, `local`, `display`, `node`, `seq`)
                             VALUES (? , ?, NOW(), ?, NOW(), NOW(), ?, ?, ?, 1, ?, ?, ?)",
                             $uuid, $mp3url . '/' . $uuid . '.' . $extension, $title, $objectid,
-                            $type, $loggedUser->getUserId(), ($bNoDisplay == 1) ? '0' : '1', OcConfig::getSiteNodeId(), $def_seq_m);
+                            $type, $usr['userid'], ($bNoDisplay == 1) ? '0' : '1', OcConfig::getSiteNodeId(), $def_seq_m);
 
                         switch ($type) {
                             // log
@@ -229,7 +227,8 @@ if (!$loggedUser) {
                 }
             }
         }
-
+    }
+}
 
 //make the template and send it out
 tpl_BuildTemplate();

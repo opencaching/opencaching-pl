@@ -2,21 +2,18 @@
 
 use src\Utils\Database\XDb;
 use src\Utils\I18n\I18n;
-use src\Models\ApplicationContainer;
 
 global $googlemap_key;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
-//user logged in?
-$loggedUser = ApplicationContainer::GetAuthorizedUser();
-if (!$loggedUser) {
-    $target = urlencode(tpl_get_current_page());
-    tpl_redirect('login.php?target=' . $target);
-    exit;
-}
-
-
+//Preprocessing
+if ($error == false) {
+    //user logged in?
+    if ($usr == false) {
+        $target = urlencode(tpl_get_current_page());
+        tpl_redirect('login.php?target=' . $target);
+    } else {
         if (isset($_REQUEST['routeid'])) {
             $route_id = $_REQUEST['routeid'];
         }
@@ -34,7 +31,7 @@ if (!$loggedUser) {
         }
 
         $tplname = 'myroutes_edit';
-        $user_id = $loggedUser->getUserId();
+        $user_id = $usr['userid'];
 
         if (isset($_POST['back'])) {
             tpl_redirect('myroutes.php');
@@ -58,7 +55,8 @@ if (!$loggedUser) {
             '<script src="https://maps.googleapis.com/maps/api/js?libraries=geometry&amp;key=' . $googlemap_key .
             '&amp;language=' . I18n::getCurrentLang() . '"></script>');
 
-        if ($record['user_id'] == $loggedUser->getUserId()) {
+        if ($record['user_id'] == $usr['userid']) {
+
             if ($remove == 1) {
                 //remove
                 XDb::xSql("DELETE FROM `routes` WHERE `route_id`= ? AND `user_id`= ? ", $route_id, $user_id);
@@ -145,6 +143,8 @@ if (!$loggedUser) {
         tpl_set_var('desc', htmlspecialchars($record['description'], ENT_COMPAT, 'UTF-8'));
         tpl_set_var('radius', $record['radius']);
         tpl_set_var('routeid', $route_id);
+    }
+}
 
 //make the template and send it out
 tpl_BuildTemplate();

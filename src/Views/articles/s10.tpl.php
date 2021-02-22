@@ -1,7 +1,6 @@
 <?php
 
 use src\Utils\Database\XDb;
-use src\Models\ApplicationContainer;
 
 if (isset($_REQUEST['region'])) {
     $region = $_REQUEST['region'];
@@ -53,8 +52,7 @@ if (isset($_REQUEST['region'])) {
             while( $line = XDb::xFetchArray($r) ) {
                 $color = "black";
                 $banned = "";
-                $loggedUser = ApplicationContainer::GetAuthorizedUser();
-                if (($loggedUser && $loggedUser->hasOcTeamRole()) || $line['stat_ban'] == 0) {
+                if ($usr['admin'] || $line['stat_ban'] == 0) {
                     if ($line['stat_ban']) {
                         $color = "gray";
                         $banned = " (BAN)";

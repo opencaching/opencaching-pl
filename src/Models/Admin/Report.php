@@ -503,9 +503,9 @@ class Report extends BaseObject
                 $userlist = MultiUserQueries::getOcTeamMembersArray();
                 foreach ($userlist as $user) { // Send mails to all OC Team members
                     if ($user['user_id'] != $this->userIdLastChange) { // Don't notify logged user
-                        $usrObj = new User(['userId' => $user['user_id']]);
-                        ReportEmailSender::sendReportLookHere($this, $usrObj);
-                        unset($usrObj);
+                        $usr = new User(['userId' => $user['user_id']]);
+                        ReportEmailSender::sendReportLookHere($this, $usr);
+                        unset($usr);
                     }
                 }
             } else { //Status changed NOT to look here
