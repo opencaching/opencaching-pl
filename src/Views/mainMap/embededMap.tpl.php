@@ -37,6 +37,7 @@
         <div id="mainMapSearch" class="ol-control">
             <input id="searchInput" type="text" placeholder="<?=tr('map_searchPlacePlaceholder')?>">
             <span id="searchTrigger" class="searchTrigger disabled btn btn-sm btn-primary"><?=tr('map_searchTrigger')?></span>
+            <div>© openrouteservice.org by HeiGIT<br>Map data © OpenStreetMap contributors</div>
             <div id="searchResults" class="searchResults"></div>
         </div>
     </div>
