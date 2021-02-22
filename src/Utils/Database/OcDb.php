@@ -285,7 +285,7 @@ class OcDb extends OcPdo
         }
         foreach (explode($delimiter, $queries) as $query) {
             $query = trim($query);
-            if (strcasecmp(substr($query, 0, 9), 'DELIMITER') != 0) {
+            if (!empty($query) && strcasecmp(substr($query, 0, 9), 'DELIMITER') != 0) {
                 $this->simpleQuery($query);
             }
         }
