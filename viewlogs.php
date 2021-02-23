@@ -239,7 +239,7 @@ if ($cache_id != 0) {
                         continue;
                     }
                     // hide if user is neither a geocache owner nor log author
-                    if ($owner_id != $loggedUser->getUserId() && $record['userid'] != $loggedUser->getUserId()) {
+                    if (!$loggedUser || ($owner_id != $loggedUser->getUserId() && $record['userid'] != $loggedUser->getUserId())) {
                         continue;
                     }
                 }

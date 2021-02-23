@@ -1,6 +1,7 @@
 <?php
 namespace src\Utils\Debug;
 
+use Throwable;
 use src\Models\OcConfig;
 use src\Utils\Email\EmailSender;
 
@@ -13,7 +14,7 @@ class ErrorHandler
      * Install error and exception handlers; must be called once upon startup,
      * as early as possible.
      */
-    public static function install()
+    public static function install ()
     {
         register_shutdown_function([__CLASS__, 'handleFatalError']);
         set_exception_handler([__CLASS__, 'handleException']);
@@ -27,9 +28,7 @@ class ErrorHandler
      */
     public static function handleError($severity, $message, $filename, $lineno)
     {
-        if ($severity != E_STRICT && $severity != E_DEPRECATED &&
-            error_reporting() > 0  // is 0 if suppressed by @ operator
-        ) {
+        if ($severity != E_STRICT && $severity != E_DEPRECATED && error_reporting() > 0) {
             // Map error / warning / notice to exception, which will either
             // get caught or be handled by self::handleException().
 
@@ -41,10 +40,18 @@ class ErrorHandler
      * Exception handler callback; called for all exceptions that are not
      * handled by a catch {}.
      */
-    public static function handleException($e)
+    public static function handleException(Throwable $e)
     {
         self::$errorHandled = true;
-        self::processError(get_class($e).": " . $e->getMessage() . "\n\n" . $e->getTraceAsString(), $e);
+        $msg = sprintf("%s: [%s:%d] %s\n\n", get_class($e), $e->getFile(), $e->getLine(), $e->getMessage());
+
+        if (empty($e->getTrace())) {
+            // there is no trace
+            $msg .= '- NO TRACE -';
+        } else {
+            $msg .= $e->getTraceAsString();
+        }
+        self::processError($msg, $e);
     }
 
     /**
@@ -60,12 +67,11 @@ class ErrorHandler
             self::$errorHandled = true;
             self::processError(
                 'Fatal error ' . $error['message'] .
-                ' at line ' . $error['line'] . ' of ' . $error['file']
-            );
+                ' at line ' . $error['line'] . ' of ' . $error['file']);
         }
     }
 
-    private static function processError($msg, $exception = null)
+    private static function processError(string $msg, Throwable $exception = null)
     {
         global $debug_page;
 
@@ -73,12 +79,11 @@ class ErrorHandler
         $mailFail = false;
         try {
             EmailSender::adminOnErrorMessage($msg);
-
         } catch (\Exception $e) {
             try {
-              foreach (OcConfig::getEmailAddrTechAdminNotification() as $techAdminAddr) {
-                mail ($techAdminAddr, "OC site error", $msg);
-              }
+                foreach (OcConfig::getEmailAddrTechAdminNotification() as $techAdminAddr) {
+                    mail($techAdminAddr, "OC site error", $msg);
+                }
             } catch (\Exception $e) {
                 try {
                     mail("root@localhost", "OC site error", $msg);
@@ -89,7 +94,6 @@ class ErrorHandler
         }
 
         // Try to log error
-
         try {
             if ($exception) {
                 Debug::logException($exception);
@@ -113,7 +117,9 @@ class ErrorHandler
                 } else {
                     // sometimes error can occured befor I18n init...
                     $pageError = 'An error occured while processing your request.' . ' ';
-                    $pageError .= 'If the problem persists, please <a href="/articles.php?page=contact">contact</a> the OC team and describe step by step how to reproduce this error.';
+                    $pageError .= 'If the problem persists, please '.
+                                  '<a href="/articles.php?page=contact">contact</a>' .
+                                  'the OC team and describe step by step how to reproduce this error.';
                     $mainPageLinkTitle = 'Go to the main page';
                 }
             } catch (\Exception $e) {
