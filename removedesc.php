@@ -5,35 +5,39 @@ use src\Models\GeoCache\GeoCache;
 use src\Utils\I18n\Languages;
 use src\Utils\I18n\I18n;
 use src\Models\OcConfig\OcConfig;
+use src\Models\ApplicationContainer;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
-if ($error == false) {
-    //cacheid
-    $cache_id = 0;
-    if (isset($_REQUEST['cacheid'])) {
-        $cache_id = $_REQUEST['cacheid'];
-    }
-    $desclang = '';
-    if (isset($_REQUEST['desclang'])) {
-        $desclang = $_REQUEST['desclang'];
-    }
-    $remove_commit = 0;
-    if (isset($_REQUEST['commit'])) {
-        $remove_commit = $_REQUEST['commit'];
-    }
 
-    //user logged in?
-    if ($usr == false) {
-        $target = urlencode(tpl_get_current_page());
-        tpl_redirect('login.php?target=' . $target);
-    } else {
+//cacheid
+$cache_id = 0;
+if (isset($_REQUEST['cacheid'])) {
+    $cache_id = $_REQUEST['cacheid'];
+}
+$desclang = '';
+if (isset($_REQUEST['desclang'])) {
+    $desclang = $_REQUEST['desclang'];
+}
+$remove_commit = 0;
+if (isset($_REQUEST['commit'])) {
+    $remove_commit = $_REQUEST['commit'];
+}
+
+//user logged in?
+$loggedUser = ApplicationContainer::GetAuthorizedUser();
+if (!$loggedUser) {
+    $target = urlencode(tpl_get_current_page());
+    tpl_redirect('login.php?target=' . $target);
+    exit;
+}
+
         $cache_rs = XDb::xSql(
             "SELECT `user_id`, `name` FROM `caches` WHERE `cache_id`= ? LIMIT 1", $cache_id);
 
         if ( $cache_record = XDb::xFetchArray($cache_rs)) {
 
-            if ($cache_record['user_id'] == $usr['userid'] || $usr['admin']) {
+            if ($cache_record['user_id'] == $loggedUser->getUserId() || $loggedUser->hasOcTeamRole()) {
 
                 $desc_rs = XDb::xSql(
                     "SELECT `id`, `uuid` FROM `cache_desc` WHERE `cache_id`= ? AND `language`= ? LIMIT 1", $cache_id, $desclang);
@@ -77,8 +81,7 @@ if ($error == false) {
         } else {
             //TODO: cache not exist
         }
-    }
-}
+
 
 //make the template and send it out
 tpl_BuildTemplate();

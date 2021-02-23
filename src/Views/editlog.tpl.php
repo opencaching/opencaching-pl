@@ -1,6 +1,7 @@
 <?php
 
 use src\Utils\Database\XDb;
+use src\Models\ApplicationContainer;
 
 $view->callChunk('tinyMCE', false);
 ?>
@@ -30,6 +31,7 @@ $view->callChunk('tinyMCE', false);
     function _chkFound() {
 <?php
 
+$loggedUser = ApplicationContainer::GetAuthorizedUser();
 $founds = XDb::xMultiVariableQueryValue(
     "SELECT count(cache_id) FROM cache_logs
     WHERE deleted=0
@@ -39,7 +41,7 @@ $founds = XDb::xMultiVariableQueryValue(
                 WHERE deleted=0 AND id = :1
             )
         AND user_id = :2 AND type='1'",
-    0, $_REQUEST['logid'], $usr['userid']);
+    0, $_REQUEST['logid'], $loggedUser->getUserId());
 
 ?>
         if (document.editlog.logtype.value == "1" || (<?php echo $founds; ?> > 0 && document.editlog.logtype.value == "3") || document.editlog.logtype.value == "7") {

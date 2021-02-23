@@ -2,16 +2,18 @@
 
 use src\Utils\Database\OcDb;
 use src\Models\GeoCache\GeoCache;
+use src\Models\ApplicationContainer;
 
-//prepare the templates and include all neccessary
 require_once(__DIR__.'/lib/common.inc.php');
-//Preprocessing
-if ($error == false) {
-    //user logged in?
-    if ($usr == false) {
-        $target = urlencode(tpl_get_current_page());
-        tpl_redirect('login.php?target=' . $target);
-    } else {
+
+$loggedUser = ApplicationContainer::GetAuthorizedUser();
+if (!$loggedUser) {
+    $target = urlencode(tpl_get_current_page());
+    tpl_redirect('login.php?target=' . $target);
+    exit;
+}
+
+
         // check for old-style parameters
         if (isset($_REQUEST['cacheid'])) {
             $cache_id = (int) $_REQUEST['cacheid'];
@@ -42,6 +44,5 @@ if ($error == false) {
         }
         tpl_set_var('content', $content);
         tpl_set_var('bodyMod', ' bgcolor="#FFFFFF" style="border:none"');
-    }
-}
+
 tpl_BuildTemplate(true);

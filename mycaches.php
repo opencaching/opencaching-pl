@@ -5,20 +5,21 @@ use src\Utils\Database\OcDb;
 use src\Utils\Database\XDb;
 use src\Utils\Text\Formatter;
 use src\Utils\I18n\I18n;
-
-global $usr;
+use src\Models\ApplicationContainer;
 
 //include template handling
 require_once(__DIR__.'/lib/common.inc.php');
 require_once(__DIR__.'/src/Views/lib/icons.inc.php');
 
 //user logged in?
-if ($usr == false) {
+$loggedUser = ApplicationContainer::GetAuthorizedUser();
+if (!$loggedUser) {
     $target = urlencode(tpl_get_current_page());
     tpl_redirect('login.php?target='.$target);
-} else {
+}
+
     //get user record
-    $user_id = $usr['userid'];
+    $user_id = $loggedUser->getUserId();
     tpl_set_var('userid', $user_id);
     if (isset($_REQUEST['status'])) {
         $stat_cache = $_REQUEST['status'];
@@ -335,7 +336,7 @@ if ($usr == false) {
     } else {
         tpl_set_var('col5_header', tr('last_found'));
     }
-}
+
 
 //make the template and send it out
 tpl_BuildTemplate();

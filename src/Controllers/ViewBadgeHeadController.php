@@ -29,7 +29,6 @@ class ViewBadgeHeadController extends BaseController{
               exit;
         }
 
-        $usrid = -1;
         if (isset($_REQUEST['user_id'])) {
             $userid = $_REQUEST['user_id'];
         } else {

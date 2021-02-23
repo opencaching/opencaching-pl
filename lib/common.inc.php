@@ -8,7 +8,7 @@ use src\Models\User\UserAuthorization;
 use src\Models\OcConfig\OcConfig;
 use src\Utils\I18n\I18n;
 
-ErrorHandler::install();
+ErrorHandler::install ();
 
 session_start();
 
