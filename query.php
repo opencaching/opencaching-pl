@@ -3,49 +3,78 @@
 use src\Utils\Database\XDb;
 use src\Utils\Database\OcDb;
 use src\Utils\Generators\Uuid;
+use src\Models\ApplicationContainer;
+use src\Models\User\User;
 
 require(__DIR__.'/lib/common.inc.php');
-require(__DIR__.'/src/Views/query.inc.php');
 
-if ($error == false) {
-    $action = isset($_REQUEST['action']) ? $_REQUEST['action'] : 'view';
+//user logged in?
+$loggedUser = ApplicationContainer::GetAuthorizedUser();
+if (!$loggedUser) {
+    $target = urlencode(tpl_get_current_page());
+    tpl_redirect('login.php?target=' . $target);
+    die();
+}
 
-    //user logged in?
-    if ($usr == false) {
-        $target = urlencode(tpl_get_current_page());
-        tpl_redirect('login.php?target=' . $target);
-        die();
-    }
+// former query.inc.php
+$error_queryname_exists = '<tr><td colspan="2" class="errormsg">Podana nazwa istnieje już</td></tr>';
+$error_empty_name = '<tr><td colspan="2" class="errormsg">Musisz podać nazwe pod jaką ma być zapisane opcje szukania</td></tr>';
+$viewquery_line = '<tr>
+            <td  width="30%" style="text-align: left; vertical-align: middle; background-color: {bgcolor}"><a href="search.php?queryid={queryid}">{queryname}</a></td>
+            <td width="60%" style="text-align: left; vertical-align: middle; background-color: {bgcolor}">
+            <a href="search.php?queryid={queryid}&output=gpx&count=max&zip=1" title="GPS Exchange Format .gpx">GPX</a>
+            <a href="search.php?queryid={queryid}&output=gpxgc&count=max&zip=1" title="GPS Exchange Format (Groundspeak) .gpx">GPX GC</a>
+            <a href="search.php?queryid={queryid}&output=loc&count=max&zip=1" title="Waypoint .loc">LOC</a>
+            <a href="search.php?queryid={queryid}&output=kml&count=max&zip=1" title="Google Earth .kml">KML</a>
+            <a href="search.php?queryid={queryid}&output=ov2&count=max&zip=1" title="TomTom POI .ov2">OV2</a>
+            <a href="search.php?queryid={queryid}&output=ovl&count=max&zip=1" title="TOP50-Overlay .ovl">OVL</a>
+            <a href="search.php?queryid={queryid}&output=txt&count=max&zip=1" title="Tekst .txt">TXT</a>
+            <a href="search.php?queryid={queryid}&output=wpt&count=max&zip=1" title="Oziexplorer .wpt">WPT</a>
+            <a href="search.php?queryid={queryid}&output=uam&count=max&zip=1" title="AutoMapa .uam">UAM</a>
+            <a href="search.php?queryid={queryid}&output=xml&count=max&zip=1" title="xml">XML</a>
+            <a href="search.php?queryid={queryid}&output=zip&count=max&zip=1" title="Garmin ZIP file (GPX + zdjęcia)  .zip">GARMIN</a>
+            </td>
+            <td width="10%" bgcolor="{bgcolor}" style="text-align: center"; vertical-align: middle; background-color: {bgcolor}"><a href="query.php?queryid={queryid}&action=delete" onclick="return confirm(\'' . tr("myviewqueries_1") . '\');" ><img style="vertical-align: middle;" src="images/log/16x16-trash.png" alt="" title=' . tr('delete') . ' /></a></td>
+            </tr>';
+$noqueries = '<tr><td colspan="2">' . tr('no_queries') . '</td></tr>';
+
+$saveastext = tr('select_queries');
+$nosaveastext = tr('no_queries');
+
+$bgcolor1 = '#eeeeee';
+$bgcolor2 = '#ffffff';
+
+$action = isset($_REQUEST['action']) ? $_REQUEST['action'] : 'view';
 
     if ($action == 'save') {
         $queryid = isset($_REQUEST['queryid']) ? $_REQUEST['queryid'] : 0;
         $queryname = isset($_REQUEST['queryname']) ? $_REQUEST['queryname'] : '';
         $submit = isset($_REQUEST['submit']) ? ($_REQUEST['submit'] == '1') : false;
 
-        savequery($queryid, $queryname, false, $submit, 0);
+        savequery($queryid, $queryname, false, $submit, 0, $loggedUser);
     } else if ($action == 'saveas') {
         $queryid = isset($_REQUEST['queryid']) ? $_REQUEST['queryid'] : 0;
         $queryname = isset($_REQUEST['queryname']) ? $_REQUEST['queryname'] : '';
         $submit = isset($_REQUEST['submit']) ? ($_REQUEST['submit'] == '1') : false;
         $oldqueryid = isset($_REQUEST['oldqueryid']) ? $_REQUEST['oldqueryid'] : 0;
 
-        savequery($queryid, $queryname, true, $submit, $oldqueryid);
+        savequery($queryid, $queryname, true, $submit, $oldqueryid, $loggedUser);
     } else if ($action == 'delete') {
         $queryid = isset($_REQUEST['queryid']) ? $_REQUEST['queryid'] : 0;
-        deletequery($queryid);
+        deletequery($queryid, $loggedUser);
     } else { // default: view
-        viewqueries();
+        viewqueries($loggedUser);
     }
-}
 
-function deletequery($queryid)
+
+function deletequery($queryid, User $loggedUser)
 {
-    global $tplname, $usr;
+    global $tplname;
 
     $dbc = OcDb::instance();
 
     $query = "SELECT `id` FROM `queries` WHERE `id`=:1 AND `user_id`=:2";
-    $s = $dbc->multiVariableQuery($query, $queryid, $usr['userid']);
+    $s = $dbc->multiVariableQuery($query, $queryid, $loggedUser->getUserId());
 
     if ($dbc->rowCount($s) == 1) {
 
@@ -59,9 +88,9 @@ function deletequery($queryid)
     exit;
 }
 
-function viewqueries()
+function viewqueries(User $loggedUser)
 {
-    global $tplname, $usr;
+    global $tplname;
     global $viewquery_line, $noqueries, $bgcolor1, $bgcolor2;
 
     $tplname = 'viewqueries';
@@ -71,7 +100,7 @@ function viewqueries()
     $i = 0;
     $content = '';
     $query = "SELECT id, name FROM `queries` WHERE `user_id`=:1 ORDER BY `name` ASC";
-    $s = $dbc->multiVariableQuery($query, $usr['userid']);
+    $s = $dbc->multiVariableQuery($query, $loggedUser->getUserId());
 
     if ($dbc->rowCount($s) != 0) {
         while ($r = $dbc->dbResultFetch($s)) {
@@ -99,9 +128,9 @@ function viewqueries()
     exit;
 }
 
-function savequery($queryid, $queryname, $saveas, $submit, $saveas_queryid)
+function savequery($queryid, $queryname, $saveas, $submit, $saveas_queryid, User $loggedUser)
 {
-    global $usr, $tplname;
+    global $tplname;
     global $error_empty_name, $nosaveastext, $saveastext, $error_queryname_exists;
 
     $displayform = ($submit == false);
@@ -112,7 +141,7 @@ function savequery($queryid, $queryname, $saveas, $submit, $saveas_queryid)
     // ok ... verify that it our query and then save
     $rs = XDb::xSql(
         "SELECT `user_id` FROM `queries` WHERE `id`= ? AND (`user_id`=0 OR `user_id`= ? )",
-        $queryid, $usr['userid']);
+        $queryid, $loggedUser->getUserId());
 
     if (false == XDb::xFetchArray($rs)) {
         echo 'fatal error: query not found or permission denied';
@@ -129,7 +158,7 @@ function savequery($queryid, $queryname, $saveas, $submit, $saveas_queryid)
             $r['c'] = XDb::xMultiVariableQueryValue(
                 "SELECT COUNT(*) `c` FROM `queries`
                 WHERE `user_id`= :1 AND `name`= :2 ",
-                0, $usr['userid'], $queryname);
+                0, $loggedUser->getUserId(), $queryname);
 
             if ($r['c'] > 0) {
                 $displayform = true;
@@ -143,7 +172,7 @@ function savequery($queryid, $queryname, $saveas, $submit, $saveas_queryid)
             // test if saveas_queryid exists and is ours
             $rs = XDb::xSql(
                 "SELECT `user_id` FROM `queries` WHERE `id`= ? AND (`user_id`=0 OR `user_id`= ? )",
-                $saveas_queryid, $usr['userid']);
+                $saveas_queryid, $loggedUser->getUserId());
             if (false === XDb::xFetchArray($rs)) {
                 echo 'fatal error: saveas_query not found or permission denied';
                 exit;
@@ -170,7 +199,7 @@ function savequery($queryid, $queryname, $saveas, $submit, $saveas_queryid)
         $options = '';
         $rs = XDb::xSql(
             "SELECT `id`, `name` FROM `queries` WHERE `user_id`= ? ORDER BY `name` ASC",
-            $usr['userid']);
+            $loggedUser->getUserId());
 
         if (!$r = XDb::xFetchArray($rs)) {
             tpl_set_var('selecttext', $nosaveastext);
@@ -203,7 +232,7 @@ function savequery($queryid, $queryname, $saveas, $submit, $saveas_queryid)
         XDb::xSql(
             "INSERT INTO `queries` (`user_id`, `last_queried`, `name`, `uuid`, `options`)
             VALUES ( ?, NOW(), ?, ?, ?)",
-            $usr['userid'], $queryname, Uuid::create(), $r['options']);
+            $loggedUser->getUserId(), $queryname, Uuid::create(), $r['options']);
     }
 
     tpl_redirect('query.php?action=view');

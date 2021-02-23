@@ -3,17 +3,19 @@
 use src\Utils\Database\XDb;
 use src\Utils\I18n\I18n;
 use src\Models\GeoCache\WaypointCommons;
+use src\Models\ApplicationContainer;
 
 //prepare the templates and include all neccessary
 require_once(__DIR__.'/lib/common.inc.php');
 
-//Preprocessing
-if ($error == false) {
-    //user logged in?
-    if ($usr == false) {
-        $target = urlencode(tpl_get_current_page());
-        tpl_redirect('login.php?target=' . $target);
-    } else {
+//user logged in?
+$loggedUser = ApplicationContainer::GetAuthorizedUser();
+if (!$loggedUser) {
+    $target = urlencode(tpl_get_current_page());
+    tpl_redirect('login.php?target=' . $target);
+    exit;
+}
+
         //Edit Waypoint
         if (isset($_REQUEST['wpid'])) {
             $wp_id = $_REQUEST['wpid'];
@@ -56,7 +58,7 @@ if ($error == false) {
             }
 
 
-            if ($cache_record['user_id'] == $usr['userid'] || $usr['admin']) {
+            if ($cache_record['user_id'] == $loggedUser->getUserId() || $loggedUser->hasOcTeamRole()) {
 
                 if ($remove == 1) {
                     //remove
@@ -65,7 +67,6 @@ if ($error == false) {
                     tpl_redirect('editcache.php?cacheid=' . urlencode($cache_id));
                     exit;
                 }
-
 
                 $tplname = 'editwp';
                 require(__DIR__.'/src/Views/newcache.inc.php');
@@ -280,6 +281,5 @@ if ($error == false) {
             XDb::xFreeResults($cache_rs);
             XDb::xFreeResults($wp_rs);
         }
-    }
-}
+
 tpl_BuildTemplate();

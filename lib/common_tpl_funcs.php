@@ -146,7 +146,7 @@ function setViewVar($name, $value)
 function tpl_BuildTemplate($minitpl = false, $noCommonTemplate = false)
 {
     //template handling vars
-    global $tplname, $vars, $config, $usr;
+    global $tplname, $vars, $config;
 
     // object
     /** @var View $view */

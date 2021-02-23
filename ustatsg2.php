@@ -2,12 +2,13 @@
 
 use src\Utils\Database\XDb;
 use src\Models\OcConfig\OcConfig;
+use src\Models\ApplicationContainer;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
 
 //user logged in?
-if ($usr == false) {
+if (!ApplicationContainer::GetAuthorizedUser()) {
     $target = urlencode(tpl_get_current_page());
     tpl_redirect('login.php?target=' . $target);
     exit;

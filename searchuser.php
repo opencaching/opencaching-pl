@@ -3,15 +3,19 @@
 use src\Utils\Database\OcDb;
 use src\Utils\Database\XDb;
 use src\Utils\Text\TextConverter;
+use src\Models\ApplicationContainer;
 
 require_once(__DIR__.'/lib/common.inc.php');
 
-if ($error == false) {
-    //user logged in?
-    if ($usr == false) {
-        $target = urlencode(tpl_get_current_page());
-        tpl_redirect('login.php?target=' . $target);
-    } else {
+//user logged in?
+$loggedUser = ApplicationContainer::GetAuthorizedUser();
+if (!$loggedUser) {
+    $target = urlencode(tpl_get_current_page());
+    tpl_redirect('login.php?target=' . $target);
+    exit;
+}
+
+
         $tplname = 'searchuser';
         $options['username'] = isset($_REQUEST['username']) ? $_REQUEST['username'] : '';
         if (!isset($options['username'])) {
@@ -69,6 +73,5 @@ if ($error == false) {
             tpl_set_var('not_found', '');
             tpl_set_var('lines', '');
         }
-    }
-}
+
 tpl_BuildTemplate();

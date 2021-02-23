@@ -2,12 +2,13 @@
 
 use src\Models\OcConfig\OcConfig;
 use src\Utils\Debug\Debug;
+use src\Models\ApplicationContainer;
 
 class sendEmail
 {
     public static function emailOwners($ptId, $commentType, $commentDateTime, $commentText, $action, $commentOwnerId = false, $delReason = '') {
         /*ugly, but we need this values from common.inc.php*/
-        global $usr, $absolute_server_URI, $siteDateFormat, $siteDateTimeFormat;
+        global $absolute_server_URI, $siteDateFormat, $siteDateTimeFormat;
         $siteDateFormat = 'Y-m-d';
         $siteDateTimeFormat = 'Y-m-d H:i';
 
@@ -60,15 +61,21 @@ class sendEmail
                 $mailbody = mb_ereg_replace('{pt153}', '', $mailbody);
                 break;
         }
-        if (!isset($usr['userid']))
-            $usr['userid'] = -1;
-        if (!isset($usr['username']))
-            $usr['username'] = 'SYSTEM';
+
+        $user = ApplicationContainer::GetAuthorizedUser();
+        if ($user) {
+            $userId = $user->getUserId();
+            $username = $user->getUserName();
+        } else {
+            $userId = -1;
+            $username = 'SYSTEM';
+        }
+
         $mailbody = mb_ereg_replace('{oclogo}', OcConfig::getHeaderLogo(), $mailbody);
         $mailbody = mb_ereg_replace('{mail_auto_generated}', tr('mail_auto_generated'), $mailbody);
         $mailbody = mb_ereg_replace('{commentDateTime}', date($siteDateTimeFormat, strtotime($commentDateTime)), $mailbody);
-        $mailbody = mb_ereg_replace('{userId}', $usr['userid'], $mailbody);
-        $mailbody = mb_ereg_replace('{userName}', $usr['username'], $mailbody);
+        $mailbody = mb_ereg_replace('{userId}', $userId, $mailbody);
+        $mailbody = mb_ereg_replace('{userName}', $username, $mailbody);
         $mailbody = mb_ereg_replace('{absolute_server_URI}', $absolute_server_URI, $mailbody);
         if (isset($commentTypes[$commentType]['translate']))
             $mailbody = mb_ereg_replace('{commentType}', tr($commentTypes[$commentType]['translate']), $mailbody);

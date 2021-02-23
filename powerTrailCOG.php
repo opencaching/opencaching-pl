@@ -8,20 +8,19 @@ use src\Utils\Uri\Uri;
 use src\Utils\View\View;
 
 require_once(__DIR__ . '/lib/common.inc.php');
-global $usr;
 
-$user = ApplicationContainer::Instance()->getLoggedUser();
 /** @var View $view */
 $view = tpl_getView();
 
-if (empty($user) || ! $user->hasOcTeamRole()) {
+$loggedUser = ApplicationContainer::Instance()->getLoggedUser();
+if (empty($loggedUser) || ! $loggedUser->hasOcTeamRole()) {
     $view->redirect('/');
 }
 
 $view->setTemplate('powerTrailCOG');
 
-$pt = new powerTrailController($usr);
-$result = $pt->run();
+$pt = new powerTrailController($loggedUser);
+$pt->run();
 
 tpl_set_var("selPtDiv", 'none');
 tpl_set_var("PtDetailsDiv", 'none');

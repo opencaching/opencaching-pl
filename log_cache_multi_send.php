@@ -1,9 +1,11 @@
 <?php
 
+use src\Models\ApplicationContainer;
+
 require_once (__DIR__.'/lib/common.inc.php');
 
 $no_tpl_build = false;
-if ($usr == false) {
+if (!ApplicationContainer::GetAuthorizedUser()) {
     $target = urlencode(tpl_get_current_page());
     tpl_redirect('login.php?target=' . $target);
 } else {

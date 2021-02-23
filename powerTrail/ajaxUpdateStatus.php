@@ -3,11 +3,13 @@
 use src\Utils\Database\OcDb;
 use src\Models\PowerTrail\PowerTrail;
 use src\Utils\Generators\Uuid;
+use src\Models\ApplicationContainer;
 
 require_once __DIR__.'/../lib/common.inc.php';
 
-if(!isset($usr['userid'])){
-    print 'no hacking please!';
+$loggedUser = ApplicationContainer::GetAuthorizedUser();
+if(!$loggedUser){
+    echo "User not authorized!";
     exit;
 }
 $ptAPI = new powerTrailBase;
@@ -22,7 +24,8 @@ if(isset($_REQUEST['commentTxt'])) {
 }
 
 // check if user is owner of selected power Trail
-if($ptAPI::checkIfUserIsPowerTrailOwner($usr['userid'], $powerTrailId) == 1 || (isset($usr['admin']) && $usr['admin'])) {
+if($ptAPI::checkIfUserIsPowerTrailOwner($loggedUser->getUserId(), $powerTrailId) == 1 ||
+    $loggedUser->hasOcTeamRole()) {
     switch ($newStatus) {
         case PowerTrail::STATUS_OPEN: // publish
             $commentType = 3;
@@ -60,10 +63,12 @@ if($ptAPI::checkIfUserIsPowerTrailOwner($usr['userid'], $powerTrailId) == 1 || (
                    `logDateTime`, `dbInsertDateTime`, `deleted`, uuid)
                   VALUES (:1, :2, :3, :4, NOW(), NOW(), 0, '.Uuid::getSqlForUpperCaseUuid().' )';
 
-        $db->multiVariableQuery($query, (int) $usr['userid'], $powerTrailId, $commentType,  $commentText );
+        $db->multiVariableQuery($query, $loggedUser->getUserId(), $powerTrailId, $commentType,  $commentText );
         // add action log
-        $logQuery = 'INSERT INTO `PowerTrail_actionsLog`(`PowerTrailId`, `userId`, `actionDateTime`, `actionType`, `description`, `cacheId`) VALUES (:1,:2,NOW(),6,:3,:4)';
-        $db->multiVariableQuery($logQuery, $powerTrailId,(int)$usr['userid'] ,$ptAPI->logActionTypes[6]['type'], 0);
+        $logQuery = 'INSERT INTO `PowerTrail_actionsLog`(
+                        `PowerTrailId`, `userId`, `actionDateTime`, `actionType`, `description`, `cacheId`
+                        ) VALUES (:1,:2,NOW(),6,:3,:4)';
+        $db->multiVariableQuery($logQuery, $powerTrailId, $loggedUser->getUserId(), $ptAPI->logActionTypes[6]['type'], 0);
     }
 } else {
     $updateStatusResult = array (

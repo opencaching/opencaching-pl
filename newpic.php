@@ -5,16 +5,18 @@ use src\Utils\Generators\Uuid;
 use src\Models\OcConfig\OcConfig;
 use src\Utils\Img\OcImage;
 use src\Models\Pictures\OcPicture;
+use src\Models\ApplicationContainer;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
-//Preprocessing
-if ($error == false) {
-    //user logged in?
-    if ($usr == false) {
-        $target = urlencode(tpl_get_current_page());
-        tpl_redirect('login.php?target=' . $target);
-    } else {
+//user logged in?
+$loggedUser = ApplicationContainer::GetAuthorizedUser();
+if (!$loggedUser) {
+    $target = urlencode(tpl_get_current_page());
+    tpl_redirect('login.php?target=' . $target);
+    exit;
+}
+
         $tplname = 'newpic';
 
         $submit = tr('submit');
@@ -68,8 +70,9 @@ if ($error == false) {
                         $allok = false;
                     else {
 
-                        if ($r['user_id'] != $usr['userid'] && !$usr['admin'])
+                        if ($r['user_id'] != $loggedUser->getUserId() && !$loggedUser->hasOcTeamRole()) {
                             $allok = false;
+                        }
 
                         $cacheid = $r['cache_id'];
                         tpl_set_var('cacheid', $cacheid);
@@ -100,8 +103,9 @@ if ($error == false) {
                         tpl_set_var('cacheid', $r['cache_id']);
                         tpl_set_var('pictypedesc', $pictypedesc_cache);
 
-                        if ($r['user_id'] != $usr['userid'] && !$usr['admin'])
+                        if ($r['user_id'] != $loggedUser->getUserId() && !$loggedUser->hasOcTeamRole()) {
                             $allok = false;
+                        }
                     }
 
                     tpl_set_var('begin_cacheonly', '');
@@ -190,7 +194,7 @@ if ($error == false) {
                                  `local`,`spoiler`,`display`,`node`,`seq`)
                             VALUES (?, ?, NOW(), ?, '', 0, NOW(), NOW(),?, ?,
                                     ?, 1, ?, ?, ?, ?)",
-                            $uuid, OcConfig::getPicBaseUrl().'/'.basename($filePath), $title, $objectid, $type, $usr['userid'],
+                            $uuid, OcConfig::getPicBaseUrl().'/'.basename($filePath), $title, $objectid, $type, $loggedUser->getUserId(),
                             ($bSpoiler == 1) ? '1' : '0', ($bNoDisplay == 1) ? '0' : '1', OcConfig::getSiteNodeId(), $def_seq);
 
                         switch ($type) {
