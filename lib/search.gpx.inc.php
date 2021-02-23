@@ -432,7 +432,7 @@ $gpxAttribID[999] = '999';        $gpxAttribName[999] = 'Log password';
             $dbc = OcDb::instance();
 
             $cache_id = $r['cacheid'];
-            $user_id = $loggedUser->getUserId() ?? null;
+            $user_id = $loggedUser ? $loggedUser->getUserId() : null;
             $access_log = @$_SESSION['CACHE_ACCESS_LOG_GPX_' . $user_id];
             if ($access_log === null) {
                 $_SESSION['CACHE_ACCESS_LOG_GPX_' . $user_id] = array();

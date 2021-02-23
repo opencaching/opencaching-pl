@@ -111,7 +111,7 @@ if ($cache_id != 0) {
         if (!isset($dbc)) {
             $dbc = OcDb::instance();
         }
-        $user_id = $loggedUser->getUserId() ?? null;
+        $user_id = $loggedUser ? $loggedUser->getUserId() : null;
         $access_log = @$_SESSION['CACHE_ACCESS_LOG_VL_' . $user_id];
         if ($access_log === null) {
             $_SESSION['CACHE_ACCESS_LOG_VL_' . $user_id] = array();

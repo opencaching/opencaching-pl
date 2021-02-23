@@ -173,7 +173,7 @@ while($r = XDb::xFetchArray($stmt) ) {
         $dbc = OcDb::instance();
 
         $cache_id = $r['cacheid'];
-        $user_id = $loggedUser->getUserId() ?? null;
+        $user_id = $loggedUser ? $loggedUser->getUserId() : null;
         $access_log = @$_SESSION['CACHE_ACCESS_LOG_VC_'.$user_id];
         if ($access_log === null) {
             $_SESSION['CACHE_ACCESS_LOG_VC_'.$user_id] = array();
