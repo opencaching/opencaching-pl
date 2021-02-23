@@ -17,7 +17,7 @@ class powerTrailController
     private $ptOwners;
     private $areOwnSeries = false;
 
-    function __construct(User $user)
+    function __construct(?User $user)
     {
         if (isset($_REQUEST['ptAction'])) {
             $this->action = $_REQUEST['ptAction'];
