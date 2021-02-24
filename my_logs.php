@@ -92,7 +92,7 @@ if (!$loggedUser) {
     }
 
     $dateOrderSql =
-        $user_id == $loggedUser->getUserId();
+        $user_id == $loggedUser->getUserId()
         ?  '`cache_logs`.`date` DESC, `cache_logs`.`date_created` DESC'
         :  '`cache_logs`.`date_created` DESC, `cache_logs`.`date` DESC';
 
