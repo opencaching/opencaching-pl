@@ -1,8 +1,9 @@
 <?php
+
 /**
- * cronjob configuration overrides for Opencaching.RO
+ * Cronjob configuration.
  *
- * See cronjobs.default.php for examples.
-*/
+ * Those are configuration overrides for OCRO node only.
+ */
 
 $cronjobs['schedule']['TitledCacheAddJob'] = 'disabled';

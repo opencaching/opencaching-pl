@@ -1,49 +1,42 @@
 <?php
+
 namespace src\Models\OcConfig;
 
 /**
- * This trait group access to local OKAPI config settings - settings here are used in okapi_settings.php
- * BEWARE OF FUNCTIONS NAME COLLISION BETWEEN CONFIG TRAITS!
+ * Loads configuration from okapiConfig.*.php.
+ *
+ * @mixin OcConfig
  */
-trait OkapiConfigTrait {
-
+trait OkapiConfigTrait
+{
     protected $okapiConfig = null;
 
     /**
-     * Returns blacklist of okpai cron jobs
+     * Get blacklist of okapi cron jobs.
      *
      * @return array|null
      */
     public static function getOkapiCronJobBlacklist()
     {
-        return self::getOkapiConfigVar('cronJobsBlackList');
+        return self::getKeyFromOkapiConfig('cronJobsBlackList');
     }
-    /**
-     * Returns okpai config properties
-     *
-     * @return array okapiConfig properties
-     */
-    protected function getOkapiConfig()
+
+    protected function getOkapiConfig(): array
     {
-        if (!$this->okapiConfig) {
-            $this->okapiConfig = self::getConfig("okapiConfig", "config");
+        if (! $this->okapiConfig) {
+            $this->okapiConfig = self::getConfig('okapiConfig');
         }
+
         return $this->okapiConfig;
     }
 
     /**
-     * Get Var from okapiConfig.* files
-     *
-     * @param string $varName
-     * @throws \Exception
-     * @return string|array
+     * @return mixed
      */
-    private static function getOkapiConfigVar($varName)
+    private static function getKeyFromOkapiConfig(string $key)
     {
         $okapiConfig = self::instance()->getOkapiConfig();
-        if (!is_array($okapiConfig)) {
-            throw new \Exception("Invalid $varName setting: see /config/okapiConfig.*");
-        }
-        return $okapiConfig[$varName];
+
+        return $okapiConfig[$key];
     }
 }

@@ -1,8 +1,9 @@
 <?php
+
 /**
- * cronjob configuration overrides for Opencaching.PL
+ * Cronjob configuration.
  *
- * See cronjobs.default.php for examples.
-*/
+ * Those are configuration overrides for OCPL node only.
+ */
 
 $cronjobs['schedule']['TitledCacheAddJob'] = 'weekly on Monday at 0:10';

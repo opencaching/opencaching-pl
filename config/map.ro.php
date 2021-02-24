@@ -1,6 +1,12 @@
 <?php
 
 /**
+ * Configuration of maps in the OC code
+ *
+ * Those are configuration overrides for OCRO node only.
+ */
+
+/**
  * Coordinates of the default map center - used by default by many maps in service
  * Format: float number
  */
@@ -16,7 +22,6 @@ $map['startPageMapZoom'] = 5;
  * Dimensions of the static map from startPage[width,height]
  */
 $map['startPageMapDimensions'] = [250, 180];
-
 
 /**
  * Links to external maps used at least at viewpage
@@ -35,4 +40,4 @@ $map['startPageMapDimensions'] = [250, 180];
  *
  * The level 3 key is also used as link_text.
  */
-$map['external']['Flopp\'s Map']['enabled'] = true;
+$map['external']["Flopp's Map"]['enabled'] = true;

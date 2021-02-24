@@ -1,18 +1,12 @@
 <?php
 
 /**
- * This is simple configuration of maps in the OC code
+ * Configuration of maps in the OC code
  *
- * This is a DEFAULT configuration for ALL nodes, which contains necessary vars.
- *
- * If you want to customize links for your node
- * create config for your node and there override $map array values as needed.
- *
+ * This is a default configuration.
+ * It may be customized in node-specific configuration file.
  */
 
-/**
- * This is main map config array
- */
 $map = [];
 
 /**
@@ -25,38 +19,41 @@ $map['keys'] = [];
  * DO NOT add your key to this file - add it in your map.local.php file.
  *
  * OpenRouteService is used to search (geocode) on MainMap - without the key search is disabled.
- *
  */
 $map['keys']['OpenRouteService'] = '';
 
 /**
- * $map['jsConfig'] constains JS code with configuration for openlayers
+ * $map['jsConfig'] contains JS code with configuration for openlayers
  * This is very simple config - OSM map only.
  *
  * See map.default.pl for more examples.
  */
-$map['jsConfig'] = "
+$map['jsConfig'] = '
     {
       OSM: new ol.layer.Tile ({
         source: new ol.source.OSM(),
       })
     }
-";
+';
 
 /**
- * This is function which is called to inject keys from "local" config (map.local.php)
- * to default node-configurations map config (for example map.pl.php).
+ * This function is called to inject keys from "local" config (map.local.php)
+ * to node-specific map config (for example map.pl.php).
  *
- * Here this is only a simple stub.
+ * Value below is only a simple stub.
  *
- *
- * @param array complete configureation merged from default + node-default + local configs
+ * @param array Complete configuration merged from default + node + local configs
  * @return true on success
  */
-$map['keyInjectionCallback'] = function ($mapConfig) {
-
-    // example:
-    // $mapConfig['jsConfig'] = str_replace('{NICE-MAP-KEY}', $mapConfig['keys']['NiceMap'], $mapConfig['jsConfig']);
+$map['keyInjectionCallback'] = function (array &$mapConfig) {
+    /**
+     * Example:
+     * $mapConfig['jsConfig'] = str_replace(
+     *     '{NICE-MAP-KEY}',
+     *     $mapConfig['keys']['NiceMap'],
+     *     $mapConfig['jsConfig']
+     * );
+     */
 
     return true;
 };
@@ -67,7 +64,6 @@ $map['keyInjectionCallback'] = function ($mapConfig) {
  */
 $map['mapDefaultCenterLat'] = 52.13;
 $map['mapDefaultCenterLon'] = 19.20;
-
 
 /**
  * Zoom of the static map from startPage
@@ -110,5 +106,5 @@ $map['external']['Google Maps']['url'] = 'https://maps.google.com/maps?hl=UTF-8&
 $map['external']['Szukacz']['enabled'] = false; // PL specific
 $map['external']['Szukacz']['url'] = 'https://mapa.szukacz.pl/?n=%1$f&e=%2$f&z=4&t=Skrzynka%%20Geocache';
 
-$map['external']['Flopp\'s Map']['enabled'] = false;
-$map['external']['Flopp\'s Map']['url'] = 'https://flopp.net/?c=%1$f:%2$f&z=16&t=OSM&f=g&m=&d=&g=%4$s';
+$map['external']["Flopp's Map"]['enabled'] = false;
+$map['external']["Flopp's Map"]['url'] = 'https://flopp.net/?c=%1$f:%2$f&z=16&t=OSM&f=g&m=&d=&g=%4$s';

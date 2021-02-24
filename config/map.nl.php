@@ -1,7 +1,13 @@
 <?php
 
 /**
- * $map['jsConfig'] constains JS code with configuration for openlayers
+ * Configuration of maps in the OC code
+ *
+ * Those are configuration overrides for OCNL node only.
+ */
+
+/**
+ * $map['jsConfig'] contains JS code with configuration for openlayers
  * Be sure that all changes here are well tested.
  */
 $map['jsConfig'] = "
@@ -51,24 +57,20 @@ $map['jsConfig'] = "
  */
 $map['keys']['BingMap'] = 'NEEDS-TO-BE-SET-IN-LOCAL-CONFIG-FILE';
 
-
 /**
- * This is function which is called to inject keys from "local" config
- * to default node-configurations map configs.
+ * This function is called to inject keys from "local" config (map.local.php)
+ * to node-specific map config (for example map.pl.php).
  *
- * Here this is only a simple stub.
- *
- * @param array complete configureation merged from default + node-default + local configs
+ * @param array Complete configuration merged from default + node + local configs
  * @return true on success
  */
-$map['keyInjectionCallback'] = function(array &$mapConfig){
-
+$map['keyInjectionCallback'] = function (array &$mapConfig) {
     // change string {Key-BingMap} to proper key value
-
     $mapConfig['jsConfig'] = str_replace(
         '{Key-BingMap}',
         $mapConfig['keys']['BingMap'],
-        $mapConfig['jsConfig']);
+        $mapConfig['jsConfig']
+    );
 
     return true;
 };
@@ -107,6 +109,5 @@ $map['startPageMapDimensions'] = [250, 300];
  *
  * The level 3 key is also used as link_text.
  */
-
-$map['external']['Flopp\'s Map']['enabled'] = true;
+$map['external']["Flopp's Map"]['enabled'] = true;
 $map['external']['Topo BE'] = 'http://wms.ngi.be/cartoweb/service/?lat=%1$f&lon=%2$f&zoom=16';

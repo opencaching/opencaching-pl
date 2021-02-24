@@ -1,72 +1,52 @@
 <?php
+
 namespace src\Models\OcConfig;
 
 /**
- * This trait group access to email settings stored in /config/primaAprilis.* conf. files
- * BEWARE OF FUNCTIONS NAME COLLISION BETWEEN CONFIG TRAITS!
+ * Loads configuration from primaAprilis.*.php.
+ *
+ * @mixin OcConfig
  */
-trait PrimaAprilisTrait {
-
+trait PrimaAprilisTrait
+{
     protected $primaAprilisConfig = null;
 
-    private static function isPAEnabled()
+    private static function isPAEnabled(): bool
     {
-        return !self::getPAVar('disableAllPrimaAprilisChanges');
+        return ! self::getKeyFromPAConfig('disableAllPrimaAprilisChanges');
     }
 
-    /**
-     * Returns TRUE if dane shoudl be activated
-     * @return string
-     */
-    public static function isPADanceEnabled()
+    public static function isPADanceEnabled(): bool
     {
-        return self::isPAEnabled() && self::getPAVar('danceEnabled');
+        return self::isPAEnabled() && self::getKeyFromPAConfig('danceEnabled');
     }
 
-    /**
-     * Returns TRUE if dane shoudl be activated
-     * @return string
-     */
-    public static function isPAUserStatsRandEnabled()
+    public static function isPAUserStatsRandEnabled(): bool
     {
-        return self::isPAEnabled() && self::getPAVar('randUserStats');
+        return self::isPAEnabled() && self::getKeyFromPAConfig('randUserStats');
     }
 
-    /**
-     * Returns TRUE if dane shoudl be activated
-     * @return string
-     */
-    public static function isPAFakeUserNameEnabled()
+    public static function isPAFakeUserNameEnabled(): bool
     {
-        return self::isPAEnabled() && self::getPAVar('fakeUserNameInProfile');
+        return self::isPAEnabled() && self::getKeyFromPAConfig('fakeUserNameInProfile');
     }
 
-    /**
-     * Returns site properties
-     *
-     * @return array site properties
-     */
-    protected function getPAConfig()
+    protected function getPAConfig(): array
     {
-        if (!$this->primaAprilisConfig) {
-            $this->primaAprilisConfig = self::getConfig("primaAprilis", "config");
+        if (! $this->primaAprilisConfig) {
+            $this->primaAprilisConfig = self::getConfig('primaAprilis');
         }
+
         return $this->primaAprilisConfig;
     }
 
     /**
-     * Get Var from geocache.* files
-     *
-     * @param string $varName
-     * @throws \Exception
-     * @return string|array
+     * @return mixed
      */
-    private static function getPAVar($varName)
+    private static function getKeyFromPAConfig(string $key)
     {
         $config = self::instance()->getPAConfig();
-        if (!is_array($config)) {
-            throw new \Exception("Invalid $varName setting: see /config/primaAprilis.*");
-        }
-        return $config[$varName];
+
+        return $config[$key];
     }
 }

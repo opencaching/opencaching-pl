@@ -1,8 +1,10 @@
 <?php
-/**
- * pictures.default.php overrides for OCRO node
- */
 
+/**
+ * Pictures configuration
+ *
+ * Those are configuration overrides for OCRO node only.
+ */
 
 /**
  * Max size (MB) of attached picture (this is internal only restriction)

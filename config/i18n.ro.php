@@ -1,7 +1,9 @@
 <?php
+
 /**
- * This is configuration specific for RO node
- * It contains only overrides to DEFAULT config
+ * Configuration of translations and localization of the OC code
+ *
+ * Those are configuration overrides for OCRO node only.
  */
 
 /**
@@ -9,9 +11,9 @@
  */
 $config['defaultLang'] = 'ro';
 
-
 /**
- * List of supported languages
- * Please note that for now still we have also translations in DB!
+ * List of languages supported by node.
+ * Use two-lower-letters codes.
+ * Please note that for now we still have some translations in DB!
  */
 $config['supportedLanguages'] = ['pl', 'en', 'nl', 'ro'];

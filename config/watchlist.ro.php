@@ -1,10 +1,12 @@
 <?php
-/*
- * Configuration setting for watchlist for OCRO node.
- * It disables logging into logentries table.
- * The rest of settings are stored in watchlist.default.php file
+
+/**
+ * Watchlist configuration
+ *
+ * Those are configuration overrides for OCRO node only.
  */
+
 $watchlist = [
     'diag_file' => '',
-    'use_logentries' => false
+    'use_logentries' => false,
 ];

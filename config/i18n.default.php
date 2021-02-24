@@ -1,11 +1,10 @@
 <?php
+
 /**
- * This is simple configuration of translations and localizatin of the OC code
+ * Configuration of translations and localization of the OC code
  *
- * This is a DEFAULT configuration for ALL nodes, which contains necessary vars.
- *
- * If you to customize it for your node
- * create config for your node and there override array values as needed.
+ * This is a default configuration.
+ * It may be customized in node-specific configuration file.
  */
 
 $config = [];
@@ -18,10 +17,9 @@ $config['defaultLang'] = 'en';
 /**
  * List of languages supported by node.
  * Use two-lower-letters codes.
- * Please note that for now still we have also translations in DB!
+ * Please note that for now we still have some translations in DB!
  */
 $config['supportedLanguages'] = ['pl', 'en', 'nl', 'ro'];
-
 
 /**
  * If node support crowdinInContext mode
