@@ -221,6 +221,9 @@ class powerTrailController
 
     private function getUserCachesToChose()
     {
+        if (!$this->user) {
+            return [];
+        }
         $query = "SELECT cache_id, wp_oc, PowerTrailId, name FROM `caches` LEFT JOIN powerTrail_caches ON powerTrail_caches.cacheId = caches.cache_id WHERE caches.status NOT IN (3,6) AND `user_id` = :1";
         $db = OcDb::instance();
         $s = $db->multiVariableQuery($query, $this->user->getUserId());
@@ -229,6 +232,10 @@ class powerTrailController
 
     private function getUserPTs()
     {
+        if (!$this->user) {
+            return [];
+        }
+
         $query = "SELECT * FROM `PowerTrail`, PowerTrail_owners  WHERE  PowerTrail_owners.userId = :1 AND PowerTrail_owners.PowerTrailId = PowerTrail.id";
         $db = OcDb::instance();
         $s = $db->multiVariableQuery($query, $this->user->getUserId());
