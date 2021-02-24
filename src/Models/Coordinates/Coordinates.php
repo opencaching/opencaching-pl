@@ -156,7 +156,7 @@ class Coordinates
      */
     public function getLongitudeString($format = self::COORDINATES_FORMAT_DEFAULT): string
     {
-        if ($this->longitude) {
+        if (!$this->longitude) {
             return '';
         }
 
