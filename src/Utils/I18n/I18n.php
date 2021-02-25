@@ -1,418 +1,403 @@
 <?php
 
 /**
- * Global nameespace here is only to define global function tr
- * used to translate phrases in OC code
+ * Global namespace is here to define the global tr() function
+ * used to translate phrases in OC code.
  *
- * After refactoring all views it should be moved to View class.
+ * After refactoring all views it should be moved to the View class.
  */
-namespace {
-
+namespace
+{
     use src\Utils\I18n\I18n;
 
     /**
-     * Return tranlated string
-     *
-     * @param string $str - translation key
-     * @param array $args - arguments to insert into string (see vsprintf for details)
-     * @return string - localized string
+     * Translate the given message.
      */
-    function tr($str, array $args = null)
+    function tr(string $message, array $replace = null): string
     {
-        if (is_null($args)) {
-            return I18n::translatePhrase($str);
-        } else {
-            return vsprintf(I18n::translatePhrase($str), $args);
+        if (! $replace) {
+            return I18n::translatePhrase($message);
         }
 
+        return vsprintf(I18n::translatePhrase($message), $replace);
     }
+}
 
-} // namespace / (global)
-
-namespace src\Utils\I18n {
-
+namespace src\Utils\I18n
+{
     use Exception;
-    use src\Utils\Text\UserInputFilter;
+    use src\Models\OcConfig\OcConfig;
+    use src\Utils\Cache\OcMemCache;
+    use src\Utils\Database\XDb;
+    use src\Utils\Debug\Debug;
     use src\Utils\Uri\OcCookie;
     use src\Utils\Uri\Uri;
-    use src\Models\OcConfig\OcConfig;
-    use src\Utils\Debug\Debug;
-    use src\Utils\Database\XDb;
-    use src\Utils\Cache\OcMemCache;
 
-    class I18n
+    final class I18n
     {
-        const FAILOVER_LANGUAGE = 'en';
+        const FALLBACK_LANGUAGE = 'en';
         const COOKIE_LANG_VAR = 'lang';
         const URI_LANG_VAR = 'lang';
 
-        private $currentLanguage;
-        private $trArray;
-
-        private function __construct()
-        {
-            $this->trArray = [];
-        }
+        protected $currentLanguage;
+        protected $trArray = [];
 
         /**
          * Returns instance of itself.
-         *
-         * @return I18n object
          */
-        public static function instance()
+        public static function instance(): self
         {
             static $instance = null;
-            if ($instance === null) {
-                $instance = new static();
-                $instance->initialize();
+
+            if (! $instance) {
+                $instance = (new static())->initialize();
             }
 
             return $instance;
         }
 
-        private function initialize()
+        protected function initialize(): self
         {
             $initLang = $this->getInitLang();
 
-            if (!$this->isLangSupported($initLang)) {
-                $initLang = self::FAILOVER_LANGUAGE;
+            if (! $this->isLangSupported($initLang)) {
+                $initLang = self::FALLBACK_LANGUAGE;
             }
 
             $this->setCurrentLang($initLang);
             $this->loadLangFile($initLang);
+
             Languages::setLocale($initLang);
+
+            return $this;
         }
 
-
         /**
-         * Retruns current language of tranlsations
-         * @return string - two-char lang code - for example: 'pl' or 'en'
+         * Get the current application language.
          */
-        public static function getCurrentLang()
+        public static function getCurrentLang(): string
         {
             return self::instance()->currentLanguage;
         }
 
         /**
-         * Returns default language for this node.
-         * @return string - two-letters lang code
+         * Get the default language for this node.
          */
-        public static function getDefaultLang()
+        public static function getDefaultLang(): string
         {
             return OcConfig::getI18nDefaultLang();
         }
 
         /**
-         * Return language which can be used to look up for translation in given Db table
-         * DON'T USE DB TRANSLATION! This method is only to support legacy code.
+         * Get the language which can be used to look up for a translation in
+         * the given DB table.
          *
-         * @param string $tableName
-         * @return string - language code
+         * @deprecated DB translations should not be used.
          */
-        public static function getLangForDbTranslations($tableName)
+        public static function getLangForDbTranslations(string $table): string
         {
-            $langCode = self::getCurrentLang();
-            if (XDb::xContainsColumn($tableName, $langCode)) {
-                return $langCode;
-            } else {
-                return self::FAILOVER_LANGUAGE;
+            $language = self::getCurrentLang();
+
+            if (! XDb::xContainsColumn($table, $language)) {
+                self::FALLBACK_LANGUAGE;
             }
+
+            return $language;
         }
 
         /**
-         * The only function to initilize I18n for OC code.
-         * This should be called at the begining of every request.
-         *
-         * @return \src\Utils\I18n\I18n
+         * The only function to initialize I18n for OC code.
+         * This should be called at the beginning of every request.
          */
-        public static function init()
+        public static function init(): self
         {
-            // just be sure that instance of this class is created
+            // Just be sure that instance of this class is created
             return self::instance();
         }
 
         /**
-         * Main translate function
+         * Get the translation of the given message.
          *
-         * @param string $translationId - id of the phrase
-         * @param string $langCode - two-letter language code
-         * @param boolean $skipPostprocess - if true skip "old-template" postprocessing
-         * @return string -
+         * @param bool $skipPostprocess - Skip "old-template" postprocessing
          */
-        public static function translatePhrase($translationId, $langCode=null, $skipPostprocess=false, $skipFailoverLang=false)
-        {
-            return self::instance()->translate($translationId, $langCode, $skipPostprocess, $skipFailoverLang);
+        public static function translatePhrase(
+            string $message,
+            string $language = null,
+            bool $skipPostprocess = false,
+            bool $skipFallback = false
+        ): string {
+            return self::instance()->translate(...func_get_args());
         }
 
         /**
-         * Allow to check if given phrase is present
-         *
-         * @param string $str - phrase to translate
-         * @return boolean
+         * Check if the given message exists.
          */
-        public static function isTranslationAvailable($str)
+        public static function isTranslationAvailable(string $message): bool
         {
             $language = self::getCurrentLang();
-            $instance = self::instance();
-            return isset($instance->trArray[$language][$str]) && $instance->trArray[$language][$str];
+
+            return (bool) self::instance()->trArray[$language][$message] ?? false;
         }
 
-        public static function getLanguagesFlagsData(){
-            $instance = self::instance();
-            return $instance->getFlags();
+        public static function getLanguagesFlagsData(bool $withoutCurrent = false): array
+        {
+            return self::instance()->getFlags($withoutCurrent);
         }
 
-        private function getFlags($currentLang=null){
+        protected function getFlags(bool $withoutCurrent = false): array
+        {
+            $result = [];
 
-            $result = array();
             foreach ($this->getSupportedTranslations() as $language) {
-                if (!isset($currentLang) || $language != $currentLang) {
-                    $result[$language]['name'] = $language;
-                    $result[$language]['img'] = '/images/flags/' . $language . '.svg';
-                    $result[$language]['link'] = Uri::setOrReplaceParamValue(self::URI_LANG_VAR, $language);
+                if ($withoutCurrent && $language === self::getCurrentLang()) {
+                    continue;
                 }
+
+                $result[$language] = [
+                    'name' => $language,
+                    'img' => "/images/flags/{$language}.svg",
+                    'link' => Uri::setOrReplaceParamValue(self::URI_LANG_VAR, $language),
+                ];
             }
+
             return $result;
         }
 
         /**
-         * Returns language code which should be apply for current instance
+         * Get the language which should be used for the current instance.
          */
-        private function getInitLang()
+        protected function getInitLang(): string
         {
-            if (isset($_REQUEST['lang'])) {
-                // language switch is requested
-                $langToUse = $_REQUEST[self::URI_LANG_VAR];
-            } else {
-                // use previous lang or default
-                $langToUse = OcCookie::getOrDefault(self::COOKIE_LANG_VAR, $this->getDefaultLang());
-            }
+            // 'lang' being set in request means that the user wants to change a language
+            $langToUse = $_REQUEST[self::URI_LANG_VAR]
+                ?? OcCookie::get(self::COOKIE_LANG_VAR)
+                ?? $this->getDefaultLang();
 
-            // check request for CrowdinInContext mode commands
+            // Check request for CrowdinInContext mode commands
             CrowdinInContextMode::checkRequest($langToUse);
-            if (CrowdinInContextMode::enabled()){
+
+            if (CrowdinInContextMode::enabled()) {
                 return CrowdinInContextMode::getPseudoLang();
             }
 
             return $langToUse;
         }
 
-        private function translate($str, $langCode=null, $skipPostprocess=false, $skipFailoverLang=false)
-        {
-            if(!$langCode){
-                $langCode = self::getCurrentLang();
+        protected function translate(
+            string $message,
+            string $language = null,
+            $skipPostprocess = false,
+            $skipFallback = false
+        ): string {
+            $language = $language ?? self::getCurrentLang();
+
+            if (! isset($this->trArray[$language])) {
+                $this->loadLangFile($language);
             }
 
-            if (!isset($this->trArray[$langCode])) {
-                $this->loadLangFile($langCode);
-            }
-
-            if (isset($this->trArray[$langCode][$str]) && $this->trArray[$langCode][$str]) {
-                // requested phrase found
-                if (!$skipPostprocess) {
-                    return $this->postProcessTr($this->trArray[$langCode][$str]);
-                } else {
-                    return $this->trArray[$langCode][$str];
+            // Requested phrase found
+            if ($this->trArray[$language][$message] ?? false) {
+                if ($skipPostprocess) {
+                    $this->trArray[$language][$message];
                 }
-            } else {
-                // there is no such phrase
-                if(!$skipFailoverLang && $langCode != self::FAILOVER_LANGUAGE){
-                    // try to handle it in failover language
-                    return $this->translate($str, self::FAILOVER_LANGUAGE, $skipPostprocess);
-                }
+
+                return $this->postProcessTr($this->trArray[$language][$message]);
             }
 
-            // ups - no such phrase at all - even in failover language...
-            Debug::errorLog('Unknown translation for id: '.$str);
-            return "No translation available (id: $str)";
+            // There is no such phrase, try to use the fallback language
+            if (! $skipFallback && $language !== self::FALLBACK_LANGUAGE) {
+                return $this->translate($message, self::FALLBACK_LANGUAGE, $skipPostprocess);
+            }
+
+            // Oops - no such phrase at all - even in the fallback language...
+            Debug::errorLog("Unknown translation for id: {$message}");
+            return "No translation available (id: {$message})";
         }
 
-        private function postProcessTr(&$ref)
+        protected function postProcessTr(string $ref): string
         {
-            if (strpos($ref, "{") !== false) {
-                if (!function_exists('tpl_do_replace')) {
-                    throw new Exception(
-                        // Desktop template system is not available on mobile pages.
-                        '{} placeholders must not be used in mobile_ translation texts.'
-                    );
-                }
-                return tpl_do_replace($ref, true);
-            } else {
+            if (strpos($ref, '{') === false) {
                 return $ref;
             }
+
+            // Desktop template system is not available on mobile pages.
+            if (! function_exists('tpl_do_replace')) {
+                throw new Exception(
+                    '{} placeholders must not be used in mobile_ translation texts.'
+                );
+            }
+
+            return tpl_do_replace($ref, true);
         }
 
         /**
-         * Load given translation file
-         *
-         * THIS METHOD SHOULD BE PRIVATE!
-         *
-         * @param string $langCode - two-letter language code
+         * Load the translation file for the given locale.
          */
-        private function loadLangFile($langCode)
+        protected function loadLangFile(string $langCode): void
         {
-            // load selected language/translation file
-            $languageFilename = self::languageFilename($langCode);
-            include $languageFilename;
+            require self::languageFilename($langCode);
+
             $this->trArray[$langCode] = $translations;
         }
 
-        private function languageFileTime($langCode)
+        protected function languageFileTime(string $langCode): int
         {
-            $languageFilename = self::languageFilename($langCode);
-            return filemtime($languageFilename);
+            return filemtime(self::languageFilename($langCode));
         }
 
-        private static function languageFilename($langCode)
+        protected static function languageFilename(string $language): string
         {
-            $languageFilename = __DIR__ . "/../../../lib/languages/" . $langCode.'.php';
-            if (!file_exists($languageFilename)) {
-                throw new \Exception("Can't find translation file for requested language!");
+            $filename = __DIR__ . "/../../../lib/languages/{$language}.php";
+
+            if (! file_exists($filename)) {
+                throw new Exception("Can't find the translation file for {$language}!");
             }
-            return $languageFilename;
+
+            return $filename;
         }
 
-        private function setCurrentLang($languageCode)
+        protected function setCurrentLang(string $language): void
         {
-            $this->currentLanguage = $languageCode;
-            OcCookie::set(self::COOKIE_LANG_VAR, $languageCode, true);
+            $this->currentLanguage = $language;
+
+            OcCookie::set(self::COOKIE_LANG_VAR, $language, true);
         }
 
         /**
-         * supported translations list is stored in i18n::$config['supportedLanguages'] var in config files
-         * @return array of supported languags
+         * @see /config/i18n.default.php.
          */
-        private function getSupportedTranslations(){
+        protected function getSupportedTranslations(): array
+        {
             return OcConfig::getI18nSupportedLangs();
         }
 
-        private function isLangSupported($langCode){
-
-            if (CrowdinInContextMode::isSupportedInConfig()) {
-                if ($langCode == CrowdinInContextMode::getPseudoLang() ){
-                    return true;
-                }
-            }
-            return in_array($langCode, $this->getSupportedTranslations());
-        }
-
-
-        /**
-         * @param string $prefix
-         * @return array dictionay of all translations that's keys start with the given prefix
-         */
-        public static function getPrefixedTranslationsWithFailover($prefix)
+        protected function isLangSupported(string $language): bool
         {
-            $cacheKey = 'translations-'.self::getCurrentLang().'-'.$prefix;
-
-            $currentLangFiletime = self::languageFileTime(self::getCurrentLang());
-            $failoverFiletime = self::languageFileTime(self::FAILOVER_LANGUAGE);
-
-            $t = OcMemCache::get($cacheKey);
-
-            if ($t !== false &&
-                $t['failover-filetime'] == $failoverFiletime &&
-                $t['main-filetime'] == $currentLangFiletime
+            if (
+                CrowdinInContextMode::isSupportedInConfig()
+                && $language === CrowdinInContextMode::getPseudoLang()
             ) {
-                // use translations from cache
-                return $t['translations'];
+                return true;
             }
 
-            // not in cache - compile new translation set
-            $t = self::instance()->makePrefixedTranslationsWithFailover($prefix);
-
-            OcMemCache::store(
-                $cacheKey, 3600 * 24, [
-
-                    // If you change anything here, also change the name of the cache key!
-                    // Otherwise the old cached data could crash the changed implementation.
-
-                    'failover-filetime' => $failoverFiletime,
-                    'main-filetime' => $currentLangFiletime,
-                    'translations' => $t
-                ]
-            );
-            return $t;
+            return in_array($language, $this->getSupportedTranslations());
         }
-
-        private function makePrefixedTranslationsWithFailover($prefix)
-        {
-            if (!isset($this->trArray[self::FAILOVER_LANGUAGE])) {
-                $this->loadLangFile(self::FAILOVER_LANGUAGE);
-            }
-
-            $prefixLen = strlen($prefix);
-            $currentLanguage = self::getCurrentLang();
-            $t = [];
-
-            foreach ($this->trArray[self::FAILOVER_LANGUAGE] as $key => $text) {
-                if (substr($key, 0, $prefixLen) == $prefix) {
-                    if (isset($this->trArray[$currentLanguage][$key])) {
-                        $t[substr($key, $prefixLen)] = $this->trArray[$currentLanguage][$key];
-                    } else {
-                        $t[substr($key, $prefixLen)] = $text;
-                    }
-                }
-            }
-
-            return $t;
-        }
-
 
         /**
-         * Methods for retrieving and maintaining old-style database translations.
-         * This should become obsolete some time.
+         * Get all translations for keys starting with the given prefix.
+         */
+        public static function getPrefixedTranslationsWithFallback(string $prefix): array
+        {
+            $cacheKey = 'translations-' . self::getCurrentLang() . '-' . $prefix;
+
+            $currentLangFiletime = self::instance()->languageFileTime(self::getCurrentLang());
+            $fallbackFiletime = self::instance()->languageFileTime(self::FALLBACK_LANGUAGE);
+
+            $translations = OcMemCache::get($cacheKey);
+
+            if (
+                $translations !== false
+                && $translations['failover-filetime'] == $fallbackFiletime
+                && $translations['main-filetime'] == $currentLangFiletime
+            ) {
+                // Use cached translations
+                return $translations['translations'];
+            }
+
+            // Compile a new translation set
+            $translations = self::instance()->makePrefixedTranslationsWithFallback($prefix);
+
+            OcMemCache::store($cacheKey, 3600 * 24, [
+                // If you change anything here, also change the name of the cache key!
+                // Otherwise the old cached data can crash the changed implementation.
+                'failover-filetime' => $fallbackFiletime,
+                'main-filetime' => $currentLangFiletime,
+                'translations' => $translations
+            ]);
+
+            return $translations;
+        }
+
+        protected function makePrefixedTranslationsWithFallback(string $prefix): array
+        {
+            if (! isset($this->trArray[self::FALLBACK_LANGUAGE])) {
+                $this->loadLangFile(self::FALLBACK_LANGUAGE);
+            }
+
+            $prefixLength = strlen($prefix);
+            $currentLanguage = self::getCurrentLang();
+            $translations = [];
+
+            foreach ($this->trArray[self::FALLBACK_LANGUAGE] as $key => $text) {
+                if (substr($key, 0, $prefixLength) !== $prefix) {
+                    continue;
+                }
+
+                $translations[substr($key, $prefixLength)] = $this->trArray[$currentLanguage][$key] ?? $text;
+            }
+
+            return $translations;
+        }
+
+        /**
          * TODO: cache_atttrib
+         *
+         * @deprecated DB translations should not be used.
          */
         public static function getTranslationTables()
         {
-            return [ 'cache_size', 'cache_status', 'cache_type', 'log_types', 'waypoint_type', 'languages' ];
+            return ['cache_size', 'cache_status', 'cache_type', 'log_types', 'waypoint_type', 'languages'];
         }
 
+        /**
+         * @deprecated DB translations should not be used.
+         */
         public static function getTranslationIdColumnName($table)
         {
-            if ($table == 'languages') {
+            if ($table === 'languages') {
                 return 'short';
-            } elseif ($table == 'cache_type') {
-                return 'sort';  // not 'id' !
-            } elseif (in_array($table, self::getTranslationTables())) {
-                return 'id';
-            } else {
-                throw new Exception("unknown table: '".$table."'");
             }
+
+            if ($table === 'cache_type') {
+                return 'sort';  // not 'id' !
+            }
+
+            if (in_array($table, self::getTranslationTables())) {
+                return 'id';
+            }
+
+            throw new Exception("Unknown table: '{$table}'");
         }
 
+        /**
+         * @deprecated DB translations should not be used.
+         */
         public static function getTranslationKey($table, $id)
         {
-            static $prefixes;
+            $prefixes = [
+                'cache_size' => 'cacheSize_',
+                'cache_status' => 'cacheStatus_',
+                'cache_type' => 'cacheType_',
+                'languages' => 'language_',
+                'log_types' => 'logType',
+                'waypoint_type' => 'wayPointType',
+            ];
 
-            if (!$prefixes) {
-                $prefixes = [
-                    'cache_size' => 'cacheSize_',
-                    'cache_status' => 'cacheStatus_',
-                    'cache_type' => 'cacheType_',
-                    'languages' => 'language_',
-                    'log_types' => 'logType',
-                    'waypoint_type' => 'wayPointType'
-                ];
-            }
-            if (!isset($prefixes[$table])) {
-                throw new Exception("unknown table: '".$table."'");
+            if (! isset($prefixes[$table])) {
+                throw new Exception("Unknown table: '{$table}'");
             }
 
-            if ($table == 'cache_size') {
-                static $sizeIds;
-                if (!$sizeIds) {
-                    $sizeIds = ['other', 'micro', 'small', 'regular', 'large', 'xLarge', 'none', 'nano'];
+            if ($table === 'cache_size') {
+                $sizeIds = ['other', 'micro', 'small', 'regular', 'large', 'xLarge', 'none', 'nano'];
+
+                if (! array_key_exists($id - 1, $sizeIds)) {
+                    throw new Exception("Invalid size ID passed to getTranslationId(): {$id}");
                 }
-                if ($id < 1 || $id > count($sizeIds)) {
-                    throw new Exception('invalid size ID passed to getTranslationId(): '.$id);
-                }
+
                 $id = $sizeIds[$id - 1];
-            };
+            }
 
             return $prefixes[$table] . $id;
         }
     }
-
-} //namespace src\Utils\I18n
+}
