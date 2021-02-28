@@ -14,14 +14,10 @@ namespace
      * Translate the given message.
      *
      * @param string $key The message key in /lib/languages/*.php
-     * @param array|null $replace Replacements to be made using vsprintf()
+     * @param array $replace Replacements to be made using vsprintf()
      */
-    function tr(string $key, array $replace = null): string
+    function tr(string $key, array $replace = []): string
     {
-        if (! $replace) {
-            return I18n::translatePhrase($key);
-        }
-
         return vsprintf(I18n::translatePhrase($key), $replace);
     }
 }
