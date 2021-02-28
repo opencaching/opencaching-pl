@@ -12,14 +12,17 @@ namespace
 
     /**
      * Translate the given message.
+     *
+     * @param string $key The message key in /lib/languages/*.php
+     * @param array|null $replace Replacements to be made using vsprintf()
      */
-    function tr(string $message, array $replace = null): string
+    function tr(string $key, array $replace = null): string
     {
         if (! $replace) {
-            return I18n::translatePhrase($message);
+            return I18n::translatePhrase($key);
         }
 
-        return vsprintf(I18n::translatePhrase($message), $replace);
+        return vsprintf(I18n::translatePhrase($key), $replace);
     }
 }
 
@@ -121,22 +124,22 @@ namespace src\Utils\I18n
          * @param bool $skipPostprocess - Skip "old-template" postprocessing
          */
         public static function translatePhrase(
-            string $message,
+            string $key,
             string $language = null,
             bool $skipPostprocess = false,
             bool $skipFallback = false
         ): string {
-            return self::instance()->translate(...func_get_args());
+            return self::instance()->translate($key, $language, $skipPostprocess, $skipFallback);
         }
 
         /**
          * Check if the given message exists.
          */
-        public static function isTranslationAvailable(string $message): bool
+        public static function isTranslationAvailable(string $key): bool
         {
             $language = self::getCurrentLang();
 
-            return (bool) self::instance()->trArray[$language][$message] ?? false;
+            return (bool) self::instance()->trArray[$language][$key] ?? false;
         }
 
         public static function getLanguagesFlagsData(bool $withoutCurrent = false): array
@@ -184,7 +187,7 @@ namespace src\Utils\I18n
         }
 
         protected function translate(
-            string $message,
+            string $key,
             string $language = null,
             $skipPostprocess = false,
             $skipFallback = false
@@ -196,22 +199,22 @@ namespace src\Utils\I18n
             }
 
             // Requested phrase found
-            if ($this->trArray[$language][$message] ?? false) {
+            if ($this->trArray[$language][$key] ?? false) {
                 if ($skipPostprocess) {
-                    $this->trArray[$language][$message];
+                    $this->trArray[$language][$key];
                 }
 
-                return $this->postProcessTr($this->trArray[$language][$message]);
+                return $this->postProcessTr($this->trArray[$language][$key]);
             }
 
             // There is no such phrase, try to use the fallback language
             if (! $skipFallback && $language !== self::FALLBACK_LANGUAGE) {
-                return $this->translate($message, self::FALLBACK_LANGUAGE, $skipPostprocess);
+                return $this->translate($key, self::FALLBACK_LANGUAGE, $skipPostprocess);
             }
 
             // Oops - no such phrase at all - even in the fallback language...
-            Debug::errorLog("Unknown translation for id: {$message}");
-            return "No translation available (id: {$message})";
+            Debug::errorLog("Unknown translation for id: {$key}");
+            return "No translation available (id: {$key})";
         }
 
         protected function postProcessTr(string $ref): string
@@ -233,16 +236,16 @@ namespace src\Utils\I18n
         /**
          * Load the translation file for the given locale.
          */
-        protected function loadLangFile(string $langCode): void
+        protected function loadLangFile(string $language): void
         {
-            require self::languageFilename($langCode);
+            require self::languageFilename($language);
 
-            $this->trArray[$langCode] = $translations;
+            $this->trArray[$language] = $translations;
         }
 
-        protected function languageFileTime(string $langCode): int
+        protected function languageFileTime(string $language): int
         {
-            return filemtime(self::languageFilename($langCode));
+            return filemtime(self::languageFilename($language));
         }
 
         protected static function languageFilename(string $language): string
@@ -342,7 +345,7 @@ namespace src\Utils\I18n
         /**
          * TODO: cache_atttrib
          *
-         * @deprecated DB translations should not be used.
+         * @deprecated Method for retrieving and maintaining old-style database translations.
          */
         public static function getTranslationTables()
         {
@@ -350,7 +353,7 @@ namespace src\Utils\I18n
         }
 
         /**
-         * @deprecated DB translations should not be used.
+         * @deprecated Method for retrieving and maintaining old-style database translations.
          */
         public static function getTranslationIdColumnName($table)
         {
@@ -370,7 +373,7 @@ namespace src\Utils\I18n
         }
 
         /**
-         * @deprecated DB translations should not be used.
+         * @deprecated Method for retrieving and maintaining old-style database translations.
          */
         public static function getTranslationKey($table, $id)
         {
