@@ -7,12 +7,14 @@ ob_start();
 
 use src\Utils\Database\XDb;
 use src\Models\GeoCache\GeoCacheCommons;
+use src\Models\ApplicationContainer;
 
-global $content, $bUseZip, $hide_coords, $usr, $dbcSearch;
+global $content, $bUseZip, $hide_coords, $dbcSearch;
 set_time_limit(1800);
 
 require_once (__DIR__.'/../lib/calculation.inc.php');
 
+$loggedUser = ApplicationContainer::GetAuthorizedUser();
 
 $locHead = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <loc version="1.0" src="' . $absolute_server_URI . '">' . "\n";
@@ -39,20 +41,20 @@ $cacheTypeText[8] = "" . tr('cacheType_4') . "";
 $cacheTypeText[9] = "" . tr('cacheType_9') . "";
 $cacheTypeText[10] = "" . tr('cacheType_10') . "";
 
-if ($usr || ! $hide_coords) {
+if ($loggedUser || ! $hide_coords) {
     // prepare the output
     $caches_per_page = 20;
 
     $query = 'SELECT ';
 
     if (isset($lat_rad) && isset($lon_rad)) {
-        $query .= getCalcDistanceSqlFormula($usr !== false, $lon_rad * 180 / 3.14159, $lat_rad * 180 / 3.14159, 0, $multiplier[$distance_unit]) . ' `distance`, ';
+        $query .= getCalcDistanceSqlFormula(is_object($loggedUser), $lon_rad * 180 / 3.14159, $lat_rad * 180 / 3.14159, 0, $multiplier[$distance_unit]) . ' `distance`, ';
     } else {
-        if ($usr === false) {
+        if (!$loggedUser) {
             $query .= '0 distance, ';
         } else {
             // get the users home coords
-            $rs_coords = XDb::xSql("SELECT `latitude`, `longitude` FROM `user` WHERE `user_id`= ? LIMIT 1", $usr['userid']);
+            $rs_coords = XDb::xSql("SELECT `latitude`, `longitude` FROM `user` WHERE `user_id`= ? LIMIT 1", $loggedUser->getUserId());
             $record_coords = XDb::xFetchArray($rs_coords);
 
             if ((($record_coords['latitude'] == NULL) || ($record_coords['longitude'] == NULL)) || (($record_coords['latitude'] == 0) || ($record_coords['longitude'] == 0))) {
@@ -64,20 +66,23 @@ if ($usr || ! $hide_coords) {
                 $lon_rad = $record_coords['longitude'] * 3.14159 / 180;
                 $lat_rad = $record_coords['latitude'] * 3.14159 / 180;
 
-                $query .= getCalcDistanceSqlFormula($usr !== false, $record_coords['longitude'], $record_coords['latitude'], 0, $multiplier[$distance_unit]) . ' `distance`, ';
+                $query .= getCalcDistanceSqlFormula(
+                    is_object($loggedUser), $record_coords['longitude'], $record_coords['latitude'],
+                    0, $multiplier[$distance_unit]) . ' `distance`, ';
             }
             XDb::xFreeResults($rs_coords);
         }
     }
 
     $query .= '`caches`.`cache_id` `cache_id`, `caches`.`status` `status`, `caches`.`type` `type`, `caches`.`size` `size`, `caches`.`user_id` `user_id`, ';
-    if ($usr === false) {
+    if (!$loggedUser) {
         $query .= ' `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude`, 0 as cache_mod_cords_id
                     FROM `caches` ';
     } else {
         $query .= ' IFNULL(`cache_mod_cords`.`longitude`, `caches`.`longitude`) `longitude`, IFNULL(`cache_mod_cords`.`latitude`,
                             `caches`.`latitude`) `latitude`, IFNULL(cache_mod_cords.latitude,0) as cache_mod_cords_id FROM `caches`
-                        LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id` AND `cache_mod_cords`.`user_id` = ' . $usr['userid'];
+                        LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id`
+                            AND `cache_mod_cords`.`user_id` = ' . $loggedUser->getUserId();
     }
     $query .= ' WHERE `caches`.`cache_id` IN (' . $queryFilter . ')';
 

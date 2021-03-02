@@ -21,13 +21,16 @@
  */
 
 use src\Utils\Text\TextConverter;
+use src\Models\ApplicationContainer;
 
 ob_start();
 
 require_once (__DIR__.'/../lib/calculation.inc.php');
 
 set_time_limit(1800);
-global $content, $bUseZip, $hide_coords, $usr, $dbcSearch;
+global $content, $bUseZip, $hide_coords, $dbcSearch;
+
+$loggedUser = ApplicationContainer::GetAuthorizedUser();
 
 $uamSize[1] = 'u'; // 'Not specified'
 $uamSize[2] = 'm'; // 'Micro'
@@ -52,7 +55,7 @@ $uamType[8] = 'M'; // 'Moving'
 $uamType[9] = 'P'; // 'Podcast'
 $uamType[10] = 'U'; // 'Own/user's cache'
 
-if ($usr || ! $hide_coords) {
+if ($loggedUser || ! $hide_coords) {
     // prepare the output
     $caches_per_page = 20;
 
@@ -61,11 +64,12 @@ if ($usr || ! $hide_coords) {
     if (isset($lat_rad) && isset($lon_rad)) {
         $query .= getSqlDistanceFormula($lon_rad * 180 / 3.14159, $lat_rad * 180 / 3.14159, 0, $multiplier[$distance_unit]) . ' `distance`, ';
     } else {
-        if ($usr === false) {
+        if (!$loggedUser) {
             $query .= '0 distance, ';
         } else {
             // get the users home coords
-            $rs_coords = XDb::xSql("SELECT `latitude`, `longitude` FROM `user` WHERE `user_id`= ? LIMIT 1", $usr['userid']);
+            $rs_coords = XDb::xSql(
+                "SELECT `latitude`, `longitude` FROM `user` WHERE `user_id`= ? LIMIT 1", $loggedUser->getUserId());
             $record_coords = XDb::xFetchArray($rs_coords);
 
             if ((($record_coords['latitude'] == NULL) || ($record_coords['longitude'] == NULL)) || (($record_coords['latitude'] == 0) || ($record_coords['longitude'] == 0))) {

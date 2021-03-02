@@ -1,58 +1,48 @@
 <?php
+
 namespace src\Models\OcConfig;
 
 /**
- * This trait group access to email settings stored in /config/geocache.* conf. files
- * BEWARE OF FUNCTIONS NAME COLLISION BETWEEN CONFIG TRAITS!
+ * Loads configuration from geocache.*.php.
+ *
+ * @mixin OcConfig
  */
-trait GeocacheConfigTrait {
-
+trait GeocacheConfigTrait
+{
     protected $geocacheConfig = null;
 
     /**
-     * Returns array of types enabled on this OC node
-     * @return array
+     * Get geocache types enabled on this OC node.
      */
-    public static function getEnabledCacheSizesArray()
+    public static function getEnabledCacheSizesArray(): array
     {
-        return self::getGeocacheConfigVar('enabledSizes');
+        return self::getKeyFromGeoCacheConfig('enabledSizes');
     }
 
     /**
-     * Returns array of types which can't be created on this OC node (former forbiddenTypes)
-     * @return array
+     * Get geocache types which can't be created on this OC node.
      */
-    public static function getNoNewCacheOfTypesArray()
+    public static function getNoNewCacheOfTypesArray(): array
     {
-        return self::getGeocacheConfigVar('noNewCachesOfTypes');
+        return self::getKeyFromGeoCacheConfig('noNewCachesOfTypes');
     }
 
-    /**
-     * Returns site properties
-     *
-     * @return array site properties
-     */
-    protected function getGeocacheConfig()
+    protected function getGeoCacheConfig(): array
     {
-        if (!$this->geocacheConfig) {
-            $this->geocacheConfig = self::getConfig("geocache", "geocache");
+        if (! $this->geocacheConfig) {
+            $this->geocacheConfig = self::getConfig('geocache', 'geocache');
         }
+
         return $this->geocacheConfig;
     }
 
     /**
-     * Get Var from geocache.* files
-     *
-     * @param string $varName
-     * @throws \Exception
-     * @return string|array
+     * @return mixed
      */
-    private static function getGeocacheConfigVar($varName)
+    private static function getKeyFromGeoCacheConfig(string $key)
     {
-        $config = self::instance()->getGeocacheConfig();
-        if (!is_array($config)) {
-            throw new \Exception("Invalid $varName setting: see /config/geocache.*");
-        }
-        return $config[$varName];
+        $geoCacheConfig = self::instance()->getGeoCacheConfig();
+
+        return $geoCacheConfig[$key];
     }
 }

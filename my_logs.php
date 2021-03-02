@@ -3,22 +3,25 @@
 use src\Models\GeoCache\GeoCacheLog;
 use src\Utils\Database\XDb;
 use src\Utils\Text\Formatter;
+use src\Models\ApplicationContainer;
 
 //include template handling
 require_once(__DIR__.'/lib/common.inc.php');
 
 //user logged in?
-if ($usr == false) {
+$loggedUser = ApplicationContainer::GetAuthorizedUser();
+if (!$loggedUser) {
     $target = urlencode(tpl_get_current_page());
     tpl_redirect('login.php?target='.$target);
-} else {
+    exit;
+}
 
     if (isset($_REQUEST['userid'])) {
         $user_id = $_REQUEST['userid'];
         tpl_set_var('userid', $user_id);
     } else {
         //no param userid - display data for currently logged user
-        $user_id = $usr['userid'];
+        $user_id = $loggedUser->getUserId();
         tpl_set_var('userid', $user_id);
     }
 
@@ -89,7 +92,7 @@ if ($usr == false) {
     }
 
     $dateOrderSql =
-        $user_id == $usr['userid']
+        $user_id == $loggedUser->getUserId()
         ?  '`cache_logs`.`date` DESC, `cache_logs`.`date_created` DESC'
         :  '`cache_logs`.`date_created` DESC, `cache_logs`.`date` DESC';
 
@@ -140,7 +143,7 @@ if ($usr == false) {
         while ($log_record = XDb::xFetchArray($rs)) {
 
             //hide log type "COG comment" behind 'ordinary' users, displya all logs for admins
-            if (!(($log_record['log_type'] == 12) && (!$usr['admin']))) {
+            if (!(($log_record['log_type'] == 12) && (!$loggedUser->hasOcTeamRole()))) {
                 $file_content .= '<tr>';
                 $file_content .= '<td style="width: 70px;">'.htmlspecialchars(
                     Formatter::date($log_record['log_date']), ENT_COMPAT, 'UTF-8'
@@ -182,7 +185,7 @@ if ($usr == false) {
 
     tpl_set_var('file_content', $file_content);
     tpl_set_var('pages', $pages);
-}
+
 
 //make the template and send it out
 tpl_BuildTemplate();

@@ -1,7 +1,13 @@
 <?php
 
 /**
- * $map['jsConfig'] constains JS code with configuration for openlayers
+ * Configuration of maps in the OC code
+ *
+ * Those are configuration overrides for OCPL node only.
+ */
+
+/**
+ * $map['jsConfig'] contains JS code with configuration for openlayers
  * Be sure that all changes here are well tested.
  */
 $map['jsConfig'] = "
@@ -118,6 +124,6 @@ $map['startPageMapDimensions'] = [250, 260];
  *
  * The level 3 key is also used as link_text.
  */
-$map['external']['OSMapa']['enabled']   = true;     // PL specific
-$map['external']['UMP']['enabled']      = true;     // PL specific
-$map['external']['Szukacz']['enabled']  = true;     // PL specific
+$map['external']['OSMapa']['enabled'] = true;     // PL specific
+$map['external']['UMP']['enabled'] = true;     // PL specific
+$map['external']['Szukacz']['enabled'] = true;     // PL specific

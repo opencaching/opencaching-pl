@@ -1,12 +1,13 @@
 <?php
 
 /**
- * DEFAULT general site properties for ALL nodes
+ * General site properties configuration
+ *
+ * This is a default configuration.
+ * It may be customized in node-specific configuration file.
  */
 
 $site = [];
-
-
 
 /**
  * Site name for the node
@@ -25,7 +26,7 @@ $site['pageTitle'] = 'OpenCaching';
 $site['ocNodeId'] = 4;
 
 /**
- * Site main domain - this shoudl be only main part of domain eg. opencaching.pl for OCPL
+ * Site main domain - this should be only main part of domain eg. opencaching.pl for OCPL
  */
 $site['mainDomain'] = 'opencaching.pl';
 

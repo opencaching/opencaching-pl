@@ -4,8 +4,14 @@ namespace src\Models\OcConfig;
 
 final class OcConfig extends ConfigReader
 {
-    use EmailConfigTrait, SiteConfigTrait, I18nConfigTrait, PicturesConfigTrait, MapConfigTrait;
-    use PrimaAprilisTrait, GeocacheConfigTrait, OkapiConfigTrait;
+    use EmailConfigTrait;
+    use GeocacheConfigTrait;
+    use I18nConfigTrait;
+    use MapConfigTrait;
+    use OkapiConfigTrait;
+    use PicturesConfigTrait;
+    use PrimaAprilisTrait;
+    use SiteConfigTrait;
 
     /*
         const OCNODE_GERMANY    = 1;  // Opencaching Germany http://www.opencaching.de OC
@@ -20,9 +26,8 @@ final class OcConfig extends ConfigReader
         const OCNODE_ROMANIA    = 16; // Opencaching Romania http://www.opencaching.ro OR
     */
 
-
-// old-style values - values from new-style config should be accessed through
-// $config[''] etc...
+    // old-style values - values from new-style config should be accessed through
+    // $config[''] etc...
 
     private $debugMode = false;
     private $dbDatetimeFormat = 'Y-m-d H:i:s';
@@ -38,7 +43,7 @@ final class OcConfig extends ConfigReader
     private $needFindLimit;
     private $needApproveLimit;
     private $enableCacheAccessLogs;
-    private $minumumAge;
+    private $minimumAge;
     private $meritBadgesEnabled;
 
     private $dbUser;
@@ -48,60 +53,102 @@ final class OcConfig extends ConfigReader
     private $dbHost;
     private $dbName;
 
-    /** @var array the \src\Utils\Lock objects configuration array */
+    /**
+     * Configuration for src\Utils\Lock objects from /config/lock.* files.
+     *
+     * @var array
+     */
     private $lockConfig;
 
-    /** @var array the watchlist configuration array */
+    /**
+     * Watchlist configuration from /config/watchlist.* files.
+     *
+     * @var array
+     */
     private $watchlistConfig;
 
-    /** @var array the logfilter configuration array */
+    /**
+     * Cache log filter configuration from /config/logfilter.* files.
+     *
+     * @var array
+     */
     private $logfilterConfig;
 
-    /** @var array */
+    /**
+     * News configuration from /config/news.* files.
+     *
+     * @var array
+     */
     private $newsConfig;
 
-    /** @var array - array of user settings from /Config/user.* files */
+    /**
+     * User configuration from /config/user.* files.
+     *
+     * @var array
+     */
     private $userConfig;
 
-    /** @var array - array of guides settings from /Config/guides.* files */
+    /**
+     * Guides configuration from /config/guides.* files.
+     *
+     * @var array
+     */
     private $guidesConfig;
 
-    /** @var array */
+    /**
+     * Configuration from /config/banner.* files.
+     *
+     * @var array
+     */
     private $topBannerVideo;
-    /** @var array */
+
+    /**
+     * Configuration from /config/banner.* files.
+     *
+     * @var array
+     */
     private $topBannerTxt;
 
-    /** @var array - array of cronjob settings from /Config/cronjobs.* files */
+    /**
+     * Cronjob configuration from /config/cronjobs.* files.
+     *
+     * @var array
+     */
     private $cronjobsConfig;
 
-    /** @var string - 'week' or 'month' - frequency of cache titled */
+    /**
+     * 'week' or 'month' - frequency of cache titled.
+     *
+     * @var string
+     */
     private $titledCachePeriod;
 
     /**
-     * Call this method to get singleton
-     * @return ocConfig
+     * Get the singleton.
      */
-    public static function instance()
+    public static function instance(): self
     {
         static $inst = null;
+
         if ($inst === null) {
             $inst = new self();
         }
+
         return $inst;
     }
 
     /**
-     * Private ctor so nobody else can instance it
+     * Private constructor so nobody else can instantiate it.
      */
     protected function __construct()
     {
-        parent::__construct();
         $this->loadConfig();
     }
 
     private function loadConfig()
     {
         global $debug_page;
+
         require self::LEGACY_LOCAL_CONFIG;
 
         $this->debugMode = $debug_page;
@@ -116,7 +163,7 @@ final class OcConfig extends ConfigReader
         $this->needApproveLimit = $NEED_APPROVE_LIMIT;
         $this->needFindLimit = $NEED_FIND_LIMIT;
         $this->enableCacheAccessLogs = $enable_cache_access_logs;
-        $this->minumumAge = $config['limits']['minimum_age'];
+        $this->minimumAge = $config['limits']['minimum_age'];
         $this->meritBadgesEnabled = $config['meritBadges'];
         $this->titledCachePeriod = $titled_cache_period_prefix;
 
@@ -125,21 +172,18 @@ final class OcConfig extends ConfigReader
         $this->dbUser = $dbusername;
         $this->dbPass = $dbpasswd;
 
-        if (isset($opt['db']['admin_username'])) {
-            $this->dbAdminUser = $opt['db']['admin_username'];
-            $this->dbAdminPass = $opt['db']['admin_password'];
-        } else {
-            $this->dbAdminUser = $this->dbUser;
-            $this->dbAdminPass = $this->dbPass;
-        }
+        $this->dbAdminUser = $opt['db']['admin_username'] ?? $this->dbUser;
+        $this->dbAdminPass = $opt['db']['admin_password'] ?? $this->dbPass;
 
-        if (isset($config['lock']) && is_array($config['lock'])) {
+        if (is_array($config['lock'] ?? null)) {
             $this->lockConfig = $config['lock'];
         }
-        if (isset($config['watchlist']) && is_array($config['watchlist'])) {
+
+        if (is_array($config['watchlist'] ?? null)) {
             $this->watchlistConfig = $config['watchlist'];
         }
-        if (isset($config['logfilter']) && is_array($config['logfilter'])) {
+
+        if (is_array($config['logfilter'] ?? null)) {
             $this->logfilterConfig = $config['logfilter'];
         }
     }
@@ -159,21 +203,12 @@ final class OcConfig extends ConfigReader
         return $this->datetimeFormat;
     }
 
-    /**
-     * Returns array of wiki-links readed from config
-     * @return array
-     */
-    public static function getWikiLinks()
+    public static function getWikiLinks(): array
     {
         return self::instance()->getLinks()['wiki'];
     }
 
-    /**
-     * Returns single link to wiki
-     * @param string $wikiLinkKey
-     * @return string - link to wiki
-     */
-    public static function getWikiLink($wikiLinkKey)
+    public static function getWikiLink(string $wikiLinkKey): string
     {
         return self::getWikiLinks()[$wikiLinkKey];
     }
@@ -191,10 +226,8 @@ final class OcConfig extends ConfigReader
     public static function getDynFilesPath($trimTrailingSlash = false)
     {
         $path = self::instance()->getDynamicFilesPath();
-        if ($trimTrailingSlash) {
-            return rtrim($path, '/');
-        }
-        return $path;
+
+        return $trimTrailingSlash ? rtrim($path, '/') : $path;
     }
 
     public function getDynamicFilesPath()
@@ -212,18 +245,14 @@ final class OcConfig extends ConfigReader
         return $this->powerTrailModuleSwitchOn;
     }
 
-
-    public function isCacheAccesLogEnabled()
+    public function isCacheAccessLogEnabled()
     {
         return $this->enableCacheAccessLogs;
     }
 
-    /**
-     * @return integer
-     */
-    public function getMinumumAge()
+    public function getMinumumAge(): int
     {
-        return $this->minumumAge;
+        return $this->minimumAge;
     }
 
     public function isMeritBadgesEnabled()
@@ -251,7 +280,6 @@ final class OcConfig extends ConfigReader
         return $this->dbName;
     }
 
-
     public static function getHeaderLogo()
     {
         return self::instance()->headerLogo;
@@ -272,127 +300,124 @@ final class OcConfig extends ConfigReader
         return self::instance()->needApproveLimit;
     }
 
-
     /**
-     * Gives \src\Utils\Lock objects configuration, tries to initialize it if null
-     *
-     * @return array \src\Utils\Lock objects configuration
-     *               ({@see /Config/lock.default.php})
+     * @see /config/lock.default.php
      */
-    public function getLockConfig()
+    public function getLockConfig(): array
     {
-        if ($this->lockConfig == null) {
-            $this->lockConfig = self::getConfig("lock", "lock");
+        if (! $this->lockConfig) {
+            $this->lockConfig = self::getConfig('lock', 'lock');
         }
+
         return $this->lockConfig;
     }
 
     /**
-     * Gives watchlist configuration, tries to initialize it if null
-     *
-     * @return array watchlist configuration
-     *               ({@see /Config/watchlist.default.php})
+     * @see /config/watchlist.default.php
      */
-    public function getWatchlistConfig()
+    public function getWatchlistConfig(): array
     {
-        if ($this->watchlistConfig == null) {
-            $this->watchlistConfig = self::getConfig("watchlist", "watchlist");
+        if (! $this->watchlistConfig) {
+            $this->watchlistConfig = self::getConfig('watchlist', 'watchlist');
         }
+
         return $this->watchlistConfig;
     }
 
     /**
-     * Gives logfilter configuration, tries to initialize it if null
-     *
-     * @return array logfilter configuration
-     *               ({@see /Config/logfilter.default.php})
+     * @see /config/logfilter.default.php
      */
-    public function getLogfilterConfig()
+    public function getLogfilterConfig(): array
     {
-        if ($this->logfilterConfig == null) {
-            $this->logfilterConfig = self::getConfig("logfilter", "logfilter");
+        if (! $this->logfilterConfig) {
+            $this->logfilterConfig = self::getConfig('logfilter', 'logfilter');
         }
+
         return $this->logfilterConfig;
     }
 
-
+    /**
+     * @see /config/user.default.php
+     */
     public function getUserConfig()
     {
-        if ($this->userConfig == null) {
-            $this->userConfig = self::getConfig("user", "user");
+        if (! $this->userConfig) {
+            $this->userConfig = self::getConfig('user', 'user');
         }
+
         return $this->userConfig;
     }
 
-    public function getGuidesConfig()
+    /**
+     * @see /config/guides.default.php
+     */
+    public function getGuidesConfig(): array
     {
-        if ($this->guidesConfig == null) {
-            $this->guidesConfig = self::getConfig("guides", "guides");
+        if (! $this->guidesConfig) {
+            $this->guidesConfig = self::getConfig('guides', 'guides');
         }
+
         return $this->guidesConfig;
     }
 
-
+    /**
+     * @see /config/cronjobs.default.php
+     */
     public function getCronjobSchedule($job = null)
     {
-        if ($this->cronjobsConfig == null) {
+        if (! $this->cronjobsConfig) {
             $this->cronjobsConfig = self::getConfig('cronjobs', 'cronjobs');
         }
-        if ($job === null) {
-            return $this->cronjobsConfig['schedule'];
-        } elseif (isset($this->cronjobsConfig['schedule'][$job])) {
-            return $this->cronjobsConfig['schedule'][$job];
-        } else {
-            return null;
-        }
-    }
 
-    public function getNewsConfig($setting = null)
-    {
-        if ($this->newsConfig == null) {
-            $this->newsConfig = self::getConfig("news", "news");
-        }
-        if ($setting === null) {
-            return $this->newsConfig;
-        } else {
-            return $this->newsConfig[$setting];
-        }
+        return $job === null
+            ? $this->cronjobsConfig['schedule']
+            : $this->cronjobsConfig['schedule'][$job] ?? null;
     }
 
     /**
-     * Gives top banner texts
-     *
-     * @return array
-     *               ({@see /Config/banner.default.php})
+     * @see /config/news.default.php
      */
-    public function getTopBannerTxt()
+    public function getNewsConfig($key = null)
     {
-        if ($this->topBannerTxt == null) {
-            $this->topBannerTxt = self::getConfig("banner", "bannerTxt");
+        if (! $this->newsConfig) {
+            $this->newsConfig = self::getConfig('news', 'news');
         }
+
+        return $key === null
+            ? $this->newsConfig
+            : $this->newsConfig[$key];
+    }
+
+    /**
+     * @see /config/banner.default.php
+     *
+     * @return string[]
+     */
+    public function getTopBannerTxt(): array
+    {
+        if (! $this->topBannerTxt) {
+            $this->topBannerTxt = self::getConfig('banner', 'bannerTxt');
+        }
+
         return $this->topBannerTxt;
     }
 
     /**
-     * Gives top banner video list
+     * @see /config/banner.default.php
      *
-     * @return array
-     *               ({@see /Config/banner.default.php})
+     * @return string[]
      */
-    public function getTopBannerVideo()
+    public function getTopBannerVideo(): array
     {
-        if ($this->topBannerVideo == null) {
-            $this->topBannerVideo = self::getConfig("banner", "bannerVideo");
+        if (! $this->topBannerVideo) {
+            $this->topBannerVideo = self::getConfig('banner', 'bannerVideo');
         }
+
         return $this->topBannerVideo;
     }
 
-    /**
-     * @return string
-     */
-    public function getTitledCachePeriod()
+    public function getTitledCachePeriod(): string
     {
         return $this->titledCachePeriod;
     }
-
 }

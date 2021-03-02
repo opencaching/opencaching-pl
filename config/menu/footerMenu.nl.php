@@ -1,25 +1,18 @@
 <?php
+
 /**
- * This is simple configuration of links presented in footer of the OCNL site.
- * This is configuration for OCNL only.
+ * Links presented in the footer.
  *
- * Every record of $menu table should be table record in form:
- *  '<translation-key-used-as-link-text>' => '<url>',
- *
- * or if link needs to be open in a new window (use php array)
- *  '<translation-key-used-as-link-text>' => ['<url>'],
- *
+ * This is a configuration for OCNL node only.
  */
 
-// OcConfig::$links var is accessible in this scope!
-$menu = [ // DON'T CHANGE $menu var name!
+/** @var array $links OcConfig::$links is accessible in within this scope */
 
-    /* 'translation key' => 'url' */
-
-    'mnu_history'   => [ $links['wiki']['history'] ],
-    'mnu_api'       => '/okapi',
-    'mnu_rss'       => '/RSS',
-    'mnu_contact'   => '/articles.php?page=contact',
-    'mnu_mainPage'  => '/',
-    'mnu_privacyPolicy' => [ $links['wiki']['privacyPolicy'] ],
+$menu = [
+    'mnu_history' => [$links['wiki']['history']],
+    'mnu_api' => '/okapi',
+    'mnu_rss' => '/RSS',
+    'mnu_contact' => '/articles.php?page=contact',
+    'mnu_mainPage' => '/',
+    'mnu_privacyPolicy' => [$links['wiki']['privacyPolicy']],
 ];

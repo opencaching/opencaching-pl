@@ -1,127 +1,97 @@
 <?php
+
 namespace src\Models\OcConfig;
 
 /**
- * This trait group access to email settings stored in /config/email.* conf. files
- * BEWARE OF FUNCTIONS NAME COLLISION BETWEEN CONFIG TRAITS!
+ * Loads configuration from site.*.php.
+ *
+ * @mixin OcConfig
  */
-trait SiteConfigTrait {
-
+trait SiteConfigTrait
+{
     protected $siteConfig = null;
 
-    /**
-     * Returns pageTitle from config
-     * @return string
-     */
-    public static function getSitePageTitle()
+    public static function getSitePageTitle(): string
     {
-        return self::getSiteVar('pageTitle');
+        return self::getKeyFromSiteConfig('pageTitle');
+    }
+
+    public static function getSiteName(): string
+    {
+        return self::getKeyFromSiteConfig('siteName');
     }
 
     /**
-     * Returns siteName from config
-     * @return string
+     * @see https://wiki.opencaching.eu/index.php?title=Node_IDs
      */
-    public static function getSiteName()
+    public static function getSiteNodeId(): int
     {
-        return self::getSiteVar('siteName');
+        return self::getKeyFromSiteConfig('ocNodeId');
+    }
+
+    public static function getSiteMainDomain(): string
+    {
+        return self::getKeyFromSiteConfig('mainDomain');
     }
 
     /**
-     * Returns nodeId from config
-     * Possible values: @see https://wiki.opencaching.eu/index.php?title=Node_IDs
+     * Returns the list of primaryCountries.
      *
-     * @return string
+     * @return string[]
      */
-    public static function getSiteNodeId()
+    public static function getSitePrimaryCountriesList(): array
     {
-        return self::getSiteVar('ocNodeId');
+        $primaryCountries = self::getKeyFromSiteConfig('primaryCountries');
+
+        return empty($primaryCountries)
+            ? self::initPrimaryCountries()
+            : $primaryCountries;
     }
 
     /**
-     * Returns nodeId from config
-     * Possible values: @see https://wiki.opencaching.eu/index.php?title=Node_IDs
+     * List of default countries to be presented on countries list (for example
+     * in search). List will be presented in the same order as below.
      *
-     * @return string
+     * @return string[]
      */
-    public static function getSiteMainDomain()
+    public static function getSiteDefaultCountriesList(): array
     {
-        return self::getSiteVar('mainDomain');
+        return self::getKeyFromSiteConfig('defaultCountriesList');
     }
 
     /**
-     * Retruns the list of primaryCountries
-     *
-     * @return array
+     * Returns icon's path relative to the public directory.
      */
-    public static function getSitePrimaryCountriesList()
+    public static function getSiteMainViewIcon(string $iconName): string
     {
-        $primaryCountries = self::getSiteVar('primaryCountries');
-        if (!is_array($primaryCountries) || empty($primaryCountries)) {
-            // init primaryCountries for improper|empty config
-            $primaryCountries = self::initPrimaryCountries();
+        $icons = self::getKeyFromSiteConfig('mainViewIcons');
+
+        return $icons[$iconName] ?? "Unknown-icon-{$iconName}";
+    }
+
+    protected function getSiteConfig(): array
+    {
+        if (! $this->siteConfig) {
+            $this->siteConfig = self::getConfig('site', 'site');
         }
-        return $primaryCountries;
-    }
 
-    /**
-     * Retruns the list of dafaultCountries - used to isplay countries list for example in search.
-     *
-     * @return array
-     */
-    public static function getSiteDefaultCountriesList()
-    {
-        return self::getSiteVar('defaultCountriesList');
-    }
-
-    /**
-     * Retruns the icon (with path) to the icon
-     * @param string $iconName
-     */
-    public static function getSiteMainViewIcon($iconName)
-    {
-        $iconsArr = self::getSiteVar('mainViewIcons');
-        if (isset($iconsArr[$iconName])) {
-            return $iconsArr[$iconName];
-        } else {
-            return "Unknown-icon-$iconName";
-        }
-    }
-
-    /**
-     * Returns site properties
-     *
-     * @return array site properties
-     */
-    protected function getSiteConfig()
-    {
-        if (!$this->siteConfig) {
-            $this->siteConfig = self::getConfig("site", "site");
-        }
         return $this->siteConfig;
     }
 
     /**
-     * Get Var from site.* files
-     *
-     * @param string $varName
-     * @throws \Exception
-     * @return string|array
+     * @return mixed
      */
-    private static function getSiteVar($varName)
+    private static function getKeyFromSiteConfig(string $key)
     {
         $siteConfig = self::instance()->getSiteConfig();
-        if (!is_array($siteConfig)) {
-            throw new \Exception("Invalid $varName setting: see /config/site.*");
-        }
-        return $siteConfig[$varName];
+
+        return $siteConfig[$key];
     }
 
-    private static function initPrimaryCountries()
+    private static function initPrimaryCountries(): array
     {
-        $instance = self::instance();
-        $instance->siteConfig['primaryCountries'] = [strtoupper(substr(self::getSiteName(), -2))];
-        return $instance->siteConfig['primaryCountries'];
-    }
+        $country = strtoupper(substr(self::getSiteName(), -2));
 
+        return self::instance()->siteConfig['primaryCountries'] = [$country];
+    }
 }

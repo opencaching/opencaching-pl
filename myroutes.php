@@ -2,18 +2,21 @@
 
 use src\Utils\Database\XDb;
 use src\Utils\Text\InputFilter;
+use src\Models\ApplicationContainer;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
-//Preprocessing
-if ($error == false) {
-    //user logged in?
-    if ($usr == false) {
-        $target = urlencode(tpl_get_current_page());
-        tpl_redirect('login.php?target=' . $target);
-    } else {
+
+//user logged in?
+$loggedUser = ApplicationContainer::GetAuthorizedUser();
+if (!$loggedUser) {
+    $target = urlencode(tpl_get_current_page());
+    tpl_redirect('login.php?target=' . $target);
+    exit;
+}
+
         $tplname = 'myroutes';
-        $user_id = $usr['userid'];
+        $user_id = $loggedUser->getUserId();
 
         $route_rs = XDb::xSql(
             "SELECT `route_id` ,`description` `desc`, `name`,`radius`,`length`
@@ -40,7 +43,7 @@ if ($error == false) {
                             <td style="width:53px;" class="myr"><a class="links" href="myroutes_edit.php?routeid=' . $routes_record['route_id'] . '"><img src="images/actions/edit-16.png" alt="" title=' . tr('edit_route') . ' /></a></td><td width="2" style="border-right:solid thin #7fa2ca"></td>
                             <td style="width:23px;" class="myr"><a class="links" href="myroutes_edit.php?routeid=' . $routes_record['route_id'] . '&delete" onclick="return confirm(\'' . tr("confirm_remove_route") . '\');"><img style="vertical-align: middle;" src="images/log/16x16-trash.png" alt="" title=' . tr('delete') . ' /></a></td></tr></table></div>';
 
-            }while( $routes_record = XDb::xFetchArray($route_rs));
+            } while( $routes_record = XDb::xFetchArray($route_rs));
             $routes .= '';
 
 
@@ -50,8 +53,6 @@ if ($error == false) {
             tpl_set_var('content', "<div class=\"listitems\"><br/><center><span style=\"font-size:140%;font-weight:bold \">&nbsp;&nbsp;" . tr('no_routes') . "</span><br/><br/></center></div>");
         }
         XDb::xFreeResults($route_rs);
-    }
-}
 
 //make the template and send it out
 tpl_BuildTemplate();

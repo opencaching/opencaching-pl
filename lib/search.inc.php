@@ -1,4 +1,7 @@
 <?php
+/*
+ * THIS CODE IS USED by search.* only
+ */
 
 $search_simplerules[] = array('qu', 'k');
 $search_simplerules[] = array('ts', 'z');

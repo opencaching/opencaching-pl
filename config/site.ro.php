@@ -1,6 +1,9 @@
 <?php
+
 /**
- * Configuration of general site properties of OCRO
+ * General site properties configuration
+ *
+ * Those are configuration overrides for OCRO node only.
  */
 
 /**
@@ -20,7 +23,7 @@ $site['pageTitle'] = 'Opencaching România';
 $site['ocNodeId'] = 16;
 
 /**
- * Site main domain - this shoudl be only main part of domain eg. opencaching.pl for OCPL
+ * Site main domain - this should be only main part of domain eg. opencaching.pl for OCPL
  */
 $site['mainDomain'] = 'opencaching.ro';
 

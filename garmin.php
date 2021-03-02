@@ -1,5 +1,7 @@
 <?php
 
+use src\Models\ApplicationContainer;
+
 //prepare the templates and include all neccessary
 function convert($str)
 {
@@ -82,7 +84,7 @@ if (isset($config['garmin-key'])){
 tpl_set_var('garminKeyStr', $garminKeyStr);
 
 global $hide_coords;
-if ($usr == false && $hide_coords) {
+if (!ApplicationContainer::GetAuthorizedUser() && $hide_coords) {
     tpl_errorMsg($tplname, tr('login_message_09'));
     exit;
 }

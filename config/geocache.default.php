@@ -1,23 +1,20 @@
 <?php
 
-use src\Models\GeoCache\GeoCacheCommons;
-
 /**
- * DEFAULT config for geocache properties
+ * GeoCache properties configuration
+ *
+ * This is a default configuration.
+ * It may be customized in node-specific configuration file.
  */
+
+use src\Models\GeoCache\GeoCacheCommons;
 
 $geocache = [];
 
-
 /**
- * Theses sizes are available for
- *    - creating caches
- *    - changing the size of a cache to this size
- *
- * (All other size-related features will automatically adjust to the sizes
- * which are in use for existing caches.)
- *
- * The order does not matter.
+ * These sizes are available when creating new cache or changing the size
+ * of an existing cache. All other size-related features will automatically
+ * adjust to the sizes which are in use for existing caches.
  */
 $geocache['enabledSizes'] = [
     GeoCacheCommons::SIZE_MICRO,
@@ -29,8 +26,7 @@ $geocache['enabledSizes'] = [
 ];
 
 /**
- * Types of geocache which are forbidden on creation (it is possible thatsuch geocaches are still in DB,
- * but no NEW caches of this can be created
+ * Geocache types which are forbidden on creation (it is possible that
+ * such geocaches are still in DB, but no new ones can be created).
  */
 $geocache['noNewCachesOfTypes'] = [];
-

@@ -1,6 +1,9 @@
 <?php
+
 /**
- * News configuration of OC NL
-*/
+ * News configuration
+ *
+ * Those are configuration overrides for OCNL node only.
+ */
 
 $news['showOnStartPageForNonLoggedUsers'] = true;

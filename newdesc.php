@@ -6,28 +6,31 @@ use src\Utils\Generators\Uuid;
 use src\Utils\Text\UserInputFilter;
 use src\Utils\I18n\I18n;
 use src\Models\OcConfig\OcConfig;
+use src\Models\ApplicationContainer;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
-//Preprocessing
-if ($error == false) {
-    $cache_id = 0;
-    if (isset($_REQUEST['cacheid'])) {
-        $cache_id = $_REQUEST['cacheid'];
-    }
 
-    //user logged in?
-    if ($usr == false) {
-        $target = urlencode(tpl_get_current_page());
-        tpl_redirect('login.php?target=' . $target);
-    } else {
+$cache_id = 0;
+if (isset($_REQUEST['cacheid'])) {
+    $cache_id = $_REQUEST['cacheid'];
+}
+
+//user logged in?
+$loggedUser = ApplicationContainer::GetAuthorizedUser();
+if (!$loggedUser) {
+    $target = urlencode(tpl_get_current_page());
+    tpl_redirect('login.php?target=' . $target);
+    exit;
+}
+
         //user must be the owner of the cache
         $cache_rs = XDb::xSql("SELECT `user_id`, `name` FROM `caches` WHERE `cache_id`= ? LIMIT 1", $cache_id);
 
         if( $cache_record = XDb::xFetchArray($cache_rs)){
             XDb::xFreeResults($cache_rs);
 
-            if ($cache_record['user_id'] == $usr['userid'] || $usr['admin']) {
+            if ($cache_record['user_id'] == $loggedUser->getUserId() || $loggedUser->hasOcTeamRole()) {
                 $tplname = 'newdesc';
 
                 tpl_set_var('desc_err', '');

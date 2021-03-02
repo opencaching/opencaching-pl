@@ -1,12 +1,10 @@
 <?php
+
 /**
- * Default OKPAI specific settings to set in okapi_settings.php file
+ * OKAPI specific settings to be set in okapi_settings.php file
  *
- * This is a DEFAULT configuration for ALL nodes, which contains necessary vars.
- *
- * If you to customize it for your node
- * create config for your node and there override array values as needed.
- *
+ * This is a default configuration.
+ * It may be customized in node-specific configuration file.
  */
 
 $config = [];

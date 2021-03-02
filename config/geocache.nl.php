@@ -1,10 +1,11 @@
 <?php
 
-use src\Models\GeoCache\GeoCacheCommons;
-
 /**
-  * Configuration of geocache properties for OC NL
+ * GeoCache properties configuration
+ *
+ * Those are configuration overrides for OCNL node only.
  */
 
-$geocache['enabledSizes'][] = GeoCacheCommons::SIZE_NANO;
+use src\Models\GeoCache\GeoCacheCommons;
 
+$geocache['enabledSizes'][] = GeoCacheCommons::SIZE_NANO;

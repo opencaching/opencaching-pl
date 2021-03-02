@@ -28,14 +28,13 @@ use src\Utils\Database\XDb;
 use src\Models\GeoCache\GeoCache;
 use src\Models\GeoCache\Waypoint;
 use src\Utils\View\View;
-
-// variables required by opencaching.pl
-global $usr;
+use src\Models\ApplicationContainer;
 
 //prepare the templates and include all neccessary
 require_once (__DIR__.'/lib/common.inc.php');
 
-if ($usr == false) {
+$loggedUser = ApplicationContainer::GetAuthorizedUser();
+if (!$loggedUser) {
     // not logged in, go to login page
     $target = urlencode(tpl_get_current_page());
     tpl_redirect('login.php?target=' . $target);
