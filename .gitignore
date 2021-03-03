@@ -1,12 +1,10 @@
-/lib/settings.inc.php
 /logbook/work
 /mobile/lib/settings.inc.php
 /tmp/watchlist-runwatch.lock
-/vendor/
 
-#ignore local configs
-/config/*.local.php
-/config/Menu/*.local.php
+# Ignore local configuration
+/config/**/*.local.php
+/lib/settings.inc.php
 
 .buildpath
 .project
