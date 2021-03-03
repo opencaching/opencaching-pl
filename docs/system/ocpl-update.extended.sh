@@ -88,11 +88,6 @@ if [ "$DO_LOG" == "1" ]; then
     echo "- GIT update completed."              | logger ${LOG_LEVEL}
     echo                            | logger ${LOG_LEVEL}
 
-    # install dependencies
-    echo "Updating Composer dependencies..."          | logger ${LOG_LEVEL}
-    composer install --no-progress --optimize-autoloader --no-interaction 2>&1         | logger ${LOG_LEVEL}
-    echo "Composer dependencies have been updated."          | logger ${LOG_LEVEL}
-
     # run update
     echo "Running update scripts..."          | logger ${LOG_LEVEL}
     wget -O - -q http://${SITE_NAME}/update       | logger ${LOG_LEVEL}
@@ -111,9 +106,6 @@ else
     if [ "$KEEP_LOCAL" == "1" ]; then
     ${SUDO_CMD} ${CMD_POST} 2>&1 > /dev/null
     fi
-
-    # install dependencies
-    composer install --no-progress --optimize-autoloader --no-interaction 2>&1 > /dev/null
 
     # run update
     wget -O - -q http://${SITE_NAME}/update 2>&1 > /dev/null
