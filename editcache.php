@@ -819,7 +819,7 @@ if (!$loggedUser) {
                         '<tr>
                             <td colspan="2">
                                 <img src="images/flags/' . strtolower($descLang) . '.gif" class="icon16" alt="">
-                                    &nbsp;' . htmlspecialchars(Languages::LanguageNameFromCode($descLang, I18n::getCurrentLang()), ENT_COMPAT, 'UTF-8') . '&nbsp;&nbsp;
+                                    &nbsp;' . htmlspecialchars(Languages::languageNameFromCode($descLang, I18n::getCurrentLang()), ENT_COMPAT, 'UTF-8') . '&nbsp;&nbsp;
                                 <img src="images/actions/edit-16.png" border="0" align="middle" alt="">
                                 [<a href="' . htmlspecialchars($edit_url, ENT_COMPAT, 'UTF-8') . '" onclick="return check_if_proceed();">' . tr('edit') . '</a>]' .
                                 $removedesc .

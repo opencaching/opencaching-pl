@@ -1,4 +1,5 @@
 <?php
+
 namespace src\Utils\I18n;
 
 use src\Utils\Uri\OcCookie;
@@ -9,41 +10,40 @@ use src\Utils\Uri\SimpleRouter;
 class CrowdinInContextMode
 {
     const VAR_NAME = 'crowdinInContextMode';
+
     const PREVIOUS_LANG_VAR = 'crowdinInContextBackToLang';
 
     /**
-     * This function is call at the begining of every script
-     * to handle CrowdinInContext if necessary
+     * This method is called at the beginning of every request
+     * to enable or disable CrowdinInContext if necessary.
      */
-    public static function checkRequest($langToUse)
+    public static function checkRequest(string $languageToUse): void
     {
-        if (isset($_REQUEST[self::VAR_NAME])){
-            if (CrowdinInContextMode::enabled()) {
-                // CrowdinInContext mode is enabled now => this is request to disable it
-                CrowdinInContextMode::disable();
-            } else {
-                // CrowdinInContext mode is disabled now => this is request to enable it
-                CrowdinInContextMode::enable($langToUse);
-            }
+        if (! isset($_REQUEST[self::VAR_NAME])) {
+            return;
         }
+
+        self::enabled() ? self::disable() : self::enable($languageToUse);
     }
 
-    public static function enabled()
+    public static function enabled(): bool
     {
-        return OcCookie::getOrDefault(self::VAR_NAME, false);
+        return (bool) OcCookie::getOrDefault(self::VAR_NAME, false);
     }
 
-    public static function enable($previousLang)
+    public static function enable(string $previousLang): void
     {
         OcCookie::set(self::VAR_NAME, true);
         OcCookie::set(self::PREVIOUS_LANG_VAR, $previousLang, true);
 
-        $cleanUri = Uri::removeParam(self::VAR_NAME);
-        SimpleRouter::redirect($cleanUri);
+        SimpleRouter::redirect(
+            Uri::removeParam(self::VAR_NAME)
+        );
+
         exit;
     }
 
-    public static function disable()
+    public static function disable(): void
     {
         $prevLang = self::getPreviousLanguage();
         OcCookie::delete(self::PREVIOUS_LANG_VAR, true);
@@ -53,27 +53,24 @@ class CrowdinInContextMode
         $uri = Uri::setOrReplaceParamValue(I18n::URI_LANG_VAR, $prevLang, $uri);
 
         SimpleRouter::redirect($uri);
+
         exit;
     }
 
-    public static function getPreviousLanguage()
+    public static function getPreviousLanguage(): string
     {
-        $prevLang = OcCookie::getOrDefault(self::PREVIOUS_LANG_VAR, null);
-        if (is_null($prevLang)) {
-            // previous language is not found in cookie
-            return I18n::getDefaultLang();
-        }
-        return $prevLang;
+        $prevLang = OcCookie::get(self::PREVIOUS_LANG_VAR);
+
+        return $prevLang ?? I18n::getDefaultLang();
     }
 
-    public static function isSupportedInConfig()
+    public static function isSupportedInConfig(): bool
     {
         return OcConfig::isI18nCrowdinInContextSupported();
     }
 
-    public static function getPseudoLang()
+    public static function getPseudoLang(): string
     {
         return OcConfig::getI18nCrowdinInContextPseudoLang();
     }
-
 }

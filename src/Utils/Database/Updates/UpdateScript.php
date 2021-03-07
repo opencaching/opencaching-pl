@@ -63,7 +63,7 @@ class UpdateScript
             foreach ($ids as $id) {
                 $key = I18n::getTranslationKey($table, $id);
 
-                if ($translation = I18n::translatePhrase($key, $lang, null, true)) {
+                if ($translation = I18n::translatePhrase($key, $lang, false, true)) {
 
                     $oldText = $this->db->multiVariableQueryValue(
                         "SELECT `".$lang."` FROM `".$table."`

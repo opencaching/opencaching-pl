@@ -151,7 +151,7 @@ if ( $desc_record = XDb::xFetchArray($desc_rs) ) {
     tpl_set_var('descid', $descid);
     tpl_set_var('cacheid', htmlspecialchars($desc_record['cache_id'], ENT_COMPAT, 'UTF-8'));
     tpl_set_var('desclang', htmlspecialchars($desc_lang, ENT_COMPAT, 'UTF-8'));
-    tpl_set_var('desclang_name', htmlspecialchars(Languages::LanguageNameFromCode($desc_lang, I18n::getCurrentLang()), ENT_COMPAT, 'UTF-8'));
+    tpl_set_var('desclang_name', htmlspecialchars(Languages::languageNameFromCode($desc_lang, I18n::getCurrentLang()), ENT_COMPAT, 'UTF-8'));
     tpl_set_var('cachename', htmlspecialchars($desc_record['name'], ENT_COMPAT, 'UTF-8'));
 }
 
