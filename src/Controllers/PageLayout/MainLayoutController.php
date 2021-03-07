@@ -123,7 +123,7 @@ class MainLayoutController extends BaseController
                 '/views/common/primaAprilis/rythmOc.js'));
 
             $this->view->addLocalJs(Uri::getLinkWithModificationTime(
-                '/vendor/js-cookie/js-cookie/src/js.cookie.js'));
+                '/vendor/npm-asset/js-cookie/src/js.cookie.js'));
         }
 
         if (Year::isPrimaAprilisToday() && OcConfig::isPADanceEnabled()) {

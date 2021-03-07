@@ -6,4 +6,12 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
+    'OpenChecker\\OpenCheckerCore' => $baseDir . '/modules/openchecker/openchecker_classes.php',
+    'OpenChecker\\OpenCheckerSetup' => $baseDir . '/modules/openchecker/openchecker_classes.php',
+    'OpenChecker\\Pagination' => $baseDir . '/modules/openchecker/openchecker_classes.php',
+    'OpenChecker\\convertLongLat' => $baseDir . '/modules/openchecker/openchecker_classes.php',
+    'powerTrailBase' => $baseDir . '/powerTrail/powerTrailBase.php',
+    'powerTrailController' => $baseDir . '/powerTrail/powerTrailController.php',
+    'sendEmail' => $baseDir . '/powerTrail/sendEmail.php',
 );
