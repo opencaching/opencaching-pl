@@ -139,7 +139,7 @@ namespace src\Utils\I18n
         {
             $language = self::getCurrentLang();
 
-            return (bool) self::instance()->trArray[$language][$key] ?? false;
+            return (bool) (self::instance()->trArray[$language][$key] ?? false);
         }
 
         public static function getLanguagesFlagsData(bool $withoutCurrent = false): array
