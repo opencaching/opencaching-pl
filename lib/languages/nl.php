@@ -3067,8 +3067,8 @@ $translations = array(
 
 
     'vote_criteriaNotPassed' => 'Currently logged user account doesn\'t pass criteria of participation in voting',
-    'vote_electionOpenUntil' => 'This election is open until',
-    'vote_electionWillBeOpen' => 'This election will be open',
+    'vote_electionOpenUntil' => 'Deze verkiezing is open tot',
+    'vote_electionWillBeOpen' => 'Deze verkiezing zal open zijn',
     'vote_timezone' => 'Timezone',
     'vote_saveMyVote' => 'Save my vote',
     'vote_alreadyVoted' => 'You have voted before and your vote was saved. The results will be shown here when votings ends.',
