@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4c36addad679077c63886e08e14d5b53",
+    "content-hash": "f51a36d5fa86719fc5fb595231647cd9",
     "packages": [
         {
             "name": "aferrandini/phpqrcode",
@@ -48,6 +48,10 @@
                 "php",
                 "qrcode"
             ],
+            "support": {
+                "issues": "https://github.com/aferrandini/PHPQRCode/issues",
+                "source": "https://github.com/aferrandini/PHPQRCode/tree/master"
+            },
             "abandoned": "endroid/qr-code",
             "time": "2013-07-08T09:39:08+00:00"
         },

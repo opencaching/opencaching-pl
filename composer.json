@@ -12,7 +12,7 @@
         "ext-libxml": "*",
         "ext-mysqli": "*",
         "ext-openssl": "*",
-        "aferrandini/phpqrcode": "1.0.1",
+        "aferrandini/phpqrcode": "^1.0",
         "ezyang/htmlpurifier": "4.10.0",
         "kint-php/kint": "^3.3",
         "npm-asset/js-cookie": "2.1.3"

@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '4e0763fc08a6cd46251bedd25bf6f6835e5376cd',
+    'reference' => '093f1808b39b59586c4550a748f2c0a5bf81aa0b',
     'name' => '__root__',
   ),
   'versions' => 
@@ -18,7 +18,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '4e0763fc08a6cd46251bedd25bf6f6835e5376cd',
+      'reference' => '093f1808b39b59586c4550a748f2c0a5bf81aa0b',
     ),
     'aferrandini/phpqrcode' => 
     array (
