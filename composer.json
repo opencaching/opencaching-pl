@@ -10,6 +10,7 @@
         "ext-iconv": "*",
         "ext-simplexml": "*",
         "ext-libxml": "*",
+        "ext-mysqli": "*",
         "ext-openssl": "*",
         "aferrandini/phpqrcode": "1.0.1",
         "ezyang/htmlpurifier": "4.10.0",
