@@ -7,8 +7,9 @@
 /lib/settings.inc.php
 
 .buildpath
+.directory
+.idea
+.php_cs.cache
 .project
 .settings
 ocpl-dynamic-files
-.directory
-.idea
