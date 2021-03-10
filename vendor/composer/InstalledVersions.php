@@ -30,7 +30,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '8690c2e496a06999c8e7d44cc81379055e78eddd',
+    'reference' => '4e0763fc08a6cd46251bedd25bf6f6835e5376cd',
     'name' => '__root__',
   ),
   'versions' => 
@@ -42,7 +42,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '8690c2e496a06999c8e7d44cc81379055e78eddd',
+      'reference' => '4e0763fc08a6cd46251bedd25bf6f6835e5376cd',
     ),
     'aferrandini/phpqrcode' => 
     array (
@@ -64,12 +64,12 @@ private static $installed = array (
     ),
     'kint-php/kint' => 
     array (
-      'pretty_version' => '2.2',
-      'version' => '2.2.0.0',
+      'pretty_version' => '3.3',
+      'version' => '3.3.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'b091715eadaf6e1a7ef927f3e81d1004611d2aea',
+      'reference' => '335ac1bcaf04d87df70d8aa51e8887ba2c6d203b',
     ),
     'npm-asset/js-cookie' => 
     array (
