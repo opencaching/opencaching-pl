@@ -35,4 +35,4 @@ jobs:
         run: composer global require friendsofphp/php-cs-fixer:^2.18
 
       - name: Run PHP-CS-Fixer
-        run: composer global exec php-cs-fixer fix --dry-run --diff
+        run: composer global exec -- php-cs-fixer fix --dry-run --diff
