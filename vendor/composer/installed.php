@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '093f1808b39b59586c4550a748f2c0a5bf81aa0b',
+    'reference' => '707aa6851a4dae287064442594ebf59db6cb89e8',
     'name' => '__root__',
   ),
   'versions' => 
@@ -18,7 +18,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '093f1808b39b59586c4550a748f2c0a5bf81aa0b',
+      'reference' => '707aa6851a4dae287064442594ebf59db6cb89e8',
     ),
     'aferrandini/phpqrcode' => 
     array (
@@ -31,12 +31,12 @@
     ),
     'ezyang/htmlpurifier' => 
     array (
-      'pretty_version' => 'v4.10.0',
-      'version' => '4.10.0.0',
+      'pretty_version' => 'v4.13.0',
+      'version' => '4.13.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'd85d39da4576a6934b72480be6978fb10c860021',
+      'reference' => '08e27c97e4c6ed02f37c5b2b20488046c8d90d75',
     ),
     'kint-php/kint' => 
     array (
