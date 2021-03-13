@@ -11,6 +11,13 @@ class UserCommons extends BaseObject
     const ROLE_NEWS_PUBLISHER = 4;
     const ROLE_SYS_ADMIN = 8;
 
+    // values from is_active_flag
+    const STATUS_ACTIVE = 1;
+    const STATUS_INACTIVE = 0;
+    const STATUS_BANNED = 2;
+    const STATUS_REMOVED = 3;
+
+
     public function __construct()
     {
         parent::__construct();

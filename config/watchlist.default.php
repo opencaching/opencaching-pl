@@ -14,7 +14,9 @@
  *      Set to false if Log::logentries can be omitted
  */
 
-$watchlist = [
-    'diag_file' => '/var/log/ocpl/runwatch.log',
-    'use_logentries' => true,
-];
+$watchlist = [];
+
+$watchlist['diag_file'] = '/var/log/ocpl/runwatch.log';
+
+$watchlist['use_logentries'] = true;
+

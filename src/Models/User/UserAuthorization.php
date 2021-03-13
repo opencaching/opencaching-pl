@@ -423,7 +423,7 @@ class UserAuthorization extends BaseObject
             SELECT COUNT(*)
             FROM `user`
             WHERE `user_id` = :1
-                AND `is_active_flag` = TRUE
+                AND `is_active_flag` = 1
                 AND `new_pw_code` LIKE :2
                 AND `new_pw_exp` > NOW()
             LIMIT 1

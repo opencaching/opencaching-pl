@@ -6,6 +6,4 @@
  * Those are configuration overrides for OCUK node only.
  */
 
-$watchlist = [
-    'use_logentries' => false,
-];
+$watchlist['use_logentries'] = false;

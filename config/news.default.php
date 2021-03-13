@@ -7,4 +7,6 @@
  * It may be customized in node-specific configuration file.
  */
 
+$news = [];
+
 $news['showOnStartPageForNonLoggedUsers'] = false;

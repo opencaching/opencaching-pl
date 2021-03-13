@@ -47,7 +47,7 @@ class MultiUserQueries extends BaseObject
         $query->select("COUNT(*) AS usersCount, MONTH(date_created) AS month")->from("user")->where("YEAR(date_created)", $year);
 
         if($activeOnly) {
-            $query->where("is_active_flag", 1);
+            $query->where("is_active_flag", User::STATUS_ACTIVE);
         }
         $query->groupBy("MONTH(date_created)");
 
@@ -110,7 +110,7 @@ class MultiUserQueries extends BaseObject
             "SELECT user_id, latitude, longitude, username, description
              FROM user
              WHERE guru <> 0
-                 AND is_active_flag <> 0
+                 AND is_active_flag = 1
                  AND longitude IS NOT NULL
                  AND latitude IS NOT NULL
                  AND (
