@@ -32,7 +32,7 @@ if ($ocConfig->isPowerTrailModuleSwitchOn() === false) {
     header("location: $absolute_server_URI");
 }
 
-$loggedUser = ApplicationContainer::Instance()->getLoggedUser();
+$loggedUser = ApplicationContainer::GetAuthorizedUser();
 $view = tpl_getView();
 
 $_SESSION['powerTrail']['userFounds'] = (!$loggedUser) ? 0 : $loggedUser->getFoundGeocachesCount();

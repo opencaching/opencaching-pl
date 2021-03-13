@@ -6,15 +6,14 @@ use src\Controllers\PowerTrailController;
 
 require_once __DIR__.'/../lib/common.inc.php';
 
-$appContainer = ApplicationContainer::Instance();
-if( $appContainer->getLoggedUser() === null){
+$user = ApplicationContainer::GetAuthorizedUser();
+if (!$user){
     $loggedUserId = null;
     $ocTeamUser = false;
 } else {
-    $loggedUserId = $appContainer->getLoggedUser()->getUserId();
-    $ocTeamUser = $appContainer->getLoggedUser()->hasOcTeamRole();
+    $loggedUserId = $user->getUserId();
+    $ocTeamUser = $user->hasOcTeamRole();
 }
-
 
 $commentsArr = PowerTrailController::getEntryTypes();
 

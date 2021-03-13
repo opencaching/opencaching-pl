@@ -753,7 +753,7 @@ if (isset($_POST['submitform'])) {
         }
 
         if ($needs_approvement) { // notify OC-Team that new cache has to be verified
-            EmailSender::sendNotifyAboutNewCacheToOcTeam(__DIR__ . '/resources/email/oc_team_notify_new_cache.email.html', ApplicationContainer::Instance()->getLoggedUser(), $name, $cache_id, $adm3, $adm1);
+            EmailSender::sendNotifyAboutNewCacheToOcTeam(__DIR__ . '/resources/email/oc_team_notify_new_cache.email.html', ApplicationContainer::GetAuthorizedUser(), $name, $cache_id, $adm3, $adm1);
         }
 
         // redirection
