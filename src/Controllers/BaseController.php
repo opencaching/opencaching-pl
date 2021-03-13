@@ -40,9 +40,6 @@ abstract class BaseController
     /** @var View $view */
     protected $view = null;
 
-    /** @var ApplicationContainer $applicationContainer */
-    private $applicationContainer = null;
-
     /** @var User */
     protected $loggedUser = null;
 
@@ -53,9 +50,8 @@ abstract class BaseController
     {
         $this->view = tpl_getView();
 
-        $this->applicationContainer = ApplicationContainer::Instance();
-        $this->loggedUser = $this->applicationContainer->getLoggedUser();
-        $this->ocConfig = $this->applicationContainer->getOcConfig();
+        $this->loggedUser = ApplicationContainer::GetAuthorizedUser();
+        $this->ocConfig = OcConfig::instance();
 
         // there is no DB access init - DB operations should be performed in models/objects
     }
