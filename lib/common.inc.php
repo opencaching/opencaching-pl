@@ -29,10 +29,6 @@ mb_language('uni');
 
 if (php_sapi_name() != "cli") { // this is not neccesarry for command-line scripts...
 
-    //detecting errors
-    //TODO: this is never set and should be removed but it needs to touch hungreds of files...
-    $error = false;
-
     UserAuthorization::verify();
 
     initTemplateSystem();

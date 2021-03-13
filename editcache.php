@@ -374,7 +374,6 @@ if (!$loggedUser) {
                 }
                 if ($time_not_ok) {
                     tpl_set_var('effort_message', $time_not_ok_message);
-                    $error = true;
                 }
                 $way_length_not_ok = true;
                 if (is_numeric($way_length) || ($way_length == '')) {
@@ -382,7 +381,6 @@ if (!$loggedUser) {
                 }
                 if ($way_length_not_ok) {
                     tpl_set_var('effort_message', $way_length_not_ok_message);
-                    $error = true;
                 }
 
 
@@ -418,7 +416,6 @@ if (!$loggedUser) {
                         ( $cache_type == GeoCache::TYPE_VIRTUAL ||
                         $cache_type == GeoCache::TYPE_WEBCAM ||
                         $cache_type == GeoCache::TYPE_EVENT )) {
-                    $error = true;
                     $size_not_ok = true;
                 }
 
@@ -426,7 +423,6 @@ if (!$loggedUser) {
                 // check if the user haven't changed type to 'without container'
                 if (isset($_POST['type'])) {
                     if ((($_POST['type'] == GeoCache::TYPE_OTHERTYPE && $cache_record['type'] != GeoCache::TYPE_OTHERTYPE ) || ($_POST['type'] == GeoCache::TYPE_TRADITIONAL ) || ($_POST['type'] == GeoCache::TYPE_MULTICACHE ) || ($_POST['type'] == GeoCache::TYPE_QUIZ ) || ($_POST['type'] == GeoCache::TYPE_MOVING ) ) && $sel_size == GeoCache::SIZE_NONE) {
-                        $error = true;
                         $size_not_ok = true;
                     }
                 }
