@@ -16,8 +16,6 @@ use src\Utils\I18n\I18n;
     <link rel="stylesheet" type="text/css" href="<?=$css?>">
   <?php } //foreach-css ?>
 
-  {htmlheaders}
-
   <?php
       if( $view->isGoogleAnalyticsEnabled() ){
                 $view->callChunkOnce( 'googleAnalytics', $view->getGoogleAnalyticsKey() );

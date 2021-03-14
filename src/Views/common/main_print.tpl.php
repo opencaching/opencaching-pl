@@ -8,7 +8,6 @@
     <link rel="stylesheet" type="text/css" href="<?=$css?>">
   <?php } //foreach-css ?>
 
-  {htmlheaders}
   {cachemap_header}
 
   <?php

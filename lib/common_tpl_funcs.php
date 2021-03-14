@@ -111,14 +111,12 @@ function tpl_errorMsg($tplnameError, $msg)
 /**
  * @return View
  */
-function tpl_getView()
+function tpl_getView(): View
 {
-
     global $view;
     if (!$view) {
         $view = new View();
     }
-
     return $view;
 }
 

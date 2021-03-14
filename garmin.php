@@ -1,6 +1,7 @@
 <?php
 
 use src\Models\ApplicationContainer;
+use src\Utils\View\View;
 
 //prepare the templates and include all neccessary
 function convert($str)
@@ -68,9 +69,12 @@ require_once (__DIR__.'/lib/common.inc.php');
 
 $tplname = 'garmin';
 
-tpl_set_var('htmlheaders', '<link rel="stylesheet" href="/css/garmin.css" type="text/css" media="screen" />
-<script src="/js/garmin/prototype.js"></script>
-<script src="/js/garmin/device/GarminDeviceDisplay.js"> </script>');
+/** @var View $view */
+$view = tpl_getView();
+
+$view->addLocalCss('/css/garmin.css');
+$view->addLocalJs('/js/garmin/prototype.js');
+$view->addLocalJs('/js/garmin/device/GarminDeviceDisplay.js');
 
 tpl_set_var('bodyMod', ' onload="load()"');
 
