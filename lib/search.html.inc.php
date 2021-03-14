@@ -79,6 +79,7 @@ set_time_limit(1800);
 $loggedUser = ApplicationContainer::GetAuthorizedUser();
 
 $dbc = OcDb::instance();
+$view = tpl_getView();
 
 $sNrColumnsSortSearch = "NrColumnsSortSearch";
 $sOrderSortSearch = "OrderSortSearch";
