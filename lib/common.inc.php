@@ -2,30 +2,23 @@
 
 require_once __DIR__ . '/ClassPathDictionary.php'; // class autoloader
 
-use src\Utils\Debug\ErrorHandler;
 use src\Utils\View\View;
 use src\Models\User\UserAuthorization;
 use src\Models\OcConfig\OcConfig;
 use src\Utils\I18n\I18n;
+use src\Models\ApplicationContainer;
 
-ErrorHandler::install ();
+ApplicationContainer::ocBaseInit();
 
-session_start();
-
-ob_start();
-
-require_once(__DIR__.'/settingsGlue.inc.php');
-
+// load legacy settings
 // TODO: kojoty: it should be removed after config refactoring
 // now if common.inc.php is not loaded in global context settings are not accessible
+require_once(__DIR__.'/settingsGlue.inc.php');
 $GLOBALS['config'] = $config;
 
+// legacy View functions
 require_once(__DIR__.'/common_tpl_funcs.php'); // template engine
 
-// yepp, we will use UTF-8
-mb_internal_encoding('UTF-8');
-mb_regex_encoding('UTF-8');
-mb_language('uni');
 
 if (php_sapi_name() != "cli") { // this is not neccesarry for command-line scripts...
 

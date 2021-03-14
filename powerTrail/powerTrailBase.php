@@ -63,11 +63,6 @@ class powerTrailBase{
         ),
     );
 
-    function __construct() {
-        //include __DIR__.'/../lib/settings.inc.php';
-        //$this->userMinimumCacheFoundToSetNewPowerTrail = $userMinimumCacheFoundToSetNewPowerTrail;
-    }
-
     /**
      * check if user $userId is owner of $powerTrailId.
      * @return 0 or 1
