@@ -8,8 +8,6 @@
     <link rel="stylesheet" type="text/css" href="<?=$css?>">
   <?php } //foreach-css ?>
 
-  {cachemap_header}
-
   <?php
     if ($view->isGoogleAnalyticsEnabled()) {
         $view->callChunkOnce( 'googleAnalytics', $view->getGoogleAnalyticsKey() );

@@ -4,6 +4,7 @@ use src\Utils\Database\XDb;
 use src\Utils\I18n\I18n;
 use src\Models\OcConfig\OcConfig;
 use src\Models\ApplicationContainer;
+use src\Utils\View\View;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
@@ -19,12 +20,11 @@ if (!$loggedUser) {
 
 
         $tplname = 'myroutes_add_map2';
+        /** @var View $view */
         $view = tpl_getView();
-
-        tpl_set_var(
-            'cachemap_header',
-            '<script src="https://maps.googleapis.com/maps/api/js?libraries=geometry&amp;key=' . $googlemap_key .
-            '&amp;language=' . I18n::getCurrentLang() . '"></script>');
+        $view->addLocalJs(
+            'https://maps.googleapis.com/maps/api/js?libraries=geometry&amp;key='.$googlemap_key.
+            '&amp;language='.I18n::getCurrentLang());
 
         // set map center
         tpl_set_var('map_lat',OcConfig::getMapDefaultCenter()->getLatitude());

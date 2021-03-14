@@ -52,7 +52,6 @@
       } //foreach-js ?>
 
   <title>{title}</title>
-  {cachemap_header}
 </head>
 <body{bodyMod}>
 

@@ -3,6 +3,7 @@
 use src\Utils\Database\XDb;
 use src\Utils\Database\OcDb;
 use src\Utils\Text\Formatter;
+use src\Utils\View\View;
 use src\Models\GeoCache\GeoCache;
 use okapi\Facade;
 use okapi\core\Exception\BadRequest;
@@ -47,10 +48,11 @@ if (isset($_POST['distance'])) {
     $distance = $_POST['distance'];
 }
 
-
-tpl_set_var('cachemap_header',
-    '<script src="https://maps.googleapis.com/maps/api/js?libraries=geometry&amp;key=' . $googlemap_key .
-    '&amp;language=' . I18n::getCurrentLang() . '"></script>');
+/** @var View $view */
+$view = tpl_getView();
+$view->addLocalJs(
+    'https://maps.googleapis.com/maps/api/js?libraries=geometry&amp;key='.$googlemap_key.
+    '&amp;language='.I18n::getCurrentLang());
 
 $s = $database->paramQuery(
         'SELECT `user_id`,`name`, `description`, `radius`, `options` FROM `routes`

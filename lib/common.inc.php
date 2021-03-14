@@ -54,8 +54,6 @@ function initTemplateSystem(){
 
     tpl_set_var('title', htmlspecialchars(OcConfig::getSitePageTitle(), ENT_COMPAT, 'UTF-8'));
     tpl_set_var('bodyMod', '');
-    tpl_set_var('cachemap_header', ''); //used only by myroutes...
-
 
     $GLOBALS['tpl_subtitle'] = '';
 }
