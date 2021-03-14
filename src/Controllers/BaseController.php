@@ -26,33 +26,19 @@ abstract class BaseController extends CoreController
     /** @var View $view */
     protected $view = null;
 
-    /** @var User */
-    protected $loggedUser = null;
-
-    /** @var OcConfig $ocConfig */
-    protected $ocConfig = null;
-
     public function __construct()
     {
+        parent::__construct();
         $this->view = tpl_getView();
-
-        $this->loggedUser = ApplicationContainer::GetAuthorizedUser();
-        $this->ocConfig = OcConfig::instance();
 
         // there is no DB access init - DB operations should be performed in models/objects
     }
-
 
     protected function redirectToLoginPage()
     {
         $this->view->redirect(
             Uri::setOrReplaceParamValue('target', Uri::getCurrentUri(), '/login.php'));
         exit();
-    }
-
-    protected function isUserLogged()
-    {
-        return !is_null($this->loggedUser);
     }
 
     protected function ajaxJsonResponse($response, $statusCode=null)

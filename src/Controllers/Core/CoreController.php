@@ -1,11 +1,13 @@
 <?php
-
 namespace src\Controllers\Core;
 
 use src\Models\ApplicationContainer;
 use src\Models\OcConfig\OcConfig;
 use src\Models\User\User;
 
+/**
+ * Base controller class - root of all controllers
+ */
 abstract class CoreController
 {
     /** @var User */
@@ -22,9 +24,9 @@ abstract class CoreController
         // there is no DB access init - DB operations should be performed in models/objects
     }
 
-    protected function isUserLogged()
+    protected function isUserLogged(): bool
     {
-        return !is_null($this->loggedUser);
+        return ! is_null($this->loggedUser);
     }
 
     /**
@@ -38,9 +40,9 @@ abstract class CoreController
      * to be called by router (it is possible that ctrl has public method which
      * shouldn't be accessible on request).
      *
-     * @param string $actionName - method which router will call
+     * @param string $actionName
+     *            - method which router will call
      * @return boolean - TRUE if given method can be call from router
      */
     abstract public function isCallableFromRouter($actionName);
-
 }

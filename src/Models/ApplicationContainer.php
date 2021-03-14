@@ -1,5 +1,4 @@
 <?php
-
 namespace src\Models;
 
 use src\Models\OcConfig\OcConfig;
@@ -9,17 +8,20 @@ use src\Utils\Debug\ErrorHandler;
 use src\Utils\I18n\I18n;
 use src\Utils\View\View;
 
+/**
+ * Core class used to run generic initialize the OC code and store the user authentication info
+ */
 final class ApplicationContainer
 {
-    /** @var User */
+    /** @var User $loggedUser */
     private $loggedUser = null;
-
     private $ocInitDone = false;
 
     /**
+     *
      * @return ApplicationContainer
      */
-    public static function Instance()
+    public static function Instance(): ApplicationContainer
     {
         static $inst = null;
         if ($inst === null) {
@@ -28,11 +30,11 @@ final class ApplicationContainer
         return $inst;
     }
 
-    public static function ocBaseInit()
+    public static function ocBaseInit(): void
     {
         $instance = self::Instance();
-        if($instance->ocInitDone) {
-            // be sure to do ocInit only once
+        if ($instance->ocInitDone) {
+            // to be sure to call ocInit only once
             return;
         }
 
@@ -52,12 +54,11 @@ final class ApplicationContainer
         if (php_sapi_name() != "cli") { // this is not neccesarry for command-line scripts...
 
             UserAuthorization::verify();
-
-            // legacy View functions
-            require_once(__DIR__.'/../../lib/common_tpl_funcs.php'); // template engine
-
-            self::initLegacyTemplateSystem();
             I18n::init();
+
+            // legacy View functions - this should be cleanup later
+            require_once (__DIR__ . '/../../lib/common_tpl_funcs.php'); // template engine
+            self::initLegacyTemplateSystem();
         }
     }
 
@@ -65,12 +66,12 @@ final class ApplicationContainer
     {
         // create global view variable (used in templates)
         // TODO: it should be moved to context..
-        if (!isset($GLOBALS['view'])) {
+        if (! isset($GLOBALS['view'])) {
             $GLOBALS['view'] = new View();
         }
 
-        //by default, use start template
-        if (!isset($GLOBALS['tplname'])){
+        // by default, use start template
+        if (! isset($GLOBALS['tplname'])) {
             $GLOBALS['tplname'] = 'start';
         }
 
@@ -79,8 +80,8 @@ final class ApplicationContainer
         tpl_set_var('contact_mail', OcConfig::getEmailAddrOcTeam(true));
 
         // set wikiLinks used in translations
-        foreach(OcConfig::getWikiLinks() as $key => $value){
-            tpl_set_var('wiki_link_'.$key, $value);
+        foreach (OcConfig::getWikiLinks() as $key => $value) {
+            tpl_set_var('wiki_link_' . $key, $value);
         }
 
         tpl_set_var('title', htmlspecialchars(OcConfig::getSitePageTitle(), ENT_COMPAT, 'UTF-8'));
@@ -94,10 +95,10 @@ final class ApplicationContainer
      */
     private static function loadLegacyConfig()
     {
-        require_once(__DIR__.'/../../lib/settingsGlue.inc.php');
+        require_once (__DIR__ . '/../../lib/settingsGlue.inc.php');
 
         $GLOBALS['config'] = $config;
-        //$GLOBALS['oc_waypoint'] = $oc_waypoint;
+        // $GLOBALS['oc_waypoint'] = $oc_waypoint;
         $GLOBALS['hide_coords'] = $hide_coords;
         $GLOBALS['debug_page'] = $debug_page;
         $GLOBALS['absolute_server_URI'] = $absolute_server_URI;
@@ -129,7 +130,7 @@ final class ApplicationContainer
         return self::Instance()->loggedUser;
     }
 
-    public static function SetAuthorizedUser(User $loggedUser=null)
+    public static function SetAuthorizedUser(User $loggedUser = null): void
     {
         self::Instance()->loggedUser = $loggedUser;
     }

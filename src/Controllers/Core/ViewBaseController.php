@@ -1,12 +1,17 @@
 <?php
-
 namespace src\Controllers\Core;
 
 use src\Utils\Uri\Uri;
 use src\Utils\View\View;
 
+/**
+ * Controller base class to use as a parent of VIEW controllers
+ * (VIEW controller means the controller which returns the view - HTML code
+ *  and is called directly by browser - not by AJAX)
+ */
 abstract class ViewBaseController extends CoreController
 {
+
     /** @var View $view */
     protected $view = null;
 
@@ -16,20 +21,21 @@ abstract class ViewBaseController extends CoreController
         $this->view = tpl_getView();
     }
 
-    protected function redirectToLoginPage()
+    protected function redirectToLoginPage(): void
     {
-        $this->view->redirect(
-            Uri::setOrReplaceParamValue('target', Uri::getCurrentUri(), '/login.php'));
+        $this->view->redirect(Uri::setOrReplaceParamValue('target', Uri::getCurrentUri(), '/login.php'));
         exit();
     }
 
     /**
      * This method can be used to just exit and display error page to user
      *
-     * @param string $message - simple message to be displayed (in english)
-     * @param integer $httpStatusCode - http status code to return in response
+     * @param string $message
+     *            - simple message to be displayed (in english)
+     * @param integer $httpStatusCode
+     *            - http status code to return in response
      */
-    public function displayCommonErrorPageAndExit($message = null, $httpStatusCode = null)
+    public function displayCommonErrorPageAndExit($message = null, $httpStatusCode = null): void
     {
         $this->view->setTemplate('error/commonFatalError');
         if ($httpStatusCode) {
@@ -41,7 +47,7 @@ abstract class ViewBaseController extends CoreController
                     header("HTTP/1.0 403 Forbidden");
                     break;
                 default:
-                    //TODO...
+                // TODO...
             }
         }
 
@@ -53,7 +59,7 @@ abstract class ViewBaseController extends CoreController
     /**
      * Simple redirect not logged users to login page
      */
-    protected function redirectNotLoggedUsers()
+    protected function redirectNotLoggedUsers(): void
     {
         if (! $this->isUserLogged()) {
             $this->redirectToLoginPage();
