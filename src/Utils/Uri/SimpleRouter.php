@@ -2,7 +2,6 @@
 namespace src\Utils\Uri;
 
 use ReflectionException;
-use src\Utils\Debug\Debug;
 
 /**
  * Route schema:
@@ -28,7 +27,7 @@ class SimpleRouter
     // action used if request is improper (eg. there is no such action)
     const ERROR_ACTION = 'displayCommonErrorPageAndExit';
 
-    const CTRL_BASE_CLASS = '\src\Controllers\BaseController';
+    const CTRL_BASE_CLASS = '\src\Controllers\Core\CoreController';
     const ROOT_DIR = __DIR__.'/../../..';
 
     // GET (url) var used to transfer route
