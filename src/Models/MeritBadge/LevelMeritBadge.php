@@ -2,7 +2,8 @@
 
 namespace src\Models\MeritBadge;
 
-class LevelMeritBadge{
+class LevelMeritBadge
+{
 
     private $name;
     private $level;
@@ -17,36 +18,44 @@ class LevelMeritBadge{
     // getField functions
     //////////////////////////////////////////////////////////////////////
 
-    public function getName(){
+    public function getName()
+    {
         return $this->name;
     }
 
-    public function getLevel(){
+    public function getLevel()
+    {
         return $this->level;
     }
 
-    public function getPicture(){
+    public function getPicture()
+    {
         return $this->picture;
     }
 
-    public function getThreshold(){
+    public function getThreshold()
+    {
         return $this->threshold;
     }
-    
-    public function getPrevThreshold(){
+
+    public function getPrevThreshold()
+    {
         return $this->prev_threshold;
     }
 
-    public function getGainCounter(){
+    public function getGainCounter()
+    {
         return $this->gain_counter;
     }
 
-    public function getGainLastDate(){
+    public function getGainLastDate()
+    {
         return $this->gain_last_date;
     }
 
-    public function getLevelName(){
-        if ( $this->getName() != "" )
+    public function getLevelName()
+    {
+        if ($this->getName() != "")
             return $this->getName();
 
         return $this->getLevel();
@@ -57,24 +66,29 @@ class LevelMeritBadge{
     // public functions
     //////////////////////////////////////////////////////////////////////
 
-    public function setFromRow( $rec ){
+    public function setFromRow($rec)
+    {
+        if (isset($rec['badge_levels_name'])) {
+            $this->name = $rec['badge_levels_name'];
+        }
 
-        $this->name = $rec['badge_levels_name'];
-        $this->level = $rec['badge_levels_level'];
+        if (isset($rec['badge_levels_level'])) {
+            $this->level = $rec['badge_levels_level'];
+        }
 
-        if ( isset($rec['badge_levels_picture']) )
+        if (isset($rec['badge_levels_picture']))
             $this->picture = $rec['badge_levels_picture'];
 
-        if ( isset($rec['badge_levels_threshold'])  )
+        if (isset($rec['badge_levels_threshold']))
             $this->threshold = $rec['badge_levels_threshold'];
-        
-        if ( isset($rec['badge_levels_prev_threshold'])  )
+
+        if (isset($rec['badge_levels_prev_threshold']))
             $this->prev_threshold = $rec['badge_levels_prev_threshold'];
 
-        if ( isset($rec['badge_levels_gain_counter'])  )
+        if (isset($rec['badge_levels_gain_counter']))
             $this->gain_counter = $rec['badge_levels_gain_counter'];
 
-        if ( isset($rec['badge_levels_gain_last_date'])  )
+        if (isset($rec['badge_levels_gain_last_date']))
             $this->gain_last_date = $rec['badge_levels_gain_last_date'];
     }
 
