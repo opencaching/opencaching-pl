@@ -8,4 +8,5 @@ $baseDir = dirname($vendorDir);
 return array(
     'src\\' => array($baseDir . '/src'),
     'okapi\\' => array($baseDir . '/okapi'),
+    'Kint\\' => array($vendorDir . '/kint-php/kint/src'),
 );

@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '309d45c073b8cbe33f53c0b737b95141101fbdb3',
+    'reference' => '707aa6851a4dae287064442594ebf59db6cb89e8',
     'name' => '__root__',
   ),
   'versions' => 
@@ -18,7 +18,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '309d45c073b8cbe33f53c0b737b95141101fbdb3',
+      'reference' => '707aa6851a4dae287064442594ebf59db6cb89e8',
     ),
     'aferrandini/phpqrcode' => 
     array (
@@ -31,21 +31,21 @@
     ),
     'ezyang/htmlpurifier' => 
     array (
-      'pretty_version' => 'v4.10.0',
-      'version' => '4.10.0.0',
+      'pretty_version' => 'v4.13.0',
+      'version' => '4.13.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'd85d39da4576a6934b72480be6978fb10c860021',
+      'reference' => '08e27c97e4c6ed02f37c5b2b20488046c8d90d75',
     ),
     'kint-php/kint' => 
     array (
-      'pretty_version' => '1.1',
-      'version' => '1.1.0.0',
+      'pretty_version' => '3.3',
+      'version' => '3.3.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'a8549198558560b24e2879c6bac2875de5371483',
+      'reference' => '335ac1bcaf04d87df70d8aa51e8887ba2c6d203b',
     ),
     'npm-asset/js-cookie' => 
     array (
