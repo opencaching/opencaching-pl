@@ -5,7 +5,7 @@
  *  ------------------------------------------------------------------------------------------------
  *  Puzzle Final Cache coordinate checker
  *  ------------------------------------------------------------------------------------------------
- *  @author: Andrzej 'Łza' Woźniak [wloczynutka@gmail.com]
+ * @author: Andrzej 'Łza' Woźniak [wloczynutka@gmail.com]
  *
  *
  *
@@ -14,7 +14,7 @@
  *  1.) validation data from post (should be numeric, but this is not a must - if data is not numeric
  *      we just get result that puzzle solution is incorrect)
  *  2.) convert section 2 to OOP.
- *  3.) after succesfull check, provide (.gpx) download with final stage coords, downloadable for
+ *  3.) after successful check, provide (.gpx) download with final stage coords, downloadable for
  *      GPS devices.
  *  4.) store checks in database rather then session (logging out resets your attempts count)
  *  5.) rename database tables and fields according to https://github.com/opencaching/opencaching-pl/issues/649
@@ -24,14 +24,13 @@
 
 use OpenChecker\OpenCheckerCore;
 use OpenChecker\OpenCheckerSetup;
-use src\Utils\Database\XDb;
-use src\Models\GeoCache\GeoCache;
-use src\Models\GeoCache\Waypoint;
-use src\Utils\View\View;
 use src\Models\ApplicationContainer;
+use src\Models\GeoCache\Waypoint;
+use src\Utils\Database\XDb;
+use src\Utils\View\View;
 
-//prepare the templates and include all neccessary
-require_once (__DIR__.'/lib/common.inc.php');
+//prepare the templates and include all necessary
+require_once(__DIR__ . '/lib/common.inc.php');
 
 $loggedUser = ApplicationContainer::GetAuthorizedUser();
 if (!$loggedUser) {
@@ -41,7 +40,7 @@ if (!$loggedUser) {
     exit;
 }
 
-if ( $config['module']['openchecker']['enabled'] == false ) {
+if ($config['module']['openchecker']['enabled'] == false) {
     tpl_redirect('index.php');
     exit;
 }
@@ -51,13 +50,13 @@ $view->setTemplate('openchecker');
 $view->loadJQuery();
 
 
-$OpenCheckerSetup = New OpenCheckerSetup();
+$OpenCheckerSetup = new OpenCheckerSetup();
 tpl_set_var('openchecker_script', $OpenCheckerSetup->scriptname);
 
 tpl_set_var("section_5_start", '<!--');
 tpl_set_var("section_5_stop", '-->');
 
-$OpenChecker = New OpenCheckerCore();
+$OpenChecker = new OpenCheckerCore();
 
 /*
  * if isset $_POST['guessedCoordsFinalLatitude'] means that user entered coords to check.
@@ -127,7 +126,7 @@ $wp_rs = XDb::xSql("SELECT `waypoints`.`wp_id`,
         WHERE `cache_id`= ? AND `type` = " . Waypoint::TYPE_FINAL, $cache_id);
 
 $wp_record = XDb::xFetchArray($wp_rs);
-if (($wp_record['type'] == Waypoint::TYPE_FINAL) && ($wp_record['opensprawdzacz'] == 1)) {
+if ($wp_record !== false && ($wp_record['type'] == Waypoint::TYPE_FINAL) && ($wp_record['opensprawdzacz'] == 1)) {
 
     $view->setVar('displayOpencheckerForm', true);
 
