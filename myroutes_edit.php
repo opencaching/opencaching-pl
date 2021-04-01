@@ -2,6 +2,7 @@
 
 use src\Utils\Database\XDb;
 use src\Utils\I18n\I18n;
+use src\Utils\View\View;
 use src\Models\ApplicationContainer;
 
 global $googlemap_key;
@@ -54,9 +55,11 @@ if (!$loggedUser) {
         $rdesc = isset($_POST['desc']) ? $_POST['desc'] : '';
         $rradius = isset($_POST['radius']) ? $_POST['radius'] : '';
 
-        tpl_set_var('cachemap_header',
-            '<script src="https://maps.googleapis.com/maps/api/js?libraries=geometry&amp;key=' . $googlemap_key .
-            '&amp;language=' . I18n::getCurrentLang() . '"></script>');
+        /** @var View $view */
+        $view = tpl_getView();
+        $view->addLocalJs(
+            'https://maps.googleapis.com/maps/api/js?libraries=geometry&amp;key='.$googlemap_key.
+            '&amp;language='.I18n::getCurrentLang());
 
         if ($record['user_id'] == $loggedUser->getUserId()) {
             if ($remove == 1) {

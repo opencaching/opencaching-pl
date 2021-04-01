@@ -9,7 +9,7 @@ require_once(__DIR__ . '/lib/common.inc.php');
 
 $message = false;
 $view = tpl_getView();
-$user = ApplicationContainer::Instance()->getLoggedUser();
+$user = ApplicationContainer::GetAuthorizedUser();
 
 //user logged in?
 if (empty($user)) {

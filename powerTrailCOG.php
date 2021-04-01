@@ -12,7 +12,7 @@ require_once(__DIR__ . '/lib/common.inc.php');
 /** @var View $view */
 $view = tpl_getView();
 
-$loggedUser = ApplicationContainer::Instance()->getLoggedUser();
+$loggedUser = ApplicationContainer::GetAuthorizedUser();
 if (empty($loggedUser) || ! $loggedUser->hasOcTeamRole()) {
     $view->redirect('/');
 }

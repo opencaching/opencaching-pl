@@ -7,7 +7,7 @@ use src\Utils\Database\XDb;
 require_once(__DIR__ . '/lib/common.inc.php');
 
 $view = tpl_getView();
-$user = ApplicationContainer::Instance()->getLoggedUser();
+$user = ApplicationContainer::GetAuthorizedUser();
 
 if (empty($user) || !$user->hasOcTeamRole()) {
     $view->redirect('/');

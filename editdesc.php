@@ -10,12 +10,6 @@ use src\Models\ApplicationContainer;
 //prepare the templates and include all neccessary
 require_once(__DIR__.'/lib/common.inc.php');
 
-//Preprocessing
-if ($error) {
-    tpl_errorMsg('editdesc', "Error?");
-    exit;
-}
-
 $descid = ( isset($_REQUEST['descid']) && is_numeric($_REQUEST['descid']) ) ? $_REQUEST['descid'] : 0;
 
 //user logged in?

@@ -3,7 +3,7 @@
 use src\Models\ApplicationContainer;
 use src\Utils\I18n\I18n;
 
-$user = ApplicationContainer::Instance()->getLoggedUser();
+$user = ApplicationContainer::GetAuthorizedUser();
 ?>
 
 <div id="idGTC"> </div>

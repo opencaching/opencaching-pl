@@ -193,7 +193,7 @@ function notifyOwner($cacheid, $msgType)
 require_once(__DIR__ . '/lib/common.inc.php');
 
 $view = tpl_getView();
-$user = ApplicationContainer::Instance()->getLoggedUser();
+$user = ApplicationContainer::GetAuthorizedUser();
 
 if (empty($user) || !$user->hasOcTeamRole()) {
     $view->setTemplate('viewpendings_error');

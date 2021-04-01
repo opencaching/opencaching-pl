@@ -401,7 +401,7 @@ class UserAuthorization extends BaseObject
         $email->setReplyToAddr(OcConfig::getEmailAddrNoReply());
         $email->setFromAddr(OcConfig::getEmailAddrNoReply());
         $email->addSubjectPrefix(OcConfig::getEmailSubjectPrefix());
-        $subject = tr('newpw_mail_subject') . ' ' . ApplicationContainer::Instance()->getOcConfig()->getSiteName();
+        $subject = tr('newpw_mail_subject') . ' ' . OcConfig::getSiteName();
         $email->setSubject($subject);
         $email->setHtmlBody($userMessage->getEmailContent());
         $result = $email->send();

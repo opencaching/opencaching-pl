@@ -23,18 +23,6 @@ function tpl_set_var($name, $value, $no_eval = true)
     $no_eval_vars[$name] = $no_eval;
 }
 
-//get a template replacement, otherwise false
-function tpl_get_var($name)
-{
-    global $vars;
-
-    if (isset($vars[$name])) {
-        return $vars[$name];
-    } else {
-        return false;
-    }
-}
-
 
 //redirect to another site to display, i.e. to view a cache after logging
 function tpl_redirect($page)
@@ -123,23 +111,13 @@ function tpl_errorMsg($tplnameError, $msg)
 /**
  * @return View
  */
-function tpl_getView()
+function tpl_getView(): View
 {
-
     global $view;
     if (!$view) {
         $view = new View();
     }
-
     return $view;
-}
-
-// TODO: set PHP var which can be accessed inside tpl file
-function setViewVar($name, $value)
-{
-
-    global $view;
-    $view->setVar($name, $value);
 }
 
 //read the templates and echo it to the user
@@ -215,13 +193,3 @@ function http_write_no_cache()
     header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
 }
 
-/* TODO: NOT USED ANYWHERE...
-
-//clear all template vars
-function tpl_clear_vars()
-{
-unset($GLOBALS['vars']);
-unset($GLOBALS['no_eval_vars']);
-}
-
-*/

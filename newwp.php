@@ -207,14 +207,12 @@ if ($cache_record = XDb::xFetchArray($cache_rs)) {
             if ($lat_h != '' || $lat_min != '') {
                 if (!mb_ereg_match('^[0-9]{1,2}$', $lat_h)) {
                     tpl_set_var('lat_message', $error_coords_not_ok);
-                    $error = true;
                     $lat_h_not_ok = true;
                 } else {
                     if (($lat_h >= 0) && ($lat_h < 90)) {
                         $lat_h_not_ok = false;
                     } else {
                         tpl_set_var('lat_message', $error_coords_not_ok);
-                        $error = true;
                         $lat_h_not_ok = true;
                     }
                 }
@@ -224,12 +222,10 @@ if ($cache_record = XDb::xFetchArray($cache_rs)) {
                         $lat_min_not_ok = false;
                     } else {
                         tpl_set_var('lat_message', $error_coords_not_ok);
-                        $error = true;
                         $lat_min_not_ok = true;
                     }
                 } else {
                     tpl_set_var('lat_message', $error_coords_not_ok);
-                    $error = true;
                     $lat_min_not_ok = true;
                 }
 
@@ -239,7 +235,6 @@ if ($cache_record = XDb::xFetchArray($cache_rs)) {
 
                 if ($latitude == 0) {
                     tpl_set_var('lon_message', $error_coords_not_ok);
-                    $error = true;
                     $lat_min_not_ok = true;
                 }
             } else {
@@ -251,14 +246,12 @@ if ($cache_record = XDb::xFetchArray($cache_rs)) {
             if ($lon_h != '' || $lon_min != '') {
                 if (!mb_ereg_match('^[0-9]{1,3}$', $lon_h)) {
                     tpl_set_var('lon_message', $error_coords_not_ok);
-                    $error = true;
                     $lon_h_not_ok = true;
                 } else {
                     if (($lon_h >= 0) && ($lon_h < 180)) {
                         $lon_h_not_ok = false;
-                    } else {
+                        } else {
                         tpl_set_var('lon_message', $error_coords_not_ok);
-                        $error = true;
                         $lon_h_not_ok = true;
                     }
                 }
@@ -268,12 +261,10 @@ if ($cache_record = XDb::xFetchArray($cache_rs)) {
                         $lon_min_not_ok = false;
                     } else {
                         tpl_set_var('lon_message', $error_coords_not_ok);
-                        $error = true;
                         $lon_min_not_ok = true;
                     }
                 } else {
                     tpl_set_var('lon_message', $error_coords_not_ok);
-                    $error = true;
                     $lon_min_not_ok = true;
                 }
 
@@ -283,7 +274,6 @@ if ($cache_record = XDb::xFetchArray($cache_rs)) {
 
                 if ($longitude == 0) {
                     tpl_set_var('lon_message', $error_coords_not_ok);
-                    $error = true;
                     $lon_min_not_ok = true;
                 }
             } else {
@@ -303,13 +293,11 @@ if ($cache_record = XDb::xFetchArray($cache_rs)) {
 //                          else
 //                          {
 //                              tpl_set_var('stage_message', $stage_not_ok);
-//                              $error = true;
 //                              $stage_not_ok = true;
 //                          }
             //desc
             if ($wp_desc == '') {
                 tpl_set_var('desc_message', $descwp_not_ok_message);
-                $error = true;
                 $descwp_not_ok = true;
             } else {
                 $descwp_not_ok = false;
@@ -318,7 +306,6 @@ if ($cache_record = XDb::xFetchArray($cache_rs)) {
             $type_not_ok = false;
             if ($sel_type == -1) {
                 tpl_set_var('type_message', $typewp_not_ok_message);
-                $error = true;
                 $type_not_ok = true;
             }
 
