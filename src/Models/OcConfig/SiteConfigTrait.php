@@ -21,6 +21,11 @@ trait SiteConfigTrait
         return self::getKeyFromSiteConfig('siteName');
     }
 
+    public static function getSiteShortName(): string
+    {
+        return self::getKeyFromSiteConfig('shortName');
+    }
+
     /**
      * @see https://wiki.opencaching.eu/index.php?title=Node_IDs
      */

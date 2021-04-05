@@ -40,7 +40,6 @@ final class OcConfig extends ConfigReader
     private $siteInService = false;
     private $dateFormat;
     private $headerLogo;
-    private $shortSiteName;
     private $needFindLimit;
     private $needApproveLimit;
     private $minimumAge;
@@ -144,7 +143,6 @@ final class OcConfig extends ConfigReader
         $this->googleMapKey = $googlemap_key;
         $this->dateFormat = $dateFormat;
         $this->headerLogo = $config['headerLogo'];
-        $this->shortSiteName = $short_sitename;
         $this->needApproveLimit = $NEED_APPROVE_LIMIT;
         $this->needFindLimit = $NEED_FIND_LIMIT;
         $this->minimumAge = $config['limits']['minimum_age'];
@@ -251,11 +249,6 @@ final class OcConfig extends ConfigReader
     public static function getHeaderLogo()
     {
         return self::instance()->headerLogo;
-    }
-
-    public static function getShortSiteName()
-    {
-        return self::instance()->shortSiteName;
     }
 
     public static function getNeedFindLimit()

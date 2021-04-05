@@ -28,6 +28,11 @@ $site['ocNodeId'] = 2;
 $site['mainDomain'] = 'opencaching.pl';
 
 /**
+ * Site short name
+ */
+$site['shortName'] = 'OC PL';
+
+/**
  * Primary countries for this node.
  */
 $site['primaryCountries'] = ['PL'];

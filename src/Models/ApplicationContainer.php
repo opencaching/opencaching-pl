@@ -108,7 +108,6 @@ final class ApplicationContainer
         $GLOBALS['mp3extensions'] = $mp3extensions;
         $GLOBALS['googlemap_key'] = $googlemap_key;
 
-        $GLOBALS['short_sitename'] = $short_sitename;
         $GLOBALS['contactData'] = $contactData;
         $GLOBALS['dateFormat'] = $dateFormat;
         $GLOBALS['datetimeFormat'] = $datetimeFormat;

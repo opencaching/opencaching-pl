@@ -2,6 +2,7 @@
 
 use src\Models\ApplicationContainer;
 use src\Utils\Database\XDb;
+use src\Models\OcConfig\OcConfig;
 
 //prepare the templates and include all necessary
 require_once(__DIR__ . '/lib/common.inc.php');
@@ -19,7 +20,7 @@ if (empty($user) || !$user->hasOcTeamRole()) {
  *
  * - I'm going to change it soon...
  */
-if ($short_sitename == 'OC PL') {
+if (OcConfig::getSiteShortName() == 'OC PL') {
 
     $GLOBALS['regions'] = array(
         'PL51' => 'dolnośląskie',
@@ -88,7 +89,7 @@ if (isset($_REQUEST['regionSel'])) {
 
 } else {
 
-    if ($short_sitename == 'OC PL') {
+    if (OcConfig::getSiteShortName() == 'OC PL') {
         $regionCondition = "AND 1 = 0"; //block all results if region is not select
         $countryCondition = "";
         tpl_set_var('region_name', 'Wybierz region!'); //temporary solution

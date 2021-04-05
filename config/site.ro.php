@@ -12,6 +12,11 @@
 $site['siteName']= 'Opencaching.ro';
 
 /**
+ * Site short name
+ */
+$site['shortName'] = 'OC RO';
+
+/**
  * Page title (to display on the browser titlebar)
  */
 $site['pageTitle'] = 'Opencaching România';

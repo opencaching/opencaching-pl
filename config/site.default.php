@@ -15,6 +15,11 @@ $site = [];
 $site['siteName'] = 'OpenCaching';
 
 /**
+ * Site short name
+ */
+$site['shortName'] = 'OC';
+
+/**
  * Page title (to display on the browser titlebar)
  */
 $site['pageTitle'] = 'OpenCaching';

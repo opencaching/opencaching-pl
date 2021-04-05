@@ -12,6 +12,11 @@
 $site['siteName'] = 'Opencaching.nl';
 
 /**
+ * Site short name
+ */
+$site['shortName'] = 'OC NL';
+
+/**
  * Page title (to display on the browser titlebar)
  */
 $site['pageTitle'] = 'Opencaching Benelux';

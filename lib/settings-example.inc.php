@@ -119,9 +119,6 @@ $googlemap_key = "";
 // DO NOT use it - used only OCRO translations now - used wiki links in /config/links*
 $cache_params_url = 'http://wiki.opencaching.pl/index.php/Parametry_skrzynki';
 
-//Short sitename for international use.
-$short_sitename = 'OC PL';
-
 // Contact data definition START
 /*
   Possible array entries are listed below. All the entries are optional.
