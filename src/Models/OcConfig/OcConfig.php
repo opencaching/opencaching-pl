@@ -111,13 +111,6 @@ final class OcConfig extends ConfigReader
     private $cronjobsConfig;
 
     /**
-     * 'week' or 'month' - frequency of cache titled.
-     *
-     * @var string
-     */
-    private $titledCachePeriod;
-
-    /**
      * Get the singleton.
      */
     public static function instance(): self
@@ -159,7 +152,6 @@ final class OcConfig extends ConfigReader
         $this->enableCacheAccessLogs = $enable_cache_access_logs;
         $this->minimumAge = $config['limits']['minimum_age'];
         $this->meritBadgesEnabled = $config['meritBadges'];
-        $this->titledCachePeriod = $titled_cache_period_prefix;
 
         $this->dbHost = $dbserver;
         $this->dbName = $dbname;
@@ -398,8 +390,4 @@ final class OcConfig extends ConfigReader
         return $this->topBannerVideo;
     }
 
-    public function getTitledCachePeriod(): string
-    {
-        return $this->titledCachePeriod;
-    }
 }

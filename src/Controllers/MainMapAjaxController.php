@@ -89,8 +89,7 @@ class MainMapAjaxController extends BaseController
         $resp->cacheRatingVotes = $cache->getRatingVotes();
         $resp->cacheRecosNumber = $cache->getRecommendations();
         if( $cache->isTitled() ) {
-            global $titled_cache_period_prefix; //TODO: move it to the ocConfig
-            $resp->titledDesc = tr($titled_cache_period_prefix.'_titled_cache');
+            $resp->titledDesc = tr(OcConfig::getTitledCachePeriod().'_titled_cache');
         }
 
         if ($cache->isPowerTrailPart()) {

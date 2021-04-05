@@ -27,6 +27,22 @@ trait GeocacheConfigTrait
         return self::getKeyFromGeoCacheConfig('noNewCachesOfTypes');
     }
 
+    /**
+     * Get titled geocache mechanism period
+     */
+    public static function getTitledCachePeriod(): array
+    {
+        return self::getKeyFromGeoCacheConfig('titledCachePeriod');
+    }
+
+    /**
+     * Get minimum number of founds necessary for titled geocache
+     */
+    public static function getTitledCacheMinFounds(): array
+    {
+        return self::getKeyFromGeoCacheConfig('titledCacheMinFounds');
+    }
+
     protected function getGeoCacheConfig(): array
     {
         if (! $this->geocacheConfig) {

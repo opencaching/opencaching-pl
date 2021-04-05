@@ -16,6 +16,7 @@ use src\Models\ChunkModels\ListOfCaches\ListOfCachesModel;
 use src\Models\ChunkModels\PaginationModel;
 use src\Models\GeoCache\GeoCache;
 use src\Models\GeoCache\MultiCacheStats;
+use src\Models\OcConfig\OcConfig;
 
 class CacheController extends BaseController
 {
@@ -228,7 +229,7 @@ class CacheController extends BaseController
             ->setPaginationModel($pagination)
             ->addDataRows(MultiCacheStats::getTitledCachesForUser($this->loggedUser, $limit, $offset));
 
-        $pageTitle = ($this->ocConfig->getTitledCachePeriod() == 'week') ? 'week_titled_caches' : 'month_titled_caches';
+        $pageTitle = (OcConfig::getTitledCachePeriod() == 'week') ? 'week_titled_caches' : 'month_titled_caches';
         $this->view->setVar('listCacheModel', $model)
             ->setVar('cachesCount', $titledCachesCount)
             ->setVar('pageTitle', $pageTitle)

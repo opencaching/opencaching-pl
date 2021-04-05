@@ -30,3 +30,16 @@ $geocache['enabledSizes'] = [
  * such geocaches are still in DB, but no new ones can be created).
  */
 $geocache['noNewCachesOfTypes'] = [];
+
+
+/**
+ * Titled caches algorythm period;
+ * possible values: 'week' | 'month'
+ */
+$geocache['titledCachePeriod'] = 'week';
+
+/**
+ * Minimum number of founds necessary for titled cache
+ */
+$geocache['titledCacheMinFounds'] = 10;
+

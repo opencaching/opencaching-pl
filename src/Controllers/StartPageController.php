@@ -14,6 +14,7 @@ use src\Models\GeoCache\GeoCacheLog;
 use src\Models\GeoCache\MultiCacheStats;
 use src\Models\OcConfig\OcConfig;
 use src\Models\Stats\TotalStats;
+use src\Models\Stats\TotalStats\BasicStats;
 use src\Models\User\User;
 use src\Utils\Cache\OcMemCache;
 use src\Utils\Feed\RssFeed;
@@ -242,7 +243,7 @@ class StartPageController extends BaseController
 
     private function processTotalStats()
     {
-        /** @var BasicStats */
+        /** @var BasicStats $ts*/
         $ts = TotalStats::getBasicTotalStats();
 
         // prepare total-stats array

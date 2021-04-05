@@ -116,8 +116,6 @@ final class ApplicationContainer
         $GLOBALS['contactData'] = $contactData;
         $GLOBALS['dateFormat'] = $dateFormat;
         $GLOBALS['datetimeFormat'] = $datetimeFormat;
-        $GLOBALS['titled_cache_nr_found'] = $titled_cache_nr_found;
-        $GLOBALS['titled_cache_period_prefix'] = $titled_cache_period_prefix;
     }
 
     /**

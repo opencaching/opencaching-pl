@@ -270,10 +270,6 @@ $config['garmin-key'] = array(
         'http://www.opencaching.nl' => 'b01f02cba1c000fe034471d2b08044c6'
 );
 
-$titled_cache_nr_found=10;
-$titled_cache_period_prefix='week';
-
-
 /* ************************************************************************
  * Cache page mini map
  * ************************************************************************ */
