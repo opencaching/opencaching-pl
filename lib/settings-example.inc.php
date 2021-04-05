@@ -121,9 +121,6 @@ $cache_params_url = 'http://wiki.opencaching.pl/index.php/Parametry_skrzynki';
 
 /* power Trail module switch and settings */
 
-// true - swithed on; false - swithed off
-$powerTrailModuleSwitchOn = true;
-
 // minimum cache count for power trail to be public displayed
 // (PT having less than $powerTrailMinimumCacheCount ) are visible only to owners.
 $powerTrailMinimumCacheCount = array(

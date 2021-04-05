@@ -278,7 +278,7 @@ class MainLayoutController extends BaseController
         switch ($key) {
             case 'mnu_geoPaths':
                 // disable geopaths link if disabled in config
-                if (! OcConfig::isPowertrailsEnabled() ) {
+                if (! OcConfig::areGeopathsSupported() ) {
                     $url = '';
                     break;
                 }

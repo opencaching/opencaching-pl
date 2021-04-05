@@ -432,7 +432,7 @@ class GeoCache extends GeoCacheCommons
      */
     public function isPowerTrailPart($includeHiddenGeoPath = false)
     {
-        if (! OcConfig::instance()->isPowerTrailModuleSwitchOn()) {
+        if (!OcConfig::areGeopathsSupported()) {
             return false;
         }
 

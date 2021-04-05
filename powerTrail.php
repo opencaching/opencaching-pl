@@ -28,7 +28,7 @@ require_once(__DIR__ . '/lib/common.inc.php');
 
 $ocConfig = OcConfig::instance();
 
-if ($ocConfig->isPowerTrailModuleSwitchOn() === false) {
+if (!OcConfig::areGeopathsSupported()) {
     header("location: $absolute_server_URI");
 }
 

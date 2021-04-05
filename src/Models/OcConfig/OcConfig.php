@@ -13,6 +13,7 @@ final class OcConfig extends ConfigReader
     use PrimaAprilisTrait;
     use SiteConfigTrait;
     use UserConfigTrait;
+    use GeopathConfigTrait;
 
     /*
         const OCNODE_GERMANY    = 1;  // Opencaching Germany http://www.opencaching.de OC
@@ -35,7 +36,6 @@ final class OcConfig extends ConfigReader
     private $datetimeFormat = 'Y-m-d H:i';
     private $absolute_server_URI = null;
     private $dynamicFilesPath;
-    private $powerTrailModuleSwitchOn;
     private $googleMapKey;
     private $siteInService = false;
     private $dateFormat;
@@ -142,7 +142,6 @@ final class OcConfig extends ConfigReader
         $this->datetimeFormat = $datetimeFormat;
         $this->absolute_server_URI = $absolute_server_URI;
         $this->dynamicFilesPath = $dynbasepath;
-        $this->powerTrailModuleSwitchOn = $powerTrailModuleSwitchOn;
         $this->googleMapKey = $googlemap_key;
         $this->dateFormat = $dateFormat;
         $this->headerLogo = $config['headerLogo'];
@@ -219,11 +218,6 @@ final class OcConfig extends ConfigReader
     public function getDynamicFilesPath()
     {
         return $this->dynamicFilesPath;
-    }
-
-    public static function isPowertrailsEnabled()
-    {
-        return self::instance()->isPowerTrailModuleSwitchOn();
     }
 
     public function isPowerTrailModuleSwitchOn()

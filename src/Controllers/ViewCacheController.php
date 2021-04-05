@@ -306,12 +306,10 @@ class ViewCacheController extends BaseController
 
     private function processGeoPaths()
     {
-        global $powerTrailModuleSwitchOn;
-
         // geoPath badge
         $geoPathSectionDisplay = false;
 
-        if ($powerTrailModuleSwitchOn && $this->cache_id != null) {
+        if (OcConfig::areGeopathsSupported() && $this->cache_id != null) {
             $geoPathsList = [];
             foreach (powerTrailBase::checkForPowerTrailByCache($this->cache_id) as $pt) {
                 $geoPath = new stdClass();

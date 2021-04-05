@@ -178,7 +178,7 @@ class StartPageController extends BaseController
 
     private function processLastCacheSets()
     {
-        $cacheSetsEnabledInConfig = $this->ocConfig->isPowertrailsEnabled();
+        $cacheSetsEnabledInConfig = OcConfig::areGeopathsSupported();
 
         $this->view->setVar('displayLastCacheSets', $cacheSetsEnabledInConfig);
         if (!$cacheSetsEnabledInConfig) {
@@ -252,7 +252,7 @@ class StartPageController extends BaseController
         $totStsArr[] = ['val' => $ts->activeCaches, 'desc' => tr('startPage_readyToSearch'), 'ldesc' => tr('startPage_readyToSearchDesc')];
         $totStsArr[] = ['val' => $ts->topRatedCaches, 'desc' => tr('startPage_topRatedCaches'), 'ldesc' => tr('startPage_topRatedCachesDesc')];
         $totStsArr[] = ['val' => $ts->totalUsers, 'desc' => tr('startPage_totalUsers'), 'ldesc' => tr('startPage_totalUsersDesc')];
-        if ($this->ocConfig->isPowertrailsEnabled()) {
+        if (OcConfig::areGeopathsSupported()) {
             $totStsArr[] = ['val' => $ts->activeCacheSets, 'desc' => tr('startPage_activeCacheSets'), 'ldesc' => tr('startPage_activeCacheSetsDesc')];
         }
         $totStsArr[] = ['val' => $ts->totalSearches, 'desc' => tr('startPage_totalSearches'), 'ldesc' => tr('startPage_totalSearchesDesc')];

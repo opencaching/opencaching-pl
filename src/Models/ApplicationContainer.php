@@ -108,7 +108,6 @@ final class ApplicationContainer
         $GLOBALS['mp3extensions'] = $mp3extensions;
         $GLOBALS['googlemap_key'] = $googlemap_key;
 
-        $GLOBALS['powerTrailModuleSwitchOn'] = $powerTrailModuleSwitchOn;
         $GLOBALS['powerTrailMinimumCacheCount'] = $powerTrailMinimumCacheCount;
         $GLOBALS['powerTrailUserMinimumCacheFoundToSetNewPowerTrail'] = $powerTrailUserMinimumCacheFoundToSetNewPowerTrail;
         $GLOBALS['enable_cache_access_logs'] = $enable_cache_access_logs;

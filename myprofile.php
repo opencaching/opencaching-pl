@@ -278,8 +278,7 @@ tpl_BuildTemplate();
 
 function displayGeoPathSection($type)
 {
-    global $powerTrailModuleSwitchOn;
-    if ($powerTrailModuleSwitchOn === true) {
+    if (OcConfig::areGeopathsSupported()) {
         switch ($type) {
             case 'div':
                 return 'block';
