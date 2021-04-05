@@ -17,8 +17,9 @@ use src\Models\ChunkModels\PaginationModel;
 use src\Models\GeoCache\GeoCache;
 use src\Models\GeoCache\MultiCacheStats;
 use src\Models\OcConfig\OcConfig;
+use src\Utils\Uri\Uri;
 
-class CacheController extends BaseController
+class CacheController extends ViewCacheController
 {
 
     const CACHES_PER_NEW_CACHES_PAGE = 50;
@@ -276,6 +277,48 @@ class CacheController extends BaseController
             ->buildView();
     }
 
+    public function difficultyForm()
+    {
+        $this->view->setSubtitle('Geocache Difficulty Rating System - ');
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/views/cacheEdit/difficultyForm.css'));
+        $this->view->setTemplate('cacheEdit/difficultyForm');
+        $this->view->buildView();
+    }
+
+    public function difficultyFormResults()
+    {
+        $this->view->setSubtitle('Geocache Difficulty Rating System - ');
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/views/cacheEdit/difficultyForm.css'));
+        $this->view->setTemplate('cacheEdit/difficultyFormResult');
+
+        $Equipment = $_POST["Equipment"] ?? null;
+        $Night = $_POST["Night"] ?? null;
+        $Length = $_POST["Length"] ?? null;
+        $Trail = $_POST["Trail"] ?? null;
+        $Overgrowth = $_POST["Overgrowth"] ?? null;
+        $Elevation = $_POST["Elevation"] ?? null;
+        $Difficulty = $_POST["Difficulty"] ?? null;
+
+        $maximum = max($Equipment, $Night, $Length, $Trail, $Overgrowth, $Elevation);
+
+        if ($maximum > 0) {
+            $terrain = $maximum
+            + 0.25 * ($Equipment == $maximum)
+            + 0.25 * ($Night == $maximum)
+            + 0.25 * ($Length == $maximum)
+            + 0.25 * ($Trail == $maximum)
+            + 0.25 * ($Overgrowth == $maximum)
+            + 0.25 * ($Elevation == $maximum) - 0.25 + 1;
+        } else {
+            $terrain = 1;
+        }
+
+        $this->view->setVar('diffResult', $Difficulty);
+        $this->view->setVar('terrainResult', $terrain);
+
+        $this->view->buildView();
+    }
+
     /**
      * @inheritDoc
      */
@@ -283,4 +326,6 @@ class CacheController extends BaseController
     {
         return true;
     }
+
+
 }

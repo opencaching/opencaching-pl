@@ -591,7 +591,7 @@ $(document).ready(function(){
         </tr>
         <tr>
             <td>&nbsp;</td>
-            <td><div class="notice">{{difficulty_problem}} <a href="difficultyForm.php" target="_BLANK">{{rating_system}}</a></div>
+            <td><div class="notice">{{difficulty_problem}} <a href="/Cache/difficultyForm" target="_BLANK">{{rating_system}}</a></div>
             </td>
         </tr>
         <tr class="form-group-sm"><td><p class="content-title-noshade">{{additional_information}} ({{optional}}):</p></td>

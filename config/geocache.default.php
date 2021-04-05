@@ -34,9 +34,10 @@ $geocache['noNewCachesOfTypes'] = [];
 
 /**
  * Titled caches algorythm period;
- * possible values: 'week' | 'month'
+ * possible values: 'none' | 'week' | 'month'
+ * ('none' to disable titled caches)
  */
-$geocache['titledCachePeriod'] = 'week';
+$geocache['titledCachePeriod'] = 'none';
 
 /**
  * Minimum number of founds necessary for titled cache

@@ -5,7 +5,7 @@
 
 <p>{{rating_invitation}}</p>
 
-<form action='' method="post" id="rating-form">
+<form action='/Cache/difficultyFormResults' method="post" id="rating-form">
 
 <fieldset>
   <legend>{{rating_equipment}}</legend>
@@ -120,8 +120,6 @@
   <input type="radio" id="Difficulty5" name="Difficulty" value="5">
   <label for="Difficulty5">{{rating_difficulty4}}</label>
 </fieldset>
-
-<input type="hidden" name="Rating" value="TRUE">
 
 <div class="difficultyForm-buttons">
   <input type="submit" value="{{rating_submit}}" class="btn btn-primary">
