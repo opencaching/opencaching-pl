@@ -15,3 +15,15 @@ $geopathCfg = [];
  */
 $geopathCfg['geopathsSupported'] = true;
 
+/**
+ * Minimum caches necesary fo publish geocache
+ * former: $powerTrailMinimumCacheCount
+ */
+$geopathCfg['minCachesCount'] = 5;
+
+/**
+ * Owner of the geopath should has at least this number of founds
+ * former: $powerTrailUserMinimumCacheFoundToSetNewPowerTrail
+ */
+$geopathCfg['geopathOwnerMinFounds'] = 100;
+

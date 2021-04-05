@@ -107,7 +107,7 @@ if ($cache_id != 0) {
 if ($cache_id != 0) {
 
     // detailed cache access logging
-    if (@$enable_cache_access_logs) {
+    if (OcConfig::isSiteCacheAccessLogEnabled()) {
         if (!isset($dbc)) {
             $dbc = OcDb::instance();
         }

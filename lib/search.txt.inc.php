@@ -12,6 +12,7 @@ use src\Models\GeoCache\GeoCacheCommons;
 use src\Models\GeoCache\CacheNote;
 use src\Models\Coordinates\Coordinates;
 use src\Models\ApplicationContainer;
+use src\Models\OcConfig\OcConfig;
 
 global $content, $bUseZip, $hide_coords, $dbcSearch;
 
@@ -170,7 +171,7 @@ if( $loggedUser || !$hide_coords ) {
     $stmt = XDb::xSql('SELECT `txtcontent`.`cache_id` `cacheid`, `txtcontent`.`longitude` `longitude`, `txtcontent`.`latitude` `latitude`, `txtcontent`.cache_mod_cords_id, `caches`.`wp_oc` `waypoint`, `caches`.`date_hidden` `date_hidden`, `caches`.`name` `name`, `caches`.`country` `country`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `caches`.`desc_languages` `desc_languages`, `caches`.`size` `size`, `caches`.`type` `type_id`, `caches`.`status` `status`, `user`.`username` `username`, `cache_desc`.`desc` `desc`, `cache_desc`.`short_desc` `short_desc`, `cache_desc`.`hint` `hint`, `cache_desc`.`desc_html` `html`, `cache_desc`.`rr_comment`, `caches`.`logpw` FROM `txtcontent`, `caches`, `user`, `cache_desc` WHERE `txtcontent`.`cache_id`=`caches`.`cache_id` AND `caches`.`cache_id`=`cache_desc`.`cache_id` AND `caches`.`default_desclang`=`cache_desc`.`language` AND `txtcontent`.`user_id`=`user`.`user_id`');
 
     while($r = XDb::xFetchArray($stmt) ) {
-        if (@$enable_cache_access_logs) {
+        if (OcConfig::isSiteCacheAccessLogEnabled()) {
 
             $dbc = OcDb::instance();
 

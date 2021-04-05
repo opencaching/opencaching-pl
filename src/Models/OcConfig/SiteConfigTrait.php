@@ -60,6 +60,14 @@ trait SiteConfigTrait
     }
 
     /**
+     * Returns TRUE is cacheAccessLog is enabled for site
+     */
+    public static function isSiteCacheAccessLogEnabled(): bool
+    {
+        return self::getKeyFromSiteConfig('cacheAccessLogEnabled');
+    }
+
+    /**
      * Returns icon's path relative to the public directory.
      */
     public static function getSiteMainViewIcon(string $iconName): string

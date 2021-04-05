@@ -427,7 +427,7 @@ $gpxAttribID[999] = '999';        $gpxAttribName[999] = 'Log password';
         AND `gpxcontent`.`user_id`=`user`.`user_id`');
 
     while ($r = XDb::xFetchArray($stmt)) {
-        if (@$enable_cache_access_logs) {
+        if (OcConfig::isSiteCacheAccessLogEnabled()) {
 
             $dbc = OcDb::instance();
 

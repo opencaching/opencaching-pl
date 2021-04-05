@@ -9,22 +9,14 @@ use src\Utils\Database\OcDb;
 
 class PowerTrailController
 {
-
     const MINIMUM_PERCENT_REQUIRED = 67;
 
-    private $config;
     private $serverUrl;
 
     public function __construct()
     {
         include __DIR__ . '/../../lib/settingsGlue.inc.php';
-        $this->config = $powerTrailMinimumCacheCount;
         $this->serverUrl = $absolute_server_URI;
-
-        foreach ($this->config['old'] as &$date) {
-            $date['dateFrom'] = strtotime($date['dateFrom']);
-            $date['dateTo'] = strtotime($date['dateTo']);
-        }
     }
 
     public static function getEntryTypes(){
@@ -88,19 +80,6 @@ class PowerTrailController
      */
     public function cleanPowerTrailsCronjob()
     {
-        /* disabled until full automated geopaths-calening machine works finished
-        $getPtQuery = 'SELECT * FROM `PowerTrail` WHERE `status` =1';
-        $db = OcDb::instance();
-        $s = $db->simpleQuery($getPtQuery);
-        $ptToClean = $db->dbResultFetchAll($s);
-        foreach ($ptToClean as $dbRow) {
-            $powerTrail = new PowerTrail(array('dbRow' => $dbRow));
-            $powerTrail->setPowerTrailConfiguration($this->config)->checkCacheCount();
-            if (!$powerTrail->disableUncompletablePt($this->serverUrl)) {
-                $powerTrail->disablePowerTrailBecauseCacheCountTooLow();
-            }
-        }
-        */
         $this->archiveAbandonPowerTrails();
         $this->freeCacheCandidates();
     }

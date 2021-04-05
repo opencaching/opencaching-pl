@@ -43,7 +43,6 @@ final class OcConfig extends ConfigReader
     private $shortSiteName;
     private $needFindLimit;
     private $needApproveLimit;
-    private $enableCacheAccessLogs;
     private $minimumAge;
     private $meritBadgesEnabled;
 
@@ -148,7 +147,6 @@ final class OcConfig extends ConfigReader
         $this->shortSiteName = $short_sitename;
         $this->needApproveLimit = $NEED_APPROVE_LIMIT;
         $this->needFindLimit = $NEED_FIND_LIMIT;
-        $this->enableCacheAccessLogs = $enable_cache_access_logs;
         $this->minimumAge = $config['limits']['minimum_age'];
         $this->meritBadgesEnabled = $config['meritBadges'];
 
@@ -218,16 +216,6 @@ final class OcConfig extends ConfigReader
     public function getDynamicFilesPath()
     {
         return $this->dynamicFilesPath;
-    }
-
-    public function isPowerTrailModuleSwitchOn()
-    {
-        return $this->powerTrailModuleSwitchOn;
-    }
-
-    public function isCacheAccessLogEnabled()
-    {
-        return $this->enableCacheAccessLogs;
     }
 
     public function getMinumumAge(): int

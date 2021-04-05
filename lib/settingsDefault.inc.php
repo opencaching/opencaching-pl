@@ -8,8 +8,6 @@ require_once __DIR__ . '/ClassPathDictionary.php'; // class autoloader
 
 use src\Models\GeoCache\GeoCacheCommons;
 
-// enable detailed cache access logging
-$enable_cache_access_logs = false;
 
 $config = array(
     /**

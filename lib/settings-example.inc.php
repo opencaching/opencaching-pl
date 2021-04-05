@@ -119,38 +119,6 @@ $googlemap_key = "";
 // DO NOT use it - used only OCRO translations now - used wiki links in /config/links*
 $cache_params_url = 'http://wiki.opencaching.pl/index.php/Parametry_skrzynki';
 
-/* power Trail module switch and settings */
-
-// minimum cache count for power trail to be public displayed
-// (PT having less than $powerTrailMinimumCacheCount ) are visible only to owners.
-$powerTrailMinimumCacheCount = array(
-    'current' => 25,
-    'old' => array(
-        1 => array(
-            'dateFrom' => '1970-01-01 01:00',
-            'dateTo' => '2013-10-29 23:59:59',
-            'limit' => 5,
-        ),
-// if limit change in future, just uncomment and place here current limit and period of time
-//              2 => array (
-//                  'dateFrom' => '2013-10-30 00:00:00',
-//                  'dateTo' => '20??-??-?? 23:59:59',
-//                  'limit' => 25,
-//              ),
-    ),
-);
-
-
-// minimum cahes Found count of user, to alow user set new Power Trail
-// user who found less than $powerTrailUserMinimumCacheFoundToSetNewPowerTrail can't create new PT
-$powerTrailUserMinimumCacheFoundToSetNewPowerTrail = 500;
-
-/* end of power Trail module switch and settings */
-
-// enable detailed cache access logging
-//$enable_cache_access_logs = true;
-
-
 //Short sitename for international use.
 $short_sitename = 'OC PL';
 

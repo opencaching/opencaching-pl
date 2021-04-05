@@ -3,6 +3,7 @@ use src\Utils\Database\XDb;
 use src\Utils\Database\OcDb;
 use src\Models\GeoCache\GeoCacheCommons;
 use src\Utils\I18n\I18n;
+use src\Models\OcConfig\OcConfig;
 
 require_once("./lib/common.inc.php");
 
@@ -24,9 +25,7 @@ if (isSet($_GET['wp']) && !empty($_GET['wp']) && $_GET['wp'] != "OP") {
     else {
 
         // detailed cache access logging
-        global $enable_cache_access_logs;
-        if (@$enable_cache_access_logs) {
-
+        if (OcConfig::isSiteCacheAccessLogEnabled()) {
             $dbc = OcDb::instance();
 
             $cache_id = $caches['cache_id'];

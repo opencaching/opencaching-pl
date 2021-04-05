@@ -38,3 +38,8 @@ $site['primaryCountries'] = ['PL'];
  * Use only two-letters codes UPPERCASE.
  */
 $site['defaultCountriesList'] = ['PL', 'BY', 'CZ', 'DE', 'DK', 'LT', 'NL', 'RO', 'SE', 'SK', 'GB', 'UA', 'HU'];
+
+/**
+ * Save all accesses to geocaches in DB for debug/security purpose
+ */
+$site['cacheAccessLogEnabled'] = true;

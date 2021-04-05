@@ -140,11 +140,11 @@ $result = $pt->run();
 $actionPerformed = $pt->getActionPerformed();
 switch ($actionPerformed) {
     case 'createNewSerie':
-        if ($loggedUser->getFoundGeocachesCount() >= powerTrailBase::userMinimumCacheFoundToSetNewPowerTrail()) {
+        if ($loggedUser->getFoundGeocachesCount() >= OcConfig::geopathOwnerMinFounds()) {
             tpl_set_var('displayCreateNewPowerTrailForm', 'block');
         } else {
             tpl_set_var('displayToLowUserFound', 'block');
-            tpl_set_var('CFrequirment', powerTrailBase::userMinimumCacheFoundToSetNewPowerTrail());
+            tpl_set_var('CFrequirment', OcConfig::geopathOwnerMinFounds());
         }
         break;
     case 'selectCaches':

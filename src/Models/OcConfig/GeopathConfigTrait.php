@@ -19,10 +19,26 @@ trait GeopathConfigTrait
         return self::getKeyFromGeopathConfig('geopathsSupported');
     }
 
+    /**
+     * Returns min. caches to create geopath
+     */
+    public static function geopathMinCacheCount(): int
+    {
+        return self::getKeyFromGeopathConfig('minCachesCount');
+    }
+
+    /**
+     * Returns min. founds to be geopath owner
+     */
+    public static function geopathOwnerMinFounds(): int
+    {
+        return self::getKeyFromGeopathConfig('geopathOwnerMinFounds');
+    }
+
     protected function getGeopathConfig(): array
     {
         if (! $this->geopathConfig) {
-            $this->geopathConfig = self::getConfig('geopath', '$geopathCfg');
+            $this->geopathConfig = self::getConfig('geopath', 'geopathCfg');
         }
 
         return $this->geopathConfig;
@@ -31,7 +47,7 @@ trait GeopathConfigTrait
     /**
      * @return mixed
      */
-    private static function getKeyFromGeoCacheConfig(string $key)
+    private static function getKeyFromGeopathConfig(string $key)
     {
         $geopathConfig = self::instance()->getGeopathConfig();
 

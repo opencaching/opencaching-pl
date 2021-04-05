@@ -174,7 +174,7 @@ $stmt = XDb::xSql(
 
 while ( $r = XDb::xFetchArray($stmt) ) {
 
-    if (@$enable_cache_access_logs) {
+    if (OcConfig::isSiteCacheAccessLogEnabled()) {
         // add ACCESS_LOG record
         $dbc = OcDb::instance();
         $cache_id = $r['cacheid'];
