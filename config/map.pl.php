@@ -52,7 +52,7 @@ $map['jsConfig'] = "
 
     Orto: new ol.layer.Tile({
         source: new ol.source.TileWMS({
-            url: 'http://mapy.geoportal.gov.pl:80/wss/service/img/guest/ORTO/MapServer/WmsServer',
+            url: 'https://mapy.geoportal.gov.pl/wss/service/PZGIK/ORTO/WMS/StandardResolution',
             attributions: \"&copy; <a href='http://geoportal.gov.pl/' target='_blank'>geoportal.gov.pl</a>\",
             params: {
                 VERSION: '1.1.1',
