@@ -19,10 +19,6 @@ $config['cookie']['name'] = 'oc';
 $config['cookie']['path'] = '/';
 $config['cookie']['domain'] = '.localhost';
 
-// Coordinates hidden for not-logged-ins?
-global $hide_coords;
-$hide_coords = false;
-
 // display online users in page footer
 $config['mainLayout']['displayOnlineUsers'] = true;
 

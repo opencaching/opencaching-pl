@@ -14,7 +14,7 @@ use src\Models\Coordinates\Coordinates;
 use src\Models\ApplicationContainer;
 use src\Models\OcConfig\OcConfig;
 
-global $content, $bUseZip, $hide_coords, $dbcSearch;
+global $content, $bUseZip, $dbcSearch;
 
 set_time_limit(1800);
 
@@ -60,7 +60,7 @@ N|O|P|Q|R|S|T|U|V|W|X|Y|Z
 {{text}}
 ";
 
-if( $loggedUser || !$hide_coords ) {
+if( $loggedUser || !OcConfig::coordsHiddenForNonLogged()) {
     //prepare the output
     $caches_per_page = 20;
 

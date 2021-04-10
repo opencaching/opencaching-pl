@@ -43,6 +43,14 @@ trait GeocacheConfigTrait
         return self::getKeyFromGeoCacheConfig('titledCacheMinFounds');
     }
 
+    /**
+     * Hide coordinates for non-logged users
+     */
+    public static function coordsHiddenForNonLogged(): bool
+    {
+        return self::getKeyFromGeoCacheConfig('coordsHiddenForNonLogged');
+    }
+
     protected function getGeoCacheConfig(): array
     {
         if (! $this->geocacheConfig) {

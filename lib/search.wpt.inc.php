@@ -8,8 +8,9 @@ ob_start();
 use src\Utils\Database\XDb;
 use src\Utils\I18n\I18n;
 use src\Models\ApplicationContainer;
+use src\Models\OcConfig\OcConfig;
 
-global $content, $bUseZip, $hide_coords, $dbcSearch;
+global $content, $bUseZip, $dbcSearch;
 
 set_time_limit(1800);
 
@@ -37,7 +38,7 @@ $wptType[8] = 'Moving Cache';
 $wptType[9] = 'Podcast';
 $wptType[10] = 'Own Cache';
 
-if( $loggedUser || !$hide_coords ) {
+if( $loggedUser || !OcConfig::coordsHiddenForNonLogged()) {
     //prepare the output
     $caches_per_page = 20;
 

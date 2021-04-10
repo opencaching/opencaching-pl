@@ -16,3 +16,8 @@ $geocache['enabledSizes'][] = GeoCacheCommons::SIZE_OTHER;
  * that such geocaches are still in DB, but no NEW caches of this can be created).
  */
 $geocache['noNewCachesOfTypes'][] = GeoCacheCommons::TYPE_GEOPATHFINAL;
+
+/**
+ * Hide coordinates for non-logged users
+ */
+$geocache['coordsHiddenForNonLogged'] = false;

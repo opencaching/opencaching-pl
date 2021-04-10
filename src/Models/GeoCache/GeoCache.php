@@ -1295,10 +1295,7 @@ class GeoCache extends GeoCacheCommons
 
     public function incCacheVisits(User $user=null, $ip)
     {
-
-        global $hide_coords; //hide-coords-for-unauthorized-users
-
-        if (!$user && $hide_coords) {
+        if (!$user && OcConfig::coordsHiddenForNonLogged()) {
             // don't count visits if coords are hidden
             return;
         }

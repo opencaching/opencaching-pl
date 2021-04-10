@@ -55,7 +55,7 @@ if (isset($_REQUEST['count'])) {
     }
 }
 
-if (!$loggedUser && $hide_coords) {
+if (!$loggedUser && OcConfig::coordsHiddenForNonLogged()) {
     $disable_spoiler_view = true; //hide any kind of spoiler if usr not logged in
 } else {
     $disable_spoiler_view = false;

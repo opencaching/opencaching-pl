@@ -11,7 +11,7 @@ use src\Models\OcConfig\OcConfig;
 use src\Models\ApplicationContainer;
 use src\Utils\Gis\Gis;
 
-global $hide_coords, $dbcSearch, $queryFilter;
+global $dbcSearch, $queryFilter;
 
 require_once(__DIR__.'/format.gpx.inc.php');
 require_once(__DIR__.'/calculation.inc.php');
@@ -20,7 +20,7 @@ set_time_limit(1800);
 
 $user = ApplicationContainer::GetAuthorizedUser();
 
-if (!$user && $hide_coords) {
+if (!$user && OcConfig::coordsHiddenForNonLogged()) {
   // user not logged + coords hidden for not logged
   exit;
 }

@@ -18,7 +18,7 @@ if (!(isset($_SESSION['logout_cookie']))) {
 }
 
 $show_coords = false;
-if (!$hide_coords || (isset($_SESSION['user_id']) && $_SESSION['user_id'] > 0)) {
+if (!OcConfig::coordsHiddenForNonLogged() || (isset($_SESSION['user_id']) && $_SESSION['user_id'] > 0)) {
     $show_coords = true;
 }
 $tpl->assign('show_coords', $show_coords);

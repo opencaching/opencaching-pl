@@ -65,7 +65,7 @@ $view->loadTimepicker();
 $view->addHeaderChunk('openLayers5');
 
 
-if (!$loggedUser && $hide_coords) {
+if (!$loggedUser && OcConfig::coordsHiddenForNonLogged()) {
     $mapControls = 0;
     tpl_set_var('gpxOptionsTrDisplay', 'none');
 } else {
@@ -248,7 +248,7 @@ switch ($actionPerformed) {
         $ptOwners = $pt->getPtOwners();
         $_SESSION['ptName'] = powerTrailBase::clearPtNames($powerTrail->getName());
         tpl_set_var('powerTrailId', $powerTrail->getId());
-        if (!$loggedUser && $hide_coords) {
+        if (!$loggedUser && OcConfig::coordsHiddenForNonLogged()) {
             tpl_set_var('mapOuterdiv', 'none');
         } else {
             tpl_set_var('mapOuterdiv', 'block');
@@ -333,7 +333,7 @@ switch ($actionPerformed) {
             tpl_set_var('mapCenterLat', $powerTrail->getCenterCoordinates()->getLatitude());
             tpl_set_var('mapCenterLon', $powerTrail->getCenterCoordinates()->getLongitude());
 
-            if ($loggedUser || !$hide_coords) {
+            if ($loggedUser || !OcConfig::coordsHiddenForNonLogged()) {
                 $mapModel->addMarkersWithExtractor(CacheMarkerModel::class, $powerTrail->getGeocaches()->getArrayCopy(), function ($geocache) use ($loggedUser) {
 
                     return CacheMarkerModel::fromGeocacheFactory($geocache, $loggedUser);

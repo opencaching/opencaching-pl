@@ -2,6 +2,7 @@
 
 use src\Models\ApplicationContainer;
 use src\Utils\View\View;
+use src\Models\OcConfig\OcConfig;
 
 //prepare the templates and include all neccessary
 function convert($str)
@@ -87,8 +88,7 @@ if (isset($config['garmin-key'])){
 }
 tpl_set_var('garminKeyStr', $garminKeyStr);
 
-global $hide_coords;
-if (!ApplicationContainer::GetAuthorizedUser() && $hide_coords) {
+if (!ApplicationContainer::GetAuthorizedUser() && OcConfig::coordsHiddenForNonLogged()) {
     tpl_errorMsg($tplname, tr('login_message_09'));
     exit;
 }

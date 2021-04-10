@@ -7,7 +7,7 @@ use src\Utils\Database\OcDb;
 use src\Models\OcConfig\OcConfig;
 use src\Models\ApplicationContainer;
 
-global $content, $bUseZip, $hide_coords, $dbcSearch;
+global $content, $bUseZip, $dbcSearch;
 
 require_once (__DIR__.'/../lib/common.inc.php');
 require_once (__DIR__.'/../lib/calculation.inc.php');
@@ -16,7 +16,7 @@ set_time_limit(1800);
 
 $loggedUser = ApplicationContainer::GetAuthorizedUser();
 
-if (!$loggedUser && $hide_coords)
+if (!$loggedUser && OcConfig::coordsHiddenForNonLogged())
     die();
 
 $dbc = OcDb::instance();

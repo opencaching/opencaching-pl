@@ -13,7 +13,7 @@ use src\Utils\I18n\I18n;
 use src\Models\OcConfig\OcConfig;
 use src\Models\ApplicationContainer;
 
-global $content, $bUseZip, $hide_coords, $dbcSearch, $queryFilter;
+global $content, $bUseZip, $dbcSearch, $queryFilter;
 require_once (__DIR__.'/common.inc.php');
 require_once (__DIR__.'/calculation.inc.php');
 set_time_limit(1800);
@@ -183,7 +183,7 @@ $gpxLogType[10] = 'Enable Listing'; // OC: Note
 $gpxLogType[11] = 'Temporarily Disable Listing'; // OC: Note
 $gpxLogType[12] = 'Post Reviewer Note'; // OC: Note
 
-if ($loggedUser || ! $hide_coords) {
+if ($loggedUser || ! OcConfig::coordsHiddenForNonLogged()) {
     /* ***********************************************************************
       Attributes
 

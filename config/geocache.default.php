@@ -44,3 +44,8 @@ $geocache['titledCachePeriod'] = 'none';
  */
 $geocache['titledCacheMinFounds'] = 10;
 
+/**
+ * Hide coordinates for non-logged users
+ */
+$geocache['coordsHiddenForNonLogged'] = true;
+

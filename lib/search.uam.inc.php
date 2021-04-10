@@ -8,12 +8,13 @@ ob_start();
 
 use src\Utils\Database\XDb;
 use src\Models\ApplicationContainer;
+use src\Models\OcConfig\OcConfig;
 
 set_time_limit(1800);
 
 require_once (__DIR__.'/../lib/calculation.inc.php');
 
-global $content, $bUseZip, $hide_coords, $dbcSearch;
+global $content, $bUseZip, $dbcSearch;
 
 $loggedUser = ApplicationContainer::GetAuthorizedUser();
 
@@ -40,7 +41,7 @@ $uamType[8] = 'M'; // 'Moving'
 $uamType[9] = 'P'; // 'Podcast'
 $uamType[10] = 'U'; // 'Own/user's cache'
 
-if ($loggedUser || ! $hide_coords) {
+if ($loggedUser || ! OcConfig::coordsHiddenForNonLogged()) {
     // prepare the output
     $caches_per_page = 20;
 

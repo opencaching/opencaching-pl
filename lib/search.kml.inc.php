@@ -10,7 +10,7 @@ use src\Models\GeoCache\GeoCacheCommons;
 use src\Utils\I18n\I18n;
 use src\Models\ApplicationContainer;
 
-global $absolute_server_URI, $bUseZip, $hide_coords, $dbcSearch, $queryFilter;
+global $absolute_server_URI, $bUseZip, $dbcSearch, $queryFilter;
 require_once (__DIR__.'/format.kml.inc.php');
 require_once (__DIR__.'/calculation.inc.php');
 
@@ -18,7 +18,7 @@ set_time_limit(1800);
 
 $loggedUser = ApplicationContainer::GetAuthorizedUser();
 
-if ($loggedUser || ! $hide_coords) {
+if ($loggedUser || ! OcConfig::coordsHiddenForNonLogged()) {
     // prepare the output
     $caches_per_page = 20;
 
