@@ -29,7 +29,7 @@ if (!$loggedUser) {
     require(__DIR__.'/src/Views/newlogs.inc.php');
 
     $user_record['username'] = XDb::xMultiVariableQueryValue(
-        "SELECT  username FROM user WHERE user_id= :1 LIMIT 1", '-noname-', $loggedUser->getUserId());
+        "SELECT  username FROM user WHERE user_id= :1 LIMIT 1", '-noname-', $user_id);
 
     tpl_set_var('username', htmlspecialchars($user_record['username']));
 
