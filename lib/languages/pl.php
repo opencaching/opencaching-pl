@@ -3103,6 +3103,6 @@ $translations = array(
     'vote_elListThName' => 'Nazwa wyborów',
     'vote_elListThDesc' => 'Opis',
     'vote_elListThStart' => 'Rozpoczęcie wyborów',
-    'vote_elListThEnd' => 'End of election',
+    'vote_elListThEnd' => 'Zakończenie wyborów',
 //  '' => '',
 );
