@@ -27,13 +27,6 @@ $NEED_FIND_LIMIT = 10;
 
 $NEED_APPROVE_LIMIT = 3;
 
-//Debug?
-if (!isset($debug_page))
-    $debug_page = false;
-if (!isset($debug))
-    $debug = false;
-
-
 //if you are running this site on a other domain than staging.opencaching.de, you can set
 //this in private_db.inc.php, but don't forget the ending /
 $absolute_server_URI = '//localhost/';

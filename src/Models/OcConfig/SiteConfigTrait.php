@@ -73,6 +73,14 @@ trait SiteConfigTrait
     }
 
     /**
+     * Enable debug mode (USE ONLY IN DEV/TEST ENV!)
+     */
+    public static function debugModeEnabled(): bool
+    {
+        return self::getKeyFromSiteConfig('debugModeEnabled');
+    }
+
+    /**
      * Returns icon's path relative to the public directory.
      */
     public static function getSiteMainViewIcon(string $iconName): string

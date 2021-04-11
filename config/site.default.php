@@ -70,3 +70,8 @@ $site['mainViewIcons'] = [
  * Save all accesses to geocaches in DB for debug/security purpose
  */
 $site['cacheAccessLogEnabled'] = false;
+
+/**
+ * Enable debug mode (USE ONLY IN DEV/TEST ENV!)
+ */
+$site['debugModeEnabled'] = false;

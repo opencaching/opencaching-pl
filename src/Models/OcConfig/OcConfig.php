@@ -31,7 +31,6 @@ final class OcConfig extends ConfigReader
     // old-style values - values from new-style config should be accessed through
     // $config[''] etc...
 
-    private $debugMode = false;
     private $dbDatetimeFormat = 'Y-m-d H:i:s';
     private $datetimeFormat = 'Y-m-d H:i';
     private $absolute_server_URI = null;
@@ -132,11 +131,8 @@ final class OcConfig extends ConfigReader
 
     private function loadConfig()
     {
-        global $debug_page;
-
         require self::LEGACY_LOCAL_CONFIG;
 
-        $this->debugMode = $debug_page;
         $this->datetimeFormat = $datetimeFormat;
         $this->absolute_server_URI = $absolute_server_URI;
         $this->dynamicFilesPath = $dynbasepath;
@@ -167,11 +163,6 @@ final class OcConfig extends ConfigReader
         if (is_array($config['logfilter'] ?? null)) {
             $this->logfilterConfig = $config['logfilter'];
         }
-    }
-
-    public function inDebugMode()
-    {
-        return $this->debugMode;
     }
 
     public function getDateFormat()

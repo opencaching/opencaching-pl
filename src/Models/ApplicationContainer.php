@@ -99,7 +99,6 @@ final class ApplicationContainer
 
         $GLOBALS['config'] = $config;
         // $GLOBALS['oc_waypoint'] = $oc_waypoint;
-        $GLOBALS['debug_page'] = $debug_page;
         $GLOBALS['absolute_server_URI'] = $absolute_server_URI;
         $GLOBALS['mp3dir'] = $mp3dir;
         $GLOBALS['mp3url'] = $mp3url;

@@ -44,7 +44,7 @@ function get_okapi_settings()
             array('techNotify@opencaching.pl','rygielski@mimuw.edu.pl')),
 
         'FROM_FIELD' => OcConfig::getEmailAddrNoReply(),
-        'DEBUG' => $debug_page,
+        'DEBUG' => OcConfig::debugModeEnabled(),
         'DB_SERVER' => OcConfig::instance()->getDbHost(), //$dbserver,
         'DB_NAME' => OcConfig::instance()->getDbName(),   //$dbname,
         'DB_USERNAME' => OcConfig::instance()->getDbUser(), //$dbusername,
