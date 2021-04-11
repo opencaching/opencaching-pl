@@ -512,6 +512,11 @@ $translations = array(
     'admin_user_restrictions' => 'Restrictions',
     'admin_user_addnote' => 'Note de l’équipe OC',
     'admin_user_noteok' => 'Note de l’équipe OC correctement ajouté',
+    'admin_user_rmUser' => 'Remove user account',
+    'admin_user_rmUserCancel' => 'Cancel',
+    'admin_user_rmUserConfirmed' => 'I confirm I want to remove this account',
+    'admin_user_confirmationTxt' => 'Are you sure you want to irrevocably remove this user account.',
+    'admin_user_confirmationEmail' => 'Be sure user request was send from address: %s',
 
     'titles' => 'Sujet',
     'content' => 'Message',

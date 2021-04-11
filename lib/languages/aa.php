@@ -512,6 +512,11 @@ $translations = array(
     'admin_user_restrictions' => 'crwdns6108:0crwdne6108:0',
     'admin_user_addnote' => 'crwdns6109:0crwdne6109:0',
     'admin_user_noteok' => 'crwdns6110:0crwdne6110:0',
+    'admin_user_rmUser' => 'crwdns27348:0crwdne27348:0',
+    'admin_user_rmUserCancel' => 'crwdns27350:0crwdne27350:0',
+    'admin_user_rmUserConfirmed' => 'crwdns27352:0crwdne27352:0',
+    'admin_user_confirmationTxt' => 'crwdns27354:0crwdne27354:0',
+    'admin_user_confirmationEmail' => 'crwdns27356:0%scrwdne27356:0',
 
     'titles' => 'crwdns6111:0crwdne6111:0',
     'content' => 'crwdns6112:0crwdne6112:0',
