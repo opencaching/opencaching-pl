@@ -3,6 +3,7 @@ namespace src\Models\GeoCache;
 
 use src\Models\BaseObject;
 use src\Models\Coordinates\Coordinates;
+use src\Models\User\User;
 
 class UserCacheCoords extends BaseObject
 {
@@ -61,4 +62,13 @@ class UserCacheCoords extends BaseObject
         return $db->dbResultFetchAll($rs);
     }
 
+    /**
+     * Remove all saved ccordinates associated with given user account
+     * @param User $user
+     */
+    public static function removeAllCoordsForUser(User $user): void
+    {
+        self::db()->multiVariableQuery(
+            "DELETE FROM cache_mod_cords WHERE user_id = :1", $user->getUserId());
+    }
 }

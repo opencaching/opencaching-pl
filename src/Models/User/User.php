@@ -9,6 +9,9 @@ use src\Models\Coordinates\Coordinates;
 use src\Models\GeoCache\GeoCache;
 use src\Models\OcConfig\OcConfig;
 use src\Utils\Debug\Debug;
+use src\Utils\Text\Formatter;
+use src\Utils\DateTime\OcDateTime;
+use src\Models\Admin\AdminNote;
 
 /**
  * Description of user
@@ -180,7 +183,7 @@ class User extends UserCommons
      * @param string $fields - comma separated list of columns to get from DB
      * @return User object or null on error
      */
-    public static function fromUserIdFactory($userId, $fields = null)
+    public static function fromUserIdFactory($userId, $fields = null): ?User
     {
         $u = new self();
         $u->userId = $userId;
@@ -355,7 +358,7 @@ class User extends UserCommons
                     }
                     break;
                 case 'is_active_flag':
-                    $this->isActive = boolval($value);
+                    $this->isActive = $value == User::STATUS_ACTIVE;
                     break;
                 case 'watchmail_mode':
                     $this->watchmailMode = (int) $value;
@@ -866,21 +869,20 @@ class User extends UserCommons
      * @param boolean $rulesConfirmed
      * @return boolean
      */
-    public static function addUser($username, $password, $email, $rulesConfirmed = true)
+    public static function addUser($username, $password, $email, $rulesConfirmed = true): bool
     {
-        $config = OcConfig::instance();
-
         return (null !== self::db()->multiVariableQuery('
             INSERT INTO `user`
                 (`username`, `password`, `email`, `role`, `last_modified`,
-                `is_active_flag`, `date_created`, `uuid`, `activation_code`,
-                `node`, `rules_confirmed`, `statpic_text`)
+                `is_active_flag`, `date_created`, `uuid`, `activation_code`, `node`,
+                 `rules_confirmed`, `statpic_text`)
             VALUES
-                (:1, :2, :3, \'\', NOW(), 0 , NOW(), :4, :5, :6, :7, :8)
-            ', $username, hash('sha512', md5($password)),
-            $email, Uuid::create(), TextGen::randomText(13),
-            OcConfig::getSiteNodeId(), boolval($rulesConfirmed),
-            $config->getUserConfig()['defaultStatpicText']));
+                (:1, :2, :3, \'\', NOW(),
+                  0 , NOW(), :4, :5, :6,
+                 :7, :8)',
+            $username, hash('sha512', md5($password)), $email,
+            Uuid::create(), TextGen::randomText(13), OcConfig::getSiteNodeId(),
+            boolval($rulesConfirmed), OcConfig::getUserDefaultStatPicText()));
     }
 
     /**
@@ -1016,4 +1018,44 @@ class User extends UserCommons
     {
         self::deleteStatpic($this->getUserId());
     }
+
+    /**
+     * Returns TRUE if this account is perm. locked (account is marked as removed)
+     *
+     * @return bool
+     */
+    public function isAlreadyRemoved(): bool
+    {
+        return boolval($this->db->multiVariableQueryValue(
+            "SELECT 1 FROM user WHERE user_id = :1 AND is_active_flag = :2 LIMIT 1",
+            false, $this->getUserId(), self::STATUS_REMOVED));
+    }
+
+    /**
+     * Mark this account as removed
+     */
+    public function removeAccount(User $loggedUser): void
+    {
+        $dateStr = Formatter::dateTime(OcDateTime::now());
+        $removerLog = sprintf("%s:%d", $loggedUser->getUserName(), $loggedUser->getUserId());
+        $prefix = OcConfig::getUserRmAccountPrefix();
+        $newUsername = sprintf("%s_id:%s", $prefix, $this->getUserId());
+        $newEmail = sprintf("%s, %s, %s", $prefix, $removerLog, $dateStr);
+        $newDescription = sprintf("%s (%s)", OcConfig::getUserRmAccountDesc(), $dateStr);
+
+        // first remove user account
+        $this->db->multiVariableQuery(
+            'UPDATE user SET
+                is_active_flag = :1, username = :2, email = NULL, password = :3,
+                latitude = NULL, longitude = NULL, description = :4, last_modified = NOW()
+            WHERE user_id = :5 LIMIT 1',
+            self::STATUS_REMOVED, $newUsername, $newEmail, $newDescription, $this->getUserId());
+
+        AdminNote::addAdminNote($loggedUser->getUserId(), $this->userId, FALSE, $newEmail);
+
+        // and remove all specific data associated with this user account
+        UserAdmin::removeUserSpecificSettings($this);
+    }
 }
+
+

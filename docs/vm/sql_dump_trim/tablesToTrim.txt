@@ -60,6 +60,10 @@ user_finds
 user_nick_history
 user_preferences
 user_settings
+vote_choiceOptions
+vote_elections
+vote_voters
+vote_votes
 watches_notified
 watches_waiting
 watches_waitingtypes

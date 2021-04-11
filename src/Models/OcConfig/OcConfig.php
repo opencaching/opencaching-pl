@@ -12,6 +12,7 @@ final class OcConfig extends ConfigReader
     use PicturesConfigTrait;
     use PrimaAprilisTrait;
     use SiteConfigTrait;
+    use UserConfigTrait;
 
     /*
         const OCNODE_GERMANY    = 1;  // Opencaching Germany http://www.opencaching.de OC
@@ -80,13 +81,6 @@ final class OcConfig extends ConfigReader
      * @var array
      */
     private $newsConfig;
-
-    /**
-     * User configuration from /config/user.* files.
-     *
-     * @var array
-     */
-    private $userConfig;
 
     /**
      * Guides configuration from /config/guides.* files.
@@ -334,18 +328,6 @@ final class OcConfig extends ConfigReader
         }
 
         return $this->logfilterConfig;
-    }
-
-    /**
-     * @see /config/user.default.php
-     */
-    public function getUserConfig()
-    {
-        if (! $this->userConfig) {
-            $this->userConfig = self::getConfig('user', 'user');
-        }
-
-        return $this->userConfig;
     }
 
     /**

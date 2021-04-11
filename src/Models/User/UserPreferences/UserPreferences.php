@@ -3,6 +3,7 @@
 namespace src\Models\User\UserPreferences;
 
 use src\Models\BaseObject;
+use src\Models\User\User;
 use src\Utils\Debug\Debug;
 
 /**
@@ -13,7 +14,6 @@ use src\Utils\Debug\Debug;
  * If there is no previus setting for some key defaults values are returned.
  *
  * UserPreferences data is stored in DB table user_preferences.
- *
  */
 class UserPreferences extends BaseObject
 {
@@ -132,6 +132,16 @@ class UserPreferences extends BaseObject
         }
     }
 
+    /**
+     * Remove all preferences associated with user account
+     * @param User $user
+     */
+    public static function removeAllUserPreferences(User $user): void
+    {
+        self::db()->multiVariableQuery(
+            "DELETE FROM user_preferences WHERE user_id = :1", $user->getUserId());
+    }
+
     public function __construct(){
         parent::__construct();
     }
@@ -142,7 +152,7 @@ class UserPreferences extends BaseObject
             return;
         }
 
-        /** @var User */
+        /** @var User $user*/
         $user = self::getCurrentUser();
         if(is_null($user)){
             return;

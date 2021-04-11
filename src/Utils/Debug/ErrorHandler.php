@@ -142,7 +142,7 @@ class ErrorHandler
 
             // No calls to tpl_ or View:: here, to avoid generating an error
             // within the error handler (code may be unstable).
-
+            http_response_code(500);
             include __DIR__ . '/../../../src/Views/page_error.tpl.php';
         }
     }

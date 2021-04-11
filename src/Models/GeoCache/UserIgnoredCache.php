@@ -3,6 +3,7 @@
 namespace src\Models\GeoCache;
 
 use src\Models\BaseObject;
+use src\Models\User\User;
 
 class UserIgnoredCache extends BaseObject
 {
@@ -95,4 +96,14 @@ class UserIgnoredCache extends BaseObject
         return $db->dbResultFetchAll($stmt);
     }
 
+    /**
+     * Clean up user list of ignored caches
+     *
+     * @param User $user
+     */
+    public static function removeAllIgnoresForUser(User $user): void
+    {
+        self::db()->multiVariableQuery(
+            "DELETE FROM cache_ignore WHERE user_id = :1", $user->getUserId());
+    }
 }
