@@ -98,6 +98,8 @@ if (!$loggedUser) {
     };
     XDb::xFreeResults($rs);
 
+    $file_content = '';
+
     if (!empty($log_ids)) {
         $rs = XDb::xSql(
             "SELECT cache_logs.id, cache_logs.cache_id AS cache_id, cache_logs.type AS log_type,
@@ -125,7 +127,6 @@ if (!$loggedUser) {
                 ORDER BY cache_logs.date_created DESC",
             $user_id);
 
-        $file_content = '';
         while ($log_record = XDb::xFetchArray($rs)) {
 
             $file_content .= '<tr>';
