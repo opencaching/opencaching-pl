@@ -514,9 +514,9 @@ $translations = array(
     'admin_user_noteok' => 'OC Team notitie toegevoegd',
     'admin_user_rmUser' => 'Verwijder gebruikersaccount',
     'admin_user_rmUserCancel' => 'Annuleer',
-    'admin_user_rmUserConfirmed' => 'I confirm I want to remove this account',
-    'admin_user_confirmationTxt' => 'Are you sure you want to irrevocably remove this user account.',
-    'admin_user_confirmationEmail' => 'Be sure user request was send from address: %s',
+    'admin_user_rmUserConfirmed' => 'Weet je zeker dat je dit account wilt verwijderen?',
+    'admin_user_confirmationTxt' => 'Weet je zeker dat je dit gebruikersaccount onherroepelijk wilt verwijderen?',
+    'admin_user_confirmationEmail' => 'Zorg ervoor dat het gebruikersverzoek is verzonden vanaf het adres: %s',
 
     'titles' => 'Onderwerp',
     'content' => 'Bericht',
@@ -3104,5 +3104,5 @@ $translations = array(
     'vote_elListThDesc' => 'Beschrijving',
     'vote_elListThStart' => 'Begin van de verkiezing',
     'vote_elListThEnd' => 'Einde van de verkiezing',
-    'vote_optionsToChoose' => 'Options to choose from',
+    'vote_optionsToChoose' => 'Opties om uit te kiezen',
 );
