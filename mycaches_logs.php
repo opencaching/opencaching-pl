@@ -29,7 +29,7 @@ if (!$loggedUser) {
     require(__DIR__.'/src/Views/newlogs.inc.php');
 
     $user_record['username'] = XDb::xMultiVariableQueryValue(
-        "SELECT  username FROM user WHERE user_id= :1 LIMIT 1", '-noname-', $loggedUser->getUserId());
+        "SELECT  username FROM user WHERE user_id= :1 LIMIT 1", '-noname-', $user_id);
 
     tpl_set_var('username', htmlspecialchars($user_record['username']));
 
@@ -98,6 +98,8 @@ if (!$loggedUser) {
     };
     XDb::xFreeResults($rs);
 
+    $file_content = '';
+
     if (!empty($log_ids)) {
         $rs = XDb::xSql(
             "SELECT cache_logs.id, cache_logs.cache_id AS cache_id, cache_logs.type AS log_type,
@@ -125,7 +127,6 @@ if (!$loggedUser) {
                 ORDER BY cache_logs.date_created DESC",
             $user_id);
 
-        $file_content = '';
         while ($log_record = XDb::xFetchArray($rs)) {
 
             $file_content .= '<tr>';

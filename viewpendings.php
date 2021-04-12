@@ -198,6 +198,7 @@ $user = ApplicationContainer::GetAuthorizedUser();
 if (empty($user) || !$user->hasOcTeamRole()) {
     $view->setTemplate('viewpendings_error');
     $view->buildView();
+    exit;
 }
 
 $view->setTemplate('viewpendings');
