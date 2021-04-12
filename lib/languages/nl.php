@@ -3104,5 +3104,5 @@ $translations = array(
     'vote_elListThDesc' => 'Beschrijving',
     'vote_elListThStart' => 'Begin van de verkiezing',
     'vote_elListThEnd' => 'Einde van de verkiezing',
-//  '' => '',
+    'vote_optionsToChoose' => 'Options to choose from',
 );
