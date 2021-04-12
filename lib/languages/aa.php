@@ -3104,5 +3104,5 @@ $translations = array(
     'vote_elListThDesc' => 'crwdns27342:0crwdne27342:0',
     'vote_elListThStart' => 'crwdns27344:0crwdne27344:0',
     'vote_elListThEnd' => 'crwdns27346:0crwdne27346:0',
-//  '' => '',
+    'vote_optionsToChoose' => 'crwdns27358:0crwdne27358:0',
 );
