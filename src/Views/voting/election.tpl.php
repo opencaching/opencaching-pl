@@ -44,7 +44,7 @@ $el = $v->election;
 </div>
 
 <div class="content2-container bg-blue02">
-  <span class="content-title-noshade-size1"><?=tr('vote_')?></span>
+  <span class="content-title-noshade-size1"><?=tr('vote_optionsToChoose')?></span>
 </div>
 
 <div class="content2-container">
