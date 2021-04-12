@@ -35,7 +35,7 @@ $el = $v->election;
         <?php } ?>
     </div>
 
-    <div class="callout callout-info"> <?=$el->getDescription()?></div>
+    <p><?=$el->getDescription()?></p>
 
     <?php if (isset($v->votingCriteriaConflict)) { ?>
     <div class="callout callout-danger"><?=tr('vote_criteriaNotPassed')?></div>
@@ -44,7 +44,7 @@ $el = $v->election;
 </div>
 
 <div class="content2-container bg-blue02">
-  <span class="content-title-noshade-size1">Options to choose</span>
+  <span class="content-title-noshade-size1"><?=tr('vote_')?></span>
 </div>
 
 <div class="content2-container">

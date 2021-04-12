@@ -2,7 +2,7 @@
 namespace src\Utils\Debug;
 
 use Throwable;
-use src\Models\OcConfig;
+use src\Models\OcConfig\OcConfig;
 use src\Utils\Email\EmailSender;
 
 class ErrorHandler
