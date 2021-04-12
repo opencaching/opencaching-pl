@@ -25,7 +25,7 @@ $result = $v->results;
       <?=tr('vote_votersCount')?>:&nbsp;<?=$result->getVotersNum()?>
     </div>
 
-    <div class="callout callout-info"> <?=$el->getDescription()?></div>
+    <p><?=$el->getDescription()?></p>
 </div>
 
 <div class="content2-container bg-blue02">
