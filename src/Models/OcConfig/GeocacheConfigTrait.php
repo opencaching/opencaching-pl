@@ -30,7 +30,7 @@ trait GeocacheConfigTrait
     /**
      * Get titled geocache mechanism period
      */
-    public static function getTitledCachePeriod(): array
+    public static function getTitledCachePeriod(): string
     {
         return self::getKeyFromGeoCacheConfig('titledCachePeriod');
     }
@@ -38,7 +38,7 @@ trait GeocacheConfigTrait
     /**
      * Get minimum number of founds necessary for titled geocache
      */
-    public static function getTitledCacheMinFounds(): array
+    public static function getTitledCacheMinFounds(): int
     {
         return self::getKeyFromGeoCacheConfig('titledCacheMinFounds');
     }
