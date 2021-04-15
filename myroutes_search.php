@@ -10,6 +10,7 @@ use okapi\core\Exception\BadRequest;
 use src\Models\GeoCache\CacheNote;
 use src\Utils\I18n\I18n;
 use src\Models\ApplicationContainer;
+use src\Models\OcConfig\OcConfig;
 
 require_once (__DIR__.'/lib/common.inc.php');
 require_once (__DIR__.'/lib/export.inc.php');
@@ -841,7 +842,7 @@ if (isset($_POST['submit_gpx'])) {
 
     while ($r = XDb::xFetchArray($stmt)) {
 
-        if (@$enable_cache_access_logs) {
+        if (OcConfig::isSiteCacheAccessLogEnabled()) {
 
             $dbc = OcDb::instance();
 

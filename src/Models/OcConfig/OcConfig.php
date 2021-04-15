@@ -13,6 +13,7 @@ final class OcConfig extends ConfigReader
     use PrimaAprilisTrait;
     use SiteConfigTrait;
     use UserConfigTrait;
+    use GeopathConfigTrait;
 
     /*
         const OCNODE_GERMANY    = 1;  // Opencaching Germany http://www.opencaching.de OC
@@ -30,20 +31,16 @@ final class OcConfig extends ConfigReader
     // old-style values - values from new-style config should be accessed through
     // $config[''] etc...
 
-    private $debugMode = false;
     private $dbDatetimeFormat = 'Y-m-d H:i:s';
     private $datetimeFormat = 'Y-m-d H:i';
     private $absolute_server_URI = null;
     private $dynamicFilesPath;
-    private $powerTrailModuleSwitchOn;
     private $googleMapKey;
     private $siteInService = false;
     private $dateFormat;
     private $headerLogo;
-    private $shortSiteName;
     private $needFindLimit;
     private $needApproveLimit;
-    private $enableCacheAccessLogs;
     private $minimumAge;
     private $meritBadgesEnabled;
 
@@ -111,13 +108,6 @@ final class OcConfig extends ConfigReader
     private $cronjobsConfig;
 
     /**
-     * 'week' or 'month' - frequency of cache titled.
-     *
-     * @var string
-     */
-    private $titledCachePeriod;
-
-    /**
      * Get the singleton.
      */
     public static function instance(): self
@@ -141,25 +131,18 @@ final class OcConfig extends ConfigReader
 
     private function loadConfig()
     {
-        global $debug_page;
-
         require self::LEGACY_LOCAL_CONFIG;
 
-        $this->debugMode = $debug_page;
         $this->datetimeFormat = $datetimeFormat;
         $this->absolute_server_URI = $absolute_server_URI;
         $this->dynamicFilesPath = $dynbasepath;
-        $this->powerTrailModuleSwitchOn = $powerTrailModuleSwitchOn;
         $this->googleMapKey = $googlemap_key;
         $this->dateFormat = $dateFormat;
         $this->headerLogo = $config['headerLogo'];
-        $this->shortSiteName = $short_sitename;
         $this->needApproveLimit = $NEED_APPROVE_LIMIT;
         $this->needFindLimit = $NEED_FIND_LIMIT;
-        $this->enableCacheAccessLogs = $enable_cache_access_logs;
         $this->minimumAge = $config['limits']['minimum_age'];
         $this->meritBadgesEnabled = $config['meritBadges'];
-        $this->titledCachePeriod = $titled_cache_period_prefix;
 
         $this->dbHost = $dbserver;
         $this->dbName = $dbname;
@@ -180,11 +163,6 @@ final class OcConfig extends ConfigReader
         if (is_array($config['logfilter'] ?? null)) {
             $this->logfilterConfig = $config['logfilter'];
         }
-    }
-
-    public function inDebugMode()
-    {
-        return $this->debugMode;
     }
 
     public function getDateFormat()
@@ -229,21 +207,6 @@ final class OcConfig extends ConfigReader
         return $this->dynamicFilesPath;
     }
 
-    public static function isPowertrailsEnabled()
-    {
-        return self::instance()->isPowerTrailModuleSwitchOn();
-    }
-
-    public function isPowerTrailModuleSwitchOn()
-    {
-        return $this->powerTrailModuleSwitchOn;
-    }
-
-    public function isCacheAccessLogEnabled()
-    {
-        return $this->enableCacheAccessLogs;
-    }
-
     public function getMinumumAge(): int
     {
         return $this->minimumAge;
@@ -277,11 +240,6 @@ final class OcConfig extends ConfigReader
     public static function getHeaderLogo()
     {
         return self::instance()->headerLogo;
-    }
-
-    public static function getShortSiteName()
-    {
-        return self::instance()->shortSiteName;
     }
 
     public static function getNeedFindLimit()
@@ -398,8 +356,4 @@ final class OcConfig extends ConfigReader
         return $this->topBannerVideo;
     }
 
-    public function getTitledCachePeriod(): string
-    {
-        return $this->titledCachePeriod;
-    }
 }

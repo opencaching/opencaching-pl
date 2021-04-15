@@ -13,3 +13,14 @@ use src\Models\GeoCache\GeoCacheCommons;
  * that such geocaches are still in DB, but no NEW caches of this can be created).
  */
 $geocache['noNewCachesOfTypes'][] = GeoCacheCommons::TYPE_GEOPATHFINAL;
+
+/**
+ * Titled caches algorythm period;
+ * possible values: 'week' | 'month'
+ */
+$geocache['titledCachePeriod'] = 'month';
+
+/**
+ * Minimum number of founds necessary for titled cache
+ */
+$geocache['titledCacheMinFounds'] = 7;

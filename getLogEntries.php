@@ -54,8 +54,7 @@ if(isset($_REQUEST['limit']) && $_REQUEST['limit'] != ''){
     $limit = 5;
 }
 
-global $hide_coords;
-if (!$loggedUser && $hide_coords) {
+if (!$loggedUser && OcConfig::coordsHiddenForNonLogged()) {
     $disable_spoiler_view = true; //hide any kind of spoiler if usr not logged in
 } else {
     $disable_spoiler_view = false;

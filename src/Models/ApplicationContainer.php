@@ -99,25 +99,15 @@ final class ApplicationContainer
 
         $GLOBALS['config'] = $config;
         // $GLOBALS['oc_waypoint'] = $oc_waypoint;
-        $GLOBALS['hide_coords'] = $hide_coords;
-        $GLOBALS['debug_page'] = $debug_page;
         $GLOBALS['absolute_server_URI'] = $absolute_server_URI;
         $GLOBALS['mp3dir'] = $mp3dir;
         $GLOBALS['mp3url'] = $mp3url;
         $GLOBALS['maxmp3size'] = $maxmp3size;
         $GLOBALS['mp3extensions'] = $mp3extensions;
         $GLOBALS['googlemap_key'] = $googlemap_key;
-
-        $GLOBALS['powerTrailModuleSwitchOn'] = $powerTrailModuleSwitchOn;
-        $GLOBALS['powerTrailMinimumCacheCount'] = $powerTrailMinimumCacheCount;
-        $GLOBALS['powerTrailUserMinimumCacheFoundToSetNewPowerTrail'] = $powerTrailUserMinimumCacheFoundToSetNewPowerTrail;
-        $GLOBALS['enable_cache_access_logs'] = $enable_cache_access_logs;
-        $GLOBALS['short_sitename'] = $short_sitename;
         $GLOBALS['contactData'] = $contactData;
         $GLOBALS['dateFormat'] = $dateFormat;
         $GLOBALS['datetimeFormat'] = $datetimeFormat;
-        $GLOBALS['titled_cache_nr_found'] = $titled_cache_nr_found;
-        $GLOBALS['titled_cache_period_prefix'] = $titled_cache_period_prefix;
     }
 
     /**

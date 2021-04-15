@@ -101,7 +101,7 @@ tpl_set_var('wp_nc_message', '');
 tpl_set_var('wp_ge_message', '');
 // configuration variables needed in translation strings
 tpl_set_var('limits_promixity', $config['oc']['limits']['proximity']);
-tpl_set_var('short_sitename', $short_sitename);
+tpl_set_var('short_sitename', OcConfig::getSiteShortName());
 $view->loadJQueryUI();
 
 if (! isset($cache_type)) {

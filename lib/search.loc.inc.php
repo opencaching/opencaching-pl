@@ -9,7 +9,7 @@ use src\Utils\Database\XDb;
 use src\Models\GeoCache\GeoCacheCommons;
 use src\Models\ApplicationContainer;
 
-global $content, $bUseZip, $hide_coords, $dbcSearch;
+global $content, $bUseZip, $dbcSearch;
 set_time_limit(1800);
 
 require_once (__DIR__.'/../lib/calculation.inc.php');
@@ -41,7 +41,7 @@ $cacheTypeText[8] = "" . tr('cacheType_4') . "";
 $cacheTypeText[9] = "" . tr('cacheType_9') . "";
 $cacheTypeText[10] = "" . tr('cacheType_10') . "";
 
-if ($loggedUser || ! $hide_coords) {
+if ($loggedUser || ! OcConfig::coordsHiddenForNonLogged()) {
     // prepare the output
     $caches_per_page = 20;
 

@@ -44,7 +44,7 @@ function get_okapi_settings()
             array('techNotify@opencaching.pl','rygielski@mimuw.edu.pl')),
 
         'FROM_FIELD' => OcConfig::getEmailAddrNoReply(),
-        'DEBUG' => $debug_page,
+        'DEBUG' => OcConfig::debugModeEnabled(),
         'DB_SERVER' => OcConfig::instance()->getDbHost(), //$dbserver,
         'DB_NAME' => OcConfig::instance()->getDbName(),   //$dbname,
         'DB_USERNAME' => OcConfig::instance()->getDbUser(), //$dbusername,
@@ -59,7 +59,6 @@ function get_okapi_settings()
         'IMAGE_MAX_PIXEL_COUNT' => $config['limits']['image']['height'] * $config['limits']['image']['width'],
         'OC_NODE_ID' => OcConfig::getSiteNodeId(),
         'OC_COOKIE_NAME' => $config['cookie']['name'].'_auth',
-        //'OCPL_ENABLE_GEOCACHE_ACCESS_LOGS' => isset($enable_cache_access_logs) ? $enable_cache_access_logs : false
         'OCPL_ENABLE_GEOCACHE_ACCESS_LOGS' => false,
         'REGISTRATION_URL' => (isset($OKAPI_server_URI) ? $OKAPI_server_URI : $absolute_server_URI) . 'UserRegistration',
         'USE_SQL_SUBQUERIES' => true,

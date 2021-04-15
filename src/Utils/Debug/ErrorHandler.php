@@ -2,8 +2,8 @@
 namespace src\Utils\Debug;
 
 use Throwable;
-use src\Models\OcConfig\OcConfig;
 use src\Utils\Email\EmailSender;
+use src\Models\OcConfig\OcConfig;
 
 class ErrorHandler
 {
@@ -73,8 +73,6 @@ class ErrorHandler
 
     private static function processError(string $msg, Throwable $exception = null)
     {
-        global $debug_page;
-
         // Try to send an admin email
         $mailFail = false;
         try {
@@ -138,7 +136,7 @@ class ErrorHandler
                 $showMainPageLink = false;
             }
 
-            $errorMsg = ($debug_page ? $msg : '');
+            $errorMsg = (OcConfig::debugModeEnabled() ? $msg : '');
 
             // No calls to tpl_ or View:: here, to avoid generating an error
             // within the error handler (code may be unstable).

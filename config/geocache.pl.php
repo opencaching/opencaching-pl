@@ -15,3 +15,14 @@ use src\Models\GeoCache\GeoCacheCommons;
 $geocache['noNewCachesOfTypes'][] = GeoCacheCommons::TYPE_VIRTUAL;
 $geocache['noNewCachesOfTypes'][] = GeoCacheCommons::TYPE_GEOPATHFINAL;
 $geocache['noNewCachesOfTypes'][] = GeoCacheCommons::TYPE_WEBCAM;
+
+/**
+ * Titled caches algorythm period;
+ * possible values: 'none' | 'week' | 'month'
+ */
+$geocache['titledCachePeriod'] = 'week';
+
+/**
+ * Minimum number of founds necessary for titled cache
+ */
+$geocache['titledCacheMinFounds'] = 12;

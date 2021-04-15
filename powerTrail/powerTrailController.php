@@ -3,6 +3,7 @@
 use src\Utils\Database\OcDb;
 use src\Utils\Generators\Uuid;
 use src\Models\User\User;
+use src\Models\OcConfig\OcConfig;
 
 class powerTrailController
 {
@@ -127,11 +128,9 @@ class powerTrailController
         } else {
             $sortOder = 'DESC';
         }
-        if (isset($_REQUEST['historicLimitBool']) && $_REQUEST['historicLimitBool'] === "no") {
-            $cacheCountLimit = powerTrailBase::historicMinimumCacheCount();
-        } else {
-            $cacheCountLimit = powerTrailBase::minimumCacheCount();
-        }
+
+        $cacheCountLimit = OcConfig::geopathMinCacheCount();
+
         $userid = (!$this->user) ? null : $this->user->getUserId();
         if (isset($_REQUEST['myPowerTrailsBool']) && isset($userid) && $_REQUEST['myPowerTrailsBool'] === "yes") {
             $myTrailsCondition = "and `id` NOT IN (SELECT `PowerTrailId` FROM `PowerTrail_owners`
@@ -193,7 +192,10 @@ class powerTrailController
             return false;
         }
         $this->action = 'createNewSerie';
-        if (isset($_POST['powerTrailName']) && $_POST['powerTrailName'] != '' && $_POST['type'] != 0 && $_SESSION['powerTrail']['userFounds'] >= powerTrailBase::userMinimumCacheFoundToSetNewPowerTrail()) {
+        if (isset($_POST['powerTrailName']) && $_POST['powerTrailName'] != '' &&
+            $_POST['type'] != 0 &&
+            $_SESSION['powerTrail']['userFounds'] >= OcConfig::geopathOwnerMinFounds()) {
+
             $query = "INSERT INTO `PowerTrail`
                        (`name`, `type`, `status`, `dateCreated`, `cacheCount`, `description`, `perccentRequired`, uuid)
                        VALUES (:1,:2,:3,NOW(),0,:4,:5, ".Uuid::getSqlForUpperCaseUuid().")";

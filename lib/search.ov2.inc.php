@@ -6,10 +6,11 @@
 use src\Utils\Database\XDb;
 use src\Models\GeoCache\GeoCacheCommons;
 use src\Models\ApplicationContainer;
+use src\Models\OcConfig\OcConfig;
 
 ob_start();
 
-global $content, $bUseZip, $hide_coords, $dbcSearch;
+global $content, $bUseZip, $dbcSearch;
 
 set_time_limit(1800);
 
@@ -28,7 +29,7 @@ $cacheTypeText[8] = 'Moving Cache';
 $cacheTypeText[9] = 'Podcast';
 $cacheTypeText[10] = 'Own Cache';
 
-if ($loggedUser || ! $hide_coords) {
+if ($loggedUser || ! OcConfig::coordsHiddenForNonLogged()) {
     // prepare the output
     $caches_per_page = 20;
 

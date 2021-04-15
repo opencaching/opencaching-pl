@@ -21,6 +21,11 @@ trait SiteConfigTrait
         return self::getKeyFromSiteConfig('siteName');
     }
 
+    public static function getSiteShortName(): string
+    {
+        return self::getKeyFromSiteConfig('shortName');
+    }
+
     /**
      * @see https://wiki.opencaching.eu/index.php?title=Node_IDs
      */
@@ -57,6 +62,22 @@ trait SiteConfigTrait
     public static function getSiteDefaultCountriesList(): array
     {
         return self::getKeyFromSiteConfig('defaultCountriesList');
+    }
+
+    /**
+     * Returns TRUE is cacheAccessLog is enabled for site
+     */
+    public static function isSiteCacheAccessLogEnabled(): bool
+    {
+        return self::getKeyFromSiteConfig('cacheAccessLogEnabled');
+    }
+
+    /**
+     * Enable debug mode (USE ONLY IN DEV/TEST ENV!)
+     */
+    public static function debugModeEnabled(): bool
+    {
+        return self::getKeyFromSiteConfig('debugModeEnabled');
     }
 
     /**

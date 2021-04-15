@@ -22,13 +22,14 @@
 
 use src\Utils\Text\TextConverter;
 use src\Models\ApplicationContainer;
+use src\Models\OcConfig\OcConfig;
 
 ob_start();
 
 require_once (__DIR__.'/../lib/calculation.inc.php');
 
 set_time_limit(1800);
-global $content, $bUseZip, $hide_coords, $dbcSearch;
+global $content, $bUseZip, $dbcSearch;
 
 $loggedUser = ApplicationContainer::GetAuthorizedUser();
 
@@ -55,7 +56,7 @@ $uamType[8] = 'M'; // 'Moving'
 $uamType[9] = 'P'; // 'Podcast'
 $uamType[10] = 'U'; // 'Own/user's cache'
 
-if ($loggedUser || ! $hide_coords) {
+if ($loggedUser || ! OcConfig::coordsHiddenForNonLogged()) {
     // prepare the output
     $caches_per_page = 20;
 

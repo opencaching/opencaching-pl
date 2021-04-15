@@ -16,6 +16,7 @@ use src\Models\Neighbourhood\MyNbhSets;
 use src\Models\Neighbourhood\Neighbourhood;
 use src\Utils\Uri\SimpleRouter;
 use src\Utils\I18n\I18n;
+use src\Models\OcConfig\OcConfig;
 
 class RSSController extends BaseController
 {
@@ -50,7 +51,7 @@ class RSSController extends BaseController
     {
         $rss = new AtomFeed();
         $rss->setId(Uri::getAbsUri('/rss/newlogs.xml'));
-        $rss->setTitle($this->ocConfig->getShortSiteName() . ' - ' . tr('rss_latestLogs'));
+        $rss->setTitle(OcConfig::getSiteShortName() . ' - ' . tr('rss_latestLogs'));
 
         $logs = OcMemCache::getOrCreate(
             __CLASS__ . '::newLogs',
@@ -122,7 +123,7 @@ class RSSController extends BaseController
     {
         $rss = new AtomFeed();
         $rss->setId(Uri::getAbsUri('/rss/newcaches.xml'));
-        $rss->setTitle($this->ocConfig->getShortSiteName() . ' - ' . tr('rss_latestCaches'));
+        $rss->setTitle(OcConfig::getSiteShortName() . ' - ' . tr('rss_latestCaches'));
 
         $caches = OcMemCache::getOrCreate(
             __CLASS__ . '::newCaches',
@@ -195,7 +196,7 @@ class RSSController extends BaseController
     {
         $rss = new AtomFeed();
         $rss->setId(Uri::getAbsUri('/rss/newnews.xml'));
-        $rss->setTitle($this->ocConfig->getShortSiteName() . ' - ' . tr('rss_latestNews'));
+        $rss->setTitle(OcConfig::getSiteShortName() . ' - ' . tr('rss_latestNews'));
 
 
         $allNews = OcMemCache::getOrCreate(
@@ -378,7 +379,7 @@ class RSSController extends BaseController
 
         $rss = new AtomFeed();
         $rss->setId(SimpleRouter::getAbsLink('RSS', 'nbhLatestCaches', [$userId, $nbhId]));
-        $rss->setTitle($this->ocConfig->getShortSiteName() . ' - ' . tr('rss_latestCaches')); //TODO !!!!!
+        $rss->setTitle(OcConfig::getSiteShortName() . ' - ' . tr('rss_latestCaches')); //TODO !!!!!
 
 
         foreach ($caches as $cache) {

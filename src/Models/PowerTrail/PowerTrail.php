@@ -8,6 +8,7 @@ use src\Models\GeoCache\GeoCache;
 use src\Models\BaseObject;
 use src\Models\User\User;
 use src\Utils\Debug\Debug;
+use src\Models\OcConfig\OcConfig;
 
 class PowerTrail extends BaseObject
 {
@@ -616,7 +617,7 @@ class PowerTrail extends BaseObject
         if ($this->activeGeocacheCount < $this->caclulateRequiredGeocacheCount()) {
             return false;
         }
-        if ($this->activeGeocacheCount < \powerTrailBase::minimumCacheCount()) {
+        if ($this->activeGeocacheCount < OcConfig::geopathMinCacheCount()) {
             return false;
         }
         if ($this->status === self::STATUS_CLOSED && !$this->getCurrentUser()->hasOcTeamRole()) {

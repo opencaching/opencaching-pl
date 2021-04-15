@@ -2,6 +2,7 @@
 use src\Utils\Database\OcDb;
 use src\Models\Coordinates\Altitude;
 use src\Models\Coordinates\Coordinates;
+use src\Models\OcConfig\OcConfig;
 /**
  *
  */
@@ -19,28 +20,6 @@ class powerTrailBase{
     const commentsPaginateCount = 5;
     const cCountForMaxMagnifier = 50;
     const iconPath = '/images/blue/';
-
-    public static function minimumCacheCount(){
-        include __DIR__.'/../lib/settingsGlue.inc.php';
-        return $powerTrailMinimumCacheCount['current'];
-    }
-
-    public static function historicMinimumCacheCount(){
-        include __DIR__.'/../lib/settingsGlue.inc.php';
-        $min = $powerTrailMinimumCacheCount['current'];
-        foreach ($powerTrailMinimumCacheCount['old'] as $date) {
-            //var_dump($date['dateFrom'], $ptPublished, $date['dateTo']);
-            if ($min > $date['limit']) {
-                $min = $date['limit'];
-            }
-        }
-        return $min;
-    }
-
-    public static function userMinimumCacheFoundToSetNewPowerTrail(){
-        include __DIR__.'/../lib/settingsGlue.inc.php';
-        return $powerTrailUserMinimumCacheFoundToSetNewPowerTrail;
-    }
 
     public $logActionTypes = array (
         1 => array (
@@ -333,10 +312,13 @@ class powerTrailBase{
     public static function getAllPt($filter){
         $sortOder = 'ASC';
         $sortBy = 'name';
-
-        $q = 'SELECT * FROM `PowerTrail` WHERE cacheCount >= '.self::historicMinimumCacheCount() .' '.$filter.'
-                ORDER BY '.$sortBy.' '.$sortOder.' ';
         $db = OcDb::instance();
+
+        $minCachesCount = $db->quote(OcConfig::geopathMinCacheCount());
+
+        $q = 'SELECT * FROM `PowerTrail` WHERE cacheCount >= '. $minCachesCount .' '.$filter.'
+                ORDER BY '.$sortBy.' '.$sortOder.' ';
+
         $s = $db->multiVariableQuery($q);
         return $db->dbResultFetchAll($s);
     }

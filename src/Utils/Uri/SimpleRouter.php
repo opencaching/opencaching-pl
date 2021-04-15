@@ -2,6 +2,7 @@
 namespace src\Utils\Uri;
 
 use ReflectionException;
+use src\Models\OcConfig\OcConfig;
 
 /**
  * Route schema:
@@ -257,9 +258,7 @@ class SimpleRouter
 
     private static function displayErrorAndExit($message, $httpCode)
     {
-        global $debug_page;
-
-        $message = $debug_page ? $message : 'Improper request';
+        $message = OcConfig::debugModeEnabled() ? $message : 'Improper request';
 
         $ctrlName = self::getControllerWithNamespace(self::ERROR_CTRL);
         call_user_func_array(array(new $ctrlName(self::ERROR_ACTION),  self::ERROR_ACTION), [$message, $httpCode]);

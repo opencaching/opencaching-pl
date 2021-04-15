@@ -4,11 +4,12 @@ use okapi\core\Exception\BadRequest;
 use okapi\Facade;
 use src\Utils\I18n\I18n;
 use src\Models\ApplicationContainer;
+use src\Models\OcConfig\OcConfig;
 /**
  * This script is used (can be loaded) by /search.php
  */
 
-global $content, $hide_coords, $dbcSearch;
+global $content, $dbcSearch;
 
 set_time_limit(1800);
 
@@ -16,7 +17,7 @@ require_once (__DIR__.'/../lib/calculation.inc.php');
 
 $loggedUser = ApplicationContainer::GetAuthorizedUser();
 
-if ($loggedUser || !$hide_coords) {
+if ($loggedUser || !OcConfig::coordsHiddenForNonLogged()) {
     //prepare the output
     $caches_per_page = 20;
 

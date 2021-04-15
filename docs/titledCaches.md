@@ -3,8 +3,8 @@
 ### How to activate function on node
 
 To activate the function, you should
-set $titled_cache_period_prefix in settings.ini.php ('month' or 'week'),
-set $titled_cache_nr_found  in settings.ini.php (default is 10),
+set /config/geocache :: titledCachePeriod to 'month' or 'week',
+set /config/geocache :: titledCacheMinFounds (default is 10),
 add an entry to the crontab, which launches cache_titled_add.php?CRON in a proper period, for example each week. There is a file cache_titled_add.php in the main folder of the  service.
 For example:
 ```
@@ -12,7 +12,7 @@ For example:
 ```
 
 ### Function description
-There is an algorithm in  cache_titled_add.php, which chooses the best cache.
+There is an algorithm in cache_titled_add.php, which chooses the best cache.
 The ID of the best cache is wrote into the table: cache_titled.
 A congratulation mail is sent to the owner of the cache (there is the text of the mail in a proper language file, var: (month)(week)_titled_cache_congratulations).
 There is a new section: Titled Cache on the main page. There, you can see the newest best cache
@@ -30,7 +30,7 @@ wsk = ratio – (length of life /5000)
 	are active
 	aren't meetings
 	aren't titled yet
-	have 10 or more number of visits ($titled_cache_nr_found in settings.ini.php)
+	have 10 or more number of visits (see /config/geocache :: titledCacheMinFounds)
 
 - next, the algorithm sorts them by key
 	wsk (descending)

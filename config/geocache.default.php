@@ -30,3 +30,22 @@ $geocache['enabledSizes'] = [
  * such geocaches are still in DB, but no new ones can be created).
  */
 $geocache['noNewCachesOfTypes'] = [];
+
+
+/**
+ * Titled caches algorythm period;
+ * possible values: 'none' | 'week' | 'month'
+ * ('none' to disable titled caches)
+ */
+$geocache['titledCachePeriod'] = 'none';
+
+/**
+ * Minimum number of founds necessary for titled cache
+ */
+$geocache['titledCacheMinFounds'] = 10;
+
+/**
+ * Hide coordinates for non-logged users
+ */
+$geocache['coordsHiddenForNonLogged'] = true;
+

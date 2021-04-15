@@ -12,6 +12,11 @@
 $site['siteName'] = 'OPENCACHE.uk';
 
 /**
+ * Site short name
+ */
+$site['shortName'] = 'OC UK';
+
+/**
  * Page title (to display on the browser titlebar)
  */
 $site['pageTitle'] = 'Geocaching Opencaching UK';

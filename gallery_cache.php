@@ -6,10 +6,9 @@ use src\Models\GeoCache\GeoCache;
 use src\Models\Pictures\Thumbnail;
 use src\Utils\Uri\SimpleRouter;
 use src\Utils\Database\OcDb;
+use src\Models\OcConfig\OcConfig;
 
 require_once (__DIR__.'/lib/common.inc.php');
-
-global $hide_coords;
 
 $view = tpl_getView();
 
@@ -56,7 +55,7 @@ while ($row = $db->dbResultFetch($stmt)) {
 $view->setVar('logpictures', $logpictures);
 
 $view->setVar('cachepictures', $cache->getPicturesList(false));
-$view->setVar('hidespoilers', ($user === null && $hide_coords));
+$view->setVar('hidespoilers', ($user === null && OcConfig::coordsHiddenForNonLogged()));
 $view->setVar('cache', $cache);
 $view->setVar('cacheicon', $cache->getCacheIcon($user));
 $view->addLocalCss(Uri::getLinkWithModificationTime('/views/viewcache/viewcache.css'));

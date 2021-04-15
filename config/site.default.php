@@ -15,6 +15,11 @@ $site = [];
 $site['siteName'] = 'OpenCaching';
 
 /**
+ * Site short name
+ */
+$site['shortName'] = 'OC';
+
+/**
  * Page title (to display on the browser titlebar)
  */
 $site['pageTitle'] = 'OpenCaching';
@@ -60,3 +65,13 @@ $site['mainViewIcons'] = [
     'webmanifest' => '/images/icons/site.webmanifest',    // <link rel="manifest"
     'maskIcon' => '/images/icons/safari-pinned-tab.svg',  // <link rel="mask-icon"
 ];
+
+/**
+ * Save all accesses to geocaches in DB for debug/security purpose
+ */
+$site['cacheAccessLogEnabled'] = false;
+
+/**
+ * Enable debug mode (USE ONLY IN DEV/TEST ENV!)
+ */
+$site['debugModeEnabled'] = false;

@@ -9,6 +9,7 @@ use src\Models\Coordinates\Coordinates;
 use src\Utils\I18n\I18n;
 use src\Models\GeoCache\GeoCacheCommons;
 use src\Models\ApplicationContainer;
+use src\Models\OcConfig\OcConfig;
 
 /**
  * This script is used (can be loaded) by /search.php
@@ -70,7 +71,7 @@ function fHideColumn($nr, $set)
     return $C;
 }
 
-global $dbcSearch, $hide_coords, $NrColSortSearch, $OrderSortSearch, $SearchWithSort, $TestStartTime, $queryFilter;
+global $dbcSearch, $NrColSortSearch, $OrderSortSearch, $SearchWithSort, $TestStartTime, $queryFilter;
 require_once (__DIR__.'/../src/Views/lib/icons.inc.php');
 require_once (__DIR__.'/calculation.inc.php');
 
@@ -497,7 +498,7 @@ for ($i = 0; $i < $dbcSearch->rowCount($s); $i ++) {
 
     if ($CalcDistance) {
         // and now the direction ...
-        if ($caches_record['distance'] > 0 && ($loggedUser || ! $hide_coords)) {
+        if ($caches_record['distance'] > 0 && ($loggedUser || ! OcConfig::coordsHiddenForNonLogged())) {
             $tmpline = str_replace('{direction}',
                 Gis::bearing2Text(
                     Gis::calcBearing(
@@ -515,7 +516,7 @@ for ($i = 0; $i < $dbcSearch->rowCount($s); $i ++) {
         $availableDescLangs .= '<a href="viewcache.php?cacheid=' . urlencode($caches_record['cache_id']) . '&amp;desclang=' . urlencode($thislang) . '" style="text-decoration:none;"><b><font color="blue">' . htmlspecialchars($thislang, ENT_COMPAT, 'UTF-8') . '</font></b></a> ';
     }
     $tmpline = str_replace('{desclangs}', $availableDescLangs, $tmpline);
-    if ($loggedUser || ! $hide_coords) {
+    if ($loggedUser || ! OcConfig::coordsHiddenForNonLogged()) {
         if ($CalcCoordinates) {
             if ($caches_record['coord_modified'] == true) {
                 $mod_suffix_garmin = '(F)';
@@ -542,7 +543,7 @@ for ($i = 0; $i < $dbcSearch->rowCount($s); $i ++) {
     $tmpline = str_replace('{style}', $caches_record['status'] >= 4 ? $unpublished_cache_style : '', $tmpline);
 
     if ($CalcDistance) {
-        if ($loggedUser || ! $hide_coords) {
+        if ($loggedUser || ! OcConfig::coordsHiddenForNonLogged()) {
             $dist = htmlspecialchars(sprintf("%01.1f", $caches_record['distance']), ENT_COMPAT, 'UTF-8');
             $tmpline = str_replace('{distance}', $dist, $tmpline);
             $tmpline = str_replace('{distance_pad}', str_pad($dist, 5, 0, STR_PAD_LEFT), $tmpline);
@@ -637,7 +638,7 @@ else
     tpl_set_var('safelink', str_replace('{queryid}', $options['queryid'], $safelink));
 
 // downloads
-    if ($loggedUser || ! $hide_coords)
+    if ($loggedUser || ! OcConfig::coordsHiddenForNonLogged())
     tpl_set_var('queryid', $options['queryid']);
     tpl_set_var('startat', $startat);
 

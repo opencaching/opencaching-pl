@@ -22,8 +22,6 @@ class UserInputFilter
 {
     private static function createConfig()
     {
-        global $debug_page;
-
         $config = HTMLPurifier_Config::createDefault();
 
         // Cache Serializer Path - keep it in area with dynamic files,
@@ -52,7 +50,7 @@ class UserInputFilter
         $config->set('CSS.AllowedFonts', null);
 
         // this is ony for debug purpose - don't turn it on at production!
-        $config->set('Core.CollectErrors', isset($debug_page) ? $debug_page : false);
+        $config->set('Core.CollectErrors', OcConfig::debugModeEnabled());
 
         $config->set('Attr.AllowedFrameTargets', array('_blank'));
 
@@ -75,13 +73,12 @@ class UserInputFilter
 
     public static function getConfig()
     {
-        global $debug_page;
         static $config = null;
 
         if ($config === null) {
             $config = OcMemCache::getOrCreate(
                 'HTMLPurifierConfig',
-                isset($debug_page) && $debug_page ? 1 : 60,
+                OcConfig::debugModeEnabled() ? 1 : 60,
                 function ()
                 {
                     $cfg = self::createConfig();

@@ -5,6 +5,7 @@ use src\Models\Coordinates\Coordinates;
 use src\Models\GeoCache\GeoCacheCommons;
 use src\Utils\I18n\I18n;
 use src\Models\ApplicationContainer;
+use src\Models\OcConfig\OcConfig;
 /**
  * This script is used (can be loaded) by /search.php
  */
@@ -168,7 +169,7 @@ $stmt = XDb::xSql(
         AND `caches`.`status`=`cache_status`.`id`');
 
 while($r = XDb::xFetchArray($stmt) ) {
-    if (@$enable_cache_access_logs) {
+    if (OcConfig::isSiteCacheAccessLogEnabled()) {
 
         $dbc = OcDb::instance();
 

@@ -368,13 +368,6 @@
         document.searchbydistance.lon_min.value = lon_min.toFixed(3);
     }
 
-    function showGeoCoder()
-    {
-        var geocoder = window.open('geocoder.php', 'geocoder', 'width=650,height=500');
-    }
-
-
-
 </script>
 
 <div class="content2-pagetitle">
@@ -684,7 +677,6 @@
           </select>
           <input type="text" name="lat_h" maxlength="2" value="{lat_h}" class="form-control input30">&nbsp;°&nbsp;
           <input type="text" name="lat_min" maxlength="6" value="{lat_min}" class="form-control input50">&nbsp;'
-          <span class="notice"><a href="javascript:void(0)" onclick="showGeoCoder()">{{where_i_am}}</a></span>
         </td>
       </tr>
       <tr class="form-group-sm">
