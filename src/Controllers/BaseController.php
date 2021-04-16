@@ -2,15 +2,17 @@
 
 namespace src\Controllers;
 
+use src\Controllers\Core\CoreController;
 use src\Models\ApplicationContainer;
 use src\Models\User\User;
 use src\Models\OcConfig\OcConfig;
 use src\Utils\View\View;
 use src\Utils\Uri\Uri;
 
-require_once(__DIR__.'/../../lib/common.inc.php');
-
-abstract class BaseController
+/**
+ * @deprecated User ApiBaseController or ViewBaseController instead in any new code
+ */
+abstract class BaseController extends CoreController
 {
     const HTTP_STATUS_OK = 200;
 
@@ -21,56 +23,22 @@ abstract class BaseController
 
     const HTTP_STATUS_INTERNAL_ERROR = 500;
 
-    /**
-     * Every ctrl should have index method
-     * which is called by router as a default action
-     */
-    abstract public function index();
-
-    /**
-     * This method is called by router to be sure that given action is allowed
-     * to be called by router (it is possible that ctrl has public method which
-     * shouldn't be accessible on request).
-     *
-     * @param string $actionName - method which router will call
-     * @return boolean - TRUE if given method can be call from router
-     */
-    abstract public function isCallableFromRouter($actionName);
-
     /** @var View $view */
     protected $view = null;
 
-    /** @var ApplicationContainer $applicationContainer */
-    protected $applicationContainer = null;
-
-    /** @var User */
-    protected $loggedUser = null;
-
-    /** @var OcConfig $ocConfig */
-    protected $ocConfig = null;
-
     public function __construct()
     {
+        parent::__construct();
         $this->view = tpl_getView();
-
-        $this->applicationContainer = ApplicationContainer::Instance();
-        $this->loggedUser = $this->applicationContainer->getLoggedUser();
-        $this->ocConfig = $this->applicationContainer->getOcConfig();
 
         // there is no DB access init - DB operations should be performed in models/objects
     }
-
 
     protected function redirectToLoginPage()
     {
         $this->view->redirect(
             Uri::setOrReplaceParamValue('target', Uri::getCurrentUri(), '/login.php'));
         exit();
-    }
-
-    protected function isUserLogged()
-    {
-        return !is_null($this->loggedUser);
     }
 
     protected function ajaxJsonResponse($response, $statusCode=null)

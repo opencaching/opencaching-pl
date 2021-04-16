@@ -20,19 +20,19 @@ require_once (__DIR__.'/lib/common.inc.php');
 $ocWP = $GLOBALS['oc_waypoint'];
 $no_tpl_build = false;
 
-// Preprocessing
 $view = tpl_getView();
 
-if ($usr == false) { // user logged in?
+// user logged in?
+$loggedUser = ApplicationContainer::GetAuthorizedUser();
+if (!$loggedUser) {
     $target = urlencode(tpl_get_current_page());
     $view->redirect('/login.php?target=' . $target);
-    exit();
+    exit;
 }
+
 $db = OcDb::instance();
 
-$user = new User(array(
-    'userId' => $usr['userid']
-));
+$user = $loggedUser;
 
 if (isset($_REQUEST['newcache_info']) && $_REQUEST['newcache_info'] != 1) {
     // set here the template to process
@@ -55,11 +55,11 @@ require_once (__DIR__.'/src/Views/newcache.inc.php');
 $errors = false; // set if there was any errors
 
 $rsnc = XDb::xSql("SELECT COUNT(`caches`.`cache_id`) as num_caches FROM `caches`
-            WHERE `user_id` = ? AND status = 1", $usr['userid']);
+            WHERE `user_id` = ? AND status = 1", $loggedUser->getUserId());
 $record = XDb::xFetchArray($rsnc);
 $num_caches = $record['num_caches'];
 
-$cacheLimitByTypePerUser = GeoCache::getUserActiveCachesCountByType($usr['userid']);
+$cacheLimitByTypePerUser = GeoCache::getUserActiveCachesCountByType($loggedUser->getUserId());
 
 if ($num_caches < OcConfig::getNeedApproveLimit()) {
     // user needs approvement for first 3 caches to be published
@@ -101,7 +101,7 @@ tpl_set_var('wp_nc_message', '');
 tpl_set_var('wp_ge_message', '');
 // configuration variables needed in translation strings
 tpl_set_var('limits_promixity', $config['oc']['limits']['proximity']);
-tpl_set_var('short_sitename', $short_sitename);
+tpl_set_var('short_sitename', OcConfig::getSiteShortName());
 $view->loadJQueryUI();
 
 if (! isset($cache_type)) {
@@ -429,21 +429,18 @@ if (isset($_POST['submitform'])) {
     /* Prevent binary data in cache descriptions, e.g. <img src='data:...'> tags. */
     if (strlen($desc) > 300000) {
         tpl_set_var('desc_message', tr('error3KCharsExcedeed'));
-        $error = true;
     }
 
     // check coordinates
     if ($lat_h != '' || $lat_min != '') {
         if (! mb_ereg_match('^[0-9]{1,2}$', $lat_h)) {
             tpl_set_var('lat_message', $error_coords_not_ok);
-            $error = true;
             $lat_h_not_ok = true;
         } else {
             if (($lat_h >= 0) && ($lat_h < 90)) {
                 $lat_h_not_ok = false;
             } else {
                 tpl_set_var('lat_message', $error_coords_not_ok);
-                $error = true;
                 $lat_h_not_ok = true;
             }
         }
@@ -453,12 +450,10 @@ if (isset($_POST['submitform'])) {
                 $lat_min_not_ok = false;
             } else {
                 tpl_set_var('lat_message', $error_coords_not_ok);
-                $error = true;
                 $lat_min_not_ok = true;
             }
         } else {
             tpl_set_var('lat_message', $error_coords_not_ok);
-            $error = true;
             $lat_min_not_ok = true;
         }
 
@@ -469,7 +464,6 @@ if (isset($_POST['submitform'])) {
 
         if ($latitude == 0) {
             tpl_set_var('lon_message', $error_coords_not_ok);
-            $error = true;
             $lat_min_not_ok = true;
         }
     } else {
@@ -481,14 +475,12 @@ if (isset($_POST['submitform'])) {
     if ($lon_h != '' || $lon_min != '') {
         if (! mb_ereg_match('^[0-9]{1,3}$', $lon_h)) {
             tpl_set_var('lon_message', $error_coords_not_ok);
-            $error = true;
             $lon_h_not_ok = true;
         } else {
             if (($lon_h >= 0) && ($lon_h < 180)) {
                 $lon_h_not_ok = false;
             } else {
                 tpl_set_var('lon_message', $error_coords_not_ok);
-                $error = true;
                 $lon_h_not_ok = true;
             }
         }
@@ -498,12 +490,10 @@ if (isset($_POST['submitform'])) {
                 $lon_min_not_ok = false;
             } else {
                 tpl_set_var('lon_message', $error_coords_not_ok);
-                $error = true;
                 $lon_min_not_ok = true;
             }
         } else {
             tpl_set_var('lon_message', $error_coords_not_ok);
-            $error = true;
             $lon_min_not_ok = true;
         }
 
@@ -513,7 +503,6 @@ if (isset($_POST['submitform'])) {
         }
         if ($longitude == 0) {
             tpl_set_var('lon_message', $error_coords_not_ok);
-            $error = true;
             $lon_min_not_ok = true;
         }
     } else {
@@ -532,7 +521,6 @@ if (isset($_POST['submitform'])) {
     }
     if ($time_not_ok) {
         tpl_set_var('effort_message', $time_not_ok_message);
-        $error = true;
     }
     $way_length_not_ok = true;
     if (is_numeric($way_length) || ($search_time == '')) {
@@ -540,7 +528,6 @@ if (isset($_POST['submitform'])) {
     }
     if ($way_length_not_ok) {
         tpl_set_var('effort_message', $way_length_not_ok_message);
-        $error = true;
     }
 
     // check hidden_since
@@ -550,7 +537,6 @@ if (isset($_POST['submitform'])) {
     }
     if ($hidden_date_not_ok) {
         tpl_set_var('hidden_since_message', $date_not_ok_message);
-        $error = true;
     }
 
     if ($needs_approvement) {
@@ -569,14 +555,12 @@ if (isset($_POST['submitform'])) {
         }
         if ($activation_date_not_ok) {
             tpl_set_var('activate_on_message', $date_not_ok_message);
-            $error = true;
         }
     }
 
     // name
     if ($name == '') {
         tpl_set_var('name_message', $name_not_ok_message);
-        $error = true;
         $name_not_ok = true;
     } else {
         $name_not_ok = false;
@@ -586,7 +570,6 @@ if (isset($_POST['submitform'])) {
     // Andrzej "Łza" 2013-06-02
     if ($sel_region == '0') {
         tpl_set_var('region_message', $regionNotOkMessage);
-        $error = true;
         $region_not_ok = true;
     } else {
         $region_not_ok = false;
@@ -601,7 +584,6 @@ if (isset($_POST['submitform'])) {
     $size_not_ok = false;
     if ($sel_size == - 1) {
         tpl_set_var('size_message', $size_not_ok_message);
-        $error = true;
         $size_not_ok = true;
     }
 
@@ -610,21 +592,18 @@ if (isset($_POST['submitform'])) {
     // block forbiden cache types
     if ($sel_type == - 1 || in_array($sel_type, OcConfig::getNoNewCacheOfTypesArray())) {
         tpl_set_var('type_message', $type_not_ok_message);
-        $error = true;
         $type_not_ok = true;
     }
     if ($sel_size != 7 && ($sel_type == 4 || $sel_type == 5 || $sel_type == 6)) {
         if (! $size_not_ok) {
             tpl_set_var('size_message', $sizemismatch_message);
         }
-        $error = true;
         $size_not_ok = true;
     }
     // difficulty / terrain
     $diff_not_ok = false;
     if ($difficulty < 2 || $difficulty > 10 || $terrain < 2 || $terrain > 10) {
         tpl_set_var('diff_message', $diff_not_ok_message);
-        $error = true;
         $diff_not_ok = true;
     }
 
@@ -686,7 +665,7 @@ if (isset($_POST['submitform'])) {
                         `founds` = 0, `notfounds` = 0, `watcher` = 0, `notes` = 0, `last_found` = NULL, `size` = ?, `difficulty` = ?,
                         `terrain` = ?, `uuid` = ?, `logpw` = ?, `search_time` = ?, `way_length` = ?, `wp_gc` = ?,
                         `wp_nc` = ?, `wp_ge` = ?, `wp_tc` = ?, `node` = ? ",
-            $usr['userid'], $name, $longitude, $latitude, $sel_type, $sel_status, $sel_country,
+            $loggedUser->getUserId(), $name, $longitude, $latitude, $sel_type, $sel_status, $sel_country,
             date('Y-m-d', $hidden_date), $activation_date, $sel_size, $difficulty, $terrain, $cache_uuid,
             $log_pw, $search_time, $way_length, $wp_gc, $wp_nc, $wp_ge, $wp_tc, OcConfig::getSiteNodeId());
 
@@ -753,7 +732,7 @@ if (isset($_POST['submitform'])) {
         }
 
         if ($needs_approvement) { // notify OC-Team that new cache has to be verified
-            EmailSender::sendNotifyAboutNewCacheToOcTeam(__DIR__ . '/resources/email/oc_team_notify_new_cache.email.html', ApplicationContainer::Instance()->getLoggedUser(), $name, $cache_id, $adm3, $adm1);
+            EmailSender::sendNotifyAboutNewCacheToOcTeam(__DIR__ . '/resources/email/oc_team_notify_new_cache.email.html', ApplicationContainer::GetAuthorizedUser(), $name, $cache_id, $adm3, $adm1);
         }
 
         // redirection

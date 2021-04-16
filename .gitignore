@@ -1,15 +1,15 @@
-/lib/settings.inc.php
 /logbook/work
 /mobile/lib/settings.inc.php
 /tmp/watchlist-runwatch.lock
 
-#ignore local configs
-/config/*.local.php
-/config/Menu/*.local.php
+# Ignore local configuration
+/config/**/*.local.php
+/lib/settings.inc.php
 
 .buildpath
+.directory
+.idea
+.php_cs.cache
 .project
 .settings
 ocpl-dynamic-files
-.directory
-.idea

@@ -5,20 +5,16 @@ use src\Models\GeoCache\GeoCache;
 use src\Utils\I18n\Languages;
 use src\Utils\Text\UserInputFilter;
 use src\Utils\I18n\I18n;
+use src\Models\ApplicationContainer;
 
 //prepare the templates and include all neccessary
 require_once(__DIR__.'/lib/common.inc.php');
 
-//Preprocessing
-if ($error) {
-    tpl_errorMsg('editdesc', "Error?");
-    exit;
-}
-
 $descid = ( isset($_REQUEST['descid']) && is_numeric($_REQUEST['descid']) ) ? $_REQUEST['descid'] : 0;
 
 //user logged in?
-if ($usr == false) {
+$loggedUser = ApplicationContainer::GetAuthorizedUser();
+if (!$loggedUser) {
     $target = urlencode(tpl_get_current_page());
     tpl_redirect('login.php?target=' . $target);
     exit;
@@ -38,7 +34,8 @@ if ( $desc_record = XDb::xFetchArray($desc_rs) ) {
     $desc_lang = $desc_record['language'];
     $cache_id = $desc_record['cache_id'];
 
-    if ($desc_record['user_id'] != $usr['userid'] && !$usr['admin']) {
+    if ($desc_record['user_id'] != $loggedUser->getUserId() &&
+        !$loggedUser->hasOcTeamRole()) {
         tpl_errorMsg('editdesc', "You're not an owner of this cache!");
         exit;
     }
@@ -148,7 +145,7 @@ if ( $desc_record = XDb::xFetchArray($desc_rs) ) {
     tpl_set_var('descid', $descid);
     tpl_set_var('cacheid', htmlspecialchars($desc_record['cache_id'], ENT_COMPAT, 'UTF-8'));
     tpl_set_var('desclang', htmlspecialchars($desc_lang, ENT_COMPAT, 'UTF-8'));
-    tpl_set_var('desclang_name', htmlspecialchars(Languages::LanguageNameFromCode($desc_lang, I18n::getCurrentLang()), ENT_COMPAT, 'UTF-8'));
+    tpl_set_var('desclang_name', htmlspecialchars(Languages::languageNameFromCode($desc_lang, I18n::getCurrentLang()), ENT_COMPAT, 'UTF-8'));
     tpl_set_var('cachename', htmlspecialchars($desc_record['name'], ENT_COMPAT, 'UTF-8'));
 }
 

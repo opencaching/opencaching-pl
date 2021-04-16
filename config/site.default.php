@@ -1,17 +1,23 @@
 <?php
 
 /**
- * DEFAULT general site properties for ALL nodes
+ * General site properties configuration
+ *
+ * This is a default configuration.
+ * It may be customized in node-specific configuration file.
  */
 
 $site = [];
-
-
 
 /**
  * Site name for the node
  */
 $site['siteName'] = 'OpenCaching';
+
+/**
+ * Site short name
+ */
+$site['shortName'] = 'OC';
 
 /**
  * Page title (to display on the browser titlebar)
@@ -25,7 +31,7 @@ $site['pageTitle'] = 'OpenCaching';
 $site['ocNodeId'] = 4;
 
 /**
- * Site main domain - this shoudl be only main part of domain eg. opencaching.pl for OCPL
+ * Site main domain - this should be only main part of domain eg. opencaching.pl for OCPL
  */
 $site['mainDomain'] = 'opencaching.pl';
 
@@ -59,3 +65,13 @@ $site['mainViewIcons'] = [
     'webmanifest' => '/images/icons/site.webmanifest',    // <link rel="manifest"
     'maskIcon' => '/images/icons/safari-pinned-tab.svg',  // <link rel="mask-icon"
 ];
+
+/**
+ * Save all accesses to geocaches in DB for debug/security purpose
+ */
+$site['cacheAccessLogEnabled'] = false;
+
+/**
+ * Enable debug mode (USE ONLY IN DEV/TEST ENV!)
+ */
+$site['debugModeEnabled'] = false;

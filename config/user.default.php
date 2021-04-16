@@ -2,14 +2,23 @@
 /**
  * User-related configuration
  *
- * This is a DEFAULT configuration for ALL nodes, which contains necessary vars.
- *
- * If you want to customize these values for your node
- * create config for your node (file user.pl.php for OCPL)
- * and there override $guides array values as needed.
- *
+ * This is a default user configuration.
+ * It may be customized in node-specific configuration file.
  */
 
-$user = [
-    'defaultStatpicText' => 'Opencaching'
-];
+$config = [];
+
+/**
+ * Removed user account has anonimized username in format: <removedUserUsernamePrefix>_<date-of-removing>_<userId>
+ */
+$config['removedUserUsernamePrefix'] = "Account_removed";
+
+/**
+ * Text displayed in as description of removed user account - formatted date will be added at the end of the text
+ */
+$config['removedUserDescription'] = "Account removed on user request.";
+
+/**
+ * Default text displayed on statpic images
+ */
+$config['defaultStatpicText'] = 'Opencaching';

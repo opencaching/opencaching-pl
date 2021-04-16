@@ -62,7 +62,7 @@ class EmailFormatter
         $header->setVariable("server", OcConfig::getAbsolute_server_URI());
         $header->setVariable("oc_logo", OcConfig::getHeaderLogo());
         $header->setVariable("sitename", OcConfig::getSiteName());
-        $header->setVariable("short_sitename", OcConfig::getShortSiteName());
+        $header->setVariable("short_sitename", OcConfig::getSiteShortName());
         $header->setVariable("mail_header_hi", tr("mail_header_hi"));
         $header->setVariable("user", $username);
 

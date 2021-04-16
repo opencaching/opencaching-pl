@@ -1,26 +1,38 @@
 {
-  "require": {
-    "php" : ">=7.1 <7.4",
-    "kint-php/kint": "^1.0",
-    "ezyang/htmlpurifier": "^4.9",
-    "aferrandini/phpqrcode": "^1.0",
-    "cweagans/composer-patches": "^1.6",
-    "js-cookie/js-cookie": "^2.1",
-    "ext-json": "*",
-    "ext-gettext": "*",
-    "ext-gd": "*",
-    "ext-mbstring": "*",
-    "ext-apcu": "*",
-    "ext-pdo": "*",
-    "ext-iconv": "*",
-    "ext-simplexml": "*",
-    "ext-libxml": "*",
-    "ext-openssl": "*"
-  },
-  "extra": {
-    "patches": {
-      "jpgraph/jpgraph": {
-      }
-    }
-  }
+    "require": {
+        "php": ">=7.2 <7.4",
+        "ext-json": "*",
+        "ext-gettext": "*",
+        "ext-gd": "*",
+        "ext-mbstring": "*",
+        "ext-apcu": "*",
+        "ext-pdo": "*",
+        "ext-iconv": "*",
+        "ext-simplexml": "*",
+        "ext-libxml": "*",
+        "ext-mysqli": "*",
+        "ext-openssl": "*",
+        "aferrandini/phpqrcode": "^1.0",
+        "ezyang/htmlpurifier": "^4.13",
+        "kint-php/kint": "^3.3",
+        "npm-asset/js-cookie": "2.1.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "okapi\\": "okapi/",
+            "src\\": "src/"
+        },
+        "classmap": [
+            "modules/openchecker/openchecker_classes.php",
+            "powerTrail/powerTrailBase.php",
+            "powerTrail/powerTrailController.php",
+            "powerTrail/sendEmail.php"
+        ]
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ]
 }

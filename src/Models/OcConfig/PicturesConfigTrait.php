@@ -1,125 +1,126 @@
 <?php
+
 namespace src\Models\OcConfig;
 
-use src\Controllers\PictureController;
+use Exception;
 
 /**
- * This trait group access to email settings stored in /config/email.* conf. files
- * BEWARE OF FUNCTIONS NAME COLLISION BETWEEN CONFIG TRAITS!
+ * Loads configuration from pictures.*.php.
+ *
+ * @mixin OcConfig
  */
-trait PicturesConfigTrait {
-
+trait PicturesConfigTrait
+{
     protected $picturesConfig = null;
 
     /**
-     *
-     * @return array [width, height] of max size of the small thumbnail
+     * @return array [width, height] of the maximum size of a small thumbnail.
      */
     public static function getPicSmallThumbnailSize()
     {
-         $conf = self::getPicturesVar('thumbnailSmall');
-         if(!is_array($conf)){
-            throw new \Exception("thumbnailSmall setting not an array?: see /config/pictures.*");
-         }
-         return $conf;
-    }
+        $conf = self::getKeyFromPicturesConfig('thumbnailSmall');
 
-    /**
-     *
-     * @return array [width, height] of max size of the small thumbnail
-     */
-    public static function getPicMediumThumbnailSize()
-    {
-        $conf = self::getPicturesVar('thumbnailMedium');
-        if(!is_array($conf)){
-            throw new \Exception("thumbnailMedium setting no an array?: see /config/pictures.*");
+        if (! is_array($conf)) {
+            throw new Exception('thumbnailSmall setting not an array?: see /config/pictures.*');
         }
+
         return $conf;
     }
 
     /**
-     * former: $picdir
-     * @return string - path to the folder where uploaded pictures should be stored
+     * @return array [width, height] of the maximum size of a medium thumbnail.
      */
-    public static function getPicUploadFolder()
+    public static function getPicMediumThumbnailSize()
+    {
+        $conf = self::getKeyFromPicturesConfig('thumbnailMedium');
+
+        if (! is_array($conf)) {
+            throw new Exception('thumbnailMedium setting no an array?: see /config/pictures.*');
+        }
+
+        return $conf;
+    }
+
+    /**
+     * Get absolute path of the directory where uploaded pictures should be stored.
+     */
+    public static function getPicUploadFolder(): string
     {
         return self::getDynFilesPath(true) . self::getPicUploadFolderInDynBaseDir();
     }
 
     /**
-     * @return string - path to the folder where uploaded pictures should be stored related to DynBasePath directory
+     * Get the path of the directory where uploaded pictures should be stored
+     * relative to DynBasePath directory.
      */
-    public static function getPicUploadFolderInDynBaseDir()
+    public static function getPicUploadFolderInDynBaseDir(): string
     {
-        return self::getPicturesVar('picturesUploadFolder');
+        return self::getKeyFromPicturesConfig('picturesUploadFolder');
     }
 
     /**
-     * former: $picurl
-     * @return string - base of the url under which pics are accessible
+     * Get an absolute url under which pictures are accessible.
      */
-    public static function getPicBaseUrl()
+    public static function getPicBaseUrl(): string
     {
-        return self::getPicturesVar('picturesBaseUrl');
+        return self::getKeyFromPicturesConfig('picturesBaseUrl');
     }
 
     /**
-     * @return string - path to the folder where thumbnails should be stored
+     * Get the path of the directory where thumbnails should be stored.
      */
-    public static function getPicThumbnailsFolder(){
-        return self::getDynFilesPath(true) . self::getPicturesVar('thumbnailFolder');
+    public static function getPicThumbnailsFolder(): string
+    {
+        return self::getDynFilesPath(true) . self::getKeyFromPicturesConfig('thumbnailFolder');
     }
 
     /**
-     * Note: this size is internal - other limits can be set in http/php server config
-     * @return float - return the max size of picture
+     * Note: this size is internal - other limits can be set in http/php server configuration.
+     *
+     * @return int|float
      */
-    public static function getPicMaxSize(){
-        return self::getPicturesVar('maxFileSize');
+    public static function getPicMaxSize()
+    {
+        return self::getKeyFromPicturesConfig('maxFileSize');
     }
 
     /**
-     * @return float - minimal size of picture (in MB) to run resize
+     * Get the maximum size of a picture that is allowed to be stored without
+     * resizing (in MB).
+     *
+     * @return float
      */
-    public static function getPicResizeLimit(){
-        return self::getPicturesVar('resizeLargerThan');
+    public static function getPicResizeLimit()
+    {
+        return self::getKeyFromPicturesConfig('resizeLargerThan');
     }
 
     /**
-     * @return string  List of allowed picture extensions
+     * Get the list of allowed picture extensions.
      */
-    public static function getPicAllowedExtensions($toDisplay = false){
-        if ($toDisplay) {
-            return self::getPicturesVar('allowedExtensionsText');
-        } else {
-            return self::getPicturesVar('allowedExtensions');
-        }
+    public static function getPicAllowedExtensions($toDisplay = false): string
+    {
+        return self::getKeyFromPicturesConfig(
+            $toDisplay ? 'allowedExtensionsText' : 'allowedExtensions'
+        );
     }
 
-    /**
-     * Read config from files
-     * @return array
-     */
-    private function getPicturesConfig(){
-        if ($this->picturesConfig == null) {
+    private function getPicturesConfig(): array
+    {
+        if (! $this->picturesConfig) {
             $this->picturesConfig = self::getConfig('pictures', 'pictures');
         }
+
         return $this->picturesConfig;
     }
 
     /**
-     * Get Var from pictures.* files
-     *
-     * @param string $varName
-     * @throws \Exception
-     * @return string
+     * @return mixed
      */
-    private static function getPicturesVar($varName)
+    private static function getKeyFromPicturesConfig(string $key)
     {
-        $config = self::instance()->getPicturesConfig();
-        if (!is_array($config) || !isset($config[$varName]) ) {
-            throw new \Exception("Invalid $varName setting: see /config/pictures.*");
-        }
-        return $config[$varName];
+        $picturesConfig = self::instance()->getPicturesConfig();
+
+        return $picturesConfig[$key];
     }
 }

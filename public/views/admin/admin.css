@@ -1,13 +1,26 @@
 @charset "UTF-8";
 
 .content2-container {
-	font-size: 12px;
+  font-size: 12px;
 }
 
 .admin-onoff-switch {
-	height: 24px;
+  height: 24px;
 }
 
 .admin-note-textarea {
-	height: 120px;
+  height: 120px;
+}
+
+#userButtonsDiv {
+  float: right;
+}
+
+#removeAccountConfirmation {
+  background-color: rgb(219,230,241);
+  padding: 20px;
+}
+
+#rmUserConfirmationBtns {
+  text-align: center;
 }

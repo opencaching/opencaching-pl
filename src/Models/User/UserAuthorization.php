@@ -184,26 +184,12 @@ class UserAuthorization extends BaseObject
         // set obsolete user_is in session
         $_SESSION['user_id'] = $user->getUserId();
 
-        // set obsolete global $usr[] array
-        global $usr;
-        $usr['username'] = $user->getUserName();
-        $usr['userFounds'] = $user->getFoundGeocachesCount();
-        $usr['userid'] = $user->getUserId();
-        $usr['email'] = $user->getEmail();
-        $usr['latitude'] = $user->getHomeCoordinates()->getLatitude();
-        $usr['longitude'] = $user->getHomeCoordinates()->getLongitude();
-        $usr['admin'] = $user->hasOcTeamRole();
-
     }
 
     private static function clearContextVars(){
 
         // clear AppContainer
         ApplicationContainer::SetAuthorizedUser(null);
-
-        // clear obsolete global $usr[] array
-        global $usr;
-        $usr = false;
 
         // set obsolete user_is in session
         unset($_SESSION['user_id']);
@@ -415,7 +401,7 @@ class UserAuthorization extends BaseObject
         $email->setReplyToAddr(OcConfig::getEmailAddrNoReply());
         $email->setFromAddr(OcConfig::getEmailAddrNoReply());
         $email->addSubjectPrefix(OcConfig::getEmailSubjectPrefix());
-        $subject = tr('newpw_mail_subject') . ' ' . ApplicationContainer::Instance()->getOcConfig()->getSiteName();
+        $subject = tr('newpw_mail_subject') . ' ' . OcConfig::getSiteName();
         $email->setSubject($subject);
         $email->setHtmlBody($userMessage->getEmailContent());
         $result = $email->send();
@@ -437,7 +423,7 @@ class UserAuthorization extends BaseObject
             SELECT COUNT(*)
             FROM `user`
             WHERE `user_id` = :1
-                AND `is_active_flag` = TRUE
+                AND `is_active_flag` = 1
                 AND `new_pw_code` LIKE :2
                 AND `new_pw_exp` > NOW()
             LIMIT 1

@@ -14,24 +14,26 @@ use src\Models\OcConfig\OcConfig;
 use src\Utils\I18n\I18n;
 use src\Models\GeoCache\GeoCacheLogCommons;
 use src\Models\GeoCache\GeoCache;
-+
+use src\Models\ApplicationContainer;
+
 //prepare the templates and include all neccessary
 require_once(__DIR__.'/lib/common.inc.php');
-global $usr, $config;
+global $config;
 
-//Preprocessing
-if ($error == false) {
-    //logid
-    $log_id = 0;
-    if (isset($_REQUEST['logid'])) {
-        $log_id = $_REQUEST['logid'];
-    }
+//logid
+$log_id = 0;
+if (isset($_REQUEST['logid'])) {
+    $log_id = $_REQUEST['logid'];
+}
 
-    //user logged in?
-    if ($usr == false) {
-        $target = urlencode(tpl_get_current_page());
-        tpl_redirect('login.php?target=' . $target);
-    } else {
+//user logged in?
+$loggedUser = ApplicationContainer::GetAuthorizedUser();
+if (!$loggedUser) {
+    $target = urlencode(tpl_get_current_page());
+    tpl_redirect('login.php?target=' . $target);
+    exit;
+}
+
         //does log with this logid exist?
         $log_rs = XDb::xSql(
             "SELECT `cache_logs`.`cache_id` AS `cache_id`, `cache_logs`.`node` AS `node`, `cache_logs`.`text` AS `text`,
@@ -54,7 +56,9 @@ if ($error == false) {
             }
 
             //is this log from this user?
-            if (($log_record['user_id'] == $usr['userid'] && ($usr['admin'] || ($log_record['cachestatus'] != 4 && $log_record['cachestatus'] != 6)))) {
+            if (($log_record['user_id'] == $loggedUser->getUserId() &&
+                ($loggedUser->hasOcTeamRole() || ($log_record['cachestatus'] != 4 && $log_record['cachestatus'] != 6)))) {
+
                 $tplname = 'editlog';
                 $view->loadJquery();
 
@@ -96,7 +100,7 @@ if ($error == false) {
                         $rating_msg = mb_ereg_replace('{recommendationsNr}', "$recommendationsNr", $rating_too_few_founds);
 
                     } elseif ($user_tops < floor($user_founds * GeoCacheCommons::RECOMENDATION_RATIO / 100)) {
-                        if ($cache_user_id != $usr['userid']) {
+                        if ($cache_user_id != $loggedUser->getUserId()) {
                             $rating_msg = mb_ereg_replace('{chk_sel}', '', $rating_allowed . '<br />' . $rating_stat);
                         } else {
                             $rating_msg = mb_ereg_replace('{chk_dis}', ' disabled="disabled"', $rating_own . '<br />' . $rating_stat);
@@ -111,7 +115,7 @@ if ($error == false) {
                         $rating_msg .= '<br />' . $rating_maxreached;
                     }
                 } else {
-                    if ($cache_user_id != $usr['userid']) {
+                    if ($cache_user_id != $loggedUser->getUserId()) {
                         $rating_msg = mb_ereg_replace('{chk_sel}', ' checked', $rating_allowed . '<br />' . $rating_stat);
                     } else {
                         $rating_msg = mb_ereg_replace('{chk_dis}', ' disabled', $rating_own . '<br />' . $rating_stat);
@@ -239,7 +243,7 @@ if ($error == false) {
                             /*1*/$log_type,
                             /*2*/date('Y-m-d H:i:s', mktime($log_date_hour, $log_date_min, 0, $log_date_month, $log_date_day, $log_date_year)),
                             /*3*/UserInputFilter::purifyHtmlString(((true) ? $log_text : nl2br($log_text))),
-                            /*4*/2, $usr['userid'], $log_id);
+                            /*4*/2, $loggedUser->getUserId(), $log_id);
                     } else {
                         XDb::xSql(
                             "UPDATE `cache_logs`
@@ -249,7 +253,7 @@ if ($error == false) {
                             /*1*/$log_type,
                             /*2*/date('Y-m-d H:i:s', mktime($log_date_hour, $log_date_min, 0, $log_date_month, $log_date_day, $log_date_year)),
                             /*3*/UserInputFilter::purifyHtmlString(((true) ? $log_text : nl2br($log_text))),
-                            /*4*/2, $usr['userid'], $log_id);
+                            /*4*/2, $loggedUser->getUserId(), $log_id);
                     }
 
                     //update user-stat if type changed
@@ -389,8 +393,8 @@ if ($error == false) {
 
                             $ctrlMeritBadge = new MeritBadgeController;
 
-                            $changedLevelBadgesIds = $ctrlMeritBadge->updateTriggerLogCache($cache_id, $usr['userid']);
-                            $titledIds= $ctrlMeritBadge->updateTriggerTitledCache($cache_id, $usr['userid']);
+                            $changedLevelBadgesIds = $ctrlMeritBadge->updateTriggerLogCache($cache_id, $loggedUser->getUserId());
+                            $titledIds= $ctrlMeritBadge->updateTriggerTitledCache($cache_id, $loggedUser->getUserId());
 
                             if ( $changedLevelBadgesIds != "" && $titledIds!= "")
                                 $changedLevelBadgesIds .= ",";
@@ -417,7 +421,7 @@ if ($error == false) {
                 $founds2 = XDb::xMultiVariableQueryValue(
                     "SELECT count(*) as founds FROM `cache_logs`
                     WHERE user_id= :1 AND cache_id= :2 AND type='1' AND deleted=0",
-                    0, $usr['userid'], $log_record['cache_id'] );
+                    0, $loggedUser->getUserId(), $log_record['cache_id'] );
 
                 if ($founds2 > 0) {
 
@@ -440,12 +444,12 @@ if ($error == false) {
                                             GeoCacheLogCommons::LOGTYPE_ARCHIVED,
                                             GeoCacheLogCommons::LOGTYPE_TEMPORARYUNAVAILABLE];
                     if (in_array($type,$allowedOnlyForOwner) &&
-                        $log_record['user_id'] != $cache_user_id && !($usr['admin'])) {
+                        $log_record['user_id'] != $cache_user_id && !$loggedUser->hasOcTeamRole()) {
                         continue;
                     }
 
                     // Only COG can write or edit COG comment
-                    if ($type == GeoCacheLogCommons::LOGTYPE_ADMINNOTE && !($usr['admin'])) {
+                    if ($type == GeoCacheLogCommons::LOGTYPE_ADMINNOTE && !$loggedUser->hasOcTeamRole()) {
                         continue;
                     }
 
@@ -559,8 +563,7 @@ if ($error == false) {
             echo "no_such_log...?!";
             die();
         }
-    }
-}
+
 
 //make the template and send it out
 tpl_set_var('language4js', I18n::getCurrentLang());

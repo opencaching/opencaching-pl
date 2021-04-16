@@ -2,12 +2,6 @@
 
 namespace src\Models\MeritBadge;
 
-
-use src\Models\MeritBadge\MeritBadge;
-use src\Models\MeritBadge\LevelMeritBadge;
-use src\Models\MeritBadge\CategoryMeritBadge;
-
-
 class UserMeritBadge{
 
     private $id;

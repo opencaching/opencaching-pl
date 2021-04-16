@@ -2,7 +2,7 @@
 namespace src\Utils\Uri;
 
 use ReflectionException;
-use src\Utils\Debug\Debug;
+use src\Models\OcConfig\OcConfig;
 
 /**
  * Route schema:
@@ -28,7 +28,7 @@ class SimpleRouter
     // action used if request is improper (eg. there is no such action)
     const ERROR_ACTION = 'displayCommonErrorPageAndExit';
 
-    const CTRL_BASE_CLASS = '\src\Controllers\BaseController';
+    const CTRL_BASE_CLASS = '\src\Controllers\Core\CoreController';
     const ROOT_DIR = __DIR__.'/../../..';
 
     // GET (url) var used to transfer route
@@ -258,9 +258,7 @@ class SimpleRouter
 
     private static function displayErrorAndExit($message, $httpCode)
     {
-        global $debug_page;
-
-        $message = $debug_page ? $message : 'Improper request';
+        $message = OcConfig::debugModeEnabled() ? $message : 'Improper request';
 
         $ctrlName = self::getControllerWithNamespace(self::ERROR_CTRL);
         call_user_func_array(array(new $ctrlName(self::ERROR_ACTION),  self::ERROR_ACTION), [$message, $httpCode]);

@@ -1,5 +1,9 @@
 <?php
 
+namespace OpenChecker;
+
+use PDO;
+use PDOException;
 use src\Utils\Database\XDb;
 use src\Models\GeoCache\GeoCache;
 use src\Models\GeoCache\Waypoint;

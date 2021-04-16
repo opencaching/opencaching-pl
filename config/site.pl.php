@@ -1,6 +1,9 @@
 <?php
+
 /**
- * Configuration of general site properties of OCPL
+ * General site properties configuration
+ *
+ * Those are configuration overrides for OCPL node only.
  */
 
 /**
@@ -20,9 +23,14 @@ $site['pageTitle'] = 'Geocaching Opencaching Polska';
 $site['ocNodeId'] = 2;
 
 /**
- * Site main domain - this shoudl be only main part of domain eg. opencaching.pl for OCPL
+ * Site main domain - this should be only main part of domain eg. opencaching.pl for OCPL
  */
 $site['mainDomain'] = 'opencaching.pl';
+
+/**
+ * Site short name
+ */
+$site['shortName'] = 'OC PL';
 
 /**
  * Primary countries for this node.
@@ -36,3 +44,7 @@ $site['primaryCountries'] = ['PL'];
  */
 $site['defaultCountriesList'] = ['PL', 'BY', 'CZ', 'DE', 'DK', 'LT', 'NL', 'RO', 'SE', 'SK', 'GB', 'UA', 'HU'];
 
+/**
+ * Save all accesses to geocaches in DB for debug/security purpose
+ */
+$site['cacheAccessLogEnabled'] = true;

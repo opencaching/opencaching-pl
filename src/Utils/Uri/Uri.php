@@ -214,12 +214,16 @@ class Uri {
      * @param array dictionary of params
      * @return string
      */
-    public static function addParamsToUri($uri, $params = [])
+    public static function addParamsToUri($uri, array $params = [])
     {
         $delimiter = strpos($uri, '?') ? '&' : '?';
 
         foreach ($params as $key => $value) {
-            $uri .= $delimiter . $key . '=' . urlencode($value);
+            if ($value) {
+                $uri .= $delimiter . $key . '=' . urlencode($value);
+            } else {
+                $uri .= $delimiter . $key;
+            }
             $delimiter = '&';
         }
         return $uri;

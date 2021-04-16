@@ -337,6 +337,16 @@ class Neighbourhood extends BaseObject
     }
 
     /**
+     * Remove all neighbourhoods of given user
+     * @param User $user
+     */
+    public static function removeAllUserNeighbourhood(User $user): void
+    {
+        self::db()->multiVariableQuery(
+            'DELETE FROM user_neighbourhoods WHERE user_id = :1', $user->getUserId());
+    }
+
+    /**
      * Changes "Notify" state for $seq Neighbourhood for $user
      *
      * @param int $seq

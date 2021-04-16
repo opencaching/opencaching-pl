@@ -158,8 +158,7 @@ class ViewCacheController extends BaseController
         $this->geocache->incCacheVisits($this->loggedUser, $_SERVER["REMOTE_ADDR"]);
 
         // detailed cache access logging
-        global $enable_cache_access_logs;
-        if (@$enable_cache_access_logs) {
+        if (OcConfig::isSiteCacheAccessLogEnabled()) {
             $userId = $this->loggedUser ? $this->loggedUser->getUserId() : null;
             CacheAccessLog::logBrowserCacheAccess($this->geocache->getCacheId(), $userId, 'view_cache');
         }
@@ -178,8 +177,7 @@ class ViewCacheController extends BaseController
         $this->view->setVar('ownerId', $this->geocache->getOwner()->getUserId());
         $this->view->setVar('ownerName', htmlspecialchars($this->geocache->getOwner()->getUserName()));
 
-        global $hide_coords;
-        $this->view->setVar('alwaysShowCoords', !$hide_coords);
+        $this->view->setVar('alwaysShowCoords', !OcConfig::coordsHiddenForNonLogged());
         $this->view->setVar('cachename', htmlspecialchars($this->geocache->getCacheName()));
 
         $this->view->setVar('diffTitle', tr('task_difficulty') . ': ' . $this->geocache->getDifficulty() / 2 . ' ' . tr('out_of') . ' ' . '5.0');
@@ -306,12 +304,10 @@ class ViewCacheController extends BaseController
 
     private function processGeoPaths()
     {
-        global $powerTrailModuleSwitchOn;
-
         // geoPath badge
         $geoPathSectionDisplay = false;
 
-        if ($powerTrailModuleSwitchOn && $this->cache_id != null) {
+        if (OcConfig::areGeopathsSupported() && $this->cache_id != null) {
             $geoPathsList = [];
             foreach (powerTrailBase::checkForPowerTrailByCache($this->cache_id) as $pt) {
                 $geoPath = new stdClass();
@@ -409,15 +405,13 @@ class ViewCacheController extends BaseController
 
     private function processPics()
     {
-        global $hide_coords;
-
         $picturesToDisplay = null;
         if ($this->geocache->getPicturesCount() != 0 &&
             !(isset($_REQUEST['print']) && isset($_REQUEST['pictures']) && $_REQUEST['pictures'] == 'no')) {
 
             //there are any pictures to display
 
-            $hideSpoilersForAnonims = !$this->loggedUser && $hide_coords;
+            $hideSpoilersForAnonims = !$this->loggedUser && OcConfig::coordsHiddenForNonLogged();
             $showOnlySpoilers = isset($_REQUEST['spoiler_only']) && $_REQUEST['spoiler_only'] == 1;
             $unHideSpoilersThumbs = $this->loggedUser && isset($_REQUEST['print']) && $_REQUEST['print'] = 'big' || $_REQUEST['print'] = 'small';
 
@@ -675,19 +669,16 @@ class ViewCacheController extends BaseController
 
     private function processTitled()
     {
-        global $titled_cache_period_prefix; //from config
-        $this->view->setVar('titledDesc', tr($titled_cache_period_prefix . '_titled_cache'));
+        $this->view->setVar('titledDesc', tr(OcConfig::getTitledCachePeriod() . '_titled_cache'));
     }
 
     private function processDetailedCoords()
     {
-        global $hide_coords;
-
         list($lat_dir, $lat_h, $lat_min) = $this->geocache->getCoordinates()->getLatitudeParts(Coordinates::COORDINATES_FORMAT_DEG_MIN);
         list($lon_dir, $lon_h, $lon_min) = $this->geocache->getCoordinates()->getLongitudeParts(Coordinates::COORDINATES_FORMAT_DEG_MIN);
 
 
-        if ($this->loggedUser || !$hide_coords) {
+        if ($this->loggedUser || !OcConfig::coordsHiddenForNonLogged()) {
 
             if ($this->geocache->getCoordinates()->getLongitude() < 0) {
                 $longNC = $this->geocache->getCoordinates()->getLongitude() * (-1);

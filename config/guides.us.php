@@ -1,9 +1,9 @@
 <?php
+
 /**
- * This is configuration of guides criterias.
+ * Guides criteria configuration
  *
- * This is the guides criteria for OCUS.
- *
+ * Those are configuration overrides for OCUS node only.
  */
 
 $guides['guideActivePeriod'] = 180;

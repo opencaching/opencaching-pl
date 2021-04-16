@@ -15,19 +15,20 @@ class TitledCacheAddJob extends Job
 
     public function run()
     {
-        global $titled_cache_nr_found, $titled_cache_period_prefix;
-
         $daysSinceLastTitle = $this->db->simpleQueryValue(
             "SELECT DATEDIFF(NOW(), MAX(date_alg)) FROM cache_titled",
             999
         );
 
-        if ($titled_cache_period_prefix == "week") {
-            $securityPeriod = 7;
-        } elseif ($titled_cache_period_prefix == "month") {
-            $securityPeriod = 28;
-        } else {
-            $securityPeriod = 0;
+        switch (OcConfig::getTitledCachePeriod()) {
+            case 'week':
+                $securityPeriod = 7;
+                break;
+            case 'month':
+                $securityPeriod = 28;
+                break;
+            default:
+                $securityPeriod = PHP_INT_MAX;
         }
 
         if ($daysSinceLastTitle < $securityPeriod) {
@@ -112,7 +113,7 @@ class TitledCacheAddJob extends Job
             ORDER BY nrTinR, cFounds DESC, cDateCrt, RATE DESC
         ";
 
-        $s = $this->db->multiVariableQuery($queryS, $date_alg, $titled_cache_nr_found );
+        $s = $this->db->multiVariableQuery($queryS, $date_alg, OcConfig::getTitledCacheMinFounds());
         $rec = $this->db->dbResultFetch($s);
 
         if (!$rec) {
@@ -152,7 +153,7 @@ class TitledCacheAddJob extends Job
 
         $SystemUser = -1;
         $LogType = GeoCacheLog::LOGTYPE_ADMINNOTE;
-        $ntitled_cache = $titled_cache_period_prefix.'_titled_cache_congratulations';
+        $ntitled_cache = OcConfig::getTitledCachePeriod().'_titled_cache_congratulations';
         $msgText = str_replace('{ownerName}', htmlspecialchars($rec['userName']), tr($ntitled_cache));
         $LogUuid = Uuid::create();
 

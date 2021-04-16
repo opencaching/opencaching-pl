@@ -107,6 +107,6 @@ class OcMemCache
 
     private static function getPrefix()
     {
-        return OcConfig::getShortSiteName() . '_';
+        return OcConfig::getSiteShortName() . '_';
     }
 }

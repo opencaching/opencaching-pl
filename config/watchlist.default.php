@@ -1,14 +1,22 @@
 <?php
-/*
- * Configuration setting for watchlist:
- * - "diag_file":
- *      the path of a file used for operating time diagnosis
- *      set to empty string to disable diagnosis
- * - "use_logentries":
- *      set to true if you want to use turn on Log::logentries in the code,
- *      set to false if Log::logentries can be ommited
+
+/**
+ * Watchlist configuration
+ *
+ * This is a default configuration.
+ * It may be customized in node-specific configuration file.
  */
-$watchlist = [
-    'diag_file' => '/var/log/ocpl/runwatch.log',
-    'use_logentries' => true
-];
+
+$watchlist = [];
+/**
+ * The path of a file used for operating time diagnosis
+ * set to empty string to disable diagnosis
+ */
+$watchlist['diag_file'] = '';
+
+/**
+ * Set to true if you want to use Log::logentries in the code
+ * Set to false if Log::logentries can be omitted
+ */
+$watchlist['use_logentries'] = false;
+

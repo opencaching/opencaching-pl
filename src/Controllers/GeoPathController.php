@@ -270,24 +270,6 @@ class GeoPathController extends BaseController
             ['newCachesCount' => $geoPath->getCacheCount()]);
     }
 
-    /**
-     * This method is added temporary to cover old-style links
-     * (called only from script confirmCacheCandidate.php
-     *
-     * @param string $code
-     * @param boolean $proposalAccepted
-     */
-    public function legacyCacheCandidate($code, $proposalAccepted){
-
-        list($geoPathId, $cacheId) = CacheSet::getCandidateDataBasedOnCode($code);
-
-        if(!$geoPathId || !$cacheId){
-            $this->displayCommonErrorPageAndExit("No such proposal?!");
-        }
-
-        $this->acceptCancelCandidate($geoPathId, $cacheId, $code, $proposalAccepted);
-    }
-
     public function acceptCacheCandidate($geopathId, $cacheId, $code)
     {
         $this->acceptCancelCandidate($geopathId, $cacheId, $code, true);

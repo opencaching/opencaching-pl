@@ -23,7 +23,7 @@ use src\Utils\Text\InputFilter;
  */
 require_once(__DIR__ . '/lib/common.inc.php');
 
-$user = ApplicationContainer::Instance()->getLoggedUser();
+$user = ApplicationContainer::GetAuthorizedUser();
 if (!$user) {
     // user not authorized
     $target = urlencode(tpl_get_current_page());

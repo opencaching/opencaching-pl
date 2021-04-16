@@ -21,7 +21,7 @@ class OcSmarty extends Smarty
     {
         I18n::init();
 
-        $mobileTranslations = I18n::getPrefixedTranslationsWithFailover('mobile_');
+        $mobileTranslations = I18n::getPrefixedTranslationsWithFallback('mobile_');
 
         foreach ($mobileTranslations as $key => $text) {
             $this->assign($key, $text);

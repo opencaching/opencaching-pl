@@ -2,6 +2,7 @@
 namespace src\Models\GeoCache;
 
 use src\Models\BaseObject;
+use src\Models\User\User;
 
 class CacheNote extends BaseObject
 {
@@ -121,4 +122,13 @@ class CacheNote extends BaseObject
         return $db->dbResultFetchAll($rs);
     }
 
+    /**
+     * Remove all notes of given user
+     * @param User $user
+     */
+    public static function removeAllForUser(User $user): void
+    {
+        self::db()->multiVariableQuery(
+            "DELETE FROM cache_notes WHERE user_id = :1", $user->getUserId());
+    }
 }

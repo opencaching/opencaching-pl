@@ -10,6 +10,8 @@ class OcDb extends OcPdo
 {
     const BIND_CHAR = ':';
 
+    protected $hasActiveTransaction = false;  // this var is used to detect nested transactions
+
     /**
      * This the ONLY way on which instance of this class
      * should be accessed
@@ -24,6 +26,45 @@ class OcDb extends OcPdo
         $instance = parent::instance($access);
 
         return $instance;
+    }
+
+    /**
+     * Overloading of beginTransaction method to detect nested transations which can't work!
+     * Only one transaction can be active
+     *
+     * {@inheritDoc}
+     * @see OcPdo::beginTransaction()
+     */
+    function beginTransaction() {
+        if ($this->hasActiveTransaction) {
+            Debug::errorLog("DB transation already started - check the code!");
+            return false;
+        } else {
+            $this->hasActiveTransaction = parent::beginTransaction ();
+            return $this->hasActiveTransaction;
+        }
+    }
+
+    /**
+     * Overloading pdo-commit - see beginTransaction for details
+     *
+     * {@inheritDoc}
+     * @see OcPdo::commit()
+     */
+    function commit () {
+        parent::commit ();
+        $this->hasActiveTransaction = false;
+    }
+
+    /**
+     * Overloading pdo-rollback - see beginTransaction for details
+     *
+     * {@inheritDoc}
+     * @see OcPdo::commit()
+     */
+    function rollback () {
+        parent::rollback ();
+        $this->hasActiveTransaction = false;
     }
 
     /**
@@ -285,7 +326,7 @@ class OcDb extends OcPdo
         }
         foreach (explode($delimiter, $queries) as $query) {
             $query = trim($query);
-            if (strcasecmp(substr($query, 0, 9), 'DELIMITER') != 0) {
+            if (!empty($query) && strcasecmp(substr($query, 0, 9), 'DELIMITER') != 0) {
                 $this->simpleQuery($query);
             }
         }

@@ -9,15 +9,16 @@ use src\Models\GeoCache\GeoCacheLog;
 use src\Models\GeoCache\GeoCache;
 use src\Models\OcConfig\OcConfig;
 use src\Models\MeritBadge\MeritBadge;
-use src\Utils\Text\TextConverter;
 use src\Utils\DateTime\Year;
 use src\Utils\Uri\SimpleRouter;
 use src\Utils\Uri\OcCookie;
+use src\Utils\View\View;
 use src\Controllers\MeritBadgeController;
 use src\Utils\Text\Formatter;
 use src\Models\Admin\AdminNoteSet;
 use src\Models\User\UserStats;
 use src\Utils\Debug\StopWatch;
+use src\Models\ApplicationContainer;
 
 const ADMINNOTES_PER_PAGE = 10;
 
@@ -26,7 +27,8 @@ require_once (__DIR__.'/lib/common.inc.php');
 StopWatch::click('start');
 
 //user logged in?
-if ($usr == false) {
+$loggedUser = ApplicationContainer::GetAuthorizedUser();
+if (!$loggedUser) {
     $target = urlencode(tpl_get_current_page());
     tpl_redirect('login.php?target=' . $target);
     exit;
@@ -64,7 +66,7 @@ $cache_line_my_caches = '<li style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0
 if (isset($_REQUEST['userid'])) {
     $user_id = $_REQUEST['userid'];
 } else {
-    $user_id = $usr['userid'];
+    $user_id = $loggedUser->getUserId();
 }
 
 require (__DIR__.'/src/Views/lib/icons.inc.php');
@@ -129,18 +131,18 @@ tpl_set_var('profile_img', $pimage);
 tpl_set_var('profile_info', $pinfo);
 
 $guide_info = '<br>';
-if ($user_id == $usr['userid']) {
+if ($user_id == $loggedUser->getUserId()) {
     // Number of recommendations
     $nrecom = XDb::xMultiVariableQueryValue(
         "SELECT SUM(topratings) as nrecom FROM caches WHERE `caches`.`user_id`= :1 ",
-        0, $usr['userid'] );
+        0, $loggedUser->getUserId());
 
     StopWatch::click(__LINE__);
 
     // new with recommendations
     $guides = OcConfig::instance()->getGuidesConfig();
 
-    if ($nrecom >= $guides['guideGotRecommendations'] && !$user->isGuide() && $user_id == $usr['userid']) {
+    if ($nrecom >= $guides['guideGotRecommendations'] && !$user->isGuide() && $user_id == $loggedUser->getUserId()) {
         $guide_info = '<div class="content-title-noshade box-blue"><table><tr><td><img style="margin-right: 10px;margin-left:10px;" src="/images/blue/info-b.png" alt="guide"></td><td>
             <span style="font-size:12px;"> ' . tr('guru_17') . '
             <a class="links" href="myprofile.php?action=change"> ' . tr('guru_18') . '</a>.
@@ -170,7 +172,7 @@ if (! $user->isActive()) {
 tpl_set_var('lastloginClass', $user->getLastLoginPeriodClass());
 
 //Admin Note (table only)
-if ($usr['admin']) {
+if ($loggedUser->hasOcTeamRole()) {
     $content .= '<div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="/images/blue/logs.png" class="icon32" alt="Cog Note" title="Cog Note"> ' . tr('admin_notes') . '</p></div>';
     $content .= '<div class="notice">'.tr('admin_notes_visible').'</div><p><a href="' . SimpleRouter::getLink('Admin.UserAdmin', 'index', $user_id) . '" class="links">'.tr('admin_user_management').' <img src="/images/misc/linkicon.png" alt="user admin"></a></p>';
     $adminNotes = AdminNoteSet::getNotesForUser($user, ADMINNOTES_PER_PAGE);
@@ -233,7 +235,7 @@ StopWatch::click(__LINE__);
 
 // PowerTrails stats
 
-if ($powerTrailModuleSwitchOn) {
+if (OcConfig::areGeopathsSupported()) {
 
     $content .= buildOpenCloseButton($user_id, $checkGeoPaths, "powerTrailGenericLogo.png", "checkGeoPaths", tr('gp_mainTitile'), "geoPaths");
 
@@ -373,7 +375,7 @@ if ($seek == 0) {
     if ($recomendf == 0) {
         $content .= '</p>';
     } else {
-        if ($usr['userid'] == $user_id) {
+        if ($loggedUser->getUserId() == $user_id) {
             $link_togo = SimpleRouter::getLink(MyRecommendationsController::class, 'recommendations');
         } else {
             $link_togo = SimpleRouter::getLink(MyRecommendationsController::class, 'recommendations', $user_id);
@@ -441,7 +443,7 @@ if ($seek == 0) {
     <div id="ftfDiv" style="display:none"></div></center><input type="hidden" id="userId" value="' . $user_id . '">';
 
     //------------ begin owner section
-    //          if ($user_id == $usr['userid'])
+    //          if ($user_id == $loggedUser->getUserId())
     //          {
     StopWatch::click(__LINE__);
 
@@ -757,7 +759,7 @@ if ($user->getHiddenGeocachesCount() == 0) {
 
             // ukrywanie nicka autora komentarza COG przed zwykłym userem
             // (Łza)
-            if (($record_logs['log_type'] == 12) && (!$usr['admin'])) {
+            if (($record_logs['log_type'] == 12) && (!$loggedUser->hasOcTeamRole())) {
                 $record_logs['user_name'] = 'Centrum Obsługi Geocachera';
                 $record_logs['user_id'] = 0;
             }
@@ -782,7 +784,7 @@ if ($user->getHiddenGeocachesCount() == 0) {
 StopWatch::click(__LINE__);
 
 //  ----------------- begin  owner section  ----------------------------------
-if ($user_id == $usr['userid'] || $usr['admin']) {
+if ($user_id == $loggedUser->getUserId() || $loggedUser->hasOcTeamRole()) {
     $rscheck = XDb::xMultiVariableQueryValue(
         "SELECT count(*) FROM caches
         WHERE (status = 4 OR status = 5 OR status = 6) AND `user_id`= :1", 0, $user_id);

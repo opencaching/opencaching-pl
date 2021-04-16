@@ -3,6 +3,12 @@
 namespace src\Models\User;
 
 use src\Models\BaseObject;
+use src\Models\GeoCache\UserIgnoredCache;
+use src\Models\Search\UserSavedQueries;
+use src\Models\User\UserPreferences\UserPreferences;
+use src\Models\GeoCache\UserCacheCoords;
+use src\Models\GeoCache\CacheNote;
+use src\Models\Neighbourhood\Neighbourhood;
 
 class UserAdmin extends BaseObject {
 
@@ -12,16 +18,22 @@ class UserAdmin extends BaseObject {
      *
      * @param User $user
      * @param boolean $state
-     * @return boolean
      */
-    public static function setBanStatus(User $user, $state)
+    public static function setBanStatus(User $user, bool $state): void
     {
-        return (null !== self::db()->multiVariableQuery("
+        if ($state) {
+            // ban this user
+            $isActive = User::STATUS_BANNED;
+        } else {
+            // un-ban this user
+            $isActive = User::STATUS_ACTIVE;
+        }
+
+        self::db()->multiVariableQuery("
             UPDATE `user`
             SET `is_active_flag` = :1, `activation_code` = ''
-            WHERE `user_id` = :2
-            LIMIT 1
-        ", ! boolval($state), $user->getUserId()));
+            WHERE `user_id` = :2 LIMIT 1",
+            $isActive, $user->getUserId());
     }
 
     /**
@@ -78,4 +90,44 @@ class UserAdmin extends BaseObject {
         ", boolval($state), $user->getUserId()));
     }
 
+    public static function removeUserSpecificSettings(User $user) : void
+    {
+        // first check if user is removed
+        if (!$user->isAlreadyRemoved()) {
+            // do not remove data from non-removed accounts
+            return;
+        }
+
+        // acount is removed - the rest of user-specific data can also be removed now
+
+        // cleanup up watches caches list
+        UserWatchedCache::removeAllWatchesForUser($user);
+
+        // clean up ignores list
+        UserIgnoredCache::removeAllIgnoresForUser($user);
+
+        // clean up userPreferences user_preferences
+        UserPreferences::removeAllUserPreferences($user);
+
+        // badge_user ??
+
+        // cleanup user modified coords
+        UserCacheCoords::removeAllCoordsForUser($user);
+
+        // clean up cache_notes
+        CacheNote::removeAllForUser($user);
+
+        // cleanup saved earch queries
+        UserSavedQueries::removeAllQueriesForUser($user);
+
+        // routes ??
+
+        // cleanup user_neighbourhoods
+        Neighbourhood::removeAllUserNeighbourhood($user);
+
+        // user_nick_history
+        UserNickHistory::removeAllHistoryForUser($user);
+
+        // user_settings ??
+    }
 }

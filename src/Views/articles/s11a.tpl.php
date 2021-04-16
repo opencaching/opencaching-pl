@@ -1,5 +1,6 @@
 <?php
 use src\Utils\Database\XDb;
+use src\Models\OcConfig\OcConfig;
 ?>
 
 <div class="content2-container">
@@ -9,8 +10,7 @@ use src\Utils\Database\XDb;
   </div>
 
 <?php
-global $debug_page;
-if ($debug_page)
+if (OcConfig::debugModeEnabled())
     echo "<script>TimeTrack( 'DEBUG' );</script>";
 ?>
 

@@ -2,36 +2,31 @@
 
 namespace src\Models\OcConfig;
 
-use src\Utils\Debug\Debug;
+use Exception;
 
 /**
- * This object reads and return requested configuration container
- * - for example $menu for menu config or $config for site configuration.
- *
- * All config files should be stored in: CONFIG_DIR.
+ * All configuration files should be stored in /config.
+ * Legacy configuration will be loaded from /lib/settings.inc.php.
  *
  * For all config files there is 3-level hierarchy:
- *   - <config-name>.default.php    - defaults for all nodes, stored in git
+ *   - <config-name>.default.php   - Defaults for all nodes, stored in git.
  *
- *   - <config-name>.<node-id>.php  - defaults for node, stored in git
- *                                      (node-id can has value: pl|ro|nl|uk...)
+ *   - <config-name>.<node-id>.php - Defaults for a node, stored in git.
+ *                                   Node id is a country code, e.g. 'pl', 'ro'...
  *
- *   - <config-name>.local.php      - settings for local installation -
- *                                    DO NOT STORE LOCAL FILES IN GIT!
+ *   - <config-name>.local.php     - Custom local configuration.
+ *                                   Those files are ignored by git.
  *
- * Node-id is stored read from local site-config.
- *
+ * Node identifier should be set in site.local.php.
  */
 abstract class ConfigReader
 {
-    const CONFIG_DIR = __DIR__.'/../../../config/';
-    const MENU_DIR = self::CONFIG_DIR.'menu/';
+    const CONFIG_DIR = __DIR__ . '/../../../config/';
 
-    const LEGACY_LOCAL_CONFIG = __DIR__.'/../../../lib/settingsGlue.inc.php';
-    const LOCAL_CONFIG = self::CONFIG_DIR.'site.local.php';
+    const LEGACY_LOCAL_CONFIG = __DIR__ . '/../../../lib/settingsGlue.inc.php';
+    const LOCAL_CONFIG = self::CONFIG_DIR . 'site.local.php';
 
-    const LINKS_PREFIX = 'links';
-
+    const MENU_DIR = self::CONFIG_DIR . 'menu/';
     const MENU_FOOTER_PREFIX = 'footerMenu';
     const MENU_ADMIN_PREFIX = 'adminPages';
     const MENU_AUTH_USER = 'authUserMainMenu';
@@ -40,180 +35,120 @@ abstract class ConfigReader
     const MENU_HORIZONTAL_BAR = 'horizontalBarMenu';
     const MENU_ADDITIONAL_PAGES = 'additionalPages';
 
-    /** ocNode identifier loaded form local site-settings: pl|ro|nl|uk|... */
+    /**
+     * Node identifier read form site.local.php.
+     *   e.g. 'pl', 'ro', 'nl', 'uk'...
+     */
     private $ocNode = null;
 
     protected $links = null;
 
-    protected function __construct()
-    {
-
-    }
-
     /**
-     * Return given menu based on rules:
-     *  - return local version of file if present
-     *  - next return node-specific version of menu-config file if present
-     *  - next return default version of menu file (always should be present!)
-     *
-     * @param const-string $menuPrefix
-     * @return array $menu
+     * Get the given menu. Local version will be used if it present, otherwise
+     * node-specific and finally the default version will be used as a fallback.
      */
-    public static function getMenu($menuPrefix)
+    public static function getMenu(string $menuPrefix): array
     {
-        $menu = null;
+        // Make $links accessible in menu configuration files
         $links = self::getLinks();
 
-        $localMenuFile = self::MENU_DIR."$menuPrefix.local.php";
-        if(is_file($localMenuFile)){
-            include($localMenuFile);
-            return $menu;
-        }
-
         $ocNode = self::getOcNode();
-        $nodeMenuFile = self::MENU_DIR."$menuPrefix.$ocNode.php";
-        if(is_file($nodeMenuFile)){
-            include($nodeMenuFile);
+        $localMenuFile = self::MENU_DIR . "{$menuPrefix}.local.php";
+        $nodeMenuFile = self::MENU_DIR . "{$menuPrefix}.{$ocNode}.php";
+
+        if (is_file($localMenuFile)) {
+            include $localMenuFile;
+
             return $menu;
         }
 
-        $defaultMenuFile = self::MENU_DIR."$menuPrefix.default.php";
-        if(is_file($defaultMenuFile)){
-            include($defaultMenuFile);
+        if (is_file($nodeMenuFile)) {
+            include $nodeMenuFile;
+
             return $menu;
         }
 
-        Debug::errorLog("ERROR: Can't load menu file: $menuPrefix");
-        return null;
+        include self::MENU_DIR . "{$menuPrefix}.default.php";
+
+        return $menu;
     }
 
     public static function getLinks()
     {
-        /** @var /ConfigReader */
         $ctrl = static::instance();
-        if(!$ctrl->links){
-            $ctrl->links = self::getConfig(self::LINKS_PREFIX, 'links');
+
+        if (! $ctrl->links) {
+            $ctrl->links = self::getConfig('links', 'links');
         }
 
         return $ctrl->links;
     }
 
     /**
-     * Return $config merged from:
-     * - default config file overrirded by
-     * - node-config file overrided by
-     * - local config file
+     * Get config merged from default, node-specific and local config files.
      *
-     * @param string $configName - prefix of the config file - see consts above
-     * @param string $configVarName - name of the var (array) in config file
-     *      (for example: links for links.* files, config for setting.* files etc.)
-     * @return NULL
+     * @param string $configFile Prefix of the config file, e.g. site, okapiConfig
+     * @param string $variable Variable in config file containing config
+     * @return mixed
      */
-    protected static function getConfig($configName, $configVarName=null)
+    protected static function getConfig(string $configFile, string $variable = 'config')
     {
-        if(is_null($configVarName)){
-            $localConfigArr = 'config';
-        }else{
-            $localConfigArr = $configVarName;
-        }
-
-        // $$x means var with the name stored in var $x!
-        $$localConfigArr = null; //first init local variable
         $ocNode = self::getOcNode();
 
-        $defaultConfigFile  = self::CONFIG_DIR."$configName.default.php";
-        $nodeConfigFile     = self::CONFIG_DIR."$configName.$ocNode.php";
-        $localConfigFile    = self::CONFIG_DIR."$configName.local.php";
+        $nodeConfigFile = self::CONFIG_DIR . "{$configFile}.{$ocNode}.php";
+        $localConfigFile = self::CONFIG_DIR . "{$configFile}.local.php";
 
-        // load default config
-        if(is_file($defaultConfigFile)){
-            include($defaultConfigFile);
+        include self::CONFIG_DIR . "{$configFile}.default.php";;
+
+        if (is_file($nodeConfigFile)) {
+            include $nodeConfigFile;
         }
 
-        // load node config
-        if(is_file($nodeConfigFile)){
-            include($nodeConfigFile);
+        if (is_file($localConfigFile)) {
+            include $localConfigFile;
         }
 
-        // load local config
-        if(is_file($localConfigFile)){
-            include($localConfigFile);
-        }
-
-        return $$localConfigArr;
+        return $$variable;
     }
 
     /**
-     * Find node identifier in local settings file
-     * First try to look to legacy /lib/settings.inc.php.
-     * It legacy settings file is not present check /Config/config.local.php.
-     *
-     * Save nodeId in the ApplicationContext.
-     *
-     * @return string identifier of the node
-     *
+     * Get the node identifier. First legacy /lib/settings.inc.php is checked.
+     * If it doesn't exist, /config/site.local.php is used.
      */
-    public static function getOcNode()
+    public static function getOcNode(): string
     {
-        if (!is_null(static::instance()->ocNode)) {
+        if (static::instance()->ocNode) {
             return static::instance()->ocNode;
         }
 
-        // try to load from legacy config file
-        $ocNode = self::getNodeIdFromLegacyConfig();
-        if (!is_null($ocNode)) {
-            self::setOcNode($ocNode);
-            return $ocNode;
+        $ocNode = self::getNodeIdFromLegacyConfig() ?? self::getNodeIdFromConfig();
+
+        if ($ocNode) {
+            return static::instance()->ocNode = $ocNode;
         }
 
-
-        // try to load from local config file
-        $ocNode = self::getNodeIdFromConfig();
-        if (!is_null($ocNode)) {
-            self::setOcNode($ocNode);
-            return $ocNode;
-        }
-
-        throw new \Exception("Can't locate both legacy and non-legacy config files:".
-            self::LEGACY_LOCAL_CONFIG.' and '.self::LOCAL_CONFIG);
+        throw new Exception('Neither legacy nor a non-legacy config file exists.');
     }
 
-    private static function getNodeIdFromConfig()
+    private static function getNodeIdFromConfig(): ?string
     {
-        $localConfigFile = self::LOCAL_CONFIG;
-
-        if(is_file($localConfigFile)){
-            include $localConfigFile;
-
-            if(!isset($config['ocNode'])){
-                $config['ocNode'] = "pl";
-            }
-            return $config['ocNode'];
+        if (! is_file(self::LOCAL_CONFIG)) {
+            return null;
         }
-        return null;
+
+        include self::LOCAL_CONFIG;
+
+        return $config['ocNode'] ?? 'pl';
     }
 
-    private static function getNodeIdFromLegacyConfig()
+    private static function getNodeIdFromLegacyConfig(): ?string
     {
-        // try to load from legacy config file
-        if(is_file(self::LEGACY_LOCAL_CONFIG)){
-            include self::LEGACY_LOCAL_CONFIG;
-
-            if(!isset($config['ocNode'])){
-                $config['ocNode'] = "pl";
-            }
-
-            return $config['ocNode'];
+        if (! is_file(self::LEGACY_LOCAL_CONFIG)) {
+            return null;
         }
-        return null;
+
+        include self::LEGACY_LOCAL_CONFIG;
+
+        return $config['ocNode'] ?? 'pl';
     }
-
-
-    private static function setOcNode($ocNode)
-    {
-        static::instance()->ocNode = $ocNode;
-    }
-
-
-    abstract public static function instance();
 }

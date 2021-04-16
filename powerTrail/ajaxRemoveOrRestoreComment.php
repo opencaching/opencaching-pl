@@ -25,7 +25,7 @@ $commentDbRow = powerTrailBase::getSingleComment($commentId);
 // check if user is owner of selected power Trail
 if (powerTrailBase::checkIfUserIsPowerTrailOwner($_SESSION['user_id'], $powerTrailId) == 1
     || $commentDbRow['userId'] == $callingUser
-    || ($commentDbRow['deleted'] && ApplicationContainer::instance()->getLoggedUser()->hasOcTeamRole())
+    || ($commentDbRow['deleted'] && ApplicationContainer::GetAuthorizedUser()->hasOcTeamRole())
 ) {
     $query = 'UPDATE `PowerTrail_comments` SET `deleted` = :2 WHERE `id` = :1';
     $db = OcDb::instance();

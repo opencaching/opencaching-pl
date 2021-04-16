@@ -1,18 +1,20 @@
 <?php
 
+//
+// Do we nned this file if there is a TitledCacheAddJob in OC cron???
+//
+
+
 use src\Utils\Database\OcDb;
 use src\Utils\Generators\Uuid;
 use src\Controllers\MeritBadgeController;
 use src\Models\OcConfig\OcConfig;
-
-global $titled_cache_nr_found, $titled_cache_period_prefix;
+use src\Models\GeoCache\GeoCacheLogCommons;
 
 require_once(__DIR__.'/lib/common.inc.php');
 
-
 if ( !isset( $_REQUEST[ 'CRON' ] ) )
     exit;
-
 
 $dbc = OcDb::instance();
 
@@ -30,14 +32,20 @@ $dEnd  = new DateTime($date_alg);
 
 $dDiff = $dStart->diff($dEnd);
 
-$securityPeriod = 0;
-if ( $titled_cache_period_prefix == "week" )
-    $securityPeriod = 7;
-if ( $titled_cache_period_prefix == "month" )
-    $securityPeriod = 28;
+switch (OcConfig::getTitledCachePeriod()) {
+    case 'week':
+        $securityPeriod = 7;
+        break;
+    case 'month':
+        $securityPeriod = 28;
+        break;
+    default:
+        $securityPeriod = PHP_INT_MAX;
+}
 
-if ( $dDiff->days < $securityPeriod )
+if ( $dDiff->days < $securityPeriod ) {
     exit;
+}
 
 
     $queryS ="
@@ -109,7 +117,7 @@ if ( $dDiff->days < $securityPeriod )
     order by nrTinR, cFounds DESC, cDateCrt, RATE DESC
     ";
 
-    $s = $dbc->multiVariableQuery($queryS, $date_alg, $titled_cache_nr_found );
+    $s = $dbc->multiVariableQuery($queryS, $date_alg, OcConfig::getTitledCacheMinFounds());
     $rec = $dbc->dbResultFetch($s);
 
 
@@ -139,8 +147,8 @@ if ( $dDiff->days < $securityPeriod )
             $rec[ "cRating" ], $rec[ "cFounds" ], $rec[ "cNrDays" ], $date_alg, $recL["logId"] );
 
     $SystemUser = -1;
-    $LogType = 12; //OCTeam
-    $ntitled_cache = $titled_cache_period_prefix.'_titled_cache_congratulations';
+    $LogType = GeoCacheLogCommons::LOGTYPE_ADMINNOTE;
+    $ntitled_cache = OcConfig::getTitledCachePeriod().'_titled_cache_congratulations';
     $msgText = str_replace('{ownerName}', htmlspecialchars($rec['userName']), tr($ntitled_cache));
     $LogUuid = Uuid::create();
 
@@ -156,6 +164,6 @@ if ( $dDiff->days < $securityPeriod )
             '0', $date_alg, '0', OcConfig::getSiteNodeId() );
 
     $ctrlMeritBadge = new MeritBadgeController;
-    $titledIds= $ctrlMeritBadge->updateTriggerByNewTitledCache($rec[ "cacheId" ]);
+    $ctrlMeritBadge->updateTriggerByNewTitledCache($rec[ "cacheId" ]);
 
 unset($dbc);

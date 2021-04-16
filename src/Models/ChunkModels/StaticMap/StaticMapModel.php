@@ -27,7 +27,7 @@ class StaticMapModel
         global $config;
 
         $model = self::fixedZoomMapFactory(OcConfig::getMapDefaultCenter(), OcConfig::getStartPageMapZoom(),
-            OcConfig::getStartPageMapDiemnsions(), $config['maps']['main_page_map']['source']);
+            OcConfig::getStartPageMapDimensions(), $config['maps']['main_page_map']['source']);
 
         $model->mapProviderUrl = SimpleRouter::getLink(StartPageController::class, 'countryMap');
 

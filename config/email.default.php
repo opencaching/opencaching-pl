@@ -1,43 +1,38 @@
 <?php
+
 /**
- * Configuration of emails for OCNL code
+ * E-mail configuration
  *
- * This is a DEFAULT configuration for ALL nodes, which contains necessary vars.
+ * This is a default configuration.
+ * It may be customized in node-specific configuration file.
  *
- * If you to customize it for your node
- * create config for your node and there override array values as needed.
- *
+ * ALL HASHES WILL BE AUTOMATICALLY REMOVED FROM EMAIL ADDRESS!
  */
 
 $config = [];
 
 /**
  * Address (or array of addresses) used to send technical notifications from the OC server/code etc.
- * ALL HASHES WILL BE AUTOMATICALLY REMOVED FROM EMAIL ADDRESS!
  */
 $config['technicalNotificationEmail'] = 'techNotify#@opencac#hing.pl';
 
 /**
  * Technical contact address for users of this OC node
- * ALL HASHES WILL BE AUTOMATICALLY REMOVED FROM EMAIL ADDRESS!
  */
 $config['nodeTechContactEmail'] = 'rt@o#pencaching.pl';
 
 /**
  * Contact address to OCTEAM for this node (reviewers and regional service for cachers)
- * ALL HASHES WILL BE AUTOMATICALLY REMOVED FROM EMAIL ADDRESS!
  */
 $config['ocTeamContactEmail'] = 'cog@o#pencaching.pl';
 
 /**
  * Signature for OCTeam emails for this node
- * ALL HASHES WILL BE AUTOMATICALLY REMOVED FROM EMAIL ADDRESS!
  */
 $config['ocTeamEmailSignature'] = 'Best regards from OC Team!';
 
 /**
  * No-reply email address for this node
- * ALL HASHES WILL BE AUTOMATICALLY REMOVED FROM EMAIL ADDRESS!
  */
 $config['noReplyEmail'] = 'noreply@o#pencaching.pl';
 

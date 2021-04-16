@@ -1,20 +1,21 @@
 <?php
 
 use src\Utils\Database\XDb;
+use src\Models\ApplicationContainer;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
-//Preprocessing
-if ($error == false) {
-    //user logged in?
-    if ($usr == false) {
-        $target = urlencode(tpl_get_current_page());
-        tpl_redirect('login.php?target=' . $target);
-    } else {
+
+//user logged in?
+$loggedUser = ApplicationContainer::GetAuthorizedUser();
+if (!$loggedUser) {
+    $target = urlencode(tpl_get_current_page());
+    tpl_redirect('login.php?target=' . $target);
+    exit;
+}
 
         $tplname = 'myroutes_add';
-        $user_id = $usr['userid'];
-
+        $user_id = $loggedUser->getUserId();
 
         $name = isset($_POST['name']) ? $_POST['name'] : '';
         tpl_set_var('name', htmlspecialchars($name, ENT_COMPAT, 'UTF-8'));
@@ -107,8 +108,6 @@ if ($error == false) {
             tpl_redirect('myroutes.php');
             exit;
         } //end submit
-    }
-}
 
 //make the template and send it out
 tpl_BuildTemplate();

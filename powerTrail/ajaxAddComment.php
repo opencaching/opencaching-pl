@@ -3,11 +3,14 @@
 use src\Models\User\User;
 use src\Models\PowerTrail\PowerTrail;
 use src\Controllers\PowerTrailController;
+use src\Models\ApplicationContainer;
 
 require_once __DIR__.'/../lib/common.inc.php';
 
-if(!isset($_SESSION['user_id'])){
-    print 'no hacking please! Fuck You!';
+$loggedUser = ApplicationContainer::GetAuthorizedUser();
+
+if (!$loggedUser){
+    echo "User not authorized!";
     exit;
 }
 
@@ -20,12 +23,11 @@ try{
     exit;
 }
 
-$user = new User(array('userId' => (int) $usr['userid']));
 $powerTrail = new PowerTrail(array('id' => (int) $_REQUEST['projectId']));
 $type = (int) $_REQUEST['type'];
 
 $ptController = new PowerTrailController();
-$result = $ptController->addComment($powerTrail, $user, $dateTime, $type, $text);
+$result = $ptController->addComment($powerTrail, $loggedUser, $dateTime, $type, $text);
 
 $resultArray = array (
     'result' => $result,

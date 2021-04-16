@@ -1,161 +1,127 @@
 <?php
+
 namespace src\Models\OcConfig;
 
+use Exception;
 use src\Utils\Email\Email;
 
-
 /**
- * This trait group access to email settings stored in /config/email.* conf. files
- * BEWARE OF FUNCTIONS NAME COLLISION BETWEEN CONFIG TRAITS!
+ * Loads configuration from email.*.php.
+ *
+ * @mixin OcConfig
  */
-trait EmailConfigTrait {
-
+trait EmailConfigTrait
+{
     protected $emailConfig = null;
 
     /**
-     * Retuns email address of OcTeam
+     * Get the email address of OcTeam.
      *
-     * @param boolean $forWebDisplay - if set change email to format 'account (at) server'
-     * @return string email address
+     * @param boolean $forWebDisplay Format email address to 'account (at) server'
      */
-    public static function getEmailAddrOcTeam($forWebDisplay=false)
+    public static function getEmailAddrOcTeam(bool $forWebDisplay = false): string
     {
-        $email = self::getEmailAddrVar('ocTeamContactEmail');
-        if($forWebDisplay){
-            return self::emailToDisplay($email);
-        } else {
-            return $email;
-        }
+        $email = self::getEmailAddressFromConfig('ocTeamContactEmail');
+
+        return $forWebDisplay
+            ? self::emailToDisplay($email)
+            : $email;
     }
 
     /**
-     * Returns signature used in OcTeam emails
+     * Get the signature used in OcTeam emails.
+     */
+    public static function getOcteamEmailsSignature(): string
+    {
+        return self::getKeyFromEmailConfig('ocTeamEmailSignature');
+    }
+
+    /**
+     * Get the email address used as sender address for generated emails.
+     */
+    public static function getEmailAddrNoReply(): string
+    {
+        return self::getEmailAddressFromConfig('noReplyEmail');
+    }
+
+    /**
+     * Get the email address used as a technical contact for users.
+     */
+    public static function getEmailAddrTechAdmin(): string
+    {
+        return self::getEmailAddressFromConfig('nodeTechContactEmail');
+    }
+
+    /**
+     * Get the email address used to send technical notifications.
      *
-     * @return string - signature of OcTeam
+     * @return string[]
      */
-    public static function getOcteamEmailsSignature()
+    public static function getEmailAddrTechAdminNotification(): array
     {
-        return self::getEmailVar('ocTeamEmailSignature');
+        return (array) self::getEmailAddressFromConfig('technicalNotificationEmail');
     }
 
     /**
-     * Retruns email address used as sender address for generated emails.
-     *
-     * @return string - noReply address
+     * Get the prefix used in subject of emails sent by OC code.
      */
-    public static function getEmailAddrNoReply()
+    public static function getEmailSubjectPrefix(): string
     {
-        return self::getEmailAddrVar('noReplyEmail');
+        return self::getKeyFromEmailConfig('mailSubjectPrefix');
     }
 
     /**
-     * Returns email address used as a technical contact for users
-     * @return string - admin address
+     * Get the prefix used in subject of emails send in context of OcTeam operations.
      */
-    public static function getEmailAddrTechAdmin()
+    public static function getEmailSubjectPrefixForOcTeam(): string
     {
-        return self::getEmailAddrVar('nodeTechContactEmail');
+        return self::getKeyFromEmailConfig('mailSubjectPrefixForReviewers');
     }
 
-    /**
-     * Returns email address used to send technical notifications
-     * @return array - array of addresses to send techNotify emails
-     */
-    public static function getEmailAddrTechAdminNotification()
+    private function getEmailConfig(): array
     {
-        $email = self::getEmailAddrVar('technicalNotificationEmail');
-        if (!is_array ($email)){
-            return [$email];
-        } else {
-            return $email;
-        }
-    }
-
-    /**
-     * Returns prefix used in subject of emails send by OC code
-     * @return string - prefix
-     */
-    public static function getEmailSubjectPrefix()
-    {
-        return self::getEmailVar('mailSubjectPrefix');
-    }
-
-    /**
-     * Returns prefix used in subject of emails send in context of OcTeam operations
-     * @return string
-     */
-    public static function getEmailSubjectPrefixForOcTeam()
-    {
-        return self::getEmailVar('mailSubjectPrefixForReviewers');
-    }
-
-    /**
-     * Read config from files
-     * @return array
-     */
-    private function getEmailConfig(){
-        if ($this->emailConfig == null) {
+        if (! $this->emailConfig) {
             $this->emailConfig = self::getConfig('email');
         }
+
         return $this->emailConfig;
     }
 
     /**
-     * Get Var from email.* files
-     *
-     * @param string $varName
-     * @throws \Exception
-     * @return string
+     * @return mixed
      */
-    private static function getEmailVar($varName)
+    private static function getKeyFromEmailConfig(string $key)
     {
         $emailConfig = self::instance()->getEmailConfig();
-        if (!is_array($emailConfig)) {
-            throw new \Exception("Invalid $varName setting: see /config/email.*");
-        }
-        return $emailConfig[$varName];
+
+        return $emailConfig[$key];
     }
 
     /**
-     * Get Var from email.* files without hashes + check if this is proper email addr.
-     *
-     * @param string $varName
-     * @throws \Exception
-     * @return mixed
+     * Get key from email config, strip hashes from it and make sure it is
+     * a valid email address.
      */
-    private static function getEmailAddrVar($varName)
+    private static function getEmailAddressFromConfig(string $key): string
     {
-        $emailConfig = self::instance()->getEmailConfig();
-        if (!is_array($emailConfig)) {
-            throw new \Exception("Invalid $varName setting: see /config/email.*");
-        }
+        $email = self::stripHashes(self::getKeyFromEmailConfig($key));
 
-        $email = self::removeHashes($emailConfig[$varName]);
-        if (!Email::isValidEmailAddr($email)) {
-            throw new \Exception("Invalid $varName setting: see /config/email.*");
+        if (! Email::isValidEmailAddr($email)) {
+            throw new Exception("Invalid {$key} setting: see /config/email.*");
         }
 
         return $email;
     }
 
-    /**
-     * Strip hashes from text
-     *
-     * @param string $text
-     * @return string
-     */
-    private static function removeHashes($text)
+    private static function stripHashes(string $text): string
     {
-        return str_replace('#', "", $text);
+        return str_replace('#', '', $text);
     }
 
     /**
-     * Convert email address to form 'addres (at) server'
-     * @param string $email
-     * @return mixed
+     * Format email address to 'address (at) server'
      */
-    private static function emailToDisplay($email)
+    private static function emailToDisplay(string $email): string
     {
-        return str_replace('@', " (at) ", $email);
+        return str_replace('@', ' (at) ', $email);
     }
 }

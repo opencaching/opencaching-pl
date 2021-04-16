@@ -1,7 +1,6 @@
 <?php
 namespace src\Controllers\Admin;
 
-use src\Controllers\BaseController;
 use src\Utils\Text\UserInputFilter;
 use src\Utils\Uri\SimpleRouter;
 use src\Utils\Uri\Uri;
@@ -13,8 +12,9 @@ use src\Models\User\UserAuthorization;
 use src\Models\User\UserEmailSender;
 use src\Models\User\UserNotify;
 use src\Models\User\MultiUserQueries;
+use src\Controllers\Core\ViewBaseController;
 
-class UserAdminController extends BaseController
+class UserAdminController extends ViewBaseController
 {
 
     private $infoMsg = null;
@@ -37,7 +37,6 @@ class UserAdminController extends BaseController
         if (! $this->loggedUser->hasOcTeamRole()) {
             $this->view->redirect('/');
         }
-
     }
 
     public function isCallableFromRouter($actionName)

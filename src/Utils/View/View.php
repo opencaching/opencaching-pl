@@ -301,7 +301,7 @@ class View
         if (self::mobile()) {
             return false;
         }
-        if (is_null(ApplicationContainer::Instance()->getLoggedUser())) {
+        if (is_null(ApplicationContainer::GetAuthorizedUser())) {
             return true;
         }
         return $this->_showVideoBannerState;

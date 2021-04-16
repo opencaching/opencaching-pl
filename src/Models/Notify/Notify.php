@@ -148,7 +148,7 @@ class Notify extends BaseObject
                 SELECT :1, `user`.`user_id`
                 FROM `user`
                 WHERE `user`.`notify_caches` = TRUE
-                AND `user`.`is_active_flag` = TRUE
+                AND `user`.`is_active_flag` = 1
                 AND `user`.`notify_radius` > 0
                 AND NOT ISNULL(`user`.`latitude`)
                 AND NOT ISNULL(`user`.`longitude`)
@@ -167,7 +167,7 @@ class Notify extends BaseObject
                 FROM `user`
                 LEFT JOIN `user_neighbourhoods` ON `user`.`user_id` = `user_neighbourhoods`.`user_id`
                 WHERE `user`.`notify_caches` = TRUE
-                    AND `user`.`is_active_flag` = TRUE
+                    AND `user`.`is_active_flag` = 1
                     AND `user_neighbourhoods`.`notify` = TRUE
                     AND (acos(cos((90 - :2) * PI() / 180) * cos((90-`user_neighbourhoods`.`latitude`) * PI() / 180) +
                         sin((90 - :2) * PI() / 180) * sin((90 - `user_neighbourhoods`.`latitude`) * PI() / 180) * cos((:3 -`user_neighbourhoods`.`longitude`) *

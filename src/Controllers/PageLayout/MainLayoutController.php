@@ -123,7 +123,7 @@ class MainLayoutController extends BaseController
                 '/views/common/primaAprilis/rythmOc.js'));
 
             $this->view->addLocalJs(Uri::getLinkWithModificationTime(
-                '/vendor/js-cookie/js-cookie/src/js.cookie.js'));
+                '/vendor/npm-asset/js-cookie/src/js.cookie.js'));
         }
 
         if (Year::isPrimaAprilisToday() && OcConfig::isPADanceEnabled()) {
@@ -145,8 +145,7 @@ class MainLayoutController extends BaseController
         $this->view->setVar('_logoTitle', $logoTitle);
         $this->view->setVar('_logoSubtitle', $logoSubtitle);
 
-        $this->view->setVar('_languageFlags',
-            I18n::getLanguagesFlagsData(I18n::getCurrentLang()));
+        $this->view->setVar('_languageFlags', I18n::getLanguagesFlagsData(true));
 
         $this->view->setVar('_crowdinInContextEnabled', CrowdinInContextMode::enabled());
         // CrowdinInContext mode is enabled by setting var in uri
@@ -279,7 +278,7 @@ class MainLayoutController extends BaseController
         switch ($key) {
             case 'mnu_geoPaths':
                 // disable geopaths link if disabled in config
-                if (! OcConfig::isPowertrailsEnabled() ) {
+                if (! OcConfig::areGeopathsSupported() ) {
                     $url = '';
                     break;
                 }

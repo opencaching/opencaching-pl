@@ -1,32 +1,29 @@
 <?php
+
 namespace src\Utils\I18n;
 
 use src\Utils\Database\XDb;
 use src\Utils\Debug\Debug;
 
 /**
+ * Handles operations on "languages" table.
  *
- * Operations on "languages" table
  * TODO: it should be refactored to translation files + config for lang defaults
- *
  */
-
 class Languages
 {
-
-    public static function LanguageNameFromCode($countryCode, $langCode){
-
+    public static function languageNameFromCode($countryCode, $langCode)
+    {
         $rs = XDb::xSql(
-            "SELECT `short`, `$langCode` FROM `languages` WHERE `short`= ? ", $countryCode);
+            "SELECT `short`, `{$langCode}` FROM `languages` WHERE `short`= ? ",
+            $countryCode
+        );
 
-        if ( $record = XDb::xFetchArray($rs) ) {
-            return $record[$langCode];
-        } else {
-            return false;
-        }
+        return XDb::xFetchArray($rs)[$langCode] ?: false;
     }
 
-    public static function setLocale($langCode){
+    public static function setLocale($langCode)
+    {
         switch ($langCode) {
             case 'pl':
                 setlocale(LC_CTYPE, 'pl_PL.UTF-8');
@@ -69,14 +66,13 @@ class Languages
                 setlocale(LC_TIME, 'en_EN');
                 break;
             default:
-                if ($langCode != CrowdinInContextMode::getPseudoLang()) {
-                    Debug::errorLog(": Error: trying to load unsupported locale: $langCode !?");
+                if ($langCode !== CrowdinInContextMode::getPseudoLang()) {
+                    Debug::errorLog("Error: trying to load unsupported locale: {$langCode}.");
                 }
+
                 setlocale(LC_CTYPE, 'en_EN');
                 setlocale(LC_TIME, 'en_EN');
                 break;
         }
     }
-
-
 }

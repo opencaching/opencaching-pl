@@ -5,21 +5,22 @@ use src\Models\GeoCache\GeoCache;
 use src\Models\PowerTrail\PowerTrail;
 use src\Utils\I18n\I18n;
 use src\Utils\Uri\Uri;
+use src\Utils\View\View;
 
 require_once(__DIR__ . '/lib/common.inc.php');
-global $usr;
 
-$user = ApplicationContainer::Instance()->getLoggedUser();
+/** @var View $view */
 $view = tpl_getView();
 
-if (empty($user) || ! $user->hasOcTeamRole()) {
+$loggedUser = ApplicationContainer::GetAuthorizedUser();
+if (empty($loggedUser) || ! $loggedUser->hasOcTeamRole()) {
     $view->redirect('/');
 }
 
 $view->setTemplate('powerTrailCOG');
 
-$pt = new powerTrailController($usr);
-$result = $pt->run();
+$pt = new powerTrailController($loggedUser);
+$pt->run();
 
 tpl_set_var("selPtDiv", 'none');
 tpl_set_var("PtDetailsDiv", 'none');
@@ -43,8 +44,21 @@ if (isset($_REQUEST['ptSelector'])) {
     tpl_set_var("ptStatus", tr($ptStatus[$ptData['status']]['translate']));
 
     tpl_set_var("PtDetailsDiv", 'block');
+
+    $view->setVar('allPtsUrl', '');
+    $view->setVar('allPtsText', '');
 } else {
-    tpl_set_var("ptSelector", makePtSelector(powerTrailBase::getAllPt('AND status != 2'), 'ptSelector'));
+    if (isset($_GET['allPts'])) {
+        // display all powertrails - even these not published
+        $pts = powerTrailBase::getAllPt('');
+        $view->setVar('allPtsUrl', Uri::removeParam('allPts', Uri::getCurrentUri(true)));
+        $view->setVar('allPtsText', "Display only published geopaths");
+    } else {
+        $pts = powerTrailBase::getAllPt('AND status != 2');
+        $view->setVar('allPtsUrl', Uri::addParamsToUri(Uri::getCurrentUri(true), ['allPts'=>null]));
+        $view->setVar('allPtsText', "Display all geopaths (also not published)");
+    }
+    tpl_set_var("ptSelector", makePtSelector($pts, 'ptSelector'));
     tpl_set_var("selPtDiv", 'block');
 }
 
@@ -52,6 +66,7 @@ $view->buildView();
 
 function makePtSelector($ptAll, $id)
 {
+
     $selector = '<select class="form-control input400" id=' . $id . ' name=' . $id . '>';
     foreach ($ptAll as $pt) {
         $selector .= '<option value=' . $pt['id'] . '>' . $pt['name'] . '</option>';

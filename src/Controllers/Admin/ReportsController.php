@@ -164,13 +164,13 @@ class ReportsController extends BaseController
         $this->reportIdAjaxCheck($_REQUEST['id']);
         $this->paramAjaxCheck('leader');
         if ($_REQUEST['leader'] != ReportCommons::USER_NOBODY) {
-            $usr = new User(['userId' => $_REQUEST['leader']]);
-            if (! $usr->hasOcTeamRole()) {
-                unset($usr);
+            $user = new User(['userId' => $_REQUEST['leader']]);
+            if (! $user->hasOcTeamRole()) {
+                unset($user);
                 $this->ajaxErrorResponse('Invalid new leader', 400);
                 exit();
             }
-            unset($usr);
+            unset($user);
         }
         $report = new Report(['reportId' => $_REQUEST['id']]);
         $oldstatus = $report->getStatus();

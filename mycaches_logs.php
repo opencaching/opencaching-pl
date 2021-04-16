@@ -3,23 +3,25 @@
 use src\Models\GeoCache\GeoCacheLog;
 use src\Utils\Database\XDb;
 use src\Utils\Text\Formatter;
-
-global $usr;
+use src\Models\ApplicationContainer;
 
 //include template handling
 require_once(__DIR__.'/lib/common.inc.php');
 
 //user logged in?
-if ($usr == false) {
+$loggedUser = ApplicationContainer::GetAuthorizedUser();
+if (!$loggedUser) {
     $target = urlencode(tpl_get_current_page());
     tpl_redirect('login.php?target='.$target);
-} else {
+    exit;
+}
+
 
     if (isset($_REQUEST['userid'])) {
         $user_id = $_REQUEST['userid'];
         tpl_set_var('userid', $user_id);
     } else {
-        $user_id = $usr['userid'];
+        $user_id = $loggedUser->getUserId();
     }
 
     //get the news
@@ -96,6 +98,8 @@ if ($usr == false) {
     };
     XDb::xFreeResults($rs);
 
+    $file_content = '';
+
     if (!empty($log_ids)) {
         $rs = XDb::xSql(
             "SELECT cache_logs.id, cache_logs.cache_id AS cache_id, cache_logs.type AS log_type,
@@ -123,7 +127,6 @@ if ($usr == false) {
                 ORDER BY cache_logs.date_created DESC",
             $user_id);
 
-        $file_content = '';
         while ($log_record = XDb::xFetchArray($rs)) {
 
             $file_content .= '<tr>';
@@ -149,7 +152,7 @@ if ($usr == false) {
                     ENT_COMPAT, 'UTF-8').'" onmouseover="Tip(\'';
             // ukrywanie nicka autora komentarza COG
             // Łza
-            if ($log_record['log_type'] == 12 && !$usr['admin']) {
+            if ($log_record['log_type'] == 12 && !$loggedUser->hasOcTeamRole()) {
                 $log_record['user_name'] = tr('cog_user_name');
                 $log_record['user_id'] = 0;
             }
@@ -173,7 +176,7 @@ if ($usr == false) {
 
     tpl_set_var('file_content', $file_content);
     tpl_set_var('pages', $pages);
-}
+
 
 //make the template and send it out
 tpl_BuildTemplate();

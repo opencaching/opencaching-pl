@@ -48,10 +48,6 @@ use src\Models\OcConfig\OcConfig;
     <?php $view->callChunk($chunkName, ...$args); ?>
   <?php } //foreach getHeaderChunks ?>
 
-
-  {htmlheaders}
-  {cachemap_header}
-
   <?php
       if ($view->isGoogleAnalyticsEnabled()) {
           $view->callChunkOnce( 'googleAnalytics', $view->getGoogleAnalyticsKey() );

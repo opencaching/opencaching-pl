@@ -1,15 +1,20 @@
 <?php
 
 /**
- * Configuration of general site properties of OC NL
+ * General site properties configuration
+ *
+ * Those are configuration overrides for OCNL node only.
  */
-
-
 
 /**
  * Site name for the node
  */
 $site['siteName'] = 'Opencaching.nl';
+
+/**
+ * Site short name
+ */
+$site['shortName'] = 'OC NL';
 
 /**
  * Page title (to display on the browser titlebar)
@@ -23,7 +28,7 @@ $site['pageTitle'] = 'Opencaching Benelux';
 $site['ocNodeId'] = 14;
 
 /**
- * Site main domain - this shoudl be only main part of domain eg. opencaching.pl for OCPL
+ * Site main domain - this should be only main part of domain eg. opencaching.pl for OCPL
  */
 $site['mainDomain'] = 'opencaching.nl';
 

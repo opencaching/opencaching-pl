@@ -11,7 +11,7 @@ use src\Models\OcConfig\OcConfig;
 use src\Models\ApplicationContainer;
 use src\Utils\Gis\Gis;
 
-global $usr, $hide_coords, $dbcSearch, $queryFilter;
+global $dbcSearch, $queryFilter;
 
 require_once(__DIR__.'/format.gpx.inc.php');
 require_once(__DIR__.'/calculation.inc.php');
@@ -20,7 +20,7 @@ set_time_limit(1800);
 
 $user = ApplicationContainer::GetAuthorizedUser();
 
-if (!$user && $hide_coords) {
+if (!$user && OcConfig::coordsHiddenForNonLogged()) {
   // user not logged + coords hidden for not logged
   exit;
 }
@@ -61,7 +61,7 @@ $query .= '`caches`.`cache_id` `cache_id`, `caches`.`wp_oc` `cache_wp`,
         FROM `caches`
             LEFT JOIN `cache_mod_cords`
                 ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id`
-                AND `cache_mod_cords`.`user_id` = ' . $usr['userid'] . '
+                AND `cache_mod_cords`.`user_id` = ' . $user->getUserId() . '
         WHERE `caches`.`cache_id` IN (' . $queryFilter . ')';
 
 $sortby = $options['sort'];
@@ -174,11 +174,11 @@ $stmt = XDb::xSql(
 
 while ( $r = XDb::xFetchArray($stmt) ) {
 
-    if (@$enable_cache_access_logs) {
+    if (OcConfig::isSiteCacheAccessLogEnabled()) {
         // add ACCESS_LOG record
         $dbc = OcDb::instance();
         $cache_id = $r['cacheid'];
-        $user_id = $usr !== false ? $usr['userid'] : null;
+        $user_id = ($user) ? $user->getUserId() : null;
         $access_log = @$_SESSION['CACHE_ACCESS_LOG_GPX_' . $user_id];
         if ($access_log === null) {
             $_SESSION['CACHE_ACCESS_LOG_GPX_' . $user_id] = array();
@@ -237,7 +237,7 @@ while ( $r = XDb::xFetchArray($stmt) ) {
     $thisline = str_replace('{desc}', xmlencode_text($logpw . $r['desc']), $thisline);
 
     if ($user) {
-        $cacheNote = CacheNote::getNote($usr['userid'], $r['cacheid']);
+        $cacheNote = CacheNote::getNote($user->getUserId(), $r['cacheid']);
 
         if (!empty($cacheNote)) {
             $thisline = str_replace('{personal_cache_note}',

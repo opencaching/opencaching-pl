@@ -4,9 +4,11 @@ namespace src\Controllers\Admin;
 use src\Controllers\BaseController;
 use src\Controllers\UpdateController;
 use src\Utils\DataBase\OcDb;
+use src\Utils\Database\DbUpdate;
 use src\Utils\Database\DbUpdates;
 use src\Utils\Uri\SimpleRouter;
 use src\Utils\Uri\Uri;
+use src\Models\OcConfig\OcConfig;
 
 class DbUpdateController extends BaseController
 {
@@ -56,7 +58,7 @@ class DbUpdateController extends BaseController
         $wasRun = ($update->wasRunAt() !== null);
         $specialPurpose = substr($update->getName(), 0, 3) < 100;
 
-        if (!$this->ocConfig->inDebugMode()) {
+        if (!OcConfig::debugModeEnabled()) {
             // production site
 
             if (!$wasRun) {
@@ -263,7 +265,7 @@ class DbUpdateController extends BaseController
     {
         $this->securityCheck();
         DbUpdates::create(
-            $this->applicationContainer->getLoggedUser()->getUserName()
+            $this->loggedUser->getUserName()
         );
         $this->reload();
     }
@@ -293,7 +295,7 @@ class DbUpdateController extends BaseController
 
     private function buildTemplateView()
     {
-        $this->view->setVar('developerMode', $this->ocConfig->inDebugMode());
+        $this->view->setVar('developerMode', OcConfig::debugModeEnabled());
         $this->view->setVar('mysqlVersion', OcDb::instance()->getServerVersion());
         $this->view->setTemplate('sysAdmin/dbUpdate');
         $this->view->buildView();
@@ -303,7 +305,7 @@ class DbUpdateController extends BaseController
     private function securityCheck($onlyDevelopers = true)
     {
         if (!$this->isUserLogged() || !$this->loggedUser->hasSysAdminRole() ||
-            ($onlyDevelopers && !$this->ocConfig->inDebugMode())
+            ($onlyDevelopers && !OcConfig::debugModeEnabled())
         ) {
             $this->view->redirect('/');
             exit();

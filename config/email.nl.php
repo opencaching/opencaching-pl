@@ -1,37 +1,33 @@
 <?php
+
 /**
- * Configuration of emails for OCNL code
+ * E-mail configuration
  *
+ * Those are configuration overrides for OCNL node only.
  */
 
 /**
  * Contact address for users of this OC node
- * ALL HASHES WILL BE AUTOMATICALLY REMOVED FROM EMAIL ADDRESS!
  */
 $config['nodeContactEmail'] = 'contact@opencaching.nl';
 
 /**
  * Technical contact address for users of this OC node
- * ALL HASHES WILL BE AUTOMATICALLY REMOVED FROM EMAIL ADDRESS!
  */
 $config['nodeTechContactEmail'] = 'admin@opencaching.nl';
 
-
 /**
  * Contact address to OCTEAM for this node
- * ALL HASHES WILL BE AUTOMATICALLY REMOVED FROM EMAIL ADDRESS!
  */
 $config['ocTeamContactEmail'] = 'octeam@op#enc#aching.nl';
 
 /**
  * Signature for OCTeam emails for this node
- * ALL HASHES WILL BE AUTOMATICALLY REMOVED FROM EMAIL ADDRESS!
  */
 $config['ocTeamEmailSignature'] = 'Met vriendelijke groet, team opencaching.nl';
 
 /**
  * No-reply email address for this node
- * ALL HASHES WILL BE AUTOMATICALLY REMOVED FROM EMAIL ADDRESS!
  */
 $config['noReplyEmail'] = 'noreply#@o#p#encaching.nl';
 

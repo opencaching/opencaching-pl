@@ -1,12 +1,20 @@
 <?php
+
 /**
- * Configuration of general site properties of OC UK
+ * General site properties configuration
+ *
+ * Those are configuration overrides for OCUK node only.
  */
 
 /**
  * Site name for the node
  */
 $site['siteName'] = 'OPENCACHE.uk';
+
+/**
+ * Site short name
+ */
+$site['shortName'] = 'OC UK';
 
 /**
  * Page title (to display on the browser titlebar)
@@ -20,7 +28,7 @@ $site['pageTitle'] = 'Geocaching Opencaching UK';
 $site['ocNodeId'] = 6;
 
 /**
- * Site main domain - this shoudl be only main part of domain eg. opencaching.pl for OCPL
+ * Site main domain - this should be only main part of domain eg. opencaching.pl for OCPL
  */
 $site['mainDomain'] = 'opencache.uk';
 
@@ -37,4 +45,3 @@ $site['primaryCountries'] = ['GB'];
  * Use only two-letters codes UPPERCASE.
  */
 $site['defaultCountriesList'] = ['DE', 'NL', 'PL', 'RO', 'GB'];
-

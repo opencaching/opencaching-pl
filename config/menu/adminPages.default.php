@@ -1,33 +1,35 @@
 <?php
+
+/**
+ * Links presented on the sidebar for authorized admins (COG) only.
+ *
+ * This is a default configuration, used when node-specific configuration
+ * file does not exist. You may customize those values by copying this file
+ * and changing 'default' in its filename to your node country code.
+ *
+ * Every record of $menu array should be in form:
+ *  '<translation-key-used-as-link-text>' => '<url>',
+ *
+ * If link needs to be opened in a new window, wrap it in an array:
+ *  '<translation-key-used-as-link-text>' => ['<url>'],
+ *
+ * Do NOT change $menu variable name!
+ */
+
 use src\Utils\Uri\SimpleRouter;
 use src\Controllers\Admin\CacheSetAdminController;
 
-/**
- * This is simple configuration of links presented in sidebar of the page
- * for authorized admins (COG) only.
- *
- * This is a DEFAULT configuration for ALL nodes.
- *
- * If you want to customize footer for your node
- * create config for your node by copied this file and changing its name.
- *
- * Every record of $menu table should be table record in form:
- *  '<translation-key-used-as-link-text>' => '<url>',
- *
- * or if link needs to be open in a new window (use php array)
- *  '<translation-key-used-as-link-text>' => ['<url>'],
- *
- */
+/** @var array $links OcConfig::$links is accessible in within this scope */
 
-$menu = [ // DON'T CHANGE $menu var name!
-
-    'mnu_reports'           => '/admin_reports.php', /* counters added in MainLayoutCtrl */
-    'mnu_pendings'          => '/viewpendings.php', /* counters added in MainLayoutCtrl */
-    'mnu_octeamStats'       => '/articles.php?page=cog',
-    'mnu_notFoundCaches'    => '/admin_cachenotfound.php',
-    'mnu_searchUser'        => SimpleRouter::getLink('Admin.UserAdmin','search'),
-    'mnu_ocTeamNews'        => SimpleRouter::getLink('News.NewsAdmin'),
-    'mnu_geoPathAdmin'      => '/powerTrailCOG.php',
-    'mnu_abandonCacheSets'  => SimpleRouter::getLink(
-                                CacheSetAdminController::class, 'cacheSetsToArchive'),
+$menu = [
+    'mnu_reports' => '/admin_reports.php', // counters added in MainLayoutCtrl
+    'mnu_pendings' => '/viewpendings.php', // counters added in MainLayoutCtrl
+    'mnu_octeamStats' => '/articles.php?page=cog',
+    'mnu_notFoundCaches' => '/admin_cachenotfound.php',
+    'mnu_searchUser' => SimpleRouter::getLink('Admin.UserAdmin','search'),
+    'mnu_ocTeamNews' => SimpleRouter::getLink('News.NewsAdmin'),
+    'mnu_geoPathAdmin' => '/powerTrailCOG.php',
+    'mnu_abandonCacheSets' => SimpleRouter::getLink(
+        CacheSetAdminController::class, 'cacheSetsToArchive'
+    ),
 ];

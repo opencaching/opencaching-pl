@@ -14,6 +14,7 @@ use src\Models\GeoCache\GeoCacheLog;
 use src\Models\GeoCache\MultiCacheStats;
 use src\Models\OcConfig\OcConfig;
 use src\Models\Stats\TotalStats;
+use src\Models\Stats\TotalStats\BasicStats;
 use src\Models\User\User;
 use src\Utils\Cache\OcMemCache;
 use src\Utils\Feed\RssFeed;
@@ -89,7 +90,7 @@ class StartPageController extends BaseController
         }
 
         return StaticMap::displayPureMap(
-            $center, OcConfig::getStartPageMapZoom(), OcConfig::getStartPageMapDiemnsions(),
+            $center, OcConfig::getStartPageMapZoom(), OcConfig::getStartPageMapDimensions(),
             $config['maps']['main_page_map']['source']);
     }
 
@@ -177,7 +178,7 @@ class StartPageController extends BaseController
 
     private function processLastCacheSets()
     {
-        $cacheSetsEnabledInConfig = $this->ocConfig->isPowertrailsEnabled();
+        $cacheSetsEnabledInConfig = OcConfig::areGeopathsSupported();
 
         $this->view->setVar('displayLastCacheSets', $cacheSetsEnabledInConfig);
         if (!$cacheSetsEnabledInConfig) {
@@ -242,7 +243,7 @@ class StartPageController extends BaseController
 
     private function processTotalStats()
     {
-        /** @var BasicStats */
+        /** @var BasicStats $ts*/
         $ts = TotalStats::getBasicTotalStats();
 
         // prepare total-stats array
@@ -251,7 +252,7 @@ class StartPageController extends BaseController
         $totStsArr[] = ['val' => $ts->activeCaches, 'desc' => tr('startPage_readyToSearch'), 'ldesc' => tr('startPage_readyToSearchDesc')];
         $totStsArr[] = ['val' => $ts->topRatedCaches, 'desc' => tr('startPage_topRatedCaches'), 'ldesc' => tr('startPage_topRatedCachesDesc')];
         $totStsArr[] = ['val' => $ts->totalUsers, 'desc' => tr('startPage_totalUsers'), 'ldesc' => tr('startPage_totalUsersDesc')];
-        if ($this->ocConfig->isPowertrailsEnabled()) {
+        if (OcConfig::areGeopathsSupported()) {
             $totStsArr[] = ['val' => $ts->activeCacheSets, 'desc' => tr('startPage_activeCacheSets'), 'ldesc' => tr('startPage_activeCacheSetsDesc')];
         }
         $totStsArr[] = ['val' => $ts->totalSearches, 'desc' => tr('startPage_totalSearches'), 'ldesc' => tr('startPage_totalSearchesDesc')];
