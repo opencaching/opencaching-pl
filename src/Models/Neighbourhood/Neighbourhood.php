@@ -213,7 +213,12 @@ class Neighbourhood extends BaseObject
                 WHERE `user_id` = :1
                     AND `seq` = :2
                 LIMIT 1';
-            $nbhId = self::db()->multiVariableQueryValue($query, null, $user->getUserId(), $seq);
+            $nbhId = self::db()->multiVariableQueryValue(
+                $query,
+                null,
+                $user->getUserId(),
+                $seq
+            );
             $nbh = self::fromIdFactory($nbhId);
 
             if (empty($nbh)) {
@@ -237,7 +242,10 @@ class Neighbourhood extends BaseObject
     {
         $result = [];
         // Stage 1 - get default neighbourhood stored in user table
-        if ($user->getNotifyRadius() != 0 && $user->getHomeCoordinates()->areCordsReasonable()) {
+        if (
+            $user->getNotifyRadius() != 0
+            && $user->getHomeCoordinates()->areCordsReasonable()
+        ) {
             $myNgh = new Neighbourhood();
             $myNgh->setId(0);
             $myNgh->setSeq(0);
@@ -293,8 +301,14 @@ class Neighbourhood extends BaseObject
      * @param int $seq - if null - get first available number
      * @return bool
      */
-    public static function storeUserNeighbourhood(User $user, Coordinates $coords, $radius, $name, $seq = null, $notify = false)
-    {
+    public static function storeUserNeighbourhood(
+        User $user,
+        Coordinates $coords,
+        $radius,
+        $name,
+        $seq = null,
+        $notify = false
+    ) {
         if (is_null($seq)) {
             $seq = self::getMaxUserSeq($user) + 1;
         }
@@ -311,7 +325,16 @@ class Neighbourhood extends BaseObject
               `notify` = :7
             ';
 
-        return self::db()->multiVariableQuery($query, $user->getUserId(), (int) $seq, $name, $coords->getLongitude(), $coords->getLatitude(), (int) $radius, boolval($notify)) !== null;
+        return self::db()->multiVariableQuery(
+            $query,
+            $user->getUserId(),
+            (int) $seq,
+            $name,
+            $coords->getLongitude(),
+            $coords->getLatitude(),
+            (int) $radius,
+            boolval($notify)
+        ) !== null;
     }
 
     /**
@@ -327,7 +350,11 @@ class Neighbourhood extends BaseObject
             WHERE `user_id` = :1 AND `seq` = :2
             LIMIT 1
         ';
-        $stmt = self::db()->multiVariableQuery($query, $user->getUserId(), $seq);
+        $stmt = self::db()->multiVariableQuery(
+            $query,
+            $user->getUserId(),
+            $seq
+        );
 
         if ($stmt == null) {
             return false;
@@ -338,12 +365,13 @@ class Neighbourhood extends BaseObject
 
     /**
      * Remove all neighbourhoods of given user
-     * @param User $user
      */
     public static function removeAllUserNeighbourhood(User $user): void
     {
         self::db()->multiVariableQuery(
-            'DELETE FROM user_neighbourhoods WHERE user_id = :1', $user->getUserId());
+            'DELETE FROM user_neighbourhoods WHERE user_id = :1',
+            $user->getUserId()
+        );
     }
 
     /**
@@ -382,7 +410,11 @@ class Neighbourhood extends BaseObject
             WHERE `user_id` = :1
         ';
 
-        return self::db()->multiVariableQueryValue($query, 0, $user->getUserId());
+        return self::db()->multiVariableQueryValue(
+            $query,
+            0,
+            $user->getUserId()
+        );
     }
 
     private function loadById($id)
@@ -412,7 +444,10 @@ class Neighbourhood extends BaseObject
         $this->user = null;
         $this->seq = $neighbourhoodDbRow['seq'];
         $this->name = $neighbourhoodDbRow['name'];
-        $this->coords = Coordinates::FromCoordsFactory($neighbourhoodDbRow['latitude'], $neighbourhoodDbRow['longitude']);
+        $this->coords = Coordinates::FromCoordsFactory(
+            $neighbourhoodDbRow['latitude'],
+            $neighbourhoodDbRow['longitude']
+        );
         $this->radius = $neighbourhoodDbRow['radius'];
         $this->notify = $neighbourhoodDbRow['notify'];
         $this->dataLoaded = true;
