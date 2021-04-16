@@ -23,7 +23,7 @@
                 <img src="/images/rating-star.png" alt="*" title="*">
             </div>
             <div class="imp-cell">
-                {{recCount}} <?=tr('guides_recommendations')?>
+                {{recCount}} <?= tr('guides_recommendations'); ?>
             </div>
         </div>
         <div class="imp-row">
@@ -31,7 +31,7 @@
                 <img src="/images/free_icons/email.png" alt="mailTo">
             </div>
             <div class="imp-cell">
-                <a class="links" href="/UserProfile/mailTo/{{user_id}}" target="_blank"><?=tr('guides_sendemail')?></a>
+                <a class="links" href="/UserProfile/mailTo/{{user_id}}" target="_blank"><?= tr('guides_sendemail'); ?></a>
             </div>
         </div>
     </div>
@@ -40,10 +40,10 @@
 {{#if showNavi}}
 <div class="imp-navi">
     <div class="imp-backward">
-        <img src="/images/blue/arrow2.png" alt="&lt;" title="<?=tr('map_popup_previous')?>">
+        <img src="/images/blue/arrow2.png" alt="&lt;" title="<?= tr('map_popup_previous'); ?>">
     </div>
     <div class="imp-forward">
-        <img src="/images/blue/arrow2.png" alt="&gt;" title="<?=tr('map_popup_next')?>">
+        <img src="/images/blue/arrow2.png" alt="&gt;" title="<?= tr('map_popup_next'); ?>">
     </div>
 </div>
 {{/if}}

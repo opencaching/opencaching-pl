@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 namespace src\Models\ChunkModels\InteractiveMap;
 
@@ -14,11 +13,17 @@ use src\Utils\Text\Formatter;
 class LogMarkerModel extends CacheMarkerModel
 {
     public $logLink = null; // if there is no link there is no log :)
+
     public $logText;
+
     public $logIcon;
+
     public $logType;
+
     public $logTypeName;
+
     public $logUserName;
+
     public $logDate;
 
     public static function fromGeoCacheLogFactory(
@@ -27,6 +32,7 @@ class LogMarkerModel extends CacheMarkerModel
     ): LogMarkerModel {
         $marker = new self();
         $marker->importDataFromGeoCacheLog($log, $user);
+
         return $marker;
     }
 
@@ -38,12 +44,13 @@ class LogMarkerModel extends CacheMarkerModel
 
         $this->id = $log->getId();
         $this->logLink = $log->getLogUrl();
-        $text = strip_tags($log->getText(),'<br><p>');
+        $text = strip_tags($log->getText(), '<br><p>');
         $textLen = mb_strlen($text);
+
         if ($textLen > 200) {
             $text = mb_strcut($text, 0, 200);
             // do not leave open tags on truncate
-            $text = preg_replace('/\<[^\>]*$/', '', $text);
+            $text = preg_replace('/\\<[^\\>]*$/', '', $text);
             $text .= '...';
         }
         $this->logText = $text;
@@ -58,18 +65,18 @@ class LogMarkerModel extends CacheMarkerModel
 
     /**
      * Check if all necessary data is set in this marker class
-     * @return boolean
      */
     public function checkMarkerData(): bool
     {
         return parent::checkMarkerData()
-        && isset($this->logLink)
-        && isset($this->logText)
-        && isset($this->logIcon)
-        && isset($this->logType)
-        && isset($this->logTypeName)
-        && isset($this->logUserName)
-        && isset($this->logDate)
-        ;
+        && isset(
+            $this->logLink,
+            $this->logText,
+            $this->logIcon,
+            $this->logType,
+            $this->logTypeName,
+            $this->logUserName,
+            $this->logDate
+        );
     }
 }

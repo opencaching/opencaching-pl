@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 namespace src\Models\ChunkModels\InteractiveMap;
 
@@ -15,11 +14,11 @@ class InteractiveMapModel
 {
     // Default section name if none is used explicitly. Please be careful not to
     // use this value for real meaningful section naming
-    public const DEFAULT_SECTION = "_DEFAULT_";
+    public const DEFAULT_SECTION = '_DEFAULT_';
 
     // Available markers style families for user to choose one.
     // Family name should be an identifier compliant (no spaces etc.)
-    public const MARKERS_FAMILIES = [ "simple", "okapi" ];
+    public const MARKERS_FAMILIES = ['simple', 'okapi'];
 
     private $ocConfig;
 
@@ -27,11 +26,15 @@ class InteractiveMapModel
     private $coords;         // center of the map
 
     private $swCorner;       // for initial extent
+
     private $neCorner;       // for initial extent
+
     private $startExtent;  // set if sw/ne corner coords are present
 
     private $zoom;           // zoom of the map, int,
+
     private $forceZoom;      // force given zoom even if some markers will be hidden
+
     private $mapLayerName;   // name of the default map layer
 
     private $infoMessage;    // short message to display at map
@@ -42,14 +45,10 @@ class InteractiveMapModel
      */
     private $markersFamily;
 
-    /**
-     * Markers data placed within sections
-     */
+    /** Markers data placed within sections */
     private $markerModels = [];
 
-    /**
-     * Additional properties of sections, convinient for external use
-     */
+    /** Additional properties of sections, convinient for external use */
     private $sectionsProperties = [];
 
     /**
@@ -60,7 +59,6 @@ class InteractiveMapModel
 
     public function __construct()
     {
-
         $this->ocConfig = OcConfig::instance();
 
         $this->coords = OcConfig::getMapDefaultCenter();
@@ -84,21 +82,24 @@ class InteractiveMapModel
         callable $rowExtractor
     ) {
         foreach ($dataRows as $row) {
-
             $markerModel = call_user_func($rowExtractor, $row);
 
-            if (!($markerModel instanceof $markerClass)) {
+            if (! ($markerModel instanceof $markerClass)) {
                 Debug::errorLog(
-                    "Extractor returns something different than $markerClass"
+                    "Extractor returns something different than {$markerClass}"
                 );
+
                 return;
             }
 
-            if (!is_subclass_of($markerModel, AbstractMarkerModelBase::class)) {
+            if (
+                ! is_subclass_of($markerModel, AbstractMarkerModelBase::class)
+            ) {
                 Debug::errorLog(
-                    "Marker class $markerClass is not a child of "
+                    "Marker class {$markerClass} is not a child of "
                     . AbstractMarkerModelBase::class
                 );
+
                 return;
             }
 
@@ -108,21 +109,18 @@ class InteractiveMapModel
 
     /**
      * Add one marker to internal base of markers
-     *
-     * @param AbstractMarkerModelBase $model
      */
     public function addMarker(AbstractMarkerModelBase $model)
     {
         $type = $model->getMarkerTypeName();
 
-        if (!$model->checkMarkerData()) {
+        if (! $model->checkMarkerData()) {
             $type = $model->getMarkerTypeName();
-            Debug::errorLog("Marker of $type has incomplete data!");
+            Debug::errorLog("Marker of {$type} has incomplete data!");
         }
-        $section = (
-            isset($model->section) ? $model->section : self::DEFAULT_SECTION
-        );
-        if (!isset($this->markerModels[$section][$type])) {
+        $section = $model->section ?? self::DEFAULT_SECTION;
+
+        if (! isset($this->markerModels[$section][$type])) {
             $this->markerModels[$section][$type] = [];
         }
         $this->markerModels[$section][$type][] = $model;
@@ -149,15 +147,17 @@ class InteractiveMapModel
     public function getMarkerTypes($section = null): array
     {
         $result = [];
+
         if ($section != null) {
-            $result =
+            $result = (
                 isset($this->markerModels[$section])
                 ? array_keys($this->markerModels[$section])
-                : [];
+                : []
+            );
         } else {
-            foreach($this->markerModels as $s) {
-                foreach($s as $markerType => $markers) {
-                    if (!in_array($markerType, $result)) {
+            foreach ($this->markerModels as $s) {
+                foreach ($s as $markerType => $markers) {
+                    if (! in_array($markerType, $result)) {
                         $result[] = $markerType;
                     }
                 }
@@ -170,12 +170,10 @@ class InteractiveMapModel
             $result = array_values(array_unique($result));
             */
         }
+
         return $result;
     }
 
-    /**
-     * @return Coordinates
-     */
     public function getCoords(): Coordinates
     {
         return $this->coords;
@@ -229,10 +227,11 @@ class InteractiveMapModel
         if ($this->startExtent) {
             $sw = $this->swCorner->getAsOpenLayersFormat();
             $ne = $this->neCorner->getAsOpenLayersFormat();
-            return "{ sw:$sw, ne:$ne }";
-        } else {
-            return "null";
+
+            return '{ sw:$sw, ne:$ne }';
         }
+
+        return 'null';
     }
 
     public function setInfoMessage(string $msg)

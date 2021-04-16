@@ -1,20 +1,19 @@
 <?php
-declare(strict_types=1);
 
 namespace src\Controllers;
 
-use src\Utils\Uri\SimpleRouter;
-use src\Utils\Uri\Uri;
-use src\Models\ChunkModels\PaginationModel;
 use src\Models\ChunkModels\InteractiveMap\CacheMarkerModel;
 use src\Models\ChunkModels\InteractiveMap\InteractiveMapModel;
 use src\Models\ChunkModels\InteractiveMap\LogMarkerModel;
+use src\Models\ChunkModels\PaginationModel;
 use src\Models\Coordinates\Coordinates;
 use src\Models\Neighbourhood\MyNbhSets;
 use src\Models\Neighbourhood\Neighbourhood;
+use src\Models\User\UserPreferences\NeighbourhoodPref;
 use src\Models\User\UserPreferences\UserPreferences;
 use src\Utils\Text\UserInputFilter;
-use src\Models\User\UserPreferences\NeighbourhoodPref;
+use src\Utils\Uri\SimpleRouter;
+use src\Utils\Uri\Uri;
 
 class MyNbhInteractiveController extends BaseController
 {
@@ -59,8 +58,8 @@ class MyNbhInteractiveController extends BaseController
     private function accessControl()
     {
         if (
-            !$this->isUserLogged()
-            || self::VALIDATION_MODE && !(
+            ! $this->isUserLogged()
+            || self::VALIDATION_MODE && ! (
                 $this->loggedUser->hasOcTeamRole()
                 || $this->loggedUser->hasAdvUserRole()
                 || $this->loggedUser->hasSysAdminRole()
@@ -69,6 +68,7 @@ class MyNbhInteractiveController extends BaseController
             $this->view->redirect(
                 Uri::setOrReplaceParamValue('target', Uri::getCurrentUri(), '/')
             );
+
             exit();
         }
     }
@@ -82,16 +82,19 @@ class MyNbhInteractiveController extends BaseController
     {
         $this->accessControl();
 
-        $neighbourhoodsList =
-            Neighbourhood::getNeighbourhoodsList($this->loggedUser);
+        $neighbourhoodsList
+             = Neighbourhood::getNeighbourhoodsList($this->loggedUser);
+
         if (empty($neighbourhoodsList)) {
             // User doesn't have any MyNeighbourhoods set, so redirect to config
             $this->view->redirect(
                 SimpleRouter::getLink(self::class, 'config')
             );
+
             exit();
         }
         $selectedNbh = (int) $nbhSeq;
+
         if (! array_key_exists($selectedNbh, $neighbourhoodsList)) {
             // Selected MyNeighbourhood not found
             if ($selectedNbh == 0) {
@@ -105,117 +108,89 @@ class MyNbhInteractiveController extends BaseController
                     SimpleRouter::getLink(self::class, 'index', 0)
                 );
             }
+
             exit();
         }
-        $preferences =
-            UserPreferences::getUserPrefsByKey(NeighbourhoodPref::KEY)->getValues();
+        $preferences = UserPreferences::getUserPrefsByKey(
+            NeighbourhoodPref::KEY
+        )->getValues();
+
         $nbhItemSet = new MyNbhSets(
             $neighbourhoodsList[$selectedNbh]->getCoords(),
             $neighbourhoodsList[$selectedNbh]->getRadius()
         );
-        $latestCaches = $nbhItemSet->getLatestCaches(
-            $preferences['style']['caches-count'],
-            0,
-            false
-        );
-        $upcomingEvents = $nbhItemSet->getUpcomingEvents(
-            $preferences['style']['caches-count'],
-            0
-        );
-        $ftfCaches = $nbhItemSet->getLatestCaches(
-            $preferences['style']['caches-count'],
-            0,
-            true
-        );
-        $latestLogs = $nbhItemSet->getLatestLogs(
-            $preferences['style']['caches-count'],
-            0
-        );
-        $topRatedCaches = $nbhItemSet->getTopRatedCaches(
-            $preferences['style']['caches-count'],
-            0
-        );
-        $latestTitled = $nbhItemSet->getLatestTitledCaches(
-            $preferences['style']['caches-count'],
-            0
-        );
-        $this->view->setVar('latestCaches', $latestCaches);
-        $this->view->setVar('upcomingEvents', $upcomingEvents);
-        $this->view->setVar('FTFCaches', $ftfCaches);
-        $this->view->setVar('latestLogs', $latestLogs);
-        $this->view->setVar('topRatedCaches', $topRatedCaches);
-        $this->view->setVar('latestTitled', $latestTitled);
-        $this->view->setVar('neighbourhoodsList', $neighbourhoodsList);
-        $this->view->setVar('selectedNbh', $selectedNbh);
-        $this->view->setVar('preferences', $preferences);
-        $this->view->setVar('user', $this->loggedUser);
 
         $this->view->addHeaderChunk('openLayers5');
 
         $mapModel = new InteractiveMapModel();
         $mapModel->setMarkersFamily($preferences['family']);
-        foreach ($preferences['items'] as $sectionName => $sectionConfig) {
-            $sectionCaches = null;
-            switch ($sectionName) {
-                case Neighbourhood::ITEM_LATESTCACHES:
-                    $sectionCaches = $latestCaches;
-                    break;
-                case Neighbourhood::ITEM_UPCOMINGEVENTS:
-                    $sectionCaches = $upcomingEvents;
-                    break;
-                case Neighbourhood::ITEM_FTFCACHES:
-                    $sectionCaches = $ftfCaches;
-                    break;
-                case Neighbourhood::ITEM_TITLEDCACHES:
-                    $sectionCaches = $latestTitled;
-                    break;
-                case Neighbourhood::ITEM_RECOMMENDEDCACHES:
-                    $sectionCaches = $topRatedCaches;
-                    break;
-                default:
-                    break;
-            }
-            if ($sectionCaches) {
+
+        $sectionsToSetVars = [
+            Neighbourhood::ITEM_LATESTCACHES => 'latestCaches',
+            Neighbourhood::ITEM_UPCOMINGEVENTS => 'upcomingEvents',
+            Neighbourhood::ITEM_FTFCACHES => 'FTFCaches',
+            Neighbourhood::ITEM_LATESTLOGS => 'latestLogs',
+            Neighbourhood::ITEM_RECOMMENDEDCACHES => 'topRatedCaches',
+            Neighbourhood::ITEM_TITLEDCACHES => 'latestTitled',
+        ];
+
+        foreach ($sectionsToSetVars as $sectionId => $varName) {
+            $setInterface = $nbhItemSet->createSet($sectionId);
+            $sectionResults = $setInterface->getResults(
+                $preferences['style']['caches-count'],
+                0
+            );
+            $this->view->setVar($varName, $sectionResults);
+            $sectionConfig = $preferences['items'][$sectionId] ?? [];
+
+            if ($sectionId == Neighbourhood::ITEM_LATESTLOGS) {
+                $mapModel->addMarkersWithExtractor(
+                    LogMarkerModel::class,
+                    $sectionResults,
+                    function ($row) use ($sectionId) {
+                        $marker = LogMarkerModel::fromGeoCacheLogFactory(
+                            $row,
+                            $this->loggedUser
+                        );
+                        $marker->section = $sectionId;
+
+                        return $marker;
+                    }
+                );
+            } else {
                 $mapModel->addMarkersWithExtractor(
                     CacheMarkerModel::class,
-                    $sectionCaches,
-                    function ($row) use ($sectionName) {
+                    $sectionResults,
+                    function ($row) use ($sectionId) {
                         $marker = CacheMarkerModel::fromGeocacheFactory(
                             $row,
                             $this->loggedUser
                         );
-                        $marker->section = $sectionName;
+                        $marker->section = $sectionId;
+
                         return $marker;
                     }
                 );
             }
-            $mapModel->setSectionProperties($sectionName, [
-                "visible" => $sectionConfig['show'],
-                "order" => $sectionConfig['order'],
+            $mapModel->setSectionProperties($sectionId, [
+                'visible' => $sectionConfig['show'] ?? false,
+                'order' => $sectionConfig['order'] ?? -1,
             ]);
         }
 
-        $mapModel->addMarkersWithExtractor(
-            LogMarkerModel::class,
-            $latestLogs,
-            function ($row) {
-                $marker = LogMarkerModel::fromGeoCacheLogFactory(
-                    $row,
-                    $this->loggedUser
-                );
-                $marker->section = Neighbourhood::ITEM_LATESTLOGS;
-                return $marker;
-            }
-        );
-
         $mapModel->setSectionsKeys(Neighbourhood::SECTIONS);
 
+        $this->view->setVar('neighbourhoodsList', $neighbourhoodsList);
+        $this->view->setVar('selectedNbh', $selectedNbh);
+        $this->view->setVar('preferences', $preferences);
+        $this->view->setVar('user', $this->loggedUser);
         $this->view->setVar('mapModel', $mapModel);
+
         $this->setPublicResourcesAndTemplate(
             $preferences,
             'myNeighbourhood',
             true,
-            [ 'myNeighbourhood.js' ],
+            ['myNeighbourhood.js'],
             true
         );
         $this->view->setVar('controller', self::class);
@@ -224,293 +199,68 @@ class MyNbhInteractiveController extends BaseController
         $this->view->buildView();
     }
 
-    private function setPublicResourcesAndTemplate(
-        array $preferences,
-        string $template,
-        bool $addStyled = true,
-        array $javascripts = [],
-        bool $loadJQueryUI = false
-    ) {
-        $this->view->addLocalCss(
-            Uri::getLinkWithModificationTime(
-                self::PUBLIC_SRC_PATH . 'common.css'
-            )
-        );
-        if ($addStyled) {
-            $this->view->addLocalCss(
-                Uri::getLinkWithModificationTime(
-                    self::PUBLIC_SRC_PATH . 'myNeighbourhood-'
-                    . $preferences['style']['name'] . '.css'
-                )
-            );
-        }
-        $this->view->addLocalCss(
-            Uri::getLinkWithModificationTime('/css/lightTooltip.css')
-        );
-        if (!empty($javascripts)) {
-            if (!is_array($javascripts)) {
-                $javascripts = [ $javascripts ];
-            }
-            foreach ($javascripts as $js) {
-                $this->view->addLocalJs(
-                    Uri::getLinkWithModificationTime(
-                        self::PUBLIC_SRC_PATH . $js
-                    ),
-                    true,
-                    true
-                );
-            }
-        }
-        if ($loadJQueryUI) {
-            $this->view->loadJQueryUI();
-        }
-        $this->view->setVar('controller', self::class);
-        $this->view->setTemplate(self::TEMPLATES_PATH . $template);
-    }
-
-    private function getSectionRequestCommons(int $nbhSeq = 0): array
-    {
-        $this->redirectNotLoggedUsers();
-        $selectedNbh = $nbhSeq;
-        $preferences =
-            UserPreferences::getUserPrefsByKey(NeighbourhoodPref::KEY)->getValues();
-        $neighbourhoodsList =
-            Neighbourhood::getNeighbourhoodsList($this->loggedUser);
-        if (! array_key_exists($selectedNbh, $neighbourhoodsList)) {
-            // Selected MyNeighbourhood not found
-            $this->view->redirect(
-                SimpleRouter::getLink(self::class, 'index')
-            );
-            exit();
-        }
-        $coords = $neighbourhoodsList[$selectedNbh]->getCoords();
-        $nbhItemSet = new MyNbhSets(
-            $coords,
-            $neighbourhoodsList[$selectedNbh]->getRadius()
-        );
-        $paginationModel = new PaginationModel(self::ITEMS_PER_DETAIL_PAGE);
-        return [
-            $selectedNbh, $preferences, $neighbourhoodsList,
-            $coords, $nbhItemSet, $paginationModel
-        ];
-    }
-
-    private function setSectionCommonVars(
-        array $neighbourhoodsList,
-        PaginationModel $paginationModel,
-        int $selectedNbh,
-        Coordinates $coords
-    ) {
-        $this->view->setVar('neighbourhoodsList', $neighbourhoodsList);
-        $this->view->setVar('paginationModel', $paginationModel);
-        $this->view->setVar('selectedNbh', $selectedNbh);
-        $this->view->setVar('user', $this->loggedUser);
-        $this->view->setVar('coords', $coords);
-    }
-
     /**
      * Displays latest caches detailed page for Nbh selected as $nbhSeq
      *
-     * @param int $nbhSeq
+     * @param int $nbhSeq - number of MyNbh (seq). 0 = default user's Nbh
      */
     public function latestCaches(int $nbhSeq = 0)
     {
-        $this->accessControl();
-
-        list(
-            $selectedNbh, $preferences, $neighbourhoodsList,
-            $coords, $nbhItemSet, $paginationModel
-        ) = $this->getSectionRequestCommons($nbhSeq);
-
-        $paginationModel->setRecordsCount(
-            $nbhItemSet->getLatestCachesCount(false)
-        );
-        list($limit, $offset) = $paginationModel->getQueryLimitAndOffset();
-        $this->view->setVar(
-            'caches',
-            $nbhItemSet->getLatestCaches($limit, $offset, false)
-        );
-        $this->setSectionCommonVars(
-            $neighbourhoodsList,
-            $paginationModel,
-            $selectedNbh,
-            $coords
-        );
-        $this->setPublicResourcesAndTemplate(
-            $preferences,
-            'detail_LatestCaches'
-        );
-        $this->view->buildView();
+        $this->viewDetails($nbhSeq, Neighbourhood::ITEM_LATESTCACHES);
     }
 
     /**
      * Displays most recommended caches detailed page for Nbh selected as $nbhSeq
      *
-     * @param int $nbhSeq
+     * @param int $nbhSeq - number of MyNbh (seq). 0 = default user's Nbh
      */
     public function mostRecommended(int $nbhSeq = 0)
     {
-        $this->accessControl();
-
-        list(
-            $selectedNbh, $preferences, $neighbourhoodsList,
-            $coords, $nbhItemSet, $paginationModel
-        ) = $this->getSectionRequestCommons($nbhSeq);
-
-        $paginationModel->setRecordsCount(
-            $nbhItemSet->getTopRatedCachesCount()
-        );
-        list($limit, $offset) = $paginationModel->getQueryLimitAndOffset();
-        $this->view->setVar(
-            'caches',
-            $nbhItemSet->getTopRatedCaches($limit, $offset)
-        );
-        $this->setSectionCommonVars(
-            $neighbourhoodsList,
-            $paginationModel,
-            $selectedNbh,
-            $coords
-        );
-        $this->setPublicResourcesAndTemplate(
-            $preferences,
-            'detail_RecommendedCaches'
-        );
-        $this->view->buildView();
+        $this->viewDetails($nbhSeq, Neighbourhood::ITEM_RECOMMENDEDCACHES);
     }
 
     /**
      * Displays FTF caches detailed page for Nbh selected as $nbhSeq
      *
-     * @param int $nbhSeq
+     * @param int $nbhSeq - number of MyNbh (seq). 0 = default user's Nbh
      */
     public function ftfCaches(int $nbhSeq = 0)
     {
-        $this->accessControl();
-
-        list(
-            $selectedNbh, $preferences, $neighbourhoodsList,
-            $coords, $nbhItemSet, $paginationModel
-        ) = $this->getSectionRequestCommons($nbhSeq);
-
-        $paginationModel->setRecordsCount(
-            $nbhItemSet->getLatestCachesCount(true)
-        );
-        list($limit, $offset) = $paginationModel->getQueryLimitAndOffset();
-        $this->view->setVar(
-            'caches',
-            $nbhItemSet->getLatestCaches($limit, $offset, true)
-        );
-        $this->setSectionCommonVars(
-            $neighbourhoodsList,
-            $paginationModel,
-            $selectedNbh,
-            $coords
-        );
-        $this->setPublicResourcesAndTemplate(
-            $preferences,
-            'detail_FTFCaches'
-        );
-        $this->view->buildView();
+        $this->viewDetails($nbhSeq, Neighbourhood::ITEM_FTFCACHES);
     }
 
     /**
      * Displays titled caches detailed page for Nbh selected as $nbhSeq
      *
-     * @param int $nbhSeq
+     * @param int $nbhSeq - number of MyNbh (seq). 0 = default user's Nbh
      */
     public function titledCaches(int $nbhSeq = 0)
     {
-        $this->accessControl();
-
-        list(
-            $selectedNbh, $preferences, $neighbourhoodsList,
-            $coords, $nbhItemSet, $paginationModel
-        ) = $this->getSectionRequestCommons($nbhSeq);
-
-        $paginationModel->setRecordsCount(
-            $nbhItemSet->getLatestTitledCachesCount()
-        );
-        list($limit, $offset) = $paginationModel->getQueryLimitAndOffset();
-        $this->view->setVar(
-            'caches',
-            $nbhItemSet->getLatestTitledCaches($limit, $offset)
-        );
-        $this->setSectionCommonVars(
-            $neighbourhoodsList,
-            $paginationModel,
-            $selectedNbh,
-            $coords
-        );
-        $this->setPublicResourcesAndTemplate(
-            $preferences,
-            'detail_TitledCaches'
-        );
-        $this->view->buildView();
+        $this->viewDetails($nbhSeq, Neighbourhood::ITEM_TITLEDCACHES);
     }
 
     /**
      * Displays upcomming events detailed page for Nbh selected as $nbhSeq
      *
-     * @param int $nbhSeq
+     * @param int $nbhSeq - number of MyNbh (seq). 0 = default user's Nbh
      */
     public function upcommingEvents(int $nbhSeq = 0)
     {
-        $this->accessControl();
-
-        list(
-            $selectedNbh, $preferences, $neighbourhoodsList,
-            $coords, $nbhItemSet, $paginationModel
-        ) = $this->getSectionRequestCommons($nbhSeq);
-
-        $paginationModel->setRecordsCount(
-            $nbhItemSet->getUpcomingEventsCount()
-        );
-        list($limit, $offset) = $paginationModel->getQueryLimitAndOffset();
-        $this->view->setVar(
-            'caches',
-            $nbhItemSet->getUpcomingEvents($limit, $offset)
-        );
-        $this->setSectionCommonVars(
-            $neighbourhoodsList,
-            $paginationModel,
-            $selectedNbh,
-            $coords
-        );
-        $this->setPublicResourcesAndTemplate(
-            $preferences,
-            'detail_UpcommingEvents'
-        );
-        $this->view->buildView();
+        $this->viewDetails($nbhSeq, Neighbourhood::ITEM_UPCOMINGEVENTS);
     }
 
     /**
      * Displays latest logs detailed page for Nbh selected as $nbhSeq
      *
-     * @param int $nbhSeq
+     * @param int $nbhSeq - number of MyNbh (seq). 0 = default user's Nbh
      */
     public function latestLogs(int $nbhSeq = 0)
     {
-        $this->accessControl();
-
-        list(
-            $selectedNbh, $preferences, $neighbourhoodsList,
-            $coords, $logset, $paginationModel
-        ) = $this->getSectionRequestCommons($nbhSeq);
-
-        $paginationModel->setRecordsCount($logset->getLatestLogsCount());
-        list($limit, $offset) = $paginationModel->getQueryLimitAndOffset();
-        $this->view->setVar('logs', $logset->getLatestLogs($limit, $offset));
-        $this->setSectionCommonVars(
-            $neighbourhoodsList,
-            $paginationModel,
-            $selectedNbh,
-            $coords
+        $this->viewDetails(
+            $nbhSeq,
+            Neighbourhood::ITEM_LATESTLOGS,
+            'logs'
         );
-        $this->setPublicResourcesAndTemplate(
-            $preferences,
-            'detail_LatestLogs'
-        );
-        $this->view->buildView();
     }
 
     /**
@@ -524,17 +274,21 @@ class MyNbhInteractiveController extends BaseController
 
         $selectedNbh = (int) $nbhSeq;
 
-        $preferences =
-            UserPreferences::getUserPrefsByKey(NeighbourhoodPref::KEY)->getValues();
+        $preferences = UserPreferences::getUserPrefsByKey(
+            NeighbourhoodPref::KEY
+        )->getValues();
 
-        $neighbourhoodsList =
-            Neighbourhood::getNeighbourhoodsList($this->loggedUser);
+        $neighbourhoodsList = Neighbourhood::getNeighbourhoodsList(
+            $this->loggedUser
+        );
+
         if (
-            $selectedNbh != - 1
+            $selectedNbh != -1
             && ! array_key_exists($selectedNbh, $neighbourhoodsList)
         ) {
             $selectedNbh = 0;
         }
+
         if (array_key_exists($selectedNbh, $neighbourhoodsList)) {
             $this->view->setVar('coordsOK', 1);
         } else {
@@ -564,7 +318,7 @@ class MyNbhInteractiveController extends BaseController
             $preferences,
             'config',
             false,
-            [ 'config.js', 'config_draw.js' ],
+            ['config.js', 'config_draw.js'],
             true
         );
         $this->view->buildView();
@@ -585,21 +339,19 @@ class MyNbhInteractiveController extends BaseController
             Neighbourhood::getAdditionalNeighbourhoodsList($this->loggedUser)
         );
         // Store MyNeighbourhood data
-        if (
-            isset($_POST['lon'])
-            && isset($_POST['lat'])
-            && isset($_POST['radius'])
-        ) {
+        if (isset($_POST['lon'], $_POST['lat'], $_POST['radius'])) {
             $coords = Coordinates::FromCoordsFactory(
                 $_POST['lat'],
                 $_POST['lon']
             );
             $radius = (int) $_POST['radius'];
+
             if ($radius > self::NBH_RADIUS_MAX) {
                 $radius = self::NBH_RADIUS_MAX;
             } elseif ($radius < self::NBH_RADIUS_MIN) {
                 $radius = self::NBH_RADIUS_MIN;
             }
+
             if ($coords !== null) {
                 if ($nbhSeq == 0) {
                     // Update Home Coords and radius
@@ -622,10 +374,12 @@ class MyNbhInteractiveController extends BaseController
                     $name = UserInputFilter::purifyHtmlString($name);
                     $name = strip_tags($name);
                     $name = mb_strcut($name, 0, 16);
+
                     if (mb_strlen($name) < 1) {
                         // Name too short
                         $name = 'X';
                     }
+
                     if (
                         ! Neighbourhood::storeUserNeighbourhood(
                             $this->loggedUser,
@@ -653,23 +407,25 @@ class MyNbhInteractiveController extends BaseController
         // Store user preferences
         if (
             $nbhSeq == 0
-            && isset($_POST['caches-perpage'])
-            && isset($_POST['style'])
+            && isset($_POST['caches-perpage'], $_POST['style'])
             && ($_POST['style'] == 'full' || $_POST['style'] == 'min')
             && isset($_POST['family'])
             && in_array($_POST['family'], InteractiveMapModel::MARKERS_FAMILIES)
         ) {
             $cachesPerpage = (int) $_POST['caches-perpage'];
+
             if ($cachesPerpage > self::CACHES_PER_PAGE_MAX) {
                 $cachesPerpage = self::CACHES_PER_PAGE_MAX;
             } elseif ($cachesPerpage < self::CACHES_PER_PAGE_MIN) {
                 $cachesPerpage = self::CACHES_PER_PAGE_MIN;
             }
-            $preferences =
-                UserPreferences::getUserPrefsByKey(NeighbourhoodPref::KEY)->getValues();
+            $preferences = UserPreferences::getUserPrefsByKey(
+                NeighbourhoodPref::KEY
+            )->getValues();
             $preferences['style']['name'] = $_POST['style'];
             $preferences['style']['caches-count'] = $cachesPerpage;
             $preferences['family'] = $_POST['family'];
+
             if (
                 ! UserPreferences::savePreferencesJson(
                     NeighbourhoodPref::KEY,
@@ -680,6 +436,7 @@ class MyNbhInteractiveController extends BaseController
                 $error = tr('myn_save_error');
             }
         }
+
         if (is_null($error)) {
             $this->infoMsg = tr('myn_save_success');
         } else {
@@ -698,6 +455,7 @@ class MyNbhInteractiveController extends BaseController
         $this->accessControl();
 
         $success = true;
+
         if ($nbhSeq > 0) { // User cannot delete HomeCoords!
             if (
                 ! Neighbourhood::removeUserNeighbourhood(
@@ -711,12 +469,14 @@ class MyNbhInteractiveController extends BaseController
             // User try to delete Home Coords
             $success = false;
         }
+
         if ($success) {
             $this->infoMsg = tr('myn_delete_success');
         } else {
             $this->errorMsg = tr('myn_delete_error');
         }
         $this->config(0);
+
         exit();
     }
 
@@ -729,13 +489,16 @@ class MyNbhInteractiveController extends BaseController
         $this->paramAjaxCheck('order');
         $order = [];
         parse_str($_POST['order'], $order);
-        $preferences =
-            UserPreferences::getUserPrefsByKey(NeighbourhoodPref::KEY)->getValues();
+        $preferences = UserPreferences::getUserPrefsByKey(
+            NeighbourhoodPref::KEY
+        )->getValues();
         $counter = 1;
+
         foreach ($order['item'] as $itemOrder) {
             $preferences['items'][$itemOrder]['order'] = $counter;
-            $counter += 1;
+            $counter++;
         }
+
         if (
             ! UserPreferences::savePreferencesJson(
                 NeighbourhoodPref::KEY,
@@ -755,13 +518,15 @@ class MyNbhInteractiveController extends BaseController
         $this->checkUserLoggedAjax();
         $this->paramAjaxCheck('size');
         $this->paramAjaxCheck('item');
-        $preferences =
-            UserPreferences::getUserPrefsByKey(NeighbourhoodPref::KEY)->getValues();
+        $preferences = UserPreferences::getUserPrefsByKey(
+            NeighbourhoodPref::KEY
+        )->getValues();
         $itemNr = ltrim($_POST['item'], 'item_');
         $preferences['items'][$itemNr]['fullsize'] = filter_var(
             $_POST['size'],
             FILTER_VALIDATE_BOOLEAN
         );
+
         if (
             ! UserPreferences::savePreferencesJson(
                 NeighbourhoodPref::KEY,
@@ -781,13 +546,15 @@ class MyNbhInteractiveController extends BaseController
         $this->checkUserLoggedAjax();
         $this->paramAjaxCheck('hide');
         $this->paramAjaxCheck('item');
-        $preferences =
-            UserPreferences::getUserPrefsByKey(NeighbourhoodPref::KEY)->getValues();
+        $preferences = UserPreferences::getUserPrefsByKey(
+            NeighbourhoodPref::KEY
+        )->getValues();
         $itemNr = ltrim($_POST['item'], 'item_');
         $preferences['items'][$itemNr]['show'] = ! filter_var(
             $_POST['hide'],
             FILTER_VALIDATE_BOOLEAN
         );
+
         if (
             ! UserPreferences::savePreferencesJson(
                 NeighbourhoodPref::KEY,
@@ -808,15 +575,159 @@ class MyNbhInteractiveController extends BaseController
         return true;
     }
 
+    private function setPublicResourcesAndTemplate(
+        array $preferences,
+        string $template,
+        bool $addStyled = true,
+        array $javascripts = [],
+        bool $loadJQueryUI = false
+    ) {
+        $this->view->addLocalCss(
+            Uri::getLinkWithModificationTime(
+                self::PUBLIC_SRC_PATH . 'common.css'
+            )
+        );
+
+        if ($addStyled) {
+            $this->view->addLocalCss(
+                Uri::getLinkWithModificationTime(
+                    self::PUBLIC_SRC_PATH . 'myNeighbourhood-'
+                    . $preferences['style']['name'] . '.css'
+                )
+            );
+        }
+        $this->view->addLocalCss(
+            Uri::getLinkWithModificationTime('/css/lightTooltip.css')
+        );
+
+        if (! empty($javascripts)) {
+            if (! is_array($javascripts)) {
+                $javascripts = [$javascripts];
+            }
+
+            foreach ($javascripts as $js) {
+                $this->view->addLocalJs(
+                    Uri::getLinkWithModificationTime(
+                        self::PUBLIC_SRC_PATH . $js
+                    ),
+                    true,
+                    true
+                );
+            }
+        }
+
+        if ($loadJQueryUI) {
+            $this->view->loadJQueryUI();
+        }
+        $this->view->setVar('controller', self::class);
+        $this->view->setTemplate(self::TEMPLATES_PATH . $template);
+    }
+
+    private function getSectionRequestCommons(int $nbhSeq = 0): array
+    {
+        $this->redirectNotLoggedUsers();
+        $selectedNbh = $nbhSeq;
+        $preferences = UserPreferences::getUserPrefsByKey(
+            NeighbourhoodPref::KEY
+        )->getValues();
+        $neighbourhoodsList = Neighbourhood::getNeighbourhoodsList(
+            $this->loggedUser
+        );
+
+        if (! array_key_exists($selectedNbh, $neighbourhoodsList)) {
+            // Selected MyNeighbourhood not found
+            $this->view->redirect(
+                SimpleRouter::getLink(self::class, 'index')
+            );
+
+            exit();
+        }
+        $coords = $neighbourhoodsList[$selectedNbh]->getCoords();
+        $nbhItemSet = new MyNbhSets(
+            $coords,
+            $neighbourhoodsList[$selectedNbh]->getRadius()
+        );
+        $paginationModel = new PaginationModel(self::ITEMS_PER_DETAIL_PAGE);
+
+        return [
+            $selectedNbh, $preferences, $neighbourhoodsList,
+            $coords, $nbhItemSet, $paginationModel,
+        ];
+    }
+
+    private function setSectionCommonVars(
+        array $neighbourhoodsList,
+        PaginationModel $paginationModel,
+        int $selectedNbh,
+        Coordinates $coords
+    ) {
+        $this->view->setVar('neighbourhoodsList', $neighbourhoodsList);
+        $this->view->setVar('paginationModel', $paginationModel);
+        $this->view->setVar('selectedNbh', $selectedNbh);
+        $this->view->setVar('user', $this->loggedUser);
+        $this->view->setVar('coords', $coords);
+    }
+
+    /**
+     * Common method for detailed section view with a separate page.
+     *
+     * @param int $nbhSeq - MyNbh number (seq). 0 = default user's Nbh
+     * @param int $sectionId - Number (id) of section to display
+     * @param array $viewVars - Additional view variables to set (key => value)
+     * @param string $itemSetVarName - Name of view var to store item set results
+     * @param string $template - Name of template to build view from
+     */
+    private function viewDetails(
+        int $nbhSeq,
+        int $sectionId,
+        string $itemSetVarName = 'caches'
+    ) {
+        $this->accessControl();
+
+        [
+            $selectedNbh, $preferences, $neighbourhoodsList,
+            $coords, $nbhItemSet, $paginationModel
+        ] = $this->getSectionRequestCommons($nbhSeq);
+
+        $this->view->setVar('sectionId', $sectionId);
+
+        $setInterface = $nbhItemSet->createSet($sectionId);
+        $paginationModel->setRecordsCount(
+            $setInterface->getCount()
+        );
+        [$limit, $offset] = $paginationModel->getQueryLimitAndOffset();
+        $this->view->setVar(
+            $itemSetVarName,
+            $setInterface->getResults($limit, $offset)
+        );
+        $this->setSectionCommonVars(
+            $neighbourhoodsList,
+            $paginationModel,
+            $selectedNbh,
+            $coords
+        );
+        $this->setPublicResourcesAndTemplate($preferences, 'details');
+
+        if (isset(Neighbourhood::SECTIONS[$sectionId])) {
+            $this->view->setVar(
+                'sectionTranslationKey',
+                Neighbourhood::SECTIONS[$sectionId]
+            );
+        }
+
+        $this->view->buildView();
+    }
+
     /**
      * Check if $_POST[$paramName] is set. If not - generates 400 AJAX response
      *
-     * @param string $paramName
+     * @param string $paramName a name of parameter to check
      */
     private function paramAjaxCheck(string $paramName)
     {
         if (! isset($_POST[$paramName])) {
             $this->ajaxErrorResponse('No parameter: ' . $paramName, 400);
+
             exit();
         }
     }

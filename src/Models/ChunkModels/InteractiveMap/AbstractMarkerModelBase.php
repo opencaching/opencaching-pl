@@ -1,9 +1,8 @@
 <?php
-declare(strict_types=1);
 
 namespace src\Models\ChunkModels\InteractiveMap;
 
-use \ReflectionClass;
+use ReflectionClass;
 
 /**
  * This is a base class for all interactive map markers.
@@ -11,14 +10,19 @@ use \ReflectionClass;
 abstract class AbstractMarkerModelBase
 {
     public $id;             // id of marker
+
     public $lat;            // lat. of marker
+
     public $lon;            // lon. of marker
+
     public $icon;           // icon of marker
+
     public $section;        // [optional] section the marker belongs to
 
     public function getMarkerTypeName(): string
     {
         $str = (new ReflectionClass(static::class))->getShortName();
+
         return preg_replace('/Model$/', '', lcfirst($str));
     }
 
@@ -29,16 +33,10 @@ abstract class AbstractMarkerModelBase
 
     /**
      * Check if all necessary data is set in this marker class
-     * @return boolean
      */
     public function checkMarkerData(): bool
     {
         return true
-        && isset($this->id)
-        && isset($this->lat)
-        && isset($this->lon)
-        && isset($this->icon)
-        ;
+        && isset($this->id, $this->lat, $this->lon, $this->icon);
     }
-
 }

@@ -39,10 +39,10 @@
 {{#if showNavi}}
 <div class="imp-navi">
     <div class="imp-backward">
-        <img src="/images/blue/arrow2.png" alt="&lt;" title="<?=tr('map_popup_previous')?>">
+        <img src="/images/blue/arrow2.png" alt="&lt;" title="<?= tr('map_popup_previous'); ?>">
     </div>
     <div class="imp-forward">
-        <img src="/images/blue/arrow2.png" alt="&gt;" title="<?=tr('map_popup_next')?>">
+        <img src="/images/blue/arrow2.png" alt="&gt;" title="<?= tr('map_popup_next'); ?>">
     </div>
 </div>
 {{/if}}
