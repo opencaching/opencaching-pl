@@ -19,9 +19,6 @@ $config['cookie']['name'] = 'oc';
 $config['cookie']['path'] = '/';
 $config['cookie']['domain'] = '.localhost';
 
-// display online users in page footer
-$config['mainLayout']['displayOnlineUsers'] = true;
-
 //block register new cache before first find xx nuber caches value -1 off this feature
 $NEED_FIND_LIMIT = 10;
 

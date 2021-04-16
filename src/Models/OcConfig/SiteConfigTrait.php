@@ -81,6 +81,7 @@ trait SiteConfigTrait
     }
 
     /**
+<<<<<<< 2338784676834fbc615a59e5fe9ec770837ccf84
      * Returns Google Analytics site tag if used by the node
      */
     public static function getSiteGoogleAnalyticsTag(): string
@@ -89,6 +90,16 @@ trait SiteConfigTrait
     }
 
 
+=======
+     * Display the list of users which are online (was seens in last minutes)
+     * on the bottom of the page
+     */
+    public static function siteDisplayOnlineUsers(): bool
+    {
+        return self::getKeyFromSiteConfig('displayOnlineUsers');
+    }
+
+>>>>>>> config: displayOnlineUser moved to /config
     /**
      * Returns icon's path relative to the public directory.
      */

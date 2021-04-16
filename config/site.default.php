@@ -80,3 +80,9 @@ $site['debugModeEnabled'] = false;
  * Google Analytics site tag if used by the node
  */
 $site['googleAnalyticsTag'] = '';
+
+/**
+ * Display the list of users which are online (was seens in last minutes)
+ * on the bottom of the page
+ */
+$site['displayOnlineUsers'] = true;
