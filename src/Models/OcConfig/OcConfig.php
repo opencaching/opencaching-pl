@@ -4,6 +4,7 @@ namespace src\Models\OcConfig;
 
 final class OcConfig extends ConfigReader
 {
+    use DbConfigTrait;
     use EmailConfigTrait;
     use GeocacheConfigTrait;
     use I18nConfigTrait;
@@ -213,22 +214,22 @@ final class OcConfig extends ConfigReader
         return $this->meritBadgesEnabled;
     }
 
-    public function getDbUser($admin = false)
+    public function _getDbUser($admin = false)
     {
         return $admin ? $this->dbAdminUser : $this->dbUser;
     }
 
-    public function getDbPass($admin = false)
+    public function _getDbPass($admin = false)
     {
         return $admin ? $this->dbAdminPass : $this->dbPass;
     }
 
-    public function getDbHost()
+    public function _getDbHost()
     {
         return $this->dbHost;
     }
 
-    public function getDbName()
+    public function _getDbName()
     {
         return $this->dbName;
     }
