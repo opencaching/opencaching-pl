@@ -22,7 +22,7 @@ if ($view->selectedNbh == -1) { ?>
 if (count($view->neighbourhoodsList) <= $view->maxnbh) { ?>
         <a class="btn btn-md btn-success" href="<?= SimpleRouter::getLink($view->controller, 'config', '-1'); ?>" title="<?= tr('myn_addarea_info'); ?>"><img src="/images/misc/plus-sign.svg" class="icon16" alt="<?= tr('new'); ?>">&nbsp;<?= tr('new'); ?></a>
 <?php
-} // end if ?>
+} // end if?>
         <span class="nbh-button-right">
             <a href="<?= SimpleRouter::getLink($view->controller, 'index', $view->selectedNbh); ?>" class="btn btn-default btn-md"><?= tr('exit_config'); ?></a>
         </span>
@@ -33,7 +33,7 @@ if ($view->coordsOK == 0) {
     if ($view->selectedNbh == 0) { ?>
     <div class="callout callout-warning"><?= tr('myn_intro'); ?></div>
     <?php
-    } // if selectedNbh == 0 ?>
+    } // if selectedNbh == 0?>
     <div class="notice"><?= tr('myn_map_info1'); ?></div>
 <?php
 } elseif ($view->selectedNbh == 0) { ?>
@@ -42,7 +42,7 @@ if ($view->coordsOK == 0) {
 } else { ?>
     <div class="notice"><?= tr('myn_name_addition'); ?></div>
 <?php
-} // end if coordsOK ?>
+} // end if coordsOK?>
     <div class="notice"><?= tr('myn_map_info2'); ?></div>
     <div id="nbhmapmain" class="nbh-map"></div>
 <?php
@@ -80,14 +80,14 @@ if ($view->coordsOK == 1) { ?>
         $('#nbh-startdraw-btn').hide();
         $('#nbh-coords-line').show();
 <?php
-} else { // else if coordsOK ?>
+} else { // else if coordsOK?>
         $('#nbh-startdraw-btn').click(function() {
             configDraw.startDrawing();
             $('#nbh-startdraw-btn').hide();
             $('#nbh-coords-line').show();
         });
 <?php
-} // end if coordsOK ?>
+} // end if coordsOK?>
         configDraw.init([ initLat, initLon ], initRadius);
     });
 
@@ -128,7 +128,7 @@ if ($view->coordsOK == 1) { ?>
     <div class="buffer"></div>
     <form method="post" action="<?= SimpleRouter::getLink($view->controller, 'save', $view->selectedNbh); ?>">
 <?php
-if ($view->selectedNbh == 0) { // Main MyNeighbourhood area ?>
+if ($view->selectedNbh == 0) { // Main MyNeighbourhood area?>
         <fieldset>
             <legend>&nbsp;<?= tr('myn_style_lbl'); ?>&nbsp;</legend>
             <label for="radio-1"><?= tr('myn_style_full'); ?></label>
@@ -153,10 +153,10 @@ if ($view->selectedNbh == 0) { // Main MyNeighbourhood area ?>
             <label for="radio-family-<?= $family; ?>"><?= tr('myn_family_named_' . $family); ?></label>
             <input type="radio" name="family" value="<?= $family; ?>" id="radio-family-<?= $family; ?>" class="nbh-radio" <?= $view->preferences['family'] == $family ? 'checked' : ''; ?>>
 <?php
-        } // foreach $view->markersFamilies ?>
+        } // foreach $view->markersFamilies?>
         </fieldset>
 <?php
-    } // if sizeof $view->markersFamilies ?>
+    } // if sizeof $view->markersFamilies?>
         <div class="buffer"></div>
         <input type="hidden" name="caches-perpage" id="input-caches" value="<?= $view->preferences['style']['caches-count']; ?>">
         <div class="align-center">
@@ -165,7 +165,7 @@ if ($view->selectedNbh == 0) { // Main MyNeighbourhood area ?>
             <a href="<?= SimpleRouter::getLink($view->controller, 'index', $view->selectedNbh); ?>" class="btn btn-default btn-md"><?= tr('exit_config'); ?></a>
         </div>
 <?php
-} else { // Additional Myneighbourhood area ?>
+} else { // Additional Myneighbourhood area?>
         <fieldset>
             <legend><?= tr('myn_name'); ?></legend>
             <input type="text" name="name" id="input-name" class="ui-widget ui-widget-content ui-corner-all" value="<?= ($view->selectedNbh == -1) ? '' : $view->neighbourhoodsList[$view->selectedNbh]->getName(); ?>" maxlength="16" required>
@@ -182,7 +182,7 @@ if ($view->selectedNbh == 0) { // Main MyNeighbourhood area ?>
             </div>
         </div>
 <?php
-} // end if-else $view->selectedNbh ?>
+} // end if-else $view->selectedNbh?>
         <input type="hidden" name="lon" id="input-lon" value="<?= $view->coordsOK == 1 ? $view->neighbourhoodsList[$view->selectedNbh]->getCoords()->getLongitude() : ''; ?>">
         <input type="hidden" name="lat" id="input-lat" value="<?= $view->coordsOK == 1 ? $view->neighbourhoodsList[$view->selectedNbh]->getCoords()->getLatitude() : ''; ?>">
         <input type="hidden" name="radius" id="input-radius" value="<?= $view->coordsOK == 1 ? $view->neighbourhoodsList[$view->selectedNbh]->getRadius() : ''; ?>">

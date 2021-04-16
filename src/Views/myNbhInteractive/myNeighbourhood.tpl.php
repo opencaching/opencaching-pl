@@ -20,7 +20,7 @@ foreach ($view->neighbourhoodsList as $nbh) {
     } ?>
     <a class="btn btn-md <?= $btnClassMod; ?>" href="<?= SimpleRouter::getLink($view->controller, 'index', $nbh->getSeq()); ?>"><?= $nbh->getName(); ?></a>
 <?php
-} // end of foreach-neighbourhoodsList ?>
+} // end of foreach-neighbourhoodsList?>
     <a class="btn btn-md btn-success" href="<?= SimpleRouter::getLink($view->controller, 'config', $view->selectedNbh); ?>"><img src="/images/free_icons/cog.png" class="icon16" alt="<?= tr('config'); ?>">&nbsp;<?= tr('config'); ?></a>
 
     <div class="nbh-sort-list">
@@ -122,7 +122,7 @@ foreach ($order as $item) {
     } ?>
         </div>
 <?php
-} // end of foreach-order ?>
+} // end of foreach-order?>
     </div>
 <?php
 [$latNS, $lat_h, $lat_min] = $view->neighbourhoodsList[$view->selectedNbh]->getCoords()->getLatitudeParts(Coordinates::COORDINATES_FORMAT_DEG_MIN);
@@ -227,7 +227,7 @@ function showCacheDesc($cache, $sectionId, $view, $sectionSettings)
     if ($cache->isPowerTrailPart()) { ?>
                             <img src="<?= $cache->getPowerTrail()->getFootIcon(); ?>" alt="<?= tr('pt002'); ?>" title="<?= htmlspecialchars($cache->getPowerTrail()->getName()); ?>">
 <?php
-    } // end of if isPowerTrailPart ?>
+    } // end of if isPowerTrailPart?>
                             <span class="nbh-full-only"><?= tr('hidden_by'); ?></span><span class="nbh-min-only">|</span> <strong><?= $cache->getOwner()->getUserName(); ?></strong>
                             <span class="nbh-full-only"><br>
                                 <img src="<?= $cache->getDifficultyIcon(); ?>" alt="<?= tr('task_difficulty'); ?>: <?= $cache->getDifficulty() / 2; ?>" title="<?= tr('task_difficulty'); ?>: <?= $cache->getDifficulty() / 2; ?>">
@@ -243,7 +243,7 @@ function showCacheDesc($cache, $sectionId, $view, $sectionSettings)
     } else { ?>
                             <span class="nbh-min-only"> | </span>
 <?php
-    } //end of if-settings-showDate ?>
+    } //end of if-settings-showDate?>
                             <span class="nbh-full-only"><?= tr($cache->getSizeTranslationKey()); ?> |</span>
                             <span class="nbh-nowrap"><?= round(Gis::distanceBetween($view->neighbourhoodsList[$view->selectedNbh]->getCoords(), $cache->getCoordinates())); ?> km
                                 <img src="/images/misc/arrow-north.svg" class="nbh-arrow-north" alt="<?= tr('direction'); ?>" style="transform: rotate(<?= round(Gis::calcBearingBetween($view->neighbourhoodsList[$view->selectedNbh]->getCoords(), $cache->getCoordinates())); ?>deg)"></span>
@@ -287,13 +287,13 @@ function showLogs($sectionId, $view, $sectionSettings)
             if ($log->getGeoCache()->isPowerTrailPart()) { ?>
                                 <img src="<?= $cache->getPowerTrail()->getFootIcon(); ?>" alt="<?= tr('pt002'); ?>" title="<?= htmlspecialchars($cache->getPowerTrail()->getName()); ?>">
 <?php
-            } // end of if isPowerTrailPart ?>
+            } // end of if isPowerTrailPart?>
                                 <span class="nbh-full-only"><?= tr('hidden_by'); ?> <strong><?= $cache->getOwner()->getUserName(); ?></strong><br></span>
 <?php
             if ($log->getType() == GeoCacheLog::LOGTYPE_FOUNDIT && $log->isRecommendedByUser($log->getUser())) { ?>
                                 <img src="/images/rating-star.png" alt="<?= tr('number_obtain_recommendations'); ?>"> |
 <?php
-            } // end of if-isRecommendedByUser ?>
+            } // end of if-isRecommendedByUser?>
                                 <span class="nbh-nowrap"><?= Formatter::date($log->getDate()); ?></span>
                                 | <span class="nbh-nowrap"><?= round(Gis::distanceBetween($view->neighbourhoodsList[$view->selectedNbh]->getCoords(), $cache->getCoordinates())); ?> km
                                     <img src="/images/misc/arrow-north.svg" class="nbh-arrow-north" alt="<?= tr('direction'); ?>" style="transform: rotate(<?= round(Gis::calcBearingBetween($view->neighbourhoodsList[$view->selectedNbh]->getCoords(), $cache->getCoordinates())); ?>deg)"></span>

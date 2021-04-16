@@ -96,7 +96,7 @@ var logTypeList = <?= GeoCacheLogCommons::getLogTypeListJson(); ?>;
 </script>
 <?php
         } //if-loadTpl
-    } //foreach-markerTypes ?>
+    } //foreach-markerTypes?>
 <!-- end of load markers scripts popup templates -->
 
 <script>
@@ -115,14 +115,14 @@ $(document).ready(function() {
         <?php foreach ($mapModel->getSectionsKeys() as $section => $key) { ?>
             '<?= $section; ?>': '<?= tr($key); ?>',
         <?php
-            } //foreach $sectionsKeys ?>
+            } //foreach $sectionsKeys?>
         },
         markerMgrs: {
         <?php foreach ($mapModel->getMarkerTypes() as $markerType) { ?>
             <?= $markerType; ?>: <?php
                 include __DIR__ . '/markers/' . $markerType . 'Mgr.tpl.php';
             ?>,
-        <?php } //foreach $markerTypes ?>
+        <?php } //foreach $markerTypes?>
         },
         markersFamily: "<?= $mapModel->getMarkersFamily(); ?>",
         enableBackgroundLayer: <?= $mapModel->getMarkersFamily() == 'okapi' ? 'true' : 'false'; ?>,

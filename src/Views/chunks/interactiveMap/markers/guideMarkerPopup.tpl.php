@@ -1,4 +1,4 @@
-<?php //This is handlebars-js template - see https://handlebarsjs.com/ for format details ?>
+<?php //This is handlebars-js template - see https://handlebarsjs.com/ for format details?>
 
 <div class="imp-guide">
     <div class="imp-table">

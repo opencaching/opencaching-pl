@@ -132,10 +132,10 @@ foreach ($sectionSettings['items'] as $item) {
                 $reflectionFunc->invoke($callParameter, $sectionSettings, $view);
             }
         }
-    } // end of foreach-settings-itemDisplayFunctions ?>
+    } // end of foreach-settings-itemDisplayFunctions?>
             </tr>
 <?php
-} // end of foreach-settings-items ?>
+} // end of foreach-settings-items?>
         </tbody>
     </table>
 <?php
@@ -157,7 +157,7 @@ function showCache(GeoCache $cache, array $sectionSettings, View $view)
     if ($cache->isPowerTrailPart()) { ?>
                             <img src="<?= $cache->getPowerTrail()->getFootIcon(); ?>" alt="<?= tr('pt002'); ?>" title="<?= htmlspecialchars($cache->getPowerTrail()->getName()); ?>">
 <?php
-    } // end of if-cache-isPowerTrailPart ?>
+    } // end of if-cache-isPowerTrailPart?>
                             <span class="nbh-full-only"><?= tr('hidden_by'); ?></span><span class="nbh-min-only">|</span> <strong><?= $cache->getOwner()->getUserName(); ?></strong>
                             <span class="nbh-full-only"><br>
                                 <img src="<?= $cache->getDifficultyIcon(); ?>" alt="<?= tr('task_difficulty'); ?>: <?= $cache->getDifficulty() / 2; ?>" title="<?= tr('task_difficulty'); ?>: <?= $cache->getDifficulty() / 2; ?>">
@@ -174,7 +174,7 @@ function showCache(GeoCache $cache, array $sectionSettings, View $view)
                                 | <img src="/images/rating-star.png" alt="<?= tr('number_obtain_recommendations'); ?>">
                                 (<?= $cache->getRecommendations(); ?>)
 <?php
-    } // end of if-settings-showRecommendations ?>
+    } // end of if-settings-showRecommendations?>
                         </a>
                     </div>
                 </td>
@@ -261,7 +261,7 @@ function showLog(GeoCacheLog $log, array $sectionSettings, View $view)
     if ($log->getType() == GeoCacheLog::LOGTYPE_FOUNDIT && $log->isRecommendedByUser($log->getUser())) { ?>
                             <img src="/images/rating-star.png" alt="<?= tr('number_obtain_recommendations'); ?>">
 <?php
-    } // end of if-isRecommendedByUser ?>
+    } // end of if-isRecommendedByUser?>
                             <span class="nbh-full-only"><br>
                                 <?= mb_substr(strip_tags($log->getText()), 0, 70); ?><?= mb_strlen(strip_tags($log->getText())) > 70 ? '...' : ''; ?></span>
                         </a>
@@ -269,4 +269,4 @@ function showLog(GeoCacheLog $log, array $sectionSettings, View $view)
                     <div class="lightTip"><?= UserInputFilter::purifyHtmlString($log->getText()); ?></div>
                 </td>
 <?php
-} // end of showLog ?>
+} // end of showLog?>
