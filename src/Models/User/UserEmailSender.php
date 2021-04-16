@@ -141,7 +141,8 @@ class UserEmailSender
         $userMessage->addFooterAndHeader($user->getUserName());
         $userMessage->setVariable('wikiaddress', OcConfig::getWikiLink('forBeginers'));
         $userMessage->setVariable('guidesurl', OcConfig::getAbsolute_server_URI() . 'guide');
-        $userMessage->setVariable('postActivation_mail_04', mb_ereg_replace('{NEED_FIND_LIMIT}', OcConfig::getNeedFindLimit(), tr('postActivation_mail_04')));
+        $userMessage->setVariable('postActivation_mail_04', mb_ereg_replace('{NEED_FIND_LIMIT}',
+                OcConfig::getMinUserFoundsForNewCache(), tr('postActivation_mail_04')));
         $email = new Email();
         $email->addToAddr($user->getEmail());
         $email->setReplyToAddr(OcConfig::getEmailAddrNoReply());

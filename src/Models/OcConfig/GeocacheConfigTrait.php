@@ -51,6 +51,23 @@ trait GeocacheConfigTrait
         return self::getKeyFromGeoCacheConfig('coordsHiddenForNonLogged');
     }
 
+    /**
+     * The number of founds which user needs to log to create its own new geocache
+     */
+    public static function getMinUserFoundsForNewCache(): int
+    {
+        return self::getKeyFromGeoCacheConfig('minUserFoundsForNewCache');
+    }
+
+    /**
+     * The minimum number of active geocaches owned by user to skip OCTEAM
+     * verification of every new geocache
+     */
+    public static function getMinCachesToSkipNewCacheVerification(): int
+    {
+        return self::getKeyFromGeoCacheConfig('minCachesToSkipNewCacheVerification');
+    }
+
     protected function getGeoCacheConfig(): array
     {
         if (! $this->geocacheConfig) {

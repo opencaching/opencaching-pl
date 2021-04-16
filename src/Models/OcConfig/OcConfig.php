@@ -39,8 +39,6 @@ final class OcConfig extends ConfigReader
     private $siteInService = false;
     private $dateFormat;
     private $headerLogo;
-    private $needFindLimit;
-    private $needApproveLimit;
     private $minimumAge;
     private $meritBadgesEnabled;
 
@@ -139,8 +137,6 @@ final class OcConfig extends ConfigReader
         $this->googleMapKey = $googlemap_key;
         $this->dateFormat = $dateFormat;
         $this->headerLogo = $config['headerLogo'];
-        $this->needApproveLimit = $NEED_APPROVE_LIMIT;
-        $this->needFindLimit = $NEED_FIND_LIMIT;
         $this->minimumAge = $config['limits']['minimum_age'];
         $this->meritBadgesEnabled = $config['meritBadges'];
 
@@ -240,16 +236,6 @@ final class OcConfig extends ConfigReader
     public static function getHeaderLogo()
     {
         return self::instance()->headerLogo;
-    }
-
-    public static function getNeedFindLimit()
-    {
-        return self::instance()->needFindLimit;
-    }
-
-    public static function getNeedApproveLimit()
-    {
-        return self::instance()->needApproveLimit;
     }
 
     /**

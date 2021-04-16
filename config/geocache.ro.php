@@ -21,3 +21,15 @@ $geocache['noNewCachesOfTypes'][] = GeoCacheCommons::TYPE_GEOPATHFINAL;
  * Hide coordinates for non-logged users
  */
 $geocache['coordsHiddenForNonLogged'] = false;
+
+/**
+ * The number of founds which user needs to log to create its own new geocache
+ */
+$geocache['minUserFoundsForNewCache'] = 1;
+
+/**
+ * The minimum number of active geocaches owned by user to skip OCTEAM
+ * verification of every new geocache
+ */
+$geocache['minCachesToSkipNewCacheVerification'] = 0;
+

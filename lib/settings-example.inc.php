@@ -19,11 +19,6 @@ $config['cookie']['name'] = 'oc';
 $config['cookie']['path'] = '/';
 $config['cookie']['domain'] = '.localhost';
 
-//block register new cache before first find xx nuber caches value -1 off this feature
-$NEED_FIND_LIMIT = 10;
-
-$NEED_APPROVE_LIMIT = 3;
-
 //if you are running this site on a other domain than staging.opencaching.de, you can set
 //this in private_db.inc.php, but don't forget the ending /
 $absolute_server_URI = '//localhost/';
