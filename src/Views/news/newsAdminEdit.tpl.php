@@ -1,7 +1,9 @@
 <?php
 
 use src\Utils\Uri\SimpleRouter;
+use src\Utils\View\View;
 
+/** @var View $view */
 $view->callChunk('tinyMCE');
 ?>
 
@@ -35,10 +37,28 @@ $view->callChunk('tinyMCE');
     <table class="table news-table">
       <tbody>
         <tr>
+            <td colspan="2">
+              <div class="align-right">
+                <button type="submit" name="submit" class="btn btn-primary"><?=tr('save')?></button>
+              </div>
+            </td>
+        </tr>
+        <tr>
           <td class="news-left-column content-title-noshade"><?=tr('news_lbl_title')?></td>
           <td><input type="text" name="title" maxlength="100" value="<?=$view->news->getTitle()?>" class="form-control input400"></td>
         </tr>
         <tr><td colspan="2" class="buffer"></td></tr>
+
+        <tr>
+          <td class="news-left-column content-title-noshade"><?=tr('news_lbl_category')?></td>
+          <td>
+          <select name="category" class="form-control input200">
+            <?php foreach($view->allCategories as $cat) { ?>
+            <option value="<?=$cat?>" <?=($view->news->getCategory()==$cat)?'selected':''?>><?=ltrim($cat, '_') ?></option>
+            <?php } //foreach ?>
+          </select>
+          </td>
+        </tr>
         <tr>
           <td class="news-left-column content-title-noshade"><?=tr('news_lbl_publish_from')?></td>
           <td>

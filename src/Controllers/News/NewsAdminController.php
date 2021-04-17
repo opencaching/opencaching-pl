@@ -14,36 +14,46 @@ class NewsAdminController extends ViewBaseController
     public function __construct()
     {
         parent::__construct();
+
+        // check if user has rights to edit news
+        if (!$this->isUserLogged()) {
+            $this->redirectNotLoggedUsers();
+            exit;
+        }
+
+        if(!$this->loggedUser->hasNewsPublisherRole()) {
+            $this->displayCommonErrorPageAndExit("You do not have rights to edit news");
+            exit();
+        }
     }
 
-    public function isCallableFromRouter($actionName)
+    public function isCallableFromRouter($actionName): bool
     {
         // all public methods can be called by router
         return true;
     }
 
-    public function index()
+    public function index(): void
     {
-        $this->checkUserIsAdmin();
-        $this->showAdminNews();
+        $this->showCategory(News::CATEGORY_ANY);
     }
 
-    private function showAdminNews()
+    public function showCategory($category = News::CATEGORY_ANY): void
     {
         $paginationModel = new PaginationModel(10);
-        $paginationModel->setRecordsCount(News::getAdminNewsCount(News::CATEGORY_ANY));
+        $paginationModel->setRecordsCount(News::getAdminNewsCount($category));
         list ($limit, $offset) = $paginationModel->getQueryLimitAndOffset();
         $this->view->setVar('paginationModel', $paginationModel);
-        $this->showAdminNewsList(News::getAdminNews(News::CATEGORY_ANY, $offset, $limit));
+
+        $this->view->setVar('selectedCategory', $category);
+        $this->showAdminNewsList(News::getAdminNews($category, $offset, $limit));
     }
 
-    public function saveNews()
+    public function saveNews(): void
     {
-        $this->checkUserIsAdmin();
-
         $formResult = $_POST;
         if (! is_array($formResult)) {
-            return false;
+            return;
         }
         header("X-XSS-Protection: 0");
         if ($formResult['id'] != 0) {
@@ -56,13 +66,11 @@ class NewsAdminController extends ViewBaseController
         $news->setEditor($this->loggedUser);
         $news->saveNews();
 
-        unset($news);
         $this->view->redirect(SimpleRouter::getLink('News.NewsAdmin'));
     }
 
-    public function editNews($newsId = null)
+    public function editNews($newsId = null): void
     {
-        $this->checkUserIsAdmin();
         $news = News::fromNewsIdFactory($newsId);
         if (is_null($news)) {
             $this->view->redirect(SimpleRouter::getLink('News.NewsAdmin'));
@@ -71,18 +79,17 @@ class NewsAdminController extends ViewBaseController
         $this->showEditForm($news);
     }
 
-    public function createNews()
+    public function createNews(): void
     {
-        $this->checkUserIsAdmin();
-
         $news = new News();
         $news->generateDefaultValues();
         $news->setAuthor($this->loggedUser);
         $this->showEditForm($news);
     }
 
-    private function showEditForm($news)
+    private function showEditForm($news): void
     {
+        $this->view->setVar('allCategories', News::getAllCategories());
         $this->view->setVar('dateformat_jQuery', Converter::dateformat_PHP_to_jQueryUI($this->ocConfig->getDateFormat()));
         $this->view->setVar('news', $news);
         $this->view->addLocalCss(Uri::getLinkWithModificationTime('/views/news/news.css'));
@@ -93,9 +100,12 @@ class NewsAdminController extends ViewBaseController
         exit();
     }
 
-    private function showAdminNewsList(array $newsList)
+    private function showAdminNewsList(array $newsList): void
     {
+        $this->view->loadJQuery();
+
         $this->view->setVar('newsList', $newsList);
+        $this->view->setVar('allCategories', News::getAllCategories());
         $this->view->addLocalCss(Uri::getLinkWithModificationTime('/views/news/news.css'));
 
         $this->view->setTemplate('news/newsAdmin');
@@ -103,11 +113,5 @@ class NewsAdminController extends ViewBaseController
         exit();
     }
 
-    private function checkUserIsAdmin()
-    {
-        if (! $this->isUserLogged() || ! $this->loggedUser->hasNewsPublisherRole()) {
-            $this->view->redirect('/');
-            exit();
-        }
-    }
+
 }

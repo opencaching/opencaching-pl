@@ -69,9 +69,9 @@ class News extends BaseObject
             UPDATE news
             SET title = :1, content = :2, user_id = :3, edited_by = :4,
                 hide_author = :5, show_onmainpage = :6, show_notlogged = :7,
-                date_publication = :8, date_expiration = :9,
-                date_mainpageexp = :10
-            WHERE id = :11',
+                date_publication = :8, date_expiration = :9, date_mainpageexp = :10,
+                category = :11
+            WHERE id = :12',
             UserInputFilter::purifyHtmlString($this->title),
             UserInputFilter::purifyHtmlString($this->content),
             (is_null($this->author)) ? 0 : $this->author->getUserId(),
@@ -82,6 +82,7 @@ class News extends BaseObject
             self::truncateTime($this->date_publication),
             (is_null($this->date_expiration)) ? null : self::truncateTime($this->date_expiration),
             (is_null($this->date_mainpageexp)) ? null : self::truncateTime($this->date_mainpageexp),
+            $this->category,
             (int) $this->id);
     }
 
@@ -90,8 +91,8 @@ class News extends BaseObject
         return self::db()->multiVariableQuery('
             INSERT INTO news
                 (title, content, user_id, edited_by, hide_author, show_onmainpage,
-                show_notlogged, date_publication, date_expiration, date_mainpageexp)
-            VALUES (:1, :2, :3, :4, :5, :6, :7, :8, :9, :10)',
+                show_notlogged, date_publication, date_expiration, date_mainpageexp, category)
+            VALUES (:1, :2, :3, :4, :5, :6, :7, :8, :9, :10, :11)',
             UserInputFilter::purifyHtmlString($this->title),
             UserInputFilter::purifyHtmlString($this->content),
             (is_null($this->author)) ? 0 : $this->author->getUserId(),
@@ -101,7 +102,8 @@ class News extends BaseObject
             (int) $this->show_notlogged,
             self::truncateTime($this->date_publication),
             (is_null($this->date_expiration)) ? null : self::truncateTime($this->date_expiration),
-            (is_null($this->date_mainpageexp)) ? null : self::truncateTime($this->date_mainpageexp));
+            (is_null($this->date_mainpageexp)) ? null : self::truncateTime($this->date_mainpageexp),
+            $this->category);
     }
 
     public function loadFromForm(array $formData)
@@ -115,6 +117,9 @@ class News extends BaseObject
                 case 'id':
                     $this->id = (int) $val;
                     $this->dataLoaded = true; // mark object as containing data
+                    break;
+                case 'category':
+                    $this->category = $val;
                     break;
                 case 'title':
                     $this->title = $val;
@@ -395,6 +400,11 @@ class News extends BaseObject
     public function getId()
     {
         return $this->id;
+    }
+
+    public function getCategory(): string
+    {
+        return $this->category;
     }
 
     public function getTitle()
