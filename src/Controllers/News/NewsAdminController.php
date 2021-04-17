@@ -1,14 +1,14 @@
 <?php
 namespace src\Controllers\News;
 
-use src\Controllers\BaseController;
 use src\Utils\DateTime\Converter;
 use src\Utils\Uri\SimpleRouter;
 use src\Utils\Uri\Uri;
 use src\Models\ChunkModels\PaginationModel;
 use src\Models\News\News;
+use src\Controllers\Core\ViewBaseController;
 
-class NewsAdminController extends BaseController
+class NewsAdminController extends ViewBaseController
 {
 
     public function __construct()
@@ -25,17 +25,16 @@ class NewsAdminController extends BaseController
     public function index()
     {
         $this->checkUserIsAdmin();
-
         $this->showAdminNews();
     }
 
     private function showAdminNews()
     {
         $paginationModel = new PaginationModel(10);
-        $paginationModel->setRecordsCount(News::getAdminNewsCount());
+        $paginationModel->setRecordsCount(News::getAdminNewsCount(News::CATEGORY_ANY));
         list ($limit, $offset) = $paginationModel->getQueryLimitAndOffset();
         $this->view->setVar('paginationModel', $paginationModel);
-        $this->showAdminNewsList(News::getAdminNews($offset, $limit));
+        $this->showAdminNewsList(News::getAdminNews(News::CATEGORY_ANY, $offset, $limit));
     }
 
     public function saveNews()

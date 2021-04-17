@@ -1,15 +1,14 @@
 <?php
 namespace src\Controllers\News;
 
-use src\Controllers\BaseController;
 use src\Models\News\News;
 use src\Models\ChunkModels\PaginationModel;
 use src\Utils\Uri\Uri;
 use src\Utils\Uri\SimpleRouter;
+use src\Controllers\Core\ViewBaseController;
 
-class NewsListController extends BaseController
+class NewsListController extends ViewBaseController
 {
-
     /**
      * How many news to display max on mainpage
      */
@@ -28,19 +27,20 @@ class NewsListController extends BaseController
 
     public function index()
     {
-        $this->showNews();
+        $this->showCat(News::CATEGORY_NEWS);
     }
 
     /**
      * Method generates news list on News page
      */
-    private function showNews()
+    public function showCat(string $category)
     {
         $paginationModel = new PaginationModel();
-        $paginationModel->setRecordsCount(News::getAllNewsCount($this->isUserLogged(), false));
+        $paginationModel->setRecordsCount(News::getAllNewsCount($category, $this->isUserLogged(), false));
         list ($limit, $offset) = $paginationModel->getQueryLimitAndOffset();
         $this->view->setVar('paginationModel', $paginationModel);
-        $this->showNewsList(News::getAllNews($this->isUserLogged(), false, $offset, $limit));
+
+        +$this->showNewsList(News::getAllNews($category, $this->isUserLogged(), false, $offset, $limit));
     }
 
     /**
@@ -52,7 +52,7 @@ class NewsListController extends BaseController
      */
     public static function listNewsOnMainPage($logged = false)
     {
-        return News::getAllNews($logged, true, 0, self::NEWS_ON_MAINPAGE);
+        return News::getAllNews(News::CATEGORY_NEWS, $logged, true, 0, self::NEWS_ON_MAINPAGE);
     }
 
     private function showNewsList(array $newsList)
@@ -80,5 +80,4 @@ class NewsListController extends BaseController
         $this->view->setTemplate('news/newsItem');
         $this->view->buildView();
     }
-
 }

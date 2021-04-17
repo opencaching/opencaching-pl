@@ -8,11 +8,13 @@ use src\Models\User\User;
 use src\Models\OcConfig\OcConfig;
 use src\Utils\Uri\SimpleRouter;
 use src\Utils\Debug\Debug;
+use src\Utils\Database\OcDb;
+use src\Utils\Database\QueryBuilder;
 
 class News extends BaseObject
 {
-
     private $id = 0;
+    private $category = '';
     private $title = null;
     private $content = '';
     private $author = null;
@@ -24,6 +26,12 @@ class News extends BaseObject
     private $date_expiration = null;
     private $date_mainpageexp;
     private $date_lastmod;
+
+    // The list of common categories - used by all nodes
+    // Each name must be started with "_"
+    const CATEGORY_ANY = '';     // wildcard for categories - pass with every category
+    const CATEGORY_NEWS = '_news'; // articles in "news" section
+
 
     const USER_NOT_SET = 0;
     const STATUS_OTHER = 0;
@@ -184,6 +192,9 @@ class News extends BaseObject
                 case 'id':
                     $this->id = (int) $val;
                     break;
+                case 'category':
+                    $this->category = $val;
+                    break;
                 case 'title':
                     $this->title = htmlspecialchars($val, ENT_COMPAT, 'UTF-8');
                     break;
@@ -244,14 +255,28 @@ class News extends BaseObject
     }
 
     /**
+     * Returns the list of all categories (common + node-specific)
+     *
+     * @return array
+     */
+    public static function getAllCategories(): array
+    {
+        $commonCategories = [ self::CATEGORY_NEWS ];
+        $localCategories = OcConfig::getNewsConfig('localCategories');
+        return array_merge($commonCategories, $localCategories);
+    }
+
+    /**
      * @param boolean $loggeduser
      * @param boolean $mainpage
      * @param integer $offset
      * @param integer $limit
      * @return News[]
      */
-    public static function getAllNews($loggeduser = false, $mainpage = false, $offset = null, $limit = null)
+    public static function getAllNews(string $category, $loggeduser = false, $mainpage = false, $offset = null, $limit = null)
     {
+        $db = self::db();
+
         $query = 'SELECT * FROM news
             WHERE (date_expiration > NOW()
                 OR date_expiration IS NULL)
@@ -260,6 +285,11 @@ class News extends BaseObject
         if ($mainpage) {
             $query .= ' AND show_onmainpage = 1 AND (date_mainpageexp > NOW() OR date_mainpageexp IS NULL)';
         }
+
+        if ($category != self::CATEGORY_ANY && self::checkCategory($category)) {
+            $query .= ' AND category = "' . $db->quoteString($category) . '"';
+        }
+
         if (! $loggeduser) {
             $query .= ' AND show_notlogged = 1';
         }
@@ -277,39 +307,72 @@ class News extends BaseObject
         });
     }
 
-    public static function getAllNewsCount($loggeduser = false, $mainpage = false)
+    public static function getAllNewsCount(string $category, $loggeduser = false, $mainpage = false)
     {
+        $db = self::db();
+
         $query = 'SELECT COUNT(*) FROM news
             WHERE (date_expiration > NOW() OR date_expiration IS NULL)
                 AND (date_publication < NOW() OR date_publication IS NULL)';
         if ($mainpage) {
             $query .= ' AND show_onmainpage = 1 AND (date_mainpageexp > NOW() OR date_mainpageexp IS NULL)';
         }
+
+        if ($category != self::CATEGORY_ANY && self::checkCategory($category)) {
+            $query .= ' AND category = "' . $db->quoteString($category) . '"';
+        }
+
         if (! $loggeduser) {
             $query .= ' AND show_notlogged = 1';
         }
-        return self::db()->simpleQueryValue($query, 0);
+        return $db->simpleQueryValue($query, 0);
     }
 
-    public static function getAdminNews($offset = null, $limit = null)
+    public static function getAdminNews(string $category, $offset = null, $limit = null)
     {
-        $query = 'SELECT * FROM news ORDER BY date_publication DESC';
+        $db = self::db();
+
+        $query = 'SELECT * FROM news';
+
+        if ($category != self::CATEGORY_ANY && self::checkCategory($category)) {
+            $query .= ' WHERE category = "' . $db->quoteString($category) . '"';
+        }
+
+        $query .= ' ORDER BY date_publication DESC';
+
         if (! is_null($limit)) {
             $query .= ' LIMIT ' . $limit;
             if (! is_null($offset)) {
                 $query .= ' OFFSET ' . $offset;
             }
         }
-        $stmt = self::db()->simpleQuery($query);
+        $stmt = $db->simpleQuery($query);
 
-        return self::db()->dbFetchAllAsObjects($stmt, function ($row) {
+        return $db->dbFetchAllAsObjects($stmt, function ($row) {
             return self::fromDbRowFactory($row);
         });
     }
 
-    public static function getAdminNewsCount()
+    public static function getAdminNewsCount(string $category)
     {
-        return self::db()->simpleQueryValue('SELECT COUNT(*) FROM news', 0);
+        $db = self::db();
+
+        $query = 'SELECT COUNT(*) FROM news';
+
+        if ($category != self::CATEGORY_ANY && self::checkCategory($category)) {
+            $query .= ' WHERE category = "' . $db->quoteString($category) . '"';
+        }
+
+        return $db->simpleQueryValue($query, 0);
+    }
+
+    /**
+     * Check if given category is present on the list of common or node-specific categories
+     * @return bool
+     */
+    private static function checkCategory($category): bool
+    {
+        return in_array($category, self::getAllCategories());
     }
 
     public function generateDefaultValues()
