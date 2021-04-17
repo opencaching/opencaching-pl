@@ -3073,10 +3073,10 @@ $translations = array(
 
     'vote_criteriaNotPassed' => 'Aktualnie zalogowany użytkownik nie spełnia kryteriów udziału w głosowaniu',
     'vote_electionOpenUntil' => 'Głosowanie trwa do',
-    'vote_electionWillBeOpen' => 'Głosowanie rozpocznie się',
+    'vote_electionWillBeOpen' => 'Głosowanie trwa',
     'vote_timezone' => 'Strefa czasowa',
     'vote_saveMyVote' => 'Zapisz mój głos',
-    'vote_alreadyVoted' => 'Głosowałeś wcześniej, a Twój głos został zapisany. Wyniki będą wyświetlane tutaj, gdy głosowanie się zakończy.',
+    'vote_alreadyVoted' => 'Głosowałeś już wcześniej, a Twój głos został zapisany. Wyniki będą wyświetlone, gdy tylko głosowanie się zakończy.',
     'vote_inactiveVoting' => 'Głosowanie nie jest teraz aktywne',
     'vote_invalidVote' => 'Ten głos jest nieprawidłowy - spróbuj ponownie lub skontaktuj się z administratorem',
     'vote_internalError' => 'Błąd wewnętrzny - spróbuj ponownie lub skontaktuj się z administratorem',
