@@ -4,7 +4,7 @@ use src\Utils\Uri\SimpleRouter;
 use src\Utils\View\View;
 
 /** @var View $view */
-$view->callChunk('tinyMCE');
+
 ?>
 
 <script>
@@ -23,7 +23,47 @@ $view->callChunk('tinyMCE');
         }
     });
   } );
+
+  function imgUploadPicker(tinyMceCallback, value, meta) {
+
+    if (meta.filetype != 'image') {
+      console.log ("Only images can be attached here!");
+      return;
+    }
+
+    /*
+    ocUpload takes two params:
+        - params json - see UploadModel
+        - callback function
+
+       on end of upload callback will be called with JSON param:
+         {
+           success: true|false,                // true on success | false on error
+           message: 'error-description',       // tech. error description in english (usually not for end-user) (only on fail)
+           newfiles: ['fileA','fileB','fileC'] // list of urls to new files saved on server (only on success)
+         }
+     */
+     ocUpload(<?=$view->picsUploadModelJson?>, function(uploadResult) {
+       if(uploadResult.success){
+
+         // upload successed
+         console.log(uploadResult);
+
+         //call tinyMce callback
+         tinyMceCallback(uploadResult.newFiles[0].fullPicUrl, {alt: uploadResult.newFiles[0].title});
+
+       } else {
+         // upload failed
+         console.error(uploadResult);
+         tinyMceCallback('', {alt: ''});
+       }
+     });
+   }
 </script>
+
+<?php
+    $view->callChunk('tinyMCE', true, '.tinymce', 'imgUploadPicker');
+?>
 
 <div class="content2-container">
   <div class="content2-pagetitle">

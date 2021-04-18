@@ -29,9 +29,9 @@ class News extends BaseObject
 
     // The list of common categories - used by all nodes
     // Each name must be started with "_"
-    const CATEGORY_ANY = '';     // wildcard for categories - pass with every category
-    const CATEGORY_NEWS = '_news'; // articles in "news" section
-
+    const CATEGORY_ANY   = '';       // wildcard for categories - pass with every category
+    const CATEGORY_NEWS  = '_news';  // articles in "news" section
+    const CATEGORY_DRAFT = '_draft'; // articles not ready to be published
 
     const USER_NOT_SET = 0;
     const STATUS_OTHER = 0;
@@ -177,6 +177,12 @@ class News extends BaseObject
         }
     }
 
+    public static function isThereSuchNews($newsId): bool
+    {
+        return 1 == self::db()->multiVariableQueryValue(
+            "SELECT COUNT(*) FROM news WHERE id = :1 LIMIT 1", 0, $newsId);
+    }
+
     private function loadById($newsId)
     {
         $query = 'SELECT * FROM news WHERE id = :1 LIMIT 1';
@@ -266,7 +272,7 @@ class News extends BaseObject
      */
     public static function getAllCategories(): array
     {
-        $commonCategories = [ self::CATEGORY_NEWS ];
+        $commonCategories = [ self::CATEGORY_NEWS, self::CATEGORY_DRAFT ];
         $localCategories = OcConfig::getNewsConfig('localCategories');
         return array_merge($commonCategories, $localCategories);
     }
@@ -384,6 +390,7 @@ class News extends BaseObject
     {
         $this->date_mainpageexp = new \DateTime('NOW');
         $this->date_mainpageexp->add(new \DateInterval('P1M'));
+        $this->category = News::CATEGORY_DRAFT;
         $this->dataLoaded = true;
     }
 

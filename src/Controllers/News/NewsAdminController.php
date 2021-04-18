@@ -5,7 +5,9 @@ use src\Utils\DateTime\Converter;
 use src\Utils\Uri\SimpleRouter;
 use src\Utils\Uri\Uri;
 use src\Models\ChunkModels\PaginationModel;
+use src\Models\ChunkModels\UploadModel;
 use src\Models\News\News;
+use src\Models\Pictures\OcPicture;
 use src\Controllers\Core\ViewBaseController;
 
 class NewsAdminController extends ViewBaseController
@@ -76,11 +78,18 @@ class NewsAdminController extends ViewBaseController
             $this->view->redirect(SimpleRouter::getLink('News.NewsAdmin'));
             exit();
         }
+
+        $this->view->addHeaderChunk('upload/upload');
+        $this->view->addHeaderChunk('handlebarsJs');
+        $uploadModel = UploadModel::NewsPicUploadFactory($newsId);
+        $this->view->setVar('picsUploadModelJson', $uploadModel->getJsonParams());
+
         $this->showEditForm($news);
     }
 
     public function createNews(): void
     {
+        $this->view->setVar('picsUploadModelJson', '{}');
         $news = new News();
         $news->generateDefaultValues();
         $news->setAuthor($this->loggedUser);

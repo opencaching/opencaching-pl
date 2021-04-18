@@ -13,6 +13,7 @@ use src\Utils\I18n\I18n;
  * Parameters:
  * $media - support for insert/edit media like YouTube videos. Default is true. Set it to false to disable media feature
  * $selector - selector to use in <textarea>. Can be ".class" or "#id" or even "viewcache.editor". Default selector is class "tinymce".
+ * $imgUploader - url to call with file upload - if not set img upload is disabled
  *
  * Size of editor set via CSS. For example:
  * textarea.desc, textarea.cachelog {
@@ -22,7 +23,7 @@ use src\Utils\I18n\I18n;
  *
  */
 
-return function ($media = true, $selector = '.tinymce') {
+return function ($media = true, $selector = '.tinymce', $filePickerCallback=null) {
     //start of chunk
     $mediatxt = ($media == true) ? ' media' : '';
     ?>
@@ -32,6 +33,11 @@ return function ($media = true, $selector = '.tinymce') {
 <script>
   tinymce.init({
     selector: "<?=$selector?>",
+    <?php if($filePickerCallback) { ?>
+      file_picker_callback: <?=$filePickerCallback?>,
+    <?php } //if($filePickerCallback) ?>
+    image_advtab: true,
+    image_title: true,
     menubar: false,
     toolbar_items_size: "small",
     browser_spellcheck: true,

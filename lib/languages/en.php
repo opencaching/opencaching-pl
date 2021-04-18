@@ -2377,6 +2377,7 @@ $translations = array(
     'news_OCTeam' => 'OC Team',
     'news_menu_OCTeam' => 'News management',
     'news_allCategories' => 'all categories',
+    'news_picture_intro' => 'You should own the copyrights to the picture attached to the news',
     'news_noNews' => 'There is no news here',
     'news_hdr_edit' => 'Edit news',
     'news_hdr_add' => 'Add news',
