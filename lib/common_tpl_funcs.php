@@ -180,6 +180,7 @@ function tpl_BuildTemplate($minitpl = false, $noCommonTemplate = false)
 
     //run the template code
     $v = $view; // $v is tpl alias to $view
+    $GLOBALS['_lastTplUsed'] = $tplname;
     eval('?>' . $sCode);
 }
 

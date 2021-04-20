@@ -66,8 +66,8 @@ class ErrorHandler
         ) {
             self::$errorHandled = true;
             self::processError(
-                'Fatal error ' . $error['message'] .
-                ' at line ' . $error['line'] . ' of ' . $error['file']);
+                sprintf("Fatal error: %s at line: %d of %s \n(lastTpl=%s)\n",
+                    $error['message'],  $error['file'], $error['line'], $GLOBALS['_lastTplUsed']??'-'));
         }
     }
 
