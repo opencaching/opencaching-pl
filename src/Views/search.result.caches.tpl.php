@@ -101,11 +101,10 @@ function searchCB(){
     /* 17 */gct.addColumn('string', "<?php echo $colNameSearch[17]["C"]?>", 'font-size: 12px; text-align: left; ');
 
     /* 18 */gct.addColumn('string', "<?php echo $colNameSearch[18]["C"]?>", 'font-size: 12px; text-align: left; ');
-    /* 19 */gct.addColumn('string', "<?php echo $colNameSearch[19]["C"]?>", 'font-size: 12px; text-align: left; ');
 
     {results}
 
-    gct.hideColumns( [0, 19] );
+    gct.hideColumns( [0, 18] );
 
     gct.addOption('showRowNumber', true );
     gct.addOption('width', '780' );
