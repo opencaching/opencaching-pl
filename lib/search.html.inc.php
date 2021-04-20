@@ -19,7 +19,7 @@ function findColumn($name, $type = "C")
 {
     global $colNameSearch;
 
-    for ($i = 0; $i < 20; $i ++) {
+    for ($i = 0; $i < 19; $i ++) {
         if ($colNameSearch[$i][$type] == $name)
             return $i;
     }
