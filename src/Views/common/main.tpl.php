@@ -1,8 +1,7 @@
 <?php
-
-use src\Utils\Debug\Debug;
-use src\Utils\Uri\SimpleRouter as SRouter;
-use src\Models\OcConfig\OcConfig;
+// Warning: possible names config is temple load the same class - that's why classes here uses "_" prefix
+use src\Utils\Uri\SimpleRouter as _SimpleRouter;
+use src\Models\OcConfig\OcConfig as _OcConfig;
 
 ?>
 <!DOCTYPE html>
@@ -12,12 +11,12 @@ use src\Models\OcConfig\OcConfig;
 
   <title><?=$view->getSubtitle()?>{title}</title>
 
-  <link rel="shortcut icon" href="<?=OcConfig::getSiteMainViewIcon('shortcutIcon')?>">
-  <link rel="apple-touch-icon" sizes="180x180" href="<?=OcConfig::getSiteMainViewIcon('appleTouch')?>">
-  <link rel="icon" type="image/png" sizes="32x32" href="<?=OcConfig::getSiteMainViewIcon('icon32')?>">
-  <link rel="icon" type="image/png" sizes="16x16" href="<?=OcConfig::getSiteMainViewIcon('icon16')?>">
-  <link rel="manifest" href="<?=OcConfig::getSiteMainViewIcon('webmanifest')?>">
-  <link rel="mask-icon" href="<?=OcConfig::getSiteMainViewIcon('maskIcon')?>" color="#5bbad5">
+  <link rel="shortcut icon" href="<?=_OcConfig::getSiteMainViewIcon('shortcutIcon')?>">
+  <link rel="apple-touch-icon" sizes="180x180" href="<?=_OcConfig::getSiteMainViewIcon('appleTouch')?>">
+  <link rel="icon" type="image/png" sizes="32x32" href="<?=_OcConfig::getSiteMainViewIcon('icon32')?>">
+  <link rel="icon" type="image/png" sizes="16x16" href="<?=_OcConfig::getSiteMainViewIcon('icon16')?>">
+  <link rel="manifest" href="<?=_OcConfig::getSiteMainViewIcon('webmanifest')?>">
+  <link rel="mask-icon" href="<?=_OcConfig::getSiteMainViewIcon('maskIcon')?>" color="#5bbad5">
 
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="apple-mobile-web-app-title" content="Opencaching">
@@ -110,7 +109,7 @@ use src\Models\OcConfig\OcConfig;
               <div id="topline-search-dropdown" class="topline-dropdown-content">
                 <div class="" onclick="chname('waypointname', '<?=tr('search')?>: <?=tr('waypointname_label')?>' , 'searchbywaypointname', '/search.php');"><?=tr('waypointname_label')?></div>
                 <?php if ($config['quick_search']['geopath']) { ?>
-                  <div class="" onclick="chname('name', '<?=tr('search')?>: <?=tr('pt000')?>', 'name', '<?=SRouter::getLink('GeoPath','searchByName')?>');"><?=tr('pt000')?></div>
+                  <div class="" onclick="chname('name', '<?=tr('search')?>: <?=tr('pt000')?>', 'name', '<?=_SimpleRouter::getLink('GeoPath','searchByName')?>');"><?=tr('pt000')?></div>
                 <?php } ?>
                 <?php if ($config['quick_search']['byuser']) { ?>
                   <div class="" onclick="chname('username', '<?=tr('search')?>: <?=tr('user')?>', 'searchbyuser', '/searchuser.php');"><?=tr('user')?></div>
@@ -131,12 +130,12 @@ use src\Models\OcConfig\OcConfig;
                 <img src="/images/misc/user.svg" class="icon16" alt="<?=tr('user_profile')?>" title="<?=tr('user_profile')?>">
                 <?=$view->_username?>
               </a>
-              <a href="<?=SRouter::getLink('UserAuthorization', 'logout')?>" class="btn btn-default btn-sm topline-btn-wide">
+              <a href="<?=_SimpleRouter::getLink('UserAuthorization', 'logout')?>" class="btn btn-default btn-sm topline-btn-wide">
                 <img src="/images/misc/exit.svg" class="icon16" alt="<?=tr('logout')?>" title="<?=tr('logout')?>"> <?=tr('logout')?>
               </a>
             </div>
           <?php } else { //user-not-logged ?>
-            <form action="<?=SRouter::getLink('UserAuthorization', 'login')?>" method="post" name="login" class="form-group-sm">
+            <form action="<?=_SimpleRouter::getLink('UserAuthorization', 'login')?>" method="post" name="login" class="form-group-sm">
               <label for="top-form-email" class="btn btn-sm btn-default btn-right-straight">
                 <img src="/images/misc/user.svg" class="icon16" alt="<?=tr('loginForm_userOrEmail')?>" title="<?=tr('loginForm_userOrEmail')?>">
               </label>
@@ -147,7 +146,7 @@ use src\Models\OcConfig\OcConfig;
               <input name="password" id="top-form-password" type="password" class="form-control input120 btn-left-straight" value="" autocomplete="current-password" placeholder="<?=tr('loginForm_password')?>" required>
               <input type="hidden" name="target" value="<?=$view->_target?>">
               <input type="submit" value="<?=tr('login')?>" class="btn btn-primary btn-sm">
-              <a href="<?=SRouter::getLink('UserRegistration')?>" class="btn btn-success btn-sm"><?=tr('registration')?></a>
+              <a href="<?=_SimpleRouter::getLink('UserRegistration')?>" class="btn btn-success btn-sm"><?=tr('registration')?></a>
             </form>
           <?php } //user-not-logged ?>
 
