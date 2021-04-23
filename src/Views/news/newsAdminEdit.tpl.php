@@ -4,7 +4,6 @@ use src\Utils\Uri\SimpleRouter;
 use src\Utils\View\View;
 
 /** @var View $view */
-
 ?>
 
 <script>
@@ -23,6 +22,8 @@ use src\Utils\View\View;
         }
     });
   } );
+
+<?php if (!empty($view->news->getId())) { // this news is already saved in DB ?>
 
   function imgUploadPicker(tinyMceCallback, value, meta) {
 
@@ -49,6 +50,10 @@ use src\Utils\View\View;
          // upload successed
          console.log(uploadResult);
 
+         $.each(uploadResult.newFiles, function(i, pic) {
+           loadPicturesToTable(pic);
+         });
+
          //call tinyMce callback
          tinyMceCallback(uploadResult.newFiles[0].fullPicUrl, {alt: uploadResult.newFiles[0].title});
 
@@ -59,16 +64,20 @@ use src\Utils\View\View;
        }
      });
    }
+
+<?php } // if (!empty($view->news->getId()) { // this news is already saved in DB ?>
+
 </script>
 
 <?php
-    $view->callChunk('tinyMCE', true, '.tinymce', 'imgUploadPicker');
+    $uploadPicker = empty($view->news->getId()) ? null : 'imgUploadPicker';
+    $view->callChunk('tinyMCE', true, '.tinymce', $uploadPicker);
 ?>
 
 <div class="content2-container">
   <div class="content2-pagetitle">
     <img src="/images/blue/newspaper.png" class="icon22" alt="Newspaper icon">
-    <?php if ($view->news->getId() == 0) { echo tr('news_hdr_add'); } else {
+    <?php if (empty($view->news->getId())) { echo tr('news_hdr_add'); } else {
       echo tr('news_hdr_edit');
       if (! empty($view->news->getTitle())) { echo ' "' . $view->news->getTitle() . '"';}}?>
   </div>
@@ -139,15 +148,24 @@ use src\Utils\View\View;
   </form>
 </div>
 
+<div class="content2-container bg-blue02">
+  <p class="content-title-noshade-size1">
+    <?=tr('news_listOfImages')?>
+  </p>
+</div>
+<div class="content2-container">
+  <?=$v->callSubTpl('/news/newsPicList')?>
+</div>
+
 <script>
-document.getElementById('no-date-expiration').onchange = function() {
-    if (this.checked) {
-        document.getElementById('date-expiration').value = "";
-    }
-};
-document.getElementById('no-date-mainpageexp').onchange = function() {
-    if (this.checked) {
-        document.getElementById('date-mainpageexp').value = "";
-    }
-};
+    document.getElementById('no-date-expiration').onchange = function() {
+        if (this.checked) {
+            document.getElementById('date-expiration').value = "";
+        }
+    };
+    document.getElementById('no-date-mainpageexp').onchange = function() {
+        if (this.checked) {
+            document.getElementById('date-mainpageexp').value = "";
+        }
+    };
 </script>

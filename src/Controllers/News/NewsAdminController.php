@@ -81,8 +81,13 @@ class NewsAdminController extends ViewBaseController
 
         $this->view->addHeaderChunk('upload/upload');
         $this->view->addHeaderChunk('handlebarsJs');
+
         $uploadModel = UploadModel::NewsPicUploadFactory($newsId);
         $this->view->setVar('picsUploadModelJson', $uploadModel->getJsonParams());
+
+        // prepare the list of pictures for this news
+        $picList = OcPicture::getListForParent(OcPicture::TYPE_NEWS, $newsId);
+        $this->view->setVar('picList', $picList);
 
         $this->showEditForm($news);
     }
@@ -93,6 +98,10 @@ class NewsAdminController extends ViewBaseController
         $news = new News();
         $news->generateDefaultValues();
         $news->setAuthor($this->loggedUser);
+
+        // set empty list of pics
+        $this->view->setVar('picList', []);
+
         $this->showEditForm($news);
     }
 
