@@ -1,0 +1,1 @@
+sqlAlters_23.04.2021.zip - archive with compressed historical sql scripts used in years 2014-2019 - next following5 implemented DBUpdate script and OC stops using this form of db updates propagating to nodes
