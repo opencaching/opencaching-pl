@@ -23,8 +23,9 @@ use src\Utils\Text\Formatter;
 use src\Utils\Uri\SimpleRouter;
 use src\Utils\Uri\Uri;
 use stdClass;
+use src\Controllers\Core\ViewBaseController;
 
-class StartPageController extends BaseController
+class StartPageController extends ViewBaseController
 {
     private $staticMapModel = null;
 
@@ -230,9 +231,7 @@ class StartPageController extends BaseController
 
     private function processNews()
     {
-        if ($this->isUserLogged() ||
-            $this->ocConfig->getNewsConfig('showOnStartPageForNonLoggedUsers')
-        ) {
+        if ($this->isUserLogged() || OcConfig::getNewsConfig('showOnStartPageForNonLoggedUsers')) {
             $this->view->setVar('newsList',
                 NewsListController::listNewsOnMainPage($this->isUserLogged())
             );

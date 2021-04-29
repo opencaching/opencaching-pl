@@ -39,3 +39,20 @@ fieldset.news-fieldset {
     -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
 }
+
+#picTable {
+  width: 100%;  
+}
+
+#picTable th {
+  text-align: center;
+  vertical-align: middle;
+}
+
+#picsTbody td {
+  text-align: center;
+  vertical-align: middle;
+  padding-top: 10px;
+}
+
+

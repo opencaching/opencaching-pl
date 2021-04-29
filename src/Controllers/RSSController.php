@@ -233,7 +233,7 @@ class RSSController extends BaseController
      */
     private static function newNewsDataPrepare()
     {
-        $allNews = News::getAllNews(false, false, 0, self::ENTRIES_PER_FEED);
+        $allNews = News::getAllNews(News::CATEGORY_NEWS, false, false, 0, self::ENTRIES_PER_FEED);
 
         $result = [];
         foreach ($allNews as $news) {

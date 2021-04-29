@@ -315,17 +315,17 @@ final class OcConfig extends ConfigReader
     }
 
     /**
-     * @see /config/news.default.php
+     * Returns the value of the key in news-config
+     *
+     * @see /config/news.default.php for details of possible keys
      */
-    public function getNewsConfig($key = null)
+    public static function getNewsConfig(string $key)
     {
-        if (! $this->newsConfig) {
-            $this->newsConfig = self::getConfig('news', 'news');
+        $instance = self::instance();
+        if (!$instance->newsConfig) {
+            $instance->newsConfig = self::getConfig('news', 'news');
         }
-
-        return $key === null
-            ? $this->newsConfig
-            : $this->newsConfig[$key];
+        return $instance->newsConfig[$key] ?? null;
     }
 
     /**

@@ -4,6 +4,8 @@ namespace src\Models\ChunkModels;
 
 use src\Models\OcConfig\OcConfig;
 use src\Utils\Text\TextConverter;
+use src\Models\Pictures\OcPicture;
+use src\Controllers\UpdateController;
 
 /**
  * This is model of file upload operation.
@@ -67,7 +69,7 @@ class UploadModel {
       return $obj;
   }
 
-  public static function PicUploadFactory($parentType, $parentId)
+  public static function PicUploadFactory($parentType, int $parentId): UploadModel
   {
       $uploadModel = new self();
       $uploadModel->dialog->preInfo = null;                                         // no additional info
@@ -80,6 +82,21 @@ class UploadModel {
       $uploadModel->setDirs(OcConfig::getPicUploadFolderInDynBaseDir());            // where to store files on server
       return $uploadModel;
   }
+
+  /**
+   *
+   * @param int $newsId
+   * @return \src\Models\ChunkModels\UploadModel
+   */
+  public static function NewsPicUploadFactory(int $newsId): UploadModel
+  {
+      $uploadModel = self::PicUploadFactory(OcPicture::TYPE_NEWS, $newsId);
+      $uploadModel->dialog->preWarning = tr('news_picture_intro');                 // long warning (with HTML!)
+      $uploadModel->setMaxFileNumber(1);
+      return $uploadModel;
+  }
+
+
   // add more upload configurations like TestTxtUploadFactory here...
 
   public function addUrlBaseToNewFilesArray(array &$newFiles){

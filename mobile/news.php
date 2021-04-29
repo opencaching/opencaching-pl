@@ -11,7 +11,7 @@ if (isset($_GET['page']) && is_numeric($_GET['page'])) {
     $pagenr = 1;
 }
 
-$newsCount = News::GetAllNewsCount(isset($_SESSION['user_id']), false);
+$newsCount = News::GetAllNewsCount(News::CATEGORY_ANY, isset($_SESSION['user_id']), false);
 $pageMax = ceil($newsCount / NEWS_ON_PAGE);
 $pageMax = ($pageMax == 0) ? 1 : $pageMax;
 $tpl->assign('pagemax', $pageMax);
@@ -30,7 +30,7 @@ if ($pagenr < $pageMax) {
 
 $offset = ($pagenr - 1) * NEWS_ON_PAGE;
 
-$newsList = News::GetAllNews(isset($_SESSION['user_id']), false, $offset, NEWS_ON_PAGE);
+$newsList = News::GetAllNews(News::CATEGORY_ANY, isset($_SESSION['user_id']), false, $offset, NEWS_ON_PAGE);
 $tpl->assign('newslist', $newsList);
 $tpl->assign('pagenr', $pagenr);
 

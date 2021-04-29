@@ -10,6 +10,7 @@ use src\Models\GeoCache\GeoCache;
 use src\Models\GeoCache\GeoCacheLog;
 use src\Utils\Generators\Uuid;
 use src\Utils\FileSystem\FileManager;
+use src\Models\News\News;
 
 /**
  * Generic representation of picture atahed to log/cache/...
@@ -20,6 +21,7 @@ class OcPicture extends BaseObject
 {
     public const TYPE_LOG = 1;
     public const TYPE_CACHE = 2;
+    public const TYPE_NEWS = 4;
 
     private const DB_COLS = ['id', 'uuid', 'local', 'url', 'thumb_last_generated', 'last_modified',
         'thumb_url', 'spoiler', 'object_type', 'object_id', 'title', 'display', 'seq'
@@ -82,8 +84,11 @@ class OcPicture extends BaseObject
                 /* @var $parentObj GeoCacheLog */
                 $obj->parentId = $parentObj->getId();
                 break;
+            case self::TYPE_NEWS:
+                /* @var $parentObj News */
+                $obj->parentId = $parentObj->getId();
+                break;
         }
-
         return $obj;
     }
 
@@ -335,6 +340,10 @@ class OcPicture extends BaseObject
                 $log = $this->getParent();
                 return $log->getUserId() == $user->getUserId();
 
+            case self::TYPE_NEWS:
+                // all news can be modified by people with newsPublisher role
+                return $user->hasNewsPublisherRole();
+
             default:
                 Debug::errorLog("Unsupported parent type: {$this->parentType}");
                 return false;
@@ -392,6 +401,9 @@ class OcPicture extends BaseObject
 
             case self::TYPE_LOG:
                 return GeoCacheLog::fromLogIdFactory($parentId);
+
+            case self::TYPE_NEWS:
+                return News::fromNewsIdFactory($parentId);
 
             default:
                 Debug::errorLog("Unsupported parent type: {$parentType}");
