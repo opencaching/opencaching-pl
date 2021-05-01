@@ -669,7 +669,11 @@ class ViewCacheController extends BaseController
 
     private function processTitled()
     {
-        $this->view->setVar('titledDesc', tr(OcConfig::getTitledCachePeriod() . '_titled_cache'));
+        if (OcConfig::getTitledCachePeriod() != 'none') {
+            $this->view->setVar('titledDesc', tr(OcConfig::getTitledCachePeriod() . '_titled_cache'));
+        } else {
+            $this->view->setVar('titledDesc', '-');
+        }
     }
 
     private function processDetailedCoords()
