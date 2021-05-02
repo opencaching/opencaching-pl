@@ -37,6 +37,7 @@ return function ($media = true, $selector = '.tinymce', $filePickerCallback=null
       file_picker_callback: <?=$filePickerCallback?>,
     <?php } //if($filePickerCallback) ?>
     image_advtab: true,
+    contextmenu: false, /* disable contextmenu (right-click) - native browser context menu will be displaied instead */
     image_title: true,
     menubar: false,
     toolbar_items_size: "small",
