@@ -13,3 +13,6 @@
 .project
 .settings
 ocpl-dynamic-files
+
+# Ignore local FTP configuration
+.ftpaccess
