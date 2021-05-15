@@ -42,12 +42,7 @@ $site['primaryCountries'] = ['RO'];
  * List will be presented in same order as below.
  * Use only two-letters codes UPPERCASE.
  */
-$site['defaultCountriesList'] = ['DE', 'NL', 'PL', 'RO', 'GB'];
-
-/**
- * Icons customization
- */
-$site['mainViewIcons']['shortcutIcon'] = '/images/icons/oc_icon-ro.png';
+$site['defaultCountriesList'] = ['RO', 'HU', 'BG', 'MD', 'RS', 'UA'];
 
 /**
  * Set of icons used as website icon (favicon)
