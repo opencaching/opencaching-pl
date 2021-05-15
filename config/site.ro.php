@@ -48,3 +48,16 @@ $site['defaultCountriesList'] = ['DE', 'NL', 'PL', 'RO', 'GB'];
  * Icons customization
  */
 $site['mainViewIcons']['shortcutIcon'] = '/images/icons/oc_icon-ro.png';
+
+/**
+ * Set of icons used as website icon (favicon)
+ * Check the format of the icon (size etc.) before customization in node-config files.
+ */
+$site['mainViewIcons'] = [
+    'shortcutIcon' => '/images/icons/oc_icon-ro.svg',        // <link rel="shortcut icon"
+    'appleTouch' => '/images/icons/apple-touch-icon-ro.png', // <link rel="apple-touch-icon"
+    'icon32' => '/images/icons/favicon-32x32-ro.png',        // <link rel="icon" type="image/png" sizes="32x32"
+    'icon16' => '/images/icons/favicon-16x16-ro.png',        // <link rel="icon" type="image/png" sizes="16x16"
+    'webmanifest' => '/images/icons/site-ro.webmanifest',    // <link rel="manifest"
+    'maskIcon' => '/images/icons/safari-pinned-tab-ro.svg',  // <link rel="mask-icon"
+];
