@@ -49,3 +49,14 @@ $geocache['titledCacheMinFounds'] = 10;
  */
 $geocache['coordsHiddenForNonLogged'] = true;
 
+/**
+ * The number of founds which user needs to log to create its own new geocache
+ */
+$geocache['minUserFoundsForNewCache'] = 10;
+
+/**
+ * The minimum number of active geocaches owned by user to skip OCTEAM
+ * verification of every new geocache
+ */
+$geocache['minCachesToSkipNewCacheVerification'] = 3;
+

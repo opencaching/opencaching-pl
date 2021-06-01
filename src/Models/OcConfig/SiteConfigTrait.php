@@ -81,6 +81,15 @@ trait SiteConfigTrait
     }
 
     /**
+     * Display the list of users which are online (was seens in last minutes)
+     * on the bottom of the page
+     */
+    public static function siteDisplayOnlineUsers(): bool
+    {
+        return self::getKeyFromSiteConfig('displayOnlineUsers');
+    }
+
+    /**
      * Returns icon's path relative to the public directory.
      */
     public static function getSiteMainViewIcon(string $iconName): string

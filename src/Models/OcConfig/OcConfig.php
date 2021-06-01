@@ -4,6 +4,7 @@ namespace src\Models\OcConfig;
 
 final class OcConfig extends ConfigReader
 {
+    use DbConfigTrait;
     use EmailConfigTrait;
     use GeocacheConfigTrait;
     use I18nConfigTrait;
@@ -39,8 +40,6 @@ final class OcConfig extends ConfigReader
     private $siteInService = false;
     private $dateFormat;
     private $headerLogo;
-    private $needFindLimit;
-    private $needApproveLimit;
     private $minimumAge;
     private $meritBadgesEnabled;
 
@@ -139,8 +138,6 @@ final class OcConfig extends ConfigReader
         $this->googleMapKey = $googlemap_key;
         $this->dateFormat = $dateFormat;
         $this->headerLogo = $config['headerLogo'];
-        $this->needApproveLimit = $NEED_APPROVE_LIMIT;
-        $this->needFindLimit = $NEED_FIND_LIMIT;
         $this->minimumAge = $config['limits']['minimum_age'];
         $this->meritBadgesEnabled = $config['meritBadges'];
 
@@ -217,22 +214,22 @@ final class OcConfig extends ConfigReader
         return $this->meritBadgesEnabled;
     }
 
-    public function getDbUser($admin = false)
+    public function _getDbUser($admin = false)
     {
         return $admin ? $this->dbAdminUser : $this->dbUser;
     }
 
-    public function getDbPass($admin = false)
+    public function _getDbPass($admin = false)
     {
         return $admin ? $this->dbAdminPass : $this->dbPass;
     }
 
-    public function getDbHost()
+    public function _getDbHost()
     {
         return $this->dbHost;
     }
 
-    public function getDbName()
+    public function _getDbName()
     {
         return $this->dbName;
     }
@@ -240,16 +237,6 @@ final class OcConfig extends ConfigReader
     public static function getHeaderLogo()
     {
         return self::instance()->headerLogo;
-    }
-
-    public static function getNeedFindLimit()
-    {
-        return self::instance()->needFindLimit;
-    }
-
-    public static function getNeedApproveLimit()
-    {
-        return self::instance()->needApproveLimit;
     }
 
     /**

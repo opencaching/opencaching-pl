@@ -663,7 +663,7 @@ class User extends UserCommons
              WHERE `user_id` = :1 AND status = 1",
              0, $this->getUserId());
 
-        if ($activeCachesNum < OcConfig::getNeedApproveLimit()) {
+        if ($activeCachesNum < OcConfig::getMinCachesToSkipNewCacheVerification()) {
             return true;
         }
         return false;
@@ -676,7 +676,7 @@ class User extends UserCommons
      */
     public function canCreateNewCache()
     {
-        return ($this->getFoundPhysicalGeocachesCount() >= OcConfig::getNeedFindLimit()
+        return ($this->getFoundPhysicalGeocachesCount() >= OcConfig::getMinUserFoundsForNewCache()
             || $this->getNewCachesNoLimit());
     }
 

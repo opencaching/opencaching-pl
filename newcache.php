@@ -44,7 +44,7 @@ if (isset($_REQUEST['newcache_info']) && $_REQUEST['newcache_info'] != 1) {
 
 if (! $user->canCreateNewCache()) {
     $view->setVar('caches_find', $user->getFoundPhysicalGeocachesCount());
-    $view->setVar('need_find_limit', OcConfig::getNeedFindLimit());
+    $view->setVar('need_find_limit', OcConfig::getMinUserFoundsForNewCache());
     $view->setTemplate('newcache_beginner');
     $view->buildView();
     exit();
@@ -61,7 +61,7 @@ $num_caches = $record['num_caches'];
 
 $cacheLimitByTypePerUser = GeoCache::getUserActiveCachesCountByType($loggedUser->getUserId());
 
-if ($num_caches < OcConfig::getNeedApproveLimit()) {
+if ($num_caches < OcConfig::getMinCachesToSkipNewCacheVerification()) {
     // user needs approvement for first 3 caches to be published
     $needs_approvement = true;
     tpl_set_var('hide_publish_start', '<!--');

@@ -159,7 +159,7 @@ class MainLayoutController extends BaseController
 
         $onlineUsers = self::getOnlineUsers();
         if (! empty($onlineUsers)) {
-            $this->view->setVar('_displayOnlineUsers', $config['mainLayout']['displayOnlineUsers']);
+            $this->view->setVar('_displayOnlineUsers', OcConfig::siteDisplayOnlineUsers());
             $this->view->setVar('_onlineUsers', $onlineUsers->listOfUsers);
         } else {
             $this->view->setVar('_displayOnlineUsers', false);
@@ -329,7 +329,7 @@ class MainLayoutController extends BaseController
     {
         global $config;
 
-        if (! $config['mainLayout']['displayOnlineUsers']) {
+        if (! OcConfig::siteDisplayOnlineUsers()) {
             // skip this action if online users list is disabled in config
             return null;
         }

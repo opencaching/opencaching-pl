@@ -75,3 +75,10 @@ $site['cacheAccessLogEnabled'] = false;
  * Enable debug mode (USE ONLY IN DEV/TEST ENV!)
  */
 $site['debugModeEnabled'] = false;
+
+/**
+ * Display the list of users which are online (was seens in last minutes)
+ * on the bottom of the page
+ */
+$site['displayOnlineUsers'] = true;
+

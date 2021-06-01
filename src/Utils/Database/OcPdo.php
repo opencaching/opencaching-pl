@@ -26,11 +26,10 @@ class OcPdo extends PDO
             $this->debug = true;
         }
 
-        $conf = OcConfig::instance();
-        $this->dbName = $conf->getDbName();
+        $this->dbName = OcConfig::getDbName();
 
         $dsnarr = array(
-            'host' => $conf->getDbHost(),
+            'host' => OcConfig::getDbHost(),
             'dbname' => $this->dbName,
             'charset' => 'utf8'
         );
@@ -62,7 +61,7 @@ class OcPdo extends PDO
         $dsn = 'mysql:' . implode(';', $dsnpairs);
         try {
             parent::__construct(
-                $dsn, $conf->getDbUser($adminAccess), $conf->getDbPass($adminAccess), $options
+                $dsn, OcConfig::getDbUser($adminAccess), OcConfig::getDbPass($adminAccess), $options
             );
         } catch (PDOException $e) {
             $this->error("OcPdo object creation failed!", $e);

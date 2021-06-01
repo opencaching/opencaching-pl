@@ -24,3 +24,8 @@ $geocache['titledCachePeriod'] = 'month';
  * Minimum number of founds necessary for titled cache
  */
 $geocache['titledCacheMinFounds'] = 7;
+
+/**
+ * The number of founds which user needs to log to create its own new geocache
+ */
+$geocache['minUserFoundsForNewCache'] = 3;
