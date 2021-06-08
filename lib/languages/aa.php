@@ -2687,9 +2687,10 @@ $translations = array(
     'mnu_PhoneApps' => 'crwdns26880:0crwdne26880:0',
     'mnu_Cooperation' => 'crwdns27018:0crwdne27018:0',
     'mnu_ChallengeCaches' => 'crwdns27020:0crwdne27020:0',
+    'mnu_instagram' => 'crwdns27390:0crwdne27390:0',
 
-    'admCs_degradedCs'  => 'crwdns8264:0crwdne8264:0',
-    'admCs_cacheSet'  => 'crwdns8265:0crwdne8265:0',
+    'admCs_degradedCs' => 'crwdns8264:0crwdne8264:0',
+    'admCs_cacheSet' => 'crwdns8265:0crwdne8265:0',
     'admCs_currentRatio' => 'crwdns8266:0crwdne8266:0',
     'admCs_requiredRatio' => 'crwdns8267:0crwdne8267:0',
     'admCs_emptyList' => 'crwdns8268:0crwdne8268:0',
