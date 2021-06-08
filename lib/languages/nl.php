@@ -2687,9 +2687,10 @@ $translations = array(
     'mnu_PhoneApps' => 'Smartphone Apps',
     'mnu_Cooperation' => 'Samenwerking',
     'mnu_ChallengeCaches' => 'Uitdaging Caches',
+    'mnu_instagram' => 'Instagram',
 
-    'admCs_degradedCs'  => 'Verwaarloosde GeoPaths',
-    'admCs_cacheSet'  => 'GeoPaths',
+    'admCs_degradedCs' => 'Verwaarloosde GeoPaths',
+    'admCs_cacheSet' => 'GeoPaths',
     'admCs_currentRatio' => 'Ratio van active caches',
     'admCs_requiredRatio' => 'Ratio van benodigde caches',
     'admCs_emptyList' => 'WOW! Er zijn geen verwaarloosde geopaths te tonen!',

@@ -2687,9 +2687,10 @@ $translations = array(
     'mnu_PhoneApps' => 'Aplikacje na smartfony',
     'mnu_Cooperation' => 'Współpraca',
     'mnu_ChallengeCaches' => 'Wyzwanie skrzynkowe',
+    'mnu_instagram' => 'Instagram',
 
-    'admCs_degradedCs'  => 'Niezdobywalne GeoŚcieżki',
-    'admCs_cacheSet'  => 'Geościeżka',
+    'admCs_degradedCs' => 'Niezdobywalne GeoŚcieżki',
+    'admCs_cacheSet' => 'Geościeżka',
     'admCs_currentRatio' => 'Aktywne skrzynki',
     'admCs_requiredRatio' => 'Wymagane do zaliczenia',
     'admCs_emptyList' => 'WOW! Brak aktywnych, niezdobywalnych GeoŚcieżek odpowiednich do pokazania tutaj!',

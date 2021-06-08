@@ -2687,9 +2687,10 @@ $translations = array(
     'mnu_PhoneApps' => 'Smartphone Apps',
     'mnu_Cooperation' => 'Cooperation',
     'mnu_ChallengeCaches' => 'Challenge Caches',
+    'mnu_instagram' => 'Instagram',
 
-    'admCs_degradedCs'  => 'GeoPaths dégradées',
-    'admCs_cacheSet'  => 'GeoPaths',
+    'admCs_degradedCs' => 'GeoPaths dégradées',
+    'admCs_cacheSet' => 'GeoPaths',
     'admCs_currentRatio' => 'Ratio de caches actives',
     'admCs_requiredRatio' => 'Ratio de caches requis',
     'admCs_emptyList' => 'WOW ! Il n’y a aucun GeoPaths actif et dégradé a lister ici !',

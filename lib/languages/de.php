@@ -2688,9 +2688,10 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'mnu_PhoneApps' => 'Smartphone-Apps',
     'mnu_Cooperation' => 'Kooperation',
     'mnu_ChallengeCaches' => 'Challenge-Caches',
+    'mnu_instagram' => 'Instagram',
 
-    'admCs_degradedCs'  => 'Nicht mehr lösbare Geopfade',
-    'admCs_cacheSet'  => 'Geopfade',
+    'admCs_degradedCs' => 'Nicht mehr lösbare Geopfade',
+    'admCs_cacheSet' => 'Geopfade',
     'admCs_currentRatio' => 'Anteil der aktiven Caches',
     'admCs_requiredRatio' => 'Benötigte Fundquote',
     'admCs_emptyList' => 'WOW! Keine aktiven, aber nicht mehr lösebaren Geopfade vorhanden.',
