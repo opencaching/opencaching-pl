@@ -45,7 +45,7 @@ $view->callChunk('tinyMCE', false);
         $("#rmCacheLoader" + cacheId).show();
 
         request = $.ajax({
-            url: "/GeoPath/rmCacheFromGeopathAjax/"+cacheId,
+            url: "/GeoPathApi/rmCacheFromGeopathAjax/"+cacheId,
             type: "get",
         });
 

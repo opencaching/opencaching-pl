@@ -127,7 +127,7 @@
         var newCacheId2 = $('#newCacheNameId2').val();
 
         request = $.ajax({
-                url: "/GeoPath/rmCacheFromGeopathAjax/"+newCacheId2,
+                url: "/GeoPathApi/rmCacheFromGeopathAjax/"+newCacheId2,
                 type: "get",
         });
 
@@ -738,7 +738,7 @@
         var newCacheId = $('#newCacheNameId').val();
 
         request = $.ajax({
-            url: "/GeoPath/addCacheCandidateAjax/"+$('#xmd34nfywr54').val()+"/"+newCacheId,
+            url: "/GeoPathApi/addCacheCandidateAjax/"+$('#xmd34nfywr54').val()+"/"+newCacheId,
             type: "get",
         });
 
@@ -1106,7 +1106,7 @@
         $('#cacheCountUserActions').hide();
 
         request = $.ajax({
-            url: "/geoPath/refreshCachesNumberAjax/"+ptId,
+            url: "/geoPathApi/refreshCachesNumberAjax/"+ptId,
             type: "get"
         });
 
@@ -1140,7 +1140,7 @@
         var projectId = $('#ptSelectorForCache' + cacheId).val();
         $('#addCacheLoader' + cacheId).show();
         $.ajax({
-            url: "/geoPath/addOwnCacheToGeopathAjax/"+projectId+'/'+cacheId,
+            url: "/geoPathApi/addOwnCacheToGeopathAjax/"+projectId+'/'+cacheId,
             type: "get",
 
             success: function(response, textStatus, jqXHR){
