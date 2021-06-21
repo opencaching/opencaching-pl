@@ -18,7 +18,7 @@
     jQueryIcon.attr("title", "<?=tr('gpCandidates_cancelOfferInProgress')?>");
 
     $.ajax({
-      url:   "/GeoPath/cancelCacheCandidateAjax/"+candidateId,
+      url:   "/GeoPathApi/cancelCacheCandidateAjax/"+candidateId,
       type:  "get",
       cache: false,
       error: function (xhr) {

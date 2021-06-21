@@ -35,6 +35,14 @@ trait GeopathConfigTrait
         return self::getKeyFromGeopathConfig('geopathOwnerMinFounds');
     }
 
+    /**
+     * Array of types of geocaches forbidden in geopaths
+     */
+    public static function geopathForbiddenCacheTypes(): array
+    {
+        return self::getKeyFromGeopathConfig('forbiddenCacheTypes');
+    }
+
     protected function getGeopathConfig(): array
     {
         if (! $this->geopathConfig) {
@@ -53,4 +61,5 @@ trait GeopathConfigTrait
 
         return $geopathConfig[$key];
     }
+
 }

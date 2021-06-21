@@ -8,6 +8,7 @@ use src\Utils\Debug\Debug;
 use src\Models\Coordinates\Altitude;
 use src\Models\Coordinates\Coordinates;
 use src\Models\GeoCache\GeoCache;
+use src\Models\OcConfig\OcConfig;
 
 class CacheSetCommon extends BaseObject
 {
@@ -92,12 +93,7 @@ class CacheSetCommon extends BaseObject
     public static function isCacheTypeAllowedForGeoPath(GeoCache $cache)
     {
         // these cache types are forbiden in geopaths
-        $forbiddenTypes = [
-            GeoCache::TYPE_EVENT,
-            GeoCache::TYPE_OWNCACHE,
-            GeoCache::TYPE_WEBCAM,
-        ];
-
+        $forbiddenTypes = OcConfig::geopathForbiddenCacheTypes();
         return !in_array($cache->getCacheType(), $forbiddenTypes);
     }
 
