@@ -81,6 +81,15 @@ trait SiteConfigTrait
     }
 
     /**
+     * Returns Google Analytics site tag if used by the node
+     */
+    public static function getSiteGoogleAnalyticsTag(): string
+    {
+        return self::getKeyFromSiteConfig('googleAnalyticsTag');
+    }
+
+
+    /**
      * Returns icon's path relative to the public directory.
      */
     public static function getSiteMainViewIcon(string $iconName): string
