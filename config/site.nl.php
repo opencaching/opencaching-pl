@@ -57,3 +57,8 @@ $site['mainViewIcons'] = [
     //'webmanifest' => '/images/icons/site.webmanifest',    // <link rel="manifest"
     //'maskIcon' => '/images/icons/safari-pinned-tab.svg',  // <link rel="mask-icon"
 ];
+/**
+ * Google Analytics site tag if used by the node
+ */
+$site['googleAnalyticsTag'] = 'UA-84543158-1';
+

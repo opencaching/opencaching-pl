@@ -75,3 +75,8 @@ $site['cacheAccessLogEnabled'] = false;
  * Enable debug mode (USE ONLY IN DEV/TEST ENV!)
  */
 $site['debugModeEnabled'] = false;
+
+/**
+ * Google Analytics site tag if used by the node
+ */
+$site['googleAnalyticsTag'] = '';

@@ -9,6 +9,7 @@ use src\Utils\Debug\Debug;
 use src\Utils\I18n\CrowdinInContextMode;
 use src\Utils\I18n\I18n;
 use src\Utils\Uri\SimpleRouter;
+use src\Models\OcConfig\OcConfig;
 
 class View
 {
@@ -40,11 +41,8 @@ class View
 
     public function __construct()
     {
-
         // load google analytics key from the config
-        $this->_googleAnalyticsKey = isset($GLOBALS['googleAnalytics_key']) ?
-            $GLOBALS['googleAnalytics_key'] : '';
-
+        $this->_googleAnalyticsKey = OcConfig::getSiteGoogleAnalyticsTag();
         $this->handleCrowdinInContextMode();
     }
 
