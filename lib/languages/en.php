@@ -1,6 +1,6 @@
 <?php
 
-$translations = array(
+$translations = [
     'main_menu' => 'Main Menu',
     'user_menu' => 'User\'s Menu',
     'new' => 'NEW',
@@ -381,7 +381,6 @@ $translations = array(
     'postActivation_mail_04' => 'Before you can publish your first cache on {site_name} you should find at least {NEED_FIND_LIMIT} caches, to gain experience.',
     'postActivation_mail_cacheguides' => 'Geocaching Guides / Gurus',
 
-
     'password_confirm' => 'Confirm password',
     'register_msg1' => 'To create an account on {site_name}, you have to enter a valid e-mail address and username. <br/>An e-mail with an activation link will be sent to the address you supplied. Only one account can be created for each e-mail address.',
     'register_msg2' => 'Fields marked with * are required',
@@ -460,7 +459,7 @@ $translations = array(
     'map_toggleFilters' => 'Change filters',
     'fullscreen' => 'Full screen',
     'map_disableFullscreen' => 'Turn off full screen',
-    'map_refresh'=> 'Refresh map',
+    'map_refresh' => 'Refresh map',
     'map_search' => 'Search...',
     'map_searchPlacePlaceholder' => 'Search: place',
     'map_searchTrigger' => 'Search',
@@ -636,6 +635,9 @@ $translations = array(
     'myn_addarea_info' => 'You can define more neighbourhoods that you watch',
     'myn_cacheitems_lbl' => 'The number of caches and logs displayed',
     'myn_style_lbl' => 'My Neighbourhood style',
+    'myn_family_lbl' => 'A style of map icons',
+    'myn_family_named_simple' => 'Simple',
+    'myn_family_named_okapi' => 'Okapi',
     'myn_log_txt' => 'Log content',
     'myn_style_full' => 'Full',
     'myn_style_min' => 'Minimalistic',
@@ -1280,7 +1282,7 @@ $translations = array(
     'mailto_senderCopy' => 'This is a copy of your message to user',
     'mailto_messageForYou' => 'This is message for You',
     'region_not_ok' => 'Please select region!',
-    'dummy_outside' => "Outside the country",
+    'dummy_outside' => 'Outside the country',
     'index_01' => 'Cache ranking by calculated index',
     'index_02' => 'The following list is automatically generated from user recommendations. The numbers in the list below mean:',
     'index_03' => 'Number of users that recommended this cache',
@@ -1838,7 +1840,6 @@ $translations = array(
     'gp_ownCacheAddedToGeopath' => 'Your cache is already added to geopath.',
     'gp_cacheRemovedFromGeopath' => 'Cache is already removed from geopath.',
 
-
     'statpic_found' => 'Found:',
     'statpic_hidden' => 'Hidden:',
     'statpic_html_link' => '- Statistics for',
@@ -1918,7 +1919,7 @@ $translations = array(
     'search_gpxgc_06' => 'Recommendation',
     'search_gpxgc_07' => 'National Park',
 
-// Attributes
+    // Attributes
     'attribute_9001' => 'Dogs not allowed',
     'attribute_2' => 'Access or parking fee',
     'attribute_3' => 'Climbing gear requried',
@@ -2004,7 +2005,7 @@ $translations = array(
     'attribute_219' => 'Suitable to hold trackables',
     'attribute_220' => 'Officially designated historical monument',
     'attribute_999' => 'Log password',
-// END Attributes
+    // END Attributes
 
     'weather' => 'Weather',
     'vl_Recently_modified_on' => 'Recently modified on',
@@ -2513,7 +2514,7 @@ $translations = array(
     'LogPassword' => 'Password needed to post log entry!',
     'abovesealevel' => 'm. ASL.',
     'cache_alt' => 'Altitude',
-    'waypoint_error2' => 'Waypoint must be in one of the following formats: '.$GLOBALS['oc_waypoint'].'xxxx, GCxxxxx, Nxxxxx',
+    'waypoint_error2' => 'Waypoint must be in one of the following formats: ' . $GLOBALS['oc_waypoint'] . 'xxxx, GCxxxxx, Nxxxxx',
     'pagetitle_print' => 'Printing',
     'natura2000' => 'NATURA 2000 (Nature Protected Area)',
     'WeekCache' => 'Cache of the week',
@@ -2571,14 +2572,14 @@ $translations = array(
     'ArchivedGeocaches' => 'Archived geocaches',
     'merit_badges' => 'Merit badges',
     'merit_badge' => 'Merit badge',
-    'merit_badge_level' =>  'Level',
-    'merit_badge_level_name' =>  'Level name',
-    'merit_badge_next_level_threshold' =>  'Next level threshold',
-    'merit_badge_gain_count' =>  'Gain count',
-    'merit_badge_gain_last_date' =>  'Last gain date',
-    'merit_badge_gain_date' =>  'Gain date',
-    'merit_badge_number' =>  'Progress',
-    'merit_badge_number_threshold' =>  'Thresholds',
+    'merit_badge_level' => 'Level',
+    'merit_badge_level_name' => 'Level name',
+    'merit_badge_next_level_threshold' => 'Next level threshold',
+    'merit_badge_gain_count' => 'Gain count',
+    'merit_badge_gain_last_date' => 'Last gain date',
+    'merit_badge_gain_date' => 'Gain date',
+    'merit_badge_number' => 'Progress',
+    'merit_badge_number_threshold' => 'Thresholds',
     'merit_badge_show_details' => 'Show details of merit badges ... ',
     'merit_badge_show_list' => 'Show a list of merit badges ... ',
     'merit_badge_gain_max_level' => 'You gained the highest level',
@@ -3001,8 +3002,8 @@ $translations = array(
     'usrIgnore_removingSuccess' => 'Cache removed from ignored',
 
     'gp_logoUpdateTitle' => 'Geopath logo upload',
-    'gp_logoUpdateInfo' => 'Upload file which will be used as geopath logo. '.
-                           'Don\'t forget that you need to have copyrights to uploaded file.',
+    'gp_logoUpdateInfo' => 'Upload file which will be used as geopath logo. '
+                           . 'Don\'t forget that you need to have copyrights to uploaded file.',
 
     'SmartPhone_Apps' => 'Smartphone Apps',
     'SmartPhone_Support' => 'These Smartphone Geocaching Apps offer full live support for Opencaching:',
@@ -3023,7 +3024,6 @@ $translations = array(
     'gpCandidates_offerCanceled' => 'Offer canceled',
     'gpCandidates_errorOnCancel' => 'Cannot cancel this offer - error occurred',
     'gpCandidates_cancelOfferInProgress' => 'Cancelation in progress',
-
 
     'gpMyCandidates_title' => 'Candidates to geopaths for user',
     'gpMyCandidates_submitedDate' => 'Date',
@@ -3076,7 +3076,6 @@ $translations = array(
     'editCache_orderPicsSaveErr' => 'Problem with update pics order occured',
     'editCache_orderPicsSaveSuccess' => 'Pics order has been changed',
 
-
     'vote_criteriaNotPassed' => 'Currently logged user account doesn\'t pass criteria of participation in voting',
     'vote_electionOpenUntil' => 'This election is open until',
     'vote_electionWillBeOpen' => 'This election will be open',
@@ -3111,4 +3110,7 @@ $translations = array(
     'vote_elListThStart' => 'Start of election',
     'vote_elListThEnd' => 'End of election',
     'vote_optionsToChoose' => 'Options to choose from',
-);
+
+    'map_popup_next' => 'Next',
+    'map_popup_previous' => 'Previous',
+];

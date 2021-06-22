@@ -704,6 +704,41 @@ class GeoCache extends GeoCacheCommons
         return tr(self::CacheRatingTranslationKey($this->ratingId));
     }
 
+    /**
+     * Computes the cache current log status for given user, based on the user
+     * log entries.
+     *
+     * @param \lib\Objects\User\User $forUser a user to compute current log
+     *     status for, may be null
+     *
+     * @return int current log status or null
+     */
+    public function getLogStatus(User $forUser = null): ?int
+    {
+        $logStatus = null;
+        if (!is_null($forUser)) {
+            $logsCount = $this->getLogsCountByType(
+                $forUser,
+                array(
+                    GeoCacheLog::LOGTYPE_FOUNDIT,
+                    GeoCacheLog::LOGTYPE_DIDNOTFIND
+                )
+            );
+            if (
+                isset($logsCount[GeoCacheLog::LOGTYPE_FOUNDIT])
+                && $logsCount[GeoCacheLog::LOGTYPE_FOUNDIT]>0
+            ) {
+                $logStatus = GeoCacheLog::LOGTYPE_FOUNDIT;
+            } else if (
+                isset($logsCount[GeoCacheLog::LOGTYPE_DIDNOTFIND])
+                && $logsCount[GeoCacheLog::LOGTYPE_DIDNOTFIND]>0
+            ) {
+                $logStatus = GeoCacheLog::LOGTYPE_DIDNOTFIND;
+            }
+        }
+        return $logStatus;
+    }
+
     public function getCacheIcon(User $forUser=null)
     {
         $logStatus = null;
@@ -1203,8 +1238,8 @@ class GeoCache extends GeoCacheCommons
      */
     public static function touchCache($cacheId)
     {
-        self::updateLastModified ($cacheId);
-
+        XDb::xSql(
+            "UPDATE `caches` SET `last_modified`=NOW() WHERE `cache_id`= ? ", $cacheId);
         XDb::xSql(
             "UPDATE `caches`, `cache_logs` SET `cache_logs`.`last_modified`=NOW()
             WHERE `caches`.`cache_id`=`cache_logs`.`cache_id`
@@ -1235,11 +1270,6 @@ class GeoCache extends GeoCacheCommons
             AND `cache_logs`.`deleted`= ? ", $cacheId, 0);
     }
 
-
-    public static function updateLastModified ($cacheId) {
-        self::db()->multiVariableQuery(
-            "UPDATE caches SET last_modified=NOW() WHERE cache_id= :1 ", $cacheId);
-    }
 
     public static function getUserActiveCachesCountByType($userId)
     {
