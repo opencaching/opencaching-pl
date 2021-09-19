@@ -1,5 +1,7 @@
 <?php
 use src\Utils\Uri\SimpleRouter;
+use src\Models\OcConfig\OcConfig;
+
 $view->callChunk('tinyMCE');
 ?>
 
@@ -708,6 +710,15 @@ $(document).ready(function(){
                 <div class="notice">{{hint_instructions}}</div>
             </td>
         </tr>
+
+        <?php if(OcConfig::isReactivationRulesEnabled()) { ?>
+        <tr>
+          <td colspan="2">
+            <!-- reactivation rules -->
+            <?=$view->callSubTpl("/cacheEdit/reactivationRules")?>
+          </td>
+        </tr>
+        <?php } // if-OcConfig::isReactivationRulesEnabled() ?>
         <tr>
             <td colspan="2"><div class="content2-container bg-blue02">
                     <p class="content-title-noshade-size1"><img src="/images/blue/crypt.png" class="icon32" alt=""/>

@@ -17,3 +17,9 @@
 .picTableEmpty {
   display: none;
 }
+
+textarea.customReactivation {
+    width: 90%;
+    height: 4em;
+    margin-left: 20px;
+}

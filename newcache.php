@@ -14,13 +14,17 @@ use src\Utils\EventHandler\EventHandler;
 use src\Utils\I18n\I18n;
 use src\Utils\Text\Validator;
 use src\Utils\Gis\Countries;
+use src\Utils\View\View;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
 $ocWP = $GLOBALS['oc_waypoint'];
 $no_tpl_build = false;
 
+/** @var $view View */
 $view = tpl_getView();
+
+$view->addLocalCss('/views/editCache/editCache.css');
 
 // user logged in?
 $loggedUser = ApplicationContainer::GetAuthorizedUser();

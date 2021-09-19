@@ -3076,6 +3076,17 @@ $translations = array(
     'editCache_orderPicsSaveErr' => 'Problem with update pics order occured',
     'editCache_orderPicsSaveSuccess' => 'Pics order has been changed',
 
+    'editCache_reactivRulesTitle' => 'Rules for further reactivations',
+    'editCache_reactivRulesLabel' => 'Reactivation rules',
+    'editCache_reactivRulesDesc' => 'Rules selected below are automatically displayed at the bottom of the geocache description.',
+    'editCache_reactivRulesMoreInfo' => 'More information about reactivation can be found <a href="">HERE-TODO</a>',
+
+    'editCache_reactivRuleOptNoReactivations' => 'Reactivation is prohibited and there is no exceptions',
+    'editCache_reactivRuleOptAfterContact' => 'Reactivation is possible ONLY after direct contact with geocache author/owner',
+    'editCache_reactivRuleOptReactAllowed' => 'Reactivation is possible BUT it MUST BE SURE that geocache is gone',
+    'editCache_reactivRuleCustomDefinition' => 'Your own reactivation rules can be paste here',
+
+
 
     'vote_criteriaNotPassed' => 'Currently logged user account doesn\'t pass criteria of participation in voting',
     'vote_electionOpenUntil' => 'This election is open until',
