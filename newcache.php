@@ -8,7 +8,6 @@ use src\Models\ApplicationContainer;
 use src\Models\GeoCache\GeoCache;
 use src\Models\GeoCache\GeoCacheCommons;
 use src\Models\OcConfig\OcConfig;
-use src\Models\User\User;
 use src\Utils\Debug\Debug;
 use src\Utils\EventHandler\EventHandler;
 use src\Utils\I18n\I18n;
@@ -18,7 +17,6 @@ use src\Utils\View\View;
 
 require_once (__DIR__.'/lib/common.inc.php');
 
-$ocWP = $GLOBALS['oc_waypoint'];
 $no_tpl_build = false;
 
 /** @var $view View */
@@ -40,10 +38,10 @@ $user = $loggedUser;
 
 if (isset($_REQUEST['newcache_info']) && $_REQUEST['newcache_info'] != 1) {
     // set here the template to process
-    $tplname = 'newcache';
+    $view->setTemplate('newcache');
 } else {
     // display info about register new cache
-    $tplname = 'newcache_info';
+    $view->setTemplate('newcache_info');
 }
 
 if (! $user->canCreateNewCache()) {
@@ -54,9 +52,20 @@ if (! $user->canCreateNewCache()) {
     exit();
 }
 
-require_once (__DIR__.'/src/Views/newcache.inc.php');
-
-$errors = false; // set if there was any errors
+// former /src/Views/newcache.inc.php' contents
+    $submit = tr('new_cache2');
+    $default_region = '0';
+    $show_all = tr('show_all');
+    $default_NS = 'N';
+    $default_EW = 'E';
+    $error_coords_not_ok = '<br><img src="images/misc/32x32-impressum.png" class="icon32" alt="">&nbsp;<span class="errormsg">' . tr('bad_coordinates') . '</span>';
+    $time_not_ok_message = '<br><img src="images/misc/32x32-impressum.png" class="icon32" alt="">&nbsp;<span class="errormsg">' . tr('time_incorrect') . '</span>';
+    $way_length_not_ok_message = '<br><img src="images/misc/32x32-impressum.png" class="icon32" alt="">&nbsp;<span class="errormsg">' . tr('distance_incorrect') . '</span>';
+    $date_not_ok_message = '<br><img src="images/misc/32x32-impressum.png" class="icon32" alt="">&nbsp;<span class="errormsg">' . tr('date_incorrect') . '</span>';
+    $name_not_ok_message = '<br><img src="images/misc/32x32-impressum.png" class="icon32" alt="">&nbsp;<span class="errormsg">' . tr('no_cache_name') . '</span>';
+    $type_not_ok_message = '<br><img src="images/misc/32x32-impressum.png" class="icon32" alt="">&nbsp;&nbsp;<span class="errormsg">' . tr('type_incorrect') . '</span>';
+    $size_not_ok_message = '<br><img src="images/misc/32x32-impressum.png" class="icon32" alt="">&nbsp;&nbsp;<span class="errormsg">' . tr('size_incorrect') . '</span>';
+// former /src/Views/newcache.inc.php' contents ends
 
 $rsnc = XDb::xSql("SELECT COUNT(`caches`.`cache_id`) as num_caches FROM `caches`
             WHERE `user_id` = ? AND status = 1", $loggedUser->getUserId());
@@ -87,8 +96,8 @@ if ($num_caches < OcConfig::getNeedApproveLimit()) {
 tpl_set_var('reset', tr('reset'));
 tpl_set_var('submit', $submit);
 tpl_set_var('general_message', '');
-tpl_set_var('hidden_since_message', $date_time_format_message);
-tpl_set_var('activate_on_message', $date_time_format_message);
+tpl_set_var('hidden_since_message', tr('newcacheDateFormat'));
+tpl_set_var('activate_on_message', tr('newcacheDateFormat'));
 tpl_set_var('lon_message', '');
 tpl_set_var('lat_message', '');
 tpl_set_var('tos_message', '');
@@ -108,9 +117,6 @@ tpl_set_var('limits_promixity', $config['oc']['limits']['proximity']);
 tpl_set_var('short_sitename', OcConfig::getSiteShortName());
 $view->loadJQueryUI();
 
-if (! isset($cache_type)) {
-    $cache_type = - 1;
-}
 $sel_type = isset($_POST['type']) ? $_POST['type'] : - 1;
 if (! isset($_POST['size'])) {
     if ($sel_type == GeoCache::TYPE_VIRTUAL || $sel_type == GeoCache::TYPE_WEBCAM || $sel_type == GeoCache::TYPE_EVENT) {
@@ -287,7 +293,7 @@ tpl_set_var('wp_nc', htmlspecialchars($wp_nc, ENT_COMPAT, 'UTF-8'));
 
 // difficulty
 $difficulty = isset($_POST['difficulty']) ? $_POST['difficulty'] : 1;
-$difficulty_options = '<option value="1" disabled selected="selected">' . $sel_message . '</option>';
+$difficulty_options = '<option value="1" disabled selected="selected">' . tr('choose') . '</option>';
 for ($i = 2; $i <= 10; $i ++) {
     if ($difficulty == $i) {
         $difficulty_options .= '<option value="' . $i . '" selected="selected">' . $i / 2 . '</option>';
@@ -300,7 +306,7 @@ tpl_set_var('difficulty_options', $difficulty_options);
 
 // terrain
 $terrain = isset($_POST['terrain']) ? $_POST['terrain'] : 1;
-$terrain_options = '<option value="1" disabled selected="selected">' . $sel_message . '</option>';
+$terrain_options = '<option value="1" disabled selected="selected">' . tr('choose') . '</option>';
 for ($i = 2; $i <= 10; $i ++) {
     if ($terrain == $i) {
         $terrain_options .= '<option value="' . $i . '" selected="selected">' . $i / 2 . '</option>';
@@ -392,7 +398,7 @@ $rs = XDb::xSql("SELECT `id`, `text_long`, `icon_undef`, `icon_large` FROM `cach
             WHERE `language`= ? ORDER BY `category`, `id`", I18n::getCurrentLang());
 
 while ($record = XDb::xFetchArray($rs)) {
-    $line = $cache_attrib_pic;
+    $line = '<img id="attr{attrib_id}" src="{attrib_pic}" alt="{attrib_text}" title="{attrib_text}" onmousedown="toggleAttr({attrib_id})"> ';
     $line = mb_ereg_replace('{attrib_id}', $record['id'], $line);
     $line = mb_ereg_replace('{attrib_text}', $record['text_long'], $line);
     if (in_array($record['id'], $cache_attribs)) {
@@ -401,7 +407,7 @@ while ($record = XDb::xFetchArray($rs)) {
         $line = mb_ereg_replace('{attrib_pic}', $record['icon_undef'], $line);
     }
     $cache_attrib_list .= $line;
-    $line = $cache_attrib_js;
+    $line = "new Array({id}, {selected}, '{img_undef}', '{img_large}')";
     $line = mb_ereg_replace('{id}', $record['id'], $line);
     if (in_array($record['id'], $cache_attribs)) {
         $line = mb_ereg_replace('{selected}', 1, $line);
@@ -426,6 +432,8 @@ while ($record = XDb::xFetchArray($rs)) {
 tpl_set_var('cache_attrib_list', $cache_attrib_list);
 tpl_set_var('jsattributes_array', $cache_attrib_array);
 tpl_set_var('cache_attribs', $cache_attribs_string);
+
+
 
 if (isset($_POST['submitform'])) {
 
@@ -571,9 +579,9 @@ if (isset($_POST['submitform'])) {
     }
 
     // validate region
-    // Andrzej "Łza" 2013-06-02
     if ($sel_region == '0') {
-        tpl_set_var('region_message', $regionNotOkMessage);
+        tpl_set_var('region_message',
+            '<br><img src="images/misc/32x32-impressum.png" class="icon32" alt="">&nbsp;&nbsp;<span class="errormsg">' . tr('region_not_ok') . '</span>');
         $region_not_ok = true;
     } else {
         $region_not_ok = false;
@@ -600,14 +608,16 @@ if (isset($_POST['submitform'])) {
     }
     if ($sel_size != 7 && ($sel_type == 4 || $sel_type == 5 || $sel_type == 6)) {
         if (! $size_not_ok) {
-            tpl_set_var('size_message', $sizemismatch_message);
+            tpl_set_var('size_message',
+                '<br><img src="images/misc/32x32-impressum.png" class="icon32" alt="">&nbsp;&nbsp;<span class="errormsg">' . tr('virtual_cache_size') . '</span>');
         }
         $size_not_ok = true;
     }
     // difficulty / terrain
     $diff_not_ok = false;
     if ($difficulty < 2 || $difficulty > 10 || $terrain < 2 || $terrain > 10) {
-        tpl_set_var('diff_message', $diff_not_ok_message);
+        tpl_set_var('diff_message',
+            '<br><img src="images/misc/32x32-impressum.png" class="icon32" alt="">&nbsp;&nbsp;<span class="errormsg">' . tr('diff_incorrect') . '</span>');
         $diff_not_ok = true;
     }
 
@@ -648,7 +658,6 @@ if (isset($_POST['submitform'])) {
 
             if ($publish == 'now') {
                 $activation_date = null;
-                $activation_column = ' ';
             } elseif ($publish == 'later') {
                 $sel_status = 5;
                 $activation_date = date('Y-m-d H:i:s', mktime($activate_hour, 0, 0, $activate_month, $activate_day, $activate_year));
@@ -703,7 +712,7 @@ if (isset($_POST['submitform'])) {
         XDb::xSql("UPDATE `caches` SET `last_modified`=NOW() WHERE `cache_id`= ? ", $cache_id);
 
         // waypoint erstellen
-        setCacheWaypoint($cache_id, $oc_waypoint);
+        setCacheWaypoint($cache_id, $GLOBALS['oc_waypoint']);
 
         $desc_uuid = Uuid::create();
         // add record to cache_desc table
@@ -742,7 +751,7 @@ if (isset($_POST['submitform'])) {
         // redirection
         tpl_redirect('mycaches.php?status=' . urlencode($sel_status));
     } else {
-        tpl_set_var('general_message', $error_general);
+        tpl_set_var('general_message', '<div class="warning">' . tr('error_new_cache') . '</div>');
     }
 }
 
@@ -808,6 +817,7 @@ function buildDescriptionLanguageSelector($show_all_langs, $langCode, $defaultLa
     tpl_set_var('langoptions', $langsoptions);
 }
 
+// OC waypoints generator
 function generateNextWaypoint($currentWP, $ocWP)
 {
     $wpCharSequence = "0123456789ABCDEFGHJKLMNPQRSTUWXYZ";

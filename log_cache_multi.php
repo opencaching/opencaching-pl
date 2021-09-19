@@ -168,10 +168,10 @@ if (!$loggedUser || (!isset($_FILES['userfile']) && !isset($_SESSION['log_cache_
             $rec = preg_split('[,]', trim($line), 4);
             if (count($rec) >= 4) {
                 // wyglada na skrzynke
-                if (substr($rec[0], 0, 2) == $oc_waypoint) {
+                if (substr($rec[0], 0, 2) == $GLOBALS['oc_waypoint']) {
                     $dane_i++;
                     $dane[$dane_i]['kod_str'] = $rec[0];
-                    $dane[$dane_i]['typ_kodu'] = $oc_waypoint;
+                    $dane[$dane_i]['typ_kodu'] = $GLOBALS['oc_waypoint'];
 
                     $listaKodowOP[] = $dane[$dane_i]['kod_str'];
                     // kod

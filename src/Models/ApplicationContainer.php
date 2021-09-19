@@ -98,7 +98,6 @@ final class ApplicationContainer
         require_once (__DIR__ . '/../../lib/settingsGlue.inc.php');
 
         $GLOBALS['config'] = $config;
-        // $GLOBALS['oc_waypoint'] = $oc_waypoint;
         $GLOBALS['absolute_server_URI'] = $absolute_server_URI;
         $GLOBALS['mp3dir'] = $mp3dir;
         $GLOBALS['mp3url'] = $mp3url;

@@ -114,7 +114,7 @@ tpl_set_var('scrollwheel', $mapControls);
 tpl_set_var('scaleControl', $mapControls);
 
 tpl_set_var('fullCountryMap', '1');
-tpl_set_var('ocWaypoint', $oc_waypoint);
+tpl_set_var('ocWaypoint', $GLOBALS['oc_waypoint']);
 tpl_set_var('commentsPaginateCount', powerTrailBase::commentsPaginateCount);
 
 
