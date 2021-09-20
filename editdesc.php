@@ -2,8 +2,10 @@
 
 use src\Utils\Database\XDb;
 use src\Models\GeoCache\GeoCache;
+use src\Models\OcConfig\OcConfig;
 use src\Utils\I18n\Languages;
 use src\Utils\Text\UserInputFilter;
+use src\Utils\View\View;
 use src\Utils\I18n\I18n;
 use src\Models\ApplicationContainer;
 
@@ -20,11 +22,14 @@ if (!$loggedUser) {
     exit;
 }
 
+/** @var $view View */
+$view = tpl_getView();
+
 $desc_rs = XDb::xSql(
     "SELECT `cache_desc`.`cache_id` `cache_id`, `cache_desc`.`language`
             `language`, `caches`.`name` `name`, `caches`.`user_id` `user_id`,
             `cache_desc`.`desc` `desc`, `cache_desc`.`hint` `hint`, `cache_desc`.`short_desc` `short_desc`,
-            `cache_desc`.`desc_html` `desc_html`
+            `cache_desc`.`desc_html` `desc_html`, `cache_desc`.`reactivation_rule` `reactivation_rule`
     FROM `caches`, `cache_desc`
     WHERE (`caches`.`cache_id` = `cache_desc`.`cache_id`)
         AND `cache_desc`.`id`= ? LIMIT 1", $descid);
@@ -32,7 +37,7 @@ $desc_rs = XDb::xSql(
 if ( $desc_record = XDb::xFetchArray($desc_rs) ) {
 
     $desc_lang = $desc_record['language'];
-    $cache_id = $desc_record['cache_id'];
+    //$cache_id = $desc_record['cache_id'];
 
     if ($desc_record['user_id'] != $loggedUser->getUserId() &&
         !$loggedUser->hasOcTeamRole()) {
@@ -40,7 +45,7 @@ if ( $desc_record = XDb::xFetchArray($desc_rs) ) {
         exit;
     }
 
-    $tplname = 'editdesc';
+    $view->setTemplate('editdesc');
 
     tpl_set_var('desc_err', '');
     $show_all_langs = false;
@@ -60,6 +65,26 @@ if ( $desc_record = XDb::xFetchArray($desc_rs) ) {
         $desc = UserInputFilter::purifyHtmlString($desc);
         $hints = htmlspecialchars($hints, ENT_COMPAT, 'UTF-8');
 
+        $reactivationRuleRadio = $_POST['reactivRules'] ?? NULL;
+        if ($reactivationRuleRadio == "Custom rulset") {
+            // custom ruleset are selected - use defined rules
+            $reactivationRule = $_POST['reactivRulesCustom'] ?? "";
+            $view->setVar('reactivRulesCustom', $reactivationRule);
+            $view->setVar('reactivRulesRadio', "Custom rulset");
+        } else {
+            if (is_null($reactivationRuleRadio)) {
+                //no options selected
+                $reactivationRule = "";
+                $view->setVar('reactivRulesCustom', "");
+                $view->setVar('reactivRulesRadio', NULL);
+            } else {
+                // some predefined option is selected
+                $reactivationRule = $reactivationRuleRadio;
+                $view->setVar('reactivRulesCustom', "");
+                $view->setVar('reactivRulesRadio', $reactivationRuleRadio);
+            }
+        }
+
         if (isset($_POST['submitform'])) {
 
             // consider whether language does not already exist
@@ -78,11 +103,11 @@ if ( $desc_record = XDb::xFetchArray($desc_rs) ) {
             }
 
             XDb::xSql(
-                "UPDATE `cache_desc` SET
-                    `last_modified`=NOW(), `desc_html`= '2',
-                    `desc`= ?, `short_desc`= ?, `hint`= ?, `language`= ?
+                "UPDATE `cache_desc` SET `last_modified`=NOW(),
+                    `desc_html`= '2', `desc`= ?, `short_desc`= ?, `hint`= ?, `language`= ?,
+                    `reactivation_rule` = ?
                 WHERE `id`= ? ",
-                $desc, $short_desc, nl2br($hints), $desclang, $descid);
+                $desc, $short_desc, nl2br($hints), $desclang, $reactivationRule, $descid);
 
             // update description languages in the cache record;
             // this also updates the modification date
@@ -100,6 +125,30 @@ if ( $desc_record = XDb::xFetchArray($desc_rs) ) {
         $hints = strip_tags($desc_record['hint']);
         $desc_lang = $desc_record['language'];
         $desc = $desc_record['desc'];
+
+        if ($desc_record['reactivation_rule'] == "") {
+            // reactivation rules are not yet defined
+            $view->setVar('reactivRulesCustom', "");
+            $view->setVar('reactivRulesRadio', "");
+        } else {
+            // check if saved rule is the predefined option
+            $predefined = false;
+            foreach (OcConfig::getReactivationRulesPredefinedOpts() as $opt) {
+                $optTxt = tr($opt);
+                if ($optTxt == $desc_record['reactivation_rule']) {
+                    // this is is - one of predefined options
+                    $view->setVar('reactivRulesCustom', "");
+                    $view->setVar('reactivRulesRadio', $optTxt);
+                    $predefined = true;
+                    break;
+                }
+            }
+            if(!$predefined) {
+                // it seems this is custom option
+                $view->setVar('reactivRulesCustom', $desc_record['reactivation_rule']);
+                $view->setVar('reactivRulesRadio', "Custom rulset");
+            }
+        }
     }
 
     $eLang = XDb::xEscape(I18n::getCurrentLang());

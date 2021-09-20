@@ -1,4 +1,7 @@
 <?php
+use src\Models\OcConfig\OcConfig;
+use src\Utils\View\View;
+/** @var $view View */
 $view->callChunk('tinyMCE');
 ?>
 
@@ -39,6 +42,24 @@ $view->callChunk('tinyMCE');
     <div class="notice">{{hint_long_text}}</div>
     <div class="notice">{{hint_instructions}}</div>
     <div class="buffer"></div>
+
+    <?php if(OcConfig::isReactivationRulesEnabled()) { ?>
+        <div class="content2-container">
+        <style>
+        textarea.customReactivation {
+            width: 90%;
+            height: 4em;
+            margin-left: 20px;
+        }
+        fieldset.reactivationRules {
+            border: 1px solid black;
+            width: 98%;
+        }
+        </style>
+        <!-- reactivation rules -->
+        <?=$view->callSubTpl("/cacheEdit/reactivationRules")?>
+        </div>
+    <?php } // if-OcConfig::isReactivationRulesEnabled() ?>
     <div>
         <input type="reset" name="reset" value="{{reset}}" class="btn btn-default"/>&nbsp;&nbsp;
         <input type="submit" name="submitform" value="{{submit}}" class="btn btn-primary"/>

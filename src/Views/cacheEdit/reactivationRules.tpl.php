@@ -5,7 +5,7 @@ use src\Models\OcConfig\OcConfig;
 <div>
 
     <!--  p class="content-title-noshade"><?=tr('editCache_reactivRulesTitle')?></p-->
-    <fieldset style="border: 1px solid black; width: 80%; class="form-group-sm">
+    <fieldset class="form-group-sm reactivationRules">
       <legend><strong>&nbsp;<?=tr('editCache_reactivRulesLabel')?>&nbsp;</strong></legend>
       <p>
         <?=tr('editCache_reactivRulesDesc')?>

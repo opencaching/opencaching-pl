@@ -23,3 +23,8 @@ textarea.customReactivation {
     height: 4em;
     margin-left: 20px;
 }
+
+fieldset.reactivationRules {
+  border: 1px solid black; 
+  width: 80%;
+}
