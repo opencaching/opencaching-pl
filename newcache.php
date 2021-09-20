@@ -434,6 +434,26 @@ tpl_set_var('jsattributes_array', $cache_attrib_array);
 tpl_set_var('cache_attribs', $cache_attribs_string);
 
 
+$reactivationRuleRadio = $_POST['reactivRules'] ?? NULL;
+if ($reactivationRuleRadio == "Custom rulset") {
+    // custom ruleset are selected - use defined rules
+    $reactivationRule = $_POST['reactivRulesCustom'] ?? "";
+    $view->setVar('reactivRulesCustom', $reactivationRule);
+    $view->setVar('reactivRulesRadio', "Custom rulset");
+} else {
+    if (is_null($reactivationRuleRadio)) {
+        //no options selected
+        $reactivationRule = "";
+        $view->setVar('reactivRulesCustom', "");
+        $view->setVar('reactivRulesRadio', NULL);
+    } else {
+        // some predefined option is selected
+        $reactivationRule = $reactivationRuleRadio;
+        $view->setVar('reactivRulesCustom', "");
+        $view->setVar('reactivRulesRadio', $reactivationRuleRadio);
+    }
+}
+
 
 if (isset($_POST['submitform'])) {
 
@@ -721,10 +741,10 @@ if (isset($_POST['submitform'])) {
         $db->multiVariableQuery(
             "INSERT INTO `cache_desc` (
                          `cache_id`, `language`, `desc`, `hint`,
-                        `short_desc`, `last_modified`, `uuid`, `node`, `rr_comment` )
-            VALUES (:1, :2, :3, :4, :5, NOW(), :6, :7, :8)",
+                        `short_desc`, `last_modified`, `uuid`, `node`, `rr_comment`, `reactivation_rule` )
+            VALUES (:1, :2, :3, :4, :5, NOW(), :6, :7, :8, :9)",
             $cache_id, $sel_lang, $desc, nl2br(htmlspecialchars($hints, ENT_COMPAT, 'UTF-8')),
-            $short_desc, $desc_uuid, OcConfig::getSiteNodeId(), '');
+            $short_desc, $desc_uuid, OcConfig::getSiteNodeId(), '', $reactivationRule);
 
         GeoCache::setCacheDefaultDescLang($cache_id);
 

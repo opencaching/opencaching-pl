@@ -15,16 +15,18 @@ use src\Models\OcConfig\OcConfig;
 
       <?php foreach(OcConfig::getReactivationRulesPredefinedOpts() as $key => $opt) { ?>
         <?php $optTxt = tr($opt); ?>
-        <input type="radio" id="reactivRules<?=$key?>" name="reactivRules" value="<?=$optTxt?>">
+        <input type="radio" id="reactivRules<?=$key?>" name="reactivRules" value="<?=$optTxt?>"
+            <?=($optTxt == $view->reactivRulesRadio)?"checked":""?>>
         <label for="reactivRules<?=$key?>"><?=$optTxt?></label>
         <br/>
       <?php } // ?>
 
-      <input type="radio" id="reactivRulesCustom" name="reactivRules" value="Custom rulset">
+      <input type="radio" id="reactivRulesCustom" name="reactivRules" value="Custom rulset"
+            <?=("Custom rulset" == $view->reactivRulesRadio)?"checked":""?>>
       <label for="reactivRulesCustom"><?=tr('editCache_reactivRuleCustomDefinition')?>:</label>
 
       <textarea placeholder="<?=tr('editCache_reactivRuleCustomDefinition')?>"
-                class="customReactivation" name="reactivOpt_CustomRules"></textarea>
+                class="customReactivation" name="reactivRulesCustom"><?=$view->reactivRulesCustom?></textarea>
 
 
     </fieldset>
