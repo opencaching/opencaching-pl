@@ -51,6 +51,17 @@ trait GeocacheConfigTrait
         return self::getKeyFromGeoCacheConfig('coordsHiddenForNonLogged');
     }
 
+    public static function isReactivationRulesEnabled(): bool
+    {
+        return self::getKeyFromGeoCacheConfig('reactivationRulesEnabled');
+    }
+
+    public static function getReactivationRulesPredefinedOpts(): array
+    {
+        return self::getKeyFromGeoCacheConfig('reactivationRulesPredefinedOpts');
+    }
+
+
     protected function getGeoCacheConfig(): array
     {
         if (! $this->geocacheConfig) {

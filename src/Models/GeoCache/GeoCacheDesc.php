@@ -20,7 +20,6 @@ class GeoCacheDesc extends BaseObject
     private $language="";
     private $desc="";
     private $desc_html=0;
-    private $desc_htmledit;
     private $hint = "";
     private $short_desc = "";
     private $date_created;
@@ -78,7 +77,6 @@ class GeoCacheDesc extends BaseObject
         $this->language = $descDbRow['language'];
         $this->desc = $descDbRow['desc'];
         $this->desc_html = $descDbRow['desc_html'];
-        $this->desc_htmledit = $descDbRow['desc_htmledit'];
         $this->hint = $descDbRow['hint'];
         $this->short_desc = $descDbRow['short_desc'];
         $this->date_created = $descDbRow['date_created'];

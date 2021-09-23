@@ -79,7 +79,7 @@ if ( $desc_record = XDb::xFetchArray($desc_rs) ) {
 
             XDb::xSql(
                 "UPDATE `cache_desc` SET
-                    `last_modified`=NOW(), `desc_html`= '2', `desc_htmledit`= '1',
+                    `last_modified`=NOW(), `desc_html`= '2',
                     `desc`= ?, `short_desc`= ?, `hint`= ?, `language`= ?
                 WHERE `id`= ? ",
                 $desc, $short_desc, nl2br($hints), $desclang, $descid);

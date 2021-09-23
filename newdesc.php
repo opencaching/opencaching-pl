@@ -76,7 +76,7 @@ if (!$loggedUser) {
                         ", '', $cache_id);
 
                         //add to DB
-                        XDb::xSql("INSERT INTO `cache_desc` (`id`,`cache_id`,`language`,`desc`,`desc_html`,`desc_htmledit`,
+                        XDb::xSql("INSERT INTO `cache_desc` (`id`,`cache_id`,`language`,`desc`,`desc_html`,
                                                        `hint`,`short_desc`,`last_modified`,`uuid`,`node`,`rr_comment`)
                              VALUES ('', ?, ?, ?, 2, ?, ?, ?, NOW(), ?, ?, ?)",
                              $cache_id, $sel_lang, $desc, '1', nl2br($hints), $short_desc, $desc_uuid,
