@@ -27,6 +27,7 @@ class GeoCacheDesc extends BaseObject
     private $uuid;
     private $node;
     private $rr_comment="";
+    private $reactivationRule="";
 
 
     public function __construct(){
@@ -57,8 +58,7 @@ class GeoCacheDesc extends BaseObject
     {
         $rs = $this->db->multiVariableQuery(
             "SELECT * FROM cache_desc
-            WHERE cache_id = :1
-                AND language = :2
+            WHERE cache_id = :1 AND language = :2
             LIMIT 1",
             $cacheId, $descLang);
 
@@ -84,6 +84,7 @@ class GeoCacheDesc extends BaseObject
         $this->uuid = $descDbRow['uuid'];
         $this->node = $descDbRow['node'];
         $this->rr_comment = $descDbRow['rr_comment'];
+        $this->reactivationRule = $descDbRow['reactivation_rule'];
     }
 
     public function getShortDescToDisplay(){
@@ -131,8 +132,14 @@ class GeoCacheDesc extends BaseObject
         return $this->id;
     }
 
-    public function getAdminComment(){
+    public function getAdminComment()
+    {
         return $this->rr_comment;
+    }
+
+    public function getReactivationRules()
+    {
+        return $this->reactivationRule;
     }
 
     public static function UpdateAdminComment(GeoCache $geoCache, $comment, User $author){

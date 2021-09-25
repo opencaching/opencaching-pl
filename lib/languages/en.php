@@ -144,6 +144,8 @@ $translations = array(
     'password' => 'Password',
     'logged_as' => 'Logged in as',
     'viewCache_switchCoordsFormat' => 'Change coordinates format',
+    'viewCache_reactivationRulesBoxLabel' => 'Rules of reactivation',
+    'viewCache_reactivationRulesBoxNotice' => 'Read more about reactivation of geocaches <a href="%s">here</a>',
     'size' => 'Size',
     'time' => 'Time required',
     'length' => 'Distance to travel',
@@ -3079,8 +3081,8 @@ $translations = array(
     'editCache_reactivRulesMoreInfo' => 'More information about reactivation can be found <a href="">HERE-TODO</a>',
 
     'editCache_reactivRuleOptNoReactivations' => 'Reactivation is prohibited and there is no exceptions',
-    'editCache_reactivRuleOptAfterContact' => 'Reactivation is possible ONLY after direct contact with geocache author/owner',
-    'editCache_reactivRuleOptReactAllowed' => 'Reactivation is possible BUT it MUST BE SURE that geocache is gone',
+    'editCache_reactivRuleOptAfterContact' => 'Reactivation is possible <b>only after direct contact</b> with geocache author/owner',
+    'editCache_reactivRuleOptReactAllowed' => 'Reactivation is possible but it <b>must be sure</b> that geocache is gone',
     'editCache_reactivRuleCustomDefinition' => 'Your own reactivation rules can be paste here',
 
 

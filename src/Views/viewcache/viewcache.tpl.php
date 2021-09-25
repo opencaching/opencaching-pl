@@ -1,12 +1,16 @@
 <?php
-use src\Models\Coordinates\Coordinates;
-use src\Models\GeoKret\GeoKretyApi;
-use src\Models\GeoCache\GeoCacheLogCommons;
-use src\Utils\Uri\SimpleRouter;
-use src\Utils\Text\UserInputFilter;
-use src\Utils\Text\Formatter;
 use src\Controllers\MainMapController;
 use src\Controllers\ViewCacheController;
+use src\Models\Coordinates\Coordinates;
+use src\Models\GeoCache\GeoCacheLogCommons;
+use src\Models\GeoKret\GeoKretyApi;
+use src\Utils\Text\Formatter;
+use src\Utils\Text\UserInputFilter;
+use src\Utils\Uri\SimpleRouter;
+use src\Utils\View\View;
+use src\Models\OcConfig\OcConfig;
+
+/** @var $view View */
 ?>
 <link rel="stylesheet" href="/css/lightTooltip.css">
 
@@ -569,6 +573,18 @@ use src\Controllers\ViewCacheController;
     <div id="viewcache-description">
         <?=$view->geoCacheDesc->getDescToDisplay()?>
     </div>
+
+    <?php if (!empty($view->geoCacheDesc->getReactivationRules())) { ?>
+    <!-- reactivation rules comments: -->
+    <div>
+        <fieldset class="reactivationRuleBox">
+            <legend><?=tr('viewCache_reactivationRulesBoxLabel')?></legend>
+            <?=$view->geoCacheDesc->getReactivationRules()?>
+            <div class="notice"><?=tr('viewCache_reactivationRulesBoxNotice',
+                                      [OcConfig::getWikiLink('geocacheRactivation')])?></div>
+        </fieldset>
+    </div>
+<?php } // if-admin-comment ?>
 </div>
 
 <?php if ( !is_null($view->openChecker) ) { ?>
@@ -700,6 +716,7 @@ use src\Controllers\ViewCacheController;
         </div>
     </div>
 <?php } // if-hint-present ?>
+
 
 
 <?php if ($view->cacheCoordsModificationAllowed) { ?>
@@ -902,7 +919,7 @@ use src\Controllers\ViewCacheController;
     </div>
     <div class="content2-container">
         <div id="viewcache-pictures">
-            <?php foreach ($view->picturesToDisplay as $key => $pic) { ?>
+            <?php foreach ($view->picturesToDisplay as $pic) { ?>
 
                 <div class="viewcache-pictureblock">
                     <div class="img-shadow">
