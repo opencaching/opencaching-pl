@@ -25,6 +25,16 @@ textarea.customReactivation {
 }
 
 fieldset.reactivationRules {
-  border: 1px solid black; 
-  width: 80%;
+    border: 1px solid black;
+    width: 98%;
+}
+
+legend, legend.content-title-noshade {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#descLangDiv {
+  text-align: right;
+  margin-bottom: 30px;
 }

@@ -6,13 +6,15 @@ use src\Utils\Email\EmailSender;
 use src\Utils\Database\XDb;
 use src\Utils\Text\SmilesInText;
 use src\Utils\Text\UserInputFilter;
+use src\Models\OcConfig\OcConfig;
 use src\Models\User\User;
 use src\Models\BaseObject;
 use src\Utils\Text\Formatter;
+use src\Utils\Generators\Uuid;
 
 class GeoCacheDesc extends BaseObject
 {
-
+    const MAX_DESC_SIZE = 300000;
     const HTML_SAFE = 2;
 
     private $id;
@@ -29,32 +31,35 @@ class GeoCacheDesc extends BaseObject
     private $rr_comment="";
     private $reactivationRule="";
 
-
     public function __construct(){
 
         parent::__construct();
 
     }
 
-    public static function fromCacheIdFactory($cacheId, $descLang)
+    public static function fromCacheIdFactory(int $cacheId, string $descLang = null): ?GeoCacheDesc
     {
-        try{
+        if (!$descLang) {
+            // lang is not defined so this description can't exists
+            return null;
+        }
+        try {
             $obj = new self();
             $obj->loadByCacheId($cacheId, $descLang);
             return $obj;
-        }catch (\Exception $e){
+        } catch (\Exception $e){
             return null;
         }
     }
 
-    public static function getEmptyDesc($cacheId=null)
+    public static function getEmptyDesc(Geocache $cache): GeoCacheDesc
     {
         $obj = new self();
-        $obj->cacheId = $cacheId;
+        $obj->cacheId = $cache->getCacheId();
         return $obj;
     }
 
-    private function loadByCacheId($cacheId, $descLang)
+    private function loadByCacheId(int $cacheId, string $descLang)
     {
         $rs = $this->db->multiVariableQuery(
             "SELECT * FROM cache_desc
@@ -64,9 +69,9 @@ class GeoCacheDesc extends BaseObject
 
         $descDbRow = $this->db->dbResultFetchOneRowOnly($rs);
 
-        if(is_array($descDbRow)){
+        if (is_array($descDbRow)) {
             $this->loadFromRow($descDbRow);
-        }else{
+        } else {
             throw new \Exception("Description not found for cacheId=$cacheId");
         }
     }
@@ -96,6 +101,15 @@ class GeoCacheDesc extends BaseObject
         $short_desc = mb_ereg_replace('}', '&#0125;', $short_desc);
 
         return $short_desc;
+    }
+
+    public function getShortDescRaw(): string
+    {
+        return $this->short_desc;
+    }
+
+    public function getDescriptionRaw(){
+        return $this->desc;
     }
 
     public function getDescToDisplay()
@@ -132,6 +146,11 @@ class GeoCacheDesc extends BaseObject
         return $this->id;
     }
 
+    public function getLang(): string
+    {
+        return $this->language;
+    }
+
     public function getAdminComment()
     {
         return $this->rr_comment;
@@ -165,4 +184,112 @@ class GeoCacheDesc extends BaseObject
     public static function RemoveAdminComment(GeoCache $geoCache){
         self::db()->multiVariableQuery("UPDATE cache_desc SET rr_comment='' WHERE cache_id=:1 ", $geoCache->getCacheId());
     }
+
+    /**
+     * Returns the list of languages from existing descriptions for this geocache
+     *
+     * @return array
+     */
+    public function getListOfDescriptionLangs($skipLangOfThisObject=false): array
+    {
+        $rs = $this->db->multiVariableQuery(
+            "SELECT language FROM cache_desc WHERE cache_id = :1", $this->cacheId);
+        $result = $this->db->dbFetchOneColumnArray($rs, 'language');
+
+        return array_diff($result, [$this->language]);
+    }
+
+    /**
+     * Check if language assigned to this object is present in different record in DB
+     * @return bool
+     */
+    public function isLangDuplicated() : bool
+    {
+        $duplicate = self::fromCacheIdFactory($this->cacheId, $this->language);
+        return $duplicate && $duplicate->id != $this->id;
+    }
+
+    private function insertToDb (): void
+    {
+        $this->db->multiVariableQuery(
+            "INSERT INTO cache_desc SET
+                `cache_id` = :1, `language` = :2, `desc` = :3, `desc_html` = 2,
+                `hint` = :4, `short_desc` = :5, `last_modified` = NOW(), `uuid` = :6,
+                `node` = :7, `rr_comment` = '', `reactivation_rule` = :8",
+            $this->cacheId, $this->language, $this->desc,
+            $this->hint, $this->short_desc, Uuid::create(),
+            OcConfig::getSiteNodeId(), $this->reactivationRule);
+    }
+
+    public function saveToDb (): void
+    {
+        if (!$this->id) {
+            // this is new record - it doesn't have the id - insert instead of updateing
+            $this->insertToDb();
+            return;
+        }
+        d($this, 'B');
+        $this->db->multiVariableQuery(
+            "UPDATE cache_desc SET
+                `language` = :1, `desc` = :2, `desc_html` = 2,
+                `hint` = :3, `short_desc` = :4, `last_modified` = NOW(),
+                `rr_comment` = :5, `reactivation_rule` = :6
+            WHERE id = :7 LIMIT 1",
+            $this->language, $this->desc,
+            $this->hint, $this->short_desc,
+            $this->rr_comment, $this->reactivationRule, $this->id);
+    }
+
+    /**
+     * @param Ambigous <string, unknown> $language
+     */
+    public function setLanguage($language)
+    {
+        $this->language = $language;
+    }
+
+    /**
+     * @param Ambigous <string, unknown> $desc
+     */
+    public function setDesc($desc)
+    {
+        /* Prevent binary data in cache descriptions, e.g. <img src='data:...'> tags. */
+        if (strlen($desc) < self::MAX_DESC_SIZE) {
+            $this->desc = UserInputFilter::purifyHtmlString($desc);
+        }
+    }
+
+    /**
+     * @param Ambigous <string, unknown> $hint
+     */
+    public function setHint($hint)
+    {
+        $this->hint = strip_tags($hint);
+    }
+
+    /**
+     * @param Ambigous <string, unknown> $short_desc
+     */
+    public function setShortDesc($short_desc)
+    {
+        $this->short_desc = strip_tags($short_desc);
+    }
+
+    /**
+     * @param Ambigous <string, unknown> $rr_comment
+     */
+    public function setRrComment($rr_comment)
+    {
+        $this->rr_comment = $rr_comment;
+    }
+
+    /**
+     * @param Ambigous <string, unknown> $reactivationRule
+     */
+    public function setReactivationRule($reactivationRule)
+    {
+        $this->reactivationRule = $reactivationRule;
+    }
+
 }
+

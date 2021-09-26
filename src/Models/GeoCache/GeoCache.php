@@ -1776,5 +1776,15 @@ class GeoCache extends GeoCacheCommons
         return $this->lastLog;
     }
 
-
+    /**
+     * Returns TRUE if given user is an owner of this geocache
+     *
+     * @param User $user
+     *
+     * @return bool
+     */
+    public function isOwnedBy(User $user): bool
+    {
+        return $user->getUserId() == $this->getOwnerId();
+    }
 }

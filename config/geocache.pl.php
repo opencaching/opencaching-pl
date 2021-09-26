@@ -40,6 +40,6 @@ $geocache['reactivationRulesEnabled'] = false;
  * If the list is empty only custom (user defined) option will be active.
  */
 $geocache['reactivationRulesPredefinedOpts'] = [
-    'editCache_reactivRuleOptNoReactivations',
-    'editCache_reactivRuleOptAfterContact',
-    'editCache_reactivRuleOptReactAllowed'];
+    'editDesc_reactivRuleOptNoReactivations',
+    'editDesc_reactivRuleOptAfterContact',
+    'editDesc_reactivRuleOptReactAllowed'];

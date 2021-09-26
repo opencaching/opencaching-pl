@@ -711,14 +711,33 @@ $(document).ready(function(){
             </td>
         </tr>
 
-        <?php if(OcConfig::isReactivationRulesEnabled()) { ?>
-        <tr>
-          <td colspan="2">
-            <!-- reactivation rules -->
-            <?=$view->callSubTpl("/cacheEdit/reactivationRules")?>
-          </td>
-        </tr>
+        <?php if (OcConfig::isReactivationRulesEnabled()) { ?>
+          <tr><td colspan="2">
+            <fieldset class="form-group-sm reactivationRules">
+              <legend class="content-title-noshade"><?=tr('editDesc_reactivRulesLabel')?></legend>
+              <p>
+                <?=tr('editDesc_reactivRulesDesc')?>
+                <div class="notice buffer"><?=tr('editDesc_reactivRulesMoreInfo')?></div>
+              </p>
+
+              <?php
+              foreach(OcConfig::getReactivationRulesPredefinedOpts() as $key => $opt) { ?>
+                <?php $optTxt = tr($opt);?>
+                <input type="radio" id="reactivRules<?=$key?>" name="reactivRules" value="<?=$optTxt?>" required
+                <?=($optTxt == $view->reactivRulesRadio)?"checked":""?>>
+                <label for="reactivRules<?=$key?>"><?=$optTxt?></label>
+                <br/>
+              <?php } // foreach - OcConfig::getReactivationRulesPredefinedOpts() ?>
+
+              <input type="radio" id="reactivRulesCustom" name="reactivRules" value="Custom rulset">
+              <label for="reactivRulesCustom"><?=tr('editDesc_reactivRuleCustomDefinition')?>:</label>
+
+              <textarea placeholder="<?=tr('editDesc_reactivRuleCustomDefinition')?>" id="reactivRulesCustom"
+                        class="customReactivation" name="reactivRulesCustom"><?=$view->reactivRulesCustom?></textarea>
+            </fieldset>
+          </td></tr>
         <?php } // if-OcConfig::isReactivationRulesEnabled() ?>
+
         <tr>
             <td colspan="2"><div class="content2-container bg-blue02">
                     <p class="content-title-noshade-size1"><img src="/images/blue/crypt.png" class="icon32" alt=""/>

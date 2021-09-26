@@ -23,7 +23,7 @@
     <?php } ?>
     <?php if ($errorMsg) { ?>
         <br />
-        <p><b>--- Additional Information for developers, only displayed if /confif/site::debugModeEnabled is true ---</b></p>
+        <p><b>--- Additional Information for developers, only displayed if /config/site::debugModeEnabled is true ---</b></p>
         <p><?= nl2br($errorMsg) ?></p>
     <?php } ?>
 </body>
