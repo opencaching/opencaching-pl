@@ -144,6 +144,8 @@ $translations = array(
     'password' => 'Contrasena',
     'logged_as' => 'Firmado en como',
     'viewCache_switchCoordsFormat' => 'Las coordenadas de los otros sistemas',
+    'viewCache_reactivationRulesBoxLabel' => 'Rules of reactivation',
+    'viewCache_reactivationRulesBoxNotice' => 'Read more about reactivation of geocaches <a href="%s">here</a>',
     'size' => 'Tamano',
     'time' => 'Tiempo',
     'length' => 'Distancia',
@@ -261,12 +263,9 @@ $translations = array(
     'distance_incorrect' => 'Habida cuenta de la distancia en el formato incorrecto. Formato válido: aa.aaa',
     'date_incorrect' => 'Formato de fecha no es válida. Valida el formato: DD-MM-AAAA',
     'no_cache_name' => 'No hay nombre de la casilla',
-    'new_cache_no_terms' => 'El cuadro no era zarejstrowana, ya que no comprueba, usted acepta los términos de servicios y Opencaching ES',
-    'html_incorrect' => 'Este HTML no está permitido.',
     'descwp_incorrect' => 'No description.',
     'type_incorrect' => 'Ningún tipo caja',
     'typewp_incorrect' => 'No waypoint selected!',
-    'stage_incorrect' => 'Stage number is incorrect!',
     'size_incorrect' => 'No de tamano de buzón!',
     'diff_incorrect' => 'El nivel de dificultad, está mal!',
     'status_incorrect' => 'Status does not match published data.',
@@ -490,7 +489,6 @@ $translations = array(
     'number_of_caches' => 'Number of caches',
     'ranking' => 'Rank',
     'submit' => 'Submit',
-    'edit_cache_description' => 'Edit cache description for:',
     'short_description' => 'Short description',
     'geocaching_com_foto_info' => 'Please do NOT use pictures from geocaching.com unless you own them.',
     'hint_info' => 'Additional hints',
@@ -3077,6 +3075,32 @@ $translations = array(
     'editCache_orderPicsSaveSuccess' => 'Pics order has been changed',
 
 
+    'editDesc_title' => 'Edit description of geocache:',
+    'editDesc_langLabel' => 'Language of description',
+    'editDesc_langEmptyOpt' => 'Select language',
+    'editDesc_showAllLangs' => 'Show all languages',
+    'editDesc_shortDescLabel' => 'Short description',
+    'editDesc_shortDescNotice' => 'Enter a brief, one-line description of the cache here (maximum 120 characters).<br />You might think of it as a "tag line".',
+    'editDesc_fullDesc' => 'Full description',
+    'editDesc_gcPicNotice' => 'Please do NOT use pictures from geocaching.com unless you own them.',
+    'editDesc_hintLabel' => 'Additional hints',
+    'editDesc_hintDesc' => 'Optional encoded hint. This is NOT required, but can be useful. <br />You can write some additional hints here. Please be brief.',
+    'editDesc_hintChars' => 'Use only letters from the English alphabet and/or numbers.<br />Anything written within <code>[square brackets]</code> will be shown unencoded.',
+
+    'editDesc_reactivRulesTitle' => 'Rules for further reactivations',
+    'editDesc_reactivRulesLabel' => 'Reactivation rules',
+    'editDesc_reactivRulesDesc' => 'Rules selected below are automatically displayed at the bottom of the geocache description.',
+    'editDesc_reactivRulesMoreInfo' => 'More information about reactivation can be found <a href="">HERE-TODO</a>',
+
+    'editDesc_reactivRuleOptNoReactivations' => 'Reactivation is prohibited and there is no exception',
+    'editDesc_reactivRuleOptAfterContact' => 'Reactivation is possible <b>only after direct contact</b> with geocache author/owner',
+    'editDesc_reactivRuleOptReactAllowed' => 'Reactivation is possible but it <b>must be sure</b> that geocache is gone',
+    'editDesc_reactivRuleCustomDefinition' => 'Your own reactivation rules can be paste here',
+    'editDesc_reactivRuleCustomDefinition' => 'Your own reactivation rules can be paste here',
+
+    'editDesc_invalidRactivRule' => 'Please select any reactivation rule',
+
+
     'vote_criteriaNotPassed' => 'Currently logged user account doesn\'t pass criteria of participation in voting',
     'vote_electionOpenUntil' => 'This election is open until',
     'vote_electionWillBeOpen' => 'This election will be open',
@@ -3111,4 +3135,7 @@ $translations = array(
     'vote_elListThStart' => 'Start of election',
     'vote_elListThEnd' => 'End of election',
     'vote_optionsToChoose' => 'Options to choose from',
+
+
+
 );
