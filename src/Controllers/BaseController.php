@@ -3,9 +3,6 @@
 namespace src\Controllers;
 
 use src\Controllers\Core\CoreController;
-use src\Models\ApplicationContainer;
-use src\Models\User\User;
-use src\Models\OcConfig\OcConfig;
 use src\Utils\View\View;
 use src\Utils\Uri\Uri;
 

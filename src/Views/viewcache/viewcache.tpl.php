@@ -1,12 +1,25 @@
 <?php
-use src\Models\Coordinates\Coordinates;
-use src\Models\GeoKret\GeoKretyApi;
-use src\Models\GeoCache\GeoCacheLogCommons;
-use src\Utils\Uri\SimpleRouter;
-use src\Utils\Text\UserInputFilter;
-use src\Utils\Text\Formatter;
 use src\Controllers\MainMapController;
 use src\Controllers\ViewCacheController;
+use src\Models\Coordinates\Coordinates;
+use src\Models\GeoCache\GeoCacheLogCommons;
+use src\Models\GeoKret\GeoKretyApi;
+use src\Utils\Text\Formatter;
+use src\Utils\Text\UserInputFilter;
+use src\Utils\Uri\SimpleRouter;
+use src\Utils\View\View;
+use src\Models\OcConfig\OcConfig;
+use src\Models\GeoCache\GeoCache;
+use src\Models\GeoCache\GeoCacheDesc;
+
+/** @var $view View */
+
+/** @var $geocache GeoCache */
+$geocache = $view->geoCache;
+
+/** @var $desc GeoCacheDesc */
+$desc = $view->geoCacheDesc;
+
 ?>
 <link rel="stylesheet" href="/css/lightTooltip.css">
 
@@ -547,7 +560,7 @@ use src\Controllers\ViewCacheController;
         <?php } //foreach-available-desc-langs ?>
     </span>
     <?php if ($view->isUserAuthorized && $view->showEditButton) { ?>
-        <a class="btn btn-success btn-sm" href="editdesc.php?descid=<?=$view->geoCacheDesc->getId()?>">
+        <a class="btn btn-success btn-sm" href="/CacheDesc/edit/<?=$geocache->getWaypointId()?>/<?=$desc->getLang()?>">
             <img src="images/actions/edit-16.png" alt="">&nbsp;<?=tr('edit_description')?>
         </a>
     <?php } //if-is-user-authorized-and-show-edit-button?>
@@ -569,6 +582,18 @@ use src\Controllers\ViewCacheController;
     <div id="viewcache-description">
         <?=$view->geoCacheDesc->getDescToDisplay()?>
     </div>
+
+    <?php if (!empty($view->geoCacheDesc->getReactivationRules())) { ?>
+    <!-- reactivation rules comments: -->
+    <div>
+        <fieldset class="reactivationRuleBox">
+            <legend><?=tr('viewCache_reactivationRulesBoxLabel')?></legend>
+            <?=$view->geoCacheDesc->getReactivationRules()?>
+            <div class="notice"><?=tr('viewCache_reactivationRulesBoxNotice',
+                                      [OcConfig::getWikiLink('geocacheRactivation')])?></div>
+        </fieldset>
+    </div>
+<?php } // if-admin-comment ?>
 </div>
 
 <?php if ( !is_null($view->openChecker) ) { ?>
@@ -700,6 +725,7 @@ use src\Controllers\ViewCacheController;
         </div>
     </div>
 <?php } // if-hint-present ?>
+
 
 
 <?php if ($view->cacheCoordsModificationAllowed) { ?>
@@ -902,7 +928,7 @@ use src\Controllers\ViewCacheController;
     </div>
     <div class="content2-container">
         <div id="viewcache-pictures">
-            <?php foreach ($view->picturesToDisplay as $key => $pic) { ?>
+            <?php foreach ($view->picturesToDisplay as $pic) { ?>
 
                 <div class="viewcache-pictureblock">
                     <div class="img-shadow">

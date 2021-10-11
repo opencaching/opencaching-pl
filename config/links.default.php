@@ -53,3 +53,5 @@ $links['wiki']['ratingDesc'] = $_wiki . '/index.php/Oceny_skrzynek';
 $links['wiki']['ratingDesc_en'] = $_wiki . '/index.php/Cache_rating';
 $links['wiki']['rules'] = $_wiki . '/index.php/Regulamin_OC_PL';
 $links['wiki']['rules_en'] = $_wiki . '/index.php/OC_PL_Conditions_of_Use';
+$links['wiki']['geocacheRactivation'] = $_wiki . '/index.php/Reaktywacja_skrzynki';
+

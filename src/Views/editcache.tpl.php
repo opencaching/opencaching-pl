@@ -410,7 +410,13 @@ use src\Utils\View\View;
         <tr>
             <td colspan="2">
                 <div class="content2-container bg-blue02"><p class="content-title-noshade-size1"><img src="/images/blue/describe.png" class="icon32" alt=""/>&nbsp;{{descriptions}}</p></div>
-                <div class="content2-newline"><p class="content-title-noshade"><img src="images/actions/list-add-20.png" align="middle" border="0" alt="" title="Dodaj nowy opis"/>&nbsp;<a href="newdesc.php?cacheid={cacheid_urlencode}" onclick="return check_if_proceed();">{{add_new_desc}}</a></p></div>
+                <div class="content2-newline">
+                  <p class="content-title-noshade">
+                  <img src="images/actions/list-add-20.png" align="middle" border="0" alt="" title="Dodaj nowy opis"/>
+                  &nbsp;
+                  <a href="/CacheDesc/edit/<?=$view->geocache->getWaypointId()?>" onclick="return check_if_proceed();">{{add_new_desc}}</a>
+                  </p>
+                </div>
             </td>
         </tr>
         <tr><td class="buffer" colspan="2"></td></tr>
