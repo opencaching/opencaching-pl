@@ -144,6 +144,8 @@ $translations = array(
     'password' => 'crwdns5742:0crwdne5742:0',
     'logged_as' => 'crwdns5743:0crwdne5743:0',
     'viewCache_switchCoordsFormat' => 'crwdns5744:0crwdne5744:0',
+    'viewCache_reactivationRulesBoxLabel' => 'crwdns27391:0crwdne27391:0',
+    'viewCache_reactivationRulesBoxNotice' => 'crwdns27393:0%scrwdne27393:0',
     'size' => 'crwdns5745:0crwdne5745:0',
     'time' => 'crwdns5746:0crwdne5746:0',
     'length' => 'crwdns5747:0crwdne5747:0',
@@ -261,12 +263,9 @@ $translations = array(
     'distance_incorrect' => 'crwdns5862:0crwdne5862:0',
     'date_incorrect' => 'crwdns5863:0crwdne5863:0',
     'no_cache_name' => 'crwdns5864:0crwdne5864:0',
-    'new_cache_no_terms' => 'crwdns5865:0{site_name}crwdne5865:0',
-    'html_incorrect' => 'crwdns5866:0crwdne5866:0',
     'descwp_incorrect' => 'crwdns5867:0crwdne5867:0',
     'type_incorrect' => 'crwdns5868:0crwdne5868:0',
     'typewp_incorrect' => 'crwdns5869:0crwdne5869:0',
-    'stage_incorrect' => 'crwdns5870:0crwdne5870:0',
     'size_incorrect' => 'crwdns5871:0crwdne5871:0',
     'diff_incorrect' => 'crwdns5872:0crwdne5872:0',
     'status_incorrect' => 'crwdns5873:0crwdne5873:0',
@@ -490,7 +489,6 @@ $translations = array(
     'number_of_caches' => 'crwdns6085:0crwdne6085:0',
     'ranking' => 'crwdns26340:0crwdne26340:0',
     'submit' => 'crwdns6087:0crwdne6087:0',
-    'edit_cache_description' => 'crwdns6088:0crwdne6088:0',
     'short_description' => 'crwdns6089:0crwdne6089:0',
     'geocaching_com_foto_info' => 'crwdns6092:0crwdne6092:0',
     'hint_info' => 'crwdns6093:0crwdne6093:0',
@@ -3077,6 +3075,32 @@ $translations = array(
     'editCache_orderPicsSaveSuccess' => 'crwdns27264:0crwdne27264:0',
 
 
+    'editDesc_title' => 'crwdns27395:0crwdne27395:0',
+    'editDesc_langLabel' => 'crwdns27397:0crwdne27397:0',
+    'editDesc_langEmptyOpt' => 'crwdns27399:0crwdne27399:0',
+    'editDesc_showAllLangs' => 'crwdns27401:0crwdne27401:0',
+    'editDesc_shortDescLabel' => 'crwdns27403:0crwdne27403:0',
+    'editDesc_shortDescNotice' => 'crwdns27405:0crwdne27405:0',
+    'editDesc_fullDesc' => 'crwdns27407:0crwdne27407:0',
+    'editDesc_gcPicNotice' => 'crwdns27409:0crwdne27409:0',
+    'editDesc_hintLabel' => 'crwdns27411:0crwdne27411:0',
+    'editDesc_hintDesc' => 'crwdns27413:0crwdne27413:0',
+    'editDesc_hintChars' => 'crwdns27415:0crwdne27415:0',
+
+    'editDesc_reactivRulesTitle' => 'crwdns27417:0crwdne27417:0',
+    'editDesc_reactivRulesLabel' => 'crwdns27419:0crwdne27419:0',
+    'editDesc_reactivRulesDesc' => 'crwdns27421:0crwdne27421:0',
+    'editDesc_reactivRulesMoreInfo' => 'crwdns27423:0crwdne27423:0',
+
+    'editDesc_reactivRuleOptNoReactivations' => 'crwdns27425:0crwdne27425:0',
+    'editDesc_reactivRuleOptAfterContact' => 'crwdns27427:0crwdne27427:0',
+    'editDesc_reactivRuleOptReactAllowed' => 'crwdns27429:0crwdne27429:0',
+    'editDesc_reactivRuleCustomDefinition' => 'crwdns27431:0crwdne27431:0',
+    'editDesc_reactivRuleCustomDefinition' => 'crwdns27433:0crwdne27433:0',
+
+    'editDesc_invalidRactivRule' => 'crwdns27435:0crwdne27435:0',
+
+
     'vote_criteriaNotPassed' => 'crwdns27282:0crwdne27282:0',
     'vote_electionOpenUntil' => 'crwdns27284:0crwdne27284:0',
     'vote_electionWillBeOpen' => 'crwdns27286:0crwdne27286:0',
@@ -3111,4 +3135,7 @@ $translations = array(
     'vote_elListThStart' => 'crwdns27344:0crwdne27344:0',
     'vote_elListThEnd' => 'crwdns27346:0crwdne27346:0',
     'vote_optionsToChoose' => 'crwdns27358:0crwdne27358:0',
+
+
+
 );
