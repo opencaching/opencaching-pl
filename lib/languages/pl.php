@@ -144,6 +144,8 @@ $translations = array(
     'password' => 'Hasło',
     'logged_as' => 'Zalogowany jako',
     'viewCache_switchCoordsFormat' => 'Zmień format współrzędnych',
+    'viewCache_reactivationRulesBoxLabel' => 'Zasady reaktywacji',
+    'viewCache_reactivationRulesBoxNotice' => 'Read more about reactivation of geocaches <a href="%s">here</a>',
     'size' => 'Wielkość',
     'time' => 'Czas',
     'length' => 'Długość trasy',
@@ -261,12 +263,9 @@ $translations = array(
     'distance_incorrect' => 'Podano odległość w niepoprawnym formacie. Prawidłowy format: aa.aaa',
     'date_incorrect' => 'Data ma niepoprawny format. Prawidłowy format: DD-MM-RRRR HH:MM',
     'no_cache_name' => 'Brak nazwy skrzynki',
-    'new_cache_no_terms' => 'Skrzynka nie została zarejestrowana, gdyż nie zaznaczyłeś, że zapoznałeś się i akceptujesz regulamin serwisu {site_name}.',
-    'html_incorrect' => 'Ten kod HTML jest niedozwolony.',
     'descwp_incorrect' => 'Brak opisu.',
     'type_incorrect' => 'Brak typu skrzynki!',
     'typewp_incorrect' => 'Wybierz typ waypointa.',
-    'stage_incorrect' => 'Nieprawidłowy numer etapu.',
     'size_incorrect' => 'Brak wielkości skrzynki!',
     'diff_incorrect' => 'Poziom trudności jest niepoprawny!',
     'status_incorrect' => 'Status skrzynki nie pasuje do opcji publikacji.',
@@ -490,7 +489,6 @@ $translations = array(
     'number_of_caches' => 'Liczba skrzynek',
     'ranking' => 'Pozycja',
     'submit' => 'Wyślij',
-    'edit_cache_description' => 'Edycja opisu skrzynki',
     'short_description' => 'Krótki opis',
     'geocaching_com_foto_info' => 'Proszę nie używać obrazków z geocaching.com.',
     'hint_info' => 'Dodatkowe informacje, które będą kodowane',
@@ -3077,6 +3075,32 @@ $translations = array(
     'editCache_orderPicsSaveSuccess' => 'Kolejność obrazków została zmieniona',
 
 
+    'editDesc_title' => 'Edit description of geocache:',
+    'editDesc_langLabel' => 'Language of description',
+    'editDesc_langEmptyOpt' => 'Select language',
+    'editDesc_showAllLangs' => 'Show all languages',
+    'editDesc_shortDescLabel' => 'Short description',
+    'editDesc_shortDescNotice' => 'Enter a brief, one-line description of the cache here (maximum 120 characters).<br />You might think of it as a "tag line".',
+    'editDesc_fullDesc' => 'Full description',
+    'editDesc_gcPicNotice' => 'Please do NOT use pictures from geocaching.com unless you own them.',
+    'editDesc_hintLabel' => 'Additional hints',
+    'editDesc_hintDesc' => 'Optional encoded hint. This is NOT required, but can be useful. <br />You can write some additional hints here. Please be brief.',
+    'editDesc_hintChars' => 'Use only letters from the English alphabet and/or numbers.<br />Anything written within <code>[square brackets]</code> will be shown unencoded.',
+
+    'editDesc_reactivRulesTitle' => 'Rules for further reactivations',
+    'editDesc_reactivRulesLabel' => 'Reactivation rules',
+    'editDesc_reactivRulesDesc' => 'Rules selected below are automatically displayed at the bottom of the geocache description.',
+    'editDesc_reactivRulesMoreInfo' => 'More information about reactivation can be found <a href="">HERE-TODO</a>',
+
+    'editDesc_reactivRuleOptNoReactivations' => 'Reactivation is prohibited and there is no exception',
+    'editDesc_reactivRuleOptAfterContact' => 'Reactivation is possible <b>only after direct contact</b> with geocache author/owner',
+    'editDesc_reactivRuleOptReactAllowed' => 'Reactivation is possible but it <b>must be sure</b> that geocache is gone',
+    'editDesc_reactivRuleCustomDefinition' => 'Your own reactivation rules can be paste here',
+    'editDesc_reactivRuleCustomDefinition' => 'Your own reactivation rules can be paste here',
+
+    'editDesc_invalidRactivRule' => 'Please select any reactivation rule',
+
+
     'vote_criteriaNotPassed' => 'Aktualnie zalogowany użytkownik nie spełnia kryteriów udziału w głosowaniu',
     'vote_electionOpenUntil' => 'Głosowanie trwa do',
     'vote_electionWillBeOpen' => 'Głosowanie trwa',
@@ -3111,4 +3135,7 @@ $translations = array(
     'vote_elListThStart' => 'Rozpoczęcie wyborów',
     'vote_elListThEnd' => 'Zakończenie wyborów',
     'vote_optionsToChoose' => 'Opcje wyboru',
+
+
+
 );
