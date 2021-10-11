@@ -144,6 +144,8 @@ $translations = array(
     'password' => 'Hasło',
     'logged_as' => 'Zalogowany jako',
     'viewCache_switchCoordsFormat' => 'Zmień format współrzędnych',
+    'viewCache_reactivationRulesBoxLabel' => 'Zasady reaktywacji',
+    'viewCache_reactivationRulesBoxNotice' => 'Przeczytaj więcej o reaktywacji skrzynek <a href="%s">TUTAJ</a>',
     'size' => 'Wielkość',
     'time' => 'Czas',
     'length' => 'Długość trasy',
@@ -261,12 +263,9 @@ $translations = array(
     'distance_incorrect' => 'Podano odległość w niepoprawnym formacie. Prawidłowy format: aa.aaa',
     'date_incorrect' => 'Data ma niepoprawny format. Prawidłowy format: DD-MM-RRRR HH:MM',
     'no_cache_name' => 'Brak nazwy skrzynki',
-    'new_cache_no_terms' => 'Skrzynka nie została zarejestrowana, gdyż nie zaznaczyłeś, że zapoznałeś się i akceptujesz regulamin serwisu {site_name}.',
-    'html_incorrect' => 'Ten kod HTML jest niedozwolony.',
     'descwp_incorrect' => 'Brak opisu.',
     'type_incorrect' => 'Brak typu skrzynki!',
     'typewp_incorrect' => 'Wybierz typ waypointa.',
-    'stage_incorrect' => 'Nieprawidłowy numer etapu.',
     'size_incorrect' => 'Brak wielkości skrzynki!',
     'diff_incorrect' => 'Poziom trudności jest niepoprawny!',
     'status_incorrect' => 'Status skrzynki nie pasuje do opcji publikacji.',
@@ -490,7 +489,6 @@ $translations = array(
     'number_of_caches' => 'Liczba skrzynek',
     'ranking' => 'Pozycja',
     'submit' => 'Wyślij',
-    'edit_cache_description' => 'Edycja opisu skrzynki',
     'short_description' => 'Krótki opis',
     'geocaching_com_foto_info' => 'Proszę nie używać obrazków z geocaching.com.',
     'hint_info' => 'Dodatkowe informacje, które będą kodowane',
@@ -3077,6 +3075,32 @@ $translations = array(
     'editCache_orderPicsSaveSuccess' => 'Kolejność obrazków została zmieniona',
 
 
+    'editDesc_title' => 'Edytuj opis skrzynki:',
+    'editDesc_langLabel' => 'Język opisu',
+    'editDesc_langEmptyOpt' => 'Wybierz język',
+    'editDesc_showAllLangs' => 'Pokaż wszystkie języki',
+    'editDesc_shortDescLabel' => 'Krótki opis',
+    'editDesc_shortDescNotice' => 'Wprowadź krótki, jednoliniowy opis skrzynki (maksymalnie 120 znaków).<br />Możesz to być np. motto skrzynki.',
+    'editDesc_fullDesc' => 'Pełen opis',
+    'editDesc_gcPicNotice' => 'Proszę NIE używać zdjęć z geocaching.com, chyba że jesteś ich właścicielem.',
+    'editDesc_hintLabel' => 'Dodatkowa podpowiedź',
+    'editDesc_hintDesc' => 'Opcjonalne, kodowane wskazówki. To NIE jest wymagane, ale może być przydatne. <br />Wskazówki powinny być zwięzłe.',
+    'editDesc_hintChars' => 'Używaj tylko liter z alfabetu angielskiego i / lub cyfr. <br /> Wszystko napisane w <code>[nawiasach kwadratowych]</code> pozostanie odkodowane.',
+
+    'editDesc_reactivRulesTitle' => 'Zasady ewentualnych reaktywacji',
+    'editDesc_reactivRulesLabel' => 'Reguły reaktywacji',
+    'editDesc_reactivRulesDesc' => 'Wybrane poniżej reguły są automatycznie wyświetlane pod opisem skrzynki.',
+    'editDesc_reactivRulesMoreInfo' => 'Więcej informacji o reaktywacji można znaleźć <a href="%s">TUTAJ</a>',
+
+    'editDesc_reactivRuleOptNoReactivations' => 'Reaktywacja jest zabroniona i nie ma od tego wyjątków.',
+    'editDesc_reactivRuleOptAfterContact' => 'Reaktywacja jest możliwa <b>tylko po bezpośrednim kontakcie</b> z autorem/właścicielem skrzynki',
+    'editDesc_reactivRuleOptReactAllowed' => 'Reaktywacja jest możliwa, <b>o ile istnieje pewność</b>, że skrzynka zaginęła',
+    'editDesc_reactivRuleCustomDefinition' => 'Podaj Twoje własne reguły reaktywacji',
+    'editDesc_reactivRuleCustomDefinition' => 'Twoje własne reguły reaktywacji można wkleić tutaj',
+
+    'editDesc_invalidRactivRule' => 'Please select any reactivation rule',
+
+
     'vote_criteriaNotPassed' => 'Aktualnie zalogowany użytkownik nie spełnia kryteriów udziału w głosowaniu',
     'vote_electionOpenUntil' => 'Głosowanie trwa do',
     'vote_electionWillBeOpen' => 'Głosowanie trwa',
@@ -3111,4 +3135,7 @@ $translations = array(
     'vote_elListThStart' => 'Rozpoczęcie wyborów',
     'vote_elListThEnd' => 'Zakończenie wyborów',
     'vote_optionsToChoose' => 'Opcje wyboru',
+
+
+
 );

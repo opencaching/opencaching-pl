@@ -144,6 +144,8 @@ $translations = array(
     'password' => 'Wachtwoord',
     'logged_as' => 'Ingelogd als',
     'viewCache_switchCoordsFormat' => 'Andere coördinaatstelsels',
+    'viewCache_reactivationRulesBoxLabel' => 'Rules of reactivation',
+    'viewCache_reactivationRulesBoxNotice' => 'Read more about reactivation of geocaches <a href="%s">here</a>',
     'size' => 'Grootte',
     'time' => 'Tijd',
     'length' => 'Lengte',
@@ -261,12 +263,9 @@ $translations = array(
     'distance_incorrect' => 'Incorrecte afstand. Invoer formaat: aa.aaa',
     'date_incorrect' => 'Datum niet correct. Invoer formaat: DD-MM-JJJJ',
     'no_cache_name' => 'De cache heeft geen naam',
-    'new_cache_no_terms' => 'Bevestig dat de Gebruikersovereenkomst van {site_name} gelezen is',
-    'html_incorrect' => 'Deze HTML code is niet toegestaan.',
     'descwp_incorrect' => 'Geen beschrijving ingevuld.',
     'type_incorrect' => 'Cache soort is niet correct!',
     'typewp_incorrect' => 'Geen waypoint geselecteerd!',
-    'stage_incorrect' => 'WP nummer is niet correct!',
     'size_incorrect' => 'Cache grootte is niet correct!',
     'diff_incorrect' => 'Moeilijkheid is niet correct!',
     'status_incorrect' => 'Status komt niet overeen met publicatiegegevens.',
@@ -490,7 +489,6 @@ $translations = array(
     'number_of_caches' => 'Totaal aantal caches',
     'ranking' => 'Rang',
     'submit' => 'Verzenden',
-    'edit_cache_description' => 'Bewerk de cache beschrijving voor:',
     'short_description' => 'Korte omschrijving',
     'geocaching_com_foto_info' => 'Gebruik GEEN afbeeldingen van geocaching.com behalve als je er eigenaar van bent.',
     'hint_info' => 'Extra hint',
@@ -3077,6 +3075,32 @@ $translations = array(
     'editCache_orderPicsSaveSuccess' => 'Volgorde foto\'s is gewijzigd',
 
 
+    'editDesc_title' => 'Edit description of geocache:',
+    'editDesc_langLabel' => 'Language of description',
+    'editDesc_langEmptyOpt' => 'Select language',
+    'editDesc_showAllLangs' => 'Show all languages',
+    'editDesc_shortDescLabel' => 'Short description',
+    'editDesc_shortDescNotice' => 'Enter a brief, one-line description of the cache here (maximum 120 characters).<br />You might think of it as a "tag line".',
+    'editDesc_fullDesc' => 'Full description',
+    'editDesc_gcPicNotice' => 'Please do NOT use pictures from geocaching.com unless you own them.',
+    'editDesc_hintLabel' => 'Additional hints',
+    'editDesc_hintDesc' => 'Optional encoded hint. This is NOT required, but can be useful. <br />You can write some additional hints here. Please be brief.',
+    'editDesc_hintChars' => 'Use only letters from the English alphabet and/or numbers.<br />Anything written within <code>[square brackets]</code> will be shown unencoded.',
+
+    'editDesc_reactivRulesTitle' => 'Rules for further reactivations',
+    'editDesc_reactivRulesLabel' => 'Reactivation rules',
+    'editDesc_reactivRulesDesc' => 'Rules selected below are automatically displayed at the bottom of the geocache description.',
+    'editDesc_reactivRulesMoreInfo' => 'More information about reactivation can be found <a href="">HERE-TODO</a>',
+
+    'editDesc_reactivRuleOptNoReactivations' => 'Reactivation is prohibited and there is no exception',
+    'editDesc_reactivRuleOptAfterContact' => 'Reactivation is possible <b>only after direct contact</b> with geocache author/owner',
+    'editDesc_reactivRuleOptReactAllowed' => 'Reactivation is possible but it <b>must be sure</b> that geocache is gone',
+    'editDesc_reactivRuleCustomDefinition' => 'Your own reactivation rules can be paste here',
+    'editDesc_reactivRuleCustomDefinition' => 'Your own reactivation rules can be paste here',
+
+    'editDesc_invalidRactivRule' => 'Please select any reactivation rule',
+
+
     'vote_criteriaNotPassed' => 'Momenteel ingelogde gebruikersaccount is niet toegankelijk voor deelname aan de stemming',
     'vote_electionOpenUntil' => 'Deze verkiezing is open tot',
     'vote_electionWillBeOpen' => 'Deze verkiezing zal open zijn',
@@ -3111,4 +3135,7 @@ $translations = array(
     'vote_elListThStart' => 'Begin van de verkiezing',
     'vote_elListThEnd' => 'Einde van de verkiezing',
     'vote_optionsToChoose' => 'Opties om uit te kiezen',
+
+
+
 );
