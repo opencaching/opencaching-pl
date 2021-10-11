@@ -3098,7 +3098,7 @@ $translations = array(
     'editDesc_reactivRuleCustomDefinition' => 'Podaj Twoje własne reguły reaktywacji',
     'editDesc_reactivRuleCustomDefinition' => 'Twoje własne reguły reaktywacji można wkleić tutaj',
 
-    'editDesc_invalidRactivRule' => 'Please select any reactivation rule',
+    'editDesc_invalidRactivRule' => 'Proszę wybrać regułę reaktywacji',
 
 
     'vote_criteriaNotPassed' => 'Aktualnie zalogowany użytkownik nie spełnia kryteriów udziału w głosowaniu',
