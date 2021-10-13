@@ -59,7 +59,9 @@ $view->callChunk('tinyMCE');
       <legend class="content-title-noshade"><?=tr('editDesc_reactivRulesLabel')?></legend>
       <p>
         <?=tr('editDesc_reactivRulesDesc')?>
-        <div class="notice buffer"><?=tr('editDesc_reactivRulesMoreInfo')?></div>
+        <div class="notice buffer">
+          <?=tr('editDesc_reactivRulesMoreInfo', [OcConfig::getWikiLink('geocacheRactivation')])?>
+        </div>
       </p>
 
 
@@ -75,7 +77,7 @@ $view->callChunk('tinyMCE');
       <?php } // ?>
 
       <input type="radio" id="reactivRulesCustom" name="reactivRules" value="Custom rulset"
-      <?=(!$reactivRuleChecked)?"checked":""?> required>
+      <?=(!$reactivRuleChecked && !empty($desc->getReactivationRules()))?"checked":""?> required>
       <label for="reactivRulesCustom"><?=tr('editDesc_reactivRuleCustomDefinition')?>:</label>
 
       <textarea placeholder="<?=tr('editDesc_reactivRuleCustomDefinition')?>" id="reactivRulesCustom"

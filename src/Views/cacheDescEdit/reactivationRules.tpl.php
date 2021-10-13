@@ -11,7 +11,9 @@ use src\Utils\View\View;
       <legend><strong>&nbsp;<?=tr('editDesc_reactivRulesLabel')?>&nbsp;</strong></legend>
       <p>
         <?=tr('editDesc_reactivRulesDesc')?>
-        <div class="notice buffer"><?=tr('editDesc_reactivRulesMoreInfo')?></div>
+        <div class="notice buffer">
+          <?=tr('editDesc_reactivRulesMoreInfo', [OcConfig::getWikiLink('geocacheRactivation')])?>
+        </div>
       </p>
 
 
