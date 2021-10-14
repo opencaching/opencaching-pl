@@ -3090,7 +3090,7 @@ $translations = array(
     'editDesc_reactivRulesTitle' => 'Zasady ewentualnych reaktywacji',
     'editDesc_reactivRulesLabel' => 'Reguły reaktywacji',
     'editDesc_reactivRulesDesc' => 'Wybrane poniżej reguły są automatycznie wyświetlane pod opisem skrzynki.',
-    'editDesc_reactivRulesMoreInfo' => 'Więcej informacji o reaktywacji można znaleźć <a href="%s">TUTAJ</a>',
+    'editDesc_reactivRulesMoreInfo' => 'More information about reactivation can be found <a href="%s">HERE</a>',
 
     'editDesc_reactivRuleOptNoReactivations' => 'Reaktywacja jest zabroniona i nie ma od tego wyjątków.',
     'editDesc_reactivRuleOptAfterContact' => 'Reaktywacja jest możliwa <b>tylko po bezpośrednim kontakcie</b> z autorem/właścicielem skrzynki',
