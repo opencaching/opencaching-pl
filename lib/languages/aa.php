@@ -3090,7 +3090,7 @@ $translations = array(
     'editDesc_reactivRulesTitle' => 'crwdns27417:0crwdne27417:0',
     'editDesc_reactivRulesLabel' => 'crwdns27419:0crwdne27419:0',
     'editDesc_reactivRulesDesc' => 'crwdns27421:0crwdne27421:0',
-    'editDesc_reactivRulesMoreInfo' => 'crwdns27423:0crwdne27423:0',
+    'editDesc_reactivRulesMoreInfo' => 'crwdns27437:0%scrwdne27437:0',
 
     'editDesc_reactivRuleOptNoReactivations' => 'crwdns27425:0crwdne27425:0',
     'editDesc_reactivRuleOptAfterContact' => 'crwdns27427:0crwdne27427:0',
