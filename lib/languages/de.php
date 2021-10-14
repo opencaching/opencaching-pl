@@ -3091,7 +3091,7 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'editDesc_reactivRulesTitle' => 'Rules for further reactivations',
     'editDesc_reactivRulesLabel' => 'Reactivation rules',
     'editDesc_reactivRulesDesc' => 'Rules selected below are automatically displayed at the bottom of the geocache description.',
-    'editDesc_reactivRulesMoreInfo' => 'More information about reactivation can be found <a href="">HERE-TODO</a>',
+    'editDesc_reactivRulesMoreInfo' => 'More information about reactivation can be found <a href="%s">HERE</a>',
 
     'editDesc_reactivRuleOptNoReactivations' => 'Reactivation is prohibited and there is no exception',
     'editDesc_reactivRuleOptAfterContact' => 'Reactivation is possible <b>only after direct contact</b> with geocache author/owner',
