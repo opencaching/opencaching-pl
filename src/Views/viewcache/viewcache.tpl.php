@@ -583,7 +583,7 @@ $desc = $view->geoCacheDesc;
         <?=$view->geoCacheDesc->getDescToDisplay()?>
     </div>
 
-    <?php if (!empty($view->geoCacheDesc->getReactivationRules())) { ?>
+    <?php if (OcConfig::isReactivationRulesEnabled() && !empty($view->geoCacheDesc->getReactivationRules())) { ?>
     <!-- reactivation rules comments: -->
     <div>
         <fieldset class="reactivationRuleBox">

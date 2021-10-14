@@ -3,7 +3,6 @@
 namespace src\Models\GeoCache;
 
 use src\Utils\Email\EmailSender;
-use src\Utils\Database\XDb;
 use src\Utils\Text\SmilesInText;
 use src\Utils\Text\UserInputFilter;
 use src\Models\OcConfig\OcConfig;

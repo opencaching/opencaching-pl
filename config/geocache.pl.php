@@ -30,7 +30,7 @@ $geocache['titledCacheMinFounds'] = 12;
 /**
  * If reactivation rules are enabled (present) in geocache editor
  */
-$geocache['reactivationRulesEnabled'] = false;
+$geocache['reactivationRulesEnabled'] = true;
 
 /**
  * This has sense ONLY if option $geocache['reactivationRulesEnabled'] == true.
