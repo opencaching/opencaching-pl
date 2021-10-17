@@ -70,6 +70,14 @@ trait GeocacheConfigTrait
         return self::getKeyFromGeoCacheConfig('reactivationRulesPredefinedOpts');
     }
 
+    /**
+     * Return list of attributes supported by the node.
+     * The order is significant - the same order is used in all views.
+     */
+    public static function getSupportedAttributes(): array
+    {
+        return self::getKeyFromGeoCacheConfig('supportedAttributes');
+    }
 
     protected function getGeoCacheConfig(): array
     {
