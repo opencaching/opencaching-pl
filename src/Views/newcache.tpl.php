@@ -724,7 +724,8 @@ $(document).ready(function(){
               foreach(OcConfig::getReactivationRulesPredefinedOpts() as $key => $opt) { ?>
                 <?php $optTxt = tr($opt);?>
                 <input type="radio" id="reactivRules<?=$key?>" name="reactivRules" value="<?=$optTxt?>" required
-                <?=($optTxt == $view->reactivRulesRadio)?"checked":""?>>
+                  oninvalid="this.setCustomValidity('<?=tr('editDesc_invalidRactivRule')?>')" oninput="this.setCustomValidity('')"
+                  <?=($optTxt == $view->reactivRulesRadio)?"checked":""?>>
                 <label for="reactivRules<?=$key?>"><?=$optTxt?></label>
                 <br/>
               <?php } // foreach - OcConfig::getReactivationRulesPredefinedOpts() ?>
