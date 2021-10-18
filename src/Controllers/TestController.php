@@ -25,14 +25,14 @@ use src\Models\OcConfig\OcConfig;
 use src\Utils\Uri\SimpleRouter;
 use src\Models\Coordinates\Coordinates;
 use src\Models\Coordinates\Altitude;
-use src\Controllers\Cron\Jobs\AltitudeUpdateJob;
 use src\Utils\Database\OcDb;
 use src\Utils\DateTime\OcDateTime;
 use src\Models\Voting\ChoiceOption;
 use src\Models\Voting\Election;
 use src\Models\User\User;
+use src\Controllers\Core\ViewBaseController;
 
-class TestController extends BaseController
+class TestController extends ViewBaseController
 {
     public function __construct(){
         parent::__construct();
@@ -77,6 +77,40 @@ class TestController extends BaseController
         $this->view->setTemplate('test/testTemplate');
 
         $this->view->display();
+    }
+
+    public function attributes()
+    {
+        $this->view->setTemplate('test/attributes');
+        $this->view->loadJQuery();
+
+        $attrList = [];
+        $geocache = [];
+        $link = [];
+
+        include ('../config/geocache.pl.php');
+        $attrList['pl'] = $geocache['supportedAttributes'];
+        $link['pl'] = 'https://opencaching.pl/search.php?lang=pl';
+
+        include ('../config/geocache.nl.php');
+        $attrList['nl'] = $geocache['supportedAttributes'];
+        $link['nl'] = '';
+
+        include ('../config/geocache.ro.php');
+        $attrList['ro'] = $geocache['supportedAttributes'];
+        $link['ro'] = '';
+
+        include ('../config/geocache.uk.php');
+        $attrList['uk'] = $geocache['supportedAttributes'];
+        $link['uk'] = '';
+
+        include ('../config/geocache.us.php');
+        $attrList['us'] = $geocache['supportedAttributes'];
+        $link['us'] = '';
+
+        $this->view->setVar('link', $link);
+        $this->view->setVar('attrList', $attrList);
+        $this->view->buildView();
     }
 
     /**

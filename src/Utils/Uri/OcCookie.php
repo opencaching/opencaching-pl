@@ -2,7 +2,6 @@
 namespace src\Utils\Uri;
 
 use src\Utils\Debug\Debug;
-use src\Utils\Text\UserInputFilter;
 use src\Models\User\UserAuthorization;
 
 class OcCookie
@@ -15,6 +14,7 @@ class OcCookie
 
     /**
      * Set data in cookie uder the $key
+     * NOTE: htmlspecialchars is running when value is read from cookie
      *
      * @param string $key
      * @param mixed $value
@@ -35,6 +35,7 @@ class OcCookie
 
     /**
      * Get data from cookie stored under $key
+     * PLEASE NOTE that puryfing is done by default (by htmlspecialchars).
      *
      * @param string $key
      * @return mixed | null - null if no data
@@ -44,7 +45,7 @@ class OcCookie
         $data = self::getOcCookieData(); // init oc data
         if (isset($data->$key)) {
             if (! $skipPurifying) {
-                return UserInputFilter::purifyHtmlString($data->$key);
+                return htmlspecialchars($data->$key);
             } else {
                 return $data->$key;
             }
