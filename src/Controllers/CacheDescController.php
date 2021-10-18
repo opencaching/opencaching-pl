@@ -36,8 +36,8 @@ class CacheDescController extends ViewBaseController
             $this->displayCommonErrorPageAndExit("There is no such geocache?");
         }
 
-        if (!$geocache->isOwnedBy($this->loggedUser)) {
-            // only owner can edit cache desc.
+        if (!$geocache->isOwnedBy($this->loggedUser) && !$this->loggedUser->hasOcTeamRole()) {
+            // only owner or OCTeam can edit cache desc.
             $this->displayCommonErrorPageAndExit("Not an owner tries to edit?");
         }
 
