@@ -1,7 +1,6 @@
 <?php
 namespace src\Models\GeoCache;
 
-use src\Utils\Debug\Debug;
 use src\Models\OcConfig\OcConfig;
 
 /**
@@ -15,7 +14,6 @@ use src\Models\OcConfig\OcConfig;
  */
 class CacheAttribute
 {
-
     // attribute name = attribute ID
     /** Access or parking fee */
     public const FEE = 2;
@@ -180,6 +178,91 @@ class CacheAttribute
     /** Available at all seasons */
     public const ALLSEASONS = 9062;
 
+    // Configuration data for each attribute: translation key + icon name
+    private const CONFIG = [
+        self::FEE => ['trKey' => 'at_fee', 'icon' => 'at_fee.png'],
+        self::RAPPELING => ['trKey' => 'at_rappeling', 'icon' => 'at_rappeling.png'],
+        self::BOAT => ['trKey' => 'at_boat', 'icon' => 'at_boat.png'],
+        self::DIVING => ['trKey' => 'at_diving', 'icon' => 'at_diving.png'],
+        self::CHILDREN => ['trKey' => 'at_children', 'icon' => 'at_children.png'],
+        self::HIKING => ['trKey' => 'at_hiking', 'icon' => 'at_hiking.png'],
+        self::CLIMBING => ['trKey' => 'at_climbing', 'icon' => 'at_climbing.png'],
+        self::WADING => ['trKey' => 'at_wading', 'icon' => 'at_wading.png'],
+        self::SWIMMING => ['trKey' => 'at_swimming', 'icon' => 'at_swimming.png'],
+        self::AVAILABLE247 => ['trKey' => 'at_available247', 'icon' => 'at_available247.png'],
+        self::NIGHT => ['trKey' => 'at_night', 'icon' => 'at_night.png'],
+        self::WINTER => ['trKey' => 'at_winter', 'icon' => 'at_winter.png'],
+        self::POISON => ['trKey' => 'at_poison', 'icon' => 'at_poison.png'],
+        self::ANIMALS => ['trKey' => 'at_animals', 'icon' => 'at_animals.png'],
+        self::TICKS => ['trKey' => 'at_ticks', 'icon' => 'at_ticks.png'],
+        self::MINE => ['trKey' => 'at_mine', 'icon' => 'at_mine.png'],
+        self::CLIFF => ['trKey' => 'at_cliff', 'icon' => 'at_cliff.png'],
+        self::HUNTING => ['trKey' => 'at_hunting', 'icon' => 'at_hunting.png'],
+        self::DANGER => ['trKey' => 'at_danger', 'icon' => 'at_danger.png'],
+        self::WHEELCHAIR => ['trKey' => 'at_wheelchair', 'icon' => 'at_wheelchair.png'],
+        self::PARKING => ['trKey' => 'at_parking', 'icon' => 'at_parking.png'],
+        self::TRANSPORT => ['trKey' => 'at_transport', 'icon' => 'at_transport.png'],
+        self::WATER => ['trKey' => 'at_water', 'icon' => 'at_water.png'],
+        self::RESTROOMS => ['trKey' => 'at_restrooms', 'icon' => 'at_restrooms.png'],
+        self::PHONE => ['trKey' => 'at_phone', 'icon' => 'at_phone.png'],
+        self::BIKE => ['trKey' => 'at_bike', 'icon' => 'at_bike.png'],
+        self::THORNS => ['trKey' => 'at_thorns', 'icon' => 'at_thorns.png'],
+        self::STEALTH => ['trKey' => 'at_stealth', 'icon' => 'at_stealth.png'],
+        self::FLASHLIGHT => ['trKey' => 'at_flashlight', 'icon' => 'at_flashlight.png'],
+        self::TRUCK => ['trKey' => 'at_truck', 'icon' => 'at_truck.png'],
+        self::RIDDLE => ['trKey' => 'at_riddle', 'icon' => 'at_riddle.png'],
+        self::UV => ['trKey' => 'at_uv', 'icon' => 'at_uv.png'],
+        self::TOOLS => ['trKey' => 'at_tools', 'icon' => 'at_tools.png'],
+        self::NIGHTONLY => ['trKey' => 'at_nightonly', 'icon' => 'at_nightonly.png'],
+        self::DRIVEIN => ['trKey' => 'at_drivein', 'icon' => 'at_drivein.png'],
+        self::RUIN => ['trKey' => 'at_ruin', 'icon' => 'at_ruin.png'],
+        self::BEACON => ['trKey' => 'at_beacon', 'icon' => 'at_beacon.png'],
+        self::TREE => ['trKey' => 'at_tree', 'icon' => 'at_tree.png'],
+        self::OCONLY => ['trKey' => 'at_oconly', 'icon' => 'at_oconly.png'],
+        self::LETTERBOX => ['trKey' => 'at_letterbox', 'icon' => 'at_letterbox.png'],
+        self::TRAIN => ['trKey' => 'at_train', 'icon' => 'at_train.png'],
+        self::FIRSTAID => ['trKey' => 'at_firstaid', 'icon' => 'at_firstaid.png'],
+        self::STEEP => ['trKey' => 'at_steep', 'icon' => 'at_steep.png'],
+        self::POI => ['trKey' => 'at_poi', 'icon' => 'at_poi.png'],
+        self::MOVING => ['trKey' => 'at_moving', 'icon' => 'at_moving.png'],
+        self::WEBCAM => ['trKey' => 'at_webcam', 'icon' => 'at_webcam.png'],
+        self::INDOOR => ['trKey' => 'at_indoor', 'icon' => 'at_indoor.png'],
+        self::UNDERWATER => ['trKey' => 'at_underwater', 'icon' => 'at_underwater.png'],
+        self::NOGPS => ['trKey' => 'at_nogps', 'icon' => 'at_nogps.png'],
+        self::OVERNIGHT => ['trKey' => 'at_overnight', 'icon' => 'at_overnight.png'],
+        self::TIDE => ['trKey' => 'at_tide', 'icon' => 'at_tide.png'],
+        self::PRESERVE => ['trKey' => 'at_preserve', 'icon' => 'at_preserve.png'],
+        self::COMPASS => ['trKey' => 'at_compass', 'icon' => 'at_compass.png'],
+        self::CAVE => ['trKey' => 'at_cave', 'icon' => 'at_cave.png'],
+        self::WIKI => ['trKey' => 'at_wiki', 'icon' => 'at_wiki.png'],
+        self::MATH => ['trKey' => 'at_math', 'icon' => 'at_math.png'],
+        self::QUICK => ['trKey' => 'at_quick', 'icon' => 'at_quick.png'],
+        self::GEOHOTEL => ['trKey' => 'at_geohotel', 'icon' => 'at_geohotel.png'],
+        self::PEN => ['trKey' => 'at_pen', 'icon' => 'at_pen.png'],
+        self::MAGNETIC => ['trKey' => 'at_magnetic', 'icon' => 'at_magnetic.png'],
+        self::MP3 => ['trKey' => 'at_mp3', 'icon' => 'at_mp3.png'],
+        self::OFFSET => ['trKey' => 'at_offset', 'icon' => 'at_offset.png'],
+        self::USB => ['trKey' => 'at_usb', 'icon' => 'at_usb.png'],
+        self::BENCHMARK => ['trKey' => 'at_benchmark', 'icon' => 'at_benchmark.png'],
+        self::WHERIGO => ['trKey' => 'at_wherigo', 'icon' => 'at_wherigo.png'],
+        self::NATURE => ['trKey' => 'at_nature', 'icon' => 'at_nature.png'],
+        self::MONUMENT => ['trKey' => 'at_monument', 'icon' => 'at_monument.png'],
+        self::SHOVEL => ['trKey' => 'at_shovel', 'icon' => 'at_shovel.png'],
+        self::WALK => ['trKey' => 'at_walk', 'icon' => 'at_walk.png'],
+        self::HANDICACHING => ['trKey' => 'at_handicaching', 'icon' => 'at_handicaching.png'],
+        self::MUNZEE => ['trKey' => 'at_munzee', 'icon' => 'at_munzee.png'],
+        self::ADS => ['trKey' => 'at_ads', 'icon' => 'at_ads.png'],
+        self::MILITARY => ['trKey' => 'at_military', 'icon' => 'at_military.png'],
+        self::MONITORING => ['trKey' => 'at_monitoring', 'icon' => 'at_monitoring.png'],
+        self::TRACKABLES => ['trKey' => 'at_trackables', 'icon' => 'at_trackables.png'],
+        self::HISTORIC => ['trKey' => 'at_historic', 'icon' => 'at_historic.png'],
+        self::NODOGS => ['trKey' => 'at_nodogs', 'icon' => 'at_nodogs.png'],
+        self::NOTAVAILABLE247 => ['trKey' => 'at_notavailable247', 'icon' => 'at_notavailable247.png'],
+        self::DAY => ['trKey' => 'at_day', 'icon' => 'at_day.png'],
+        self::NOTINWINTER => ['trKey' => 'at_notinwinter', 'icon' => 'at_notinwinter.png'],
+        self::ALLSEASONS => ['trKey' => 'at_allseasons', 'icon' => 'at_allseasons.png'],
+    ];
+
     /**
      * Return translation key for given attribute
      *
@@ -188,92 +271,12 @@ class CacheAttribute
      */
     public static function getTrKey(int $attr): string
     {
-        switch ($attr) {
-            case self::FEE:  return 'at_fee';
-            case self::RAPPELING:  return 'at_rappeling';
-            case self::BOAT:  return 'at_boat';
-            case self::DIVING:  return 'at_diving';
-            case self::CHILDREN:  return 'at_children';
-            case self::HIKING:  return 'at_hiking';
-            case self::CLIMBING:  return 'at_climbing';
-            case self::WADING:  return 'at_wading';
-            case self::SWIMMING:  return 'at_swimming';
-            case self::AVAILABLE247:  return 'at_available247';
-            case self::NIGHT:  return 'at_night';
-            case self::WINTER:  return 'at_winter';
-            case self::POISON:  return 'at_poison';
-            case self::ANIMALS:  return 'at_animals';
-            case self::TICKS:  return 'at_ticks';
-            case self::MINE:  return 'at_mine';
-            case self::CLIFF:  return 'at_cliff';
-            case self::HUNTING:  return 'at_hunting';
-            case self::DANGER:  return 'at_danger';
-            case self::WHEELCHAIR:  return 'at_wheelchair';
-            case self::PARKING:  return 'at_parking';
-            case self::TRANSPORT:  return 'at_transport';
-            case self::WATER:  return 'at_water';
-            case self::RESTROOMS:  return 'at_restrooms';
-            case self::PHONE: return 'at_phone';
-            case self::BIKE:  return 'at_bike';
-            case self::THORNS:  return 'at_thorn';
-            case self::STEALTH:  return 'at_stealth';
-            case self::FLASHLIGHT:  return 'at_flashlight';
-            case self::TRUCK:  return 'at_truck';
-            case self::RIDDLE:  return 'at_riddle';
-            case self::UV:  return 'at_uv';
-            case self::TOOLS:  return 'at_tools';
-            case self::NIGHTONLY:  return 'at_nightonly';
-            case self::DRIVEIN:  return 'at_drivein';
-            case self::RUIN:  return 'at_ruin';
-            case self::BEACON:  return 'at_beacon';
-            case self::TREE:  return 'at_tree';
-            case self::OCONLY:  return 'at_oconly';
-            case self::LETTERBOX:  return 'at_letterbox';
-            case self::TRAIN:  return 'at_train';
-            case self::FIRSTAID:  return 'at_firstaid';
-            case self::STEEP:  return 'at_steep';
-            case self::POI:  return 'at_poi';
-            case self::MOVING:  return 'at_moving';
-            case self::WEBCAM:  return 'at_webcam';
-            case self::INDOOR:  return 'at_indoor';
-            case self::UNDERWATER:  return 'at_underwater';
-            case self::NOGPS:  return 'at_nogps';
-            case self::OVERNIGHT: return 'at_overnight';
-            case self::TIDE:  return 'at_tide';
-            case self::PRESERVE:  return 'at_preserve';
-            case self::COMPASS:  return 'at_compass';
-            case self::CAVE:  return 'at_cave';
-            case self::WIKI:  return 'at_wiki';
-            case self::MATH:  return 'at_math';
-            case self::QUICK:  return 'at_quick';
-            case self::GEOHOTEL:  return 'at_geohotel';
-            case self::PEN:  return 'at_pen';
-            case self::MAGNETIC:  return 'at_magnetic';
-            case self::MP3:  return 'at_mp3';
-            case self::OFFSET:  return 'at_offset';
-            case self::USB:  return 'at_usb';
-            case self::BENCHMARK:  return 'at_benchmark';
-            case self::WHERIGO:  return 'at_wherigo';
-            case self::NATURE:  return 'at_nature';
-            case self::MONUMENT:  return 'at_monument';
-            case self::SHOVEL:  return 'at_shovel';
-            case self::WALK:  return 'at_walk';
-            case self::HANDICACHING:  return 'at_handicaching';
-            case self::MUNZEE:  return 'at_munzee';
-            case self::ADS:  return 'at_ads';
-            case self::MILITARY:  return 'at_military';
-            case self::MONITORING:  return 'at_monitoring';
-            case self::TRACKABLES:  return 'at_trackables';
-            case self::HISTORIC:  return 'at_historic';
-            case self::NODOGS:  return 'at_nodogs';
-            case self::NOTAVAILABLE247:  return 'at_notAvailable247';
-            case self::DAY:  return 'at_day';
-            case self::NOTINWINTER:  return 'at_notinwinter';
-            case self::ALLSEASONS:  return 'at_allseasons';
-            default:
-                Debug::errorLog("Uknown geocache attribute: $attr");
-                return "at_oconly";
+        if (!isset(self::CONFIG[$attr])) {
+            // CONFIG is not defined for given attribute
+            throw new \Exception("Attribute is not defined: ".$attr);
         }
+
+        return self::CONFIG[$attr]['trKey'];
     }
 
     /**
@@ -285,108 +288,17 @@ class CacheAttribute
      */
     public static function getIcon(int $attr, string $subfolder=null): string
     {
+        if (!isset(self::CONFIG[$attr])) {
+            // CONFIG is not defined for given attribute
+            throw new \Exception("Attribute is not defined: ".$attr);
+        }
+
         // usually each node has it's own set of attributes icons
         if (!$subfolder) {
             $subfolder = OcConfig::getOcNode();
         }
-        return "/images/cacheAttributes/$subfolder/".self::getIconFileName($attr).'.png';
-    }
 
-    /**
-     * Return icon name for given attribute
-     *
-     * @param integer $attr - * param or ID of attribute
-     * @return string
-     */
-    private function getIconFileName(int $attr): string
-    {
-        switch ($attr) {
-            case self::FEE:  return 'at_fee';
-            case self::RAPPELING:  return 'at_rappeling';
-            case self::BOAT:  return 'at_boat';
-            case self::DIVING:  return 'at_diving';
-            case self::CHILDREN:  return 'at_children';
-            case self::HIKING:  return 'at_hiking';
-            case self::CLIMBING:  return 'at_climbing';
-            case self::WADING:  return 'at_wading';
-            case self::SWIMMING:  return 'at_swimming';
-            case self::AVAILABLE247:  return 'at_available247';
-            case self::NIGHT:  return 'at_night';
-            case self::WINTER:  return 'at_winter';
-            case self::POISON:  return 'at_poison';
-            case self::ANIMALS:  return 'at_animals';
-            case self::TICKS:  return 'at_ticks';
-            case self::MINE:  return 'at_mine';
-            case self::CLIFF:  return 'at_cliff';
-            case self::HUNTING:  return 'at_hunting';
-            case self::DANGER:  return 'at_danger';
-            case self::WHEELCHAIR:  return 'at_wheelchair';
-            case self::PARKING:  return 'at_parking';
-            case self::TRANSPORT:  return 'at_transport';
-            case self::WATER:  return 'at_water';
-            case self::RESTROOMS:  return 'at_restrooms';
-            case self::PHONE: return 'at_phone';
-            case self::BIKE:  return 'at_bike';
-            case self::THORNS:  return 'at_thorns';
-            case self::STEALTH:  return 'at_stealth';
-            case self::FLASHLIGHT:  return 'at_flashlight';
-            case self::TRUCK:  return 'at_truck';
-            case self::RIDDLE:  return 'at_riddle';
-            case self::UV:  return 'at_uv';
-            case self::TOOLS:  return 'at_tools';
-            case self::NIGHTONLY:  return 'at_nightonly';
-            case self::DRIVEIN:  return 'at_drivein';
-            case self::RUIN:  return 'at_ruin';
-            case self::BEACON:  return 'at_beacon';
-            case self::TREE:  return 'at_tree';
-            case self::OCONLY:  return 'at_oconly';
-            case self::LETTERBOX:  return 'at_letterbox';
-            case self::TRAIN:  return 'at_train';
-            case self::FIRSTAID:  return 'at_firstaid';
-            case self::STEEP:  return 'at_steep';
-            case self::POI:  return 'at_poi';
-            case self::MOVING:  return 'at_moving';
-            case self::WEBCAM:  return 'at_webcam';
-            case self::INDOOR:  return 'at_indoor';
-            case self::UNDERWATER:  return 'at_underwater';
-            case self::NOGPS:  return 'at_nogps';
-            case self::OVERNIGHT: return 'at_overnight';
-            case self::TIDE:  return 'at_tide';
-            case self::PRESERVE:  return 'at_preserve';
-            case self::COMPASS:  return 'at_compass';
-            case self::CAVE:  return 'at_cave';
-            case self::WIKI:  return 'at_wiki';
-            case self::MATH:  return 'at_math';
-            case self::QUICK:  return 'at_quick';
-            case self::GEOHOTEL:  return 'at_geohotel';
-            case self::PEN:  return 'at_pen';
-            case self::MAGNETIC:  return 'at_magnetic';
-            case self::MP3:  return 'at_mp3';
-            case self::OFFSET:  return 'at_offset';
-            case self::USB:  return 'at_usb';
-            case self::BENCHMARK:  return 'at_benchmark';
-            case self::WHERIGO:  return 'at_wherigo';
-            case self::NATURE:  return 'at_nature';
-            case self::MONUMENT:  return 'at_monument';
-            case self::SHOVEL:  return 'at_shovel';
-            case self::WALK:  return 'at_walk';
-            case self::HANDICACHING:  return 'at_handicaching';
-            case self::MUNZEE:  return 'at_munzee';
-            case self::ADS:  return 'at_ads';
-            case self::MILITARY:  return 'at_military';
-            case self::MONITORING:  return 'at_monitoring';
-            case self::TRACKABLES:  return 'at_trackables';
-            case self::HISTORIC:  return 'at_historic';
-            case self::NODOGS:  return 'at_nodogs';
-            case self::NOTAVAILABLE247:  return 'at_notavailable247';
-            case self::DAY:  return 'at_day';
-            case self::NOTINWINTER:  return 'at_notinwinter';
-            case self::ALLSEASONS:  return 'at_allseasons';
-            default:
-                Debug::errorLog("Unknown geocache attribute: $attr");
-                return "at_oconly";
-        }
+        return "/images/cacheAttributes/$subfolder/".self::CONFIG[$attr]['icon'];
     }
-
 }
 

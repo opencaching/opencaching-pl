@@ -45,8 +45,8 @@ $geocache['supportedAttributes'] = [
     CacheAttribute::HISTORIC, CacheAttribute::MOVING, CacheAttribute::WEBCAM,
     CacheAttribute::INDOOR, CacheAttribute::UNDERWATER, CacheAttribute::NOGPS,
     CacheAttribute::OVERNIGHT, CacheAttribute::TIDE, CacheAttribute::PRESERVE,
-    CacheAttribute::COMPASS, CacheAttribute::CAVE, /*CacheAttribute::AIRCRAFT,*/
-    CacheAttribute::WIKI, CacheAttribute::MATH, /*CacheAttribute::OTHER,*/
-    /*CacheAttribute::ASKOWNER,*/ CacheAttribute::HANDICACHING, CacheAttribute::MUNZEE,
+    CacheAttribute::COMPASS, CacheAttribute::CAVE,
+    CacheAttribute::WIKI, CacheAttribute::MATH,
+    CacheAttribute::HANDICACHING, CacheAttribute::MUNZEE,
     CacheAttribute::NOTAVAILABLE247, CacheAttribute::DAY, CacheAttribute::ALLSEASONS
 ];
