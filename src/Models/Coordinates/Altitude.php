@@ -80,7 +80,7 @@ class Altitude
 
     private static function getAltitudeFromDataScienceToolkit(Coordinates $coords)
     {
-        $url = "http://www.datasciencetoolkit.org/coordinates2statistics/" .
+        $url = "http://dstk.britecorepro.com/coordinates2statistics/" .
                         "{$coords->getLatitude()},{$coords->getLongitude()}?statistics=elevation";
 
         $resp = @file_get_contents($url);
