@@ -57,11 +57,12 @@ trait GeocacheConfigTrait
     {
         // temporary this is enabled only for OCTeam members
         $user = ApplicationContainer::GetAuthorizedUser();
+
         if ($user && $user->hasOcTeamRole()) {
             return self::getKeyFromGeoCacheConfig('reactivationRulesEnabled');
-        } else {
-            return false;
         }
+
+        return false;
         // return self::getKeyFromGeoCacheConfig('reactivationRulesEnabled');
     }
 
@@ -70,6 +71,23 @@ trait GeocacheConfigTrait
         return self::getKeyFromGeoCacheConfig('reactivationRulesPredefinedOpts');
     }
 
+    /**
+     * True if registering geocache visits (last visited by IP) for not
+     * logged-in visitors is enabled.
+     */
+    public static function anonymousVisitsCounted(): bool
+    {
+        return self::getKeyFromGeoCacheConfig('anonymousVisitsCounted');
+    }
+
+    /**
+     * Gets number of seconds between last visit by current user/IP and now
+     * when subsequent visits will be treated as the same visit.
+     */
+    public static function getUniqueVisitPeriod(): int
+    {
+        return self::getKeyFromGeoCacheConfig('uniqueVisitPeriod');
+    }
 
     protected function getGeoCacheConfig(): array
     {

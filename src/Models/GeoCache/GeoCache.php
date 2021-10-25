@@ -1279,13 +1279,13 @@ class GeoCache extends GeoCacheCommons
 
     public function getCacheVisits()
     {
-        return CacheVisits::GetCacheVisits($this->id);
+        return CacheVisits::getCacheVisits($this->id);
     }
 
     public function getPrePublicationVisits()
     {
         $result = MultiUserQueries::GetUserNamesForListOfIds(
-            CacheVisits::GetPrePublicationVisits($this->id));
+            CacheVisits::getPrePublicationVisits($this->id));
 
         if (empty($result)) {
             $result[] = tr('no_visits');
@@ -1295,8 +1295,8 @@ class GeoCache extends GeoCacheCommons
 
     public function incCacheVisits(User $user=null, $ip)
     {
-        if (!$user && OcConfig::coordsHiddenForNonLogged()) {
-            // don't count visits if coords are hidden
+        if (!$user && !OcConfig::anonymousVisitsCounted()) {
+            // don't count visits if anonymous visits are ignored
             return;
         }
 
@@ -1308,9 +1308,9 @@ class GeoCache extends GeoCacheCommons
         $userIdOrIp = ($user) ? $user->getUserId() : $ip;
 
         if ($this->status == self::STATUS_WAITAPPROVERS || $this->status == self::STATUS_NOTYETAVAILABLE) {
-            CacheVisits::CountCachePrePublicationVisit($userIdOrIp, $this->id);
+            CacheVisits::countCachePrePublicationVisit($userIdOrIp, $this->id);
         } else {
-            CacheVisits::CountCacheVisit($userIdOrIp, $this->id);
+            CacheVisits::countCacheVisit($userIdOrIp, $this->id);
         }
     }
 

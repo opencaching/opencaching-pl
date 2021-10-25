@@ -31,7 +31,6 @@ $geocache['enabledSizes'] = [
  */
 $geocache['noNewCachesOfTypes'] = [];
 
-
 /**
  * Titled caches algorythm period;
  * possible values: 'none' | 'week' | 'month'
@@ -62,3 +61,17 @@ $geocache['reactivationRulesEnabled'] = false;
  * If the list is empty only custom (user defined) option will be active.
  */
 $geocache['reactivationRulesPredefinedOpts'] = [];
+
+/**
+ * Enables registering geocache visits (last visited by IP) for not logged-in
+ * visitors.
+ */
+$geocache['anomymousVisitsCounted'] = false;
+
+/**
+ * Number of seconds between last visit by current user/IP and now
+ * when subsequent visits will be treated as the same visit.
+ * Should be no less than UNIQUE_VISIT_PERIOD_MINIMAL defined in
+ * src\Models\GeoCache\CacheVisits class (currently 3600)
+ */
+$geocache['uniqueVisitPeriod'] = 604800; // one week
