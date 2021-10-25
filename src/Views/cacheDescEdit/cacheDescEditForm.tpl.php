@@ -70,7 +70,7 @@ $view->callChunk('tinyMCE');
         <?php $optTxt = tr($opt);
               $reactivRuleChecked = $reactivRuleChecked || $optTxt == $desc->getReactivationRules();?>
         <input type="radio" id="reactivRules<?=$key?>" name="reactivRules" value="<?=$optTxt?>" required
-           oninvalid="this.setCustomValidity('<?=tr('editDesc_invalidRactivRule')?>')" oninput="this.setCustomValidity('')
+           oninvalid="this.setCustomValidity('<?=tr('editDesc_invalidRactivRule')?>')" oninput="this.setCustomValidity('')"
            <?=($optTxt == $desc->getReactivationRules())?"checked":""?>>
         <label for="reactivRules<?=$key?>"><?=$optTxt?></label>
         <br/>
@@ -78,7 +78,7 @@ $view->callChunk('tinyMCE');
 
       <input type="radio" id="reactivRulesCustom" name="reactivRules" value="Custom rulset"
         <?=(!$reactivRuleChecked && !empty($desc->getReactivationRules()))?"checked":""?> required
-        oninvalid="this.setCustomValidity('<?=tr('editDesc_invalidRactivRule')?>')" oninput="this.setCustomValidity('')>
+        oninvalid="this.setCustomValidity('<?=tr('editDesc_invalidRactivRule')?>')" oninput="this.setCustomValidity('')">
       <label for="reactivRulesCustom"><?=tr('editDesc_reactivRuleCustomDefinition')?>:</label>
 
       <textarea placeholder="<?=tr('editDesc_reactivRuleCustomDefinition')?>" id="reactivRulesCustom"
