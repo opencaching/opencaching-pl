@@ -72,6 +72,15 @@ trait GeocacheConfigTrait
     }
 
     /**
+     * Return list of attributes supported by the node.
+     * The order is significant - the same order is used in all views.
+     */
+    public static function getSupportedAttributes(): array
+    {
+        return self::getKeyFromGeoCacheConfig('supportedAttributes');
+    }
+
+    /**
      * True if registering geocache visits (last visited by IP) for not
      * logged-in visitors is enabled.
      */

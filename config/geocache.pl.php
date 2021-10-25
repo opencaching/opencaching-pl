@@ -6,6 +6,7 @@
  * Those are configuration overrides for OCPL node only.
  */
 
+use src\Models\GeoCache\CacheAttribute;
 use src\Models\GeoCache\GeoCacheCommons;
 
 /**
@@ -43,3 +44,20 @@ $geocache['reactivationRulesPredefinedOpts'] = [
     'editDesc_reactivRuleOptNoReactivations',
     'editDesc_reactivRuleOptAfterContact',
     'editDesc_reactivRuleOptReactAllowed'];
+
+/**
+ * List of attributes supported by the node. The order is significant - the same order is used on sites.
+ * Use CacheAttribute::* notation for more clear definition.
+ */
+$geocache['supportedAttributes'] = [
+    CacheAttribute::FEE, CacheAttribute::BOAT, CacheAttribute::CHILDREN,
+    CacheAttribute::NIGHT, CacheAttribute::DANGER, CacheAttribute::WHEELCHAIR,
+    CacheAttribute::BIKE, CacheAttribute::FLASHLIGHT, CacheAttribute::TOOLS,
+    CacheAttribute::BEACON, CacheAttribute::LETTERBOX, CacheAttribute::COMPASS,
+    CacheAttribute::QUICK, CacheAttribute::GEOHOTEL, CacheAttribute::PEN,
+    CacheAttribute::MAGNETIC, CacheAttribute::MP3, CacheAttribute::OFFSET,
+    CacheAttribute::USB, CacheAttribute::BENCHMARK, CacheAttribute::WHERIGO,
+    CacheAttribute::NATURE, CacheAttribute::MONUMENT, CacheAttribute::SHOVEL,
+    CacheAttribute::WALK
+];
+

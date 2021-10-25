@@ -7,6 +7,7 @@
  * It may be customized in node-specific configuration file.
  */
 
+use src\Models\GeoCache\CacheAttribute;
 use src\Models\GeoCache\GeoCacheCommons;
 
 $geocache = [];
@@ -61,6 +62,14 @@ $geocache['reactivationRulesEnabled'] = false;
  * If the list is empty only custom (user defined) option will be active.
  */
 $geocache['reactivationRulesPredefinedOpts'] = [];
+
+/**
+ * List of attributes supported by the node. The order is significant - the same order is used on sites.
+ * Use CacheAttribute::* notation for more clear definition.
+ */
+$geocache['supportedAttributes'] = [
+    CacheAttribute::FEE, CacheAttribute::BOAT, CacheAttribute::CHILDREN,
+];
 
 /**
  * Enables registering geocache visits (last visited by IP) for not logged-in
