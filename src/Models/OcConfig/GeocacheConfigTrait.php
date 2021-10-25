@@ -53,18 +53,19 @@ trait GeocacheConfigTrait
         return self::getKeyFromGeoCacheConfig('coordsHiddenForNonLogged');
     }
 
+    /**
+     * Return TRUE if reactivation rules are enabbled in config
+     * @return bool
+     */
     public static function isReactivationRulesEnabled(): bool
     {
-        // temporary this is enabled only for OCTeam members
-        $user = ApplicationContainer::GetAuthorizedUser();
-        if ($user && $user->hasOcTeamRole()) {
-            return self::getKeyFromGeoCacheConfig('reactivationRulesEnabled');
-        } else {
-            return false;
-        }
-        // return self::getKeyFromGeoCacheConfig('reactivationRulesEnabled');
+        return self::getKeyFromGeoCacheConfig('reactivationRulesEnabled');
     }
 
+    /**
+     * Return list of predefined options (translation keys) for reactivation rules
+     * @return array
+     */
     public static function getReactivationRulesPredefinedOpts(): array
     {
         return self::getKeyFromGeoCacheConfig('reactivationRulesPredefinedOpts');
