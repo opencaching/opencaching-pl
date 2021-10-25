@@ -2,8 +2,6 @@
 
 namespace src\Models\OcConfig;
 
-use src\Models\ApplicationContainer;
-
 /**
  * Loads configuration from geocache.*.php.
  *
@@ -53,19 +51,17 @@ trait GeocacheConfigTrait
         return self::getKeyFromGeoCacheConfig('coordsHiddenForNonLogged');
     }
 
+    /**
+     * Return TRUE if reactivation rules are enabled in config
+     */
     public static function isReactivationRulesEnabled(): bool
     {
-        // temporary this is enabled only for OCTeam members
-        $user = ApplicationContainer::GetAuthorizedUser();
-
-        if ($user && $user->hasOcTeamRole()) {
-            return self::getKeyFromGeoCacheConfig('reactivationRulesEnabled');
-        }
-
-        return false;
-        // return self::getKeyFromGeoCacheConfig('reactivationRulesEnabled');
+        return self::getKeyFromGeoCacheConfig('reactivationRulesEnabled');
     }
 
+    /**
+     * Return list of predefined options (translation keys) for reactivation rules
+     */
     public static function getReactivationRulesPredefinedOpts(): array
     {
         return self::getKeyFromGeoCacheConfig('reactivationRulesPredefinedOpts');
