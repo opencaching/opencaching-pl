@@ -75,7 +75,7 @@ $geocache['supportedAttributes'] = [
  * Enables registering geocache visits (last visited by IP) for not logged-in
  * visitors.
  */
-$geocache['anomymousVisitsCounted'] = false;
+$geocache['anonymousVisitsCounted'] = false;
 
 /**
  * Number of seconds between last visit by current user/IP and now
