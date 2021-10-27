@@ -83,7 +83,7 @@ $view->callChunk('tinyMCE');
 
       <textarea placeholder="<?=tr('editDesc_reactivRuleCustomDefinition')?>" id="reactivRulesCustom"
                 class="customReactivation" name="reactivRulesCustom"
-                maxlength="300"><?=$desc->getReactivationRules()?></textarea>
+                maxlength="1000"><?=$desc->getReactivationRules()?></textarea>
     </fieldset>
 </div>
 <?php } // if-OcConfig::isReactivationRulesEnabled() ?>
