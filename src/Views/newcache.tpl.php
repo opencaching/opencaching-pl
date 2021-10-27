@@ -734,7 +734,8 @@ $(document).ready(function(){
               <label for="reactivRulesCustom"><?=tr('editDesc_reactivRuleCustomDefinition')?>:</label>
 
               <textarea placeholder="<?=tr('editDesc_reactivRuleCustomDefinition')?>" id="reactivRulesCustom"
-                        class="customReactivation" name="reactivRulesCustom"><?=$view->reactivRulesCustom?></textarea>
+                        class="customReactivation" name="reactivRulesCustom"
+                        maxlength="300"><?=$view->reactivRulesCustom?></textarea>
             </fieldset>
           </td></tr>
         <?php } // if-OcConfig::isReactivationRulesEnabled() ?>
