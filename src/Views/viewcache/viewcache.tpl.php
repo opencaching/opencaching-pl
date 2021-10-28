@@ -588,7 +588,7 @@ $desc = $view->geoCacheDesc;
     <div>
         <fieldset class="reactivationRuleBox">
             <legend><?=tr('viewCache_reactivationRulesBoxLabel')?></legend>
-            <?=$view->geoCacheDesc->getReactivationRules()?>
+            <?=nl2br($view->geoCacheDesc->getReactivationRules())?>
             <div class="notice"><?=tr('viewCache_reactivationRulesBoxNotice',
                                       [OcConfig::getWikiLink('geocacheRactivation')])?></div>
         </fieldset>
