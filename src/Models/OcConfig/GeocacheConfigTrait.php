@@ -2,8 +2,6 @@
 
 namespace src\Models\OcConfig;
 
-use src\Models\ApplicationContainer;
-
 /**
  * Loads configuration from geocache.*.php.
  *
@@ -54,8 +52,7 @@ trait GeocacheConfigTrait
     }
 
     /**
-     * Return TRUE if reactivation rules are enabbled in config
-     * @return bool
+     * Return TRUE if reactivation rules are enabled in config
      */
     public static function isReactivationRulesEnabled(): bool
     {
@@ -64,7 +61,6 @@ trait GeocacheConfigTrait
 
     /**
      * Return list of predefined options (translation keys) for reactivation rules
-     * @return array
      */
     public static function getReactivationRulesPredefinedOpts(): array
     {
@@ -78,6 +74,24 @@ trait GeocacheConfigTrait
     public static function getSupportedAttributes(): array
     {
         return self::getKeyFromGeoCacheConfig('supportedAttributes');
+    }
+
+    /**
+     * True if registering geocache visits (last visited by IP) for not
+     * logged-in visitors is enabled.
+     */
+    public static function anonymousVisitsCounted(): bool
+    {
+        return self::getKeyFromGeoCacheConfig('anonymousVisitsCounted');
+    }
+
+    /**
+     * Gets number of seconds between last visit by current user/IP and now
+     * when subsequent visits will be treated as the same visit.
+     */
+    public static function getUniqueVisitPeriod(): int
+    {
+        return self::getKeyFromGeoCacheConfig('uniqueVisitPeriod');
     }
 
     protected function getGeoCacheConfig(): array

@@ -7,8 +7,8 @@
  * It may be customized in node-specific configuration file.
  */
 
-use src\Models\GeoCache\GeoCacheCommons;
 use src\Models\GeoCache\CacheAttribute;
+use src\Models\GeoCache\GeoCacheCommons;
 
 $geocache = [];
 
@@ -31,7 +31,6 @@ $geocache['enabledSizes'] = [
  * such geocaches are still in DB, but no new ones can be created).
  */
 $geocache['noNewCachesOfTypes'] = [];
-
 
 /**
  * Titled caches algorythm period;
@@ -69,5 +68,19 @@ $geocache['reactivationRulesPredefinedOpts'] = [];
  * Use CacheAttribute::* notation for more clear definition.
  */
 $geocache['supportedAttributes'] = [
-    CacheAttribute::FEE, CacheAttribute::BOAT, CacheAttribute::CHILDREN
+    CacheAttribute::FEE, CacheAttribute::BOAT, CacheAttribute::CHILDREN,
 ];
+
+/**
+ * Enables registering geocache visits (last visited by IP) for not logged-in
+ * visitors.
+ */
+$geocache['anonymousVisitsCounted'] = false;
+
+/**
+ * Number of seconds between last visit by current user/IP and now
+ * when subsequent visits will be treated as the same visit.
+ * Should be no less than UNIQUE_VISIT_PERIOD_MINIMAL defined in
+ * src\Models\GeoCache\CacheVisits class (currently 3600)
+ */
+$geocache['uniqueVisitPeriod'] = 604800; // one week
