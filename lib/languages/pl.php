@@ -3136,7 +3136,7 @@ $translations = array(
     'vote_elListThEnd' => 'Zakończenie wyborów',
     'vote_optionsToChoose' => 'Opcje wyboru',
 
-    'at_fee' => 'Access or parking fee',
+    'at_fee' => 'Opłata za wejście lub parking',
     'at_rappeling' => 'Climbing gear requried',
     'at_boat' => 'Boat required',
     'at_diving' => 'Diving equipment required',
