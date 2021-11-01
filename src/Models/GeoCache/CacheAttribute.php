@@ -18,7 +18,7 @@ class CacheAttribute
     /** Access or parking fee */
     public const FEE = 2;
     /** Climbing gear requried */
-    public const RAPPELING = 3;
+    public const RAPELLING = 3;
     /** Boat required */
     public const BOAT = 4;
     /** Diving equipment required */
@@ -90,7 +90,7 @@ class CacheAttribute
     /** Wireless beacon / Garmin Chirp™ */
     public const BEACON = 60;
     /** Tree climbing required */
-    public const TREE = 64;
+    public const TREE_CLIMBING = 64;
     /** Only loggable at Opencaching */
     public const OCONLY = 106;
     /** Letterbox */
@@ -181,7 +181,7 @@ class CacheAttribute
     // Configuration data for each attribute: translation key + icon name
     private const CONFIG = [
         self::FEE => ['trKey' => 'at_fee', 'icon' => 'at_fee.png'],
-        self::RAPPELING => ['trKey' => 'at_rappeling', 'icon' => 'at_rappeling.png'],
+        self::RAPELLING => ['trKey' => 'at_rapelling', 'icon' => 'at_rapelling.png'],
         self::BOAT => ['trKey' => 'at_boat', 'icon' => 'at_boat.png'],
         self::DIVING => ['trKey' => 'at_diving', 'icon' => 'at_diving.png'],
         self::CHILDREN => ['trKey' => 'at_children', 'icon' => 'at_children.png'],
@@ -217,7 +217,7 @@ class CacheAttribute
         self::DRIVEIN => ['trKey' => 'at_drivein', 'icon' => 'at_drivein.png'],
         self::RUIN => ['trKey' => 'at_ruin', 'icon' => 'at_ruin.png'],
         self::BEACON => ['trKey' => 'at_beacon', 'icon' => 'at_beacon.png'],
-        self::TREE => ['trKey' => 'at_tree', 'icon' => 'at_tree.png'],
+        self::TREE_CLIMBING => ['trKey' => 'at_tree_climbing', 'icon' => 'at_tree_climbing.png'],
         self::OCONLY => ['trKey' => 'at_oconly', 'icon' => 'at_oconly.png'],
         self::LETTERBOX => ['trKey' => 'at_letterbox', 'icon' => 'at_letterbox.png'],
         self::TRAIN => ['trKey' => 'at_train', 'icon' => 'at_train.png'],
