@@ -11,6 +11,7 @@ use src\Models\GeoCache\CacheNote;
 use src\Utils\I18n\I18n;
 use src\Models\ApplicationContainer;
 use src\Models\OcConfig\OcConfig;
+use src\Models\GeoCache\WaypointCommons;
 
 require_once (__DIR__.'/lib/common.inc.php');
 require_once (__DIR__.'/lib/export.inc.php');
@@ -1109,12 +1110,9 @@ if (isset($_POST['submit_gpx'])) {
 
         // Waypoints
         $waypoints = '';
-
-        $langCode = XDb::xEscape(I18n::getCurrentLang());
         $rswp = XDb::xSql(
-            "SELECT  `longitude`, `cache_id`, `latitude`,`desc`,`stage`, `type`, `status`,`waypoint_type`." . $langCode . " `wp_type_name`
+            "SELECT  `longitude`, `cache_id`, `latitude`,`desc`,`stage`, `type`, `status`
             FROM `waypoints`
-                INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id)
             WHERE  `waypoints`.`cache_id`=?
             ORDER BY `waypoints`.`stage`",
             $r['cacheid']);
@@ -1129,7 +1127,7 @@ if (isset($_POST['submit_gpx'])) {
                 $thiswp = str_replace('{waypoint}', $waypoint, $thiswp);
                 $thiswp = str_replace('{cacheid}', $rwp['cache_id'], $thiswp);
                 $thiswp = str_replace('{time}', $time, $thiswp);
-                $thiswp = str_replace('{wp_type_name}', cleanup_text($rwp['wp_type_name']), $thiswp);
+                $thiswp = str_replace('{wp_type_name}', cleanup_text(tr(WaypointCommons::getTypesArray($rwp['type']))), $thiswp);
                 if ($rwp['stage'] != 0) {
                     $thiswp = str_replace('{wp_stage}', " " . cleanup_text(tr('stage_wp')) . ": " . $rwp['stage'], $thiswp);
                 } else {

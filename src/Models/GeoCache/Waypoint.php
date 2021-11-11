@@ -27,17 +27,6 @@ class Waypoint extends WaypointCommons
     private $cacheId;
     private $openChecker;
 
-
-    private $iconNames = array(
-        self::TYPE_PHYSICAL => 'images/waypoints/wp_physical.png',
-        self::TYPE_VIRTUAL => 'images/waypoints/wp_virtual.png',
-        self::TYPE_FINAL => 'images/waypoints/wp_final.png',
-        self::TYPE_INTERESTING => 'images/waypoints/wp_reference.png',
-        self::TYPE_PARKING => 'images/waypoints/wp_parking.png',
-        self::TYPE_TRAILHEAD => 'images/waypoints/wp_trailhead.png'
-    );
-
-
     private static function FromDbRow($row)
     {
         $waypoint = new Waypoint();
@@ -140,7 +129,7 @@ class Waypoint extends WaypointCommons
 
     public function getIconName()
     {
-        return $this->iconNames[$this->type];
+        return $this->getIcon($this->type);
     }
 
 
@@ -162,20 +151,29 @@ class Waypoint extends WaypointCommons
         return nl2br($this->description);
     }
 
-    public static function GetWaypointsForCacheId(GeoCache $geoCache, $skipHiddenWps=true){
-
-
+    /**
+     * Returns array of waypoints for given geocache
+     */
+    public static function GetWaypointsForCache(GeoCache $geoCache, $skipHiddenWps=true): array
+    {
         if($geoCache->getCacheType() == GeoCache::TYPE_MOVING){
             // mobiles can't have waypoints...
             return [];
         }
 
+        return self::GetWaypointsForCacheId($geoCache->getCacheId(), $skipHiddenWps);
+    }
+
+    /**
+     * Returns array of waypoints for given geocache
+     */
+    public static function GetWaypointsForCacheId(int $cacheId, $skipHiddenWps=true): array
+    {
         $s = XDb::xSql(
-            "SELECT wp_id, type, longitude, latitude, `desc`, status, stage, opensprawdzacz, cache_id,
-                    waypoint_type.en wp_type, waypoint_type.icon wp_icon
-            FROM waypoints INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id)
+            "SELECT wp_id, type, longitude, latitude, `desc`, status, stage, opensprawdzacz, cache_id
+            FROM waypoints
             WHERE cache_id = ? ORDER BY stage, wp_id",
-            $geoCache->getCacheId());
+            $cacheId);
 
         $results = [];
         while($row = XDb::xFetchArray($s)){
@@ -184,8 +182,6 @@ class Waypoint extends WaypointCommons
                 $results[] = $wp;
             }
         }
-
         return $results;
     }
-
 }

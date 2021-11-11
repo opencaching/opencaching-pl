@@ -349,7 +349,7 @@ namespace src\Utils\I18n
          */
         public static function getTranslationTables()
         {
-            return ['cache_size', 'cache_status', 'cache_type', 'log_types', 'waypoint_type', 'languages'];
+            return ['cache_size', 'cache_status', 'cache_type', 'log_types', 'languages'];
         }
 
         /**
@@ -383,7 +383,6 @@ namespace src\Utils\I18n
                 'cache_type' => 'cacheType_',
                 'languages' => 'language_',
                 'log_types' => 'logType',
-                'waypoint_type' => 'wayPointType',
             ];
 
             if (! isset($prefixes[$table])) {

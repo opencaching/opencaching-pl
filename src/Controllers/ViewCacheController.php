@@ -425,7 +425,7 @@ class ViewCacheController extends BaseController
 
     private function processWayPoints()
     {
-        $waypointsList = Waypoint::GetWaypointsForCacheId($this->geocache);
+        $waypointsList = Waypoint::GetWaypointsForCache($this->geocache);
         $this->view->setVar('waypointsList', $waypointsList);
         $this->view->setVar('cacheWithStages',
             $this->geocache->getCacheType() == GeoCache::TYPE_OTHERTYPE ||

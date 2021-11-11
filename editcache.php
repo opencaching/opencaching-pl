@@ -18,6 +18,7 @@ use src\Controllers\PictureController;
 use src\Models\GeoCache\GeoCacheCommons;
 use src\Models\Pictures\OcPicture;
 use src\Models\ApplicationContainer;
+use src\Models\GeoCache\WaypointCommons;
 
 require_once(__DIR__.'/lib/common.inc.php');
 
@@ -946,17 +947,14 @@ if (!$loggedUser) {
                 }
 
                 //Add Waypoint
-                $lang_db = I18n::getLangForDbTranslations('waypoint_type');
 
                 $cache_type = $cache_record['type'];
                 if ($cache_type != GeoCache::TYPE_MOVING) {
                     tpl_set_var('waypoints_start', '');
                     tpl_set_var('waypoints_end', '');
-                    $eLang = XDb::xEscape($lang_db);
                     $wp_rs = XDb::xSql(
-                        "SELECT `wp_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`,
-                                `waypoint_type`.`$eLang` wp_type, waypoint_type.icon wp_icon
-                         FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id)
+                        "SELECT `wp_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`
+                         FROM `waypoints`
                          WHERE `cache_id`=? ORDER BY `stage`,`wp_id`", $cache_id);
 
                     if (XDb::xNumRows($wp_rs) != 0) {
@@ -968,7 +966,13 @@ if (!$loggedUser) {
                             $waypoints .= '<th align="center" valign="middle" width="30"><b>' . tr('stage_wp') . '</b></th>';
                         }
 
-                        $waypoints .= '<th width="32"><b>' . tr('symbol_wp') . '</b></th><th width="32"><b>' . tr('type_wp') . '</b></th><th width="32"><b>' . tr('coordinates_wp') . '</b></th><th><b>' . tr('describe_wp') . '</b></th><th width="22"><b>' . tr('status_wp') . '</b></th><th width="22"><b>' . tr('edit') . '</b></th><th width="22"><b>' . tr('delete') . '</b></th></tr>';
+                        $waypoints .= '<th width="32"><b>' . tr('symbol_wp') . '</b></th>'.
+                                      '<th width="32"><b>' . tr('type_wp') . '</b></th>'.
+                                      '<th width="32"><b>' . tr('coordinates_wp') . '</b></th>'.
+                                      '<th><b>' . tr('describe_wp') . '</b></th>'.
+                                      '<th width="22"><b>' . tr('status_wp') . '</b></th>'.
+                                      '<th width="22"><b>' . tr('edit') . '</b></th>'.
+                                      '<th width="22"><b>' . tr('delete') . '</b></th></tr>';
 
                         while($wp_record = XDb::xFetchArray($wp_rs)){
                             $tmpline1 = $wpline;
@@ -976,8 +980,8 @@ if (!$loggedUser) {
                             $coords_lat = mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(Coordinates::donNotUse_latToDegreeStr($wp_record['latitude']), ENT_COMPAT, 'UTF-8'));
                             $coords_lon = mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(Coordinates::donNotUse_lonToDegreeStr($wp_record['longitude']), ENT_COMPAT, 'UTF-8'));
 
-                            $tmpline1 = mb_ereg_replace('{wp_icon}', htmlspecialchars($wp_record['wp_icon'], ENT_COMPAT, 'UTF-8'), $tmpline1);
-                            $tmpline1 = mb_ereg_replace('{type}', htmlspecialchars($wp_record['wp_type'], ENT_COMPAT, 'UTF-8'), $tmpline1);
+                            $tmpline1 = mb_ereg_replace('{wp_icon}',WaypointCommons::getIcon($wp_record['type']), $tmpline1);
+                            $tmpline1 = mb_ereg_replace('{type}', tr(WaypointCommons::typeTranslationKey($wp_record['type'])), $tmpline1);
                             $tmpline1 = mb_ereg_replace('{lon}', $coords_lon, $tmpline1);
                             $tmpline1 = mb_ereg_replace('{lat}', $coords_lat, $tmpline1);
                             $tmpline1 = mb_ereg_replace('{desc}', nl2br($wp_record['desc']), $tmpline1);

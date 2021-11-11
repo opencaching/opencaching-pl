@@ -3,27 +3,26 @@ namespace src\Models\GeoCache;
 
 use src\Models\BaseObject;
 
-
 class WaypointCommons extends BaseObject {
 
-    const TYPE_PHYSICAL = 1;
-    const TYPE_VIRTUAL = 2;
-    const TYPE_FINAL = 3;
-    const TYPE_INTERESTING = 4;
-    const TYPE_PARKING = 5;
-    const TYPE_TRAILHEAD = 6;
+    public const TYPE_PHYSICAL = 1;
+    public const TYPE_VIRTUAL = 2;
+    public const TYPE_FINAL = 3;
+    public const TYPE_INTERESTING = 4;
+    public const TYPE_PARKING = 5;
+    public const TYPE_TRAILHEAD = 6;
 
-    const STATUS_VISIBLE = 1;
-    const STATUS_VISIBLE_HIDDEN_COORDS = 2;
-    const STATUS_HIDDEN = 3;
+    public const STATUS_VISIBLE = 1;
+    public const STATUS_VISIBLE_HIDDEN_COORDS = 2;
+    public const STATUS_HIDDEN = 3;
 
-    const ICONS = array(
-        self::TYPE_PHYSICAL => 'images/waypoints/wp_physical.png',
-        self::TYPE_VIRTUAL => 'images/waypoints/wp_virtual.png',
-        self::TYPE_FINAL => 'images/waypoints/wp_final.png',
-        self::TYPE_INTERESTING => 'images/waypoints/wp_reference.png',
-        self::TYPE_PARKING => 'images/waypoints/wp_parking.png',
-        self::TYPE_TRAILHEAD => 'images/waypoints/wp_trailhead.png'
+    private const ICONS = array(
+        self::TYPE_PHYSICAL     => '/images/waypoints/wp_physical.png',
+        self::TYPE_VIRTUAL      => '/images/waypoints/wp_virtual.png',
+        self::TYPE_FINAL        => '/images/waypoints/wp_final.png',
+        self::TYPE_INTERESTING  => '/images/waypoints/wp_reference.png',
+        self::TYPE_PARKING      => '/images/waypoints/wp_parking.png',
+        self::TYPE_TRAILHEAD    => '/images/waypoints/wp_trailhead.png'
     );
 
     public static function typeTranslationKey($type)
@@ -58,7 +57,7 @@ class WaypointCommons extends BaseObject {
     }
 
     public static function getIcon($type){
-        self::ICONS[$type];
+        return self::ICONS[$type];
     }
 
 }
