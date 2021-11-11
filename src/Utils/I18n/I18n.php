@@ -349,7 +349,7 @@ namespace src\Utils\I18n
          */
         public static function getTranslationTables()
         {
-            return ['cache_status', 'cache_type', 'log_types', 'languages'];
+            return ['cache_type', 'log_types', 'languages'];
         }
 
         /**
@@ -378,7 +378,6 @@ namespace src\Utils\I18n
         public static function getTranslationKey($table, $id)
         {
             $prefixes = [
-                'cache_status' => 'cacheStatus_',
                 'cache_type' => 'cacheType_',
                 'languages' => 'language_',
                 'log_types' => 'logType',

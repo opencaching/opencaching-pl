@@ -159,14 +159,13 @@ $stmt = XDb::xSql(
             `xmlcontent`.cache_mod_cords_id, `caches`.`wp_oc` `waypoint`, `caches`.`date_hidden` `date_hidden`,
             `caches`.`name` `name`, `caches`.`country` `country`, `caches`.`type` `type_id`, `caches`.`terrain` `terrain`,
             `caches`.`difficulty` `difficulty`, `caches`.`desc_languages` `desc_languages`,
-            `caches`.`size`, `cache_type`.`'.$language.'` `type`, `cache_status`.`'.$language.'` `status`,
+            `caches`.`size`, `cache_type`.`'.$language.'` `type`, `caches`.`status`.` `status`,
             `user`.`username` `username`, `cache_desc`.`desc` `desc`, `cache_desc`.`short_desc` `short_desc`,
             `cache_desc`.`hint` `hint`, `cache_desc`.`desc_html` `html`, `xmlcontent`.`distance` `distance`
-    FROM `xmlcontent`, `caches`, `user`, `cache_desc`, `cache_type`, `cache_status`
+    FROM `xmlcontent`, `caches`, `user`, `cache_desc`, `cache_type`
     WHERE `xmlcontent`.`cache_id`=`caches`.`cache_id` AND `caches`.`cache_id`=`cache_desc`.`cache_id`
         AND `caches`.`default_desclang`=`cache_desc`.`language`
-        AND `xmlcontent`.`user_id`=`user`.`user_id` AND `caches`.`type`=`cache_type`.`id`
-        AND `caches`.`status`=`cache_status`.`id`');
+        AND `xmlcontent`.`user_id`=`user`.`user_id` AND `caches`.`type`=`cache_type`.`id`');
 
 while($r = XDb::xFetchArray($stmt) ) {
     if (OcConfig::isSiteCacheAccessLogEnabled()) {
@@ -235,7 +234,7 @@ while($r = XDb::xFetchArray($stmt) ) {
 
     $thisline = str_replace('{type}', $r['type'], $thisline);
     $thisline = str_replace('{container}', tr(GeoCacheCommons::CacheSizeTranslationKey($r['size'])), $thisline);
-    $thisline = str_replace('{status}', $r['status'], $thisline);
+    $thisline = str_replace('{status}', tr(GeoCacheCommons::CacheStatusTranslationKey($r['status'])), $thisline);
 
     $difficulty = sprintf('%01.1f', $r['difficulty'] / 2);
     $thisline = str_replace('{difficulty}', $difficulty, $thisline);
