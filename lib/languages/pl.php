@@ -3137,7 +3137,7 @@ $translations = array(
     'vote_optionsToChoose' => 'Opcje wyboru',
 
     'at_fee' => 'Opłata za wejście lub parking',
-    'at_rappeling' => 'Climbing gear requried',
+    'at_rapelling' => 'Climbing gear requried',
     'at_boat' => 'Wymaga sprzętu pływającego',
     'at_diving' => 'Wymagany sprzęt nurkowy',
     'at_children' => 'Można zabrać dzieci',
@@ -3173,7 +3173,7 @@ $translations = array(
     'at_drivein' => 'Szybka skrzynki (drive-in)',
     'at_ruin' => 'Opuszczona budowla/ruiny',
     'at_beacon' => 'Beacon',
-    'at_tree' => 'Tree climbing required',
+    'at_tree_climbing' => 'Tree climbing required',
     'at_oconly' => 'Możliwy do zalogowania tylko na Opencaching',
     'at_letterbox' => 'Letterbox',
     'at_train' => 'Uwaga na kolej',
