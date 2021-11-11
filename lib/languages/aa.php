@@ -3137,7 +3137,7 @@ $translations = array(
     'vote_optionsToChoose' => 'crwdns27358:0crwdne27358:0',
 
     'at_fee' => 'crwdns27439:0crwdne27439:0',
-    'at_rappeling' => 'crwdns33897:0crwdne33897:0',
+    'at_rapelling' => 'crwdns33901:0crwdne33901:0',
     'at_boat' => 'crwdns27443:0crwdne27443:0',
     'at_diving' => 'crwdns27445:0crwdne27445:0',
     'at_children' => 'crwdns27447:0crwdne27447:0',
@@ -3173,7 +3173,7 @@ $translations = array(
     'at_drivein' => 'crwdns27507:0crwdne27507:0',
     'at_ruin' => 'crwdns27509:0crwdne27509:0',
     'at_beacon' => 'crwdns27511:0crwdne27511:0',
-    'at_tree' => 'crwdns33899:0crwdne33899:0',
+    'at_tree_climbing' => 'crwdns33903:0crwdne33903:0',
     'at_oconly' => 'crwdns27515:0crwdne27515:0',
     'at_letterbox' => 'crwdns27517:0crwdne27517:0',
     'at_train' => 'crwdns27519:0crwdne27519:0',
