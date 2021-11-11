@@ -349,7 +349,7 @@ namespace src\Utils\I18n
          */
         public static function getTranslationTables()
         {
-            return ['cache_size', 'cache_status', 'cache_type', 'log_types', 'languages'];
+            return ['cache_status', 'cache_type', 'log_types', 'languages'];
         }
 
         /**
@@ -378,7 +378,6 @@ namespace src\Utils\I18n
         public static function getTranslationKey($table, $id)
         {
             $prefixes = [
-                'cache_size' => 'cacheSize_',
                 'cache_status' => 'cacheStatus_',
                 'cache_type' => 'cacheType_',
                 'languages' => 'language_',
@@ -387,16 +386,6 @@ namespace src\Utils\I18n
 
             if (! isset($prefixes[$table])) {
                 throw new Exception("Unknown table: '{$table}'");
-            }
-
-            if ($table === 'cache_size') {
-                $sizeIds = ['other', 'micro', 'small', 'regular', 'large', 'xLarge', 'none', 'nano'];
-
-                if (! array_key_exists($id - 1, $sizeIds)) {
-                    throw new Exception("Invalid size ID passed to getTranslationId(): {$id}");
-                }
-
-                $id = $sizeIds[$id - 1];
             }
 
             return $prefixes[$table] . $id;
