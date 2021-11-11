@@ -3138,7 +3138,7 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'vote_optionsToChoose' => 'Options to choose from',
 
     'at_fee' => 'Eintritts- oder Parkplatzgebühr',
-    'at_rappeling' => 'Climbing gear requried',
+    'at_rapelling' => 'Kletterausrüstung erforderlich',
     'at_boat' => 'Boot erforderlich',
     'at_diving' => 'Taucherausrüstung benötigt',
     'at_children' => 'Für Kinder geeignet',
@@ -3174,7 +3174,7 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'at_drivein' => 'Drive-In-Cache',
     'at_ruin' => 'verlassenes Bauwerk / Ruine',
     'at_beacon' => 'Wireless beacon / Garmin Chirp™',
-    'at_tree' => 'Tree climbing required',
+    'at_tree_climbing' => 'Baumklettern notwendig',
     'at_oconly' => 'Nur bei Opencaching logbar',
     'at_letterbox' => 'Letterbox',
     'at_train' => 'aktive Eisenbahnlinie in der Nähe',
