@@ -31,7 +31,7 @@ $geocache['titledCacheMinFounds'] = 7;
  * Use CacheAttribute::* notation for more clear definition.
  */
 $geocache['supportedAttributes'] = [
-    CacheAttribute::FEE, CacheAttribute::RAPPELING, CacheAttribute::BOAT,
+    CacheAttribute::FEE, CacheAttribute::RAPELLING, CacheAttribute::BOAT,
     CacheAttribute::DIVING, CacheAttribute::CHILDREN, CacheAttribute::HIKING,
     CacheAttribute::CLIMBING, CacheAttribute::WADING, CacheAttribute::SWIMMING, CacheAttribute::AVAILABLE247,
     CacheAttribute::WINTER, CacheAttribute::POISON, CacheAttribute::ANIMALS,
