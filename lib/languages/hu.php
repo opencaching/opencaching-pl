@@ -3137,7 +3137,7 @@ $translations = array(
     'vote_optionsToChoose' => 'Options to choose from',
 
     'at_fee' => 'Access or parking fee',
-    'at_rapelling' => 'Climbing gear requried',
+    'at_rappeling' => 'Climbing gear requried',
     'at_boat' => 'Boat required',
     'at_diving' => 'Diving equipment required',
     'at_children' => 'Suitable for children',
@@ -3173,7 +3173,7 @@ $translations = array(
     'at_drivein' => 'Park and grab',
     'at_ruin' => 'Abandoned structure / ruin',
     'at_beacon' => 'Wireless beacon / Garmin Chirp™',
-    'at_tree_climbing' => 'Tree climbing required',
+    'at_tree' => 'Tree climbing required',
     'at_oconly' => 'Only loggable at Opencaching',
     'at_letterbox' => 'Letterbox',
     'at_train' => 'Active railway nearby',
