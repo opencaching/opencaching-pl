@@ -10,6 +10,9 @@ use src\Utils\I18n\I18n;
 use src\Models\GeoCache\GeoCacheCommons;
 use src\Models\ApplicationContainer;
 use src\Models\OcConfig\OcConfig;
+use src\Models\GeoCache\GeoCache;
+use src\Models\GeoCache\GeoCacheLog;
+use src\Models\GeoCache\GeoCacheLogCommons;
 
 /**
  * This script is used (can be loaded) by /search.php
@@ -299,7 +302,6 @@ $query .= '   `caches`.`name` `name`, `caches`.`status` `status`, `caches`.`wp_o
                 `caches`.`difficulty` `difficulty`, `caches`.`terrain` `terrain`, `caches`.`desc_languages` `desc_languages`,
                 `caches`.`date_created` `date_created`, `caches`.`type` `cache_type`, `caches`.`cache_id` `cache_id`,
                 `user`.`username` `username`, `user`.`user_id` `user_id`,
-                `cache_type`.`icon_large` `icon_large`,
                 `caches`.`founds` `founds`, `caches`.`topratings` `toprating`, cache_desc.short_desc short_desc ';
 if (!$loggedUser) {
     if ($CalcCoordinates)
@@ -320,10 +322,10 @@ if (!$loggedUser) {
     }
 }
 $query .= ' LEFT JOIN cache_desc ON cache_desc.cache_id=caches.cache_id AND cache_desc.language=\'' . I18n::getCurrentLang() . '\',
-            `user`, cache_type
+            `user`
         WHERE `caches`.`user_id`=`user`.`user_id`
         AND `caches`.`cache_id` IN (' . $queryFilter . ')
-        AND `cache_type`.`id`=`caches`.`type` ';
+        ';
 $sortby = $options['sort'];
 
 if (! $SearchWithSort) // without interactive sort
@@ -371,10 +373,9 @@ for ($i = 0; $i < $dbcSearch->rowCount($s); $i ++) {
     $tmpline = $cache_line;
 
     list ($iconname, $inactive) = getCacheIcon($loggedUser->getUserId(), $caches_record['cache_id'],
-            $caches_record['status'], $caches_record['user_id'], $caches_record['icon_large']);
+        $caches_record['status'],  $caches_record['cache_type'], $caches_record['user_id']);
 
     $tmpline = str_replace('{icon_large}', $iconname, $tmpline);
-    // sp2ong
 
     $tmpline = str_replace('{date_created}', Formatter::date($caches_record['date_created']), $tmpline);
     $tmpline = str_replace('{date_created_sort}', date($logdateformat_ymd, strtotime($caches_record['date_created'])), $tmpline);
@@ -689,17 +690,15 @@ function icon_difficulty($what, $difficulty)
             return "<img src='$icon' class='img-difficulty' width='19' height='16' alt='$text' title='$text'>";
 }
 
-function getCacheIcon($user_id, $cache_id, $cache_status, $cache_userid, $iconname)
+function getCacheIcon($user_id, $cache_id, $cache_status, $cache_type, $cache_userid)
 {
-    $cacheicon_searchable = false;
-    $cacheicon_type = "";
     $inactive = false;
-
-    $iconname = str_replace("mystery", "quiz", $iconname);
+    $logStatus = null;
 
 
     // mark if found
     if (isset($user_id)) {
+
         $db = OcDb::instance();
         $found = 0;
         $respSql = "SELECT `type` FROM `cache_logs` WHERE `cache_id`=:1 AND `user_id`=:2 AND `deleted`=0 ORDER BY `type`";
@@ -710,55 +709,18 @@ function getCacheIcon($user_id, $cache_id, $cache_status, $cache_userid, $iconna
                 switch ($row['type']) {
                     case 1:
                     case 7: $found = $row['type'];
-                    $cacheicon_type = "-found";
+                    $logStatus = GeoCacheLogCommons::LOGTYPE_FOUNDIT;
                     $inactive = true;
                     break;
                     case 2: $found = $row['type'];
-                    $cacheicon_type = "-dnf";
+                    $logStatus = GeoCacheLogCommons::LOGTYPE_DIDNOTFIND;
                     break;
                 }
             }
         }
     }
 
-    if ($cache_userid == $user_id) {
-        $cacheicon_type = "-owner";
-        $inactive = true;
-        switch ($cache_status) {
-            case 1: $cacheicon_searchable = "-s";
-            break;
-            case 2: $cacheicon_searchable = "-n";
-            break;
-            case 3: $cacheicon_searchable = "-a";
-            break;
-            case 4: $cacheicon_searchable = "-a";
-            break;
-            case 6: $cacheicon_searchable = "-d";
-            break;
-            default: $cacheicon_searchable = "-s";
-            break;
-        }
-    } else {
-        switch ($cache_status) {
-            case 1: $cacheicon_searchable = "-s";
-            break;
-            case 2: $inactive = true;
-            $cacheicon_searchable = "-n";
-            break;
-            case 3: $inactive = true;
-            $cacheicon_searchable = "-a";
-            break;
-            case 4: $inactive = true;
-            $cacheicon_searchable = "-a";
-            break;
-            case 6: $cacheicon_searchable = "-d";
-            break;
-        }
-    }
-
-    // cacheicon
-    $iconname = mb_eregi_replace("\..*", "", $iconname);
-    $iconname .= $cacheicon_searchable . $cacheicon_type . ".png";
+    $iconname = GeoCache::CacheIconByType($cache_type, $cache_status, $logStatus, false, $cache_userid == $user_id);
 
     return array($iconname, $inactive);
 }

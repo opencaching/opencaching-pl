@@ -8,6 +8,7 @@ use src\Utils\Database\XDb;
 use src\Models\GeoCache\GeoCache;
 use src\Models\GeoCache\Waypoint;
 use src\Models\Coordinates\Coordinates;
+use src\Models\GeoCache\GeoCacheCommons;
 
 class OpenCheckerSetup {
 
@@ -329,8 +330,6 @@ class OpenCheckerCore {
         `caches`.`type`,
         `caches`.`status`,
         `user`.`username`,
-        `cache_type`.`sort`,
-        `cache_type`.`icon_small`,
         `opensprawdzacz`.`proby`,
         `opensprawdzacz`.`sukcesy`
         FROM
@@ -338,7 +337,6 @@ class OpenCheckerCore {
             LEFT JOIN `waypoints` ON (`caches`.`cache_id` = `waypoints`.`cache_id`)
             LEFT JOIN `opensprawdzacz` ON (`waypoints`.`cache_id` = `opensprawdzacz`.`cache_id`)
             LEFT JOIN `user` ON (`user`.`user_id` = `caches`.`user_id`)
-            LEFT JOIN `cache_type` ON (`cache_type`.`id` = `caches`.`type`)
         WHERE
             `waypoints`.`opensprawdzacz` = 1
             AND `waypoints`.`type` = " . Waypoint::TYPE_FINAL . "
@@ -403,7 +401,7 @@ class OpenCheckerCore {
                 $caches_table .= '
         <tr>
             <td><a class="links" href="viewcache.php?wp=' . $cache_data['wp_oc'] . '">' . $cache_data['wp_oc'] . '</a></td>
-            <td><a href="viewcache.php?wp=' . $cache_data['wp_oc'] . '"><img src="images/' . $cache_data['icon_small'] . '" /></a></td>
+            <td><a href="viewcache.php?wp=' . $cache_data['wp_oc'] . '"><img src="'.GeoCache::CacheIconByType($cache_data['type'], $cache_data['status']).'" /></a></td>
             <td><a class="links" href="' . $OpenCheckerSetup->scriptname . '?wp=' . $cache_data['wp_oc'] . '"> ' . $cache_data['name'] . '</a> </td>
             <td align="center">' . $status[$cache_data['status']] . '</td>
             <td><a href="viewprofile.php?userid=' . $cache_data['user_id'] . '">' . htmlspecialchars($cache_data['username']) . '</td>

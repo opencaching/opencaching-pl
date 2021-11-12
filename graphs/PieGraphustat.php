@@ -3,6 +3,7 @@
 use src\Libs\JpGraph\JpGraphLoader;
 use src\Utils\Database\XDb;
 use src\Utils\I18n\I18n;
+use src\Models\GeoCache\GeoCache;
 
 require(__DIR__ . '/../lib/common.inc.php');
 
@@ -23,22 +24,18 @@ if (isset($_REQUEST['userid']) && isset($_REQUEST['t'])) {
 $y = array();
 $x = array();
 
-$lang_db = I18n::getLangForDbTranslations('cache_type');
-
 if ($tit == "cc") {
-    // Ustawic sprawdzanie jezyka  w cache_type.pl !!!!
     $rsCreateCachesYear = XDb::xSql(
-        "SELECT COUNT(`caches`.`type`) `count`, `cache_type`.`$lang_db` `type`
-        FROM `caches` INNER JOIN `cache_type` ON (`caches`.`type`=`cache_type`.`id`)
+        "SELECT COUNT(`caches`.`type`) `count`, `caches`.`type`
+        FROM `caches`
         WHERE `user_id`= ? AND status <> 4 AND status <>5
         GROUP BY `caches`.`type`
         ORDER BY `count` DESC", $user_id);
 
     if ($rsCreateCachesYear !== false) {
-        $xtitle = "";
         while ($ry = XDb::xFetchArray($rsCreateCachesYear)) {
             $y[] = $ry['count'];
-            $x[] = $ry['type'];
+            $x[] = tr(GeoCache::CacheTypeTranslationKey($ry['type']));
         }
     }
     XDb::xFreeResults($rsCreateCachesYear);
@@ -46,17 +43,16 @@ if ($tit == "cc") {
 
 if ($tit == "cf") {
     $rsCachesFindYear = XDb::xSql(
-        "SELECT COUNT(`caches`.`type`) `count`, `cache_type`.`$lang_db` AS `type`
-        FROM `cache_logs`, caches INNER JOIN `cache_type` ON (`caches`.`type`=`cache_type`.`id`)
+        "SELECT COUNT(`caches`.`type`) `count`, `caches`.`type`
+        FROM `cache_logs`, caches
         WHERE cache_logs.`deleted`=0 AND cache_logs.user_id=? AND cache_logs.`type`='1' AND cache_logs.`cache_id` = caches.cache_id
         GROUP BY `caches`.`type`
         ORDER BY `count` DESC", $user_id);
 
     if ($rsCachesFindYear !== false) {
-        $xtitle = "";
         while ($rfy = XDb::xFetchArray($rsCachesFindYear)) {
             $y[] = $rfy['count'];
-            $x[] = $rfy['type'];
+            $x[] = tr(GeoCache::CacheTypeTranslationKey($rfy['type']));
         }
     }
     XDb::xFreeResults($rsCachesFindYear);
