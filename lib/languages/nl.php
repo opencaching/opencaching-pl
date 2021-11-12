@@ -3137,7 +3137,7 @@ $translations = array(
     'vote_optionsToChoose' => 'Opties om uit te kiezen',
 
     'at_fee' => 'Toegang of parkeerkosten',
-    'at_rapelling' => 'Climbing gear requried',
+    'at_rapelling' => 'Klimuitrusting nodig',
     'at_boat' => 'Boot benodigd',
     'at_diving' => 'Duikuitrusting nodig',
     'at_children' => 'Kindvriendelijke cache',
@@ -3173,7 +3173,7 @@ $translations = array(
     'at_drivein' => 'Parkeer en log',
     'at_ruin' => 'Verlaten structuur / ruïne',
     'at_beacon' => 'Draadloze baken / Garmin Chirp™',
-    'at_tree_climbing' => 'Tree climbing required',
+    'at_tree_climbing' => 'Boomklimmen vereist',
     'at_oconly' => 'Alleen te loggen op Opencaching',
     'at_letterbox' => 'Letterbox',
     'at_train' => 'Actieve spoorweg in de buurt',
