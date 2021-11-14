@@ -31,6 +31,13 @@ use src\Models\OcConfig\OcConfig as _OcConfig;
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
   <link rel="stylesheet" type="text/css" href="/css/typography.css">
 
+  <?php
+      //load jQuery when responsive mode is enabled
+      if(isset($_COOKIE[$config['cookie']['name'].'_responsive_mode'])){
+          $view->loadJQuery();
+      }
+  ?>
+
   <?php if ($view->_showVideoBanner) {
       foreach($view->_topBannerVideo as $key => $videoPath) {
           if ($key !== 0) { ?>
@@ -88,8 +95,8 @@ use src\Models\OcConfig\OcConfig as _OcConfig;
         </div>
         <div class="topline-buffer"></div>
         <button class="responsive-toggle btn btn-sm btn-default" type="button" onclick="responsiveToggle()">
-          <img src="/images/misc/mobile-off.svg" class="icon16 mobile-off" alt="responsive-toggle" title="responsive-toggle">
-          <img src="/images/misc/mobile-friendly.svg" class="icon16 mobile-friendly" alt="responsive-toggle" title="responsive-toggle">
+          <img src="/images/misc/mobile-off.svg" class="icon16 mobile-off" alt="<?=tr('responsiveModeToggle_disabled');?>" title="<?=tr('responsiveModeToggle_disabled');?>">
+          <img src="/images/misc/mobile-friendly.svg" class="icon16 mobile-friendly" alt="<?=tr('responsiveModeToggle_enabled');?>" title="<?=tr('responsiveModeToggle_enabled');?>">
         </button>
 
         <div class="topline-buttons">
@@ -397,7 +404,7 @@ use src\Models\OcConfig\OcConfig as _OcConfig;
   <script>
 
       //responsive mode - toggle and cookie
-      var cookie_name = <?php $config['cookie']['name'] ?>+"responsive_mode";
+      var cookie_name = "<?php echo $config['cookie']['name'] ?>_responsive_mode";
 
       var x = document.cookie,
           html = document.getElementsByTagName("html")[0];
@@ -431,6 +438,15 @@ use src\Models\OcConfig\OcConfig as _OcConfig;
       }
 
       //responsive mode - left nav
+      function maybe_chaneg_nav(){
+          if (screen.width <= 768) {
+              $('#nav3 ul .group').slideUp();
+          }
+          else {
+              $('#nav3 ul .group').slideDown();
+          }
+      }
+
       if (window.jQuery) {
           if(html.classList.contains("responsive-enabled")){
               maybe_change_navigation();
@@ -455,15 +471,6 @@ use src\Models\OcConfig\OcConfig as _OcConfig;
               }
 
           });
-      }
-
-      function maybe_change_navigation(){
-          if (screen.width <= 768) {
-              $('#nav3 ul .group').slideUp();
-          }
-          else {
-              $('#nav3 ul .group').slideDown();
-          }
       }
 
   </script>
