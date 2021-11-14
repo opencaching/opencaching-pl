@@ -102,3 +102,15 @@ html.responsive-enabled
   .nbh-half
     @include mobile
       width: 99%
+
+  #powerTrailContentWraper
+    width: 100%
+    max-width: 780px
+    @include mobile
+      .ptPublicationDate
+        min-width: 5em
+      .ptStatusOrPoints
+        display: none
+      .ptType
+        img+span
+          display: none

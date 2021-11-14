@@ -99,5 +99,15 @@ html.responsive-enabled .templateContainer {
 @media screen and (max-width: 768px) {
   html.responsive-enabled .nbh-half {
     width: 99%; } }
+html.responsive-enabled #powerTrailContentWraper {
+  width: 100%;
+  max-width: 780px; }
+  @media screen and (max-width: 768px) {
+    html.responsive-enabled #powerTrailContentWraper .ptPublicationDate {
+      min-width: 5em; }
+    html.responsive-enabled #powerTrailContentWraper .ptStatusOrPoints {
+      display: none; }
+    html.responsive-enabled #powerTrailContentWraper .ptType img + span {
+      display: none; } }
 
 /*# sourceMappingURL=style_responsive.css.map */

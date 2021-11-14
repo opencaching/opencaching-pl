@@ -1385,8 +1385,8 @@
                 <tr>
                     <th class="ptTd">{{cs_name}}</th>
                     <th class="ptTd">{{cs_type}}</th>
-                    <th class="ptTd">{statusOrPoints}</th>
-                    <th class="ptTd">{{cs_publicationDate}}</th>
+                    <th class="ptTd ptStatusOrPoints">{statusOrPoints}</th>
+                    <th class="ptTd ptPublicationDate">{{cs_publicationDate}}</th>
                     <th class="ptTd">{{cs_cachesNumber}}</th>
                     <th class="ptTd">{{cs_gainedCount}}</th>
                 </tr>

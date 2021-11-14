@@ -441,8 +441,8 @@ function displayPTrails($pTrails, $areOwnSeries)
         }
         $dataForList .= '<tr>' .
             '<td style="text-align: right; padding-right: 5px;"><b><a href="powerTrail.php?ptAction=showSerie&ptrail=' . $pTrail["id"] . '">' . $pTrail["name"] . '</a></b></td>' .
-            '<td><img src="' . $ptTypes[$pTrail["type"]]['icon'] . '" alt=""> ' . tr($ptTypes[$pTrail["type"]]['translate']) . '</td>' .
-            '<td class="ptTd">' . $ownOrAll . '</td>' .
+            '<td class="ptType"><img src="' . $ptTypes[$pTrail["type"]]['icon'] . '" alt=""><span>' . tr($ptTypes[$pTrail["type"]]['translate']) . '</span></td>' .
+            '<td class="ptTd ptStatusOrPoints">' . $ownOrAll . '</td>' .
             '<td class="ptTd">' . Formatter::date($pTrail["dateCreated"]) . '</td>' .
             '<td class="ptTd">' . $pTrail["cacheCount"] . '</td>' .
             '<td class="ptTd">' . $pTrail["conquestedCount"] . '</td>
