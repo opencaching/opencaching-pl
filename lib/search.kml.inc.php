@@ -150,12 +150,11 @@ if ($loggedUser || ! OcConfig::coordsHiddenForNonLogged()) {
         'SELECT `kmlcontent`.`cache_id` `cacheid`, `kmlcontent`.`status` `status`,
                 `kmlcontent`.`longitude` `longitude`, `kmlcontent`.`latitude` `latitude`, `kmlcontent`.cache_mod_cords_id,
                 `kmlcontent`.`type` `type`, `kmlcontent`.`size`, `caches`.`date_hidden` `date_hidden`, `caches`.`name` `name`, `caches`.`wp_oc`
-                `cache_wp`, `cache_type`.`' . $language . '` `typedesc`, `cache_size`.`' . $language . '` `sizedesc`,
+                `cache_wp`, `cache_type`.`' . $language . '` `typedesc`,
                 `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `user`.`username` `username`
-        FROM `kmlcontent`, `caches`, `cache_type`, `cache_size`, `user`
+        FROM `kmlcontent`, `caches`, `cache_type`, `user`
         WHERE `kmlcontent`.`cache_id`=`caches`.`cache_id`
             AND `kmlcontent`.`type`=`cache_type`.`id`
-            AND `kmlcontent`.`size`=`cache_size`.`id`
             AND `kmlcontent`.`user_id`=`user`.`user_id`');
 
     while ($r = $dbcSearch->dbResultFetch($s)) {

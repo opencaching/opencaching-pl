@@ -87,10 +87,8 @@ if (isSet($_GET['wp']) && !empty($_GET['wp']) && $_GET['wp'] != "OP") {
         $cache_type = XDb::xFetchArray($wynik);
 
         $cache_size = tr(GeoCacheCommons::CacheSizeTranslationKey($caches['size']));
+        $cache_status = tr(GeoCacheCommons::CacheStatusTranslationKey($caches['status']));
 
-        $query = "select " . I18n::getCurrentLang() . " from cache_status where id =" . $caches['status'] . ';';
-        $wynik = XDb::xSql($query);
-        $cache_status = XDb::xFetchArray($wynik);
 
         if (isset($_SESSION['user_id'])) {
             $query2 = "select 1 from cache_logs where user_id = '" . $_SESSION['user_id'] . "' and type = '1' and deleted='0' and cache_id ='" . $caches['cache_id'] . "';";
@@ -136,7 +134,7 @@ if (isSet($_GET['wp']) && !empty($_GET['wp']) && $_GET['wp'] != "OP") {
         $cache_info['type'] = $cache_type[0];
         $cache_info['size'] = $cache_size;
         $cache_info['status2'] = $caches['status'];
-        $cache_info['status'] = $cache_status[0];
+        $cache_info['status'] = $cache_status;
         $cache_info['hidden_date'] = date('j.m.Y', strtotime($caches['date_hidden']));
         $cache_info['wp_oc'] = $caches['wp_oc'];
         $cache_info['owner'] = $user[0];

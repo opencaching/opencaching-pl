@@ -113,8 +113,8 @@ class C100Init extends UpdateScript
         $this->db->addIndexIfNotExists('waypoints', 'opensprawdzacz'); // all but PL
 
         $this->updateTranslations('de'); // adds columns to all translation tables at PL, RO, UK
-        $this->updateTranslations('fr'); // adds column to waypoint_type table at PL, RO, UK
-        $this->updateTranslations('ro'); // adds columns to all translation tables at PL, UK
+        $this->updateTranslations('fr'); // adds columns to all translation tables at PL, UK
+        $this->updateTranslations('ro');
 
         $this->updateTranslations('pl');
         $this->updateTranslations('en');

@@ -6,6 +6,7 @@ use src\Utils\Database\XDb;
 use src\Utils\Text\Formatter;
 use src\Utils\I18n\I18n;
 use src\Models\ApplicationContainer;
+use src\Models\GeoCache\GeoCache;
 
 //include template handling
 require_once(__DIR__.'/lib/common.inc.php');
@@ -30,11 +31,7 @@ if (!$loggedUser) {
     $tplname = 'mycaches';
     require(__DIR__.'/src/Views/newlogs.inc.php');
 
-    $eLang = I18n::getLangForDbTranslations('cache_status');
-
-    $rs_stat = XDb::xMultiVariableQueryValue(
-        "SELECT cache_status.$eLang FROM cache_status WHERE `cache_status`.`id` = :1 ", 0, $stat_cache);
-    tpl_set_var('cache_stat', $rs_stat);
+    tpl_set_var('cache_stat', tr(GeoCache::CacheStatusTranslationKey($stat_cache)));
 
     $ran = XDb::xMultiVariableQueryValue(
         "SELECT count(cache_id) FROM caches WHERE `caches`.`status` = '1' AND `caches`.`user_id`= :1 ", 0, $user_id);
@@ -152,7 +149,6 @@ if (!$loggedUser) {
                 `caches`.`name`,
                 `date_hidden`,
                 `status`,cache_type.icon_small AS cache_icon_small,
-                `cache_status`.`id` AS `cache_status_id`,
                 `caches`.`founds` AS `founds`,
                 `caches`.`topratings` AS `topratings`,
                 datediff(now(),`caches`.`last_found` ) as `ilosc_dni`,
@@ -169,11 +165,9 @@ if (!$loggedUser) {
                         AND `gk_item`.`stateid` <>5
                 LEFT JOIN ( SELECT `count`,`cache_id` FROM `cache_visits2` WHERE type = 'C' ) `cv`
                     ON `caches`.`cache_id` = `cv`.`cache_id`
-                INNER JOIN `cache_type` ON (`caches`.`type` = `cache_type`.`id`),
-                `cache_status`
+                INNER JOIN `cache_type` ON (`caches`.`type` = `cache_type`.`id`)
             WHERE
                 `user_id`=:user_id
-                AND `cache_status`.`id`=`caches`.`status`
                 AND `caches`.`status` = :stat_cache
             GROUP BY `caches`.`cache_id`
             ORDER BY `$sort_warunek` $sort_txt

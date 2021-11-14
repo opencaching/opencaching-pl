@@ -5,6 +5,7 @@ use src\Utils\Database\OcDb;
 use src\Models\GeoCache\CacheNote;
 use src\Models\GeoCache\GeoCacheCommons;
 use src\Models\GeoCache\GeoCacheLog;
+use src\Models\GeoCache\Waypoint;
 use src\Utils\I18n\I18n;
 use src\Utils\Text\Validator;
 use src\Models\OcConfig\OcConfig;
@@ -520,34 +521,26 @@ while ( $r = XDb::xFetchArray($stmt) ) {
 
     // Waypoints
     $waypoints = '';
-
-    $rswp = XDb::xSql(
-        "SELECT  `longitude`, `cache_id`, `latitude`,`desc`,`stage`, `type`, `status`,`waypoint_type`." . $language . " `wp_type_name`
-        FROM `waypoints`
-            INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id)
-        WHERE  `waypoints`.`cache_id`=?
-        ORDER BY `waypoints`.`stage`",
-        $r['cacheid']);
-
-    while ($rwp = XDb::xFetchArray($rswp)) {
-        if ($rwp['status'] == 1) {
+    $cacheWps = Waypoint::GetWaypointsForCacheId($r['cacheid']);
+    foreach ($cacheWps as $wp) {
+        if ($wp->getStatus() == Waypoint::STATUS_VISIBLE) {
             $thiswp = $gpxWaypoints;
-            $lat = sprintf('%01.5f', $rwp['latitude']);
+            $lat = sprintf('%01.5f', $wp->getCoordinates()->getLatitude());
             $thiswp = str_replace('{wp_lat}', $lat, $thiswp);
-            $lon = sprintf('%01.5f', $rwp['longitude']);
+            $lon = sprintf('%01.5f', $wp->getCoordinates()->getLongitude());
             $thiswp = str_replace('{wp_lon}', $lon, $thiswp);
-            $thiswp = str_replace('{waypoint}', $waypoint, $thiswp);
-            $thiswp = str_replace('{cacheid}', $rwp['cache_id'], $thiswp);
+            $thiswp = str_replace('{waypoint}', $r['waypoint'], $thiswp);
+            $thiswp = str_replace('{cacheid}', $r['cacheid'], $thiswp);
             $thiswp = str_replace('{time}', $time, $thiswp);
-            $thiswp = str_replace('{wp_type_name}', cleanup_text($rwp['wp_type_name']), $thiswp);
-            if ($rwp['stage'] != 0) {
-                $thiswp = str_replace('{wp_stage}', " " . cleanup_text(tr('stage_wp')) . ": " . $rwp['stage'], $thiswp);
+            $thiswp = str_replace('{wp_type_name}', cleanup_text(tr($wp->getTypeTranslationKey())), $thiswp);
+            if ($wp->getStage() != 0) {
+                $thiswp = str_replace('{wp_stage}', " " . cleanup_text(tr('stage_wp')) . ": " . $wp->getStage(), $thiswp);
             } else {
-                $thiswp = str_replace('{wp_stage}', $rwp['wp_type_name'], $thiswp);
+                $thiswp = str_replace('{wp_stage}', tr($wp->getTypeTranslationKey()), $thiswp);
             }
-            $thiswp = str_replace('{desc}', xmlentities(cleanup_text($rwp['desc'])), $thiswp);
-            if (isset($wptType[$rwp['type']]))
-                $thiswp = str_replace('{wp_type}', $wptType[$rwp['type']], $thiswp);
+            $thiswp = str_replace('{desc}', xmlentities(cleanup_text($wp->getDescription())), $thiswp);
+            if (isset($wptType[$wp->getType()]))
+                $thiswp = str_replace('{wp_type}', $wptType[$wp->getType()], $thiswp);
             else
                 $thiswp = str_replace('{wp_type}', $wptType[0], $thiswp);
             $waypoints .= $thiswp;

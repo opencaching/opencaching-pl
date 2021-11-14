@@ -12,6 +12,7 @@ use src\Models\GeoCache\CacheNote;
 use src\Utils\I18n\I18n;
 use src\Models\OcConfig\OcConfig;
 use src\Models\ApplicationContainer;
+use src\Models\GeoCache\Waypoint;
 
 global $content, $bUseZip, $dbcSearch, $queryFilter;
 require_once (__DIR__.'/common.inc.php');
@@ -98,23 +99,7 @@ $gpxLog = '
     <text>{text}</text>
 </log>
 ';
-$gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
-    <time>{time}</time>
-    <name>{waypoint} {wp_stage}</name>
-    <cmt>{desc}</cmt>
-    <desc>{wp_type_name}</desc>
-    <url>' . $absolute_server_URI . 'viewcache.php?wp={waypoint}</url>
-    <urlname>{waypoint} {wp_stage}</urlname>
-    <sym>{wp_type}</sym>
-    <type>Waypoint|{wp_type}</type>
-    <gsak:wptExtension xmlns:gsak="http://www.gsak.net/xmlv1/5">
-    <gsak:Parent>{waypoint}</gsak:Parent>
-    <gsak:Child_ByGSAK>false</gsak:Child_ByGSAK>
-    <gsak:Child_Flag>false</gsak:Child_Flag>
-    <gsak:Code>{waypoint} {wp_stage}</gsak:Code>
-    </gsak:wptExtension>
-  </wpt>
-';
+
 
 $gpxFoot = '</gpx>';
 
@@ -690,45 +675,58 @@ $gpxAttribID[999] = '999';        $gpxAttribName[999] = 'Log password';
 
         // Waypoints
         $waypoints = '';
-        $rswp = XDb::xSql("SELECT  `longitude`, `cache_id`, `latitude`,`desc`,`stage`, `type`, `status`,`waypoint_type`.`pl` `wp_type_name`
-                FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id)
-                WHERE  `waypoints`.`cache_id`= ?
-                ORDER BY `waypoints`.`stage`", $r['cacheid']);
-
-        while ($rwp = XDb::xFetchArray($rswp)) {
-            if ($rwp['status'] == 1) {
+        $gpxWaypoints = '    <wpt lat="{wp_lat}" lon="{wp_lon}">'. PHP_EOL .
+                        '        <time>{time}</time>'. PHP_EOL .
+                        '        <name>{waypoint} {wp_stage}</name>'. PHP_EOL .
+                        '        <cmt>{desc}</cmt>'. PHP_EOL .
+                        '        <desc>{wp_type_name}</desc>'. PHP_EOL .
+                        '        <url>' . $absolute_server_URI . 'viewcache.php?wp={waypoint}</url>'. PHP_EOL .
+                        '        <urlname>{waypoint} {wp_stage}</urlname>'. PHP_EOL .
+                        '        <sym>{wp_type}</sym>'. PHP_EOL .
+                        '        <type>Waypoint|{wp_type}</type>'. PHP_EOL .
+                        '        <gsak:wptExtension xmlns:gsak="http://www.gsak.net/xmlv1/5">'. PHP_EOL .
+                        '        <gsak:Parent>{waypoint}</gsak:Parent>'. PHP_EOL .
+                        '        <gsak:Child_ByGSAK>false</gsak:Child_ByGSAK>'. PHP_EOL .
+                        '        <gsak:Child_Flag>false</gsak:Child_Flag>'. PHP_EOL .
+                        '        <gsak:Code>{waypoint} {wp_stage}</gsak:Code>'. PHP_EOL .
+                        '        </gsak:wptExtension>'. PHP_EOL .
+        '    </wpt>'. PHP_EOL;
+        $cacheWps = Waypoint::GetWaypointsForCacheId($r['cacheid']);
+        foreach ($cacheWps as $wp) {
+            if ($wp->getStatus() == Waypoint::STATUS_VISIBLE) {
                 $thiswp = $gpxWaypoints;
-                $lat = sprintf('%01.5f', $rwp['latitude']);
+                $lat = sprintf('%01.5f', $wp->getCoordinates()->getLatitude());
                 $thiswp = str_replace('{wp_lat}', $lat, $thiswp);
-                $lon = sprintf('%01.5f', $rwp['longitude']);
+                $lon = sprintf('%01.5f', $wp->getCoordinates()->getLongitude());
                 $thiswp = str_replace('{wp_lon}', $lon, $thiswp);
-                $thiswp = str_replace('{waypoint}', $waypoint, $thiswp);
-                $thiswp = str_replace('{cacheid}', $rwp['cache_id'], $thiswp);
+
+                $thiswp = str_replace('{waypoint}', $r['waypoint'], $thiswp);
+                $thiswp = str_replace('{cacheid}', $r['cacheid'], $thiswp);
                 $thiswp = str_replace('{time}', $time, $thiswp);
-                $thiswp = str_replace('{wp_type_name}', $rwp['wp_type_name'], $thiswp);
-                if ($rwp['stage'] != 0) {
-                    $thiswp = str_replace('{wp_stage}', " " . tr('stage_wp') . ": " . $rwp['stage'], $thiswp);
+                $thiswp = str_replace('{wp_type_name}', tr($wp->getTypeTranslationKey()), $thiswp);
+                if ($wp->getStage() != 0) {
+                    $thiswp = str_replace('{wp_stage}', " " . tr('stage_wp') . ": " . $wp->getStage(), $thiswp);
                 } else {
-                    $thiswp = str_replace('{wp_stage}', $rwp['wp_type_name'], $thiswp);
+                    $thiswp = str_replace('{wp_stage}', tr($wp->getTypeTranslationKey()), $thiswp);
                 }
-                $thiswp = str_replace('{desc}', cleanup_text($rwp['desc']), $thiswp);
-                if ($rwp['type'] == 5) {
-                    $thiswp = str_replace('{wp_type}', "Parking Area", $thiswp);
-                }
-                if ($rwp['type'] == 1) {
-                    $thiswp = str_replace('{wp_type}', "Flag, Green", $thiswp);
-                }
-                if ($rwp['type'] == 2) {
-                    $thiswp = str_replace('{wp_type}', "Flag, Green", $thiswp);
-                }
-                if ($rwp['type'] == 3) {
-                    $thiswp = str_replace('{wp_type}', "Flag, Red", $thiswp);
-                }
-                if ($rwp['type'] == 4) {
-                    $thiswp = str_replace('{wp_type}', "Circle with X", $thiswp);
-                }
-                if ($rwp['type'] == 6) {
-                    $thiswp = str_replace('{wp_type}', "Trailhead", $thiswp);
+                $thiswp = str_replace('{desc}', cleanup_text($wp->getDescription()), $thiswp);
+                switch ($wp->getType()) {
+                    case Waypoint::TYPE_PARKING:
+                        $thiswp = str_replace('{wp_type}', "Parking Area", $thiswp);
+                        break;
+                    case Waypoint::TYPE_PHYSICAL:
+                    case Waypoint::TYPE_VIRTUAL:
+                        $thiswp = str_replace('{wp_type}', "Flag, Green", $thiswp);
+                        break;
+                    case Waypoint::TYPE_FINAL:
+                        $thiswp = str_replace('{wp_type}', "Flag, Red", $thiswp);
+                        break;
+                    case Waypoint::TYPE_INTERESTING:
+                        $thiswp = str_replace('{wp_type}', "Circle with X", $thiswp);
+                        break;
+                    case Waypoint::TYPE_TRAILHEAD:
+                        $thiswp = str_replace('{wp_type}', "Trailhead", $thiswp);
+                        break;
                 }
                 $waypoints .= $thiswp;
             }

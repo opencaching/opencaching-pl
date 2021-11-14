@@ -48,9 +48,7 @@ if (isset($_GET['wp']) && !empty($_GET['wp']) && isset($_GET['output']) && !empt
                 $wynik = XDb::xSql($query);
                 $wiersz3 = XDb::xFetchArray($wynik);
 
-                $query = "select en from cache_status where id=" . $wiersz['status'];
-                $wynik = XDb::xSql($query);
-                $wiersz4 = XDb::xFetchArray($wynik);
+                $wiersz4 = tr(GeoCacheCommons::CacheStatusTranslationKey($wiersz['status']));
 
                 $wiersz5 = tr(GeoCacheCommons::CacheSizeTranslationKey($wiersz['size']));
 

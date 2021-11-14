@@ -256,14 +256,13 @@ if (isset($_GET['cacheid'])) {
 }
 
 $stmt = XDb::xSql(
-    "SELECT cache_status.id AS cs_id, cache_status.pl AS cache_status,
-                cache_owner.username AS username, cache_owner.user_id AS user_id,
-                caches.cache_id AS cache_id, caches.name AS cachename,
-                IFNULL(`cache_location`.`adm3`, '') AS `adm3`, caches.date_created AS date_created,
-                last_log.id AS last_log_id, last_log.date AS last_log_date,
-                last_log.user_id AS last_log_author, log_author.username AS last_log_username,
-                last_log.text AS last_log_text
-        FROM cache_status, `caches`
+    "SELECT cache_owner.username AS username, cache_owner.user_id AS user_id,
+            caches.cache_id AS cache_id, caches.name AS cachename,
+            IFNULL(`cache_location`.`adm3`, '') AS `adm3`, caches.date_created AS date_created,
+            last_log.id AS last_log_id, last_log.date AS last_log_date,
+            last_log.user_id AS last_log_author, log_author.username AS last_log_username,
+            last_log.text AS last_log_text
+        FROM `caches`
         LEFT JOIN `cache_location` ON `caches`.`cache_id` = `cache_location`.`cache_id`
         LEFT JOIN (
             SELECT id, cache_id, text, user_id, date
@@ -274,7 +273,6 @@ $stmt = XDb::xSql(
                ON caches.user_id = cache_owner.user_id
            LEFT JOIN user AS log_author
                ON last_log.user_id = log_author.user_id
-        WHERE cache_status.id = caches.status
         AND caches.status = 4
         GROUP BY caches.cache_id
         ORDER BY caches.date_created DESC");

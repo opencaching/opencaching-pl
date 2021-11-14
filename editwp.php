@@ -29,9 +29,9 @@ if (isset($_POST['delete'])) {
     $remove = 1;
 }
 
-$wp_rs = XDb::xSql("SELECT `wp_id`, `cache_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`,
-                              `opensprawdzacz`, `waypoint_type`.`pl` `wp_type`, `waypoint_type`.`icon` `wp_icon`
-                      FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE `wp_id`= ? ", $wp_id);
+$wp_rs = XDb::xSql("SELECT `wp_id`, `cache_id`, `type`, `longitude`, `latitude`,
+                           `desc`, `status`, `stage`, `opensprawdzacz`
+                    FROM `waypoints` WHERE `wp_id`= ? ", $wp_id);
 
 if ($wp_record = XDb::xFetchArray($wp_rs)) {
     $cache_id = $wp_record['cache_id'];

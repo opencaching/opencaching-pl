@@ -1,6 +1,6 @@
 gct.addEmptyRow();
 gct.addToLastRow( 0, "{CacheID}" );
-gct.addToLastRow( 1, "<img span='{cachetype}' src='/images/{icon_large}' alt='{cachetype}' title='{cachetype}' height='16' width='16' />" );
+gct.addToLastRow( 1, "<img span='{cachetype}' src='{icon_large}' alt='{cachetype}' title='{cachetype}' height='16' width='16' />" );
 gct.addToLastRow( 2, "<a span='{cachenameBIG}' href='viewcache.php?cacheid={urlencode_cacheid}' target='_blank' class='links' style='{style}'>{cachename}</a>" );
 gct.addToLastRow( 3, "{short_desc}" );
 gct.addToLastRow( 4, "<a span='{usernameBIG}' href='viewprofile.php?userid={urlencode_userid}' target='_blank'  class='links'>{username}</a>" );
