@@ -96,5 +96,8 @@ html.responsive-enabled .templateContainer {
     -ms-transform: translate(0, 25%);
     -o-transform: translate(0, 25%);
     transform: translate(0, 25%); } }
+@media screen and (max-width: 768px) {
+  html.responsive-enabled .nbh-half {
+    width: 99%; } }
 
 /*# sourceMappingURL=style_responsive.css.map */
