@@ -464,71 +464,67 @@ if (isset($_POST['submitform'])) {
     }
 
     // check coordinates
-    if ($lat_h != '' || $lat_min != '') {
-        if (! mb_ereg_match('^[0-9]{1,2}$', $lat_h)) {
+    if (! mb_ereg_match('^[0-9]{1,2}$', $lat_h)) {
+        tpl_set_var('lat_message', $error_coords_not_ok);
+        $lat_h_not_ok = true;
+    } else {
+        if (($lat_h >= 0) && ($lat_h < 90)) {
+            $lat_h_not_ok = false;
+        } else {
             tpl_set_var('lat_message', $error_coords_not_ok);
             $lat_h_not_ok = true;
-        } else {
-            if (($lat_h >= 0) && ($lat_h < 90)) {
-                $lat_h_not_ok = false;
-            } else {
-                tpl_set_var('lat_message', $error_coords_not_ok);
-                $lat_h_not_ok = true;
-            }
         }
+    }
 
-        if (is_numeric($lat_min)) {
-            if (($lat_min >= 0) && ($lat_min < 60)) {
-                $lat_min_not_ok = false;
-            } else {
-                tpl_set_var('lat_message', $error_coords_not_ok);
-                $lat_min_not_ok = true;
-            }
+    if (is_numeric($lat_min)) {
+        if (($lat_min >= 0) && ($lat_min < 60)) {
+            $lat_min_not_ok = false;
         } else {
             tpl_set_var('lat_message', $error_coords_not_ok);
             $lat_min_not_ok = true;
         }
+    } else {
+        tpl_set_var('lat_message', $error_coords_not_ok);
+        $lat_min_not_ok = true;
+    }
 
+    if (! $lat_h_not_ok && ! $lat_min_not_ok) {
         $latitude = $lat_h + round($lat_min, 3) / 60;
         if ($latNS == 'S') {
             $latitude = - $latitude;
         }
 
         if ($latitude == 0) {
-            tpl_set_var('lon_message', $error_coords_not_ok);
+            tpl_set_var('lat_message', $error_coords_not_ok);
             $lat_min_not_ok = true;
         }
-    } else {
-        $latitude = NULL;
-        $lat_h_not_ok = false;
-        $lat_min_not_ok = false;
     }
 
-    if ($lon_h != '' || $lon_min != '') {
-        if (! mb_ereg_match('^[0-9]{1,3}$', $lon_h)) {
+    if (! mb_ereg_match('^[0-9]{1,3}$', $lon_h)) {
+        tpl_set_var('lon_message', $error_coords_not_ok);
+        $lon_h_not_ok = true;
+    } else {
+        if (($lon_h >= 0) && ($lon_h < 180)) {
+            $lon_h_not_ok = false;
+        } else {
             tpl_set_var('lon_message', $error_coords_not_ok);
             $lon_h_not_ok = true;
-        } else {
-            if (($lon_h >= 0) && ($lon_h < 180)) {
-                $lon_h_not_ok = false;
-            } else {
-                tpl_set_var('lon_message', $error_coords_not_ok);
-                $lon_h_not_ok = true;
-            }
         }
+    }
 
-        if (is_numeric($lon_min)) {
-            if (($lon_min >= 0) && ($lon_min < 60)) {
-                $lon_min_not_ok = false;
-            } else {
-                tpl_set_var('lon_message', $error_coords_not_ok);
-                $lon_min_not_ok = true;
-            }
+    if (is_numeric($lon_min)) {
+        if (($lon_min >= 0) && ($lon_min < 60)) {
+            $lon_min_not_ok = false;
         } else {
             tpl_set_var('lon_message', $error_coords_not_ok);
             $lon_min_not_ok = true;
         }
+    } else {
+        tpl_set_var('lon_message', $error_coords_not_ok);
+        $lon_min_not_ok = true;
+    }
 
+    if (! $lon_h_not_ok && ! $lon_min_not_ok) {
         $longitude = $lon_h + round($lon_min, 3) / 60;
         if ($lonEW == 'W') {
             $longitude = - $longitude;
@@ -537,10 +533,6 @@ if (isset($_POST['submitform'])) {
             tpl_set_var('lon_message', $error_coords_not_ok);
             $lon_min_not_ok = true;
         }
-    } else {
-        $longitude = NULL;
-        $lon_h_not_ok = false;
-        $lon_min_not_ok = false;
     }
 
     $lon_not_ok = $lon_min_not_ok || $lon_h_not_ok;
