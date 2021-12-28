@@ -158,10 +158,7 @@ class ViewCacheController extends BaseController
         $this->geocache->incCacheVisits($this->loggedUser, $_SERVER["REMOTE_ADDR"]);
 
         // detailed cache access logging
-        if (OcConfig::isSiteCacheAccessLogEnabled()) {
-            $userId = $this->loggedUser ? $this->loggedUser->getUserId() : null;
-            CacheAccessLog::logBrowserCacheAccess($this->geocache->getCacheId(), $userId, 'view_cache');
-        }
+        CacheAccessLog::logBrowserCacheAccess($this->geocache, $this->loggedUser, CacheAccessLog::EVENT_VIEW_CACHE);
 
         PrintList::HandleRequest($this->geocache->getCacheId());
 

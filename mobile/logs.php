@@ -1,10 +1,9 @@
 <?php
 
-use src\Utils\Log\CacheAccessLog;
-use src\Utils\Text\Formatter;
 use src\Controllers\LogEntryController;
 use src\Models\GeoCache\GeoCache;
-use src\Models\OcConfig\OcConfig;
+use src\Utils\Log\CacheAccessLog;
+use src\Utils\Text\Formatter;
 
 const LOGS_PER_PAGE = 10;
 
@@ -18,14 +17,21 @@ function find_news($start, $limit)
     $logs = $logEntryController->loadLogsFromDb($cache->getCacheId(), false, $start, $limit);
 
     // detailed cache access logging
-    if (OcConfig::isSiteCacheAccessLogEnabled()) {
-        $user_id = @$_SESSION['user_id'] > 0 ? $_SESSION['user_id'] : null;
-        CacheAccessLog::logCacheAccess($cache->getCacheId(), $user_id, 'view_logs', CacheAccessLog::SOURCE_MOBILE);
+    if (isset($_SESSION['user_id']) && $_SESSION['user_id'] > 0) {
+        $user_id = $_SESSION['user_id'];
+    } else {
+        $user_id = null;
     }
+    CacheAccessLog::logCacheAccess(
+        $cache->getCacheId(),
+        $user_id,
+        CacheAccessLog::EVENT_VIEW_LOGS,
+        CacheAccessLog::SOURCE_MOBILE
+    );
 
-    $znalezione = array();
+    $znalezione = [];
     foreach ($logs as $log) {
-        $tmplog = array();
+        $tmplog = [];
         $tmplog['id'] = $log['logid'];
         $tmplog['user_id'] = $log['user_id'];
         $tmplog['newtype'] = $log['type'];
@@ -43,7 +49,7 @@ function find_news($start, $limit)
 if (isset($_GET['wp']) && strlen($_GET['wp']) == 6) {
     try {
         $cache = new GeoCache(['cacheWp' => $_GET['wp']]);
-    } catch (\Exception $e) {
+    } catch (Exception $e) {
         header('Location: ./index.php');
         exit();
     }
