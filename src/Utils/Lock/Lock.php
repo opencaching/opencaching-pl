@@ -85,10 +85,9 @@ abstract class Lock
      */
     final public static function tryLock(
         $identifier,
-        $mode = self::EXCLUSIVE,
-        array $options = null
+        int $mode = self::EXCLUSIVE,
+        ?array $options = null
     ) {
-        $result = null;
         if (self::useExistingFile($identifier, $options)) {
             $result = (new FileLock(null))->internalTryLock(
                 $identifier,
@@ -106,8 +105,8 @@ abstract class Lock
     }
 
     /**
-     * Unlocks the resource previously locked by tryLock method. The successfuly
-     * unclocked handle is always closed.
+     * Unlocks the resource previously locked by tryLock method. The successfully
+     * unlocked handle is always closed.
      *
      * @param resource $handle the resource being the result of previous tryLock
      *     method call
@@ -115,11 +114,10 @@ abstract class Lock
      *     Currently supported OPTION_USE_EXISTING_FILE constant indicating
      *     the file unlocking should be used regardless of config settings.
      *
-     * @return boolean true if unlocking succeded, false otherwise
+     * @return boolean true if unlocking succeeded, false otherwise
      */
-    final public static function unlock($handle, array $options = null)
+    final public static function unlock($handle, array $options = null): bool
     {
-        $result = false;
         if (self::useExistingFile($handle, $options)) {
             $result = (new FileLock(null))->internalUnlock($handle);
         } else {
@@ -129,7 +127,7 @@ abstract class Lock
     }
 
     /**
-     * Forcedly removes all locks set up on the resource described by given
+     * Removes all locks set up on the resource described by given
      * identifier. In most cases it is done by removing the resource itself
      *
      * CAUTION: Use only as a last resort. Can cause data loss and system
@@ -141,11 +139,10 @@ abstract class Lock
      *     Currently supported OPTION_USE_EXISTING_FILE constant indicating
      *     the file unlocking should be used regardless of config settings.
      *
-     * @return boolean true if unlocking succeded, false otherwise
+     * @return boolean true if unlocking succeeded, false otherwise
      */
-    final public static function forceUnlock($identifier, array $options = null)
+    final public static function forceUnlock($identifier, array $options = null): bool
     {
-        $result = false;
         if (self::useExistingFile($identifier, $options)) {
             $result = (new FileLock(null))->internalForceUnlock(
                 $identifier,
@@ -164,7 +161,7 @@ abstract class Lock
      * @return object instance of {@see RealLock} subclass, created according to
      *     config settings, null if no correct settings found
      */
-    final private static function getRealLock()
+    private static function getRealLock(): ?object
     {
         $lockConfig = OcConfig::instance()->getLockConfig();
         $result = null;
@@ -185,15 +182,16 @@ abstract class Lock
      *
      * @param mixed $identifier the identifier to check if it is an existing
      *     file path or handle
-     * @param string[] $options options to check if contain
+     * @param string[]|null $options options to check if contain
      *     OPTION_USE_EXISTING_FILE
      * @return boolean true if existing file locking should be used, false
      *     otherwise
      */
     final protected static function useExistingFile(
         $identifier,
-        $options = null
-    ) {
+        ?array $options = null
+    ): bool
+    {
         $result = false;
         if (
             $options != null

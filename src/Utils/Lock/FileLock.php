@@ -4,7 +4,7 @@
  */
 namespace src\Utils\Lock;
 
-use \RuntimeException;
+use RuntimeException;
 use src\Models\OcConfig\OcConfig;
 
 /**
@@ -13,7 +13,7 @@ use src\Models\OcConfig\OcConfig;
 final class FileLock extends RealLock
 {
     /** @var string directory path where to store dynamic lock files */
-    private $lockDir;
+    private string $lockDir;
 
     /**
      * Creates directory for dynamic lock files storage if specified in settings
@@ -22,7 +22,7 @@ final class FileLock extends RealLock
      *
      * @see RealLock::internalConstruct()
      */
-    protected function internalConstruct($settings)
+    protected function internalConstruct(array $settings)
     {
         $lockDir = null;
         if (!empty($settings["dir"])) {
@@ -36,7 +36,7 @@ final class FileLock extends RealLock
 
     /**
      * Sets the flock flags according to mode value, then checks if existing
-     * file should be locked or a dynamic one, opens it if neccessary and tries
+     * file should be locked or a dynamic one, opens it if necessary and tries
      * to flock the open file.
      * CAUTION: Nonblocking may not work in MS Windows, untested
      *
@@ -48,7 +48,7 @@ final class FileLock extends RealLock
      *
      * @see RealLock::internalTryLock()
      */
-    public function internalTryLock($identifier, $mode, array $options = null)
+    public function internalTryLock($identifier, int $mode, array $options = null)
     {
         $lockMode = LOCK_EX;
         if (($mode & self::SHARED) == self::SHARED) {
@@ -86,7 +86,7 @@ final class FileLock extends RealLock
      *
      * @see RealLock::internalUnlock()
      */
-    public function internalUnlock($handle)
+    public function internalUnlock($handle): bool
     {
         $result = (is_resource($handle) && flock($handle, LOCK_UN));
         if ($result) {
@@ -108,7 +108,7 @@ final class FileLock extends RealLock
      *
      * @see RealLock::internalUnlock()
      */
-    public function internalForceUnlock($identifier, array $options = null)
+    public function internalForceUnlock($identifier, ?array $options = null): bool
     {
         $result = false;
         if (self::useExistingFile($identifier, $options)) {
@@ -133,7 +133,7 @@ final class FileLock extends RealLock
      *
      * @return string dynamic file path
      */
-    private function getPathFromId($identifier)
+    private function getPathFromId($identifier): string
     {
         if ($this->lockDir == null) {
             throw new RuntimeException(
@@ -144,10 +144,10 @@ final class FileLock extends RealLock
         if (is_object($identifier)) {
             $result .= str_replace('\\', '.', get_class($identifier));
         } elseif (is_string($identifier)) {
-            $idnetifier = str_replace('\\', '.', $identifier);
+            $identifier = str_replace('\\', '.', $identifier);
             $result .= str_replace('/', '.', $identifier);
         } else {
-            $result .= (string)$identifier;
+            $result .= $identifier;
         }
         return $result;
     }

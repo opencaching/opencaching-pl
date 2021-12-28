@@ -4,7 +4,7 @@
  */
 namespace src\Utils\Lock;
 
-use \RuntimeException;
+use RuntimeException;
 
 /**
  * Superclass of every class implementing real locking mechanism, like f.ex.
@@ -20,7 +20,7 @@ abstract class RealLock extends Lock
      * @param string[] $settings the real locking mechanism implementation
      *     settings
      */
-    final public function __construct($settings)
+    final public function __construct(array $settings)
     {
         $trace = debug_backtrace();
         if (
@@ -42,7 +42,7 @@ abstract class RealLock extends Lock
      * @param string[] $settings the real locking mechanism implementation
      *     settings
      */
-    abstract protected function internalConstruct($settings);
+    abstract protected function internalConstruct(array $settings);
 
     /**
      * Internal tryLock method declaration. Should be implemented by the real
@@ -56,7 +56,7 @@ abstract class RealLock extends Lock
      */
     abstract public function internalTryLock(
         $identifier,
-        $mode,
+        int $mode,
         array $options = null
     );
 
@@ -68,11 +68,11 @@ abstract class RealLock extends Lock
      *
      * @return boolean {@see Lock::unlock()}
      */
-    abstract public function internalUnlock($handle);
+    abstract public function internalUnlock($handle): bool;
 
     /**
      * Internal forceUnlock method declaration. Should be implemented by the
-     * real locking class to forcedly unlock the resource given by identifier.
+     * real locking class to force unlock the resource given by identifier.
      *
      * @param mixed $identifier {@see Lock::forceUnlock()}
      * @param string[] $options {@see Lock::forceUnlock()}
@@ -82,5 +82,5 @@ abstract class RealLock extends Lock
     abstract public function internalForceUnlock(
         $identifier,
         array $options = null
-    );
+    ): bool;
 }
