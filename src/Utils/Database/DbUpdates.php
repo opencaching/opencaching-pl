@@ -2,8 +2,8 @@
 namespace src\Utils\Database;
 
 use Exception;
-use src\Utils\Generators\Uuid;
 use okapi\Facade;
+use src\Utils\Generators\Uuid;
 
 /**
  * Static container of DbUpdate objects, each representing one of the scripts
@@ -16,17 +16,19 @@ class DbUpdates
      * @var array|null $updates dict $uuid => DbUpdate object;
      *    ordered ascending by filename; read access only via get() / getAll()
      */
-    private static $updates = null;
+    private static ?array $updates = null;
 
     /**
      * @return string
      *    next unused version number (first part of filename) for a new
      *    update script to be created; number 900+ is reserved for
      *    updates that are run always and last
+     * @throws Exception
      */
-    private static function getNextVersionNumberString()
+    private static function getNextVersionNumberString(): string
     {
-        foreach (self::getAll() as $uuid => $update) {
+        $lastRegularUpdate = '';
+        foreach (self::getAll() as $update) {
             if ($update->getName() < '900_') {
                 $lastRegularUpdate = $update->getName();
             }
@@ -37,9 +39,9 @@ class DbUpdates
 
     /**
      * Creates a new update script from Template.php, with preliminary name.
-     * @return DbUpdate
+     * @throws Exception
      */
-    public static function create($developerName)
+    public static function create($developerName): string
     {
         $developerName = str_replace(['"', "'", "\\"], '', $developerName);
         $creationDate = date('Y-m-d');
@@ -68,8 +70,9 @@ class DbUpdates
 
     /**
      * @return bool success or failure
+     * @throws Exception
      */
-    public function delete($uuid)
+    public function delete($uuid): bool
     {
         $update = self::get($uuid);
         if (!$update) {
@@ -102,6 +105,7 @@ class DbUpdates
 
     /**
      * @returns DbUpdate|null
+     * @throws Exception
      */
     public static function get($uuid)
     {
@@ -114,8 +118,9 @@ class DbUpdates
 
     /**
      * @returns array dictionary $uuid => DbUpdate object of all available updates
+     * @throws Exception
      */
-    public static function getAll()
+    public static function getAll(): ?array
     {
         if (self::$updates === null) {
             self::makeUpdatesDict();
@@ -123,11 +128,12 @@ class DbUpdates
         return self::$updates;
     }
 
+    /**
+     * @throws Exception
+     */
     private static function makeUpdatesDict()
     {
         self::$updates = [];
-
-        $db = OcDb::instance();
 
         // Get list of available update scripts
         $scriptPaths = glob(self::getUpdatesDir() . '/*.php');
@@ -171,7 +177,7 @@ class DbUpdates
     /**
      * Sort the updates ascending and case-insensitive by filename
      */
-    public function sort()
+    public static function sort()
     {
         if (self::$updates !== null) {
             uasort(self::$updates, function($a, $b) {
@@ -183,7 +189,7 @@ class DbUpdates
     /**
      * @return string the directory path where update scripts are located
      */
-    public static function getUpdatesDir()
+    public static function getUpdatesDir(): string
     {
         return __DIR__ . '/Updates';
     }
@@ -191,8 +197,9 @@ class DbUpdates
 
     /**
      * Update DB triggers, procedures and functions
+     * @throws Exception
      */
-     public static function updateRoutines()
+     public static function updateRoutines(): string
      {
         $routines = self::getRoutineFileNames();
         $messages = '';
@@ -207,7 +214,10 @@ class DbUpdates
         return $messages;
     }
 
-    public static function runRoutines($fileName)
+    /**
+     * @throws Exception
+     */
+    public static function runRoutines($fileName): string
     {
         $queries = self::getRoutineContents($fileName);
         if (substr($queries, 0, 10) != 'DELIMITER ') {
@@ -225,9 +235,9 @@ class DbUpdates
     }
 
     /**
-     * @return array dictionary: .sql file path or name => filetime and last run time
+     * @return array dictionary: .sql file path or name => file time and last run time
      */
-    public static function getRoutineFileNames()
+    public static function getRoutineFileNames(): array
     {
         $routineFilePaths = glob(self::getRoutinesPath('*.sql'));
         $routines = [];
@@ -239,17 +249,17 @@ class DbUpdates
         return $routines;
     }
 
-    public function getRoutineContents($fileName)
+    public static function getRoutineContents($fileName)
     {
         return file_get_contents(self::getRoutinesPath($fileName));
     }
 
-    private function routineFileModified($fileName)
+    private static function routineFileModified($fileName)
     {
         return filemtime(self::getRoutinesPath($fileName));
     }
 
-    private static function getRoutinesPath($fileName)
+    private static function getRoutinesPath($fileName): string
     {
         return __DIR__ . '/../../../resources/sql/routines/' . $fileName;
     }
