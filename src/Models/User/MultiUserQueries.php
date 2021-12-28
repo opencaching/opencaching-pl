@@ -2,10 +2,10 @@
 namespace src\Models\User;
 
 use src\Models\BaseObject;
+use src\Models\GeoCache\GeoCache;
+use src\Models\GeoCache\GeoCacheCommons;
 use src\Models\GeoCache\GeoCacheLog;
 use src\Models\GeoCache\GeoCacheLogCommons;
-use src\Models\GeoCache\GeoCacheCommons;
-use src\Models\GeoCache\GeoCache;
 use src\Utils\Database\QueryBuilder;
 
 /**
@@ -79,7 +79,7 @@ class MultiUserQueries extends BaseObject
 
         $db = self::db();
 
-        $userIdsStr = $db->quoteString(implode($userIds, ','));
+        $userIdsStr = $db->quoteString(implode(',', $userIds));
 
         $s = $db->simpleQuery(
             "SELECT user_id, username FROM user

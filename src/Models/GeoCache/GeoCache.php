@@ -3,19 +3,19 @@ namespace src\Models\GeoCache;
 
 use DateTime;
 use Exception;
-use src\Utils\Database\XDb;
 use src\Controllers\PictureController;
 use src\Models\Coordinates\Coordinates;
 use src\Models\OcConfig\OcConfig;
+use src\Models\Pictures\Thumbnail;
 use src\Models\PowerTrail\PowerTrail;
 use src\Models\User\MultiUserQueries;
 use src\Models\User\User;
+use src\Models\User\UserWatchedCache;
+use src\Utils\Database\XDb;
+use src\Utils\Debug\Debug;
 use src\Utils\EventHandler\EventHandler;
 use src\Utils\I18n\I18n;
 use src\Utils\Uri\SimpleRouter;
-use src\Models\User\UserWatchedCache;
-use src\Utils\Debug\Debug;
-use src\Models\Pictures\Thumbnail;
 use stdClass;
 
 /**
@@ -905,7 +905,7 @@ class GeoCache extends GeoCacheCommons
             foreach ($this->db->dbResultFetchAll($s) as $row) {
                 $usersArr[] = $row['username'];
             }
-            $this->usersRecommended = implode($usersArr, ', ');
+            $this->usersRecommended = implode(', ', $usersArr);
         }
         return $this->usersRecommended;
     }
