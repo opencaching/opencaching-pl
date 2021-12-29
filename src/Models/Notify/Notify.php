@@ -1,4 +1,5 @@
 <?php
+
 namespace src\Models\Notify;
 
 use src\Models\BaseObject;
@@ -9,37 +10,27 @@ use src\Utils\Debug\Debug;
 class Notify extends BaseObject
 {
 
-    /* @var integer */
-    private $id;
+    private int $id;
 
-    /* @var integer */
-    private $cacheId;
+    private int $cacheId;
 
-    /* @var $cache GeoCache */
-    private $cache = null;
+    private ?GeoCache $cache = null;
 
-    /* @var integer */
-    private $userId;
+    private int $userId;
 
-    /* @var $user User */
-    private $user = null;
+    private ?User $user = null;
 
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getCacheId()
+    public function getCacheId(): int
     {
         return $this->cacheId;
     }
 
-    public function getCache()
+    public function getCache(): ?GeoCache
     {
         if ($this->cache == null && $this->isDataLoaded()) {
             $this->cache = GeoCache::fromCacheIdFactory($this->cacheId);
@@ -47,12 +38,12 @@ class Notify extends BaseObject
         return $this->cache;
     }
 
-    public function getUserId()
+    public function getUserId(): int
     {
         return $this->userId;
     }
 
-    public function getUser()
+    public function getUser(): ?User
     {
         if ($this->user == null && $this->isDataLoaded()) {
             $this->user = User::fromUserIdFactory($this->userId);
@@ -80,7 +71,7 @@ class Notify extends BaseObject
         }
     }
 
-    private static function fromDbRowFactory(array $dbRow)
+    private static function fromDbRowFactory(array $dbRow): Notify
     {
         $n = new self();
         $n->loadFromDbRow($dbRow);
@@ -88,12 +79,12 @@ class Notify extends BaseObject
     }
 
     /**
-     * Returns array of Notify obiects for given user_id
+     * Returns array of Notify objects for given user_id
      *
      * @param int $itemUserId
      * @return Notify[]
      */
-    public static function getAllNotifiesForUserId($itemUserId)
+    public static function getAllNotifiesForUserId(int $itemUserId): array
     {
         $query = "SELECT *
             FROM `notify_waiting`
@@ -111,7 +102,7 @@ class Notify extends BaseObject
      *
      * @return int[]
      */
-    public static function getUniqueUserIdNotifiesList()
+    public static function getUniqueUserIdNotifiesList(): array
     {
         $query = "
             SELECT DISTINCT `user_id`
@@ -122,10 +113,8 @@ class Notify extends BaseObject
 
     /**
      * Deletes all notifies from DB for given userId
-     *
-     * @param int $userId
      */
-    public static function deleteNotifiesForUserId($userId)
+    public static function deleteNotifiesForUserId(int $userId)
     {
         $query = "
             DELETE

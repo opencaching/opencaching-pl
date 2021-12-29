@@ -2,8 +2,8 @@
 
 namespace src\Controllers\Cron\Jobs;
 
-use src\Models\OcConfig\OcConfig;
 use okapi\Facade;
+use src\Models\OcConfig\OcConfig;
 use src\Utils\Database\OcDb;
 
 // Base class for all cron jobs. To add a new job:
@@ -14,11 +14,9 @@ use src\Utils\Database\OcDb;
 
 abstract class Job
 {
-    /** @var OcConfig $ocConfig */
-    protected $ocConfig;
+    protected OcConfig $ocConfig;
 
-    /** @var OcDb $db */
-    protected $db;
+    protected OcDb $db;
 
     public function __construct()
     {
@@ -29,14 +27,14 @@ abstract class Job
     /**
      *  Returns nothing (null) on success, error message string on error.
      */
-    public abstract function run();
+    abstract public function run();
 
     /**
      * Returns true, if it is safe to run the job in multiple parallel instances
      * AND it makes sense to do so - see for example the cache altitude updates,
      * which most of the time are waiting for slow external resources.
      */
-    public function isReentrant()
+    public function isReentrant(): bool
     {
         return false;
     }
@@ -48,7 +46,7 @@ abstract class Job
      * still be run manually for debugging via util.sec/cron/run_cron.php
      * (job name as argument).
      */
-    public function mayRunNow()
+    public function mayRunNow(): bool
     {
         return true;
     }
@@ -141,12 +139,12 @@ abstract class Job
         }
     }
 
-    public final function getLastRun()
+    final public function getLastRun()
     {
         return Facade::cache_get('ocpl/cronJobRun#'.get_class($this));
     }
 
-    public final function setLastRun()
+    final public function setLastRun()
     {
         Facade::cache_set(
             'ocpl/cronJobRun#'.get_class($this),

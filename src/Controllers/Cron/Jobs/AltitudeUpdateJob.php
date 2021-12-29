@@ -8,7 +8,7 @@ use src\Utils\Debug\Debug;
 
 class AltitudeUpdateJob extends Job
 {
-    const RECORDS_TO_RUN_AT_ONCE = 3;
+    private const RECORDS_TO_RUN_AT_ONCE = 3;
 
     public function run()
     {

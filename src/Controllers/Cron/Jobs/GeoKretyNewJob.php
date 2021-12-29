@@ -1,9 +1,9 @@
 <?php
 
-use src\Controllers\Cron\Jobs\Job;
-use src\Utils\Database\XDb;
-use src\Models\GeoKret\GeoKretyApi;
 use okapi\Facade;
+use src\Controllers\Cron\Jobs\Job;
+use src\Models\GeoKret\GeoKretyApi;
+use src\Utils\Database\XDb;
 
 /* * *************************************************************************
   ./util.sec/geokrety/geokrety.new.php
@@ -54,7 +54,7 @@ class GeoKretyNewJob extends Job
             $lon = XDb::xEscape($geokret->position['longitude']);
 
             /* geokrety info update */
-            $query = XDb::xSql(
+            XDb::xSql(
                 "INSERT INTO gk_item (`id`, `name`, `distancetravelled`, `latitude`, `longitude`, `stateid`)
                 VALUES ('" . $id . "', '" . $name . "', '" . $dist . "', '" . $lat . "', '" . $lon . "','" . $state . "')
                 ON DUPLICATE KEY UPDATE `name`='" . $name . "', `distancetravelled`='" . $dist . "',

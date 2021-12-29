@@ -73,6 +73,14 @@ trait SiteConfigTrait
     }
 
     /**
+     * Returns days to keep entries in CACHE_ACCESS_LOG or 0 to disable auto purge
+     */
+    public static function getCacheAccessLogPurgeDays(): int
+    {
+        return self::getKeyFromSiteConfig('cacheAccessLogKeep');
+    }
+
+    /**
      * Enable debug mode (USE ONLY IN DEV/TEST ENV!)
      */
     public static function debugModeEnabled(): bool

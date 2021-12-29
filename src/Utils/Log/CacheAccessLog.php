@@ -34,6 +34,22 @@ class CacheAccessLog
     }
 
     /**
+     * Purge old DB entries. Used by cron
+     */
+    public static function purgeOldEntries()
+    {
+        $purgeDays = OcConfig::getCacheAccessLogPurgeDays();
+        if (0 == $purgeDays) {
+            return;
+        }
+        $db = OcDb::instance();
+        $db->multiVariableQuery(
+            'DELETE FROM `CACHE_ACCESS_LOGS` WHERE `event_date` < NOW() - INTERVAL :1 DAY',
+            $purgeDays
+        );
+    }
+
+    /**
      * Check if user already visited this cache
      */
     private static function alreadyVisited(int $cacheId, ?int $userId, string $event): bool

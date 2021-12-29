@@ -7,20 +7,20 @@
 use src\Controllers\Cron\Jobs\Job;
 use src\Models\GeoCache\GeoCache;
 use src\Models\GeoCache\GeoCacheLog;
+use src\Models\OcConfig\OcConfig;
 use src\Utils\Email\Email;
 use src\Utils\Email\EmailFormatter;
 use src\Utils\Generators\Uuid;
-use src\Models\OcConfig\OcConfig;
 
 class AutoArchiveCachesJob extends Job
 {
-    const STEP_0_STAGED = 0;
-    const STEP_1_FIRST_MAIL_SENT = 1;
-    const STEP_2_SECOND_MAIL_SENT = 2;
-    const STEP_3_ARCHIVED = 3;
-    const ARCHIVE_EVENT = 100;
+    private const STEP_0_STAGED = 0;
+    private const STEP_1_FIRST_MAIL_SENT = 1;
+    private const STEP_2_SECOND_MAIL_SENT = 2;
+    private const STEP_3_ARCHIVED = 3;
+    private const ARCHIVE_EVENT = 100;
 
-    const TEMPLATE_DIR = __DIR__.'/../../../../resources/email/autoarchive/';
+    private const TEMPLATE_DIR = __DIR__.'/../../../../resources/email/autoarchive/';
 
     public function run()
     {
@@ -35,7 +35,7 @@ class AutoArchiveCachesJob extends Job
      *   2: second notification (5 months)
      *   3: auto archive
      */
-    private function processCaches()
+    private function processCaches(): self
     {
         $this->cleanAutoArchDB();
 
@@ -72,11 +72,8 @@ class AutoArchiveCachesJob extends Job
 
     /**
      * Send first notification (after 4 months)
-     *
-     * @param GeoCache $cache
-     * @return AutoArchiveCachesJob
      */
-    private function proceedFirstStep(GeoCache $cache)
+    private function proceedFirstStep(GeoCache $cache): self
     {
         $this->updateCacheStepInDb($cache, self::STEP_1_FIRST_MAIL_SENT)
             ->sendEmail($cache, self::STEP_1_FIRST_MAIL_SENT);
@@ -86,11 +83,8 @@ class AutoArchiveCachesJob extends Job
 
     /**
      * Send second notification (after 5 months)
-     *
-     * @param GeoCache $cache
-     * @return AutoArchiveCachesJob
      */
-    private function proceedSecondStep(GeoCache $cache)
+    private function proceedSecondStep(GeoCache $cache): self
     {
         $this->updateCacheStepInDb($cache, self::STEP_2_SECOND_MAIL_SENT)
             ->sendEmail($cache, self::STEP_2_SECOND_MAIL_SENT);
@@ -100,11 +94,8 @@ class AutoArchiveCachesJob extends Job
 
     /**
      * Archive Geocache (after 6 months)
-     *
-     * @param GeoCache $cache
-     * @return AutoArchiveCachesJob
      */
-    private function archiveGeocache(GeoCache $cache)
+    private function archiveGeocache(GeoCache $cache): self
     {
         $this->db->beginTransaction();
 
@@ -130,11 +121,8 @@ class AutoArchiveCachesJob extends Job
 
     /**
      * Sends e-mail to cache owner about (planed) auto archiving
-     *
-     * @param GeoCache $cache
-     * @param integer $reason
      */
-    private function sendEmail(GeoCache $cache, $reason)
+    private function sendEmail(GeoCache $cache, int $reason)
     {
         $email = new Email();
         if (!$email->addToAddr($cache->getOwner()->getEmail())) {
@@ -182,11 +170,9 @@ class AutoArchiveCachesJob extends Job
      * Cleans cache_arch table. Removes:
      * - old data about auto archived caches
      * - caches modified less than 4 months ago
-     * - caches which changed status (not temporary unavailable
-     *
-     * @return AutoArchiveCachesJob
+     * - caches which changed status (not temporary unavailable)
      */
-    private function cleanAutoArchDB()
+    private function cleanAutoArchDB(): self
     {
         // Remove old cache arch info
         $this->db->multiVariableQuery(
@@ -213,12 +199,8 @@ class AutoArchiveCachesJob extends Job
 
     /**
      * Updates stepNo in DB
-     *
-     * @param GeoCache $cache
-     * @param integer $step
-     * @return AutoArchiveCachesJob
      */
-    private function updateCacheStepInDb(GeoCache $cache, $step)
+    private function updateCacheStepInDb(GeoCache $cache, int $step): self
     {
         $this->db->multiVariableQuery(
             "REPLACE INTO `cache_arch` (`cache_id`, `step`) VALUES (:1, :2 )",

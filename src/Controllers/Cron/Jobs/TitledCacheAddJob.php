@@ -1,14 +1,14 @@
 <?php
 
 use src\Controllers\Cron\Jobs\Job;
-use src\Models\GeoCache\GeoCacheLog;
-use src\Utils\Generators\Uuid;
 use src\Controllers\MeritBadgeController;
+use src\Models\GeoCache\GeoCacheLog;
 use src\Models\OcConfig\OcConfig;
+use src\Utils\Generators\Uuid;
 
 class TitledCacheAddJob extends Job
 {
-    public function mayRunNow()
+    public function mayRunNow(): bool
     {
         return $this->isDue();
     }
@@ -148,8 +148,8 @@ class TitledCacheAddJob extends Job
                 (cache_id, rate, ratio, rating, found, days, date_alg, log_id)
             VALUES (:1, :2, :3, :4, :5, :6, :7, :8)";
 
-        $this->db->multiVariableQuery($queryI, $rec[ "cacheId" ], $rec[ "RATE" ], $rec[ "ratio" ],
-                $rec[ "cRating" ], $rec[ "cFounds" ], $rec[ "cNrDays" ], $date_alg, $recL["logId"] );
+        $this->db->multiVariableQuery($queryI, $rec["cacheId"], $rec["RATE"], $rec["ratio"],
+            $rec["cRating"], $rec["cFounds"], $rec["cNrDays"], $date_alg, $recL["logId"]);
 
         $SystemUser = -1;
         $LogType = GeoCacheLog::LOGTYPE_ADMINNOTE;
@@ -174,7 +174,7 @@ class TitledCacheAddJob extends Job
             $date_alg, '0', OcConfig::getSiteNodeId()
         );
 
-        $ctrlMeritBadge = new MeritBadgeController;
+        $ctrlMeritBadge = new MeritBadgeController();
         $ctrlMeritBadge->updateTriggerByNewTitledCache($rec['cacheId']);
     }
 }
