@@ -36,6 +36,7 @@ class GeoKretyNewJob extends Job
         $url = GeoKretyApi::GEOKRETY_URL . '/export_oc.php?modifiedsince=' . date('YmdHis', $modifiedsince - 1);
 
         $xmlString = file_get_contents($url);
+
         try {
             $gkxml = simplexml_load_string($xmlString);
         } catch (ErrorException $e) {
