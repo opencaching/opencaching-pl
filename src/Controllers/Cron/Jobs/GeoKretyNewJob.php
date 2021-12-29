@@ -36,10 +36,14 @@ class GeoKretyNewJob extends Job
         $url = GeoKretyApi::GEOKRETY_URL . '/export_oc.php?modifiedsince=' . date('YmdHis', $modifiedsince - 1);
 
         $xmlString = file_get_contents($url);
-        $gkxml = @simplexml_load_string($xmlString);
+        try {
+            $gkxml = simplexml_load_string($xmlString);
+        } catch (ErrorException $e) {
+            $gkxml = false;
+        }
 
         //    $gkxml=@simplexml_load_file($url);
-        if (! $gkxml) {
+        if ($gkxml === false) {
             return
                 "\nGeokrety export error! Failed to load XML file [simplexml_load_file()]: " . $url
                 . "\n" . $xmlString . "\n";
