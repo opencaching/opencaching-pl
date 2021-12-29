@@ -1,16 +1,17 @@
 <?php
+
 use src\Controllers\MainMapController;
 use src\Controllers\ViewCacheController;
 use src\Models\Coordinates\Coordinates;
+use src\Models\GeoCache\GeoCache;
+use src\Models\GeoCache\GeoCacheDesc;
 use src\Models\GeoCache\GeoCacheLogCommons;
 use src\Models\GeoKret\GeoKretyApi;
+use src\Models\OcConfig\OcConfig;
 use src\Utils\Text\Formatter;
 use src\Utils\Text\UserInputFilter;
 use src\Utils\Uri\SimpleRouter;
 use src\Utils\View\View;
-use src\Models\OcConfig\OcConfig;
-use src\Models\GeoCache\GeoCache;
-use src\Models\GeoCache\GeoCacheDesc;
 
 /** @var $view View */
 
@@ -436,7 +437,7 @@ $desc = $view->geoCacheDesc;
                 <?php if ($view->displayPrePublicationAccessInfo) {?>
                     <div class="lightTip">
                         <b><?=tr('prepublication_visits')?>:</b>
-                        <?=implode($view->geoCache->getPrePublicationVisits(), ', ')?>
+                        <?=implode(', ', $view->geoCache->getPrePublicationVisits())?>
                     </div>
                 <?php } //if-displayPrePublicationAccessInfo ?>
 
