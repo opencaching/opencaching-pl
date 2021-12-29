@@ -15,12 +15,16 @@ use src\Utils\Generators\Uuid;
 class AutoArchiveCachesJob extends Job
 {
     private const STEP_0_STAGED = 0;
+
     private const STEP_1_FIRST_MAIL_SENT = 1;
+
     private const STEP_2_SECOND_MAIL_SENT = 2;
+
     private const STEP_3_ARCHIVED = 3;
+
     private const ARCHIVE_EVENT = 100;
 
-    private const TEMPLATE_DIR = __DIR__.'/../../../../resources/email/autoarchive/';
+    private const TEMPLATE_DIR = __DIR__ . '/../../../../resources/email/autoarchive/';
 
     public function run()
     {
@@ -40,18 +44,19 @@ class AutoArchiveCachesJob extends Job
         $this->cleanAutoArchDB();
 
         $stmt = $this->db->multiVariableQuery(
-            "SELECT `cache_id`, `last_modified`
+            'SELECT `cache_id`, `last_modified`
               FROM `caches`
               WHERE `status` = :1
-                AND `last_modified` < NOW() - INTERVAL 4 MONTH",
-            GeoCache::STATUS_UNAVAILABLE);
+                AND `last_modified` < NOW() - INTERVAL 4 MONTH',
+            GeoCache::STATUS_UNAVAILABLE
+        );
 
         while ($row = $this->db->dbResultFetch($stmt)) {
             $now = new DateTime();
             $lastModified = new DateTime($row['last_modified']);
             $cache = GeoCache::fromCacheIdFactory($row['cache_id']);
             $step = $this->db->multiVariableQueryValue(
-                "SELECT `step` FROM `cache_arch` WHERE `cache_id` = :1",
+                'SELECT `step` FROM `cache_arch` WHERE `cache_id` = :1',
                 self::STEP_0_STAGED,
                 $cache->getCacheId()
             );
@@ -110,7 +115,8 @@ class AutoArchiveCachesJob extends Job
             Uuid::create(),
             GeoCacheLog::LOGTYPE_ARCHIVED,
             tr('autoArchiveLog'),
-            OcConfig::getSiteNodeId());
+            OcConfig::getSiteNodeId()
+        );
 
         if ($this->db->commit()) {
             $this->sendEmail($cache, self::STEP_3_ARCHIVED);
@@ -125,12 +131,14 @@ class AutoArchiveCachesJob extends Job
     private function sendEmail(GeoCache $cache, int $reason)
     {
         $email = new Email();
-        if (!$email->addToAddr($cache->getOwner()->getEmail())) {
+
+        if (! $email->addToAddr($cache->getOwner()->getEmail())) {
             return;
         }
 
         $email_template = self::TEMPLATE_DIR;
         $subject = '';
+
         switch ($reason) {
             case self::STEP_1_FIRST_MAIL_SENT:
                 $email_template .= 'step1.email.html';
@@ -149,13 +157,13 @@ class AutoArchiveCachesJob extends Job
                 $subject = tr('autoArchiveEventSubject');
                 break;
         }
-        $subject .= ' '.$cache->getWaypointId().' '.$cache->getCacheName();
+        $subject .= ' ' . $cache->getWaypointId() . ' ' . $cache->getCacheName();
 
         $formattedMessage = new EmailFormatter($email_template, true);
         $formattedMessage->addFooterAndHeader($cache->getOwner()->getUserName(), true)
             ->setVariable('cacheName', $cache->getCacheName())
             ->setVariable('cacheWp', $cache->getGeocacheWaypointId())
-            ->setVariable('cacheUrl', $this->ocConfig->getAbsolute_server_URI().$cache->getCacheUrl());
+            ->setVariable('cacheUrl', $this->ocConfig->getAbsolute_server_URI() . $cache->getCacheUrl());
 
         $email->setFromAddr(OcConfig::getEmailAddrOcTeam());
         $email->setReplyToAddr(OcConfig::getEmailAddrOcTeam());
@@ -203,7 +211,7 @@ class AutoArchiveCachesJob extends Job
     private function updateCacheStepInDb(GeoCache $cache, int $step): self
     {
         $this->db->multiVariableQuery(
-            "REPLACE INTO `cache_arch` (`cache_id`, `step`) VALUES (:1, :2 )",
+            'REPLACE INTO `cache_arch` (`cache_id`, `step`) VALUES (:1, :2 )',
             $cache->getCacheId(),
             $step
         );
@@ -217,14 +225,15 @@ class AutoArchiveCachesJob extends Job
     private function processEvents()
     {
         $stmt = $this->db->multiVariableQuery(
-            "SELECT `cache_id`
+            'SELECT `cache_id`
             FROM `caches`
             WHERE `type` = :1
                   AND `status` <> :2
-                  AND `date_hidden` < NOW() - INTERVAL 2 MONTH",
+                  AND `date_hidden` < NOW() - INTERVAL 2 MONTH',
             GeoCache::TYPE_EVENT,
             GeoCache::STATUS_ARCHIVED
         );
+
         while ($row = $this->db->dbResultFetch($stmt)) {
             $cache = GeoCache::fromCacheIdFactory($row['cache_id']);
             $cache->updateStatus(GeoCache::STATUS_ARCHIVED);
@@ -238,7 +247,8 @@ class AutoArchiveCachesJob extends Job
                 Uuid::create(),
                 GeoCacheLog::LOGTYPE_ARCHIVED,
                 tr('autoArchiveEventLog'),
-                OcConfig::getSiteNodeId());
+                OcConfig::getSiteNodeId()
+            );
 
             $this->sendEmail($cache, self::ARCHIVE_EVENT);
         }

@@ -1,4 +1,5 @@
 <?php
+
 namespace src\Utils\Database;
 
 use Exception;
@@ -13,27 +14,29 @@ use src\Utils\Generators\Uuid;
 class DbUpdates
 {
     /**
-     * @var array|null $updates dict $uuid => DbUpdate object;
-     *    ordered ascending by filename; read access only via get() / getAll()
+     * @param array|null dict $uuid => DbUpdate object;
+     *                 ordered ascending by filename; read access only via get() / getAll()
      */
     private static ?array $updates = null;
 
     /**
      * @return string
-     *    next unused version number (first part of filename) for a new
-     *    update script to be created; number 900+ is reserved for
-     *    updates that are run always and last
+     *                next unused version number (first part of filename) for a new
+     *                update script to be created; number 900+ is reserved for
+     *                updates that are run always and last
      * @throws Exception
      */
     private static function getNextVersionNumberString(): string
     {
         $lastRegularUpdate = '';
+
         foreach (self::getAll() as $update) {
             if ($update->getName() < '900_') {
                 $lastRegularUpdate = $update->getName();
             }
             // Numbers 900+ are reserved for always-run-last updates.
         }
+
         return sprintf('%03d', substr($lastRegularUpdate, 0, 3) + 1);
     }
 
@@ -43,7 +46,7 @@ class DbUpdates
      */
     public static function create($developerName): string
     {
-        $developerName = str_replace(['"', "'", "\\"], '', $developerName);
+        $developerName = str_replace(['"', "'", '\\'], '', $developerName);
         $creationDate = date('Y-m-d');
         $uuid = Uuid::create();
         $className = 'C' . str_replace('.', '', microtime(true));
@@ -75,7 +78,8 @@ class DbUpdates
     public function delete($uuid): bool
     {
         $update = self::get($uuid);
-        if (!$update) {
+
+        if (! $update) {
             return true;
         }
         $path = $update->getFilePath();
@@ -87,19 +91,21 @@ class DbUpdates
             // Looks like the file was not staged/committed to Git yet.
             unlink($path);
         }
-        if (!file_exists($path)) {
+
+        if (! file_exists($path)) {
             if (self::$updates !== null) {
                 unset(self::$updates[$uuid]);
             }
 
-            # No DbUpdateHistory::remove()! Either it was not run yet (or
-            # rolled back), then it is not in the history. Or it was run
-            # (and not rolled back); then we KEEP it in the history, because
-            # it still IS deployed. This is a safeguard against accidentally
-            # deleting and then re-adding an update.
+            // No DbUpdateHistory::remove()! Either it was not run yet (or
+            // rolled back), then it is not in the history. Or it was run
+            // (and not rolled back); then we KEEP it in the history, because
+            // it still IS deployed. This is a safeguard against accidentally
+            // deleting and then re-adding an update.
 
             return true;
         }
+
         return false;
     }
 
@@ -110,10 +116,10 @@ class DbUpdates
     public static function get($uuid)
     {
         $updates = self::getAll();
+
         if (isset($updates[$uuid])) {
             return $updates[$uuid];
         }
-        return null;
     }
 
     /**
@@ -125,6 +131,7 @@ class DbUpdates
         if (self::$updates === null) {
             self::makeUpdatesDict();
         }
+
         return self::$updates;
     }
 
@@ -140,7 +147,7 @@ class DbUpdates
 
         foreach ($scriptPaths as $scriptPath) {
             if (preg_match(
-                '~/('.DbUpdate::REGEX_VALID_UPDATE_NAME.')\.php$~',
+                '~/(' . DbUpdate::REGEX_VALID_UPDATE_NAME . ')\\.php$~',
                 $scriptPath,
                 $matches
             )) {
@@ -151,8 +158,8 @@ class DbUpdates
                 // copy & paste protection
                 if (isset(self::$updates[$uuid])) {
                     throw new Exception(
-                        'Duplicate UUID in ' . self::$updates[$uuid]->getFileName() .
-                        ' and ' . $name.'.php'
+                        'Duplicate UUID in ' . self::$updates[$uuid]->getFileName()
+                        . ' and ' . $name . '.php'
                     );
                 }
 
@@ -162,11 +169,12 @@ class DbUpdates
                 if (DbUpdateHistory::contains($uuid)) {
                     DbUpdateHistory::rename($uuid, $name);
                 }
-
             } elseif (preg_match(
-                '~/([0-9][^/]+\.php)$~', $scriptPath, $matches
+                '~/([0-9][^/]+\\.php)$~',
+                $scriptPath,
+                $matches
             )) {
-                throw new Exception("Invalid db-update filename: '" . $matches[1] ."'");
+                throw new Exception("Invalid db-update filename: '" . $matches[1] . "'");
             }
         }
 
@@ -180,7 +188,7 @@ class DbUpdates
     public static function sort()
     {
         if (self::$updates !== null) {
-            uasort(self::$updates, function($a, $b) {
+            uasort(self::$updates, function ($a, $b) {
                 return strcasecmp($a->getFileName(), $b->getFileName());
             });
         }
@@ -194,23 +202,23 @@ class DbUpdates
         return __DIR__ . '/Updates';
     }
 
-
     /**
      * Update DB triggers, procedures and functions
      * @throws Exception
      */
-     public static function updateRoutines(): string
-     {
+    public static function updateRoutines(): string
+    {
         $routines = self::getRoutineFileNames();
         $messages = '';
 
         foreach ($routines as $fileName => $lastRun) {
-            if (!$lastRun ||
-                $lastRun['fileTime'] != self::routineFileModified($fileName)
+            if (! $lastRun
+                || $lastRun['fileTime'] != self::routineFileModified($fileName)
             ) {
                 $messages .= self::runRoutines($fileName);
             }
         }
+
         return $messages;
     }
 
@@ -220,18 +228,20 @@ class DbUpdates
     public static function runRoutines($fileName): string
     {
         $queries = self::getRoutineContents($fileName);
+
         if (substr($queries, 0, 10) != 'DELIMITER ') {
-            throw new Exception('DELIMITER statement is missing in '.$fileName);
+            throw new Exception('DELIMITER statement is missing in ' . $fileName);
         }
         OcDb::instance(OcDb::ADMIN_ACCESS)->simpleQueries($queries);
 
         Facade::cache_set(
-            'run '.$fileName,
+            'run ' . $fileName,
             ['fileTime' => self::routineFileModified($fileName), 'runTime' => time()],
             365 * 24 * 3600
               // At least once a year, all routines are re-installed.
         );
-        return 'run '.$fileName."\n";
+
+        return 'run ' . $fileName . "\n";
     }
 
     /**
@@ -244,8 +254,9 @@ class DbUpdates
 
         foreach ($routineFilePaths as $filePath) {
             $fileName = basename($filePath);
-            $routines[$fileName] = Facade::cache_get('run '.$fileName);
+            $routines[$fileName] = Facade::cache_get('run ' . $fileName);
         }
+
         return $routines;
     }
 

@@ -14,47 +14,50 @@ use src\Utils\I18n\I18n;
 use src\Utils\Log\CacheAccessLog;
 
 global $content, $bUseZip, $dbcSearch, $queryFilter;
-require_once(__DIR__.'/common.inc.php');
-require_once(__DIR__.'/calculation.inc.php');
+
+require_once __DIR__ . '/common.inc.php';
+
+require_once __DIR__ . '/calculation.inc.php';
 set_time_limit(1800);
 
 $loggedUser = ApplicationContainer::GetAuthorizedUser();
 
 function getPictures($cacheid, $picturescount)
 {
-
     $rs = XDb::xSql('SELECT uuid, title, url, spoiler FROM pictures
             WHERE object_id= ? AND object_type=2 AND display=1
             ORDER BY date_created', $cacheid);
 
-    if (!isset($retval))
+    if (! isset($retval)) {
         $retval = '';
+    }
+
     while ($r = XDb::xFetchArray($rs)) {
-        $retval .= '&lt;img src="'.$r['url'].'"&gt;&lt;br&gt;'.cleanup_text($r['title']).'&lt;br&gt;';
+        $retval .= '&lt;img src="' . $r['url'] . '"&gt;&lt;br&gt;' . cleanup_text($r['title']) . '&lt;br&gt;';
     }
 
     XDb::xFreeResults($rs);
+
     return $retval;
 }
-
 
 $gpxHead = '<?xml version="1.0" encoding="utf-8"?>
 <gpx xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
      xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd http://geocaching.com.au/geocache/1 http://geocaching.com.au/geocache/1/geocache.xsd http://www.gsak.net/xmlv1/5 http://www.gsak.net/xmlv1/5/gsak.xsd"
-     xmlns="http://www.topografix.com/GPX/1/0" version="1.0" creator="'.convert_string(OcConfig::getSiteName()).'">
-  <desc>Cache Listing Generated from '.convert_string(OcConfig::getSiteName()).' {wpchildren}</desc>
-  <author>'.convert_string(OcConfig::getSiteName()).'</author>
-  <url>'.$absolute_server_URI.'</url>
-  <urlname>'.convert_string(OcConfig::getSiteName()).' - '.convert_string(tr('oc_subtitle_on_all_pages_'.$config['ocNode'])).'</urlname>
+     xmlns="http://www.topografix.com/GPX/1/0" version="1.0" creator="' . convert_string(OcConfig::getSiteName()) . '">
+  <desc>Cache Listing Generated from ' . convert_string(OcConfig::getSiteName()) . ' {wpchildren}</desc>
+  <author>' . convert_string(OcConfig::getSiteName()) . '</author>
+  <url>' . $absolute_server_URI . '</url>
+  <urlname>' . convert_string(OcConfig::getSiteName()) . ' - ' . convert_string(tr('oc_subtitle_on_all_pages_' . $config['ocNode'])) . '</urlname>
   <time>{time}</time>
 ';
 
 $gpxLine = '   <wpt lat="{lat}" lon="{lon}">
     <time>{time}</time>
     <name>{waypoint}</name>
-    <desc>{mod_suffix}{cachename} '.tr('from').' {owner}, {type_text} ({difficulty}/{terrain})</desc>
-    <src>'.$absolute_server_URI.'</src>
-    <url>'.$absolute_server_URI.'viewcache.php?wp={waypoint}</url>
+    <desc>{mod_suffix}{cachename} ' . tr('from') . ' {owner}, {type_text} ({difficulty}/{terrain})</desc>
+    <src>' . $absolute_server_URI . '</src>
+    <url>' . $absolute_server_URI . 'viewcache.php?wp={waypoint}</url>
     <urlname>{mod_suffix}{cachename}</urlname>
     <sym>Geocache</sym>
     <type>Geocache|{geocache_type}</type>
@@ -103,7 +106,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
     <name>{waypoint} {wp_stage}</name>
     <cmt>{desc}</cmt>
     <desc>{wp_type_name}</desc>
-    <url>'.$absolute_server_URI.'viewcache.php?wp={waypoint}</url>
+    <url>' . $absolute_server_URI . 'viewcache.php?wp={waypoint}</url>
     <urlname>{waypoint} {wp_stage}</urlname>
     <sym>{wp_type}</sym>
     <type>Waypoint|{wp_type}</type>
@@ -118,7 +121,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 
 $gpxFoot = '</gpx>';
 
-$gpxTimeFormat = 'Y-m-d\TH:i:s\Z';
+$gpxTimeFormat = 'Y-m-d\\TH:i:s\\Z';
 
 $gpxStatus[0] = 'Unavailable'; // andere
 $gpxStatus[1] = 'Available';
@@ -183,7 +186,7 @@ $gpxLogType[10] = 'Enable Listing'; // OC: Note
 $gpxLogType[11] = 'Temporarily Disable Listing'; // OC: Note
 $gpxLogType[12] = 'Post Reviewer Note'; // OC: Note
 
-if ($loggedUser || !OcConfig::coordsHiddenForNonLogged()) {
+if ($loggedUser || ! OcConfig::coordsHiddenForNonLogged()) {
     /* ***********************************************************************
       Attributes
 
@@ -366,18 +369,18 @@ if ($loggedUser || !OcConfig::coordsHiddenForNonLogged()) {
 
     $query = 'SELECT ';
 
-    if (isset($lat_rad) && isset($lon_rad)) {
-        $query .= getCalcDistanceSqlFormula(!is_null($loggedUser), $lon_rad * 180 / 3.14159, $lat_rad * 180 / 3.14159, 0, $multiplier[$distance_unit]).' `distance`, ';
+    if (isset($lat_rad, $lon_rad)) {
+        $query .= getCalcDistanceSqlFormula(! is_null($loggedUser), $lon_rad * 180 / 3.14159, $lat_rad * 180 / 3.14159, 0, $multiplier[$distance_unit]) . ' `distance`, ';
     } else {
-        if (!$loggedUser) {
+        if (! $loggedUser) {
             $query .= '0 distance, ';
         } else {
             // get the users home coords
-            $rs_coords = XDb::xSql("SELECT `latitude`, `longitude` FROM `user`
-                                    WHERE `user_id`= ? LIMIT 1", $loggedUser->getUserId());
+            $rs_coords = XDb::xSql('SELECT `latitude`, `longitude` FROM `user`
+                                    WHERE `user_id`= ? LIMIT 1', $loggedUser->getUserId());
             $record_coords = XDb::xFetchArray($rs_coords);
 
-            if ((($record_coords['latitude'] == NULL) || ($record_coords['longitude'] == NULL)) || (($record_coords['latitude'] == 0) || ($record_coords['longitude'] == 0))) {
+            if ((($record_coords['latitude'] == null) || ($record_coords['longitude'] == null)) || (($record_coords['latitude'] == 0) || ($record_coords['longitude'] == 0))) {
                 $query .= '0 distance, ';
             } else {
                 // TODO: load from the users-profile
@@ -386,32 +389,33 @@ if ($loggedUser || !OcConfig::coordsHiddenForNonLogged()) {
                 $lon_rad = $record_coords['longitude'] * 3.14159 / 180;
                 $lat_rad = $record_coords['latitude'] * 3.14159 / 180;
 
-                $query .= getCalcDistanceSqlFormula(!is_null($loggedUser), $record_coords['longitude'], $record_coords['latitude'], 0, $multiplier[$distance_unit]).' `distance`, ';
+                $query .= getCalcDistanceSqlFormula(! is_null($loggedUser), $record_coords['longitude'], $record_coords['latitude'], 0, $multiplier[$distance_unit]) . ' `distance`, ';
             }
             XDb::xFreeResults($rs_coords);
         }
     }
 
     $query .= '`caches`.`cache_id` `cache_id`, `caches`.`status` `status`, `caches`.`type` `type`, `caches`.`size` `size`, `caches`.`user_id` `user_id`, `caches`.`votes` `votes`, `caches`.`score` `score`, `caches`.`topratings` `topratings`, ';
-    if (!$loggedUser) {
+
+    if (! $loggedUser) {
         $query .= ' `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude`, 0 as cache_mod_cords_id FROM `caches` ';
     } else {
         $query .= ' IFNULL(`cache_mod_cords`.`longitude`, `caches`.`longitude`) `longitude`, IFNULL(`cache_mod_cords`.`latitude`, `caches`.`latitude`) `latitude`, IFNULL(cache_mod_cords.latitude,0) as cache_mod_cords_id
             FROM `caches`
             LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id`
-                AND `cache_mod_cords`.`user_id` = '.$loggedUser->getUserId();
+                AND `cache_mod_cords`.`user_id` = ' . $loggedUser->getUserId();
     }
-    $query .= ' WHERE `caches`.`cache_id` IN ('.$queryFilter.')';
+    $query .= ' WHERE `caches`.`cache_id` IN (' . $queryFilter . ')';
 
     $sortby = $options['sort'];
-    if (isset($lat_rad) && isset($lon_rad) && ($sortby == 'bydistance')) {
+
+    if (isset($lat_rad, $lon_rad) && ($sortby == 'bydistance')) {
         $query .= ' ORDER BY distance ASC';
-    } else
-        if ($sortby == 'bycreated') {
-            $query .= ' ORDER BY date_created DESC';
-        } else {// by name
-            $query .= ' ORDER BY name ASC';
-        }
+    } elseif ($sortby == 'bycreated') {
+        $query .= ' ORDER BY date_created DESC';
+    } else {// by name
+        $query .= ' ORDER BY name ASC';
+    }
 
     if (isset($_REQUEST['startat'])) {
         $startat = XDb::quoteOffset($_REQUEST['startat']);
@@ -425,12 +429,12 @@ if ($loggedUser || !OcConfig::coordsHiddenForNonLogged()) {
         $count = $caches_per_page;
     }
 
-    $queryLimit = ' LIMIT '.$startat.', '.$count;
+    $queryLimit = ' LIMIT ' . $startat . ', ' . $count;
 
     // cleanup (old gpxcontent lingers if gpx-download is cancelled by user)
     $dbcSearch->simpleQuery('DROP TEMPORARY TABLE IF EXISTS `gpxcontent`');
     // create temporary table
-    $dbcSearch->simpleQuery('CREATE TEMPORARY TABLE `gpxcontent` '.$query.$queryLimit);
+    $dbcSearch->simpleQuery('CREATE TEMPORARY TABLE `gpxcontent` ' . $query . $queryLimit);
 
     $s = $dbcSearch->simpleQuery('SELECT COUNT(*) `count` FROM `gpxcontent`');
     $rCount = $dbcSearch->dbResultFetch($s);
@@ -439,13 +443,15 @@ if ($loggedUser || !OcConfig::coordsHiddenForNonLogged()) {
     if ($countGPX == 1) {
         $s = $dbcSearch->simpleQuery(
             'SELECT `caches`.`wp_oc` `wp_oc`, `caches`.`name` `name` FROM `gpxcontent`, `caches`
-            WHERE `gpxcontent`.`cache_id`=`caches`.`cache_id` LIMIT 1');
+            WHERE `gpxcontent`.`cache_id`=`caches`.`cache_id` LIMIT 1'
+        );
         $rName = $dbcSearch->dbResultFetchOneRowOnly($s);
 
-        if (isset($_GET['realname']) && $_GET['realname'] == 1)
-            $sFilebasename = str_replace(" ", "", convert_string($rName['name']));
-        else
+        if (isset($_GET['realname']) && $_GET['realname'] == 1) {
+            $sFilebasename = str_replace(' ', '', convert_string($rName['name']));
+        } else {
             $sFilebasename = $rName['wp_oc'];
+        }
     } else {
         if ($options['searchtype'] == 'bywatched') {
             $sFilebasename = 'watched_caches';
@@ -457,11 +463,12 @@ if ($loggedUser || !OcConfig::coordsHiddenForNonLogged()) {
             $rsName = XDb::xSql('SELECT `queries`.`name` `name` FROM `queries` WHERE `queries`.`id`= ? LIMIT 1', $options['queryid']);
             $rName = XDb::xFetchArray($rsName);
             XDb::xFreeResults($rsName);
+
             if (isset($rName['name']) && ($rName['name'] != '')) {
                 $sFilebasename = trim($rName['name']);
-                $sFilebasename = str_replace(" ", "_", $sFilebasename);
+                $sFilebasename = str_replace(' ', '_', $sFilebasename);
             } else {
-                $sFilebasename = 'search'.$options['queryid'];
+                $sFilebasename = 'search' . $options['queryid'];
             }
         }
     }
@@ -469,9 +476,11 @@ if ($loggedUser || !OcConfig::coordsHiddenForNonLogged()) {
     $bUseZip = ($rCount['count'] > 50);
     $bUseZip = $bUseZip || (isset($_REQUEST['zip']) && ($_REQUEST['zip'] == '1'));
     $bUseZip = false; // workaround for timeouts with big files
+
     if ($bUseZip == true) {
         $content = '';
-        require_once(__DIR__.'/../src/Libs/PhpZip/ss_zip.class.php');
+
+        require_once __DIR__ . '/../src/Libs/PhpZip/ss_zip.class.php';
         $phpzip = new ss_zip('', 6);
     }
 
@@ -483,15 +492,17 @@ if ($loggedUser || !OcConfig::coordsHiddenForNonLogged()) {
         $rwp = XDb::xSql(
             "SELECT  `status` FROM `waypoints`
             WHERE  `waypoints`.`cache_id`= ?
-                AND `waypoints`.`status`='1'", $rs['cacheid']);
+                AND `waypoints`.`status`='1'",
+            $rs['cacheid']
+        );
+
         if (XDb::xFetchArray($rwp)) {
-            $children = "(HasChildren)";
+            $children = '(HasChildren)';
         }
     }
 
     $gpxHead = str_replace('{wpchildren}', $children, $gpxHead);
     echo $gpxHead;
-
 
     $stmt = XDb::xSql(
         'SELECT `gpxcontent`.`cache_id` `cacheid`, `gpxcontent`.`longitude` `longitude`,
@@ -509,7 +520,8 @@ if ($loggedUser || !OcConfig::coordsHiddenForNonLogged()) {
     WHERE `gpxcontent`.`cache_id`=`caches`.`cache_id`
         AND `caches`.`cache_id`=`cache_desc`.`cache_id`
         AND `caches`.`default_desclang`=`cache_desc`.`language`
-        AND `gpxcontent`.`user_id`=`user`.`user_id`');
+        AND `gpxcontent`.`user_id`=`user`.`user_id`'
+    );
 
     $user_id = $loggedUser ? $loggedUser->getUserId() : null;
 
@@ -535,7 +547,10 @@ if ($loggedUser || !OcConfig::coordsHiddenForNonLogged()) {
         $thisline = str_replace('{cachename}', cleanup_text($r['name']), $thisline);
         $thisline = str_replace('{country}', cleanup_text(tr($r['country'])), $thisline);
         $region = XDb::xMultiVariableQueryValue(
-            "SELECT `adm3` FROM `cache_location` WHERE `cache_id`= :1 LIMIT 1", 0, $r['cacheid']);
+            'SELECT `adm3` FROM `cache_location` WHERE `cache_id`= :1 LIMIT 1',
+            0,
+            $r['cacheid']
+        );
         $thisline = str_replace('{region}', $region, $thisline);
 
         // modified coords
@@ -545,35 +560,39 @@ if ($loggedUser || !OcConfig::coordsHiddenForNonLogged()) {
             $thisline = str_replace('{mod_suffix}', '', $thisline);
         }
 
-        if ($r['hint'] == '')
+        if ($r['hint'] == '') {
             $thisline = str_replace('{hints}', '', $thisline);
-        else
-            $thisline = str_replace('{hints}', '<hints>'.cleanup_text($r['hint']).'</hints>', $thisline);
+        } else {
+            $thisline = str_replace('{hints}', '<hints>' . cleanup_text($r['hint']) . '</hints>', $thisline);
+        }
 
-        $logpw = ($r['logpw'] == "" ? "" : "".tr('search_gpxgc_01')." <br />");
+        $logpw = ($r['logpw'] == '' ? '' : '' . tr('search_gpxgc_01') . ' <br />');
         $thisline = str_replace('{shortdesc}', cleanup_text($r['short_desc']), $thisline);
-        $thisline = str_replace('{desc}', xmlencode_text($logpw.$r['desc']), $thisline);
+        $thisline = str_replace('{desc}', xmlencode_text($logpw . $r['desc']), $thisline);
 
         // add personal cache info if user login to OC
         if ($loggedUser) {
-
             $cacheNote = CacheNote::getNote($loggedUser->getUserId(), $r['cacheid']);
 
-            if (!empty($cacheNote)) {
-                $thisline = str_replace('{personal_cache_note}',
-                    cleanup_text("<br/><br/>-- ".tr('search_gpxgc_02').
-                        ": --<br/> ".$cacheNote."<br/>"), $thisline);
+            if (! empty($cacheNote)) {
+                $thisline = str_replace(
+                    '{personal_cache_note}',
+                    cleanup_text('<br/><br/>-- ' . tr('search_gpxgc_02')
+                        . ': --<br/> ' . $cacheNote . '<br/>'),
+                    $thisline
+                );
             } else {
-                $thisline = str_replace('{personal_cache_note}', "", $thisline);
+                $thisline = str_replace('{personal_cache_note}', '', $thisline);
             }
         } else {
-            $thisline = str_replace('{personal_cache_note}', "", $thisline);
+            $thisline = str_replace('{personal_cache_note}', '', $thisline);
         }
 
         // attributes
-        $rsAttributes = XDb::xSql("SELECT `caches_attributes`.`attrib_id` FROM `caches_attributes`
-            WHERE `caches_attributes`.`cache_id`= ? ", $r['cacheid']);
+        $rsAttributes = XDb::xSql('SELECT `caches_attributes`.`attrib_id` FROM `caches_attributes`
+            WHERE `caches_attributes`.`cache_id`= ? ', $r['cacheid']);
         $attribentries = '';
+
         while ($rAttrib = XDb::xFetchArray($rsAttributes)) {
             if (isset($gpxAttribID[$rAttrib['attrib_id']])) {
                 $thisattribute = $gpxAttributes;
@@ -583,40 +602,42 @@ if ($loggedUser || !OcConfig::coordsHiddenForNonLogged()) {
                 $thisattribute = mb_ereg_replace('{attrib_id}', $thisattribute_id, $thisattribute);
                 $thisattribute = mb_ereg_replace('{attrib_text_long}', $thisattribute_name, $thisattribute);
 
-                $attribentries .= $thisattribute."\n";
+                $attribentries .= $thisattribute . "\n";
             }
         }
         XDb::xFreeResults($rsAttributes);
         $thisline = str_replace('{attributes}', $attribentries, $thisline);
 
         // start extra info
-        $thisextra = "";
+        $thisextra = '';
         $language = I18n::getCurrentLang();
         $rsAttributes = XDb::xSql("SELECT `caches_attributes`.`attrib_id`, `cache_attrib`.`text_long`
                 FROM `caches_attributes`, `cache_attrib`
                 WHERE `caches_attributes`.`cache_id`= ?
                     AND `caches_attributes`.`attrib_id` = `cache_attrib`.`id`
-                    AND `cache_attrib`.`language` = '$language'
+                    AND `cache_attrib`.`language` = '{$language}'
                 ORDER BY `caches_attributes`.`attrib_id`", $r['cacheid']);
 
         if (($r['votes'] > 3) || ($r['topratings'] > 0) || (XDb::xNumRows($rsAttributes) > 0)) {
-            $thisextra .= "\n-- ".tr('search_gpxgc_03').": --\n";
+            $thisextra .= "\n-- " . tr('search_gpxgc_03') . ": --\n";
+
             if (XDb::xNumRows($rsAttributes) > 0) {
-                $attributes = ''.tr('search_gpxgc_04').': ';
+                $attributes = '' . tr('search_gpxgc_04') . ': ';
+
                 while ($rAttribute = XDb::xFetchArray($rsAttributes)) {
                     $attributes .= cleanup_text(xmlentities($rAttribute['text_long']));
-                    $attributes .= " | ";
+                    $attributes .= ' | ';
                 }
                 $thisextra .= $attributes;
             }
 
             if ($r['votes'] > 3) {
-
                 $score = cleanup_text(GeoCacheCommons::ScoreNameTranslation($r['score']));
-                $thisextra .= "\n".tr('search_gpxgc_05').": ".$score."\n";
+                $thisextra .= "\n" . tr('search_gpxgc_05') . ': ' . $score . "\n";
             }
+
             if ($r['topratings'] > 0) {
-                $thisextra .= "".tr('search_gpxgc_06').": ".$r['topratings']."\n";
+                $thisextra .= '' . tr('search_gpxgc_06') . ': ' . $r['topratings'] . "\n";
             }
 
             // NPA - nature protection areas
@@ -629,9 +650,10 @@ if ($loggedUser || !OcConfig::coordsHiddenForNonLogged()) {
                 AND `cache_npa_areas`.`parki_id`!='0'", $r['cacheid']);
 
             if (XDb::xNumRows($rsArea) != 0) {
-                $thisextra .= "".tr('search_gpxgc_07').": ";
+                $thisextra .= '' . tr('search_gpxgc_07') . ': ';
+
                 while ($npa = XDb::xFetchArray($rsArea)) {
-                    $thisextra .= $npa['npaname']."  ";
+                    $thisextra .= $npa['npaname'] . '  ';
                 }
             }
             // Natura 2000
@@ -642,45 +664,52 @@ if ($loggedUser || !OcConfig::coordsHiddenForNonLogged()) {
 
             if (XDb::xNumRows($rsArea) != 0) {
                 $thisextra .= "\nNATURA 2000: ";
+
                 while ($npa = XDb::xFetchArray($rsArea)) {
-                    $thisextra .= " - ".$npa['npaSitename']."  ".$npa['npaSitecode']." - ";
+                    $thisextra .= ' - ' . $npa['npaSitename'] . '  ' . $npa['npaSitecode'] . ' - ';
                 }
             }
         }
         $thisline = str_replace('{extra_info}', $thisextra, $thisline);
         // end of extra info
 
-        if ($r['rr_comment'] == '')
+        if ($r['rr_comment'] == '') {
             $thisline = str_replace('{rr_comment}', '', $thisline);
-        else
-            $thisline = str_replace('{rr_comment}', cleanup_text("<br /><br />--------<br />".$r['rr_comment']."<br />"), $thisline);
+        } else {
+            $thisline = str_replace('{rr_comment}', cleanup_text('<br /><br />--------<br />' . $r['rr_comment'] . '<br />'), $thisline);
+        }
 
         $thisline = str_replace('{{images}}', getPictures($r['cacheid'], false, $r['picturescount']), $thisline);
 
-        if (isset($gpxType[$r['type']]))
+        if (isset($gpxType[$r['type']])) {
             $thisline = str_replace('{type}', $gpxType[$r['type']], $thisline);
-        else
+        } else {
             $thisline = str_replace('{type}', $gpxType[1], $thisline);
+        }
 
-        if (isset($gpxGeocacheType[$r['type']]))
+        if (isset($gpxGeocacheType[$r['type']])) {
             $thisline = str_replace('{geocache_type}', $gpxGeocacheType[$r['type']], $thisline);
-        else
+        } else {
             $thisline = str_replace('{geocache_type}', $gpxGeocacheType[1], $thisline);
+        }
 
-        if (isset($gpxGeocacheTypeText[$r['type']]))
+        if (isset($gpxGeocacheTypeText[$r['type']])) {
             $thisline = str_replace('{type_text}', $gpxGeocacheTypeText[$r['type']], $thisline);
-        else
+        } else {
             $thisline = str_replace('{type_text}', $gpxGeocacheTypeText[1], $thisline);
+        }
 
-        if (isset($gpxContainer[$r['size']]))
+        if (isset($gpxContainer[$r['size']])) {
             $thisline = str_replace('{container}', $gpxContainer[$r['size']], $thisline);
-        else
+        } else {
             $thisline = str_replace('{container}', $gpxContainer[0], $thisline);
+        }
 
-        if (isset($gpxStatus[$r['status']]))
+        if (isset($gpxStatus[$r['status']])) {
             $thisline = str_replace('{status}', $gpxStatus[$r['status']], $thisline);
-        else
+        } else {
             $thisline = str_replace('{status}', $gpxStatus[0], $thisline);
+        }
 
         $difficulty = sprintf('%01.1f', $r['difficulty'] / 2);
         $difficulty = str_replace('.0', '', $difficulty); // garmin devices cannot handle .0 on integer values
@@ -696,23 +725,23 @@ if ($loggedUser || !OcConfig::coordsHiddenForNonLogged()) {
         $rsAttributes = XDb::xSql("SELECT `caches_attributes`.`attrib_id`, `cache_attrib`.`text_long`
                 FROM `caches_attributes`, `cache_attrib`
                 WHERE `caches_attributes`.`cache_id`= ? AND `caches_attributes`.`attrib_id` = `cache_attrib`.`id`
-                    AND `cache_attrib`.`language` = '$language'
+                    AND `cache_attrib`.`language` = '{$language}'
                 ORDER BY `caches_attributes`.`attrib_id`", $r['cacheid']);
 
         // create log list
         if ($options['gpxLogLimit']) {
-            $gpxLogLimit = 'LIMIT '.$options['gpxLogLimit'].' ';
+            $gpxLogLimit = 'LIMIT ' . $options['gpxLogLimit'] . ' ';
         } else {
             $gpxLogLimit = '';
         }
 
         $logentries = '';
-        $rsLogs = XDb::xSql("SELECT `cache_logs`.`id`, `cache_logs`.`type`, `cache_logs`.`date`, `cache_logs`.`text`,
+        $rsLogs = XDb::xSql('SELECT `cache_logs`.`id`, `cache_logs`.`type`, `cache_logs`.`date`, `cache_logs`.`text`,
                         `user`.`username`, `cache_logs`.`user_id` `userid`
                 FROM `cache_logs`, `user`
                 WHERE `cache_logs`.`deleted`=0 AND `cache_logs`.`user_id`=`user`.`user_id`
                     AND `cache_logs`.`cache_id`= ?
-                ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`id` DESC ".XDb::xEscape($gpxLogLimit), $r['cacheid']);
+                ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`id` DESC ' . XDb::xEscape($gpxLogLimit), $r['cacheid']);
 
         while ($rLog = XDb::xFetchArray($rsLogs)) {
             $thislog = $gpxLog;
@@ -721,14 +750,16 @@ if ($loggedUser || !OcConfig::coordsHiddenForNonLogged()) {
             $thislog = str_replace('{date}', date($gpxTimeFormat, strtotime($rLog['date'])), $thislog);
             $thislog = str_replace('{username}', xmlentities(convert_string($rLog['username'])), $thislog);
             $thislog = str_replace('{finder_id}', xmlentities($rLog['userid']), $thislog);
-            if (isset($gpxLogType[$rLog['type']]))
+
+            if (isset($gpxLogType[$rLog['type']])) {
                 $logtype = $gpxLogType[$rLog['type']];
-            else
+            } else {
                 $logtype = $gpxLogType[0];
+            }
 
             $thislog = str_replace('{type}', $logtype, $thislog);
             $thislog = str_replace('{text}', xmlencode_text($rLog['text']), $thislog);
-            $logentries .= $thislog."\n";
+            $logentries .= $thislog . "\n";
         }
         $thisline = str_replace('{logs}', $logentries, $thisline);
 
@@ -739,18 +770,19 @@ if ($loggedUser || !OcConfig::coordsHiddenForNonLogged()) {
         $geokret_query = XDb::xSql("SELECT gk_item.id AS id, gk_item.name AS name
                 FROM gk_item, gk_item_waypoint
                 WHERE gk_item.id = gk_item_waypoint.id
-                    AND gk_item_waypoint.wp = '".XDb::xEscape($waypoint)."'
+                    AND gk_item_waypoint.wp = '" . XDb::xEscape($waypoint) . "'
                     AND gk_item.stateid<>1 AND gk_item.stateid<>4
                     AND gk_item.stateid <>5 AND gk_item.typeid<>2");
 
         while ($geokret = XDb::xFetchArray($geokret_query)) {
-
             $thisGeoKret = $gpxGeoKrety;
 
             $gk_wp = strtoupper(dechex($geokret['id']));
-            while (mb_strlen($gk_wp) < 4)
-                $gk_wp = '0'.$gk_wp;
-            $gkWP = 'GK'.mb_strtoupper($gk_wp);
+
+            while (mb_strlen($gk_wp) < 4) {
+                $gk_wp = '0' . $gk_wp;
+            }
+            $gkWP = 'GK' . mb_strtoupper($gk_wp);
             $thisGeoKret = str_replace('{geokret_id}', xmlentities($geokret['id']), $thisGeoKret);
             $thisGeoKret = str_replace('{geokret_ref}', $gkWP, $thisGeoKret);
             $thisGeoKret = str_replace('{geokret_name}', xmlentities($geokret['name']), $thisGeoKret);
@@ -760,10 +792,10 @@ if ($loggedUser || !OcConfig::coordsHiddenForNonLogged()) {
 
         // Waypoints
         $waypoints = '';
-        $rswp = XDb::xSql("SELECT  `longitude`, `cache_id`, `latitude`,`desc`,`stage`, `type`, `status`,`waypoint_type`.`pl` `wp_type_name`
+        $rswp = XDb::xSql('SELECT  `longitude`, `cache_id`, `latitude`,`desc`,`stage`, `type`, `status`,`waypoint_type`.`pl` `wp_type_name`
                 FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id)
                 WHERE  `waypoints`.`cache_id`= ?
-                ORDER BY `waypoints`.`stage`", $r['cacheid']);
+                ORDER BY `waypoints`.`stage`', $r['cacheid']);
 
         while ($rwp = XDb::xFetchArray($rswp)) {
             if ($rwp['status'] == 1) {
@@ -776,29 +808,36 @@ if ($loggedUser || !OcConfig::coordsHiddenForNonLogged()) {
                 $thiswp = str_replace('{cacheid}', $rwp['cache_id'], $thiswp);
                 $thiswp = str_replace('{time}', $time, $thiswp);
                 $thiswp = str_replace('{wp_type_name}', $rwp['wp_type_name'], $thiswp);
+
                 if ($rwp['stage'] != 0) {
-                    $thiswp = str_replace('{wp_stage}', " ".tr('stage_wp').": ".$rwp['stage'], $thiswp);
+                    $thiswp = str_replace('{wp_stage}', ' ' . tr('stage_wp') . ': ' . $rwp['stage'], $thiswp);
                 } else {
                     $thiswp = str_replace('{wp_stage}', $rwp['wp_type_name'], $thiswp);
                 }
                 $thiswp = str_replace('{desc}', cleanup_text($rwp['desc']), $thiswp);
+
                 if ($rwp['type'] == 5) {
-                    $thiswp = str_replace('{wp_type}', "Parking Area", $thiswp);
+                    $thiswp = str_replace('{wp_type}', 'Parking Area', $thiswp);
                 }
+
                 if ($rwp['type'] == 1) {
-                    $thiswp = str_replace('{wp_type}', "Flag, Green", $thiswp);
+                    $thiswp = str_replace('{wp_type}', 'Flag, Green', $thiswp);
                 }
+
                 if ($rwp['type'] == 2) {
-                    $thiswp = str_replace('{wp_type}', "Flag, Green", $thiswp);
+                    $thiswp = str_replace('{wp_type}', 'Flag, Green', $thiswp);
                 }
+
                 if ($rwp['type'] == 3) {
-                    $thiswp = str_replace('{wp_type}', "Flag, Red", $thiswp);
+                    $thiswp = str_replace('{wp_type}', 'Flag, Red', $thiswp);
                 }
+
                 if ($rwp['type'] == 4) {
-                    $thiswp = str_replace('{wp_type}', "Circle with X", $thiswp);
+                    $thiswp = str_replace('{wp_type}', 'Circle with X', $thiswp);
                 }
+
                 if ($rwp['type'] == 6) {
-                    $thiswp = str_replace('{wp_type}', "Trailhead", $thiswp);
+                    $thiswp = str_replace('{wp_type}', 'Trailhead', $thiswp);
                 }
                 $waypoints .= $thiswp;
             }
@@ -815,16 +854,16 @@ if ($loggedUser || !OcConfig::coordsHiddenForNonLogged()) {
     // compress using phpzip
     if ($bUseZip == true) {
         $content = ob_get_clean();
-        $phpzip->add_data($sFilebasename.'.gpx', $content);
-        $out = $phpzip->save($sFilebasename.'.zip', 'b');
+        $phpzip->add_data($sFilebasename . '.gpx', $content);
+        $out = $phpzip->save($sFilebasename . '.zip', 'b');
 
-        header("content-type: application/zip");
-        header('Content-Disposition: attachment; filename='.$sFilebasename.'.zip');
+        header('content-type: application/zip');
+        header('Content-Disposition: attachment; filename=' . $sFilebasename . '.zip');
         echo $out;
         ob_end_flush();
     } else {
-        header("Content-type: application/gpx");
-        header("Content-Disposition: attachment; filename=".$sFilebasename.".gpx");
+        header('Content-type: application/gpx');
+        header('Content-Disposition: attachment; filename=' . $sFilebasename . '.gpx');
         ob_end_flush();
     }
 }

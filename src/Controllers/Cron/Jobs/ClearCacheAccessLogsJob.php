@@ -5,7 +5,6 @@ use src\Utils\Log\CacheAccessLog;
 
 class ClearCacheAccessLogsJob extends Job
 {
-
     public function run()
     {
         CacheAccessLog::purgeOldEntries();

@@ -13,11 +13,15 @@ use src\Utils\Database\OcDb;
 class CacheAccessLog
 {
     public const SOURCE_BROWSER = 'B';
+
     public const SOURCE_MOBILE = 'M';
+
     public const SOURCE_OKAPI = 'O';
 
     public const EVENT_VIEW_CACHE = 'view_cache';
+
     public const EVENT_VIEW_LOGS = 'view_logs';
+
     public const EVENT_DOWNLOAD_GPX = 'download_gpxgc';
 
     public static function logBrowserCacheAccess(GeoCache $cache, ?User $user, string $event)
@@ -28,7 +32,7 @@ class CacheAccessLog
 
     public static function logCacheAccess(int $cacheId, ?int $userId, string $event, string $source)
     {
-        if (OcConfig::isSiteCacheAccessLogEnabled() && !self::alreadyVisited($cacheId, $userId, $event)) {
+        if (OcConfig::isSiteCacheAccessLogEnabled() && ! self::alreadyVisited($cacheId, $userId, $event)) {
             self::saveVisit($cacheId, $userId, $event, $source);
         }
     }
@@ -39,6 +43,7 @@ class CacheAccessLog
     public static function purgeOldEntries()
     {
         $purgeDays = OcConfig::getCacheAccessLogPurgeDays();
+
         if (0 == $purgeDays) {
             return;
         }
@@ -55,7 +60,8 @@ class CacheAccessLog
     private static function alreadyVisited(int $cacheId, ?int $userId, string $event): bool
     {
         $accessLog = $_SESSION[self::sessionKey($userId, $event)] ?? null;
-        return (!empty($accessLog) && isset($accessLog[$cacheId]) && $accessLog[$cacheId] === true);
+
+        return ! empty($accessLog) && isset($accessLog[$cacheId]) && $accessLog[$cacheId] === true;
     }
 
     /**
@@ -70,12 +76,17 @@ class CacheAccessLog
                     ( `event_date`, `cache_id`, `user_id`, `source`, `event`, `ip_addr`, `user_agent`, `forwarded_for`)
                 VALUES
                     ( NOW(), :1, :2, :3, :4, :5, :6, :7)',
-            $cacheId, $userId, $source, $event, $_SERVER['REMOTE_ADDR'],
+            $cacheId,
+            $userId,
+            $source,
+            $event,
+            $_SERVER['REMOTE_ADDR'],
             ($_SERVER['HTTP_USER_AGENT'] ?? ''),
             ($_SERVER['HTTP_X_FORWARDED_FOR'] ?? '')
         );
 
         $accessLog = $_SESSION[self::sessionKey($userId, $event)] ?? null;
+
         if (is_null($accessLog)) {
             $_SESSION[self::sessionKey($userId, $event)] = [];
         }
@@ -88,6 +99,7 @@ class CacheAccessLog
     private static function sessionKey(?int $userId, string $event): string
     {
         $userId = (is_null($userId)) ? '0' : $userId;
-        return 'CACHE_ACCESS_LOG_'.$event.'_'.$userId;
+
+        return 'CACHE_ACCESS_LOG_' . $event . '_' . $userId;
     }
 }

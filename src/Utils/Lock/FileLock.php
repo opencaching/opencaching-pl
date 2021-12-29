@@ -2,6 +2,7 @@
 /**
  * Contains \src\Utils\Lock\FileLock class definition.
  */
+
 namespace src\Utils\Lock;
 
 use RuntimeException;
@@ -25,10 +26,12 @@ final class FileLock extends RealLock
     protected function internalConstruct(array $settings)
     {
         $lockDir = null;
-        if (!empty($settings["dir"])) {
-            $lockDir = OcConfig::instance()->getDynamicFilesPath() . $settings["dir"];
+
+        if (! empty($settings['dir'])) {
+            $lockDir = OcConfig::instance()->getDynamicFilesPath() . $settings['dir'];
         }
-        if ($lockDir != null && !is_dir($lockDir)) {
+
+        if ($lockDir != null && ! is_dir($lockDir)) {
             mkdir($lockDir, 0755, true);
         }
         $this->lockDir = $lockDir;
@@ -51,29 +54,34 @@ final class FileLock extends RealLock
     public function internalTryLock($identifier, int $mode, array $options = null)
     {
         $lockMode = LOCK_EX;
+
         if (($mode & self::SHARED) == self::SHARED) {
             $lockMode = LOCK_SH;
         }
+
         if (($mode & self::NONBLOCKING) == self::NONBLOCKING) {
             $lockMode |= LOCK_NB;
         }
+
         if (self::useExistingFile($identifier, $options)) {
             if (is_resource($identifier)) {
                 $result = $identifier;
             } else {
-                $result = fopen($identifier, "w+");
+                $result = fopen($identifier, 'w+');
             }
         } else {
-            $result = fopen($this->getPathFromId($identifier), "w+");
+            $result = fopen($this->getPathFromId($identifier), 'w+');
         }
+
         if ($result) {
-            if (!flock($result, $lockMode)) {
+            if (! flock($result, $lockMode)) {
                 fclose($result);
                 $result = null;
             }
         } else {
             $result = null;
         }
+
         return $result;
     }
 
@@ -82,16 +90,18 @@ final class FileLock extends RealLock
      *
      * @param resource $handle {@see Lock::unlock()}
      *
-     * @return boolean {@see Lock::unlock()}
+     * @return bool {@see Lock::unlock()}
      *
      * @see RealLock::internalUnlock()
      */
     public function internalUnlock($handle): bool
     {
         $result = (is_resource($handle) && flock($handle, LOCK_UN));
+
         if ($result) {
             fclose($handle);
         }
+
         return $result;
     }
 
@@ -104,21 +114,24 @@ final class FileLock extends RealLock
      * @param mixed $identifier {@see Lock::forceUnlock()}
      * @param string[] $options {@see Lock::forceUnlock()}
      *
-     * @return boolean {@see Lock::forceUnlock()}
+     * @return bool {@see Lock::forceUnlock()}
      *
      * @see RealLock::internalUnlock()
      */
-    public function internalForceUnlock($identifier, ?array $options = null): bool
+    public function internalForceUnlock($identifier, array $options = null): bool
     {
         $result = false;
+
         if (self::useExistingFile($identifier, $options)) {
             $path = $identifier;
         } else {
             $path = $this->getPathFromId($identifier);
         }
+
         if (is_file($path)) {
             $result = unlink($path);
         }
+
         return $result;
     }
 
@@ -127,7 +140,7 @@ final class FileLock extends RealLock
      * storage. Needs 'dir' setting defined.
      *
      * @param mixed $identifier the resource identifier passed to lock/unlock
-     *     methods
+     *                          methods
      *
      * @throws RuntimeException if 'dir' setting was not specified
      *
@@ -137,10 +150,11 @@ final class FileLock extends RealLock
     {
         if ($this->lockDir == null) {
             throw new RuntimeException(
-                "The locking directory is not specified in settings"
+                'The locking directory is not specified in settings'
             );
         }
-        $result = $this->lockDir . "/";
+        $result = $this->lockDir . '/';
+
         if (is_object($identifier)) {
             $result .= str_replace('\\', '.', get_class($identifier));
         } elseif (is_string($identifier)) {
@@ -149,6 +163,7 @@ final class FileLock extends RealLock
         } else {
             $result .= $identifier;
         }
+
         return $result;
     }
 }

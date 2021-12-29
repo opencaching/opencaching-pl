@@ -9,7 +9,6 @@ use src\Utils\Debug\Debug;
 
 class Notify extends BaseObject
 {
-
     private int $id;
 
     private int $cacheId;
@@ -35,6 +34,7 @@ class Notify extends BaseObject
         if ($this->cache == null && $this->isDataLoaded()) {
             $this->cache = GeoCache::fromCacheIdFactory($this->cacheId);
         }
+
         return $this->cache;
     }
 
@@ -48,6 +48,7 @@ class Notify extends BaseObject
         if ($this->user == null && $this->isDataLoaded()) {
             $this->user = User::fromUserIdFactory($this->userId);
         }
+
         return $this->user;
     }
 
@@ -66,7 +67,7 @@ class Notify extends BaseObject
                     $this->userId = $val;
                     break;
                 default:
-                    Debug::errorLog("Unknown column: $key");
+                    Debug::errorLog("Unknown column: {$key}");
             }
         }
     }
@@ -75,21 +76,21 @@ class Notify extends BaseObject
     {
         $n = new self();
         $n->loadFromDbRow($dbRow);
+
         return $n;
     }
 
     /**
      * Returns array of Notify objects for given user_id
      *
-     * @param int $itemUserId
      * @return Notify[]
      */
     public static function getAllNotifiesForUserId(int $itemUserId): array
     {
-        $query = "SELECT *
+        $query = 'SELECT *
             FROM `notify_waiting`
             WHERE `user_id` = :1
-            ORDER BY `id` ASC";
+            ORDER BY `id` ASC';
         $stmt = self::db()->multiVariableQuery($query, $itemUserId);
 
         return self::db()->dbFetchAllAsObjects($stmt, function ($row) {
@@ -104,10 +105,11 @@ class Notify extends BaseObject
      */
     public static function getUniqueUserIdNotifiesList(): array
     {
-        $query = "
+        $query = '
             SELECT DISTINCT `user_id`
-                FROM `notify_waiting`";
+                FROM `notify_waiting`';
         $stmt = self::db()->multiVariableQuery($query);
+
         return self::db()->dbResultFetchAll($stmt);
     }
 
@@ -116,18 +118,16 @@ class Notify extends BaseObject
      */
     public static function deleteNotifiesForUserId(int $userId)
     {
-        $query = "
+        $query = '
             DELETE
                 FROM `notify_waiting`
-                WHERE `user_id` = :1";
+                WHERE `user_id` = :1';
         self::db()->multiVariableQuery($query, $userId);
     }
 
     /**
      * Inserts into notify_waiting table info about new cache notifications
      * for users - for given by $cache.
-     *
-     * @param GeoCache $cache
      */
     public static function generateNotifiesForCache(GeoCache $cache)
     {

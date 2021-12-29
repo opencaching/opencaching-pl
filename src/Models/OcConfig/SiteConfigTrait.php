@@ -96,7 +96,6 @@ trait SiteConfigTrait
         return self::getKeyFromSiteConfig('googleAnalyticsTag');
     }
 
-
     /**
      * Returns icon's path relative to the public directory.
      */

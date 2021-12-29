@@ -1,4 +1,5 @@
 <?php
+
 namespace src\Models\GeoCache;
 
 use DateTime;
@@ -24,74 +25,101 @@ use stdClass;
 class GeoCache extends GeoCacheCommons
 {
     private $id;
+
     private $geocacheWaypointId;
-    private $otherWaypointIds = array(
+
+    private $otherWaypointIds = [
         'gc' => null,
         'ge' => null,
         'nc' => null,
-        'tc' => null
-    );
+        'tc' => null,
+    ];
+
     private $cacheName;
+
     private $cacheType;
 
-    /** @var $datePlaced DateTime */
+    /** @var DateTime */
     private $datePlaced;
 
-    /** @var $datePlaced DateTime */
+    /** @var DateTime */
     private $dateCreated;
 
-    /** @var $dateActivate DateTime */
+    /** @var DateTime */
     private $dateActivate;
 
     /** @var DateTime {@see GeoCache::setDatePublished()} */
     private $datePublished;
 
     private $sizeId;
+
     private $ratingId;              //OKAPI rating calculated from score
+
     private $status;
+
     /** @var string */
     private $country;
+
     private $searchTime;
+
     private $recommendations;       //number of recom.
+
     private $founds;
+
     private $notFounds;
+
     private $notesCount;
+
     private $lastFound;
+
     private $score;
+
     private $ratingVotes;
+
     private $willAttends;           //for events only
+
     private $natureRegions = false;
+
     private $natura2000Sites = false;
+
     private $usersRecommended = false;
+
     private $wayLength;
+
     private $difficulty;
+
     private $terrain;
+
     private $logPassword = false;
+
     private $watchingUsersCount;
+
     private $descLanguagesList;
+
     private $mp3count;
+
     private $picturesCount;
+
     private $uuid;
 
     /**
      * count of moves for mobile geocaches
-     * @var integer
+     * @var int
      */
     private $moveCount = -1;
 
     /**
      * mobile cache distance
-     * @var integer
+     * @var int
      */
     private $distance = -1;
 
     private $ownerId;
 
-    /** @var $owner User */
+    /** @var User */
     private $owner = null;
 
-
-    /** @var $founder User */
+    /** @var User */
     private $founder = null;
 
     private $founderId = null;
@@ -101,19 +129,19 @@ class GeoCache extends GeoCacheCommons
 
     /**
      * geocache coordinates object (instance of Coordinates class)
-     * @var $coordinates Coordinates
+     * @var Coordinates
      */
     private $coordinates;
 
     /**
      * Boolean. If set means that this cache belongs to any PT
-     * @var $isPowerTrailPart;
+     * @var;
      */
     private $isPowerTrailPart;
 
     /**
      * PT object
-     * @var $powerTrail PowerTrail
+     * @var PowerTrail
      */
     private $powerTrail;
 
@@ -125,15 +153,10 @@ class GeoCache extends GeoCacheCommons
      */
     private $isPowerTrailFinalGeocache = false;
 
-    /**
-     *
-     * @var $cacheLocationObj CacheLocation
-     */
+    /** @var CacheLocation */
     private $cacheLocationObj = null;
 
-    /**
-     * List of cache attributes
-     */
+    /** List of cache attributes */
     private $cacheAttributesList = null;
 
     /**
@@ -148,9 +171,7 @@ class GeoCache extends GeoCacheCommons
      */
     private $mp3List = null;
 
-    /**
-     * List of pictures assigned to this cache
-     */
+    /** List of pictures assigned to this cache */
     private $picturesList = null;
 
     private $picsInLogsCount = null;
@@ -163,23 +184,20 @@ class GeoCache extends GeoCacheCommons
 
     /**
      * @param array $params
-     *            'cacheId' => (integer) database cache identifier
-     *            'wpId' => (string) geoCache wayPoint (ex. OP21F4)
+     *                      'cacheId' => (integer) database cache identifier
+     *                      'wpId' => (string) geoCache wayPoint (ex. OP21F4)
      * @throws Exception
      */
-    public function __construct(array $params = array())
+    public function __construct(array $params = [])
     {
         parent::__construct();
 
         if (isset($params['cacheId'])) { // load from DB if cachId param is set
             $this->loadByCacheId($params['cacheId']);
-
         } elseif (isset($params['okapiRow'])) {
             $this->loadFromOkapiRow($params['okapiRow']);
-
         } elseif (isset($params['cacheWp'])) {
             $this->loadByWp($params['cacheWp']);
-
         } elseif (isset($params['cacheUUID'])) {
             $this->loadByUUID($params['cacheUUID']);
         }
@@ -193,9 +211,9 @@ class GeoCache extends GeoCacheCommons
     public static function fromCacheIdFactory($cacheId)
     {
         try {
-            return new self( array('cacheId' => $cacheId) );
+            return new self(['cacheId' => $cacheId]);
         } catch (Exception $e) {
-            return null;
+            return;
         }
     }
 
@@ -207,9 +225,9 @@ class GeoCache extends GeoCacheCommons
     public static function fromWayPointFactory($wp)
     {
         try {
-            return new self( array('cacheWp' => $wp) );
+            return new self(['cacheWp' => $wp]);
         } catch (Exception $e) {
-            return null;
+            return;
         }
     }
 
@@ -221,9 +239,9 @@ class GeoCache extends GeoCacheCommons
     public static function fromUUIDFactory($uuid)
     {
         try {
-            return new self( array('cacheUUID' => $uuid) );
+            return new self(['cacheUUID' => $uuid]);
         } catch (Exception $e) {
-            return null;
+            return;
         }
     }
 
@@ -231,15 +249,14 @@ class GeoCache extends GeoCacheCommons
     {
         $wpColumn = self::getWpColumnName($wp);
 
-        $stmt = $this->db->multiVariableQuery("SELECT * FROM caches WHERE $wpColumn = :1 LIMIT 1", $wp);
+        $stmt = $this->db->multiVariableQuery("SELECT * FROM caches WHERE {$wpColumn} = :1 LIMIT 1", $wp);
         $cacheDbRow = $this->db->dbResultFetch($stmt);
 
         if (is_array($cacheDbRow)) {
             $this->loadFromRow($cacheDbRow);
         } else {
-            throw new Exception("Cache not found");
+            throw new Exception('Cache not found');
         }
-
     }
 
     private static function getWpColumnName($wp)
@@ -262,14 +279,16 @@ class GeoCache extends GeoCacheCommons
     {
         //find cache by Id
         $s = $this->db->multiVariableQuery(
-            "SELECT * FROM caches WHERE cache_id = :1 LIMIT 1", $cacheId);
+            'SELECT * FROM caches WHERE cache_id = :1 LIMIT 1',
+            $cacheId
+        );
 
         $cacheDbRow = $this->db->dbResultFetch($s);
 
         if (is_array($cacheDbRow)) {
             $this->loadFromRow($cacheDbRow);
         } else {
-            throw new Exception("Cache not found");
+            throw new Exception('Cache not found');
         }
     }
 
@@ -281,14 +300,16 @@ class GeoCache extends GeoCacheCommons
     {
         //find cache by UUID
         $s = $this->db->multiVariableQuery(
-            "SELECT * FROM caches WHERE uuid = :1 LIMIT 1", $uuid);
+            'SELECT * FROM caches WHERE uuid = :1 LIMIT 1',
+            $uuid
+        );
 
         $cacheDbRow = $this->db->dbResultFetch($s);
 
         if (is_array($cacheDbRow)) {
             $this->loadFromRow($cacheDbRow);
         } else {
-            throw new Exception("Cache not found");
+            throw new Exception('Cache not found');
         }
     }
 
@@ -309,9 +330,9 @@ class GeoCache extends GeoCacheCommons
                     $this->cacheName = $value;
                     break;
                 case 'location':
-                    $this->coordinates = new Coordinates(array(
-                        'okapiRow' => $value
-                    ));
+                    $this->coordinates = new Coordinates([
+                        'okapiRow' => $value,
+                    ]);
                     break;
                 case 'type':
                     $this->cacheType = self::CacheTypeIdFromOkapi($value);
@@ -341,9 +362,9 @@ class GeoCache extends GeoCacheCommons
                     $this->status = self::CacheStatusIdFromOkapi($value);
                     break;
                 case 'owner':
-                    $this->owner = new User(array(
-                        'okapiRow' => $value
-                    ));
+                    $this->owner = new User([
+                        'okapiRow' => $value,
+                    ]);
                     break;
                 case 'internal_id':
                     $this->id = $value;
@@ -352,7 +373,7 @@ class GeoCache extends GeoCacheCommons
                     $this->datePlaced = new DateTime($value);
                     break;
                 default:
-                    Debug::errorLog("Unknown field: $field (value: $value)");
+                    Debug::errorLog("Unknown field: {$field} (value: {$value})");
             }
         }
     }
@@ -360,7 +381,6 @@ class GeoCache extends GeoCacheCommons
     /**
      * Load object data based on DB data-row
      *
-     * @param array $geocacheDbRow
      * @return GeoCache
      * @throws Exception
      */
@@ -372,15 +392,16 @@ class GeoCache extends GeoCacheCommons
         $this->country = $geocacheDbRow['country'];
         $this->cacheName = $geocacheDbRow['name'];
         $this->geocacheWaypointId = $geocacheDbRow['wp_oc'];
-        $this->otherWaypointIds = array(
+        $this->otherWaypointIds = [
             'gc' => $geocacheDbRow['wp_gc'],
             'nc' => $geocacheDbRow['wp_nc'],
             'tc' => $geocacheDbRow['wp_tc'],
             'ge' => $geocacheDbRow['wp_ge'],
             'qc' => $geocacheDbRow['wp_qc'],
-        );
+        ];
         $this->datePlaced = new DateTime($geocacheDbRow['date_hidden']);
         $this->dateCreated = new DateTime($geocacheDbRow['date_created']);
+
         if (isset($geocacheDbRow['cache_id'])) {
             $this->id = (int) $geocacheDbRow['cache_id'];
         }
@@ -391,7 +412,7 @@ class GeoCache extends GeoCacheCommons
         $this->recommendations = (int) $geocacheDbRow['topratings'];
         $this->difficulty = $geocacheDbRow['difficulty'];
         $this->terrain = $geocacheDbRow['terrain'];
-        $this->logPassword = !empty($geocacheDbRow['logpw']) ? $geocacheDbRow['logpw'] : false;
+        $this->logPassword = ! empty($geocacheDbRow['logpw']) ? $geocacheDbRow['logpw'] : false;
         $this->ratingVotes = $geocacheDbRow['votes'];
         $this->notesCount = (int) $geocacheDbRow['notes'];
         $this->wayLength = $geocacheDbRow['way_length'];
@@ -401,15 +422,16 @@ class GeoCache extends GeoCacheCommons
         $this->descLanguagesList = $geocacheDbRow['desc_languages'];
         $this->mp3count = (int) $geocacheDbRow['mp3count'];
         $this->picturesCount = (int) $geocacheDbRow['picturescount'];
-        $this->coordinates = new Coordinates(array(
-            'dbRow' => $geocacheDbRow
-        ));
+        $this->coordinates = new Coordinates([
+            'dbRow' => $geocacheDbRow,
+        ]);
 
         $this->ownerId = (int) $geocacheDbRow['user_id'];
         $this->owner = null; //reset owner data
 
         $this->founder = null;
-        if (!empty($geocacheDbRow['org_user_id'])) {
+
+        if (! empty($geocacheDbRow['org_user_id'])) {
             $this->founderId = $geocacheDbRow['org_user_id'];
         }
 
@@ -420,6 +442,7 @@ class GeoCache extends GeoCacheCommons
         $this->setDateActivate($geocacheDbRow['date_activate']);
         $this->setDatePublished($geocacheDbRow['date_published']);
         $this->uuid = $geocacheDbRow['uuid'];
+
         return $this;
     }
 
@@ -432,18 +455,19 @@ class GeoCache extends GeoCacheCommons
      */
     public function isPowerTrailPart($includeHiddenGeoPath = false)
     {
-        if (!OcConfig::areGeopathsSupported()) {
+        if (! OcConfig::areGeopathsSupported()) {
             return false;
         }
 
         if (is_null($this->isPowerTrailPart)) {
             $ptArr = PowerTrail::CheckForPowerTrailByCache($this->id, $includeHiddenGeoPath);
+
             if (count($ptArr) > 0) {
                 // TODO: ASSUMPTION: cache belongs to ONLY one PT
                 $this->isPowerTrailPart = true;
-                $this->powerTrail = new PowerTrail(array(
-                    'dbRow' => $ptArr[0]
-                ));
+                $this->powerTrail = new PowerTrail([
+                    'dbRow' => $ptArr[0],
+                ]);
             } else {
                 $this->isPowerTrailPart = false;
             }
@@ -471,36 +495,55 @@ class GeoCache extends GeoCacheCommons
                 'SELECT count(*)
                 FROM `cache_logs`
                 WHERE `cache_id` = :1 AND TYPE = :2 AND `deleted` = 0',
-                0, $this->getCacheId(), GeoCacheLog::LOGTYPE_ATTENDED);
+                0,
+                $this->getCacheId(),
+                GeoCacheLog::LOGTYPE_ATTENDED
+            );
             $notFounds = $this->db->multiVariableQueryValue(
                 'SELECT count(*)
                 FROM `cache_logs`
                 WHERE `cache_id` = :1 AND TYPE = :2 AND `deleted` = 0',
-                0, $this->getCacheId(), GeoCacheLog::LOGTYPE_WILLATTENDED);
+                0,
+                $this->getCacheId(),
+                GeoCacheLog::LOGTYPE_WILLATTENDED
+            );
         } else {
             $founds = $this->db->multiVariableQueryValue(
                 'SELECT count(*)
                 FROM `cache_logs`
                 WHERE `cache_id` = :1 AND TYPE = :2 AND `deleted` = 0',
-                0, $this->getCacheId(), GeoCacheLog::LOGTYPE_FOUNDIT);
+                0,
+                $this->getCacheId(),
+                GeoCacheLog::LOGTYPE_FOUNDIT
+            );
             $notFounds = $this->db->multiVariableQueryValue(
                 'SELECT count(*)
                 FROM `cache_logs`
                 WHERE `cache_id` = :1 AND TYPE = :2 AND `deleted` = 0',
-                0, $this->getCacheId(), GeoCacheLog::LOGTYPE_DIDNOTFIND);
+                0,
+                $this->getCacheId(),
+                GeoCacheLog::LOGTYPE_DIDNOTFIND
+            );
         }
         $notes = $this->db->multiVariableQueryValue(
             'SELECT count(*)
                 FROM `cache_logs`
                 WHERE `cache_id` = :1 AND TYPE = :2 AND `deleted` = 0',
-            0, $this->getCacheId(), GeoCacheLog::LOGTYPE_COMMENT);
+            0,
+            $this->getCacheId(),
+            GeoCacheLog::LOGTYPE_COMMENT
+        );
         $lastFound = $this->db->multiVariableQueryValue(
             'SELECT MAX(`cache_logs`.`date`)
             FROM `cache_logs`
             WHERE `cache_logs`.`cache_id`= :1
                 AND `cache_logs`.`type`IN (:2, :3)
                 AND `cache_logs`.`deleted` = 0',
-            null, $this->getCacheId(), GeoCacheLog::LOGTYPE_FOUNDIT, GeoCacheLog::LOGTYPE_ATTENDED);
+            null,
+            $this->getCacheId(),
+            GeoCacheLog::LOGTYPE_FOUNDIT,
+            GeoCacheLog::LOGTYPE_ATTENDED
+        );
 
         $this->setFounds($founds)
             ->setNotFounds($notFounds)
@@ -514,16 +557,18 @@ class GeoCache extends GeoCacheCommons
             `notfounds`= :3,
             `notes`= :4
             WHERE `cache_id`= :5',
-            $this->getLastFound(), $this->getFounds(), $this->getNotFounds(),
-            $this->getNotesCount(), $this->getCacheId());
+            $this->getLastFound(),
+            $this->getFounds(),
+            $this->getNotFounds(),
+            $this->getNotesCount(),
+            $this->getCacheId()
+        );
     }
 
     public function getPowerTrail()
     {
-        if($this->isPowerTrailPart()){
+        if ($this->isPowerTrailPart()) {
             return $this->powerTrail;
-        } else {
-            return null;
         }
     }
 
@@ -534,7 +579,6 @@ class GeoCache extends GeoCacheCommons
 
     /**
      * Returns name of the cache type used in translation files
-     *
      */
     public function getCacheTypeTranslationKey()
     {
@@ -553,13 +597,13 @@ class GeoCache extends GeoCacheCommons
 
     public function isOpenCheckerApplicable()
     {
-        return $this->cacheType == self::TYPE_MOVING ||
-            self::TYPE_QUIZ || self::TYPE_OTHERTYPE || self::TYPE_MULTICACHE;
+        return $this->cacheType == self::TYPE_MOVING
+            || self::TYPE_QUIZ || self::TYPE_OTHERTYPE || self::TYPE_MULTICACHE;
     }
 
     public function getCacheLocationObj()
     {
-        if (!$this->cacheLocationObj) {
+        if (! $this->cacheLocationObj) {
             // load location data
             $this->cacheLocationObj = new CacheLocation($this->id);
         }
@@ -573,7 +617,6 @@ class GeoCache extends GeoCacheCommons
     }
 
     /**
-     *
      * @return DateTime
      */
     public function getDatePlaced()
@@ -594,7 +637,7 @@ class GeoCache extends GeoCacheCommons
      */
     public function getAltitude()
     {
-        if (!$this->cacheAddtitions) {
+        if (! $this->cacheAddtitions) {
             $this->loadCacheAdditions();
         }
 
@@ -617,7 +660,7 @@ class GeoCache extends GeoCacheCommons
 
     /**
      * Gets userId of the first author of the cache (for caches after adoption)
-     * @return integer
+     * @return int
      */
     public function getFounderId()
     {
@@ -630,8 +673,8 @@ class GeoCache extends GeoCacheCommons
      */
     public function getFounder()
     {
-        if ( !is_null($this->getFounderId()) && is_null($this->founder) ) {
-            $this->founder = User::fromUserIdFactory( $this->getFounderId() );
+        if (! is_null($this->getFounderId()) && is_null($this->founder)) {
+            $this->founder = User::fromUserIdFactory($this->getFounderId());
         }
 
         return $this->founder;
@@ -640,7 +683,7 @@ class GeoCache extends GeoCacheCommons
     /**
      * Returns true if cache is adopted and founder is not a current owner
      *
-     * @return boolean
+     * @return bool
      */
     public function isAdopted()
     {
@@ -653,13 +696,13 @@ class GeoCache extends GeoCacheCommons
     }
 
     /**
-     *
      * @return User
      */
     public function getOwner()
     {
-        if ( is_null($this->owner) )
-            $this->owner = User::fromUserIdFactory( $this->getOwnerId() );
+        if (is_null($this->owner)) {
+            $this->owner = User::fromUserIdFactory($this->getOwnerId());
+        }
 
         return $this->owner;
     }
@@ -704,15 +747,17 @@ class GeoCache extends GeoCacheCommons
         return tr(self::CacheRatingTranslationKey($this->ratingId));
     }
 
-    public function getCacheIcon(User $forUser=null)
+    public function getCacheIcon(User $forUser = null)
     {
         $logStatus = null;
         $isOwner = false;
-        if (!is_null($forUser)) {
-            $logsCount = $this->getLogsCountByType($forUser, array(GeoCacheLog::LOGTYPE_FOUNDIT, GeoCacheLog::LOGTYPE_DIDNOTFIND));
-            if (isset($logsCount[GeoCacheLog::LOGTYPE_FOUNDIT]) && $logsCount[GeoCacheLog::LOGTYPE_FOUNDIT]>0) {
+
+        if (! is_null($forUser)) {
+            $logsCount = $this->getLogsCountByType($forUser, [GeoCacheLog::LOGTYPE_FOUNDIT, GeoCacheLog::LOGTYPE_DIDNOTFIND]);
+
+            if (isset($logsCount[GeoCacheLog::LOGTYPE_FOUNDIT]) && $logsCount[GeoCacheLog::LOGTYPE_FOUNDIT] > 0) {
                 $logStatus = GeoCacheLog::LOGTYPE_FOUNDIT;
-            } else if (isset($logsCount[GeoCacheLog::LOGTYPE_DIDNOTFIND]) && $logsCount[GeoCacheLog::LOGTYPE_DIDNOTFIND]>0) {
+            } elseif (isset($logsCount[GeoCacheLog::LOGTYPE_DIDNOTFIND]) && $logsCount[GeoCacheLog::LOGTYPE_DIDNOTFIND] > 0) {
                 $logStatus = GeoCacheLog::LOGTYPE_DIDNOTFIND;
             }
             $isOwner = ($this->getOwnerId() == $forUser->getUserId());
@@ -744,24 +789,28 @@ class GeoCache extends GeoCacheCommons
     public function setIsPowerTrailPart($isPowerTrailPart)
     {
         $this->isPowerTrailPart = $isPowerTrailPart;
+
         return $this;
     }
 
     public function setFounds($founds)
     {
         $this->founds = $founds;
+
         return $this;
     }
 
     public function setNotFounds($notFounds)
     {
         $this->notFounds = $notFounds;
+
         return $this;
     }
 
     public function setNotesCount($notesCount)
     {
         $this->notesCount = $notesCount;
+
         return $this;
     }
 
@@ -778,22 +827,22 @@ class GeoCache extends GeoCacheCommons
     public function setLastFound($lastFound)
     {
         $this->lastFound = $lastFound;
+
         return $this;
     }
 
-
     /**
-     * @param PowerTrail $powerTrail
      * @return GeoCache
      */
     public function setPowerTrail(PowerTrail $powerTrail)
     {
         $this->powerTrail = $powerTrail;
+
         return $this;
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isIsPowerTrailFinalGeocache()
     {
@@ -801,12 +850,13 @@ class GeoCache extends GeoCacheCommons
     }
 
     /**
-     * @param boolean $isPowerTrailFinalGeocache
+     * @param bool $isPowerTrailFinalGeocache
      * @return GeoCache
      */
     public function setIsPowerTrailFinalGeocache($isPowerTrailFinalGeocache)
     {
         $this->isPowerTrailFinalGeocache = $isPowerTrailFinalGeocache;
+
         return $this;
     }
 
@@ -859,6 +909,7 @@ class GeoCache extends GeoCacheCommons
         if (is_null($this->isTitled)) {
             $this->isTitled = CacheTitled::isTitled($this->id);
         }
+
         return $this->isTitled;
     }
 
@@ -874,10 +925,13 @@ class GeoCache extends GeoCacheCommons
             $s = $this->db->multiVariableQuery(
                 "SELECT `parkipl`.`name` AS `npaname`,`parkipl`.`link` AS `npalink`,`parkipl`.`logo` AS `npalogo`
                  FROM `cache_npa_areas` INNER JOIN `parkipl` ON `cache_npa_areas`.`parki_id`=`parkipl`.`id`
-                 WHERE `cache_npa_areas`.`cache_id`=:1 AND `cache_npa_areas`.`parki_id`!='0'", $this->id);
+                 WHERE `cache_npa_areas`.`cache_id`=:1 AND `cache_npa_areas`.`parki_id`!='0'",
+                $this->id
+            );
 
             $this->natureRegions = $this->db->dbResultFetchAll($s);
         }
+
         return $this->natureRegions;
     }
 
@@ -890,6 +944,7 @@ class GeoCache extends GeoCacheCommons
             $s = $this->db->multiVariableQuery($sql, $this->id);
             $this->natura2000Sites = $this->db->dbResultFetchAll($s);
         }
+
         return $this->natura2000Sites;
     }
 
@@ -897,16 +952,20 @@ class GeoCache extends GeoCacheCommons
     {
         if ($this->usersRecommended === false) {
             $s = $this->db->multiVariableQuery(
-                "SELECT user.username AS username
+                'SELECT user.username AS username
                  FROM `cache_rating` INNER JOIN user ON (cache_rating.user_id = user.user_id)
-                 WHERE cache_id=:1 ORDER BY username", $this->id);
+                 WHERE cache_id=:1 ORDER BY username',
+                $this->id
+            );
 
             $usersArr = [];
+
             foreach ($this->db->dbResultFetchAll($s) as $row) {
                 $usersArr[] = $row['username'];
             }
             $this->usersRecommended = implode(', ', $usersArr);
         }
+
         return $this->usersRecommended;
     }
 
@@ -925,7 +984,8 @@ class GeoCache extends GeoCacheCommons
         return $this->wayLength;
     }
 
-    public function getWayLenghtFormattedString() {
+    public function getWayLenghtFormattedString()
+    {
         return sprintf('%01.2f km', $this->getWayLenght());
     }
 
@@ -937,11 +997,11 @@ class GeoCache extends GeoCacheCommons
     public function getSearchTimeFormattedString()
     {
         $hours = floor($this->getSearchTime());
-        $min = ( $this->getSearchTime() - $hours ) * 60;
+        $min = ($this->getSearchTime() - $hours) * 60;
         $min = sprintf('%02d', round($min, 1));
+
         return $hours . ':' . $min . ' h';
     }
-
 
     public function getOtherWaypointIds()
     {
@@ -954,43 +1014,43 @@ class GeoCache extends GeoCacheCommons
 
         $result = [];
 
-        if ( !empty($this->otherWaypointIds['ge']) && $config['otherSites_gpsgames_org'] == 1 ) {
+        if (! empty($this->otherWaypointIds['ge']) && $config['otherSites_gpsgames_org'] == 1) {
             $otherSite = new stdClass();
-            $otherSite->link = 'http://geocaching.gpsgames.org/cgi-bin/ge.pl?wp='.$this->otherWaypointIds['ge'];
+            $otherSite->link = 'http://geocaching.gpsgames.org/cgi-bin/ge.pl?wp=' . $this->otherWaypointIds['ge'];
             $otherSite->sitename = 'GPSgames.org';
             $otherSite->wp = $this->otherWaypointIds['ge'];
             $result[] = $otherSite;
         }
 
-        if ( !empty($this->otherWaypointIds['tc']) && $config['otherSites_terracaching_com'] == 1) {
+        if (! empty($this->otherWaypointIds['tc']) && $config['otherSites_terracaching_com'] == 1) {
             $otherSite = new stdClass();
-            $otherSite->link = 'http://play.terracaching.com/Cache/'.$this->otherWaypointIds['tc'];
+            $otherSite->link = 'http://play.terracaching.com/Cache/' . $this->otherWaypointIds['tc'];
             $otherSite->sitename = 'Terracaching.com';
             $otherSite->wp = $this->otherWaypointIds['tc'];
             $result[] = $otherSite;
         }
 
-        if ( !empty($this->otherWaypointIds['nc']) && $config['otherSites_navicache_com'] == 1) {
+        if (! empty($this->otherWaypointIds['nc']) && $config['otherSites_navicache_com'] == 1) {
             $otherSite = new stdClass();
             $wpnc = hexdec(mb_substr($this->otherWaypointIds['nc'], 1));
 
-            $otherSite->link = 'http://www.navicache.com/cgi-bin/db/displaycache2.pl?CacheID='.$wpnc;
+            $otherSite->link = 'http://www.navicache.com/cgi-bin/db/displaycache2.pl?CacheID=' . $wpnc;
             $otherSite->sitename = 'Navicache.com';
             $otherSite->wp = $wpnc;
             $result[] = $otherSite;
         }
 
-        if ( !empty($this->otherWaypointIds['gc']) && $config['otherSites_geocaching_com'] == 1) {
+        if (! empty($this->otherWaypointIds['gc']) && $config['otherSites_geocaching_com'] == 1) {
             $otherSite = new stdClass();
-            $otherSite->link = 'http://coord.info/'.$this->otherWaypointIds['gc'];
+            $otherSite->link = 'http://coord.info/' . $this->otherWaypointIds['gc'];
             $otherSite->sitename = 'Geocaching.com';
             $otherSite->wp = $this->otherWaypointIds['gc'];
             $result[] = $otherSite;
         }
 
-        if ( !empty($this->otherWaypointIds['qc']) && $config['otherSites_qualitycaching_com'] == 1 ) {
+        if (! empty($this->otherWaypointIds['qc']) && $config['otherSites_qualitycaching_com'] == 1) {
             $otherSite = new stdClass();
-            $otherSite->link = 'http://www.qualitycaching.com/QCView.aspx?cid='.$this->otherWaypointIds['qc'];
+            $otherSite->link = 'http://www.qualitycaching.com/QCView.aspx?cid=' . $this->otherWaypointIds['qc'];
             $otherSite->sitename = 'Qualitycaching.com';
             $otherSite->wp = $this->otherWaypointIds['qc'];
             $result[] = $otherSite;
@@ -1000,7 +1060,6 @@ class GeoCache extends GeoCacheCommons
     }
 
     /**
-     *
      * @return DateTime
      */
     public function getDateCreated()
@@ -1021,16 +1080,11 @@ class GeoCache extends GeoCacheCommons
     /**
      * if geocache require password for log entry, return true, otherwise false.
      *
-     * @return boolean
+     * @return bool
      */
     public function hasPassword()
     {
-        if ($this->logPassword === false) {
-            return false;
-        } else {
-            return true;
-        }
-
+        return ! ($this->logPassword === false);
     }
 
     public function getWatchingUsersCount()
@@ -1042,6 +1096,7 @@ class GeoCache extends GeoCacheCommons
     {
         return $this->descLanguagesList;
     }
+
     public function getMp3count()
     {
         return $this->mp3count;
@@ -1057,34 +1112,39 @@ class GeoCache extends GeoCacheCommons
         if (($this->cacheType === self::TYPE_MOVING || $this->cacheType === self::TYPE_OWNCACHE) && $this->moveCount === -1) {
             $this->moveCount = XDb::xMultiVariableQueryValue(
                 'SELECT COUNT(*) FROM `cache_logs` WHERE (type=4 OR type=10) AND cache_logs.deleted="0" AND cache_id=:1',
-                0, $this->id);
+                0,
+                $this->id
+            );
         }
+
         return $this->moveCount;
     }
 
     public function getLogsCountByType(User $user, array $typesArray = null, $includeDeleted = false)
     {
-
         $typesStr = '';
-        if (!is_null($typesArray)) {
-            $typesArray = XDb::xEscape( implode(',', $typesArray) );
-        }
-        $typeFilterStr = (empty($typesStr))?'':"AND type IN ( $typesStr )";
 
-        $excludeDeletedStr = (!$includeDeleted)?'AND deleted=0':'';
+        if (! is_null($typesArray)) {
+            $typesArray = XDb::xEscape(implode(',', $typesArray));
+        }
+        $typeFilterStr = (empty($typesStr)) ? '' : "AND type IN ( {$typesStr} )";
+
+        $excludeDeletedStr = (! $includeDeleted) ? 'AND deleted=0' : '';
 
         $s = Xdb::xSql(
-            "SELECT count(*) AS count, type FROM `cache_logs` WHERE cache_id = ? AND user_id = ? $typeFilterStr $excludeDeletedStr GROUP BY type",
-            $this->id, $user->getUserId());
+            "SELECT count(*) AS count, type FROM `cache_logs` WHERE cache_id = ? AND user_id = ? {$typeFilterStr} {$excludeDeletedStr} GROUP BY type",
+            $this->id,
+            $user->getUserId()
+        );
 
-        $result = array();
+        $result = [];
+
         while ($row = XDb::xFetchArray($s)) {
             $result[$row['type']] = $row['count'];
         }
 
         return $result;
     }
-
 
     /**
      * get mobile cache distance.
@@ -1100,6 +1160,7 @@ class GeoCache extends GeoCacheCommons
             $dst = $this->db->dbResultFetchOneRowOnly($s);
             $this->distance = round($dst['dystans'], 2);
         }
+
         return $this->distance;
     }
 
@@ -1161,8 +1222,10 @@ class GeoCache extends GeoCacheCommons
         global $config;
 
         $descLanguages = XDb::xMultiVariableQueryValue(
-            "SELECT `desc_languages` FROM `caches`
-            WHERE `cache_id`= :1 LIMIT 1", null, $cacheid
+            'SELECT `desc_languages` FROM `caches`
+            WHERE `cache_id`= :1 LIMIT 1',
+            null,
+            $cacheid
         );
         $desclang = mb_substr($descLanguages, 0, 2);
 
@@ -1174,10 +1237,12 @@ class GeoCache extends GeoCacheCommons
         }
 
         XDb::xSql(
-            "UPDATE `caches` SET
+            'UPDATE `caches` SET
                 `default_desclang`= ?, `last_modified`=NOW()
-            WHERE cache_id= ? LIMIT 1",
-            $desclang, $cacheid);
+            WHERE cache_id= ? LIMIT 1',
+            $desclang,
+            $cacheid
+        );
     }
 
     /**
@@ -1188,75 +1253,94 @@ class GeoCache extends GeoCacheCommons
      */
     public static function getDescriptions($cacheId)
     {
-        $rs = XDb::xSql("SELECT `id` AS desc_id, language FROM cache_desc WHERE cache_id = ?", $cacheId);
-        $result = array();
+        $rs = XDb::xSql('SELECT `id` AS desc_id, language FROM cache_desc WHERE cache_id = ?', $cacheId);
+        $result = [];
+
         while ($row = XDb::xFetchArray($rs)) {
             $result[$row['desc_id']] = $row['language'];
         }
+
         return $result;
     }
 
-
     /**
      * update last_modified=NOW() for every object depending on that cacheid
-     *
      */
     public static function touchCache($cacheId)
     {
-        self::updateLastModified ($cacheId);
+        self::updateLastModified($cacheId);
 
         XDb::xSql(
-            "UPDATE `caches`, `cache_logs` SET `cache_logs`.`last_modified`=NOW()
+            'UPDATE `caches`, `cache_logs` SET `cache_logs`.`last_modified`=NOW()
             WHERE `caches`.`cache_id`=`cache_logs`.`cache_id`
-                AND `caches`.`cache_id`= ? AND `cache_logs`.`deleted`= ? ", $cacheId, 0);
+                AND `caches`.`cache_id`= ? AND `cache_logs`.`deleted`= ? ',
+            $cacheId,
+            0
+        );
 
         XDb::xSql(
-            "UPDATE `caches`, `cache_desc` SET `cache_desc`.`last_modified`=NOW()
-            WHERE `caches`.`cache_id`=`cache_desc`.`cache_id` AND `caches`.`cache_id`= ?", $cacheId);
+            'UPDATE `caches`, `cache_desc` SET `cache_desc`.`last_modified`=NOW()
+            WHERE `caches`.`cache_id`=`cache_desc`.`cache_id` AND `caches`.`cache_id`= ?',
+            $cacheId
+        );
 
         XDb::xSql(
-            "UPDATE `caches`, `pictures` SET `pictures`.`last_modified`=NOW()
-            WHERE `caches`.`cache_id`=`pictures`.`object_id` AND `pictures`.`object_type`=2 AND `caches`.`cache_id`= ? ", $cacheId);
+            'UPDATE `caches`, `pictures` SET `pictures`.`last_modified`=NOW()
+            WHERE `caches`.`cache_id`=`pictures`.`object_id` AND `pictures`.`object_type`=2 AND `caches`.`cache_id`= ? ',
+            $cacheId
+        );
 
         XDb::xSql(
-            "UPDATE `caches`, `cache_logs`, `pictures` SET `pictures`.`last_modified`=NOW()
+            'UPDATE `caches`, `cache_logs`, `pictures` SET `pictures`.`last_modified`=NOW()
             WHERE `caches`.`cache_id`=`cache_logs`.`cache_id` AND `cache_logs`.`id`=`pictures`.`object_id`
             AND `pictures`.`object_type`=1 AND `caches`.`cache_id`= ?
-            AND `cache_logs`.`deleted`= ? ", $cacheId, 0);
+            AND `cache_logs`.`deleted`= ? ',
+            $cacheId,
+            0
+        );
 
         XDb::xSql(
-            "UPDATE `caches`, `mp3` SET `mp3`.`last_modified`=NOW()
-            WHERE `caches`.`cache_id`=`mp3`.`object_id` AND `mp3`.`object_type`=2 AND `caches`.`cache_id`= ? ", $cacheId);
+            'UPDATE `caches`, `mp3` SET `mp3`.`last_modified`=NOW()
+            WHERE `caches`.`cache_id`=`mp3`.`object_id` AND `mp3`.`object_type`=2 AND `caches`.`cache_id`= ? ',
+            $cacheId
+        );
 
         XDb::xSql(
-            "UPDATE `caches`, `cache_logs`, `mp3` SET `mp3`.`last_modified`=NOW()
+            'UPDATE `caches`, `cache_logs`, `mp3` SET `mp3`.`last_modified`=NOW()
             WHERE `caches`.`cache_id`=`cache_logs`.`cache_id` AND `cache_logs`.`id`=`mp3`.`object_id`
             AND `mp3`.`object_type`=1 AND `caches`.`cache_id`= ?
-            AND `cache_logs`.`deleted`= ? ", $cacheId, 0);
+            AND `cache_logs`.`deleted`= ? ',
+            $cacheId,
+            0
+        );
     }
 
-
-    public static function updateLastModified ($cacheId) {
+    public static function updateLastModified($cacheId)
+    {
         self::db()->multiVariableQuery(
-            "UPDATE caches SET last_modified=NOW() WHERE cache_id= :1 ", $cacheId);
+            'UPDATE caches SET last_modified=NOW() WHERE cache_id= :1 ',
+            $cacheId
+        );
     }
 
     public static function getUserActiveCachesCountByType($userId)
     {
-
         $stmt = XDb::xSql(
             'SELECT type, COUNT(*) as cacheCount
              FROM `caches` WHERE `user_id` = ? AND STATUS != ?
-             GROUP by type', $userId, self::STATUS_ARCHIVED);
+             GROUP by type',
+            $userId,
+            self::STATUS_ARCHIVED
+        );
 
         $result = [];
+
         while ($row = Xdb::xFetchArray($stmt)) {
             $result[$row['type']] = $row['cacheCount'];
         }
 
         return $result;
     }
-
 
     /**
      * Returns last modification date
@@ -1265,14 +1349,16 @@ class GeoCache extends GeoCacheCommons
      */
     public function getLastModificationDate()
     {
-
         $lm = XDb::xMultiVariableQueryValue(
-            "SELECT MAX(`last_modified`) `last_modified`
+            'SELECT MAX(`last_modified`) `last_modified`
              FROM
                  ( SELECT `last_modified` FROM `caches` WHERE `cache_id` = :1
                    UNION
-                   SELECT `last_modified` FROM `cache_desc` WHERE `cache_id` = :2 ) `tmp_result`",
-            0, $this->id, $this->id );
+                   SELECT `last_modified` FROM `cache_desc` WHERE `cache_id` = :2 ) `tmp_result`',
+            0,
+            $this->id,
+            $this->id
+        );
 
         return new DateTime($lm);
     }
@@ -1285,17 +1371,19 @@ class GeoCache extends GeoCacheCommons
     public function getPrePublicationVisits()
     {
         $result = MultiUserQueries::GetUserNamesForListOfIds(
-            CacheVisits::getPrePublicationVisits($this->id));
+            CacheVisits::getPrePublicationVisits($this->id)
+        );
 
         if (empty($result)) {
             $result[] = tr('no_visits');
         }
+
         return array_values($result);
     }
 
-    public function incCacheVisits(User $user=null, $ip)
+    public function incCacheVisits(User $user = null, $ip)
     {
-        if (!$user && !OcConfig::anonymousVisitsCounted()) {
+        if (! $user && ! OcConfig::anonymousVisitsCounted()) {
             // don't count visits if anonymous visits are ignored
             return;
         }
@@ -1323,13 +1411,15 @@ class GeoCache extends GeoCacheCommons
         }
 
         $s = XDb::xSql(
-                "SELECT cache_attrib.text_long AS text, cache_attrib.icon_large AS icon
+            'SELECT cache_attrib.text_long AS text, cache_attrib.icon_large AS icon
                 FROM cache_attrib, caches_attributes
                 WHERE cache_attrib.id=caches_attributes.attrib_id
                     AND cache_attrib.language = ?
                     AND caches_attributes.cache_id = ?
-                ORDER BY cache_attrib.category, cache_attrib.id",
-            strtoupper(I18n::getCurrentLang()), $this->getCacheId());
+                ORDER BY cache_attrib.category, cache_attrib.id',
+            strtoupper(I18n::getCurrentLang()),
+            $this->getCacheId()
+        );
 
         if (XDb::xNumRows($s) == 0) {
             //TODO: there can be a lack of cache attrib translation in current language - then retrive translation in english
@@ -1340,12 +1430,13 @@ class GeoCache extends GeoCacheCommons
                     AND cache_attrib.language = 'EN'
                     AND caches_attributes.cache_id = ?
                 ORDER BY cache_attrib.category, cache_attrib.id",
-                $this->getCacheId());
+                $this->getCacheId()
+            );
         }
 
         $this->cacheAttributesList = [];
-        while ($record = XDb::xFetchArray($s)) {
 
+        while ($record = XDb::xFetchArray($s)) {
             $attrib = new stdClass();
             $attrib->iconLarge = $record['icon'];
             $attrib->text = $record['text'];
@@ -1366,13 +1457,12 @@ class GeoCache extends GeoCacheCommons
     }
 
     /**
-     *
      * @param string $descLang
      * @return GeoCacheDesc
      */
     public function getCacheDescription($descLang)
     {
-         return GeoCacheDesc::fromCacheIdFactory($this->id, $descLang);
+        return GeoCacheDesc::fromCacheIdFactory($this->id, $descLang);
     }
 
     /**
@@ -1413,30 +1503,32 @@ class GeoCache extends GeoCacheCommons
     public function getGeokretsHosted()
     {
         if ($this->hostedGeokrets === false) {
-            $s = XDb::xSql("SELECT gk_item.id, name, distancetravelled as distance
+            $s = XDb::xSql('SELECT gk_item.id, name, distancetravelled as distance
                         FROM gk_item INNER JOIN gk_item_waypoint ON (gk_item.id = gk_item_waypoint.id)
                         WHERE gk_item_waypoint.wp = ?
                             AND stateid<>1 AND stateid<>4
-                            AND stateid<>5 AND typeid<>2 AND missing=0", $this->geocacheWaypointId);
+                            AND stateid<>5 AND typeid<>2 AND missing=0', $this->geocacheWaypointId);
 
-            $this->hostedGeokrets = array();
+            $this->hostedGeokrets = [];
+
             while ($row = Xdb::xFetchArray($s)) {
                 $this->hostedGeokrets[] = $row;
             }
         }
-        return $this->hostedGeokrets;
 
+        return $this->hostedGeokrets;
     }
 
     public function getMp3List()
     {
         if (is_null($this->mp3List)) {
-
-        $this->mp3List = array();
-        $rs = XDb::xSql(
-            'SELECT uuid, title, url FROM mp3
+            $this->mp3List = [];
+            $rs = XDb::xSql(
+                'SELECT uuid, title, url FROM mp3
             WHERE object_id = ? AND object_type=2 AND display=1
-            ORDER BY seq, date_created', $this->id);
+            ORDER BY seq, date_created',
+                $this->id
+            );
 
             while ($row = XDb::xFetchArray($rs)) {
                 $this->mp3List[] = $row;
@@ -1448,8 +1540,6 @@ class GeoCache extends GeoCacheCommons
 
     /**
      * Update coordinates of the cache
-     *
-     * @param Coordinates $newCoords
      */
     public function updateCoordinates(Coordinates $newCoords)
     {
@@ -1458,9 +1548,12 @@ class GeoCache extends GeoCacheCommons
         }
 
         $this->db->multiVariableQuery(
-            "UPDATE caches SET last_modified=NOW(), latitude=:1, longitude=:2
-             WHERE cache_id=:3",
-            $newCoords->getLatitude(), $newCoords->getLongitude(), $this->getCacheId());
+            'UPDATE caches SET last_modified=NOW(), latitude=:1, longitude=:2
+             WHERE cache_id=:3',
+            $newCoords->getLatitude(),
+            $newCoords->getLongitude(),
+            $this->getCacheId()
+        );
 
         $this->coordinates = $newCoords;
         $this->updateCacheLocation();
@@ -1476,24 +1569,24 @@ class GeoCache extends GeoCacheCommons
     }
 
     /**
-     *
      * @param bool $returnSpoilersOnly
      * @param bool $changeUrlForSpoilers
      * @param bool $displayThumbsForSpoilers
      * @return array|null
      */
-    public function getPicturesList( $returnSpoilersOnly, $changeUrlForSpoilers = false, $displayThumbsForSpoilers=false )
+    public function getPicturesList($returnSpoilersOnly, $changeUrlForSpoilers = false, $displayThumbsForSpoilers = false)
     {
         if (is_null($this->picturesList)) {
-
-            $this->picturesList = array();
+            $this->picturesList = [];
 
             $rs = XDb::xSql(
-                "SELECT uuid, title, url, spoiler FROM pictures
+                'SELECT uuid, title, url, spoiler FROM pictures
                 WHERE object_id = ? AND object_type=2 AND display=1
-                ORDER BY seq, date_created", $this->id);
+                ORDER BY seq, date_created',
+                $this->id
+            );
 
-            while ($row=XDb::xFetchArray($rs)) {
+            while ($row = XDb::xFetchArray($rs)) {
                 $pic = new stdClass();             //TODO: it should be refactored to picture-class
 
                 $pic->spoiler = ($row['spoiler'] == '1');
@@ -1503,8 +1596,7 @@ class GeoCache extends GeoCacheCommons
                 $pic->thumbUrl = SimpleRouter::getLink(PictureController::class, 'thumbSizeMedium', [$row['uuid']]);
 
                 // path to images was changes - why not to fix it in DB?
-                $pic->url = str_replace("images/uploads", "upload", $row['url']);
-
+                $pic->url = str_replace('images/uploads', 'upload', $row['url']);
 
                 $this->picturesList[] = $pic;
             }
@@ -1514,13 +1606,13 @@ class GeoCache extends GeoCacheCommons
             $result = $this->picturesList;
         } else {
             // filter out non-spoilers
-            $result =  array_filter( $this->picturesList, function($pic) {
+            $result = array_filter($this->picturesList, function ($pic) {
                 return $pic->spoiler;
             });
         }
 
         if ($changeUrlForSpoilers) {
-            array_walk($result, function($pic) {
+            array_walk($result, function ($pic) {
                 if ($pic->spoiler) {
                     $pic->url = Thumbnail::placeholderUri(Thumbnail::PHD_SPOILER);
                 }
@@ -1528,7 +1620,7 @@ class GeoCache extends GeoCacheCommons
         }
 
         if ($displayThumbsForSpoilers) {
-            array_walk($result, function($pic) {
+            array_walk($result, function ($pic) {
                 if ($pic->spoiler) {
                     $pic->thumbUrl = $pic->thumbUrl . '&amp;showspoiler=1';
                 }
@@ -1545,39 +1637,47 @@ class GeoCache extends GeoCacheCommons
      */
     public function getPicsInLogsCount()
     {
-        if ( is_null( $this->picsInLogsCount ) ) {
-
+        if (is_null($this->picsInLogsCount)) {
             $this->picsInLogsCount = Xdb::xMultiVariableQueryValue(
-                    "SELECT COUNT(*) FROM pictures, cache_logs
+                'SELECT COUNT(*) FROM pictures, cache_logs
                     WHERE pictures.object_id = cache_logs.id
                         AND pictures.object_type = 1
-                        AND cache_logs.cache_id = :1", 0, $this->id);
+                        AND cache_logs.cache_id = :1',
+                0,
+                $this->id
+            );
         }
+
         return $this->picsInLogsCount;
     }
 
     public function hasDeletedLog()
     {
         return '1' == Xdb::xMultiVariableQueryValue(
-            "SELECT 1 FROM cache_logs
-            WHERE deleted = 1 and cache_id= :1 LIMIT 1", 0, $this->id);
+            'SELECT 1 FROM cache_logs
+            WHERE deleted = 1 and cache_id= :1 LIMIT 1',
+            0,
+            $this->id
+        );
     }
 
     public function getLogEntriesCount($countDeleted = false)
     {
-
-        $excludeDeleted = (!$countDeleted)?"deleted= 0 AND":'';
+        $excludeDeleted = (! $countDeleted) ? 'deleted= 0 AND' : '';
 
         return Xdb::xMultiVariableQueryValue(
-            "SELECT count(*) FROM cache_logs
-            WHERE " . $excludeDeleted . " `cache_id`= :1", 0, $this->id);
+            'SELECT count(*) FROM cache_logs
+            WHERE ' . $excludeDeleted . ' `cache_id`= :1',
+            0,
+            $this->id
+        );
     }
 
     /**
      * returns true if this cache is ignored by user identified by given userId
      *
      * @param int $userId
-     * @return boolean
+     * @return bool
      *
      * @deprecated Use isIgnoredByUser instead
      */
@@ -1589,8 +1689,7 @@ class GeoCache extends GeoCacheCommons
     /**
      * Returns true if this cache is ignored by User
      *
-     * @param User $user
-     * @return boolean
+     * @return bool
      */
     public function isIgnoredByUser(User $user)
     {
@@ -1601,7 +1700,7 @@ class GeoCache extends GeoCacheCommons
      * returns true if this cache is watched by user identified by given userId
      *
      * @param int $userId
-     * @return boolean
+     * @return bool
      */
     public function isWatchedBy($userId)
     {
@@ -1613,7 +1712,7 @@ class GeoCache extends GeoCacheCommons
      */
     public function getDifficultyIcon()
     {
-        return sprintf("/images/difficulty/diff-%d.gif", $this->difficulty);
+        return sprintf('/images/difficulty/diff-%d.gif', $this->difficulty);
     }
 
     /**
@@ -1621,33 +1720,36 @@ class GeoCache extends GeoCacheCommons
      */
     public function getTerrainIcon()
     {
-        return sprintf("/images/difficulty/terr-%d.gif", $this->terrain);
+        return sprintf('/images/difficulty/terr-%d.gif', $this->terrain);
     }
 
     /**
      * Check if $user on this cache already has not deleted $logType log
      * and returns true/false
      *
-     * @param User $user
      * @param int $logType
-     * @return boolean
+     * @return bool
      */
     public function hasUserLogByType(User $user, $logType)
     {
         $logType = intval($logType);
 
         return $this->db->multiVariableQueryValue(
-            "SELECT COUNT(*) FROM cache_logs
+            'SELECT COUNT(*) FROM cache_logs
              WHERE deleted = 0 AND user_id = :1 AND cache_id = :2
                 AND type = :3
-             LIMIT 1", 0, $user->getUserId(), $this->getCacheId(),
-            $logType) > 0;
+             LIMIT 1',
+            0,
+            $user->getUserId(),
+            $this->getCacheId(),
+            $logType
+        ) > 0;
     }
 
     /**
      * This method update altitude for this geocache
      */
-    public function updateAltitude($newAltitude=null)
+    public function updateAltitude($newAltitude = null)
     {
         $oldAltitude = $this->getAltitude();
 
@@ -1670,8 +1772,9 @@ class GeoCache extends GeoCacheCommons
             SET `status` = :1,
                 `last_modified` = NOW()
             WHERE `cache_id` = :2',
-            $newStatus, $this->getCacheId()
-            );
+            $newStatus,
+            $this->getCacheId()
+        );
 
         return true;
     }
@@ -1688,10 +1791,14 @@ class GeoCache extends GeoCacheCommons
 
     public function recalculateCacheScore()
     {
-        list($newVotes, $newScore) = GeoCacheScore::getVotesScoreForCache($this->getCacheId());
+        [$newVotes, $newScore] = GeoCacheScore::getVotesScoreForCache($this->getCacheId());
 
-        $this->db->multiVariableQuery("UPDATE caches SET votes=:1, score=:2 WHERE cache_id=:3",
-            $newVotes, $newScore, $this->getCacheId());
+        $this->db->multiVariableQuery(
+            'UPDATE caches SET votes=:1, score=:2 WHERE cache_id=:3',
+            $newVotes,
+            $newScore,
+            $this->getCacheId()
+        );
     }
 
     /**
@@ -1704,9 +1811,9 @@ class GeoCache extends GeoCacheCommons
         $this->dateActivate = null;
 
         $this->db->multiVariableQuery(
-            "UPDATE `caches`
+            'UPDATE `caches`
               SET `status` = :1, `date_activate` = :2, `last_modified` = NOW()
-              WHERE `cache_id` = :3",
+              WHERE `cache_id` = :3',
             $this->status,
             $this->dateActivate,
             $this->id
@@ -1724,17 +1831,18 @@ class GeoCache extends GeoCacheCommons
 
         if ($sizesInUse === null) {
             $sizesInUse = self::db()->dbFetchOneColumnArray(
-                self::db()->simpleQuery("SELECT DISTINCT size FROM caches"),
+                self::db()->simpleQuery('SELECT DISTINCT size FROM caches'),
                 'size'
             );
         }
+
         return $sizesInUse;
     }
 
     public static function nanoIsInUse()
     {
         return self::db()->multiVariableQueryValue(
-            "SELECT 1 FROM caches WHERE size = :1",
+            'SELECT 1 FROM caches WHERE size = :1',
             0,
             self::SIZE_NANO
         ) != 0;
@@ -1748,8 +1856,12 @@ class GeoCache extends GeoCacheCommons
     {
         $this->db->multiVariableQuery(
             'UPDATE caches SET picturescount=picturescount + :1, last_modified = NOW()
-             WHERE cache_id = :2 LIMIT 1', $value, $this->getCacheId());
+             WHERE cache_id = :2 LIMIT 1',
+            $value,
+            $this->getCacheId()
+        );
     }
+
     /**
      * Returns last active (not deleted) GeoCacheLog for GeoCache or null if there is no logs for cache
      *
@@ -1768,7 +1880,8 @@ class GeoCache extends GeoCacheCommons
                 $this->getCacheId()
             );
             $logItem = $this->db->dbResultFetch($stmt);
-            if (!empty($logItem)) {
+
+            if (! empty($logItem)) {
                 $this->lastLog = GeoCacheLog::fromLogIdFactory($logItem['id']);
             }
         }
@@ -1778,10 +1891,6 @@ class GeoCache extends GeoCacheCommons
 
     /**
      * Returns TRUE if given user is an owner of this geocache
-     *
-     * @param User $user
-     *
-     * @return bool
      */
     public function isOwnedBy(User $user): bool
     {

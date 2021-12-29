@@ -1,4 +1,5 @@
 <?php
+
 namespace src\Controllers\Cron;
 
 use DateInterval;
@@ -11,8 +12,7 @@ use src\Utils\Lock\Lock;
 
 class NotifyController extends BaseController
 {
-
-    private const NOTIFY_FLAG = "notification-run_notify.date";
+    private const NOTIFY_FLAG = 'notification-run_notify.date';
 
     private DateTime $lastRun;
 
@@ -30,13 +30,15 @@ class NotifyController extends BaseController
     private function processNotifyQueue()
     {
         $lockHandle = Lock::tryLock($this, Lock::EXCLUSIVE | Lock::NONBLOCKING);
+
         if (! $lockHandle) {
-            die("Another instance of NotifyController is running or problem with lock file");
+            exit('Another instance of NotifyController is running or problem with lock file');
         }
         $this->lastRun = $this->getFlagTime();
         $this->touchFlag();
 
         $notifiesWaiting = Notify::getUniqueUserIdNotifiesList();
+
         foreach ($notifiesWaiting as $uniqueUser) {
             $itemUser = User::fromUserIdFactory($uniqueUser['user_id']);
             // Check if user wants to receive notifications
@@ -73,6 +75,7 @@ class NotifyController extends BaseController
                     $right_time->sub(new DateInterval('P1D'));
                 }
                 $right_time->setTime(intval($user->getWatchmailHour()), 0);
+
                 if (intval($user->getWatchmailDay()) >= 1 && intval($user->getWatchmailDay()) <= 7) { // Check for sure
                     while (intval($right_time->format('N')) != intval($user->getWatchmailDay())) {
                         $right_time->sub(new DateInterval('P1D'));
@@ -80,6 +83,7 @@ class NotifyController extends BaseController
                 }
                 break;
         }
+
         return $this->lastRun < $right_time;
     }
 
@@ -106,11 +110,13 @@ class NotifyController extends BaseController
     private function getFlagTime(): DateTime
     {
         $mTime = new DateTime();
+
         if (file_exists($this->getFlagFilename())) {
             $mTime->setTimestamp(filemtime($this->getFlagFilename()));
         } else {
             $mTime->setTimestamp(0);
         }
+
         return $mTime;
     }
 

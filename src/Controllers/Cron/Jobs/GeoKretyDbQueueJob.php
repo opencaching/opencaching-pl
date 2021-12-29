@@ -13,7 +13,6 @@ use src\Controllers\GeoKretyLogController;
  * - GK-errors stays in DB and are proceeded at every call. It could be a good idea
  *   to run this script with debug param from time to time and manually delete
  *   broken records from GK queue in table geokret_log in DB.
- *
  */
 class GeoKretyDbQueueJob extends Job
 {

@@ -24,15 +24,19 @@ class WatchlistController extends BaseController
 {
     /**
      * @var array watchlist configuration associative array from
-     * {@see \src\Models\OcConfig\OcConfig}
+     *            {@see \src\Models\OcConfig\OcConfig}
      */
     private array $watchlistConfig;
+
     private Watchlist $watchlist;
+
     private WatchlistItem $watchlistItem;
+
     private WatchlistReport $watchlistReport;
 
     /** @var resource diagnostic file handle, used only if enabled in config */
     private $diagFileHandle;
+
     /** @var mixed diagnostic start time, used only if enabled in config */
     private $diagStartTime;
 
@@ -43,6 +47,7 @@ class WatchlistController extends BaseController
     {
         parent::__construct();
         $this->watchlistConfig = $this->ocConfig->getWatchlistConfig();
+
         if ($this->watchlistConfig == null) {
             $this->watchlistConfig = [];
         }
@@ -76,10 +81,12 @@ class WatchlistController extends BaseController
     private function processWatchlist()
     {
         $lockHandle = Lock::tryLock($this, Lock::EXCLUSIVE | Lock::NONBLOCKING);
+
         if ($lockHandle) {
-            $diagFilePath = $this->watchlistConfig['diag_file'] ?? "";
+            $diagFilePath = $this->watchlistConfig['diag_file'] ?? '';
+
             if (mb_strlen($diagFilePath) > 0) {
-                $this->diagFileHandle = fopen($diagFilePath, "a");
+                $this->diagFileHandle = fopen($diagFilePath, 'a');
             }
 
             $this->processNewLogs();
@@ -91,8 +98,8 @@ class WatchlistController extends BaseController
 
             Lock::unlock($lockHandle);
         } else {
-            print "Another instance of ".get_class($this)
-                ." is currently running.\nExiting.\n";
+            echo 'Another instance of ' . get_class($this)
+                . " is currently running.\nExiting.\n";
         }
     }
 
@@ -113,6 +120,7 @@ class WatchlistController extends BaseController
         }
 
         $newLogs = $this->watchlist->getUnprocessedCacheLogs();
+
         foreach ($newLogs as $log) {
             $this->watchlist->storeAndNotifyLog(
                 $log,
@@ -143,13 +151,14 @@ class WatchlistController extends BaseController
     private function sendReportsAndUpdateChecks()
     {
         $watchers = $this->watchlist->getWatchersAndWaitings();
+
         foreach ($watchers as $watcher) {
             if (
                 (sizeof($watcher->getOwnerLogs()) > 0
                     || sizeof($watcher->getWatchLogs()) > 0)
                 && UserNotify::getUserLogsNotify($watcher->getUserId())
             ) {
-                if (!Email::isValidEmailAddr($watcher->getEmail())) {
+                if (! Email::isValidEmailAddr($watcher->getEmail())) {
                     // Only users with valid addresses will receive notifications.
                     $sendStatus = true;
                 } else {
@@ -184,48 +193,52 @@ class WatchlistController extends BaseController
      * set to daily or weekly.
      *
      * @param WatchlistWatcher $watcher watcher to compute
-     *     new date and time for
+     *                                  new date and time for
      *
      * @return DateTime computed new send mail date and time
      */
     private function computeWatchmailNextDateTime(WatchlistWatcher $watcher): ?DateTime
     {
         $result = null;
+
         if (
-            $watcher->getWatchmailMode() !=
-            UserNotify::SEND_NOTIFICATION_HOURLY
+            $watcher->getWatchmailMode()
+            != UserNotify::SEND_NOTIFICATION_HOURLY
         ) {
             $now = new DateTime();
+
             if (
-                $watcher->getWatchmailMode() ==
-                UserNotify::SEND_NOTIFICATION_DAILY
+                $watcher->getWatchmailMode()
+                == UserNotify::SEND_NOTIFICATION_DAILY
             ) {
-                $result = $now->
-                setDate(
+                $result = $now
+                ->setDate(
                     $now->format('Y'),
                     $now->format('n'),
                     $now->format('j') + 1
-                )->
-                setTime($watcher->getWatchmailHour(), 0);
+                )
+                ->setTime($watcher->getWatchmailHour(), 0);
             } elseif (
-                $watcher->getWatchmailMode() ==
-                UserNotify::SEND_NOTIFICATION_WEEKLY
+                $watcher->getWatchmailMode()
+                == UserNotify::SEND_NOTIFICATION_WEEKLY
             ) {
                 $weekday = $now->format('w');
+
                 if ($weekday == 0) {
                     $weekday = 7;
                 }
                 $weekAdjust = ($weekday >= $watcher->getWatchmailDay() ? 0 : 7);
-                $result = $now->
-                setDate(
+                $result = $now
+                ->setDate(
                     $now->format('Y'),
                     $now->format('n'),
                     $now->format('j') - $weekday
                     + $watcher->getWatchmailDay() + $weekAdjust
-                )->
-                setTime($watcher->getWatchmailHour(), 0);
+                )
+                ->setTime($watcher->getWatchmailHour(), 0);
             }
         }
+
         return $result;
     }
 
@@ -234,15 +247,16 @@ class WatchlistController extends BaseController
      * diagnostic file.
      *
      * @param DateTime|null $time instance to format, current date and time is used
-     *     if null
+     *                            if null
      *
      * @return string formatted date and time
      */
-    private function getDbFormattedTime(?DateTime $time = null): string
+    private function getDbFormattedTime(DateTime $time = null): string
     {
         if ($time == null) {
             $time = new DateTime();
         }
+
         return $time->format($this->ocConfig->getDbDateTimeFormat());
     }
 }

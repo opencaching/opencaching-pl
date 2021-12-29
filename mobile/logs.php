@@ -7,7 +7,7 @@ use src\Utils\Text\Formatter;
 
 const LOGS_PER_PAGE = 10;
 
-require_once ("./lib/common.inc.php");
+require_once './lib/common.inc.php';
 
 function find_news($start, $limit)
 {
@@ -30,6 +30,7 @@ function find_news($start, $limit)
     );
 
     $znalezione = [];
+
     foreach ($logs as $log) {
         $tmplog = [];
         $tmplog['id'] = $log['logid'];
@@ -41,9 +42,9 @@ function find_news($start, $limit)
         $znalezione[] = $tmplog;
     }
 
-    $tpl->assign("name", $cache->getCacheName());
-    $tpl->assign("wp_oc", $cache->getWaypointId());
-    $tpl->assign("logs", $znalezione);
+    $tpl->assign('name', $cache->getCacheName());
+    $tpl->assign('wp_oc', $cache->getWaypointId());
+    $tpl->assign('logs', $znalezione);
 }
 
 if (isset($_GET['wp']) && strlen($_GET['wp']) == 6) {
@@ -51,27 +52,30 @@ if (isset($_GET['wp']) && strlen($_GET['wp']) == 6) {
         $cache = new GeoCache(['cacheWp' => $_GET['wp']]);
     } catch (Exception $e) {
         header('Location: ./index.php');
+
         exit();
     }
     $ile = $cache->getLogEntriesCount(false);
     $na_stronie = LOGS_PER_PAGE;
     $max = ceil($ile / $na_stronie);
+
     if ($max == 0) {
         $max = 1;
     }
 
-    $tpl->assign("ile", $ile);
+    $tpl->assign('ile', $ile);
     $tpl->assign('max', $max);
 
     $next_page = null;
     $prev_page = null;
 
-    require_once ("./lib/paging.inc.php");
+    require_once './lib/paging.inc.php';
 
     $tpl->assign('next_page', $next_page);
     $tpl->assign('prev_page', $prev_page);
 } else {
     header('Location: ./index.php');
+
     exit();
 }
 

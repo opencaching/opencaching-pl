@@ -16,7 +16,7 @@ class TitledCacheAddJob extends Job
     public function run()
     {
         $daysSinceLastTitle = $this->db->simpleQueryValue(
-            "SELECT DATEDIFF(NOW(), MAX(date_alg)) FROM cache_titled",
+            'SELECT DATEDIFF(NOW(), MAX(date_alg)) FROM cache_titled',
             999
         );
 
@@ -33,15 +33,14 @@ class TitledCacheAddJob extends Job
 
         if ($daysSinceLastTitle < $securityPeriod) {
             return
-                'Titled cache security period underrun ('.
-                $daysSinceLastTitle.' vs '.$securityPeriod.' days)';
+                'Titled cache security period underrun ('
+                . $daysSinceLastTitle . ' vs ' . $securityPeriod . ' days)';
         }
-        unset($daysSinceLastTitle);
-        unset($securityPeriod);
+        unset($daysSinceLastTitle, $securityPeriod);
 
-        $date_alg = date("Y-m-d");
+        $date_alg = date('Y-m-d');
 
-        $queryS = "
+        $queryS = '
             SELECT
                 top.cacheId, top.cacheName, top.userName,
                 top.cacheRegion, IFNULL(nrT.nrTinR, 0) nrTinR,
@@ -111,17 +110,17 @@ class TitledCacheAddJob extends Job
                 GROUP BY adm3
             ) AS nrT ON top.cacheRegion = nrT.cacheRegion
             ORDER BY nrTinR, cFounds DESC, cDateCrt, RATE DESC
-        ";
+        ';
 
         $s = $this->db->multiVariableQuery($queryS, $date_alg, OcConfig::getTitledCacheMinFounds());
         $rec = $this->db->dbResultFetch($s);
 
-        if (!$rec) {
+        if (! $rec) {
             // No cache matches the criteria.
             return;
         }
 
-        $queryL = "
+        $queryL = '
             SELECT i.id logId
             FROM
             (
@@ -138,26 +137,36 @@ class TitledCacheAddJob extends Job
                         ORDER BY length(cl.text) DESC
                         LIMIT 1
                     )
-            ) AS i";
+            ) AS i';
 
         $s = $this->db->multiVariableQuery($queryL, $rec['cacheId']);
         $recL = $this->db->dbResultFetchOneRowOnly($s);
 
-        $queryI = "
+        $queryI = '
             INSERT INTO cache_titled
                 (cache_id, rate, ratio, rating, found, days, date_alg, log_id)
-            VALUES (:1, :2, :3, :4, :5, :6, :7, :8)";
+            VALUES (:1, :2, :3, :4, :5, :6, :7, :8)';
 
-        $this->db->multiVariableQuery($queryI, $rec["cacheId"], $rec["RATE"], $rec["ratio"],
-            $rec["cRating"], $rec["cFounds"], $rec["cNrDays"], $date_alg, $recL["logId"]);
+        $this->db->multiVariableQuery(
+            $queryI,
+            $rec['cacheId'],
+            $rec['RATE'],
+            $rec['ratio'],
+            $rec['cRating'],
+            $rec['cFounds'],
+            $rec['cNrDays'],
+            $date_alg,
+            $recL['logId']
+        );
 
         $SystemUser = -1;
         $LogType = GeoCacheLog::LOGTYPE_ADMINNOTE;
-        $ntitled_cache = OcConfig::getTitledCachePeriod().'_titled_cache_congratulations';
+        $ntitled_cache = OcConfig::getTitledCachePeriod() . '_titled_cache_congratulations';
         $msgText = str_replace('{ownerName}', htmlspecialchars($rec['userName']), tr($ntitled_cache));
         $LogUuid = Uuid::create();
 
-        $this->db->multiVariableQuery("
+        $this->db->multiVariableQuery(
+            "
             INSERT INTO cache_logs (
                 cache_id, user_id, type, date, text,
                 text_html, last_modified, okapi_syncbase, uuid, picturescount,
@@ -169,9 +178,21 @@ class TitledCacheAddJob extends Job
                 :6, :7, :8, :9, :10,
                 :11, :12, :13, :14,
                 '0', NULL, NULL, NULL , '0'
-            )", $rec['cacheId'], $SystemUser, $LogType, $date_alg,
-            $msgText, '2', $date_alg, $date_alg, $LogUuid, '0', '0',
-            $date_alg, '0', OcConfig::getSiteNodeId()
+            )",
+            $rec['cacheId'],
+            $SystemUser,
+            $LogType,
+            $date_alg,
+            $msgText,
+            '2',
+            $date_alg,
+            $date_alg,
+            $LogUuid,
+            '0',
+            '0',
+            $date_alg,
+            '0',
+            OcConfig::getSiteNodeId()
         );
 
         $ctrlMeritBadge = new MeritBadgeController();
