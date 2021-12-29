@@ -242,29 +242,29 @@ $desc = $view->geoCacheDesc;
                     </span>
                     <span class="CoordsDegMinSec">
                         <?= $view->geoCache->getCoordinates()->getAsText(
-                                Coordinates::COORDINATES_FORMAT_DEG_MIN_SEC
-                            ); ?>
+    Coordinates::COORDINATES_FORMAT_DEG_MIN_SEC
+); ?>
                     </span>
                     <span class="CoordsDecimal">
                         <?= $view->geoCache->getCoordinates()->getAsText(
-                                Coordinates::COORDINATES_FORMAT_DECIMAL
-                            ); ?>
+    Coordinates::COORDINATES_FORMAT_DECIMAL
+); ?>
                     </span>
                 <?php } else { // if-userModifiedCacheCoords?>
                     <span class="CoordsDegMin">
                         <?= $view->userModifiedCacheCoords->getAsText(
-                                Coordinates::COORDINATES_FORMAT_DEG_MIN
-                            ); ?>
+    Coordinates::COORDINATES_FORMAT_DEG_MIN
+); ?>
                     </span>
                     <span class="CoordsDegMinSec">
                         <?= $view->userModifiedCacheCoords->getAsText(
-                                Coordinates::COORDINATES_FORMAT_DEG_MIN_SEC
-                            ); ?>
+    Coordinates::COORDINATES_FORMAT_DEG_MIN_SEC
+); ?>
                     </span>
                     <span class="CoordsDecimal">
                         <?= $view->userModifiedCacheCoords->getAsText(
-                                Coordinates::COORDINATES_FORMAT_DECIMAL
-                            ); ?>
+    Coordinates::COORDINATES_FORMAT_DECIMAL
+); ?>
                     </span>
                 <?php } // if-userModifiedCacheCoords?>
                 </div>
@@ -277,7 +277,7 @@ $desc = $view->geoCacheDesc;
             <?php } else { //user-not-authorized?>
                     <?= tr('hidden_coords'); ?>
             <?php } //else-user-not-authorized?>
-                <script language="javascript">
+                <script>
                     var tr = {
                         'copy_coords_prompt': '<?= tr('copy_coords_prompt'); ?>',
                         'copy_coords_success_prefix': '<?= tr('copy_coords_success_prefix'); ?>',
@@ -573,10 +573,10 @@ $desc = $view->geoCacheDesc;
     <?php } //if-is-user-authorized-and-show-edit-button?>
     <?php if ($view->isAdminAuthorized) { ?>
         <a class="btn btn-sm btn-default" href="<?= SimpleRouter::getLink(
-                                ViewCacheController::class,
-                                'ocTeamCommentForm',
-                                $view->geoCache->getCacheId()
-                            ); ?>">
+    ViewCacheController::class,
+    'ocTeamCommentForm',
+    $view->geoCache->getCacheId()
+); ?>">
             <?= tr('add_rr_comment'); ?>
         </a>
         <a class="btn btn-sm btn-default"
@@ -600,9 +600,9 @@ $desc = $view->geoCacheDesc;
             <legend><?= tr('viewCache_reactivationRulesBoxLabel'); ?></legend>
             <?= nl2br($view->geoCacheDesc->getReactivationRules()); ?>
             <div class="notice"><?= tr(
-                   'viewCache_reactivationRulesBoxNotice',
-                   [OcConfig::getWikiLink('geocacheRactivation')]
-               ); ?></div>
+    'viewCache_reactivationRulesBoxNotice',
+    [OcConfig::getWikiLink('geocacheRactivation')]
+); ?></div>
         </fieldset>
     </div>
 <?php } // if-admin-comment?>
@@ -867,14 +867,14 @@ $desc = $view->geoCacheDesc;
                         </b>:
                         <br>
                         <?php foreach ($view->geoCache->getNatura2000Sites() as $npa) {
-                                          $npa_item = $config['nature2000link'];
-                                          $npa_item = mb_ereg_replace('{linkid}', $npa['linkid'], $npa_item);
-                                          $npa_item = mb_ereg_replace('{sitename}', $npa['npaSitename'], $npa_item);
-                                          $npa_item = mb_ereg_replace('{sitecode}', $npa['npaSitecode'], $npa_item);
-                                          echo $npa_item; ?>
+    $npa_item = $config['nature2000link'];
+    $npa_item = mb_ereg_replace('{linkid}', $npa['linkid'], $npa_item);
+    $npa_item = mb_ereg_replace('{sitename}', $npa['npaSitename'], $npa_item);
+    $npa_item = mb_ereg_replace('{sitecode}', $npa['npaSitecode'], $npa_item);
+    echo $npa_item; ?>
                                 <br>
                         <?php
-                                      } //foreach?>
+} //foreach?>
                     </td>
                     <td>
                       <img src="images/misc/natura2000.png" alt="natura2000">
