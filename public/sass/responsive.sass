@@ -114,3 +114,45 @@ html.responsive-enabled
       .ptType
         img+span
           display: none
+
+  #cache-name-block
+    max-width: calc(100% - 70px)
+    width: 100%
+
+  #cache-name
+    @include mobile
+      max-width: 100%
+
+  div#viewcache-baseinfo
+    max-width: 50%
+    width: 100%
+    @include mobile
+      max-width: 100%
+      margin-bottom: 10px
+
+  div#viewcache-maptypes
+    max-width: 50%
+    width: 100%
+    @include mobile
+      max-width: 100%
+
+  div#viewcache-numstats
+    @include portrait-max
+      width: 100%
+      height: 230px
+      text-align: left
+
+  div#viewcache-map
+    @include portrait-max
+      width: 100%
+      height: 190px
+      float: right
+
+  #links-to-ext-maps
+    @include mobile
+      text-align: left
+
+  div#viewcache-description img
+    @include mobile
+      max-width: 100%
+      height: auto
