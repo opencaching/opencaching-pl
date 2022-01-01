@@ -43,6 +43,7 @@ if (! is_null($coords)) {
     tpl_set_var('nutsDesc', $nutsData->getDescription(' > '));
 
     $googleGeocode = GeoCode::fromGoogleApi($coords);
+
     if ($googleGeocode) {
         tpl_set_var('googleDesc', $googleGeocode->getDescription(' > '));
     } else {
@@ -50,12 +51,12 @@ if (! is_null($coords)) {
     }
 
     $mapQuestGeoCode = GeoCode::fromMapQuestApi($coords);
+
     if ($mapQuestGeoCode) {
         tpl_set_var('mapQuestDesc', $mapQuestGeoCode->getDescription(' > '));
     } else {
         tpl_set_var('mapQuestDesc', '-');
     }
-
 } else {
     tpl_set_var('coords_str', '');
     tpl_set_var('nutsDesc', '-');
