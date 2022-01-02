@@ -1,3 +1,21 @@
+@charset "UTF-8";
+/*!
+ * !! Note the style_responsive.css file is generated. !!
+ * !! See style_responsive.sass for more details. !!
+ * If you don't want to use sass, you can edit the .css file manually.
+ * Someone else will transfer the changes to the sass files.
+ *
+ * Version:      1.0.1
+ * .
+ * └── public
+ *       ├── css
+ *       │     ├── style_responsive.css
+ *       │     └── style_responsive.sass
+ *       └── sass
+ *             ├── mixins.sass
+ *             └── responsive.sass
+ *
+ */
 @media screen and (max-width: 970px) {
   html.responsive-enabled .discreet-advertising {
     display: none; } }

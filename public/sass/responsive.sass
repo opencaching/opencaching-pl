@@ -1,6 +1,9 @@
+//  !! Before generating the .css, make sure there are no changes to the .css file. !!
+//  !! Transfer changes from the css file to sass. !!
+
 html.responsive-enabled
   .discreet-advertising
-    @include portrait-max
+    @include max-970px
       display: none
   //body
     //width: 100vw
@@ -13,7 +16,7 @@ html.responsive-enabled
     width: 100%
     max-width: 970px
 
-  @include portrait-max
+  @include max-970px
     #nav2 .rythm_nav2
       @include c-flex
       @include space-between
@@ -22,11 +25,11 @@ html.responsive-enabled
         font-size: 0.9em
 
   .top-video-container video
-    @include portrait-max
+    @include max-970px
       object-fit: cover
 
   .topline-container
-    @include portrait-max
+    @include max-970px
       height: auto
       &:after
         visibility: hidden
@@ -64,7 +67,7 @@ html.responsive-enabled
     @include mobile
       width: 100%
 
-  @include portrait-max
+  @include max-970px
     @include mobile
       #map
         float: unset
@@ -137,13 +140,13 @@ html.responsive-enabled
       max-width: 100%
 
   div#viewcache-numstats
-    @include portrait-max
+    @include max-970px
       width: 100%
       height: 230px
       text-align: left
 
   div#viewcache-map
-    @include portrait-max
+    @include max-970px
       width: 100%
       height: 190px
       float: right
