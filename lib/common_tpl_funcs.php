@@ -151,6 +151,7 @@ function tpl_BuildTemplate($minitpl = false, $noCommonTemplate = false)
 
     //global css files:
     $view->setVar('screenCss', Uri::getLinkWithModificationTime('/css/style_screen.css'));
+    $view->setVar('responsiveCss', Uri::getLinkWithModificationTime('/css/style_responsive.css'));
     $view->setVar('printCss', Uri::getLinkWithModificationTime('/css/style_print.css'));
     $view->setVar('backgroundSeason', $view->getSeasonCssName());
 

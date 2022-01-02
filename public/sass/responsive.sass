@@ -1,0 +1,60 @@
+html
+  .discreet-advertising
+    @include portrait-max
+      display: none
+  body
+    width: 100vw
+  .page-container-1,
+  .top-video-container,
+  .top-video-container video,
+  .top-video-slider,
+  #nav2 ul,
+  #footer
+    width: 100%
+    max-width: 970px
+
+  .top-video-container video
+    @include portrait-max
+      object-fit: cover
+
+  .topline-container
+    @include portrait-max
+      height: auto
+      &:after
+        visibility: hidden
+        display: block
+        font-size: 0
+        content: ""
+        clear: both
+        height: 0
+
+  div#overall
+    min-width: unset
+  #nav3
+    min-height: unset
+
+  .content2-container,
+  .content2-container-1col,
+  .content2-container-2col-left,
+  .content2-container-2col-right,
+  .content2-pagetitle,
+  .line-box
+    width: 100%
+    max-width: 769px
+
+  .templateContainer
+    width: 100%
+    max-width: 790px
+
+  @include portrait-max
+    .templateContainer
+      padding: 0 15px
+      box-sizing: border-box
+
+    .totalStatsSlider
+      .totalStatsFrame
+        width: 79px !important
+        padding: 5px
+
+      .slick-track
+        width: 4000px !important

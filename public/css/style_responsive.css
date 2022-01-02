@@ -1,0 +1,52 @@
+@media screen and (max-width: 1024px) {
+  html .discreet-advertising {
+    display: none; } }
+html body {
+  width: 100vw; }
+html .page-container-1,
+html .top-video-container,
+html .top-video-container video,
+html .top-video-slider,
+html #nav2 ul,
+html #footer {
+  width: 100%;
+  max-width: 970px; }
+@media screen and (max-width: 1024px) {
+  html .top-video-container video {
+    object-fit: cover; } }
+@media screen and (max-width: 1024px) {
+  html .topline-container {
+    height: auto; }
+    html .topline-container:after {
+      visibility: hidden;
+      display: block;
+      font-size: 0;
+      content: "";
+      clear: both;
+      height: 0; } }
+html div#overall {
+  min-width: unset; }
+html #nav3 {
+  min-height: unset; }
+html .content2-container,
+html .content2-container-1col,
+html .content2-container-2col-left,
+html .content2-container-2col-right,
+html .content2-pagetitle,
+html .line-box {
+  width: 100%;
+  max-width: 769px; }
+html .templateContainer {
+  width: 100%;
+  max-width: 790px; }
+@media screen and (max-width: 1024px) {
+  html .templateContainer {
+    padding: 0 15px;
+    box-sizing: border-box; }
+  html .totalStatsSlider .totalStatsFrame {
+    width: 79px !important;
+    padding: 5px; }
+  html .totalStatsSlider .slick-track {
+    width: 4000px !important; } }
+
+/*# sourceMappingURL=style_responsive.css.map */

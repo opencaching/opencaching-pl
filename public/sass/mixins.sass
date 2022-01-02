@@ -1,0 +1,11 @@
+@mixin portrait-max
+  @media screen and (max-width: 1024px)
+    @content
+
+@mixin clearfix
+  &:before,
+  &:after
+    content: ""
+    display: table
+  .group:after
+    clear: both
