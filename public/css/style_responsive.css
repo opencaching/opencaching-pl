@@ -1,52 +1,100 @@
-@media screen and (max-width: 1024px) {
-  html .discreet-advertising {
+@media screen and (max-width: 970px) {
+  html.responsive-enabled .discreet-advertising {
     display: none; } }
-html body {
-  width: 100vw; }
-html .page-container-1,
-html .top-video-container,
-html .top-video-container video,
-html .top-video-slider,
-html #nav2 ul,
-html #footer {
+html.responsive-enabled .page-container-1,
+html.responsive-enabled .top-video-container,
+html.responsive-enabled .top-video-container video,
+html.responsive-enabled .top-video-slider,
+html.responsive-enabled #nav2 ul,
+html.responsive-enabled #footer {
   width: 100%;
   max-width: 970px; }
-@media screen and (max-width: 1024px) {
-  html .top-video-container video {
+@media screen and (max-width: 970px) {
+  html.responsive-enabled #nav2 .rythm_nav2 {
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
+    -webkit-align-items: center;
+    flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    justify-content: space-between;
+    -webkit-justify-content: space-between; }
+    html.responsive-enabled #nav2 .rythm_nav2::after {
+      content: "";
+      flex: auto; }
+    html.responsive-enabled #nav2 .rythm_nav2 li a {
+      font-size: 0.9em; } }
+@media screen and (max-width: 970px) {
+  html.responsive-enabled .top-video-container video {
     object-fit: cover; } }
-@media screen and (max-width: 1024px) {
-  html .topline-container {
+@media screen and (max-width: 970px) {
+  html.responsive-enabled .topline-container {
     height: auto; }
-    html .topline-container:after {
+    html.responsive-enabled .topline-container:after {
       visibility: hidden;
       display: block;
       font-size: 0;
       content: "";
       clear: both;
       height: 0; } }
-html div#overall {
+html.responsive-enabled div#overall {
   min-width: unset; }
-html #nav3 {
-  min-height: unset; }
-html .content2-container,
-html .content2-container-1col,
-html .content2-container-2col-left,
-html .content2-container-2col-right,
-html .content2-pagetitle,
-html .line-box {
+@media screen and (max-width: 768px) {
+  html.responsive-enabled #nav3 {
+    min-height: unset;
+    width: 100%; }
+    html.responsive-enabled #nav3 ul {
+      width: 100%;
+      text-align: center; }
+    html.responsive-enabled #nav3 .title,
+    html.responsive-enabled #nav3 a {
+      font-size: 1.5em; } }
+html.responsive-enabled .content2-container,
+html.responsive-enabled .content2-container-1col,
+html.responsive-enabled .content2-container-2col-left,
+html.responsive-enabled .content2-container-2col-right,
+html.responsive-enabled .content2-pagetitle,
+html.responsive-enabled .line-box {
   width: 100%;
   max-width: 769px; }
-html .templateContainer {
-  width: 100%;
+html.responsive-enabled .templateContainer {
+  width: calc(100% - 160px);
   max-width: 790px; }
-@media screen and (max-width: 1024px) {
-  html .templateContainer {
+  @media screen and (max-width: 768px) {
+    html.responsive-enabled .templateContainer {
+      width: 100%; } }
+@media screen and (max-width: 970px) and (max-width: 768px) {
+  html.responsive-enabled #map {
+    float: unset;
+    margin: auto;
+    margin-bottom: 20px;
+    width: fit-content; } }
+@media screen and (max-width: 970px) {
+  html.responsive-enabled #newCachesList,
+  html.responsive-enabled #nearestEventsList {
+    width: 100%;
+    max-width: 50%; } }
+  @media screen and (max-width: 970px) and (max-width: 768px) {
+    html.responsive-enabled #newCachesList,
+    html.responsive-enabled #nearestEventsList {
+      max-width: unset; } }
+@media screen and (max-width: 970px) {
+  html.responsive-enabled .templateContainer {
     padding: 0 15px;
     box-sizing: border-box; }
-  html .totalStatsSlider .totalStatsFrame {
+  html.responsive-enabled .totalStatsSlider .totalStatsFrame {
     width: 79px !important;
     padding: 5px; }
-  html .totalStatsSlider .slick-track {
-    width: 4000px !important; } }
+  html.responsive-enabled .totalStatsSlider .slick-track {
+    width: 4000px !important; }
+  html.responsive-enabled .slick-slide {
+    height: auto;
+    line-height: 1.5 !important; }
+  html.responsive-enabled .slick-list.draggable {
+    -webkit-transform: translate(0, 25%);
+    -moz-transform: translate(0, 25%);
+    -ms-transform: translate(0, 25%);
+    -o-transform: translate(0, 25%);
+    transform: translate(0, 25%); } }
 
 /*# sourceMappingURL=style_responsive.css.map */

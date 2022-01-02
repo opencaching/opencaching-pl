@@ -86,6 +86,12 @@ use src\Models\OcConfig\OcConfig as _OcConfig;
         <div class="topline-sitename">
           <a href="/" class="transparent"><?=$view->_logoTitle?></a>
         </div>
+        <div class="topline-buffer"></div>
+        <button class="responsive-toggle btn btn-sm btn-default" type="button" onclick="responsiveToggle()">
+          <img src="/images/misc/mobile-off.svg" class="icon16 mobile-off" alt="responsive-toggle" title="responsive-toggle">
+          <img src="/images/misc/mobile-friendly.svg" class="icon16 mobile-friendly" alt="responsive-toggle" title="responsive-toggle">
+        </button>
+
         <div class="topline-buttons">
           <?php if ($view->_isUserLogged) { //if-user-logged ?>
             <form method="get" action="/search.php" name="search_form" id="search_form" class="form-group-sm">
@@ -387,6 +393,79 @@ use src\Models\OcConfig\OcConfig as _OcConfig;
     function topmenuTogle() {
         document.getElementById("topline-search-dropdown").classList.toggle("topline-dropdown-show");;
     }
+  </script>
+  <script>
+
+      //responsive mode - toggle and cookie
+      var cookie_name = <?php $config['cookie']['name'] ?>+"responsive_mode";
+
+      var x = document.cookie,
+          html = document.getElementsByTagName("html")[0];
+
+      var re = new RegExp(cookie_name+'=1');
+
+      if (!x.match(re)) {
+          html.classList.remove("responsive-enabled");
+      } else {
+          html.classList.add("responsive-enabled");
+      }
+
+      function responsiveToggle() {
+          html.classList.toggle("responsive-enabled");
+
+          if(html.classList.contains("responsive-enabled")){
+              var date = new Date();
+              var days = 1;
+              date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+              var expires = "; expires=" + date.toGMTString();
+              document.cookie = cookie_name+"=1" + expires + "; path=/";
+              if (window.jQuery) {
+                  maybe_change_navigation();
+              }
+          }else{
+              document.cookie = cookie_name+"=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+              if (window.jQuery) {
+                  $('#nav3 ul .group').slideDown();
+              }
+          }
+      }
+
+      //responsive mode - left nav
+      if (window.jQuery) {
+          if(html.classList.contains("responsive-enabled")){
+              maybe_change_navigation();
+              $(window).on('resize', function(){
+                  maybe_change_navigation();
+              });
+          }
+
+          $('#nav3').on("click", ".title", function(e){
+              e.preventDefault();
+
+              if($(this).parent().hasClass("opened")){
+                  $(this).parent().removeClass("opened");
+                  $(this).parent().find('.group').each(function(){
+                      $(this).slideUp();
+                  });
+              }else{
+                  $(this).parent().addClass("opened");
+                  $(this).parent().find('.group').each(function(){
+                      $(this).slideDown();
+                  });
+              }
+
+          });
+      }
+
+      function maybe_change_navigation(){
+          if (screen.width <= 768) {
+              $('#nav3 ul .group').slideUp();
+          }
+          else {
+              $('#nav3 ul .group').slideDown();
+          }
+      }
+
   </script>
   <?php
       // fancyBox js should be loaded at the end of page

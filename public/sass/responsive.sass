@@ -1,9 +1,9 @@
-html
+html.responsive-enabled
   .discreet-advertising
     @include portrait-max
       display: none
-  body
-    width: 100vw
+  //body
+    //width: 100vw
   .page-container-1,
   .top-video-container,
   .top-video-container video,
@@ -12,6 +12,14 @@ html
   #footer
     width: 100%
     max-width: 970px
+
+  @include portrait-max
+    #nav2 .rythm_nav2
+      @include c-flex
+      @include space-between
+      @include space-between-last-row
+      li a
+        font-size: 0.9em
 
   .top-video-container video
     @include portrait-max
@@ -31,7 +39,15 @@ html
   div#overall
     min-width: unset
   #nav3
-    min-height: unset
+    @include mobile
+      min-height: unset
+      width: 100%
+      ul
+        width: 100%
+        text-align: center
+      .title,
+      a
+        font-size: 1.5em
 
   .content2-container,
   .content2-container-1col,
@@ -43,10 +59,27 @@ html
     max-width: 769px
 
   .templateContainer
-    width: 100%
+    width: calc(100% - 160px)
     max-width: 790px
+    @include mobile
+      width: 100%
 
   @include portrait-max
+    @include mobile
+      #map
+        float: unset
+        margin: auto
+        margin-bottom: 20px
+        width: fit-content
+
+    #newCachesList,
+    #nearestEventsList
+      width: 100%
+      max-width: 50%
+      @include mobile
+        max-width: unset
+
+
     .templateContainer
       padding: 0 15px
       box-sizing: border-box
@@ -58,3 +91,10 @@ html
 
       .slick-track
         width: 4000px !important
+
+    .slick-slide
+      height: auto
+      line-height: 1.5 !important
+
+    .slick-list.draggable
+      @include translate(0, 25%)
