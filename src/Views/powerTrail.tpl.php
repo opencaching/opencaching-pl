@@ -1401,11 +1401,16 @@
 
         <div style="display: {displaySelectedPowerTrail}">
 
-            <table style="border-collapse: collapse; width: 100%;">
+            <table style="border-collapse: collapse; width: 100%;" class="powerTrailTable ">
                 <tr><!-- ptName & Logo -->
                     <td style="width: 251px;">
-                        <table style="height: 250px; width: 250px;"><tr><td style="vertical-align: middle; text-align: center;">
-                        <span id="powerTrailLogo"><img class="powerTrailLogo" src="{powerTrailLogo}" alt=""></span></td></tr></table>
+                        <table style="height: 250px; width: 250px;">
+                            <tr>
+                                <td style="vertical-align: middle; text-align: center;">
+                                    <span id="powerTrailLogo"><img class="powerTrailLogo" src="{powerTrailLogo}" alt=""></span>
+                                </td>
+                            </tr>
+                        </table>
                         <img style="display: none" id="ajaxLoaderLogo" src="images/misc/ptPreloader.gif" alt="">
                     </td>
                     <td style="text-align: center;" colspan="2">

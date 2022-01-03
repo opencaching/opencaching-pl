@@ -163,5 +163,44 @@ html.responsive-enabled div#viewcache-maptypes {
   html.responsive-enabled div#viewcache-description img {
     max-width: 100%;
     height: auto; } }
+@media screen and (max-width: 768px) {
+  html.responsive-enabled .nav4 li {
+    width: 100%; } }
+@media screen and (max-width: 768px) {
+  html.responsive-enabled .powerTrailTable tr:first-child {
+    display: flex !important; }
+    html.responsive-enabled .powerTrailTable tr:first-child > td {
+      display: flex !important;
+      width: 100%; }
+      html.responsive-enabled .powerTrailTable tr:first-child > td table {
+        height: auto !important;
+        width: 100%; } }
+html.responsive-enabled #powerTrailDescription img {
+  width: 550px;
+  max-width: 100%; }
+@media screen and (max-width: 768px) {
+  html.responsive-enabled .mob-w100-important {
+    width: 100% !important; } }
+@media screen and (max-width: 768px) {
+  html.responsive-enabled .mob-mr-15px {
+    margin-right: -15px; } }
+@media screen and (max-width: 768px) {
+  html.responsive-enabled .mob-ml-15px {
+    margin-left: -15px; } }
+@media screen and (max-width: 768px) {
+  html.responsive-enabled #qrCodeForm {
+    padding-bottom: 20px; } }
+html.responsive-enabled #qrCodeForm form {
+  width: 100%;
+  max-width: 400px; }
+@media screen and (max-width: 768px) {
+  html.responsive-enabled #qrCodeimage img {
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
+    margin-bottom: 20px; } }
+html.responsive-enabled *.input400 {
+  max-width: 400px;
+  width: 100%; }
 
 /*# sourceMappingURL=style_responsive.css.map */

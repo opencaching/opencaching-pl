@@ -159,3 +159,45 @@ html.responsive-enabled
     @include mobile
       max-width: 100%
       height: auto
+
+  .nav4 li
+    @include mobile
+      width: 100%
+  .powerTrailTable
+    @include mobile
+      tr:first-child
+        display: flex !important
+        > td
+          display: flex !important
+          width: 100%
+          table
+            height: auto !important
+            width: 100%
+
+  #powerTrailDescription img
+    width: 550px
+    max-width: 100%
+  .mob-w100-important
+    @include mobile
+      width: 100% !important
+  .mob-mr-15px
+    @include mobile
+      margin-right: -15px
+  .mob-ml-15px
+    @include mobile
+      margin-left: -15px
+  #qrCodeForm
+    @include mobile
+      padding-bottom: 20px
+    form
+      width: 100%
+      max-width: 400px
+  #qrCodeimage img
+    @include mobile
+      width: 100%
+      height: auto
+      box-sizing: border-box
+      margin-bottom: 20px
+  *.input400
+    max-width: 400px
+    width: 100%
