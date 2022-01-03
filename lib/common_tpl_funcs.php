@@ -11,7 +11,6 @@ function tpl_set_tplname($local_tpl_name)
     $tplname = $local_tpl_name;
 }
 
-
 //set a template replacement
 //set no_eval true to prevent this contents from php-parsing.
 //Important when replacing something that the user has posted
@@ -23,7 +22,6 @@ function tpl_set_var($name, $value, $no_eval = true)
     $no_eval_vars[$name] = $no_eval;
 }
 
-
 //redirect to another site to display, i.e. to view a cache after logging
 function tpl_redirect($page)
 {
@@ -32,15 +30,16 @@ function tpl_redirect($page)
     //page has to be the filename without domain i.e. 'viecache.php?cacheid=1'
     http_write_no_cache();
 
-    header("Location: " . $absolute_server_URI . $page);
+    header('Location: ' . $absolute_server_URI . $page);
+
     exit;
 }
 
 function tpl_get_current_page()
 {
-    #       $pos = strrchr($_SERVER['SCRIPT_NAME'], '/');
-    #       return substr($_SERVER['REQUEST_URI'], $pos);
-    return substr($_SERVER["REQUEST_URI"], strrpos($_SERVER["SCRIPT_NAME"], "/") + 1);
+    //       $pos = strrchr($_SERVER['SCRIPT_NAME'], '/');
+    //       return substr($_SERVER['REQUEST_URI'], $pos);
+    return substr($_SERVER['REQUEST_URI'], strrpos($_SERVER['SCRIPT_NAME'], '/') + 1);
 }
 
 //redirect to another absolute url
@@ -49,7 +48,8 @@ function tpl_redirect_absolute($absolute_server_URI)
     //page has to be the filename with domain i.e. 'http://abc.de/viecache.php?cacheid=1'
     http_write_no_cache();
 
-    header("Location: " . $absolute_server_URI);
+    header('Location: ' . $absolute_server_URI);
+
     exit;
 }
 
@@ -72,7 +72,6 @@ function tpl_do_replace($str, $noeval = false)
 {
     global $vars, $no_eval_vars;
 
-
     if (is_array($vars)) {
         foreach ($vars as $varname => $varvalue) {
             if ($no_eval_vars[$varname] == false || $noeval) {
@@ -80,15 +79,14 @@ function tpl_do_replace($str, $noeval = false)
             } else {
                 $replave_var_name = 'tpl_replace_var_' . $varname;
 
-                global $$replave_var_name;
-                $$replave_var_name = $varvalue;
+                global ${$replave_var_name};
+                ${$replave_var_name} = $varvalue;
 
                 //replace using php-echo
                 $str = mb_ereg_replace('{' . $varname . '}', '<?php global $' . $replave_var_name . '; echo $tpl_replace_var_' . $varname . '; ?>', $str);
             }
         }
     }
-
 
     return $str;
 }
@@ -102,21 +100,21 @@ function tpl_errorMsg($tplnameError, $msg)
     tpl_set_var('tplname', $tplnameError);
 
     tpl_BuildTemplate();
+
     exit;
 }
 
-
 //TODO: this is temporary solution for backward compatibility
 // $view will be a context variable in further implementation
-/**
- * @return View
- */
+
 function tpl_getView(): View
 {
     global $view;
-    if (!$view) {
+
+    if (! $view) {
         $view = new View();
     }
+
     return $view;
 }
 
@@ -139,11 +137,11 @@ function tpl_BuildTemplate($minitpl = false, $noCommonTemplate = false)
     //load main template
     if ($minitpl) {
         $sCode = file_get_contents(__DIR__ . '/../src/Views/common/mini.tpl.php');
-    } else if ($noCommonTemplate) {
+    } elseif ($noCommonTemplate) {
         $sCode = '{template}';
-    } else if (isset($_REQUEST['print']) && $_REQUEST['print'] == 'y') {
+    } elseif (isset($_REQUEST['print']) && $_REQUEST['print'] == 'y') {
         $sCode = file_get_contents(__DIR__ . '/../src/Views/common/main_print.tpl.php');
-    } else if (isset($_REQUEST['popup']) && $_REQUEST['popup'] == 'y') {
+    } elseif (isset($_REQUEST['popup']) && $_REQUEST['popup'] == 'y') {
         $sCode = file_get_contents(__DIR__ . '/../src/Views/common/popup.tpl.php');
     } else {
         $sCode = file_get_contents(__DIR__ . '/../src/Views/common/main.tpl.php');
@@ -156,7 +154,7 @@ function tpl_BuildTemplate($minitpl = false, $noCommonTemplate = false)
     $view->setVar('backgroundSeason', $view->getSeasonCssName());
 
     //does template exist?
-    if (!file_exists(__DIR__ . '/../src/Views/' . $tplname . '.tpl.php')) {
+    if (! file_exists(__DIR__ . '/../src/Views/' . $tplname . '.tpl.php')) {
         //set up the error template
         tpl_set_var('error_msg', tr('page_not_found'));
         tpl_set_var('tplname', $tplname);
@@ -166,7 +164,6 @@ function tpl_BuildTemplate($minitpl = false, $noCommonTemplate = false)
     //read the template
     $sTemplate = file_get_contents(__DIR__ . '/../src/Views/' . $tplname . '.tpl.php');
     $sCode = mb_ereg_replace('{template}', $sTemplate, $sCode);
-
 
     //process the template replacements
     $sCode = tpl_do_replace($sCode);
@@ -188,10 +185,9 @@ function tpl_BuildTemplate($minitpl = false, $noCommonTemplate = false)
 function http_write_no_cache()
 {
     // HTTP/1.1
-    header("Cache-Control: no-cache");
+    header('Cache-Control: no-cache');
     // Date in the past
-    header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+    header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
     // always modified
-    header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+    header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
 }
-
