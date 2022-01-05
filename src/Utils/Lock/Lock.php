@@ -34,6 +34,7 @@
  * class and add corresponding settings to Config files
  * (f.ex. Config/lock.default.php).
  */
+
 namespace src\Utils\Lock;
 
 use src\Models\OcConfig\OcConfig;
@@ -45,24 +46,26 @@ use src\Models\OcConfig\OcConfig;
 abstract class Lock
 {
     /** Indicates the locking should be exclusive */
-    const EXCLUSIVE = 0;
+    public const EXCLUSIVE = 0;
+
     /**
      * Indicates the locking should be shared, overrides exclusive in
      * bitwise or
      */
-    const SHARED = 1;
+    public const SHARED = 1;
+
     /**
      * Indicates the locking should be nonblocking, i.e. the tryLock method
      * should not wait until the resource will be available to lock.
      * Can be used with exclusive and shared lock both.
      */
-    const NONBLOCKING = 2;
+    public const NONBLOCKING = 2;
 
     /**
      * Option to inform that the identifier is an existing file path or handle,
      * external to the locking settings
      */
-    const OPTION_USE_EXISTING_FILE = "lock_use_existing_file";
+    public const OPTION_USE_EXISTING_FILE = 'lock_use_existing_file';
 
     /**
      * Tries to lock the resource given by identifier using given mode.
@@ -72,23 +75,22 @@ abstract class Lock
      * of config settings.
      *
      * @param mixed $identifier the identifier of resource being locked on, can
-     *     be a file path or an object for example.
+     *                          be a file path or an object for example
      * @param int $mode the locking mode, should be set using EXCLUSIVE, SHARED
-     *     and NONBLOCKING constants with bitwise or. Possible values:
-     *     0 - exclusive,blocking; 1 - shared, blocking; 2 - exclusive,
-     *     nonblocking; 3 - shared, nonblocking
+     *                  and NONBLOCKING constants with bitwise or. Possible values:
+     *                  0 - exclusive,blocking; 1 - shared, blocking; 2 - exclusive,
+     *                  nonblocking; 3 - shared, nonblocking
      * @param string[] $options options providing additional information.
-     *     Currently supported OPTION_USE_EXISTING_FILE constant indicating
-     *     the file locking should be used on existing file.
+     *                          Currently supported OPTION_USE_EXISTING_FILE constant indicating
+     *                          the file locking should be used on existing file.
      *
      * @return resource the lock handle on success, null on failure
      */
     final public static function tryLock(
         $identifier,
-        $mode = self::EXCLUSIVE,
+        int $mode = self::EXCLUSIVE,
         array $options = null
     ) {
-        $result = null;
         if (self::useExistingFile($identifier, $options)) {
             $result = (new FileLock(null))->internalTryLock(
                 $identifier,
@@ -102,50 +104,50 @@ abstract class Lock
                 $options
             );
         }
+
         return $result;
     }
 
     /**
-     * Unlocks the resource previously locked by tryLock method. The successfuly
-     * unclocked handle is always closed.
+     * Unlocks the resource previously locked by tryLock method. The successfully
+     * unlocked handle is always closed.
      *
      * @param resource $handle the resource being the result of previous tryLock
-     *     method call
+     *                         method call
      * @param string[] $options options providing additional information.
-     *     Currently supported OPTION_USE_EXISTING_FILE constant indicating
-     *     the file unlocking should be used regardless of config settings.
+     *                          Currently supported OPTION_USE_EXISTING_FILE constant indicating
+     *                          the file unlocking should be used regardless of config settings.
      *
-     * @return boolean true if unlocking succeded, false otherwise
+     * @return bool true if unlocking succeeded, false otherwise
      */
-    final public static function unlock($handle, array $options = null)
+    final public static function unlock($handle, array $options = null): bool
     {
-        $result = false;
         if (self::useExistingFile($handle, $options)) {
             $result = (new FileLock(null))->internalUnlock($handle);
         } else {
             $result = self::getRealLock()->internalUnlock($handle);
         }
+
         return $result;
     }
 
     /**
-     * Forcedly removes all locks set up on the resource described by given
+     * Removes all locks set up on the resource described by given
      * identifier. In most cases it is done by removing the resource itself
      *
      * CAUTION: Use only as a last resort. Can cause data loss and system
      *     inconsistency!
      *
      * @param mixed $identifier the identifier of resource to unlock, can
-     *     be a file path or an object for example.
+     *                          be a file path or an object for example
      * @param string[] $options options providing additional information.
-     *     Currently supported OPTION_USE_EXISTING_FILE constant indicating
-     *     the file unlocking should be used regardless of config settings.
+     *                          Currently supported OPTION_USE_EXISTING_FILE constant indicating
+     *                          the file unlocking should be used regardless of config settings.
      *
-     * @return boolean true if unlocking succeded, false otherwise
+     * @return bool true if unlocking succeeded, false otherwise
      */
-    final public static function forceUnlock($identifier, array $options = null)
+    final public static function forceUnlock($identifier, array $options = null): bool
     {
-        $result = false;
         if (self::useExistingFile($identifier, $options)) {
             $result = (new FileLock(null))->internalForceUnlock(
                 $identifier,
@@ -154,6 +156,7 @@ abstract class Lock
         } else {
             $result = self::getRealLock()->internalForceUnlock($identifier);
         }
+
         return $result;
     }
 
@@ -162,21 +165,24 @@ abstract class Lock
      * config settings
      *
      * @return object instance of {@see RealLock} subclass, created according to
-     *     config settings, null if no correct settings found
+     *                config settings, null if no correct settings found
      */
-    final private static function getRealLock()
+    private static function getRealLock(): ?object
     {
         $lockConfig = OcConfig::instance()->getLockConfig();
         $result = null;
+
         if (
-            !empty($lockConfig["type"]) &&
-            !empty($lockConfig[$lockConfig["type"]])
+            ! empty($lockConfig['type'])
+            && ! empty($lockConfig[$lockConfig['type']])
         ) {
-            $settings = $lockConfig[$lockConfig["type"]];
-            if (!empty($settings["class"])) {
-                $result = new $settings["class"]($settings);
+            $settings = $lockConfig[$lockConfig['type']];
+
+            if (! empty($settings['class'])) {
+                $result = new $settings['class']($settings);
             }
         }
+
         return $result;
     }
 
@@ -184,17 +190,18 @@ abstract class Lock
      * Checks if file locking on external existing file should be used
      *
      * @param mixed $identifier the identifier to check if it is an existing
-     *     file path or handle
-     * @param string[] $options options to check if contain
-     *     OPTION_USE_EXISTING_FILE
-     * @return boolean true if existing file locking should be used, false
-     *     otherwise
+     *                          file path or handle
+     * @param string[]|null $options options to check if contain
+     *                               OPTION_USE_EXISTING_FILE
+     * @return bool true if existing file locking should be used, false
+     *              otherwise
      */
     final protected static function useExistingFile(
         $identifier,
-        $options = null
-    ) {
+        array $options = null
+    ): bool {
         $result = false;
+
         if (
             $options != null
             && in_array(self::OPTION_USE_EXISTING_FILE, $options)
@@ -215,6 +222,7 @@ abstract class Lock
                 );
             }
         }
+
         return $result;
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace src\Models\Notify;
 
 use src\Models\BaseObject;
@@ -8,55 +9,46 @@ use src\Utils\Debug\Debug;
 
 class Notify extends BaseObject
 {
+    private int $id;
 
-    /* @var integer */
-    private $id;
+    private int $cacheId;
 
-    /* @var integer */
-    private $cacheId;
+    private ?GeoCache $cache = null;
 
-    /* @var $cache GeoCache */
-    private $cache = null;
+    private int $userId;
 
-    /* @var integer */
-    private $userId;
+    private ?User $user = null;
 
-    /* @var $user User */
-    private $user = null;
-
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getCacheId()
+    public function getCacheId(): int
     {
         return $this->cacheId;
     }
 
-    public function getCache()
+    public function getCache(): ?GeoCache
     {
         if ($this->cache == null && $this->isDataLoaded()) {
             $this->cache = GeoCache::fromCacheIdFactory($this->cacheId);
         }
+
         return $this->cache;
     }
 
-    public function getUserId()
+    public function getUserId(): int
     {
         return $this->userId;
     }
 
-    public function getUser()
+    public function getUser(): ?User
     {
         if ($this->user == null && $this->isDataLoaded()) {
             $this->user = User::fromUserIdFactory($this->userId);
         }
+
         return $this->user;
     }
 
@@ -75,30 +67,30 @@ class Notify extends BaseObject
                     $this->userId = $val;
                     break;
                 default:
-                    Debug::errorLog("Unknown column: $key");
+                    Debug::errorLog("Unknown column: {$key}");
             }
         }
     }
 
-    private static function fromDbRowFactory(array $dbRow)
+    private static function fromDbRowFactory(array $dbRow): Notify
     {
         $n = new self();
         $n->loadFromDbRow($dbRow);
+
         return $n;
     }
 
     /**
-     * Returns array of Notify obiects for given user_id
+     * Returns array of Notify objects for given user_id
      *
-     * @param int $itemUserId
      * @return Notify[]
      */
-    public static function getAllNotifiesForUserId($itemUserId)
+    public static function getAllNotifiesForUserId(int $itemUserId): array
     {
-        $query = "SELECT *
+        $query = 'SELECT *
             FROM `notify_waiting`
             WHERE `user_id` = :1
-            ORDER BY `id` ASC";
+            ORDER BY `id` ASC';
         $stmt = self::db()->multiVariableQuery($query, $itemUserId);
 
         return self::db()->dbFetchAllAsObjects($stmt, function ($row) {
@@ -111,34 +103,31 @@ class Notify extends BaseObject
      *
      * @return int[]
      */
-    public static function getUniqueUserIdNotifiesList()
+    public static function getUniqueUserIdNotifiesList(): array
     {
-        $query = "
+        $query = '
             SELECT DISTINCT `user_id`
-                FROM `notify_waiting`";
+                FROM `notify_waiting`';
         $stmt = self::db()->multiVariableQuery($query);
+
         return self::db()->dbResultFetchAll($stmt);
     }
 
     /**
      * Deletes all notifies from DB for given userId
-     *
-     * @param int $userId
      */
-    public static function deleteNotifiesForUserId($userId)
+    public static function deleteNotifiesForUserId(int $userId)
     {
-        $query = "
+        $query = '
             DELETE
                 FROM `notify_waiting`
-                WHERE `user_id` = :1";
+                WHERE `user_id` = :1';
         self::db()->multiVariableQuery($query, $userId);
     }
 
     /**
      * Inserts into notify_waiting table info about new cache notifications
      * for users - for given by $cache.
-     *
-     * @param GeoCache $cache
      */
     public static function generateNotifiesForCache(GeoCache $cache)
     {

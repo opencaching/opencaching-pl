@@ -1,4 +1,5 @@
 <?php
+
 use src\Controllers\Cron\Jobs\Job;
 use src\Controllers\PowerTrailController;
 
