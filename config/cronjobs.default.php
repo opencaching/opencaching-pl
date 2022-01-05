@@ -26,6 +26,7 @@ $cronjobs['schedule'] = [
     'WatchlistNotifyJob' => 'hourly at :05',
     'NewCachesNotifyJob' => 'hourly at :10',
     'GeoPathJob' => 'daily at 0:10',
+    'ClearCacheAccessLogsJob' => 'daily at 1:00',
     'AutoArchiveCachesJob' => 'daily at 4:30',
     'GeoKretyNewJob' => 'daily at 4:45',
     'TitledCacheAddJob' => 'monthly on day 1 at 0:20',
