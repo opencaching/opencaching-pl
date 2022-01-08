@@ -165,7 +165,6 @@ return (new PhpCsFixer\Config())
         'space_after_semicolon' => ['remove_in_empty_for_expressions' => true],
 
         // String Notation
-        'escape_implicit_backslashes' => ['single_quoted' => true],
         'explicit_string_variable' => true,
         'heredoc_to_nowdoc' => true,
         'no_binary_string' => true,
