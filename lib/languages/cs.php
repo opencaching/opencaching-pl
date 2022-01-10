@@ -2119,7 +2119,7 @@ $translations = [
     'newCacheWpClose' => 'Close',
     'contact_pl_about_title' => 'Otázky o Geocachingu',
     'contact_pl_about_description_1' => 'Chcete se dozvědět více o Geocachingu? Najdete to v <a href="{wiki_link_main}">OpenGeoWiki</a>.',
-    'contact_pl_about_description_2' => 'Do you have any comments, questions, suggestions, or just want to participate in <i>Opencaching</i> development? All those topics are discussed on our <a href="https://forum.opencaching.pl">Forum</a>.',
+    'contact_pl_about_description_2' => 'Máte nějaké komentáře, dotazy, návrhy, nebo se chcete jen zúčastnit vývoje <i>Opencachingu</i>? Všechna tato témata jsou projednávána na našem <a href="https://forum.opencaching.pl">fóru</a>.',
     'contact_pl_about_team' => 'Opencaching PL Team',
     'contact_pl_rr_description' => '- Rada Rejsu team members are listed &gt;&gt;&gt;<a href="{link}">here</a>&lt;&lt;&lt;',
     'contact_pl_rt_description' => '- Rada Techniczna members are listed &gt;&gt;&gt;<a href="{link}">here</a>&lt;&lt;&lt;',
