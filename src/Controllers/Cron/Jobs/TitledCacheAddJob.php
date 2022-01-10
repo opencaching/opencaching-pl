@@ -163,8 +163,8 @@ class TitledCacheAddJob extends Job
 
         $SystemUser = -1;
         $LogType = GeoCacheLog::LOGTYPE_ADMINNOTE;
-        $ntitled_cache = OcConfig::getTitledCachePeriod() . '_titled_cache_congratulations';
-        $msgText = str_replace('{ownerName}', htmlspecialchars($rec['userName']), tr($ntitled_cache));
+        $titled_cache_string = OcConfig::getTitledCachePeriod() . '_titled_cache_congratulations';
+        $msgText = str_replace('{ownerName}', htmlspecialchars($rec['userName']), tr($titled_cache_string));
         $LogUuid = Uuid::create();
 
         $this->db->multiVariableQuery(
@@ -199,6 +199,7 @@ class TitledCacheAddJob extends Job
 
         $ctrlMeritBadge = new MeritBadgeController();
         $ctrlMeritBadge->updateTriggerByNewTitledCache($rec['cacheId']);
+
         return null;
     }
 }
