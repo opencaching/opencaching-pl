@@ -170,6 +170,7 @@ return (new PhpCsFixer\Config())
         'no_binary_string' => true,
         'simple_to_complex_string_variable' => true,
         'single_quote' => true,
+        'escape_implicit_backslashes' => ['single_quoted' => false],
 
         // Whitespace
         'array_indentation' => true,
