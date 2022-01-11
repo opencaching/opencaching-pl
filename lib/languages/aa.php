@@ -1,6 +1,6 @@
 <?php
 
-$translations = array(
+$translations = [
     'main_menu' => 'crwdns5540:0crwdne5540:0',
     'user_menu' => 'crwdns5541:0crwdne5541:0',
     'new' => 'crwdns5542:0crwdne5542:0',
@@ -267,7 +267,7 @@ $translations = array(
     'type_incorrect' => 'crwdns5868:0crwdne5868:0',
     'typewp_incorrect' => 'crwdns5869:0crwdne5869:0',
     'size_incorrect' => 'crwdns5871:0crwdne5871:0',
-    'diff_incorrect' => 'crwdns5872:0crwdne5872:0',
+    'diff_incorrect' => 'crwdns33905:0crwdne33905:0',
     'status_incorrect' => 'crwdns5873:0crwdne5873:0',
     'virtual_cache_size' => 'crwdns5874:0crwdne5874:0',
     'full_description' => 'crwdns5875:0crwdne5875:0',
@@ -332,11 +332,11 @@ $translations = array(
     'total_of_active_caches' => 'crwdns5939:0crwdne5939:0',
     'total_moved' => 'crwdns5941:0crwdne5941:0',
     'startPage_intro_pl' => 'crwdns5945:0crwdne5945:0',
-    'startPage_intro_nl' => 'crwdns5946:0crwdne5946:0',
+    'startPage_intro_nl' => 'crwdns33907:0crwdne33907:0',
     'startPage_intro_en' => 'crwdns5947:0crwdne5947:0',
     'startPage_intro_ro' => 'crwdns5948:0crwdne5948:0',
     'startPage_intro_uk' => 'crwdns5949:0crwdne5949:0',
-    'startPage_intro_us' => 'crwdns26888:0crwdne26888:0',
+    'startPage_intro_us' => 'crwdns33909:0crwdne33909:0',
     'filename_describe_cache' => 'crwdns5951:0{wiki_link_cacheParams_en}crwdne5951:0',
     'map_msg' => 'crwdns5952:0{target}crwdne5952:0',
     'additional_hints' => 'crwdns5953:0crwdne5953:0',
@@ -379,7 +379,6 @@ $translations = array(
     'postActivation_mail_03' => 'crwdns11227:0crwdne11227:0',
     'postActivation_mail_04' => 'crwdns11228:0{site_name}crwdnd11228:0{NEED_FIND_LIMIT}crwdne11228:0',
     'postActivation_mail_cacheguides' => 'crwdns26758:0crwdne26758:0',
-
 
     'password_confirm' => 'crwdns5968:0crwdne5968:0',
     'register_msg1' => 'crwdns5969:0{site_name}crwdne5969:0',
@@ -459,7 +458,7 @@ $translations = array(
     'map_toggleFilters' => 'crwdns12428:0crwdne12428:0',
     'fullscreen' => 'crwdns6060:0crwdne6060:0',
     'map_disableFullscreen' => 'crwdns12429:0crwdne12429:0',
-    'map_refresh'=> 'crwdns12430:0crwdne12430:0',
+    'map_refresh' => 'crwdns12430:0crwdne12430:0',
     'map_search' => 'crwdns12458:0crwdne12458:0',
     'map_searchPlacePlaceholder' => 'crwdns12460:0crwdne12460:0',
     'map_searchTrigger' => 'crwdns12462:0crwdne12462:0',
@@ -1172,7 +1171,7 @@ $translations = array(
     'qrcode_button' => 'crwdns6832:0crwdne6832:0',
     'qrcode_downloadLabeled' => 'crwdns6833:0crwdne6833:0',
     'qrcode_downloadQRCodeOnly' => 'crwdns6834:0crwdne6834:0',
-    'qrcode_appInfo' => 'crwdns27206:0crwdne27206:0',
+    'qrcode_appInfo' => 'crwdns33911:0crwdne33911:0',
     'error_ort' => 'crwdns6836:0crwdne6836:0',
     'alert_search_by_cachename' => 'crwdns6837:0crwdne6837:0',
     'alert_search_by_dist_01' => 'crwdns23190:0crwdne23190:0',
@@ -1278,7 +1277,7 @@ $translations = array(
     'mailto_senderCopy' => 'crwdns6973:0crwdne6973:0',
     'mailto_messageForYou' => 'crwdns6974:0crwdne6974:0',
     'region_not_ok' => 'crwdns6975:0crwdne6975:0',
-    'dummy_outside' => "crwdns6980:0crwdne6980:0",
+    'dummy_outside' => 'crwdns6980:0crwdne6980:0',
     'index_01' => 'crwdns6981:0crwdne6981:0',
     'index_02' => 'crwdns6982:0crwdne6982:0',
     'index_03' => 'crwdns6983:0crwdne6983:0',
@@ -1712,7 +1711,7 @@ $translations = array(
     'pt126' => 'crwdns7400:0crwdne7400:0',
     'pt127' => 'crwdns7401:0crwdne7401:0',
     'pt128' => 'crwdns7402:0crwdne7402:0',
-    'pt129' => 'crwdns7403:0crwdne7403:0',
+    'pt129' => 'crwdns33913:0crwdne33913:0',
     'pt130' => 'crwdns7404:0crwdne7404:0',
     'restore' => 'crwdns25742:0crwdne25742:0',
     'pt131' => 'crwdns25744:0%scrwdne25744:0',
@@ -1836,7 +1835,6 @@ $translations = array(
     'gp_ownCacheAddedToGeopath' => 'crwdns26916:0crwdne26916:0',
     'gp_cacheRemovedFromGeopath' => 'crwdns26918:0crwdne26918:0',
 
-
     'statpic_found' => 'crwdns7519:0crwdne7519:0',
     'statpic_hidden' => 'crwdns7520:0crwdne7520:0',
     'statpic_html_link' => 'crwdns7521:0crwdne7521:0',
@@ -1916,7 +1914,7 @@ $translations = array(
     'search_gpxgc_06' => 'crwdns7597:0crwdne7597:0',
     'search_gpxgc_07' => 'crwdns7598:0crwdne7598:0',
 
-// Attributes
+    // Attributes
     'attribute_9001' => 'crwdns27031:0crwdne27031:0',
     'attribute_2' => 'crwdns27033:0crwdne27033:0',
     'attribute_3' => 'crwdns27035:0crwdne27035:0',
@@ -2002,7 +2000,7 @@ $translations = array(
     'attribute_219' => 'crwdns27195:0crwdne27195:0',
     'attribute_220' => 'crwdns27197:0crwdne27197:0',
     'attribute_999' => 'crwdns27199:0crwdne27199:0',
-// END Attributes
+    // END Attributes
 
     'weather' => 'crwdns7625:0crwdne7625:0',
     'vl_Recently_modified_on' => 'crwdns7626:0crwdne7626:0',
@@ -2121,7 +2119,7 @@ $translations = array(
     'newCacheWpClose' => 'crwdns7745:0crwdne7745:0',
     'contact_pl_about_title' => 'crwdns7746:0crwdne7746:0',
     'contact_pl_about_description_1' => 'crwdns7747:0{wiki_link_main}crwdne7747:0',
-    'contact_pl_about_description_2' => 'crwdns7748:0crwdne7748:0',
+    'contact_pl_about_description_2' => 'crwdns33915:0crwdne33915:0',
     'contact_pl_about_team' => 'crwdns7749:0crwdne7749:0',
     'contact_pl_rr_description' => 'crwdns7750:0{link}crwdne7750:0',
     'contact_pl_rt_description' => 'crwdns7751:0{link}crwdne7751:0',
@@ -2130,7 +2128,7 @@ $translations = array(
     'contact_pl_other_description' => 'crwdns7754:0crwdne7754:0',
     'contact_ocpl_title' => 'crwdns7755:0crwdne7755:0',
     'contact_ocpl_description_1' => 'crwdns7756:0crwdne7756:0',
-    'contact_ocpl_description_2' => 'crwdns7757:0crwdne7757:0',
+    'contact_ocpl_description_2' => 'crwdns33917:0crwdne33917:0',
     'contact_ocpl_description_3' => 'crwdns7758:0crwdne7758:0',
     'contact_ro_about_title' => 'crwdns7759:0crwdne7759:0',
     'contact_ro_about_description_1' => 'crwdns7760:0crwdne7760:0',
@@ -2140,22 +2138,22 @@ $translations = array(
     'contact_ocro_description_1' => 'crwdns7764:0crwdne7764:0',
     'contact_ocro_description_2' => 'crwdns7765:0crwdne7765:0',
     'contact_nl_title_1' => 'crwdns7766:0crwdne7766:0',
-    'contact_nl_desc_1_1' => 'crwdns7767:0crwdne7767:0',
-    'contact_nl_desc_1_2' => 'crwdns7768:0crwdne7768:0',
+    'contact_nl_desc_1_1' => 'crwdns33919:0crwdne33919:0',
+    'contact_nl_desc_1_2' => 'crwdns33921:0crwdne33921:0',
     'contact_nl_title_2' => 'crwdns7769:0crwdne7769:0',
     'contact_nl_desc_2_1' => 'crwdns12450:0crwdne12450:0',
     'contact_nl_desc_2_2' => 'crwdns12452:0crwdne12452:0',
     'contact_nl_desc_2_3' => 'crwdns12454:0crwdne12454:0',
     'contact_nl_desc_2_4' => 'crwdns12456:0crwdne12456:0',
     'contact_nl_title_3' => 'crwdns7773:0crwdne7773:0',
-    'contact_nl_desc_3_1' => 'crwdns7774:0crwdne7774:0',
+    'contact_nl_desc_3_1' => 'crwdns33923:0crwdne33923:0',
     'contact_nl_title_4' => 'crwdns7775:0crwdne7775:0',
     'contact_nl_desc_4_1' => 'crwdns27200:0crwdne27200:0',
     'contact_nl_title_5' => 'crwdns7777:0crwdne7777:0',
     'contact_nl_desc_5_1' => 'crwdns7778:0crwdne7778:0',
     'contact_nl_desc_5_2' => 'crwdns7779:0crwdne7779:0',
     'contact_nl_title_6' => 'crwdns7780:0crwdne7780:0',
-    'contact_nl_desc_6_1' => 'crwdns7781:0crwdne7781:0',
+    'contact_nl_desc_6_1' => 'crwdns33925:0crwdne33925:0',
     'contact_nl_desc_6_2' => 'crwdns27202:0crwdne27202:0',
     'contact_uk_1_title' => 'crwdns7783:0crwdne7783:0',
     'contact_uk_1_desc' => 'crwdns7784:0crwdne7784:0',
@@ -2511,7 +2509,7 @@ $translations = array(
     'LogPassword' => 'crwdns8102:0crwdne8102:0',
     'abovesealevel' => 'crwdns8103:0crwdne8103:0',
     'cache_alt' => 'crwdns8104:0crwdne8104:0',
-    'waypoint_error2' => 'crwdns8106:0crwdne8106:0'.$GLOBALS['oc_waypoint'].'crwdns8107:0crwdne8107:0',
+    'waypoint_error2' => 'crwdns8106:0crwdne8106:0' . $GLOBALS['oc_waypoint'] . 'crwdns8107:0crwdne8107:0',
     'pagetitle_print' => 'crwdns8108:0crwdne8108:0',
     'natura2000' => 'crwdns8109:0crwdne8109:0',
     'WeekCache' => 'crwdns8110:0crwdne8110:0',
@@ -2569,14 +2567,14 @@ $translations = array(
     'ArchivedGeocaches' => 'crwdns8175:0crwdne8175:0',
     'merit_badges' => 'crwdns8176:0crwdne8176:0',
     'merit_badge' => 'crwdns8177:0crwdne8177:0',
-    'merit_badge_level' =>  'crwdns8178:0crwdne8178:0',
-    'merit_badge_level_name' =>  'crwdns8179:0crwdne8179:0',
-    'merit_badge_next_level_threshold' =>  'crwdns8181:0crwdne8181:0',
-    'merit_badge_gain_count' =>  'crwdns8182:0crwdne8182:0',
-    'merit_badge_gain_last_date' =>  'crwdns8183:0crwdne8183:0',
-    'merit_badge_gain_date' =>  'crwdns8184:0crwdne8184:0',
-    'merit_badge_number' =>  'crwdns8185:0crwdne8185:0',
-    'merit_badge_number_threshold' =>  'crwdns8186:0crwdne8186:0',
+    'merit_badge_level' => 'crwdns8178:0crwdne8178:0',
+    'merit_badge_level_name' => 'crwdns8179:0crwdne8179:0',
+    'merit_badge_next_level_threshold' => 'crwdns8181:0crwdne8181:0',
+    'merit_badge_gain_count' => 'crwdns8182:0crwdne8182:0',
+    'merit_badge_gain_last_date' => 'crwdns8183:0crwdne8183:0',
+    'merit_badge_gain_date' => 'crwdns8184:0crwdne8184:0',
+    'merit_badge_number' => 'crwdns8185:0crwdne8185:0',
+    'merit_badge_number_threshold' => 'crwdns8186:0crwdne8186:0',
     'merit_badge_show_details' => 'crwdns8187:0crwdne8187:0',
     'merit_badge_show_list' => 'crwdns8188:0crwdne8188:0',
     'merit_badge_gain_max_level' => 'crwdns8189:0crwdne8189:0',
@@ -2999,8 +2997,8 @@ $translations = array(
     'usrIgnore_removingSuccess' => 'crwdns26788:0crwdne26788:0',
 
     'gp_logoUpdateTitle' => 'crwdns26868:0crwdne26868:0',
-    'gp_logoUpdateInfo' => 'crwdns26870:0crwdne26870:0'.
-                           'crwdns26872:0crwdne26872:0',
+    'gp_logoUpdateInfo' => 'crwdns26870:0crwdne26870:0'
+                           . 'crwdns26872:0crwdne26872:0',
 
     'SmartPhone_Apps' => 'crwdns26932:0crwdne26932:0',
     'SmartPhone_Support' => 'crwdns26934:0crwdne26934:0',
@@ -3021,7 +3019,6 @@ $translations = array(
     'gpCandidates_offerCanceled' => 'crwdns26972:0crwdne26972:0',
     'gpCandidates_errorOnCancel' => 'crwdns27010:0crwdne27010:0',
     'gpCandidates_cancelOfferInProgress' => 'crwdns26976:0crwdne26976:0',
-
 
     'gpMyCandidates_title' => 'crwdns26978:0crwdne26978:0',
     'gpMyCandidates_submitedDate' => 'crwdns26980:0crwdne26980:0',
@@ -3074,7 +3071,6 @@ $translations = array(
     'editCache_orderPicsSaveErr' => 'crwdns27262:0crwdne27262:0',
     'editCache_orderPicsSaveSuccess' => 'crwdns27264:0crwdne27264:0',
 
-
     'editDesc_title' => 'crwdns27395:0crwdne27395:0',
     'editDesc_langLabel' => 'crwdns27397:0crwdne27397:0',
     'editDesc_langEmptyOpt' => 'crwdns27399:0crwdne27399:0',
@@ -3096,10 +3092,8 @@ $translations = array(
     'editDesc_reactivRuleOptAfterContact' => 'crwdns27427:0crwdne27427:0',
     'editDesc_reactivRuleOptReactAllowed' => 'crwdns27429:0crwdne27429:0',
     'editDesc_reactivRuleCustomDefinition' => 'crwdns27431:0crwdne27431:0',
-    'editDesc_reactivRuleCustomDefinition' => 'crwdns27433:0crwdne27433:0',
 
     'editDesc_invalidRactivRule' => 'crwdns27435:0crwdne27435:0',
-
 
     'vote_criteriaNotPassed' => 'crwdns27282:0crwdne27282:0',
     'vote_electionOpenUntil' => 'crwdns27284:0crwdne27284:0',
@@ -3217,5 +3211,4 @@ $translations = array(
     'at_day' => 'crwdns27595:0crwdne27595:0',
     'at_notinwinter' => 'crwdns27597:0crwdne27597:0',
     'at_allseasons' => 'crwdns27599:0crwdne27599:0',
-
-);
+];

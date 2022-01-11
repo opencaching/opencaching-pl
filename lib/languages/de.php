@@ -1,6 +1,6 @@
 <?php
 
-$translations = array(
+$translations = [
     'main_menu' => 'Hauptmenü',
     'user_menu' => 'Benutzermenü',
     'new' => 'NEU',
@@ -326,7 +326,7 @@ $translations = array(
     'please_login' => 'Bitte anmelden,',
     'to_see_coords' => 'um die Koordinaten zu sehen',
     'ozi_path_label' => 'Pfad des „op“-Ordners für den OziExplorer',
-    'ozi_path_info' => 'Für Benutzer des OziExplorers mit Filips Datenbank:<br />Wenn du den Pfad zum „op“-Ordner angibst, kannst du Suchergebnisse als WPT-Datei mit Cachebeschreibungen herunterladen. Anschließend kannst du den Cache in der Karte des OziExplorers auswählen und die „Open-Attachment“-Funktion verwenden. Diese zeigt detaillierte Informationen über den Cache. Beispiele: <b>\SDMMC\start\</b>, <b>\Memory card\BF\</b>',
+    'ozi_path_info' => 'Für Benutzer des OziExplorers mit Filips Datenbank:<br />Wenn du den Pfad zum „op“-Ordner angibst, kannst du Suchergebnisse als WPT-Datei mit Cachebeschreibungen herunterladen. Anschließend kannst du den Cache in der Karte des OziExplorers auswählen und die „Open-Attachment“-Funktion verwenden. Diese zeigt detaillierte Informationen über den Cache. Beispiele: <b>\\\\SDMMC\\\\start\\\\</b>, <b>\\\\Memory card\\\\BF\\\\</b>',
     'ozi_path_info2' => 'Klicke auf den Cache in der OziExplorer-Karte und wähle die Option „Open Attachment“, um eine detaillierte Beschreibung des Caches anzuzeigen.',
     'newest_caches' => 'Neueste Caches',
     'total_of_active_caches' => 'Aktive Caches',
@@ -379,7 +379,6 @@ $translations = array(
     'postActivation_mail_03' => 'Karte der freiwilligen Guides:',
     'postActivation_mail_04' => 'Bevor du deinen ersten Cache auf {site_name} veröffentlichen kannst, solltest du mindestens {NEED_FIND_LIMIT} Caches gefunden haben, um Erfahrungen zu sammeln.',
     'postActivation_mail_cacheguides' => 'Geocaching-Guides / Gurus',
-
 
     'password_confirm' => 'Passwort bestätigen',
     'register_msg1' => 'Um ein Benutzerkonto auf {site_name} zu erstellen, musst du eine gültige E-Mail-Addresse und einen Benutzername eingeben. Du erhältst dann per E-Mail einen Aktivierungscode. Pro E-Mail-Adresse kann nur ein Konto angelegt werden.',
@@ -459,7 +458,7 @@ $translations = array(
     'map_toggleFilters' => 'Filtereinstellungen ändern',
     'fullscreen' => 'Vollbild',
     'map_disableFullscreen' => 'Vollbildansicht beenden',
-    'map_refresh'=> 'Karte neu laden',
+    'map_refresh' => 'Karte neu laden',
     'map_search' => 'Suchen...',
     'map_searchPlacePlaceholder' => 'Suche: Ort',
     'map_searchTrigger' => 'Suchen',
@@ -1172,7 +1171,7 @@ $translations = array(
     'qrcode_button' => 'Generieren',
     'qrcode_downloadLabeled' => 'Das QR-Code-Etikett herunterladen',
     'qrcode_downloadQRCodeOnly' => 'Nur den QR-Code herunterladen',
-    'qrcode_appInfo' => 'Sie finden "QR Code Reader" Anwendungen für verschiedene Smartphones <a class="links" href="http://www.i-nigma.com/Downloadi-nigmaReader.html" target="_blank">HIER</a>.',
+    'qrcode_appInfo' => 'You can find "QR Code reader" applications for various smartphones in your app store.',
     'error_ort' => 'Ort nicht gefunden',
     'alert_search_by_cachename' => 'Bitte den gesuchten Name eingeben!',
     'alert_search_by_dist_01' => 'Die Längenkoordinate muss numerisch sein. Format: ddd mm.mmm',
@@ -1278,7 +1277,7 @@ $translations = array(
     'mailto_senderCopy' => 'Dies ist eine Kopie deiner Nachricht an',
     'mailto_messageForYou' => 'Die Nachricht für dich:',
     'region_not_ok' => 'Bitte Region wählen!',
-    'dummy_outside' => "Im Ausland",
+    'dummy_outside' => 'Im Ausland',
     'index_01' => 'Berechneter Cacherang',
     'index_02' => 'Diese Liste wurde automatisch aus den Empfehlungen der Cachefinder berechnet. Die Zahlen in der Liste bedeuten:',
     'index_03' => 'Anzahl der Nutzer, die den Cache empfohlen haben',
@@ -1712,7 +1711,7 @@ $translations = array(
     'pt126' => 'Information',
     'pt127' => 'Kommentar hinzufügen',
     'pt128' => 'Neuer Kommentar für den Geopfad',
-    'pt129' => 'Javascript ist in deinem Browser deaktiviert, oder du verwendest einen alten Browser (z. B. Internet Explorer 6, 7 oder 8), der nicht mehr unterstützt wird. Diese Seite wird nicht vollständig angezeigt bzw. funktioniert nur mit Einschränkungen. Wir empfehlen, einen aktuellen Browser zu verwenden (z. B. <a href="https://www.mozilla.org/pl/firefox/new/">FireFox</a>, <a href="http://www.google.pl/intl/pl/chrome/">Chrome</a> oder <a href="http://www.opera.com/">Opera</a>).',
+    'pt129' => 'Javascript ist in deinem Browser deaktiviert, oder du verwendest einen alten Browser (z. B. Internet Explorer 6, 7 oder 8), der nicht mehr unterstützt wird. Diese Seite wird nicht vollständig angezeigt bzw. funktioniert nur mit Einschränkungen. Wir empfehlen, einen aktuellen Browser zu verwenden (z. B. <a href="https://www.mozilla.org/">FireFox</a>, <a href="https://www.google.com/chrome/">Chrome</a> oder <a href="https://www.opera.com/">Opera</a>).',
     'pt130' => 'Entfernen',
     'restore' => 'Wiederherstellen',
     'pt131' => 'Eintrag für den Geopfad "%s" wurde entfernt',
@@ -1836,7 +1835,6 @@ $translations = array(
     'gp_ownCacheAddedToGeopath' => 'Dein Cache wurde dem Geopfad zugewiesen.',
     'gp_cacheRemovedFromGeopath' => 'Der Cache wurde bereits von dem Geopfad entfernt.',
 
-
     'statpic_found' => 'Gefunden:',
     'statpic_hidden' => 'Versteckt:',
     'statpic_html_link' => '– Statistik für',
@@ -1916,7 +1914,7 @@ $translations = array(
     'search_gpxgc_06' => 'Empfehlung',
     'search_gpxgc_07' => 'Nationalpark',
 
-// Attributes
+    // Attributes
     'attribute_9001' => 'Hunde verboten',
     'attribute_2' => 'Zugangs- oder Parkentgelt',
     'attribute_3' => 'Kletterausrüstung erforderlich',
@@ -2002,7 +2000,7 @@ $translations = array(
     'attribute_219' => 'geeignet um Reisende abzulegen',
     'attribute_220' => 'offiziell ausgewiesenes historisches Monument',
     'attribute_999' => 'Logkennwort',
-// END Attributes
+    // END Attributes
 
     'weather' => 'Wetter',
     'vl_Recently_modified_on' => 'Zuletzt geändert am',
@@ -2121,7 +2119,7 @@ $translations = array(
     'newCacheWpClose' => 'Schließen',
     'contact_pl_about_title' => 'Fragen zum Geocaching',
     'contact_pl_about_description_1' => 'Möchtest du mehr übers Geocaching erfahren? Im <a href="{wiki_link_main}">OpenGeoWiki</a> findest du weitere Informationen und Hilfestellungen.',
-    'contact_pl_about_description_2' => 'Hast du Anmerkungen, Fragen oder Anregungen, oder möchtest bei der Weiteretnwicklung von Opencaching mitmachen? Diese und weitere Themen werden in unserem <a href="http://forum.opencaching.pl">Forum</a> diskutiert.',
+    'contact_pl_about_description_2' => 'Hast du Anmerkungen, Fragen oder Anregungen, oder möchtest bei der Weiteretnwicklung von Opencaching mitmachen? Diese und weitere Themen werden in unserem <a href="https://forum.opencaching.pl">Forum</a> diskutiert.',
     'contact_pl_about_team' => 'Das Opencaching-PL-Team',
     'contact_pl_rr_description' => '- Die Mitglieder des <i>Rada Rejsu</i> findest du &gt;&gt;&gt;<a href="{link}">hier</a>&lt;&lt;&lt;.',
     'contact_pl_rt_description' => '- Die Mitglieder des <i>Rada Techniczna</i> sind &gt;&gt;&gt;<a href="{link}">hier</a>&lt;&lt;&lt; aufgeführt.',
@@ -2149,14 +2147,14 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'contact_nl_desc_2_3' => '<a href="https://www.opencaching.nl/viewprofile.php?userid=4456"><b>Raven</b></a> (Roelof): Prüft deine neuen Caches in der Region Zeeland, Niederlande.',
     'contact_nl_desc_2_4' => '<a href="https://www.opencaching.nl/viewprofile.php?userid=1195"><b>zjefke</b></a> (Jos): Prüft deine neuen Caches in der Provinz Antwerpen, Belgien.',
     'contact_nl_title_3' => 'Nutzung der Website, Anregungen und Kritik',
-    'contact_nl_desc_3_1' => 'Dafür gibt es ein Unterforum auf <a href="http://forum.opencaching.nl/viewforum.php?f=4">forum.opencaching.nl</a>. Du findest dort Antworten auf viele Fragen, und Informationen zum Mitmachen in unserem Opencaching-Team.',
+    'contact_nl_desc_3_1' => 'Dafür gibt es ein Unterforum auf <a href="https://forum.opencaching.nl/viewforum.php?f=4">forum.opencaching.nl</a>. Du findest dort Antworten auf viele Fragen, und Informationen zum Mitmachen in unserem Opencaching-Team.',
     'contact_nl_title_4' => 'Opencaching Benelux findest du auch in folgenden sozialen Medien:',
     'contact_nl_desc_4_1' => '<a href="https://twitter.com/Opencachingnl"><img src="https://www.opencaching.nl/images/social_media/Twitter-32.png" class="icon32" align="middle" alt=""></a> <a href="https://www.facebook.com/groups/opencachingbenelux/"><img src="https://www.opencaching.nl/images/social_media/Facebook-32.png" class="icon32" align="middle" alt=""></a> <a href="https://plus.google.com/u/0/communities/111177041019520838177"><img src="https://www.opencaching.nl/images/social_media/Google-32.png" class="icon32" align="middle" alt=""></a> <a href="https://www.youtube.com/channel/UCLBglwWiI6HRjCwBVLZQfWw"><img src="https://www.opencaching.nl/images/social_media/YouTube-32.png" class="icon32" align="middle" alt=""></a>',
     'contact_nl_title_5' => 'Sonstige',
     'contact_nl_desc_5_1' => 'Wenn du auf den oben verlinkten Seiten keine Antwort auf deine Frage finden konntest, kannst du dich auch per Email direkt an <a href="mailto:contact@opencaching.nl">contact@opencaching.nl</a> wenden.',
     'contact_nl_desc_5_2' => 'Bitte habe etwas Geduld, wenn die Antwort auf sich warten lässt. Die freiwilligen Helfer bei <i>opencaching.nl</i> sind nicht jederzeit verfügbar.',
     'contact_nl_title_6' => 'Spenden',
-    'contact_nl_desc_6_1' => 'Wie du siehst, gibt es die Möglichkeit, Opencaching Benelux mit einer Spende zu unterstützen. Du würdest und damit sehr helfen, vor allem beim technischen Betrieb der Website. Weitere Informationen zum Thema Spenden und OC-Finanzen findest du im <a href="http://forum.opencaching.nl/viewforum.php?f=27">Forum</a> und in unserem <a href="http://wiki.opencaching.nl/index.php/Financieel">Wiki</a>.',
+    'contact_nl_desc_6_1' => 'Wie du siehst, gibt es die Möglichkeit, Opencaching Benelux mit einer Spende zu unterstützen. Du würdest und damit sehr helfen, vor allem beim technischen Betrieb der Website. Weitere Informationen zum Thema Spenden und OC-Finanzen findest du im <a href="https://forum.opencaching.nl/viewforum.php?f=27">Forum</a> und in unserem <a href="https://wiki.opencaching.nl/index.php/Financieel">Wiki</a>.',
     'contact_nl_desc_6_2' => '<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top"><input type="hidden" name="cmd" value="_s-xclick"><input type="hidden" name="hosted_button_id" value="2QNGQ2WN6A44E"><input type="image" src="https://www.paypalobjects.com/nl_NL/BE/i/btn/btn_donateCC_LG.gif" name="submit" alt="PayPal, die sichere und vollständige Art der Online-Zahlung."><img alt="" src="https://www.paypalobjects.com/nl_NL/i/scr/pixel.gif" width="1" height="1"></form>',
     'contact_uk_1_title' => 'Fragen zum Geocaching',
     'contact_uk_1_desc' => 'Mehr zum Thema Geocaching findest du in unserem <a href="https://wiki.opencache.uk/" target="_blank">Wiki</a>.',
@@ -2512,7 +2510,7 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'LogPassword' => 'Zum Loggen wird ein Passwort benötigt!',
     'abovesealevel' => 'm ü. NHN',
     'cache_alt' => 'Höhe',
-    'waypoint_error2' => 'Der Wegpunktcode muss eines der folgenden Formate haben: '.$GLOBALS['oc_waypoint'].'xxxx, GCxxxxx, Nxxxxx',
+    'waypoint_error2' => 'Der Wegpunktcode muss eines der folgenden Formate haben: ' . $GLOBALS['oc_waypoint'] . 'xxxx, GCxxxxx, Nxxxxx',
     'pagetitle_print' => 'Druckansicht',
     'natura2000' => 'NATURA 2000 (Naturschutzgebiet)',
     'WeekCache' => 'Cache der Woche',
@@ -2570,14 +2568,14 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'ArchivedGeocaches' => 'Archivierte Geocaches',
     'merit_badges' => 'Verdienstabzeichen',
     'merit_badge' => 'Verdienstabzeichen',
-    'merit_badge_level' =>  'Stufe',
-    'merit_badge_level_name' =>  'Stufenname',
-    'merit_badge_next_level_threshold' =>  'Schwelle zur nächsten Stufe',
-    'merit_badge_gain_count' =>  'Erreichte Stufen',
-    'merit_badge_gain_last_date' =>  'Letzte Hochstufung am',
-    'merit_badge_gain_date' =>  'Hochstufung am',
-    'merit_badge_number' =>  'Fortschritt',
-    'merit_badge_number_threshold' =>  'Schwellen',
+    'merit_badge_level' => 'Stufe',
+    'merit_badge_level_name' => 'Stufenname',
+    'merit_badge_next_level_threshold' => 'Schwelle zur nächsten Stufe',
+    'merit_badge_gain_count' => 'Erreichte Stufen',
+    'merit_badge_gain_last_date' => 'Letzte Hochstufung am',
+    'merit_badge_gain_date' => 'Hochstufung am',
+    'merit_badge_number' => 'Fortschritt',
+    'merit_badge_number_threshold' => 'Schwellen',
     'merit_badge_show_details' => 'Verdienstabzeichen im Detail anzeigen ... ',
     'merit_badge_show_list' => 'Liste der Verdienstabzeichen anzeigen ... ',
     'merit_badge_gain_max_level' => 'Du hast die höchste Stufe erreicht.',
@@ -3000,8 +2998,8 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'usrIgnore_removingSuccess' => 'Cache wird nicht mehr ignoriert',
 
     'gp_logoUpdateTitle' => 'Geopfad-Logo hochladen',
-    'gp_logoUpdateInfo' => 'Datei hochladen, die als Geopfad-Logo verwendet werden soll. '.
-                           'Beachte bitte das Urheberrecht. Du musst zum Veröffentlichen der Datei berechtigt sein.',
+    'gp_logoUpdateInfo' => 'Datei hochladen, die als Geopfad-Logo verwendet werden soll. '
+                           . 'Beachte bitte das Urheberrecht. Du musst zum Veröffentlichen der Datei berechtigt sein.',
 
     'SmartPhone_Apps' => 'Smartphone-Apps',
     'SmartPhone_Support' => 'Diese Smartphone-Apps bieten eine volle Live-Unterstützung für Opencaching:',
@@ -3022,7 +3020,6 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'gpCandidates_offerCanceled' => 'Angebot abgelehnt',
     'gpCandidates_errorOnCancel' => 'Beim Ablehnen des Angebots ist ein Fehler aufgetreten.',
     'gpCandidates_cancelOfferInProgress' => 'wird abgebrochen',
-
 
     'gpMyCandidates_title' => 'Geopfad-Kandidaten für Benutzer',
     'gpMyCandidates_submitedDate' => 'Datum',
@@ -3075,7 +3072,6 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'editCache_orderPicsSaveErr' => 'Problem with update pics order occured',
     'editCache_orderPicsSaveSuccess' => 'Pics order has been changed',
 
-
     'editDesc_title' => 'Beschreibung des Caches bearbeiten:',
     'editDesc_langLabel' => 'Sprache der Beschreibung',
     'editDesc_langEmptyOpt' => 'Sprache auswählen',
@@ -3097,10 +3093,8 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'editDesc_reactivRuleOptAfterContact' => 'Reactivation is possible <b>only after direct contact</b> with geocache author/owner',
     'editDesc_reactivRuleOptReactAllowed' => 'Reactivation is possible but it <b>must be sure</b> that geocache is gone',
     'editDesc_reactivRuleCustomDefinition' => 'Your own reactivation rules can be paste here',
-    'editDesc_reactivRuleCustomDefinition' => 'Your own reactivation rules can be paste here',
 
     'editDesc_invalidRactivRule' => 'Please select any reactivation rule',
-
 
     'vote_criteriaNotPassed' => 'Currently logged user account doesn\'t pass criteria of participation in voting',
     'vote_electionOpenUntil' => 'This election is open until',
@@ -3218,5 +3212,4 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'at_day' => 'Nachts nicht empfohlen',
     'at_notinwinter' => 'im Winter nicht zugänglich',
     'at_allseasons' => 'Ganztägig verfügbar',
-
-);
+];

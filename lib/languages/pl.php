@@ -1,6 +1,6 @@
 <?php
 
-$translations = array(
+$translations = [
     'main_menu' => 'Menu główne',
     'user_menu' => 'Menu użytkownika',
     'new' => 'Nowa',
@@ -380,7 +380,6 @@ $translations = array(
     'postActivation_mail_04' => 'Zanim założysz swoje pierwsze skrzynki w serwisie {site_name}, znajdź przynajmniej {NEED_FIND_LIMIT} skrzynek, by zdobyć doświadczenie.',
     'postActivation_mail_cacheguides' => 'Przewodnicy-wolontariusze po geocachingu',
 
-
     'password_confirm' => 'Potwierdź hasło',
     'register_msg1' => 'W celu rejestracji na {site_name} musisz posiadać rzeczywisty adres e-mail, na który zostanie wysłany link aktywacyjny. Na jeden adres e-mail możesz zarejestrować tylko jednego użytkownika.',
     'register_msg2' => 'Pola zaznaczone * są obowiązkowe.',
@@ -459,7 +458,7 @@ $translations = array(
     'map_toggleFilters' => 'Przełącz filtry',
     'fullscreen' => 'Pełny ekran',
     'map_disableFullscreen' => 'Wyłącz pełny ekran',
-    'map_refresh'=> 'Odśwież mapę',
+    'map_refresh' => 'Odśwież mapę',
     'map_search' => 'Wyszukiwanie...',
     'map_searchPlacePlaceholder' => 'Szukaj: miejsce',
     'map_searchTrigger' => 'Szukaj',
@@ -1172,7 +1171,7 @@ $translations = array(
     'qrcode_button' => 'Generuj',
     'qrcode_downloadLabeled' => 'Pobierz tę etykietkę',
     'qrcode_downloadQRCodeOnly' => 'Pobierz wyłącznie czysty QR Code',
-    'qrcode_appInfo' => 'Możesz znaleźć czytnik kodów QR dla różnych smartfonów np. <a class="links" href="http://www.i-nigma.com/Downloadi-nigmaReader.html" target="_blank">TUTAJ</a>.',
+    'qrcode_appInfo' => 'Jeśli chcesz, możesz poszukać "QR Code reader" w sklepie z aplikacjami',
     'error_ort' => 'Nie znaleziono wskazanego miejsca',
     'alert_search_by_cachename' => 'Proszę w polu nazwa wprowadzić wartość!',
     'alert_search_by_dist_01' => 'Stopnie długości geograficznej muszą być cyfrą! Format: hh° mm.mmm',
@@ -1278,7 +1277,7 @@ $translations = array(
     'mailto_senderCopy' => 'To jest kopia Twojej wiadomości do użytkownika',
     'mailto_messageForYou' => 'Wiadomość dla Ciebie',
     'region_not_ok' => 'Proszę wybrać województwo!',
-    'dummy_outside' => "Poza granicami kraju",
+    'dummy_outside' => 'Poza granicami kraju',
     'index_01' => 'Ranking skrzynek według liczonego indeksu',
     'index_02' => 'Poniższy ranking jest generowany na podstawie rekomendacji użytkowników. Objaśnienie znaków:',
     'index_03' => 'Liczba użytkowników rekomendujących tę skrzynkę',
@@ -1712,7 +1711,7 @@ $translations = array(
     'pt126' => 'Informacja',
     'pt127' => 'dodał wpis typu',
     'pt128' => 'Nowy wpis dla GeoŚcieżki',
-    'pt129' => 'Javascript jest wyłączona przez Twoją przeglądarkę lub używasz starej przeglądarki (IE6, IE7, IE8), która nie jest już obsługiwana. Strona nie będzie działać prawidłowo, lub jej funkcje zostaną znacząco ograniczone (nie będziesz mieć dostępu do większości funkcjonalności). Zalecamy skorzystanie z najnowszych przeglądarek. (<a href="https://www.mozilla.org/pl/firefox/new/">FireFox</a>, <a href="https://www.google.pl/intl/pl/chrome/">Chrome</a>, <a href="https://www.opera.com/">Opera</a>)',
+    'pt129' => 'Javascript jest wyłączona przez Twoją przeglądarkę lub używasz starej przeglądarki (IE6, IE7, IE8), która nie jest już obsługiwana. Strona nie będzie działać prawidłowo, lub jej funkcje zostaną znacząco ograniczone (nie będziesz mieć dostępu do większości funkcjonalności). Zalecamy skorzystanie z najnowszych przeglądarek. (<a href="https://www.mozilla.org/">FireFox</a>, <a href="https://www.google.pl/intl/pl/chrome/">Chrome</a>, <a href="https://www.opera.com/">Opera</a>)',
     'pt130' => 'Usuń',
     'restore' => 'Przywróć',
     'pt131' => 'Wpis GeoPath "%s" został usunięty',
@@ -1836,7 +1835,6 @@ $translations = array(
     'gp_ownCacheAddedToGeopath' => 'Twoja skrzynka została dodana do GeoŚcieżki.',
     'gp_cacheRemovedFromGeopath' => 'Skrzynkę usunięto z GeoŚcieżki.',
 
-
     'statpic_found' => 'Znalazł:',
     'statpic_hidden' => 'Ukrył:',
     'statpic_html_link' => '- Statystyka dla',
@@ -1916,7 +1914,7 @@ $translations = array(
     'search_gpxgc_06' => 'Rekomendacje',
     'search_gpxgc_07' => 'Parki Narodowe/Krajobrazowe',
 
-// Attributes
+    // Attributes
     'attribute_9001' => 'Nie można zabrać psa',
     'attribute_2' => 'Opłata za wejście lub parking',
     'attribute_3' => 'Wymagany sprzęt wspinaczkowy',
@@ -2002,7 +2000,7 @@ $translations = array(
     'attribute_219' => 'Odpowiedni by zawierać geokrety',
     'attribute_220' => 'Oficjalny zabytek historyczny',
     'attribute_999' => 'Hasło do logu',
-// END Attributes
+    // END Attributes
 
     'weather' => 'Pogoda',
     'vl_Recently_modified_on' => 'Ostatnio edytowany',
@@ -2130,7 +2128,7 @@ $translations = array(
     'contact_pl_other_description' => 'W sprawach bezpośrednio związanych z funkcjonowaniem serwisu Opencaching PL możesz napisać list na adres <b>ocpl at opencaching.pl</b>. Otrzymanie odpowiedzi może potrwać, więc bądź cierpliwy.',
     'contact_ocpl_title' => 'Polska wersja Opencaching',
     'contact_ocpl_description_1' => '- Maj 2006 - Pomysł i idea polskiego serwisu geocaching oraz uruchomienie i opracowanie polskiej wersji OC plus modyfikacje Waldek "sp2ong" + duża pomoc kolegów, którzy brali udział w testowaniu.',
-    'contact_ocpl_description_2' => '- 2011 Wojtek "wrygiel" autor OKAPI czyli Opencaching API http://opencaching.pl/okapi',
+    'contact_ocpl_description_2' => '- 2011 Wojtek "wrygiel" autor OKAPI czyli Opencaching API https://opencaching.pl/okapi',
     'contact_ocpl_description_3' => '- 2011 Jakub "lecter69" autor wersji mobilnej OC PL',
     'contact_ro_about_title' => 'Pytania dotyczące Opencachingu i geocachingu',
     'contact_ro_about_description_1' => 'Informację na temat <b>geocachingu</b> znajdziesz na rumuńskiej stronie <a href="{link}"> OpenGeoWiki </a>.',
@@ -2511,7 +2509,7 @@ $translations = array(
     'LogPassword' => 'Potrzebne hasło do logu!',
     'abovesealevel' => 'm n.p.m.',
     'cache_alt' => 'Wysokość',
-    'waypoint_error2' => 'Waypoint musi być w jednym z podanych formatów: '.$GLOBALS['oc_waypoint'].'xxxx, GCxxxxx, Nxxxxx',
+    'waypoint_error2' => 'Waypoint musi być w jednym z podanych formatów: ' . $GLOBALS['oc_waypoint'] . 'xxxx, GCxxxxx, Nxxxxx',
     'pagetitle_print' => 'drukowanie',
     'natura2000' => 'NATURA 2000 obszar',
     'WeekCache' => 'Skrzynka tygodnia',
@@ -2569,14 +2567,14 @@ $translations = array(
     'ArchivedGeocaches' => 'Skrzynki zarchiwizowane',
     'merit_badges' => 'Sprawności',
     'merit_badge' => 'Sprawność',
-    'merit_badge_level' =>  'Poziom',
-    'merit_badge_level_name' =>  'Osiągnięty poziom',
-    'merit_badge_next_level_threshold' =>  'Próg następnego poziomu',
-    'merit_badge_gain_count' =>  'Licznik zdobyć',
-    'merit_badge_gain_last_date' =>  'Ostatnia data zdobycia',
-    'merit_badge_gain_date' =>  'Data zdobycia',
-    'merit_badge_number' =>  'Postęp',
-    'merit_badge_number_threshold' =>  'Progi',
+    'merit_badge_level' => 'Poziom',
+    'merit_badge_level_name' => 'Osiągnięty poziom',
+    'merit_badge_next_level_threshold' => 'Próg następnego poziomu',
+    'merit_badge_gain_count' => 'Licznik zdobyć',
+    'merit_badge_gain_last_date' => 'Ostatnia data zdobycia',
+    'merit_badge_gain_date' => 'Data zdobycia',
+    'merit_badge_number' => 'Postęp',
+    'merit_badge_number_threshold' => 'Progi',
     'merit_badge_show_details' => 'Pokaż szczegóły zdobytych sprawności ... ',
     'merit_badge_show_list' => 'Pokaż wszystkie dostępne sprawności ... ',
     'merit_badge_gain_max_level' => 'Osiągnąłeś najwyższy poziom',
@@ -2804,7 +2802,7 @@ $translations = array(
     'ogpx_paramMyNotesHeader' => 'Czy (i w jaki sposób) osadzić w pliku osobiste notatki?',
     'ogpx_paramMyNotes_desctext' => 'Pokaż moje osobiste notatki bezpośrednio w opisie skrzynki.',
     'ogpx_paramMyNotes_gcpersonalnote_HTML' => 'Wygeneruj odpowiednie elementy <code>groundspeak:personal_note</code>.',
-    'ogpx_paramLocationSourceHeader' => 'Które z dostępnych współrzędnych uznać jako \"główne\"?',
+    'ogpx_paramLocationSourceHeader' => 'Które z dostępnych współrzędnych uznać jako "główne"?',
     'ogpx_paramLocationSource_default' => 'Oryginalne współrzędne z mapy (podane przez autora skrzynki).',
     'ogpx_paramLocationSource_usercoords' => 'Gdy tylko się da, użyj moich własnych współrzędnych (opcja może być przydatna np. w przypadku znalezionych już Quizów).',
     'ogpx_paramLocationSource_parking' => 'Współrzędne parkingu, o ile zostały podane (zostaną pobrane z listy dodatkowych punktów, zdefiniowanych przez autora skrzynki).',
@@ -2999,8 +2997,8 @@ $translations = array(
     'usrIgnore_removingSuccess' => 'Skrzynkę usunięto z ignorowanych',
 
     'gp_logoUpdateTitle' => 'Nowe logo geościeżki',
-    'gp_logoUpdateInfo' => 'Prześlij nowe logo geościeżki. '.
-                           'Pamiętaj! Nie przesyłaj do serwisu plików do których nie posiadasz praw autorskich lub zgody właściciela na ich użycie.',
+    'gp_logoUpdateInfo' => 'Prześlij nowe logo geościeżki. '
+                           . 'Pamiętaj! Nie przesyłaj do serwisu plików do których nie posiadasz praw autorskich lub zgody właściciela na ich użycie.',
 
     'SmartPhone_Apps' => 'Aplikacje na smartfony',
     'SmartPhone_Support' => 'Te aplikacje Geocaching na smartfony oferują pełną obsługę Opencaching w czasie rzeczywistym:',
@@ -3021,7 +3019,6 @@ $translations = array(
     'gpCandidates_offerCanceled' => 'Oferta anulowana',
     'gpCandidates_errorOnCancel' => 'Nie można anulować tej oferty - wystąpił błąd',
     'gpCandidates_cancelOfferInProgress' => 'Anulowanie w toku',
-
 
     'gpMyCandidates_title' => 'Kandydaci do geościeżki dla użytkownika',
     'gpMyCandidates_submitedDate' => 'Data',
@@ -3074,7 +3071,6 @@ $translations = array(
     'editCache_orderPicsSaveErr' => 'Wystąpił problem ze zmianą kolejności obrazków',
     'editCache_orderPicsSaveSuccess' => 'Kolejność obrazków została zmieniona',
 
-
     'editDesc_title' => 'Edytuj opis skrzynki:',
     'editDesc_langLabel' => 'Język opisu',
     'editDesc_langEmptyOpt' => 'Wybierz język',
@@ -3096,10 +3092,8 @@ $translations = array(
     'editDesc_reactivRuleOptAfterContact' => 'Reaktywacja jest możliwa <b>tylko po bezpośrednim kontakcie</b> z autorem/właścicielem skrzynki',
     'editDesc_reactivRuleOptReactAllowed' => 'Reaktywacja jest możliwa, <b>o ile istnieje pewność</b>, że skrzynka zaginęła',
     'editDesc_reactivRuleCustomDefinition' => 'Podaj Twoje własne reguły reaktywacji',
-    'editDesc_reactivRuleCustomDefinition' => 'Twoje własne reguły reaktywacji można wkleić tutaj',
 
     'editDesc_invalidRactivRule' => 'Proszę wybrać regułę reaktywacji',
-
 
     'vote_criteriaNotPassed' => 'Aktualnie zalogowany użytkownik nie spełnia kryteriów udziału w głosowaniu',
     'vote_electionOpenUntil' => 'Głosowanie trwa do',
@@ -3137,7 +3131,7 @@ $translations = array(
     'vote_optionsToChoose' => 'Opcje wyboru',
 
     'at_fee' => 'Opłata za wejście lub parking',
-    'at_rapelling' => 'Climbing gear requried',
+    'at_rapelling' => 'Wymagany sprzęt wspinaczkowy',
     'at_boat' => 'Wymaga sprzętu pływającego',
     'at_diving' => 'Wymagany sprzęt nurkowy',
     'at_children' => 'Można zabrać dzieci',
@@ -3173,7 +3167,7 @@ $translations = array(
     'at_drivein' => 'Szybka skrzynki (drive-in)',
     'at_ruin' => 'Opuszczona budowla/ruiny',
     'at_beacon' => 'Beacon',
-    'at_tree_climbing' => 'Tree climbing required',
+    'at_tree_climbing' => 'Wspinaczka na drzewo',
     'at_oconly' => 'Możliwy do zalogowania tylko na Opencaching',
     'at_letterbox' => 'Letterbox',
     'at_train' => 'Uwaga na kolej',
@@ -3217,5 +3211,4 @@ $translations = array(
     'at_day' => 'Nie zaleca się szukania w nocy',
     'at_notinwinter' => 'Niedostępna zimą',
     'at_allseasons' => 'Dostępne przez cały rok',
-
-);
+];

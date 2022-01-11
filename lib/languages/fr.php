@@ -1,6 +1,6 @@
 <?php
 
-$translations = array(
+$translations = [
     'main_menu' => 'Menu principal',
     'user_menu' => 'Menu Utilisateur',
     'new' => 'NOUVEAU',
@@ -267,7 +267,7 @@ $translations = array(
     'type_incorrect' => 'Le type de cache est incorrect !',
     'typewp_incorrect' => 'Aucun waypoint sélectionné !',
     'size_incorrect' => 'La taille de la cache est incorrect !',
-    'diff_incorrect' => 'Le niveau de difficulté, est incorrect !',
+    'diff_incorrect' => 'Le niveau de difficulté, est incorrect!',
     'status_incorrect' => 'Le statut ne correspond pas aux données publiées.',
     'virtual_cache_size' => 'La taille de la cache pour les « événement » doit être défini à « aucun conteneur »',
     'full_description' => 'Description complète',
@@ -332,11 +332,11 @@ $translations = array(
     'total_of_active_caches' => 'Nombre de caches actives',
     'total_moved' => 'Nombre de caches mobiles déplacés',
     'startPage_intro_pl' => 'Le géocaching est une activité de plein air dans laquelle des chercheurs utilisent un récepteur GPS pour trouver un « trésor » caché par d’autres participants. Les caches sont sécurisés dans des récipients étanches, contenant des objets d’échange (généralement sans valeur) et un carnet dans lequel les découvreurs enregistrent leur découverte. Les coordonnées de l’emplacement des caches sont stockées dans des bases de données en ligne comme opencaching.nl ainsi que les descriptions et instructions nécessaires pour les retrouver.<br/>Sur ce site vous trouverez tout sur le geocaching en Pologne. Opencaching.pl en Pologne a débuté en <span class="content-title-noshade"></span>de mai 2006. C’est le principal site de géocaching de Pologne. Notre base de données fonctionne sur le <a href="https://github.com/opencaching/opencaching-pl/wiki">projet Open source Opencaching.PL</a>.',
-    'startPage_intro_nl' => '<b>Bienvenue sur opencaching.nl, le site de geocaching pour le BeNeLux ! Ce site a beaucoup à offrir et est complètement libre d’utilisation ! Il vous suffi de créer un compte et de commencer à explorer. Vous pouvez trouver des caches bien connues, mais nous offrons également d’autres <a href="http://wiki.opencaching.nl/index.php/Cache_parameters#Cache_type">types de caches</a> tel que les caches Virtuelles, Mobiles, Webcam, MP3 (Podcast) et possède des caches qui ne sont pas disponibles sur d’autres réseaux. Évidement, nous aimerions voir seulement de belles caches et pas des « caches graviers » telles que les nano et micro dans des lieux sans âmes.</br>L’important est la façon dont nous approuvons nouvelles caches. Nous approuvons les 3 premières que vous poserez et vous aurez toute la liberté de publier les suivantes en autonomie ! Nous offrons également d’un simple clic un aperçu de tout ce qui se passe dans votre quartier : nouveaux trésors, FTF qui sont en attente, les derniers journaux, etc…</br>N’hésitez pas à jeter un œil à nos <a href="http://wiki.opencaching.nl/index.php/mnu_mainPage">pages Wiki</a> et à lire nos <a href="http://wiki.opencaching.nl/index.php/Terms_of_Use">Conditions d’Utilisation</a>. Vous pouvez également poser vos questions sur notre <a href="http://forum.opencaching.nl">Forum</a></br></br>Soyez le bienvenu et démarrez la recherche et la caches de trésors !!!</b>',
+    'startPage_intro_nl' => '<b>Bienvenue sur opencaching.nl, le site de geocaching pour le BeNeLux ! Ce site a beaucoup à offrir et est complètement libre d’utilisation ! Il vous suffi de créer un compte et de commencer à explorer. Vous pouvez trouver des caches bien connues, mais nous offrons également d’autres <a href="http://wiki.opencaching.nl/index.php/Cache_parameters#Cache_type">types de caches</a> tel que les caches Virtuelles, Mobiles, Webcam, MP3 (Podcast) et possède des caches qui ne sont pas disponibles sur d’autres réseaux. Évidement, nous aimerions voir seulement de belles caches et pas des « caches graviers » telles que les nano et micro dans des lieux sans âmes.</br>L’important est la façon dont nous approuvons nouvelles caches. Nous approuvons les 3 premières que vous poserez et vous aurez toute la liberté de publier les suivantes en autonomie ! Nous offrons également d’un simple clic un aperçu de tout ce qui se passe dans votre quartier : nouveaux trésors, FTF qui sont en attente, les derniers journaux, etc…</br>N’hésitez pas à jeter un œil à nos <a href="https://wiki.opencaching.nl/index.php/mnu_mainPage">pages Wiki</a> et à lire nos <a href="https://wiki.opencaching.nl/index.php/Terms_of_Use">Conditions d’Utilisation</a>. Vous pouvez également poser vos questions sur notre <a href="https://forum.opencaching.nl">Forum</a></br></br>Soyez le bienvenu et démarrez la recherche et la caches de trésors !!!</b>',
     'startPage_intro_en' => 'Le géocaching est une activité de plein air dans laquelle des chercheurs utilisent un récepteur GPS pour trouver un « trésor » caché par d’autres participants. Les caches sont sécurisés dans des récipients étanches, contenant des objets d’échange (généralement sans valeur) et un carnet dans lequel les découvreurs enregistrent leur découverte. Les coordonnées de l’emplacement des caches sont stockées dans des bases de données en ligne comme opencaching.nl ainsi que les descriptions et instructions nécessaires pour les retrouver.',
     'startPage_intro_ro' => 'Geocaching este un joc în aer liber prin care jucãtorii încearcã sã gãseascã cu ajutorul unui receptor GPS "comori" ascunse de alþi jucãtori. Aceste "comori" (<i>geocutii</i>) sunt cutii ermetice de diverse forme ºi mãrimi, care conþin mici jucãrii sau cadouri ºi un carneþel (<i>jurnal</i>) în care fiecare jucãtor înregistreazã descoperirea geocutiei. Coordonatele geografice la care se aflã geocutia sunt pãstrate într-o bazã de date publicã precum opencaching.ro împreunã cu o descriere ºi instrucþiuni care sã ajute la gãsirea ei. <br /> Pe acest site afli despre geocaching în România. Opencaching.ro funcþioneazã din <span class="content-title-noshade">aprilie 2014</span> pentru a sprijini ºi promova acest joc în România. <br /><br /> Proiectul Opencaching este o abordare <b>open-source</b> a jocului "geocaching" ºi se bazeazã pe mai multe noduri în diferite þãri, care fac schimb de informaþii între ele despre geocutiile si utilizatorii fiecãruia. <br /> Opencaching.ro funcþioneazã pe platforma open-source <span class="content-title-noshade">opencaching-pl</span>.',
     'startPage_intro_uk' => 'Le <b>géocaching</b> est une activité de plein air dans laquelle des chercheurs utilisent un récepteur GPS pour trouver un « trésor » caché par d’autres participants. Les caches sont sécurisés dans des récipients étanches, contenant des objets d’échange (généralement sans valeur) et un carnet dans lequel les découvreurs enregistrent leur découverte. Les coordonnées de l’emplacement des caches sont stockées dans des bases de données en ligne comme opencaching.nl ainsi que les descriptions et instructions nécessaires pour les retrouver.',
-    'startPage_intro_us' => 'Welcome to OpenCaching North America! Geocaching is about having fun outdoors while using GPS-enabled devices to find "treasure" hidden by other participants. Typical geocaches are small watertight containers that holds a logbook in which the finder can record their visit. The container may also hold small trinkets that can be traded. To learn more about geocaching visit our <a href="http://wiki.opencaching.us/index.php/Main_Page" target="_blank">wiki pages</a>.<br /><br />This is the official OpenCaching site for North America (including Central America and the Caribbean) and all US Territories. This site went live on August 18, 2010. Our goal is to have a database of quality, unique caches that, once approved by the OC Team, are enjoyed and rated by YOU, the geocaching community. OCNA offers twelve cache types, including virtual, webcam, and moving caches. We also offer a number of unique cache types: BIT Caches, Guest Book Caches, MP3 (Podcast) Caches, and Benchmarks. The site is 100% free to use with no "regular vs premium member" functions or restrictions.',
+    'startPage_intro_us' => 'Welcome to OpenCaching North America! Geocaching is about having fun outdoors while using GPS-enabled devices to find "treasure" hidden by other participants. Typical geocaches are small watertight containers that holds a logbook in which the finder can record their visit. The container may also hold small trinkets that can be traded. To learn more about geocaching visit our <a href="https://wiki.opencaching.us/index.php/Main_Page" target="_blank">wiki pages</a>.<br /><br />This is the official OpenCaching site for North America (including Central America and the Caribbean) and all US Territories. This site went live on August 18, 2010. Our goal is to have a database of quality, unique caches that, once approved by the OC Team, are enjoyed and rated by YOU, the geocaching community. OCNA offers twelve cache types, including virtual, webcam, and moving caches. We also offer a number of unique cache types: BIT Caches, Guest Book Caches, MP3 (Podcast) Caches, and Benchmarks. The site is 100% free to use with no "regular vs premium member" functions or restrictions.',
     'filename_describe_cache' => '{wiki_link_cacheParams_en}',
     'map_msg' => 'Afin de visualiser les coordonnées et <br/>la carte des caches<br/> vous devez être <a href="login.php?target={target}">connecté</a>',
     'additional_hints' => 'Indices supplémentaires',
@@ -379,7 +379,6 @@ $translations = array(
     'postActivation_mail_03' => 'Carte des guides bénévoles :',
     'postActivation_mail_04' => 'Avant de pouvoir publier votre première cache sur {site_name} , vous devez trouver au moins {NEED_FIND_LIMIT} caches, pour acquérir de l’expérience.',
     'postActivation_mail_cacheguides' => 'Geocaching Guides / Gurus',
-
 
     'password_confirm' => 'Confirmer le mot de passe',
     'register_msg1' => 'Pour créer un compte sur {site_name}, vous devez entrer un nom d’utilisateur et une adresse e-mail valide. <br/>Un e-mail avec un lien d’activation vous sera envoyé à l’adresse que vous avez fourni. Un seul compte peut être créé par adresse de messagerie.',
@@ -459,7 +458,7 @@ $translations = array(
     'map_toggleFilters' => 'Changer les Filtres',
     'fullscreen' => 'Plein écran',
     'map_disableFullscreen' => 'Désactiver le plein écran',
-    'map_refresh'=> 'Rafraîchir la carte',
+    'map_refresh' => 'Rafraîchir la carte',
     'map_search' => 'Chercher…',
     'map_searchPlacePlaceholder' => 'Chercher : lieu',
     'map_searchTrigger' => 'Chercher',
@@ -1172,7 +1171,7 @@ $translations = array(
     'qrcode_button' => 'Générer',
     'qrcode_downloadLabeled' => 'Télécharger cette étiquette de QR Code',
     'qrcode_downloadQRCodeOnly' => 'Télécharger seulement le QR Code',
-    'qrcode_appInfo' => 'You can find "QR Code reader" applications for various smartphones <a class="links" href="http://www.i-nigma.com/Downloadi-nigmaReader.html" target="_blank">HERE</a>.',
+    'qrcode_appInfo' => 'You can find "QR Code reader" applications for various smartphones in your app store.',
     'error_ort' => 'Échec de la localisation',
     'alert_search_by_cachename' => 'Entrez le nom de la cache !',
     'alert_search_by_dist_01' => 'La longitude doit être au format suivant : ddd mm.mmm',
@@ -1278,7 +1277,7 @@ $translations = array(
     'mailto_senderCopy' => 'Il s’agit d’une copie de votre message à l’utilisateur',
     'mailto_messageForYou' => 'Ce message est pour vous',
     'region_not_ok' => 'Veuillez choisir une région !',
-    'dummy_outside' => "À l’étranger",
+    'dummy_outside' => 'À l’étranger',
     'index_01' => 'Classement des caches par l’indice calculé',
     'index_02' => 'La liste suivante est générée automatiquement à partir de recommandations des utilisateurs. Les nombres dans la liste ci-dessous signifient :',
     'index_03' => 'Nombre d’utilisateurs qui ont recommandé cette cache',
@@ -1712,7 +1711,7 @@ $translations = array(
     'pt126' => 'Information',
     'pt127' => 'Ajouter nouveau commentaire',
     'pt128' => 'Ajouter un nouveau commentaire au GeoPath',
-    'pt129' => 'Le Javascript de votre navigateur est désactivé, ou vous semblez utiliser un navigateur ancien (IE6, IE7, IE8), qui n’est plus supporté. Ce site ne fonctionnera pas correctement, ou ses fonctions seront significativement réduites (vous n’aurez pas accès a la plupart des fonctionnalités). Nous recommandons d’utiliser un navigateur récent. (<a href="https://www.mozilla.org/pl/firefox/new/">FireFox</a>, <a href="http://www.google.pl/intl/pl/chrome/">Chrome</a>, <a href="http://www.opera.com/">Opera</a>)',
+    'pt129' => 'Le Javascript de votre navigateur est désactivé, ou vous semblez utiliser un navigateur ancien (IE6, IE7, IE8), qui n’est plus supporté. Ce site ne fonctionnera pas correctement, ou ses fonctions seront significativement réduites (vous n’aurez pas accès a la plupart des fonctionnalités). Nous recommandons d’utiliser un navigateur récent. (<a href="https://www.mozilla.org/">Firefox</a>, <a href="https://www.google.com/chrome/">Chrome</a>, <a href="https://www.opera.com/">Opera</a>)',
     'pt130' => 'Supprimer',
     'restore' => 'Restore',
     'pt131' => 'Entry of GeoPath "%s" has been removed',
@@ -1836,7 +1835,6 @@ $translations = array(
     'gp_ownCacheAddedToGeopath' => 'Your cache is already added to geopath.',
     'gp_cacheRemovedFromGeopath' => 'Cache is already removed from geopath.',
 
-
     'statpic_found' => 'Trouvées :',
     'statpic_hidden' => 'Placées :',
     'statpic_html_link' => '- Statistiques pour',
@@ -1916,7 +1914,7 @@ $translations = array(
     'search_gpxgc_06' => 'Recommandation',
     'search_gpxgc_07' => 'Parc national',
 
-// Attributes
+    // Attributes
     'attribute_9001' => 'Dogs not allowed',
     'attribute_2' => 'Access or parking fee',
     'attribute_3' => 'Climbing gear requried',
@@ -2002,7 +2000,7 @@ $translations = array(
     'attribute_219' => 'Suitable to hold trackables',
     'attribute_220' => 'Officially designated historical monument',
     'attribute_999' => 'Log password',
-// END Attributes
+    // END Attributes
 
     'weather' => 'Météo',
     'vl_Recently_modified_on' => 'Modifié récemment sur',
@@ -2121,7 +2119,7 @@ $translations = array(
     'newCacheWpClose' => 'Fermer',
     'contact_pl_about_title' => 'Questions sur le Géocaching',
     'contact_pl_about_description_1' => 'Vous souhaitez en savoir plus sur le Géocaching ? Vous trouverez des informations sur la page <a href="{wiki_link_main}">OpenGeoWiki</a>.',
-    'contact_pl_about_description_2' => 'Avez-vous des commentaires, des questions, des suggestions, ou souhaitez juste participer au développement de la plateforme <i>Opencaching</i> ? Tous ces sujets sont discutés sur notre <a href="http://forum.opencaching.pl">Forum</a>.',
+    'contact_pl_about_description_2' => 'Avez-vous des commentaires, des questions, des suggestions, ou souhaitez juste participer au développement de la plateforme <i>Opencaching</i>? Tous ces sujets sont discutés sur notre <a href="https://forum.opencaching.pl">Forum</a>.',
     'contact_pl_about_team' => 'Équipe Opencaching PL',
     'contact_pl_rr_description' => '- Les membres de l’équipe sont listes sur la <a href="{link}">page suivante</a>',
     'contact_pl_rt_description' => '- Les membres de l’équipe technique sont listes sur la <a href="{link}">page suivante</a>',
@@ -2130,7 +2128,7 @@ $translations = array(
     'contact_pl_other_description' => 'Pour des cas directement au sujet de Opencaching PL vous pouvez nous contacter par e-mail à l’adresse <b>ocpl@opencaching.pl</b>. Soyez patient, le temps de réponse peut être assez long.',
     'contact_ocpl_title' => 'Version polonaise d’Opencaching',
     'contact_ocpl_description_1' => '- Mai 2006 - Idée du service de géocaching Polonais, développement initial et le déploiement de OC.PL - Grâce a Waldek « sp2ong » et beaucoup d’aide de ses amis.',
-    'contact_ocpl_description_2' => '- 2011 Wojtek « wrygiel » - auteur de l’API Opencaching : https://opencaching.pl/okapi',
+    'contact_ocpl_description_2' => '- 2011 Wojtek "wrygiel" - auteur de l’API Opencaching: https://opencaching.pl/okapi',
     'contact_ocpl_description_3' => '- 2011 Jakub « lecter69 » - auteur de la version mobile',
     'contact_ro_about_title' => 'contact_ro_about_title',
     'contact_ro_about_description_1' => 'contact_ro_about_description_1',
@@ -2148,14 +2146,14 @@ $translations = array(
     'contact_nl_desc_2_3' => '<a href="https://www.opencaching.nl/viewprofile.php?userid=4456"><b>>Raven</b></a> (Roelof) : Modère les nouvelles caches de la région de Zeeland Pays-Bas.',
     'contact_nl_desc_2_4' => '<a href="https://www.opencaching.nl/viewprofile.php?userid=1995"><b>zjefke</b></a> (Jos) : Modère les nouvelles caches de la région de Antwerpen Belgique.',
     'contact_nl_title_3' => 'Utilisation du site Web, suggestions et critiques.',
-    'contact_nl_desc_3_1' => 'Pour cela, nous avons une sous-rubrique sur le <a href="http://forum.opencaching.nl/viewforum.php?f=4">forum</a>. Vous y trouverez plus d’informations pour la plupart des questions, et si vous êtes intéressé pensez à rejoindre l’équipe Opencaching.',
+    'contact_nl_desc_3_1' => 'Pour cela, nous avons une sous-rubrique sur le <a href="https://forum.opencaching.nl/viewforum.php?f=4">forum</a>. Vous y trouverez plus d’informations pour la plupart des questions, et si vous êtes intéressé pensez à rejoindre l’équipe Opencaching.',
     'contact_nl_title_4' => 'Vous pourrez aussi retrouver « Opencaching Benelux » sur les réseaux sociaux suivants.',
     'contact_nl_desc_4_1' => '<a href="https://twitter.com/Opencachingnl"><img src="https://www.opencaching.nl/images/social_media/Twitter-32.png" class="icon32" align="middle" alt=""></a> <a href="https://www.facebook.com/groups/opencachingbenelux/"><img src="https://www.opencaching.nl/images/social_media/Facebook-32.png" class="icon32" align="middle" alt=""></a> <a href="https://plus.google.com/u/0/communities/111177041019520838177"><img src="https://www.opencaching.nl/images/social_media/Google-32.png" class="icon32" align="middle" alt=""></a> <a href="https://www.youtube.com/channel/UCLBglwWiI6HRjCwBVLZQfWw"><img src="https://www.opencaching.nl/images/social_media/YouTube-32.png" class="icon32" align="middle" alt=""></a>',
     'contact_nl_title_5' => 'Autre',
     'contact_nl_desc_5_1' => 'Si les options ci-dessus ne vous donnent pas les réponses à vos questions, vous pouvez nous écrire directement un e-mail à <a href="mailto:contact@opencaching.nl">contact@opencaching.nl</a>',
     'contact_nl_desc_5_2' => 'Il est possible que les bénévoles d’<i>opencaching.nl</i> n’aient pas toujours le temps de répondre à vos questions. Alors ne soyez pas impatient, si vous n’obtenez pas une réponse immédiate à votre question.',
     'contact_nl_title_6' => 'Faire un Don',
-    'contact_nl_desc_6_1' => 'Comme vous pouvez le voir, vous avez la possibilité de faire un don à Opencaching Benelux ce serait pour l’organisation une grande aide et soutien qui sera beaucoup apprécié. Plus d’informations sur notre <a href="http://forum.opencaching.nl/viewforum.php?f=27">forum</a> et/ou notre <a href="http://wiki.opencaching.nl/index.php/Financieel">wiki</a>.',
+    'contact_nl_desc_6_1' => 'Comme vous pouvez le voir, vous avez la possibilité de faire un don à Opencaching Benelux ce serait pour l’organisation une grande aide et soutien qui sera beaucoup apprécié. Plus d’informations sur notre <a href="https://forum.opencaching.nl/viewforum.php?f=27">forum</a> et/ou notre <a href="https://wiki.opencaching.nl/index.php/Financieel">wiki</a>.',
     'contact_nl_desc_6_2' => '<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top"><input type="hidden" name="cmd" value="_s-xclick"><input type="hidden" name="hosted_button_id" value="2QNGQ2WN6A44E"><input type="image" src="https://www.paypalobjects.com/nl_NL/BE/i/btn/btn_donateCC_LG.gif" name="submit" alt="PayPal, de veilige en complete manier van online betalen."><img alt="" src="https://www.paypalobjects.com/nl_NL/i/scr/pixel.gif" width="1" height="1"></form>',
     'contact_uk_1_title' => 'Questions sur le Géocaching',
     'contact_uk_1_desc' => 'Vous souhaitez en savoir plus sur le Géocaching ? Vous trouverez des informations sur la page <a href="https://wiki.opencache.uk/" target="_blank">OpenGeoWiki</a>.',
@@ -2511,7 +2509,7 @@ $translations = array(
     'LogPassword' => 'Vous devez entrer le mot de passe pour enregistrer votre visite !',
     'abovesealevel' => 'sous le niveau de la mer',
     'cache_alt' => 'Altitude',
-    'waypoint_error2' => 'Le waypoint doit etre dans l’un des formats suivants : '.$GLOBALS['oc_waypoint'].'xxxx, GCxxxxx, Nxxxxx',
+    'waypoint_error2' => 'Le waypoint doit etre dans l’un des formats suivants : ' . $GLOBALS['oc_waypoint'] . 'xxxx, GCxxxxx, Nxxxxx',
     'pagetitle_print' => 'Impression en cours',
     'natura2000' => 'NATURA 2000 (Zone de nature Protégée)',
     'WeekCache' => 'Cache de la semaine',
@@ -2569,14 +2567,14 @@ $translations = array(
     'ArchivedGeocaches' => 'Géocaches archivées',
     'merit_badges' => 'Médailles',
     'merit_badge' => 'Médaille',
-    'merit_badge_level' =>  'Niveau',
-    'merit_badge_level_name' =>  'Nom du niveau',
-    'merit_badge_next_level_threshold' =>  'Seuil pour le prochain niveau',
-    'merit_badge_gain_count' =>  'Nombre de récompenses',
-    'merit_badge_gain_last_date' =>  'Dernière récompense reçue le',
-    'merit_badge_gain_date' =>  'Date de la récompense',
-    'merit_badge_number' =>  'Progression',
-    'merit_badge_number_threshold' =>  'Seuils',
+    'merit_badge_level' => 'Niveau',
+    'merit_badge_level_name' => 'Nom du niveau',
+    'merit_badge_next_level_threshold' => 'Seuil pour le prochain niveau',
+    'merit_badge_gain_count' => 'Nombre de récompenses',
+    'merit_badge_gain_last_date' => 'Dernière récompense reçue le',
+    'merit_badge_gain_date' => 'Date de la récompense',
+    'merit_badge_number' => 'Progression',
+    'merit_badge_number_threshold' => 'Seuils',
     'merit_badge_show_details' => 'Montrer les détails des médailles…',
     'merit_badge_show_list' => 'Montrer la liste des médailles…',
     'merit_badge_gain_max_level' => 'Vous avez atteint le plus haut niveau',
@@ -2999,8 +2997,8 @@ $translations = array(
     'usrIgnore_removingSuccess' => 'Cache removed from ignored',
 
     'gp_logoUpdateTitle' => 'Geopath logo upload',
-    'gp_logoUpdateInfo' => 'Upload file which will be used as geopath logo. '.
-                           'Don\'t forget that you need to have copyrights to uploaded file.',
+    'gp_logoUpdateInfo' => 'Upload file which will be used as geopath logo. '
+                           . 'Don\'t forget that you need to have copyrights to uploaded file.',
 
     'SmartPhone_Apps' => 'Smartphone Apps',
     'SmartPhone_Support' => 'These Smartphone Geocaching Apps offer full live support for Opencaching:',
@@ -3021,7 +3019,6 @@ $translations = array(
     'gpCandidates_offerCanceled' => 'Offer canceled',
     'gpCandidates_errorOnCancel' => 'Cannot cancel this offer - error occurred',
     'gpCandidates_cancelOfferInProgress' => 'Cancelation in progress',
-
 
     'gpMyCandidates_title' => 'Candidates to geopaths for user',
     'gpMyCandidates_submitedDate' => 'Date',
@@ -3074,7 +3071,6 @@ $translations = array(
     'editCache_orderPicsSaveErr' => 'Problem with update pics order occured',
     'editCache_orderPicsSaveSuccess' => 'Pics order has been changed',
 
-
     'editDesc_title' => 'Edit description of geocache:',
     'editDesc_langLabel' => 'Language of description',
     'editDesc_langEmptyOpt' => 'Select language',
@@ -3096,10 +3092,8 @@ $translations = array(
     'editDesc_reactivRuleOptAfterContact' => 'Reactivation is possible <b>only after direct contact</b> with geocache author/owner',
     'editDesc_reactivRuleOptReactAllowed' => 'Reactivation is possible but it <b>must be sure</b> that geocache is gone',
     'editDesc_reactivRuleCustomDefinition' => 'Your own reactivation rules can be paste here',
-    'editDesc_reactivRuleCustomDefinition' => 'Your own reactivation rules can be paste here',
 
     'editDesc_invalidRactivRule' => 'Please select any reactivation rule',
-
 
     'vote_criteriaNotPassed' => 'Currently logged user account doesn\'t pass criteria of participation in voting',
     'vote_electionOpenUntil' => 'This election is open until',
@@ -3217,5 +3211,4 @@ $translations = array(
     'at_day' => 'NOT recommended at night',
     'at_notinwinter' => 'NOT available during winter',
     'at_allseasons' => 'Available all seasons',
-
-);
+];
