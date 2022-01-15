@@ -13,7 +13,7 @@ class TitledCacheAddJob extends Job
         return $this->isDue();
     }
 
-    public function run()
+    public function run(): ?string
     {
         $daysSinceLastTitle = $this->db->simpleQueryValue(
             'SELECT DATEDIFF(NOW(), MAX(date_alg)) FROM cache_titled',
@@ -117,7 +117,7 @@ class TitledCacheAddJob extends Job
 
         if (! $rec) {
             // No cache matches the criteria.
-            return;
+            return null;
         }
 
         $queryL = '
@@ -134,12 +134,14 @@ class TitledCacheAddJob extends Job
                         JOIN cache_rating ON `cache_rating`.`cache_id` = cl.`cache_id`
                         AND `cache_rating`.`user_id` = cl.user_id
                         WHERE cl.cache_id = cache_logs.cache_id
+                        AND `cl`.`type` = :2
+                        AND `cl`.`deleted` = 0
                         ORDER BY length(cl.text) DESC
                         LIMIT 1
                     )
             ) AS i';
 
-        $s = $this->db->multiVariableQuery($queryL, $rec['cacheId']);
+        $s = $this->db->multiVariableQuery($queryL, $rec['cacheId'], GeoCacheLog::LOGTYPE_FOUNDIT);
         $recL = $this->db->dbResultFetchOneRowOnly($s);
 
         $queryI = '
@@ -161,8 +163,8 @@ class TitledCacheAddJob extends Job
 
         $SystemUser = -1;
         $LogType = GeoCacheLog::LOGTYPE_ADMINNOTE;
-        $ntitled_cache = OcConfig::getTitledCachePeriod() . '_titled_cache_congratulations';
-        $msgText = str_replace('{ownerName}', htmlspecialchars($rec['userName']), tr($ntitled_cache));
+        $titled_cache_string = OcConfig::getTitledCachePeriod() . '_titled_cache_congratulations';
+        $msgText = str_replace('{ownerName}', htmlspecialchars($rec['userName']), tr($titled_cache_string));
         $LogUuid = Uuid::create();
 
         $this->db->multiVariableQuery(
@@ -197,5 +199,7 @@ class TitledCacheAddJob extends Job
 
         $ctrlMeritBadge = new MeritBadgeController();
         $ctrlMeritBadge->updateTriggerByNewTitledCache($rec['cacheId']);
+
+        return null;
     }
 }
