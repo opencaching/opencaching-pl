@@ -251,7 +251,7 @@ $founds = XDb::xMultiVariableQueryValue(
     <div class="notice">{{empty_entry_notice}}</div>
     <div class="notice">{{report_problem_notice}} <a class="links" href="/report.php?action=add&cacheid={cacheid}">{{report_problem}}</a></div>
 
-    <table class="table">
+    <table class="table logformTable">
         <tr class="form-group-sm">
             <td class="content-title-noshade">
                 <img src="/images/free_icons/page_go.png" class="icon16" alt="">&nbsp;{{type_of_log}}:

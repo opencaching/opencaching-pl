@@ -32,9 +32,17 @@
   flex-wrap: wrap
   -webkit-flex-wrap: wrap
 
+@mixin jc-center
+  justify-content: center
+  -webkit-justify-content: center
+
 @mixin space-between
   justify-content: space-between
   -webkit-justify-content: space-between
+
+@mixin evenly-evenly
+  justify-content: space-evenly
+  -webkit-justify-content: space-around
 
 @mixin space-between-last-row
   &::after

@@ -442,7 +442,7 @@ use src\Utils\Uri\SimpleRouter as _SimpleRouter;
       }
 
       //responsive mode - left nav
-      function maybe_chaneg_nav(){
+      function maybe_change_navigation(){
           if (screen.width <= 768) {
               $('#nav3 ul .group').slideUp();
           }
