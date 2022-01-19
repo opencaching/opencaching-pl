@@ -18,7 +18,7 @@ class LocationController extends BaseController
         parent::__construct();
     }
 
-    public function isCallableFromRouter($actionName)
+    public function isCallableFromRouter(string $actionName)
     {
         return true;
     }

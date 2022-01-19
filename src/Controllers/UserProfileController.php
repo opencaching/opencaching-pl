@@ -33,7 +33,7 @@ class UserProfileController extends BaseController
         // $this->requestedUser = $this->loadRequestedUser();
     }
 
-    public function isCallableFromRouter($actionName)
+    public function isCallableFromRouter(string $actionName)
     {
         // all public methods can be called by router
         return true;

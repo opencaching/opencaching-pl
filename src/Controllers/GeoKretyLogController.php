@@ -36,7 +36,7 @@ class GeoKretyLogController extends BaseController
         }
     }
 
-    public function isCallableFromRouter($actionName){
+    public function isCallableFromRouter(string $actionName){
         // this controlled is planned to be called only from cron (not by router)
         return FALSE;
     }

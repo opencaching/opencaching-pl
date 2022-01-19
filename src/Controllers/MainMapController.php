@@ -53,7 +53,7 @@ class MainMapController extends BaseController
         $this->mapJsParams = new MainMapJsParams();
     }
 
-    public function isCallableFromRouter($actionName)
+    public function isCallableFromRouter(string $actionName)
     {
         return true;
     }

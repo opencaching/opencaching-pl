@@ -17,7 +17,7 @@ class UpdateController extends BaseController
         parent::__construct();
     }
 
-    public function isCallableFromRouter($actionName)
+    public function isCallableFromRouter(string $actionName)
     {
         // It MUST be safe to run update any time. (Concurrent runs are prevented
         // by locks). Therefore it is also safe to publish this page via router.

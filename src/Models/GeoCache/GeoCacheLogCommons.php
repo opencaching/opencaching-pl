@@ -1,37 +1,32 @@
 <?php
+
 namespace src\Models\GeoCache;
 
-use src\Utils\Debug\Debug;
 use src\Models\BaseObject;
+use src\Utils\Debug\Debug;
 
 /**
- * Common consts etc. for geocache log
+ * Common constants etc. for geocache log
  */
-
 class GeoCacheLogCommons extends BaseObject
 {
 
-    const LOGTYPE_FOUNDIT = 1;
-    const LOGTYPE_DIDNOTFIND = 2;
-    const LOGTYPE_COMMENT = 3;
-    const LOGTYPE_MOVED = 4;
-    const LOGTYPE_NEEDMAINTENANCE = 5;
-    const LOGTYPE_MADEMAINTENANCE = 6;
-    const LOGTYPE_ATTENDED = 7;
-    const LOGTYPE_WILLATTENDED = 8;
-    const LOGTYPE_ARCHIVED = 9;
-    const LOGTYPE_READYTOSEARCH = 10;
-    const LOGTYPE_TEMPORARYUNAVAILABLE = 11;
-    const LOGTYPE_ADMINNOTE = 12;
+    public const LOGTYPE_FOUNDIT = 1;
+    public const LOGTYPE_DIDNOTFIND = 2;
+    public const LOGTYPE_COMMENT = 3;
+    public const LOGTYPE_MOVED = 4;
+    public const LOGTYPE_NEEDMAINTENANCE = 5;
+    public const LOGTYPE_MADEMAINTENANCE = 6;
+    public const LOGTYPE_ATTENDED = 7;
+    public const LOGTYPE_WILLATTENDED = 8;
+    public const LOGTYPE_ARCHIVED = 9;
+    public const LOGTYPE_READYTOSEARCH = 10;
+    public const LOGTYPE_TEMPORARYUNAVAILABLE = 11;
+    public const LOGTYPE_ADMINNOTE = 12;
 
-    const ICON_PATH = '/images/log/'; //path to the dir with log-type icons
+    private const ICON_PATH = '/images/log/'; //path to the dir with log-type icons
 
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    public static function GetIconForType($logType, $fileNameOnly = false)
+    public static function GetIconForType(int $logType, bool $fileNameOnly = false): string
     {
 
         switch ($logType) {
@@ -79,37 +74,49 @@ class GeoCacheLogCommons extends BaseObject
         }
 
         if (!$fileNameOnly) {
-            $icon = self::ICON_PATH . $icon;
+            $icon = self::ICON_PATH.$icon;
         }
 
         return $icon;
     }
 
-    public static function typeTranslationKey($logType)
+    public static function typeTranslationKey(int $logType): string
     {
 
         switch ($logType) {
-            case self::LOGTYPE_FOUNDIT:         return 'logType1';
-            case self::LOGTYPE_DIDNOTFIND:      return 'logType2';
-            case self::LOGTYPE_COMMENT:         return 'logType3';
-            case self::LOGTYPE_MOVED:           return 'logType4';
-            case self::LOGTYPE_NEEDMAINTENANCE: return 'logType5';
-            case self::LOGTYPE_MADEMAINTENANCE: return 'logType6';
-            case self::LOGTYPE_ATTENDED:        return 'logType7';
-            case self::LOGTYPE_WILLATTENDED:    return 'logType8';
-            case self::LOGTYPE_ARCHIVED:        return 'logType9';
-            case self::LOGTYPE_READYTOSEARCH:   return 'logType10';
-            case self::LOGTYPE_TEMPORARYUNAVAILABLE: return 'logType11';
-            case self::LOGTYPE_ADMINNOTE:       return 'logType12';
+            case self::LOGTYPE_FOUNDIT:
+                return 'logType1';
+            case self::LOGTYPE_DIDNOTFIND:
+                return 'logType2';
+            case self::LOGTYPE_COMMENT:
+                return 'logType3';
+            case self::LOGTYPE_MOVED:
+                return 'logType4';
+            case self::LOGTYPE_NEEDMAINTENANCE:
+                return 'logType5';
+            case self::LOGTYPE_MADEMAINTENANCE:
+                return 'logType6';
+            case self::LOGTYPE_ATTENDED:
+                return 'logType7';
+            case self::LOGTYPE_WILLATTENDED:
+                return 'logType8';
+            case self::LOGTYPE_ARCHIVED:
+                return 'logType9';
+            case self::LOGTYPE_READYTOSEARCH:
+                return 'logType10';
+            case self::LOGTYPE_TEMPORARYUNAVAILABLE:
+                return 'logType11';
+            case self::LOGTYPE_ADMINNOTE:
+                return 'logType12';
             default:
                 Debug::errorLog("Unknown log type: $logType");
                 return '';
         }
     }
 
-    public static function logTypesArray()
+    public static function logTypesArray(): array
     {
-        return array(
+        return [
             self::LOGTYPE_FOUNDIT,
             self::LOGTYPE_DIDNOTFIND,
             self::LOGTYPE_COMMENT,
@@ -122,16 +129,13 @@ class GeoCacheLogCommons extends BaseObject
             self::LOGTYPE_READYTOSEARCH,
             self::LOGTYPE_TEMPORARYUNAVAILABLE,
             self::LOGTYPE_ADMINNOTE,
-        );
+        ];
     }
 
     /**
-     * Returns translation key for cache log if chache changed status
-     *
-     * @param integer $status
-     * @return string
+     * Returns translation key for cache log if cache changed status
      */
-    public static function translationKey4CacheStatus($status)
+    public static function translationKey4CacheStatus(int $status): string
     {
         switch ($status) {
             case GeoCache::STATUS_READY:
@@ -156,13 +160,13 @@ class GeoCacheLogCommons extends BaseObject
      * @param String $text - original log text
      * @return String - clean log text
      */
-    public static function cleanLogTextForToolTip( $text )
+    public static function cleanLogTextForToolTip(string $text): string
     {
 
         //strip all tags but not <li>
         $text = strip_tags($text, "<li>");
 
-        $replace = array(
+        $replace = [
             //'<p>&nbsp;</p>' => '', //duplicated ? by strip_tags above
             '&nbsp;' => ' ',
             //'<p>' => '', //duplicated ? by strip_tags above
@@ -186,14 +190,14 @@ class GeoCacheLogCommons extends BaseObject
             ')' => '- ',
             ']]>' => ']] >',
             '' => ''
-        );
+        ];
 
-        $text = str_ireplace( array_keys($replace), array_values($replace), $text);
+        $text = str_ireplace(array_keys($replace), array_values($replace), $text);
         return preg_replace('/[\x00-\x08\x0E-\x1F\x7F\x0A\x0C]+/', '', $text);
 
     }
 
-    public static function getLogUrlByLogId($logId)
+    public static function getLogUrlByLogId($logId): string
     {
         return "/viewlogs.php?logid=$logId";
     }
@@ -202,14 +206,15 @@ class GeoCacheLogCommons extends BaseObject
      * Creates an array of log type translation keys available for the cache
      * of given type, for views and templates usability
      *
-     * @param integer $cacheType the type of cache to create the list for
+     * @param int $cacheType the type of cache to create the list for
      *
      * @return array log type translation keys available for given cache,
      *     ordered by log type value
      */
     public static function getLogTypeTplKeys(
-        $cacheType = GeoCacheCommons::TYPE_TRADITIONAL
-    ) {
+        int $cacheType = GeoCacheCommons::TYPE_TRADITIONAL
+    ): array
+    {
         $result = [];
         $logTypes = [
             self::LOGTYPE_COMMENT, self::LOGTYPE_NEEDMAINTENANCE,

@@ -526,7 +526,7 @@ class MyNeighbourhoodController extends BaseController
         $this->ajaxSuccessResponse();
     }
 
-    public function isCallableFromRouter($actionName)
+    public function isCallableFromRouter(string $actionName)
     {
         return true;
     }

@@ -24,7 +24,7 @@ class GeoPathController extends ViewBaseController
         parent::__construct();
     }
 
-    public function isCallableFromRouter($actionName)
+    public function isCallableFromRouter(string $actionName)
     {
         return true;
     }

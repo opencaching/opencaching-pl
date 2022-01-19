@@ -23,7 +23,7 @@ class RSSController extends BaseController
 
     const ENTRIES_PER_FEED = 20;
 
-    public function isCallableFromRouter($actionName)
+    public function isCallableFromRouter(string $actionName)
     {
         return true;
     }

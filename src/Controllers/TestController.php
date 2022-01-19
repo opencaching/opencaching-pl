@@ -1,73 +1,79 @@
 <?php
+
 namespace src\Controllers;
 
+use RuntimeException;
 use src\Models\CacheSet\CacheSet;
-use src\Models\User\OAuthSimpleUser\FacebookOAuth;
-use src\Models\User\OAuthSimpleUser\GoogleOAuth;
-use src\Utils\Text\UserInputFilter;
-use src\Utils\Uri\Uri;
-use src\Models\User\UserPreferences\UserPreferences;
-use src\Models\User\UserPreferences\TestUserPref;
-use src\Models\ChunkModels\UploadModel;
 use src\Models\ChunkModels\DynamicMap\CacheMarkerModel;
+use src\Models\ChunkModels\DynamicMap\CacheSetMarkerModel;
 use src\Models\ChunkModels\DynamicMap\CacheWithLogMarkerModel;
 use src\Models\ChunkModels\DynamicMap\DynamicMapModel;
-use src\Models\ChunkModels\DynamicMap\CacheSetMarkerModel;
+use src\Models\ChunkModels\UploadModel;
+use src\Models\Coordinates\Altitude;
+use src\Models\Coordinates\Coordinates;
 use src\Models\GeoCache\GeoCache;
+use src\Models\GeoCache\GeoCacheLog;
 use src\Models\GeoCache\MultiCacheStats;
 use src\Models\GeoCache\MultiLogStats;
-use src\Models\User\MultiUserQueries;
-use src\Models\GeoCache\GeoCacheLog;
-use src\Utils\Text\Formatter;
-use src\Utils\Uri\OcCookie;
-use src\Utils\FileSystem\FileUploadMgr;
 use src\Models\OcConfig\OcConfig;
-use src\Utils\Uri\SimpleRouter;
-use src\Models\Coordinates\Coordinates;
-use src\Models\Coordinates\Altitude;
-use src\Utils\Database\OcDb;
-use src\Utils\DateTime\OcDateTime;
+use src\Models\User\MultiUserQueries;
+use src\Models\User\OAuthSimpleUser\FacebookOAuth;
+use src\Models\User\OAuthSimpleUser\GoogleOAuth;
+use src\Models\User\User;
+use src\Models\User\UserPreferences\TestUserPref;
+use src\Models\User\UserPreferences\UserPreferences;
 use src\Models\Voting\ChoiceOption;
 use src\Models\Voting\Election;
-use src\Models\User\User;
-use src\Controllers\Core\ViewBaseController;
+use src\Utils\Database\OcDb;
+use src\Utils\DateTime\OcDateTime;
+use src\Utils\FileSystem\FileUploadMgr;
+use src\Utils\Text\Formatter;
+use src\Utils\Text\UserInputFilter;
+use src\Utils\Uri\HttpCode;
+use src\Utils\Uri\OcCookie;
+use src\Utils\Uri\SimpleRouter;
+use src\Utils\Uri\Uri;
 
-class TestController extends ViewBaseController
+class TestController extends BaseController
 {
-    public function __construct(){
+    public function __construct()
+    {
         parent::__construct();
 
         // test pages are only for users with AdvancedUsers role
         $this->redirectNotLoggedUsers();
-        if(!$this->loggedUser->hasAdvUserRole()){
-            $this->displayCommonErrorPageAndExit("Sorry, no such page.");
+
+        if (! $this->loggedUser->hasAdvUserRole()) {
+            $this->displayCommonErrorPageAndExit('Sorry, no such page.');
         }
     }
 
-    public function isCallableFromRouter($actionName)
+    public function isCallableFromRouter(string $actionName)
     {
         // all public methods can be called by router
-        return TRUE;
+        return true;
     }
 
     public function index()
     {
         $methods = get_class_methods($this);
+
         foreach ($methods as $method) {
-            switch($method){
-                case "__construct":
-                case "isCallableFromRouter":
-                case "index":
+            switch ($method) {
+                case '__construct':
+                case 'isCallableFromRouter':
+                case 'index':
                     // skip methods above
                     break;
                 default:
                     $link = SimpleRouter::getLink(self::class, $method);
-                    echo "<a href='$link'>$method</a> <br/>";
+                    echo "<a href='{$link}'>{$method}</a> <br/>";
             }
         }
     }
 
-    public function lorenIpsumContent(){
+    public function lorenIpsumContent()
+    {
         $this->view->setTemplate('test/testTemplate');
         $this->view->buildView();
     }
@@ -88,23 +94,23 @@ class TestController extends ViewBaseController
         $geocache = [];
         $link = [];
 
-        include ('../config/geocache.pl.php');
+        include '../config/geocache.pl.php';
         $attrList['pl'] = $geocache['supportedAttributes'];
         $link['pl'] = 'https://opencaching.pl/search.php?lang=pl';
 
-        include ('../config/geocache.nl.php');
+        include '../config/geocache.nl.php';
         $attrList['nl'] = $geocache['supportedAttributes'];
         $link['nl'] = '';
 
-        include ('../config/geocache.ro.php');
+        include '../config/geocache.ro.php';
         $attrList['ro'] = $geocache['supportedAttributes'];
         $link['ro'] = '';
 
-        include ('../config/geocache.uk.php');
+        include '../config/geocache.uk.php';
         $attrList['uk'] = $geocache['supportedAttributes'];
         $link['uk'] = '';
 
-        include ('../config/geocache.us.php');
+        include '../config/geocache.us.php';
         $attrList['us'] = $geocache['supportedAttributes'];
         $link['us'] = '';
 
@@ -119,7 +125,8 @@ class TestController extends ViewBaseController
     public function oAuth()
     {
         $this->view->addLocalCss(
-            Uri::getLinkWithModificationTime('/views/test/oAuth.css'));
+            Uri::getLinkWithModificationTime('/views/test/oAuth.css')
+        );
 
         $this->view->setTemplate('test/oAuth');
 
@@ -127,18 +134,25 @@ class TestController extends ViewBaseController
         $gTestEnabled = GoogleOAuth::isEnabledForTests();
 
         $this->view->setVar('fbTestEn', $fbTestEnabled);
-        if($fbTestEnabled){
-            $this->view->setVar('fbLink',
+
+        if ($fbTestEnabled) {
+            $this->view->setVar(
+                'fbLink',
                 FacebookOAuth::getOAuthStartUrl(
-                    Uri::getCurrentUriBase().'/Test/oAuthCallback/Facebook'));
+                    Uri::getCurrentUriBase() . '/Test/oAuthCallback/Facebook'
+                )
+            );
         }
 
-
         $this->view->setVar('gTestEn', $gTestEnabled);
-        if($gTestEnabled){
-            $this->view->setVar('gLink',
+
+        if ($gTestEnabled) {
+            $this->view->setVar(
+                'gLink',
                 GoogleOAuth::getOAuthStartUrl(
-                    Uri::getCurrentUriBase().'/Test/oAuthCallback/Google'));
+                    Uri::getCurrentUriBase() . '/Test/oAuthCallback/Google'
+                )
+            );
         }
 
         $this->view->buildView();
@@ -148,48 +162,51 @@ class TestController extends ViewBaseController
      * This is callback for external services in test authorizatio by exernal services
      * @param string $service - service name
      */
-    public function oAuthCallback($service=null)
+    public function oAuthCallback($service = null)
     {
         $this->view->addLocalCss(
-            Uri::getLinkWithModificationTime('/views/test/oAuth.css'));
+            Uri::getLinkWithModificationTime('/views/test/oAuth.css')
+        );
 
         $this->view->setTemplate('test/oAuthCallback');
 
-        switch($service){
+        switch ($service) {
             case 'Facebook':
-                if(FacebookOAuth::isEnabledForTests()){
+                if (FacebookOAuth::isEnabledForTests()) {
                     $oAuth = FacebookOAuth::oAuthCallbackHandler();
-                }else{
-                    $this->displayCommonErrorPageAndExit('Unknown oAuth service', 404);
+                } else {
+                    $this->displayCommonErrorPageAndExit('Unknown oAuth service', HttpCode::STATUS_NOT_FOUND);
+
                     exit;
                 }
                 break;
             case 'Google':
-                if(GoogleOAuth::isEnabledForTests()){
+                if (GoogleOAuth::isEnabledForTests()) {
                     $oAuth = GoogleOAuth::oAuthCallbackHandler();
-                }else{
-                    $this->displayCommonErrorPageAndExit('Unknown oAuth service', 404);
+                } else {
+                    $this->displayCommonErrorPageAndExit('Unknown oAuth service', HttpCode::STATUS_NOT_FOUND);
+
                     exit;
                 }
                 break;
             default:
-                $this->displayCommonErrorPageAndExit('Unknown oAuth service', 404);
+                $this->displayCommonErrorPageAndExit('Unknown oAuth service', HttpCode::STATUS_NOT_FOUND);
+
                 exit;
         }
 
         $this->view->setVar('service', $service);
 
-        if(!$oAuth->isUserAuthorized()){
+        if (! $oAuth->isUserAuthorized()) {
             $this->view->setVar('error', true);
             $this->view->setVar('errorDesc', $oAuth->getErrorDescription());
-        }else{
+        } else {
             $this->view->setVar('error', false);
             $this->view->setVar('oAuthObj', $oAuth);
         }
 
         $this->view->buildView();
     }
-
 
     /**
      * This method allow testing of HTML strings cleaning used by OC code
@@ -198,21 +215,21 @@ class TestController extends ViewBaseController
     {
         $this->view->setTemplate('test/userInputFilterTest');
 
-        if(isset($_POST['html'])){
+        if (isset($_POST['html'])) {
             $html = htmlentities($_POST['html']);
             $context = [];
             $rawCleanedHtml = UserInputFilter::purifyHtmlString($_POST['html'], $context);
-            if(isset($context['errors'])){
+
+            if (isset($context['errors'])) {
                 $errors = $context['errors'];
                 $errorHTML = $errors->getHTMLFormatted(UserInputFilter::getConfig());
-            }else{
+            } else {
                 $errorHTML = '';
             }
             $cleanedHTML = htmlentities($rawCleanedHtml);
-
-        }else{
-            $html='';
-            $errorHTML='';
+        } else {
+            $html = '';
+            $errorHTML = '';
             $rawCleanedHtml = '';
             $cleanedHTML = '';
         }
@@ -223,13 +240,10 @@ class TestController extends ViewBaseController
         $this->view->setVar('cleanedHTML', $cleanedHTML);
 
         $this->view->buildView();
-
     }
-
 
     public function userPreferences()
     {
-
         // is key supported (proper config done)
         d(UserPreferences::isKeyAllowed(TestUserPref::KEY));
 
@@ -241,8 +255,6 @@ class TestController extends ViewBaseController
 
         // read some value
         d(UserPreferences::getUserPrefsByKey(TestUserPref::KEY));
-
-
     }
 
     /**
@@ -257,7 +269,8 @@ class TestController extends ViewBaseController
         $this->view->addHeaderChunk('openLayers5');
 
         $this->view->addLocalCss(
-            Uri::getLinkWithModificationTime('/views/test/dynamicMap.css'));
+            Uri::getLinkWithModificationTime('/views/test/dynamicMap.css')
+        );
 
         $mapModel = new DynamicMapModel();
 
@@ -266,8 +279,9 @@ class TestController extends ViewBaseController
 
         //...and add to map
         $mapModel->addMarkersWithExtractor(
-            CacheSetMarkerModel::class, $csToArchive, function($row){
-
+            CacheSetMarkerModel::class,
+            $csToArchive,
+            function ($row) {
                 $markerModel = new CacheSetMarkerModel();
 
                 $markerModel->lat = $row['centerLatitude'];
@@ -278,14 +292,16 @@ class TestController extends ViewBaseController
                 $markerModel->link = CacheSet::getCacheSetUrlById($row['id']);
 
                 return $markerModel;
-            });
+            }
+        );
 
         // get some caches...
         $cachesToShow = MultiCacheStats::getLatestCaches(5);
         // ..and add to map
         $mapModel->addMarkersWithExtractor(
-            CacheMarkerModel::class, $cachesToShow, function($row){
-
+            CacheMarkerModel::class,
+            $cachesToShow,
+            function ($row) {
                 $markerModel = new CacheMarkerModel();
 
                 $markerModel->lat = $row['latitude'];
@@ -298,34 +314,38 @@ class TestController extends ViewBaseController
                 $markerModel->link = GeoCache::GetCacheUrlByWp($row['wp_oc']);
 
                 return $markerModel;
-            });
-
+            }
+        );
 
         // get some caches with logs...
         $caches = [];
         $userIds = [];
-        foreach(MultiCacheStats::getGeocachesDataById([1,2,3,4,5]) as $c){
+
+        foreach (MultiCacheStats::getGeocachesDataById([1, 2, 3, 4, 5]) as $c) {
             $caches[$c['cache_id']] = $c;
             $userIds[$c['user_id']] = null;
         }
 
-        foreach(MultiLogStats::getLastLogForEachCache(array_keys($caches),
-            ['id as log_id','cache_id','text','date','type as log_type','user_id as log_user_id']) as $log){
-                $caches[$log['cache_id']] = array_merge($log, $caches[$log['cache_id']]);
-                $userIds[$log['log_user_id']] = null;
+        foreach (MultiLogStats::getLastLogForEachCache(
+            array_keys($caches),
+            ['id as log_id', 'cache_id', 'text', 'date', 'type as log_type', 'user_id as log_user_id']
+        ) as $log) {
+            $caches[$log['cache_id']] = array_merge($log, $caches[$log['cache_id']]);
+            $userIds[$log['log_user_id']] = null;
         }
 
         $users = MultiUserQueries::GetUserNamesForListOfIds(array_keys($userIds));
 
-        foreach ($caches as &$c){
+        foreach ($caches as &$c) {
             $c['owner'] = $users[$c['user_id']];
             $c['log_username'] = $users[$c['log_user_id']];
         }
 
         // ...and add to map
         $mapModel->addMarkersWithExtractor(
-            CacheWithLogMarkerModel::class, $caches, function($row){
-
+            CacheWithLogMarkerModel::class,
+            $caches,
+            function ($row) {
                 $markerModel = new CacheWithLogMarkerModel();
 
                 $markerModel->lon = $row['longitude'];
@@ -337,7 +357,6 @@ class TestController extends ViewBaseController
                 $markerModel->link = GeoCache::GetCacheUrlByWp($row['wp_oc']);
                 $markerModel->username = $row['owner'];
 
-
                 $markerModel->log_icon = GeoCacheLog::GetIconForType($row['log_type']);
                 $markerModel->log_text = strip_tags($row['text'], '<br><p>');
                 $markerModel->log_username = $row['log_username'];
@@ -346,10 +365,10 @@ class TestController extends ViewBaseController
                 $markerModel->log_date = Formatter::date($row['date']);
 
                 return $markerModel;
-            });
+            }
+        );
 
         $this->view->setVar('mapModel', $mapModel);
-
 
         // and one more map...
         $emptyMap = new DynamicMapModel();
@@ -363,7 +382,6 @@ class TestController extends ViewBaseController
         $this->view->buildView();
     }
 
-
     /**
      * This is test of file upload with UploadChunk
      */
@@ -374,10 +392,8 @@ class TestController extends ViewBaseController
         $this->view->setTemplate('test/upload');
         $this->view->loadJQuery();
 
-
         $this->view->addHeaderChunk('upload/upload');
         $this->view->addHeaderChunk('handlebarsJs');
-
 
         // prepare Upload Model
         /** @var UploadModel */
@@ -398,11 +414,10 @@ class TestController extends ViewBaseController
         // use the same upload model
         $uploadModel = UploadModel::TestTxtUploadFactory();
 
-        try{
+        try {
             // save uploaded files
             $newFiles = FileUploadMgr::processFileUpload($uploadModel);
-
-        } catch (\RuntimeException $e){
+        } catch (RuntimeException $e) {
             // some error occured on upload processing
             $this->ajaxErrorResponse($e->getMessage(), 500);
         }
@@ -422,7 +437,7 @@ class TestController extends ViewBaseController
      */
     public function cookieTest()
     {
-        echo "Cookie test";
+        echo 'Cookie test';
 
         d($_COOKIE);
 
@@ -441,21 +456,20 @@ class TestController extends ViewBaseController
         OcCookie::debug();
 
         d(headers_list());
-
     }
 
     public function registration()
     {
-        if($this->isUserLogged()){
-            return $this->alreadyRegistered();
+        if ($this->isUserLogged()) {
+            $this->alreadyRegistered();
         }
 
         $this->view->loadJQuery();
         $this->view->setTemplate('test/userRegistration');
         // local css
-        $this->view->addLocalCss( Uri::getLinkWithModificationTime(
-            '/views/test/userRegistration.css'));
-
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime(
+            '/views/test/userRegistration.css'
+        ));
 
         $this->view->buildView();
     }
@@ -464,13 +478,11 @@ class TestController extends ViewBaseController
     {
         $this->view->setTemplate('test/alreadyRegistered');
 
-
         $this->view->buildView();
     }
 
     public function checkConfig()
     {
-
         d(OcConfig::getEmailAddrOcTeam());
         d(OcConfig::getOcteamEmailsSignature());
         d(OcConfig::getEmailAddrNoReply());
@@ -479,22 +491,23 @@ class TestController extends ViewBaseController
         d(OcConfig::getEmailSubjectPrefix());
     }
 
-    public function routerTester($arg1=null, $arg2=null)
+    public function routerTester($arg1 = null, $arg2 = null)
     {
         d($_GET);
         d($arg1);
         d($arg2);
 
-        $link = SimpleRouter::getLink(self::class, 'routerTester',[$arg1, $arg2]);
-        echo "<a href='$link'>GO</a>";
+        $link = SimpleRouter::getLink(self::class, 'routerTester', [$arg1, $arg2]);
+        echo "<a href='{$link}'>GO</a>";
     }
 
-    public function altitudeTest($lat=null, $lon=null)
+    public function altitudeTest($lat = null, $lon = null)
     {
-        if(!$lat){
+        if (! $lat) {
             $lat = 54;
         }
-        if(!$lon){
+
+        if (! $lon) {
             $lon = 18;
         }
 
@@ -509,7 +522,8 @@ class TestController extends ViewBaseController
         $MAX_CANDIDATEDS = 100;
 
         if ($candidates > $MAX_CANDIDATEDS || $votersCount > 10000) {
-            echo "wrong params";
+            echo 'wrong params';
+
             exit;
         }
 
@@ -521,22 +535,26 @@ class TestController extends ViewBaseController
 
         // generate election
         $db = OcDb::instance();
-        $db->multiVariableQuery("INSERT INTO `vote_elections`
+        $db->multiVariableQuery(
+            'INSERT INTO `vote_elections`
             (`name`, `startDate`, `endDate`, `voterCriteria`, `electionRules`, `description`)
-            VALUES (:1, FROM_UNIXTIME(:2), FROM_UNIXTIME(:3), :4, :5, :6)",
-
-            "test voting autogenerated", $startDate->getTimestamp(), $endDate->getTimestamp(),
+            VALUES (:1, FROM_UNIXTIME(:2), FROM_UNIXTIME(:3), :4, :5, :6)',
+            'test voting autogenerated',
+            $startDate->getTimestamp(),
+            $endDate->getTimestamp(),
             '{ "founds": 1000, "daysWithOc": 30 }',
             '{ "votesPerUser": 2, "disallowLessVotes": false, "disallowNoVotes": false }',
-            'Autogenerated election for test purpose');
+            'Autogenerated election for test purpose'
+        );
 
         $electionId = $db->lastInsertId();
 
-        echo "ElectionId: $electionId<br>";
+        echo "ElectionId: {$electionId}<br>";
 
         // generate list of random users
         $users = [];
         $step = 0;
+
         do {
             $step++;
             $userId = rand(0, 10000);
@@ -546,20 +564,23 @@ class TestController extends ViewBaseController
             }
 
             $user = User::fromUserIdFactory($userId);
-            if (!$user) {
+
+            if (! $user) {
                 continue;
             }
 
             // OK this is next unique user
             $users[$userId] = $user;
-        } while ($step < 2*$MAX_CANDIDATEDS && count($users) < $candidates);
+        } while ($step < 2 * $MAX_CANDIDATEDS && count($users) < $candidates);
 
         // generate options
         $i = 0;
-        foreach($users as $userId => $user) {
+
+        foreach ($users as $userId => $user) {
             // find random user
             $i++;
             $optName = $user->getUserName();
+
             if (empty($optDesc = $user->getDescription())) {
                 $optDesc = 'hello';
             }
@@ -567,12 +588,18 @@ class TestController extends ViewBaseController
             $optLink = $user->getProfileUrl();
             $optOrder = $i;
 
-            $db->multiVariableQuery("INSERT INTO `vote_choiceOptions`
+            $db->multiVariableQuery(
+                'INSERT INTO `vote_choiceOptions`
                 (`electionId`, `name`, `description`, `link`, `orderIdx`)
-                VALUES (:1, :2, :3, :4, :5)",
-                $electionId, $optName, $optDesc, $optLink, $optOrder);
+                VALUES (:1, :2, :3, :4, :5)',
+                $electionId,
+                $optName,
+                $optDesc,
+                $optLink,
+                $optOrder
+            );
         }
-        echo "- ".count($users)." options generated<br>";
+        echo '- ' . count($users) . ' options generated<br>';
 
         $options = ChoiceOption::getOptionsForElection(Election::fromElectionIdFactory($electionId));
         $optionIds = array_map(function (ChoiceOption $opt) {
@@ -581,26 +608,31 @@ class TestController extends ViewBaseController
 
         // generate voters and votes
         $votersCount = $db->quoteLimit($votersCount);
-        $rs = $db->simpleQuery("SELECT user_id FROM user WHERE is_active_flag=1 ORDER BY RAND() LIMIT $votersCount");
+        $rs = $db->simpleQuery("SELECT user_id FROM user WHERE is_active_flag=1 ORDER BY RAND() LIMIT {$votersCount}");
         $votersIds = $db->dbFetchOneColumnArray($rs, 'user_id');
-        foreach ($votersIds as $userId) {
 
+        foreach ($votersIds as $userId) {
             //add voter
             $db->multiVariableQuery(
                 "INSERT INTO vote_voters (electionId, userId, ip, additionalData) VALUES (:1, :2, 'random gen', 'random gen')",
-                $electionId, $userId);
+                $electionId,
+                $userId
+            );
 
-            // firts options have prefference
-            $votedFor = array_rand(array_slice($optionIds, 0, rand(2,count($optionIds))), 2);
-            $voteDateTs = $startDate->getTimestamp() + rand (0, $endDate->getTimestamp() - $startDate->getTimestamp());
+            // first options have preference
+            $votedFor = array_rand(array_slice($optionIds, 0, rand(2, count($optionIds))), 2);
+            $voteDateTs = $startDate->getTimestamp() + rand(0, $endDate->getTimestamp() - $startDate->getTimestamp());
 
             foreach ($votedFor as $voteOpt) {
                 $db->multiVariableQuery(
-                    "INSERT INTO vote_votes (electionId, optionId, date)
-                    VALUES (:1, :2, FROM_UNIXTIME(:3))",
-                    $electionId, $optionIds[$voteOpt], $voteDateTs);
+                    'INSERT INTO vote_votes (electionId, optionId, date)
+                    VALUES (:1, :2, FROM_UNIXTIME(:3))',
+                    $electionId,
+                    $optionIds[$voteOpt],
+                    $voteDateTs
+                );
             }
         }
-        echo "- $votersCount voters generated<br>";
+        echo "- {$votersCount} voters generated<br>";
     }
 }

@@ -18,7 +18,7 @@ class CacheDescController extends ViewBaseController
         $this->redirectNotLoggedUsers();
     }
 
-    public function isCallableFromRouter($actionName){
+    public function isCallableFromRouter(string $actionName){
         return true;
     }
 

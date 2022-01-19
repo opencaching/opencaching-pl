@@ -30,7 +30,7 @@ class CacheAdoptionController extends BaseController
         $this->db = OcDb::instance(); //TODO: create model for cacheAdoption...
     }
 
-    public function isCallableFromRouter($actionName)
+    public function isCallableFromRouter(string $actionName)
     {
         // all public methods can be called by router
         return true;

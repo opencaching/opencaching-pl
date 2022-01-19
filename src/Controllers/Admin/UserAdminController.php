@@ -39,7 +39,7 @@ class UserAdminController extends ViewBaseController
         }
     }
 
-    public function isCallableFromRouter($actionName)
+    public function isCallableFromRouter(string $actionName)
     {
         return true;
     }

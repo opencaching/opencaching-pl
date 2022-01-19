@@ -322,7 +322,7 @@ class CacheController extends ViewCacheController
     /**
      * @inheritDoc
      */
-    public function isCallableFromRouter($actionName)
+    public function isCallableFromRouter(string $actionName)
     {
         return true;
     }

@@ -48,7 +48,7 @@ class MainLayoutController extends BaseController
         parent::__construct();
     }
 
-    public function isCallableFromRouter($actionName)
+    public function isCallableFromRouter(string $actionName)
     {
         // this controller is for internal use only and shouldn't be call by router
         return false;
