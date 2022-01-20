@@ -76,10 +76,10 @@ class UserAdminController extends ViewBaseController
                 ) {
                 $this->view->redirect(
                     SimpleRouter::getLink(
-                    'Admin.UserAdmin',
-                    'index',
-                    $user->getUserId()
-                )
+                        'Admin.UserAdmin',
+                        'index',
+                        $user->getUserId()
+                    )
                 );
             }
 
@@ -87,10 +87,10 @@ class UserAdminController extends ViewBaseController
             if (! is_null($user = User::fromUsernameFactory($userName))) {
                 $this->view->redirect(
                     SimpleRouter::getLink(
-                    'Admin.UserAdmin',
-                    'index',
-                    $user->getUserId()
-                )
+                        'Admin.UserAdmin',
+                        'index',
+                        $user->getUserId()
+                    )
                 );
             }
 
@@ -102,10 +102,10 @@ class UserAdminController extends ViewBaseController
                 if (sizeof($usersTable) == 1) {
                     $this->view->redirect(
                         SimpleRouter::getLink(
-                        'Admin.UserAdmin',
-                        'index',
-                        $usersTable[0]->getUserId()
-                    )
+                            'Admin.UserAdmin',
+                            'index',
+                            $usersTable[0]->getUserId()
+                        )
                     );
                 }
                 // If there is no results - show message

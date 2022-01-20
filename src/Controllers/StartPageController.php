@@ -454,32 +454,32 @@ class StartPageController extends ViewBaseController
             $feedsKey,
             60 * 60 /*1h*/,
             function () {
-                    global $config; //TODO
+                global $config; //TODO
 
-                    $result = new stdClass();
-                    $result->feeds = [];
+                $result = new stdClass();
+                $result->feeds = [];
 
-                    foreach ($config['feed']['enabled'] as $feedName) {
-                        $feed = new RssFeed($config['feed'][$feedName]['url']);
-                        $postsCount = min($config['feed'][$feedName]['posts'], $feed->count());
-                        $result->feeds[$feedName] = [];
+                foreach ($config['feed']['enabled'] as $feedName) {
+                    $feed = new RssFeed($config['feed'][$feedName]['url']);
+                    $postsCount = min($config['feed'][$feedName]['posts'], $feed->count());
+                    $result->feeds[$feedName] = [];
 
-                        for ($i = 0; $i < $postsCount; $i++) {
-                            $post = new stdClass();
-                            $post->author = (! empty($feed->next()->author)
+                    for ($i = 0; $i < $postsCount; $i++) {
+                        $post = new stdClass();
+                        $post->author = (! empty($feed->next()->author)
                                 && $config['feed'][$feedName]['showAuthor']) ? $feed->current()->author : '';
 
-                            $post->link = $feed->current()->link;
-                            $post->title = $feed->current()->title;
-                            $post->date = Formatter::date($feed->current()->date);
-                            $result->feeds[$feedName][] = $post;
-                        }
-                    }//foreach
+                        $post->link = $feed->current()->link;
+                        $post->title = $feed->current()->title;
+                        $post->date = Formatter::date($feed->current()->date);
+                        $result->feeds[$feedName][] = $post;
+                    }
+                }//foreach
 
-                    $result->createdAt = time();
+                $result->createdAt = time();
 
-                    return $result;
-                }
+                return $result;
+            }
         );
     }
 }
