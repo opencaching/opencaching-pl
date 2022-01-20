@@ -1,4 +1,5 @@
 <?php
+
 namespace src\Controllers;
 
 use Exception;
@@ -12,15 +13,9 @@ use src\Utils\Uri\Uri;
 
 class UserAuthorizationController extends BaseController
 {
+    public const DEFAULT_TARGET = '/';
 
-    const DEFAULT_TARGET = '/';
-
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    public function isCallableFromRouter(string $actionName)
+    public function isCallableFromRouter(string $actionName): bool
     {
         // all public methods can be called by router
         return true;
@@ -36,16 +31,17 @@ class UserAuthorizationController extends BaseController
         if ($this->isUserLogged()) {
             // already logged in...
             $this->redirectToAuthCookieVerify();
+
             return;
         }
 
-        list ($userEmail, $userPassword) = $this->getCredentialsData();
+        [$userEmail, $userPassword] = $this->getCredentialsData();
 
         if ($userEmail && $userPassword) {
-
             switch (UserAuthorization::checkCredentials($userEmail, $userPassword)) {
                 case UserAuthorization::LOGIN_OK:
                     $this->redirectToAuthCookieVerify();
+
                     return;
 
                 case UserAuthorization::LOGIN_TOOMUCHLOGINS:
@@ -73,8 +69,10 @@ class UserAuthorizationController extends BaseController
     {
         $errorMsg = '';
         $this->view->setTemplate('userAuth/newPassword');
+
         if (isset($_POST['submitNewPw'])) {
             $errorMsg = $this->newPasswordStage2();
+
             if (is_null($errorMsg)) {
                 $this->showSuccessMessage(tr('newpw_info_send'), tr('newpw_title'));
             }
@@ -92,7 +90,7 @@ class UserAuthorizationController extends BaseController
      * $_POST['userName'] may be username or e-mail
      * Returns translated error string or null on success
      *
-     * @return string|NULL
+     * @return string|null
      */
     private function newPasswordStage2()
     {
@@ -100,24 +98,26 @@ class UserAuthorizationController extends BaseController
             return tr('page_error');
         }
         $username = strip_tags(trim($_POST['userName']));
+
         if (($user = User::fromUsernameFactory($username, User::AUTH_COLUMNS)) || ($user = User::fromEmailFactory($username, User::AUTH_COLUMNS))) {
             if (! $user->isActive()) {
                 return tr('newpw_err_notact');
             }
             UserAuthorization::sendPwCode($user);
-            return null;
-        } else {
-            return tr('newpw_err_notusr');
+
+            return;
         }
+
+        return tr('newpw_err_notusr');
     }
 
     /**
      * Displays form to change password and supports pwd change
      *
      * @param string $usr
-     *            - urlencoded username
+     *                    - urlencoded username
      * @param string $code
-     *            - new password code (send by e-mail)
+     *                     - new password code (send by e-mail)
      * @throws Exception
      */
     public function newPasswordInput($usr = null, $code = null)
@@ -128,8 +128,9 @@ class UserAuthorizationController extends BaseController
 
         try {
             $user = self::checkUserAndCode($usr, $code);
-        } catch (RuntimeException $e){
-            $this->showErrorMessage(tr("userAuth_codeCheckError", [$e->getMessage()]));
+        } catch (RuntimeException $e) {
+            $this->showErrorMessage(tr('userAuth_codeCheckError', [$e->getMessage()]));
+
             return;
         }
 
@@ -138,6 +139,7 @@ class UserAuthorizationController extends BaseController
                 $this->showErrorMessage(tr('security_error'));
             }
             $password = trim($_POST['password']);
+
             if (Validator::checkStrength($password)) {
                 $pm = new PasswordManager($user->getUserId());
                 $pm->change($password);
@@ -150,7 +152,7 @@ class UserAuthorizationController extends BaseController
         $this->view->setTemplate('userAuth/newPasswordInput');
         $this->view->setVar('returnUrl', SimpleRouter::getLink('UserAuthorization', 'newPasswordInput', [
             $usr,
-            $code
+            $code,
         ]));
         $this->view->setVar('errorMsg', $errorMsg);
         $this->view->addLocalCss(Uri::getLinkWithModificationTime('/views/userAuth/userAuth.css'));
@@ -171,28 +173,32 @@ class UserAuthorizationController extends BaseController
      * reason (anti brute-force strategy)
      *
      * @param string $usr
-     *            - urlencoded username
+     *                    - urlencoded username
      * @param string $code
-     *            - new password code
-     * @return NULL|User
+     *                     - new password code
+     * @return User|null
      */
     private function checkUserAndCode($usr, $code)
     {
         if (is_null($usr) || is_null($code)) {
-            throw new RuntimeException("Wrong parameters");
+            throw new RuntimeException('Wrong parameters');
         }
         $usr = urldecode($usr);
-        if (is_null($user = User::fromUsernameFactory($usr))) {
-            throw new RuntimeException("There is no such user!");
-        }
-        if (! $user->isActive()) {
-            throw new RuntimeException("Inactive user account!");
 
+        if (is_null($user = User::fromUsernameFactory($usr))) {
+            throw new RuntimeException('There is no such user!');
         }
+
+        if (! $user->isActive()) {
+            throw new RuntimeException('Inactive user account!');
+        }
+
         if (! UserAuthorization::checkPwCode($user, $code)) {
             UserAuthorization::removePwCode($user);
-            throw new RuntimeException("Wrong authorization code!");
+
+            throw new RuntimeException('Wrong authorization code!');
         }
+
         return $user;
     }
 
@@ -209,6 +215,7 @@ class UserAuthorizationController extends BaseController
         $this->view->setVar('message', $message);
         $this->view->setVar('header', (is_null($header)) ? tr('errtpl04') : $header);
         $this->view->buildView();
+
         exit();
     }
 
@@ -225,6 +232,7 @@ class UserAuthorizationController extends BaseController
         $this->view->setVar('message', $message);
         $this->view->setVar('header', $header);
         $this->view->buildView();
+
         exit();
     }
 
@@ -233,13 +241,14 @@ class UserAuthorizationController extends BaseController
         if ($this->isUserLogged()) {
             // alredy logged in...
             $this->redirectToAuthCookieVerify();
+
             return;
         }
 
         $this->view->setTemplate('userAuth/loginPage');
         $this->view->loadJQuery();
         $this->view->addLocalCss(Uri::getLinkWithModificationTime('/views/userAuth/userAuth.css'));
-        $this->view->setVar('prevEmail', (isset($_POST['email']) ? $_POST['email'] : ''));
+        $this->view->setVar('prevEmail', ($_POST['email'] ?? ''));
         $this->view->setVar('target', $this->getRedirectTarget());
         $this->view->setVar('errorMsg', $error);
 
@@ -248,17 +257,17 @@ class UserAuthorizationController extends BaseController
 
     private function getCredentialsData()
     {
-        if (isset($_POST['email']) && isset($_POST['password'])) {
+        if (isset($_POST['email'], $_POST['password'])) {
             return [
                 $_POST['email'],
-                $_POST['password']
-            ];
-        } else {
-            return [
-                null,
-                null
+                $_POST['password'],
             ];
         }
+
+        return [
+            null,
+            null,
+        ];
     }
 
     public function verifyAuthCookie()
@@ -266,11 +275,11 @@ class UserAuthorizationController extends BaseController
         if (UserAuthorization::isAuthCookiePresent()) {
             // cookie OK, redirect to target...
             $this->view->redirect(urldecode($this->getRedirectTarget()));
+
             exit();
-        } else {
-            // display message if cookie can't be set in browser
-            $this->displayLoginPage(tr('loginForm_cantSetCookie'));
         }
+        // display message if cookie can't be set in browser
+        $this->displayLoginPage(tr('loginForm_cantSetCookie'));
     }
 
     public function logout()
@@ -279,6 +288,7 @@ class UserAuthorizationController extends BaseController
 
         $target = urldecode($this->getRedirectTarget());
         $this->view->redirect($target);
+
         exit();
     }
 
@@ -286,9 +296,9 @@ class UserAuthorizationController extends BaseController
     {
         if (isset($_REQUEST['target'])) {
             return $_REQUEST['target'];
-        } else {
-            return urlencode(self::DEFAULT_TARGET);
         }
+
+        return urlencode(self::DEFAULT_TARGET);
     }
 
     private function redirectToAuthCookieVerify()
@@ -297,6 +307,7 @@ class UserAuthorizationController extends BaseController
         $uri = Uri::setOrReplaceParamValue('target', $this->getRedirectTarget(), $uri);
         $this->view->redirect($uri);
         $this->view->buildView();
+
         exit();
     }
 }

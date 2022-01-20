@@ -1,36 +1,34 @@
 <?php
+
 namespace src\Controllers\Admin;
 
+use DateTime;
+use Exception;
 use src\Controllers\BaseController;
-use src\Utils\Uri\Uri;
 use src\Models\Admin\Report;
 use src\Models\Admin\ReportCommons;
 use src\Models\Admin\ReportEmailSender;
 use src\Models\GeoCache\GeoCache;
 use src\Models\User\MultiUserQueries;
 use src\Models\User\User;
+use src\Utils\Uri\Uri;
 
 class ReportCacheController extends BaseController
 {
-
     private $infoMsg;
 
     private $errorMsg;
 
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    public function isCallableFromRouter(string $actionName)
+    public function isCallableFromRouter(string $actionName): bool
     {
         // all public methods can be called by router
-        return TRUE;
+        return true;
     }
 
     public function index()
     {
         $this->checkSecurity();
+
         switch ($_REQUEST['action']) {
             case 'add':
                 $this->addReport();
@@ -48,6 +46,7 @@ class ReportCacheController extends BaseController
                 $this->view->redirect('/');
                 break;
         }
+
         exit();
     }
 
@@ -61,6 +60,7 @@ class ReportCacheController extends BaseController
         $this->view->addLocalCss(Uri::getLinkWithModificationTime('/views/admin/reports.css'));
         $this->view->setTemplate('report/report_add');
         $this->view->buildView();
+
         exit();
     }
 
@@ -71,22 +71,25 @@ class ReportCacheController extends BaseController
         $this->checkParam('type', true);
         $this->checkParam('reason', true);
         $this->checkParam('content', true);
+
         if ((! in_array($_POST['type'], ReportCommons::getReportRecipientsArray())) || (! in_array($_POST['reason'], ReportCommons::getTypesArray()))) {
             $this->errorMsg = tr('admin_reports_info_errform') . ' (params)';
             $this->redirectToInfoPage();
         }
+
         try {
             $cache = new GeoCache([
-                'cacheId' => $_POST['cacheid']
+                'cacheId' => $_POST['cacheid'],
             ]);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->errorMsg = tr('admin_reports_info_errform') . ' (cacheid)';
             $this->redirectToInfoPage();
         }
         $cacheOwner = new User([
-            'userId' => $cache->getOwnerId()
+            'userId' => $cache->getOwnerId(),
         ]);
         $content = nl2br(strip_tags($_POST['content']));
+
         switch ($_POST['type']) {
             case ReportCommons::RECIPIENT_OWNER:
                 ReportEmailSender::sendReport2COMail2CO($cacheOwner, $this->loggedUser, $cache, $content, $_POST['reason'], isset($_POST['report-pubemail']));
@@ -100,17 +103,19 @@ class ReportCacheController extends BaseController
                 $report->setCacheId($cache->getCacheId());
                 $report->setType($_POST['reason']);
                 $report->setContent($content);
-                $report->setDateSubmit(new \DateTime('now'));
+                $report->setDateSubmit(new DateTime('now'));
                 $report->setStatus(ReportCommons::STATUS_NEW);
+
                 if ($report->saveReport() == null) {
                     $this->errorMsg = tr('reports_user_msg_reporterr');
                 } else {
                     ReportEmailSender::sendReport2OCTMail2CO($cacheOwner, $report);
                     ReportEmailSender::sendReport2OCTMail2S($this->loggedUser, $report);
                     $userlist = MultiUserQueries::getOcTeamMembersArray();
+
                     foreach ($userlist as $user) { // Send mails to all OC Team members
                         ReportEmailSender::sendReport2OCTMail2OCTeam(new User([
-                            'userId' => $user['user_id']
+                            'userId' => $user['user_id'],
                         ]), $report);
                     }
                     $this->infoMsg = tr('reports_user_msg_reportok');
@@ -118,9 +123,10 @@ class ReportCacheController extends BaseController
                 unset($report);
                 break;
         }
-        unset($cacheOwner);
-        unset($cache);
+        unset($cacheOwner, $cache);
+
         $this->redirectToViewPage($_POST['cacheid']);
+
         exit();
     }
 
@@ -130,6 +136,7 @@ class ReportCacheController extends BaseController
         $this->view->setVar('errorMsg', $this->errorMsg);
         $this->view->setTemplate('report/report_show');
         $this->view->buildView();
+
         exit();
     }
 
@@ -138,6 +145,7 @@ class ReportCacheController extends BaseController
         if (isset($_REQUEST['infomsg'])) {
             $this->infoMsg = strip_tags(urldecode($_REQUEST['infomsg']));
         }
+
         if (isset($_REQUEST['errormsg'])) {
             $this->errorMsg = strip_tags(urldecode($_REQUEST['errormsg']));
         }
@@ -146,32 +154,39 @@ class ReportCacheController extends BaseController
         $this->view->setVar('errorMsg', $this->errorMsg);
         $this->view->setTemplate('report/report_info');
         $this->view->buildView();
+
         exit();
     }
 
     private function redirectToInfoPage()
     {
         $uri = '/report.php?action=info';
+
         if ($this->errorMsg !== null) {
             $uri .= '&errormsg=' . urlencode($this->errorMsg);
         }
+
         if ($this->infoMsg !== null) {
             $uri .= '&infomsg=' . urlencode($this->infoMsg);
         }
         $this->view->redirect($uri);
+
         exit();
     }
 
     private function redirectToViewPage($cacheid)
     {
         $uri = '/viewcache.php?cacheid=' . $cacheid;
+
         if ($this->errorMsg !== null) {
             $uri .= '&errormsg=' . urlencode($this->errorMsg);
         }
+
         if ($this->infoMsg !== null) {
             $uri .= '&infomsg=' . urlencode($this->infoMsg);
         }
         $this->view->redirect($uri);
+
         exit();
     }
 
@@ -182,11 +197,9 @@ class ReportCacheController extends BaseController
                 $this->errorMsg = tr('admin_reports_info_errform');
                 $this->showInfo();
             }
-        } else {
-            if (! isset($_REQUEST[$paramName])) {
-                $this->errorMsg = tr('admin_reports_info_errform');
-                $this->showInfo();
-            }
+        } elseif (! isset($_REQUEST[$paramName])) {
+            $this->errorMsg = tr('admin_reports_info_errform');
+            $this->showInfo();
         }
     }
 
@@ -194,11 +207,10 @@ class ReportCacheController extends BaseController
     {
         if (! $this->isUserLogged()) {
             $this->redirectToLoginPage();
-            exit();
         }
+
         if (! isset($_REQUEST['action'])) {
             $this->view->redirect('/');
-            exit();
         }
     }
 

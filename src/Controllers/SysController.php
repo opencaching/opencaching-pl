@@ -1,24 +1,27 @@
 <?php
+
 namespace src\Controllers;
 
 use src\Models\GeoCache\CacheLocation;
 
 class SysController extends BaseController
 {
-    public function __construct(){
+    public function __construct()
+    {
         parent::__construct();
 
         // test pages are only for users with AdvancedUsers role
         $this->redirectNotLoggedUsers();
-        if(!$this->loggedUser->hasSysAdminRole()){
-            $this->displayCommonErrorPageAndExit("Sorry, no such page.");
+
+        if (! $this->loggedUser->hasSysAdminRole()) {
+            $this->displayCommonErrorPageAndExit('Sorry, no such page.');
         }
     }
 
-    public function isCallableFromRouter(string $actionName)
+    public function isCallableFromRouter(string $actionName): bool
     {
         // all public methods can be called by router
-        return TRUE;
+        return true;
     }
 
     public function index()
@@ -33,10 +36,11 @@ class SysController extends BaseController
      *
      * APC control panel needs to be called directly
      */
-    public function apc($redirectToApcScript=TRUE)
+    public function apc($redirectToApcScript = true)
     {
-        if($redirectToApcScript){
+        if ($redirectToApcScript) {
             $this->view->redirect('/src/Libs/Apc/apc.php');
+
             exit;
         }
 
@@ -50,12 +54,12 @@ class SysController extends BaseController
         //  this work!
         define('USE_AUTHENTICATION', 0);
 
-        define('DATE_FORMAT',$GLOBALS['datetimeFormat']);
-        define('GRAPH_SIZE',200);                         // Image size
-
+        define('DATE_FORMAT', $GLOBALS['datetimeFormat']);
+        define('GRAPH_SIZE', 200);                         // Image size
     }
 
-    public function phpinfo(){
+    public function phpinfo()
+    {
         phpinfo();
     }
 

@@ -1,22 +1,22 @@
 <?php
+
 namespace src\Controllers\Admin;
 
-use src\Utils\Text\UserInputFilter;
-use src\Utils\Uri\SimpleRouter;
-use src\Utils\Uri\Uri;
+use src\Controllers\Core\ViewBaseController;
 use src\Models\Admin\AdminNote;
 use src\Models\Admin\AdminNoteSet;
+use src\Models\User\MultiUserQueries;
 use src\Models\User\User;
 use src\Models\User\UserAdmin;
 use src\Models\User\UserAuthorization;
 use src\Models\User\UserEmailSender;
 use src\Models\User\UserNotify;
-use src\Models\User\MultiUserQueries;
-use src\Controllers\Core\ViewBaseController;
+use src\Utils\Text\UserInputFilter;
+use src\Utils\Uri\SimpleRouter;
+use src\Utils\Uri\Uri;
 
 class UserAdminController extends ViewBaseController
 {
-
     private $infoMsg = null;
 
     private $errorMsg = null;
@@ -39,7 +39,7 @@ class UserAdminController extends ViewBaseController
         }
     }
 
-    public function isCallableFromRouter(string $actionName)
+    public function isCallableFromRouter(string $actionName): bool
     {
         return true;
     }
@@ -74,22 +74,25 @@ class UserAdminController extends ViewBaseController
                 strpos($userName, '@')
                 && ! is_null($user = User::fromEmailFactory($userName))
                 ) {
-
-                $this->view->redirect(SimpleRouter::getLink(
+                $this->view->redirect(
+                    SimpleRouter::getLink(
                     'Admin.UserAdmin',
                     'index',
-                    $user->getUserId())
-                    );
+                    $user->getUserId()
+                )
+                );
             }
 
             // Second try - submitted data is full username of existing user
             if (! is_null($user = User::fromUsernameFactory($userName))) {
-                    $this->view->redirect(SimpleRouter::getLink(
-                        'Admin.UserAdmin',
-                        'index',
-                        $user->getUserId())
-                        );
-                }
+                $this->view->redirect(
+                    SimpleRouter::getLink(
+                    'Admin.UserAdmin',
+                    'index',
+                    $user->getUserId()
+                )
+                );
+            }
 
             // Third try - submitted data is substring of existing username
             // so display list of users
@@ -97,11 +100,13 @@ class UserAdminController extends ViewBaseController
                 $usersTable = MultiUserQueries::searchUser($userName);
                 // If there is exact one result - redirect for user admin
                 if (sizeof($usersTable) == 1) {
-                    $this->view->redirect(SimpleRouter::getLink(
+                    $this->view->redirect(
+                        SimpleRouter::getLink(
                         'Admin.UserAdmin',
                         'index',
-                        $usersTable[0]->getUserId())
-                        );
+                        $usersTable[0]->getUserId()
+                    )
+                    );
                 }
                 // If there is no results - show message
                 if (sizeof($usersTable) == 0) {
@@ -139,7 +144,7 @@ class UserAdminController extends ViewBaseController
      * (un)bans user $userId (depends of $state)
      *
      * @param int $userId
-     * @param boolean $state
+     * @param bool $state
      */
     public function userBan($userId = null, $state = null)
     {
@@ -164,7 +169,7 @@ class UserAdminController extends ViewBaseController
      * (un)bans stats for user $userId (depends of $state)
      *
      * @param int $userId
-     * @param boolean $state
+     * @param bool $state
      */
     public function statBan($userId = null, $state = null)
     {
@@ -188,7 +193,7 @@ class UserAdminController extends ViewBaseController
      * Sets VerifyAll flag for $userId to $state
      *
      * @param int $userId
-     * @param boolean $state
+     * @param bool $state
      */
     public function verifyAll($userId = null, $state = null)
     {
@@ -212,7 +217,7 @@ class UserAdminController extends ViewBaseController
      * Sets Ignore_founds flag for $userId to $state
      *
      * @param int $userId
-     * @param boolean $state
+     * @param bool $state
      */
     public function createNoLimit($userId = null, $state = null)
     {
@@ -236,7 +241,7 @@ class UserAdminController extends ViewBaseController
      * Changes new caches notify state for $userId
      *
      * @param int $userId
-     * @param boolean $state
+     * @param bool $state
      */
     public function notifyCaches($userId = null, $state = null)
     {
@@ -260,7 +265,7 @@ class UserAdminController extends ViewBaseController
      * Changes new logs notify state for $userId
      *
      * @param int $userId
-     * @param boolean $state
+     * @param bool $state
      */
     public function notifyLogs($userId = null, $state = null)
     {
@@ -303,7 +308,7 @@ class UserAdminController extends ViewBaseController
     {
         $this->viewedUser = User::fromUserIdFactory($userId);
 
-        if (!$this->viewedUser) {
+        if (! $this->viewedUser) {
             $this->view->redirect('/');
         }
     }

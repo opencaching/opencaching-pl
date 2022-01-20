@@ -8,12 +8,7 @@ namespace src\Controllers;
 
 class CacheExportController extends BaseController
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    public function isCallableFromRouter(string $actionName)
+    public function isCallableFromRouter(string $actionName): bool
     {
         // all public method can be called by router
         return true;
@@ -24,7 +19,9 @@ class CacheExportController extends BaseController
         // there is nothing to do here yet...
     }
 
-    /** Provide localized form for "OKAPI GPX" */
+    /**
+     * Provide localized form for "OKAPI GPX"
+     */
     public function okapiGpxForm()
     {
         $this->view->setTemplate('okapiGpxForm');

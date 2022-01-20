@@ -4,18 +4,12 @@ namespace src\Controllers;
 
 use PHPQRCode\QRcode;
 use src\Utils\FileSystem\FileManager;
-use src\Utils\Uri\Uri;
 use src\Utils\Generators\TextGen;
+use src\Utils\Uri\Uri;
 
 class UserUtilsController extends BaseController
 {
-
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    public function isCallableFromRouter(string $actionName)
+    public function isCallableFromRouter(string $actionName): bool
     {
         return true;
     }
@@ -32,43 +26,40 @@ class UserUtilsController extends BaseController
     {
         global $config; //TODO: remove it from here
 
-        if(!$this->isUserLogged()){
-            $this->redirectToLoginPage();
-            exit;
-        }
+        $this->redirectNotLoggedUsers();
 
         $this->view->setTemplate('qrCodeGen/qrcode');
         $this->view->addLocalCss(
-            Uri::getLinkWithModificationTime('/views/qrCodeGen/qrcode.css'));
-
+            Uri::getLinkWithModificationTime('/views/qrCodeGen/qrcode.css')
+        );
 
         //set it to writable location, a place for temp generated PNG files
         $qrCodesDirName = 'tmp/qrcodes/';
 
         $qrCodesDir = $this->ocConfig->getDynamicFilesPath() . $qrCodesDirName;
 
-        if (!file_exists($qrCodesDir)){
+        if (! file_exists($qrCodesDir)) {
             mkdir($qrCodesDir);
         }
 
         $qrCodeText = null;
-        if ( isset($_REQUEST['qrCodeText']) ) {
+
+        if (isset($_REQUEST['qrCodeText'])) {
             $qrCodeText = trim($_REQUEST['qrCodeText']);
         }
 
-        if( empty($qrCodeText)){ // load default text value if neccessary
+        if (empty($qrCodeText)) { // load default text value if necessary
             $qrCodeText = $config['qrCodeUrl'];
         }
 
         // remove images older then 1 hour
-        FileManager::removeFilesOlderThan($qrCodesDir, "*.png", 60*60);
+        FileManager::removeFilesOlderThan($qrCodesDir, '*.png', 60 * 60);
 
-        $labelFileName = TextGen::randomText(12).'.png';
-        $qrCodeFileName = 'qrCode_'.$labelFileName;
+        $labelFileName = TextGen::randomText(12) . '.png';
+        $qrCodeFileName = 'qrCode_' . $labelFileName;
 
         $qrCodeFile = $qrCodesDir . $qrCodeFileName;
         $labelFile = $qrCodesDir . $labelFileName;
-
 
         // generate QR-code with $qrCodeText to $filename png file
         $this->view->setVar('qrCodeText', $qrCodeText);
@@ -86,7 +77,7 @@ class UserUtilsController extends BaseController
         $xd = 86 - ($qrCodeWidth / 2);
         $yd = 142 - ($qrCodeWidth / 2);
 
-        $ocBackgroundImg = imagecreatefromjpeg(__DIR__.'/../../public/images/qrCodeGen/' . $config['qrCodeLogo']);
+        $ocBackgroundImg = imagecreatefromjpeg(__DIR__ . '/../../public/images/qrCodeGen/' . $config['qrCodeLogo']);
 
         // merge both images
         imagecopymerge($ocBackgroundImg, $qrCodeImg, $xd, $yd, 0, 0, $qrCodeWidth, $qrCodeWidth, 100);
@@ -97,11 +88,9 @@ class UserUtilsController extends BaseController
         imagedestroy($qrCodeImg);
         imagedestroy($ocBackgroundImg);
 
-        $this->view->setVar('ocLabelImgUrl', '/'.$qrCodesDirName.$labelFileName);
-        $this->view->setVar('qrCodeImgUrl', '/'.$qrCodesDirName.$qrCodeFileName);
-
+        $this->view->setVar('ocLabelImgUrl', '/' . $qrCodesDirName . $labelFileName);
+        $this->view->setVar('qrCodeImgUrl', '/' . $qrCodesDirName . $qrCodeFileName);
 
         $this->view->buildView();
     }
-
 }

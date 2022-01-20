@@ -1,23 +1,23 @@
 <?php
+
 namespace src\Controllers;
 
-use src\Utils\Log\Log;
-use src\Utils\Text\UserInputFilter;
-use src\Utils\Uri\Uri;
+use src\Models\GeoCache\MultiLogStats;
 use src\Models\Neighbourhood\Neighbourhood;
+use src\Models\Pictures\StatPic;
 use src\Models\User\User;
 use src\Models\User\UserEmailSender;
 use src\Models\User\UserNotify;
 use src\Models\User\UserPreferences\UserPreferences;
 use src\Models\User\UserPreferences\UserProfilePref;
-use src\Models\GeoCache\MultiLogStats;
+use src\Utils\Log\Log;
 use src\Utils\Text\InputFilter;
-use src\Models\Pictures\StatPic;
+use src\Utils\Text\UserInputFilter;
+use src\Utils\Uri\Uri;
 
 class UserProfileController extends BaseController
 {
-
-    /** @var User $requestedUser */
+    /** @var User */
     private $requestedUser;
 
     /** @var array */
@@ -33,7 +33,7 @@ class UserProfileController extends BaseController
         // $this->requestedUser = $this->loadRequestedUser();
     }
 
-    public function isCallableFromRouter(string $actionName)
+    public function isCallableFromRouter(string $actionName): bool
     {
         // all public methods can be called by router
         return true;
@@ -60,7 +60,6 @@ class UserProfileController extends BaseController
         $watchmailDay = $settings['watchmail_day'];
 
         if (! $this->areEmailSettingsInScope($watchmailMode, $watchmailHour, $watchmailDay)) {
-
             // email settings are wrong - reset to defaults
             // by default send notification: hourly
             $watchmailMode = UserNotify::SEND_NOTIFICATION_HOURLY;
@@ -88,15 +87,15 @@ class UserProfileController extends BaseController
      * @param int $watchmailMode
      * @param int $watchmailHour
      * @param int $watchmailDay
-     * @return boolean
+     * @return bool
      */
     private function areEmailSettingsInScope($watchmailMode, $watchmailHour, $watchmailDay)
     {
-        return (is_numeric($watchmailMode) && in_array($watchmailMode, [
+        return is_numeric($watchmailMode) && in_array($watchmailMode, [
             UserNotify::SEND_NOTIFICATION_DAILY,
             UserNotify::SEND_NOTIFICATION_HOURLY,
-            UserNotify::SEND_NOTIFICATION_WEEKLY
-        ]) && is_numeric($watchmailHour) && $watchmailHour >= 0 && $watchmailHour <= 23 && is_numeric($watchmailDay) && $watchmailDay >= 1 && $watchmailDay <= 7);
+            UserNotify::SEND_NOTIFICATION_WEEKLY,
+        ]) && is_numeric($watchmailHour) && $watchmailHour >= 0 && $watchmailHour <= 23 && is_numeric($watchmailDay) && $watchmailDay >= 1 && $watchmailDay <= 7;
     }
 
     /**
@@ -141,7 +140,7 @@ class UserProfileController extends BaseController
     {
         $this->checkUserLoggedAjax();
 
-        if (isset($_POST['nbh']) && isset($_POST['state'])) {
+        if (isset($_POST['nbh'], $_POST['state'])) {
             if (Neighbourhood::setNeighbourhoodNotify($this->loggedUser, (int) $_POST['nbh'], $_POST['state'])) {
                 $this->ajaxSuccessResponse();
             }
@@ -159,9 +158,9 @@ class UserProfileController extends BaseController
     {
         $this->checkUserLoggedAjax();
 
-        $watchmailMode = isset($_POST['watchmail_mode']) ? $_POST['watchmail_mode'] : '';
-        $watchmailHour = isset($_POST['watchmail_hour']) ? $_POST['watchmail_hour'] : '';
-        $watchmailDay = isset($_POST['watchmail_day']) ? $_POST['watchmail_day'] : '';
+        $watchmailMode = $_POST['watchmail_mode'] ?? '';
+        $watchmailHour = $_POST['watchmail_hour'] ?? '';
+        $watchmailDay = $_POST['watchmail_day'] ?? '';
 
         if ($this->areEmailSettingsInScope($watchmailMode, $watchmailHour, $watchmailDay)) {
             $this->loggedUser->updateCacheWatchEmailSettings($watchmailMode, $watchmailHour, $watchmailDay);
@@ -170,7 +169,7 @@ class UserProfileController extends BaseController
         $this->ajaxErrorResponse();
     }
 
-    public function getUserFtfsAjax ($userId)
+    public function getUserFtfsAjax($userId)
     {
         $this->ajaxJsonResponse(MultiLogStats::getUserFtfs($userId));
     }
@@ -184,12 +183,14 @@ class UserProfileController extends BaseController
     public function mailTo($userId = null, $subject = '')
     {
         $this->redirectNotLoggedUsers();
+
         if (! $this->prepareUserData($userId)) {
             // Bad request - user not selected.
             $this->view->redirect('/');
         }
         $subject = UserInputFilter::purifyHtmlString(urldecode($subject));
         $content = '';
+
         if (isset($_POST['sendEmailAction'])) {
             $this->sendEmail($subject, $content);
         }
@@ -222,6 +223,7 @@ class UserProfileController extends BaseController
         if (! isset($_POST['subject']) || (mb_strlen($subject = mb_substr(strip_tags(trim($_POST['subject'])), 0, 150)) == 0)) {
             $this->errorMsg = tr('mailto_lackOfSubject');
         }
+
         if (! empty($this->errorMsg)) {
             return;
         }
@@ -231,6 +233,7 @@ class UserProfileController extends BaseController
         UserPreferences::savePreferencesJson(UserProfilePref::KEY, json_encode($this->preferences));
         // Send mail to recipient
         $result = UserEmailSender::sendU2UMessage($this->loggedUser, $this->requestedUser, $subject, $content, $this->preferences['email']['showMyEmail']);
+
         if ($result && $this->preferences['email']['recieveCopy']) {
             // Send copy of email - to sender
             $result = UserEmailSender::sendU2UCopy($this->loggedUser, $this->requestedUser, $subject, $content);
@@ -239,6 +242,7 @@ class UserProfileController extends BaseController
         Log::logEmail($this->loggedUser, $this->requestedUser, $subject, $this->preferences['email']['showMyEmail']);
         // Redirect to user profile page
         $uri = $this->requestedUser->getProfileUrl();
+
         if ($result) {
             $uri = Uri::setOrReplaceParamValue('infoMsg', tr('mailto_messageSent'), $uri);
         } else {
@@ -253,6 +257,7 @@ class UserProfileController extends BaseController
             return false;
         }
         $this->preferences = UserPreferences::getUserPrefsByKey(UserProfilePref::KEY)->getValues();
+
         return true;
     }
 
@@ -261,12 +266,12 @@ class UserProfileController extends BaseController
         if (isset($_REQUEST['userid'])) {
             return User::fromUserIdFactory($_REQUEST['userid']);
         }
-        return null;
     }
 
     public function confirmRules()
     {
         $uri = (empty($_REQUEST['url'])) ? '/' : urldecode($_REQUEST['url']);
+
         if ($this->isUserLogged()) {
             $this->loggedUser->confirmRules();
         }
@@ -283,7 +288,7 @@ class UserProfileController extends BaseController
 
         $this->view->setTemplate('userProfile/changeStatPic');
 
-        list ($statPicText, $statPicLogo) = $this->loggedUser->getStatPicDataArr();
+        [$statPicText, $statPicLogo] = $this->loggedUser->getStatPicDataArr();
         $this->view->setVar('statPicText', $statPicText);
         $this->view->setVar('statPicLogo', $statPicLogo);
 
@@ -300,7 +305,7 @@ class UserProfileController extends BaseController
         // this is only for logged user
         $this->redirectNotLoggedUsers();
 
-        $statPicLogo = isset($_POST['statpic_logo']) ? (integer) $_POST['statpic_logo'] : 0;
+        $statPicLogo = isset($_POST['statpic_logo']) ? (int) $_POST['statpic_logo'] : 0;
         $statPicText = isset($_POST['statpic_text']) ? mb_substr($_POST['statpic_text'], 0, 30) : 'Opencaching';
         $statPicText = InputFilter::cleanupUserInput($statPicText);
 

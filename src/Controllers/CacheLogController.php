@@ -33,7 +33,6 @@ class CacheLogController extends ViewBaseController
         // there is nothing to do here yet...
     }
 
-
     /**
      * Maps of last logs
      */

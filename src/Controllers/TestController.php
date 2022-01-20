@@ -48,7 +48,7 @@ class TestController extends BaseController
         }
     }
 
-    public function isCallableFromRouter(string $actionName)
+    public function isCallableFromRouter(string $actionName): bool
     {
         // all public methods can be called by router
         return true;

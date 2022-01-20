@@ -43,5 +43,5 @@ abstract class CoreController
      *                           - method which router will call
      * @return bool - TRUE if given method can be call from router
      */
-    abstract public function isCallableFromRouter(string $actionName);
+    abstract public function isCallableFromRouter(string $actionName): bool;
 }

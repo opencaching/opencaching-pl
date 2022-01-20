@@ -10,7 +10,6 @@ use src\Utils\Uri\HttpCode;
  */
 abstract class ApiBaseController extends CoreController
 {
-
     /**
      * Every ctrl should have index method
      * which is called by router as a default action

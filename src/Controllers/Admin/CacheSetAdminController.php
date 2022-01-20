@@ -1,20 +1,20 @@
 <?php
+
 namespace src\Controllers\Admin;
 
 use src\Controllers\BaseController;
-use src\Utils\Uri\Uri;
 use src\Models\CacheSet\CacheSet;
-use src\Models\ChunkModels\ListOfCaches\Column_CacheSetNameAndIcon;
-use src\Models\ChunkModels\ListOfCaches\ListOfCachesModel;
-use src\Models\ChunkModels\ListOfCaches\Column_SimpleText;
-use src\Models\ChunkModels\DynamicMap\DynamicMapModel;
-use src\Models\ChunkModels\DynamicMap\CacheSetMarkerModel;
-use src\Models\GeoCache\MultiCacheStats;
 use src\Models\CacheSet\MultiGeopathsStats;
+use src\Models\ChunkModels\DynamicMap\CacheSetMarkerModel;
+use src\Models\ChunkModels\DynamicMap\DynamicMapModel;
+use src\Models\ChunkModels\ListOfCaches\Column_CacheSetNameAndIcon;
+use src\Models\ChunkModels\ListOfCaches\Column_SimpleText;
+use src\Models\ChunkModels\ListOfCaches\ListOfCachesModel;
 use src\Models\GeoCache\GeoCache;
+use src\Models\GeoCache\MultiCacheStats;
 use src\Models\PowerTrail\PowerTrail;
-use src\Controllers\GeoPathController;
 use src\Utils\Debug\Debug;
+use src\Utils\Uri\Uri;
 
 class CacheSetAdminController extends BaseController
 {
@@ -24,18 +24,9 @@ class CacheSetAdminController extends BaseController
 
         // this controller is only for Admins
         $this->redirectNotLoggedUsers();
-
-        /* !!!temporary disabled for tests:
-
-        if(!$this->loggedUser->hasOcTeamRole()){
-            $this->view->redirect('/');
-            exit;
-        }
-        */
-
     }
 
-    public function isCallableFromRouter(string $actionName)
+    public function isCallableFromRouter(string $actionName): bool
     {
         // all public methods can be called by router
         return true;
@@ -43,7 +34,6 @@ class CacheSetAdminController extends BaseController
 
     public function index()
     {
-
     }
 
     /**
@@ -55,55 +45,60 @@ class CacheSetAdminController extends BaseController
         $this->view->setTemplate('admin/cacheSet/cacheSetsToArchive');
         $this->view->addLocalCss(
             Uri::getLinkWithModificationTime(
-                '/views/admin/cacheSet/cacheSetsToArchive.css'));
+                '/views/admin/cacheSet/cacheSetsToArchive.css'
+            )
+        );
 
         $this->view->loadJQuery();
 
         $csToArchive = CacheSet::getCacheSetsToArchive();
 
-        if( empty($csToArchive)){
+        if (empty($csToArchive)) {
             $this->view->setVar('noCsToArchive', true);
             $this->view->buildView();
+
             exit;
-        } else {
-            $this->view->setVar('noCsToArchive', false);
         }
+        $this->view->setVar('noCsToArchive', false);
 
         // prepare model for list of watched caches
         $listModel = new ListOfCachesModel();
         $listModel->addColumn(
-            new Column_CacheSetNameAndIcon( tr('admCs_cacheSet'),
-                function($row){
+            new Column_CacheSetNameAndIcon(
+                tr('admCs_cacheSet'),
+                function ($row) {
                     return [
                         'id' => $row['id'],
                         'type' => $row['type'],
-                        'name' => $row['name']
+                        'name' => $row['name'],
                     ];
-                }));
+                }
+            )
+        );
         $listModel->addColumn(
-            new Column_SimpleText( tr('admCs_currentRatio'), function($row){
-                return $row['activeCaches'] . ' ( '. round($row['currentRatio']).'% ) ';
-            }));
+            new Column_SimpleText(tr('admCs_currentRatio'), function ($row) {
+                return $row['activeCaches'] . ' ( ' . round($row['currentRatio']) . '% ) ';
+            })
+        );
 
         $listModel->addColumn(
-            new Column_SimpleText( tr('admCs_requiredRatio'), function($row){
+            new Column_SimpleText(tr('admCs_requiredRatio'), function ($row) {
                 // find number of required caches
-                $requiredCachesNum = ceil($row['cacheCount']*$row['ratioRequired']/100);
-                return $requiredCachesNum . ' ( '. round($row['ratioRequired']).'% )';
-            }));
+                $requiredCachesNum = ceil($row['cacheCount'] * $row['ratioRequired'] / 100);
+
+                return $requiredCachesNum . ' ( ' . round($row['ratioRequired']) . '% )';
+            })
+        );
 
         $listModel->addDataRows($csToArchive);
         $this->view->setVar('listOfCssToArchiveModel', $listModel);
-
-
 
         // init map-chunk model
         $this->view->addHeaderChunk('openLayers5');
 
         $mapModel = new DynamicMapModel();
-        $mapModel->addMarkersWithExtractor(CacheSetMarkerModel::class, $csToArchive, function($row){
-
-            $ratioTxt = round($row['currentRatio']).'/'.$row['ratioRequired'].'%';
+        $mapModel->addMarkersWithExtractor(CacheSetMarkerModel::class, $csToArchive, function ($row) {
+            $ratioTxt = round($row['currentRatio']) . '/' . $row['ratioRequired'] . '%';
 
             $marker = new CacheSetMarkerModel();
 
@@ -112,14 +107,14 @@ class CacheSetAdminController extends BaseController
             $marker->icon = CacheSet::GetTypeIcon($row['type']);
 
             $marker->link = CacheSet::getCacheSetUrlById($row['id']);
-            $marker->name = $row['name']." ($ratioTxt)";
+            $marker->name = $row['name'] . " ({$ratioTxt})";
+
             return $marker;
         });
 
         $this->view->setVar('mapModel', $mapModel);
 
         $this->view->buildView();
-
     }
 
     public function showDuplicatesInGeopaths()
@@ -131,43 +126,45 @@ class CacheSetAdminController extends BaseController
         $cacheIds = MultiGeopathsStats::getDuplicatedCachesList();
         $caches = MultiCacheStats::getGeocachesById($cacheIds);
 
-        usort($caches, function($c1, $c2) {
+        usort($caches, function ($c1, $c2) {
             return strcmp($c1->getOwner()->getUserName(), $c2->getOwner()->getUserName());
         });
 
         $this->view->setTemplate('cacheSet/duplicatedCachesList');
         $this->view->setVar('caches', $caches);
 
-        $pts=[];
+        $pts = [];
+
         foreach ($cacheIds as $cacheid) {
-            $ptArr = PowerTrail::CheckForPowerTrailByCache($cacheid, TRUE);
+            $ptArr = PowerTrail::CheckForPowerTrailByCache($cacheid, true);
             $pts[$cacheid] = [];
+
             foreach ($ptArr as $ptRow) {
-                $pts[$cacheid][] = new PowerTrail(array('dbRow' => $ptRow));
+                $pts[$cacheid][] = new PowerTrail(['dbRow' => $ptRow]);
             }
         }
         $this->view->setVar('pts', $pts);
 
-
         $this->view->buildView();
     }
 
-    public function removeDuplicatedCachesAjax($gpId, $cacheId) {
-
+    public function removeDuplicatedCachesAjax($gpId, $cacheId)
+    {
         $this->checkUserLoggedAjax();
 
-        if (!is_numeric($gpId) || !is_numeric($cacheId)) {
-            $this->ajaxErrorResponse("Incorrect params");
+        if (! is_numeric($gpId) || ! is_numeric($cacheId)) {
+            $this->ajaxErrorResponse('Incorrect params');
         }
 
         $cache = GeoCache::fromCacheIdFactory($cacheId);
-        if (!$cache) {
-            $this->ajaxErrorResponse("No such geocache: $cacheId");
+
+        if (! $cache) {
+            $this->ajaxErrorResponse("No such geocache: {$cacheId}");
         }
 
-        if (!$this->loggedUser->hasOcTeamRole() &&
-            !$cache->getOwnerId() != $this->loggedUser->getUserId()) {
-            $this->ajaxErrorResponse("User is not allowed to remove this geocache from goepath");
+        if (! $this->loggedUser->hasOcTeamRole()
+            && ! $cache->getOwnerId() != $this->loggedUser->getUserId()) {
+            $this->ajaxErrorResponse('User is not allowed to remove this geocache from goepath');
         }
 
         // check if this cache is on the list of duplicates
@@ -175,16 +172,17 @@ class CacheSetAdminController extends BaseController
         Debug::dumpToLog($cacheIds);
         Debug::dumpToLog($cacheId);
 
-        if (!in_array($cacheId, $cacheIds)) {
-            $this->ajaxErrorResponse("This cache is not a duplicate");
+        if (! in_array($cacheId, $cacheIds)) {
+            $this->ajaxErrorResponse('This cache is not a duplicate');
         }
 
         $gp = CacheSet::fromCacheSetIdFactory($gpId);
-        if (!$gp) {
-            $this->ajaxErrorResponse("No such GP");
+
+        if (! $gp) {
+            $this->ajaxErrorResponse('No such GP');
         }
 
         $gp->removeCache($cache);
-        $this->ajaxSuccessResponse("Cache removed");
+        $this->ajaxSuccessResponse('Cache removed');
     }
 }

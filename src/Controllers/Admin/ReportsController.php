@@ -39,8 +39,6 @@ class ReportsController extends BaseController
             } else {
                 $this->redirectToLoginPage();
             }
-
-            exit();
         }
 
         if (! $this->loggedUser->hasOcTeamRole()) {
@@ -49,8 +47,6 @@ class ReportsController extends BaseController
             } else {
                 $this->view->redirect('\\');
             }
-
-            exit();
         }
 
         $this->view->setVar('user', $this->loggedUser);
@@ -116,8 +112,6 @@ class ReportsController extends BaseController
                 default:
                     if (isset($_REQUEST['ajax'])) {
                         $this->ajaxErrorResponse('Invalid/no action', HttpCode::STATUS_BAD_REQUEST);
-
-                        exit();
                     }
             }
         }
@@ -151,8 +145,6 @@ class ReportsController extends BaseController
 
         if (! in_array($_REQUEST['status'], ReportCommons::getStatusesArray())) {
             $this->ajaxErrorResponse('Invalid new status', HttpCode::STATUS_BAD_REQUEST);
-
-            exit();
         }
         $report = new Report(['reportId' => $_REQUEST['id']]);
         $oldleader = $report->getUserIdLeader();
@@ -166,8 +158,6 @@ class ReportsController extends BaseController
         } else {
             $this->ajaxErrorResponse('Poll is active!', HttpCode::STATUS_BAD_REQUEST);
         }
-
-        exit();
     }
 
     private function changeLeaderAjax()
@@ -183,8 +173,6 @@ class ReportsController extends BaseController
             if (! $user->hasOcTeamRole()) {
                 unset($user);
                 $this->ajaxErrorResponse('Invalid new leader', HttpCode::STATUS_BAD_REQUEST);
-
-                exit();
             }
             unset($user);
         }
@@ -197,8 +185,6 @@ class ReportsController extends BaseController
         } else {
             $this->ajaxSuccessResponse($report->getUserLeader()->getUserName());
         }
-
-        exit();
     }
 
     private function changeCacheStatusAjax()
@@ -212,8 +198,6 @@ class ReportsController extends BaseController
 
         if (! in_array($newStatus, GeoCache::CacheStatusArray())) {
             $this->ajaxErrorResponse('Invalid new cache status', HttpCode::STATUS_BAD_REQUEST);
-
-            exit();
         }
 
         $report = Report::fromIdFactory($_REQUEST['id']);
@@ -223,8 +207,6 @@ class ReportsController extends BaseController
         }
 
         $this->ajaxSuccessResponse(tr($report->getCache()->getStatusTranslationKey()));
-
-        exit();
     }
 
     private function getEmailTemplatesAjax()
@@ -251,8 +233,6 @@ class ReportsController extends BaseController
     {
         if (! isset($_REQUEST[$paramName])) {
             $this->ajaxErrorResponse('No parameter: ' . $paramName, HttpCode::STATUS_BAD_REQUEST);
-
-            exit();
         }
     }
 
@@ -260,8 +240,6 @@ class ReportsController extends BaseController
     {
         if (! ReportCommons::isValidReportId($reportId)) {
             $this->ajaxErrorResponse('Incorrect report ID', HttpCode::STATUS_BAD_REQUEST);
-
-            exit();
         }
     }
 
@@ -520,8 +498,6 @@ class ReportsController extends BaseController
         if (! isset($_SERVER['HTTP_REFERER']) || (parse_url($_SERVER['HTTP_REFERER'], PHP_URL_HOST) != parse_url($this->ocConfig->getAbsolute_server_URI(), PHP_URL_HOST))) {
             if ($ajax) {
                 $this->ajaxErrorResponse('No hacking please!', HttpCode::STATUS_FORBIDDEN);
-
-                exit();
             }
             $this->errorMsg = 'No hacking please!';
             $this->redirectToReportList();
@@ -554,13 +530,12 @@ class ReportsController extends BaseController
             $uri = Uri::setOrReplaceParamValue('infomsg', $this->infoMsg, $uri);
         }
         $this->view->redirect($uri);
-
-        exit();
     }
 
     private function getCleanUri(): ?string
     {
         $cleanUri = Uri::removeParam('errormsg');
+
         return Uri::removeParam('infomsg', $cleanUri);
     }
 

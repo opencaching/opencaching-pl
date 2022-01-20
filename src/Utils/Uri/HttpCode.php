@@ -17,5 +17,4 @@ class HttpCode
     public const STATUS_CONFLICT = 409;
 
     public const STATUS_INTERNAL_ERROR = 500;
-
 }

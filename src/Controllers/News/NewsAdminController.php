@@ -1,31 +1,27 @@
 <?php
+
 namespace src\Controllers\News;
 
-use src\Utils\DateTime\Converter;
-use src\Utils\Uri\SimpleRouter;
-use src\Utils\Uri\Uri;
+use src\Controllers\Core\ViewBaseController;
 use src\Models\ChunkModels\PaginationModel;
 use src\Models\ChunkModels\UploadModel;
 use src\Models\News\News;
 use src\Models\Pictures\OcPicture;
-use src\Controllers\Core\ViewBaseController;
+use src\Utils\DateTime\Converter;
+use src\Utils\Uri\SimpleRouter;
+use src\Utils\Uri\Uri;
 
 class NewsAdminController extends ViewBaseController
 {
-
     public function __construct()
     {
         parent::__construct();
 
         // check if user has rights to edit news
-        if (!$this->isUserLogged()) {
-            $this->redirectNotLoggedUsers();
-            exit;
-        }
+        $this->redirectNotLoggedUsers();
 
-        if(!$this->loggedUser->hasNewsPublisherRole()) {
-            $this->displayCommonErrorPageAndExit("You do not have rights to edit news");
-            exit();
+        if (! $this->loggedUser->hasNewsPublisherRole()) {
+            $this->displayCommonErrorPageAndExit('You do not have rights to edit news');
         }
     }
 
@@ -44,7 +40,7 @@ class NewsAdminController extends ViewBaseController
     {
         $paginationModel = new PaginationModel(10);
         $paginationModel->setRecordsCount(News::getAdminNewsCount($category));
-        list ($limit, $offset) = $paginationModel->getQueryLimitAndOffset();
+        [$limit, $offset] = $paginationModel->getQueryLimitAndOffset();
         $this->view->setVar('paginationModel', $paginationModel);
 
         $this->view->setVar('selectedCategory', $category);
@@ -54,10 +50,12 @@ class NewsAdminController extends ViewBaseController
     public function saveNews(): void
     {
         $formResult = $_POST;
+
         if (! is_array($formResult)) {
             return;
         }
-        header("X-XSS-Protection: 0");
+        header('X-XSS-Protection: 0');
+
         if ($formResult['id'] != 0) {
             $news = News::fromNewsIdFactory($formResult['id']);
         } else {
@@ -74,8 +72,10 @@ class NewsAdminController extends ViewBaseController
     public function editNews($newsId = null): void
     {
         $news = News::fromNewsIdFactory($newsId);
+
         if (is_null($news)) {
             $this->view->redirect(SimpleRouter::getLink('News.NewsAdmin'));
+
             exit();
         }
 
@@ -115,6 +115,7 @@ class NewsAdminController extends ViewBaseController
 
         $this->view->setTemplate('news/newsAdminEdit');
         $this->view->buildView();
+
         exit();
     }
 
@@ -128,8 +129,7 @@ class NewsAdminController extends ViewBaseController
 
         $this->view->setTemplate('news/newsAdmin');
         $this->view->buildView();
+
         exit();
     }
-
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace src\Controllers\Cron;
 
 use src\Controllers\BaseController;
@@ -6,7 +7,6 @@ use src\Utils\Uri\SimpleRouter;
 
 class CronAdminController extends BaseController
 {
-
     public function isCallableFromRouter(string $actionName): bool
     {
         // all public methods can be called by router

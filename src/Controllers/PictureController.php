@@ -1,83 +1,81 @@
 <?php
+
 namespace src\Controllers;
 
+use RuntimeException;
+use src\Models\ChunkModels\UploadModel;
 use src\Models\Pictures\OcPicture;
 use src\Models\Pictures\Thumbnail;
 use src\Utils\Debug\Debug;
-use src\Utils\Generators\Uuid;
-use src\Models\ChunkModels\UploadModel;
-use src\Models\GeoCache\GeoCache;
-use src\Models\GeoCache\GeoCacheLog;
-use src\Utils\FileSystem\FileUploadMgr;
 use src\Utils\FileSystem\FileManager;
+use src\Utils\FileSystem\FileUploadMgr;
+use src\Utils\Generators\Uuid;
 
 class PictureController extends BaseController
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    public function isCallableFromRouter(string $actionName)
+    public function isCallableFromRouter(string $actionName): bool
     {
         return true;
     }
 
     public function index()
-    {}
+    {
+    }
 
     /**
      * This function handles file upload by AJAX.
-     * Please note this file is stored in tmp folder and notthing is save in DB here
+     * Please note this file is stored in tmp folder and nothing is saved in DB here
      * (this is only a part of picture editing process)
      */
-    public function uploadPicsAjax ($parentType, $parentId)
+    public function uploadPicsAjax($parentType, $parentId)
     {
         // only logged users can test
         $this->checkUserLoggedAjax();
 
         // check parent object and access rights
-        if (!is_numeric($parentId) || !is_numeric($parentType)) {
-            $this->ajaxErrorResponse ("Icorrect parentId");
+        if (! is_numeric($parentId) || ! is_numeric($parentType)) {
+            $this->ajaxErrorResponse('Incorrect parentId');
         }
 
         // create parent object
         $parentObj = OcPicture::getParentObj($parentType, $parentId);
-        if (!$parentObj) {
-            $this->ajaxErrorResponse("Improper parent type/id");
+
+        if (! $parentObj) {
+            $this->ajaxErrorResponse('Improper parent type/id');
         }
 
         // use the same upload model and store the files in the right place on server
         $uploadModel = UploadModel::PicUploadFactory($parentType, $parentId);
-        try{
+
+        try {
             // save uploaded files
             $newFiles = FileUploadMgr::processFileUpload($uploadModel);
-        } catch (\RuntimeException $e){
-            // some error occured on upload processing
+        } catch (RuntimeException $e) {
+            // some error occurred on upload processing
             $this->ajaxErrorResponse($e->getMessage(), 500);
         }
 
         // FileUploadMgr returns array of new files saved in given directory on server
-        // any specific actions can be done in this moment - for example DB update
+        // any specific actions can be done at this moment - for example DB update
 
         // add correct url to uploaded files before return to browser
         $uploadModel->addUrlBaseToNewFilesArray($newFiles);
 
         $pics = [];
-        foreach ($newFiles as $orgFilename => $path) {
 
+        foreach ($newFiles as $orgFilename => $path) {
             // create OcPicture object for each new pic and save the records in DB
             $pic = OcPicture::getNewPicPlaceholder($parentType, $parentObj);
 
-            if (!$pic->isUserAllowedToModifyIt($this->loggedUser)) {
-                // ups.. someone try to hack something here
+            if (! $pic->isUserAllowedToModifyIt($this->loggedUser)) {
+                // ups… someone tries to hack something here
                 // remove the file
                 FileManager::removeFile($path);
-                $this->ajaxErrorResponse("User is no allowed to add pic to this object");
+                $this->ajaxErrorResponse('User is no allowed to add pic to this object');
             }
 
-            $pic->markAsHidden(FALSE);  // added pics are not hidden
-            $pic->markAsSpoiler(FALSE); // added pics are not spoilers (assumption)
+            $pic->markAsHidden(false);  // added pics are not hidden
+            $pic->markAsSpoiler(false); // added pics are not spoilers (assumption)
             $pic->setUuid(FileManager::getFileNameWithoutExtension($path));
             $pic->setFilenameForUrl(FileManager::getFileNameWithExtension($path));
 
@@ -103,28 +101,31 @@ class PictureController extends BaseController
         $this->checkUserLoggedAjax();
 
         $uuids = $_POST['uuidsOrder'] ?? null;
-        if (is_null($uuids) || !is_array($uuids) || empty($uuids)) {
-            $this->ajaxErrorResponse("Wrong uuids array");
+
+        if (! is_array($uuids) || empty($uuids)) {
+            $this->ajaxErrorResponse('Wrong uuids array');
         }
 
         $pics = [];
         $orderIdx = 0;
-        foreach($uuids as $uuid) {
-            if (!Uuid::isValidUuid($uuid)) {
-                $this->ajaxErrorResponse("Invalid UUID");
+
+        foreach ($uuids as $uuid) {
+            if (! Uuid::isValidUuid($uuid)) {
+                $this->ajaxErrorResponse('Invalid UUID');
             }
             $pic = OcPicture::fromUuidFactory($uuid);
-            if (!$pic) {
-                $this->ajaxErrorResponse("Unknown UUID");
+
+            if (! $pic) {
+                $this->ajaxErrorResponse('Unknown UUID');
             }
             // check if this pic is assigned to the same parent
-            if ($pic->getParentId() != $parentId || $pic->getParentType() != $parentType ) {
-                $this->ajaxErrorResponse("Uuid from another parent");
+            if ($pic->getParentId() != $parentId || $pic->getParentType() != $parentType) {
+                $this->ajaxErrorResponse('Uuid from another parent');
             }
 
             // check user rights
-            if (!$pic->isUserAllowedToModifyIt($this->loggedUser)) {
-                $this->ajaxErrorResponse("User is not allowed to modify pic");
+            if (! $pic->isUserAllowedToModifyIt($this->loggedUser)) {
+                $this->ajaxErrorResponse('User is not allowed to modify pic');
             }
 
             $pic->setOrderIndex($orderIdx++); // set new order index
@@ -135,13 +136,13 @@ class PictureController extends BaseController
             $pic->updateOrderInDb();
         }
 
-        $this->ajaxSuccessResponse("Pics order updated");
+        $this->ajaxSuccessResponse('Pics order updated');
     }
 
     /**
      * Update picture title
      *
-     * @param string $uuid  UUID of the picture
+     * @param string $uuid UUID of the picture
      * @param string POST['title']  new value of title
      */
     public function updateTitleAjax($uuid)
@@ -150,43 +151,46 @@ class PictureController extends BaseController
         $this->checkUserLoggedAjax();
 
         $title = $_POST['title'] ?? null;
+
         if (is_null($title)) {
-            $this->ajaxErrorResponse("Empty title!");
+            $this->ajaxErrorResponse('Empty title!');
         }
 
-        $title = strip_tags ($title);
-        if($title == '') {
-            $title = "-";
+        $title = strip_tags($title);
+
+        if ($title == '') {
+            $title = '-';
         }
 
-        if (!Uuid::isValidUuid($uuid)) {
-            $this->ajaxErrorResponse("Invalid UUID");
+        if (! Uuid::isValidUuid($uuid)) {
+            $this->ajaxErrorResponse('Invalid UUID');
         }
 
         $pic = OcPicture::fromUuidFactory($uuid);
-        if (!$pic) {
-            $this->ajaxErrorResponse("Unknown UUID");
+
+        if (! $pic) {
+            $this->ajaxErrorResponse('Unknown UUID');
         }
 
         // check user rights
-        if (!$pic->isUserAllowedToModifyIt($this->loggedUser)) {
-            $this->ajaxErrorResponse("User is not allowed to modify pic");
+        if (! $pic->isUserAllowedToModifyIt($this->loggedUser)) {
+            $this->ajaxErrorResponse('User is not allowed to modify pic');
         }
 
         $pic->setTitle($title);
         $pic->updateTitleInDb();
-        $this->ajaxSuccessResponse("Title updated");
+        $this->ajaxSuccessResponse('Title updated');
     }
 
     /**
      * Remove given picture
-     * @param string $uuid  UUID of the pic to remove
+     * @param string $uuid UUID of the pic to remove
      */
     public function removePicAjax($uuid)
     {
         $pic = $this->commonAttrChangeAjax($uuid);
         $pic->remove($this->loggedUser);
-        $this->ajaxSuccessResponse("Picture removed");
+        $this->ajaxSuccessResponse('Picture removed');
     }
 
     /**
@@ -195,7 +199,7 @@ class PictureController extends BaseController
      */
     public function addSpoilerAttrAjax($uuid)
     {
-        $this->changeSpoilerAttrAjax($uuid, TRUE);
+        $this->changeSpoilerAttrAjax($uuid, true);
     }
 
     /**
@@ -204,7 +208,7 @@ class PictureController extends BaseController
      */
     public function rmSpoilerAttrAjax($uuid)
     {
-        $this->changeSpoilerAttrAjax($uuid, FALSE);
+        $this->changeSpoilerAttrAjax($uuid, false);
     }
 
     /**
@@ -213,7 +217,7 @@ class PictureController extends BaseController
      */
     public function addHiddenAttrAjax($uuid)
     {
-        $this->changeHiddenAttrAjax($uuid, TRUE);
+        $this->changeHiddenAttrAjax($uuid, true);
     }
 
     /**
@@ -222,7 +226,7 @@ class PictureController extends BaseController
      */
     public function rmHiddenAttrAjax($uuid)
     {
-        $this->changeHiddenAttrAjax($uuid, FALSE);
+        $this->changeHiddenAttrAjax($uuid, false);
     }
 
     private function commonAttrChangeAjax($uuid)
@@ -230,17 +234,18 @@ class PictureController extends BaseController
         // only logged users can test
         $this->checkUserLoggedAjax();
 
-        if (!Uuid::isValidUuid($uuid)) {
-            $this->ajaxErrorResponse("Invalid UUID");
+        if (! Uuid::isValidUuid($uuid)) {
+            $this->ajaxErrorResponse('Invalid UUID');
         }
         $pic = OcPicture::fromUuidFactory($uuid);
-        if (!$pic) {
-            $this->ajaxErrorResponse("Unknown UUID");
+
+        if (! $pic) {
+            $this->ajaxErrorResponse('Unknown UUID');
         }
 
         // check user rights
-        if (!$pic->isUserAllowedToModifyIt($this->loggedUser)) {
-            $this->ajaxErrorResponse("User is not allowed to modify pic");
+        if (! $pic->isUserAllowedToModifyIt($this->loggedUser)) {
+            $this->ajaxErrorResponse('User is not allowed to modify pic');
         }
 
         return $pic;
@@ -251,7 +256,7 @@ class PictureController extends BaseController
         $pic = $this->commonAttrChangeAjax($uuid);
         $pic->markAsSpoiler($newVal);
         $pic->updateSpoilerAttrInDb();
-        $this->ajaxSuccessResponse("Spoiler attr. updated");
+        $this->ajaxSuccessResponse('Spoiler attr. updated');
     }
 
     private function changeHiddenAttrAjax($uuid, $newVal)
@@ -259,7 +264,7 @@ class PictureController extends BaseController
         $pic = $this->commonAttrChangeAjax($uuid);
         $pic->markAsHidden($newVal);
         $pic->updateHiddenAttrInDb();
-        $this->ajaxSuccessResponse("Hidden attr. updated");
+        $this->ajaxSuccessResponse('Hidden attr. updated');
     }
 
     /**
@@ -273,21 +278,22 @@ class PictureController extends BaseController
         $this->redirectNotLoggedUsers();
 
         // check the UUID param
-        if(!Uuid::isValidUuid($uuid)) {
-            $this->displayCommonErrorPageAndExit("Improper UUID!");
+        if (! Uuid::isValidUuid($uuid)) {
+            $this->displayCommonErrorPageAndExit('Improper UUID!');
         }
 
         $picture = OcPicture::fromUuidFactory($uuid);
-        if (!$picture ) {
-            $this->displayCommonErrorPageAndExit("No such picture?!");
+
+        if (! $picture) {
+            $this->displayCommonErrorPageAndExit('No such picture?!');
         }
 
-        if (!$picture->isUserAllowedToModifyIt($this->loggedUser)) {
+        if (! $picture->isUserAllowedToModifyIt($this->loggedUser)) {
             $this->displayCommonErrorPageAndExit("You don't have permissions to remove this picture");
         }
 
-        if (!$picture->remove($this->loggedUser)) {
-            $this->displayCommonErrorPageAndExit("Internal error on picture remove!");
+        if (! $picture->remove($this->loggedUser)) {
+            $this->displayCommonErrorPageAndExit('Internal error on picture remove!');
         }
 
         // removed success - redirect to mainpage of the parent object of the picture
@@ -296,13 +302,15 @@ class PictureController extends BaseController
                 $cache = $picture->getParent();
                 $this->view->redirectAndExit($cache->getCacheUrl());
 
+                // no break
             case OcPicture::TYPE_LOG:
                 $log = $picture->getParent();
                 $this->view->redirectAndExit($log->getLogUrl());
 
+                // no break
             default:
                 Debug::errorLog("Unsupported parent type: {$this->parentType}");
-                $this->displayCommonErrorPageAndExit("Unknown picture parent type?!");
+                $this->displayCommonErrorPageAndExit('Unknown picture parent type?!');
         }
     }
 
@@ -311,24 +319,26 @@ class PictureController extends BaseController
      * If showSpoiler is true thumbanil will be display even if the picture is marked as spoiler
      *
      * @param string $uuid
-     * @param boolean $showSpoiler
+     * @param bool $showSpoiler
      */
-    public function thumbSizeSmall($uuid, $showSpoiler = false) {
+    public function thumbSizeSmall($uuid, $showSpoiler = false)
+    {
         return $this->thumb($uuid, $showSpoiler, Thumbnail::SIZE_SMALL);
     }
 
-    public function thumbSizeMedium($uuid, $showSpoiler = false) {
+    public function thumbSizeMedium($uuid, $showSpoiler = false)
+    {
         return $this->thumb($uuid, $showSpoiler, Thumbnail::SIZE_MEDIUM);
     }
 
-    private function thumb($uuid, $showSpoiler=false, $size = null)
+    private function thumb($uuid, $showSpoiler = false, $size = null)
     {
         // check the UUID param
-        if(!Uuid::isValidUuid($uuid)) {
+        if (! Uuid::isValidUuid($uuid)) {
             $this->view->redirectAndExit(Thumbnail::placeholderUri(Thumbnail::PHD_ERROR_404));
         }
 
-        if (!$size) {
+        if (! $size) {
             $size = Thumbnail::SIZE_MEDIUM;
         }
 

@@ -10,25 +10,34 @@ use src\Utils\Debug\Debug;
  */
 class GeoCacheLogCommons extends BaseObject
 {
-
     public const LOGTYPE_FOUNDIT = 1;
+
     public const LOGTYPE_DIDNOTFIND = 2;
+
     public const LOGTYPE_COMMENT = 3;
+
     public const LOGTYPE_MOVED = 4;
+
     public const LOGTYPE_NEEDMAINTENANCE = 5;
+
     public const LOGTYPE_MADEMAINTENANCE = 6;
+
     public const LOGTYPE_ATTENDED = 7;
+
     public const LOGTYPE_WILLATTENDED = 8;
+
     public const LOGTYPE_ARCHIVED = 9;
+
     public const LOGTYPE_READYTOSEARCH = 10;
+
     public const LOGTYPE_TEMPORARYUNAVAILABLE = 11;
+
     public const LOGTYPE_ADMINNOTE = 12;
 
     private const ICON_PATH = '/images/log/'; //path to the dir with log-type icons
 
     public static function GetIconForType(int $logType, bool $fileNameOnly = false): string
     {
-
         switch ($logType) {
             case self::LOGTYPE_FOUNDIT:
                 $icon = 'found.svg';
@@ -42,7 +51,7 @@ class GeoCacheLogCommons extends BaseObject
             case self::LOGTYPE_MOVED:
                 $icon = 'moved.svg';
                 break;
-            case self::LOGTYPE_NEEDMAINTENANCE:
+                case self::LOGTYPE_NEEDMAINTENANCE:
                 $icon = 'need-maintenance.svg';
                 break;
             case self::LOGTYPE_MADEMAINTENANCE:
@@ -67,14 +76,13 @@ class GeoCacheLogCommons extends BaseObject
                 $icon = 'octeam.svg';
                 break;
             default:
-                Debug::errorLog("Unknown log type: $logType");
+                Debug::errorLog("Unknown log type: {$logType}");
                 $icon = 'found.svg';
                 break;
-
         }
 
-        if (!$fileNameOnly) {
-            $icon = self::ICON_PATH.$icon;
+        if (! $fileNameOnly) {
+            $icon = self::ICON_PATH . $icon;
         }
 
         return $icon;
@@ -82,7 +90,6 @@ class GeoCacheLogCommons extends BaseObject
 
     public static function typeTranslationKey(int $logType): string
     {
-
         switch ($logType) {
             case self::LOGTYPE_FOUNDIT:
                 return 'logType1';
@@ -109,7 +116,8 @@ class GeoCacheLogCommons extends BaseObject
             case self::LOGTYPE_ADMINNOTE:
                 return 'logType12';
             default:
-                Debug::errorLog("Unknown log type: $logType");
+                Debug::errorLog("Unknown log type: {$logType}");
+
                 return '';
         }
     }
@@ -147,24 +155,23 @@ class GeoCacheLogCommons extends BaseObject
             case GeoCache::STATUS_BLOCKED:
                 return 'blocked_by_octeam';
             default:
-                Debug::errorLog("Unknown cache status: $status");
+                Debug::errorLog("Unknown cache status: {$status}");
+
                 return '';
         }
-
     }
 
     /**
      * There are many places where log text is displayed as a tooltip
      * It is needed to remove many chars which can break the tooltip display operation
      *
-     * @param String $text - original log text
-     * @return String - clean log text
+     * @param string $text - original log text
+     * @return string - clean log text
      */
     public static function cleanLogTextForToolTip(string $text): string
     {
-
         //strip all tags but not <li>
-        $text = strip_tags($text, "<li>");
+        $text = strip_tags($text, '<li>');
 
         $replace = [
             //'<p>&nbsp;</p>' => '', //duplicated ? by strip_tags above
@@ -176,8 +183,8 @@ class GeoCacheLogCommons extends BaseObject
             //'<br>' => "", //duplicated ? by strip_tags above
             //'<br />' => "", //duplicated ? by strip_tags above
             //'<br/>' => "", //duplicated ? by strip_tags above
-            '<li>' => " - ",
-            '</li>' => "",
+            '<li>' => ' - ',
+            '</li>' => '',
             '&oacute;' => 'o',
             '&quot;' => '-',
             //'&[^;]*;' => '', ???
@@ -189,17 +196,17 @@ class GeoCacheLogCommons extends BaseObject
             '(' => ' -',
             ')' => '- ',
             ']]>' => ']] >',
-            '' => ''
+            '' => '',
         ];
 
         $text = str_ireplace(array_keys($replace), array_values($replace), $text);
-        return preg_replace('/[\x00-\x08\x0E-\x1F\x7F\x0A\x0C]+/', '', $text);
 
+        return preg_replace('/[\x00-\x08\x0E-\x1F\x7F\x0A\x0C]+/', '', $text);
     }
 
     public static function getLogUrlByLogId($logId): string
     {
-        return "/viewlogs.php?logid=$logId";
+        return "/viewlogs.php?logid={$logId}";
     }
 
     /**
@@ -209,35 +216,42 @@ class GeoCacheLogCommons extends BaseObject
      * @param int $cacheType the type of cache to create the list for
      *
      * @return array log type translation keys available for given cache,
-     *     ordered by log type value
+     *               ordered by log type value
      */
     public static function getLogTypeTplKeys(
         int $cacheType = GeoCacheCommons::TYPE_TRADITIONAL
-    ): array
-    {
+    ): array {
         $result = [];
         $logTypes = [
             self::LOGTYPE_COMMENT, self::LOGTYPE_NEEDMAINTENANCE,
             self::LOGTYPE_MADEMAINTENANCE, self::LOGTYPE_ARCHIVED,
             self::LOGTYPE_READYTOSEARCH, self::LOGTYPE_TEMPORARYUNAVAILABLE,
-            self::LOGTYPE_ADMINNOTE
+            self::LOGTYPE_ADMINNOTE,
         ];
+
         if ($cacheType == GeoCacheCommons::TYPE_EVENT) {
-            array_push($logTypes,
-                self::LOGTYPE_ATTENDED, self::LOGTYPE_WILLATTENDED
+            array_push(
+                $logTypes,
+                self::LOGTYPE_ATTENDED,
+                self::LOGTYPE_WILLATTENDED
             );
         } else {
-            array_push($logTypes,
-                self::LOGTYPE_FOUNDIT, self::LOGTYPE_DIDNOTFIND
+            array_push(
+                $logTypes,
+                self::LOGTYPE_FOUNDIT,
+                self::LOGTYPE_DIDNOTFIND
             );
+
             if ($cacheType == GeoCacheCommons::TYPE_MOVING) {
                 $logTypes[] = self::LOGTYPE_MOVED;
             }
         }
         sort($logTypes);
+
         foreach ($logTypes as $logType) {
             $result[$logType] = self::typeTranslationKey($logType);
         }
+
         return $result;
     }
 }
