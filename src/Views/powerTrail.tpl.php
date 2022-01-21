@@ -1218,9 +1218,9 @@
 
     /* maps */
 </script>
-    <?php if(isset($view->dynamicMapModel)) { ?>
-      <?php $view->callChunk('dynamicMap/dynamicMap', $view->dynamicMapModel, "map_canvas");?>
-    <?php } //if-dynamicMap-present ?>
+    <?php if (isset($view->dynamicMapModel)) { ?>
+      <?php $view->callChunk('dynamicMap/dynamicMap', $view->dynamicMapModel, 'map_canvas'); ?>
+    <?php } //if-dynamicMap-present?>
 
     <input type="hidden" id="xmd34nfywr54" value="{powerTrailId}">
 
@@ -1240,7 +1240,7 @@
     <div id="powerTrailContentWraper">
 
         <div class="align-right">
-          <a class="btn btn-default btn-sm" href="<?=$view->csWikiLink?>">{{cs_wikiLink}}</a>
+          <a class="btn btn-default btn-sm" href="<?= $view->csWikiLink; ?>">{{cs_wikiLink}}</a>
         </div>
 
         <div class="content2-pagetitle">
@@ -1260,12 +1260,12 @@
         <!-- map -->
         <div id="mapOuterdiv" style="display: {mapOuterdiv}" class="content2-container">
             <div class="align-right" style="height: 32px">
-                <?php if(isset($view->fullScreenMapPtLink)) { ?>
+                <?php if (isset($view->fullScreenMapPtLink)) { ?>
                 <a id="fullscreenOn" style="cursor: pointer"
-                   href="<?=$view->fullScreenMapPtLink?>" >
+                   href="<?= $view->fullScreenMapPtLink; ?>" >
                   <img src="images/fullscreen.png" alt="{{fullscreen}}" title="{{fullscreen}}">
                 </a>
-                <?php } //if-fullScreenMapPtLink ?>
+                <?php } //if-fullScreenMapPtLink?>
 
             </div>
             <div id="map_canvas"></div>
@@ -1385,8 +1385,8 @@
                 <tr>
                     <th class="ptTd">{{cs_name}}</th>
                     <th class="ptTd">{{cs_type}}</th>
-                    <th class="ptTd">{statusOrPoints}</th>
-                    <th class="ptTd">{{cs_publicationDate}}</th>
+                    <th class="ptTd ptStatusOrPoints">{statusOrPoints}</th>
+                    <th class="ptTd ptPublicationDate">{{cs_publicationDate}}</th>
                     <th class="ptTd">{{cs_cachesNumber}}</th>
                     <th class="ptTd">{{cs_gainedCount}}</th>
                 </tr>
@@ -1401,11 +1401,16 @@
 
         <div style="display: {displaySelectedPowerTrail}">
 
-            <table style="border-collapse: collapse; width: 100%;">
+            <table style="border-collapse: collapse; width: 100%;" class="powerTrailTable ">
                 <tr><!-- ptName & Logo -->
                     <td style="width: 251px;">
-                        <table style="height: 250px; width: 250px;"><tr><td style="vertical-align: middle; text-align: center;">
-                        <span id="powerTrailLogo"><img class="powerTrailLogo" src="{powerTrailLogo}" alt=""></span></td></tr></table>
+                        <table style="height: 250px; width: 250px;">
+                            <tr>
+                                <td style="vertical-align: middle; text-align: center;">
+                                    <span id="powerTrailLogo"><img class="powerTrailLogo" src="{powerTrailLogo}" alt=""></span>
+                                </td>
+                            </tr>
+                        </table>
                         <img style="display: none" id="ajaxLoaderLogo" src="images/misc/ptPreloader.gif" alt="">
                     </td>
                     <td style="text-align: center;" colspan="2">
@@ -1418,7 +1423,7 @@
                         <p id="toggleImageEditButton" style="text-align: center; display: {displayAddCachesButtons}">
                             <a id="uploadLogoBtn" href="javascript:void(0)" class="editPtDataButton">{{pt060}}</a>
                         </p>
-                        <?php if(isset($view->logoUploadModelJson)) {?>
+                        <?php if (isset($view->logoUploadModelJson)) {?>
                         <script>
                           $('#uploadLogoBtn').click( function(e){
 
@@ -1434,7 +1439,7 @@
                                   newfiles: ['fileA','fileB','fileC'] // list of urls to new files saved on server (only on success)
                                 }
                             */
-                            ocUpload(<?=$view->logoUploadModelJson?>, function(uploadResult){
+                            ocUpload(<?= $view->logoUploadModelJson; ?>, function(uploadResult){
 
                               if(uploadResult.success){
                                 //upload successed
@@ -1458,7 +1463,7 @@
                             });
                           });
                         </script>
-                        <?php } //if-isset($view->logoUploadModelJson ?>
+                        <?php } //if-isset($view->logoUploadModelJson?>
                     </td>
                     <td colspan="2">
                         <p style="text-align: center;">

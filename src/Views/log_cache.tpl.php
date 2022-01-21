@@ -1,8 +1,8 @@
 <?php
 
-use src\Utils\Database\XDb;
-use src\Models\GeoKret\GeoKretyApi;
 use src\Models\ApplicationContainer;
+use src\Models\GeoKret\GeoKretyApi;
+use src\Utils\Database\XDb;
 
 $view->callChunk('tinyMCE', false);
 ?>
@@ -109,7 +109,10 @@ $founds = XDb::xMultiVariableQueryValue(
         AND cache_id = :1
         AND user_id = :2
         AND type='1'",
-    0, $_REQUEST['cacheid'], $loggedUser->getUserId());
+    0,
+    $_REQUEST['cacheid'],
+    $loggedUser->getUserId()
+);
 ?>
 
         if (document.logform.logtype.value == "1" || (<?php echo $founds; ?> > 0 && document.logform.logtype.value == "3") || document.logform.logtype.value == "7") {
@@ -251,7 +254,7 @@ $founds = XDb::xMultiVariableQueryValue(
     <div class="notice">{{empty_entry_notice}}</div>
     <div class="notice">{{report_problem_notice}} <a class="links" href="/report.php?action=add&cacheid={cacheid}">{{report_problem}}</a></div>
 
-    <table class="table">
+    <table class="table logformTable">
         <tr class="form-group-sm">
             <td class="content-title-noshade">
                 <img src="/images/free_icons/page_go.png" class="icon16" alt="">&nbsp;{{type_of_log}}:
@@ -315,7 +318,7 @@ $founds = XDb::xMultiVariableQueryValue(
             <div style="display: {GeoKretyApiNotConfigured};">
                 <span class="errormsg"><br>{{GKApi07}}</span><br><br>
                 {{GKApi08}}<br>
-                1. {{GKApi09}} (<a href="<?=GeoKretyApi::GEOKRETY_URL?>/mypage.php" class="links" target="_blank">{{GKApi04}}</a>)<br>
+                1. {{GKApi09}} (<a href="<?= GeoKretyApi::GEOKRETY_URL; ?>/mypage.php" class="links" target="_blank">{{GKApi04}}</a>)<br>
                 2. {{GKApi10}} (<a href="myprofile.php?action=change" class="links" target="_blank">{{GKApi04}}</a>)<br>
             </div>
             <div style="display: {GeoKretyApiConfigured}">
