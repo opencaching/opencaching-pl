@@ -2611,6 +2611,9 @@ $translations = [
     'admin_dbupdate_develnote' => '<i>cursief</i> = Update is in ontwikkeling (niet gefuseerd naar Git master).',
     'rename' => 'Hernoemen',
 
+    'responsiveModeToggle_enabled' => 'Responsive mode enabled',
+    'responsiveModeToggle_disabled' => 'Responsive mode disabled',
+
     'loginForm_title' => 'Inloggen',
     'loginForm_userOrEmail' => 'Gebruiker / E-mail',
     'loginForm_password' => 'Wachtwoord',
