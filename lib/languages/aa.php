@@ -2611,6 +2611,9 @@ $translations = [
     'admin_dbupdate_develnote' => 'crwdns25610:0crwdne25610:0',
     'rename' => 'crwdns25612:0crwdne25612:0',
 
+    'responsiveModeToggle_enabled' => 'crwdns33927:0crwdne33927:0',
+    'responsiveModeToggle_disabled' => 'crwdns33929:0crwdne33929:0',
+
     'loginForm_title' => 'crwdns8200:0crwdne8200:0',
     'loginForm_userOrEmail' => 'crwdns8201:0crwdne8201:0',
     'loginForm_password' => 'crwdns8202:0crwdne8202:0',
