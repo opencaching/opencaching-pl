@@ -2611,6 +2611,9 @@ $translations = [
     'admin_dbupdate_develnote' => '<i>Italics</i> = Aktualizacja w przygotowaniu (nie dostarczona do Git-a).',
     'rename' => 'Zmień nazwę',
 
+    'responsiveModeToggle_enabled' => 'Responsive mode enabled',
+    'responsiveModeToggle_disabled' => 'Responsive mode disabled',
+
     'loginForm_title' => 'Zaloguj się',
     'loginForm_userOrEmail' => 'Użytkownik / e-mail',
     'loginForm_password' => 'Hasło',
