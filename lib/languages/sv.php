@@ -2611,6 +2611,9 @@ $translations = [
     'admin_dbupdate_develnote' => '<i>Italics</i> = Update is in development (not merged to Git master).',
     'rename' => 'Byt namn',
 
+    'responsiveModeToggle_enabled' => 'Responsive mode enabled',
+    'responsiveModeToggle_disabled' => 'Responsive mode disabled',
+
     'loginForm_title' => 'Login',
     'loginForm_userOrEmail' => 'User / e-mail',
     'loginForm_password' => 'Lösenord',
