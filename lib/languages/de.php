@@ -2612,6 +2612,9 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'admin_dbupdate_develnote' => '<i>Kursiv</i> = Das Update ist in Entwicklung (noch nicht im Git-Master).',
     'rename' => 'Umbenennen',
 
+    'responsiveModeToggle_enabled' => 'Responsive mode enabled',
+    'responsiveModeToggle_disabled' => 'Responsive mode disabled',
+
     'loginForm_title' => 'Login',
     'loginForm_userOrEmail' => 'Benutzer / E-Mail-Adresse:',
     'loginForm_password' => 'Passwort',
