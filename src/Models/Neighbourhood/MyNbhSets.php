@@ -31,7 +31,7 @@ class MyNbhSets extends BaseObject
 
     public function createSet(int $section): MyNbhSetInterface
     {
-        return new class($this, $section) implements MyNbhSetInterface {
+        return new class ($this, $section) implements MyNbhSetInterface {
             private $parent;
 
             private $section;

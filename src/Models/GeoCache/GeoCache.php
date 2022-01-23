@@ -752,33 +752,36 @@ class GeoCache extends GeoCacheCommons
      * log entries.
      *
      * @param \lib\Objects\User\User $forUser a user to compute current log
-     *     status for, may be null
+     *                                        status for, may be null
      *
      * @return int current log status or null
      */
     public function getLogStatus(User $forUser = null): ?int
     {
         $logStatus = null;
-        if (!is_null($forUser)) {
+
+        if (! is_null($forUser)) {
             $logsCount = $this->getLogsCountByType(
                 $forUser,
-                array(
+                [
                     GeoCacheLog::LOGTYPE_FOUNDIT,
-                    GeoCacheLog::LOGTYPE_DIDNOTFIND
-                )
+                    GeoCacheLog::LOGTYPE_DIDNOTFIND,
+                ]
             );
+
             if (
                 isset($logsCount[GeoCacheLog::LOGTYPE_FOUNDIT])
-                && $logsCount[GeoCacheLog::LOGTYPE_FOUNDIT]>0
+                && $logsCount[GeoCacheLog::LOGTYPE_FOUNDIT] > 0
             ) {
                 $logStatus = GeoCacheLog::LOGTYPE_FOUNDIT;
-            } else if (
+            } elseif (
                 isset($logsCount[GeoCacheLog::LOGTYPE_DIDNOTFIND])
-                && $logsCount[GeoCacheLog::LOGTYPE_DIDNOTFIND]>0
+                && $logsCount[GeoCacheLog::LOGTYPE_DIDNOTFIND] > 0
             ) {
                 $logStatus = GeoCacheLog::LOGTYPE_DIDNOTFIND;
             }
         }
+
         return $logStatus;
     }
 
