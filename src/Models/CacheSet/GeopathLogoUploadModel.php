@@ -24,7 +24,7 @@ class GeopathLogoUploadModel extends UploadModel
         $obj->setMaxFileNumber(1);
 
         // script hich handle the logo upload
-        $obj->submitUrl = "/geoPath/uploadLogoAjax/$id";
+        $obj->submitUrl = "/geoPathApi/uploadLogoAjax/$id";
 
         // logo is always resized to given size - so oryginal img. is not important
         $obj->setDirs(self::DEFAULT_TMP_DIR);

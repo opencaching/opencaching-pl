@@ -7,6 +7,8 @@
  * It may be customized in node-specific configuration file.
  */
 
+use src\Models\GeoCache\GeoCache;
+
 $geopathCfg = [];
 
 /**
@@ -27,3 +29,7 @@ $geopathCfg['minCachesCount'] = 5;
  */
 $geopathCfg['geopathOwnerMinFounds'] = 100;
 
+/**
+ * Array of types of geocaches forbidden in geopaths
+ */
+$geopathCfg['forbiddenCacheTypes'] = [ GeoCache::TYPE_EVENT, GeoCache::TYPE_OWNCACHE ];

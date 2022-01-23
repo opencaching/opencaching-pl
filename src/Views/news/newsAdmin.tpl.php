@@ -1,6 +1,9 @@
 <?php
 use src\Utils\Uri\SimpleRouter;
+use src\Utils\View\View;
+use src\Models\News\News;
 
+/** @var View $view */
 ?>
 
 <div class="content2-container">
@@ -8,6 +11,28 @@ use src\Utils\Uri\SimpleRouter;
     <img src="/images/blue/newspaper.png" class="icon22" alt="Newspaper icon">
     <?=tr('news_menu_OCTeam')?>
   </div>
+
+  <div class="align-right">
+    <a href="<?=SimpleRouter::getLink('News.NewsAdmin','createNews')?>" class="btn btn-primary btn-md">
+      <?=tr('news_btn_add')?>
+    </a>
+    <select onchange="refreshCategory(this)" class="form-control input200">
+      <option value='<?=News::CATEGORY_ANY?>' <?=$view->selectedCategory == '' ?'selected':''?>>
+        <?=tr('news_allCategories')?>
+      </option>
+      <?php foreach($view->allCategories as $cat) { ?>
+        <option value="<?=$cat?>" <?=$view->selectedCategory == $cat?'selected':''?>>
+        <?=ltrim($cat, '_')?>
+        </option>
+      <?php } //foreach ?>
+    </select>
+  </div>
+
+  <?php if(empty($view->newsList)) { ?>
+    <div class="callout callout-news">
+      <p><?=tr('news_noNews')?></p>
+    </div>
+  <?php } // if(empty($view->newsList)) ?>
 
   <?php foreach($view->newsList as $news) { ?>
     <div class="callout callout-news callout-<?=$news->getStatusBootstrapName()?>">
@@ -29,7 +54,16 @@ use src\Utils\Uri\SimpleRouter;
     </div>
   <?php } //foreach ?>
   <?php $view->callChunk('pagination', $view->paginationModel); ?>
+
   <div class="align-center">
     <a href="<?=SimpleRouter::getLink('News.NewsAdmin','createNews')?>" class="btn btn-primary btn-md"><?=tr('news_btn_add')?></a>
   </div>
+
 </div>
+
+<script>
+  function refreshCategory(select) {
+    var selectedVal = $(select).val();
+    window.location.href = "/News.NewsAdmin/showCategory/"+selectedVal;
+  }
+</script>

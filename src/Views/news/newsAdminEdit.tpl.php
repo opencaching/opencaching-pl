@@ -1,8 +1,9 @@
 <?php
 
 use src\Utils\Uri\SimpleRouter;
+use src\Utils\View\View;
 
-$view->callChunk('tinyMCE');
+/** @var View $view */
 ?>
 
 <script>
@@ -21,12 +22,62 @@ $view->callChunk('tinyMCE');
         }
     });
   } );
+
+<?php if (!empty($view->news->getId())) { // this news is already saved in DB ?>
+
+  function imgUploadPicker(tinyMceCallback, value, meta) {
+
+    if (meta.filetype != 'image') {
+      console.log ("Only images can be attached here!");
+      return;
+    }
+
+    /*
+    ocUpload takes two params:
+        - params json - see UploadModel
+        - callback function
+
+       on end of upload callback will be called with JSON param:
+         {
+           success: true|false,                // true on success | false on error
+           message: 'error-description',       // tech. error description in english (usually not for end-user) (only on fail)
+           newfiles: ['fileA','fileB','fileC'] // list of urls to new files saved on server (only on success)
+         }
+     */
+     ocUpload(<?=$view->picsUploadModelJson?>, function(uploadResult) {
+       if(uploadResult.success){
+
+         // upload successed
+         console.log(uploadResult);
+
+         $.each(uploadResult.newFiles, function(i, pic) {
+           loadPicturesToTable(pic);
+         });
+
+         //call tinyMce callback
+         tinyMceCallback(uploadResult.newFiles[0].fullPicUrl, {alt: uploadResult.newFiles[0].title});
+
+       } else {
+         // upload failed
+         console.error(uploadResult);
+         tinyMceCallback('', {alt: ''});
+       }
+     });
+   }
+
+<?php } // if (!empty($view->news->getId()) { // this news is already saved in DB ?>
+
 </script>
+
+<?php
+    $uploadPicker = empty($view->news->getId()) ? null : 'imgUploadPicker';
+    $view->callChunk('tinyMCE', true, '.tinymce', $uploadPicker);
+?>
 
 <div class="content2-container">
   <div class="content2-pagetitle">
     <img src="/images/blue/newspaper.png" class="icon22" alt="Newspaper icon">
-    <?php if ($view->news->getId() == 0) { echo tr('news_hdr_add'); } else {
+    <?php if (empty($view->news->getId())) { echo tr('news_hdr_add'); } else {
       echo tr('news_hdr_edit');
       if (! empty($view->news->getTitle())) { echo ' "' . $view->news->getTitle() . '"';}}?>
   </div>
@@ -35,10 +86,28 @@ $view->callChunk('tinyMCE');
     <table class="table news-table">
       <tbody>
         <tr>
+            <td colspan="2">
+              <div class="align-right">
+                <button type="submit" name="submit" class="btn btn-primary"><?=tr('save')?></button>
+              </div>
+            </td>
+        </tr>
+        <tr>
           <td class="news-left-column content-title-noshade"><?=tr('news_lbl_title')?></td>
           <td><input type="text" name="title" maxlength="100" value="<?=$view->news->getTitle()?>" class="form-control input400"></td>
         </tr>
         <tr><td colspan="2" class="buffer"></td></tr>
+
+        <tr>
+          <td class="news-left-column content-title-noshade"><?=tr('news_lbl_category')?></td>
+          <td>
+          <select name="category" class="form-control input200">
+            <?php foreach($view->allCategories as $cat) { ?>
+            <option value="<?=$cat?>" <?=($view->news->getCategory()==$cat)?'selected':''?>><?=ltrim($cat, '_') ?></option>
+            <?php } //foreach ?>
+          </select>
+          </td>
+        </tr>
         <tr>
           <td class="news-left-column content-title-noshade"><?=tr('news_lbl_publish_from')?></td>
           <td>
@@ -79,15 +148,24 @@ $view->callChunk('tinyMCE');
   </form>
 </div>
 
+<div class="content2-container bg-blue02">
+  <p class="content-title-noshade-size1">
+    <?=tr('news_listOfImages')?>
+  </p>
+</div>
+<div class="content2-container">
+  <?=$v->callSubTpl('/news/newsPicList')?>
+</div>
+
 <script>
-document.getElementById('no-date-expiration').onchange = function() {
-    if (this.checked) {
-        document.getElementById('date-expiration').value = "";
-    }
-};
-document.getElementById('no-date-mainpageexp').onchange = function() {
-    if (this.checked) {
-        document.getElementById('date-mainpageexp').value = "";
-    }
-};
+    document.getElementById('no-date-expiration').onchange = function() {
+        if (this.checked) {
+            document.getElementById('date-expiration').value = "";
+        }
+    };
+    document.getElementById('no-date-mainpageexp').onchange = function() {
+        if (this.checked) {
+            document.getElementById('date-mainpageexp').value = "";
+        }
+    };
 </script>

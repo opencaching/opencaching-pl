@@ -20,7 +20,7 @@
     img.appendTo(btnContainer);
 
     $.ajax({
-      url:   '/GeoPath/acceptCacheCandidateAjax/'+candidateId,
+      url:   '/GeoPathApi/acceptCacheCandidateAjax/'+candidateId,
       type:  "get",
       cache: false,
 
@@ -47,7 +47,7 @@
     img.appendTo(btnContainer);
 
     $.ajax({
-      url:   '/GeoPath/refuseCacheCandidateAjax/'+candidateId,
+      url:   '/GeoPathApi/refuseCacheCandidateAjax/'+candidateId,
       type:  "get",
       cache: false,
 

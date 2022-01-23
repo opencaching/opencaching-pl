@@ -1,9 +1,7 @@
 <?php
 namespace src\Utils\Debug;
 
-use Error;
 use Throwable;
-
 
 class Debug {
 
@@ -57,4 +55,21 @@ class Debug {
         $result .= var_export($var, TRUE);
         error_log($result);
     }
+
+    /**
+     * Function to print memory usage to log.
+     * Best usage: Debug::memUsage(__FILE__.':'.__LINE__)
+     * Shows memory usage and diff from the last call.
+     *
+     * @param string $placeInCode - identifier to add to the string in log
+     */
+    public static function memUsage($placeInCode = "?"): void
+    {
+        static $lastMemUsage = 0;
+        $currMemUsage = memory_get_usage();
+        self::errorLog(
+            $placeInCode.": ".round($currMemUsage/1024, 2)." / ".round(($currMemUsage-$lastMemUsage)/1024, 2), false);
+        $lastMemUsage = $currMemUsage;
+    }
+
 }

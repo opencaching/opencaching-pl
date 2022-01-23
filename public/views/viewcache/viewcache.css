@@ -353,4 +353,11 @@ a.links4:hover {
   padding-top: 5px;
 }
 
+.reactivationRuleBox {
+  border: 1px dotted black;
+}
 
+.reactivationRuleBox .notice {
+  margin-top: 10px;
+  padding-bottom:0px;
+}

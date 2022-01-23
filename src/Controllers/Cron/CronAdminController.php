@@ -3,17 +3,11 @@ namespace src\Controllers\Cron;
 
 use src\Controllers\BaseController;
 use src\Utils\Uri\SimpleRouter;
-use src\Utils\Uri\Uri;
 
 class CronAdminController extends BaseController
 {
 
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    public function isCallableFromRouter($actionName)
+    public function isCallableFromRouter($actionName): bool
     {
         // all public methods can be called by router
         return true;
@@ -52,7 +46,7 @@ class CronAdminController extends BaseController
         $cronJobs->index();
     }
 
-    private function allowRun()
+    private function allowRun(): bool
     {
         return $this->isUserLogged() && $this->loggedUser->hasSysAdminRole();
     }

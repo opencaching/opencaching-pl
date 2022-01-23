@@ -3,6 +3,7 @@
 namespace src\Models\ChunkModels\InteractiveMap;
 
 use src\Models\GeoCache\GeoCache;
+use src\Models\OcConfig\OcConfig;
 use src\Models\User\User;
 use src\Utils\Text\Formatter;
 
@@ -106,9 +107,8 @@ class CacheMarkerModel extends AbstractMarkerModelBase
         $this->isTitled = $c->isTitled();
 
         if ($c->isTitled()) {
-            global $titled_cache_period_prefix; //TODO: move it to the ocConfig
             $this->titledDesc = tr(
-                $titled_cache_period_prefix . '_titled_cache'
+                (OcConfig::getTitledCachePeriod()) . '_titled_cache'
             );
         }
         $this->isStandingOut = ($this->titledDesc || $this->recommendations);

@@ -90,7 +90,7 @@ if (isset($_POST['submit_getcode']) || isset($_POST['submit_changeemail'])) {
 
             $rs = XDb::xSql(
                 "SELECT `new_email_code`, `new_email`, `new_email_date` FROM `user` WHERE `user_id`=? ",
-                $user->getUserName());
+                $user->getUserId());
 
             $record = XDb::xFetchArray($rs);
 

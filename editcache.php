@@ -67,6 +67,8 @@ function build_drop_seq($item_row, $selected_seq, $max_drop, $thisid, $drop_type
 $cache_id = 0;
 if (isset($_REQUEST['cacheid'])) {
     $cache_id = (int) $_REQUEST['cacheid'];
+    $geocache = GeoCache::fromCacheIdFactory($cache_id);
+    $view->setVar('geocache', $geocache);
 }
 
 //user logged in?
@@ -810,7 +812,7 @@ if (!$loggedUser) {
                         $removedesc = '';
                     }
 
-                    $edit_url = 'editdesc.php?descid='.$descId;
+                    $edit_url = "/CacheDesc/edit/".$geocache->getWaypointId()."/$descLang";
                     $cache_descs .=
                         '<tr>
                             <td colspan="2">

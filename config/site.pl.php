@@ -48,3 +48,8 @@ $site['defaultCountriesList'] = ['PL', 'BY', 'CZ', 'DE', 'DK', 'LT', 'NL', 'RO',
  * Save all accesses to geocaches in DB for debug/security purpose
  */
 $site['cacheAccessLogEnabled'] = true;
+
+/**
+ * Google Analytics site tag if used by the node
+ */
+$site['googleAnalyticsTag'] = 'UA-45656189-1';

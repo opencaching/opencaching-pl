@@ -1,0 +1,50 @@
+//  !! Before generating the .css, make sure there are no changes to the .css file. !!
+//  !! Transfer changes from the css file to sass. !!
+
+@mixin max-970px
+  @media screen and (max-width: 970px)
+    @content
+
+@mixin mobile
+  @media screen and (max-width: 768px)
+    @content
+
+@mixin clearfix
+  &:before,
+  &:after
+    content: ""
+    display: table
+  .group:after
+    clear: both
+
+@mixin translate($x, $y)
+  -webkit-transform: translate($x, $y)
+  -moz-transform: translate($x, $y)
+  -ms-transform: translate($x, $y)
+  -o-transform: translate($x, $y)
+  transform: translate($x, $y)
+
+@mixin c-flex
+  display: flex
+  display: -webkit-flex
+  align-items: center
+  -webkit-align-items: center
+  flex-wrap: wrap
+  -webkit-flex-wrap: wrap
+
+@mixin jc-center
+  justify-content: center
+  -webkit-justify-content: center
+
+@mixin space-between
+  justify-content: space-between
+  -webkit-justify-content: space-between
+
+@mixin evenly-evenly
+  justify-content: space-evenly
+  -webkit-justify-content: space-around
+
+@mixin space-between-last-row
+  &::after
+    content: ""
+    flex: auto

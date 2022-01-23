@@ -1,5 +1,8 @@
 <?php
+
+use src\Models\OcConfig\OcConfig;
 use src\Utils\Uri\SimpleRouter;
+
 $view->callChunk('tinyMCE');
 ?>
 
@@ -163,7 +166,7 @@ $view->callChunk('tinyMCE');
 
     function chkregion() {
         if ($('#region').val() == "0") {
-          alert('<?=tr('newcache_pleaseSelectRegion')?>');
+          alert('<?= tr('newcache_pleaseSelectRegion'); ?>');
           return false;
         }
         return true;
@@ -194,7 +197,7 @@ $view->callChunk('tinyMCE');
             } else {
                 $('#hiddenRegion').prop('disabled', 'disabled');
                 select.removeAttr('disabled');
-                select.append('<option value="0" selected="selected"><?=tr('search01')?></option>');
+                select.append('<option value="0" selected="selected"><?= tr('search01'); ?></option>');
                 response.regions.forEach(function(element) {
                   if ( element.code == '{sel_region}') {
                     select.append('<option selected="selected" value="'+element.code+'">'+element.name+'</option>')
@@ -440,7 +443,7 @@ $view->callChunk('tinyMCE');
             if (document.newcacheform.lat_h.value == "0" && document.newcacheform.lon_h.value == "0") {
     alert("{{input_coord}}");
     } else {
-    window.open('<?=SimpleRouter::getLink(MainMapController::class, 'fullscreen')?>?circle&lat='+lat+'&lon='+lon); }
+    window.open('<?= SimpleRouter::getLink(MainMapController::class, 'fullscreen'); ?>?circle&lat='+lat+'&lon='+lon); }
     return false;
     }
 </script>
@@ -483,8 +486,8 @@ $(document).ready(function(){
 
                 </p>
                 <div class="form-inline">
-                    <?php $view->callChunk('fileUpload','myfile','.gpx'); ?>
-                    <input class="btn btn-primary btn-sm btn-upload" type="submit" value="<?= tr('newcache_upload') ?>"/>
+                    <?php $view->callChunk('fileUpload', 'myfile', '.gpx'); ?>
+                    <input class="btn btn-primary btn-sm btn-upload" type="submit" value="<?= tr('newcache_upload'); ?>"/>
                 </div>
                 <iframe id="upload_target" name="upload_target" src="about:blank" style="width:0;height:0;border:0px solid #fff;"></iframe>
             </form>
@@ -532,14 +535,40 @@ $(document).ready(function(){
         <tr>
             <td valign="top"><p class="content-title-noshade">{{coordinates}}:</p></td>
             <td class="content-title-noshade">
-                <fieldset style="border: 1px solid black; width: 80%; height: 32%; background-color: #FAFBDF;" class="form-group-sm">
+                <fieldset style="border: 1px solid black; width: 90%; height: 32%; background-color: #FAFBDF;" class="form-group-sm">
                     <legend>&nbsp; <strong>WGS-84</strong> &nbsp;</legend>&nbsp;&nbsp;&nbsp;
                     <select name="latNS" id="latNS" class="form-control input50" onchange="checkRegion()">
                         <option value="N"{latNsel}>N</option>
                         <option value="S"{latSsel}>S</option>
                     </select>
-                    &nbsp;<input type="text" id="lat_h"  name="lat_h" maxlength="2" class="form-control input30" onchange="checkRegion()" placeholder="0" value="{lat_h}" />
-                    &deg;&nbsp;<input type="text" id="lat_min" name="lat_min" maxlength="6" class="form-control input50" onkeyup="this.value = this.value.replace(/,/g, '.');" onchange="checkRegion()" placeholder="00.000" value="{lat_min}" />&nbsp;'&nbsp;
+                    &nbsp;
+                  <input
+                      type="number"
+                      id="lat_h"
+                      name="lat_h"
+                      maxlength="2"
+                      class="form-control input50"
+                      onchange="checkRegion()"
+                      placeholder="0"
+                      value="{lat_h}"
+                      min="0"
+                      max="90"
+                      required
+                  />
+                    &deg;&nbsp;
+                  <input
+                      type="text"
+                      id="lat_min"
+                      name="lat_min"
+                      maxlength="6"
+                      class="form-control input50"
+                      onkeyup="this.value = this.value.replace(/,/g, '.');"
+                      onchange="checkRegion()"
+                      placeholder="00.000"
+                      value="{lat_min}"
+                      pattern="\d{1,2}.\d{1,3}"
+                      required
+                  />&nbsp;'&nbsp;
                     <button class="btn btn-default btn-sm" onclick="nearbycachemapOC()">{{check_nearby_caches_map}}</button>
                     {lat_message}<br />
                     &nbsp;&nbsp;&nbsp;
@@ -547,8 +576,34 @@ $(document).ready(function(){
                         <option value="W"{lonWsel}>W</option>
                         <option value="E"{lonEsel}>E</option>
                     </select>
-                    &nbsp;<input type="text" id="lon_h" name="lon_h" maxlength="3" class="form-control input30" onchange="checkRegion()" placeholder="0" value="{lon_h}" />
-                    &deg;&nbsp;<input type="text" id="lon_min" name="lon_min" maxlength="6" class="form-control input50" onkeyup="this.value = this.value.replace(/,/g, '.');" onchange="checkRegion()" placeholder="00.000" value="{lon_min}" />&nbsp;'&nbsp;
+                    &nbsp;
+                  <input
+                      type="number"
+                      id="lon_h"
+                      name="lon_h"
+                      maxlength="3"
+                      class="form-control input50"
+                      onchange="checkRegion()"
+                      placeholder="0"
+                      value="{lon_h}"
+                      min="0"
+                      max="180"
+                      required
+                  />
+                    &deg;&nbsp;
+                  <input
+                      type="text"
+                      id="lon_min"
+                      name="lon_min"
+                      maxlength="6"
+                      class="form-control input50"
+                      onkeyup="this.value = this.value.replace(/,/g, '.');"
+                      onchange="checkRegion()"
+                      placeholder="00.000"
+                      value="{lon_min}"
+                      pattern="\d{1,2}.\d{1,3}"
+                      required
+                  />&nbsp;'&nbsp;
                     <button class="btn btn-default btn-sm" onclick="nearbycache()">{{check_nearby_caches}}</button><br />
                     {lon_message}</fieldset>
             </td>
@@ -708,6 +763,36 @@ $(document).ready(function(){
                 <div class="notice">{{hint_instructions}}</div>
             </td>
         </tr>
+
+        <?php if (OcConfig::isReactivationRulesEnabled()) { ?>
+          <tr><td colspan="2">
+            <fieldset class="form-group-sm reactivationRules">
+              <legend class="content-title-noshade"><?= tr('editDesc_reactivRulesLabel'); ?></legend>
+              <p>
+                <?= tr('editDesc_reactivRulesDesc'); ?>
+                <div class="notice buffer"><?= tr('editDesc_reactivRulesMoreInfo'); ?></div>
+              </p>
+
+              <?php
+              foreach (OcConfig::getReactivationRulesPredefinedOpts() as $key => $opt) { ?>
+                <?php $optTxt = tr($opt); ?>
+                <input type="radio" id="reactivRules<?= $key; ?>" name="reactivRules" value="<?= $optTxt; ?>" required
+                  oninvalid="this.setCustomValidity('<?= tr('editDesc_invalidRactivRule'); ?>')" oninput="this.setCustomValidity('')"
+                  <?= ($optTxt == $view->reactivRulesRadio) ? 'checked' : ''; ?>>
+                <label for="reactivRules<?= $key; ?>"><?= $optTxt; ?></label>
+                <br/>
+              <?php } // foreach - OcConfig::getReactivationRulesPredefinedOpts()?>
+
+              <input type="radio" id="reactivRulesCustom" name="reactivRules" value="Custom rulset">
+              <label for="reactivRulesCustom"><?= tr('editDesc_reactivRuleCustomDefinition'); ?>:</label>
+
+              <textarea placeholder="<?= tr('editDesc_reactivRuleCustomDefinition'); ?>" id="reactivRulesCustom"
+                        class="customReactivation" name="reactivRulesCustom"
+                        maxlength="1000"><?= $view->reactivRulesCustom; ?></textarea>
+            </fieldset>
+          </td></tr>
+        <?php } // if-OcConfig::isReactivationRulesEnabled()?>
+
         <tr>
             <td colspan="2"><div class="content2-container bg-blue02">
                     <p class="content-title-noshade-size1"><img src="/images/blue/crypt.png" class="icon32" alt=""/>

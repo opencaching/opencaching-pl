@@ -1,15 +1,23 @@
+# Dynamic dirs and files
 /logbook/work
-/mobile/lib/settings.inc.php
 /tmp/watchlist-runwatch.lock
+ocpl-dynamic-files
 
 # Ignore local configuration
 /config/**/*.local.php
 /lib/settings.inc.php
+/mobile/lib/settings.inc.php
 
+# IDE Config
 .buildpath
 .directory
 .idea
-.php_cs.cache
 .project
 .settings
-ocpl-dynamic-files
+
+# Ignore local FTP configuration
+.ftpaccess
+
+# PHP CS-Fixer files
+.php-cs-fixer.php
+.php-cs-fixer.cache

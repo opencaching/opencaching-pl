@@ -1,4 +1,9 @@
-
+<?php
+    use src\Models\OcConfig\OcConfig;
+    use src\Utils\Database\XDb;
+    use src\Utils\Cache\OcMemCache;
+    use src\Utils\I18n\I18n;
+?>
 <div class="content2-container">
   <div class="content2-pagetitle">
     <img src="/images/blue/stat1.png" class="icon32" alt="">
@@ -10,17 +15,9 @@
         <td>
         <?php
 
-use src\Utils\Database\XDb;
-use src\Utils\Cache\OcMemCache;
-use src\Utils\I18n\I18n;
-
 # This page took >60 seconds to render! Added daily caching.
 
-$result = OcMemCache::getOrCreate(
-    "articles_s7-" . I18n::getCurrentLang(),
-    86400,
-function ()
-{
+echo OcMemCache::getOrCreate("articles_s7-" . I18n::getCurrentLang(), 86400, function() {
     ob_start();
 
     $rsUs["count"] = XDb::xSimpleQueryValue(
@@ -75,10 +72,7 @@ function ()
 
     return ob_get_clean();
 });
-
-print $result;
-
-        ?>
+?>
         </td></tr>
 </table>
 </div>

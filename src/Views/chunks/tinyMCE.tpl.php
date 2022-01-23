@@ -13,6 +13,7 @@ use src\Utils\I18n\I18n;
  * Parameters:
  * $media - support for insert/edit media like YouTube videos. Default is true. Set it to false to disable media feature
  * $selector - selector to use in <textarea>. Can be ".class" or "#id" or even "viewcache.editor". Default selector is class "tinymce".
+ * $imgUploader - url to call with file upload - if not set img upload is disabled
  *
  * Size of editor set via CSS. For example:
  * textarea.desc, textarea.cachelog {
@@ -22,16 +23,22 @@ use src\Utils\I18n\I18n;
  *
  */
 
-return function ($media = true, $selector = '.tinymce') {
+return function ($media = true, $selector = '.tinymce', $filePickerCallback=null) {
     //start of chunk
     $mediatxt = ($media == true) ? ' media' : '';
     ?>
 
 <!-- TinyMCE chunk start -->
-<script src="<?=Uri::getLinkWithModificationTime('/js/libs/tinyMCE/4.9.2/tinymce.min.js')?>"></script>
+<script src="<?=Uri::getLinkWithModificationTime('/js/libs/tinyMCE/5.7.1/tinymce.min.js')?>"></script>
 <script>
   tinymce.init({
     selector: "<?=$selector?>",
+    <?php if($filePickerCallback) { ?>
+      file_picker_callback: <?=$filePickerCallback?>,
+    <?php } //if($filePickerCallback) ?>
+    image_advtab: true,
+    contextmenu: false, /* disable contextmenu (right-click) - native browser context menu will be displaied instead */
+    image_title: true,
     menubar: false,
     toolbar_items_size: "small",
     browser_spellcheck: true,
@@ -46,7 +53,7 @@ return function ($media = true, $selector = '.tinymce') {
     toolbar3: "bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | hr | subscript superscript | charmap | forecolor backcolor",
     plugins: [
       "advlist autolink autosave link image lists charmap hr anchor spellchecker searchreplace wordcount code fullscreen nonbreaking",
-      "textcolor paste <?=$mediatxt?>"
+      "paste <?=$mediatxt?>"
     ],
   });
 </script>

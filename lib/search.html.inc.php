@@ -19,7 +19,7 @@ function findColumn($name, $type = "C")
 {
     global $colNameSearch;
 
-    for ($i = 0; $i < 20; $i ++) {
+    for ($i = 0; $i < 19; $i ++) {
         if ($colNameSearch[$i][$type] == $name)
             return $i;
     }
@@ -159,10 +159,6 @@ $colNameSearch = array(
         "O" => tr('TaskTerainDifficulty')
     ),
     18 => array(
-        "C" => "",
-        "O" => tr('srch_Send_to_GPS')
-    ),
-    19 => array(
         "C" => "cache_code",
         "O" => "cache_code"
     ),
@@ -255,10 +251,6 @@ $CalcCoordinates = true;
 if (fHideColumn(findColumn(tr('Coordinates')), false) == 1)
     $CalcCoordinates = false;
 
-$CalcSendToGPS = true;
-if (fHideColumn(findColumn(tr('srch_Send_to_GPS'), "O"), false) == 1)
-    $CalcSendToGPS = false;
-
 $CalcFNC = true;
 if (fHideColumn(findColumn(tr('FNC')), false) == 1 && fHideColumn(findColumn(tr('F')), false) == 1 && fHideColumn(findColumn(tr('N')), false) == 1 && fHideColumn(findColumn(tr('C')), false) == 1)
     $CalcFNC = false;
@@ -267,8 +259,7 @@ $CalcEntry = true;
 if (fHideColumn(findColumn(tr('Entry')), false) == 1)
     $CalcEntry = false;
 
-if ($CalcSendToGPS)
-    $CalcCoordinates = true;
+$CalcCoordinates = true;
 
 if ($CalcDistance)
     $CalcCoordinates = true;
@@ -365,7 +356,6 @@ $s = $dbcSearch->simpleQuery($query);
 
 $tr_Coord_have_been_modified = tr('srch_Coord_have_been_modified');
 $tr_Recommended = tr('srch_Recommended');
-$tr_Send_to_GPS = tr('srch_Send_to_GPS');
 
 for ($i = 0; $i < $dbcSearch->rowCount($s); $i ++) {
     $caches_record = $dbcSearch->dbResultFetch($s);
@@ -516,23 +506,6 @@ for ($i = 0; $i < $dbcSearch->rowCount($s); $i ++) {
         $availableDescLangs .= '<a href="viewcache.php?cacheid=' . urlencode($caches_record['cache_id']) . '&amp;desclang=' . urlencode($thislang) . '" style="text-decoration:none;"><b><font color="blue">' . htmlspecialchars($thislang, ENT_COMPAT, 'UTF-8') . '</font></b></a> ';
     }
     $tmpline = str_replace('{desclangs}', $availableDescLangs, $tmpline);
-    if ($loggedUser || ! OcConfig::coordsHiddenForNonLogged()) {
-        if ($CalcCoordinates) {
-            if ($caches_record['coord_modified'] == true) {
-                $mod_suffix_garmin = '(F)';
-            } else {
-                $mod_suffix_garmin = '';
-            }
-            ;
-        }
-        if ($CalcSendToGPS) {
-            $tmpline = str_replace('{sendtogps}', ("<a href=\"#\" onclick=\"javascript:window.open('garmin.php?lat=" . $caches_record['latitude'] . "&amp;long=" . $caches_record['longitude'] . "&amp;wp=" . $caches_record['wp_oc'] . "&amp;name=" . urlencode($mod_suffix_garmin . $caches_record['name']) . "&amp;popup=y','Send_To_GPS','width=450,height=160,resizable=no,scrollbars=0')\"><img src='/images/garmin.jpg' alt='Send to GPS' title='" . $tr_Send_to_GPS . "' border='0' /></a>"), $tmpline);
-            $tmpline = str_replace('{sendtogpsnew}', "<a href='#' onclick=\\\"javascript:window.open('garmin.php?lat=" . $caches_record['latitude'] . "&amp;long=" . $caches_record['longitude'] . "&amp;wp=" . $caches_record['wp_oc'] . "&amp;name=" . urlencode($mod_suffix_garmin . $caches_record['name']) . "&amp;popup=y','Send_To_GPS','width=450,height=160,resizable=no,scrollbars=0')\\\"><img src='/images/blue/gps-receiving-32.png' alt='Send to GPS' title='" . $tr_Send_to_GPS . "' border='0'  height='16' width='16' /></a>", $tmpline);
-        }
-    } else {
-        $tmpline = str_replace('{sendtogps}', "", $tmpline);
-    }
-
     $tmpline = str_replace('{cachename}', htmlspecialchars($caches_record['name'], ENT_COMPAT, 'UTF-8'), $tmpline);
     $tmpline = str_replace('{cachenameBIG}', strtoupper(trChar(htmlspecialchars(trim($caches_record['name']), ENT_COMPAT, 'UTF-8'))), $tmpline);
     $tmpline = str_replace('{urlencode_cacheid}', htmlspecialchars(urlencode($caches_record['cache_id']), ENT_COMPAT, 'UTF-8'), $tmpline);

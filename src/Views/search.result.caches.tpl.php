@@ -101,11 +101,10 @@ function searchCB(){
     /* 17 */gct.addColumn('string', "<?php echo $colNameSearch[17]["C"]?>", 'font-size: 12px; text-align: left; ');
 
     /* 18 */gct.addColumn('string', "<?php echo $colNameSearch[18]["C"]?>", 'font-size: 12px; text-align: left; ');
-    /* 19 */gct.addColumn('string', "<?php echo $colNameSearch[19]["C"]?>", 'font-size: 12px; text-align: left; ');
 
     {results}
 
-    gct.hideColumns( [0, 19] );
+    gct.hideColumns( [0, 18] );
 
     gct.addOption('showRowNumber', true );
     gct.addOption('width', '780' );
@@ -240,10 +239,10 @@ echo "<div class='GCT-div' style='font-size:12px'>
             <td style='color:green;'>{{AllPosExport}}</td>
                      <td>
                        <span class='content-title-noshade' style='color:green'>{{format_GPX}}</span>:<br/>
-                <a class=\"links\" href=\"ocplgpx";?>{queryid}<?php echo ".gpx?startat=1&amp;count=max&amp;zip=1\" title=\"GPS Exchange Format .gpx\">GPX</a> |
-                <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".zip?startat=1&amp;count=max\" title=\"Garmin ZIP file ({{format_pict}})  .zip\">GARMIN ({{format_pict}})</a> |
-                <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".ggz?startat=1&amp;count=max\" title=\"Garmin .ggz\">GARMIN GGZ</a> <sup style='color:red;text-shadow: 2px 2px 2px rgba(255, 109, 255, 1);'>Beta!</sup> |
-                <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".zip?startat=1&amp;format=ggz&amp;count=max\" title=\"Garmin ZIP file ({{format_ggz_pict}})  .zip\">GARMIN GGZ ({{format_ggz_pict}})</a> <sup style='color:red;text-shadow: 2px 2px 2px rgba(255, 109, 255, 1);'>Beta!</sup>
+                <a class=\"links\" href=\"ocplgpx";?>{queryid}<?php echo ".gpx?startat=0&amp;count=max&amp;zip=1\" title=\"GPS Exchange Format .gpx\">GPX</a> |
+                <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".zip?startat=0&amp;count=max\" title=\"Garmin ZIP file ({{format_pict}})  .zip\">GARMIN ({{format_pict}})</a> |
+                <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".ggz?startat=0&amp;count=max\" title=\"Garmin .ggz\">GARMIN GGZ</a> <sup style='color:red;text-shadow: 2px 2px 2px rgba(255, 109, 255, 1);'>Beta!</sup> |
+                <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".zip?startat=0&amp;format=ggz&amp;count=max\" title=\"Garmin ZIP file ({{format_ggz_pict}})  .zip\">GARMIN GGZ ({{format_ggz_pict}})</a> <sup style='color:red;text-shadow: 2px 2px 2px rgba(255, 109, 255, 1);'>Beta!</sup>
                 <div>
                     <a class='links' id='exportOkapiGPX-all'>OKAPI GPX...</a>
                 </div>
@@ -255,14 +254,14 @@ echo "<div class='GCT-div' style='font-size:12px'>
                     ".tr('listing_from_to').":
                      </td>
                             <td><span class='content-title-noshade' style='color:green'>{{format_other}}</span>:<br/>
-                <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".loc?startat=1&amp;count=max&amp;zip=1\" title=\"Waypoint .loc\">LOC</a> |
-                <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".kml?startat=1&amp;count=max&amp;zip=1\" title=\"Google Earth .kml\">KML</a> |
-                <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".ov2?startat=1&amp;count=max&amp;zip=1\" title=\"TomTom POI .ov2\">OV2</a> |
-                <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".ovl?startat=1&amp;count=max&amp;zip=1\" title=\"TOP50-Overlay .ovl\">OVL</a> |
-                <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".txt?startat=1&amp;count=max&amp;zip=1\" title=\"Text .txt\">TXT</a> |
-                <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".wpt?startat=1&amp;count=max&amp;zip=1\" title=\"Oziexplorer .wpt\"> WPT</a> |
-                <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".uam?startat=1&amp;count=max&amp;zip=1\" title=\"AutoMapa .uam\">UAM</a> |
-                            <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".xml?startat=1&amp;count=max&amp;zip=1\" title=\"xml\">XML</a>
+                <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".loc?startat=0&amp;count=max&amp;zip=1\" title=\"Waypoint .loc\">LOC</a> |
+                <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".kml?startat=0&amp;count=max&amp;zip=1\" title=\"Google Earth .kml\">KML</a> |
+                <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".ov2?startat=0&amp;count=max&amp;zip=1\" title=\"TomTom POI .ov2\">OV2</a> |
+                <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".ovl?startat=0&amp;count=max&amp;zip=1\" title=\"TOP50-Overlay .ovl\">OVL</a> |
+                <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".txt?startat=0&amp;count=max&amp;zip=1\" title=\"Text .txt\">TXT</a> |
+                <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".wpt?startat=0&amp;count=max&amp;zip=1\" title=\"Oziexplorer .wpt\"> WPT</a> |
+                <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".uam?startat=0&amp;count=max&amp;zip=1\" title=\"AutoMapa .uam\">UAM</a> |
+                            <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".xml?startat=0&amp;count=max&amp;zip=1\" title=\"xml\">XML</a>
                         </td>
            </tr>
     </table>

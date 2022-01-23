@@ -84,6 +84,13 @@ tr.highlighted > td {border-width:2px;}
   font-size: 1.8em;
 }
 
+html.responsive-enabled .responsive-toggle .mobile-off {
+    display: none;
+}
+html:not(.responsive-enabled) .responsive-toggle .mobile-friendly {
+    display: none;
+}
+
 .topline-buttons {
   float: right;
   margin-right: 10px;

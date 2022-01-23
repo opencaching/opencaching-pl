@@ -12,6 +12,35 @@ use src\Utils\Debug\Debug;
  */
 class Languages
 {
+
+    public static function isLanguageSupported($lang): bool
+    {
+        return 0 != XDb::xMultiVariableQueryValue(
+            "SELECT COUNT(*) FROM languages
+             WHERE short = :1 LIMIT 1", 0, $lang);
+    }
+
+    public static function getLanguages($onlyDefaultList=null)
+    {
+        $currLang = I18n::getCurrentLang();
+
+        $query = "SELECT `$currLang` AS localizedName,
+                          short AS langCode,
+                          `list_default_$currLang` AS defaultLang
+                  FROM languages ";
+        if ($onlyDefaultList){
+            $query .= "WHERE `list_default_$currLang` = 1 ";
+        }
+        $query .= "ORDER BY `$currLang` ASC";
+
+        $rs = XDb::xSql ($query);
+        $result = [];
+        while ($row = XDb::xFetchArray($rs)){
+            $result[] = $row;
+        }
+        return $result;
+    }
+
     public static function languageNameFromCode($countryCode, $langCode)
     {
         $rs = XDb::xSql(

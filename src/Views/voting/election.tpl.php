@@ -152,7 +152,7 @@ $el = $v->election;
       return false;
     }
 
-    if (maxNumOfVotesAllowed && emptyVotesDisallowed && selectedOptions < maxNumOfVotesAllowed) {
+    if (maxNumOfVotesAllowed && partialVoteDisallowed && selectedOptions < maxNumOfVotesAllowed) {
       // not enough options
       displayError ('<?=tr('vote_notEnoughOptionsSelected')?>'+": "+maxNumOfVotesAllowed);
       return false;

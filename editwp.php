@@ -68,7 +68,32 @@ if ($cache_record = XDb::xFetchArray($cache_rs)) {
         }
 
         $tplname = 'editwp';
-        require(__DIR__ . '/src/Views/newcache.inc.php');
+
+        // former /src/Views/newcache.inc.php' contents
+        $submit = tr('new_cache2');
+        $default_region = '0';
+        $show_all = tr('show_all');
+        $default_NS = 'N';
+        $default_EW = 'E';
+        $date_time_format_message = tr('newcacheDateFormat');
+
+        $error_general = '<div class="warning">' . tr('error_new_cache') . '</div>';
+        $error_coords_not_ok = '<br><img src="images/misc/32x32-impressum.png" class="icon32" alt="">&nbsp;<span class="errormsg">' . tr('bad_coordinates') . '</span>';
+        $time_not_ok_message = '<br><img src="images/misc/32x32-impressum.png" class="icon32" alt="">&nbsp;<span class="errormsg">' . tr('time_incorrect') . '</span>';
+        $way_length_not_ok_message = '<br><img src="images/misc/32x32-impressum.png" class="icon32" alt="">&nbsp;<span class="errormsg">' . tr('distance_incorrect') . '</span>';
+        $date_not_ok_message = '<br><img src="images/misc/32x32-impressum.png" class="icon32" alt="">&nbsp;<span class="errormsg">' . tr('date_incorrect') . '</span>';
+        $name_not_ok_message = '<br><img src="images/misc/32x32-impressum.png" class="icon32" alt="">&nbsp;<span class="errormsg">' . tr('no_cache_name') . '</span>';
+        $descwp_not_ok_message = '<br><img src="images/misc/32x32-impressum.png" class="icon32" alt="">&nbsp;<span class="errormsg">' . tr('descwp_incorrect') . '</span>';
+        $type_not_ok_message = '<br><img src="images/misc/32x32-impressum.png" class="icon32" alt="">&nbsp;&nbsp;<span class="errormsg">' . tr('type_incorrect') . '</span>';
+        $typewp_not_ok_message = '<br><img src="images/misc/32x32-impressum.png" class="icon32" alt="">&nbsp;&nbsp;<span class="errormsg">' . tr('typewp_incorrect') . '</span>';
+        $size_not_ok_message = '<br><img src="images/misc/32x32-impressum.png" class="icon32" alt="">&nbsp;&nbsp;<span class="errormsg">' . tr('size_incorrect') . '</span>';
+        $diff_not_ok_message = '<br><img src="images/misc/32x32-impressum.png" class="icon32" alt="">&nbsp;&nbsp;<span class="errormsg">' . tr('diff_incorrect') . '</span>';
+        $sizemismatch_message = '<br><img src="images/misc/32x32-impressum.png" class="icon32" alt="">&nbsp;&nbsp;<span class="errormsg">' . tr('virtual_cache_size') . '</span>';
+        $regionNotOkMessage = '<br><img src="images/misc/32x32-impressum.png" class="icon32" alt="">&nbsp;&nbsp;<span class="errormsg">' . tr('region_not_ok') . '</span>';
+        $sel_message = tr('choose');
+        $cache_attrib_js = "new Array({id}, {selected}, '{img_undef}', '{img_large}')";
+        $cache_attrib_pic = '<img id="attr{attrib_id}" src="{attrib_pic}" alt="{attrib_text}" title="{attrib_text}" onmousedown="toggleAttr({attrib_id})"> ';
+        // former /src/Views/newcache.inc.php' contents ends
 
         $wp_type = isset($_POST['type']) ? $_POST['type'] : $wp_record['type'];
         //build typeoptions

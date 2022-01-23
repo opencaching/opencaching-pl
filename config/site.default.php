@@ -20,7 +20,7 @@ $site['siteName'] = 'OpenCaching';
 $site['shortName'] = 'OC';
 
 /**
- * Page title (to display on the browser titlebar)
+ * Page title (to display on the browser title bar)
  */
 $site['pageTitle'] = 'OpenCaching';
 
@@ -31,7 +31,7 @@ $site['pageTitle'] = 'OpenCaching';
 $site['ocNodeId'] = 4;
 
 /**
- * Site main domain - this should be only main part of domain eg. opencaching.pl for OCPL
+ * Site main domain - this should be only main part of domain e.g. opencaching.pl for OCPL
  */
 $site['mainDomain'] = 'opencaching.pl';
 
@@ -41,7 +41,7 @@ $site['mainDomain'] = 'opencaching.pl';
  *
  * See site.nl.php for an example setting.
  *
- * If not set in site.XX.php, the site's topelevel domain will be used as
+ * If not set in site.XX.php, the site's top level domain will be used as
  * primary country.
  */
 $site['primaryCountries'] = [];
@@ -72,6 +72,16 @@ $site['mainViewIcons'] = [
 $site['cacheAccessLogEnabled'] = false;
 
 /**
+ * Days to keep entries in CACHE_ACCESS_LOG. Set 0 to disable auto purge
+ */
+$site['cacheAccessLogKeep'] = 90;
+
+/**
  * Enable debug mode (USE ONLY IN DEV/TEST ENV!)
  */
 $site['debugModeEnabled'] = false;
+
+/**
+ * Google Analytics site tag if used by the node
+ */
+$site['googleAnalyticsTag'] = '';
