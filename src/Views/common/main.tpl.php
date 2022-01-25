@@ -99,8 +99,8 @@ use src\Utils\Uri\SimpleRouter as _SimpleRouter;
         </div>
         <div class="topline-buffer"></div>
         <button class="responsive-toggle btn btn-sm btn-default" type="button" onclick="responsiveToggle()">
-          <img src="/images/misc/mobile-off.svg" class="icon16 mobile-off" alt="<?= tr('responsiveModeToggle_disabled'); ?>" title="<?= tr('responsiveModeToggle_disabled'); ?>">
-          <img src="/images/misc/mobile-friendly.svg" class="icon16 mobile-friendly" alt="<?= tr('responsiveModeToggle_enabled'); ?>" title="<?= tr('responsiveModeToggle_enabled'); ?>">
+            <img src="/images/misc/responsive-mode-disabled.svg" class="icon16 mobile-off" alt="<?= tr('responsiveModeToggle_disabled'); ?>" title="<?= tr('responsiveModeToggle_disabled'); ?>">
+            <img src="/images/misc/responsive-mode-enabled.svg" class="icon16 mobile-friendly" alt="<?= tr('responsiveModeToggle_enabled'); ?>" title="<?= tr('responsiveModeToggle_enabled'); ?>">
         </button>
 
         <div class="topline-buttons">
