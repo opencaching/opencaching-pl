@@ -1,15 +1,14 @@
 <?php
+
 namespace src\Controllers;
 
-use src\Models\GeoCache\PrintList;
-use src\Models\GeoCache\MultiCacheStats;
-use src\Models\ChunkModels\ListOfCaches\ListOfCachesModel;
-use src\Models\ChunkModels\ListOfCaches\Column_CacheTypeIcon;
 use src\Models\ChunkModels\ListOfCaches\Column_CacheName;
+use src\Models\ChunkModels\ListOfCaches\Column_CacheTypeIcon;
 use src\Models\ChunkModels\ListOfCaches\Column_OnClickActionIcon;
-
+use src\Models\ChunkModels\ListOfCaches\ListOfCachesModel;
 use src\Models\GeoCache\GeoCache;
-
+use src\Models\GeoCache\MultiCacheStats;
+use src\Models\GeoCache\PrintList;
 
 class PrintListController extends BaseController
 {
@@ -19,7 +18,7 @@ class PrintListController extends BaseController
         $this->redirectNotLoggedUsers();
     }
 
-    public function isCallableFromRouter($actionName)
+    public function isCallableFromRouter(string $actionName): bool
     {
         return true;
     }
@@ -37,53 +36,57 @@ class PrintListController extends BaseController
         if ($cachesCount > 0) {
             $geocaches = MultiCacheStats::getGeocachesById($printList);
 
-            $model = new ListOfCachesModel ();
-            $model->addColumn (new Column_CacheTypeIcon ('',
+            $model = new ListOfCachesModel();
+            $model->addColumn(new Column_CacheTypeIcon(
+                '',
                 function (GeoCache $cache) {
                     return [
                         'type' => $cache->getCacheType(),
                         'status' => $cache->getStatus(),
                         'user_sts' => null,
                     ];
-                }));
-            $model->addColumn(new Column_CacheName(tr('myNotes_cacheName'),
+                }
+            ));
+            $model->addColumn(new Column_CacheName(
+                tr('myNotes_cacheName'),
                 function (GeoCache $cache) {
                     return [
                         'cacheWp' => $cache->getWaypointId(),
                         'cacheName' => $cache->getCacheName(),
                         'cacheStatus' => $cache->getStatus(),
                     ];
-                }));
+                }
+            ));
 
             // <a href="removelist.php?cacheid={cacheid}&target=mylist.php">
-            $model->addColumn(new Column_OnClickActionIcon('',
+            $model->addColumn(new Column_OnClickActionIcon(
+                '',
                 function (GeoCache $cache) {
                     return [
                         'icon' => '/images/log/16x16-trash.png',
                         'onClick' => "removeFromList(this, {$cache->getCacheId()})",
-                        'title' => tr('mylist_02')
-                        ];
+                        'title' => tr('mylist_02'),
+                    ];
                 }
-                ));
+            ));
 
-            $model->addDataRows ($geocaches);
+            $model->addDataRows($geocaches);
             $this->view->setVar('listCacheModel', $model);
         }
 
         $this->view->buildView();
     }
 
-
     public function removeFromListAjax($cacheId)
     {
         $geocache = GeoCache::fromCacheIdFactory($cacheId);
-        if (!$geocache) {
-            $this->ajaxErrorResponse("No such geocache");
+
+        if (! $geocache) {
+            $this->ajaxErrorResponse('No such geocache');
         }
 
         PrintList::RemoveCache($cacheId);
         $this->ajaxSuccessResponse();
-
     }
 
     public function clearListAjax()

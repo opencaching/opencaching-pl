@@ -1,23 +1,20 @@
 <?php
+
 namespace src\Controllers\Admin;
 
+use Exception;
 use src\Controllers\BaseController;
 use src\Controllers\UpdateController;
-use src\Utils\DataBase\OcDb;
+use src\Models\OcConfig\OcConfig;
 use src\Utils\Database\DbUpdate;
 use src\Utils\Database\DbUpdates;
+use src\Utils\DataBase\OcDb;
 use src\Utils\Uri\SimpleRouter;
 use src\Utils\Uri\Uri;
-use src\Models\OcConfig\OcConfig;
 
 class DbUpdateController extends BaseController
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    public function isCallableFromRouter($actionName)
+    public function isCallableFromRouter(string $actionName): bool
     {
         // all public methods can be called by router
         return true;
@@ -58,16 +55,15 @@ class DbUpdateController extends BaseController
         $wasRun = ($update->wasRunAt() !== null);
         $specialPurpose = substr($update->getName(), 0, 3) < 100;
 
-        if (!OcConfig::debugModeEnabled()) {
+        if (! OcConfig::debugModeEnabled()) {
             // production site
 
-            if (!$wasRun) {
+            if (! $wasRun) {
                 $actions['run'] = 'run';
             } else {
                 if ($update->getRuntype() == 'always' || $specialPurpose) {
-
-                    # For tests an special-purpose updates, it can make sense to
-                    # re-run them even on production sites, and to roll them back.
+                    // For tests an special-purpose updates, it can make sense to
+                    // re-run them even on production sites, and to roll them back.
 
                     $actions['run'] = 'run again';
 
@@ -79,44 +75,39 @@ class DbUpdateController extends BaseController
         } else {
             // developer site
 
-            if (!$wasRun) {
+            if (! $wasRun) {
                 $actions['run'] = 'run';
 
                 if ($update->hasRollback()) {
-
-                    # There may be cases when a developer wants to test
-                    # the behaviour of a rollback method even without having
-                    # run the update.
+                    // There may be cases when a developer wants to test
+                    // the behaviour of a rollback method even without having
+                    // run the update.
 
                     $actions['rollback'] = 'try rollback';
                 }
-
             } else {
-                # It can make sense to repeat an update, e.g. if there is no
-                # rollback method and the developer did a manual rollback.
+                // It can make sense to repeat an update, e.g. if there is no
+                // rollback method and the developer did a manual rollback.
 
                 $actions['run'] = 'run again';
 
-                if ($update->hasRollback() && (!$update->isInGitMasterBranch() || $specialPurpose)) {
-
-                    # The workflow for rolling back an already deployed
-                    # update is to create a new rollback-update and run that.
-                    # To enforce this workflow, we disable direct rollback
-                    # of deployed updates.
+                if ($update->hasRollback() && (! $update->isInGitMasterBranch() || $specialPurpose)) {
+                    // The workflow for rolling back an already deployed
+                    // update is to create a new rollback-update and run that.
+                    // To enforce this workflow, we disable direct rollback
+                    // of deployed updates.
 
                     $actions['rollback'] = 'rollback';
                 }
             }
 
-            if (!$update->isInGitMasterBranch()) {
-
-                if (!($wasRun && $update->hasRollback())) {
+            if (! $update->isInGitMasterBranch()) {
+                if (! ($wasRun && $update->hasRollback())) {
                     $actions['askDelete'] = 'delete';
-                } else {
-                    # If there is a rollback method, we require developers
-                    # to run that before they can delete the script. This
-                    # helps to keep the database clean.
                 }
+                // If there is a rollback method, we require developers
+                    // to run that before they can delete the script. This
+                    // helps to keep the database clean.
             }
 
             $actions['askRename'] = 'rename';
@@ -160,36 +151,35 @@ class DbUpdateController extends BaseController
         $this->securityCheck(false);
 
         try {
-            if (!$id) {
+            if (! $id) {
                 $messages = UpdateController::runOcDatabaseUpdate();
             } elseif (substr($id, -4) == '.sql') {
                 $messages = DbUpdates::runRoutines($id);
             } else {
                 $update = $this->getUpdateFromUuid($id);
 
-                if (!isset($this->getAvailableActions($update)['run'])
+                if (! isset($this->getAvailableActions($update)['run'])
                     && empty($_REQUEST['override'])
                 ) {
-
-                    # This can happen on page reload on a production site:
-                    # Update was allowed to run, but must not re-run.
+                    // This can happen on page reload on a production site:
+                    // Update was allowed to run, but must not re-run.
 
                     $messages = sprintf(tr('admin_dbupdate_norun'), $update->getName());
                 } else {
                     $messages = $update->run();
                 }
             }
-        } catch (\Exception $e) {
-            $messages = get_class($e).": " . $e->getMessage() . "\n\n" . $e->getTraceAsString();
+        } catch (Exception $e) {
+            $messages = get_class($e) . ': ' . $e->getMessage() . "\n\n" . $e->getTraceAsString();
         }
 
         $this->showAdminView($messages);
 
-        # The update will be run again if the user reloads the page.
-        # Alternatively, we could reload the page now without running update
-        # and pass the message. But then if the user reloads again, the
-        # message will confusingly be shown again. Probably it's the best
-        # solution to re-run on reload.
+        // The update will be run again if the user reloads the page.
+        // Alternatively, we could reload the page now without running update
+        // and pass the message. But then if the user reloads again, the
+        // message will confusingly be shown again. Probably it's the best
+        // solution to re-run on reload.
     }
 
     public function rollback($uuid)
@@ -200,25 +190,24 @@ class DbUpdateController extends BaseController
 
         $update = $this->getUpdateFromUuid($uuid);
 
-        if (!isset($this->getAvailableActions($update)['rollback'])
+        if (! isset($this->getAvailableActions($update)['rollback'])
             && empty($_REQUEST['override'])
         ) {
-
-            # This can happen on page reload on a production site:
-            # Update was allowed to roll back, but only once.
+            // This can happen on page reload on a production site:
+            // Update was allowed to roll back, but only once.
 
             $messages = sprintf(tr('admin_dbupdate_norollback'), $update->getName());
         } else {
             try {
                 $messages = $this->getUpdateFromUuid($uuid)->rollback();
-            } catch (\Exception $e) {
-                $messages = get_class($e).": " . $e->getMessage() . "\n\n" . $e->getTraceAsString();
+            } catch (Exception $e) {
+                $messages = get_class($e) . ': ' . $e->getMessage() . "\n\n" . $e->getTraceAsString();
             }
         }
 
         $this->showAdminView($messages);
 
-        # See comment in run() method.
+        // See comment in run() method.
     }
 
     public function askRename($uuid)
@@ -232,16 +221,16 @@ class DbUpdateController extends BaseController
     public function rename($uuid)
     {
         $this->securityCheck();
-        if (isset($_REQUEST['newName'])) {
 
+        if (isset($_REQUEST['newName'])) {
             // auto-convert some non-allowed spacers
             $newName = preg_replace('/[ \-]/', '_', $_REQUEST['newName']);
 
             $this->getUpdateFromUuid($uuid)->rename($newName);
 
-            # This could be improved by returning error codes from rename(),
-            # e.g. for "invalid characters" or "name too short", and
-            # presenting an error message.
+            // This could be improved by returning error codes from rename(),
+            // e.g. for "invalid characters" or "name too short", and
+            // presenting an error message.
         }
         $this->reload();
     }
@@ -275,10 +264,11 @@ class DbUpdateController extends BaseController
         // This action is public. Developers may want to check if an update
         // was deployed to the site.
 
-        $text = "";
+        $text = '';
+
         foreach (DbUpdates::getAll() as $update) {
             if ($r = $update->wasRunAt()) {
-                $text .= $update->getUuid() . " " . $r . "\n";
+                $text .= $update->getUuid() . ' ' . $r . "\n";
             }
         }
         $this->view->showPlainText($text);
@@ -287,6 +277,7 @@ class DbUpdateController extends BaseController
     private function getUpdateFromUuid($uuid)
     {
         $update = DbUpdates::get($uuid);
+
         if ($update) {
             return $update;
         }
@@ -299,15 +290,17 @@ class DbUpdateController extends BaseController
         $this->view->setVar('mysqlVersion', OcDb::instance()->getServerVersion());
         $this->view->setTemplate('sysAdmin/dbUpdate');
         $this->view->buildView();
+
         exit();
     }
 
     private function securityCheck($onlyDevelopers = true)
     {
-        if (!$this->isUserLogged() || !$this->loggedUser->hasSysAdminRole() ||
-            ($onlyDevelopers && !OcConfig::debugModeEnabled())
+        if (! $this->isUserLogged() || ! $this->loggedUser->hasSysAdminRole()
+            || ($onlyDevelopers && ! OcConfig::debugModeEnabled())
         ) {
             $this->view->redirect('/');
+
             exit();
         }
     }

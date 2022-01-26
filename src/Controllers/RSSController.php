@@ -1,29 +1,29 @@
 <?php
+
 namespace src\Controllers;
 
+use src\Models\GeoCache\GeoCacheLog;
+use src\Models\GeoCache\MultiCacheStats;
+use src\Models\GeoCache\MultiLogStats;
+use src\Models\Neighbourhood\MyNbhSets;
+use src\Models\Neighbourhood\Neighbourhood;
+use src\Models\News\News;
+use src\Models\OcConfig\OcConfig;
+use src\Models\User\User;
 use src\Utils\Cache\OcMemCache;
 use src\Utils\Feed\AtomFeed;
 use src\Utils\Feed\AtomFeedAuthor;
 use src\Utils\Feed\AtomFeedEntry;
-use src\Utils\Text\Formatter;
-use src\Utils\Uri\Uri;
-use src\Models\GeoCache\GeoCacheLog;
-use src\Models\GeoCache\MultiCacheStats;
-use src\Models\GeoCache\MultiLogStats;
-use src\Models\News\News;
-use src\Models\User\User;
-use src\Models\Neighbourhood\MyNbhSets;
-use src\Models\Neighbourhood\Neighbourhood;
-use src\Utils\Uri\SimpleRouter;
 use src\Utils\I18n\I18n;
-use src\Models\OcConfig\OcConfig;
+use src\Utils\Text\Formatter;
+use src\Utils\Uri\SimpleRouter;
+use src\Utils\Uri\Uri;
 
 class RSSController extends BaseController
 {
+    public const ENTRIES_PER_FEED = 20;
 
-    const ENTRIES_PER_FEED = 20;
-
-    public function isCallableFromRouter($actionName)
+    public function isCallableFromRouter(string $actionName): bool
     {
         return true;
     }
@@ -34,6 +34,7 @@ class RSSController extends BaseController
     public function index($errorMsgString = null)
     {
         $this->view->setTemplate('rss/main');
+
         if (empty($errorMsgString)) {
             $this->view->setVar('errorMsg', null);
         } else {
@@ -56,9 +57,10 @@ class RSSController extends BaseController
         $logs = OcMemCache::getOrCreate(
             __CLASS__ . '::newLogs',
             1 * 60 * 60,
-            function() {
+            function () {
                 return self::newLogsDataPrepare();
-            });
+            }
+        );
 
         foreach ($logs as $log) {
             $entry = new AtomFeedEntry();
@@ -78,6 +80,7 @@ class RSSController extends BaseController
         }
 
         $rss->publish();
+
         exit();
     }
 
@@ -91,6 +94,7 @@ class RSSController extends BaseController
         $logs = MultiLogStats::getNewestLogs(self::ENTRIES_PER_FEED);
 
         $result = [];
+
         foreach ($logs as $log) {
             $entry = [];
             $entry['cacheName'] = $log->getGeoCache()->getCacheName();
@@ -100,11 +104,12 @@ class RSSController extends BaseController
             $entry['datePublished'] = $log->getDateCreated();
             $entry['dateUpdated'] = $log->getLastModified();
             $entry['logUri'] = Uri::getAbsUri($log->getLogUrl());
-            $entry['content'] = '<img src="' . Uri::getAbsUri($log->getLogIcon()) .'" alt="' . tr($log->getTypeTranslationKey()) . '" /> ';
+            $entry['content'] = '<img src="' . Uri::getAbsUri($log->getLogIcon()) . '" alt="' . tr($log->getTypeTranslationKey()) . '" /> ';
             $entry['content'] .= '<strong>' . tr($log->getTypeTranslationKey()) . '</strong>';
+
             if ($log->getType() == GeoCacheLog::LOGTYPE_FOUNDIT
                 && $log->isRecommendedByUser($log->getUser())) {
-                    $entry['content'] .= ' <img src="' . Uri::getAbsUri('images/rating-star.png') . '" alt="' . tr('recommended') . '" />';
+                $entry['content'] .= ' <img src="' . Uri::getAbsUri('images/rating-star.png') . '" alt="' . tr('recommended') . '" />';
             }
             $entry['content'] .= ' (' . Formatter::dateTime($log->getDate()) . ')<br>';
             $entry['content'] .= $log->getText();
@@ -112,6 +117,7 @@ class RSSController extends BaseController
             $result[] = $entry;
             unset($entry);
         }
+
         return $result;
     }
 
@@ -128,9 +134,10 @@ class RSSController extends BaseController
         $caches = OcMemCache::getOrCreate(
             __CLASS__ . '::newCaches',
             1 * 60 * 60,
-            function() {
+            function () {
                 return self::newCachesDataPrepare(I18n::getCurrentLang());
-            });
+            }
+        );
 
         foreach ($caches as $cache) {
             $entry = new AtomFeedEntry();
@@ -150,6 +157,7 @@ class RSSController extends BaseController
         }
 
         $rss->publish();
+
         exit();
     }
 
@@ -164,6 +172,7 @@ class RSSController extends BaseController
         $caches = MultiCacheStats::getAllLatestCaches(self::ENTRIES_PER_FEED);
 
         $result = [];
+
         foreach ($caches as $cache) {
             $entry = [];
             $entry['cacheName'] = $cache->getCacheName();
@@ -173,11 +182,12 @@ class RSSController extends BaseController
             $entry['datePublished'] = $cache->getDatePublished();
             $entry['dateUpdated'] = $cache->getLastModificationDate();
             $entry['cacheUri'] = $cache->getCacheUrl();
-            $entry['content'] =  '<img src="' . Uri::getAbsUri($cache->getCacheIcon()) . '" alt="' . tr($cache->getCacheTypeTranslationKey()) .'" style="height: 24px" /> ';
+            $entry['content'] = '<img src="' . Uri::getAbsUri($cache->getCacheIcon()) . '" alt="' . tr($cache->getCacheTypeTranslationKey()) . '" style="height: 24px" /> ';
             $entry['content'] .= '<img src="' . Uri::getAbsUri($cache->getTerrainIcon()) . '" alt="Terrain icon" style="height: 24px" /> ';
             $entry['content'] .= '<img src="' . Uri::getAbsUri($cache->getDifficultyIcon()) . '" alt="Difficulty icon" style="height: 24px" /> ';
             $entry['content'] .= $cache->getCacheLocationObj()->getLocationDesc(' > ') . ' | ';
             $entry['content'] .= tr($cache->getSizeTranslationKey());
+
             if (strpos($cache->getDescLanguagesList(), strtoupper($lang)) !== false) {
                 $entry['content'] .= '<br>' . $cache->getCacheDescription($lang)->getDescToDisplay();
             }
@@ -185,6 +195,7 @@ class RSSController extends BaseController
             $result[] = $entry;
             unset($entry);
         }
+
         return $result;
     }
 
@@ -198,13 +209,13 @@ class RSSController extends BaseController
         $rss->setId(Uri::getAbsUri('/rss/newnews.xml'));
         $rss->setTitle(OcConfig::getSiteShortName() . ' - ' . tr('rss_latestNews'));
 
-
         $allNews = OcMemCache::getOrCreate(
             __CLASS__ . '::newNews',
             1 * 60 * 60,
-            function() {
+            function () {
                 return self::newNewsDataPrepare();
-            });
+            }
+        );
 
         foreach ($allNews as $news) {
             $entry = new AtomFeedEntry();
@@ -223,6 +234,7 @@ class RSSController extends BaseController
             unset($entry);
         }
         $rss->publish();
+
         exit();
     }
 
@@ -236,6 +248,7 @@ class RSSController extends BaseController
         $allNews = News::getAllNews(News::CATEGORY_NEWS, false, false, 0, self::ENTRIES_PER_FEED);
 
         $result = [];
+
         foreach ($allNews as $news) {
             $entry = [];
 
@@ -261,6 +274,7 @@ class RSSController extends BaseController
             $result[] = $entry;
             unset($entry);
         }
+
         return $result;
     }
 
@@ -288,14 +302,15 @@ class RSSController extends BaseController
             $entry->setId(Uri::getAbsUri($log->getLogUrl()));
             $entry->setLink(Uri::getAbsUri($log->getLogUrl()));
 
-            $content = '<img src="' . Uri::getAbsUri($log->getLogIcon()) .'" alt="' . tr($log->getTypeTranslationKey()) . '" /> ';
+            $content = '<img src="' . Uri::getAbsUri($log->getLogIcon()) . '" alt="' . tr($log->getTypeTranslationKey()) . '" /> ';
             $content .= '<strong>' . tr($log->getTypeTranslationKey()) . '</strong>';
+
             if ($log->getType() == GeoCacheLog::LOGTYPE_FOUNDIT
                 && $log->isRecommendedByUser($log->getUser())) {
-                    $content .= ' <img src="' . Uri::getAbsUri('images/rating-star.png') . '" alt="' . tr('recommended') . '" />';
-                }
-                $content .= ' (' . Formatter::dateTime($log->getDate()) . ')<br>';
-                $content .= $log->getText();
+                $content .= ' <img src="' . Uri::getAbsUri('images/rating-star.png') . '" alt="' . tr('recommended') . '" />';
+            }
+            $content .= ' (' . Formatter::dateTime($log->getDate()) . ')<br>';
+            $content .= $log->getText();
             $entry->setContent($content);
 
             $entry->setAuthor(new AtomFeedAuthor());
@@ -303,8 +318,7 @@ class RSSController extends BaseController
             $entry->getAuthor()->setUri(Uri::getAbsUri($log->getUser()->getProfileUrl()));
 
             $rss->addEntry($entry);
-            unset($entry);
-            unset($content);
+            unset($entry, $content);
         }
 
         $rss->publish();
@@ -334,23 +348,23 @@ class RSSController extends BaseController
             $entry->setId(Uri::getAbsUri($log->getLogUrl()));
             $entry->setLink(Uri::getAbsUri($log->getLogUrl()));
 
-            $content = '<img src="' . Uri::getAbsUri($log->getLogIcon()) .'" alt="' . tr($log->getTypeTranslationKey()) . '" /> ';
+            $content = '<img src="' . Uri::getAbsUri($log->getLogIcon()) . '" alt="' . tr($log->getTypeTranslationKey()) . '" /> ';
             $content .= '<strong>' . tr($log->getTypeTranslationKey()) . '</strong>';
+
             if ($log->getType() == GeoCacheLog::LOGTYPE_FOUNDIT
                 && $log->isRecommendedByUser($log->getUser())) {
-                    $content .= ' <img src="' . Uri::getAbsUri('images/rating-star.png') . '" alt="' . tr('recommended') . '" />';
-                }
-                $content .= ' (' . Formatter::dateTime($log->getDate()) . ')<br>';
-                $content .= $log->getText();
-                $entry->setContent($content);
+                $content .= ' <img src="' . Uri::getAbsUri('images/rating-star.png') . '" alt="' . tr('recommended') . '" />';
+            }
+            $content .= ' (' . Formatter::dateTime($log->getDate()) . ')<br>';
+            $content .= $log->getText();
+            $entry->setContent($content);
 
-                $entry->setAuthor(new AtomFeedAuthor());
-                $entry->getAuthor()->setName($log->getUser()->getUserName());
-                $entry->getAuthor()->setUri(Uri::getAbsUri($log->getUser()->getProfileUrl()));
+            $entry->setAuthor(new AtomFeedAuthor());
+            $entry->getAuthor()->setName($log->getUser()->getUserName());
+            $entry->getAuthor()->setUri(Uri::getAbsUri($log->getUser()->getProfileUrl()));
 
-                $rss->addEntry($entry);
-                unset($entry);
-                unset($content);
+            $rss->addEntry($entry);
+            unset($entry, $content);
         }
 
         $rss->publish();
@@ -359,15 +373,17 @@ class RSSController extends BaseController
     public function nbhLatestCaches($userId = null, $nbhId = null)
     {
         $user = User::fromUserIdFactory($userId);
+
         if (is_null($user)) {
             $this->index('message_user_not_found');
+
             exit();
         }
 
         $nbhId = intval($nbhId);
 
-
         $nbhData = Neighbourhood::getCoordsAndRadius($user, $nbhId);
+
         if (empty($nbhData['coords'])) {
             //TODO: Wywalić błąd!
             exit();
@@ -380,7 +396,6 @@ class RSSController extends BaseController
         $rss = new AtomFeed();
         $rss->setId(SimpleRouter::getAbsLink('RSS', 'nbhLatestCaches', [$userId, $nbhId]));
         $rss->setTitle(OcConfig::getSiteShortName() . ' - ' . tr('rss_latestCaches')); //TODO !!!!!
-
 
         foreach ($caches as $cache) {
             $entry = new AtomFeedEntry();
@@ -400,8 +415,8 @@ class RSSController extends BaseController
         }
 
         $rss->publish();
-        exit();
 
+        exit();
     }
 
 //    public function nbhLatestLogs($userId = null, $nbhId = null)
@@ -424,11 +439,13 @@ class RSSController extends BaseController
     {
         $userId = (isset($_GET['userid'])) ? $_GET['userid'] : null;
         $user = User::fromUserIdFactory($userId);
+
         if (is_null($user)) {
             $this->index('message_user_not_found');
+
             exit();
         }
+
         return $user;
     }
-
 }

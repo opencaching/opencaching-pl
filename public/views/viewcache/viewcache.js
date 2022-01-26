@@ -5,7 +5,7 @@ function rmLog(event, logId){
         $("#rmLogHrefSection-"+logId).hide();
         $("#rmLogLoader-"+logId).show();
         request = $.ajax({
-            url: "/cacheLog/removeLogAjax/"+logId,
+            url: "/cacheLogApi/removeLog/"+logId,
             type: "post",
             dataType: 'json',
         });
@@ -37,7 +37,7 @@ function revertLog(event, logId) {
 	$("#revertLogHrefSection-" + logId).hide();
 	$("#revertLogLoader-" + logId).show();
 	$.ajax({
-		url : "/CacheLog/revertLogAjax/" + logId,
+		url : "/CacheLogApi/revertLog/" + logId,
 		type : "get",
 	})
 	.done(function(response, textStatus, jqXHR) {

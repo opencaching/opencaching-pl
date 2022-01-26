@@ -39,7 +39,7 @@ class ViewCacheController extends BaseController
     /** @var GeoCacheDesc */
     private $geoCacheDesc;
 
-    public function isCallableFromRouter($actionName)
+    public function isCallableFromRouter(string $actionName): bool
     {
         // all public methods can be called by router
         return true;

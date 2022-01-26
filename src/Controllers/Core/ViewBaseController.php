@@ -1,6 +1,8 @@
 <?php
+
 namespace src\Controllers\Core;
 
+use src\Utils\Uri\HttpCode;
 use src\Utils\Uri\Uri;
 use src\Utils\View\View;
 
@@ -11,9 +13,7 @@ use src\Utils\View\View;
  */
 abstract class ViewBaseController extends CoreController
 {
-
-    /** @var View $view */
-    protected $view = null;
+    protected ?View $view = null;
 
     public function __construct()
     {
@@ -24,27 +24,27 @@ abstract class ViewBaseController extends CoreController
     protected function redirectToLoginPage(): void
     {
         $this->view->redirect(Uri::setOrReplaceParamValue('target', Uri::getCurrentUri(), '/login.php'));
-        exit();
     }
 
     /**
      * This method can be used to just exit and display error page to user
      *
-     * @param string $message
-     *            - simple message to be displayed (in english)
-     * @param integer $httpStatusCode
-     *            - http status code to return in response
+     * @param string|null $message
+     *                             - simple message to be displayed (in english)
+     * @param int|null $httpStatusCode
+     *                                 - http status code to return in response
      */
-    public function displayCommonErrorPageAndExit($message = null, $httpStatusCode = null): void
+    public function displayCommonErrorPageAndExit(string $message = null, int $httpStatusCode = null): void
     {
         $this->view->setTemplate('error/commonFatalError');
+
         if ($httpStatusCode) {
             switch ($httpStatusCode) {
-                case 404:
-                    header("HTTP/1.0 404 Not Found");
+                case HttpCode::STATUS_NOT_FOUND:
+                    header('HTTP/1.0 404 Not Found');
                     break;
-                case 403:
-                    header("HTTP/1.0 403 Forbidden");
+                case HttpCode::STATUS_FORBIDDEN:
+                    header('HTTP/1.0 403 Forbidden');
                     break;
                 default:
                 // TODO...
@@ -53,6 +53,7 @@ abstract class ViewBaseController extends CoreController
 
         $this->view->setVar('message', $message);
         $this->view->buildOnlySelectedTpl();
+
         exit();
     }
 
@@ -63,7 +64,6 @@ abstract class ViewBaseController extends CoreController
     {
         if (! $this->isUserLogged()) {
             $this->redirectToLoginPage();
-            exit();
         }
     }
 }

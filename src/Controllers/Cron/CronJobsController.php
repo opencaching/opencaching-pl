@@ -22,7 +22,7 @@ class CronJobsController extends BaseController
         $this->jobToRun = $jobToRun;
     }
 
-    public function isCallableFromRouter($actionName): bool
+    public function isCallableFromRouter(string $actionName): bool
     {
         // this controller is used by cron only - router shouldn't call it!
         return false;

@@ -1,14 +1,19 @@
 <?php
+
 namespace src\Controllers;
 
+use ArrayObject;
+use Exception;
 use okapi\Facade;
 use src\Models\Coordinates\GeoCode;
 use src\Models\GeoCache\GeoCache;
 use src\Models\OcConfig\OcConfig;
 use src\Models\User\UserPreferences\MainMapSettings;
 use src\Models\User\UserPreferences\UserPreferences;
-use src\Utils\Text\Formatter;
 use src\Utils\Debug\Debug;
+use src\Utils\Text\Formatter;
+use src\Utils\Uri\HttpCode;
+use stdClass;
 
 /**
  * This class provides:
@@ -18,25 +23,24 @@ use src\Utils\Debug\Debug;
 
 class MainMapAjaxController extends BaseController
 {
-    const RATING_REGEX = '/^[1-4]-[1-5]|X$/';
-    const SEARCHDATA_REGEX = '/^[a-f0-9]{6,32}$/';
-    const GEOPATH_ID_REGEX = '/^[0-9]+(\|[0-9]+)*$/';
-    const BBOX_REGEX = '/^(-?\d+\.?\d*\|){3}-?\d+\.?\d*$/';
+    public const RATING_REGEX = '/^[1-4]-[1-5]|X$/';
+
+    public const SEARCHDATA_REGEX = '/^[a-f0-9]{6,32}$/';
+
+    public const GEOPATH_ID_REGEX = '/^[0-9]+(\|[0-9]+)*$/';
+
+    public const BBOX_REGEX = '/^(-?\d+\.?\d*\|){3}-?\d+\.?\d*$/';
 
     private $searchParams = [];
 
-    public function isCallableFromRouter($actionName)
+    public function isCallableFromRouter(string $actionName): bool
     {
         return true;
     }
 
-    public function __construct(){
-        parent::__construct();
-    }
-
     public function index()
     {
-        $this->ajaxErrorResponse("No index!", 404);
+        $this->ajaxErrorResponse('No index!', HttpCode::STATUS_NOT_FOUND);
     }
 
     public function getPopupData($bboxStr, $userUuid)
@@ -44,18 +48,19 @@ class MainMapAjaxController extends BaseController
         // map is only for logged users
         $this->checkUserLoggedAjax();
 
-        if(!preg_match(self::BBOX_REGEX, $bboxStr)){
-            $this->ajaxErrorResponse('Incorrect bbox!', 500);
+        if (! preg_match(self::BBOX_REGEX, $bboxStr)) {
+            $this->ajaxErrorResponse('Incorrect bbox!', HttpCode::STATUS_INTERNAL_ERROR);
+
             exit;
         }
 
         $cache = $this->getCache($userUuid, $bboxStr);
 
-        if(is_null($cache)){
+        if (is_null($cache)) {
             $this->ajaxJsonResponse(null);
         }
 
-        $resp = new \stdClass();
+        $resp = new stdClass();
         $resp->url = $cache->getCacheUrl();
 
         $resp->cacheName = $cache->getCacheName();
@@ -64,19 +69,19 @@ class MainMapAjaxController extends BaseController
         $resp->cacheUrl = $cache->getCacheUrl();
         $resp->cacheSizeDesc = tr($cache->getSizeTranslationKey());
 
-        $resp->coords = new \stdClass();
+        $resp->coords = new stdClass();
         $resp->coords->lat = $cache->getCoordinates()->getLatitude();
         $resp->coords->lon = $cache->getCoordinates()->getLongitude();
 
-        $resp->ratingDesc =
-            $cache->getRatingVotes() < 3
+        $resp->ratingDesc
+            = $cache->getRatingVotes() < 3
             ? tr('not_available')
             : $cache->getRatingDesc();
 
-        if($cache->isEvent()){
+        if ($cache->isEvent()) {
             $resp->isEvent = true;
             $resp->eventStartDate = Formatter::date($cache->getDatePlaced());
-        }else{
+        } else {
             $resp->isEvent = false;
         }
 
@@ -88,8 +93,9 @@ class MainMapAjaxController extends BaseController
 
         $resp->cacheRatingVotes = $cache->getRatingVotes();
         $resp->cacheRecosNumber = $cache->getRecommendations();
-        if( $cache->isTitled() ) {
-            $resp->titledDesc = tr(OcConfig::getTitledCachePeriod().'_titled_cache');
+
+        if ($cache->isTitled()) {
+            $resp->titledDesc = tr(OcConfig::getTitledCachePeriod() . '_titled_cache');
         }
 
         if ($cache->isPowerTrailPart()) {
@@ -105,9 +111,9 @@ class MainMapAjaxController extends BaseController
     {
         $this->checkUserLoggedAjax();
 
-        if( $zoom > 21){ // OKAPI mapper max zoom
+        if ($zoom > 21) { // OKAPI mapper max zoom
             //TODO
-            die(); // zoom is too large
+            exit(); // zoom is too large
         }
 
         $this->searchParams['x'] = $x;    // x-index of tile
@@ -130,28 +136,28 @@ class MainMapAjaxController extends BaseController
         );
     }
 
-    public function getPlaceLocalization($place) {
+    public function getPlaceLocalization($place)
+    {
         try {
             $placesDetails = GeoCode::fromOpenRouteService($place);
             $this->ajaxJsonResponse($placesDetails);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->ajaxErrorResponse($e->getMessage(), 500);
         }
     }
 
     public function saveMapSettingsAjax()
     {
-
         $this->checkUserLoggedAjax();
 
-        if (!isset($_POST['userMapSettings'])) {
+        if (! isset($_POST['userMapSettings'])) {
             $this->ajaxErrorResponse('no filtersData var in JSON', 400);
         }
 
         $json = $_POST['userMapSettings'];
 
         if (UserPreferences::savePreferencesJson(MainMapSettings::KEY, $json)) {
-            $this->ajaxSuccessResponse("Data saved");
+            $this->ajaxSuccessResponse('Data saved');
         } else {
             $this->ajaxErrorResponse("Can't save a data", 500);
         }
@@ -159,7 +165,6 @@ class MainMapAjaxController extends BaseController
 
     private function getCache($forUserUuid, $bboxStr)
     {
-
         if ($searchData = $this->getSearchDataParam()) {
             // searchData = set of caches - the rest of caches are excluded
             $this->loadSearchData($searchData);
@@ -171,37 +176,36 @@ class MainMapAjaxController extends BaseController
         $this->searchParams['bbox'] = $bboxStr;
         $this->searchParams['limit'] = 1;
 
-
         // we need only id from OKAPI...
         $fields = 'code';
 
-        $params = array();
+        $params = [];
         $params['search_method'] = 'services/caches/search/bbox';
         $params['search_params'] = json_encode($this->searchParams);
         $params['retr_method'] = 'services/caches/geocaches';
         $params['retr_params'] = '{"fields":"' . $fields . '"}';
         $params['wrap'] = 'false';
 
-
         // call OKAPI
-        /** @var \ArrayObject */
+        /** @var ArrayObject */
         $okapiResp = Facade::service_call(
             'services/caches/shortcuts/search_and_retrieve',
             null,   // Do NOT pass a user ID here! See OKAPI issue #496.
             $params
         );
 
-        if (! is_a($okapiResp, "ArrayObject")) { // strange OKAPI return !?
-            Debug::errorLog("Strange OKAPI response - not an ArrayObject!");
+        if (! is_a($okapiResp, 'ArrayObject')) { // strange OKAPI return !?
+            Debug::errorLog('Strange OKAPI response - not an ArrayObject!');
             $this->ajaxErrorResponse('Internal error', 500);
+
             exit;
         }
 
         $iterator = $okapiResp->getIterator();
 
-        if(!$iterator->valid()){
+        if (! $iterator->valid()) {
             // no caches found - just return empty result
-            return null;
+            return;
         }
 
         return GeoCache::fromWayPointFactory($iterator->key());
@@ -209,12 +213,12 @@ class MainMapAjaxController extends BaseController
 
     private function loadSearchData($searchData)
     {
-        $filepath = OcConfig::getDynFilesPath() . "/searchdata/" . $searchData;
+        $filepath = OcConfig::getDynFilesPath() . '/searchdata/' . $searchData;
 
         $set_id = Facade::import_search_set_file($searchData, $filepath);
 
         $this->searchParams['set_and'] = $set_id;
-        $this->searchParams['status'] = "Available|Temporarily unavailable|Archived";
+        $this->searchParams['status'] = 'Available|Temporarily unavailable|Archived';
     }
 
     /**
@@ -223,13 +227,9 @@ class MainMapAjaxController extends BaseController
      */
     private function getSearchDataParam()
     {
-        if ( isset($_GET['searchdata']) &&
-            preg_match(self::SEARCHDATA_REGEX, $_GET['searchdata'])){
-
+        if (isset($_GET['searchdata'])
+            && preg_match(self::SEARCHDATA_REGEX, $_GET['searchdata'])) {
             return $_GET['searchdata'];
-
-        } else {
-            return null;
         }
     }
 
@@ -246,52 +246,52 @@ class MainMapAjaxController extends BaseController
         // that was implemented only for this purpose.
         // See https://github.com/opencaching/okapi/issues/496.
 
-        if (isset($_GET['exIgnored'])){
+        if (isset($_GET['exIgnored'])) {
             $this->searchParams['not_ignored_by'] = $userUuid;
         }
 
         // exMyOwn (hide user's own caches) - convert to OKAPI's "exclude_my_own" parameter.
         if (isset($_GET['exMyOwn'])) {
-            $this->searchParams['owner_uuid'] = "-".$userUuid;
+            $this->searchParams['owner_uuid'] = '-' . $userUuid;
         }
 
         // filter out found or not yet found caches
-        if ( isset($_GET['exFound'])) {
-
-            if ( isset($_GET['exNoYetFound'])) {
+        if (isset($_GET['exFound'])) {
+            if (isset($_GET['exNoYetFound'])) {
                 // exclude found && notAttendYet = empty set of caches
-                $this->ajaxErrorResponse("Search params are contradictory", 400);
+                $this->ajaxErrorResponse('Search params are contradictory', 400);
             } else {
                 $this->searchParams['not_found_by'] = $userUuid;
             }
-
-        } else if ( isset($_GET['exNoYetFound'])) {
+        } elseif (isset($_GET['exNoYetFound'])) {
             $this->searchParams['found_by'] = $userUuid;
         }
 
         // exNoGeokret - Convert to OKAPI's "with_trackables_only" parameter.
-        if ( isset($_GET['exNoGeokret']) ) {
-            $this->searchParams['with_trackables_only'] = "true";
+        if (isset($_GET['exNoGeokret'])) {
+            $this->searchParams['with_trackables_only'] = 'true';
         }
 
         // OKAPI's "status" filter.
         $status = ['Available']; // available is always present
-        if ( !isset($_GET['exTempUnavail']) ) {
-            $status[] = "Temporarily unavailable";
+
+        if (! isset($_GET['exTempUnavail'])) {
+            $status[] = 'Temporarily unavailable';
         }
-        if ( !isset($_GET['exArchived']) ) {
-            $status[] = "Archived";
+
+        if (! isset($_GET['exArchived'])) {
+            $status[] = 'Archived';
         }
-        $this->searchParams['status'] = implode("|", $status);
+        $this->searchParams['status'] = implode('|', $status);
 
         // exNoGeokret - Convert to OKAPI's "with_trackables_only" parameter.
-        if ( isset($_GET['exWithoutRecommendation']) ) {
-            $this->searchParams['min_rcmds'] = "1";
+        if (isset($_GET['exWithoutRecommendation'])) {
+            $this->searchParams['min_rcmds'] = '1';
         }
 
         // ftfHunter (hunt for FTFs) - convert to OKAPI's "ftf_hunter" parameter.
-        if ( isset($_GET['ftfHunter']) ) {
-            $this->searchParams['ftf_hunter'] = "true";
+        if (isset($_GET['ftfHunter'])) {
+            $this->searchParams['ftf_hunter'] = 'true';
 
             // BTW, if we override "status" parameter, then we should also override
             // "rating" (all ftfs have "null" for rating). I don't do that though, to
@@ -299,55 +299,52 @@ class MainMapAjaxController extends BaseController
         }
 
         // powertrailOnly (hunt for powerTrails) - convert to OKAPI's "powertrail_only" parameter.
-        if ( isset($_GET['powertrailOnly']) ) {
-            $this->searchParams['powertrail_only'] = "true";
+        if (isset($_GET['powertrailOnly'])) {
+            $this->searchParams['powertrail_only'] = 'true';
         }
 
         // min_score - convert to OKAPI's "rating" filter
-        if ( isset($_GET['rating']) && preg_match(self::RATING_REGEX, $_GET['rating']) ){
+        if (isset($_GET['rating']) && preg_match(self::RATING_REGEX, $_GET['rating'])) {
             $this->searchParams['rating'] = $_GET['rating'];
         }
 
-
         // min_score - convert to OKAPI's "rating" filter
-        if ( isset($_GET['size2']) ){
+        if (isset($_GET['size2'])) {
             //'none', 'nano', 'micro', 'small', 'regular', 'large', 'xlarge', 'other'.
-            switch($_GET['size2']){
-                case "nano":
+            switch ($_GET['size2']) {
+                case 'nano':
                     $this->searchParams['size2'] = 'micro|small|regular|large|xlarge|other';
                     break;
-                case "micro":
+                case 'micro':
                     $this->searchParams['size2'] = 'small|regular|large|xlarge|other';
                     break;
-                case "small":
+                case 'small':
                     $this->searchParams['size2'] = 'regular|large|xlarge|other';
                     break;
-                case "regular":
+                case 'regular':
                     $this->searchParams['size2'] = 'large|xlarge|other';
                     break;
             }
         }
 
         // powertrail_ids (only caches from powerTrails with id) - convert to OKAPI's "powertrail_ids" param.
-        if ( isset($_GET['csId']) &&
-             preg_match(self::GEOPATH_ID_REGEX, $_GET['csId']) ) {
-
-                $this->searchParams['powertrail_ids'] = $_GET['csId'];
+        if (isset($_GET['csId'])
+             && preg_match(self::GEOPATH_ID_REGEX, $_GET['csId'])) {
+            $this->searchParams['powertrail_ids'] = $_GET['csId'];
         }
 
-
         // exclusion of types - convert to OKAPI's "type" filter
-        $typesToExclude = array();
-        $types = ["Other","Traditional","Multi","Virtual","Webcam","Event","Quiz","Moving","Own"];
+        $typesToExclude = [];
+        $types = ['Other', 'Traditional', 'Multi', 'Virtual', 'Webcam', 'Event', 'Quiz', 'Moving', 'Own'];
 
         foreach ($types as $type) {
-            if( isset($_GET['exType'.$type]) ){
+            if (isset($_GET['exType' . $type])) {
                 $typesToExclude[] = $type;
             }
         }
-        if ( !empty($typesToExclude) ) {
-            $this->searchParams['type'] = "-" . implode("|", $typesToExclude);
+
+        if (! empty($typesToExclude)) {
+            $this->searchParams['type'] = '-' . implode('|', $typesToExclude);
         }
     }
-
 }

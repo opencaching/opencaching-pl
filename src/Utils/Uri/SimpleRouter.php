@@ -1,6 +1,8 @@
 <?php
+
 namespace src\Utils\Uri;
 
+use ReflectionClass;
 use ReflectionException;
 use src\Models\OcConfig\OcConfig;
 
@@ -15,24 +17,26 @@ use src\Models\OcConfig\OcConfig;
  * Example:
  * opencaching.pl/Admin.Reports
  */
-
 class SimpleRouter
 {
     // action which will be used if no action is indicated in request
-    const DEFAULT_ACTION = 'index'; //
+    public const DEFAULT_ACTION = 'index'; //
+
     // controller which will be used if no controller is indicated in request
-    const DEFAULT_CTRL = 'StartPage'; //
+    public const DEFAULT_CTRL = 'StartPage'; //
 
-    // ctrl used if request is improper (eg. there is no such ctrl)
-    const ERROR_CTRL = 'StartPage';
-    // action used if request is improper (eg. there is no such action)
-    const ERROR_ACTION = 'displayCommonErrorPageAndExit';
+    // ctrl used if request is improper (e.g. there is no such ctrl)
+    public const ERROR_CTRL = 'StartPage';
 
-    const CTRL_BASE_CLASS = '\src\Controllers\Core\CoreController';
-    const ROOT_DIR = __DIR__.'/../../..';
+    // action used if request is improper (e.g. there is no such action)
+    public const ERROR_ACTION = 'displayCommonErrorPageAndExit';
+
+    public const CTRL_BASE_CLASS = '\src\Controllers\Core\CoreController';
+
+    public const ROOT_DIR = __DIR__ . '/../../..';
 
     // GET (url) var used to transfer route
-    const ROUTE_GET_VAR = 'r';
+    public const ROUTE_GET_VAR = 'r';
 
     /**
      * Generate proper link from given params.
@@ -43,36 +47,34 @@ class SimpleRouter
      * @param string|array $params - param as string or array of params
      * @return string - link to use
      */
-    public static function getLink($ctrl, $action=null, $params=null)
+    public static function getLink($ctrl, $action = null, $params = null)
     {
         $ctrl = self::checkControllerName($ctrl);
 
         // remove "src." from begining of class (if added)
-        $ctrl = preg_replace("/^src./i","",$ctrl);
+        $ctrl = preg_replace('/^src./i', '', $ctrl);
 
-        $link = "/$ctrl";
+        $link = "/{$ctrl}";
 
-        if(!is_null($action)) {
-            $link .= "/$action";
-        } else {
-            if(!is_null($params)) {
-                // set default action only if $params are present
-                $link .= "/".self::DEFAULT_ACTION;
-            }
+        if (! is_null($action)) {
+            $link .= "/{$action}";
+        } elseif (! is_null($params)) {
+            // set default action only if $params are present
+            $link .= '/' . self::DEFAULT_ACTION;
         }
 
         /**
          * TODO: There is still a problem of slashes in arg. content
          *  - default apache config prevents %2F in non-query part of URI
          */
-        if(!is_null($params)){
-            if(is_array($params)){
-                array_walk($params, function (&$val, $x){
+        if (! is_null($params)) {
+            if (is_array($params)) {
+                array_walk($params, function (&$val, $x) {
                     $val = urlencode($val);
                 });
-                $link .= '/'.implode('/',$params);
+                $link .= '/' . implode('/', $params);
             } else {
-                $link .= '/'.urlencode($params);
+                $link .= '/' . urlencode($params);
             }
         }
 
@@ -87,11 +89,11 @@ class SimpleRouter
      * @param string|array $params - param as string or array of params
      * @return string
      */
-    public static function getAbsLink($ctrl, $action=null, $params=null)
+    public static function getAbsLink($ctrl, $action = null, $params = null)
     {
         $link = self::getLink($ctrl, $action, $params);
 
-        return Uri::getCurrentUriBase().$link;
+        return Uri::getCurrentUriBase() . $link;
     }
 
     /**
@@ -101,54 +103,57 @@ class SimpleRouter
     public static function run()
     {
         // identify requested (or default) Controller/Action/params
-        list($ctrlName, $actionName, $params) = self::parse();
+        [$ctrlName, $actionName, $params] = self::parse();
 
         // first check the class filename
-        if(!file_exists(self::getClassFilePath($ctrlName))) {
-            self::displayErrorAndExit("No such file: $ctrlName", 403);
+        if (! file_exists(self::getClassFilePath($ctrlName))) {
+            self::displayErrorAndExit("No such file: {$ctrlName}", HttpCode::STATUS_FORBIDDEN);
         }
 
         // create class reflection
         try {
-            $ctrlReflection = new \ReflectionClass ($ctrlName);
+            $ctrlReflection = new ReflectionClass($ctrlName);
         } catch (ReflectionException $ex) {
-            self::displayErrorAndExit('Improper ctrl name', 403);
+            self::displayErrorAndExit('Improper ctrl name', HttpCode::STATUS_FORBIDDEN);
         }
 
         // check if the controller is not abstract
         if ($ctrlReflection->isAbstract()) {
-            self::displayErrorAndExit('Abstr. ctrl', 403);
+            self::displayErrorAndExit('Abstr. ctrl', HttpCode::STATUS_FORBIDDEN);
         }
 
         // check if this is the subclass of BaseController
-        if(!$ctrlReflection->isSubclassOf(self::CTRL_BASE_CLASS)){
-            self::displayErrorAndExit('Not instance of BaseController', 403);
+        if (! $ctrlReflection->isSubclassOf(self::CTRL_BASE_CLASS)) {
+            self::displayErrorAndExit('Not instance of BaseController', HttpCode::STATUS_FORBIDDEN);
         }
 
         // check if action can be called
         $ctrl = $ctrlReflection->newInstance($actionName);
-        if (!$ctrl->isCallableFromRouter($actionName)) {
-            self::displayErrorAndExit('Not callable from router', 403);
+
+        if (! $ctrl->isCallableFromRouter($actionName)) {
+            self::displayErrorAndExit('Not callable from router', HttpCode::STATUS_FORBIDDEN);
         }
 
         try {
             $actionReflection = $ctrlReflection->getMethod($actionName);
         } catch (ReflectionException $ex) {
-            self::displayErrorAndExit('Wrong action', 403);
+            self::displayErrorAndExit('Wrong action', HttpCode::STATUS_FORBIDDEN);
         }
 
-        if (!$actionReflection->isPublic()){
-            self::displayErrorAndExit('Calling non-public method', 403);
+        if (! $actionReflection->isPublic()) {
+            self::displayErrorAndExit('Calling non-public method', HttpCode::STATUS_FORBIDDEN);
         }
 
         // check if the given params number is enough for this action
         $numOfReqParams = $actionReflection->getNumberOfRequiredParameters();
-        if ($numOfReqParams != 0 && (!is_array($params) || $numOfReqParams > count($params)) ) {
-            self::displayErrorAndExit('Not enough params', 403);
+
+        if ($numOfReqParams != 0 && (! is_array($params) || $numOfReqParams > count($params))) {
+            self::displayErrorAndExit('Not enough params', HttpCode::STATUS_FORBIDDEN);
         }
 
         // run this requests
-        call_user_func_array(array($ctrl, $actionName), $params);
+        call_user_func_array([$ctrl, $actionName], $params);
+
         exit;
     }
 
@@ -158,17 +163,18 @@ class SimpleRouter
      * @param string $uri
      * @param bool $absoluteUri - if set means that uri is absolute (contains protocol and host etc.)
      */
-    public static function redirect($uri, $absoluteUri=null)
+    public static function redirect($uri, $absoluteUri = null)
     {
         if (is_null($absoluteUri)) {
             // if the first char of $uri is not a slash - add slash
             if (substr($uri, 0, 1) !== '/') {
-                $uri = '/'.$uri;
+                $uri = '/' . $uri;
             }
-            $uri = "//" . $_SERVER['HTTP_HOST'] . $uri;
+            $uri = '//' . $_SERVER['HTTP_HOST'] . $uri;
         }
 
-        header("Location: $uri");
+        header("Location: {$uri}");
+
         exit;
     }
 
@@ -183,7 +189,7 @@ class SimpleRouter
         //be sure the first letter of controller (class) is uppper letter
         $ctrl = ucfirst($ctrl);
 
-        return '\\src\\Controllers\\'.str_replace('.', '\\', $ctrl).'Controller';
+        return '\\src\\Controllers\\' . str_replace('.', '\\', $ctrl) . 'Controller';
     }
 
     /**
@@ -194,7 +200,7 @@ class SimpleRouter
      */
     private static function getClassFilePath($classNamespace)
     {
-        return self::ROOT_DIR.str_replace('\\', '/', $classNamespace).'.php';
+        return self::ROOT_DIR . str_replace('\\', '/', $classNamespace) . '.php';
     }
 
     /**
@@ -205,8 +211,8 @@ class SimpleRouter
      */
     private static function parse()
     {
-        if (!isset($_GET[self::ROUTE_GET_VAR])) {
-            $routeParts = array();
+        if (! isset($_GET[self::ROUTE_GET_VAR])) {
+            $routeParts = [];
         } else {
             $routeParts = explode('/', $_GET[self::ROUTE_GET_VAR]);
         }
@@ -218,6 +224,7 @@ class SimpleRouter
             // ctrl part is empty - hmm... assume someone add too many slashes
             if (empty($routeParts[0])) {
                 array_shift($routeParts);
+
                 if (empty($routeParts) || empty($routeParts[0])) {
                     // stop guess - came back to default
                     $routeParts[0] = self::DEFAULT_CTRL;
@@ -229,7 +236,7 @@ class SimpleRouter
         $ctrl = self::getControllerWithNamespace($routeParts[0]);
 
         // ctrl found, check the action
-        if( !isset($routeParts[1]) || empty($routeParts[1]) ){
+        if (! isset($routeParts[1]) || empty($routeParts[1])) {
             $action = self::DEFAULT_ACTION;
         } else {
             $action = $routeParts[1];
@@ -238,30 +245,32 @@ class SimpleRouter
         // and params...
         $params = array_slice($routeParts, 2);
 
-        return array($ctrl, $action, $params);
+        return [$ctrl, $action, $params];
     }
 
     private static function checkControllerName($ctrl)
     {
         // remove Controllers/Controller words from the ctrl path
-        $ctrl = str_replace(array('Controllers\\','Controller'), '', $ctrl);
+        $ctrl = str_replace(['Controllers\\', 'Controller'], '', $ctrl);
 
         // normalize slashes - replace backslashes
         $ctrl = str_replace('\\', '/', $ctrl);
         $parts = explode('/', $ctrl);
-        if(count($parts)==1){
+
+        if (count($parts) == 1) {
             return $parts[0]; // there is only ctrl name
-        }else{
-            return implode('.',$parts);
         }
+
+        return implode('.', $parts);
     }
 
-    private static function displayErrorAndExit($message, $httpCode)
+    private static function displayErrorAndExit($message, int $httpCode)
     {
         $message = OcConfig::debugModeEnabled() ? $message : 'Improper request';
 
         $ctrlName = self::getControllerWithNamespace(self::ERROR_CTRL);
-        call_user_func_array(array(new $ctrlName(self::ERROR_ACTION),  self::ERROR_ACTION), [$message, $httpCode]);
+        call_user_func_array([new $ctrlName(self::ERROR_ACTION), self::ERROR_ACTION], [$message, $httpCode]);
+
         exit;
     }
 }

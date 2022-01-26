@@ -1,26 +1,25 @@
 <?php
+
 namespace src\Models\Admin;
 
+use DateTime;
 use src\Models\BaseObject;
 use src\Models\User\User;
 
 class ReportEmailTemplate extends BaseObject
 {
-
-    /**
-     * Recipients of emails
-     */
+    /** Recipients of emails */
     // RECIPIENT_CACHEOWNER & RECIPIENT_SUBMITTER
-    const RECIPIENT_ALL = 0;
+    public const RECIPIENT_ALL = 0;
 
     // Owner of cache
-    const RECIPIENT_CACHEOWNER = 1;
+    public const RECIPIENT_CACHEOWNER = 1;
 
     // Report submitter
-    const RECIPIENT_SUBMITTER = 2;
+    public const RECIPIENT_SUBMITTER = 2;
 
     // Direct to cachelog
-    const RECIPIENT_CACHELOG = 3;
+    public const RECIPIENT_CACHELOG = 3;
 
     /**
      * Unique ID of report email template
@@ -94,7 +93,7 @@ class ReportEmailTemplate extends BaseObject
     /**
      * DateTime object - when current version was saved
      *
-     * @var \DateTime
+     * @var DateTime
      */
     private $dateCreated;
 
@@ -105,22 +104,17 @@ class ReportEmailTemplate extends BaseObject
      */
     private $deleted;
 
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     /**
      * Returns email template $templateId with processed template fields
      *
      * @param int $templateId
-     * @param Report $report
      * @return string
      */
     public static function getProcessedTemplate($templateId, Report $report)
     {
         $content = self::getContentByTemplateId($templateId);
         $content = self::processTemplate($content, $report);
+
         return $content;
     }
 
@@ -136,7 +130,6 @@ class ReportEmailTemplate extends BaseObject
      * {leader} - Username of user who is the leader of the report
      *
      * @param string $content
-     * @param Report $report
      * @return string
      */
     public static function processTemplate($content, Report $report)
@@ -151,6 +144,7 @@ class ReportEmailTemplate extends BaseObject
         $content = mb_ereg_replace('{leader}', ($report->getUserLeader() !== null) ? $report->getUserLeader()->getUserName() : '', $content);
         $content = mb_ereg_replace('%cachename%', $report->getCache()->getCacheName(), $content);  // Backward compatibility
         $content = mb_ereg_replace('%rr_member_name%', self::getCurrentUser()->getUserName(), $content);  // Backward compatibility
+
         return $content;
     }
 
@@ -179,6 +173,7 @@ class ReportEmailTemplate extends BaseObject
         $params['receiver']['value'] = $recipient;
         $params['receiver']['data_type'] = 'integer';
         $stmt = self::db()->paramQuery($query, $params);
+
         return self::db()->dbResultFetchAll($stmt);
     }
 
@@ -194,9 +189,11 @@ class ReportEmailTemplate extends BaseObject
     {
         $content = '';
         $templates = self::generateTemplateArray($recipient, $objectType);
+
         foreach ($templates as $template) {
-            $content .= '<option value="' . $template['id'] . '">' . $template['shortdesc']. '</option>';
+            $content .= '<option value="' . $template['id'] . '">' . $template['shortdesc'] . '</option>';
         }
+
         return $content;
     }
 
@@ -206,6 +203,7 @@ class ReportEmailTemplate extends BaseObject
         $params = [];
         $params['id']['value'] = $templateId;
         $params['id']['data_type'] = 'integer';
+
         return self::db()->paramQueryValue($query, null, $params);
     }
 }

@@ -69,7 +69,7 @@ class WatchlistController extends BaseController
      * Not callable from router
      * @see \src\Controllers\BaseController::isCallableFromRouter()
      */
-    public function isCallableFromRouter($actionName): bool
+    public function isCallableFromRouter(string $actionName): bool
     {
         return false;
     }

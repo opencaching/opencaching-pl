@@ -1,15 +1,16 @@
 <?php
+
 namespace src\Controllers;
 
-use src\Models\Coordinates\GeoCode;
-use src\Utils\Uri\Uri;
-use src\Models\User\UserPreferences\MainMapSettings;
-use src\Models\User\UserPreferences\UserPreferences;
-use src\Models\User\User;
-use src\Models\Coordinates\Coordinates;
 use src\Models\CacheSet\CacheSet;
 use src\Models\ChunkModels\DynamicMap\DynamicMapModel;
+use src\Models\Coordinates\Coordinates;
+use src\Models\Coordinates\GeoCode;
 use src\Models\GeoCache\GeoCache;
+use src\Models\User\User;
+use src\Models\User\UserPreferences\MainMapSettings;
+use src\Models\User\UserPreferences\UserPreferences;
+use src\Utils\Uri\Uri;
 
 /**
  * Modes of mainMap init:
@@ -37,11 +38,10 @@ use src\Models\GeoCache\GeoCache;
  *
  * - Map with 150m circle: [?circle&lat=<Y>&lon=<X>]
  *     map is centered at given coords + displays movable circle with radius 75m
- *
  */
 class MainMapController extends BaseController
 {
-    private $mapJsParams = null;
+    private $mapJsParams;
 
     public function __construct($requestedAction)
     {
@@ -53,7 +53,7 @@ class MainMapController extends BaseController
         $this->mapJsParams = new MainMapJsParams();
     }
 
-    public function isCallableFromRouter($actionName)
+    public function isCallableFromRouter(string $actionName): bool
     {
         return true;
     }
@@ -97,23 +97,30 @@ class MainMapController extends BaseController
 
         $this->view->addLocalCss(
             Uri::getLinkWithModificationTime(
-                '/views/mainMap/mainMap.css'));
+                '/views/mainMap/mainMap.css'
+            )
+        );
 
         $this->view->addLocalCss(
             Uri::getLinkWithModificationTime(
-                '/views/mainMap/mainMapPopup.css'));
+                '/views/mainMap/mainMapPopup.css'
+            )
+        );
 
         $this->view->addHeaderChunk('handlebarsJs');
 
         $this->view->addLocalJs(
-            Uri::getLinkWithModificationTime('/views/mainMap/mainMap.js'));
+            Uri::getLinkWithModificationTime('/views/mainMap/mainMap.js')
+        );
 
         // find user for this map display
         $user = null;
+
         if (isset($_GET['userid'])) {
             $user = User::fromUserIdFactory($_GET['userid']);
         }
-        if (!$user) {
+
+        if (! $user) {
             $user = $this->loggedUser;
         }
 
@@ -130,38 +137,46 @@ class MainMapController extends BaseController
         $mapModel->setInitLayerName($this->mapJsParams->initUserPrefs['map']);
 
         // set map center based on requested coords&zoom
-        if ( isset($_GET['zoom'], $_GET['lat'], $_GET['lon']) ) {
+        if (isset($_GET['zoom'], $_GET['lat'], $_GET['lon'])) {
             // coords + zoom
 
             $mapCenter = Coordinates::FromCoordsFactory(
-                floatval($_GET['lat']), floatval($_GET['lon']));
-            if(!$mapCenter) {
+                floatval($_GET['lat']),
+                floatval($_GET['lon'])
+            );
+
+            if (! $mapCenter) {
                 $mapModel->setInfoMessage(tr('map_incorectMapParams'));
-            }else{
+            } else {
                 $zoom = intval($_GET['zoom']);
             }
 
-        // set map center based on requested coords and open popup at center (used to show geocache)
-        } else if( isset($_GET['openPopup'], $_GET['lat'], $_GET['lon']) ) {
+            // set map center based on requested coords and open popup at center (used to show geocache)
+        } elseif (isset($_GET['openPopup'], $_GET['lat'], $_GET['lon'])) {
             // opened popup
             $this->mapJsParams->openPopupAtCenter = true;
 
             $mapCenter = Coordinates::FromCoordsFactory(
-                floatval($_GET['lat']), floatval($_GET['lon']));
-            if(!$mapCenter) {
+                floatval($_GET['lat']),
+                floatval($_GET['lon'])
+            );
+
+            if (! $mapCenter) {
                 $mapModel->setInfoMessage(tr('map_incorectMapParams'));
-            }else{
+            } else {
                 $zoom = 14;
             }
-
-        } else if( isset($_GET['circle'], $_GET['lat'], $_GET['lon'])) {
+        } elseif (isset($_GET['circle'], $_GET['lat'], $_GET['lon'])) {
             // 150m-circle at coords
 
             $mapCenter = Coordinates::FromCoordsFactory(
-                floatval($_GET['lat']), floatval($_GET['lon']));
-            if(!$mapCenter) {
+                floatval($_GET['lat']),
+                floatval($_GET['lon'])
+            );
+
+            if (! $mapCenter) {
                 $mapModel->setInfoMessage(tr('map_incorectMapParams'));
-            }else{
+            } else {
                 $zoom = 17;
                 $this->mapJsParams->circle150m = true;
                 $this->mapJsParams->initUserPrefs = null;  // clear filters
@@ -169,36 +184,34 @@ class MainMapController extends BaseController
 
                 $mapModel->setInfoMessage(tr('map_circle150mMode'));
             }
-        } else if( isset($_GET['searchdata'], $_GET['bbox']) ) {
-
+        } elseif (isset($_GET['searchdata'], $_GET['bbox'])) {
             // searchData + bbox mode
-            if(!preg_match(MainMapAjaxController::SEARCHDATA_REGEX, $_GET['searchdata']) ||
-               !preg_match(MainMapAjaxController::BBOX_REGEX, $_GET['bbox']) ){
+            if (! preg_match(MainMapAjaxController::SEARCHDATA_REGEX, $_GET['searchdata'])
+               || ! preg_match(MainMapAjaxController::BBOX_REGEX, $_GET['bbox'])) {
                 // searchData error!
-                   $mapModel->setInfoMessage(tr('map_incorectMapParams'));
+                $mapModel->setInfoMessage(tr('map_incorectMapParams'));
             } else {
                 $this->mapJsParams->searchData = $_GET['searchdata'];
                 $this->mapJsParams->initUserPrefs = null;  // clear filters
                 $this->mapJsParams->dontSaveFilters = true;
                 $mapModel->setInfoMessage(tr('map_searchResultsMode'));
 
-                list($swLon, $swLat, $neLon, $neLat) = explode('|', $_GET['bbox']);
+                [$swLon, $swLat, $neLon, $neLat] = explode('|', $_GET['bbox']);
 
                 $swCoord = Coordinates::FromCoordsFactory($swLat, $swLon);
                 $neCoord = Coordinates::FromCoordsFactory($neLat, $neLon);
 
                 $mapModel->setStartExtent($swCoord, $neCoord);
             }
-
-        } else if(isset($_GET['cs'])){
+        } elseif (isset($_GET['cs'])) {
             // only given geopath
             $geoPath = CacheSet::fromCacheSetIdFactory($_GET['cs']);
 
             $this->view->setVar('cacheSet', $geoPath);
 
-            if(!$geoPath){
+            if (! $geoPath) {
                 $mapModel->setInfoMessage(tr('map_incorectMapParams'));
-            }else{
+            } else {
                 $this->mapJsParams->cacheSetId = $geoPath->getId();
                 $this->mapJsParams->initUserPrefs = null;  // clear filters
                 $this->mapJsParams->dontSaveFilters = true;
@@ -212,7 +225,7 @@ class MainMapController extends BaseController
             $zoom = 11; //default zoom for user-home coords
         }
 
-        if(isset($mapCenter) && is_object($mapCenter) && $mapCenter->areCordsReasonable()){
+        if (isset($mapCenter) && is_object($mapCenter) && $mapCenter->areCordsReasonable()) {
             $mapModel->setCoords($mapCenter);
             $mapModel->setZoom($zoom);
         }
@@ -233,18 +246,26 @@ class MainMapController extends BaseController
 class MainMapJsParams
 {
     public $mapId = 'mainMap';          // id of the map div (in tpl)
+
     public $isFullScreenMap = false;    //
+
     public $userId = null;              // userId of user from map context
+
     public $userUuid = null;            // userUuid of user from map context
+
     public $username = '';              // username of the user from map context
 
     // modes:
     public $circle150m = false;         // display 150m circle at teh center
+
     public $openPopupAtCenter = false;  // preopen popup at center of the map
+
     public $searchData = null;          // uuid of searchdata to display on map
+
     public $cacheSetId = null;          // id of geopath to display on map
 
     public $initUserPrefs = null;       // user preferences object
+
     public $dontSaveFilters = false;    // skip saving user filter setting at server
 
     public $isSearchEnabled = false;    // condition to show search controls
