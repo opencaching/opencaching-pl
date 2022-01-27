@@ -836,7 +836,6 @@ tpl_set_var('language4js', I18n::getCurrentLang());
 
 tpl_BuildTemplate();
 
-
 function buildCacheSizeSelector($sel_type, $sel_size): string
 {
     $sizes = '<option value="-1" disabled selected="selected">' . tr('select_one') . '</option>';
