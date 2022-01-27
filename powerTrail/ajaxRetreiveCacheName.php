@@ -1,12 +1,14 @@
 <?php
+
 use src\Utils\Database\OcDb;
 
+require __DIR__ . '/../vendor/autoload.php';
+
 session_start();
-if(!isset($_SESSION['user_id'])){
-    print 'no hacking please!';
-    exit;
+
+if (! isset($_SESSION['user_id'])) {
+    exit('No hacking please!');
 }
-require_once __DIR__.'/../lib/ClassPathDictionary.php';
 $waypoint = $_REQUEST['waypoint'];
 
 // check if user is owner of selected power Trail
@@ -15,4 +17,4 @@ $db = OcDb::instance();
 $s = $db->multiVariableQuery($query, $waypoint);
 $result = $db->dbResultFetchOneRowOnly($s);
 
-print $result['name'].'!1@$%3%7%4@#23557&^%%4#@2$LZA**&6545$###'.$result['cache_id'];
+echo $result['name'] . '!1@$%3%7%4@#23557&^%%4#@2$LZA**&6545$###' . $result['cache_id'];

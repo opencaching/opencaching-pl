@@ -1,7 +1,8 @@
 <?php
+
 use src\Utils\Database\OcDb;
 
-require_once __DIR__.'/../lib/common.inc.php';
+require_once __DIR__ . '/../lib/common.inc.php';
 
 $db = OcDb::instance();
 
@@ -16,10 +17,10 @@ $s = $db->simpleQuery($query);
 $result = $db->dbResultFetchAll($s);
 
 foreach ($result as $user) {
-    $resArr[$user['userId']] = array (
+    $resArr[$user['userId']] = [
         'username' => $user['username'],
-        'userPoints' =>  powerTrailBase::getUserPoints($user['userId'])
-    );
+        'userPoints' => powerTrailBase::getUserPoints($user['userId']),
+    ];
 }
 
 echo '<pre>';

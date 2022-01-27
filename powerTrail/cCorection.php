@@ -3,17 +3,22 @@
 use src\Models\GeoCache\GeoCache;
 
 /**
- * class is used for correct coordinates of geopath center point. (point used to represent geoPtah
+ * class is used for correct coordinates of geopath center point. Point used to represent geoPtah
  * location on map.
  */
 class powerTrail_cCorection
 {
-    private $userId = 0;
-    private $cacheId = 0;
-    private $latitude = 0;
-    private $longitude = 0;
-    private $userArray = array();
-    private $cacheType = 0;
+    private int $userId;
+
+    private int $cacheId;
+
+    private float $latitude;
+
+    private float $longitude;
+
+    private array $userArray;
+
+    private int $cacheType;
 
     public function __construct($params)
     {
@@ -22,32 +27,33 @@ class powerTrail_cCorection
         $this->userId = (int) $_SESSION['user_id'];
         $this->cacheType = (int) $params['type'];
         $this->cacheId = (int) $params['cache_id'];
-        $userrCollection = UserCollection::Instance();
-        $this->userArray = $userrCollection->getUserCollection();
+        $this->userArray = UserCollection::Instance()->getUserCollection();
         $this->process();
     }
 
-    public function getLatitude()
+    public function getLatitude(): float
     {
         return $this->latitude;
     }
 
-    public function getLongitude()
+    public function getLongitude(): float
     {
         return $this->longitude;
     }
 
     private function process()
     {
-        if($this->cacheType == GeoCache::TYPE_TRADITIONAL || $this->cacheType == GeoCache::TYPE_MULTICACHE){
-            if(in_array($this->userId, $this->userArray)){
+        if ($this->cacheType == GeoCache::TYPE_TRADITIONAL || $this->cacheType == GeoCache::TYPE_MULTICACHE) {
+            if (in_array($this->userId, $this->userArray)) {
                 $this->updateCoords();
             }
         }
     }
 
-    private function takeDistance(){
+    private function takeDistance()
+    {
         $lastchar = substr($this->cacheId, -1);
+
         switch ($lastchar) {
             case 0:
                 return 40;
@@ -72,7 +78,8 @@ class powerTrail_cCorection
         }
     }
 
-    private function updateCoords(){
+    private function updateCoords()
+    {
         $meters = $this->takeDistance(); //Number of meters to calculate coords for north/south/east/west
         $equatorCircumference = 6371000; //meters
         $polarCircumference = 6356800; //meters
@@ -84,19 +91,25 @@ class powerTrail_cCorection
         $this->calcNewCoords($degDiffLong, $degDiffLat);
     }
 
-    private function getDirectionInteger() {
+    private function getDirectionInteger()
+    {
         $direction = substr($this->cacheId, 0, 1);
-        if($direction == 0 ) {
+
+        if ($direction == 0) {
             return 5;
         }
-        if($direction == 9) {
-             return 8;
+
+        if ($direction == 9) {
+            return 8;
         }
+
         return $direction;
     }
 
-    private function calcNewCoords($degDiffLong, $degDiffLat) {
+    private function calcNewCoords($degDiffLong, $degDiffLat)
+    {
         $direction = $this->getDirectionInteger();
+
         switch ($direction) {
             case 1:
                 $this->latitude = $this->latitude + $degDiffLat;
@@ -126,35 +139,5 @@ class powerTrail_cCorection
                 $this->latitude = $this->latitude - $degDiffLat;
                 $this->longitude = $this->longitude + $degDiffLong;
         }
-    }
-
-}
-
-final class UserCollection
-{
-
-    private $userArray = array();
-
-    public static function Instance()
-    {
-        static $inst = null;
-        if ($inst === null) {
-            $inst = new UserCollection();
-        }
-        return $inst;
-    }
-
-
-    private function __construct()
-    {
-        include __DIR__.'/../lib/settingsGlue.inc.php';
-        if(isset($userCollection)) {
-            $this->userArray = $userCollection;
-        }
-    }
-
-    public function getUserCollection()
-    {
-        return $this->userArray;
     }
 }

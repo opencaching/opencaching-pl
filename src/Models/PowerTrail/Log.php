@@ -2,148 +2,144 @@
 
 namespace src\Models\PowerTrail;
 
-use src\Utils\Database\OcDb;
+use DateTime;
 use src\Models\User\User;
-use src\Models\PowerTrail\PowerTrail;
+use src\Utils\Database\OcDb;
 use src\Utils\Generators\Uuid;
 
 class Log
 {
-    const TYPE_COMMENT = 1;
-    const TYPE_CONQUESTED = 2;
-    const TYPE_OPENING = 3;
-    const TYPE_DISABLING = 4;
-    const TYPE_CLOSING = 5;
-    const TYPE_ADD_WARNING = 6;
+    public const TYPE_COMMENT = 1;
 
-    private $id = false;
+    public const TYPE_CONQUESTED = 2;
 
-    private $type;
+    public const TYPE_OPENING = 3;
 
-    /* @var $powerTrail PowerTrail */
-    private $powerTrail;
+    public const TYPE_DISABLING = 4;
 
-    /**
-     * @var User
-     */
-    private $user;
+    public const TYPE_CLOSING = 5;
 
-    /*@var $dateTime \DateTime */
-    private $dateTime;
+    public const TYPE_ADD_WARNING = 6;
 
-    private $text;
+    private int $type;
 
-    private $isDeleted = false;
+    private PowerTrail $powerTrail;
 
-    public function getPowerTrail()
+    private User $user;
+
+    private DateTime $dateTime;
+
+    private string $text;
+
+    private bool $isDeleted = false;
+
+    public function getPowerTrail(): PowerTrail
     {
         return $this->powerTrail;
     }
 
-    /**
-     * @return User
-     */
-    public function getUser()
+    public function getUser(): User
     {
         return $this->user;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getDateTime()
+    public function getDateTime(): DateTime
     {
         return $this->dateTime;
     }
 
-    /**
-     * @return string
-     */
-    public function getText()
+    public function getText(): string
     {
         return $this->text;
     }
 
-    public function setPowerTrail(PowerTrail $powerTrail)
+    public function setPowerTrail(PowerTrail $powerTrail): Log
     {
         $this->powerTrail = $powerTrail;
+
         return $this;
     }
 
-    public function setUser(User $user)
+    public function setUser(User $user): Log
     {
         $this->user = $user;
+
         return $this;
     }
 
-    public function setDateTime(\DateTime $dateTime)
+    public function setDateTime(DateTime $dateTime): Log
     {
         $this->dateTime = $dateTime;
+
         return $this;
     }
 
-    public function setDeleted($isDeleted)
+    public function setDeleted($isDeleted): Log
     {
         $this->isDeleted = $isDeleted;
+
         return $this;
     }
 
-    public function setText($text)
+    public function setText($text): Log
     {
         $this->text = $text;
+
         return $this;
     }
 
-    public function isDeleted()
+    public function isDeleted(): bool
     {
         return $this->isDeleted;
     }
 
-    function getType()
+    public function getType(): int
     {
         return $this->type;
     }
 
-    function setType($type)
+    public function setType(int $type): Log
     {
         $this->type = $type;
+
         return $this;
     }
 
-
-    public function storeInDb()
+    public function storeInDb(): bool
     {
         $db = OcDb::instance();
-        if($_REQUEST['type'] == Log::TYPE_CONQUESTED && $this->powerTrail->isAlreadyConquestedByUser($this->user)){ /* atempt to add second 'conquested' log */
+
+        if ($_REQUEST['type'] == Log::TYPE_CONQUESTED && $this->powerTrail->isAlreadyConquestedByUser($this->user)) { // attempt to add second 'conquested' log
             return false;
         }
-        if($this->id){
-            exit('TODO');
-        } else {
-            if($this->type === self::TYPE_ADD_WARNING && $this->user->hasOcTeamRole() === false){
-                return false; /* regular user is not allowed to add entry of this type */
-            }
-            $query = 'INSERT INTO `PowerTrail_comments`
+
+        if ($this->type === self::TYPE_ADD_WARNING && $this->user->hasOcTeamRole() === false) {
+            return false; // regular user is not allowed to add entry of this type
+        }
+        $query = 'INSERT INTO `PowerTrail_comments`
                       (`userId`, `PowerTrailId`, `commentType`, `commentText`,
                        `logDateTime`, `dbInsertDateTime`, `deleted`, uuid)
-                      VALUES (:1, :2, :3, :4, :5, NOW(),0, '.Uuid::getSqlForUpperCaseUuid().')';
-            $db->multiVariableQuery($query, $this->user->getUserId(), $this->powerTrail->getId(), $this->type, $this->text, $this->dateTime->format('Y-m-d H:i:s'));
-            if($this->type == self::TYPE_CONQUESTED){
-                $this->powerTrail->increaseConquestedCount();
-            }
+                      VALUES (:1, :2, :3, :4, :5, NOW(),0, ' . Uuid::getSqlForUpperCaseUuid() . ')';
+        $db->multiVariableQuery($query, $this->user->getUserId(), $this->powerTrail->getId(), $this->type, $this->text, $this->dateTime->format('Y-m-d H:i:s'));
+
+        if ($this->type == self::TYPE_CONQUESTED) {
+            $this->powerTrail->increaseConquestedCount();
         }
+
         $this->changePowerTrailStatusAfterLog();
+
         return true;
     }
 
     private function changePowerTrailStatusAfterLog()
     {
-        $expectedPowerTarilStatus = $this->getPowerTrailStatusByLogType();
-        if($expectedPowerTarilStatus && $this->powerTrail->getStatus() != $expectedPowerTarilStatus){ // update powerTrail status
-            if($this->type === self::TYPE_OPENING && $this->powerTrail->canBeOpened() === false){ // power Trail do not meet critertia to be opened.
+        $expectedPowerTrailStatus = $this->getPowerTrailStatusByLogType();
+
+        if ($expectedPowerTrailStatus && $this->powerTrail->getStatus() != $expectedPowerTrailStatus) { // update powerTrail status
+            if ($this->type === self::TYPE_OPENING && $this->powerTrail->canBeOpened() === false) { // power Trail do not meet criteria to be opened.
                 return;
             }
-            $this->powerTrail->setAndStoreStatus($expectedPowerTarilStatus);
+            $this->powerTrail->setAndStoreStatus($expectedPowerTrailStatus);
         }
     }
 
@@ -162,5 +158,4 @@ class Log
                 return false;
         }
     }
-
 }
