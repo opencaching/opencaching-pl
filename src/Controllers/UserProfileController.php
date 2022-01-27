@@ -107,7 +107,7 @@ class UserProfileController extends BaseController
     {
         $this->checkUserLoggedAjax();
 
-        if (UserNotify::setUserCachesNotify($this->loggedUser, $state)) {
+        if (UserNotify::setUserCachesNotify($this->loggedUser, boolval($state))) {
             $this->ajaxSuccessResponse();
         } else {
             $this->ajaxErrorResponse();
@@ -123,7 +123,7 @@ class UserProfileController extends BaseController
     {
         $this->checkUserLoggedAjax();
 
-        if (UserNotify::setUserLogsNotify($this->loggedUser, $state)) {
+        if (UserNotify::setUserLogsNotify($this->loggedUser, boolval($state))) {
             $this->ajaxSuccessResponse();
         } else {
             $this->ajaxErrorResponse();
