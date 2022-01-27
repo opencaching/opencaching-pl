@@ -3,6 +3,7 @@
 use src\Controllers\PowerTrailController;
 use src\Models\ApplicationContainer;
 use src\Utils\Database\OcDb;
+use src\Utils\Uri\HttpCode;
 
 require_once __DIR__ . '/../lib/common.inc.php';
 
@@ -19,7 +20,8 @@ if (! $user) {
 $commentsArr = PowerTrailController::getEntryTypes();
 
 if (! isset($_REQUEST['projectId'])) {
-    http_response_code(403);
+    http_response_code(HttpCode::STATUS_FORBIDDEN);
+
     exit('Unknown PT');
 }
 $ptOwners = powerTrailBase::getPtOwners($_REQUEST['projectId']);

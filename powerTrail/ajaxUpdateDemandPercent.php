@@ -1,7 +1,7 @@
 <?php
 
-use src\Utils\Database\OcDb;
 use src\Controllers\PowerTrailController;
+use src\Utils\Database\OcDb;
 
 require __DIR__ . '/../vendor/autoload.php';
 

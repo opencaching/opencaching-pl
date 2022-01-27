@@ -43,5 +43,6 @@ function displayPtOwnerList($ptOwners)
             $ownerList .= ', ';
         }
     }
+
     return substr($ownerList, 0, -2);
 }
