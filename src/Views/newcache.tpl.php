@@ -845,7 +845,7 @@ $(document).ready(function(){
         <tr><td colspan="2"><div class="errormsg">{{creating_cache}}</div></td></tr>
         <tr>
             <td colspan="2"><div class="buffer"></div>
-                <button type="submit" name="submitform" value="<?=tr('new_cache2')?>" class="btn btn-primary"><?=tr('new_cache2')?></button>
+                <button type="submit" name="submitform" value="<?= tr('new_cache2'); ?>" class="btn btn-primary"><?= tr('new_cache2'); ?></button>
             </td>
         </tr>
 </form>
