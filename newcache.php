@@ -17,7 +17,6 @@ use src\Utils\Text\Validator;
 
 require_once __DIR__ . '/lib/common.inc.php';
 
-/** View $view */
 $view = tpl_getView();
 
 $view->addLocalCss('/views/editCache/editCache.css');
@@ -34,8 +33,6 @@ if (! $loggedUser) {
 
 $db = OcDb::instance();
 
-$user = $loggedUser;
-
 if (isset($_REQUEST['newcache_info']) && $_REQUEST['newcache_info'] != 1) {
     // set here the template to process
     $view->setTemplate('newcache');
@@ -44,17 +41,16 @@ if (isset($_REQUEST['newcache_info']) && $_REQUEST['newcache_info'] != 1) {
     $view->setTemplate('newcache_info');
 }
 
-if (! $user->canCreateNewCache()) {
-    $view->setVar('caches_find', $user->getFoundPhysicalGeocachesCount());
-    $view->setVar('need_find_limit', OcConfig::getNeedFindLimit());
-    $view->setTemplate('newcache_beginner');
-    $view->buildView();
+if (! $loggedUser->canCreateNewCache()) {
+    $view->setVar('caches_find', $loggedUser->getFoundPhysicalGeocachesCount())
+        ->setVar('need_find_limit', OcConfig::getNeedFindLimit())
+        ->setTemplate('newcache_beginner')
+        ->buildView();
 
     exit();
 }
 
 // former /src/Views/newcache.inc.php' contents
-$submit = tr('new_cache2');
 $default_region = '0';
 $show_all = tr('show_all');
 $default_NS = 'N';
@@ -78,45 +74,43 @@ $cacheLimitByTypePerUser = GeoCache::getUserActiveCachesCountByType($loggedUser-
 if ($num_caches < OcConfig::getNeedApproveLimit()) {
     // user needs approvement for first 3 caches to be published
     $needs_approvement = true;
-    tpl_set_var('hide_publish_start', '<!--');
-    tpl_set_var('hide_publish_end', '-->');
-    tpl_set_var('approvement_note', '<div class="notice errormsg">' . tr('first_cache_approvement') . '</div>');
-} elseif ($user->getVerifyAll()) {
+    $view->setVar('hide_publish_start', '<!--')
+        ->setVar('hide_publish_end', '-->')
+        ->setVar('approvement_note', '<div class="notice errormsg">' . tr('first_cache_approvement') . '</div>');
+} elseif ($loggedUser->getVerifyAll()) {
     $needs_approvement = true;
-    tpl_set_var('hide_publish_start', '<!--');
-    tpl_set_var('hide_publish_end', '-->');
-    tpl_set_var('approvement_note', '<div class="notice errormsg">' . tr('all_cache_approvement') . '</div>');
+    $view->setVar('hide_publish_start', '<!--')
+        ->setVar('hide_publish_end', '-->')
+        ->setVar('approvement_note', '<div class="notice errormsg">' . tr('all_cache_approvement') . '</div>');
 } else {
     $needs_approvement = false;
-    tpl_set_var('hide_publish_start', '');
-    tpl_set_var('hide_publish_end', '');
-    tpl_set_var('approvement_note', '');
+    $view->setVar('hide_publish_start', '')
+        ->setVar('hide_publish_end', '')
+        ->setVar('approvement_note', '');
 }
 
 // set template replacements
-tpl_set_var('reset', tr('reset'));
-tpl_set_var('submit', $submit);
-tpl_set_var('general_message', '');
-tpl_set_var('hidden_since_message', tr('newcacheDateFormat'));
-tpl_set_var('activate_on_message', tr('newcacheDateFormat'));
-tpl_set_var('lon_message', '');
-tpl_set_var('lat_message', '');
-tpl_set_var('tos_message', '');
-tpl_set_var('name_message', '');
-tpl_set_var('desc_message', '');
-tpl_set_var('effort_message', '');
-tpl_set_var('size_message', '');
-tpl_set_var('type_message', '');
-tpl_set_var('diff_message', '');
-tpl_set_var('region_message', '');
-tpl_set_var('wp_gc_message', '');
-tpl_set_var('wp_tc_message', '');
-tpl_set_var('wp_nc_message', '');
-tpl_set_var('wp_ge_message', '');
+$view->setVar('general_message', '')
+    ->setVar('hidden_since_message', tr('newcacheDateFormat'))
+    ->setVar('activate_on_message', tr('newcacheDateFormat'))
+    ->setVar('lon_message', '')
+    ->setVar('lat_message', '')
+    ->setVar('tos_message', '')
+    ->setVar('name_message', '')
+    ->setVar('desc_message', '')
+    ->setVar('effort_message', '')
+    ->setVar('size_message', '')
+    ->setVar('type_message', '')
+    ->setVar('diff_message', '')
+    ->setVar('region_message', '')
+    ->setVar('wp_gc_message', '')
+    ->setVar('wp_tc_message', '')
+    ->setVar('wp_nc_message', '')
+    ->setVar('wp_ge_message', '')
 // configuration variables needed in translation strings
-tpl_set_var('limits_promixity', $config['oc']['limits']['proximity']);
-tpl_set_var('short_sitename', OcConfig::getSiteShortName());
-$view->loadJQueryUI();
+    ->setVar('limits_promixity', $config['oc']['limits']['proximity'])
+    ->setVar('short_sitename', OcConfig::getSiteShortName())
+    ->loadJQueryUI();
 
 $sel_type = $_POST['type'] ?? -1;
 
@@ -143,44 +137,44 @@ $show_all_langs = $_POST['show_all_langs'] ?? 0;
 $lonEW = $_POST['lonEW'] ?? $default_EW;
 
 if ($lonEW == 'E') {
-    tpl_set_var('lonWsel', '');
-    tpl_set_var('lonEsel', ' selected="selected"');
+    $view->setVar('lonWsel', '')
+        ->setVar('lonEsel', ' selected="selected"');
 } else {
-    tpl_set_var('lonE_sel', '');
-    tpl_set_var('lonWsel', ' selected="selected"');
+    $view->setVar('lonE_sel', '')
+        ->setVar('lonWsel', ' selected="selected"');
 }
 $lon_h = $_POST['lon_h'] ?? '';
-tpl_set_var('lon_h', htmlspecialchars($lon_h, ENT_COMPAT));
+$view->setVar('lon_h', htmlspecialchars($lon_h, ENT_COMPAT));
 
 $lon_min = $_POST['lon_min'] ?? '';
-tpl_set_var('lon_min', htmlspecialchars($lon_min, ENT_COMPAT));
+$view->setVar('lon_min', htmlspecialchars($lon_min, ENT_COMPAT));
 
 $latNS = $_POST['latNS'] ?? $default_NS;
 
 if ($latNS == 'N') {
-    tpl_set_var('latNsel', ' selected="selected"');
-    tpl_set_var('latSsel', '');
+    $view->setVar('latNsel', ' selected="selected"')
+        ->setVar('latSsel', '');
 } else {
-    tpl_set_var('latNsel', '');
-    tpl_set_var('latSsel', ' selected="selected"');
+    $view->setVar('latNsel', '')
+        ->setVar('latSsel', ' selected="selected"');
 }
 $lat_h = $_POST['lat_h'] ?? '';
-tpl_set_var('lat_h', htmlspecialchars($lat_h, ENT_COMPAT));
+$view->setVar('lat_h', htmlspecialchars($lat_h, ENT_COMPAT));
 
 $lat_min = $_POST['lat_min'] ?? '';
-tpl_set_var('lat_min', htmlspecialchars($lat_min, ENT_COMPAT));
+$view->setVar('lat_min', htmlspecialchars($lat_min, ENT_COMPAT));
 
 // name
 $name = $_POST['name'] ?? '';
-tpl_set_var('name', htmlspecialchars($name, ENT_COMPAT));
+$view->setVar('name', htmlspecialchars($name, ENT_COMPAT));
 
 // shortdesc
 $short_desc = $_POST['short_desc'] ?? '';
-tpl_set_var('short_desc', htmlspecialchars($short_desc, ENT_COMPAT));
+$view->setVar('short_desc', htmlspecialchars($short_desc, ENT_COMPAT));
 
 // desc
 $desc = $_POST['desc'] ?? '';
-tpl_set_var('desc', htmlspecialchars($desc, ENT_COMPAT));
+$view->setVar('desc', htmlspecialchars($desc, ENT_COMPAT));
 
 // for old versions of OCProp
 if (isset($_POST['submit']) && ! isset($_POST['version2'])) {
@@ -212,12 +206,12 @@ if (mb_strpos($search_time, ':') == mb_strlen($search_time) - 3) {
 $st_hours = floor($search_time);
 $st_minutes = sprintf('%02d', ($search_time - $st_hours) * 60);
 
-tpl_set_var('search_time', $st_hours . ':' . $st_minutes);
-tpl_set_var('way_length', $way_length);
+$view->setVar('search_time', $st_hours . ':' . $st_minutes)
+    ->setVar('way_length', $way_length);
 
 // hints
 $hints = $_POST['hints'] ?? '';
-tpl_set_var('hints', htmlspecialchars($hints, ENT_COMPAT));
+$view->setVar('hints', htmlspecialchars($hints, ENT_COMPAT));
 
 // for old versions of OCProp
 if (isset($_POST['submit']) && ! isset($_POST['version2'])) {
@@ -228,43 +222,43 @@ if (isset($_POST['submit']) && ! isset($_POST['version2'])) {
 $hidden_day = $_POST['hidden_day'] ?? date('d');
 $hidden_month = $_POST['hidden_month'] ?? date('m');
 $hidden_year = $_POST['hidden_year'] ?? date('Y');
-tpl_set_var('hidden_day', htmlspecialchars($hidden_day, ENT_COMPAT));
-tpl_set_var('hidden_month', htmlspecialchars($hidden_month, ENT_COMPAT));
-tpl_set_var('hidden_year', htmlspecialchars($hidden_year, ENT_COMPAT));
+$view->setVar('hidden_day', htmlspecialchars($hidden_day, ENT_COMPAT))
+    ->setVar('hidden_month', htmlspecialchars($hidden_month, ENT_COMPAT))
+    ->setVar('hidden_year', htmlspecialchars($hidden_year, ENT_COMPAT));
 
 // activation date
 $activate_day = $_POST['activate_day'] ?? date('d');
 $activate_month = $_POST['activate_month'] ?? date('m');
 $activate_year = $_POST['activate_year'] ?? date('Y');
-tpl_set_var('activate_day', htmlspecialchars($activate_day, ENT_COMPAT));
-tpl_set_var('activate_month', htmlspecialchars($activate_month, ENT_COMPAT));
-tpl_set_var('activate_year', htmlspecialchars($activate_year, ENT_COMPAT));
+$view->setVar('activate_day', htmlspecialchars($activate_day, ENT_COMPAT))
+    ->setVar('activate_month', htmlspecialchars($activate_month, ENT_COMPAT))
+    ->setVar('activate_year', htmlspecialchars($activate_year, ENT_COMPAT));
 
 if (isset($_POST['publish'])) {
     $publish = $_POST['publish'];
 
     if ($publish == 'now') {
-        tpl_set_var('publish_now_checked', 'checked="checked"');
+        $view->setVar('publish_now_checked', 'checked="checked"');
     } else {
-        tpl_set_var('publish_now_checked', '');
+        $view->setVar('publish_now_checked', '');
     }
 
     if ($publish == 'later') {
-        tpl_set_var('publish_later_checked', 'checked="checked"');
+        $view->setVar('publish_later_checked', 'checked="checked"');
     } else {
-        tpl_set_var('publish_later_checked', '');
+        $view->setVar('publish_later_checked', '');
     }
 
     if ($publish == 'notnow') {
-        tpl_set_var('publish_notnow_checked', 'checked="checked"');
+        $view->setVar('publish_notnow_checked', 'checked="checked"');
     } else {
-        tpl_set_var('publish_notnow_checked', '');
+        $view->setVar('publish_notnow_checked', '');
     }
 } else {
     // Standard
-    tpl_set_var('publish_now_checked', '');
-    tpl_set_var('publish_later_checked', '');
-    tpl_set_var('publish_notnow_checked', 'checked="checked"');
+    $view->setVar('publish_now_checked', '')
+        ->setVar('publish_later_checked', '')
+        ->setVar('publish_notnow_checked', 'checked="checked"');
     $publish = '';
 }
 
@@ -280,24 +274,24 @@ for ($i = 0; $i <= 23; $i++) {
     }
     $activation_hours .= "\n";
 }
-tpl_set_var('activation_hours', $activation_hours);
+$view->setVar('activation_hours', $activation_hours);
 
 // log-password (no password for traditional caches)
 $log_pw = (isset($_POST['log_pw']) && $sel_type != 2) ? mb_substr($_POST['log_pw'], 0, 20) : '';
-tpl_set_var('log_pw', htmlspecialchars($log_pw, ENT_COMPAT));
+$view->setVar('log_pw', htmlspecialchars($log_pw, ENT_COMPAT));
 
 // gc- and nc-waypoints
 $wp_gc = $_POST['wp_gc'] ?? '';
-tpl_set_var('wp_gc', htmlspecialchars($wp_gc, ENT_COMPAT));
+$view->setVar('wp_gc', htmlspecialchars($wp_gc, ENT_COMPAT));
 
 $wp_ge = $_POST['wp_ge'] ?? '';
-tpl_set_var('wp_ge', htmlspecialchars($wp_ge, ENT_COMPAT));
+$view->setVar('wp_ge', htmlspecialchars($wp_ge, ENT_COMPAT));
 
 $wp_tc = $_POST['wp_tc'] ?? '';
-tpl_set_var('wp_tc', htmlspecialchars($wp_tc, ENT_COMPAT));
+$view->setVar('wp_tc', htmlspecialchars($wp_tc, ENT_COMPAT));
 
 $wp_nc = $_POST['wp_nc'] ?? '';
-tpl_set_var('wp_nc', htmlspecialchars($wp_nc, ENT_COMPAT));
+$view->setVar('wp_nc', htmlspecialchars($wp_nc, ENT_COMPAT));
 
 // difficulty
 $difficulty = $_POST['difficulty'] ?? 1;
@@ -311,7 +305,7 @@ for ($i = 2; $i <= 10; $i++) {
     }
     $difficulty_options .= "\n";
 }
-tpl_set_var('difficulty_options', $difficulty_options);
+$view->setVar('difficulty_options', $difficulty_options);
 
 // terrain
 $terrain = $_POST['terrain'] ?? 1;
@@ -325,15 +319,15 @@ for ($i = 2; $i <= 10; $i++) {
     }
     $terrain_options .= "\n";
 }
-tpl_set_var('terrain_options', $terrain_options);
+$view->setVar('terrain_options', $terrain_options);
 
 // size options
-tpl_set_var('sizeoptions', buildCacheSizeSelector($sel_type, $sel_size));
+$view->setVar('sizeoptions', buildCacheSizeSelector($sel_type, $sel_size));
 
 if ($sel_type == GeoCache::TYPE_VIRTUAL || $sel_type == GeoCache::TYPE_WEBCAM || $sel_type == GeoCache::TYPE_EVENT) {
-    tpl_set_var('is_disabled_size', 'disabled');
+    $view->setVar('is_disabled_size', 'disabled');
 } else {
-    tpl_set_var('is_disabled_size', '');
+    $view->setVar('is_disabled_size', '');
 }
 
 // typeoptions
@@ -359,7 +353,7 @@ foreach (GeoCacheCommons::CacheTypesArray() as $typeId) {
             . tr(GeoCacheCommons::CacheTypeTranslationKey($typeId)) . '</option>';
     }
 }
-tpl_set_var('typeoptions', $types);
+$view->setVar('typeoptions', $types);
 
 if (isset($_POST['show_all_countries_submit'])) {
     $show_all_countries = 1;
@@ -375,14 +369,14 @@ $countriesoptions = '';
 $defaultCountryList = [];
 
 if ($show_all_countries == 1) {
-    tpl_set_var('show_all_countries', '1');
-    tpl_set_var('show_all_countries_submit', '');
+    $view->setVar('show_all_countries', '1')
+        ->setVar('show_all_countries_submit', '');
 
     // get all countries codes
     $defaultCountryList = Countries::getCountriesList();
 } else {
-    tpl_set_var('show_all_countries', '0');
-    tpl_set_var('show_all_countries_submit', '<input class="btn btn-default btn-sm" type="submit" name="show_all_countries_submit" value="' . $show_all . '"/>');
+    $view->setVar('show_all_countries', '0')
+        ->setVar('show_all_countries_submit', '<input class="btn btn-default btn-sm" type="submit" name="show_all_countries_submit" value="' . $show_all . '"/>');
     $defaultCountryList = Countries::getCountriesList(true);
 }
 
@@ -395,7 +389,7 @@ foreach ($defaultCountryList as $record) {
     $countriesoptions .= "\n";
 }
 
-tpl_set_var('countryoptions', $countriesoptions);
+$view->setVar('countryoptions', $countriesoptions);
 
 // cache-attributes
 $cache_attribs = (isset($_POST['cache_attribs']) && ! empty($_POST['cache_attribs'])) ? mb_split(';', $_POST['cache_attribs']) : [];
@@ -443,45 +437,45 @@ while ($record = XDb::xFetchArray($rs)) {
     }
 }
 
-tpl_set_var('cache_attrib_list', $cache_attrib_list);
-tpl_set_var('jsattributes_array', $cache_attrib_array);
-tpl_set_var('cache_attribs', $cache_attribs_string);
+$view->setVar('cache_attrib_list', $cache_attrib_list)
+    ->setVar('jsattributes_array', $cache_attrib_array)
+    ->setVar('cache_attribs', $cache_attribs_string);
 
 $reactivationRuleRadio = $_POST['reactivRules'] ?? null;
 
 if ($reactivationRuleRadio == 'Custom rulset') {
     // custom ruleset are selected - use defined rules
     $reactivationRule = $_POST['reactivRulesCustom'] ?? '';
-    $view->setVar('reactivRulesCustom', $reactivationRule);
-    $view->setVar('reactivRulesRadio', 'Custom rulset');
+    $view->setVar('reactivRulesCustom', $reactivationRule)
+        ->setVar('reactivRulesRadio', 'Custom rulset');
 } elseif (is_null($reactivationRuleRadio)) {
     //no options selected
     $reactivationRule = '';
-    $view->setVar('reactivRulesCustom', '');
-    $view->setVar('reactivRulesRadio', null);
+    $view->setVar('reactivRulesCustom', '')
+        ->setVar('reactivRulesRadio', null);
 } else {
     // some predefined option is selected
     $reactivationRule = $reactivationRuleRadio;
-    $view->setVar('reactivRulesCustom', '');
-    $view->setVar('reactivRulesRadio', $reactivationRuleRadio);
+    $view->setVar('reactivRulesCustom', '')
+        ->setVar('reactivRulesRadio', $reactivationRuleRadio);
 }
 
 if (isset($_POST['submitform'])) {
     // check the entered data
     // Prevent binary data in cache descriptions, e.g. <img src='data:...'> tags.
     if (strlen($desc) > 300000) {
-        tpl_set_var('desc_message', tr('error3KCharsExcedeed'));
+        $view->setVar('desc_message', tr('error3KCharsExcedeed'));
     }
 
     // check coordinates
     if ($lat_h != '' || $lat_min != '') {
         if (! mb_ereg_match('^[0-9]{1,2}$', $lat_h)) {
-            tpl_set_var('lat_message', $error_coords_not_ok);
+            $view->setVar('lat_message', $error_coords_not_ok);
             $lat_h_not_ok = true;
         } elseif (($lat_h >= 0) && ($lat_h < 90)) {
             $lat_h_not_ok = false;
         } else {
-            tpl_set_var('lat_message', $error_coords_not_ok);
+            $view->setVar('lat_message', $error_coords_not_ok);
             $lat_h_not_ok = true;
         }
 
@@ -489,11 +483,11 @@ if (isset($_POST['submitform'])) {
             if (($lat_min >= 0) && ($lat_min < 60)) {
                 $lat_min_not_ok = false;
             } else {
-                tpl_set_var('lat_message', $error_coords_not_ok);
+                $view->setVar('lat_message', $error_coords_not_ok);
                 $lat_min_not_ok = true;
             }
         } else {
-            tpl_set_var('lat_message', $error_coords_not_ok);
+            $view->setVar('lat_message', $error_coords_not_ok);
             $lat_min_not_ok = true;
         }
 
@@ -504,7 +498,7 @@ if (isset($_POST['submitform'])) {
         }
 
         if ($latitude == 0) {
-            tpl_set_var('lon_message', $error_coords_not_ok);
+            $view->setVar('lon_message', $error_coords_not_ok);
             $lat_min_not_ok = true;
         }
     } else {
@@ -515,12 +509,12 @@ if (isset($_POST['submitform'])) {
 
     if ($lon_h != '' || $lon_min != '') {
         if (! mb_ereg_match('^[0-9]{1,3}$', $lon_h)) {
-            tpl_set_var('lon_message', $error_coords_not_ok);
+            $view->setVar('lon_message', $error_coords_not_ok);
             $lon_h_not_ok = true;
         } elseif (($lon_h >= 0) && ($lon_h < 180)) {
             $lon_h_not_ok = false;
         } else {
-            tpl_set_var('lon_message', $error_coords_not_ok);
+            $view->setVar('lon_message', $error_coords_not_ok);
             $lon_h_not_ok = true;
         }
 
@@ -528,11 +522,11 @@ if (isset($_POST['submitform'])) {
             if (($lon_min >= 0) && ($lon_min < 60)) {
                 $lon_min_not_ok = false;
             } else {
-                tpl_set_var('lon_message', $error_coords_not_ok);
+                $view->setVar('lon_message', $error_coords_not_ok);
                 $lon_min_not_ok = true;
             }
         } else {
-            tpl_set_var('lon_message', $error_coords_not_ok);
+            $view->setVar('lon_message', $error_coords_not_ok);
             $lon_min_not_ok = true;
         }
 
@@ -543,7 +537,7 @@ if (isset($_POST['submitform'])) {
         }
 
         if ($longitude == 0) {
-            tpl_set_var('lon_message', $error_coords_not_ok);
+            $view->setVar('lon_message', $error_coords_not_ok);
             $lon_min_not_ok = true;
         }
     } else {
@@ -563,7 +557,7 @@ if (isset($_POST['submitform'])) {
     }
 
     if ($time_not_ok) {
-        tpl_set_var('effort_message', $time_not_ok_message);
+        $view->setVar('effort_message', $time_not_ok_message);
     }
     $way_length_not_ok = true;
 
@@ -572,7 +566,7 @@ if (isset($_POST['submitform'])) {
     }
 
     if ($way_length_not_ok) {
-        tpl_set_var('effort_message', $way_length_not_ok_message);
+        $view->setVar('effort_message', $way_length_not_ok_message);
     }
 
     // check hidden_since
@@ -583,7 +577,7 @@ if (isset($_POST['submitform'])) {
     }
 
     if ($hidden_date_not_ok) {
-        tpl_set_var('hidden_since_message', $date_not_ok_message);
+        $view->setVar('hidden_since_message', $date_not_ok_message);
     }
 
     if ($needs_approvement) {
@@ -603,13 +597,13 @@ if (isset($_POST['submitform'])) {
         }
 
         if ($activation_date_not_ok) {
-            tpl_set_var('activate_on_message', $date_not_ok_message);
+            $view->setVar('activate_on_message', $date_not_ok_message);
         }
     }
 
     // name
     if ($name == '') {
-        tpl_set_var('name_message', $name_not_ok_message);
+        $view->setVar('name_message', $name_not_ok_message);
         $name_not_ok = true;
     } else {
         $name_not_ok = false;
@@ -617,16 +611,16 @@ if (isset($_POST['submitform'])) {
 
     // validate region
     if ($sel_region == '0') {
-        tpl_set_var(
+        $view->setVar(
             'region_message',
             '<br><img src="images/misc/32x32-impressum.png" class="icon32" alt="">&nbsp;&nbsp;<span class="errormsg">' . tr('region_not_ok') . '</span>'
         );
         $region_not_ok = true;
     } else {
         $region_not_ok = false;
-        tpl_set_var('region_message', '');
+        $view->setVar('region_message', '');
     }
-    tpl_set_var('sel_region', $sel_region);
+    $view->setVar('sel_region', $sel_region);
 
     // html-desc?
     $desc_html_not_ok = false;
@@ -635,21 +629,21 @@ if (isset($_POST['submitform'])) {
     $size_not_ok = false;
 
     if ($sel_size == -1) {
-        tpl_set_var('size_message', $size_not_ok_message);
+        $view->setVar('size_message', $size_not_ok_message);
         $size_not_ok = true;
     }
 
     // cache-type
     $type_not_ok = false;
-    // block forbiden cache types
+    // block forbidden cache types
     if ($sel_type == -1 || in_array($sel_type, OcConfig::getNoNewCacheOfTypesArray())) {
-        tpl_set_var('type_message', $type_not_ok_message);
+        $view->setVar('type_message', $type_not_ok_message);
         $type_not_ok = true;
     }
 
     if ($sel_size != 7 && ($sel_type == 4 || $sel_type == 5 || $sel_type == 6)) {
         if (! $size_not_ok) {
-            tpl_set_var(
+            $view->setVar(
                 'size_message',
                 '<br><img src="images/misc/32x32-impressum.png" class="icon32" alt="">&nbsp;&nbsp;<span class="errormsg">' . tr('virtual_cache_size') . '</span>'
             );
@@ -660,7 +654,7 @@ if (isset($_POST['submitform'])) {
     $diff_not_ok = false;
 
     if ($difficulty < 2 || $difficulty > 10 || $terrain < 2 || $terrain > 10) {
-        tpl_set_var(
+        $view->setVar(
             'diff_message',
             '<br><img src="images/misc/32x32-impressum.png" class="icon32" alt="">&nbsp;&nbsp;<span class="errormsg">' . tr('diff_incorrect') . '</span>'
         );
@@ -680,7 +674,7 @@ if (isset($_POST['submitform'])) {
                 ${$wpVar} = $validatedCode;
             } else {
                 $all_wp_ok = false;
-                tpl_set_var('wp_' . $wpType . '_message', tr('invalid_' . $wpVar));
+                $view->setVar('wp_' . $wpType . '_message', tr('invalid_' . $wpVar));
             }
         }
     }
@@ -828,11 +822,11 @@ if (isset($_POST['submitform'])) {
         // redirection
         tpl_redirect('mycaches.php?status=' . urlencode($sel_status));
     } else {
-        tpl_set_var('general_message', '<div class="warning">' . tr('error_new_cache') . '</div>');
+        $view->setVar('general_message', '<div class="warning">' . tr('error_new_cache') . '</div>');
     }
 }
 
-tpl_set_var('language4js', I18n::getCurrentLang());
+$view->setVar('language4js', I18n::getCurrentLang());
 
 tpl_BuildTemplate();
 
