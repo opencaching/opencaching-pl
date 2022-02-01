@@ -23,6 +23,7 @@ $view->addLocalCss('/views/editCache/editCache.css');
 
 // user logged in?
 $loggedUser = ApplicationContainer::GetAuthorizedUser();
+
 if (! $loggedUser) {
     $target = urlencode(tpl_get_current_page());
     $view->redirect('/login.php?target=' . $target);
