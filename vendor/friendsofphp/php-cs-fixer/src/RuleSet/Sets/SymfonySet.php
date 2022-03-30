@@ -46,6 +46,7 @@ final class SymfonySet extends AbstractRuleSetDescription
             'class_definition' => [
                 'single_line' => true,
             ],
+            'class_reference_name_casing' => true,
             'clean_namespace' => true,
             'concat_space' => true,
             'echo_tag_syntax' => true,
@@ -103,6 +104,7 @@ final class SymfonySet extends AbstractRuleSetDescription
             ],
             'no_trailing_comma_in_list_call' => true,
             'no_trailing_comma_in_singleline_array' => true,
+            'no_trailing_comma_in_singleline_function_call' => true,
             'no_unneeded_control_parentheses' => [
                 'statements' => [
                     'break',
@@ -118,6 +120,7 @@ final class SymfonySet extends AbstractRuleSetDescription
             'no_unneeded_curly_braces' => [
                 'namespaces' => true,
             ],
+            'no_unneeded_import_alias' => true,
             'no_unset_cast' => true,
             'no_unused_imports' => true,
             'no_whitespace_before_comma_in_array' => true,
@@ -156,6 +159,7 @@ final class SymfonySet extends AbstractRuleSetDescription
             'protected_to_private' => true,
             'semicolon_after_instruction' => true,
             'single_class_element_per_statement' => true,
+            'single_line_comment_spacing' => true,
             'single_line_comment_style' => [
                 'comment_types' => [
                     'hash',

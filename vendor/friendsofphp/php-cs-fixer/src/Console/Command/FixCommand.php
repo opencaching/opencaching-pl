@@ -49,39 +49,24 @@ final class FixCommand extends Command
      */
     protected static $defaultName = 'fix';
 
-    /**
-     * @var EventDispatcherInterface
-     */
-    private $eventDispatcher;
+    private EventDispatcherInterface $eventDispatcher;
 
-    /**
-     * @var ErrorsManager
-     */
-    private $errorsManager;
+    private ErrorsManager $errorsManager;
 
-    /**
-     * @var Stopwatch
-     */
-    private $stopwatch;
+    private Stopwatch $stopwatch;
 
-    /**
-     * @var ConfigInterface
-     */
-    private $defaultConfig;
+    private ConfigInterface $defaultConfig;
 
-    /**
-     * @var ToolInfoInterface
-     */
-    private $toolInfo;
+    private ToolInfoInterface $toolInfo;
 
     public function __construct(ToolInfoInterface $toolInfo)
     {
         parent::__construct();
 
-        $this->defaultConfig = new Config();
-        $this->errorsManager = new ErrorsManager();
         $this->eventDispatcher = new EventDispatcher();
+        $this->errorsManager = new ErrorsManager();
         $this->stopwatch = new Stopwatch();
+        $this->defaultConfig = new Config();
         $this->toolInfo = $toolInfo;
     }
 
@@ -268,7 +253,6 @@ EOF
         if (null !== $stdErr) {
             if (OutputInterface::VERBOSITY_VERBOSE <= $verbosity) {
                 $stdErr->writeln($this->getApplication()->getLongVersion());
-                $stdErr->writeln(sprintf('Runtime: <info>PHP %s</info>', PHP_VERSION));
             }
 
             $configFile = $resolver->getConfigFile();

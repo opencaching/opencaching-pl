@@ -31,10 +31,8 @@ final class TokensAnalyzer
 {
     /**
      * Tokens collection instance.
-     *
-     * @var Tokens
      */
-    private $tokens;
+    private Tokens $tokens;
 
     /**
      * @var ?GotoLabelAnalyzer
@@ -47,7 +45,7 @@ final class TokensAnalyzer
     }
 
     /**
-     * Get indexes of methods and properties in classy code (classes, interfaces and traits).
+     * Get indices of methods and properties in classy code (classes, interfaces and traits).
      *
      * @return array[]
      */
@@ -68,7 +66,7 @@ final class TokensAnalyzer
     }
 
     /**
-     * Get indexes of namespace uses.
+     * Get indices of namespace uses.
      *
      * @param bool $perNamespace Return namespace uses per namespace
      *
@@ -280,10 +278,7 @@ final class TokensAnalyzer
      */
     public function isLambda(int $index): bool
     {
-        if (
-            !$this->tokens[$index]->isGivenKind(T_FUNCTION)
-            && (\PHP_VERSION_ID < 70400 || !$this->tokens[$index]->isGivenKind(T_FN))
-        ) {
+        if (!$this->tokens[$index]->isGivenKind([T_FUNCTION, T_FN])) {
             throw new \LogicException(sprintf('No T_FUNCTION or T_FN at given index %d, got "%s".', $index, $this->tokens[$index]->getName()));
         }
 
@@ -381,6 +376,11 @@ final class TokensAnalyzer
         }
 
         // check for non-capturing catches
+
+        while ($this->tokens[$prevIndex]->isGivenKind([CT::T_NAMESPACE_OPERATOR, T_NS_SEPARATOR, T_STRING, CT::T_TYPE_ALTERNATION])) {
+            $prevIndex = $this->tokens->getPrevMeaningfulToken($prevIndex);
+        }
+
         if ($this->tokens[$prevIndex]->equals('(')) {
             $prevPrevIndex = $this->tokens->getPrevMeaningfulToken($prevIndex);
 
@@ -558,12 +558,8 @@ final class TokensAnalyzer
                 T_XOR_EQUAL => true,            // ^=
                 T_SPACESHIP => true,            // <=>
                 T_COALESCE => true,             // ??
+                T_COALESCE_EQUAL => true,       // ??=
             ];
-
-            // @TODO: drop condition when PHP 7.4+ is required
-            if (\defined('T_COALESCE_EQUAL')) {
-                $arrayOperators[T_COALESCE_EQUAL] = true;  // ??=
-            }
         }
 
         $tokens = $this->tokens;
@@ -657,7 +653,7 @@ final class TokensAnalyzer
                 continue;
             }
 
-            if ($token->isClassy()) { // anonymous class in class
+            if ($token->isGivenKind(T_CLASS)) { // anonymous class in class
                 // check for nested anonymous classes inside the new call of an anonymous class,
                 // for example `new class(function (){new class(function (){new class(function (){}){};}){};}){};` etc.
                 // if class(XYZ) {} skip till `(` as XYZ might contain functions etc.
@@ -690,7 +686,7 @@ final class TokensAnalyzer
                             continue;
                         }
 
-                        if ($token->isClassy()) { // anonymous class in class
+                        if ($token->isGivenKind(T_CLASS)) { // anonymous class in class
                             [$index, $newElements] = $this->findClassyElements($index, $index);
                             $elements += $newElements;
                         }
@@ -762,6 +758,12 @@ final class TokensAnalyzer
                     'classIndex' => $classIndex,
                     'token' => $token,
                     'type' => 'trait_import',
+                ];
+            } elseif ($token->isGivenKind(T_CASE)) {
+                $elements[$index] = [
+                    'classIndex' => $classIndex,
+                    'token' => $token,
+                    'type' => 'case',
                 ];
             }
         }

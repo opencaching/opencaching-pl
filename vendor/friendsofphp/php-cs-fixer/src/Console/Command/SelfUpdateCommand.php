@@ -39,20 +39,11 @@ final class SelfUpdateCommand extends Command
      */
     protected static $defaultName = 'self-update';
 
-    /**
-     * @var NewVersionCheckerInterface
-     */
-    private $versionChecker;
+    private NewVersionCheckerInterface $versionChecker;
 
-    /**
-     * @var ToolInfoInterface
-     */
-    private $toolInfo;
+    private ToolInfoInterface $toolInfo;
 
-    /**
-     * @var PharCheckerInterface
-     */
-    private $pharChecker;
+    private PharCheckerInterface $pharChecker;
 
     public function __construct(
         NewVersionCheckerInterface $versionChecker,
@@ -100,7 +91,6 @@ EOT
         if (OutputInterface::VERBOSITY_VERBOSE <= $output->getVerbosity() && $output instanceof ConsoleOutputInterface) {
             $stdErr = $output->getErrorOutput();
             $stdErr->writeln($this->getApplication()->getLongVersion());
-            $stdErr->writeln(sprintf('Runtime: <info>PHP %s</info>', PHP_VERSION));
         }
 
         if (!$this->toolInfo->isInstalledAsPhar()) {

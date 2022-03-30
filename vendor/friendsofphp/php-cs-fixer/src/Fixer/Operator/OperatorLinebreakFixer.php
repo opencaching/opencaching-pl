@@ -38,15 +38,12 @@ final class OperatorLinebreakFixer extends AbstractFixer implements Configurable
 {
     private const BOOLEAN_OPERATORS = [[T_BOOLEAN_AND], [T_BOOLEAN_OR], [T_LOGICAL_AND], [T_LOGICAL_OR], [T_LOGICAL_XOR]];
 
-    /**
-     * @var string
-     */
-    private $position = 'beginning';
+    private string $position = 'beginning';
 
     /**
      * @var array<array<int|string>|string>
      */
-    private $operators = [];
+    private array $operators = [];
 
     /**
      * {@inheritdoc}
@@ -171,23 +168,23 @@ function foo() {
      */
     private function getExcludedIndices(Tokens $tokens): array
     {
-        $colonIndexes = [];
+        $colonIndices = [];
 
         foreach (ControlCaseStructuresAnalyzer::findControlStructures($tokens, [T_SWITCH]) as $analysis) {
             foreach ($analysis->getCases() as $case) {
-                $colonIndexes[] = $case->getColonIndex();
+                $colonIndices[] = $case->getColonIndex();
             }
 
             if ($analysis instanceof SwitchAnalysis) {
                 $defaultAnalysis = $analysis->getDefaultAnalysis();
 
                 if (null !== $defaultAnalysis) {
-                    $colonIndexes[] = $defaultAnalysis->getColonIndex();
+                    $colonIndices[] = $defaultAnalysis->getColonIndex();
                 }
             }
         }
 
-        return $colonIndexes;
+        return $colonIndices;
     }
 
     /**
