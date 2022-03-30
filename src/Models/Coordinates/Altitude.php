@@ -63,6 +63,7 @@ class Altitude
                 }
             }
         }
+
         return null;
     }
 
