@@ -2,52 +2,51 @@
 
 namespace src\Models\Coordinates;
 
+use Exception;
 use src\Models\OcConfig\OcConfig;
 use src\Utils\Debug\Debug;
-use Exception;
 use src\Utils\I18n\I18n;
 
 class GeoCode
 {
+    private ?string $countryCode = null;
 
-    private $countryCode = null;
-    private $countryName = null;
-    private $admCode = null;
-    private $admName = null;
+    private ?string $countryName = null;
 
-    //
-    private function __construct()
-    {}
+    private ?string $admCode = null;
+
+    private ?string $admName = null;
 
     /**
      * function provides information whether any geocode service is available or not
-     *
      */
-    public static function isGeocodeServiceAvailable() {
-        return !(empty(OcConfig::getMapKey('OpenRouteService')));
+    public static function isGeocodeServiceAvailable(): bool
+    {
+        return ! (empty(OcConfig::getMapKey('OpenRouteService')));
     }
 
     /**
-     *
+     * @return GeoCodeServiceResult[]|null
      * @throws Exception if there is some problem with fetching data from OpenRouteService
      */
-    public static function fromOpenRouteService($place)
+    public static function fromOpenRouteService($place): ?array
     {
         $ors_key = OcConfig::getMapKey('OpenRouteService');
 
         if (empty($ors_key)) {
-            Debug::errorLog("No api_key for OpenRouteService in configuration. Check /Config/map.default.php");
+            Debug::errorLog('No api_key for OpenRouteService in configuration. Check /Config/map.default.php');
+
             return null;
         }
 
         $input = urlencode($place);
-        $url = "https://api.openrouteservice.org/geocode/search?api_key=$ors_key&text=$input";
+        $url = "https://api.openrouteservice.org/geocode/search?api_key={$ors_key}&text={$input}";
         $data = @file_get_contents($url);
 
-        if (!$data) {
-            Debug::errorLog("Problem with fetching data from " . $url);
-            throw new Exception("Problem with fetching data from OpenRouteService");
-            return;
+        if (! $data) {
+            Debug::errorLog('Problem with fetching data from ' . $url);
+
+            throw new Exception('Problem with fetching data from OpenRouteService');
         }
 
         $resp = json_decode($data);
@@ -89,7 +88,7 @@ class GeoCode
                     $result->region = $feature->properties->region;
                 }
 
-                array_push($results, $result);
+                $results[] = $result;
             }
         }
 
@@ -99,45 +98,42 @@ class GeoCode
     /**
      * Reverse geocoder based on Google Geocoding API
      * @see https://developers.google.com/maps/documentation/geocoding/intro#ReverseGeocoding
-     *
-     * @param Coordinates $coords
-     * @return GeoCode|NULL
      */
-    public static function fromGoogleApi(Coordinates $coords)
+    public static function fromGoogleApi(Coordinates $coords): ?GeoCode
     {
-        global $googlemap_key; //TODO: refactor configs
-
+        $googleMapKey = OcConfig::instance()->getGoogleMapKey();
         $lat = $coords->getLatitude();
         $lon = $coords->getLongitude();
 
-        if(empty($googlemap_key)){
+        if (empty($googleMapKey)) {
             return null;
         }
 
         $language = I18n::getCurrentLang();
-        $url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$lon" .
-        "&key=$googlemap_key&language=$language&result_type=administrative_area_level_1";
+        $url = "https://maps.googleapis.com/maps/api/geocode/json?latlng={$lat},{$lon}"
+        . "&key={$googleMapKey}&language={$language}&result_type=administrative_area_level_1";
 
         $data = @file_get_contents($url);
         $resp = json_decode($data);
 
-        if($resp->status != 'OK'){
-            //error!
+        if ($resp->status != 'OK') {
+            return null;
         }
 
         $instance = new self();
 
-        // this JSON is a little bit complicated - find administrative_area_level_1 record
-        foreach($resp->results as $record){
-            if( in_array('administrative_area_level_1', $record->types) ){
-
+        // this JSON is a little complicated - find administrative_area_level_1 record
+        foreach ($resp->results as $record) {
+            if (in_array('administrative_area_level_1', $record->types)) {
                 $address = $record->address_components;
-                foreach($address as $level){
-                    if(in_array('administrative_area_level_1', $level->types) ){
+
+                foreach ($address as $level) {
+                    if (in_array('administrative_area_level_1', $level->types)) {
                         $instance->admCode = $level->short_name;
                         $instance->admName = $level->long_name;
                     }
-                    if(in_array('country', $level->types) ){
+
+                    if (in_array('country', $level->types)) {
                         $instance->countryCode = $level->short_name;
                         $instance->countryName = $level->long_name;
                     }
@@ -146,37 +142,40 @@ class GeoCode
         }
 
         return $instance;
-
     }
 
     /**
      * Reverse geocoding based on MapQuest service
      * @see https://developer.mapquest.com/documentation/geocoding-api/ for details
-     * @param Coordinates $coords
      * @return GeoCode|null - result object or NULL
      */
-    public static function fromMapQuestApi(Coordinates $coords)
+    public static function fromMapQuestApi(Coordinates $coords): ?GeoCode
     {
-        global $config;
-        $key = $config['maps']['mapQuestKey'];
+        $key = OcConfig::instance()->getMapQuestKey();
 
-        if(empty($key)){
+        if (empty($key)) {
             return null;
         }
 
         $lat = $coords->getLatitude();
         $lon = $coords->getLongitude();
 
-        $url="https://www.mapquestapi.com/geocoding/v1/reverse?key=$key".
-        "&location=$lat%2C$lon&outFormat=json&thumbMaps=false";
+        $url = "https://www.mapquestapi.com/geocoding/v1/reverse?key={$key}"
+        . "&location={$lat}%2C{$lon}&outFormat=json&thumbMaps=false";
 
         $data = @file_get_contents($url);
         $resp = json_decode($data);
 
+        if (is_null($resp) || ! isset($resp->results)) {
+            return null;
+        }
+
         $instance = new self();
-        if(is_array($resp->results) && !empty($resp->results)){
+
+        if (is_array($resp->results) && ! empty($resp->results)) {
             $data = $resp->results[0];
-            if(is_array($data->locations) && !empty($data->locations)){
+
+            if (is_array($data->locations) && ! empty($data->locations)) {
                 $data = $data->locations[0];
                 $instance->countryCode = $data->adminArea1;
                 $instance->admCode = $data->adminArea3;
@@ -189,44 +188,40 @@ class GeoCode
         return $instance;
     }
 
-    public function getCountryCode(){
+    public function getCountryCode(): ?string
+    {
         return $this->countryCode;
     }
 
-    public function getCountryName(){
+    public function getCountryName(): ?string
+    {
         return $this->countryName;
     }
 
-    public function getAdmCode(){
+    public function getAdmCode(): ?string
+    {
         return $this->admCode;
     }
 
-    public function getAdmName(){
+    public function getAdmName(): ?string
+    {
         return $this->admName;
     }
 
-    public function getDescription($separator='-'){
-        if($this->countryName){
+    public function getDescription($separator = '-'): string
+    {
+        if ($this->countryName) {
             $country = $this->countryName;
-        }else{
+        } else {
             $country = '?';
         }
 
-        if($this->admName){
+        if ($this->admName) {
             $adm = $this->admName;
-        }else{
+        } else {
             $adm = '?';
         }
 
-        return $country.$separator.$adm;
-
+        return $country . $separator . $adm;
     }
-}
-
-class GeoCodeServiceResult {
-    public $name;
-    public $layer;
-    public $countryCode;
-    public $region;
-    public $bbox;
 }
