@@ -68,28 +68,28 @@ final class OcConfig extends ConfigReader
     private string $dbName;
 
     /** Configuration for src\Utils\Lock objects from /config/lock.* files. */
-    private array $lockConfig;
+    private ?array $lockConfig = null;
 
     /** Watchlist configuration from /config/watchlist.* files. */
-    private array $watchlistConfig;
+    private ?array $watchlistConfig = null;
 
     /** Cache log filter configuration from /config/logfilter.* files. */
-    private array $logFilterConfig;
+    private ?array $logFilterConfig = null;
 
     /** News configuration from /config/news.* files. */
-    private array $newsConfig;
+    private ?array $newsConfig = null;
 
     /** Guides configuration from /config/guides.* files. */
-    private array $guidesConfig;
+    private ?array $guidesConfig = null;
 
     /** Configuration from /config/banner.* files. */
-    private array $topBannerVideo;
+    private ?array $topBannerVideo = null;
 
     /** Configuration from /config/banner.* files. */
-    private array $topBannerTxt;
+    private ?array $topBannerTxt = null;
 
     /** Cronjob configuration from /config/cronjobs.* files. */
-    private array $cronjobsConfig;
+    private ?array $cronjobsConfig = null;
 
     /**
      * Private constructor so nobody else can instantiate it.
