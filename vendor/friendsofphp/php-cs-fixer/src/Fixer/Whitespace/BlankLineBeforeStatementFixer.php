@@ -34,15 +34,13 @@ use PhpCsFixer\Tokenizer\TokensAnalyzer;
  */
 final class BlankLineBeforeStatementFixer extends AbstractFixer implements ConfigurableFixerInterface, WhitespacesAwareFixerInterface
 {
-    /**
-     * @var array
-     */
-    private static $tokenMap = [
+    private static array $tokenMap = [
         'break' => T_BREAK,
         'case' => T_CASE,
         'continue' => T_CONTINUE,
         'declare' => T_DECLARE,
         'default' => T_DEFAULT,
+        'phpdoc' => T_DOC_COMMENT,
         'do' => T_DO,
         'exit' => T_EXIT,
         'for' => T_FOR,
@@ -62,10 +60,7 @@ final class BlankLineBeforeStatementFixer extends AbstractFixer implements Confi
         'yield_from' => T_YIELD_FROM,
     ];
 
-    /**
-     * @var array
-     */
-    private $fixTokenMap = [];
+    private array $fixTokenMap = [];
 
     /**
      * {@inheritdoc}
