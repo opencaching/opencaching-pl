@@ -1,16 +1,16 @@
-<?php
+<?php /** @noinspection DuplicatedCode */
 
 use okapi\core\Exception\BadRequest;
 use okapi\Facade;
 use src\Models\ApplicationContainer;
 use src\Models\GeoCache\CacheNote;
 use src\Models\GeoCache\GeoCache;
+use src\Models\OcConfig\OcConfig;
 use src\Utils\Database\OcDb;
 use src\Utils\Database\XDb;
 use src\Utils\I18n\I18n;
 use src\Utils\Log\CacheAccessLog;
 use src\Utils\Text\Formatter;
-use src\Utils\View\View;
 
 require_once(__DIR__.'/lib/common.inc.php');
 require_once(__DIR__.'/lib/export.inc.php');
@@ -20,7 +20,6 @@ require_once(__DIR__.'/src/Views/lib/icons.inc.php');
 
 global $content, $bUseZip, $config;
 global $cache_attrib_jsarray_line, $cache_attrib_img_line;
-global $googlemap_key;
 
 $database = OcDb::instance();
 
@@ -34,12 +33,14 @@ if (!$loggedUser) {
     exit;
 }
 
-$tplname = 'myroutes_search';
 $user_id = $loggedUser->getUserId();
 
 if (isset($_REQUEST['routeid'])) {
     $route_id = $_REQUEST['routeid'];
+} else {
+    exit('Error: No routeID');
 }
+
 if (isset($_POST['routeid'])) {
     $route_id = $_POST['routeid'];
 }
@@ -48,18 +49,19 @@ if (isset($_POST['distance'])) {
     $distance = $_POST['distance'];
 }
 
-/** @var View $view */
+$googleMapKey = OcConfig::instance()->getGoogleMapKey();
 $view = tpl_getView();
-$view->addLocalJs(
-    'https://maps.googleapis.com/maps/api/js?libraries=geometry&amp;key='.$googlemap_key.
+$view->setTemplate('myroutes_search')
+    ->addLocalJs(
+    'https://maps.googleapis.com/maps/api/js?libraries=geometry&amp;key='.$googleMapKey.
     '&amp;language='.I18n::getCurrentLang());
 
 $s = $database->paramQuery(
     'SELECT `user_id`,`name`, `description`, `radius`, `options` FROM `routes`
         WHERE `route_id`=:route_id AND `user_id`=:user_id
         LIMIT 1',
-    array('user_id' => array('value' => $user_id, 'data_type' => 'integer'),
-        'route_id' => array('value' => $route_id, 'data_type' => 'integer'))
+    ['user_id' => ['value' => $user_id, 'data_type' => 'integer'],
+        'route_id' => ['value' => $route_id, 'data_type' => 'integer']]
 );
 $record = $database->dbResultFetchOneRowOnly($s);
 $distance = $record['radius'];
@@ -103,7 +105,7 @@ if (isset($_POST['cache_attribs'])) {
 if (isset($_POST['submit']) || isset($_POST['submit_map'])) {
 
     $options['f_userowner'] = $_POST['f_userowner'] ?? '';
-    $options['f_userfound'] = $_POST['f_userfound'] ?? '';
+    $options['f_userfound'] = $_POST['f_ userfound'] ?? '';
     $options['f_inactive'] = $_POST['f_inactive'] ?? '';
     $options['f_ignored'] = $_POST['f_ignored'] ?? '';
 
@@ -218,7 +220,7 @@ while ($record = $database->dbResultFetch($s)) {
         $attributes_jsarray .= ",\n";
     $attributes_jsarray .= $line;
 
-    $line = attr_image($cache_attrib_img_line, $options, $record['id'], $record['text_long'], $record['icon_large'], $record['icon_no'], $record['icon_undef'], $record['category']);
+    $line = attr_image($cache_attrib_img_line, $options, $record['id'], $record['text_long'], $record['icon_large'], $record['icon_no'], $record['icon_undef']);
 
 
     if ($record['category'] != 1)
@@ -230,7 +232,7 @@ while ($record = $database->dbResultFetch($s)) {
 $line = attr_jsline($cache_attrib_jsarray_line, $options, "999", tr("with_password"), $config['search-attr-icons']['password'][0], $config['search-attr-icons']['password'][1], $config['search-attr-icons']['password'][2], 0);
 $attributes_jsarray .= ",\n".$line;
 
-$line = attr_image($cache_attrib_img_line, $options, "999", tr("with_password"), $config['search-attr-icons']['password'][0], $config['search-attr-icons']['password'][1], $config['search-attr-icons']['password'][2], 0);
+$line = attr_image($cache_attrib_img_line, $options, "999", tr("with_password"), $config['search-attr-icons']['password'][0], $config['search-attr-icons']['password'][1], $config['search-attr-icons']['password'][2]);
 $attributes_img .= $line;
 
 tpl_set_var('cache_attrib_list', $attributes_img);
@@ -467,7 +469,7 @@ if (!isset($options['cachevote_1']) && !isset($options['cachevote_2'])) {
 }
 if ((($options['cachevote_1'] != '') && ($options['cachevote_2'] != '')) && (($options['cachevote_1'] != '0') || ($options['cachevote_2'] != '6')) && ((!isset($options['cachenovote'])) || ($options['cachenovote'] != '1'))) {
     $q_where[] = '`caches`.`score` BETWEEN \''.XDb::xEscape($options['cachevote_1']).'\' AND \''.XDb::xEscape($options['cachevote_2']).'\' AND `caches`.`votes` > 3';
-} else if (($options['cachevote_1'] != '') && ($options['cachevote_2'] != '') && (($options['cachevote_1'] != '0') || ($options['cachevote_2'] != '6')) && isset($options['cachenovote']) && ($options['cachenovote'] == '1')) {
+} elseif (($options['cachevote_1'] != '') && ($options['cachevote_2'] != '') && (($options['cachevote_1'] != '0') || ($options['cachevote_2'] != '6')) && isset($options['cachenovote']) && ($options['cachenovote'] == '1')) {
     $q_where[] = '((`caches`.`score` BETWEEN \''.XDb::xEscape($options['cachevote_1']).'\' AND \''.XDb::xEscape($options['cachevote_2']).'\' AND `caches`.`votes` > 3) OR (`caches`.`votes` < 4))';
 }
 
@@ -554,7 +556,7 @@ if (isset($_POST['submit']) || isset($_POST['submit_map'])) {
     // second, using IN operator with dynamic list is pain in the ass :( - unless we have better
     // database wrapper to handle that automatically
     $s = $database->simpleQuery(
-        "SELECT (".getSqlDistanceFormula($lon, $lat, 0, 1).") `distance`,
+        "SELECT (".getSqlDistanceFormula($lon, $lat, 0).") `distance`,
             `caches`.`cache_id` `cacheid`,
             `user`.`user_id` `userid`,
             `caches`.`type` `type`,
@@ -607,8 +609,8 @@ if (isset($_POST['submit']) || isset($_POST['submit_map'])) {
                 $file_content .= '<td style="width: 22px;">&nbsp;&nbsp;</td>';
             }
             $file_content .= '<td width="22">&nbsp;<img src="/images/'.$r['icon_small'].'" border="0" alt=""/></td>';
-            $file_content .= '<td><b><a class="links" href="viewcache.php?cacheid='.htmlspecialchars($r['cacheid'], ENT_COMPAT, 'UTF-8').'" target="_blank" >'.htmlspecialchars($r['cachename'], ENT_COMPAT, 'UTF-8').'</a></b></td>';
-            $file_content .= '<td width="32"><b><a class="links" href="viewprofile.php?userid='.htmlspecialchars($r['userid'], ENT_COMPAT, 'UTF-8').'"  target="_blank">'.htmlspecialchars($r['username'], ENT_COMPAT, 'UTF-8').'</a></b></td>';
+            $file_content .= '<td><b><a class="links" href="viewcache.php?cacheid='.htmlspecialchars($r['cacheid'], ENT_COMPAT).'" target="_blank" >'.htmlspecialchars($r['cachename'], ENT_COMPAT).'</a></b></td>';
+            $file_content .= '<td width="32"><b><a class="links" href="viewprofile.php?userid='.htmlspecialchars($r['userid'], ENT_COMPAT).'"  target="_blank">'.htmlspecialchars($r['username'], ENT_COMPAT).'</a></b></td>';
 
             $rs = $database_inner->multiVariableQuery(
                 'SELECT cache_logs.id AS id, cache_logs.cache_id AS cache_id,
@@ -630,14 +632,14 @@ if (isset($_POST['submit']) || isset($_POST['submit_map'])) {
 
             if ($r_log = $database_inner->dbResultFetchOneRowOnly($rs)) {
 
-                $file_content .= '<td style="width: 80px;">'.htmlspecialchars(Formatter::date($r_log['log_date']), ENT_COMPAT, 'UTF-8').'</td>';
-                $file_content .= '<td width="22"><b><a class="links" href="viewlogs.php?logid='.htmlspecialchars($r_log['id'], ENT_COMPAT, 'UTF-8').'" onmouseover="Tip(\'';
+                $file_content .= '<td style="width: 80px;">'.htmlspecialchars(Formatter::date($r_log['log_date']), ENT_COMPAT).'</td>';
+                $file_content .= '<td width="22"><b><a class="links" href="viewlogs.php?logid='.htmlspecialchars($r_log['id'], ENT_COMPAT).'" onmouseover="Tip(\'';
                 $file_content .= '<b>'.$r_log['user_name'].'</b>:<br>';
                 $data = cleanup_text2(str_replace("\r\n", " ", $r_log['log_text']));
                 $data = str_replace("\n", " ", $data);
                 $file_content .= $data;
-                $file_content .= '\',OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()" target="_blank"><img src="/images/'.$r_log['icon_small'].'" border="0" alt=""/></a></b></td>';
-                $file_content .= '<td>&nbsp;&nbsp;<b><a class="links" href="viewprofile.php?userid='.htmlspecialchars($r_log['user_id'], ENT_COMPAT, 'UTF-8').'" target="_blank">'.htmlspecialchars($r_log['user_name'], ENT_COMPAT, 'UTF-8').'</a></b></td>';
+                $file_content .= '\',OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()" target="_blank"><img src="/images/'.$r_log['icon_small'].'" alt=""></a></b></td>';
+                $file_content .= '<td>&nbsp;&nbsp;<b><a class="links" href="viewprofile.php?userid='.htmlspecialchars($r_log['user_id'], ENT_COMPAT).'" target="_blank">'.htmlspecialchars($r_log['user_name'], ENT_COMPAT).'</a></b></td>';
             }
 
             $file_content .= "</tr>";
@@ -725,7 +727,7 @@ if (isset($_POST['submit_gpx_with_photos'])) {
         } catch (BadRequest $e) {
             # In case of bad requests, simply output OKAPI's error response.
             # In case of other, internal errors, don't catch the error. This
-            # will cause OKAPI's default error hangler to kick in (so the admins
+            # will cause OKAPI's default error handler to kick in (so the admins
             # will get informed).
 
             header('Content-Type: text/plain');
@@ -776,7 +778,7 @@ if (isset($_POST['submit_gpx'])) {
     // cleanup (old gpxcontent lingers if gpx-download is cancelled by user)
     XDb::xSql('DROP TEMPORARY TABLE IF EXISTS `gpxcontent`');
 
-    // temporäre tabelle erstellen
+    // create temporary table
     XDb::xSql('CREATE TEMPORARY TABLE `gpxcontent` '.$q);
 
     $rsCount = XDb::xSql('SELECT COUNT(*) `count` FROM `gpxcontent`');
@@ -786,7 +788,7 @@ if (isset($_POST['submit_gpx'])) {
     $bUseZip = ($rCount['count'] > 50);
     $bUseZip = $bUseZip || (isset($_REQUEST['zip']) && ($_REQUEST['zip'] == '1'));
     $bUseZip = false;
-    if ($bUseZip == true) {
+    if ($bUseZip) {
         $content = '';
         require_once(__DIR__.'/src/Libs/PhpZip/ss_zip.class.php');
         $phpzip = new ss_zip('', 6);
@@ -865,7 +867,7 @@ if (isset($_POST['submit_gpx'])) {
         else
             $thisline = str_replace('{hints}', cleanup_text($r['hint']), $thisline);
 
-        $logpw = ($r['logpw'] == "" ? "" : "".cleanup_text(tr('search_gpxgc_01'))." <br />");
+        $logpw = ($r['logpw'] == "" ? "" : "".cleanup_text(tr('search_gpxgc_01'))." <br>");
 
         $thisline = str_replace('{shortdesc}', cleanup_text($r['short_desc']), $thisline);
         $thisline = str_replace('{desc}', cleanup_text($logpw.$r['desc']), $thisline);
@@ -875,12 +877,11 @@ if (isset($_POST['submit_gpx'])) {
         if (!empty($cacheNote)) {
 
             $thisline = str_replace('{personal_cache_note}',
-                cleanup_text("<br/><br/>-- ".cleanup_text(tr('search_gpxgc_02')).
-                    ": -- <br/> ".$cacheNote."<br/>"), $thisline);
+                cleanup_text("<br><br>-- ".cleanup_text(tr('search_gpxgc_02')).
+                    ": -- <br> ".$cacheNote."<br>"), $thisline);
         } else {
             $thisline = str_replace('{personal_cache_note}', "", $thisline);
         }
-
 
         // attributes
         $rsAttributes = XDb::xSql(
@@ -969,9 +970,9 @@ if (isset($_POST['submit_gpx'])) {
         if ($r['rr_comment'] == '')
             $thisline = str_replace('{rr_comment}', '', $thisline);
         else
-            $thisline = str_replace('{rr_comment}', cleanup_text("<br /><br />--------<br />".$r['rr_comment']."<br />"), $thisline);
+            $thisline = str_replace('{rr_comment}', cleanup_text("<br><br>--------<br>".$r['rr_comment']."<br>"), $thisline);
 
-        $thisline = str_replace('{images}', getPictures($r['cacheid'], false, $r['picturescount']), $thisline);
+        $thisline = str_replace('{images}', getPictures($r['cacheid']), $thisline);
 
         if (isset($gpxType[$r['type']]))
             $thisline = str_replace('{type}', $gpxType[$r['type']], $thisline);
@@ -1033,10 +1034,7 @@ if (isset($_POST['submit_gpx'])) {
 
             $thislog = str_replace('{id}', $rLog['id'], $thislog);
             $thislog = str_replace('{date}', date($gpxTimeFormat, strtotime($rLog['date'])), $thislog);
-            if (isset($gpxLogType[$rLog['type']]))
-                $logtype = $gpxLogType[$rLog['type']];
-            else
-                $logtype = $gpxLogType[0];
+            $logtype = $gpxLogType[$rLog['type']] ?? $gpxLogType[0];
             if ($logtype == 'OC Team Comment') {
                 $rLog['username'] = xmlentities(convert_string(tr('cog_user_name')));
                 $rLog['userid'] = '0';
@@ -1132,12 +1130,11 @@ if (isset($_POST['submit_gpx'])) {
         header("content-type: application/zip");
         header('Content-Disposition: attachment; filename='.$sFilebasename.'.zip');
         echo $out;
-        ob_end_flush();
     } else {
         header("Content-type: application/gpx");
         header("Content-Disposition: attachment; filename=".$sFilebasename.".gpx");
-        ob_end_flush();
     }
+    ob_end_flush();
 
     exit();
 } // END GPX output
@@ -1151,8 +1148,8 @@ function attr_jsline($tpl, $options, $id, $textlong, $iconlarge, $iconno, $iconu
 
     $line = mb_ereg_replace('{id}', $id, $line);
 
-    if (array_search($id, $options['cache_attribs']) === false) {
-        if (array_search($id, $options['cache_attribs_not']) === false)
+    if (!in_array($id, $options['cache_attribs'])) {
+        if (!in_array($id, $options['cache_attribs_not']))
             $line = mb_ereg_replace('{state}', 0, $line);
         else
             $line = mb_ereg_replace('{state}', 2, $line);
@@ -1163,20 +1160,18 @@ function attr_jsline($tpl, $options, $id, $textlong, $iconlarge, $iconno, $iconu
     $line = mb_ereg_replace('{icon}', $iconlarge, $line);
     $line = mb_ereg_replace('{icon_no}', $iconno, $line);
     $line = mb_ereg_replace('{icon_undef}', $iconundef, $line);
-    $line = mb_ereg_replace('{category}', $category, $line);
-
-    return $line;
+    return mb_ereg_replace('{category}', $category, $line);
 }
 
-function attr_image($tpl, $options, $id, $textlong, $iconlarge, $iconno, $iconundef, $category)
+function attr_image($tpl, $options, $id, $textlong, $iconlarge, $iconno, $iconundef)
 {
     $line = $tpl;
 
     $line = mb_ereg_replace('{id}', $id, $line);
     $line = mb_ereg_replace('{text_long}', $textlong, $line);
 
-    if (array_search($id, $options['cache_attribs']) === false) {
-        if (array_search($id, $options['cache_attribs_not']) === false)
+    if (!in_array($id, $options['cache_attribs'])) {
+        if (!in_array($id, $options['cache_attribs_not']))
             $line = mb_ereg_replace('{icon}', $iconundef, $line);
         else
             $line = mb_ereg_replace('{icon}', $iconno, $line);
@@ -1188,7 +1183,7 @@ function attr_image($tpl, $options, $id, $textlong, $iconlarge, $iconno, $iconun
 //*************************************************************************
 // Find all the caches that appear with $distance from each point in the defined $route_id.
 //*************************************************************************
-function caches_along_route($route_id, $distance)
+function caches_along_route($route_id, $distance): array
 {
 
     $initial_cache_list = [];
@@ -1289,7 +1284,7 @@ function set_route_options($route_id, $options)
 }
 
 // end of function
-function getPictures($cacheid, $picturescount)
+function getPictures($cacheid): string
 {
     $database = OcDb::instance();
     $s = $database->multiVariableQuery(
@@ -1320,9 +1315,9 @@ function cleanup_text2($str)
     $to[] = "";
     $from[] = '<br>';
     $to[] = "";
-    $from[] = '<br />';
+    $from[] = '<br>';
     $to[] = "";
-    $from[] = '<br/>';
+    $from[] = '<br>';
     $to[] = "";
 
     $from[] = '<li>';
@@ -1358,9 +1353,7 @@ function cleanup_text2($str)
 
     for ($i = 0; $i < count($from); $i++)
         $str = str_replace($from[$i], $to[$i], $str);
-    $str = mb_ereg_replace('/[[:cntrl:]]/', '', $str);
-
-    return $str;
+    return mb_ereg_replace('/[[:cntrl:]]/', '', $str);
 }
 
 /**
