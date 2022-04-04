@@ -52,7 +52,7 @@ class GeoKretyLogController extends BaseController
      * Process GK queue - this is an entry point to this controller
      * @param $runFrom - path to script which call GK processing
      */
-    public function runQueueProcessing($runFrom)
+    public function runQueueProcessing(string $runFrom)
     {
         if (! $this->tryLock()) {
             $this->debug("Fatal error: Can't lock queue processing! Another instance is running?!");
@@ -77,7 +77,7 @@ class GeoKretyLogController extends BaseController
             foreach ($geoKretyLogs as $gkl) {
                 $responseData = $this->sendLog($gkl);
 
-                if ($responseData === false) {
+                if (is_null($responseData)) {
                     // connection error!
                     $this->debug("Can't connect to GK API - give up for now!");
                     $this->updateDbQueue($idsToRemove, $idsToUpdate);
@@ -178,7 +178,7 @@ class GeoKretyLogController extends BaseController
     /**
      * check if this error is about log duplication
      */
-    private function isItDuplicatedLogError($msg): bool
+    private function isItDuplicatedLogError(string $msg): bool
     {
         return $msg == 'There is an entry with this date. Correct the date or the hour.';
     }
@@ -187,9 +187,9 @@ class GeoKretyLogController extends BaseController
      * Send GK log request to GK API.
      * Try 5 times and then give up.
      *
-     * @return string
+     * @return string|null - response from GK API or null on connect error
      */
-    private function sendLog(GeoKretLog $geoKretyLog)
+    private function sendLog(GeoKretLog $geoKretyLog): ?string
     {
         $tries = 0;
 
@@ -213,7 +213,7 @@ class GeoKretyLogController extends BaseController
             // can't connect - try again...
         }
 
-        return false;
+        return null;
     }
 
     private function tryLock(): bool
