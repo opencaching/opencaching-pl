@@ -2,6 +2,7 @@
 
 namespace src\Controllers;
 
+use Exception;
 use src\Models\GeoKret\GeoKretLog;
 use src\Models\GeoKret\GeoKretyApi;
 use src\Utils\Debug\Debug;
@@ -16,11 +17,11 @@ class GeoKretyLogController extends BaseController
 
     private $lockFile;
 
-    private $lockFileName;
+    private string $lockFileName;
 
-    private $lockAqquired = false;
+    private bool $lockAcquired = false;
 
-    private $printDebugMsgs = false;
+    private bool $printDebugMsgs = false;
 
     public function __construct()
     {
@@ -30,7 +31,7 @@ class GeoKretyLogController extends BaseController
 
     public function __destruct()
     {
-        if ($this->lockAqquired) {
+        if ($this->lockAcquired) {
             $this->unlock();
         }
     }
@@ -51,7 +52,7 @@ class GeoKretyLogController extends BaseController
      * Process GK queue - this is an entry point to this controller
      * @param $runFrom - path to script which call GK processing
      */
-    public function runQueueProcessing($runFrom)
+    public function runQueueProcessing(string $runFrom)
     {
         if (! $this->tryLock()) {
             $this->debug("Fatal error: Can't lock queue processing! Another instance is running?!");
@@ -60,13 +61,13 @@ class GeoKretyLogController extends BaseController
             return;
         }
 
-        $this->lockAqquired = true;
+        $this->lockAcquired = true;
         $this->debug('Lock has been acquired.');
 
         $logsProcessed = 0;
         $queueLen = GeoKretLog::GetDbQueueLength();
 
-        $this->debug(" GK logs in queue: {$queueLen}");
+        $this->debug("GK logs in queue: {$queueLen}");
 
         while ($logsProcessed < $queueLen
             && 0 < count($geoKretyLogs = GeoKretLog::GetLast50LogsFromDb())) {
@@ -76,7 +77,7 @@ class GeoKretyLogController extends BaseController
             foreach ($geoKretyLogs as $gkl) {
                 $responseData = $this->sendLog($gkl);
 
-                if ($responseData === false) {
+                if (is_null($responseData)) {
                     // connection error!
                     $this->debug("Can't connect to GK API - give up for now!");
                     $this->updateDbQueue($idsToRemove, $idsToUpdate);
@@ -108,7 +109,7 @@ class GeoKretyLogController extends BaseController
         GeoKretLog::UpdateLastTryForIds($idsToUpdate);
     }
 
-    private function buildPostParams(GeoKretLog $geoKretyLog)
+    private function buildPostParams(GeoKretLog $geoKretyLog): array
     {
         return [
             'secid' => $geoKretyLog->getUser()->getGeokretyApiSecid(),
@@ -129,19 +130,22 @@ class GeoKretyLogController extends BaseController
     }
 
     /**
-     * @param unknown $responseData
-     * @param GeoKretLog $geoKretyLog
-     *
-     * @return true if log is accepted by GK API
+     * return true if log was accepted by GK API
      */
-    private function isResponseOK($responseData, GeoKretLog $gkLog)
+    private function isResponseOK(string $responseData, GeoKretLog $gkLog): bool
     {
         $gkLogDesc = $gkLog->getDescription();
 
         // geoKrety returns invalid xml - fix it.
         $responseData = str_replace('<head/>', '', $responseData);
 
-        $responseXML = simplexml_load_string($responseData);
+        try {
+            $responseXML = simplexml_load_string($responseData);
+        } catch (Exception $e) {
+            $this->debug($gkLogDesc . 'ERROR: Incorrect XML in response from GK API!');
+
+            return false;
+        }
 
         if (! $responseXML) {
             $this->debug($gkLogDesc . 'ERROR: Empty response from GK API XML!');
@@ -174,7 +178,7 @@ class GeoKretyLogController extends BaseController
     /**
      * check if this error is about log duplication
      */
-    private function isItDuplicatedLogError($msg)
+    private function isItDuplicatedLogError(string $msg): bool
     {
         return $msg == 'There is an entry with this date. Correct the date or the hour.';
     }
@@ -183,9 +187,9 @@ class GeoKretyLogController extends BaseController
      * Send GK log request to GK API.
      * Try 5 times and then give up.
      *
-     * @return string
+     * @return string|null - response from GK API or null on connect error
      */
-    private function sendLog(GeoKretLog $geoKretyLog)
+    private function sendLog(GeoKretLog $geoKretyLog): ?string
     {
         $tries = 0;
 
@@ -209,10 +213,10 @@ class GeoKretyLogController extends BaseController
             // can't connect - try again...
         }
 
-        return false;
+        return null;
     }
 
-    private function tryLock()
+    private function tryLock(): bool
     {
         $this->lockFile = fopen($this->lockFileName, 'w');
 
@@ -225,7 +229,7 @@ class GeoKretyLogController extends BaseController
         fclose($this->lockFile);
     }
 
-    private function debug($msg)
+    private function debug(string $msg)
     {
         if ($this->printDebugMsgs) {
             echo $msg . "<br/>\n";
