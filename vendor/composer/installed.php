@@ -5,7 +5,7 @@
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'af14fa7a188652102fd3944258b2b3ee68ad69ce',
+        'reference' => 'a220537ea4a6443509efa79db721feb191a83cd2',
         'name' => 'opencaching/opencaching.pl',
         'dev' => true,
     ),
@@ -65,12 +65,12 @@
             'dev_requirement' => false,
         ),
         'ezyang/htmlpurifier' => array(
-            'pretty_version' => 'v4.13.0',
-            'version' => '4.13.0.0',
+            'pretty_version' => 'v4.14.0',
+            'version' => '4.14.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../ezyang/htmlpurifier',
             'aliases' => array(),
-            'reference' => '08e27c97e4c6ed02f37c5b2b20488046c8d90d75',
+            'reference' => '12ab42bd6e742c70c0a52f7b82477fcd44e64b75',
             'dev_requirement' => false,
         ),
         'friendsofphp/php-cs-fixer' => array(
@@ -106,7 +106,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'af14fa7a188652102fd3944258b2b3ee68ad69ce',
+            'reference' => 'a220537ea4a6443509efa79db721feb191a83cd2',
             'dev_requirement' => false,
         ),
         'php-cs-fixer/diff' => array(
