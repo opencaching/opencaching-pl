@@ -182,6 +182,8 @@ class GeoCacheApprovalAdminApiController extends ApiBaseController
                     $wrappedLocked
                 );
             }
+
+            Lock::unlock($lockHandle);
         }
 
         if ($cacheAssigned) {
