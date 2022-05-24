@@ -1339,3 +1339,7 @@ tr.geoKretLog {
 .float-right {
     float: right;
 }
+
+.hidden {
+    display: none;
+}

@@ -23,7 +23,7 @@ use src\Controllers\Admin\CacheSetAdminController;
 
 $menu = [
     'mnu_reports' => '/admin_reports.php', // counters added in MainLayoutCtrl
-    'mnu_pendings' => '/viewpendings.php', // counters added in MainLayoutCtrl
+    'mnu_pendings' => SimpleRouter::getLink('Admin.GeoCacheApprovalAdmin'), // counters added in MainLayoutCtrl
     'mnu_octeamStats' => '/articles.php?page=cog',
     'mnu_notFoundCaches' => '/admin_cachenotfound.php',
     'mnu_searchUser' => SimpleRouter::getLink('Admin.UserAdmin','search'),

@@ -244,15 +244,19 @@ class MainLayoutController extends BaseController
 
                 break;
             case 'mnu_pendings':
-                $new_pendings = GeoCacheApproval::getWaitingForApprovalCount();
+                $newPendings = GeoCacheApproval::getWaitingForApprovalCount();
 
-                if ($new_pendings > 0) {
-                    $in_review_count = GeoCacheApproval::getInReviewCount();
-                    $waitingForAssigne = $new_pendings - $in_review_count;
-                    $key = tr($key) . " ({$waitingForAssigne}/{$new_pendings})";
-                } else {
-                    $key = tr($key);
-                }
+                $inReviewCount = GeoCacheApproval::getInReviewCount();
+                $waitingForAssigne = $newPendings - $inReviewCount;
+                $key
+                    = tr($key)
+                    . '<span id="adminMenu_newPendingsStats" class="'
+                    . ($newPendings == 0 ? 'hidden' : '')
+                    . '"> (<span id="adminMenu_waitingForAssignee">'
+                    . $waitingForAssigne
+                    . '</span>/<span id="adminMenu_newPendings">'
+                    . $newPendings
+                    . '</span>)</span>';
                 break;
             default:
                 $key = tr($key); // by default menu key is just a translation
