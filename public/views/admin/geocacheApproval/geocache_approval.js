@@ -1,25 +1,4 @@
 /**
- * Use this function as jsRender initializer. It will:
- * - detect if jsRender is integrated with jQuery,
- * - change delimiters from '{{', '}}' to '<%', '%>'
- *
- * Example: instead of $.templates or windows.jsrender.templates, use jsr().templates
- * TODO: move this to a chunk made specifically for jsRender and loaded after jQuery.
- */
-function jsr() {
-    var result = null;
-    if (typeof $.templates !== "undefined") {
-        result = $;
-    } else {
-        result = window.jsrender;
-    }
-    if (result) {
-        result.views.settings.delimiters("<%", "%>");
-    }
-    return result;
-}
-
-/**
  * Removes html tags from given input string
  */
 function strip_tags(input) {
@@ -69,7 +48,7 @@ function fillRowWithData(row, rowData, bgClass) {
     row.attr("cache_id", rowData['cache_id']);
     row.find("td").addClass(bgClass);
     row.find(".geocacheApproval-cacheName")
-        .attr("href", "viewcache.php?cacheid=" + rowData['cache_id'])
+        .attr("href", viewCacheLink + "?cacheid=" + rowData['cache_id'])
         .text(getNonEmptyCacheName(rowData["cachename"]));
     row.find(".geocacheApproval-userName")
         .attr("href", "viewprofile.php?userid=" + rowData['user_id'])
@@ -117,12 +96,14 @@ function rejectCache(element) {
 function showApiError(jqXHR, textStatus, errorThrown) {
     console.log(textStatus);
     console.log(errorThrown);
-    var tmpl = jsr().templates("#geocacheApproval_generalErrorTemplate");
+    var tmpl = Handlebars.compile(
+        $("#geocacheApproval_generalErrorTemplate").html()
+    );
     var templateData = {
         error_thrown: errorThrown,
         text_status: textStatus
     };
-    $("#geocacheApproval_info").html(tmpl.render(templateData));
+    $("#geocacheApproval_info").html(tmpl(templateData));
 }
 
 /**
@@ -155,19 +136,21 @@ function cacheAction(element, actionType) {
     $.get("/Admin.GeoCacheApprovalAdminApi/" + params.action + "/" + cacheId)
     .done(function(result) {
         if ("status" in result && result["status"] === "OK") {
-            var tmpl = jsr().templates(
-                "#geocacheApproval_" + params.successTpl + "Template"
+            var tmpl = Handlebars.compile(
+                $("#geocacheApproval_" + params.successTpl + "Template").html()
             );
-            $("#geocacheApproval_info").html(tmpl.render(result));
+            $("#geocacheApproval_info").html(tmpl(result));
         } else if (
             params.failureTpl != null
             && "status" in result
             && result["status"] === "ERROR"
         ) {
-            var tmpl = jsr().templates(
-                "#geocacheApproval_" + params.failureTpl + "ErrorTemplate"
+            var tmpl = Handlebars.compile(
+                $(
+                    "#geocacheApproval_" + params.failureTpl + "ErrorTemplate"
+                ).html()
             );
-            $("#geocacheApproval_info").html(tmpl.render(result));
+            $("#geocacheApproval_info").html(tmpl(result));
         }
     })
     .fail(showApiError)
@@ -187,13 +170,14 @@ function cacheAction(element, actionType) {
 function showConfirmDialog(
     element, templateId, actionButtonText, actionButtonClass, actionOnConfirm
 ) {
-    var tmpl = jsr().templates("#" + templateId);
+    var tmpl = Handlebars.compile($("#" + templateId).html());
     var parentRow = element.closest("tr");
     var templateData = {
         cache_id: parentRow.attr("cache_id"),
         cache_name: parentRow.find(".geocacheApproval-cacheName").text(),
         cache_owner: parentRow.find(".geocacheApproval-userName").text()
     };
+
     $("#geocacheApproval_confirmDialogTemplate").dialog({
         dialogClass: "geocacheApproval-confirmDialog"
             + " geocacheApproval-confirmDialog-noTitlebar",
@@ -220,7 +204,7 @@ function showConfirmDialog(
             }
         ],
         open: function() {
-            $(this).html(tmpl.render(templateData));
+            $(this).html(tmpl(templateData));
         }
     });
 }

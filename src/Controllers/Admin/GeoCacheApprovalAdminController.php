@@ -32,6 +32,7 @@ class GeoCacheApprovalAdminController extends ViewBaseController
         $this->view->loadJQuery();
         $this->view->loadJQueryUI();
         $this->view->addHeaderChunk('momentJs');
+        $this->view->addHeaderChunk('handlebarsJs');
         $this->view->addLocalCss(
             Uri::getLinkWithModificationTime(
                 '/views/admin/geocacheApproval/geocache_approval.css'
@@ -39,19 +40,11 @@ class GeoCacheApprovalAdminController extends ViewBaseController
         );
         $this->view->addLocalJs(
             Uri::getLinkWithModificationTime(
-                '/js/libs/jsrender/1.0.11/jsrender.min.js'
-            ),
-            true,
-            true
-        );
-        $this->view->addLocalJs(
-            Uri::getLinkWithModificationTime(
                 '/views/admin/geocacheApproval/geocache_approval.js'
             )
         );
-        $this->view->setTemplate('admin/geocacheApproval/geocache_approval');
+        $this->view->setTemplate('admin/geocacheApproval/geocacheApproval');
         $this->view->setVar('currentUserId', $this->loggedUser->getUserId());
-        $this->view->setVar('confirm', '');
         $this->view->buildView();
     }
 }

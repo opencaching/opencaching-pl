@@ -1,9 +1,16 @@
+<?php
+
+use src\Controllers\ViewCacheController;
+use src\Utils\Uri\SimpleRouter;
+
+?>
 <script>
 var currentUserId = "<?= $view->currentUserId; ?>";
 var cacheNonamedTrans = "{{cache_approval_nonamed}}";
 var acceptButtonText = "{{viewPending_16}}";
 var cancelButtonText = "{{viewPending_17}}";
 var blockButtonText = "{{viewPending_20}}";
+var viewCacheLink = "<?= SimpleRouter::getLink(ViewCacheController::class); ?>";
 </script>
 
 <div class="content2-pagetitle"><img src="/images/blue/aprove-cache.png" class="icon32" alt="" />&nbsp;{{pendings}}</div>
@@ -57,67 +64,7 @@ var blockButtonText = "{{viewPending_20}}";
     </table>
 </div>
 
-<script id="geocacheApproval_acceptTemplate" type="text/x-jsrender">
-<div class="geocacheApproval-confirmDialog-content">
-    <div class="geocacheApproval-confirmDialog-content2">
-        {{viewPending_13}} "<a href='viewcache.php?cacheid=<%:cache_id%>'><%:cache_name%></a>" {{viewPending_14}} <%:cache_owner%>.<br/>
-        {{viewPending_15}}.
-    </div>
-</div>
-</script>
-
-<script id="geocacheApproval_blockTemplate" type="text/x-jsrender">
-<div class="geocacheApproval-confirmDialog-content">
-    <div class="geocacheApproval-confirmDialog-content2">
-        {{viewPending_18}} "<a href='viewcache.php?cacheid=<%:cache_id%>'><%:cache_name%></a>" {{viewPending_14}} <%:cache_owner%>.<br/>
-        {{viewPending_19}}.
-    </div>
-</div>
-</script>
-
-<script id="geocacheApproval_generalErrorTemplate" type="text/x-jsrender">
-<p class="geocacheApproval-errorInfo">
-<img src="images/free_icons/error.png" alt="error" class="geocacheApproval-icon"><%:error_thrown%>: <%:text_status%>
-</p>
-</script>
-
-<script id="geocacheApproval_assignedTemplate" type="text/x-jsrender">
-<p>{{viewPending_07}} <%:assigned_username%> {{viewPending_08}}.</p>
-</script>
-
-<script id="geocacheApproval_assignErrorTemplate" type="text/x-jsrender">
-<p class="geocacheApproval-errorInfo">
-<%if message && message.length%><img src="images/free_icons/error.png" alt="error" class="geocacheApproval-icon"><%:message%><%/if%>
-</p>
-</script>
-
-<script id="geocacheApproval_acceptedTemplate" type="text/x-jsrender">
-<p class="geocacheApproval-acceptedInfo">
-<img src="images/log/16x16-published.png" alt="accepted" class="geocacheApproval-icon">{{viewPending_09}}<br>
-[ {{cache}}: <%:cache_name%> - <%:cache_wp%>; {{owner_label}}: <%:cache_owner%>; {{cache_approval_changed_time}}: <%:updated%> ]
-</p>
-</script>
-
-<script id="geocacheApproval_acceptErrorTemplate" type="text/x-jsrender">
-<p class="geocacheApproval-errorInfo">
-<img src="images/free_icons/error.png" alt="error" class="geocacheApproval-icon">{{viewPending_10}}
-<%if message && message.length%><br>[ <%:message%> ]<%/if%>
-</p>
-</script>
-
-<script id="geocacheApproval_rejectedTemplate" type="text/x-jsrender">
-<p class="geocacheApproval-rejectedInfo">
-<img src="images/log/16x16-trash.png" alt="rejected" class="geocacheApproval-icon">{{viewPending_11}}<br>
-[ {{cache}}: <%:cache_name%> - <%:cache_wp%>; {{owner_label}}: <%:cache_owner%>; {{cache_approval_changed_time}}: <%:updated%> ]
-</p>
-</script>
-
-<script id="geocacheApproval_rejectErrorTemplate" type="text/x-jsrender">
-<p class="geocacheApproval-errorInfo">
-<img src="images/free_icons/error.png" alt="error" class="geocacheApproval-icon">{{viewPending_12}}
-<%if message && message.length%><br>[ <%:message%> ]<%/if%>
-</p>
-</script>
+<?= $view->callSubTpl('/admin/geocacheApproval/geocacheApprovalMessages'); ?>
 
 <div id="geocacheApproval_confirmDialogTemplate" class="geocacheApproval-hidden">
 </div>
