@@ -3214,4 +3214,11 @@ $translations = [
     'at_day' => 'crwdns27595:0crwdne27595:0',
     'at_notinwinter' => 'crwdns27597:0crwdne27597:0',
     'at_allseasons' => 'crwdns27599:0crwdne27599:0',
+
+    'cache_approval_refresh' => 'crwdns33930:0crwdne33930:0',
+    'cache_approval_refresh_time' => 'crwdns33932:0crwdne33932:0',
+    'cache_approval_nonamed' => 'crwdns33934:0crwdne33934:0',
+    'cache_approval_no_caches' => 'crwdns33936:0crwdne33936:0',
+    'cache_approval_changed_time' => 'crwdns33938:0crwdne33938:0',
+    'cache_approval_cache_invalid' => 'crwdns33940:0%scrwdne33940:0',
 ];
