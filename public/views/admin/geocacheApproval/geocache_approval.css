@@ -1,0 +1,147 @@
+.geocacheApproval-truncated {
+    display: inline-block;
+    width: 130px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#geocacheApproval_info {
+    height: 2.2em;
+}
+
+.geocacheApproval-acceptedInfo {
+    font-weight: bold;
+    color: #007000;
+}
+
+.geocacheApproval-rejectedInfo {
+    font-weight: bold;
+    color: #550000;
+}
+
+.geocacheApproval-errorInfo {
+    font-weight: bold;
+    color: #A00000;
+}
+
+.geocacheApproval-icon {
+    float: left;
+    margin-right: 8px;
+}
+
+.geocacheApproval-hidden {
+    display: none;
+}
+
+.geocacheApproval-refreshBlock {
+    width: 97%;
+    clear: both;
+    padding: 3px 0px;
+}
+
+.geocacheApproval-refreshButton {
+    display: block;
+    float: left;
+    margin-bottom: 3px;
+    font-size: 1.2em;
+}
+
+.geocacheApproval-refreshInfo {
+    display: block;
+    float: right;
+}
+
+.geocacheApproval-emptyList {
+    text-align: center !important;
+    padding: 3px 0px !important;
+    font-weight: bold;
+}
+
+.geocacheApproval-region {
+    font-weight:bold;
+    font-size:10px;
+    color:blue;
+}
+
+.geocacheApproval-confirmDialog-noTitlebar .ui-dialog-titlebar {
+    display: none;
+}
+
+.geocacheApproval-confirmDialog-content {
+    text-align: center;
+}
+
+.geocacheApproval-confirmDialog-content2 {
+    display: inline-block;
+    font-size: 1.2em;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: justify;
+}
+
+.geocacheApproval-confirmDialog-buttons {
+    padding-top: 3em;
+}
+
+.geocacheApproval-confirmDialog.ui-widget.ui-widget-content {
+    border: 1px solid #A0A0A0;
+}
+
+.geocacheApproval-confirmDialog .ui-dialog-buttonpane {
+    padding-right: .3em !important;
+}
+
+.geocacheApproval-confirmDialog .ui-dialog-buttonpane .ui-dialog-buttonset {
+    float: none !important;
+}
+
+.geocacheApproval-confirmDialog .ui-dialog-buttonpane .ui-dialog-buttonset button {
+    box-sizing: border-box;
+    padding: 6px 11px;
+    margin: 5px 0;
+    border-radius: 4px;
+    border: 1px solid;
+    font-size: 14px;
+    background: none;
+}
+
+.geocacheApproval-confirmDialog-cancelButton {
+    float: right !important;
+    color: #333 !important;
+    background-color: #fff !important;
+    border-color: #ccc !important;
+}
+
+.geocacheApproval-confirmDialog-cancelButton:hover {
+    color: #333 !important;
+    background-color: #e6e6e6 !important;
+    border-color: #adadad !important;
+}
+
+.geocacheApproval-confirmDialog-acceptButton,
+.geocacheApproval-confirmDialog-blockButton {
+    float: left !important;
+    color: #fff !important;
+}
+
+.geocacheApproval-confirmDialog-acceptButton {
+    background-color: #5cb85c !important;
+    border-color: #4cae4c !important;
+}
+
+.geocacheApproval-confirmDialog-acceptButton:hover {
+    background-color: #449d44 !important;
+    border-color: #398439 !important;
+}
+
+.geocacheApproval-confirmDialog-blockButton {
+    background-color: #d9534f !important;
+    border-color: #d43f3a !important;
+}
+
+.geocacheApproval-confirmDialog-blockButton:hover {
+    color: #fff !important;
+    background-color: #c9302c !important;
+    border-color: #ac2925 !important;
+}

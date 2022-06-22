@@ -16,20 +16,21 @@
  * Do NOT change $menu variable name!
  */
 
-use src\Utils\Uri\SimpleRouter;
 use src\Controllers\Admin\CacheSetAdminController;
+use src\Utils\Uri\SimpleRouter;
 
 /** @var array $links OcConfig::$links is accessible in within this scope */
 
 $menu = [
     'mnu_reports' => '/admin_reports.php', // counters added in MainLayoutCtrl
-    'mnu_pendings' => '/viewpendings.php', // counters added in MainLayoutCtrl
+    'mnu_pendings' => SimpleRouter::getLink('Admin.GeoCacheApprovalAdmin'), // counters added in MainLayoutCtrl
     'mnu_octeamStats' => '/articles.php?page=cog',
     'mnu_notFoundCaches' => '/admin_cachenotfound.php',
-    'mnu_searchUser' => SimpleRouter::getLink('Admin.UserAdmin','search'),
+    'mnu_searchUser' => SimpleRouter::getLink('Admin.UserAdmin', 'search'),
     'mnu_ocTeamNews' => SimpleRouter::getLink('News.NewsAdmin'),
     'mnu_geoPathAdmin' => '/powerTrailCOG.php',
     'mnu_abandonCacheSets' => SimpleRouter::getLink(
-        CacheSetAdminController::class, 'cacheSetsToArchive'
+        CacheSetAdminController::class,
+        'cacheSetsToArchive'
     ),
 ];
