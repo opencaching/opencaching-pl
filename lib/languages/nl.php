@@ -3214,4 +3214,11 @@ $translations = [
     'at_day' => 'Niet aanbevolen in het donker',
     'at_notinwinter' => 'Niet beschikbaar in de winter',
     'at_allseasons' => 'Alle seizoenen beschikbaar',
+
+    'cache_approval_refresh' => 'Refresh list',
+    'cache_approval_refresh_time' => 'Last update',
+    'cache_approval_nonamed' => 'no name',
+    'cache_approval_no_caches' => 'No geocaches waiting to be accepted',
+    'cache_approval_changed_time' => 'status changed',
+    'cache_approval_cache_invalid' => 'Cache "%s" is not valid for approval actions',
 ];
