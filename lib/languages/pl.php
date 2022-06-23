@@ -3215,10 +3215,10 @@ $translations = [
     'at_notinwinter' => 'Niedostępna zimą',
     'at_allseasons' => 'Dostępne przez cały rok',
 
-    'cache_approval_refresh' => 'Refresh list',
-    'cache_approval_refresh_time' => 'Last update',
-    'cache_approval_nonamed' => 'no name',
-    'cache_approval_no_caches' => 'No geocaches waiting to be accepted',
-    'cache_approval_changed_time' => 'status changed',
-    'cache_approval_cache_invalid' => 'Cache "%s" is not valid for approval actions',
+    'cache_approval_refresh' => 'Odśwież listę',
+    'cache_approval_refresh_time' => 'Ostatnia aktualizacja',
+    'cache_approval_nonamed' => 'bez nazwy',
+    'cache_approval_no_caches' => 'Brak skrzynek oczekujących na akceptację',
+    'cache_approval_changed_time' => 'status zmieniony',
+    'cache_approval_cache_invalid' => 'Skrzynka "%s" nie podlega operacjom dotyczącym akceptacji',
 ];
