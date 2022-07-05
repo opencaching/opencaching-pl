@@ -424,6 +424,20 @@ class News extends BaseObject
         return $this->content;
     }
 
+	public function getShortContent()
+	{
+
+		$content = $this->content;
+		$loadMoreTag = '<!--more-->';
+
+		if ('' === $loadMoreTag || false !== strpos($content, $loadMoreTag)) {
+			return explode($loadMoreTag, $content)[0] . '<a href="' . SimpleRouter::getLink('News.NewsList') . '" class="btn btn-sm btn-default">' . tr('news_read_more') . '</a>';
+		}
+
+		return $content;
+	}
+
+
     public function getAuthor()
     {
         return $this->author;

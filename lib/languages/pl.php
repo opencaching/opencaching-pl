@@ -2416,6 +2416,7 @@ $translations = [
     'news_removePicSuccess' => 'Obrazek usunięty',
     'news_actionInProgress' => 'Trwa usuwanie',
     'news_removePic' => 'Usuń obrazek',
+	'news_read_more' => 'Czytaj więcej...',
 
     'SearchByPlace_01' => 'Liczba znalezionych miejsc',
     'SearchByPlace_02' => 'Dla podanych kryteriów poszukiwań nie znaleziono jednoznacznego wyniku. Proszę wybrać lokalizację z listy',
