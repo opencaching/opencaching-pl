@@ -1,6 +1,6 @@
 <?php
-use src\Utils\Uri\Uri;
 use src\Utils\I18n\I18n;
+use src\Utils\Uri\Uri;
 
 /**
  * This chunk is used to load TinyMCE
@@ -20,22 +20,20 @@ use src\Utils\I18n\I18n;
  *     width: 100%;
  *     height: 30em;
  * }
- *
  */
 
-return function ($media = true, $selector = '.tinymce', $filePickerCallback=null) {
+return function ($media = true, $selector = '.tinymce', $filePickerCallback = null) {
     //start of chunk
-    $mediatxt = ($media == true) ? ' media' : '';
-    ?>
+    $mediatxt = ($media == true) ? ' media' : ''; ?>
 
 <!-- TinyMCE chunk start -->
-<script src="<?=Uri::getLinkWithModificationTime('/js/libs/tinyMCE/5.7.1/tinymce.min.js')?>"></script>
+<script src="<?= Uri::getLinkWithModificationTime('/js/libs/tinyMCE/5.7.1/tinymce.min.js'); ?>"></script>
 <script>
   tinymce.init({
-    selector: "<?=$selector?>",
-    <?php if($filePickerCallback) { ?>
-      file_picker_callback: <?=$filePickerCallback?>,
-    <?php } //if($filePickerCallback) ?>
+    selector: "<?= $selector; ?>",
+    <?php if ($filePickerCallback) { ?>
+      file_picker_callback: <?= $filePickerCallback; ?>,
+    <?php } //if($filePickerCallback)?>
     image_advtab: true,
     contextmenu: false, /* disable contextmenu (right-click) - native browser context menu will be displaied instead */
     image_title: true,
@@ -47,13 +45,13 @@ return function ($media = true, $selector = '.tinymce', $filePickerCallback=null
     entity_encoding: "raw",
     fontsize_formats: "8px 10px 11px 12px 13px 14px 18px 24px 36px",
     content_style: "* { margin: 0px 0px 0.5em 0px;} p, ul {font-size: 12px; font-family: arial, sans serif;} ol {padding: 0px 0px 0px 25px; font-family: arial, sans serif;} sub {font-size: 0.7em;} sup {font-size: 0.7em;} br { margin: 0;} body {margin: 3px;}",
-    language: "<?=I18n::getCurrentLang()?>",
+    language: "<?= I18n::getCurrentLang(); ?>",
     toolbar1: "newdocument | styleselect formatselect fontselect fontsizeselect",
-    toolbar2: "cut copy paste searchreplace | bullist numlist | outdent indent | undo redo | nonbreaking link unlink pagebreak image<?=$mediatxt?> | code_editor fullscreen",
+    toolbar2: "cut copy paste searchreplace | bullist numlist | outdent indent | undo redo | nonbreaking link unlink pagebreak image<?= $mediatxt; ?> | code_editor fullscreen",
     toolbar3: "bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | hr | subscript superscript | charmap | forecolor backcolor",
     plugins: [
       "advlist autolink autosave link image lists charmap hr anchor spellchecker searchreplace wordcount code_editor fullscreen nonbreaking",
-      "paste pagebreak <?=$mediatxt?>"
+      "paste pagebreak <?= $mediatxt; ?>"
     ],
     pagebreak_separator : "<!--more-->",
     content_security_policy: "script-src 'self' https://cdnjs.cloudflare.com; object-src 'self'"

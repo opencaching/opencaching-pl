@@ -1,48 +1,70 @@
 <?php
+
 namespace src\Models\News;
 
+use DateInterval;
+use DateTime;
+use Exception;
+use src\Models\BaseObject;
+use src\Models\OcConfig\OcConfig;
+use src\Models\User\User;
+use src\Utils\Debug\Debug;
 use src\Utils\Text\Formatter;
 use src\Utils\Text\UserInputFilter;
-use src\Models\BaseObject;
-use src\Models\User\User;
-use src\Models\OcConfig\OcConfig;
 use src\Utils\Uri\SimpleRouter;
-use src\Utils\Debug\Debug;
-use src\Utils\Database\OcDb;
-use src\Utils\Database\QueryBuilder;
 
 class News extends BaseObject
 {
-    private $id = 0;
-    private $category = '';
-    private $title = null;
-    private $content = '';
-    private $author = null;
-    private $last_editor = null;
-    private $hide_author = 0;
-    private $show_onmainpage = 1;
-    private $show_notlogged = 0;
-    private $date_publication;
-    private $date_expiration = null;
-    private $date_mainpageexp;
-    private $date_lastmod;
-
     // The list of common categories - used by all nodes
     // Each name must be started with "_"
-    const CATEGORY_ANY   = '';       // wildcard for categories - pass with every category
-    const CATEGORY_NEWS  = '_news';  // articles in "news" section
-    const CATEGORY_DRAFT = '_draft'; // articles not ready to be published
+    public const CATEGORY_ANY = '';       // wildcard for categories - pass with every category
 
-    const USER_NOT_SET = 0;
-    const STATUS_OTHER = 0;
-    const STATUS_FUTURE = 1;
-    const STATUS_ON_MAINPAGE = 2;
-    const STATUS_ONLY_NEWSPAGE = 3;
-    const STATUS_ARCHIVED = 4;
+    public const CATEGORY_NEWS = '_news';  // articles in "news" section
 
-    public function __construct(array $params = array())
+    public const CATEGORY_DRAFT = '_draft'; // articles not ready to be published
+
+    public const USER_NOT_SET = 0;
+
+    public const STATUS_OTHER = 0;
+
+    public const STATUS_FUTURE = 1;
+
+    public const STATUS_ON_MAINPAGE = 2;
+
+    public const STATUS_ONLY_NEWSPAGE = 3;
+
+    public const STATUS_ARCHIVED = 4;
+
+    private $id = 0;
+
+    private $category = '';
+
+    private $title = null;
+
+    private $content = '';
+
+    private $author = null;
+
+    private $last_editor = null;
+
+    private $hide_author = 0;
+
+    private $show_onmainpage = 1;
+
+    private $show_notlogged = 0;
+
+    private $date_publication;
+
+    private $date_expiration = null;
+
+    private $date_mainpageexp;
+
+    private $date_lastmod;
+
+    public function __construct(array $params = [])
     {
         parent::__construct();
+
         if (isset($params['newsId'])) {
             $this->loadById($params['newsId']);
         }
@@ -53,19 +75,22 @@ class News extends BaseObject
         if (! $this->dataLoaded) {
             return false;
         }
+
         if (is_null($this->date_publication)) {
-            $this->date_publication = new \DateTime('now');
+            $this->date_publication = new DateTime('now');
         }
+
         if ($this->id == 0) {
             return $this->insertIntoDb();
-        } else {
-            return $this->saveToDb();
         }
+
+        return $this->saveToDb();
     }
 
     private function saveToDb()
     {
-        return self::db()->multiVariableQuery('
+        return self::db()->multiVariableQuery(
+            '
             UPDATE news
             SET title = :1, content = :2, user_id = :3, edited_by = :4,
                 hide_author = :5, show_onmainpage = :6, show_notlogged = :7,
@@ -83,12 +108,14 @@ class News extends BaseObject
             (is_null($this->date_expiration)) ? null : self::truncateTime($this->date_expiration),
             (is_null($this->date_mainpageexp)) ? null : self::truncateTime($this->date_mainpageexp),
             $this->category,
-            (int) $this->id);
+            (int) $this->id
+        );
     }
 
     private function insertIntoDb()
     {
-        return self::db()->multiVariableQuery('
+        return self::db()->multiVariableQuery(
+            '
             INSERT INTO news
                 (title, content, user_id, edited_by, hide_author, show_onmainpage,
                 show_notlogged, date_publication, date_expiration, date_mainpageexp, category)
@@ -103,7 +130,8 @@ class News extends BaseObject
             self::truncateTime($this->date_publication),
             (is_null($this->date_expiration)) ? null : self::truncateTime($this->date_expiration),
             (is_null($this->date_mainpageexp)) ? null : self::truncateTime($this->date_mainpageexp),
-            $this->category);
+            $this->category
+        );
     }
 
     public function loadFromForm(array $formData)
@@ -137,13 +165,13 @@ class News extends BaseObject
                     $this->show_notlogged = ($val == 'on') ? 1 : 0;
                     break;
                 case 'date-publication':
-                    $this->date_publication = ($val == '') ? null : \DateTime::createFromFormat(OcConfig::instance()->getDateFormat(), $val);
+                    $this->date_publication = ($val == '') ? null : DateTime::createFromFormat(OcConfig::instance()->getDateFormat(), $val);
                     break;
                 case 'date-expiration':
-                    $this->date_expiration = ($val == '') ? null : \DateTime::createFromFormat(OcConfig::instance()->getDateFormat(), $val);
+                    $this->date_expiration = ($val == '') ? null : DateTime::createFromFormat(OcConfig::instance()->getDateFormat(), $val);
                     break;
                 case 'date-mainpageexp':
-                    $this->date_mainpageexp = ($val == '') ? null : \DateTime::createFromFormat(OcConfig::instance()->getDateFormat(), $val);
+                    $this->date_mainpageexp = ($val == '') ? null : DateTime::createFromFormat(OcConfig::instance()->getDateFormat(), $val);
                     break;
                 case 'action':
                 case 'submit':
@@ -151,7 +179,7 @@ class News extends BaseObject
                 case 'no-date-mainpageexp':
                     break;
                 default:
-                    Debug::errorLog("Unknown field: $key");
+                    Debug::errorLog("Unknown field: {$key}");
             }
         }
     }
@@ -159,28 +187,33 @@ class News extends BaseObject
     /**
      * Factory
      *
-     * @param integer $newsId
+     * @param int $newsId
      * @return News|null
      */
     public static function fromNewsIdFactory($newsId)
     {
         $obj = new self();
+
         try {
             $obj->loadById($newsId);
+
             if ($obj->isDataLoaded()) {
                 return $obj;
-            } else {
-                return null;
             }
-        } catch (\Exception $e) {
-            return null;
+
+            return;
+        } catch (Exception $e) {
+            return;
         }
     }
 
     public static function isThereSuchNews($newsId): bool
     {
         return 1 == self::db()->multiVariableQueryValue(
-            "SELECT COUNT(*) FROM news WHERE id = :1 LIMIT 1", 0, $newsId);
+            'SELECT COUNT(*) FROM news WHERE id = :1 LIMIT 1',
+            0,
+            $newsId
+        );
     }
 
     private function loadById($newsId)
@@ -216,18 +249,18 @@ class News extends BaseObject
                     if ($val == $this::USER_NOT_SET) {
                         $this->author = null;
                     } else {
-                        $this->author = new User(array(
-                            'userId' => (int) $val
-                        ));
+                        $this->author = new User([
+                            'userId' => (int) $val,
+                        ]);
                     }
                     break;
                 case 'edited_by':
                     if ($val == $this::USER_NOT_SET) {
                         $this->last_editor = null;
                     } else {
-                        $this->last_editor = new User(array(
-                            'userId' => (int) $val
-                        ));
+                        $this->last_editor = new User([
+                            'userId' => (int) $val,
+                        ]);
                     }
                     break;
                 case 'hide_author':
@@ -240,19 +273,19 @@ class News extends BaseObject
                     $this->show_notlogged = (bool) $val;
                     break;
                 case 'date_publication':
-                    $this->date_publication = (is_null($val)) ? null : new \DateTime($val);
+                    $this->date_publication = (is_null($val)) ? null : new DateTime($val);
                     break;
                 case 'date_expiration':
-                    $this->date_expiration = (is_null($val)) ? null : new \DateTime($val);
+                    $this->date_expiration = (is_null($val)) ? null : new DateTime($val);
                     break;
                 case 'date_mainpageexp':
-                    $this->date_mainpageexp = (is_null($val)) ? null : new \DateTime($val);
+                    $this->date_mainpageexp = (is_null($val)) ? null : new DateTime($val);
                     break;
                 case 'date_lastmod':
-                    $this->date_lastmod = new \DateTime($val);
+                    $this->date_lastmod = new DateTime($val);
                     break;
                 default:
-                    Debug::errorLog("Unknown column: $key");
+                    Debug::errorLog("Unknown column: {$key}");
             }
         }
         $this->dataLoaded = true;
@@ -262,26 +295,26 @@ class News extends BaseObject
     {
         $n = new self();
         $n->loadFromDbRow($dbRow);
+
         return $n;
     }
 
     /**
      * Returns the list of all categories (common + node-specific)
-     *
-     * @return array
      */
     public static function getAllCategories(): array
     {
-        $commonCategories = [ self::CATEGORY_NEWS, self::CATEGORY_DRAFT ];
+        $commonCategories = [self::CATEGORY_NEWS, self::CATEGORY_DRAFT];
         $localCategories = OcConfig::getNewsConfig('localCategories');
+
         return array_merge($commonCategories, $localCategories);
     }
 
     /**
-     * @param boolean $loggeduser
-     * @param boolean $mainpage
-     * @param integer $offset
-     * @param integer $limit
+     * @param bool $loggeduser
+     * @param bool $mainpage
+     * @param int $offset
+     * @param int $limit
      * @return News[]
      */
     public static function getAllNews(string $category, $loggeduser = false, $mainpage = false, $offset = null, $limit = null)
@@ -293,6 +326,7 @@ class News extends BaseObject
                 OR date_expiration IS NULL)
                 AND (date_publication < NOW()
                 OR date_publication IS NULL)';
+
         if ($mainpage) {
             $query .= ' AND show_onmainpage = 1 AND (date_mainpageexp > NOW() OR date_mainpageexp IS NULL)';
         }
@@ -305,8 +339,10 @@ class News extends BaseObject
             $query .= ' AND show_notlogged = 1';
         }
         $query .= ' ORDER BY date_publication DESC';
+
         if (! is_null($limit)) {
             $query .= ' LIMIT ' . self::db()->quoteLimit($limit);
+
             if (! is_null($offset)) {
                 $query .= ' OFFSET ' . self::db()->quoteOffset($offset);
             }
@@ -325,6 +361,7 @@ class News extends BaseObject
         $query = 'SELECT COUNT(*) FROM news
             WHERE (date_expiration > NOW() OR date_expiration IS NULL)
                 AND (date_publication < NOW() OR date_publication IS NULL)';
+
         if ($mainpage) {
             $query .= ' AND show_onmainpage = 1 AND (date_mainpageexp > NOW() OR date_mainpageexp IS NULL)';
         }
@@ -336,6 +373,7 @@ class News extends BaseObject
         if (! $loggeduser) {
             $query .= ' AND show_notlogged = 1';
         }
+
         return $db->simpleQueryValue($query, 0);
     }
 
@@ -353,6 +391,7 @@ class News extends BaseObject
 
         if (! is_null($limit)) {
             $query .= ' LIMIT ' . $limit;
+
             if (! is_null($offset)) {
                 $query .= ' OFFSET ' . $offset;
             }
@@ -379,7 +418,6 @@ class News extends BaseObject
 
     /**
      * Check if given category is present on the list of common or node-specific categories
-     * @return bool
      */
     private static function checkCategory($category): bool
     {
@@ -388,8 +426,8 @@ class News extends BaseObject
 
     public function generateDefaultValues()
     {
-        $this->date_mainpageexp = new \DateTime('NOW');
-        $this->date_mainpageexp->add(new \DateInterval('P1M'));
+        $this->date_mainpageexp = new DateTime('NOW');
+        $this->date_mainpageexp->add(new DateInterval('P1M'));
         $this->category = News::CATEGORY_DRAFT;
         $this->dataLoaded = true;
     }
@@ -424,19 +462,17 @@ class News extends BaseObject
         return $this->content;
     }
 
-	public function getShortContent()
-	{
+    public function getShortContent()
+    {
+        $content = $this->content;
+        $loadMoreTag = '<!--more-->';
 
-		$content = $this->content;
-		$loadMoreTag = '<!--more-->';
+        if ('' === $loadMoreTag || false !== strpos($content, $loadMoreTag)) {
+            return explode($loadMoreTag, $content)[0] . '<a href="' . SimpleRouter::getLink('News.NewsList') . '" class="btn btn-sm btn-default">' . tr('news_read_more') . '</a>';
+        }
 
-		if ('' === $loadMoreTag || false !== strpos($content, $loadMoreTag)) {
-			return explode($loadMoreTag, $content)[0] . '<a href="' . SimpleRouter::getLink('News.NewsList') . '" class="btn btn-sm btn-default">' . tr('news_read_more') . '</a>';
-		}
-
-		return $content;
-	}
-
+        return $content;
+    }
 
     public function getAuthor()
     {
@@ -455,7 +491,7 @@ class News extends BaseObject
 
     public function isAuthorHidden()
     {
-        return ($this->hide_author || $this->author == null);
+        return $this->hide_author || $this->author == null;
     }
 
     public function getShowOnMainpage()
@@ -495,7 +531,7 @@ class News extends BaseObject
      */
     public function getNewsUrl()
     {
-        return SimpleRouter::getLink('News.NewsList','show', $this->getId());
+        return SimpleRouter::getLink('News.NewsList', 'show', $this->getId());
     }
 
     /**
@@ -506,12 +542,13 @@ class News extends BaseObject
      * - if news is only for logged user - user is logged
      * Returns false otherwise.
      *
-     * @param boolean $isUserLogged
-     * @return boolean
+     * @param bool $isUserLogged
+     * @return bool
      */
     public function canBeViewed($isUserLogged)
     {
-        $now = new \DateTime();
+        $now = new DateTime();
+
         if ($this->getDatePublication() != null && $this->getDatePublication() > $now) {
             // not published yet
             return false;
@@ -523,11 +560,10 @@ class News extends BaseObject
         }
 
         $isUserLogged = boolval($isUserLogged);
-        if (! $this->getShowNotLogged() && ! $isUserLogged) {
+
+        return ! (! $this->getShowNotLogged() && ! $isUserLogged)
             // news only for logged user, but user is not logged in
-            return false;
-        }
-        return true;
+;
     }
 
     public function dataReady()
@@ -538,32 +574,38 @@ class News extends BaseObject
     private static function datePrepare($obj, $asString = false)
     {
         if (is_null($obj)) { // Date is not set
-            return null;
+            return;
         }
+
         if ($asString) { // Date should be formated as human readable string
             return Formatter::date($obj);
-        } else { // Date should be returned as an object
-            return $obj;
-        }
+        }   // Date should be returned as an object
+
+        return $obj;
     }
 
-    private static function truncateTime(\DateTime $date)
+    private static function truncateTime(DateTime $date)
     {
         return $date->format('Y-m-d') . ' 00:00:00';
     }
 
     public function getStatus()
     {
-        $currentTime = new \DateTime('NOW');
+        $currentTime = new DateTime('NOW');
+
         if ($this->date_publication > $currentTime) {
             return self::STATUS_FUTURE;
-        } elseif (! is_null($this->date_expiration) && $this->date_expiration < $currentTime) {
-            return self::STATUS_ARCHIVED;
-        } elseif ($this->show_onmainpage && (is_null($this->date_mainpageexp) || $this->date_mainpageexp > $currentTime)) {
-            return self::STATUS_ON_MAINPAGE;
-        } else {
-            return self::STATUS_ONLY_NEWSPAGE;
         }
+
+        if (! is_null($this->date_expiration) && $this->date_expiration < $currentTime) {
+            return self::STATUS_ARCHIVED;
+        }
+
+        if ($this->show_onmainpage && (is_null($this->date_mainpageexp) || $this->date_mainpageexp > $currentTime)) {
+            return self::STATUS_ON_MAINPAGE;
+        }
+
+        return self::STATUS_ONLY_NEWSPAGE;
     }
 
     public function getStatusBootstrapName()

@@ -28,7 +28,7 @@ class UserInputFilter
         // since the web server needs write permission there
         $cacheSerializerPath = OcConfig::instance()->getDynamicFilesPath() . 'lib/htmlpurifier';
 
-        if (!file_exists($cacheSerializerPath)) {
+        if (! file_exists($cacheSerializerPath)) {
             mkdir($cacheSerializerPath, 0777, true);
         }
 
@@ -43,7 +43,7 @@ class UserInputFilter
         $config->set('HTML.SafeObject', true);
         $config->set('HTML.SafeEmbed', true);
         $config->set('HTML.MaxImgLength', null);
-	    $config->set('HTML.AllowedComments', ['more']);
+        $config->set('HTML.AllowedComments', ['more']);
         $config->set('CSS.MaxImgLength', null);
         $config->set('CSS.Proprietary', true);
         $config->set('CSS.Trusted', true); // ???
@@ -53,7 +53,7 @@ class UserInputFilter
         // this is ony for debug purpose - don't turn it on at production!
         $config->set('Core.CollectErrors', OcConfig::debugModeEnabled());
 
-        $config->set('Attr.AllowedFrameTargets', array('_blank'));
+        $config->set('Attr.AllowedFrameTargets', ['_blank']);
 
         // $config->set('HTML.Trusted', true); // <-- DO NOT ENABLE!
 
@@ -80,13 +80,13 @@ class UserInputFilter
             $config = OcMemCache::getOrCreate(
                 'HTMLPurifierConfig',
                 OcConfig::debugModeEnabled() ? 1 : 60,
-                function ()
-                {
+                function () {
                     $cfg = self::createConfig();
                     // finalize and lock the config
                     $cfg->getHTMLDefinition();
                     $cfg->getCSSDefinition();
                     $cfg->getURIDefinition();
+
                     return $cfg;
                 }
             );
@@ -107,9 +107,11 @@ class UserInputFilter
         $config = self::getConfig();
         $purifier = new HTMLPurifier($config);
         $cleanHtml = $purifier->purify($dirtyHtml);
+
         if (($config->get('Core.CollectErrors')) && ($context !== null)) {
-            $context['errors'] = & $purifier->context->get('ErrorCollector');
+            $context['errors'] = &$purifier->context->get('ErrorCollector');
         }
+
         return $cleanHtml;
 
         // 1. SVG się nie osadza -> done
@@ -128,54 +130,53 @@ class UserInputFilter
      */
     public static function purifyHtmlStringAndDecodeHtmlSpecialChars($dirtyHtml, $htmlMode)
     {
-
         // current working implementation - the old way
         if ($htmlMode < 2) {
             // see https://github.com/opencaching/opencaching-pl/issues/1218
             return htmlspecialchars_decode($dirtyHtml);
-        } else {
-            return $dirtyHtml;
         }
-    }
 
+        return $dirtyHtml;
+    }
 }
 
 class OC_HTMLSafeEmbed extends HTMLPurifier_HTMLModule_SafeEmbed
 {
-
     public function setup($config)
     {
         $newEmbed = HTMLPurifier_ElementDef::create(
-            null, null, array(
+            null,
+            null,
+            [
                 // TODO: jeżeli brak atrybutu type, lub nie spełnia kryterów, to usuń cały element ?
                 'type' => 'Enum#application/x-shockwave-flash,image/svg+xml',
                 'width' => 'Length#1280',
                 'height' => 'Length#1920',
                 'allowscriptaccess' => 'Enum#never,always,sameDomain',
                 'allownetworking' => 'Enum#all,internal,none',
-            )
-            );
+            ]
+        );
         parent::setup($config);
         $embed = &$this->info['embed'];
         $embed->mergeIn($newEmbed);
         unset($embed->attr_transform_post[count($embed->attr_transform_post) - 1]);
     }
-
 }
 
 class OC_HTMLSafeObject extends HTMLPurifier_HTMLModule_SafeObject
 {
-
     public function setup($config)
     {
         $newObject = HTMLPurifier_ElementDef::create(
-            null, null, array(
+            null,
+            null,
+            [
                 // TODO: j.w.
                 'type' => 'Enum#application/x-shockwave-flash,image/svg+xml',
                 'width' => 'Length#1280',
                 'height' => 'Length#1920',
-            )
-            );
+            ]
+        );
         parent::setup($config);
         $object = &$this->info['object'];
         $object->mergeIn($newObject);
@@ -186,20 +187,19 @@ class OC_HTMLSafeObject extends HTMLPurifier_HTMLModule_SafeObject
         unset($this->info_injector[count($this->info_injector) - 1]);
         $this->info_injector[] = new OC_HTMLPurifier_Injector_SafeObject();
     }
-
 }
 
 class OC_HTMLPurifier_AttrTransform_SafeParam extends HTMLPurifier_AttrTransform_SafeParam
 {
-
     protected $allowScriptAccess;
+
     protected $allowNetworking;
 
     public function __construct()
     {
         parent::__construct();
-        $this->allowScriptAccess = new HTMLPurifier_AttrDef_Enum(array('never', 'always', 'sameDomain'));
-        $this->allowNetworking = new HTMLPurifier_AttrDef_Enum(array('all', 'internal', 'none'));
+        $this->allowScriptAccess = new HTMLPurifier_AttrDef_Enum(['never', 'always', 'sameDomain']);
+        $this->allowNetworking = new HTMLPurifier_AttrDef_Enum(['all', 'internal', 'none']);
     }
 
     public function transform($attr, $config, $context)
@@ -207,24 +207,25 @@ class OC_HTMLPurifier_AttrTransform_SafeParam extends HTMLPurifier_AttrTransform
         switch ($attr['name']) {
             case 'allowScriptAccess':
                 $attr['value'] = $this->allowScriptAccess->validate($attr['value'], $config, $context);
+
                 return $attr;
             case 'allowNetworking':
                 $attr['value'] = $this->allowNetworking->validate($attr['value'], $config, $context);
+
                 return $attr;
         }
         $attr = parent::transform($attr, $config, $context);
+
         return $attr;
     }
-
 }
 
 class OC_HTMLPurifier_Injector_SafeObject extends HTMLPurifier_Injector_SafeObject
 {
-
     public function __construct()
     {
-        unset($this->addParam['allowScriptAccess']);
-        unset($this->addParam['allowNetworking']);
+        unset($this->addParam['allowScriptAccess'], $this->addParam['allowNetworking']);
+
         $this->allowedParam['allowScriptAccess'] = true;
         $this->allowedParam['allowNetworking'] = true;
     }
@@ -238,5 +239,4 @@ class OC_HTMLPurifier_Injector_SafeObject extends HTMLPurifier_Injector_SafeObje
     {
         parent::handleEnd($token);
     }
-
 }
