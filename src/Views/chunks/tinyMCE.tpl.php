@@ -49,13 +49,14 @@ return function ($media = true, $selector = '.tinymce', $filePickerCallback=null
     content_style: "* { margin: 0px 0px 0.5em 0px;} p, ul {font-size: 12px; font-family: arial, sans serif;} ol {padding: 0px 0px 0px 25px; font-family: arial, sans serif;} sub {font-size: 0.7em;} sup {font-size: 0.7em;} br { margin: 0;} body {margin: 3px;}",
     language: "<?=I18n::getCurrentLang()?>",
     toolbar1: "newdocument | styleselect formatselect fontselect fontsizeselect",
-    toolbar2: "cut copy paste searchreplace | bullist numlist | outdent indent | undo redo | nonbreaking link unlink pagebreak image<?=$mediatxt?> | code fullscreen",
+    toolbar2: "cut copy paste searchreplace | bullist numlist | outdent indent | undo redo | nonbreaking link unlink pagebreak image<?=$mediatxt?> | code_editor fullscreen",
     toolbar3: "bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | hr | subscript superscript | charmap | forecolor backcolor",
     plugins: [
-      "advlist autolink autosave link image lists charmap hr anchor spellchecker searchreplace wordcount code fullscreen nonbreaking",
+      "advlist autolink autosave link image lists charmap hr anchor spellchecker searchreplace wordcount code_editor fullscreen nonbreaking",
       "paste pagebreak <?=$mediatxt?>"
     ],
     pagebreak_separator : "<!--more-->",
+    content_security_policy: "script-src 'self' https://cdnjs.cloudflare.com; object-src 'self'"
   });
 </script>
 <!-- TinyMCE chunk end -->
