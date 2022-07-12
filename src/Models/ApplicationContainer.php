@@ -1,4 +1,5 @@
 <?php
+
 namespace src\Models;
 
 use src\Models\OcConfig\OcConfig;
@@ -13,26 +14,25 @@ use src\Utils\View\View;
  */
 final class ApplicationContainer
 {
-    /** @var User $loggedUser */
-    private $loggedUser = null;
-    private $ocInitDone = false;
+    private ?User $loggedUser = null;
 
-    /**
-     *
-     * @return ApplicationContainer
-     */
+    private bool $ocInitDone = false;
+
     public static function Instance(): ApplicationContainer
     {
         static $inst = null;
+
         if ($inst === null) {
             $inst = new ApplicationContainer();
         }
+
         return $inst;
     }
 
     public static function ocBaseInit(): void
     {
         $instance = self::Instance();
+
         if ($instance->ocInitDone) {
             // to be sure to call ocInit only once
             return;
@@ -44,20 +44,19 @@ final class ApplicationContainer
         session_start();
         ob_start();
 
-        // reset server encondig - to be sure we use UTF-8
+        // reset server encoding - to be sure we use UTF-8
         mb_internal_encoding('UTF-8');
         mb_regex_encoding('UTF-8');
         mb_language('uni');
 
         self::loadLegacyConfig();
 
-        if (php_sapi_name() != "cli") { // this is not neccesarry for command-line scripts...
-
+        if (php_sapi_name() != 'cli') { // this is not necessary for command-line scripts...
             UserAuthorization::verify();
             I18n::init();
 
             // legacy View functions - this should be cleanup later
-            require_once (__DIR__ . '/../../lib/common_tpl_funcs.php'); // template engine
+            require_once __DIR__ . '/../../lib/common_tpl_funcs.php'; // template engine
             self::initLegacyTemplateSystem();
         }
     }
@@ -84,18 +83,18 @@ final class ApplicationContainer
             tpl_set_var('wiki_link_' . $key, $value);
         }
 
-        tpl_set_var('title', htmlspecialchars(OcConfig::getSitePageTitle(), ENT_COMPAT, 'UTF-8'));
+        tpl_set_var('title', htmlspecialchars(OcConfig::getSitePageTitle(), ENT_COMPAT));
         tpl_set_var('bodyMod', '');
     }
 
     /**
      * Load legacy config files from /lib/settings*
      * There is several number of vars which must be loaded to the global scope
-     * All these vars shoudl be refactored to new config
+     * All these vars should be refactored to new config
      */
     private static function loadLegacyConfig()
     {
-        require_once (__DIR__ . '/../../lib/settingsGlue.inc.php');
+        require_once __DIR__ . '/../../lib/settingsGlue.inc.php';
 
         $GLOBALS['config'] = $config;
         $GLOBALS['absolute_server_URI'] = $absolute_server_URI;
@@ -103,7 +102,6 @@ final class ApplicationContainer
         $GLOBALS['mp3url'] = $mp3url;
         $GLOBALS['maxmp3size'] = $maxmp3size;
         $GLOBALS['mp3extensions'] = $mp3extensions;
-        $GLOBALS['googlemap_key'] = $googlemap_key;
         $GLOBALS['contactData'] = $contactData;
         $GLOBALS['dateFormat'] = $dateFormat;
         $GLOBALS['datetimeFormat'] = $datetimeFormat;
@@ -111,8 +109,6 @@ final class ApplicationContainer
 
     /**
      * Return authorized user object or null if user is not authorized
-     *
-     * @return \src\Models\User\User
      */
     public static function GetAuthorizedUser(): ?User
     {

@@ -1,4 +1,5 @@
 <?php
+
 /** @noinspection PhpUnused */
 
 namespace src\Controllers;
@@ -21,8 +22,7 @@ use src\Utils\Uri\Uri;
 
 class CacheController extends ViewCacheController
 {
-
-    const CACHES_PER_NEW_CACHES_PAGE = 50;
+    public const CACHES_PER_NEW_CACHES_PAGE = 50;
 
     public function index()
     {
@@ -43,32 +43,36 @@ class CacheController extends ViewCacheController
 
         $this->view->addLocalCss('/css/lightTooltip.css')
             ->buildView();
-
     }
 
-    private function newCachesOneCountry() {
+    private function newCachesOneCountry()
+    {
         $newCachesCount = MultiCacheStats::getLatestNationalCachesCount();
 
         $pagination = new PaginationModel(self::CACHES_PER_NEW_CACHES_PAGE);
         $pagination->setRecordsCount($newCachesCount);
-        list($limit, $offset) = $pagination->getQueryLimitAndOffset();
+        [$limit, $offset] = $pagination->getQueryLimitAndOffset();
 
         $model = new ListOfCachesModel();
-        $model->addColumn(new Column_DateTime(tr('cs_publicationDate'),
+        $model->addColumn(new Column_DateTime(
+            tr('cs_publicationDate'),
             function (GeoCache $row) {
                 return [
                     'date' => $row->getDatePublished(),
-                    'showTime' => false
+                    'showTime' => false,
                 ];
-            }))
+            }
+        ))
             ->addColumn(new Column_CacheGeoKretIconObject(''))
             ->addColumn(new Column_GeoPathIconObject(''))
             ->addColumn(new Column_CacheTypeIconObject(''))
             ->addColumn(new Column_CacheNameObject(tr('cache')))
-            ->addColumn(new Column_UserNameObject(tr('creator'),
+            ->addColumn(new Column_UserNameObject(
+                tr('creator'),
                 function (GeoCache $row) {
                     return $row->getOwner();
-                }))
+                }
+            ))
             ->addColumn(new Column_CacheRegionObject(tr('region')))
             ->addColumn(new Column_CacheLastLogObject(tr('new_logs')))
             ->setPaginationModel($pagination)
@@ -79,26 +83,32 @@ class CacheController extends ViewCacheController
             ->setTemplate('cache/newCachesOneCountry');
     }
 
-    private function newCachesMultipleCountries() {
+    private function newCachesMultipleCountries()
+    {
         $cacheList = MultiCacheStats::getLatestNationalCachesForUserMultiCountries($this->loggedUser);
         $modelArray = [];
+
         foreach ($cacheList as $country => $caches) {
             $model = new ListOfCachesModel();
-            $model->addColumn(new Column_DateTime(tr('cs_publicationDate'),
+            $model->addColumn(new Column_DateTime(
+                tr('cs_publicationDate'),
                 function (GeoCache $row) {
                     return [
                         'date' => $row->getDatePublished(),
-                        'showTime' => false
+                        'showTime' => false,
                     ];
-                }))
+                }
+            ))
                 ->addColumn(new Column_CacheGeoKretIconObject(''))
                 ->addColumn(new Column_GeoPathIconObject(''))
                 ->addColumn(new Column_CacheTypeIconObject(''))
                 ->addColumn(new Column_CacheNameObject(tr('cache')))
-                ->addColumn(new Column_UserNameObject(tr('creator'),
+                ->addColumn(new Column_UserNameObject(
+                    tr('creator'),
                     function (GeoCache $row) {
                         return $row->getOwner();
-                    }))
+                    }
+                ))
                 ->addColumn(new Column_CacheRegionObject(tr('region')))
                 ->addColumn(new Column_CacheLastLogObject(tr('new_logs')))
                 ->addDataRows($caches);
@@ -117,23 +127,28 @@ class CacheController extends ViewCacheController
     {
         $cacheList = MultiCacheStats::getLatestForeignCachesForUser($this->loggedUser);
         $modelArray = [];
+
         foreach ($cacheList as $country => $caches) {
             $model = new ListOfCachesModel();
-            $model->addColumn(new Column_DateTime(tr('cs_publicationDate'),
+            $model->addColumn(new Column_DateTime(
+                tr('cs_publicationDate'),
                 function (GeoCache $row) {
                     return [
                         'date' => $row->getDatePublished(),
-                        'showTime' => false
+                        'showTime' => false,
                     ];
-                }))
+                }
+            ))
                 ->addColumn(new Column_CacheGeoKretIconObject(''))
                 ->addColumn(new Column_GeoPathIconObject(''))
                 ->addColumn(new Column_CacheTypeIconObject(''))
                 ->addColumn(new Column_CacheNameObject(tr('cache')))
-                ->addColumn(new Column_UserNameObject(tr('creator'),
+                ->addColumn(new Column_UserNameObject(
+                    tr('creator'),
                     function (GeoCache $row) {
                         return $row->getOwner();
-                    }))
+                    }
+                ))
                 ->addColumn(new Column_CacheRegionObject(tr('region')))
                 ->addColumn(new Column_CacheLastLogObject(tr('new_logs')))
                 ->addDataRows($caches);
@@ -154,20 +169,25 @@ class CacheController extends ViewCacheController
     {
         $eventList = MultiCacheStats::getLatestEventsForUser($this->loggedUser);
         $modelArray = [];
+
         foreach ($eventList as $location => $caches) {
             $model = new ListOfCachesModel();
-            $model->addColumn(new Column_DateTime(tr('date'),
+            $model->addColumn(new Column_DateTime(
+                tr('date'),
                 function (GeoCache $row) {
                     return [
                         'date' => $row->getDatePlaced(),
-                        'showTime' => false
+                        'showTime' => false,
                     ];
-                }))
+                }
+            ))
                 ->addColumn(new Column_CacheNameObject(tr('event')))
-                ->addColumn(new Column_UserNameObject(tr('creator'),
+                ->addColumn(new Column_UserNameObject(
+                    tr('creator'),
                     function (GeoCache $row) {
                         return $row->getOwner();
-                    }))
+                    }
+                ))
                 ->addColumn(new Column_CacheLastLogObject(tr('new_logs')))
                 ->addDataRows($caches);
             $modelArray[$location] = $model;
@@ -189,44 +209,60 @@ class CacheController extends ViewCacheController
 
         $pagination = new PaginationModel(self::CACHES_PER_NEW_CACHES_PAGE);
         $pagination->setRecordsCount($titledCachesCount);
-        list($limit, $offset) = $pagination->getQueryLimitAndOffset();
+        [$limit, $offset] = $pagination->getQueryLimitAndOffset();
 
         $model = new ListOfCachesModel();
-        $model->addColumn(new Column_DateTime(tr('titled_cache_date'),
+        $model->addColumn(new Column_DateTime(
+            tr('titled_cache_date'),
             function (array $row) {
                 return [
                     'date' => $row['date'],
-                    'showTime' => false
+                    'showTime' => false,
                 ];
-            }))
-            ->addColumn(new Column_CacheGeoKretIconObject('',
+            }
+        ))
+            ->addColumn(new Column_CacheGeoKretIconObject(
+                '',
                 function (array $row) {
                     return $row['cache'];
-                }))
-            ->addColumn(new Column_GeoPathIconObject('',
+                }
+            ))
+            ->addColumn(new Column_GeoPathIconObject(
+                '',
                 function (array $row) {
                     return $row['cache'];
-                }))
-            ->addColumn(new Column_CacheTypeIconObject('',
+                }
+            ))
+            ->addColumn(new Column_CacheTypeIconObject(
+                '',
                 function (array $row) {
                     return $row['cache'];
-                }))
-            ->addColumn(new Column_CacheNameObject(tr('cache'),
+                }
+            ))
+            ->addColumn(new Column_CacheNameObject(
+                tr('cache'),
                 function (array $row) {
                     return $row['cache'];
-                }))
-            ->addColumn(new Column_UserNameObject(tr('creator'),
+                }
+            ))
+            ->addColumn(new Column_UserNameObject(
+                tr('creator'),
                 function (array $row) {
                     return $row['cache']->getOwner();
-                }))
-            ->addColumn(new Column_CacheRegionObject(tr('region'),
+                }
+            ))
+            ->addColumn(new Column_CacheRegionObject(
+                tr('region'),
                 function (array $row) {
                     return $row['cache'];
-                }))
-            ->addColumn(new Column_CacheLastLogObject(tr('new_logs'),
+                }
+            ))
+            ->addColumn(new Column_CacheLastLogObject(
+                tr('new_logs'),
                 function (array $row) {
                     return $row['cache'];
-                }))
+                }
+            ))
             ->setPaginationModel($pagination)
             ->addDataRows(MultiCacheStats::getTitledCachesForUser($this->loggedUser, $limit, $offset));
 
@@ -250,21 +286,25 @@ class CacheController extends ViewCacheController
 
         $pagination = new PaginationModel(self::CACHES_PER_NEW_CACHES_PAGE);
         $pagination->setRecordsCount($cachesCount);
-        list($limit, $offset) = $pagination->getQueryLimitAndOffset();
+        [$limit, $offset] = $pagination->getQueryLimitAndOffset();
 
         $model = new ListOfCachesModel();
-        $model->addColumn(new Column_SimpleText(ucfirst(tr('recommendations')),
+        $model->addColumn(new Column_SimpleText(
+            ucfirst(tr('recommendations')),
             function (GeoCache $row) {
                 return $row->getRecommendations();
-            }))
+            }
+        ))
             ->addColumn(new Column_CacheGeoKretIconObject(''))
             ->addColumn(new Column_GeoPathIconObject(''))
             ->addColumn(new Column_CacheTypeIconObject(''))
             ->addColumn(new Column_CacheNameObject(tr('cache')))
-            ->addColumn(new Column_UserNameObject(tr('creator'),
+            ->addColumn(new Column_UserNameObject(
+                tr('creator'),
                 function (GeoCache $row) {
                     return $row->getOwner();
-                }))
+                }
+            ))
             ->addColumn(new Column_CacheRegionObject(tr('region')))
             ->addColumn(new Column_CacheLastLogObject(tr('new_logs')))
             ->setPaginationModel($pagination)
@@ -291,13 +331,13 @@ class CacheController extends ViewCacheController
         $this->view->addLocalCss(Uri::getLinkWithModificationTime('/views/cacheEdit/difficultyForm.css'));
         $this->view->setTemplate('cacheEdit/difficultyFormResult');
 
-        $Equipment = $_POST["Equipment"] ?? null;
-        $Night = $_POST["Night"] ?? null;
-        $Length = $_POST["Length"] ?? null;
-        $Trail = $_POST["Trail"] ?? null;
-        $Overgrowth = $_POST["Overgrowth"] ?? null;
-        $Elevation = $_POST["Elevation"] ?? null;
-        $Difficulty = $_POST["Difficulty"] ?? null;
+        $Equipment = $_POST['Equipment'] ?? null;
+        $Night = $_POST['Night'] ?? null;
+        $Length = $_POST['Length'] ?? null;
+        $Trail = $_POST['Trail'] ?? null;
+        $Overgrowth = $_POST['Overgrowth'] ?? null;
+        $Elevation = $_POST['Elevation'] ?? null;
+        $Difficulty = $_POST['Difficulty'] ?? null;
 
         $maximum = max($Equipment, $Night, $Length, $Trail, $Overgrowth, $Elevation);
 
@@ -322,10 +362,8 @@ class CacheController extends ViewCacheController
     /**
      * @inheritDoc
      */
-    public function isCallableFromRouter($actionName)
+    public function isCallableFromRouter(string $actionName): bool
     {
         return true;
     }
-
-
 }

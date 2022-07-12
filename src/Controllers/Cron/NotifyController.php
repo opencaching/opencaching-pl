@@ -16,7 +16,7 @@ class NotifyController extends BaseController
 
     private DateTime $lastRun;
 
-    public function isCallableFromRouter($actionName): bool
+    public function isCallableFromRouter(string $actionName): bool
     {
         // this controller is used by cron only - router shouldn't call it!
         return false;

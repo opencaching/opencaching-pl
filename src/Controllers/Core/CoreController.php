@@ -1,4 +1,5 @@
 <?php
+
 namespace src\Controllers\Core;
 
 use src\Models\ApplicationContainer;
@@ -10,11 +11,9 @@ use src\Models\User\User;
  */
 abstract class CoreController
 {
-    /** @var User */
-    protected $loggedUser = null;
+    protected ?User $loggedUser;
 
-    /** @var OcConfig $ocConfig */
-    protected $ocConfig = null;
+    protected OcConfig $ocConfig;
 
     public function __construct()
     {
@@ -41,8 +40,8 @@ abstract class CoreController
      * shouldn't be accessible on request).
      *
      * @param string $actionName
-     *            - method which router will call
-     * @return boolean - TRUE if given method can be call from router
+     *                           - method which router will call
+     * @return bool - TRUE if given method can be call from router
      */
-    abstract public function isCallableFromRouter($actionName);
+    abstract public function isCallableFromRouter(string $actionName): bool;
 }

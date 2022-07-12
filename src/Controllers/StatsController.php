@@ -2,39 +2,35 @@
 
 namespace src\Controllers;
 
-
-use src\Utils\DateTime\Year;
-use src\Models\User\MultiUserQueries;
 use src\Models\GeoCache\MultiCacheStats;
 use src\Models\Pictures\StatPic;
+use src\Models\User\MultiUserQueries;
 use src\Models\User\User;
+use src\Utils\DateTime\Year;
 
 class StatsController extends BaseController
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    public function isCallableFromRouter($actionName)
+    public function isCallableFromRouter(string $actionName): bool
     {
         return true;
     }
 
     public function index()
-    {}
+    {
+    }
 
-    public function internalStats($year=null)
+    public function internalStats($year = null)
     {
         // only for logged users
         $this->redirectNotLoggedUsers();
 
-        if (!$this->loggedUser->hasAdvUserRole()) {
+        if (! $this->loggedUser->hasAdvUserRole()) {
             $this->index();
+
             exit;
         }
 
-        if(is_null($year)) {
+        if (is_null($year)) {
             $year = Year::current();
         }
 
@@ -43,6 +39,7 @@ class StatsController extends BaseController
 
         $allUsers = MultiUserQueries::getCountOfNewUsers($year);
         $allUsers['sum'] = 0;
+
         foreach ($allUsers as $value) {
             $allUsers['sum'] += $value;
         }
@@ -50,6 +47,7 @@ class StatsController extends BaseController
 
         $allUsers = MultiUserQueries::getCountOfNewUsers($year, true);
         $allUsers['sum'] = 0;
+
         foreach ($allUsers as $value) {
             $allUsers['sum'] += $value;
         }
@@ -57,6 +55,7 @@ class StatsController extends BaseController
 
         $allCaches = MultiCacheStats::getNewCachesCountMonthly($year);
         $allCaches['sum'] = 0;
+
         foreach ($allCaches as $value) {
             $allCaches['sum'] += $value;
         }
@@ -69,16 +68,17 @@ class StatsController extends BaseController
      * Redirect to user statPic banner
      * Banner will be created if necessary
      *
-     * @param integer $userId
+     * @param int $userId
      */
     public function statPic($userId)
     {
-        if (!is_numeric($userId)) {
-            $this->displayCommonErrorPageAndExit("improper userId");
+        if (! is_numeric($userId)) {
+            $this->displayCommonErrorPageAndExit('improper userId');
         }
 
-        if (1 || !StatPic::isStatPicPresent ($userId)) { //XXXY
+        if (1 || ! StatPic::isStatPicPresent($userId)) { //XXXY
             $user = User::fromUserIdFactory($userId);
+
             if (is_null($user)) {
                 $this->displayCommonErrorPageAndExit('Unknown user');
             }

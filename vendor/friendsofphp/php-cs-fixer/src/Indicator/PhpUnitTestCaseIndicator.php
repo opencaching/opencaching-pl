@@ -34,6 +34,12 @@ final class PhpUnitTestCaseIndicator
             return false;
         }
 
+        $extendsIndex = $tokens->getNextTokenOfKind($index, ['{', [T_EXTENDS]]);
+
+        if (!$tokens[$extendsIndex]->isGivenKind(T_EXTENDS)) {
+            return false;
+        }
+
         if (0 !== Preg::match('/(?:Test|TestCase)$/', $tokens[$index]->getContent())) {
             return true;
         }
@@ -56,7 +62,7 @@ final class PhpUnitTestCaseIndicator
     }
 
     /**
-     * @return \Generator array of [int start, int end] indexes from sooner to later classes
+     * @return \Generator array of [int start, int end] indices from sooner to later classes
      */
     public function findPhpUnitClasses(Tokens $tokens): \Generator
     {
@@ -72,6 +78,7 @@ final class PhpUnitTestCaseIndicator
             }
 
             $endIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $startIndex);
+
             yield [$startIndex, $endIndex];
         }
     }

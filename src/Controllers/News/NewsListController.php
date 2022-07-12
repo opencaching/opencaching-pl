@@ -1,25 +1,19 @@
 <?php
+
 namespace src\Controllers\News;
 
-use src\Models\News\News;
-use src\Models\ChunkModels\PaginationModel;
-use src\Utils\Uri\Uri;
-use src\Utils\Uri\SimpleRouter;
 use src\Controllers\Core\ViewBaseController;
+use src\Models\ChunkModels\PaginationModel;
+use src\Models\News\News;
+use src\Utils\Uri\SimpleRouter;
+use src\Utils\Uri\Uri;
 
 class NewsListController extends ViewBaseController
 {
-    /**
-     * How many news to display max on mainpage
-     */
-    const NEWS_ON_MAINPAGE = 3;
+    /** How much news to display max on main page */
+    public const NEWS_ON_MAINPAGE = 3;
 
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    public function isCallableFromRouter($actionName)
+    public function isCallableFromRouter(string $actionName): bool
     {
         // all public methods can be called by router
         return true;
@@ -37,17 +31,17 @@ class NewsListController extends ViewBaseController
     {
         $paginationModel = new PaginationModel();
         $paginationModel->setRecordsCount(News::getAllNewsCount($category, $this->isUserLogged(), false));
-        list ($limit, $offset) = $paginationModel->getQueryLimitAndOffset();
+        [$limit, $offset] = $paginationModel->getQueryLimitAndOffset();
         $this->view->setVar('paginationModel', $paginationModel);
 
-        +$this->showNewsList(News::getAllNews($category, $this->isUserLogged(), false, $offset, $limit));
+        $this->showNewsList(News::getAllNews($category, $this->isUserLogged(), false, $offset, $limit));
     }
 
     /**
-     * Method is used by index.php to generate list of news on mainpage
+     * Method is used by index.php to generate list of news on main page
      * (should be removed / refactored after index.php refactoring)
      *
-     * @param boolean $logged
+     * @param bool $logged
      * @return News[]
      */
     public static function listNewsOnMainPage($logged = false)
@@ -64,16 +58,18 @@ class NewsListController extends ViewBaseController
     }
 
     /**
-     * Shows page with single news identyfied by $newsId
+     * Shows page with single news identified by $newsId
      *
-     * @param integer $newsId
+     * @param int $newsId
      */
     public function show($newsId)
     {
         $news = News::fromNewsIdFactory($newsId);
+
         if (is_null($news) || ! $news->canBeViewed($this->isUserLogged())) {
-           $this->view->redirect(SimpleRouter::getLink('News.NewsList'));
-           exit();
+            $this->view->redirect(SimpleRouter::getLink('News.NewsList'));
+
+            exit();
         }
         $this->view->setVar('news', $news);
         $this->view->addLocalCss(Uri::getLinkWithModificationTime('/views/news/news.css'));

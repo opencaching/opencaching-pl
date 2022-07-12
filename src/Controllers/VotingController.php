@@ -2,22 +2,24 @@
 /**
  * Simple voting for OC. OCPL is going to use this to elect OCTEAM.
  */
+
 namespace src\Controllers;
 
-use src\Models\Voting\Election;
-use src\Utils\DateTime\OcDateTime;
 use src\Models\Voting\ChoiceOption;
+use src\Models\Voting\Election;
 use src\Models\Voting\ElectionResult;
 use src\Utils\Cache\OcMemCache;
+use src\Utils\DateTime\OcDateTime;
 
 class VotingController extends BaseController
 {
-    public function __construct($param) {
+    public function __construct()
+    {
         parent::__construct();
         $this->redirectNotLoggedUsers();
     }
 
-    public function isCallableFromRouter($actionName)
+    public function isCallableFromRouter(string $actionName): bool
     {
         return true;
     }
@@ -42,8 +44,9 @@ class VotingController extends BaseController
     {
         // check election
         $election = Election::fromElectionIdFactory($electionId);
-        if (!$election) {
-            $this->displayCommonErrorPageAndExit("No such election");
+
+        if (! $election) {
+            $this->displayCommonErrorPageAndExit('No such election');
         }
         $this->view->setVar('election', $election);
         $this->view->addLocalCss('/views/voting/voting.css');
@@ -51,6 +54,7 @@ class VotingController extends BaseController
         // check if we are after the voting
         if (OcDateTime::isPast($election->getEndDate())) {
             $this->displayResults($election);
+
             exit;
         }
 
@@ -63,7 +67,7 @@ class VotingController extends BaseController
         // check if we are before voting
         if (OcDateTime::isPast($election->getStartDate())) {
             // voting is now active
-            if ($election->hasUserAlreadyVoted($this->loggedUser)){
+            if ($election->hasUserAlreadyVoted($this->loggedUser)) {
                 // user has already voted
                 $this->view->setVar('alreadyVoted', true);
             } else {
@@ -83,28 +87,27 @@ class VotingController extends BaseController
     /**
      * Save votes to DB.
      * Votes are in var POST[votes]
-     *
-     * @param int $electionId
-     *
      */
     public function saveVote(int $electionId)
     {
         $election = Election::fromElectionIdFactory($electionId);
-        if (!$election) {
-            $this->ajaxErrorResponse(tr('vote_saveResultInternalError').". [No such election]");
+
+        if (! $election) {
+            $this->ajaxErrorResponse(tr('vote_saveResultInternalError') . '. [No such election]');
         }
 
         $votes = $_POST['votes'] ?? [];
 
         // check votes
         foreach ($votes as $vote) {
-            if(!is_numeric($vote)) {
-                $this->ajaxErrorResponse(tr('vote_saveResultInternalError').". [Unknown format]");
+            if (! is_numeric($vote)) {
+                $this->ajaxErrorResponse(tr('vote_saveResultInternalError') . '. [Unknown format]');
             }
         }
 
         $errorMsg = '';
-        if (!$election->saveVotes($this->loggedUser, $votes, $errorMsg)) {
+
+        if (! $election->saveVotes($this->loggedUser, $votes, $errorMsg)) {
             $this->ajaxErrorResponse($errorMsg);
         }
         $this->ajaxSuccessResponse();
@@ -120,9 +123,10 @@ class VotingController extends BaseController
 
         $electionId = $election->getElectionId();
 
-        $results = OcMemCache::getOrCreate(__METHOD__."($electionId)", 3600, function () use ($election) {
+        $results = OcMemCache::getOrCreate(__METHOD__ . "({$electionId})", 3600, function () use ($election) {
             $elResults = new ElectionResult($election);
             $elResults->prepareForSerialization();
+
             return $elResults;
         });
 

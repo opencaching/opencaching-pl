@@ -773,17 +773,28 @@ $(document).ready(function(){
                 <div class="notice buffer"><?= tr('editDesc_reactivRulesMoreInfo'); ?></div>
               </p>
 
-              <?php
-              foreach (OcConfig::getReactivationRulesPredefinedOpts() as $key => $opt) { ?>
-                <?php $optTxt = tr($opt); ?>
-                <input type="radio" id="reactivRules<?= $key; ?>" name="reactivRules" value="<?= $optTxt; ?>" required
-                  oninvalid="this.setCustomValidity('<?= tr('editDesc_invalidRactivRule'); ?>')" oninput="this.setCustomValidity('')"
-                  <?= ($optTxt == $view->reactivRulesRadio) ? 'checked' : ''; ?>>
+            <?php
+            $reactivRuleChecked = false;
+            $firstRuleId = false;
+
+            foreach (OcConfig::getReactivationRulesPredefinedOpts() as $key => $opt) { ?>
+            <?php
+                $optTxt = tr($opt);
+                $reactivRuleChecked = $reactivRuleChecked || $optTxt == $view->reactivRulesRadio; ?>
+                <input type="radio" id="reactivRules<?= $key; ?>" name="reactivRules" value="<?= $optTxt; ?>"
+                    <?= (! $firstRuleId ? ' required oninvalid="this.setCustomValidity(\'' . tr('editDesc_invalidRactivRule') . '\')" oninput="this.setCustomValidity(\'\')"' : ' oninput="document.getElementById(\'' . $firstRuleId . '\').setCustomValidity(\'\')"'); ?>
+                    <?= ($optTxt == $view->reactivRulesRadio) ? 'checked' : ''; ?>>
                 <label for="reactivRules<?= $key; ?>"><?= $optTxt; ?></label>
                 <br/>
-              <?php } // foreach - OcConfig::getReactivationRulesPredefinedOpts()?>
+            <?php
+                if (! $firstRuleId) {
+                    $firstRuleId = 'reactivRules' . $key;
+                }
+            } // foreach - OcConfig::getReactivationRulesPredefinedOpts()?>
 
-              <input type="radio" id="reactivRulesCustom" name="reactivRules" value="Custom rulset">
+                <input type="radio" id="reactivRulesCustom" name="reactivRules" value="Custom rulset"
+                    <?= (! $firstRuleId ? ' required oninvalid="this.setCustomValidity(\'' . tr('editDesc_invalidRactivRule') . '\')" oninput="this.setCustomValidity(\'\')"' : ' oninput="document.getElementById(\'' . $firstRuleId . '\').setCustomValidity(\'\')"'); ?>
+                    <?= (! $reactivRuleChecked && ! empty($view->reactivRulesCustom)) ? 'checked' : ''; ?>>
               <label for="reactivRulesCustom"><?= tr('editDesc_reactivRuleCustomDefinition'); ?>:</label>
 
               <textarea placeholder="<?= tr('editDesc_reactivRuleCustomDefinition'); ?>" id="reactivRulesCustom"
@@ -845,7 +856,7 @@ $(document).ready(function(){
         <tr><td colspan="2"><div class="errormsg">{{creating_cache}}</div></td></tr>
         <tr>
             <td colspan="2"><div class="buffer"></div>
-                <button type="submit" name="submitform" value="{submit}" class="btn btn-primary">{submit}</button>
+                <button type="submit" name="submitform" value="<?= tr('new_cache2'); ?>" class="btn btn-primary"><?= tr('new_cache2'); ?></button>
             </td>
         </tr>
 </form>

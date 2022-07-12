@@ -3,25 +3,16 @@
 namespace src\Controllers;
 
 use src\Controllers\Core\CoreController;
-use src\Utils\View\View;
+use src\Utils\Uri\HttpCode;
 use src\Utils\Uri\Uri;
+use src\Utils\View\View;
 
 /**
  * @deprecated User ApiBaseController or ViewBaseController instead in any new code
  */
 abstract class BaseController extends CoreController
 {
-    const HTTP_STATUS_OK = 200;
-
-    const HTTP_STATUS_BAD_REQUEST = 400;
-    const HTTP_STATUS_FORBIDDEN = 403;
-    const HTTP_STATUS_NOT_FOUND = 404;
-    const HTTP_STATUS_CONFLICT = 409;
-
-    const HTTP_STATUS_INTERNAL_ERROR = 500;
-
-    /** @var View $view */
-    protected $view = null;
+    protected View $view;
 
     public function __construct()
     {
@@ -34,46 +25,54 @@ abstract class BaseController extends CoreController
     protected function redirectToLoginPage()
     {
         $this->view->redirect(
-            Uri::setOrReplaceParamValue('target', Uri::getCurrentUri(), '/login.php'));
-        exit();
+            Uri::setOrReplaceParamValue('target', Uri::getCurrentUri(), '/login.php')
+        );
     }
 
-    protected function ajaxJsonResponse($response, $statusCode=null)
+    protected function ajaxJsonResponse($response, $statusCode = null)
     {
-        if(is_null($statusCode)){
-            $statusCode = self::HTTP_STATUS_OK;
+        if (is_null($statusCode)) {
+            $statusCode = HttpCode::STATUS_OK;
         }
         http_response_code($statusCode);
         header('Content-Type: application/json; charset=UTF-8');
-        print (json_encode($response));
+        echo json_encode($response);
+
         exit;
     }
-    protected function ajaxSuccessResponse($message=null, array $additionalResponseData=null){
+
+    protected function ajaxSuccessResponse($message = null, array $additionalResponseData = null)
+    {
         $response = [
-            'status' => 'OK'
+            'status' => 'OK',
         ];
 
-        if(!is_null($message)){
+        if (! is_null($message)) {
             $response['message'] = $message;
         }
 
-        if(is_array($additionalResponseData)){
+        if (is_array($additionalResponseData)) {
             $response = array_merge($additionalResponseData, $response);
         }
 
         $this->ajaxJsonResponse($response);
     }
-    protected function ajaxErrorResponse($message=null, $statusCode=null, array $additionalResponseData=null){
+
+    protected function ajaxErrorResponse($message = null, $statusCode = null, array $additionalResponseData = null)
+    {
         $response = [
-            'status' => 'ERROR'
+            'status' => 'ERROR',
         ];
-        if(!is_null($message)){
+
+        if (! is_null($message)) {
             $response['message'] = $message;
         }
-        if(is_null($statusCode)){
-            $statusCode = self::HTTP_STATUS_BAD_REQUEST;
+
+        if (is_null($statusCode)) {
+            $statusCode = HttpCode::STATUS_BAD_REQUEST;
         }
-        if(is_array($additionalResponseData)){
+
+        if (is_array($additionalResponseData)) {
             $response = array_merge($additionalResponseData, $response);
         }
         $this->ajaxJsonResponse($response, $statusCode);
@@ -82,19 +81,20 @@ abstract class BaseController extends CoreController
     /**
      * This method can be used to just exit and display error page to user
      *
-     * @param string $message - simple message to be displayed (in english)
-     * @param integer $httpStatusCode - http status code to return in response
+     * @param string|null $message - simple message to be displayed (in english)
+     * @param int|null $httpStatusCode - http status code to return in response
      */
-    public function displayCommonErrorPageAndExit($message = null, $httpStatusCode = null)
+    public function displayCommonErrorPageAndExit(string $message = null, int $httpStatusCode = null)
     {
         $this->view->setTemplate('error/commonFatalError');
+
         if ($httpStatusCode) {
             switch ($httpStatusCode) {
-                case 404:
-                    header("HTTP/1.0 404 Not Found");
+                case HttpCode::STATUS_NOT_FOUND:
+                    header('HTTP/1.0 404 Not Found');
                     break;
-                case 403:
-                    header("HTTP/1.0 403 Forbidden");
+                case HttpCode::STATUS_FORBIDDEN:
+                    header('HTTP/1.0 403 Forbidden');
                     break;
                 default:
                     //TODO...
@@ -103,6 +103,7 @@ abstract class BaseController extends CoreController
 
         $this->view->setVar('message', $message);
         $this->view->buildOnlySelectedTpl();
+
         exit();
     }
 
@@ -113,7 +114,6 @@ abstract class BaseController extends CoreController
     {
         if (! $this->isUserLogged()) {
             $this->redirectToLoginPage();
-            exit();
         }
     }
 
@@ -123,9 +123,7 @@ abstract class BaseController extends CoreController
     protected function checkUserLoggedAjax()
     {
         if (! $this->isUserLogged()) {
-            $this->ajaxErrorResponse('User not logged', 401);
-            exit();
+            $this->ajaxErrorResponse('User not logged', HttpCode::STATUS_UNAUTHORIZED);
         }
     }
-
 }

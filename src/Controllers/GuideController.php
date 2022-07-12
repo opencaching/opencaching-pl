@@ -1,25 +1,22 @@
 <?php
+
 namespace src\Controllers;
 
-use src\Utils\Uri\Uri;
 use src\Models\ChunkModels\DynamicMap\DynamicMapModel;
-use src\Models\User\MultiUserQueries;
 use src\Models\ChunkModels\DynamicMap\GuideMarkerModel;
+use src\Models\OcConfig\OcConfig;
+use src\Models\User\MultiUserQueries;
 use src\Models\User\User;
 use src\Utils\Cache\OcMemCache;
 use src\Utils\Text\Formatter;
-use src\Models\OcConfig\OcConfig;
+use src\Utils\Uri\Uri;
 
 class GuideController extends BaseController
 {
-    /** Maxiumum length of guide description passed to marker model */
-    const MAX_DSCR_LEN = 100;
+    /** Maximum length of guide description passed to marker model */
+    public const MAX_DSCR_LEN = 100;
 
-    public function __construct(){
-        parent::__construct();
-    }
-
-    public function isCallableFromRouter($actionName)
+    public function isCallableFromRouter(string $actionName): bool
     {
         return true;
     }
@@ -30,9 +27,10 @@ class GuideController extends BaseController
 
         $this->view->setTemplate('guide/guides');
         $this->view->addLocalCss(
-            Uri::getLinkWithModificationTime('/views/guide/guides.css'));
+            Uri::getLinkWithModificationTime('/views/guide/guides.css')
+        );
 
-        $guidesList = OcMemCache::getOrCreate('currentGuides', 8*3600, function(){
+        $guidesList = OcMemCache::getOrCreate('currentGuides', 8 * 3600, function () {
             return MultiUserQueries::getCurrentGuidesList();
         });
 
@@ -43,6 +41,7 @@ class GuideController extends BaseController
 
         $mapModel = new DynamicMapModel();
         $coords = $this->loggedUser->getHomeCoordinates();
+
         if (
             $coords
             && $coords->getLatitude() != null
@@ -54,8 +53,10 @@ class GuideController extends BaseController
             $mapModel->setZoom(OcConfig::getStartPageMapZoom());
         }
 
-        $mapModel->addMarkersWithExtractor(GuideMarkerModel::class, $guidesList,
-            function($row){
+        $mapModel->addMarkersWithExtractor(
+            GuideMarkerModel::class,
+            $guidesList,
+            function ($row) {
                 $marker = new GuideMarkerModel();
                 $marker->icon = '/images/guide_map_marker.png';
                 $marker->link = User::GetUserProfileUrl($row['user_id']);
@@ -68,19 +69,17 @@ class GuideController extends BaseController
                     self::MAX_DSCR_LEN
                 );
                 $marker->recCount = $row['recomendations'];
+
                 return $marker;
             }
         );
 
         $this->view->setVar('mapModel', $mapModel);
 
-
         $guideConfig = $this->ocConfig->getGuidesConfig();
         $this->view->setVar('requiredRecomCount', $guideConfig['guideGotRecommendations']);
         $this->view->setVar('requiredActivity', $guideConfig['guideActivePeriod']);
 
         $this->view->buildView();
-
     }
-
 }
