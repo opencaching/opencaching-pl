@@ -115,12 +115,12 @@ $(document).ready(function() {
         <?php foreach ($mapModel->getSectionsKeys() as $section => $key) { ?>
             '<?= $section; ?>': '<?= tr($key); ?>',
         <?php
-            } //foreach $sectionsKeys?>
+        } //foreach $sectionsKeys?>
         },
         markerMgrs: {
         <?php foreach ($mapModel->getMarkerTypes() as $markerType) { ?>
             <?= $markerType; ?>: <?php
-                include __DIR__ . '/markers/' . $markerType . 'Mgr.tpl.php';
+            include __DIR__ . '/markers/' . $markerType . 'Mgr.tpl.php';
             ?>,
         <?php } //foreach $markerTypes?>
         },
