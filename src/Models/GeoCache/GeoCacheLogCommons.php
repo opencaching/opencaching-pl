@@ -52,7 +52,7 @@ class GeoCacheLogCommons extends BaseObject
             case self::LOGTYPE_MOVED:
                 $icon = 'moved.svg';
                 break;
-                case self::LOGTYPE_NEEDMAINTENANCE:
+            case self::LOGTYPE_NEEDMAINTENANCE:
                 $icon = 'need-maintenance.svg';
                 break;
             case self::LOGTYPE_MADEMAINTENANCE:
