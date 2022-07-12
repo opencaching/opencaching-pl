@@ -2,10 +2,9 @@
 
 namespace src\Models\GeoCache;
 
+use ReflectionClass;
 use src\Models\BaseObject;
 use src\Utils\Debug\Debug;
-
-use \ReflectionClass;
 
 /**
  * Common constants etc. for geocache log
@@ -267,6 +266,7 @@ class GeoCacheLogCommons extends BaseObject
     {
         $result = '{';
         $gccClass = new ReflectionClass(__CLASS__);
+
         foreach ($gccClass->getConstants() as $name => $value) {
             if (preg_match('/^LOGTYPE\_/', $name) === 1 && is_numeric($value)) {
                 if (strlen($result) > 1) {
@@ -276,6 +276,7 @@ class GeoCacheLogCommons extends BaseObject
             }
         }
         $result .= '}';
+
         return $result;
     }
 }
