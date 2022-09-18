@@ -3,7 +3,7 @@
     "description": "The source code of Opencaching.PL (and some other domains)",
     "license": "GPL-3.0-only",
     "require": {
-        "php": "^7.4",
+        "php": ">=7.4",
         "ext-json": "*",
         "ext-gettext": "*",
         "ext-gd": "*",
