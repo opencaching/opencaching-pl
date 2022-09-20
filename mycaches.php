@@ -59,7 +59,7 @@ if (! isset($_GET['start']) || intval($_GET['start']) < 0 || intval($_GET['start
 }
 
 // obsługa sortowania kolumn
-if (! isset($_GET['col']) || intval($_GET['col']) < 1 || intval($_GET['col']) > 7) {
+if (! isset($_GET['col']) || intval($_GET['col']) < 1 || intval($_GET['col']) > 9) {
     $sort_col = 1;
 } else {
     $sort_col = intval($_GET['col']);
@@ -104,10 +104,17 @@ switch ($sort_col) {
     case 7:
         $sort_warunek = 'VISITS';
         break;
+    case 8:
+        $sort_warunek = 'watchers';
+        break;
+    case 9:
+        $sort_warunek = 'notfounds';
+        break;
     default:
         $sort_warunek = 'date_hidden';
         break;
 }
+
 $startAt = max(0, floor((($start / $LOGS_PER_PAGE) + 1) / $PAGES_LISTED) * $PAGES_LISTED);
 
 if (($start / $LOGS_PER_PAGE) + 1 >= $PAGES_LISTED) {
@@ -146,10 +153,12 @@ $caches_query = "
                 `status`,cache_type.icon_small AS cache_icon_small,
                 `cache_status`.`id` AS `cache_status_id`,
                 `caches`.`founds` AS `founds`,
+                `caches`.`notfounds` AS `notfounds`,
                 `caches`.`topratings` AS `topratings`,
                 datediff(now(),`caches`.`last_found` ) as `ilosc_dni`,
                 datediff(now(),`caches`.`last_modified` ) as `dni_od_zmiany`,
                 COUNT(`gk_item`.`id`) AS `gkcount`,
+                `caches`.`watcher` AS `watchers`,
                 COALESCE(`cv`.`count`,0) AS `visits`
             FROM `caches`
                 LEFT JOIN `gk_item_waypoint` ON `gk_item_waypoint`.`wp` = `caches`.`wp_oc`
@@ -227,8 +236,10 @@ for ($zz = 0; $zz < $log_record_count; $zz++) {
         'UTF-8'
     ) . '">' . htmlspecialchars($log_record['name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
     $table .= '<td class="align-center">' . intval($log_record['founds']) . '</td>';
+    $table .= '<td class="align-center">' . intval($log_record['notfounds']) . '</td>';
     $table .= '<td class="align-center">' . intval($log_record['topratings']) . '</td>';
     $table .= '<td class="align-center">' . intval($log_record['gkcount']) . '</td>';
+    $table .= '<td class="align-center">' . intval($log_record['watchers']) . '</td>';
     $table .= '<td class="align-center">' . intval($log_record['visits']) . '</td>';
     $table .= '<td>';
 

@@ -67,6 +67,11 @@ $view = tpl_getView();
         </a>
       </td>
       <td>
+        <a class="links" href="/mycaches.php?col=9<?= $view->myCacheSort; ?>">
+          <img src="/images/log/16x16-dnf.png" alt="<?= tr('mc_by_not_founds'); ?>" title="<?= tr('mc_by_not_founds'); ?>">
+        </a>
+      </td>
+      <td>
         <a class="links" href="/mycaches.php?col=4<?= $view->myCacheSort; ?>">
           <img src="/images/rating-star.png" alt="<?= tr('mc_by_reco'); ?>" title="<?= tr('mc_by_reco'); ?>">
         </a>
@@ -74,6 +79,11 @@ $view = tpl_getView();
       <td>
         <a class="links" href="/mycaches.php?col=6<?= $view->myCacheSort; ?>">
           <img src="/images/gk.png" alt="<?= tr('mc_by_gk'); ?>" title="<?= tr('mc_by_gk'); ?>">
+        </a>
+      </td>
+      <td>
+        <a class="links" href="/mycaches.php?col=8<?= $view->myCacheSort; ?>">
+          <img src="/images/action/16x16-watch.png" alt="<?= tr('mc_by_watchers'); ?>" title="<?= tr('mc_by_watchers'); ?>">
         </a>
       </td>
       <td>
@@ -91,13 +101,13 @@ $view = tpl_getView();
       </td>
     </tr>
     <tr>
-      <td colspan="10">
+      <td colspan="12">
         <hr>
       </td>
     </tr>
       <?= $view->fileContent; ?>
     <tr>
-      <td colspan="10">
+      <td colspan="12">
         <hr>
       </td>
     </tr>
