@@ -22,6 +22,7 @@ $view = tpl_getView();
 require __DIR__ . '/src/Views/newlogs.inc.php';
 
 $cachesStatus = $_REQUEST['status'] ?? GeoCacheCommons::STATUS_READY;
+
 if (! in_array($cachesStatus, GeoCacheCommons::CacheStatusArray())) {
     $cachesStatus = GeoCacheCommons::STATUS_READY;
 }
@@ -149,9 +150,8 @@ $caches_query = "
             SELECT
                 `caches`.`cache_id`,
                 `caches`.`name`,
+                `caches`.`type` AS `cache_type`,
                 `date_hidden`,
-                `status`,cache_type.icon_small AS cache_icon_small,
-                `cache_status`.`id` AS `cache_status_id`,
                 `caches`.`founds` AS `founds`,
                 `caches`.`notfounds` AS `notfounds`,
                 `caches`.`topratings` AS `topratings`,
@@ -170,11 +170,8 @@ $caches_query = "
                         AND `gk_item`.`stateid` <>5
                 LEFT JOIN ( SELECT `count`,`cache_id` FROM `cache_visits2` WHERE type = 'C' ) `cv`
                     ON `caches`.`cache_id` = `cv`.`cache_id`
-                INNER JOIN `cache_type` ON (`caches`.`type` = `cache_type`.`id`),
-                `cache_status`
             WHERE
                 `user_id`=:user_id
-                AND `cache_status`.`id`=`caches`.`status`
                 AND `caches`.`status` = :stat_cache
             GROUP BY `caches`.`cache_id`
             ORDER BY `{$sort_warunek}` {$sort_txt}
@@ -229,7 +226,7 @@ for ($zz = 0; $zz < $log_record_count; $zz++) {
         ENT_COMPAT,
         'UTF-8'
     ) . '"><img src="/images/free_icons/pencil.png" alt="' . $edit_geocache_tr . '" title="' . $edit_geocache_tr . '"></a></td>';
-    $table .= '<td><img src="/images/' . $log_record['cache_icon_small'] . '" alt=""></td>';
+    $table .= '<td><img class="icon16" src="' . GeoCacheCommons::CacheIconByType($log_record['cache_type'], $cachesStatus) . '" alt=""></td>';
     $table .= '<td><b><a class="links" href="/viewcache.php?cacheid=' . htmlspecialchars(
         $log_record['cache_id'],
         ENT_COMPAT,
