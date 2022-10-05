@@ -1,18 +1,18 @@
 <?php
-use src\Utils\Database\OcDb;
+
 use src\Models\ApplicationContainer;
+use src\Utils\Database\OcDb;
 
-require_once __DIR__.'/../lib/common.inc.php';
+require_once __DIR__ . '/../lib/common.inc.php';
 
-if (!isset($_SESSION['user_id'])) {
-    print 'no hacking please!';
-    exit;
+if (! isset($_SESSION['user_id'])) {
+    exit('No hacking please!');
 }
 
 $callingUser = (int) $_REQUEST['callingUser'];
+
 if ($callingUser != $_SESSION['user_id']) {
-    print 'wrong user!';
-    exit;
+    exit('Wrong user!');
 }
 
 $powerTrailId = (int) $_REQUEST['ptId'];
@@ -32,7 +32,7 @@ if (powerTrailBase::checkIfUserIsPowerTrailOwner($_SESSION['user_id'], $powerTra
     $db->multiVariableQuery($query, $commentId, $restore ? 0 : 1);
 
     if ($commentDbRow['commentType'] == 2) {
-        print '2';
+        echo '2';
         $q = '
             UPDATE `PowerTrail`
             SET `PowerTrail`.`conquestedCount`= (

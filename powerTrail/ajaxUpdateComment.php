@@ -1,11 +1,11 @@
 <?php
+
 use src\Utils\Database\OcDb;
 
-require_once __DIR__.'/../lib/common.inc.php';
+require_once __DIR__ . '/../lib/common.inc.php';
 
-if(!isset($_SESSION['user_id'])){
-    print 'no hacking please!';
-    exit;
+if (! isset($_SESSION['user_id'])) {
+    exit('No hacking please!');
 }
 
 $logDateTime = str_replace('_', ' ', $_REQUEST['datetime']);
@@ -22,11 +22,11 @@ $text = htmlspecialchars($_REQUEST['text']);
 $db = OcDb::instance();
 $db->multiVariableQuery(
     $q,
-    $text,  # :1
-    $logDateTime,      # :2
-    $_REQUEST['commentId'],     # :3
-    $_REQUEST['ptId'],          # :4
-    $_REQUEST['callingUser']    # :5
+    $text,  // :1
+    $logDateTime,      // :2
+    $_REQUEST['commentId'],     // :3
+    $_REQUEST['ptId'],          // :4
+    $_REQUEST['callingUser']    // :5
 );
 
 sendEmail::emailOwners($_REQUEST['ptId'], '', $logDateTime, $text, 'editComment');

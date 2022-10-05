@@ -5,38 +5,38 @@
  */
 class powerTrailMenu
 {
-    private $menu;
+    private array $menu = [];
 
-    function __construct($user) {
-
+    public function __construct($user)
+    {
         if ($user) {
-            $this->menu = array (
-                1 => array (
+            $this->menu = [
+                1 => [
                     'name' => tr('pt012'),
-                    'action'=> 'showAllSeries',
+                    'action' => 'showAllSeries',
                     'script' => 'powerTrail.php',
-                ),
-                2 => array (
+                ],
+                2 => [
                     'name' => tr('pt003'),
-                    'action'=> 'createNewSerie',
+                    'action' => 'createNewSerie',
                     'script' => 'powerTrail.php',
-                ),
-                3 => array (
+                ],
+                3 => [
                     'name' => tr('pt013'),
-                    'action'=> 'selectCaches',
+                    'action' => 'selectCaches',
                     'script' => 'powerTrail.php',
-                ),
-                4 => array (
+                ],
+                4 => [
                     'name' => tr('pt062'),
-                    'action'=> 'mySeries',
+                    'action' => 'mySeries',
                     'script' => 'powerTrail.php',
-                ),
+                ],
 
-            );
-        } else $this->menu = array ();
+            ];
+        }
     }
 
-    public function getPowerTrailsMenu()
+    public function getPowerTrailsMenu(): array
     {
         return $this->menu;
     }

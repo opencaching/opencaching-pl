@@ -6,25 +6,23 @@ use src\Models\User\User;
 
 class Owner extends User
 {
-    private $privileages;
+    private $privileges;
 
     /**
      * @return mixed
      */
-    public function getPrivileages()
+    public function getPrivileges()
     {
-        return $this->privileages;
+        return $this->privileges;
     }
 
     /**
-     * @param mixed $privileages
-     * @return Owner
+     * @param mixed $privileges
      */
-    public function setPrivileages($privileages)
+    public function setPrivileges($privileges): Owner
     {
-        $this->privileages = $privileages;
+        $this->privileges = $privileges;
+
         return $this;
     }
-
-
 }

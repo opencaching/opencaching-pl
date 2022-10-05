@@ -1,18 +1,22 @@
 <?php
+
 use src\Utils\Database\OcDb;
 
-require_once __DIR__.'/../lib/common.inc.php';
+require_once __DIR__ . '/../lib/common.inc.php';
 
-if (!isset( $_REQUEST['ptId']) || !is_numeric($_REQUEST['ptId'])) {
-    print tr('pt105');
+if (! isset($_REQUEST['ptId']) || ! is_numeric($_REQUEST['ptId'])) {
+    echo tr('pt105');
+
     exit;
 }
 
 $ptId = (int) $_REQUEST['ptId'];
 
 $ptTotalCacheesCount = powerTrailBase::getPtCacheCount($ptId);
-if($ptTotalCacheesCount == 0){ // power Trail has no caches!
-    print tr('pt105');
+
+if ($ptTotalCacheesCount == 0) { // power Trail has no caches!
+    echo tr('pt105');
+
     exit;
 }
 
@@ -32,7 +36,7 @@ AND `deleted` =0
 AND `type` =1
 AND `cache_logs`.`user_id` = `user`.`user_id`
 
-$o1 $o2
+{$o1} {$o2}
 
 GROUP BY `user_id`, `date`
 ORDER BY `FoundCount` DESC, `username` ASC
@@ -43,25 +47,27 @@ $db = OcDb::instance();
 $s = $db->multiVariableQuery($q, $ptId);
 $statsArr = $db->dbResultFetchAll($s);
 
-if(count($statsArr) == 0){ // no result!
-    print tr('pt105');
+if (count($statsArr) == 0) { // no result!
+    echo tr('pt105');
+
     exit;
 }
 
-
 foreach ($statsArr as $user) {
     $tmpDate = substr($user['date'], 0, -9);
-    if(!isset($sorted[$user["user_id"]])) {
-        $sorted[$user["user_id"]] = array(
+
+    if (! isset($sorted[$user['user_id']])) {
+        $sorted[$user['user_id']] = [
             'user_id' => $user['user_id'],
             'username' => $user['username'],
             'FoundCount' => $user['FoundCount'],
-        );
-        $tmp[$user["user_id"]]['dates'][] = $tmpDate;
+        ];
+        $tmp[$user['user_id']]['dates'][] = $tmpDate;
     } else {
-        $sorted[$user["user_id"]]['FoundCount'] += $user['FoundCount'];
-        if(!in_array($tmpDate, $tmp[$user["user_id"]]['dates'])){
-            $tmp[$user["user_id"]]['dates'][] = $tmpDate;
+        $sorted[$user['user_id']]['FoundCount'] += $user['FoundCount'];
+
+        if (! in_array($tmpDate, $tmp[$user['user_id']]['dates'])) {
+            $tmp[$user['user_id']]['dates'][] = $tmpDate;
         }
     }
 }
@@ -70,8 +76,9 @@ foreach ($tmp as $userId => $value) {
     $sorted[$userId]['daysSpent'] = count($value['dates']);
 }
 
-$sort = array();
-foreach($sorted as $k=>$v) {
+$sort = [];
+
+foreach ($sorted as $k => $v) {
     $sort['username'][$k] = $v['username'];
     $sort['FoundCount'][$k] = $v['FoundCount'];
 }
@@ -81,38 +88,46 @@ $ptDbRow = powerTrailBase::getPtDbRow($ptId);
 // print_r($sorted);
 // print_r($tmp);
 $stats2display = '<table class="statsTable"><tr>
-<th>'.tr('pt095').'</th>
-<th>'.tr('pt096').'</th>
-<th>'.tr('pt097').'</th>
-<th>'.tr('pt101').'</th>
-<th>'.tr('pt102').'</th>
+<th>' . tr('pt095') . '</th>
+<th>' . tr('pt096') . '</th>
+<th>' . tr('pt097') . '</th>
+<th>' . tr('pt101') . '</th>
+<th>' . tr('pt102') . '</th>
 </tr>';
+
 if ($ptTotalCacheesCount != 0) {
     $bgcolor = '#ffffff';
 
     $fullPtFoundCount = 0;
     $totCacheDays = 0;
+
     foreach ($sorted as $user) {
         $totCacheDays += $user['daysSpent'];
         $ptPercent = round($user['FoundCount'] * 100 / $ptTotalCacheesCount, 2);
+
         if ($ptPercent >= $ptDbRow['perccentRequired']) {
             $fullPtFoundCount++;
-            if(isset($averageDaysSpent)) {
+
+            if (isset($averageDaysSpent)) {
                 $averageDaysSpent = (($averageDaysSpent * $totalNumber) + $user['daysSpent']) / ($totalNumber + 1);
                 $totalNumber++;
-            }
-            else {
+            } else {
                 $averageDaysSpent = $user['daysSpent'];
                 $totalNumber = 1;
             }
         }
-        if($bgcolor == '#eeeeff') $bgcolor = '#ffffff'; else $bgcolor = '#eeeeff';
-        $stats2display .= '<tr style="background-color: '.$bgcolor.';">
-            <td ><a href="viewprofile.php?userid='.$user['user_id'].'">'.$user['username'].'</a></td>
-            <td style="text-align: center;">'.$user['FoundCount'].'</td>
-            <td style="text-align: center;">'.$ptPercent.'% </td>
-            <td style="text-align: center;">'.$user['daysSpent'].'</td>
-            <td style="text-align: center;">'.round($user['FoundCount']/$user['daysSpent'], 2).'</td>
+
+        if ($bgcolor == '#eeeeff') {
+            $bgcolor = '#ffffff';
+        } else {
+            $bgcolor = '#eeeeff';
+        }
+        $stats2display .= '<tr style="background-color: ' . $bgcolor . ';">
+            <td ><a href="viewprofile.php?userid=' . $user['user_id'] . '">' . $user['username'] . '</a></td>
+            <td style="text-align: center;">' . $user['FoundCount'] . '</td>
+            <td style="text-align: center;">' . $ptPercent . '% </td>
+            <td style="text-align: center;">' . $user['daysSpent'] . '</td>
+            <td style="text-align: center;">' . round($user['FoundCount'] / $user['daysSpent'], 2) . '</td>
         </tr>';
     }
 } else {
@@ -120,30 +135,30 @@ if ($ptTotalCacheesCount != 0) {
 }
 $stats2display .= '</table>';
 
-isset($averageDaysSpent) ? $ads = round($averageDaysSpent,1) : $ads = '&#8734;';
-$stats2display .=
+isset($averageDaysSpent) ? $ads = round($averageDaysSpent, 1) : $ads = '&#8734;';
+$stats2display
 
-'<hr>
+.= '<hr>
 <table class="statsTable" style="border-collapse: collapse;  margin-left: auto; margin-right: auto;">
     <tr>
-        <th>'.tr('pt122').'</th>
-        <th>'.tr('pt123').'</th>
+        <th>' . tr('pt122') . '</th>
+        <th>' . tr('pt123') . '</th>
     </tr>
     <tr>
-        <td>'.tr('pt119').'</td>
-        <td>'.count($sorted).'</td>
+        <td>' . tr('pt119') . '</td>
+        <td>' . count($sorted) . '</td>
     </tr>
     <tr>
-        <td>'.tr('pt135').'</td>
-        <td>'.$totCacheDays.'</td>
+        <td>' . tr('pt135') . '</td>
+        <td>' . $totCacheDays . '</td>
     </tr>
     <tr>
-        <td>'.tr('pt120').' <a class="tooltip" href="javascript:void(0);">'.tr('pt125').'<span class="custom help"><img src="images/toltipsImages/Info.png" alt="Help" height="48" width="48"><em>'.tr('pt126').'</em>'.tr('pt124').'</span></a></td>
-        <td>'.$fullPtFoundCount.'</td>
+        <td>' . tr('pt120') . ' <a class="tooltip" href="javascript:void(0);">' . tr('pt125') . '<span class="custom help"><img src="images/toltipsImages/Info.png" alt="Help" height="48" width="48"><em>' . tr('pt126') . '</em>' . tr('pt124') . '</span></a></td>
+        <td>' . $fullPtFoundCount . '</td>
     </tr>
     <tr>
-        <td>'.tr('pt121').' <a class="tooltip" href="javascript:void(0);">'.tr('pt125').'<span class="custom help"><img src="images/toltipsImages/Info.png" alt="Help" height="48" width="48"><em>'.tr('pt126').'</em>'.tr('pt124').'</span></a></td>
-        <td>'.$ads.'</td>
+        <td>' . tr('pt121') . ' <a class="tooltip" href="javascript:void(0);">' . tr('pt125') . '<span class="custom help"><img src="images/toltipsImages/Info.png" alt="Help" height="48" width="48"><em>' . tr('pt126') . '</em>' . tr('pt124') . '</span></a></td>
+        <td>' . $ads . '</td>
     </tr>
 </table>
 ';
