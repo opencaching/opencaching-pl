@@ -614,7 +614,7 @@ class PowerTrail extends BaseObject
 
     public function setAndStoreStatus($status): array
     {
-        if ($status == self::STATUS_OPEN && $this->canBeOpened() === false) {
+        if ($status == self::STATUS_OPEN && ! $this->canBeOpened()) {
             $result = [
                 'updateStatusResult' => false,
                 'message' => tr('pt240'),
