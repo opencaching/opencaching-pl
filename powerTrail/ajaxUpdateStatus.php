@@ -4,6 +4,7 @@ use src\Models\ApplicationContainer;
 use src\Models\PowerTrail\PowerTrail;
 use src\Utils\Database\OcDb;
 use src\Utils\Generators\Uuid;
+use src\Utils\Uri\HttpCode;
 
 require_once __DIR__ . '/../lib/common.inc.php';
 
@@ -107,6 +108,7 @@ if ($loggedUser) {
     $updateStatusResult['currentStatusTranslation']
         = $powerTrail->getStatusTranslation();
 } else {
+    http_response_code(HttpCode::STATUS_UNAUTHORIZED);
     $updateStatusResult['message'] = 'User not authorized!';
 }
 

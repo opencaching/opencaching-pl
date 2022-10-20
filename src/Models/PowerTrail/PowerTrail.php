@@ -41,8 +41,7 @@ class PowerTrail extends BaseObject
 
     private $status;
 
-    /** @var DateTime */
-    private $dateCreated;
+    private DateTime $dateCreated;
 
     private $cacheCount;
 
@@ -60,8 +59,7 @@ class PowerTrail extends BaseObject
 
     private $points;
 
-    /** @var Collection */
-    private $geocaches;
+    private Collection $geocaches;
 
     private $owners = false;
 
