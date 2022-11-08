@@ -254,7 +254,7 @@ class OcDb extends OcPdo
 
         if ($row) {
             $value = reset($row);
-            if ($value == null) {
+            if (is_null($value)) {
                 return $default;
             } else {
                 return $value;
