@@ -1744,7 +1744,7 @@
             <div id="addComment" style="display: none">
                 <input type="hidden" id="editedCommentId" value="0">
                 <input type="hidden" id="ClickinguserId" value="0">
-                <textarea id="addCommentTxtArea" class="tinymce powerTrailEditor" style="height: 350px"></textarea><br><br>
+                <textarea id="addCommentTxtArea" class="tinymce powerTrailEditor"></textarea><br><br>
                 {{pt229}} {ptCommentsSelector}
                 <br><br>
                 {{pt230}} <input type="text" id="commentDateTime" value="{date}">

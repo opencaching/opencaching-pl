@@ -62,27 +62,23 @@ jQuery(function($) {
   <?php $view->callChunk('infoBar', '', $view->infoMsg, $view->errorMsg ); ?>
     <div class="content2-pagetitle">{{user_profile}} {username} </div>
     <div class="content-title-noshade">
-        <table border="0" cellspacing="2" cellpadding="1" style="margin-left: 10px;font-size: 115%;" width="97%">
-            <tr>
-                <td rowspan="3" width="64"><img src="/images/blue/{profile_img}.png"  alt="" title="{profile_info}" align="middle"/></td>
-                <td><span class="txt-blue08" >{{registered_since_label}}:</span> <span class="txt-black"> {registered}</span><br></td>
-                <td rowspan="3" width="30%">
-                    <img src="/images/blue/email.png" class="icon32" alt="Email" title="Email" align="middle">&nbsp;<a href="<?=SimpleRouter::getLink('UserProfile', 'mailTo', $view->userid)?>" class="links">{{email_user}}</a><br />
-                    <img src="/images/blue/world.png" class="icon32" alt="Mapa" title="Map" align="middle">&nbsp;
-                    <a href="<?=Uri::setOrReplaceParamValue('userid', $view->userid, SimpleRouter::getLink('MainMap', 'embeded'))?>"
-                       class="links">{{show_user_map}}</a>
-                </td>
-            </tr>
-            <tr>
-                <td><span class="txt-blue08" >{{descriptions}}:</span><span class="txt-black" style="line-height: 0.5cm;"> {description_start}{description}{description_end}</span></td>
-            </tr>
-            <tr>
-                <td><span class="txt-blue08" >{{lastlogins}}:</span><span class="{lastloginClass}" style="line-height: 0.5cm;"> {lastlogin}</span></td>
-            </tr>
-            <tr>
-                <td colspan="3"><hr></td>
-            </tr>
-        </table>
+        <div class="user-profile">
+            <div class="col1">
+                <img src="/images/blue/{profile_img}.png"  alt="" title="{profile_info}" align="middle"/>
+            </div>
+            <div class="col2">
+                <span class="txt-blue08" >{{registered_since_label}}:</span> <span class="txt-black"> {registered}</span><br>
+                <span class="txt-blue08" >{{descriptions}}:</span><span class="txt-black" style="line-height: 0.5cm;"> {description_start}{description}{description_end}</span><br>
+                <span class="txt-blue08" >{{lastlogins}}:</span><span class="{lastloginClass}" style="line-height: 0.5cm;"> {lastlogin}</span><br>
+            </div>
+            <div class="col3">
+                <img src="/images/blue/email.png" class="icon32" alt="Email" title="Email" align="middle">&nbsp;<a href="<?=SimpleRouter::getLink('UserProfile', 'mailTo', $view->userid)?>" class="links">{{email_user}}</a><br />
+                <img src="/images/blue/world.png" class="icon32" alt="Mapa" title="Map" align="middle">&nbsp;
+                <a href="<?=Uri::setOrReplaceParamValue('userid', $view->userid, SimpleRouter::getLink('MainMap', 'embeded'))?>"
+                   class="links">{{show_user_map}}</a>
+            </div>
+            <hr>
+        </div>
     </div>
     {guide_info}
     <div class="nav4">

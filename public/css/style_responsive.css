@@ -16,6 +16,18 @@
  *             └── responsive.sass
  *
  */
+.c-flex {
+  display: flex;
+  display: -webkit-flex;
+  align-items: center;
+  -webkit-align-items: center;
+  flex-wrap: wrap;
+  -webkit-flex-wrap: wrap; }
+
+.space-between {
+  justify-content: space-between;
+  -webkit-justify-content: space-between; }
+
 @media screen and (max-width: 970px) {
   html.responsive-enabled .discreet-advertising {
     display: none; } }
@@ -102,7 +114,10 @@ html.responsive-enabled div#overall {
       text-align: center; }
     html.responsive-enabled #nav3 .title,
     html.responsive-enabled #nav3 a {
-      font-size: 2em; } }
+      font-size: 1.5em; }
+    html.responsive-enabled #nav3 li.group a {
+      padding: 3px 7px;
+      border-left: unset; } }
 html.responsive-enabled .content2-container,
 html.responsive-enabled .content2-container-1col,
 html.responsive-enabled .content2-container-2col-left,
@@ -316,7 +331,14 @@ html.responsive-enabled #geoPath {
     position: relative !important; }
   html.responsive-enabled table {
     display: block;
-    overflow-x: scroll; } }
+    overflow-x: scroll; }
+  html.responsive-enabled .ptIcons,
+  html.responsive-enabled .ptMedal table {
+    display: table; } }
+html.responsive-enabled .box-blue {
+  width: calc(100% - 20px);
+  max-width: 750px;
+  box-sizing: border-box; }
 @media screen and (max-width: 768px) {
   html.responsive-enabled .logformTable [src*='date_next.png'] {
     margin-right: calc(100% - 186px); } }

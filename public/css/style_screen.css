@@ -1198,6 +1198,30 @@ td.myr{
     -moz-border-radius: 50px;
     -webkit-border-radius: 50px;
 }
+/*(viewprofile)*/
+.user-profile {
+    font-size: 115%;
+    width: calc(100% - 20px);
+    margin: 0 auto;
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
+    -webkit-align-items: center;
+    flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    justify-content: space-between;
+    -webkit-justify-content: space-between;
+    gap: 10px;
+}
+
+.user-profile .col1 {
+    width: 64px;
+}
+
+.user-profile .col2 {
+    flex-grow: 4;
+    max-width: 450px;
+}
 
 .imgPtMedal{
     max-height: 50px;

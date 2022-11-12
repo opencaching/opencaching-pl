@@ -1,6 +1,11 @@
 //  !! Before generating the .css, make sure there are no changes to the .css file. !!
 //  !! Transfer changes from the css file to sass. !!
 
+.c-flex
+  @include c-flex
+.space-between
+  @include space-between
+
 html.responsive-enabled
   .discreet-advertising
     @include max-970px
@@ -85,7 +90,11 @@ html.responsive-enabled
         text-align: center
       .title,
       a
-        font-size: 2em
+        font-size: 1.5em
+      li.group a
+        padding: 3px 7px
+        border-left: unset
+
 
   .content2-container,
   .content2-container-1col,
@@ -313,6 +322,14 @@ html.responsive-enabled
     table
       display: block
       overflow-x: scroll
+    .ptIcons,
+    .ptMedal table
+      display: table
+  .box-blue
+    width: calc(100% - 20px)
+    max-width: 750px
+    box-sizing: border-box
+
   @include mobile
     .logformTable
       [src*='date_next.png']
