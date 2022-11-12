@@ -455,7 +455,9 @@ use src\Utils\Uri\SimpleRouter as _SimpleRouter;
           if(html.classList.contains("responsive-enabled")){
               maybe_change_navigation();
               $(window).on('resize', function(){
-                  maybe_change_navigation();
+                  if (screen.width > 768) {
+                      $('#nav3 ul .group').slideDown();
+                  }
               });
           }
 
