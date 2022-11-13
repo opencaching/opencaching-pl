@@ -59,7 +59,7 @@ jQuery(function($) {
 
 <!--    CONTENT -->
 <div class="content2-container">
-  <?php $view->callChunk('infoBar', '', $view->infoMsg, $view->errorMsg ); ?>
+  <?php $view->callChunk('infoBar', '', $view->infoMsg, $view->errorMsg); ?>
     <div class="content2-pagetitle">{{user_profile}} {username} </div>
     <div class="content-title-noshade">
         <div class="user-profile">
@@ -72,9 +72,9 @@ jQuery(function($) {
                 <span class="txt-blue08" >{{lastlogins}}:</span><span class="{lastloginClass}" style="line-height: 0.5cm;"> {lastlogin}</span><br>
             </div>
             <div class="col3">
-                <img src="/images/blue/email.png" class="icon32" alt="Email" title="Email" align="middle">&nbsp;<a href="<?=SimpleRouter::getLink('UserProfile', 'mailTo', $view->userid)?>" class="links">{{email_user}}</a><br />
+                <img src="/images/blue/email.png" class="icon32" alt="Email" title="Email" align="middle">&nbsp;<a href="<?= SimpleRouter::getLink('UserProfile', 'mailTo', $view->userid); ?>" class="links">{{email_user}}</a><br />
                 <img src="/images/blue/world.png" class="icon32" alt="Mapa" title="Map" align="middle">&nbsp;
-                <a href="<?=Uri::setOrReplaceParamValue('userid', $view->userid, SimpleRouter::getLink('MainMap', 'embeded'))?>"
+                <a href="<?= Uri::setOrReplaceParamValue('userid', $view->userid, SimpleRouter::getLink('MainMap', 'embeded')); ?>"
                    class="links">{{show_user_map}}</a>
             </div>
             <hr>
@@ -85,14 +85,14 @@ jQuery(function($) {
         <ul id="statmenu">
           <li class="group">
             <a style="background-image: url(images/actions/stat-18.png);background-repeat:no-repeat;"
-               href="/ustatsg2.php?userid=<?=$view->userid?>">
-              <?=tr('graph_find')?>
+               href="/ustatsg2.php?userid=<?= $view->userid; ?>">
+              <?= tr('graph_find'); ?>
             </a>
           </li>
           <li class="group">
             <a style="background-image: url(images/actions/stat-18.png);background-repeat:no-repeat;"
-               href="/ustatsg1.php?userid=<?=$view->userid?>">
-              <?=tr('graph_created')?>
+               href="/ustatsg1.php?userid=<?= $view->userid; ?>">
+              <?= tr('graph_created'); ?>
             </a>
           </li>
         </ul>
