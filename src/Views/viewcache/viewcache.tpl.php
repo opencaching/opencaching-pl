@@ -93,6 +93,15 @@ $desc = $view->geoCacheDesc;
         <?php } //else?>
     </div>
 
+    <div id="top-links-to-ext-maps" class="line-box">
+        <?php if ($view->isUserAuthorized || $view->alwaysShowCoords) { ?>
+            <b>{{available_maps}}:</b>
+            <?php foreach ($view->externalMaps as $mapName => $url) { ?>
+                <a target="_blank" href="<?= $url; ?>" rel="noopener"><?= $mapName; ?></a>
+            <?php } //foreach?>
+        <?php } //else $view->isUserAuthorized || $view->alwaysShowCoords?>
+    </div>
+
     <div>
         <!-- cache-icons -->
         <div id="cache-title-icons">

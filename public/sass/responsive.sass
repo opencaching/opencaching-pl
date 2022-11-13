@@ -105,6 +105,13 @@ html.responsive-enabled
     width: 100%
     max-width: 769px
 
+  .content2-container
+    p
+      img
+        @include max-970px
+          max-width: 100%
+          height: auto
+
   .templateContainer
     width: calc(100% - 160px)
     max-width: 790px
@@ -131,20 +138,20 @@ html.responsive-enabled
       padding: 0 15px
       box-sizing: border-box
 
-    .totalStatsSlider
-      .totalStatsFrame
-        width: 79px !important
-        padding: 5px
-
-      .slick-track
-        width: 4000px !important
-
-    .slick-slide
-      height: auto
-      line-height: 1.5 !important
-
-    .slick-list.draggable
-      @include translate(0, 25%)
+    //.totalStatsSlider
+    //  margin-left: 0
+    //  margin-right: 0
+    //
+    //  .totalStatsFrame
+    //    width: calc((100vh - 30px) / 4) !important
+    //    padding: 5px
+    //
+    //  .slick-track
+    //    //width: 4000px !important
+    //
+    //.slick-slide
+    //  height: auto
+    //  line-height: 1.5 !important
 
   .nbh-half
     @include mobile
@@ -205,6 +212,10 @@ html.responsive-enabled
   #links-to-ext-maps
     @include mobile
       text-align: left
+
+  #top-links-to-ext-maps
+    @include mobile
+      display: block
 
   div#viewcache-description img
     @include mobile
@@ -294,10 +305,11 @@ html.responsive-enabled
       box-sizing: border-box
 
   #geoPath
-    float: left
-    width: auto
-    min-width: 30%
-    max-width: 100%
+    @include max-970px
+      float: left
+      width: auto
+      min-width: 30%
+      max-width: 100%
 
 
   @include mobile

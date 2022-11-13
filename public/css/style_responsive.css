@@ -126,6 +126,10 @@ html.responsive-enabled .content2-pagetitle,
 html.responsive-enabled .line-box {
   width: 100%;
   max-width: 769px; }
+@media screen and (max-width: 970px) {
+  html.responsive-enabled .content2-container p img {
+    max-width: 100%;
+    height: auto; } }
 html.responsive-enabled .templateContainer {
   width: calc(100% - 160px);
   max-width: 790px; }
@@ -150,21 +154,7 @@ html.responsive-enabled .templateContainer {
 @media screen and (max-width: 970px) {
   html.responsive-enabled .templateContainer {
     padding: 0 15px;
-    box-sizing: border-box; }
-  html.responsive-enabled .totalStatsSlider .totalStatsFrame {
-    width: 79px !important;
-    padding: 5px; }
-  html.responsive-enabled .totalStatsSlider .slick-track {
-    width: 4000px !important; }
-  html.responsive-enabled .slick-slide {
-    height: auto;
-    line-height: 1.5 !important; }
-  html.responsive-enabled .slick-list.draggable {
-    -webkit-transform: translate(0, 25%);
-    -moz-transform: translate(0, 25%);
-    -ms-transform: translate(0, 25%);
-    -o-transform: translate(0, 25%);
-    transform: translate(0, 25%); } }
+    box-sizing: border-box; } }
 @media screen and (max-width: 768px) {
   html.responsive-enabled .nbh-half {
     width: 99%; } }
@@ -216,6 +206,9 @@ html.responsive-enabled div#viewcache-maptypes {
 @media screen and (max-width: 768px) {
   html.responsive-enabled #links-to-ext-maps {
     text-align: left; } }
+@media screen and (max-width: 768px) {
+  html.responsive-enabled #top-links-to-ext-maps {
+    display: block; } }
 @media screen and (max-width: 768px) {
   html.responsive-enabled div#viewcache-description img {
     max-width: 100%;
@@ -294,11 +287,12 @@ html.responsive-enabled *.input400 {
     max-width: 720px;
     width: 100%;
     box-sizing: border-box; } }
-html.responsive-enabled #geoPath {
-  float: left;
-  width: auto;
-  min-width: 30%;
-  max-width: 100%; }
+@media screen and (max-width: 970px) {
+  html.responsive-enabled #geoPath {
+    float: left;
+    width: auto;
+    min-width: 30%;
+    max-width: 100%; } }
 @media screen and (max-width: 768px) {
   html.responsive-enabled .fancybox-show-caption .fancybox-caption,
   html.responsive-enabled .fancybox-show-infobar .fancybox-infobar,

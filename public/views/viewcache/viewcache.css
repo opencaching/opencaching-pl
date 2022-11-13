@@ -65,6 +65,10 @@
   margin: 5px;
 }
 
+#top-links-to-ext-maps{
+  display: none;
+}
+
 #links-to-ext-maps a{
   margin: 1px 0px;
 }
