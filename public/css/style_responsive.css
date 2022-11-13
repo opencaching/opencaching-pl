@@ -28,25 +28,6 @@
   justify-content: space-between;
   -webkit-justify-content: space-between; }
 
-.user-profile {
-  font-size: 115%;
-  width: calc(100% - 20px);
-  margin: 0 auto;
-  display: flex;
-  display: -webkit-flex;
-  align-items: center;
-  -webkit-align-items: center;
-  flex-wrap: wrap;
-  -webkit-flex-wrap: wrap;
-  justify-content: space-between;
-  -webkit-justify-content: space-between;
-  gap: 10px; }
-  .user-profile .col1 {
-    width: 64px; }
-  .user-profile .col2 {
-    flex-grow: 4;
-    max-width: 450px; }
-
 @media screen and (max-width: 970px) {
   html.responsive-enabled .discreet-advertising {
     display: none; } }
@@ -298,7 +279,9 @@ html.responsive-enabled *.input400 {
   html.responsive-enabled #intro {
     font-size: 1.6em; } }
 @media screen and (max-width: 970px) {
-  html.responsive-enabled #logform {
+  html.responsive-enabled #logform,
+  html.responsive-enabled #cacheeditform,
+  html.responsive-enabled form#editlog {
     width: 100%; } }
 @media screen and (max-width: 970px) {
   html.responsive-enabled #cacheNoteForm {
@@ -314,6 +297,7 @@ html.responsive-enabled *.input400 {
 html.responsive-enabled #geoPath {
   float: left;
   width: auto;
+  min-width: 30%;
   max-width: 100%; }
 @media screen and (max-width: 768px) {
   html.responsive-enabled .fancybox-show-caption .fancybox-caption,
