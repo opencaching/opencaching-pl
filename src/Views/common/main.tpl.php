@@ -36,14 +36,14 @@ use src\Utils\Uri\SimpleRouter as _SimpleRouter;
       if (isset($_COOKIE[$config['cookie']['name'] . '_responsive_mode'])) {
           $view->loadJQuery();
       }
-  ?>
+?>
 
   <?php if ($view->_showVideoBanner) {
       foreach ($view->_topBannerVideo as $key => $videoPath) {
           if ($key !== 0) { ?>
               <link rel="prefetch" href="<?= $videoPath; ?>">
           <?php }
-      }
+          }
   } ?>
 
   <?php foreach ($view->getLocalCss() as $css) { ?>
@@ -80,7 +80,7 @@ use src\Utils\Uri\SimpleRouter as _SimpleRouter;
           if (! $js['defer']) {?>
             <script src="<?= $js['url']; ?>"<?= $js['async'] ? ' async' : ''; ?>></script>
   <?php }
-      } //foreach-js?>
+          } //foreach-js?>
   <script src="/js/CookiesInfo.js" async defer></script>
 
 </head>
@@ -481,15 +481,15 @@ use src\Utils\Uri\SimpleRouter as _SimpleRouter;
   </script>
   <?php
       // fancyBox js should be loaded at the end of page
-      if ($view->isFancyBoxEnabled()) {
-          $view->callChunk('fancyBoxLoader', false, true);
-      }
-      // load defer JS at the end
-      foreach ($view->getLocalJs() as $js) {
-          if ($js['defer']) {?>
+          if ($view->isFancyBoxEnabled()) {
+              $view->callChunk('fancyBoxLoader', false, true);
+          }
+          // load defer JS at the end
+          foreach ($view->getLocalJs() as $js) {
+              if ($js['defer']) {?>
             <script src="<?= $js['url']; ?>"<?= $js['async'] ? ' async' : ''; ?> defer></script>
   <?php } //if
-      } //foreach-js?>
+          } //foreach-js?>
   <!-- (C) The Opencaching Project 2020 -->
 </body>
 </html>
