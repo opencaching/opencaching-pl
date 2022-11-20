@@ -1,4 +1,7 @@
 <?php
+
+/** @noinspection PhpUnusedPrivateMethodInspection */
+
 /**
  * This class allow to retrieve altitude for selected point
  */
@@ -15,7 +18,7 @@ class Altitude
      */
     public static function getAltitude(Coordinates $coords): ?int
     {
-        return self::getAltitudeFromDataScienceToolkit($coords);
+        return self::getAltitudeFromOpenTopoData($coords);
     }
 
     /**
@@ -27,8 +30,8 @@ class Altitude
     {
         $googleMapKey = OcConfig::instance()->getGoogleMapKey();
         $url = 'https://maps.googleapis.com/maps/api/elevation/json?'
-                . "locations={$coords->getLatitude()},{$coords->getLongitude()}"
-                . "&key={$googleMapKey}";
+            . "locations={$coords->getLatitude()},{$coords->getLongitude()}"
+            . "&key={$googleMapKey}";
 
         $resp = @file_get_contents($url);
         $data = json_decode($resp);
@@ -51,7 +54,7 @@ class Altitude
     private static function getAltitudeFromOpenElevation(Coordinates $coords): ?int
     {
         $url = 'https://api.open-elevation.com/api/v1/lookup?'
-               . "locations={$coords->getLatitude()},{$coords->getLongitude()}";
+            . "locations={$coords->getLatitude()},{$coords->getLongitude()}";
 
         $resp = @file_get_contents($url);
         $data = json_decode($resp);
@@ -67,10 +70,11 @@ class Altitude
         return null;
     }
 
+    // Data Science Toolkit doesn't seem not work
     private static function getAltitudeFromDataScienceToolkit(Coordinates $coords): ?int
     {
         $url = 'http://dstk.britecorepro.com/coordinates2statistics/'
-                        . "{$coords->getLatitude()},{$coords->getLongitude()}?statistics=elevation";
+            . "{$coords->getLatitude()},{$coords->getLongitude()}?statistics=elevation";
 
         $resp = @file_get_contents($url);
         $data = json_decode($resp);
@@ -97,8 +101,10 @@ class Altitude
 
             if ($stats->units == 'meters') {
                 if (! is_numeric($stats->value)) {
-                    Debug::errorLog('External service: datasciencetoolkit returns unexpected'
-                                    . " non numeric value for coords: {$coords->getAsText()}()?!");
+                    Debug::errorLog(
+                        'External service: datasciencetoolkit returns unexpected'
+                        . " non numeric value for coords: {$coords->getAsText()}()?!"
+                    );
                 }
 
                 return (int) $stats->value;
@@ -106,6 +112,46 @@ class Altitude
         } elseif (! empty($data) && isset($data[0]->statistics)) {
             // If coords are on ocean, DataScienceToolkit response with empty statistics section.
             return 0;
+        }
+
+        return null;
+    }
+
+    private static function getAltitudeFromOpenTopoData(Coordinates $coords): ?int
+    {
+        $url = 'https://api.opentopodata.org/v1/test-dataset?locations='
+            . $coords->getLatitude() . ',' . $coords->getLongitude();
+
+        $resp = @file_get_contents($url);
+        $data = json_decode($resp, true);
+        /*
+            {
+                "results": [{
+                    "elevation": 815.0,
+                    "location": {
+                        "lat": 56.0,
+                        "lng": 123.0
+                    },
+                    "dataset": "test-dataset"
+                }],
+                "status": "OK"
+            }
+        */
+        if (
+            ! empty($data)
+            && isset($data['results'], $data['results'][0], $data['results'][0]['elevation'], $data['status'])
+            && $data['status'] == 'OK'
+        ) {
+            $elevation = $data['results'][0]['elevation'];
+
+            if (! is_numeric($elevation)) {
+                Debug::errorLog(
+                    'External service: opentopodata returns unexpected'
+                    . " non numeric value for coords: {$coords->getAsText()}()"
+                );
+            }
+
+            return (int) $elevation;
         }
 
         return null;
