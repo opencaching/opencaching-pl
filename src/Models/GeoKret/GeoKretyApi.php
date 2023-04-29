@@ -3,6 +3,7 @@
 namespace src\Models\GeoKret;
 
 use src\Models\BaseObject;
+use ErrorException;
 
 /**
  * This class contain methods used to communicate with Geokrety, via Geokrety Api
