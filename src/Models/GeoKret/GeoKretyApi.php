@@ -156,7 +156,11 @@ class GeoKretyApi extends BaseObject
             )
         );
         $context = stream_context_create($opts);
-        @$response = file_get_contents($url, false, $context);
+        try{
+            @$response = file_get_contents($url, false, $context);
+        } catch (Exception $e){
+            $response = FALSE;
+        }
         if ($response) {
             $result = $response;
         } else {
