@@ -158,9 +158,8 @@ class GeoKretyApi extends BaseObject
         );
         $context = stream_context_create($opts);
         
-        
         try{
-            $response = @file_get_contents($url, false, $context);
+            $response = FALSE; // TEM DISABLE: @file_get_contents($url, false, $context);
         } catch (Exception $e){
             $response = FALSE;
         }
