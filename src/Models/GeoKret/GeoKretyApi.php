@@ -158,19 +158,13 @@ class GeoKretyApi extends BaseObject
         );
         $context = stream_context_create($opts);
         
-        set_error_handler(
-            function ($severity, $message, $file, $line) {
-                throw new ErrorException($message, $severity, $severity, $file, $line);
-            }
-        );
         
         try{
-            @$response = file_get_contents($url, false, $context);
+            $response = @file_get_contents($url, false, $context);
         } catch (Exception $e){
             $response = FALSE;
         }
-        restore_error_handler();
-
+        
         if ($response) {
             $result = $response;
         } else {
