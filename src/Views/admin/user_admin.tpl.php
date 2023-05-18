@@ -32,6 +32,16 @@ $user = $view->user;
       })
       location.reload();
     }
+
+    function saveToClipboard(text) {
+        navigator.clipboard.writeText(text)
+            .then(function () {
+                console.log("Text has been saved to the clipboard.");
+            })
+            .catch(function (error) {
+                console.error("Error saving text to clipboard:", error);
+            });
+    }
 </script>
 
 <div class="content2-pagetitle">
@@ -85,6 +95,9 @@ $user = $view->user;
       <?=$user->getEmail()?>
       <img src="/images/free_icons/email.png" alt="<?=tr('email_user')?>" title="<?=tr('email_user')?>">
     </a>
+    <button class="btn btn-sm btn-default" type="button" >
+        <img src="/images/free_icons/page_copy.png" alt="<?=tr('email_user')?>" title="<?=tr('email_user')?>" onclick="saveToClipboard('<?=$user->getEmail()?>')">
+    </button>
   </p>
   <div class="buffer"></div>
 
