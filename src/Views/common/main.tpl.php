@@ -28,7 +28,8 @@ use src\Utils\Uri\SimpleRouter as _SimpleRouter;
     <link rel="stylesheet" type="text/css" media="screen" href="<?= $view->screenCss; ?>">
     <link rel="stylesheet" type="text/css" media="screen" href="<?= $view->responsiveCss; ?>">
     <link rel="stylesheet" type="text/css" media="print" href="<?= $view->printCss; ?>">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
     <link rel="stylesheet" type="text/css" href="/css/typography.css">
 
     <?php
@@ -50,7 +51,7 @@ use src\Utils\Uri\SimpleRouter as _SimpleRouter;
         <link rel="stylesheet" type="text/css" href="<?= $css; ?>">
     <?php } //foreach-css?>
 
-    <?php foreach ($view->getHeaderChunks() as $chunkName => $args) {?>
+    <?php foreach ($view->getHeaderChunks() as $chunkName => $args) { ?>
         <!-- load chunk $chunkName -->
         <?php $view->callChunk($chunkName, ...$args); ?>
     <?php } //foreach getHeaderChunks?>
@@ -77,7 +78,7 @@ use src\Utils\Uri\SimpleRouter as _SimpleRouter;
     }
 
     foreach ($view->getLocalJs() as $js) {
-        if (! $js['defer']) {?>
+        if (!$js['defer']) { ?>
             <script src="<?= $js['url']; ?>"<?= $js['async'] ? ' async' : ''; ?>></script>
         <?php }
     } //foreach-js?>
@@ -99,8 +100,12 @@ use src\Utils\Uri\SimpleRouter as _SimpleRouter;
             </div>
             <div class="topline-buffer"></div>
             <button class="responsive-toggle btn btn-sm btn-default" type="button" onclick="responsiveToggle()">
-                <img src="/images/misc/responsive-mode-disabled.svg" class="icon16 mobile-off" alt="<?= tr('responsiveModeToggle_disabled'); ?>" title="<?= tr('responsiveModeToggle_disabled'); ?>">
-                <img src="/images/misc/responsive-mode-enabled.svg" class="icon16 mobile-friendly" alt="<?= tr('responsiveModeToggle_enabled'); ?>" title="<?= tr('responsiveModeToggle_enabled'); ?>">
+                <img src="/images/misc/responsive-mode-disabled.svg" class="icon16 mobile-off"
+                     alt="<?= tr('responsiveModeToggle_disabled'); ?>"
+                     title="<?= tr('responsiveModeToggle_disabled'); ?>">
+                <img src="/images/misc/responsive-mode-enabled.svg" class="icon16 mobile-friendly"
+                     alt="<?= tr('responsiveModeToggle_enabled'); ?>"
+                     title="<?= tr('responsiveModeToggle_enabled'); ?>">
             </button>
 
             <div class="topline-buttons">
@@ -117,26 +122,36 @@ use src\Utils\Uri\SimpleRouter as _SimpleRouter;
                         <input type="hidden" name="f_watched" value="0">
                         <input type="hidden" name="f_geokret" value="0">
                         <input type="hidden" name="searchto" value="searchbywaypointname" id="search_by">
-                        <input id="search_input" type="text" name="waypointname" placeholder="<?= tr('search'); ?>: <?= tr('waypointname_label'); ?>" class="form-control input200 btn-right-straight">
-                        <button class="btn btn-sm btn-default btn-left-straight btn-right-straight topline-btn-wide" type="submit">
-                            <img class="icon16" src="/images/misc/magnifying-glass.svg" alt="<?= tr('search'); ?>" title="<?= tr('search'); ?>">
+                        <input id="search_input" type="text" name="waypointname"
+                               placeholder="<?= tr('search'); ?>: <?= tr('waypointname_label'); ?>"
+                               class="form-control input200 btn-right-straight">
+                        <button class="btn btn-sm btn-default btn-left-straight btn-right-straight topline-btn-wide"
+                                type="submit">
+                            <img class="icon16" src="/images/misc/magnifying-glass.svg" alt="<?= tr('search'); ?>"
+                                 title="<?= tr('search'); ?>">
                         </button>
                         <button class="btn btn-sm btn-default btn-left-straight" type="button" onclick="topmenuTogle()">
-                            <img class="topline-dropdown-icon" src="/images/misc/dropdown.svg" alt="<?= tr('search'); ?>" title="<?= tr('search'); ?>">
+                            <img class="topline-dropdown-icon" src="/images/misc/dropdown.svg"
+                                 alt="<?= tr('search'); ?>" title="<?= tr('search'); ?>">
                         </button>
                         <div id="topline-search-dropdown" class="topline-dropdown-content">
-                            <div class="" onclick="chname('waypointname', '<?= tr('search'); ?>: <?= tr('waypointname_label'); ?>' , 'searchbywaypointname', '/search.php');"><?= tr('waypointname_label'); ?></div>
+                            <div class=""
+                                 onclick="chname('waypointname', '<?= tr('search'); ?>: <?= tr('waypointname_label'); ?>' , 'searchbywaypointname', '/search.php');"><?= tr('waypointname_label'); ?></div>
                             <?php if ($config['quick_search']['geopath']) { ?>
-                                <div class="" onclick="chname('name', '<?= tr('search'); ?>: <?= tr('pt000'); ?>', 'name', '<?= _SimpleRouter::getLink('GeoPath', 'searchByName'); ?>');"><?= tr('pt000'); ?></div>
+                                <div class=""
+                                     onclick="chname('name', '<?= tr('search'); ?>: <?= tr('pt000'); ?>', 'name', '<?= _SimpleRouter::getLink('GeoPath', 'searchByName'); ?>');"><?= tr('pt000'); ?></div>
                             <?php } ?>
                             <?php if ($config['quick_search']['byuser']) { ?>
-                                <div class="" onclick="chname('username', '<?= tr('search'); ?>: <?= tr('user'); ?>', 'searchbyuser', '/searchuser.php');"><?= tr('user'); ?></div>
+                                <div class=""
+                                     onclick="chname('username', '<?= tr('search'); ?>: <?= tr('user'); ?>', 'searchbyuser', '/searchuser.php');"><?= tr('user'); ?></div>
                             <?php } ?>
                             <?php if ($config['quick_search']['byowner']) { ?>
-                                <div class="" onclick="chname('owner', '<?= tr('search'); ?>: <?= tr('owner_label'); ?>', 'searchbyowner', '/search.php');"><?= tr('owner_label'); ?></div>
+                                <div class=""
+                                     onclick="chname('owner', '<?= tr('search'); ?>: <?= tr('owner_label'); ?>', 'searchbyowner', '/search.php');"><?= tr('owner_label'); ?></div>
                             <?php } ?>
                             <?php if ($config['quick_search']['byfinder']) { ?>
-                                <div class="" onclick="chname('finder', '<?= tr('search'); ?>: <?= tr('finder_label'); ?>', 'searchbyfinder', '/search.php');"><?= tr('finder_label'); ?></div>
+                                <div class=""
+                                     onclick="chname('finder', '<?= tr('search'); ?>: <?= tr('finder_label'); ?>', 'searchbyfinder', '/search.php');"><?= tr('finder_label'); ?></div>
                             <?php } ?>
                         </div>
                     </form>
@@ -145,26 +160,37 @@ use src\Utils\Uri\SimpleRouter as _SimpleRouter;
 
                     <div class="btn-group btn-group-sm">
                         <a href="/viewprofile.php" class="btn btn-default btn-sm topline-btn-wide">
-                            <img src="/images/misc/user.svg" class="icon16" alt="<?= tr('user_profile'); ?>" title="<?= tr('user_profile'); ?>">
+                            <img src="/images/misc/user.svg" class="icon16" alt="<?= tr('user_profile'); ?>"
+                                 title="<?= tr('user_profile'); ?>">
                             <?= $view->_username; ?>
                         </a>
-                        <a href="<?= _SimpleRouter::getLink('UserAuthorization', 'logout'); ?>" class="btn btn-default btn-sm topline-btn-wide">
-                            <img src="/images/misc/exit.svg" class="icon16" alt="<?= tr('logout'); ?>" title="<?= tr('logout'); ?>"> <?= tr('logout'); ?>
+                        <a href="<?= _SimpleRouter::getLink('UserAuthorization', 'logout'); ?>"
+                           class="btn btn-default btn-sm topline-btn-wide">
+                            <img src="/images/misc/exit.svg" class="icon16" alt="<?= tr('logout'); ?>"
+                                 title="<?= tr('logout'); ?>"> <?= tr('logout'); ?>
                         </a>
                     </div>
                 <?php } else { //user-not-logged?>
-                    <form action="<?= _SimpleRouter::getLink('UserAuthorization', 'login'); ?>" method="post" name="login" class="form-group-sm">
+                    <form action="<?= _SimpleRouter::getLink('UserAuthorization', 'login'); ?>" method="post"
+                          name="login" class="form-group-sm">
                         <label for="top-form-email" class="btn btn-sm btn-default btn-right-straight">
-                            <img src="/images/misc/user.svg" class="icon16" alt="<?= tr('loginForm_userOrEmail'); ?>" title="<?= tr('loginForm_userOrEmail'); ?>">
+                            <img src="/images/misc/user.svg" class="icon16" alt="<?= tr('loginForm_userOrEmail'); ?>"
+                                 title="<?= tr('loginForm_userOrEmail'); ?>">
                         </label>
-                        <input name="email" id="top-form-email" type="text" class="form-control input120 btn-left-straight" value="" autocomplete="username" placeholder="<?= tr('loginForm_userOrEmail'); ?>" required>
+                        <input name="email" id="top-form-email" type="text"
+                               class="form-control input120 btn-left-straight" value="" autocomplete="username"
+                               placeholder="<?= tr('loginForm_userOrEmail'); ?>" required>
                         <label for="top-form-password" class="btn btn-sm btn-default btn-right-straight">
-                            <img src="/images/misc/key.svg" class="icon16" alt="<?= tr('loginForm_password'); ?>" title="<?= tr('loginForm_password'); ?>">
+                            <img src="/images/misc/key.svg" class="icon16" alt="<?= tr('loginForm_password'); ?>"
+                                 title="<?= tr('loginForm_password'); ?>">
                         </label>
-                        <input name="password" id="top-form-password" type="password" class="form-control input120 btn-left-straight" value="" autocomplete="current-password" placeholder="<?= tr('loginForm_password'); ?>" required>
+                        <input name="password" id="top-form-password" type="password"
+                               class="form-control input120 btn-left-straight" value="" autocomplete="current-password"
+                               placeholder="<?= tr('loginForm_password'); ?>" required>
                         <input type="hidden" name="target" value="<?= $view->_target; ?>">
                         <input type="submit" value="<?= tr('login'); ?>" class="btn btn-primary btn-sm">
-                        <a href="<?= _SimpleRouter::getLink('UserRegistration'); ?>" class="btn btn-success btn-sm"><?= tr('registration'); ?></a>
+                        <a href="<?= _SimpleRouter::getLink('UserRegistration'); ?>"
+                           class="btn btn-success btn-sm"><?= tr('registration'); ?></a>
                     </form>
                 <?php } //user-not-logged?>
 
@@ -186,11 +212,11 @@ use src\Utils\Uri\SimpleRouter as _SimpleRouter;
             <script>
                 let topVideoSource = [];
                 <?php foreach ($view->_topBannerVideo as $key => $val) { ?>
-                topVideoSource[<?= $key; ?>]='<?= $val; ?>';
+                topVideoSource[<?= $key; ?>] = '<?= $val; ?>';
                 <?php } // foreach topBannerVideo?>
                 let topVideoIndex = 0;
                 let topVideoPlayer = document.getElementById("topline-video-player");
-                topVideoPlayer.setAttribute("src",topVideoSource[0]);
+                topVideoPlayer.setAttribute("src", topVideoSource[0]);
 
                 function videoPlay(videoNum) {
                     topVideoPlayer.setAttribute("src", topVideoSource[videoNum]);
@@ -240,7 +266,7 @@ use src\Utils\Uri\SimpleRouter as _SimpleRouter;
         <!-- Navigation Left menu -->
 
         <div id="nav3">
-            <?php if (! $view->_isUserLogged) { ?>
+            <?php if (!$view->_isUserLogged) { ?>
                 <!-- non-authorized user menu -->
                 <ul class="rythm_nav3MainMenu">
                     <li class="title"><?= tr('main_menu'); ?></li>
@@ -354,7 +380,7 @@ use src\Utils\Uri\SimpleRouter as _SimpleRouter;
             <div class="bottom-page-container">
                 <?= $view->licenseHtml; ?>
 
-                <?php if (! $view->_crowdinInContextEnabled) { ?>
+                <?php if (!$view->_crowdinInContextEnabled) { ?>
                     <span class="bottom-flags">
                 <?php foreach ($view->_languageFlags as $langFlag) { ?>
                     <a rel="nofollow" href="<?= $langFlag['link']; ?>">
@@ -402,7 +428,8 @@ use src\Utils\Uri\SimpleRouter as _SimpleRouter;
     }
 
     function topmenuTogle() {
-        document.getElementById("topline-search-dropdown").classList.toggle("topline-dropdown-show");;
+        document.getElementById("topline-search-dropdown").classList.toggle("topline-dropdown-show");
+        ;
     }
 </script>
 <script>
@@ -413,7 +440,7 @@ use src\Utils\Uri\SimpleRouter as _SimpleRouter;
     var x = document.cookie,
         html = document.getElementsByTagName("html")[0];
 
-    var re = new RegExp(cookie_name+'=1');
+    var re = new RegExp(cookie_name + '=1');
 
     if (!x.match(re)) {
         html.classList.remove("responsive-enabled");
@@ -424,17 +451,17 @@ use src\Utils\Uri\SimpleRouter as _SimpleRouter;
     function responsiveToggle() {
         html.classList.toggle("responsive-enabled");
 
-        if(html.classList.contains("responsive-enabled")){
+        if (html.classList.contains("responsive-enabled")) {
             var date = new Date();
             var days = 1;
             date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
             var expires = "; expires=" + date.toGMTString();
-            document.cookie = cookie_name+"=1" + expires + "; path=/";
+            document.cookie = cookie_name + "=1" + expires + "; path=/";
             if (window.jQuery) {
                 maybe_change_navigation();
             }
-        }else{
-            document.cookie = cookie_name+"=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        } else {
+            document.cookie = cookie_name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
             if (window.jQuery) {
                 $('#nav3 ul .group').slideDown();
             }
@@ -442,34 +469,33 @@ use src\Utils\Uri\SimpleRouter as _SimpleRouter;
     }
 
     //responsive mode - left nav
-    function maybe_change_navigation(){
+    function maybe_change_navigation() {
         if (screen.width <= 768) {
             $('#nav3 ul .group').slideUp();
-        }
-        else {
+        } else {
             $('#nav3 ul .group').slideDown();
         }
     }
 
     if (window.jQuery) {
-        if(html.classList.contains("responsive-enabled")){
+        if (html.classList.contains("responsive-enabled")) {
             maybe_change_navigation();
-            $(window).on('resize', function(){
+            $(window).on('resize', function () {
                 maybe_change_navigation();
             });
         }
 
-        $('#nav3').on("click", ".title", function(e){
+        $('#nav3').on("click", ".title", function (e) {
             e.preventDefault();
 
-            if($(this).parent().hasClass("opened")){
+            if ($(this).parent().hasClass("opened")) {
                 $(this).parent().removeClass("opened");
-                $(this).parent().find('.group').each(function(){
+                $(this).parent().find('.group').each(function () {
                     $(this).slideUp();
                 });
-            }else{
+            } else {
                 $(this).parent().addClass("opened");
-                $(this).parent().find('.group').each(function(){
+                $(this).parent().find('.group').each(function () {
                     $(this).slideDown();
                 });
             }
@@ -486,7 +512,7 @@ if ($view->isFancyBoxEnabled()) {
 }
 // load defer JS at the end
 foreach ($view->getLocalJs() as $js) {
-    if ($js['defer']) {?>
+    if ($js['defer']) { ?>
         <script src="<?= $js['url']; ?>"<?= $js['async'] ? ' async' : ''; ?> defer></script>
     <?php } //if
 } //foreach-js?>
