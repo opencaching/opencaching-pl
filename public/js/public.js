@@ -11,6 +11,4 @@ $(document).ready(function () {
         document.execCommand('copy');
         $tempInput.remove();
     }
-
-
 });
