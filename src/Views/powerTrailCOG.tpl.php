@@ -90,7 +90,7 @@ $view->callChunk('tinyMCE', false);
         <table class="table">
             <tr>
                 <td class="content-title-noshade">{{pt008}}</td>
-                <td>{ptName}</td>
+                <td><a href="/powerTrail.php?ptAction=showSerie&ptrail={ptId}" class="links">{ptName}</a></td>
             </tr>
             <tr>
                 <td class="content-title-noshade">{{pt023}}</td>
