@@ -34,12 +34,14 @@ use src\Models\News\News;
     </div>
   <?php } // if(empty($view->newsList)) ?>
 
-  <?php foreach($view->newsList as $news) { ?>
+  <?php foreach($view->newsList as /** @var News $news */ $news) { ?>
     <div class="callout callout-news callout-<?=$news->getStatusBootstrapName()?>">
       <div class="callout-news-status">
         <span class="news-right">
           <a href="<?=SimpleRouter::getLink('News.NewsAdmin', 'editNews', $news->getId())?>" class="btn btn-md btn-default"><?=tr('edit')?></a>
         </span>
+        <a href="<?=$news->getNewsUrl() ?>">Link</a> |
+        <a href="<?=$news->getNewsUrl(true) ?>">Raw Link</a> |
         <?=tr('news_lbl_status')?>: <span class="text-color-<?=$news->getStatusBootstrapName()?>"><strong><?=tr('news_status_' . $news->getStatus());?></strong></span> |
         <?=tr('news_lbl_show_on_mainp')?>: <strong><?php if ($news->getShowOnMainpage()) { echo tr('yes'); } else { echo tr('no'); } ?></strong> |
         <?=tr('news_lbl_show_notlogged')?>: <strong><?php if ($news->getShowNotLogged()) { echo tr('yes'); } else { echo tr('no'); } ?></strong><br>

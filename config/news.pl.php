@@ -13,4 +13,4 @@
  *
  * - wspolpraca = category for news about OCPL cooperation with other institutions
  */
-$news['localCategories'] = ['wspolpraca'];
+$news['localCategories'] = ['wspolpraca', 'podstrony'];

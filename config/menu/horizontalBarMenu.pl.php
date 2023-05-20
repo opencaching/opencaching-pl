@@ -6,7 +6,7 @@
  * This is a configuration for OCPL node only.
  */
 
-/** @var array $links OcConfig::$links is accessible in within this scope */
+/** @var array $links OcConfig::$links is accessible within this scope */
 
 $menu = [
     'mnu_mainPage' => '/index.php',
