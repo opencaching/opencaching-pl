@@ -86,7 +86,7 @@ $user = $view->user;
           <img src="/images/free_icons/email.png" alt="<?=tr('email_user')?>" title="<?=tr('email_user')?>">
       </a>
       <a href="#" class="js-oc-copy-to-clipboard" data-copy-to-clipboard="<?=$user->getEmail()?>">
-          <img src="/images/misc/copy-coords.svg" alt="user profile">
+          <img src="/images/misc/copy-coords.svg" alt="user profile" width="16px" height="16px">
       </a>
   </p>
   <div class="buffer"></div>
