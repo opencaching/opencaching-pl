@@ -2718,6 +2718,9 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'startPage_newSearchesDesc' => 'Anzahl aller Fund- und Nichtfund-Logeinträge der letzten 30 Tage, ohne gelöschte Logs',
     'startPage_newoRecom' => 'Neue Emfpfehlungen',
     'startPage_newoRecomDesc' => 'Anzahl der in den letzten 30 Tagen vergebenen Cache-Empfehlungen',
+    'startPage_lastYearActiveUsers' => 'Users who found in last year',
+    'startPage_LastYearActiveUsersDesc' => 'Users who found at least one geocache in last year',
+
     'startPage_showMore' => 'Mehr ...',
     'startPage_latestCachesList' => 'Die neuesten Caches',
     'startPage_latestCacheSets' => 'Die neuesten Geopfade',
