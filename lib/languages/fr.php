@@ -2717,6 +2717,9 @@ $translations = [
     'startPage_newSearchesDesc' => 'Nombre de recherches récentes (sur les 30 derniers jours)',
     'startPage_newoRecom' => 'Nouvelles recommandations accordées',
     'startPage_newoRecomDesc' => 'Nombre de recommandations accordées (sur les 30 derniers jours)',
+    'startPage_lastYearActiveUsers' => 'Users who found in last year',
+    'startPage_LastYearActiveUsersDesc' => 'Users who found at least one geocache in last year',
+
     'startPage_showMore' => 'Voir la plus',
     'startPage_latestCachesList' => 'Dernières caches',
     'startPage_latestCacheSets' => 'Derniers GeoPath',

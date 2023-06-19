@@ -2717,6 +2717,9 @@ $translations = [
     'startPage_newSearchesDesc' => 'The number of recent searches (last 30 days)',
     'startPage_newoRecom' => 'New recomendations granted',
     'startPage_newoRecomDesc' => 'The number of recomendations granted in last 30 days',
+    'startPage_lastYearActiveUsers' => 'Users who found in last year',
+    'startPage_LastYearActiveUsersDesc' => 'Users who found at least one geocache in last year',
+
     'startPage_showMore' => 'Visa mer',
     'startPage_latestCachesList' => 'Latest geocaches',
     'startPage_latestCacheSets' => 'Latest GeoPaths',

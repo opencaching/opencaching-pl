@@ -54,6 +54,17 @@ class MultiLogStats extends BaseObject
             0, GeoCacheLog::LOGTYPE_FOUNDIT);
     }
 
+    public static function getUsersCountWithAtLeastOneLog($fromLastDays)
+    {
+        $days = (int)$fromLastDays;
+
+        return self::db()->simpleQueryValue(
+            "SELECT count(*) FROM (
+                SELECT count(`user_id`) FROM `cache_logs`
+                WHERE `date` > DATE_SUB(NOW(), INTERVAL $days day)
+                GROUP BY `user_id`) a", 0);
+    }
+
     /**
      * Returns array with last logs data for each given cacheId
      * @param array $cacheIds
