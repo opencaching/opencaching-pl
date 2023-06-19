@@ -50,7 +50,7 @@ $translations = [
     'event' => 'Event-Cache',
     'quiz' => 'Rätselcache',
     'moving' => 'Beweglicher Cache',
-    'podcast' => 'Podcast-Cache',
+    'podcast' => 'Podcast',
     'owncache' => 'Persönlicher Cache',
 
     'ignored' => 'ignorierte',
