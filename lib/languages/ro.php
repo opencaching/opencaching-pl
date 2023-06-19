@@ -2717,6 +2717,9 @@ $translations = [
     'startPage_newSearchesDesc' => 'Numărul căutărilor efectuate recent (ultimele 30 de zile)',
     'startPage_newoRecom' => 'Recomandări noi',
     'startPage_newoRecomDesc' => 'Numărul recomandărilor acordate recent (ultimele 30 de zile)',
+    'startPage_lastYearActiveUsers' => 'Users who found in last year',
+    'startPage_LastYearActiveUsersDesc' => 'Users who found at least one geocache in last year',
+
     'startPage_showMore' => 'Arată mai mult',
     'startPage_latestCachesList' => 'Cele mai noi geocutii',
     'startPage_latestCacheSets' => 'Cele mai noi Geopath***',
