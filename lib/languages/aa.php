@@ -2717,6 +2717,9 @@ $translations = [
     'startPage_newSearchesDesc' => 'crwdns8287:0crwdne8287:0',
     'startPage_newoRecom' => 'crwdns8288:0crwdne8288:0',
     'startPage_newoRecomDesc' => 'crwdns8289:0crwdne8289:0',
+    'startPage_lastYearActiveUsers' => 'crwdns33945:0crwdne33945:0',
+    'startPage_LastYearActiveUsersDesc' => 'crwdns33947:0crwdne33947:0',
+
     'startPage_showMore' => 'crwdns8290:0crwdne8290:0',
     'startPage_latestCachesList' => 'crwdns8291:0crwdne8291:0',
     'startPage_latestCacheSets' => 'crwdns8292:0crwdne8292:0',

@@ -57,10 +57,13 @@ class TotalStats extends BaseObject
 
         $basicStats->latestRecomendations = Formatter::number(MultiLogStats::getLastRecommendationsCount($periodDays));
 
+        $basicStats->lastYearActiveUsers = Formatter::number(MultiLogStats::getUsersCountWithAtLeastOneLog(365));
+
         $basicStats->createdAt = time();
         return $basicStats;
     }
 }
+
 namespace src\Models\Stats\TotalStats;
 
 /**
@@ -69,11 +72,9 @@ namespace src\Models\Stats\TotalStats;
 class BasicStats
 {
 
-    const KEY = __CLASS__;
+    const KEY = __CLASS__."_rand1"; // update key each time class is changed to invalidate cache
 
-    const TTL = 6 * 60 * 60;
-
-    // sec.
+    const TTL = 6 * 60 * 60;       // sec.
     public $createdAt;
 
     public $totalCaches;
@@ -86,4 +87,5 @@ class BasicStats
     public $totalSearches;
     public $latestSearches;
     public $latestRecomendations;
+    public $lastYearActiveUsers;
 }

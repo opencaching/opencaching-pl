@@ -2717,6 +2717,9 @@ $translations = [
     'startPage_newSearchesDesc' => 'Het aantal recente gelogde caches (laatste 30 dagen)',
     'startPage_newoRecom' => 'Nieuwste aanbevelingen',
     'startPage_newoRecomDesc' => 'Aantal gegeven aanbevelingen in de laatste 30 dagen',
+    'startPage_lastYearActiveUsers' => 'Users who found in last year',
+    'startPage_LastYearActiveUsersDesc' => 'Users who found at least one geocache in last year',
+
     'startPage_showMore' => 'Toon meer',
     'startPage_latestCachesList' => 'Nieuwste caches',
     'startPage_latestCacheSets' => 'Nieuwste geopaths',

@@ -479,9 +479,13 @@ class News extends BaseObject
      *
      * @return string
      */
-    public function getNewsUrl()
+    public function getNewsUrl($rawNews=false)
     {
-        return SimpleRouter::getLink('News.NewsList','show', $this->getId());
+        if ($rawNews) {
+            return SimpleRouter::getLink('News.RawNews','show', $this->getId());
+        } else {
+            return SimpleRouter::getLink('News.NewsList','show', $this->getId());
+        }
     }
 
     /**

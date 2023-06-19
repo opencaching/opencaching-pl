@@ -2717,6 +2717,9 @@ $translations = [
     'startPage_newSearchesDesc' => 'Liczba poszukiwań przez ostatnie 30 dni',
     'startPage_newoRecom' => 'Nowych rekomendacji',
     'startPage_newoRecomDesc' => 'Liczba przyznanych ostatnio rekomendacji (ostatnie 30 dni)',
+    'startPage_lastYearActiveUsers' => 'Użytkownicy ze znalezieniem w roku',
+    'startPage_LastYearActiveUsersDesc' => 'Użytkownicy z przynajmniej jednym znalezieniem w ciągu ostatnich 365 dni',
+
     'startPage_showMore' => 'Pokaż więcej',
     'startPage_latestCachesList' => 'Najnowsze skrzynki',
     'startPage_latestCacheSets' => 'Najnowsze GeoŚciezki',
