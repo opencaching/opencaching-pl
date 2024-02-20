@@ -36,14 +36,14 @@ use src\Utils\Uri\SimpleRouter as _SimpleRouter;
       if (isset($_COOKIE[$config['cookie']['name'] . '_responsive_mode'])) {
           $view->loadJQuery();
       }
-  ?>
+?>
 
   <?php if ($view->_showVideoBanner) {
       foreach ($view->_topBannerVideo as $key => $videoPath) {
           if ($key !== 0) { ?>
               <link rel="prefetch" href="<?= $videoPath; ?>">
           <?php }
-      }
+          }
   } ?>
 
   <?php foreach ($view->getLocalCss() as $css) { ?>
@@ -80,7 +80,7 @@ use src\Utils\Uri\SimpleRouter as _SimpleRouter;
           if (! $js['defer']) {?>
             <script src="<?= $js['url']; ?>"<?= $js['async'] ? ' async' : ''; ?>></script>
   <?php }
-      } //foreach-js?>
+          } //foreach-js?>
   <script src="/js/CookiesInfo.js" async defer></script>
 
 </head>
@@ -425,10 +425,9 @@ use src\Utils\Uri\SimpleRouter as _SimpleRouter;
           html.classList.toggle("responsive-enabled");
 
           if(html.classList.contains("responsive-enabled")){
-              var date = new Date();
-              var days = 1;
-              date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-              var expires = "; expires=" + date.toGMTString();
+              var expiryDate = new Date();
+              expiryDate.setMonth(expiryDate.getMonth() + 1);
+              var expires = "; expires=" + expiryDate.toGMTString();
               document.cookie = cookie_name+"=1" + expires + "; path=/";
               if (window.jQuery) {
                   maybe_change_navigation();
@@ -455,7 +454,9 @@ use src\Utils\Uri\SimpleRouter as _SimpleRouter;
           if(html.classList.contains("responsive-enabled")){
               maybe_change_navigation();
               $(window).on('resize', function(){
-                  maybe_change_navigation();
+                  if (screen.width > 768) {
+                      $('#nav3 ul .group').slideDown();
+                  }
               });
           }
 
@@ -481,15 +482,15 @@ use src\Utils\Uri\SimpleRouter as _SimpleRouter;
   <script src="/js/public.js"></script>
   <?php
       // fancyBox js should be loaded at the end of page
-      if ($view->isFancyBoxEnabled()) {
-          $view->callChunk('fancyBoxLoader', false, true);
-      }
-      // load defer JS at the end
-      foreach ($view->getLocalJs() as $js) {
-          if ($js['defer']) {?>
+          if ($view->isFancyBoxEnabled()) {
+              $view->callChunk('fancyBoxLoader', false, true);
+          }
+          // load defer JS at the end
+          foreach ($view->getLocalJs() as $js) {
+              if ($js['defer']) {?>
             <script src="<?= $js['url']; ?>"<?= $js['async'] ? ' async' : ''; ?> defer></script>
   <?php } //if
-      } //foreach-js?>
+          } //foreach-js?>
   <!-- (C) The Opencaching Project 2020 -->
 </body>
 </html>
