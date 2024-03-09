@@ -20,7 +20,7 @@
  */
 
 $cronjobs['schedule'] = [
-    'GeoKretyDbQueueJob' => 'every 10 minutes',
+    # KOJOTY: temp disable as geokrety.org doesn't work 'GeoKretyDbQueueJob' => 'every 10 minutes',
     'AltitudeUpdateJob' => 'every 15 minutes',
     'PublishCachesJob' => 'hourly at :00',
     'WatchlistNotifyJob' => 'hourly at :05',

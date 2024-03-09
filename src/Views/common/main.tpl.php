@@ -478,6 +478,7 @@ use src\Utils\Uri\SimpleRouter as _SimpleRouter;
       }
 
   </script>
+  <script src="/js/public.js"></script>
   <?php
       // fancyBox js should be loaded at the end of page
       if ($view->isFancyBoxEnabled()) {

@@ -3,6 +3,7 @@
 namespace src\Models\GeoKret;
 
 use src\Models\BaseObject;
+use ErrorException;
 
 /**
  * This class contain methods used to communicate with Geokrety, via Geokrety Api
@@ -156,7 +157,13 @@ class GeoKretyApi extends BaseObject
             )
         );
         $context = stream_context_create($opts);
-        @$response = file_get_contents($url, false, $context);
+        
+        try{
+            $response = FALSE; // TEM DISABLE: @file_get_contents($url, false, $context);
+        } catch (Exception $e){
+            $response = FALSE;
+        }
+        
         if ($response) {
             $result = $response;
         } else {
