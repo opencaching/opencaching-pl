@@ -1,7 +1,5 @@
 <?php
 
-use src\Utils\Uri\Uri;
-
 $view->callChunk('tinyMCE', false);
 ?>
 
@@ -78,7 +76,7 @@ $view->callChunk('tinyMCE', false);
     </div>
 
     <div style="display: {selPtDiv}">
-        <a class="btn btn-default btn-sm" href="<?=$v->allPtsUrl?>"><?=$v->allPtsText?></a>
+        <a class="btn btn-default btn-sm" href="<?= $v->allPtsUrl; ?>"><?= $v->allPtsText; ?></a>
         <br/>
         <form action="powerTrailCOG.php" id="selPt" class="form-group-sm">
             {ptSelector} &nbsp;<a href="javascript:void(0);" onclick="$('#selPt').submit();" class="btn btn-default btn-sm">{{pt209}}</a>
