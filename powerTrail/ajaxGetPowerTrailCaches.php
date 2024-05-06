@@ -203,28 +203,76 @@ function displayAllCachesOfPowerTrail(PowerTrail $powerTrail, $choseFinalCaches)
             }
         }
 
-        echo '<table align="center">
+        echo ' <table align="center">
                     <tr>
-                        <td align=center width="50%">'
-                            . tr('pt107') . '<br />
-                            <img src="https://chart.googleapis.com/chart?chs=370x120'
-                                        . '&chd=t:' . implode(',', $typesNumberList)
-                                        . '&cht=p3'
-                                        . '&chl=' . implode('|', $typesNumberList)
-                                        . '&chco=00aa00|FFEB0D|0000cc|cccccc|eeeeee&'
-                                        . 'chdl=' . rawurlencode(implode('|', $typesLabelsList)) . '" />
+                        <td align=center width="50%">
+                            ' . tr('pt107') . '<br />
+                            <canvas id="cacheTypeChart" width="370" height="120"></canvas>
                         </td>
-                        <td align=center width="50%">'
-                            . tr('pt106') . '<br />
-                            <img src="https://chart.googleapis.com/chart?chs=370x120'
-                            . '&chd=t:' . implode(',', $sizesNumberList)
-                                . '&cht=p3'
-                                . '&chl=' . implode('|', $sizesNumberList)
-                                . '&chco=FFEB0D|0000aa|00aa00|aa0000|aaaa00|00aaaa|cccccc'
-                                . '&chdl=' . rawurlencode(implode('|', $sizesLabelsList)) . '" />
+                        <td align=center width="50%">
+                            ' . tr('pt106') . '<br />
+                            <canvas id="cacheSizeChart" width="370" height="120"></canvas>
                         </td>
                     </tr>
-                </table><br /><br />';
+                </table><br /><br />
+            
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                <script>
+                    var typeCtx = document.getElementById(\'cacheTypeChart\').getContext(\'2d\');
+                    var sizeCtx = document.getElementById(\'cacheSizeChart\').getContext(\'2d\');
+            
+                    var typeChart = new Chart(typeCtx, {
+                        type: \'pie\',
+                        data: {
+                            labels: ' . json_encode($typesLabelsList) . ',
+                            datasets: [{
+                                data: ' . json_encode($typesNumberList) . ',
+                                backgroundColor: [
+                                    \'#00aa00\',
+                                    \'#FFEB0D\',
+                                    \'#0000cc\',
+                                    \'#cccccc\',
+                                    \'#eeeeee\'
+                                ]
+                            }]
+                        },
+                        options: {
+                            responsive: false,
+                            plugins: {
+                                legend:{
+                                    position: \'left\'
+                                }
+                            }
+                        }
+                    });
+            
+                    var sizeChart = new Chart(sizeCtx, {
+                        type: \'pie\',
+                        data: {
+                            labels: ' . json_encode($sizesLabelsList) . ',
+                            datasets: [{
+                                data: ' . json_encode($sizesNumberList) . ',
+                                backgroundColor: [
+                                    \'#FFEB0D\',
+                                    \'#0000aa\',
+                                    \'#00aa00\',
+                                    \'#aa0000\',
+                                    \'#aaaa00\',
+                                    \'#00aaaa\',
+                                    \'#cccccc\'
+                                ]
+                            }]
+                        },
+                        options: {
+                            responsive: false,
+                            plugins: {
+                                legend:{
+                                    position: \'left\'
+                                }
+                            }
+                        }
+                    });
+                </script>';
     }
 
     echo $cacheRows;
