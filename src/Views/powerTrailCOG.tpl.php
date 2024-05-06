@@ -88,7 +88,7 @@ $view->callChunk('tinyMCE', false);
         <table class="table">
             <tr>
                 <td class="content-title-noshade">{{pt008}}</td>
-                <td>{ptName}</td>
+                <td><a href="{ptUrl}" target="_blank">{ptName}</a></td>
             </tr>
             <tr>
                 <td class="content-title-noshade">{{pt023}}</td>

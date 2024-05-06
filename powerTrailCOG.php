@@ -41,6 +41,7 @@ if (isset($_REQUEST['ptSelector'])) {
     tpl_set_var('ptStatSelect', generateStatusSelector($powerTrail->getStatus()));
     tpl_set_var('ptId', $powerTrail->getId());
     tpl_set_var('ptName', $powerTrail->getName());
+    tpl_set_var('ptUrl', $powerTrail->getPowerTrailUrl());
     tpl_set_var('ptType', tr($ptType[$ptData['type']]['translate']));
     tpl_set_var('ptStatus', tr($ptStatus[$ptData['status']]['translate']));
 
