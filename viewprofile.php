@@ -57,7 +57,7 @@ if (isset($_REQUEST['save'])) {
     }
 
     if (isset($_REQUEST['checkMilestones'])) {
-        OcCookie::set('checkGeoPaths', ! $_REQUEST['checkMilestones'], true);
+        OcCookie::set('checkMilestones', ! $_REQUEST['checkMilestones'], true);
     }
 }
 
