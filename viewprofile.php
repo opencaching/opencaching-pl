@@ -47,14 +47,18 @@ if (isset($_REQUEST['errorMsg'])) {
 if (isset($_REQUEST['save'])) {
 
     if (isset($_REQUEST['checkBadges']))
-        OcCookie::set("checkBadges", !$_REQUEST['checkBadges']);
+        OcCookie::set("checkBadges", !$_REQUEST['checkBadges'], true);
 
     if (isset($_REQUEST['checkGeoPaths']))
-        OcCookie::set("checkGeoPaths", !$_REQUEST['checkGeoPaths']);
+        OcCookie::set("checkGeoPaths", !$_REQUEST['checkGeoPaths'], true);
+
+    if (isset($_REQUEST['checkMilestones']))
+        OcCookie::set("checkGeoPaths", !$_REQUEST['checkMilestones'], true);
 }
 
 $checkBadges = OcCookie::getOrDefault("checkBadges", 1);
 $checkGeoPaths = OcCookie::getOrDefault("checkGeoPaths", 1);
+$checkMilestones = OcCookie::getOrDefault("checkMilestones", 1);
 
 
 $cache_line = '<li style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.6em; font-size: 12px;">{cacheimage}&nbsp;{cachestatus} &nbsp; {date} &nbsp; <a class="links" href="viewcache.php?cacheid={cacheid}">{cachename}</a>&nbsp;&nbsp;<strong>[{wpname}]</strong></li>';
@@ -397,39 +401,50 @@ if ($seek == 0) {
 
 
     if ( $found >= 10 ) {
-        $content .= '<br><table style="border-collapse: collapse; font-size: 110%;" width="250" border="1"><tr><td colspan="3" align="center" bgcolor="#DBE6F1"><b>' . tr('milestones') . '</b></td> </tr><tr><td bgcolor="#EEEDF9"><b> Nr </b></td> <td bgcolor="#EEEDF9"><b>'.tr('date').'</b></td> <td bgcolor="#EEEDF9"><b>'.tr('cache').'</b> </td> </tr>';
 
-        if ( $found > 101 ) {
-            $milestone = 100;
+        if (OcConfig::areGeopathsSupported()) {
+
+            $content .= buildOpenCloseButton($user_id, $checkMilestones, "milestones.png", "checkMilestones", tr('milestones_title'), "milestones");
+
+            if ($checkMilestones) {
+
+                $content .= '<br><table style="border-collapse: collapse; font-size: 110%;" width="250" border="1"><tr><td colspan="3" align="center" bgcolor="#DBE6F1"><b>' . tr('milestones') . '</b></td> </tr><tr><td bgcolor="#EEEDF9"><b> Nr </b></td> <td bgcolor="#EEEDF9"><b>'.tr('date').'</b></td> <td bgcolor="#EEEDF9"><b>'.tr('cache').'</b> </td> </tr>';
+
+                if ( $found > 101 ) {
+                    $milestone = 100;
+                }
+                else {
+
+                    $milestone = 10;
+                }
+
+                $rsms = XDb::xSql(
+                "SET @r = 1;
+                SELECT * FROM
+                (
+                    SELECT *,@r:=@r+1 row FROM (
+        
+                        SELECT cache_logs.cache_id cache_id, DATE_FORMAT(cache_logs.date,'%d-%m-%Y') data, caches.wp_oc cache_wp
+                        FROM cache_logs, caches
+                        WHERE caches.cache_id=cache_logs.cache_id AND cache_logs.type='1'
+                        AND cache_logs.user_id= ? AND cache_logs.deleted='0'
+                        ORDER BY cache_logs.date ASC
+        
+                    ) B
+                ) A
+                WHERE row=2 OR row % $milestone =1 ORDER BY row ASC", $user_id);
+
+                $rsms->nextRowset(); //to switch to second query results :)
+                while( $rms = XDb::xFetchArray($rsms)) {
+                    $content .= '<tr> <td>' . ($rms['row']-1) . '</td><td>' . $rms['data'] . '</td><td><a class="links" href="viewcache.php?cacheid=' . $rms['cache_id'] . '">' . $rms['cache_wp'] . '</a></td></tr>';
+                }
+
+                $content .= '</table>';
+                XDb::xFreeResults($rsms);
+
+            }
         }
-        else {
 
-            $milestone = 10;
-        }
-
-        $rsms = XDb::xSql(
-        "SET @r = 1;
-        SELECT * FROM
-        (
-            SELECT *,@r:=@r+1 row FROM (
-
-                SELECT cache_logs.cache_id cache_id, DATE_FORMAT(cache_logs.date,'%d-%m-%Y') data, caches.wp_oc cache_wp
-                FROM cache_logs, caches
-                WHERE caches.cache_id=cache_logs.cache_id AND cache_logs.type='1'
-                AND cache_logs.user_id= ? AND cache_logs.deleted='0'
-                ORDER BY cache_logs.date ASC
-
-            ) B
-        ) A
-        WHERE row=2 OR row % $milestone =1 ORDER BY row ASC", $user_id);
-
-        $rsms->nextRowset(); //to switch to second query results :)
-        while( $rms = XDb::xFetchArray($rsms)) {
-            $content .= '<tr> <td>' . ($rms['row']-1) . '</td><td>' . $rms['data'] . '</td><td><a class="links" href="viewcache.php?cacheid=' . $rms['cache_id'] . '">' . $rms['cache_wp'] . '</a></td></tr>';
-        }
-
-        $content .= '</table>';
-        XDb::xFreeResults($rsms);
     } // $found > 10
 
     XDb::xFreeResults($rsfc2);

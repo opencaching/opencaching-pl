@@ -545,6 +545,7 @@ $translations = [
     'most_caches_find_day' => 'Maximum number of caches found on a single day',
     'most_caches_made_day' => 'Maximum number of caches created on a single day',
     'latest_cache' => 'Latest cache found',
+    'milestones_title' => 'Milestones',
     'milestones' => 'Milestones',
     'latest_logs_by_user' => 'Latest log entries',
     'stat_created_caches' => 'Statistics of hidden caches',
