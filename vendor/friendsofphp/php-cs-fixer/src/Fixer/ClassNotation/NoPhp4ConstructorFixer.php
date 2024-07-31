@@ -27,9 +27,6 @@ use PhpCsFixer\Tokenizer\TokensAnalyzer;
  */
 final class NoPhp4ConstructorFixer extends AbstractFixer
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
@@ -59,25 +56,16 @@ class Foo
         return 75;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
         return $tokens->isTokenKindFound(T_CLASS);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isRisky(): bool
     {
         return true;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         $tokensAnalyzer = new TokensAnalyzer($tokens);
@@ -118,6 +106,7 @@ class Foo
                                 ++$i;
                             }
                         }
+
                         // and continue checking the classes that might follow
                         continue;
                     }
@@ -150,7 +139,7 @@ class Foo
             return; // no PHP4-constructor!
         }
 
-        if (!empty($php4['modifiers'][T_ABSTRACT]) || !empty($php4['modifiers'][T_STATIC])) {
+        if (isset($php4['modifiers'][T_ABSTRACT]) || isset($php4['modifiers'][T_STATIC])) {
             return; // PHP4 constructor can't be abstract or static
         }
 
@@ -301,7 +290,7 @@ class Foo
      * @param int    $startIndex function/method start index
      * @param int    $bodyIndex  function/method body index
      *
-     * @return array an array containing the sequence and case sensitiveness [ 0 => $seq, 1 => $case ]
+     * @return array{list<list<array{int, string}|int|string>>, array{3: false}}
      */
     private function getWrapperMethodSequence(Tokens $tokens, string $method, int $startIndex, int $bodyIndex): array
     {
@@ -346,25 +335,31 @@ class Foo
             $sequences[] = $seq;
         }
 
-        return [$sequences,  [3 => false]];
+        return [$sequences, [3 => false]];
     }
 
     /**
      * Find a function or method matching a given name within certain bounds.
+     *
+     * Returns:
+     * - nameIndex (int): The index of the function/method name.
+     * - startIndex (int): The index of the function/method start.
+     * - endIndex (int): The index of the function/method end.
+     * - bodyIndex (int): The index of the function/method body.
+     * - modifiers (array): The modifiers as array keys and their index as the values, e.g. array(T_PUBLIC => 10)
      *
      * @param Tokens $tokens     the Tokens instance
      * @param string $name       the function/Method name
      * @param int    $startIndex the search start index
      * @param int    $endIndex   the search end index
      *
-     * @return null|array An associative array, if a match is found:
-     *
-     *     - nameIndex (int): The index of the function/method name.
-     *     - startIndex (int): The index of the function/method start.
-     *     - endIndex (int): The index of the function/method end.
-     *     - bodyIndex (int): The index of the function/method body.
-     *     - modifiers (array): The modifiers as array keys and their index as
-     *       the values, e.g. array(T_PUBLIC => 10)
+     * @return null|array{
+     *     nameIndex: int,
+     *     startIndex: int,
+     *     endIndex: int,
+     *     bodyIndex: int,
+     *     modifiers: list<int>,
+     * }
      */
     private function findFunction(Tokens $tokens, string $name, int $startIndex, int $endIndex): ?array
     {

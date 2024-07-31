@@ -27,9 +27,6 @@ use PhpCsFixer\Tokenizer\Tokens;
  */
 final class SimpleToComplexStringVariableFixer extends AbstractFixer
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
@@ -37,21 +34,21 @@ final class SimpleToComplexStringVariableFixer extends AbstractFixer
             [
                 new CodeSample(
                     <<<'EOT'
-<?php
-$name = 'World';
-echo "Hello ${name}!";
+                        <?php
+                        $name = 'World';
+                        echo "Hello ${name}!";
 
-EOT
+                        EOT
                 ),
                 new CodeSample(
                     <<<'EOT'
-<?php
-$name = 'World';
-echo <<<TEST
-Hello ${name}!
-TEST;
+                        <?php
+                        $name = 'World';
+                        echo <<<TEST
+                        Hello ${name}!
+                        TEST;
 
-EOT
+                        EOT
                 ),
             ],
             "Doesn't touch implicit variables. Works together nicely with `explicit_string_variable`."
@@ -68,9 +65,6 @@ EOT
         return -10;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
         return $tokens->isTokenKindFound(T_DOLLAR_OPEN_CURLY_BRACES);
@@ -79,38 +73,24 @@ EOT
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         for ($index = \count($tokens) - 3; $index > 0; --$index) {
-            $token = $tokens[$index];
-
-            if (!$token->isGivenKind(T_DOLLAR_OPEN_CURLY_BRACES)) {
+            if (!$tokens[$index]->isGivenKind(T_DOLLAR_OPEN_CURLY_BRACES)) {
                 continue;
             }
-
             $varnameToken = $tokens[$index + 1];
 
             if (!$varnameToken->isGivenKind(T_STRING_VARNAME)) {
                 continue;
             }
 
-            $dollarCloseToken = $tokens[$index + 2];
+            $dollarCloseToken = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_COMPLEX_STRING_VARIABLE, $index);
 
-            if (!$dollarCloseToken->isGivenKind(CT::T_DOLLAR_CLOSE_CURLY_BRACES)) {
-                continue;
+            $prevTokenContent = $tokens[$index - 1]->getContent();
+            if (str_ends_with($prevTokenContent, '$') && !str_ends_with($prevTokenContent, '\$')) {
+                $tokens[$index - 1] = new Token([T_ENCAPSED_AND_WHITESPACE, substr($prevTokenContent, 0, -1).'\$']);
             }
-
-            $tokenOfStringBeforeToken = $tokens[$index - 1];
-            $stringContent = $tokenOfStringBeforeToken->getContent();
-
-            if (str_ends_with($stringContent, '$') && !str_ends_with($stringContent, '\\$')) {
-                $newContent = substr($stringContent, 0, -1).'\\$';
-                $tokenOfStringBeforeToken = new Token([T_ENCAPSED_AND_WHITESPACE, $newContent]);
-            }
-
-            $tokens->overrideRange($index - 1, $index + 2, [
-                $tokenOfStringBeforeToken,
-                new Token([T_CURLY_OPEN, '{']),
-                new Token([T_VARIABLE, '$'.$varnameToken->getContent()]),
-                new Token([CT::T_CURLY_CLOSE, '}']),
-            ]);
+            $tokens[$index] = new Token([T_CURLY_OPEN, '{']);
+            $tokens[$index + 1] = new Token([T_VARIABLE, '$'.$varnameToken->getContent()]);
+            $tokens[$dollarCloseToken] = new Token([CT::T_CURLY_CLOSE, '}']);
         }
     }
 }
