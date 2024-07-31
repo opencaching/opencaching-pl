@@ -24,44 +24,48 @@ namespace PhpCsFixer\Error;
 final class ErrorsManager
 {
     /**
-     * @var Error[]
+     * @var list<Error>
      */
     private array $errors = [];
 
     /**
      * Returns errors reported during linting before fixing.
      *
-     * @return Error[]
+     * @return list<Error>
      */
     public function getInvalidErrors(): array
     {
-        return array_filter($this->errors, static function (Error $error): bool {
-            return Error::TYPE_INVALID === $error->getType();
-        });
+        return array_filter($this->errors, static fn (Error $error): bool => Error::TYPE_INVALID === $error->getType());
     }
 
     /**
      * Returns errors reported during fixing.
      *
-     * @return Error[]
+     * @return list<Error>
      */
     public function getExceptionErrors(): array
     {
-        return array_filter($this->errors, static function (Error $error): bool {
-            return Error::TYPE_EXCEPTION === $error->getType();
-        });
+        return array_filter($this->errors, static fn (Error $error): bool => Error::TYPE_EXCEPTION === $error->getType());
     }
 
     /**
      * Returns errors reported during linting after fixing.
      *
-     * @return Error[]
+     * @return list<Error>
      */
     public function getLintErrors(): array
     {
-        return array_filter($this->errors, static function (Error $error): bool {
-            return Error::TYPE_LINT === $error->getType();
-        });
+        return array_filter($this->errors, static fn (Error $error): bool => Error::TYPE_LINT === $error->getType());
+    }
+
+    /**
+     * Returns errors reported for specified path.
+     *
+     * @return list<Error>
+     */
+    public function forPath(string $path): array
+    {
+        return array_values(array_filter($this->errors, static fn (Error $error): bool => $path === $error->getFilePath()));
     }
 
     /**
@@ -69,7 +73,7 @@ final class ErrorsManager
      */
     public function isEmpty(): bool
     {
-        return empty($this->errors);
+        return [] === $this->errors;
     }
 
     public function report(Error $error): void

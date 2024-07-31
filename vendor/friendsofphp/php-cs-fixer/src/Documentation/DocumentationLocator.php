@@ -23,10 +23,7 @@ use PhpCsFixer\Utils;
  */
 final class DocumentationLocator
 {
-    /**
-     * @var string
-     */
-    private $path;
+    private string $path;
 
     public function __construct()
     {
@@ -46,10 +43,8 @@ final class DocumentationLocator
     public function getFixerDocumentationFilePath(FixerInterface $fixer): string
     {
         return $this->getFixersDocumentationDirectoryPath().'/'.Preg::replaceCallback(
-            '/^.*\\\\(.+)\\\\(.+)Fixer$/',
-            static function (array $matches): string {
-                return Utils::camelCaseToUnderscore($matches[1]).'/'.Utils::camelCaseToUnderscore($matches[2]);
-            },
+            '/^.*\\\(.+)\\\(.+)Fixer$/',
+            static fn (array $matches): string => Utils::camelCaseToUnderscore($matches[1]).'/'.Utils::camelCaseToUnderscore($matches[2]),
             \get_class($fixer)
         ).'.rst';
     }
@@ -78,8 +73,8 @@ final class DocumentationLocator
         return $this->getRuleSetsDocumentationDirectoryPath().'/'.str_replace(':risky', 'Risky', ucfirst(substr($name, 1))).'.rst';
     }
 
-    public function getListingFilePath(): string
+    public function getUsageFilePath(): string
     {
-        return $this->path.'/list.rst';
+        return $this->path.'/usage.rst';
     }
 }

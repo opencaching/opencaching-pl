@@ -38,9 +38,6 @@ final class StandardizeIncrementFixer extends AbstractIncrementOperatorFixer
         [T_CLOSE_TAG],
     ];
 
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
@@ -56,23 +53,18 @@ final class StandardizeIncrementFixer extends AbstractIncrementOperatorFixer
      * {@inheritdoc}
      *
      * Must run before IncrementStyleFixer.
+     * Must run after LongToShorthandOperatorFixer.
      */
     public function getPriority(): int
     {
-        return 1;
+        return 16;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
         return $tokens->isAnyTokenKindsFound([T_PLUS_EQUAL, T_MINUS_EQUAL]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         for ($index = $tokens->count() - 1; $index > 0; --$index) {

@@ -30,7 +30,7 @@ final class ToolInfo implements ToolInfoInterface
     public const COMPOSER_LEGACY_PACKAGE_NAME = 'fabpot/php-cs-fixer';
 
     /**
-     * @var null|array
+     * @var null|array{name: string, version: string, dist: array{reference?: string}}
      */
     private $composerInstallationDetails;
 
@@ -46,7 +46,7 @@ final class ToolInfo implements ToolInfoInterface
         }
 
         if (null === $this->composerInstallationDetails) {
-            $composerInstalled = json_decode(file_get_contents($this->getComposerInstalledFile()), true);
+            $composerInstalled = json_decode(file_get_contents($this->getComposerInstalledFile()), true, 512, JSON_THROW_ON_ERROR);
 
             $packages = $composerInstalled['packages'] ?? $composerInstalled;
 
@@ -98,10 +98,19 @@ final class ToolInfo implements ToolInfoInterface
         return $this->isInstalledByComposer;
     }
 
+    /**
+     * Determines if the tool is run inside our pre-built Docker image.
+     * The `/fixer/` path comes from our Dockerfile, tool is installed there and added to global PATH via symlinked binary.
+     */
+    public function isRunInsideDocker(): bool
+    {
+        return is_file('/.dockerenv') && str_starts_with(__FILE__, '/fixer/');
+    }
+
     public function getPharDownloadUri(string $version): string
     {
-        return sprintf(
-            'https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases/download/%s/php-cs-fixer.phar',
+        return \sprintf(
+            'https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/releases/download/%s/php-cs-fixer.phar',
             $version
         );
     }

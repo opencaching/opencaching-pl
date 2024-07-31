@@ -21,63 +21,69 @@ namespace PhpCsFixer\Tokenizer;
  */
 abstract class AbstractTypeTransformer extends AbstractTransformer
 {
+    private const TYPE_END_TOKENS = [')', [T_CALLABLE], [T_NS_SEPARATOR], [T_STATIC], [T_STRING], [CT::T_ARRAY_TYPEHINT]];
+
+    private const TYPE_TOKENS = [
+        '|', '&', '(',
+        ...self::TYPE_END_TOKENS,
+        [CT::T_TYPE_ALTERNATION], [CT::T_TYPE_INTERSECTION], // some siblings may already be transformed
+        [T_WHITESPACE], [T_COMMENT], [T_DOC_COMMENT], // technically these can be inside of type tokens array
+    ];
+
+    abstract protected function replaceToken(Tokens $tokens, int $index): void;
+
+    /**
+     * @param array{0: int, 1: string}|string $originalToken
+     */
     protected function doProcess(Tokens $tokens, int $index, $originalToken): void
     {
         if (!$tokens[$index]->equals($originalToken)) {
             return;
         }
 
-        $prevIndex = $tokens->getTokenNotOfKindsSibling($index, -1, [T_CALLABLE, T_NS_SEPARATOR, T_STRING, CT::T_ARRAY_TYPEHINT, T_WHITESPACE, T_COMMENT, T_DOC_COMMENT]);
-
-        /** @var Token $prevToken */
-        $prevToken = $tokens[$prevIndex];
-
-        if ($prevToken->isGivenKind([
-            CT::T_TYPE_COLON, // `:` is part of a function return type `foo(): X|Y`
-            CT::T_TYPE_ALTERNATION, // `|` is part of a union (chain) `X|Y`
-            CT::T_TYPE_INTERSECTION,
-            T_STATIC, T_VAR, T_PUBLIC, T_PROTECTED, T_PRIVATE, // `var X|Y $a;`, `private X|Y $a` or `public static X|Y $a`
-            CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PRIVATE, CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PROTECTED, CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PUBLIC, // promoted properties
-        ])) {
-            $this->replaceToken($tokens, $index);
-
-            return;
-        }
-
-        if (\defined('T_READONLY') && $prevToken->isGivenKind(T_READONLY)) { // @TODO: drop condition when PHP 8.1+ is required
-            $this->replaceToken($tokens, $index);
-
-            return;
-        }
-
-        if (!$prevToken->equalsAny(['(', ','])) {
-            return;
-        }
-
-        $prevPrevTokenIndex = $tokens->getPrevMeaningfulToken($prevIndex);
-
-        if ($tokens[$prevPrevTokenIndex]->isGivenKind(T_CATCH)) {
-            $this->replaceToken($tokens, $index);
-
-            return;
-        }
-
-        $functionKinds = [[T_FUNCTION], [T_FN]];
-        $functionIndex = $tokens->getPrevTokenOfKind($prevIndex, $functionKinds);
-
-        if (null === $functionIndex) {
-            return;
-        }
-
-        $braceOpenIndex = $tokens->getNextTokenOfKind($functionIndex, ['(']);
-        $braceCloseIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $braceOpenIndex);
-
-        if ($braceCloseIndex < $index) {
+        if (!$this->isPartOfType($tokens, $index)) {
             return;
         }
 
         $this->replaceToken($tokens, $index);
     }
 
-    abstract protected function replaceToken(Tokens $tokens, int $index): void;
+    private function isPartOfType(Tokens $tokens, int $index): bool
+    {
+        // return types and non-capturing catches
+        $typeColonIndex = $tokens->getTokenNotOfKindSibling($index, -1, self::TYPE_TOKENS);
+        if ($tokens[$typeColonIndex]->isGivenKind([T_CATCH, CT::T_TYPE_COLON, T_CONST])) {
+            return true;
+        }
+
+        // for parameter there will be splat operator or variable after the type ("&" is ambiguous and can be reference or bitwise and)
+        $afterTypeIndex = $tokens->getTokenNotOfKindSibling($index, 1, self::TYPE_TOKENS);
+
+        if ($tokens[$afterTypeIndex]->isGivenKind(T_ELLIPSIS)) {
+            return true;
+        }
+
+        if (!$tokens[$afterTypeIndex]->isGivenKind(T_VARIABLE)) {
+            return false;
+        }
+
+        $beforeVariableIndex = $tokens->getPrevMeaningfulToken($afterTypeIndex);
+        if ($tokens[$beforeVariableIndex]->equals('&')) {
+            $prevIndex = $tokens->getPrevTokenOfKind(
+                $index,
+                [
+                    '{',
+                    '}',
+                    ';',
+                    [T_CLOSE_TAG],
+                    [T_FN],
+                    [T_FUNCTION],
+                ],
+            );
+
+            return null !== $prevIndex && $tokens[$prevIndex]->isGivenKind([T_FN, T_FUNCTION]);
+        }
+
+        return $tokens[$beforeVariableIndex]->equalsAny(self::TYPE_END_TOKENS);
+    }
 }

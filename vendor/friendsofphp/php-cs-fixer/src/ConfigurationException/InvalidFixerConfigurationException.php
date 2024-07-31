@@ -20,6 +20,7 @@ use PhpCsFixer\Console\Command\FixCommandExitStatusCalculator;
  * Exception thrown by Fixers on misconfiguration.
  *
  * @internal
+ *
  * @final Only internal extending this class is supported
  */
 class InvalidFixerConfigurationException extends InvalidConfigurationException
@@ -29,7 +30,7 @@ class InvalidFixerConfigurationException extends InvalidConfigurationException
     public function __construct(string $fixerName, string $message, ?\Throwable $previous = null)
     {
         parent::__construct(
-            sprintf('[%s] %s', $fixerName, $message),
+            \sprintf('[%s] %s', $fixerName, $message),
             FixCommandExitStatusCalculator::EXIT_STATUS_FLAG_HAS_INVALID_FIXER_CONFIG,
             $previous
         );

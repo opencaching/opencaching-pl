@@ -25,13 +25,10 @@ use PhpCsFixer\Tokenizer\Tokens;
 final class SwitchContinueToBreakFixer extends AbstractFixer
 {
     /**
-     * @var int[]
+     * @var list<int>
      */
     private array $switchLevels = [];
 
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
@@ -77,17 +74,11 @@ switch ($foo) {
         return 0;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
         return $tokens->isAllTokenKindsFound([T_SWITCH, T_CONTINUE]) && !$tokens->hasAlternativeSyntax();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         $count = \count($tokens);
@@ -213,7 +204,7 @@ switch ($foo) {
             $jump = bindec($jump); // binary - 0b1
         } elseif (\strlen($jump) > 1 && '0' === $jump[0]) {
             $jump = octdec($jump); // octal 01
-        } elseif (1 === Preg::match('#^\d+$#', $jump)) { // positive int
+        } elseif (Preg::match('#^\d+$#', $jump)) { // positive int
             $jump = (float) $jump; // cast to float, might be a number bigger than PHP max. int value
         } else {
             return $afterFollowingContinueIndex; // cannot process value, ignore

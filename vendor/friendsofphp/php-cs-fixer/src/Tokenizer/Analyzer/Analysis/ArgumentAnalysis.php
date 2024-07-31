@@ -22,12 +22,12 @@ final class ArgumentAnalysis
     /**
      * The name of the argument.
      */
-    private string $name;
+    private ?string $name;
 
     /**
      * The index where the name is located in the supplied Tokens object.
      */
-    private int $nameIndex;
+    private ?int $nameIndex;
 
     /**
      * The default value of the argument.
@@ -39,12 +39,12 @@ final class ArgumentAnalysis
      */
     private ?TypeAnalysis $typeAnalysis;
 
-    public function __construct(string $name, int $nameIndex, ?string $default, ?TypeAnalysis $typeAnalysis = null)
+    public function __construct(?string $name, ?int $nameIndex, ?string $default, ?TypeAnalysis $typeAnalysis = null)
     {
         $this->name = $name;
         $this->nameIndex = $nameIndex;
-        $this->default = $default ?: null;
-        $this->typeAnalysis = $typeAnalysis ?: null;
+        $this->default = $default ?? null;
+        $this->typeAnalysis = $typeAnalysis ?? null;
     }
 
     public function getDefault(): ?string
@@ -57,12 +57,12 @@ final class ArgumentAnalysis
         return null !== $this->default;
     }
 
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function getNameIndex(): int
+    public function getNameIndex(): ?int
     {
         return $this->nameIndex;
     }

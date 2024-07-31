@@ -25,9 +25,6 @@ use PhpCsFixer\Tokenizer\Tokens;
 
 final class ArrayPushFixer extends AbstractFixer
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
@@ -38,17 +35,11 @@ final class ArrayPushFixer extends AbstractFixer
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
         return $tokens->isTokenKindFound(T_STRING) && $tokens->count() > 7;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isRisky(): bool
     {
         return true;
@@ -196,8 +187,6 @@ final class ArrayPushFixer extends AbstractFixer
         if ($tokens[$index]->isGivenKind(T_ELLIPSIS)) {
             return null;
         }
-
-        $index = $tokens->getNextMeaningfulToken($index);
 
         for (; $index <= $endIndex; ++$index) {
             $blockType = Tokens::detectBlockType($tokens[$index]);

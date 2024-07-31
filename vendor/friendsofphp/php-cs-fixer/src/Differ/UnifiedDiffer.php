@@ -14,15 +14,12 @@ declare(strict_types=1);
 
 namespace PhpCsFixer\Differ;
 
-use PhpCsFixer\Diff\Differ;
-use PhpCsFixer\Diff\Output\StrictUnifiedDiffOutputBuilder;
 use PhpCsFixer\Preg;
+use SebastianBergmann\Diff\Differ;
+use SebastianBergmann\Diff\Output\StrictUnifiedDiffOutputBuilder;
 
 final class UnifiedDiffer implements DifferInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function diff(string $old, string $new, ?\SplFileInfo $file = null): string
     {
         if (null === $file) {
@@ -33,7 +30,7 @@ final class UnifiedDiffer implements DifferInterface
         } else {
             $filePath = $file->getRealPath();
 
-            if (1 === Preg::match('/\s/', $filePath)) {
+            if (Preg::match('/\s/', $filePath)) {
                 $filePath = '"'.$filePath.'"';
             }
 

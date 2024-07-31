@@ -24,7 +24,7 @@ use Symfony\Component\Finder\Finder;
 final class RuleSets
 {
     /**
-     * @var array<string,RuleSetDescriptionInterface>
+     * @var array<string, RuleSetDescriptionInterface>
      */
     private static $setDefinitions;
 
@@ -43,14 +43,14 @@ final class RuleSets
                 self::$setDefinitions[$set->getName()] = $set;
             }
 
-            ksort(self::$setDefinitions);
+            uksort(self::$setDefinitions, static fn (string $x, string $y): int => strnatcmp($x, $y));
         }
 
         return self::$setDefinitions;
     }
 
     /**
-     * @return string[]
+     * @return list<string>
      */
     public static function getSetDefinitionNames(): array
     {
@@ -62,7 +62,7 @@ final class RuleSets
         $definitions = self::getSetDefinitions();
 
         if (!isset($definitions[$name])) {
-            throw new \InvalidArgumentException(sprintf('Set "%s" does not exist.', $name));
+            throw new \InvalidArgumentException(\sprintf('Set "%s" does not exist.', $name));
         }
 
         return $definitions[$name];

@@ -29,7 +29,7 @@ final class Annotation
     /**
      * All the annotation tag names with types.
      *
-     * @var string[]
+     * @var list<string>
      */
     private static array $tags = [
         'method',
@@ -46,9 +46,9 @@ final class Annotation
     /**
      * The lines that make up the annotation.
      *
-     * @var Line[]
+     * @var array<int, Line>
      */
-    private $lines;
+    private array $lines;
 
     /**
      * The position of the first line of the annotation in the docblock.
@@ -81,7 +81,7 @@ final class Annotation
     /**
      * The cached types.
      *
-     * @var null|string[]
+     * @var null|list<string>
      */
     private $types;
 
@@ -91,16 +91,16 @@ final class Annotation
     private $namespace;
 
     /**
-     * @var NamespaceUseAnalysis[]
+     * @var list<NamespaceUseAnalysis>
      */
     private array $namespaceUses;
 
     /**
      * Create a new line instance.
      *
-     * @param Line[]                 $lines
-     * @param null|NamespaceAnalysis $namespace
-     * @param NamespaceUseAnalysis[] $namespaceUses
+     * @param array<int, Line>           $lines
+     * @param null|NamespaceAnalysis     $namespace
+     * @param list<NamespaceUseAnalysis> $namespaceUses
      */
     public function __construct(array $lines, $namespace = null, array $namespaceUses = [])
     {
@@ -108,10 +108,8 @@ final class Annotation
         $this->namespace = $namespace;
         $this->namespaceUses = $namespaceUses;
 
-        $keys = array_keys($lines);
-
-        $this->start = $keys[0];
-        $this->end = end($keys);
+        $this->start = array_key_first($lines);
+        $this->end = array_key_last($lines);
     }
 
     /**
@@ -125,7 +123,7 @@ final class Annotation
     /**
      * Get all the annotation tag names with types.
      *
-     * @return string[]
+     * @return list<string>
      */
     public static function getTagsWithTypes(): array
     {
@@ -163,20 +161,27 @@ final class Annotation
     /**
      * @internal
      */
-    public function getTypeExpression(): TypeExpression
+    public function getTypeExpression(): ?TypeExpression
     {
-        return new TypeExpression($this->getTypesContent(), $this->namespace, $this->namespaceUses);
+        $typesContent = $this->getTypesContent();
+
+        return null === $typesContent
+            ? null
+            : new TypeExpression($typesContent, $this->namespace, $this->namespaceUses);
     }
 
     /**
-     * @return null|string
-     *
      * @internal
      */
-    public function getVariableName()
+    public function getVariableName(): ?string
     {
-        $type = preg_quote($this->getTypesContent(), '/');
-        $regex = "/@{$this->tag->getName()}\\s+({$type}\\s*)?(&\\s*)?(\\.{3}\\s*)?(?<variable>\\$.+?)(?:[\\s*]|$)/";
+        $type = preg_quote($this->getTypesContent() ?? '', '/');
+        $regex = \sprintf(
+            '/@%s\s+(%s\s*)?(&\s*)?(\.{3}\s*)?(?<variable>\$%s)(?:.*|$)/',
+            $this->tag->getName(),
+            $type,
+            TypeExpression::REGEX_IDENTIFIER
+        );
 
         if (Preg::match($regex, $this->lines[0]->getContent(), $matches)) {
             return $matches['variable'];
@@ -188,12 +193,15 @@ final class Annotation
     /**
      * Get the types associated with this annotation.
      *
-     * @return string[]
+     * @return list<string>
      */
     public function getTypes(): array
     {
         if (null === $this->types) {
-            $this->types = $this->getTypeExpression()->getTypes();
+            $typeExpression = $this->getTypeExpression();
+            $this->types = null === $typeExpression
+                ? []
+                : $typeExpression->getTypes();
         }
 
         return $this->types;
@@ -202,7 +210,7 @@ final class Annotation
     /**
      * Set the types associated with this annotation.
      *
-     * @param string[] $types
+     * @param list<string> $types
      */
     public function setTypes(array $types): void
     {
@@ -216,13 +224,11 @@ final class Annotation
     /**
      * Get the normalized types associated with this annotation, so they can easily be compared.
      *
-     * @return string[]
+     * @return list<string>
      */
     public function getNormalizedTypes(): array
     {
-        $normalized = array_map(static function (string $type): string {
-            return strtolower($type);
-        }, $this->getTypes());
+        $normalized = array_map(static fn (string $type): string => strtolower($type), $this->getTypes());
 
         sort($normalized);
 
@@ -275,7 +281,7 @@ final class Annotation
      *
      * Be careful modifying the underlying line as that won't flush the cache.
      */
-    private function getTypesContent(): string
+    private function getTypesContent(): ?string
     {
         if (null === $this->typesContent) {
             $name = $this->getTag()->getName();
@@ -285,14 +291,14 @@ final class Annotation
             }
 
             $matchingResult = Preg::match(
-                '{^(?:\s*\*|/\*\*)\s*@'.$name.'\s+'.TypeExpression::REGEX_TYPES.'(?:(?:[*\h\v]|\&[\.\$]).*)?\r?$}isx',
+                '{^(?:\h*\*|/\*\*)[\h*]*@'.$name.'\h+'.TypeExpression::REGEX_TYPES.'(?:(?:[*\h\v]|\&?[\.\$]).*)?\r?$}is',
                 $this->lines[0]->getContent(),
                 $matches
             );
 
-            $this->typesContent = 1 === $matchingResult
+            $this->typesContent = $matchingResult
                 ? $matches['types']
-                : '';
+                : null;
         }
 
         return $this->typesContent;

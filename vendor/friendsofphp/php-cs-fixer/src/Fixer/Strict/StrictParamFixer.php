@@ -28,9 +28,6 @@ use PhpCsFixer\Tokenizer\Tokens;
  */
 final class StrictParamFixer extends AbstractFixer
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
@@ -41,17 +38,11 @@ final class StrictParamFixer extends AbstractFixer
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
         return $tokens->isTokenKindFound(T_STRING);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isRisky(): bool
     {
         return true;
@@ -67,9 +58,6 @@ final class StrictParamFixer extends AbstractFixer
         return 31;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         $functionsAnalyzer = new FunctionsAnalyzer();
@@ -103,6 +91,9 @@ final class StrictParamFixer extends AbstractFixer
         }
     }
 
+    /**
+     * @param list<?Token> $functionParams
+     */
     private function fixFunction(Tokens $tokens, int $functionIndex, array $functionParams): void
     {
         $startBraceIndex = $tokens->getNextTokenOfKind($functionIndex, ['(']);
@@ -147,7 +138,7 @@ final class StrictParamFixer extends AbstractFixer
 
         for ($i = $paramsQuantity; $i < $functionParamsQuantity; ++$i) {
             // function call do not have all params that are required to set useStrict flag, exit from method!
-            if (!$functionParams[$i]) {
+            if (null === $functionParams[$i]) {
                 return;
             }
 

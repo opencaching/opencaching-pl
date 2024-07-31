@@ -41,9 +41,6 @@ final class LambdaNotUsedImportFixer extends AbstractFixer
      */
     private $tokensAnalyzer;
 
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
@@ -55,16 +52,13 @@ final class LambdaNotUsedImportFixer extends AbstractFixer
     /**
      * {@inheritdoc}
      *
-     * Must run before NoSpacesInsideParenthesisFixer.
+     * Must run before MethodArgumentSpaceFixer, NoSpacesInsideParenthesisFixer, SpacesInsideParenthesesFixer.
      */
     public function getPriority(): int
     {
-        return 3;
+        return 31;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
         return $tokens->isAllTokenKindsFound([T_FUNCTION, CT::T_USE_LAMBDA]);
@@ -113,6 +107,11 @@ final class LambdaNotUsedImportFixer extends AbstractFixer
         $this->clearImports($tokens, array_reverse($notUsedImports));
     }
 
+    /**
+     * @param array<string, int> $imports
+     *
+     * @return array<string, int>
+     */
     private function findNotUsedLambdaImports(Tokens $tokens, array $imports, int $lambdaUseCloseBraceIndex): array
     {
         static $riskyKinds = [
@@ -237,6 +236,12 @@ final class LambdaNotUsedImportFixer extends AbstractFixer
         return $imports;
     }
 
+    /**
+     * @param array<string, int> $imports
+     * @param array<int, int>    $arguments
+     *
+     * @return array<string, int>
+     */
     private function countImportsUsedAsArgument(Tokens $tokens, array $imports, array $arguments): array
     {
         foreach ($arguments as $start => $end) {
@@ -280,6 +285,11 @@ final class LambdaNotUsedImportFixer extends AbstractFixer
         return $lambdaUseIndex;
     }
 
+    /**
+     * @param array<int, int> $arguments
+     *
+     * @return array<string, int>
+     */
     private function filterArguments(Tokens $tokens, array $arguments): array
     {
         $imports = [];
@@ -308,6 +318,9 @@ final class LambdaNotUsedImportFixer extends AbstractFixer
         return $imports;
     }
 
+    /**
+     * @param array<string, int> $imports
+     */
     private function clearImports(Tokens $tokens, array $imports): void
     {
         foreach ($imports as $removeIndex) {

@@ -16,15 +16,11 @@ namespace PhpCsFixer\FixerConfiguration;
 
 final class FixerOption implements FixerOptionInterface
 {
-    /**
-     * @var string
-     */
-    private $name;
+    private string $name;
 
-    /**
-     * @var string
-     */
-    private $description;
+    private string $description;
+
+    private bool $isRequired;
 
     /**
      * @var mixed
@@ -32,17 +28,12 @@ final class FixerOption implements FixerOptionInterface
     private $default;
 
     /**
-     * @var bool
-     */
-    private $isRequired;
-
-    /**
-     * @var null|string[]
+     * @var null|list<string>
      */
     private $allowedTypes;
 
     /**
-     * @var null|array
+     * @var null|list<null|(callable(mixed): bool)|scalar>
      */
     private $allowedValues;
 
@@ -52,8 +43,9 @@ final class FixerOption implements FixerOptionInterface
     private $normalizer;
 
     /**
-     * @param mixed         $default
-     * @param null|string[] $allowedTypes
+     * @param mixed                                          $default
+     * @param null|list<string>                              $allowedTypes
+     * @param null|list<null|(callable(mixed): bool)|scalar> $allowedValues
      */
     public function __construct(
         string $name,
@@ -88,33 +80,21 @@ final class FixerOption implements FixerOptionInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getDescription(): string
     {
         return $this->description;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function hasDefault(): bool
     {
         return !$this->isRequired;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getDefault()
     {
         if (!$this->hasDefault()) {
@@ -124,25 +104,16 @@ final class FixerOption implements FixerOptionInterface
         return $this->default;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getAllowedTypes(): ?array
     {
         return $this->allowedTypes;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getAllowedValues(): ?array
     {
         return $this->allowedValues;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getNormalizer(): ?\Closure
     {
         return $this->normalizer;

@@ -2,9 +2,7 @@ name: Style
 
 on:
   push:
-    branches-ignore: [master]
   pull_request:
-    branches: [master]
 
 jobs:
   php:
@@ -12,42 +10,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Get changed files
-        uses: dorny/paths-filter@v2
-        id: filter
-        with:
-          list-files: shell
-          base: ${{ github.ref }}
-          filters: |
-            addedOrModified:
-              - added|modified: '**.php'
+        uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
-        if: ${{ steps.filter.outputs.addedOrModified == 'true' }}
         with:
           php-version: '7.4'
 
-      - name: Get Composer cache directory path
-        id: composer-cache-dir
-        if: ${{ steps.filter.outputs.addedOrModified == 'true' }}
-        run: |
-          echo "::set-output name=path::$(composer config cache-files-dir)"
-
-      - name: Cache Composer dependencies
-        uses: actions/cache@v2
-        if: ${{ steps.filter.outputs.addedOrModified == 'true' }}
+      - name: PHP-CS-Fixer cache
+        uses: actions/cache@v4
         with:
-          path: ${{ steps.composer-cache-dir.outputs.path }}
-          key: composer-${{ hashFiles('composer.lock') }}
-          restore-keys: composer-
-
-      - name: Install PHP-CS-Fixer
-        if: ${{ steps.filter.outputs.addedOrModified == 'true' }}
-        run: composer global require friendsofphp/php-cs-fixer:^3.4
+          path: .php-cs-fixer.cache
+          key: php-cs-fixer-${{ github.sha }}
+          restore-keys: php-cs-fixer-
 
       - name: Run PHP-CS-Fixer
-        if: ${{ steps.filter.outputs.addedOrModified == 'true' }}
-        run: composer global exec -- php-cs-fixer fix --config=.php-cs-fixer.dist.php --dry-run --diff --path-mode=intersection ${{ steps.filter.outputs.addedOrModified_files }}
+        run: vendor/bin/php-cs-fixer fix --dry-run --diff

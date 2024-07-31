@@ -30,8 +30,8 @@ use PhpCsFixer\Tokenizer\Tokens;
 final class EregToPregFixer extends AbstractFixer
 {
     /**
-     * @var array the list of the ext/ereg function names, their preg equivalent and the preg modifier(s), if any
-     *            all condensed in an array of arrays
+     * @var list<array<int, string>> the list of the ext/ereg function names, their preg equivalent and the preg modifier(s), if any
+     *                               all condensed in an array of arrays
      */
     private static array $functions = [
         ['ereg', 'preg_match', ''],
@@ -43,13 +43,10 @@ final class EregToPregFixer extends AbstractFixer
     ];
 
     /**
-     * @var array the list of preg delimiters, in order of preference
+     * @var list<string> the list of preg delimiters, in order of preference
      */
     private static array $delimiters = ['/', '#', '!'];
 
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
@@ -62,23 +59,24 @@ final class EregToPregFixer extends AbstractFixer
 
     /**
      * {@inheritdoc}
+     *
+     * Must run after NoUselessConcatOperatorFixer.
      */
+    public function getPriority(): int
+    {
+        return 0;
+    }
+
     public function isCandidate(Tokens $tokens): bool
     {
         return $tokens->isTokenKindFound(T_STRING);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isRisky(): bool
     {
         return true;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         $end = $tokens->count() - 1;
@@ -99,7 +97,7 @@ final class EregToPregFixer extends AbstractFixer
 
                 // findSequence also returns the tokens, but we're only interested in the indices, i.e.:
                 // 0 => function name,
-                // 1 => bracket "("
+                // 1 => parenthesis "("
                 // 2 => quoted string passed as 1st parameter
                 $match = array_keys($match);
 
@@ -119,8 +117,17 @@ final class EregToPregFixer extends AbstractFixer
 
                 // convert to PCRE
                 $regexTokenContent = $tokens[$match[2]]->getContent();
-                $string = substr($regexTokenContent, 1, -1);
-                $quote = $regexTokenContent[0];
+
+                if ('b' === $regexTokenContent[0] || 'B' === $regexTokenContent[0]) {
+                    $quote = $regexTokenContent[1];
+                    $prefix = $regexTokenContent[0];
+                    $string = substr($regexTokenContent, 2, -1);
+                } else {
+                    $quote = $regexTokenContent[0];
+                    $prefix = '';
+                    $string = substr($regexTokenContent, 1, -1);
+                }
+
                 $delim = $this->getBestDelimiter($string);
                 $preg = $delim.addcslashes($string, $delim).$delim.'D'.$map[2];
 
@@ -131,7 +138,7 @@ final class EregToPregFixer extends AbstractFixer
 
                 // modify function and argument
                 $tokens[$match[0]] = new Token([T_STRING, $map[1]]);
-                $tokens[$match[2]] = new Token([T_CONSTANT_ENCAPSED_STRING, $quote.$preg.$quote]);
+                $tokens[$match[2]] = new Token([T_CONSTANT_ENCAPSED_STRING, $prefix.$quote.$preg.$quote]);
             }
         }
     }
@@ -181,6 +188,6 @@ final class EregToPregFixer extends AbstractFixer
             return $a[0] <=> $b[0];
         });
 
-        return key($delimiters);
+        return array_key_first($delimiters);
     }
 }

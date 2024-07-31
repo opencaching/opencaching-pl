@@ -24,17 +24,11 @@ use PhpCsFixer\Tokenizer\Tokens;
 
 final class NoSuperfluousElseifFixer extends AbstractNoUselessElseFixer
 {
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
         return $tokens->isAnyTokenKindsFound([T_ELSE, T_ELSEIF]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
@@ -56,9 +50,6 @@ final class NoSuperfluousElseifFixer extends AbstractNoUselessElseFixer
         return parent::getPriority();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         foreach ($tokens as $index => $token) {
@@ -72,8 +63,7 @@ final class NoSuperfluousElseifFixer extends AbstractNoUselessElseFixer
     {
         return
             $tokens[$index]->isGivenKind(T_ELSEIF)
-            || ($tokens[$index]->isGivenKind(T_ELSE) && $tokens[$tokens->getNextMeaningfulToken($index)]->isGivenKind(T_IF))
-        ;
+            || ($tokens[$index]->isGivenKind(T_ELSE) && $tokens[$tokens->getNextMeaningfulToken($index)]->isGivenKind(T_IF));
     }
 
     private function convertElseifToIf(Tokens $tokens, int $index): void

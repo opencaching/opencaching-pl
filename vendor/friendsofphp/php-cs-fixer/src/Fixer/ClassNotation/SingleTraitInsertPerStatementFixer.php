@@ -70,7 +70,7 @@ final class Example
     }
 
     /**
-     * @param int[] $candidates ',' indices to fix
+     * @param list<int> $candidates ',' indices to fix
      */
     private function fixTraitUse(Tokens $tokens, int $useTraitIndex, array $candidates): void
     {
@@ -83,7 +83,7 @@ final class Example
             $nextImportStartIndex = $tokens->getNextMeaningfulToken($commaIndex);
 
             if ($tokens[$nextImportStartIndex - 1]->isWhitespace()) {
-                if (1 === Preg::match('/\R/', $tokens[$nextImportStartIndex - 1]->getContent())) {
+                if (Preg::match('/\R/', $tokens[$nextImportStartIndex - 1]->getContent())) {
                     array_unshift($inserts, clone $tokens[$useTraitIndex - 1]);
                 }
                 $tokens->clearAt($nextImportStartIndex - 1);
@@ -95,7 +95,7 @@ final class Example
     }
 
     /**
-     * @return int[]
+     * @return list<int>
      */
     private function getCandidates(Tokens $tokens, int $index): array
     {
