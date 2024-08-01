@@ -111,11 +111,11 @@ div#viewcache-map { width: 185px; height: 190px; float: right;}
 
 div#viewcache-description {
 	max-width: 100%;
-	line-height: 1.3em;
+	line-height: 1.3;
 	font-size: 12px;
 }
 div#viewcache-description img {
-	max-width: 770px;
+	max-width: 100%;
 }
 
 div#viewcache-description>p,
