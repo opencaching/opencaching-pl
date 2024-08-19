@@ -47,7 +47,7 @@ RewriteRule ^wp-login.php "-" [F]
 
 
 <IfModule mod_version.c>
-    <IfVersion >= 2.4.52>
+    <IfVersion >= 2.4.60>
         # Rewrite rules for /UserAuthorization/verifyAuthCookie
         # Proper handling of encoded characters in the URL, specifically '?' encoded as %3F (UnsafeAllow3F flag)
         RewriteCond %{REQUEST_URI} ^/UserAuthorization/verifyAuthCookie [NC]
@@ -57,7 +57,7 @@ RewriteRule ^wp-login.php "-" [F]
         RewriteCond %{REQUEST_URI} !^/UserAuthorization/verifyAuthCookie [NC]
         RewriteRule ^(.*)$ /public/index.php?r=$1 [NC,L,QSA,B,NE,PT]
     </IfVersion>
-    <IfVersion < 2.4.52>
+    <IfVersion < 2.4.60>
         # redirect the all OTHER requests -> /public/index.php
         RewriteRule ^(.*)$ /public/index.php?r=$1 [NC,L,QSA,B,NE,PT]
     </IfVersion>
