@@ -46,8 +46,20 @@ RewriteRule ^rss/mycaches_logs\.xml$ %{DOCUMENT_ROOT}/RSS/myCachesLogs [L]
 RewriteRule ^wp-login.php "-" [F]
 
 
-# redirect the all OTHER requests -> /public/index.php
-RewriteRule ^(.*)$  /public/index.php?r=$1 [NC,L,QSA,B,NE,PT]
+<IfVersion >= 2.4.52>
+    # Rewrite rules for /UserAuthorization/verifyAuthCookie
+    # Proper handling of encoded characters in the URL, specifically '?' encoded as %3F (UnsafeAllow3F flag)
+    RewriteCond %{REQUEST_URI} ^/UserAuthorization/verifyAuthCookie [NC]
+    RewriteRule ^(.*)$  /public/index.php?r=$1 [NC,L,QSA,B,NE,PT,UnsafeAllow3F]
+
+    # redirect the all OTHER requests -> /public/index.php
+    RewriteCond %{REQUEST_URI} !^/UserAuthorization/verifyAuthCookie [NC]
+    RewriteRule ^(.*)$ /public/index.php?r=$1 [NC,L,QSA,B,NE,PT]
+</IfVersion>
+<IfVersion < 2.4.52>
+    # redirect the all OTHER requests -> /public/index.php
+    RewriteRule ^(.*)$ /public/index.php?r=$1 [NC,L,QSA,B,NE,PT]
+</IfVersion>
 
 
 # To be sure: apache site config should contains also aliases:
