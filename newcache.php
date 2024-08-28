@@ -380,13 +380,22 @@ if ($show_all_countries == 1) {
     $defaultCountryList = Countries::getCountriesList(true);
 }
 
-foreach ($defaultCountryList as $record) {
-    if ($record == $sel_country) {
-        $countriesoptions .= '<option value="' . $record . '" selected="selected">' . tr($record) . '</option>';
-    } else {
-        $countriesoptions .= '<option value="' . $record . '">' . tr($record) . '</option>';
-    }
-    $countriesoptions .= "\n";
+$sortedCountries = [];
+foreach ($defaultCountryList as $countryCode) {
+    $sortedCountries[] = [
+        'code' => $countryCode,
+        'name' => tr($countryCode)
+    ];
+}
+
+usort($sortedCountries, fn($a, $b) => strcmp($a['name'], $b['name']));
+
+$countriesoptions = '';
+
+$countriesoptions = '';
+foreach ($sortedCountries as $country) {
+    $selected = $country['code'] == $sel_country ? "selected='selected'" : '';
+    $countriesoptions .= "<option value='{$country['code']}' $selected>{$country['name']}</option>\n";
 }
 
 tpl_set_var('countryoptions', $countriesoptions);
