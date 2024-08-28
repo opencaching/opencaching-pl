@@ -736,7 +736,9 @@ if ($cache_record = $dbc->dbResultFetch($s)) {
             ];
         }
 
-        usort($sortedCountries, fn ($a, $b) => strcmp($a['name'], $b['name']));
+        $currentLocale = Languages::getCurrentLocale();
+        $collator = collator_create($currentLocale);
+        usort($sortedCountries, fn ($a, $b) => collator_compare($collator, $a['name'], $b['name']));
 
         $countriesoptions = '';
 

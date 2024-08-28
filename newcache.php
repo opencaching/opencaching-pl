@@ -12,6 +12,7 @@ use src\Utils\EventHandler\EventHandler;
 use src\Utils\Generators\Uuid;
 use src\Utils\Gis\Countries;
 use src\Utils\I18n\I18n;
+use src\Utils\I18n\Languages;
 use src\Utils\Text\UserInputFilter;
 use src\Utils\Text\Validator;
 
@@ -389,9 +390,9 @@ foreach ($defaultCountryList as $countryCode) {
     ];
 }
 
-usort($sortedCountries, fn ($a, $b) => strcmp($a['name'], $b['name']));
-
-$countriesoptions = '';
+$currentLocale = Languages::getCurrentLocale();
+$collator = collator_create($currentLocale);
+usort($sortedCountries, fn ($a, $b) => collator_compare($collator, $a['name'], $b['name']));
 
 $countriesoptions = '';
 
