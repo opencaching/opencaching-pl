@@ -661,18 +661,29 @@ if (!$loggedUser) {
 
                 //check if selected country is in list_default
                 if ($show_all_countries == 0) {
-                    if (!array_search($cache_country, Countries::getCountriesList(true))) {
+                    if (!in_array($cache_country, Countries::getCountriesList(true))) {
                         $show_all_countries = 1;
                     }
                 }
 
-                foreach (Countries::getCountriesList($show_all_countries == 0) as $countryCode) {
-                    if ($countryCode == $cache_country) { // this is cache country - select it
-                        $countriesoptions .= "<option value='$countryCode' selected='selected'>" . tr($countryCode) . '</option>';
-                    } else {
-                        $countriesoptions .= "<option value='$countryCode'>" . tr($countryCode) . '</option>';
-                    }
-                    $countriesoptions .= "\n";
+                $countryList = Countries::getCountriesList($show_all_countries == 0);
+
+                $sortedCountries = [];
+                foreach ($countryList as $countryCode) {
+                    $sortedCountries[] = [
+                        'code' => $countryCode,
+                        'name' => tr($countryCode)
+                    ];
+                }
+
+        $currentLocale = Languages::getCurrentLocale();
+        $collator = collator_create($currentLocale);
+        usort($sortedCountries, fn ($a, $b) => collator_compare($collator, $a['name'], $b['name']));
+
+                $countriesoptions = '';
+                foreach ($sortedCountries as $country) {
+                    $selected = $country['code'] == $cache_country ? "selected='selected'" : '';
+                    $countriesoptions .= "<option value='{$country['code']}' $selected>{$country['name']}</option>\n";
                 }
 
                 tpl_set_var('countryoptions', $countriesoptions);

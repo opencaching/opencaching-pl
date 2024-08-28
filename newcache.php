@@ -12,6 +12,7 @@ use src\Utils\EventHandler\EventHandler;
 use src\Utils\Generators\Uuid;
 use src\Utils\Gis\Countries;
 use src\Utils\I18n\I18n;
+use src\Utils\I18n\Languages;
 use src\Utils\Text\UserInputFilter;
 use src\Utils\Text\Validator;
 
@@ -380,13 +381,22 @@ if ($show_all_countries == 1) {
     $defaultCountryList = Countries::getCountriesList(true);
 }
 
-foreach ($defaultCountryList as $record) {
-    if ($record == $sel_country) {
-        $countriesoptions .= '<option value="' . $record . '" selected="selected">' . tr($record) . '</option>';
-    } else {
-        $countriesoptions .= '<option value="' . $record . '">' . tr($record) . '</option>';
-    }
-    $countriesoptions .= "\n";
+$sortedCountries = [];
+foreach ($defaultCountryList as $countryCode) {
+    $sortedCountries[] = [
+        'code' => $countryCode,
+        'name' => tr($countryCode)
+    ];
+}
+
+$currentLocale = Languages::getCurrentLocale();
+$collator = collator_create($currentLocale);
+usort($sortedCountries, fn ($a, $b) => collator_compare($collator, $a['name'], $b['name']));
+
+$countriesoptions = '';
+foreach ($sortedCountries as $country) {
+    $selected = $country['code'] == $sel_country ? "selected='selected'" : '';
+    $countriesoptions .= "<option value='{$country['code']}' $selected>{$country['name']}</option>\n";
 }
 
 tpl_set_var('countryoptions', $countriesoptions);
@@ -806,7 +816,7 @@ if (isset($_POST['submitform'])) {
         }
 
         // add cache altitude
-        $geoCache = Geocache::fromCacheIdFactory($cache_id);
+        $geoCache = GeoCache::fromCacheIdFactory($cache_id);
         $geoCache->updateAltitude();
 
         // only if no approval is needed and cache is published NOW or activate_date is in the past

@@ -104,4 +104,45 @@ class Languages
                 break;
         }
     }
+
+    public static function getCurrentLocale()
+    {
+        $currentLocale = '';
+        switch (I18n::getCurrentLang()) {
+            case 'pl':
+                $currentLocale='pl_PL.UTF-8';
+                break;
+            case 'nl':
+                $currentLocale='nl_NL.UTF-8';
+                break;
+            case 'fr':
+                $currentLocale='fr_FR.UTF-8';
+                break;
+            case 'de':
+                $currentLocale='de_DE.UTF-8';
+                break;
+            case 'sv':
+                $currentLocale='sv_SV.UTF-8';
+                break;
+            case 'es':
+                $currentLocale='es_ES.UTF-8';
+                break;
+            case 'cs':
+                $currentLocale='cs_CS.UTF-8';
+                break;
+            case 'ro':
+                $currentLocale='ro_RO.UTF-8';
+                break;
+            case 'hu':
+                $currentLocale='hu_HU.UTF-8';
+                break;
+            case 'en':
+                $currentLocale='en_EN';
+                break;
+            default:
+                $currentLocale='en_EN';
+                break;
+        }
+        return $currentLocale;
+    }
 }
