@@ -381,21 +381,23 @@ if ($show_all_countries == 1) {
 }
 
 $sortedCountries = [];
+
 foreach ($defaultCountryList as $countryCode) {
     $sortedCountries[] = [
         'code' => $countryCode,
-        'name' => tr($countryCode)
+        'name' => tr($countryCode),
     ];
 }
 
-usort($sortedCountries, fn($a, $b) => strcmp($a['name'], $b['name']));
+usort($sortedCountries, fn ($a, $b) => strcmp($a['name'], $b['name']));
 
 $countriesoptions = '';
 
 $countriesoptions = '';
+
 foreach ($sortedCountries as $country) {
     $selected = $country['code'] == $sel_country ? "selected='selected'" : '';
-    $countriesoptions .= "<option value='{$country['code']}' $selected>{$country['name']}</option>\n";
+    $countriesoptions .= "<option value='{$country['code']}' {$selected}>{$country['name']}</option>\n";
 }
 
 tpl_set_var('countryoptions', $countriesoptions);
@@ -644,6 +646,7 @@ if (isset($_POST['submitform'])) {
 
     // cache-type
     $type_not_ok = false;
+
     // block forbiden cache types
     if ($sel_type == -1 || in_array($sel_type, OcConfig::getNoNewCacheOfTypesArray())) {
         tpl_set_var('type_message', $type_not_ok_message);
@@ -815,7 +818,7 @@ if (isset($_POST['submitform'])) {
         }
 
         // add cache altitude
-        $geoCache = Geocache::fromCacheIdFactory($cache_id);
+        $geoCache = GeoCache::fromCacheIdFactory($cache_id);
         $geoCache->updateAltitude();
 
         // only if no approval is needed and cache is published NOW or activate_date is in the past
