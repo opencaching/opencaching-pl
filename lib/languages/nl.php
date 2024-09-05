@@ -1845,6 +1845,7 @@ $translations = [
     'region_03' => 'Provincie gevonden via {site_name}',
     'region_04' => 'Provincie gevonden via Google Map',
     'region_mapQuest' => 'Provincie gevonden via MapQuest API',
+    'region_nominatim' => 'Region found by Nominatim (OpenStreetMap)',
 
     'cacheType_1' => 'Traditionele Cache',
     'cacheType_2' => 'Multi Cache',
