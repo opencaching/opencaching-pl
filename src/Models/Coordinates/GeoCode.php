@@ -188,6 +188,47 @@ class GeoCode
         return $instance;
     }
 
+    /**
+     * Reverse geocoding based on Nominatim (OpenStreetMap) service
+     * @see https://nominatim.org/release-docs/latest/api/Reverse/ for details
+     * @return GeoCode|null - result object or NULL
+     */
+    public static function fromNominatimApi(Coordinates $coords): ?GeoCode
+    {
+        $lat = $coords->getLatitude();
+        $lon = $coords->getLongitude();
+        $url = "https://nominatim.openstreetmap.org/reverse?lat={$lat}&lon={$lon}&zoom=5&accept-language=*&format=jsonv2";
+
+        $context = stream_context_create([
+            'http' => [
+                'header' => "User-Agent: Opencaching\r\n"
+            ]
+        ]);
+
+        $response = @file_get_contents($url, false, $context);
+
+        if ($response === false) {
+            return null;
+        }
+
+        $data = json_decode($response, true);
+
+        if (isset($data['error']) || !isset($data['address'])) {
+            return null;
+        }
+
+        $instance = new self();
+
+        $addressType = $data['addresstype'] ?? 'county';
+        $instance->countryCode = $data['address']['country_code'] ?? null;
+        $instance->countryName = $data['address']['country'] ?? null;
+        $instance->admCode = $data['address'][$addressType] ?? null;
+        $instance->admName = $data['address'][$addressType] ?? null;
+
+        return $instance;
+    }
+
+
     public function getCountryCode(): ?string
     {
         return $this->countryCode;
