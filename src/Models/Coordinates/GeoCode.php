@@ -201,7 +201,7 @@ class GeoCode
 
         $context = stream_context_create([
             'http' => [
-                'header' => "User-Agent: Opencaching\r\n"
+                'header' => "User-Agent: ".OcConfig::getSiteName()."\r\n"
             ]
         ]);
 
