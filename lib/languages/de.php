@@ -1845,6 +1845,7 @@ $translations = [
     'region_03' => 'Region per {site_name}',
     'region_04' => 'Region per Google Maps',
     'region_mapQuest' => 'Region per MapQuest-API',
+    'region_nominatim' => 'Region found by Nominatim (OpenStreetMap)',
 
     'cacheType_1' => 'Traditioneller Cache',
     'cacheType_2' => 'Multicache',

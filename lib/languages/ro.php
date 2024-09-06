@@ -1845,6 +1845,7 @@ $translations = [
     'region_03' => 'Zonă găsită în gaza de date locală (NUTS)',
     'region_04' => 'Zonă găsită de Google Maps',
     'region_mapQuest' => 'Zonă găsită de MapQuest API',
+    'region_nominatim' => 'Region found by Nominatim (OpenStreetMap)',
 
     'cacheType_1' => 'Tradiţională',
     'cacheType_2' => 'Multiplă',

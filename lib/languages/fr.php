@@ -1845,6 +1845,7 @@ $translations = [
     'region_03' => 'Région, trouvée via les données locales (NUTS)',
     'region_04' => 'Région trouvée via Google Maps',
     'region_mapQuest' => 'Région trouvée via MapQuest API',
+    'region_nominatim' => 'Region found by Nominatim (OpenStreetMap)',
 
     'cacheType_1' => 'Traditionnel',
     'cacheType_2' => 'Multicache',
