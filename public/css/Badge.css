@@ -124,3 +124,8 @@
 .Badge-table-view {
     line-height: 30px;
 }
+
+.Badges-table {
+    width: 770px;
+    max-width: 100%;
+}

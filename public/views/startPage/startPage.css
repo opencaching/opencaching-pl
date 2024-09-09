@@ -39,7 +39,7 @@
 }
 
 .totalStatsFrame {
-	width: 130px !important;
+	width: 130px;
 	height: 50px !important;
 	margin: 0px 6px;
 	text-align: center;
