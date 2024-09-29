@@ -56,7 +56,7 @@ class GeoKretyNewJob extends Job
             $id = XDb::xEscape($geokret['id']);
             $name = XDb::xEscape($geokret->name);
             $dist = XDb::xEscape($geokret->distancetravelled);
-            $state = XDb::xEscape($geokret->state);
+            $state = XDb::xEscape($geokret->state ?? 0);
             $lat = XDb::xEscape($geokret->position['latitude'] ?? 0.0);
             $lon = XDb::xEscape($geokret->position['longitude'] ?? 0.0);
 
