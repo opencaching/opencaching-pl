@@ -48,8 +48,8 @@ if (!$loggedUser) {
                     if ($remove_commit == 1) {
                         //add to removed_objects
                         XDb::xSql(
-                            "INSERT INTO `removed_objects` (`id`, `localID`, `uuid`, `type`, `removed_date`, `node`)
-                            VALUES ('', ?, ?, '3', NOW(), ?)",
+                            "INSERT INTO `removed_objects` (`localID`, `uuid`, `type`, `removed_date`, `node`)
+                            VALUES (?, ?, '3', NOW(), ?)",
                             $desc_record['id'], $desc_record['uuid'], OcConfig::getSiteNodeId());
 
                         //remove it from cache_desc
