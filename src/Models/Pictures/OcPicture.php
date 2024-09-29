@@ -124,8 +124,8 @@ class OcPicture extends BaseObject
             :4, :5, :6, :7, :8,
             NOW(), :9, :10, :11)",
             $this->uuid, $this->isLocal, $this->url,
-            $thumbUrl, $this->isSpoiler, $this->parentType, $this->parentId, $this->title,
-            !$this->isHidden, $this->order, OcConfig::getSiteNodeId());
+            $thumbUrl, (int) $this->isSpoiler, $this->parentType, $this->parentId, $this->title,
+            (int) !$this->isHidden, $this->order, OcConfig::getSiteNodeId());
 
         // update pic count in parent recod (+last_modified)
         $this->updateParentPicturesCountInDb(1);
@@ -153,7 +153,7 @@ class OcPicture extends BaseObject
     {
         $this->db->multiVariableQuery(
             "UPDATE pictures SET spoiler = :1, last_modified = NOW() WHERE uuid = :2 LIMIT 1",
-            $this->isSpoiler, $this->uuid);
+            (int) $this->isSpoiler, $this->uuid);
 
         $this->regenerateThumbnails();
         $this->updateParentLastUpdateInDb();
@@ -163,7 +163,7 @@ class OcPicture extends BaseObject
     {
         $this->db->multiVariableQuery(
             "UPDATE pictures SET display = :1, last_modified = NOW() WHERE uuid = :2 LIMIT 1",
-            !$this->isHidden, $this->uuid);
+            (int) !$this->isHidden, $this->uuid);
         $this->updateParentLastUpdateInDb();
     }
 
