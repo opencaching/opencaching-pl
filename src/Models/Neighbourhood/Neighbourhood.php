@@ -291,7 +291,7 @@ class Neighbourhood extends BaseObject
               `radius` = :6,
               `notify` = :7
             ';
-        return (self::db()->multiVariableQuery($query, $user->getUserId(), (int) $seq, $name, $coords->getLongitude(), $coords->getLatitude(), (int) $radius, boolval($notify)) !== null);
+        return (self::db()->multiVariableQuery($query, $user->getUserId(), (int) $seq, $name, $coords->getLongitude(), $coords->getLatitude(), (int) $radius, (int) $notify) !== null);
     }
 
     /**
