@@ -925,7 +925,7 @@ if (!$loggedUser) {
                     //print_r($_SESSION['geoPathCacheList']);
                     if (isset($_SESSION['geoPathCacheList']) && count($_SESSION['geoPathCacheList']) > 0){
                         $cache_bylist = implode(",", $_SESSION['geoPathCacheList']);
-                        $options['gpxPtFileName'] = $_SESSION['ptName'];
+                        $options['gpxPtFileName'] = $_SESSION['ptName'] ?? '';
                     } else {
                         $options['ptId'] = (int) $_REQUEST['ptId'];
                         $cache_bylist = implode(",",powerTrailBase::getPtCachesIds($options['ptId']));
