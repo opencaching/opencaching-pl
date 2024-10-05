@@ -472,7 +472,7 @@ if ($log_record) {
             $lastFoundDate = XDb::xMultiVariableQueryValue(
                 'SELECT MAX(`date`) AS `date` FROM `cache_logs`
                          WHERE `type` IN (:1, :2) AND `cache_id`= :3 AND deleted = 0',
-                'NULL',
+                null,
                 GeoCacheLog::LOGTYPE_FOUNDIT,
                 GeoCacheLog::LOGTYPE_ATTENDED,
                 $log_record['cache_id']
