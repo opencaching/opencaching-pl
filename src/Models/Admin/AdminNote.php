@@ -1,177 +1,143 @@
 <?php
+
 namespace src\Models\Admin;
 
+use DateTime;
+use Exception;
 use src\Models\BaseObject;
-use src\Models\User\User;
 use src\Models\GeoCache\GeoCache;
+use src\Models\User\User;
 
 class AdminNote extends BaseObject
 {
+    public const VERIFY_ALL = '1';
 
-    const VERIFY_ALL = "1";
-    const NO_VERIFY_ALL = "2";
-    const BAN_STATS = "3";
-    const UNBAN_STATS = "4";
-    const BAN = "5";
-    const UNBAN = "6";
-    const CACHE_PASS = "7";
-    const CACHE_BLOCKED = "8";
-    const IGNORE_FOUND_LIMIT = "9";
-    const IGNORE_FOUND_LIMIT_RM = "10";
-    const NOTIFY_CACHES_ON = "11";
-    const NOTIFY_CACHES_OFF = "12";
-    const NOTIFY_LOGS_ON = "13";
-    const NOTIFY_LOGS_OFF = "14";
-    const ACTIVATE = "15";
+    public const NO_VERIFY_ALL = '2';
 
-    /** @var int */
-    private $noteId;
+    public const BAN_STATS = '3';
 
-    /** @var int */
-    private $userId = null;
+    public const UNBAN_STATS = '4';
 
-    /** @var User */
-    private $user = null;
+    public const BAN = '5';
 
-    /** @var int */
-    private $adminId = null;
+    public const UNBAN = '6';
 
-    /** @var User */
-    private $admin = null;
+    public const CACHE_PASS = '7';
 
-    /** @var int */
-    private $cacheId = null;
+    public const CACHE_BLOCKED = '8';
 
-    /** @var GeoCache */
-    private $cache = null;
+    public const IGNORE_FOUND_LIMIT = '9';
 
-    /** @var bool */
-    private $automatic;
+    public const IGNORE_FOUND_LIMIT_RM = '10';
 
-    /** @var \DateTime */
-    private $date = null;
+    public const NOTIFY_CACHES_ON = '11';
 
-    /** @var string */
-    private $content;
+    public const NOTIFY_CACHES_OFF = '12';
 
-    public function __construct()
-    {
-        parent::__construct();
-    }
+    public const NOTIFY_LOGS_ON = '13';
 
-    /**
-     * @return int
-     */
-    public function getNoteId()
+    public const NOTIFY_LOGS_OFF = '14';
+
+    public const ACTIVATE = '15';
+
+    private const AUTOMATIC_PICTURE_URL = '/images/misc/gears.svg';
+
+    private const MANUAL_PICTURE_URL = '/images/log/octeam.svg';
+
+    private int $noteId;
+
+    private ?int $userId = null;
+
+    private ?User $user = null;
+
+    private ?int $adminId = null;
+
+    private ?User $admin = null;
+
+    private ?int $cacheId = null;
+
+    private ?GeoCache $cache = null;
+
+    private bool $automatic;
+
+    private ?DateTime $date = null;
+
+    private string $content;
+
+    public function getNoteId(): int
     {
         return $this->noteId;
     }
 
-    /**
-     * @return int
-     */
-    public function getUserId()
+    public function getUserId(): ?int
     {
         return $this->userId;
     }
 
-    /**
-     * @return User
-     */
-    public function getUser()
+    public function getUser(): ?User
     {
         if (is_null($this->user) && ! is_null($this->getUserId())) {
             $this->user = User::fromUserIdFactory($this->getUserId());
         }
+
         return $this->user;
     }
 
-    /**
-     * @return int
-     */
-    public function getAdminId()
+    public function getAdminId(): ?int
     {
         return $this->adminId;
     }
 
-    /**
-     * @return User
-     */
-    public function getAdmin()
+    public function getAdmin(): ?User
     {
         if (is_null($this->admin) && ! is_null($this->getAdminId())) {
             $this->admin = User::fromUserIdFactory($this->getAdminId());
         }
+
         return $this->admin;
     }
 
-    /**
-     * @return int
-     */
-    public function getCacheId()
+    public function getCacheId(): ?int
     {
         return $this->cacheId;
     }
 
-    /**
-     * @return GeoCache
-     */
-    public function getCache()
+    public function getCache(): ?GeoCache
     {
         if (is_null($this->cache) && ! is_null($this->getCacheId())) {
             $this->cache = GeoCache::fromCacheIdFactory($this->getCacheId());
         }
+
         return $this->cache;
     }
 
-    /**
-     * @return bool
-     */
-    public function isAutomatic()
+    public function isAutomatic(): bool
     {
         return $this->automatic;
     }
 
     /**
-     * Returns URL of AdminNote picture (that depends of 'automatic' setting)
-     *
-     * @return string
+     * Returns URL of AdminNote picture (that depends on 'automatic' setting)
      */
-    public function getAutomaticPictureUrl()
+    public function getAutomaticPictureUrl(): string
     {
-        switch ($this->isAutomatic()) {
-            case true:
-                $result = '/images/misc/gears.svg';
-                break;
-            case false:
-                $result = '/images/log/octeam.svg';
-                break;
-        }
-        return $result;
+        return $this->isAutomatic() ? self::AUTOMATIC_PICTURE_URL : self::MANUAL_PICTURE_URL;
     }
 
-    /**
-     * @return string
-     */
-    public function getDateTime()
+    public function getDateTime(): ?DateTime
     {
         return $this->date;
     }
 
-    /**
-     * @return string
-     */
-    public function getContent()
+    public function getContent(): string
     {
         return $this->content;
     }
 
     /**
-     * Return translaction key, which depends of automatically generated content
-     *
-     * @return string
+     * Return translation key, which depends on automatically generated content
      */
-    public function getContentTranslationKey()
+    public function getContentTranslationKey(): string
     {
         if (! $this->isAutomatic()) { // Check for sure
             return 'unknown';
@@ -227,152 +193,114 @@ class AdminNote extends BaseObject
                 $result = 'unknown';
                 break;
         }
+
         return $result;
     }
 
-    /**
-     * @param int $noteId
-     */
-    public function setNoteId($noteId)
+    public function setNoteId(int $noteId)
     {
         $this->noteId = $noteId;
     }
 
-
-    /**
-     * @param int $userId
-     */
-    public function setUserId($userId)
+    public function setUserId(int $userId)
     {
         $this->userId = $userId;
         $this->user = null;
     }
 
-    /**
-     * @param User $user
-     */
     public function setUser(User $user)
     {
         $this->setUserId($user->getUserId());
         $this->user = $user;
     }
 
-    /**
-     * @param int $adminId
-     */
-    public function setAdminId($adminId)
+    public function setAdminId(int $adminId)
     {
         $this->adminId = $adminId;
         $this->admin = null;
     }
 
-    /**
-     * @param User $admin
-     */
     public function setAdmin(User $admin)
     {
         $this->setAdminId($admin->getUserId());
         $this->admin = $admin;
     }
 
-    /**
-     * @param int $cacheId
-     */
-    public function setCacheId($cacheId)
+    public function setCacheId(int $cacheId)
     {
         $this->cacheId = $cacheId;
         $this->cache = null;
     }
 
-    /**
-     * @param GeoCache $cache
-     */
     public function setCache(GeoCache $cache)
     {
         $this->setCacheId($cache->getCacheId());
         $this->cache = $cache;
     }
 
-    /**
-     * @param bool $automatic
-     */
-    public function setAutomatic($automatic)
+    public function setAutomatic(bool $automatic)
     {
         $this->automatic = $automatic;
     }
 
-    /**
-     * @param \DateTime $date
-     */
-    public function setDate($date)
+    public function setDate(DateTime $date)
     {
         $this->date = $date;
     }
 
-    /**
-     * @param string $content
-     */
-    public function setContent($content)
+    public function setContent(string $content)
     {
         $this->content = $content;
     }
 
-    /**
-     * @param int $noteId
-     * @return AdminNote|NULL
-     */
-    public static function fromNoteIdFactory($noteId)
+    public static function fromNoteIdFactory(int $noteId): ?AdminNote
     {
         $obj = new self();
+
         try {
             $obj->loadByNoteId($noteId);
+
             return $obj;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return null;
         }
     }
 
     /**
-     * @param int $noteId
-     * @throws \Exception
+     * @throws Exception
      */
-    private function loadByNoteId($noteId)
+    private function loadByNoteId(int $noteId)
     {
         $s = $this->db->multiVariableQuery(
-            "SELECT * FROM `admin_user_notes` WHERE `note_id` = :1 LIMIT 1", $noteId);
+            'SELECT * FROM `admin_user_notes` WHERE `note_id` = :1 LIMIT 1',
+            $noteId
+        );
 
         $dbRow = $this->db->dbResultFetchOneRowOnly($s);
 
-        if(is_array($dbRow)) {
+        if (is_array($dbRow)) {
             $this->loadFromDbRow($dbRow);
         } else {
-            throw new \Exception("No such admin note");
+            throw new Exception('No such admin note');
         }
     }
 
     /**
-     * @param array $row
+     * @throws Exception
      */
-    private function loadFromDbRow($row)
+    private function loadFromDbRow(array $row)
     {
         $this->setNoteId($row['note_id']);
         $this->setUserId($row['user_id']);
         $this->setAdminId($row['admin_id']);
         $this->setCacheId($row['cache_id']);
         $this->setAutomatic(boolval($row['automatic']));
-        $this->setDate(new \DateTime($row['datetime']));
+        $this->setDate(new DateTime($row['datetime']));
         $this->setContent($row['content']);
     }
 
-
-    /**
-     * @param int $adminId
-     * @param int $userId
-     * @param bool $automatic
-     * @param string $message
-     * @param int $cacheId
-     */
-    public static function addAdminNote($adminId, $userId, $automatic, $message, $cacheId = null) {
+    public static function addAdminNote(int $adminId, int $userId, bool $automatic, string $message, int $cacheId = null)
+    {
         $note = new AdminNote();
         $note->setAdminId($adminId);
         $note->setUserId($userId);
@@ -384,8 +312,14 @@ class AdminNote extends BaseObject
 
     private function insertNoteIntoDb()
     {
-        $query = "INSERT INTO `admin_user_notes`(`user_id`, `admin_id`, `cache_id`, `automatic`, `content`) VALUES (:1, :2, :3, :4, :5)";
-        $this->db->multiVariableQuery($query, $this->getUserId(), $this->getAdminId(), $this->getCacheId(), $this->isAutomatic(), $this->getContent());
+        $query = 'INSERT INTO `admin_user_notes`(`user_id`, `admin_id`, `cache_id`, `automatic`, `content`) VALUES (:1, :2, :3, :4, :5)';
+        $this->db->multiVariableQuery(
+            $query,
+            $this->getUserId(),
+            $this->getAdminId(),
+            $this->getCacheId(),
+            (int) $this->isAutomatic(),
+            $this->getContent()
+        );
     }
-
 }
