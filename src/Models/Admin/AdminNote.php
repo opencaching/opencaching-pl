@@ -202,7 +202,7 @@ class AdminNote extends BaseObject
         $this->noteId = $noteId;
     }
 
-    public function setUserId(int $userId)
+    public function setUserId(?int $userId)
     {
         $this->userId = $userId;
         $this->user = null;
@@ -214,7 +214,7 @@ class AdminNote extends BaseObject
         $this->user = $user;
     }
 
-    public function setAdminId(int $adminId)
+    public function setAdminId(?int $adminId)
     {
         $this->adminId = $adminId;
         $this->admin = null;
@@ -226,7 +226,7 @@ class AdminNote extends BaseObject
         $this->admin = $admin;
     }
 
-    public function setCacheId(int $cacheId)
+    public function setCacheId(?int $cacheId)
     {
         $this->cacheId = $cacheId;
         $this->cache = null;
@@ -248,7 +248,7 @@ class AdminNote extends BaseObject
         $this->date = $date;
     }
 
-    public function setContent(string $content)
+    public function setContent(?string $content)
     {
         $this->content = $content;
     }
