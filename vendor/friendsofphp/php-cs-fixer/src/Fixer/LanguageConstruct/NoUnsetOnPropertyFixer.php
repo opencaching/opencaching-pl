@@ -27,9 +27,6 @@ use PhpCsFixer\Tokenizer\Tokens;
  */
 final class NoUnsetOnPropertyFixer extends AbstractFixer
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
@@ -43,17 +40,11 @@ final class NoUnsetOnPropertyFixer extends AbstractFixer
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isRisky(): bool
     {
         return true;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
         return $tokens->isTokenKindFound(T_UNSET)
@@ -93,7 +84,7 @@ final class NoUnsetOnPropertyFixer extends AbstractFixer
     }
 
     /**
-     * @return array<array<string, bool|int>>
+     * @return list<array<string, bool|int>>
      */
     private function getUnsetsInfo(Tokens $tokens, int $index): array
     {
@@ -153,7 +144,7 @@ final class NoUnsetOnPropertyFixer extends AbstractFixer
     }
 
     /**
-     * @param array<array<string, bool|int>> $unsetsInfo
+     * @param list<array<string, bool|int>> $unsetsInfo
      */
     private function isAnyUnsetToTransform(array $unsetsInfo): bool
     {

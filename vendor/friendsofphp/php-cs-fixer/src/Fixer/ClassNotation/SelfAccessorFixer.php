@@ -19,7 +19,6 @@ use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Preg;
-use PhpCsFixer\Tokenizer\Analyzer\NamespacesAnalyzer;
 use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
@@ -30,9 +29,6 @@ use PhpCsFixer\Tokenizer\TokensAnalyzer;
  */
 final class SelfAccessorFixer extends AbstractFixer
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
@@ -58,9 +54,6 @@ class Sample
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
         return $tokens->isAnyTokenKindsFound([T_CLASS, T_INTERFACE]);
@@ -68,20 +61,24 @@ class Sample
 
     /**
      * {@inheritdoc}
+     *
+     * Must run after PsrAutoloadingFixer.
      */
+    public function getPriority(): int
+    {
+        return -11;
+    }
+
     public function isRisky(): bool
     {
         return true;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         $tokensAnalyzer = new TokensAnalyzer($tokens);
 
-        foreach ((new NamespacesAnalyzer())->getDeclarations($tokens) as $namespace) {
+        foreach ($tokens->getNamespaceDeclarations() as $namespace) {
             for ($index = $namespace->getScopeStartIndex(); $index < $namespace->getScopeEndIndex(); ++$index) {
                 if (!$tokens[$index]->isGivenKind([T_CLASS, T_INTERFACE]) || $tokensAnalyzer->isAnonymousClass($index)) {
                     continue;
@@ -123,7 +120,21 @@ class Sample
                 continue;
             }
 
+            if ($token->isGivenKind(T_FN)) {
+                $i = $tokensAnalyzer->getLastTokenIndexOfArrowFunction($i);
+                $i = $tokens->getNextMeaningfulToken($i);
+
+                continue;
+            }
+
             if ($token->isGivenKind(T_FUNCTION)) {
+                if ($tokensAnalyzer->isLambda($i)) {
+                    $i = $tokens->getNextTokenOfKind($i, ['{']);
+                    $i = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $i);
+
+                    continue;
+                }
+
                 $i = $tokens->getNextTokenOfKind($i, ['(']);
                 $insideMethodSignatureUntil = $tokens->getNextTokenOfKind($i, ['{', ';']);
 
@@ -158,7 +169,7 @@ class Sample
                 || (
                     null !== $insideMethodSignatureUntil
                     && $i < $insideMethodSignatureUntil
-                    && $prevToken->equalsAny(['(', ',', [CT::T_TYPE_COLON], [CT::T_NULLABLE_TYPE]])
+                    && $prevToken->equalsAny(['(', ',', [CT::T_NULLABLE_TYPE], [CT::T_TYPE_ALTERNATION], [CT::T_TYPE_COLON]])
                 )
             ) {
                 for ($j = $classStartIndex; $j < $i; ++$j) {
@@ -173,7 +184,7 @@ class Sample
     {
         $namespace = ('' !== $namespace ? '\\'.$namespace : '').'\\';
 
-        foreach (array_reverse(Preg::split('/(\\\\)/', $namespace, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE)) as $piece) {
+        foreach (array_reverse(Preg::split('/(\\\)/', $namespace, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE)) as $piece) {
             $index = $tokens->getPrevMeaningfulToken($index);
             if ('\\' === $piece) {
                 if (!$tokens[$index]->isGivenKind(T_NS_SEPARATOR)) {

@@ -14,8 +14,8 @@ declare(strict_types=1);
 
 namespace PhpCsFixer\Differ;
 
-use PhpCsFixer\Diff\Differ;
-use PhpCsFixer\Diff\Output\StrictUnifiedDiffOutputBuilder;
+use SebastianBergmann\Diff\Differ;
+use SebastianBergmann\Diff\Output\StrictUnifiedDiffOutputBuilder;
 
 /**
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
@@ -37,9 +37,6 @@ final class FullDiffer implements DifferInterface
         ]));
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function diff(string $old, string $new, ?\SplFileInfo $file = null): string
     {
         return $this->differ->diff($old, $new);

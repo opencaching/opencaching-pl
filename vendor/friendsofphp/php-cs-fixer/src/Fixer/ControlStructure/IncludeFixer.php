@@ -29,13 +29,10 @@ use PhpCsFixer\Tokenizer\Tokens;
  */
 final class IncludeFixer extends AbstractFixer
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
-            'Include/Require and file path should be divided with a single space. File path should not be placed under brackets.',
+            'Include/Require and file path should be divided with a single space. File path should not be placed within parentheses.',
             [
                 new CodeSample(
                     '<?php
@@ -49,28 +46,25 @@ include_once("sample4.php");
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
         return $tokens->isAnyTokenKindsFound([T_REQUIRE, T_REQUIRE_ONCE, T_INCLUDE, T_INCLUDE_ONCE]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         $this->clearIncludies($tokens, $this->findIncludies($tokens));
     }
 
+    /**
+     * @param array<int, array{begin: int, braces: ?array{open: int, close: int}, end: int}> $includies
+     */
     private function clearIncludies(Tokens $tokens, array $includies): void
     {
         $blocksAnalyzer = new BlocksAnalyzer();
 
         foreach ($includies as $includy) {
-            if ($includy['end'] && !$tokens[$includy['end']]->isGivenKind(T_CLOSE_TAG)) {
+            if (!$tokens[$includy['end']]->isGivenKind(T_CLOSE_TAG)) {
                 $afterEndIndex = $tokens->getNextNonWhitespace($includy['end']);
 
                 if (null === $afterEndIndex || !$tokens[$afterEndIndex]->isComment()) {
@@ -105,6 +99,9 @@ include_once("sample4.php");
         }
     }
 
+    /**
+     * @return array<int, array{begin: int, braces: ?array{open: int, close: int}, end: int}>
+     */
     private function findIncludies(Tokens $tokens): array
     {
         static $includyTokenKinds = [T_REQUIRE, T_REQUIRE_ONCE, T_INCLUDE, T_INCLUDE_ONCE];

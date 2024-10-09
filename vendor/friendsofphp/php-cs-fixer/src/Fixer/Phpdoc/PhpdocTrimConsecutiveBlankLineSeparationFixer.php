@@ -30,9 +30,6 @@ use PhpCsFixer\Tokenizer\Tokens;
  */
 final class PhpdocTrimConsecutiveBlankLineSeparationFixer extends AbstractFixer
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
@@ -66,24 +63,18 @@ function fnc($foo) {}
      * {@inheritdoc}
      *
      * Must run before PhpdocAlignFixer.
-     * Must run after AlignMultilineCommentFixer, CommentToPhpdocFixer, PhpdocIndentFixer, PhpdocScalarFixer, PhpdocToCommentFixer, PhpdocTypesFixer.
+     * Must run after AlignMultilineCommentFixer, CommentToPhpdocFixer, PhpUnitAttributesFixer, PhpdocIndentFixer, PhpdocScalarFixer, PhpdocToCommentFixer, PhpdocTypesFixer.
      */
     public function getPriority(): int
     {
         return -41;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
         return $tokens->isTokenKindFound(T_DOC_COMMENT);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         foreach ($tokens as $index => $token) {
@@ -174,11 +165,14 @@ function fnc($foo) {}
 
     private function findFirstAnnotationOrEnd(DocBlock $doc): int
     {
-        $index = null;
         foreach ($doc->getLines() as $index => $line) {
             if ($line->containsATag()) {
                 return $index;
             }
+        }
+
+        if (!isset($index)) {
+            throw new \LogicException('PHPDoc has empty lines collection.');
         }
 
         return $index; // no Annotation, return the last line

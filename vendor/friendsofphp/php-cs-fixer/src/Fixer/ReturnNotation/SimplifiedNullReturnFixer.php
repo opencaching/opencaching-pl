@@ -26,9 +26,6 @@ use PhpCsFixer\Tokenizer\Tokens;
  */
 final class SimplifiedNullReturnFixer extends AbstractFixer
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
@@ -37,13 +34,13 @@ final class SimplifiedNullReturnFixer extends AbstractFixer
                 new CodeSample("<?php return null;\n"),
                 new CodeSample(
                     <<<'EOT'
-<?php
-function foo() { return null; }
-function bar(): int { return null; }
-function baz(): ?int { return null; }
-function xyz(): void { return null; }
+                        <?php
+                        function foo() { return null; }
+                        function bar(): int { return null; }
+                        function baz(): ?int { return null; }
+                        function xyz(): void { return null; }
 
-EOT
+                        EOT
                 ),
             ]
         );
@@ -59,17 +56,11 @@ EOT
         return 16;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
         return $tokens->isTokenKindFound(T_RETURN);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         foreach ($tokens as $index => $token) {
@@ -88,7 +79,7 @@ EOT
      */
     private function clear(Tokens $tokens, int $index): void
     {
-        while (!$tokens[++$index]->equals(';')) {
+        while (!$tokens[++$index]->equalsAny([';', [T_CLOSE_TAG]])) {
             if ($this->shouldClearToken($tokens, $index)) {
                 $tokens->clearAt($index);
             }
@@ -105,13 +96,16 @@ EOT
         }
 
         $content = '';
-        while (!$tokens[$index]->equals(';')) {
+        while (!$tokens[$index]->equalsAny([';', [T_CLOSE_TAG]])) {
             $index = $tokens->getNextMeaningfulToken($index);
             $content .= $tokens[$index]->getContent();
         }
 
+        $lastTokenContent = $tokens[$index]->getContent();
+        $content = substr($content, 0, -\strlen($lastTokenContent));
+
         $content = ltrim($content, '(');
-        $content = rtrim($content, ');');
+        $content = rtrim($content, ')');
 
         return 'null' === strtolower($content);
     }
@@ -134,7 +128,8 @@ EOT
         } while ($closingCurlyBraceIndex < $returnIndex);
 
         $possibleVoidIndex = $tokens->getPrevMeaningfulToken($openingCurlyBraceIndex);
-        $isStrictReturnType = $tokens[$possibleVoidIndex]->isGivenKind(T_STRING) && 'void' !== $tokens[$possibleVoidIndex]->getContent();
+        $isStrictReturnType = $tokens[$possibleVoidIndex]->isGivenKind([T_STRING, CT::T_ARRAY_TYPEHINT])
+            && 'void' !== $tokens[$possibleVoidIndex]->getContent();
 
         $nullableTypeIndex = $tokens->getNextTokenOfKind($functionIndex, [[CT::T_NULLABLE_TYPE]]);
         $isNullableReturnType = null !== $nullableTypeIndex && $nullableTypeIndex < $openingCurlyBraceIndex;
@@ -145,13 +140,32 @@ EOT
     /**
      * Should we clear the specific token?
      *
-     * If the token is a comment, or is whitespace that is immediately before a
-     * comment, then we'll leave it alone.
+     * We'll leave it alone if
+     * - token is a comment
+     * - token is whitespace that is immediately before a comment
+     * - token is whitespace that is immediately before the PHP close tag
+     * - token is whitespace that is immediately after a comment and before a semicolon
      */
     private function shouldClearToken(Tokens $tokens, int $index): bool
     {
         $token = $tokens[$index];
 
-        return !$token->isComment() && !($token->isWhitespace() && $tokens[$index + 1]->isComment());
+        if ($token->isComment()) {
+            return false;
+        }
+
+        if (!$token->isWhitespace()) {
+            return true;
+        }
+
+        if (
+            $tokens[$index + 1]->isComment()
+            || $tokens[$index + 1]->equals([T_CLOSE_TAG])
+            || ($tokens[$index - 1]->isComment() && $tokens[$index + 1]->equals(';'))
+        ) {
+            return false;
+        }
+
+        return true;
     }
 }
