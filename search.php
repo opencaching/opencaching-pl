@@ -660,7 +660,7 @@ if (!$loggedUser) {
                             }
 
                             // create temporary table and then remove entries that have less occurrences than words were given
-                            XDb::xSql('CREATE TEMPORARY TABLE tmpuniids (`uni_id` int(11) NOT NULL, `cnt` int(11) NOT NULL DEFAULT \'0\', `olduni` int(11) NOT NULL, `simplehash` int(11) NOT NULL) ENGINE=MEMORY SELECT `gns_search`.`uni_id` `uni_id`, 0 `cnt`, 0 `olduni`, `simplehash` FROM `gns_search` WHERE ' . $sqlhashes);
+                            XDb::xSql('CREATE TEMPORARY TABLE tmpuniids (`uni_id` int(11) NOT NULL, `cnt` int(11) NOT NULL DEFAULT \'0\', `olduni` int(11) NOT NULL, `simplehash` int(11) UNSIGNED NOT NULL) ENGINE=MEMORY SELECT `gns_search`.`uni_id` `uni_id`, 0 `cnt`, 0 `olduni`, `simplehash` FROM `gns_search` WHERE ' . $sqlhashes);
                             XDb::xSql('ALTER TABLE `tmpuniids` ADD INDEX (`uni_id`)');
 //  BUGFIX: This code should only be executed, if more than one search keyword was entered,
 //          so that all entries are fileters, which do not contain all keywords;
