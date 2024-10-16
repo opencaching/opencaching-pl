@@ -21,7 +21,7 @@ $view->callChunk('tinyMCE');
     <?php } //if-!$desc->getLang()?>
     <?php
     foreach ($view->languages as $l) {
-        if (! $l->default) {
+        if (! $l->default && ! $l->selected) {
             continue;
         } ?>
           <option value="<?= $l->code; ?>" <?= ($l->selected) ? 'selected' : ''; ?>>

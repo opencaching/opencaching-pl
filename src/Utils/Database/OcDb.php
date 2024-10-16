@@ -254,7 +254,7 @@ class OcDb extends OcPdo
 
         if ($row) {
             $value = reset($row);
-            if ($value == null) {
+            if (is_null($value)) {
                 return $default;
             } else {
                 return $value;
@@ -415,10 +415,10 @@ class OcDb extends OcPdo
 
         } catch (PDOException $e) {
 
-            $this->error("Query:\n$query\n\nParams:\n".implode(' | ', $params), $e);
+            $this->error("Query:\n$query\n\nParams:\n".json_encode($params), $e);
         }
         if ($this->debug) {
-            self::debugOut(__METHOD__.":\n\nQuery:\n$query\n\nParams:\n".implode(' | ', $params));
+            self::debugOut(__METHOD__.":\n\nQuery:\n$query\n\nParams:\n".json_encode($params));
         }
 
         return $stmt;

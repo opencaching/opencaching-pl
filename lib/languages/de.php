@@ -50,7 +50,7 @@ $translations = [
     'event' => 'Event-Cache',
     'quiz' => 'Rätselcache',
     'moving' => 'Beweglicher Cache',
-    'podcast' => 'Podcast-Cache',
+    'podcast' => 'Podcast',
     'owncache' => 'Persönlicher Cache',
 
     'ignored' => 'ignorierte',
@@ -1845,6 +1845,7 @@ $translations = [
     'region_03' => 'Region per {site_name}',
     'region_04' => 'Region per Google Maps',
     'region_mapQuest' => 'Region per MapQuest-API',
+    'region_nominatim' => 'Region found by Nominatim (OpenStreetMap)',
 
     'cacheType_1' => 'Traditioneller Cache',
     'cacheType_2' => 'Multicache',
@@ -2035,8 +2036,10 @@ $translations = [
     'ec_delete_wp' => 'Wegpunkt löschen?',
     'mc_edit_geocache' => 'Cache bearbeiten',
     'mc_by_founds' => 'nach Funden',
+    'mc_by_not_founds' => 'By DNFs',
     'mc_by_reco' => 'nach Empfehlungen',
     'mc_by_gk' => 'nach enthaltenen Geokrets',
+    'mc_by_watchers' => 'By watchers',
     'mc_by_visits' => 'nach Besuchern',
     'ec_bike_set_msg' => 'Der Cache hat bereits das Attribut [Fahrrad] oder [Boot]. Bist du sicher, dass du [Nur zu Fuß erreichbar] hinzufügen möchtest?',
     'ec_walk_set_msg' => 'Der Cache hat bereits das Attribut [Nur zu Fuß erreichbar] oder [Boot]. Bist du sicher, dass du [Fahrrad] hinzufügen möchtest?',
@@ -2716,6 +2719,9 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'startPage_newSearchesDesc' => 'Anzahl aller Fund- und Nichtfund-Logeinträge der letzten 30 Tage, ohne gelöschte Logs',
     'startPage_newoRecom' => 'Neue Emfpfehlungen',
     'startPage_newoRecomDesc' => 'Anzahl der in den letzten 30 Tagen vergebenen Cache-Empfehlungen',
+    'startPage_lastYearActiveUsers' => 'Users who found in last year',
+    'startPage_LastYearActiveUsersDesc' => 'Users who found at least one geocache in last year',
+
     'startPage_showMore' => 'Mehr ...',
     'startPage_latestCachesList' => 'Die neuesten Caches',
     'startPage_latestCacheSets' => 'Die neuesten Geopfade',

@@ -297,9 +297,10 @@ class StartPageController extends ViewBaseController
         $totStsArr[] = ['val' => $ts->newUsers, 'desc' => tr('startPage_newUsers'), 'ldesc' => tr('startPage_newUsersDesc')];
         $totStsArr[] = ['val' => $ts->latestSearches, 'desc' => tr('startPage_newSearches'), 'ldesc' => tr('startPage_newSearchesDesc')];
         $totStsArr[] = ['val' => $ts->latestRecomendations, 'desc' => tr('startPage_newoRecom'), 'ldesc' => tr('startPage_newoRecomDesc')];
+        $totStsArr[] = ['val' => $ts->lastYearActiveUsers, 'desc' => tr('startPage_lastYearActiveUsers'), 'ldesc' => tr('startPage_LastYearActiveUsersDesc')];
 
         // rotate stats table random number of times
-        $rotator = rand(0, 9);
+        $rotator = rand(0, 11);
 
         for ($i = 0; $i < $rotator; $i++) {
             array_push($totStsArr, array_shift($totStsArr));

@@ -15,8 +15,8 @@
 </div>
 
 <div style="margin-top:4px;">
-    <font size="2" color="#000080"><b>{{region_mapQuest}}</b></font><br/>
-    {mapQuestDesc} <br/>
+    <font size="2" color="#000080"><b>{{region_nominatim}}</b></font><br/>
+    {nominatimDesc} <br/>
 </div>
 
 </p>

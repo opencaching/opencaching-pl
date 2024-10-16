@@ -10,6 +10,8 @@ use src\Utils\Uri\SimpleRouter;
   </div>
   <div class="callout callout-news callout-<?=$view->news->getStatusBootstrapName()?>">
     <div class="callout-news-status">
+      <a href="<?=$view->news->getNewsUrl() ?>">Link</a> |
+      <a href="<?=$view->news->getNewsUrl(true) ?>">Raw Link</a> |
       <?=tr('news_lbl_datepub')?>: <strong><?=$view->news->getDatePublication(true)?></strong> |
       <?=tr('news_lbl_author')?>: <strong><?php if ($view->news->isAuthorHidden()) { echo tr('news_OCTeam'); } else { ?><a href="<?=$view->news->getAuthor()->getProfileUrl()?>" class="links"><?=$view->news->getAuthor()->getUserName()?></a><?php } ?></strong>
     </div>

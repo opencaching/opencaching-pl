@@ -50,12 +50,12 @@ if (! is_null($coords)) {
         tpl_set_var('googleDesc', '-');
     }
 
-    $mapQuestGeoCode = GeoCode::fromMapQuestApi($coords);
+    $nominatimGeoCode = GeoCode::fromNominatimApi($coords);
 
-    if ($mapQuestGeoCode) {
-        tpl_set_var('mapQuestDesc', $mapQuestGeoCode->getDescription(' > '));
+    if ($nominatimGeoCode) {
+        tpl_set_var('nominatimDesc', $nominatimGeoCode->getDescription(' > '));
     } else {
-        tpl_set_var('mapQuestDesc', '-');
+        tpl_set_var('nominatimDesc', '-');
     }
 } else {
     tpl_set_var('coords_str', '');

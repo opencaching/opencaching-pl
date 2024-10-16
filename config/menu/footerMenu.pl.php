@@ -13,7 +13,8 @@ $menu = [
     'mnu_history' => [$links['wiki']['history']],
     'mnu_api' => '/okapi',
     'mnu_rss' => '/RSS',
-    'mnu_contact' => '/articles.php?page=contact',
+    //'mnu_contact' => '/articles.php?page=contact',
+    'mnu_contact' => '/News.RawNews/show/280',
     'mnu_Cooperation' => 'https://wiki.opencaching.pl/index.php?title=Wsp%C3%B3%C5%82praca',
     'mnu_mainPage' => '/',
 ];

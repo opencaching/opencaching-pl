@@ -49,7 +49,3 @@ $site['defaultCountriesList'] = ['PL', 'BY', 'CZ', 'DE', 'DK', 'LT', 'NL', 'RO',
  */
 $site['cacheAccessLogEnabled'] = true;
 
-/**
- * Google Analytics site tag if used by the node
- */
-$site['googleAnalyticsTag'] = 'UA-45656189-1';
