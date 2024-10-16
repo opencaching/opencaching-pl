@@ -34,74 +34,40 @@ class Neighbourhood extends BaseObject
         self::ITEM_RECOMMENDEDCACHES => 'top_recommended',
     ];
 
-    /**
-     * Id in DB
-     *
-     * @var int
-     */
-    private $id;
+    /** Id in DB */
+    private int $id;
 
-    /** @var int */
-    private $userid;
+    private int $userid;
 
-    /**
-     * User who neighbourhood belongs to
-     *
-     * @var User
-     */
-    private $user = null;
+    /** User who neighbourhood belongs to */
+    private ?User $user = null;
 
-    /**
-     * Number in neighbourhoods sequence
-     *
-     * @var int
-     */
-    private $seq;
+    /** Number in neighbourhoods sequence */
+    private int $seq;
 
-    /**
-     * Name of neighbourhood
-     *
-     * @var string
-     */
-    private $name;
+    /** Name of neighbourhood */
+    private string $name;
 
-    /**
-     * Coords of neighbourhood's center
-     *
-     * @var Coordinates
-     */
-    private $coords;
+    /** Coords of neighbourhood's center */
+    private Coordinates $coords;
 
-    /**
-     * Radius of neighbourhood
-     *
-     * @var int
-     */
-    private $radius;
+    /** Radius of neighbourhood */
+    private int $radius;
 
-    /**
-     * User will receive new cache notifications from this Nbh
-     *
-     * @var bool
-     */
-    private $notify = false;
+    /** User will receive new cache notifications from this Nbh */
+    private bool $notify = false;
 
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getUserid()
+    public function getUserid(): int
     {
         return $this->userid;
     }
 
-    public function getUser()
+    public function getUser(): ?User
     {
         if (is_null($this->user)) {
             $this->user = User::fromUserIdFactory($this->getUserid());
@@ -110,62 +76,62 @@ class Neighbourhood extends BaseObject
         return $this->user;
     }
 
-    public function getSeq()
+    public function getSeq(): int
     {
         return $this->seq;
     }
 
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    public function getCoords()
+    public function getCoords(): Coordinates
     {
         return $this->coords;
     }
 
-    public function getRadius()
+    public function getRadius(): int
     {
         return $this->radius;
     }
 
-    public function getNotify()
+    public function getNotify(): bool
     {
         return $this->notify;
     }
 
-    public function setId($id)
+    public function setId(int $id)
     {
         $this->id = $id;
     }
 
-    public function setUserid($userid)
+    public function setUserid(int $userid)
     {
         $this->userid = $userid;
     }
 
-    public function setSeq($seq)
+    public function setSeq(int $seq)
     {
         $this->seq = $seq;
     }
 
-    public function setName($name)
+    public function setName(string $name)
     {
         $this->name = $name;
     }
 
-    public function setCoords($coords)
+    public function setCoords(Coordinates $coords)
     {
         $this->coords = $coords;
     }
 
-    public function setRadius($radius)
+    public function setRadius(int $radius)
     {
         $this->radius = $radius;
     }
 
-    public function setNotify($notify)
+    public function setNotify(bool $notify)
     {
         $this->notify = $notify;
     }
@@ -173,29 +139,26 @@ class Neighbourhood extends BaseObject
     /**
      * Factory
      *
-     * @param int $id - Id of Neighbourhood in DB
-     * @return Neighbourhood|null
+     * @param int $id - ID of Neighbourhood in DB
      */
-    public static function fromIdFactory($id)
+    public static function fromIdFactory(int $id): ?Neighbourhood
     {
         $result = new self();
 
         try {
             $result->loadById($id);
         } catch (Exception $e) {
-            return;
+            return null;
         }
 
         return $result;
     }
 
     /**
-     * Returns simple array with Coords obj and radius - for given $user and nbhSeq
-     *
-     * @param int $seq
-     * @return array
+     * Returns simple array with Coords obj and radius - for given $user and
+     * nbhSeq
      */
-    public static function getCoordsAndRadius(User $user, $seq)
+    public static function getCoordsAndRadius(User $user, int $seq): array
     {
         $result = [];
         $result['coords'] = null;
@@ -234,11 +197,11 @@ class Neighbourhood extends BaseObject
 
     /**
      * Returns array of all Neighbourhoods of user.
-     * HomeCoords & NotifyRadius has Id & Seq set to 0
+     * HomeCoords & NotifyRadius has ID & Seq set to 0
      *
      * @return Neighbourhood[]
      */
-    public static function getNeighbourhoodsList(User $user)
+    public static function getNeighbourhoodsList(User $user): array
     {
         $result = [];
         // Stage 1 - get default neighbourhood stored in user table
@@ -258,7 +221,8 @@ class Neighbourhood extends BaseObject
             $myNgh->prepareForSerialization();
             $result[0] = $myNgh;
         }
-        // Stage 2 - get additional neighbourhoods stored in user_neighbourhoods table
+        // Stage 2 - get additional neighbourhoods stored in user_neighbourhoods
+        // table
         $myNghAdd = self::getAdditionalNeighbourhoodsList($user);
 
         foreach ($myNghAdd as $row) {
@@ -268,13 +232,13 @@ class Neighbourhood extends BaseObject
         return $result;
     }
 
-    public static function getAdditionalNeighbourhoodsList(User $user)
+    public static function getAdditionalNeighbourhoodsList(User $user): array
     {
         $query = '
             SELECT `id`
             FROM `user_neighbourhoods`
             WHERE `user_id` = :userid
-            ORDER BY `seq` ASC
+            ORDER BY `seq`
             ';
         $params = [];
         $params['userid']['value'] = $user->getUserId();
@@ -296,19 +260,16 @@ class Neighbourhood extends BaseObject
     /**
      * Stores (create lub modify in DB) additional user's neighbourhood
      *
-     * @param int $radius
-     * @param string $name
-     * @param int $seq - if null - get first available number
-     * @return bool
+     * @param int|null $seq - if null - get first available number
      */
     public static function storeUserNeighbourhood(
         User $user,
         Coordinates $coords,
-        $radius,
-        $name,
-        $seq = null,
-        $notify = false
-    ) {
+        int $radius,
+        string $name,
+        int $seq = null,
+        bool $notify = false
+    ): bool {
         if (is_null($seq)) {
             $seq = self::getMaxUserSeq($user) + 1;
         }
@@ -332,18 +293,15 @@ class Neighbourhood extends BaseObject
             $name,
             $coords->getLongitude(),
             $coords->getLatitude(),
-            (int) $radius,
-            boolval($notify)
+            $radius,
+            (int) $notify
         ) !== null;
     }
 
     /**
      * Removes additional user neighbourhood from DB
-     *
-     * @param int $seq
-     * @return bool
      */
-    public static function removeUserNeighbourhood(User $user, $seq)
+    public static function removeUserNeighbourhood(User $user, int $seq): bool
     {
         $query = '
             DELETE FROM `user_neighbourhoods`
@@ -376,33 +334,25 @@ class Neighbourhood extends BaseObject
 
     /**
      * Changes "Notify" state for $seq Neighbourhood for $user
-     *
-     * @param int $seq
-     * @param bool $state
-     * @return bool
      */
-    public static function setNeighbourhoodNotify(User $user, $seq, $state)
-    {
-        return null !== self::db()->multiVariableQuery(
-            '
+    public static function setNeighbourhoodNotify(
+        User $user,
+        int $seq,
+        bool $state
+    ): bool {
+        return null !== self::db()->multiVariableQuery('
             UPDATE `user_neighbourhoods`
             SET `notify` = :1
             WHERE `user_id` = :2
                 AND `seq` = :3
             LIMIT 1
-            ',
-            boolval($state),
-            $user->getUserId(),
-            $seq
-        );
+        ', intval($state), $user->getUserId(), $seq);
     }
 
     /**
      * Returns max seq number for user's additional nbh
-     *
-     * @return int
      */
-    private static function getMaxUserSeq(User $user)
+    private static function getMaxUserSeq(User $user): int
     {
         $query = '
             SELECT MAX(`seq`)
@@ -437,7 +387,7 @@ class Neighbourhood extends BaseObject
         }
     }
 
-    private function loadFromRow(array $neighbourhoodDbRow)
+    private function loadFromRow(array $neighbourhoodDbRow): self
     {
         $this->id = $neighbourhoodDbRow['id'];
         $this->userid = $neighbourhoodDbRow['user_id'];

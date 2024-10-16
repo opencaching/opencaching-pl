@@ -35,7 +35,7 @@ $(".nbh-hide-toggle").on("click", function() {
     let itemId = icon.closest(".nbh-block").attr('id');
     let section = icon.closest(".nbh-block").attr('section');
     $.ajax({
-        url : changeDisplayAjaxUri,
+        url : changeDisplayUri,
         type : "post",
         data : {
             hide : hidden,
@@ -57,7 +57,7 @@ $(".nbh-size-toggle").on("click", function() {
 	let sizeClass = icon.closest(".nbh-block").hasClass("nbh-full");
 	let itemId = icon.closest(".nbh-block").attr('id');
 	$.ajax({
-		url : changeSizeAjaxUri,
+		url : changeSizeUri,
 		type : "post",
 		data : {
 			size : sizeClass,

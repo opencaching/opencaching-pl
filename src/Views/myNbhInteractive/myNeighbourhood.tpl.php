@@ -1,8 +1,10 @@
 <?php
+use src\Controllers\MyNbhInteractiveApiController;
 use src\Models\Coordinates\Coordinates;
 use src\Models\GeoCache\CacheTitled;
 use src\Models\GeoCache\GeoCacheCommons;
 use src\Models\GeoCache\GeoCacheLog;
+use src\Models\GeoCache\GeoCacheLogCommons;
 use src\Models\Neighbourhood\Neighbourhood;
 use src\Utils\Gis\Gis;
 use src\Utils\Text\Formatter;
@@ -142,9 +144,9 @@ foreach ($order as $item) {
     <div class="notice"><?= tr('myn_distances'); ?></div>
 </div>
 <script>
-let changeOrderUri = "<?= SimpleRouter::getLink($view->controller, 'changeOrderAjax'); ?>"
-let changeSizeAjaxUri = "<?= SimpleRouter::getLink($view->controller, 'changeSizeAjax'); ?>"
-let changeDisplayAjaxUri = "<?= SimpleRouter::getLink($view->controller, 'changeDisplayAjax'); ?>"
+let changeOrderUri = "<?= SimpleRouter::getLink(MyNbhInteractiveApiController::class, 'changeOrder'); ?>"
+let changeSizeUri = "<?= SimpleRouter::getLink(MyNbhInteractiveApiController::class, 'changeSize'); ?>"
+let changeDisplayUri = "<?= SimpleRouter::getLink(MyNbhInteractiveApiController::class, 'changeDisplay'); ?>"
 </script>
 <?php
 function sectionHeader($sectionSettings)
@@ -290,7 +292,7 @@ function showLogs($sectionId, $view, $sectionSettings)
             } // end of if isPowerTrailPart?>
                                 <span class="nbh-full-only"><?= tr('hidden_by'); ?> <strong><?= $cache->getOwner()->getUserName(); ?></strong><br></span>
 <?php
-            if ($log->getType() == GeoCacheLog::LOGTYPE_FOUNDIT && $log->isRecommendedByUser($log->getUser())) { ?>
+            if ($log->getType() == GeoCacheLogCommons::LOGTYPE_FOUNDIT && $log->isRecommendedByUser($log->getUser())) { ?>
                                 <img src="/images/rating-star.png" alt="<?= tr('number_obtain_recommendations'); ?>"> |
 <?php
             } // end of if-isRecommendedByUser?>

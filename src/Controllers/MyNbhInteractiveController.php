@@ -2,6 +2,7 @@
 
 namespace src\Controllers;
 
+use src\Controllers\Core\ViewBaseController;
 use src\Models\ChunkModels\InteractiveMap\CacheMarkerModel;
 use src\Models\ChunkModels\InteractiveMap\InteractiveMapModel;
 use src\Models\ChunkModels\InteractiveMap\LogMarkerModel;
@@ -15,7 +16,7 @@ use src\Utils\Text\UserInputFilter;
 use src\Utils\Uri\SimpleRouter;
 use src\Utils\Uri\Uri;
 
-class MyNbhInteractiveController extends BaseController
+class MyNbhInteractiveController extends ViewBaseController
 {
     // an URL path to public resources
     public const PUBLIC_SRC_PATH = '/views/myNbhInteractive/';
@@ -481,96 +482,10 @@ class MyNbhInteractiveController extends BaseController
     }
 
     /**
-     * Saves changed order of MyNbh sections. Called via Ajax by MyNbh main page
-     */
-    public function changeOrderAjax()
-    {
-        $this->checkUserLoggedAjax();
-        $this->paramAjaxCheck('order');
-        $order = [];
-        parse_str($_POST['order'], $order);
-        $preferences = UserPreferences::getUserPrefsByKey(
-            NeighbourhoodPref::KEY
-        )->getValues();
-        $counter = 1;
-
-        foreach ($order['item'] as $itemOrder) {
-            $preferences['items'][$itemOrder]['order'] = $counter;
-            $counter++;
-        }
-
-        if (
-            ! UserPreferences::savePreferencesJson(
-                NeighbourhoodPref::KEY,
-                json_encode($preferences)
-            )
-        ) {
-            $this->ajaxErrorResponse('Error saving UserPreferences');
-        }
-        $this->ajaxSuccessResponse();
-    }
-
-    /**
-     * Saves changed size of MyNbh section. Called via Ajax by MyNbh main page
-     */
-    public function changeSizeAjax()
-    {
-        $this->checkUserLoggedAjax();
-        $this->paramAjaxCheck('size');
-        $this->paramAjaxCheck('item');
-        $preferences = UserPreferences::getUserPrefsByKey(
-            NeighbourhoodPref::KEY
-        )->getValues();
-        $itemNr = ltrim($_POST['item'], 'item_');
-        $preferences['items'][$itemNr]['fullsize'] = filter_var(
-            $_POST['size'],
-            FILTER_VALIDATE_BOOLEAN
-        );
-
-        if (
-            ! UserPreferences::savePreferencesJson(
-                NeighbourhoodPref::KEY,
-                json_encode($preferences)
-            )
-        ) {
-            $this->ajaxErrorResponse('Error saving UserPreferences');
-        }
-        $this->ajaxSuccessResponse();
-    }
-
-    /**
-     * Saves display status of MyNbh section. Called via Ajax by MyNbh main page
-     */
-    public function changeDisplayAjax()
-    {
-        $this->checkUserLoggedAjax();
-        $this->paramAjaxCheck('hide');
-        $this->paramAjaxCheck('item');
-        $preferences = UserPreferences::getUserPrefsByKey(
-            NeighbourhoodPref::KEY
-        )->getValues();
-        $itemNr = ltrim($_POST['item'], 'item_');
-        $preferences['items'][$itemNr]['show'] = ! filter_var(
-            $_POST['hide'],
-            FILTER_VALIDATE_BOOLEAN
-        );
-
-        if (
-            ! UserPreferences::savePreferencesJson(
-                NeighbourhoodPref::KEY,
-                json_encode($preferences)
-            )
-        ) {
-            $this->ajaxErrorResponse('Error saving UserPreferences');
-        }
-        $this->ajaxSuccessResponse();
-    }
-
-    /**
      * Abstract function implementation,
      * (definition has to be compliant with parent class)
      */
-    public function isCallableFromRouter($actionName)
+    public function isCallableFromRouter(string $actionName): bool
     {
         return true;
     }
@@ -716,19 +631,5 @@ class MyNbhInteractiveController extends BaseController
         }
 
         $this->view->buildView();
-    }
-
-    /**
-     * Check if $_POST[$paramName] is set. If not - generates 400 AJAX response
-     *
-     * @param string $paramName a name of parameter to check
-     */
-    private function paramAjaxCheck(string $paramName)
-    {
-        if (! isset($_POST[$paramName])) {
-            $this->ajaxErrorResponse('No parameter: ' . $paramName, 400);
-
-            exit();
-        }
     }
 }
