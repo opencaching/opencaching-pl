@@ -1845,6 +1845,7 @@ $translations = [
     'region_03' => 'Region dle místních dat (NUTS)',
     'region_04' => 'Region found by Google Maps',
     'region_mapQuest' => 'Region found by MapQuest API',
+    'region_nominatim' => 'Region found by Nominatim (OpenStreetMap)',
 
     'cacheType_1' => 'Tradiční',
     'cacheType_2' => 'Multicache',

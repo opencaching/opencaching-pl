@@ -28,14 +28,14 @@ require_once __DIR__ . '/lib/common.inc.php';
 
 $ocConfig = OcConfig::instance();
 
-if (! OcConfig::areGeopathsSupported()) {
+if (!OcConfig::areGeopathsSupported()) {
     header("location: {$absolute_server_URI}");
 }
 
 $loggedUser = ApplicationContainer::GetAuthorizedUser();
 $view = tpl_getView();
 
-$_SESSION['powerTrail']['userFounds'] = (! $loggedUser) ? 0 : $loggedUser->getFoundGeocachesCount();
+$_SESSION['powerTrail']['userFounds'] = (!$loggedUser) ? 0 : $loggedUser->getFoundGeocachesCount();
 
 $firePtMenu = true;
 
@@ -60,7 +60,7 @@ $view->loadJQueryUI();
 $view->loadTimepicker();
 $view->addHeaderChunk('openLayers5');
 
-if (! $loggedUser && OcConfig::coordsHiddenForNonLogged()) {
+if (!$loggedUser && OcConfig::coordsHiddenForNonLogged()) {
     $mapControls = 0;
     tpl_set_var('gpxOptionsTrDisplay', 'none');
 } else {
@@ -68,7 +68,7 @@ if (! $loggedUser && OcConfig::coordsHiddenForNonLogged()) {
     tpl_set_var('gpxOptionsTrDisplay', 'table-row');
 }
 
-if (! $loggedUser) {
+if (!$loggedUser) {
     tpl_set_var('statsOptionsDisplay', 'display: none;');
 } else {
     tpl_set_var('statsOptionsDisplay', '');
@@ -127,7 +127,7 @@ tpl_set_var('demandPercentMinimum', src\Controllers\PowerTrailController::MINIMU
 tpl_set_var('powerTrailDemandPercent', '100');
 tpl_set_var('leadingUserId', '');
 
-if (! $loggedUser) {
+if (!$loggedUser) {
     tpl_set_var('ptMenu', 'none');
 }
 $ptMenu = new powerTrailMenu($loggedUser);
@@ -141,7 +141,7 @@ $actionPerformed = $pt->getActionPerformed();
 
 switch ($actionPerformed) {
     case 'createNewSerie':
-        if ($loggedUser->getFoundGeocachesCount() >= OcConfig::geopathOwnerMinFounds()) {
+        if ($loggedUser && $loggedUser->getFoundGeocachesCount() >= OcConfig::geopathOwnerMinFounds()) {
             tpl_set_var('displayCreateNewPowerTrailForm', 'block');
         } else {
             tpl_set_var('displayToLowUserFound', 'block');
@@ -243,30 +243,30 @@ switch ($actionPerformed) {
         tpl_set_var('fullCountryMap', '1');
         break;
     case 'showSerie':
-        if (! isset($_GET['ptrail'])) {
+        if (!isset($_GET['ptrail'])) {
             // just redirect to all powertrails
             header('Location: ' . '//' . $_SERVER['HTTP_HOST'] . '/powerTrail.php');
 
             exit;
         }
-        $powerTrail = new PowerTrail(['id' => (int) $_GET['ptrail']]);
+        $powerTrail = new PowerTrail(['id' => (int)$_GET['ptrail']]);
         $ptOwners = $pt->getPtOwners();
         $_SESSION['ptName'] = powerTrailBase::clearPtNames($powerTrail->getName());
         tpl_set_var('powerTrailId', $powerTrail->getId());
 
-        if (! $loggedUser && OcConfig::coordsHiddenForNonLogged()) {
+        if (!$loggedUser && OcConfig::coordsHiddenForNonLogged()) {
             tpl_set_var('mapOuterdiv', 'none');
         } else {
             tpl_set_var('mapOuterdiv', 'block');
         }
 
-        $userIsOwner = (! $loggedUser) ? false : $powerTrail->isUserOwner($loggedUser->getUserId());
+        $userIsOwner = $loggedUser && $powerTrail->isUserOwner($loggedUser->getUserId());
 
         if ($powerTrail->getStatus() == 1 || $userIsOwner
             || ($loggedUser && $loggedUser->hasOcTeamRole())) {
             $ptTypesArr = powerTrailBase::getPowerTrailTypes();
             $ptStatusArr = \src\Controllers\PowerTrailController::getPowerTrailStatus();
-            $foundCachsByUser = (! $loggedUser) ? [] : $powerTrail->getFoundCachsByUser($loggedUser->getUserId());
+            $foundCachsByUser = (!$loggedUser) ? [] : $powerTrail->getFoundCachsByUser($loggedUser->getUserId());
             $leadingUser = powerTrailBase::getLeadingUser($powerTrail->getId());
 
             if ($powerTrail->getConquestedCount() > 0) {
@@ -299,7 +299,7 @@ switch ($actionPerformed) {
             tpl_set_var('conquestCount', $powerTrail->getConquestedCount());
             tpl_set_var('ptPoints', $powerTrail->getPoints());
             tpl_set_var('cacheFound', count($foundCachsByUser));
-            tpl_set_var('powerTrailLogo', displayPowerTrailLogo($powerTrail->getId(), $powerTrail->getImage()));
+            tpl_set_var('powerTrailLogo', displayPowerTrailLogo($powerTrail->getImage()));
             tpl_set_var('powerTrailserStats', displayPowerTrailserStats($powerTrail, $foundCachsByUser));
 
             if ($userIsOwner) {
@@ -339,7 +339,7 @@ switch ($actionPerformed) {
             tpl_set_var('mapCenterLat', $powerTrail->getCenterCoordinates()->getLatitude());
             tpl_set_var('mapCenterLon', $powerTrail->getCenterCoordinates()->getLongitude());
 
-            if ($loggedUser || ! OcConfig::coordsHiddenForNonLogged()) {
+            if ($loggedUser || !OcConfig::coordsHiddenForNonLogged()) {
                 $mapModel->addMarkersWithExtractor(CacheMarkerModel::class, $powerTrail->getGeocaches()->getArrayCopy(), function ($geocache) use ($loggedUser) {
                     return CacheMarkerModel::fromGeocacheFactory($geocache, $loggedUser);
                 });
@@ -363,7 +363,7 @@ $view->buildView();
 // budujemy kod html ktory zostaje wsylany do przegladraki
 //$Opensprawdzacz->endzik();
 
-function buildPowerTrailMenu($menuArray)
+function buildPowerTrailMenu($menuArray): string
 {
     // <li class="topmenu"><a href="javascript:void(0)" style="height:16px;line-height:16px;"><span>Item 1</span></a>
     // <ul>
@@ -375,14 +375,14 @@ function buildPowerTrailMenu($menuArray)
 
     $menu = '';
 
-    foreach ($menuArray as $key => $menuItem) {
+    foreach ($menuArray as $menuItem) {
         $menu .= '<li class="topmenu"><a href="' . $menuItem['script'] . '?ptAction=' . $menuItem['action'] . '" style="height:16px;line-height:16px;">' . $menuItem['name'] . '</a></li>';
     }
 
     return $menu;
 }
 
-function displayCaches($caches, $pTrails)
+function displayCaches($caches, $pTrails): string
 {
     // powerTrailController::debug($caches);
     // powerTrailController::debug($pTrails);
@@ -394,11 +394,11 @@ function displayCaches($caches, $pTrails)
     }
     $rows = '';
 
-    foreach ($caches as $key => $cache) {
-        $ptSelector = '<select onchange="ajaxAddCacheToPT(' . $cache['cache_id'] . ');" id="ptSelectorForCache' . $cache['cache_id'] . '"><option value="-1">---</option>';
+    foreach ($caches as $cache) {
+        $ptSelector = '<select onchange="ajaxAddCacheToPT(' . $cache['cache_id'] . ')" id="ptSelectorForCache' . $cache['cache_id'] . '"><option value="-1">---</option>';
         $hidden = '<input type="hidden" id="h' . $cache['cache_id'] . '" value="-1" >';
 
-        foreach ($pTrails as $ptKey => $pTrail) {
+        foreach ($pTrails as $pTrail) {
             if ($cache['PowerTrailId'] == $pTrail['id']) {
                 $ptSelector .= '<option selected value=' . $pTrail['id'] . '>' . $pTrail['name'] . '</option>';
                 $hidden = '<input type="hidden" id="h' . $cache['cache_id'] . '" value=' . $pTrail['id'] . ' >';
@@ -418,7 +418,7 @@ function displayCaches($caches, $pTrails)
     return $rows;
 }
 
-function displayPTrails($pTrails, $areOwnSeries)
+function displayPTrails($pTrails, $areOwnSeries): array
 {
     $ptTypes = powerTrailBase::getPowerTrailTypes();
     $ptStatus = \src\Controllers\PowerTrailController::getPowerTrailStatus();
@@ -426,7 +426,7 @@ function displayPTrails($pTrails, $areOwnSeries)
     $dataForList = '';
     $dataForMap = '';
 
-    if (! is_array($pTrails)) {
+    if (!is_array($pTrails)) {
         return ['', ''];
     }
 
@@ -437,7 +437,7 @@ function displayPTrails($pTrails, $areOwnSeries)
             . ",'<a href=powerTrail.php?ptAction=showSerie&ptrail=" . $pTrail['id'] . '>' . $pTrail['name']
             . "</a>','" . $ptTypes[$pTrail['type']]['icon'] . "','" . $pTrail['name'] . "'],";
 
-        if (! $areOwnSeries) {
+        if (!$areOwnSeries) {
             $ownOrAll = round($pTrail['points'], 2);
         } else {
             $ownOrAll = tr($ptStatus[$pTrail['status']]['translate']);
@@ -459,7 +459,7 @@ function displayPTrails($pTrails, $areOwnSeries)
     return [$dataForList, rtrim($dataForMap, ',')];
 }
 
-function displayPowerTrailserStats(PowerTrail $powerTrail, $cachesFoundByUser)
+function displayPowerTrailserStats(PowerTrail $powerTrail, $cachesFoundByUser): string
 {
     if ($powerTrail->getCacheCount() != 0) {
         $stats2display = round(count($cachesFoundByUser) * 100 / $powerTrail->getCacheCount(), 2);
@@ -481,17 +481,15 @@ function displayPtOwnerList(PowerTrail $powerTrail)
         $ownerList .= '<a href="viewprofile.php?userid=' . $owner->getUserId() . '">' . $owner->getUserName() . '</a>';
 
         if ($owner->getUserId() != $userLogged) {
-            $ownerList .= '<span style="display: none" class="removeUserIcon"><img onclick="ajaxRemoveUserFromPt(' . $owner->getUserId() . ');" src="images/free_icons/cross.png" width=10 title="' . tr('pt029') . '" /></span>, ';
+            $ownerList .= '<span style="display: none" class="removeUserIcon"><img onclick="ajaxRemoveUserFromPt(' . $owner->getUserId() . ')" src="images/free_icons/cross.png" width=10 title="' . tr('pt029') . '" alt="' . tr('pt029') . '"></span>, ';
         } else {
             $ownerList .= ', ';
         }
     }
-    $ownerList = substr($ownerList, 0, -2);
-
-    return $ownerList;
+    return substr($ownerList, 0, -2);
 }
 
-function displayPtDescriptionUserAction(PowerTrail $powerTrail)
+function displayPtDescriptionUserAction(PowerTrail $powerTrail): string
 {
     $result = '';
 
@@ -504,7 +502,7 @@ function displayPtDescriptionUserAction(PowerTrail $powerTrail)
     return $result;
 }
 
-function displayPtTypesSelector($htmlid, $selectedId = 0, $witchZeroOption = false)
+function displayPtTypesSelector($htmlid, $selectedId = 0, $witchZeroOption = false): string
 {
     $ptTypesArr = powerTrailBase::getPowerTrailTypes();
     $selector = '<select id="' . $htmlid . '" name="' . $htmlid . '">';
@@ -526,9 +524,9 @@ function displayPtTypesSelector($htmlid, $selectedId = 0, $witchZeroOption = fal
     return $selector;
 }
 
-function displayPtCommentsSelector($htmlid, PowerTrail $powerTrail, $selectedId = 0, User $loggedUser = null)
+function displayPtCommentsSelector($htmlid, PowerTrail $powerTrail, $selectedId = 0, User $loggedUser = null): string
 {
-    if (! $loggedUser) {
+    if (!$loggedUser) {
         return '';
     }
     $cachesFoundByUser = $powerTrail->getFoundCachsByUser($loggedUser->getUserId());
@@ -553,7 +551,7 @@ function displayPtCommentsSelector($htmlid, PowerTrail $powerTrail, $selectedId 
             $selected = 'selected="selected"';
         }
 
-        if (! isset($ptOwners[$loggedUser->getUserId()]) && ($id == 3 || $id == 4 || $id == 5)) {
+        if (!isset($ptOwners[$loggedUser->getUserId()]) && ($id == 3 || $id == 4 || $id == 5)) {
             continue;
         }
 
@@ -561,11 +559,11 @@ function displayPtCommentsSelector($htmlid, PowerTrail $powerTrail, $selectedId 
             continue;
         }
 
-        if ($id === Log::TYPE_ADD_WARNING && ! $loggedUser->hasOcTeamRole()) {
+        if ($id === Log::TYPE_ADD_WARNING && !$loggedUser->hasOcTeamRole()) {
             continue;
         }
 
-        if (! isset($selected)) {
+        if (!isset($selected)) {
             $selected = '';
         }
 
@@ -581,7 +579,7 @@ function displayPtCommentsSelector($htmlid, PowerTrail $powerTrail, $selectedId 
     return $selector;
 }
 
-function displayPowerTrailLogo($ptId, $img)
+function displayPowerTrailLogo($img)
 {
     if (empty($img)) {
         return '/images/blue/powerTrailGenericLogo.png';
@@ -590,7 +588,7 @@ function displayPowerTrailLogo($ptId, $img)
     return $img;
 }
 
-function getSortBySelector($sel)
+function getSortBySelector($sel): string
 {
     $array = [
         1 => ['val' => 'type', 'tr' => 'pt174'],
@@ -604,7 +602,7 @@ function getSortBySelector($sel)
     return generateSelector($array, $sel, 'sortBy');
 }
 
-function getSortDirSelector($sel)
+function getSortDirSelector($sel): string
 {
     $arr = [
         1 => ['val' => 'asc', 'tr' => 'pt176'],
@@ -614,7 +612,7 @@ function getSortDirSelector($sel)
     return generateSelector($arr, $sel, 'sortDir');
 }
 
-function getGainedPowerTrailsSelector($sel)
+function getGainedPowerTrailsSelector($sel): string
 {
     $arr = [
         1 => ['val' => 'no', 'tr' => 'no'],
@@ -624,7 +622,7 @@ function getGainedPowerTrailsSelector($sel)
     return generateSelector($arr, $sel, 'gainedPowerTrailsBool');
 }
 
-function getMyPowerTrailsSelector($sel)
+function getMyPowerTrailsSelector($sel): string
 {
     $arr = [
         1 => ['val' => 'no', 'tr' => 'no'],
@@ -634,7 +632,7 @@ function getMyPowerTrailsSelector($sel)
     return generateSelector($arr, $sel, 'myPowerTrailsBool');
 }
 
-function getMiniPowerTrailSelector($sel)
+function getMiniPowerTrailSelector($sel): string
 {
     $arr = [
         1 => ['val' => 'no', 'tr' => 'no'],
@@ -644,7 +642,7 @@ function getMiniPowerTrailSelector($sel)
     return generateSelector($arr, $sel, 'historicLimitBool');
 }
 
-function generateSelector($array, $sel, $name)
+function generateSelector($array, $sel, $name): string
 {
     $selector = '<select id="' . $name . '" name="' . $name . '">';
 
@@ -660,7 +658,7 @@ function generateSelector($array, $sel, $name)
     return $selector;
 }
 
-function generateStatusSelector($currStatus)
+function generateStatusSelector($currStatus): string
 {
     $selector = '<select id="ptStatusSelector">';
 

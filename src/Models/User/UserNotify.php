@@ -35,7 +35,7 @@ class UserNotify extends BaseObject
             SET `notify_caches` = :1
             WHERE `user_id` = :2
             LIMIT 1
-        ', $state, $user->getUserId());
+        ', (int) $state, $user->getUserId());
     }
 
     /**
@@ -48,6 +48,6 @@ class UserNotify extends BaseObject
             SET `notify_logs` = :1
             WHERE `user_id` = :2
             LIMIT 1
-        ', $state, $user->getUserId());
+        ', (int) $state, $user->getUserId());
     }
 }

@@ -7,7 +7,8 @@ use src\Models\PowerTrail\PowerTrail;
 
 require_once __DIR__ . '/../lib/common.inc.php';
 
-$powerTrail = new PowerTrail(['id' => (int) $_REQUEST['ptrail']]);
+$ptrail = $_REQUEST['ptrail'] ?? 0;
+$powerTrail = new PowerTrail(['id' => (int) $ptrail]);
 
 if (isset($_REQUEST['choseFinalCaches'])) {
     $choseFinalCaches = true;

@@ -143,8 +143,8 @@ class XDb extends OcDb {
     /**
      * This is static way of access OcDb::SimpleQueryValue()
      *
-     * @param unknown $query - sql query
-     * @param unknown $default - default value to return
+     * @param string $query - sql query
+     * @param mixed $default - default value to return
      */
     public static function xMultiVariableQueryValue($query, $default)
     {

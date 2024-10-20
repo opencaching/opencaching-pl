@@ -153,9 +153,9 @@ $founds = XDb::xMultiVariableQueryValue(
             <textarea name="logtext" id="logtext" class="cachelog tinymce">{logtext}</textarea>
             {log_pw_field}
             <div class="buffer"></div>
-            <input class="btn btn-default" type="reset" name="reset" value="{{reset}}">&nbsp;&nbsp;
             <a href="#" class="btn btn-primary" onclick="event.preventDefault();
-                $(this).closest('form').submit()">{{submit}}</a>
+                $(this).closest('form').submit()">{{submit}}</a>&nbsp;&nbsp;
+            <input class="btn btn-default" type="reset" name="reset" value="{{reset}}">
             <input type="hidden" name="submitform" value="{{submit}}">
         </div>
 </form>
