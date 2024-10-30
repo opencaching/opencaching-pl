@@ -447,6 +447,28 @@ if ($seek == 0) {
     //          {
     StopWatch::click(__LINE__);
 
+//    $rs_logs = XDb::xSql(
+//        "SELECT cache_logs.id, cache_logs.cache_id AS cache_id, cache_logs.type AS log_type,
+//            cache_logs.text AS log_text, DATE_FORMAT(cache_logs.date,'%d-%m-%Y')  AS log_date,
+//            caches.name AS cache_name, caches.wp_oc AS wp_name, user.username AS user_name,
+//            cache_logs.user_id AS luser_id,
+//            user.user_id AS user_id, caches.user_id AS cache_owner, caches.type AS cache_type,
+//            cache_type.icon_small AS cache_icon_small, log_types.icon_small AS icon_small,
+//            IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`,COUNT(gk_item.id) AS geokret_in
+//        FROM ((cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id)))
+//            INNER JOIN user ON (cache_logs.user_id = user.user_id)
+//            INNER JOIN log_types ON (cache_logs.type = log_types.id)
+//            INNER JOIN cache_type ON (caches.type = cache_type.id)
+//            LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id`
+//                AND `cache_logs`.`user_id`=`cache_rating`.`user_id`
+//            LEFT JOIN   gk_item_waypoint ON gk_item_waypoint.wp = caches.wp_oc
+//            LEFT JOIN   gk_item ON gk_item.id = gk_item_waypoint.id
+//                AND gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5
+//            WHERE (caches.status=1 OR caches.status=2 OR caches.status=3) AND cache_logs.deleted=0
+//                AND `cache_logs`.`user_id`= ?  AND cache_logs.type <> 12
+//            GROUP BY cache_logs.id
+//            ORDER BY cache_logs.date_created DESC
+//            LIMIT 5", $user_id);
     $rs_logs = XDb::xSql(
         "SELECT cache_logs.id, cache_logs.cache_id AS cache_id, cache_logs.type AS log_type,
             cache_logs.text AS log_text, DATE_FORMAT(cache_logs.date,'%d-%m-%Y')  AS log_date,
@@ -454,16 +476,13 @@ if ($seek == 0) {
             cache_logs.user_id AS luser_id,
             user.user_id AS user_id, caches.user_id AS cache_owner, caches.type AS cache_type,
             cache_type.icon_small AS cache_icon_small, log_types.icon_small AS icon_small,
-            IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`,COUNT(gk_item.id) AS geokret_in
+            IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`
         FROM ((cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id)))
             INNER JOIN user ON (cache_logs.user_id = user.user_id)
             INNER JOIN log_types ON (cache_logs.type = log_types.id)
             INNER JOIN cache_type ON (caches.type = cache_type.id)
             LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id`
                 AND `cache_logs`.`user_id`=`cache_rating`.`user_id`
-            LEFT JOIN   gk_item_waypoint ON gk_item_waypoint.wp = caches.wp_oc
-            LEFT JOIN   gk_item ON gk_item.id = gk_item_waypoint.id
-                AND gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5
             WHERE (caches.status=1 OR caches.status=2 OR caches.status=3) AND cache_logs.deleted=0
                 AND `cache_logs`.`user_id`= ?  AND cache_logs.type <> 12
             GROUP BY cache_logs.id
@@ -479,11 +498,11 @@ if ($seek == 0) {
 
         while( $record_logs = XDb::xFetchArray($rs_logs) ) {
             $tmp_log = $log_line;
-            if ($record_logs['geokret_in'] != '0') {
-                $tmp_log = mb_ereg_replace('{gkimage}', '<img src="images/gk.png" border="0" alt="" title="GeoKret">', $tmp_log);
-            } else {
+//            if ($record_logs['geokret_in'] != '0') {
+//                $tmp_log = mb_ereg_replace('{gkimage}', '<img src="images/gk.png" border="0" alt="" title="GeoKret">', $tmp_log);
+//            } else {
                 $tmp_log = mb_ereg_replace('{gkimage}', '<img src="images/rating-star-empty.png" border="0" alt="">', $tmp_log);
-            }
+//            }
 
             if ($record_logs['recommended'] == 1 && $record_logs['log_type'] == 1) {
                 $tmp_log = mb_ereg_replace('{rateimage}', '<img src="images/rating-star.png" border="0" alt="">', $tmp_log);
@@ -704,14 +723,37 @@ if ($user->getHiddenGeocachesCount() == 0) {
 
     StopWatch::click(__LINE__);
 
+//    $rs_logs = XDb::xSql(
+//        "SELECT cache_logs.id, cache_logs.cache_id AS cache_id, cache_logs.type AS log_type,
+//                cache_logs.text AS log_text, DATE_FORMAT(cache_logs.date,'%d-%m-%Y') AS log_date,
+//                caches.name AS cache_name, caches.wp_oc AS wp_name,
+//                caches.user_id AS cache_owner, cache_logs.user_id AS luser_id, user.username AS user_name,
+//                user.user_id AS user_id, caches.type AS cache_type, cache_type.icon_small AS cache_icon_small,
+//                log_types.icon_small AS icon_small, IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`,
+//                COUNT(gk_item.id) AS geokret_in
+//        FROM ((cache_logs
+//            INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id)))
+//            INNER JOIN user ON (cache_logs.user_id = user.user_id)
+//            INNER JOIN log_types ON (cache_logs.type = log_types.id)
+//            INNER JOIN cache_type ON (caches.type = cache_type.id)
+//            LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id`
+//                AND `cache_logs`.`user_id`=`cache_rating`.`user_id`
+//            LEFT JOIN gk_item_waypoint ON gk_item_waypoint.wp = caches.wp_oc
+//            LEFT JOIN gk_item ON gk_item.id = gk_item_waypoint.id
+//                AND gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5
+//            WHERE (caches.status=1 OR caches.status=2 OR caches.status=3) AND cache_logs.deleted=0 AND `caches`.`user_id`= ?
+//                AND `cache_logs`.`cache_id`=`caches`.`cache_id`
+//                AND `user`.`user_id`=`cache_logs`.`user_id`
+//            GROUP BY cache_logs.id
+//            ORDER BY `cache_logs`.`date_created` DESC
+//            LIMIT 5", $user_id);
     $rs_logs = XDb::xSql(
         "SELECT cache_logs.id, cache_logs.cache_id AS cache_id, cache_logs.type AS log_type,
                 cache_logs.text AS log_text, DATE_FORMAT(cache_logs.date,'%d-%m-%Y') AS log_date,
                 caches.name AS cache_name, caches.wp_oc AS wp_name,
                 caches.user_id AS cache_owner, cache_logs.user_id AS luser_id, user.username AS user_name,
                 user.user_id AS user_id, caches.type AS cache_type, cache_type.icon_small AS cache_icon_small,
-                log_types.icon_small AS icon_small, IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`,
-                COUNT(gk_item.id) AS geokret_in
+                log_types.icon_small AS icon_small, IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`
         FROM ((cache_logs
             INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id)))
             INNER JOIN user ON (cache_logs.user_id = user.user_id)
@@ -719,9 +761,6 @@ if ($user->getHiddenGeocachesCount() == 0) {
             INNER JOIN cache_type ON (caches.type = cache_type.id)
             LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id`
                 AND `cache_logs`.`user_id`=`cache_rating`.`user_id`
-            LEFT JOIN gk_item_waypoint ON gk_item_waypoint.wp = caches.wp_oc
-            LEFT JOIN gk_item ON gk_item.id = gk_item_waypoint.id
-                AND gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5
             WHERE (caches.status=1 OR caches.status=2 OR caches.status=3) AND cache_logs.deleted=0 AND `caches`.`user_id`= ?
                 AND `cache_logs`.`cache_id`=`caches`.`cache_id`
                 AND `user`.`user_id`=`cache_logs`.`user_id`
@@ -739,11 +778,11 @@ if ($user->getHiddenGeocachesCount() == 0) {
 
             $tmp_log = $cache_line_my_caches;
 
-            if ($record_logs['geokret_in'] != '0') {
-                $tmp_log = mb_ereg_replace('{gkimage}', '<img src="images/gk.png" border="0" alt="" title="GeoKret">', $tmp_log);
-            } else {
+//            if ($record_logs['geokret_in'] != '0') {
+//                $tmp_log = mb_ereg_replace('{gkimage}', '<img src="images/gk.png" border="0" alt="" title="GeoKret">', $tmp_log);
+//            } else {
                 $tmp_log = mb_ereg_replace('{gkimage}', '<img src="images/rating-star-empty.png" border="0" alt="">', $tmp_log);
-            }
+//            }
 
             if ($record_logs['recommended'] == 1 && $record_logs['log_type'] == 1) {
                 $tmp_log = mb_ereg_replace('{rateimage}', '<img src="images/rating-star.png" border="0" alt="">', $tmp_log);
