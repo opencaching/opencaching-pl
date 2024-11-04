@@ -14,7 +14,7 @@ if (isset($_POST['flush_print_list'])) {
     PrintList::Flush();
 }
 
-$cache_id = (int) $_GET['cacheid'] ?? 0;
+$cache_id = intval($_GET['cacheid'] ?? 0);
 
 if (! $cache_id) {
     $loggedUser = ApplicationContainer::GetAuthorizedUser();
