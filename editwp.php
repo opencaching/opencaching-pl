@@ -204,11 +204,11 @@ if ($cache_record = XDb::xFetchArray($cache_rs)) {
         } else {
             $lat_not_ok = true;
         }
-        $wp_stage = (int) $_POST['stage'] ?? $wp_record['stage'];
+        $wp_stage = intval($_POST['stage'] ?? $wp_record['stage']);
         $status1 = '';
         $status2 = '';
         $status3 = '';
-        $wp_status = (int) $_POST['status'] ?? $wp_record['status'];
+        $wp_status = intval($_POST['status'] ?? $wp_record['status']);
 
         if ($wp_status == 1) {
             $status1 = 'checked';
