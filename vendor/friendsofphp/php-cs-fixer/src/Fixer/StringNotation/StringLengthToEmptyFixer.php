@@ -24,9 +24,6 @@ use PhpCsFixer\Tokenizer\Tokens;
 
 final class StringLengthToEmptyFixer extends AbstractFunctionReferenceFixer
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
@@ -41,16 +38,13 @@ final class StringLengthToEmptyFixer extends AbstractFunctionReferenceFixer
      * {@inheritdoc}
      *
      * Must run before NoExtraBlankLinesFixer, NoTrailingWhitespaceFixer.
-     * Must run after NoSpacesInsideParenthesisFixer.
+     * Must run after NoSpacesInsideParenthesisFixer, SpacesInsideParenthesesFixer.
      */
     public function getPriority(): int
     {
         return 1;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         $argumentsAnalyzer = new ArgumentsAnalyzer();
@@ -255,9 +249,8 @@ final class StringLengthToEmptyFixer extends AbstractFunctionReferenceFixer
     private function isOperatorOfInterest(Token $token): bool
     {
         return
-            ($token->isGivenKind([T_IS_IDENTICAL, T_IS_NOT_IDENTICAL, T_IS_SMALLER_OR_EQUAL, T_IS_GREATER_OR_EQUAL]))
-            || $token->equals('<') || $token->equals('>')
-        ;
+            $token->isGivenKind([T_IS_IDENTICAL, T_IS_NOT_IDENTICAL, T_IS_SMALLER_OR_EQUAL, T_IS_GREATER_OR_EQUAL])
+            || $token->equals('<') || $token->equals('>');
     }
 
     private function isOfHigherPrecedence(Token $token): bool
@@ -292,7 +285,6 @@ final class StringLengthToEmptyFixer extends AbstractFunctionReferenceFixer
                 continue;
             }
 
-            /** @var null|array{isStart: bool, type: int} $blockType */
             $blockType = Tokens::detectBlockType($token);
 
             if (null !== $blockType && $blockType['isStart']) {

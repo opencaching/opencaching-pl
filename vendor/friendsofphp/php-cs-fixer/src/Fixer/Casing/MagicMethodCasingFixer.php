@@ -24,7 +24,7 @@ use PhpCsFixer\Tokenizer\Tokens;
 final class MagicMethodCasingFixer extends AbstractFixer
 {
     /**
-     * @var array<string,string>
+     * @var array<string, string>
      */
     private static array $magicNames = [
         '__call' => '__call',
@@ -46,9 +46,6 @@ final class MagicMethodCasingFixer extends AbstractFixer
         '__wakeup' => '__wakeup',
     ];
 
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
@@ -73,17 +70,11 @@ $foo->__INVOKE(1);
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
-        return $tokens->isTokenKindFound(T_STRING) && $tokens->isAnyTokenKindsFound(array_merge([T_FUNCTION, T_DOUBLE_COLON], Token::getObjectOperatorKinds()));
+        return $tokens->isTokenKindFound(T_STRING) && $tokens->isAnyTokenKindsFound([T_FUNCTION, T_DOUBLE_COLON, ...Token::getObjectOperatorKinds()]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         $inClass = 0;

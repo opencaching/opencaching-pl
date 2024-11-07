@@ -19,5 +19,8 @@ namespace PhpCsFixer\Console\SelfUpdate;
  */
 interface GithubClientInterface
 {
+    /**
+     * @return list<string>
+     */
     public function getTags(): array;
 }

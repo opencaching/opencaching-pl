@@ -18,24 +18,20 @@ use PhpCsFixer\AbstractFixer;
 use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
+use PhpCsFixer\FixerDefinition\VersionSpecification;
+use PhpCsFixer\FixerDefinition\VersionSpecificCodeSample;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use PhpCsFixer\Tokenizer\TokensAnalyzer;
 
 final class SelfStaticAccessorFixer extends AbstractFixer
 {
-    /**
-     * @var TokensAnalyzer
-     */
-    private $tokensAnalyzer;
+    private TokensAnalyzer $tokensAnalyzer;
 
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
-            'Inside a `final` class or anonymous class `self` should be preferred to `static`.',
+            'Inside an enum or `final`/anonymous class, `self` should be preferred over `static`.',
             [
                 new CodeSample(
                     '<?php
@@ -87,50 +83,77 @@ $a = new class() {
 };
 '
                 ),
+                new VersionSpecificCodeSample(
+                    '<?php
+enum Foo
+{
+    public const A = 123;
+
+    public static function bar(): void
+    {
+        echo static::A;
+    }
+}
+',
+                    new VersionSpecification(8_01_00)
+                ),
             ]
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
-        return $tokens->isAllTokenKindsFound([T_CLASS, T_STATIC]) && $tokens->isAnyTokenKindsFound([T_DOUBLE_COLON, T_NEW, T_INSTANCEOF]);
+        $classyTypes = [T_CLASS];
+
+        if (\defined('T_ENUM')) { // @TODO: drop condition when PHP 8.1+ is required
+            $classyTypes[] = T_ENUM;
+        }
+
+        return $tokens->isTokenKindFound(T_STATIC)
+            && $tokens->isAnyTokenKindsFound($classyTypes)
+            && $tokens->isAnyTokenKindsFound([T_DOUBLE_COLON, T_NEW, T_INSTANCEOF]);
     }
 
     /**
      * {@inheritdoc}
      *
-     * Must run after FinalInternalClassFixer, FunctionToConstantFixer, PhpUnitTestCaseStaticMethodCallsFixer.
+     * Must run after FinalClassFixer, FinalInternalClassFixer, FunctionToConstantFixer, PhpUnitTestCaseStaticMethodCallsFixer.
      */
     public function getPriority(): int
     {
         return -10;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
+        $classyTokensOfInterest = [[T_CLASS]];
+
+        if (\defined('T_ENUM')) {
+            $classyTokensOfInterest[] = [T_ENUM]; // @TODO drop condition when PHP 8.1+ is required
+        }
+
         $this->tokensAnalyzer = new TokensAnalyzer($tokens);
+        $classyIndex = $tokens->getNextTokenOfKind(0, $classyTokensOfInterest);
 
-        $classIndex = $tokens->getNextTokenOfKind(0, [[T_CLASS]]);
+        while (null !== $classyIndex) {
+            if ($tokens[$classyIndex]->isGivenKind(T_CLASS)) {
+                $modifiers = $this->tokensAnalyzer->getClassyModifiers($classyIndex);
 
-        while (null !== $classIndex) {
-            if (
-                $this->tokensAnalyzer->isAnonymousClass($classIndex)
-                || $tokens[$tokens->getPrevMeaningfulToken($classIndex)]->isGivenKind(T_FINAL)
-            ) {
-                $classIndex = $this->fixClass($tokens, $classIndex);
+                if (
+                    isset($modifiers['final'])
+                    || $this->tokensAnalyzer->isAnonymousClass($classyIndex)
+                ) {
+                    $classyIndex = $this->fixClassy($tokens, $classyIndex);
+                }
+            } else {
+                $classyIndex = $this->fixClassy($tokens, $classyIndex);
             }
 
-            $classIndex = $tokens->getNextTokenOfKind($classIndex, [[T_CLASS]]);
+            $classyIndex = $tokens->getNextTokenOfKind($classyIndex, $classyTokensOfInterest);
         }
     }
 
-    private function fixClass(Tokens $tokens, int $index): int
+    private function fixClassy(Tokens $tokens, int $index): int
     {
         $index = $tokens->getNextTokenOfKind($index, ['{']);
         $classOpenCount = 1;
@@ -164,7 +187,7 @@ $a = new class() {
                         } elseif ($tokens[$index]->equals('{')) {
                             ++$openCount;
                         } else {
-                            $index = $this->fixClass($tokens, $index);
+                            $index = $this->fixClassy($tokens, $index);
                         }
                     } while ($openCount > 0);
                 }

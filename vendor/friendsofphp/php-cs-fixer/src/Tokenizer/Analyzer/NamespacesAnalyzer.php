@@ -23,7 +23,7 @@ use PhpCsFixer\Tokenizer\Tokens;
 final class NamespacesAnalyzer
 {
     /**
-     * @return NamespaceAnalysis[]
+     * @return list<NamespaceAnalysis>
      */
     public function getDeclarations(Tokens $tokens): array
     {
@@ -64,8 +64,15 @@ final class NamespacesAnalyzer
             $index = $scopeEndIndex;
         }
 
-        if (0 === \count($namespaces)) {
-            $namespaces[] = new NamespaceAnalysis('', '', 0, 0, 0, \count($tokens) - 1);
+        if (0 === \count($namespaces) && $tokens->isTokenKindFound(T_OPEN_TAG)) {
+            $namespaces[] = new NamespaceAnalysis(
+                '',
+                '',
+                $openTagIndex = $tokens[0]->isGivenKind(T_INLINE_HTML) ? 1 : 0,
+                $openTagIndex,
+                $openTagIndex,
+                \count($tokens) - 1,
+            );
         }
 
         return $namespaces;
@@ -74,7 +81,7 @@ final class NamespacesAnalyzer
     public function getNamespaceAt(Tokens $tokens, int $index): NamespaceAnalysis
     {
         if (!$tokens->offsetExists($index)) {
-            throw new \InvalidArgumentException(sprintf('Token index %d does not exist.', $index));
+            throw new \InvalidArgumentException(\sprintf('Token index %d does not exist.', $index));
         }
 
         foreach ($this->getDeclarations($tokens) as $namespace) {
@@ -83,6 +90,6 @@ final class NamespacesAnalyzer
             }
         }
 
-        throw new \LogicException(sprintf('Unable to get the namespace at index %d.', $index));
+        throw new \LogicException(\sprintf('Unable to get the namespace at index %d.', $index));
     }
 }

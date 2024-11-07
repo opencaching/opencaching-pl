@@ -23,9 +23,6 @@ use PhpCsFixer\Tokenizer\Tokens;
 
 final class CombineConsecutiveUnsetsFixer extends AbstractFixer
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
@@ -45,17 +42,11 @@ final class CombineConsecutiveUnsetsFixer extends AbstractFixer
         return 24;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
         return $tokens->isTokenKindFound(T_UNSET);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         for ($index = $tokens->count() - 1; $index >= 0; --$index) {
@@ -101,7 +92,7 @@ final class CombineConsecutiveUnsetsFixer extends AbstractFixer
     }
 
     /**
-     * @param int[] $indices
+     * @param list<int> $indices
      */
     private function clearOffsetTokens(Tokens $tokens, int $offset, array $indices): void
     {
@@ -121,7 +112,7 @@ final class CombineConsecutiveUnsetsFixer extends AbstractFixer
      *
      * Or the index to where the method looked for a call.
      *
-     * @return int|int[]
+     * @return array{int, int, int, int}|int
      */
     private function getPreviousUnsetCall(Tokens $tokens, int $index)
     {

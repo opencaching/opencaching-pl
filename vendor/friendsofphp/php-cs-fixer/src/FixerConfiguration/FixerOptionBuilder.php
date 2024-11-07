@@ -28,12 +28,12 @@ final class FixerOptionBuilder
     private bool $isRequired = true;
 
     /**
-     * @var null|string[]
+     * @var null|list<string>
      */
     private $allowedTypes;
 
     /**
-     * @var null|array
+     * @var null|list<null|(callable(mixed): bool)|scalar>
      */
     private $allowedValues;
 
@@ -67,7 +67,7 @@ final class FixerOptionBuilder
     }
 
     /**
-     * @param string[] $allowedTypes
+     * @param list<string> $allowedTypes
      *
      * @return $this
      */
@@ -79,6 +79,8 @@ final class FixerOptionBuilder
     }
 
     /**
+     * @param list<null|(callable(mixed): bool)|scalar> $allowedValues
+     *
      * @return $this
      */
     public function setAllowedValues(array $allowedValues): self
