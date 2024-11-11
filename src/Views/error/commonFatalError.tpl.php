@@ -31,7 +31,7 @@
 <div id="container">
 
     <a href="/">
-      <img src="<?=$view->_mainLogo?>" alt="Opencaching logo">
+      <img src="<?=$view->_mainLogo?>" alt="Opencaching logo" style="width: 64px">
     </a>
     <h3>This is ERROR!</h3>
 
