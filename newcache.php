@@ -391,8 +391,14 @@ foreach ($defaultCountryList as $countryCode) {
 }
 
 $currentLocale = Languages::getCurrentLocale();
-$collator = collator_create($currentLocale);
-usort($sortedCountries, fn ($a, $b) => collator_compare($collator, $a['name'], $b['name']));
+
+if (function_exists('collator_create') && function_exists('collator_compare')) {
+    $collator = collator_create($currentLocale);
+    usort($sortedCountries, fn ($a, $b) => collator_compare($collator, $a['name'], $b['name']));
+} else {
+    Debug::errorLog('Intl extension (PHP intl) is not enabled. Sorting by locale may not be accurate.');
+    usort($sortedCountries, fn ($a, $b) => strcmp($a['name'], $b['name']));
+}
 
 $countriesoptions = '';
 
