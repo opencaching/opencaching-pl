@@ -37,6 +37,11 @@ $config = array(
 
     /** main logo picture (to be placed in /images/) */
     'headerLogo' => 'oc_logo.png',
+    /**
+     * email logo picture (to be placed in /images/)
+     * if empty, the headerLogo will be used
+     */
+    'emailHeaderLogo' => '',
     /** main logo; winter version, displayed during december and january. */
     'headerLogoWinter' => 'oc_logo_winter.png',
     /** qrcode logo: show qrcode image and link the prefered way.  */
