@@ -77,7 +77,7 @@ $translations = [
     'map_circle150mMode' => 'Circle with radius 150m for given location',
     'map_searchResultsMode' => 'Map presents only the results of geocaches search query',
 
-    'ready_to_find' => 'gata să fie găsite',
+    'ready_to_find' => 'Gata să fie găsită',
     'filter' => 'Filtrează',
     'map_excludeWithoutGeokret' => 'fără geokret',
     'map_excludeArchived_plural' => 'arhivate',
