@@ -243,7 +243,7 @@ final class OcConfig extends ConfigReader
         return self::instance()->headerLogo;
     }
 
-    public function getEmailHeaderLogo(): string
+    public static function getEmailHeaderLogo(): string
     {
         return self::instance()->emailHeaderLogo;
     }
