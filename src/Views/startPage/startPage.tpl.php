@@ -34,7 +34,7 @@
                 <strong><?=$news->getAuthor()->getUserName()?></strong></a>)
               <?php } // if-$news->isAuthorHidden() ?>
             </div>
-            <?=$news->getContent()?>
+            <?=$news->getShortContent();?>
           </div>
         <?php } //foreach-newsList ?>
     </div>
