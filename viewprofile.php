@@ -94,7 +94,7 @@ $user = User::fromUserIdFactory(
 );
 
 if (is_null($user)) {
-    tpl_errorMsg('viewprofile', 'User not found!');
+    tpl_errorMsg('viewprofile', tr('user_not_found'));
 
     exit;
 }
@@ -120,16 +120,16 @@ if ($description != '') {
     tpl_set_var('description_end', '-->');
 }
 $pimage = 'profile2';
-$pinfo = 'OC user';
+$pinfo = tr('oc_user');
 
 if ($user->isGuide()) {
     $pimage = 'guide';
-    $pinfo = 'Przewodnik';
+    $pinfo = tr('guide');
 }
 
 if ($user->hasOcTeamRole()) {
     $pimage = 'admins';
-    $pinfo = 'OC Team user';
+    $pinfo = tr('oc_team_user');
 }
 
 tpl_set_var('profile_img', $pimage);
@@ -151,7 +151,7 @@ if ($user_id == $loggedUser->getUserId()) {
     $guides = OcConfig::instance()->getGuidesConfig();
 
     if ($nrecom >= $guides['guideGotRecommendations'] && ! $user->isGuide()) {
-        $guide_info = '<div class="content-title-noshade box-blue"><table><tr><td><img style="margin-right: 10px;margin-left:10px;" src="/images/blue/info-b.png" alt="guide"></td><td>
+        $guide_info = '<div class="content-title-noshade box-blue"><table><tr><td><img style="margin-right: 10px;margin-left:10px;" src="/images/blue/info-b.png" alt="' . tr('guide') . '"></td><td>
             <span style="font-size:12px;"> ' . tr('guru_17') . '
             <a class="links" href="myprofile.php?action=change"> ' . tr('guru_18') . '</a>.
             ' . tr('guru_19') . ' <a class="links" href="/guide">' . tr('guru_20') . '</a>.</span>
@@ -181,8 +181,8 @@ tpl_set_var('lastloginClass', $user->getLastLoginPeriodClass());
 
 //Admin Note (table only)
 if ($loggedUser->hasOcTeamRole()) {
-    $content .= '<div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="/images/blue/logs.png" class="icon32" alt="Cog Note" title="Cog Note"> ' . tr('admin_notes') . '</p></div>';
-    $content .= '<div class="notice">' . tr('admin_notes_visible') . '</div><p><a href="' . SimpleRouter::getLink('Admin.UserAdmin', 'index', $user_id) . '" class="links">' . tr('admin_user_management') . ' <img src="/images/misc/linkicon.png" alt="user admin"></a></p>';
+    $content .= '<div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="/images/blue/logs.png" class="icon32" alt="' . tr('admin_notes') . '" title="' . tr('admin_notes') . '"> ' . tr('admin_notes') . '</p></div>';
+    $content .= '<div class="notice">' . tr('admin_notes_visible') . '</div><p><a href="' . SimpleRouter::getLink('Admin.UserAdmin', 'index', $user_id) . '" class="links">' . tr('admin_user_management') . ' <img src="/images/misc/linkicon.png" alt="' . tr('admin_user_management') . '"></a></p>';
     $adminNotes = AdminNoteSet::getNotesForUser($user, ADMINNOTES_PER_PAGE);
 
     if (empty($adminNotes)) {
@@ -227,13 +227,13 @@ if (Year::isPrimaAprilisToday() && OcConfig::isPAUserStatsRandEnabled()) {
     $act = $user->getFoundGeocachesCount() + $user->getNotFoundGeocachesCount() + $user->getHiddenGeocachesCount();
 }
 
-$content .= '<br><p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="/images/blue/event.png" class="icon32" alt="Caches Find" title="Caches Find">&nbsp;&nbsp;&nbsp;' . tr('user_activity01') . '</p></div><br><p><span class="content-title-noshade txt-blue08">' . tr('user_activity02') . '</span>:&nbsp;<strong>' . $act . '</strong></p>';
+$content .= '<br><p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="/images/blue/event.png" class="icon32" alt="' . tr('user_activity01') . '" title="' . tr('user_activity01') . '">&nbsp;&nbsp;&nbsp;' . tr('user_activity01') . '</p></div><br><p><span class="content-title-noshade txt-blue08">' . tr('user_activity02') . '</span>:&nbsp;<strong>' . $act . '</strong></p>';
 
 //////////////////////////////////////////////////////////////////////////////
 
 //Merit badges
 if ($config['meritBadges']) {
-    $content .= buildOpenCloseButton($user_id, $checkBadges, 'merit_badge.png', 'checkBadges', tr('merit_badges'), 'Merit badges');
+    $content .= buildOpenCloseButton($user_id, $checkBadges, 'merit_badge.png', 'checkBadges', tr('merit_badges'), tr('merit_badges'));
 
     if ($checkBadges) {
         $content .= buildMeritBadges($user_id);
@@ -246,7 +246,7 @@ StopWatch::click(__LINE__);
 // PowerTrails stats
 
 if (OcConfig::areGeopathsSupported()) {
-    $content .= buildOpenCloseButton($user_id, $checkGeoPaths, 'powerTrailGenericLogo.png', 'checkGeoPaths', tr('gp_mainTitile'), 'geoPaths');
+    $content .= buildOpenCloseButton($user_id, $checkGeoPaths, 'powerTrailGenericLogo.png', 'checkGeoPaths', tr('gp_mainTitile'), tr('gp_mainTitile'));
 
     if ($checkGeoPaths) {
         //geoPaths medals
@@ -262,7 +262,7 @@ if (OcConfig::areGeopathsSupported()) {
 StopWatch::click(__LINE__);
 
 // -----------  begin Find section -------------------------------------
-$content .= '<p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="/images/blue/cache-open.png" class="icon32" alt="Caches Find" title="Caches Find">&nbsp;&nbsp;&nbsp;' . tr('stat_number_found') . '</p></div><br>';
+$content .= '<p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="/images/blue/cache-open.png" class="icon32" alt="' . tr('stat_number_found') . '" title="' . tr('stat_number_found') . '">&nbsp;&nbsp;&nbsp;' . tr('stat_number_found') . '</p></div><br>';
 
 $seek = XDb::xMultiVariableQueryValue(
     "SELECT COUNT(*) FROM cache_logs
@@ -535,13 +535,13 @@ if ($seek == 0) {
 
     if (XDb::xNumRows($rs_logs) != 0) {
         $content .= '<p>&nbsp;</p><p><span class="content-title-noshade txt-blue08">' . tr('latest_logs_by_user') . ':</span>&nbsp;&nbsp;<img src="/images/blue/arrow.png" alt=""> [<a class="links" href="my_logs.php?userid=' . $user_id . '">' . tr('show_all') . '</a>] ';
-        $content .= ' <a class="links" href="/rss/my_logs.xml?userid=' . $user_id . '"><img src="/images/misc/rss.svg" class="icon16" alt="RSS icon"></a>';
+        $content .= ' <a class="links" href="/rss/my_logs.xml?userid=' . $user_id . '"><img src="/images/misc/rss.svg" class="icon16" alt="' . tr('rss_icon') . '"></a>';
         $content .= '</p><br><div><ul style="margin: -0.9em 0 0.9em 0; padding: 0 0 0 10px; list-style-type: none; line-height: 1.2em; font-size: 115%;">';
 
         while ($record_logs = XDb::xFetchArray($rs_logs)) {
             $tmp_log = $log_line;
 //            if ($record_logs['geokret_in'] != '0') {
-//                $tmp_log = mb_ereg_replace('{gkimage}', '<img src="images/gk.png" border="0" alt="" title="GeoKret">', $tmp_log);
+//                $tmp_log = mb_ereg_replace('{gkimage}', '<img src="images/gk.png" border="0" alt="' . tr('geokret') . '" title="' . tr('geokret') . '">', $tmp_log);
 //            } else {
             $tmp_log = mb_ereg_replace('{gkimage}', '<img src="images/rating-star-empty.png" border="0" alt="">', $tmp_log);
 //            }
@@ -577,7 +577,7 @@ StopWatch::click(__LINE__);
 
 //------------ end find section
 //------------ begin created caches ---------------------------
-$content .= '<p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="/images/blue/cache.png" class="icon32" alt="Caches created" title="Caches created">&nbsp;&nbsp;&nbsp;' . tr('stat_created_caches') . '</p></div><br>';
+$content .= '<p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="/images/blue/cache.png" class="icon32" alt="' . tr('stat_created_caches') . '" title="' . tr('stat_created_caches') . '">&nbsp;&nbsp;&nbsp;' . tr('stat_created_caches') . '</p></div><br>';
 
 if ($user->getHiddenGeocachesCount() == 0) {
     $content .= '<br><p> <b>' . tr('not_caches_created') . '</b></p>';
@@ -857,7 +857,7 @@ if ($user->getHiddenGeocachesCount() == 0) {
 
     if (XDb::xNumRows($rs_logs) != 0) {
         $content .= '<p>&nbsp;</p><p><span class="content-title-noshade txt-blue08">' . tr('latest_logs_in_caches') . ':</span> <img src="/images/blue/arrow.png" alt=""> [<a class="links" href="mycaches_logs.php?userid=' . $user_id . '">' . tr('show_all') . '</a>] ';
-        $content .= ' <a class="links" href="/rss/mycaches_logs.xml?userid=' . $user_id . '"><img src="/images/misc/rss.svg" class="icon16" alt="RSS icon"></a>';
+        $content .= ' <a class="links" href="/rss/mycaches_logs.xml?userid=' . $user_id . '"><img src="/images/misc/rss.svg" class="icon16" alt="' . tr('rss_icon') . '"></a>';
 
         $content .= '</p><br><div><ul style="margin: -0.9em 0 0.9em 0; padding: 0 0 0 10px; list-style-type: none; line-height: 1.6em; font-size: 12px;">';
 
@@ -865,7 +865,7 @@ if ($user->getHiddenGeocachesCount() == 0) {
             $tmp_log = $cache_line_my_caches;
 
 //            if ($record_logs['geokret_in'] != '0') {
-//                $tmp_log = mb_ereg_replace('{gkimage}', '<img src="images/gk.png" border="0" alt="" title="GeoKret">', $tmp_log);
+//                $tmp_log = mb_ereg_replace('{gkimage}', '<img src="images/gk.png" border="0" alt="" title="' . tr('geokret') . '">', $tmp_log);
 //            } else {
             $tmp_log = mb_ereg_replace('{gkimage}', '<img src="images/rating-star-empty.png" border="0" alt="">', $tmp_log);
 //            }
@@ -885,7 +885,7 @@ if ($user->getHiddenGeocachesCount() == 0) {
             // ukrywanie nicka autora komentarza COG przed zwykłym userem
             // (Łza)
             if (($record_logs['log_type'] == 12) && (! $loggedUser->hasOcTeamRole())) {
-                $record_logs['user_name'] = 'Centrum Obsługi Geocachera';
+                $record_logs['user_name'] = tr('cog_user_name');
                 $record_logs['user_id'] = 0;
             }
             // koniec ukrywania nicka autora komentarza COG
