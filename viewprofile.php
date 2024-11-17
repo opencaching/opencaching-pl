@@ -47,17 +47,20 @@ if (isset($_REQUEST['errorMsg'])) {
 }
 
 if (isset($_REQUEST['save'])) {
-    if (isset($_REQUEST['checkBadges'])) {
-        OcCookie::set('checkBadges', ! $_REQUEST['checkBadges']);
-    }
 
-    if (isset($_REQUEST['checkGeoPaths'])) {
-        OcCookie::set('checkGeoPaths', ! $_REQUEST['checkGeoPaths']);
-    }
+    if (isset($_REQUEST['checkBadges']))
+        OcCookie::set('checkBadges', !$_REQUEST['checkBadges'], true);
+
+    if (isset($_REQUEST['checkGeoPaths']))
+        OcCookie::set('checkGeoPaths', !$_REQUEST['checkGeoPaths'], true);
+
+    if (isset($_REQUEST['checkMilestones']))
+        OcCookie::set('checkMilestones', !$_REQUEST['checkMilestones'], true);
 }
 
 $checkBadges = OcCookie::getOrDefault('checkBadges', 1);
 $checkGeoPaths = OcCookie::getOrDefault('checkGeoPaths', 1);
+$checkMilestones = OcCookie::getOrDefault('checkMilestones', 1);
 
 $cache_line = '<li style="margin: -0.9em 0 0.9em 0; padding: 0 0 0 10px; list-style-type: none; line-height: 1.6em; font-size: 12px;">{cacheimage}&nbsp;{cachestatus} &nbsp; {date} &nbsp; <a class="links" href="viewcache.php?cacheid={cacheid}">{cachename}</a>&nbsp;&nbsp;<strong>[{wpname}]</strong></li>';
 $cache_notpublished_line = '<li style="margin: -0.9em 0 0.9em 0; padding: 0 0 0 10px; list-style-type: none; line-height: 1.6em; font-size: 115%;">{cacheimage}&nbsp;{cachestatus} &nbsp; <a class="links" href="editcache.php?cacheid={cacheid}">{date}</a> &nbsp; <a class="links" href="viewcache.php?cacheid={cacheid}">{cachename}</a>&nbsp;&nbsp;<strong>[{wpname}]</strong></li>';
@@ -423,10 +426,17 @@ if ($seek == 0) {
     }
 
     if ($found >= 10) {
-        $content .= '<br><table style="border-collapse: collapse; font-size: 110%;" width="250" border="1"><tr><td colspan="3" align="center" bgcolor="#DBE6F1"><b>' . tr('milestones') . '</b></td> </tr><tr><td bgcolor="#EEEDF9"><b> Nr </b></td> <td bgcolor="#EEEDF9"><b>' . tr('date') . '</b></td> <td bgcolor="#EEEDF9"><b>' . tr('cache') . '</b> </td> </tr>';
 
-        $rsms = XDb::xSql(
-            'SET @r = 0;
+        if (OcConfig::areGeopathsSupported()) {
+
+            $content .= buildOpenCloseButton($user_id, $checkMilestones, "milestones.png", "checkMilestones",
+                tr('milestones_title'), "milestones");
+
+            if ($checkMilestones) {
+                $content .= '<br><table style="border-collapse: collapse; font-size: 110%;" width="250" border="1"><tr><td colspan="3" align="center" bgcolor="#DBE6F1"><b>' . tr('milestones') . '</b></td> </tr><tr><td bgcolor="#EEEDF9"><b> Nr </b></td> <td bgcolor="#EEEDF9"><b>' . tr('date') . '</b></td> <td bgcolor="#EEEDF9"><b>' . tr('cache') . '</b> </td> </tr>';
+
+                $rsms = XDb::xSql(
+                    'SET @r = 0;
             WITH RECURSIVE seq AS (
                 SELECT 1 AS number
                 UNION ALL
@@ -450,15 +460,17 @@ if ($seek == 0) {
                     ORDER BY cache_logs.date ASC
                 ) c
                 JOIN seq s ON c.row = s.number;',
-            $user_id
-        );
-        $rsms->nextRowset();
-        while ($rms = XDb::xFetchArray($rsms)) {
-            $content .= '<tr> <td>' . ($rms['row']) . '</td><td>' . $rms['data'] . '</td><td><a class="links" href="viewcache.php?cacheid=' . $rms['cache_id'] . '">' . $rms['cache_wp'] . '</a></td></tr>';
-        }
+                    $user_id
+                );
+                $rsms->nextRowset();
+                while ($rms = XDb::xFetchArray($rsms)) {
+                    $content .= '<tr> <td>' . ($rms['row']) . '</td><td>' . $rms['data'] . '</td><td><a class="links" href="viewcache.php?cacheid=' . $rms['cache_id'] . '">' . $rms['cache_wp'] . '</a></td></tr>';
+                }
 
-        $content .= '</table>';
-        XDb::xFreeResults($rsms);
+                $content .= '</table>';
+                XDb::xFreeResults($rsms);
+            }
+        }
     } // $found > 10
 
     XDb::xFreeResults($rsfc2);
