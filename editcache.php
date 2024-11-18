@@ -1162,9 +1162,9 @@ if ($cache_record = $dbc->dbResultFetch($s)) {
         tpl_set_var('reset', tr('reset'));
         tpl_set_var('submit', $submit);
     }
-    $view->redirect('/');
+    //TODO: not the owner
 }
-$view->redirect('/');
+//TODO: cache not exist
 
 unset($dbc);
 
