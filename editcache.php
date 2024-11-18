@@ -1161,10 +1161,12 @@ if ($cache_record = $dbc->dbResultFetch($s)) {
         tpl_set_var('wp_ge', htmlspecialchars($wp_ge, ENT_COMPAT, 'UTF-8'));
         tpl_set_var('reset', tr('reset'));
         tpl_set_var('submit', $submit);
+    }else{
+        $view->redirect('/');
     }
-    //TODO: not the owner
+}else{
+    $view->redirect('/');
 }
-//TODO: cache not exist
 
 unset($dbc);
 
