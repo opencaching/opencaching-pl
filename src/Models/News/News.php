@@ -431,7 +431,7 @@ class News extends BaseObject
 		$content = $this->content;
 
 		if (!empty($content) || false !== strpos($content, self::LOAD_MORE_TAG)) {
-			return explode($loadMoreTag, $content)[0] . '<a href="' . SimpleRouter::getLink('News.NewsList') . '" class="btn btn-sm btn-default">' . tr('news_read_more') . '</a>';
+			return explode(self::LOAD_MORE_TAG, $content)[0] . '<a href="' . SimpleRouter::getLink('News.NewsList') . '" class="btn btn-sm btn-default">' . tr('news_read_more') . '</a>';
 		}
 
 		return $content;
