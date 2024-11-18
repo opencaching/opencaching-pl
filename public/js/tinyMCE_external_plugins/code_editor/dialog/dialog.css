@@ -1,0 +1,11 @@
+html,
+body {
+    height:100%;
+    margin: 0;           
+}
+.CodeMirror {
+    height: calc(100% - 42px);
+    font-size: 16px;
+    line-height: 22px;
+    padding: 20px 10px;
+}
