@@ -1,5 +1,5 @@
 <div class="content2-pagetitle">
-  <?=tr('nc_begin_title')?>
+    <img src="/images/blue/cache.png" class="icon32" alt="" title="{{new_cache}}">&nbsp<?=tr('nc_begin_title')?>
 </div>
 
 <div class="callout callout-info">

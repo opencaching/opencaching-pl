@@ -1,13 +1,9 @@
 
 
-
-#mapContainer {
-
-}
-
 #mapCanvas {
     height: 460px;
     width: 767px;
     padding: 0px;
-    border: 1px solid #0051B9
+    border: 1px solid #0051B9;
+    max-width: 100%;
 }

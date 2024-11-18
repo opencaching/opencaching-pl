@@ -16,6 +16,18 @@
  *             └── responsive.sass
  *
  */
+.c-flex {
+  display: flex;
+  display: -webkit-flex;
+  align-items: center;
+  -webkit-align-items: center;
+  flex-wrap: wrap;
+  -webkit-flex-wrap: wrap; }
+
+.space-between {
+  justify-content: space-between;
+  -webkit-justify-content: space-between; }
+
 @media screen and (max-width: 970px) {
   html.responsive-enabled .discreet-advertising {
     display: none; } }
@@ -102,7 +114,10 @@ html.responsive-enabled div#overall {
       text-align: center; }
     html.responsive-enabled #nav3 .title,
     html.responsive-enabled #nav3 a {
-      font-size: 2em; } }
+      font-size: 1.5em; }
+    html.responsive-enabled #nav3 li.group a {
+      padding: 3px 7px;
+      border-left: unset; } }
 html.responsive-enabled .content2-container,
 html.responsive-enabled .content2-container-1col,
 html.responsive-enabled .content2-container-2col-left,
@@ -111,12 +126,18 @@ html.responsive-enabled .content2-pagetitle,
 html.responsive-enabled .line-box {
   width: 100%;
   max-width: 769px; }
+@media screen and (max-width: 970px) {
+  html.responsive-enabled .content2-container p img {
+    max-width: 100%;
+    height: auto; } }
 html.responsive-enabled .templateContainer {
-  width: calc(100% - 160px);
+  width: calc(100% - 200px);
   max-width: 790px; }
   @media screen and (max-width: 768px) {
     html.responsive-enabled .templateContainer {
       width: 100%; } }
+  html.responsive-enabled .templateContainer > form {
+    width: 100%; }
 @media screen and (max-width: 970px) and (max-width: 768px) {
   html.responsive-enabled #map {
     float: unset;
@@ -135,21 +156,7 @@ html.responsive-enabled .templateContainer {
 @media screen and (max-width: 970px) {
   html.responsive-enabled .templateContainer {
     padding: 0 15px;
-    box-sizing: border-box; }
-  html.responsive-enabled .totalStatsSlider .totalStatsFrame {
-    width: 79px !important;
-    padding: 5px; }
-  html.responsive-enabled .totalStatsSlider .slick-track {
-    width: 4000px !important; }
-  html.responsive-enabled .slick-slide {
-    height: auto;
-    line-height: 1.5 !important; }
-  html.responsive-enabled .slick-list.draggable {
-    -webkit-transform: translate(0, 25%);
-    -moz-transform: translate(0, 25%);
-    -ms-transform: translate(0, 25%);
-    -o-transform: translate(0, 25%);
-    transform: translate(0, 25%); } }
+    box-sizing: border-box; } }
 @media screen and (max-width: 768px) {
   html.responsive-enabled .nbh-half {
     width: 99%; } }
@@ -163,6 +170,9 @@ html.responsive-enabled #powerTrailContentWraper {
       display: none; }
     html.responsive-enabled #powerTrailContentWraper .ptType img + span {
       display: none; } }
+@media screen and (max-width: 768px) {
+  html.responsive-enabled .ptCacheTable {
+    width: 100%; } }
 html.responsive-enabled #cache-name-block {
   max-width: calc(100% - 70px);
   width: 100%; }
@@ -198,6 +208,9 @@ html.responsive-enabled div#viewcache-maptypes {
 @media screen and (max-width: 768px) {
   html.responsive-enabled #links-to-ext-maps {
     text-align: left; } }
+@media screen and (max-width: 768px) {
+  html.responsive-enabled #top-links-to-ext-maps {
+    display: block; } }
 @media screen and (max-width: 768px) {
   html.responsive-enabled div#viewcache-description img {
     max-width: 100%;
@@ -261,7 +274,9 @@ html.responsive-enabled *.input400 {
   html.responsive-enabled #intro {
     font-size: 1.6em; } }
 @media screen and (max-width: 970px) {
-  html.responsive-enabled #logform {
+  html.responsive-enabled #logform,
+  html.responsive-enabled #cacheeditform,
+  html.responsive-enabled form#editlog {
     width: 100%; } }
 @media screen and (max-width: 970px) {
   html.responsive-enabled #cacheNoteForm {
@@ -274,10 +289,12 @@ html.responsive-enabled *.input400 {
     max-width: 720px;
     width: 100%;
     box-sizing: border-box; } }
-html.responsive-enabled #geoPath {
-  float: left;
-  width: auto;
-  max-width: 100%; }
+@media screen and (max-width: 970px) {
+  html.responsive-enabled #geoPath {
+    float: left;
+    width: auto;
+    min-width: 30%;
+    max-width: 100%; } }
 @media screen and (max-width: 768px) {
   html.responsive-enabled .fancybox-show-caption .fancybox-caption,
   html.responsive-enabled .fancybox-show-infobar .fancybox-infobar,
@@ -316,12 +333,28 @@ html.responsive-enabled #geoPath {
     position: relative !important; }
   html.responsive-enabled table {
     display: block;
-    overflow-x: scroll; } }
+    overflow-x: scroll; }
+  html.responsive-enabled .ptIcons,
+  html.responsive-enabled .ptMedal table {
+    display: table; } }
+html.responsive-enabled .box-blue {
+  width: calc(100% - 20px);
+  max-width: 750px;
+  box-sizing: border-box; }
 @media screen and (max-width: 768px) {
   html.responsive-enabled .logformTable [src*='date_next.png'] {
     margin-right: calc(100% - 186px); } }
 @media screen and (max-width: 970px) {
   html.responsive-enabled .notice {
     box-sizing: border-box; } }
+@media screen and (max-width: 768px) {
+  html.responsive-enabled .mapFilterContainer {
+    width: 100%;
+    min-width: unset; }
+    html.responsive-enabled .mapFilterContainer .mapFiltersControls {
+      flex-wrap: wrap;
+      justify-content: flex-start; }
+    html.responsive-enabled .mapFilterContainer .col {
+      width: 50%; } }
 
 /*# sourceMappingURL=style_responsive.css.map */

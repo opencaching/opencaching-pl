@@ -1705,10 +1705,8 @@
                 </tr>
             </table>
 
+            <div class="linearBg1">{{pt099}} {powerTrailName}</div>
             <table style="border-collapse: collapse; width: 100%; {statsOptionsDisplay}">
-                <tr>
-                    <td class="linearBg1">{{pt099}} {powerTrailName}</td>
-                </tr>
                 <tr>
                     <td>
                         {{pt015}} <br>
@@ -1750,13 +1748,7 @@
             </table>
 
             <!-- power Trail comments -->
-            <table style="border-collapse: collapse; width: 100%">
-                <tr>
-                    <td class="linearBg1">{{pt050}}</td>
-                </tr>
-            </table>
-
-
+            <div class="linearBg1">{{pt050}}</div>
             <span id="ptComments">
                 <img id="commentsLoader" src="images/misc/ptPreloader.gif" alt="">
             </span>
@@ -1765,7 +1757,7 @@
             <div id="addComment" style="display: none">
                 <input type="hidden" id="editedCommentId" value="0">
                 <input type="hidden" id="ClickinguserId" value="0">
-                <textarea id="addCommentTxtArea" class="tinymce powerTrailEditor" style="height: 350px"></textarea><br><br>
+                <textarea id="addCommentTxtArea" class="tinymce powerTrailEditor"></textarea><br><br>
                 {{pt229}} {ptCommentsSelector}
                 <br><br>
                 {{pt230}} <input type="text" id="commentDateTime" value="{date}">

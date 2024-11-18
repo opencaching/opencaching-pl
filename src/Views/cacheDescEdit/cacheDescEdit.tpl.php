@@ -20,7 +20,7 @@ $view->callChunk('tinyMCE');
 
 
 <form action="/CacheDesc/save/<?=$cache->getWaypointId()?>/<?=$desc->getLang()?>"
-      method="post" enctype="application/x-www-form-urlencoded">
+      method="post" enctype="application/x-www-form-urlencoded" id="cacheeditform">
 
     <?=$view->callSubTpl("/cacheDescEdit/cacheDescEditForm")?>
 
