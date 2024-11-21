@@ -2424,7 +2424,7 @@ $translations = [
     'news_removePicSuccess' => 'crwdns27384:0crwdne27384:0',
     'news_actionInProgress' => 'crwdns27386:0crwdne27386:0',
     'news_removePic' => 'crwdns27388:0crwdne27388:0',
-	'news_read_more' => 'crwdns33960:0crwdne33960:0',
+    'news_read_more' => 'crwdns33960:0crwdne33960:0',
 
     'SearchByPlace_01' => 'crwdns8010:0crwdne8010:0',
     'SearchByPlace_02' => 'crwdns8011:0crwdne8011:0',
