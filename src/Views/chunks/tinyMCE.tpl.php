@@ -59,7 +59,7 @@ return function ($media = true, $selector = '.tinymce', $filePickerCallback=null
       "advlist autolink autosave link image lists charmap hr anchor spellchecker searchreplace wordcount code_editor fullscreen nonbreaking",
       "paste pagebreak <?=$mediatxt?>"
     ],
-    pagebreak_separator : "<?=News::LOAD_MORE_TAG?>",
+    pagebreak_separator : "<?=News::READ_MORE_TAG?>",
   });
 </script>
 <!-- TinyMCE chunk end -->
