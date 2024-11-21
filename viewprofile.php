@@ -433,42 +433,41 @@ if ($seek == 0) {
                 tr('milestones_title'), "milestones");
 
             if ($checkMilestones) {
-                $content .= '<br><table style="border-collapse: collapse; font-size: 110%;" width="250" border="1"><tr><td colspan="3" align="center" bgcolor="#DBE6F1"><b>' . tr('milestones') . '</b></td> </tr><tr><td bgcolor="#EEEDF9"><b> Nr </b></td> <td bgcolor="#EEEDF9"><b>' . tr('date') . '</b></td> <td bgcolor="#EEEDF9"><b>' . tr('cache') . '</b> </td> </tr>';
-
-                $rsms = XDb::xSql(
-                    'SET @r = 0;
-            WITH RECURSIVE seq AS (
-                SELECT 1 AS number
-                UNION ALL
-                SELECT CASE
-                    WHEN number < 10 THEN number + 9
-                    WHEN number >= 10 AND number < 100 THEN number + 10
-                    WHEN number >= 100 AND number < 1000 THEN number + 100
-                    WHEN number >= 1000 AND number < 10000 THEN number + 1000
-                    WHEN number >= 10000 AND number < 100000 THEN number + 10000
-                    WHEN number >= 100000 AND number < 1000000 THEN number + 100000
-                    ELSE number + 1000000
-                END
-                FROM seq
-                WHERE number < 10000000
-            )
-
-            SELECT * FROM (
+                $milestonesQuery = '
+                SET @r = 0;
+                WITH RECURSIVE seq AS (
+                    SELECT 1 AS number
+                    UNION ALL
+                    SELECT CASE
+                        WHEN number < 10 THEN number + 9
+                        WHEN number >= 10 AND number < 100 THEN number + 10
+                        WHEN number >= 100 AND number < 1000 THEN number + 100
+                        WHEN number >= 1000 AND number < 10000 THEN number + 1000
+                        WHEN number >= 10000 AND number < 100000 THEN number + 10000
+                        WHEN number >= 100000 AND number < 1000000 THEN number + 100000
+                        ELSE number + 1000000
+                    END
+                    FROM seq
+                    WHERE number < 10000000
+                )
+            
+                SELECT * FROM (
                 SELECT cache_logs.cache_id cache_id, DATE_FORMAT(cache_logs.date,"%d-%m-%Y") `data`, caches.wp_oc cache_wp, @r:=@r+1 `row`
                     FROM cache_logs, caches
                     WHERE caches.cache_id=cache_logs.cache_id AND cache_logs.type=1 AND cache_logs.user_id=? AND cache_logs.deleted=0
                     ORDER BY cache_logs.date ASC
                 ) c
-                JOIN seq s ON c.row = s.number;',
-                    $user_id
-                );
-                $rsms->nextRowset();
-                while ($rms = XDb::xFetchArray($rsms)) {
-                    $content .= '<tr> <td>' . ($rms['row']) . '</td><td>' . $rms['data'] . '</td><td><a class="links" href="viewcache.php?cacheid=' . $rms['cache_id'] . '">' . $rms['cache_wp'] . '</a></td></tr>';
-                }
+                JOIN seq s ON c.row = s.number;';
 
-                $content .= '</table>';
-                XDb::xFreeResults($rsms);
+                $milestonesAltQuery = '
+                SELECT cache_logs.cache_id, DATE_FORMAT(cache_logs.date, "%d-%m-%Y") `data`,
+                            caches.wp_oc AS cache_wp, @r:=@r+1 AS `row`
+                    FROM cache_logs
+                    JOIN caches ON caches.cache_id = cache_logs.cache_id
+                    WHERE cache_logs.type = 1 AND cache_logs.user_id = ? AND cache_logs.deleted = 0
+                    ORDER BY cache_logs.date ASC';
+                $content .= renderMilestones($user_id, $milestonesQuery, $milestonesAltQuery, 'generateMilestoneSequence');
+
             }
         }
     } // $found > 10
@@ -765,43 +764,40 @@ if ($user->getHiddenGeocachesCount() == 0) {
     $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('latest_created_cache') . ':</span>&nbsp;&nbsp;<strong><a class="links" href="viewcache.php?cacheid=' . $rcc2['cache_id'] . '">' . $rcc2['wp_oc'] . '</a>&nbsp;&nbsp;</strong>(' . $rcc2['data'] . ')</p>';
 
     if ($total_created_and_owned_caches >= 10) {
-        $content .= '<br><table style="border-collapse: collapse; font-size: 110%;" width="250" border="1"><tr><td colspan="3" align="center" bgcolor="#DBE6F1"><b>' . tr('milestones') . '</b></td> </tr><tr><td bgcolor="#EEEDF9"><b> Nr </b></td> <td bgcolor="#EEEDF9"><b>' . tr('date') . '</b></td> <td bgcolor="#EEEDF9"><b>' . tr('cache') . '</b> </td> </tr>';
+        $cachesQuery = '
+        SET @r = 0;
+        WITH RECURSIVE seq AS (
+            SELECT 1 AS number
+            UNION ALL
+            SELECT CASE
+                WHEN number < 10 THEN number + 9
+                WHEN number >= 10 AND number < 100 THEN number + 10
+                WHEN number >= 100 AND number < 1000 THEN number + 100
+                WHEN number >= 1000 AND number < 10000 THEN number + 1000
+                WHEN number >= 10000 AND number < 100000 THEN number + 10000
+                WHEN number >= 100000 AND number < 1000000 THEN number + 100000
+                ELSE number + 1000000
+            END
+            FROM seq
+            WHERE number < 10000000
+        )
 
-        $rsms = XDb::xSql('
-            SET @r = 0;
-            WITH RECURSIVE seq AS (
-                SELECT 1 AS number
-                UNION ALL
-                SELECT CASE
-                    WHEN number < 10 THEN number + 9
-                    WHEN number >= 10 AND number < 100 THEN number + 10
-                    WHEN number >= 100 AND number < 1000 THEN number + 100
-                    WHEN number >= 1000 AND number < 10000 THEN number + 1000
-                    WHEN number >= 10000 AND number < 100000 THEN number + 10000
-                    WHEN number >= 100000 AND number < 1000000 THEN number + 100000
-                    ELSE number + 1000000
-                END
-                FROM seq
-                WHERE number < 10000000
-            )
+        SELECT * FROM (
+                SELECT cache_id, wp_oc `cache_wp`, DATE_FORMAT(date_created,"%d-%m-%Y") `data`, @r:=@r+1 `row`
+            FROM caches
+            WHERE user_id = ? AND status NOT IN (4, 5, 6) AND type <> 6
+            ORDER BY `date_created`
+        ) c
+        JOIN seq s ON c.row = s.number;';
 
-            SELECT * FROM (
-                SELECT cache_id, wp_oc, DATE_FORMAT(date_created,"%d-%m-%Y") `data`, @r:=@r+1 `row`
-                    FROM caches
-                    WHERE user_id=? AND status NOT IN (4, 5, 6) AND type <> 6
-                    ORDER BY `date_created`
-			) c
-            JOIN seq s ON c.row = s.number;
-        ', $user_id);
+        $cachesAltQuery = '
+        SELECT cache_id, wp_oc AS cache_wp, DATE_FORMAT(date_created, "%d-%m-%Y") `data`, @r:=@r+1 AS `row`
+        FROM caches
+        WHERE user_id = ? AND status NOT IN (4, 5, 6) AND type <> 6
+        ORDER BY `date_created`';
 
-        $rsms->nextRowset(); //to switch to second query results :)
+        $content .= renderMilestones($user_id, $cachesQuery, $cachesAltQuery, 'generateMilestoneSequence');
 
-        while ($rms = XDb::xFetchArray($rsms)) {
-            $content .= '<tr> <td>' . ($rms['row']) . '</td><td>' . $rms['data'] . '</td><td><a class="links" href="viewcache.php?cacheid=' . $rms['cache_id'] . '">' . $rms['wp_oc'] . '</a></td></tr>';
-        }
-
-        $content .= '</table>';
-        XDb::xFreeResults($rsms);
     } //$total_created_and_owned_caches > 0
 
     XDb::xFreeResults($rscc2);
@@ -1115,4 +1111,74 @@ function buildOpenCloseButton($userid, $check, $pic, $field, $txt, $title): stri
 </div></form>";
 
     return $content;
+}
+function renderMilestones($user_id, $query, $alt_query, $sequence_generator) {
+    $content = '<br><table style="border-collapse: collapse; font-size: 110%;" width="250" border="1">
+        <tr><td colspan="3" align="center" bgcolor="#DBE6F1"><b>' . tr('milestones') . '</b></td></tr>
+        <tr><td bgcolor="#EEEDF9"><b>Nr</b></td><td bgcolor="#EEEDF9"><b>' . tr('date') . '</b></td>
+        <td bgcolor="#EEEDF9"><b>' . tr('cache') . '</b></td></tr>';
+
+    try {
+        $rsms = XDb::xSql($query, $user_id);
+        $rsms->nextRowset();
+
+        while ($rms = XDb::xFetchArray($rsms)) {
+            $content .= buildMilestoneRow($rms['row'], $rms['data'], $rms['cache_id'], $rms['cache_wp']);
+        }
+    } catch (Exception $e) {
+        error_log("SQL Error (primary query): " . $e->getMessage());
+
+        try {
+            $sequence = $sequence_generator();
+            $rsms = XDb::xSql($alt_query, $user_id);
+
+            $results = [];
+            while ($row = XDb::xFetchArray($rsms)) {
+                $results[$row['row']] = $row;
+            }
+
+            foreach ($sequence as $seq) {
+                if (isset($results[$seq])) {
+                    $rms = $results[$seq];
+                    $content .= buildMilestoneRow($rms['row'], $rms['data'], $rms['cache_id'], $rms['cache_wp']);
+                }
+            }
+        } catch (Exception $e) {
+            error_log("SQL Error (alternative query): " . $e->getMessage());
+        }
+    }
+
+    $content .= '</table>';
+    XDb::xFreeResults($rsms);
+
+    return $content;
+}
+function buildMilestoneRow($row, $date, $cache_id, $cache_wp) {
+    return '<tr>
+        <td>' . $row . '</td>
+        <td>' . $date . '</td>
+        <td><a class="links" href="viewcache.php?cacheid=' . $cache_id . '">' . $cache_wp . '</a></td>
+    </tr>';
+}
+function generateMilestoneSequence() {
+    $sequence = [];
+    for ($i = 1; $i <= 10000000; ) {
+        $sequence[] = $i;
+        if ($i < 10) {
+            $i += 9;
+        } elseif ($i < 100) {
+            $i += 10;
+        } elseif ($i < 1000) {
+            $i += 100;
+        } elseif ($i < 10000) {
+            $i += 1000;
+        } elseif ($i < 100000) {
+            $i += 10000;
+        } elseif ($i < 1000000) {
+            $i += 100000;
+        } else {
+            $i += 1000000;
+        }
+    }
+    return $sequence;
 }
