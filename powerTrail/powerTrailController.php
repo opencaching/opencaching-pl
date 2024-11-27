@@ -238,7 +238,7 @@ class powerTrailController
             return [];
         }
 
-        $query = "SELECT * FROM `PowerTrail`, PowerTrail_owners  WHERE  PowerTrail_owners.userId = :1 AND PowerTrail_owners.PowerTrailId = PowerTrail.id";
+        $query = "SELECT * FROM `PowerTrail`, PowerTrail_owners  WHERE  PowerTrail_owners.userId = :1 AND PowerTrail_owners.PowerTrailId = PowerTrail.id ORDER BY PowerTrail.id DESC";
         $db = OcDb::instance();
         $s = $db->multiVariableQuery($query, $this->user->getUserId());
         $userPTs = $db->dbResultFetchAll($s);
