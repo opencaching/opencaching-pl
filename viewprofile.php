@@ -977,7 +977,7 @@ function buildPowerTrailIcons(ArrayObject $powerTrails): string
     $allowedPtStatus = [
         PowerTrail::STATUS_OPEN, PowerTrail::STATUS_INSERVICE, PowerTrail::STATUS_CLOSED,
     ];
-    $result = '<table width="100%"><tr><td>';
+    $result = '<table width="100%" class="ptIcons"><tr><td>';
     // @var $powertrail PowerTrail
     foreach ($powerTrails as $powertrail) {
         if (in_array($powertrail->getStatus(), $allowedPtStatus)) {
@@ -1073,7 +1073,7 @@ function buildMeritBadges($user_id): string
     }
 
     $content .= mb_ereg_replace('{content_badge_rows}', $content_badge_rows, '
-                <table width="770px">
+                <table width="100%">
                     <tbody>
                     {content_badge_rows}
                     </tbody>

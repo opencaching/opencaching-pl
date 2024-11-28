@@ -425,10 +425,9 @@ use src\Utils\Uri\SimpleRouter as _SimpleRouter;
           html.classList.toggle("responsive-enabled");
 
           if(html.classList.contains("responsive-enabled")){
-              var date = new Date();
-              var days = 1;
-              date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-              var expires = "; expires=" + date.toGMTString();
+              var expiryDate = new Date();
+              expiryDate.setMonth(expiryDate.getMonth() + 1);
+              var expires = "; expires=" + expiryDate.toGMTString();
               document.cookie = cookie_name+"=1" + expires + "; path=/";
               if (window.jQuery) {
                   maybe_change_navigation();
@@ -455,7 +454,9 @@ use src\Utils\Uri\SimpleRouter as _SimpleRouter;
           if(html.classList.contains("responsive-enabled")){
               maybe_change_navigation();
               $(window).on('resize', function(){
-                  maybe_change_navigation();
+                  if (screen.width > 768) {
+                      $('#nav3 ul .group').slideDown();
+                  }
               });
           }
 

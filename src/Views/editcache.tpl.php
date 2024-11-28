@@ -344,7 +344,7 @@ use src\Utils\View\View;
         <tr>
             <td>&nbsp;</td>
             <td>
-              <div class="notice" style="width:500px;height:44px;">
+              <div class="notice" style="max-width:500px;height:44px;">
                 {{difficulty_problem}}
                 <a href="/Cache/difficultyForm" target="_BLANK">{{rating_system}}</a>.
               </div>
@@ -361,7 +361,7 @@ use src\Utils\View\View;
         </tr>
         <tr>
             <td>&nbsp;</td>
-            <td><div class="notice" style="width:500px;height:44px">{{time_distance_hint}}</div><div class="buffer"></div></td>
+            <td><div class="notice" style="height:44px">{{time_distance_hint}}</div><div class="buffer"></div></td>
         </tr>
         <tr class="form-group-sm">
             <td><p class="content-title-noshade">{{foreign_waypoint}} ({{optional}}):</p></td>
@@ -392,7 +392,7 @@ use src\Utils\View\View;
         </tr>
         <tr>
             <td>&nbsp;</td>
-            <td><div class="notice" style="width:500px;height:44px;">{{foreign_waypoint_info}}</div><div class="buffer"></div></td>
+            <td><div class="notice" style="max-width:500px;height:44px;">{{foreign_waypoint_info}}</div><div class="buffer"></div></td>
         </tr>
         <tr>
             <td colspan="2">
@@ -405,7 +405,7 @@ use src\Utils\View\View;
         </tr>
         <tr><td class="buffer" colspan="2"></td></tr>
         <tr>
-            <td colspan="2"><div class="notice" style="width:500px;min-height:24px;height:auto;white-space: nowrap;">{{attributes_desc_hint}}</div>
+            <td colspan="2"><div class="notice" style="max-width:500px;min-height:24px;height:auto;white-space: nowrap;">{{attributes_desc_hint}}</div>
             </td></tr>
         <tr>
             <td colspan="2">
@@ -435,7 +435,7 @@ use src\Utils\View\View;
             <td colspan="2">{cache_wp_list}</td>
         </tr>
         <tr>
-            <td colspan="2"><br /><div class="notice" style="width:500px;min-height:24px;height:auto;">{{waypoints_about_info}}</div></td>
+            <td colspan="2"><br /><div class="notice" style="max-width:500px;min-height:24px;height:auto;">{{waypoints_about_info}}</div></td>
         </tr>
         {waypoints_end}
 
@@ -488,7 +488,7 @@ use src\Utils\View\View;
                 </fieldset>
             </td>
         </tr>
-        <tr><td colspan="2"><div class="notice buffer" style="width:500px;">{{event_hidden_hint}}</div></td></tr>
+        <tr><td colspan="2"><div class="notice buffer" style="max-width:500px;">{{event_hidden_hint}}</div></td></tr>
         {activation_form}
         {logpw_start}
         <tr class="form-group-sm">
@@ -499,7 +499,7 @@ use src\Utils\View\View;
 
             </td>
         </tr>
-        <tr><td colspan="2"><div class="notice buffer" style="width:500px;">{{please_read}}</div></td></tr>
+        <tr><td colspan="2"><div class="notice buffer" style="max-width:500px;">{{please_read}}</div></td></tr>
         {logpw_end}
         <tr><td colspan="2"><div class="errormsg"><br />{{creating_cache}}<br /></div></td></tr>
 
