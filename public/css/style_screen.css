@@ -1370,3 +1370,46 @@ tr.geoKretLog {
 .hidden {
     display: none;
 }
+
+/* Dark Mode Styles Start */
+#theme-switcher{
+  display: none;
+}
+.theme-toggle{
+  position: relative;
+  bottom: -5px;
+  margin: 0;
+}
+theme-switch {
+  --theme-switch-icon-color: #000;
+  width: 18px;
+  height: 18px;
+}
+html[data-darkreader-scheme="dark"] theme-switch {
+  --theme-switch-icon-color: #FFF;
+}
+
+html[data-darkreader-scheme="dark"] img[src$=".svg"] {
+  filter: invert(100%) brightness(80%);
+}
+html[data-darkreader-scheme="dark"] {
+  --primary-stroke-color: #000;
+}
+
+#dark-mode-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  opacity: .8;
+}
+html[data-darkreader-scheme="dark"] #dark-mode-mask {
+  display: none;
+}
+/* Dark Mode Styles End */
