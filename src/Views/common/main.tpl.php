@@ -3,6 +3,8 @@
 use src\Models\OcConfig\OcConfig as _OcConfig;
 use src\Utils\Uri\SimpleRouter as _SimpleRouter;
 
+$view->addHeaderChunk('darkmodeJS');
+
 ?>
 <!DOCTYPE html>
 <html lang="<?= $view->getLang(); ?>">
@@ -86,6 +88,9 @@ use src\Utils\Uri\SimpleRouter as _SimpleRouter;
 </head>
 
 <body {bodyMod} class="<?= $view->backgroundSeason; ?>">
+  <?php if (isset($_COOKIE['theme']) && $_COOKIE['theme'] === 'dark') {
+    echo '<div id="dark-mode-mask"></div>';
+  }?>
   <div id="overall">
     <div class="page-container-1">
       <div class="seasonalBackground left <?= $view->backgroundSeason; ?>">&nbsp;</div>
@@ -102,7 +107,9 @@ use src\Utils\Uri\SimpleRouter as _SimpleRouter;
             <img src="/images/misc/responsive-mode-disabled.svg" class="icon16 mobile-off" alt="<?= tr('responsiveModeToggle_disabled'); ?>" title="<?= tr('responsiveModeToggle_disabled'); ?>">
             <img src="/images/misc/responsive-mode-enabled.svg" class="icon16 mobile-friendly" alt="<?= tr('responsiveModeToggle_enabled'); ?>" title="<?= tr('responsiveModeToggle_enabled'); ?>">
         </button>
-
+        <button class="theme-toggle btn btn-sm btn-default" type="button" id="theme-toggle-btn">
+            <theme-switch></theme-switch>
+        </button>
         <div class="topline-buttons">
           <?php if ($view->_isUserLogged) { //if-user-logged?>
             <form method="get" action="/search.php" name="search_form" id="search_form" class="form-group-sm">
