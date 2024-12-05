@@ -1141,6 +1141,8 @@ if ($cache_record = $dbc->dbResultFetch($s)) {
         tpl_set_var('lat_message', ($lat_not_ok == true) ? $error_coords_not_ok : '');
         tpl_set_var('date_message', ($hidden_date_not_ok == true) ? $date_not_ok_message : '');
         tpl_set_var('size_message', ($size_not_ok == true) ? $size_not_ok_message : '');
+        tpl_set_var('limits_promixity', $config['oc']['limits']['proximity']);
+        tpl_set_var('short_sitename', OcConfig::getSiteShortName());
 
         if ($errors_occured) {
             tpl_set_var('general_message', $error_general);

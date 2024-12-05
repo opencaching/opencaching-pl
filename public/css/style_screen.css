@@ -929,6 +929,7 @@ input               { border:1px solid black;    background-color:white;    padd
 *.input20           { width:20px;}  /* day,month */
 *.input30           { width:30px;}
 *.input40           { width:40px;}  /* year */
+*.input45           { width:45px;}
 *.input50           { width:50px;}
 *.input70           { width:70px;}
 *.input100          { width:100px;}    /* log-password */
