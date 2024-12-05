@@ -536,7 +536,7 @@ $(document).ready(function(){
             <td valign="top"><p class="content-title-noshade">{{coordinates}}:</p></td>
             <td class="content-title-noshade">
                 <fieldset style="border: 1px solid black; width: 90%; height: 32%; background-color: #FAFBDF;" class="form-group-sm">
-                    <legend>&nbsp; <strong>WGS-84</strong> &nbsp;</legend>&nbsp;&nbsp;&nbsp;
+                    <legend>&nbsp; <strong>WGS-84</strong> &nbsp;</legend>
                     <select name="latNS" id="latNS" class="form-control input50" onchange="checkRegion()">
                         <option value="N"{latNsel}>N</option>
                         <option value="S"{latSsel}>S</option>
@@ -547,15 +547,14 @@ $(document).ready(function(){
                       id="lat_h"
                       name="lat_h"
                       maxlength="2"
-                      class="form-control input50"
+                      class="form-control input45"
                       onchange="checkRegion()"
                       placeholder="0"
                       value="{lat_h}"
                       min="0"
                       max="90"
                       required
-                  />
-                    &deg;&nbsp;
+                  />&deg;&nbsp;
                   <input
                       type="text"
                       id="lat_min"
@@ -571,7 +570,6 @@ $(document).ready(function(){
                   />&nbsp;'&nbsp;
                     <button class="btn btn-default btn-sm" onclick="nearbycachemapOC()">{{check_nearby_caches_map}}</button>
                     {lat_message}<br />
-                    &nbsp;&nbsp;&nbsp;
                     <select name="lonEW" id="lonEW" class="form-control input50" onchange="checkRegion()">
                         <option value="W"{lonWsel}>W</option>
                         <option value="E"{lonEsel}>E</option>
@@ -582,15 +580,14 @@ $(document).ready(function(){
                       id="lon_h"
                       name="lon_h"
                       maxlength="3"
-                      class="form-control input50"
+                      class="form-control input45"
                       onchange="checkRegion()"
                       placeholder="0"
                       value="{lon_h}"
                       min="0"
                       max="180"
                       required
-                  />
-                    &deg;&nbsp;
+                  />&deg;&nbsp;
                   <input
                       type="text"
                       id="lon_min"
