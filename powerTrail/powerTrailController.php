@@ -1,5 +1,6 @@
 <?php
 
+use src\Utils\Cache\OcMemCache;
 use src\Utils\Database\OcDb;
 use src\Utils\Generators\Uuid;
 use src\Models\User\User;
@@ -212,6 +213,13 @@ class powerTrailController
             $logQuery = 'INSERT INTO `PowerTrail_actionsLog`(`PowerTrailId`, `userId`, `actionDateTime`, `actionType`, `description`) VALUES (:1,:2,NOW(),1,:3)';
             $db->multiVariableQuery($logQuery, $newProjectId, $this->user->getUserId(),
                 $this->ptAPI->logActionTypes[1]['type']);
+
+            OcMemCache::refreshAndReturn('PowerTrail:getMaxPowerTrailId', 60*60, function() {
+                $db = OcDb::instance();
+                $query = 'SELECT MAX(id) FROM PowerTrail';
+                return $db->simpleQueryValue($query, 0);
+            });
+
             header("location: powerTrail.php?ptAction=showSerie&ptrail=$newProjectId");
 
             return true;
