@@ -9,6 +9,7 @@ use src\Models\GeoCache\Collection;
 use src\Models\GeoCache\GeoCache;
 use src\Models\OcConfig\OcConfig;
 use src\Models\User\User;
+use src\Utils\Cache\OcMemCache;
 use src\Utils\Debug\Debug;
 
 class PowerTrail extends BaseObject
@@ -676,4 +677,13 @@ class PowerTrail extends BaseObject
 
         return tr($statusTranslationArray[$this->status]['translate']);
     }
+
+    public static function getMaxPowerTrailId()
+    {
+        return OcMemCache::getOrCreate('PowerTrail:getMaxPowerTrailId', 60 * 60, function() {
+            $query = 'SELECT MAX(id) FROM PowerTrail';
+            return self::db()->simpleQueryValue($query, 0);
+        });
+    }
+
 }
