@@ -1226,6 +1226,9 @@ td.myr{
     flex-grow: 4;
     max-width: 450px;
 }
+.ptMedal2{
+  height: 105px;
+}
 
 .imgPtMedal{
     max-height: 50px;

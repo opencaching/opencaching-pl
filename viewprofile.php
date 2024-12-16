@@ -54,12 +54,16 @@ if (isset($_REQUEST['save'])) {
     if (isset($_REQUEST['checkGeoPaths']))
         OcCookie::set('checkGeoPaths', !$_REQUEST['checkGeoPaths'], true);
 
+    if (isset($_REQUEST['checkStartedGeoPaths']))
+        OcCookie::set("checkStartedGeoPaths", !$_REQUEST['checkStartedGeoPaths'], true);
+
     if (isset($_REQUEST['checkMilestones']))
         OcCookie::set('checkMilestones', !$_REQUEST['checkMilestones'], true);
 }
 
 $checkBadges = OcCookie::getOrDefault('checkBadges', 1);
 $checkGeoPaths = OcCookie::getOrDefault('checkGeoPaths', 1);
+$checkStartedGeoPaths = OcCookie::getOrDefault("checkStartedGeoPaths", 1);
 $checkMilestones = OcCookie::getOrDefault('checkMilestones', 1);
 
 $cache_line = '<li style="margin: -0.9em 0 0.9em 0; padding: 0 0 0 10px; list-style-type: none; line-height: 1.6em; font-size: 12px;">{cacheimage}&nbsp;{cachestatus} &nbsp; {date} &nbsp; <a class="links" href="viewcache.php?cacheid={cacheid}">{cachename}</a>&nbsp;&nbsp;<strong>[{wpname}]</strong></li>';
@@ -256,6 +260,19 @@ if (OcConfig::areGeopathsSupported()) {
 
         $content .= buildPowerTrailIcons(UserStats::getGeoPathsOwned($user->getUserId()));
         $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('pt224') . '</span>:&nbsp;<strong>' . $pointsEarnedForPlacedCaches['totalPoints'] . '</strong></p>';
+    }
+}
+
+if (OcConfig::areGeopathsSupported()) {
+
+    if(PowerTrail::canViewStartedPowerTrails($user_id)){
+
+        $content .= buildOpenCloseButton($user_id, $checkStartedGeoPaths, "powerTrailGenericLogo.png", "checkStartedGeoPaths", tr('pt245'), "geoPaths");
+
+        if ($checkStartedGeoPaths) {
+            $content .= buildPowerTrailIcons(UserStats::getGeoPathsStarted($user_id), true, $user_id);
+
+        }
     }
 }
 
@@ -972,7 +989,7 @@ $view->buildView();
  * generate html string displaying geoPaths completed by user (power trail) medals
  * @author Andrzej Łza Woźniak, 2013-11-23
  */
-function buildPowerTrailIcons(ArrayObject $powerTrails): string
+function buildPowerTrailIcons(ArrayObject $powerTrails, bool $withStats = false, int $userID = 0): string
 {
     $allowedPtStatus = [
         PowerTrail::STATUS_OPEN, PowerTrail::STATUS_INSERVICE, PowerTrail::STATUS_CLOSED,
@@ -981,7 +998,28 @@ function buildPowerTrailIcons(ArrayObject $powerTrails): string
     // @var $powertrail PowerTrail
     foreach ($powerTrails as $powertrail) {
         if (in_array($powertrail->getStatus(), $allowedPtStatus)) {
-            $result .= '<div class="ptMedal"><table style="padding-top: 7px;" align="center" height="51" width="51"><tr><td width=52 height=52 valign="center" align="center"><a title="' . $powertrail->getName() . '" href="powerTrail.php?ptAction=showSerie&ptrail=' . $powertrail->getId() . '"><img class="imgPtMedal" src="' . $powertrail->getImage() . '" alt=""></a></td></tr><tr><td align="center"><img src="' . $powertrail->getFootIcon() . '" alt=""></td></tr></table></div><div class="ptMedalSpacer"></div>';
+            if (!$withStats) {
+                $result .= '<div class="ptMedal"><table style="padding-top: 7px;" align="center" height="51" width="51"><tr><td width=52 height=52 valign="center" align="center"><a title="' . $powertrail->getName() . '" href="powerTrail.php?ptAction=showSerie&ptrail=' . $powertrail->getId() . '"><img class="imgPtMedal" src="' . $powertrail->getImage() . '" alt=""></a></td></tr><tr><td align="center"><img src="' . $powertrail->getFootIcon() . '" alt=""></td></tr></table></div><div class="ptMedalSpacer"></div>';
+            } else {
+                $result .= '<div class="ptMedal ptMedal2">
+                    <table style="padding-top: 7px;" align="center" height="51" width="51">
+                        <tr>
+                            <td width=52 height=52 valign="center" align="center">
+                                <a title="' . $powertrail->getName() . '"
+                                   href="powerTrail.php?ptAction=showSerie&ptrail=' . $powertrail->getId() . '">
+                                    <img class="imgPtMedal" src="' . $powertrail->getImage() . '" alt="">
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="margin-left: auto; margin-right: auto; text-align: center;">
+                                <img src="' . $powertrail->getFootIcon() . '" alt="">&nbsp;' . $powertrail->displaySimplePowerTrailserStats($powertrail, $powertrail->getFoundCachsByUser($userID)) . '
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="ptMedalSpacer"></div>';
+            }
         }
     }
 

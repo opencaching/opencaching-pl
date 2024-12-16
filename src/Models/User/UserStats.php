@@ -44,6 +44,47 @@ class UserStats extends BaseObject
     }
 
     /**
+     * Returns all GeoPaths started by $userId
+     * @param $userId
+     * @return \ArrayObject
+     */
+    public static function getGeoPathsStarted($userId)
+    {
+        $geoPathsStarted = new \ArrayObject();
+        $query = '
+        SELECT 
+            PowerTrail.*
+        FROM 
+            powertrail_progress
+        JOIN 
+            PowerTrail ON powertrail_progress.pt_id = PowerTrail.id
+        WHERE 
+            powertrail_progress.user_id = :1
+            AND PowerTrail.status = 1
+            AND PowerTrail.id NOT IN (
+                SELECT PowerTrailId 
+                FROM PowerTrail_comments 
+                WHERE commentType = 2 
+                AND userId = :1
+            )
+            AND ((powertrail_progress.founds / PowerTrail.cacheCount) * 100) > 10
+        ORDER BY 
+            (powertrail_progress.founds / PowerTrail.cacheCount) * 100 DESC';
+
+        $stmt = self::db()->multiVariableQuery($query, array($userId));
+        $list = self::db()->dbResultFetchAll($stmt);
+
+        foreach ($list as $row) {
+            $geoPathsStarted->append(new PowerTrail(array(
+                'dbRow' => $row
+            )));
+        }
+
+        return $geoPathsStarted;
+    }
+
+
+    /**
      * Returns all GeoPaths owned by $userId
      *
      * @param integer $userId

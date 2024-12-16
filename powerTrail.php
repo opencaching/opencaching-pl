@@ -311,7 +311,7 @@ switch ($actionPerformed) {
             tpl_set_var('ptPoints', $powerTrail->getPoints());
             tpl_set_var('cacheFound', count($foundCachsByUser));
             tpl_set_var('powerTrailLogo', displayPowerTrailLogo($powerTrail->getImage()));
-            tpl_set_var('powerTrailserStats', displayPowerTrailserStats($powerTrail, $foundCachsByUser));
+            tpl_set_var('powerTrailserStats', $powerTrail->displayPowerTrailserStats($powerTrail, $foundCachsByUser));
 
             if ($userIsOwner) {
                 tpl_set_var('ptStatus', tr($ptStatusArr[$powerTrail->getStatus()]['translate']));
@@ -468,18 +468,6 @@ function displayPTrails($pTrails, $areOwnSeries): array
     }
 
     return [$dataForList, rtrim($dataForMap, ',')];
-}
-
-function displayPowerTrailserStats(PowerTrail $powerTrail, $cachesFoundByUser): string
-{
-    if ($powerTrail->getCacheCount() != 0) {
-        $stats2display = round(count($cachesFoundByUser) * 100 / $powerTrail->getCacheCount(), 2);
-    } else {
-        $stats2display = 0;
-    }
-    $stats2display .= '% (' . tr('pt017') . ' <span style="color: #00aa00"><b>' . count($cachesFoundByUser) . '</b></span> ' . tr('pt016') . ' <span style="color: #0000aa"><b>' . $powerTrail->getCacheCount() . '</b></span> ' . tr('pt014') . ')';
-
-    return $stats2display;
 }
 
 function displayPtOwnerList(PowerTrail $powerTrail)

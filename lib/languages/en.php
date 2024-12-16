@@ -1822,6 +1822,7 @@ $translations = [
     'pt242' => 'Hide my own',
     'pt243' => 'Hide completed',
     'pt244' => 'Blocked by OC Team',
+    'pt245' => 'Started GeoPaths',
 
     'gp_candidateIntroUser' => 'User',
     'gp_candidateIntro' => 'suggested to add your great geocache',
