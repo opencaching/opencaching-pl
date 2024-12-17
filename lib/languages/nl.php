@@ -1822,6 +1822,7 @@ $translations = [
     'pt242' => 'Verberg mijn GeoPath',
     'pt243' => 'Verberg voltooide',
     'pt244' => 'Geblokkeerd door OC Team',
+    'pt245' => 'Started GeoPaths',
 
     'gp_candidateIntroUser' => 'Gebruiker',
     'gp_candidateIntro' => 'stelde voor om je geweldige geocache toe te voegen',
@@ -2424,7 +2425,7 @@ $translations = [
     'news_removePicSuccess' => 'Image removed',
     'news_actionInProgress' => 'Removing in progress',
     'news_removePic' => 'Remove image',
-	'news_read_more' => 'Read more...',
+    'news_read_more' => 'Read more...',
 
     'SearchByPlace_01' => 'Gevonden plaatsen',
     'SearchByPlace_02' => 'De opgegeven plaats lijkt te voldoen aan opgevraagde plaats(en). Kies een plaats uit de lijst',
