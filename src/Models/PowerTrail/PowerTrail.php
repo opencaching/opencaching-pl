@@ -3,6 +3,7 @@
 namespace src\Models\PowerTrail;
 
 use DateTime;
+use src\Models\ApplicationContainer;
 use src\Models\BaseObject;
 use src\Models\Coordinates\Coordinates;
 use src\Models\GeoCache\Collection;
@@ -418,7 +419,42 @@ class PowerTrail extends BaseObject
             $cachesFoundByUser = $this->db->dbResultFetchAll($s);
         }
 
+        if(count($cachesFoundByUser) !== $this->getFoundsCountFromProgressByUser($userId)){
+            $logMessage = sprintf(
+                'Updated founds count in powertrail_progress for PT %d from %d to %d User %d:',
+                $this->getId(),
+                $this->getFoundsCountFromProgressByUser($userId),
+                count($cachesFoundByUser),
+                $userId,
+            );
+            Debug::errorLog($logMessage, false);
+            $this->updateUserProgress($userId, count($cachesFoundByUser));
+        }
+
         return $cachesFoundByUser;
+    }
+
+    public function getFoundsCountFromProgressByUser($userId)
+    {
+        $params = [];
+        $params['userid']['value'] = $userId;
+        $params['userid']['data_type'] = 'integer';
+        $params['ptid']['value'] = $this->getId();
+        $params['ptid']['data_type'] = 'integer';
+        $query = 'SELECT `founds` FROM `powertrail_progress` WHERE `pt_id` = :ptid AND `user_id` = :userid';
+        $stmt = $this->db->paramQuery($query, $params);
+        $row = $this->db->dbResultFetchOneRowOnly($stmt);
+
+        if(isset($row['founds'])){
+            return $row['founds'];
+        }
+
+        return 0;
+    }
+
+    private function updateUserProgress($userID, $val){
+        $updateQuery = 'UPDATE `powertrail_progress` SET `founds` =:1  WHERE `pt_id` = :2 AND `user_id` = :3';
+        $this->db->multiVariableQuery($updateQuery, $val, $this->id, $userID);
     }
 
     /**
@@ -684,6 +720,55 @@ class PowerTrail extends BaseObject
             $query = 'SELECT MAX(id) FROM PowerTrail';
             return self::db()->simpleQueryValue($query, 0);
         });
+    }
+
+    function displayPowerTrailserStats(PowerTrail $powerTrail, $cachesFoundByUser): string
+    {
+        if ($powerTrail->getCacheCount() != 0) {
+            $stats2display = round(count($cachesFoundByUser) * 100 / $powerTrail->getCacheCount(), 2);
+        } else {
+            $stats2display = 0;
+        }
+        $stats2display .= '% (' . tr('pt017') . ' <span style="color: #00aa00"><b>' . count($cachesFoundByUser) . '</b></span> ' . tr('pt016') . ' <span style="color: #0000aa"><b>' . $powerTrail->getCacheCount() . '</b></span> ' . tr('pt014') . ')';
+
+        return $stats2display;
+    }
+
+    function displaySimplePowerTrailserStats(PowerTrail $powerTrail, $cachesFoundByUser)
+    {
+        $perccentRequired = $powerTrail->getPerccentRequired();
+        if ($powerTrail->getCacheCount() != 0) {
+            $perccent = round(count($cachesFoundByUser) * 100 / $powerTrail->getCacheCount());
+            $stats2display = $perccent>=$perccentRequired ? '<span style="color: #00aa00">'.$perccent.'%</span>' : $perccent.'%';
+        } else {
+            $stats2display = 0 . '%';
+        }
+        $stats2display .= '<br>(<span style="color: #00aa00"><b>' . count($cachesFoundByUser) . '</b></span> ' . tr('pt016') . ' <span style="color: #0000aa"><b>' . $powerTrail->getCacheCount() . '</b></span>)';
+        $stats2display .= "<br><span title='".tr('pt054')."'>".$perccentRequired.'%</span>';
+
+        return $stats2display;
+    }
+
+    public static function canViewStartedPowerTrails($profileUser) {
+
+        $loggedUser = ApplicationContainer::GetAuthorizedUser();
+        $currentUserId = $loggedUser->getUserId();
+
+        if ($loggedUser->hasSysAdminRole()) {
+            return true;
+        }
+        /*
+        if ($loggedUser->hasOcTeamRole() && $profileUser === $currentUserId) {
+            return true;
+        }
+        */
+        /*
+        if ($profileUser === $currentUserId) {
+            return true;
+        }
+        */
+
+        return false;
     }
 
 }
