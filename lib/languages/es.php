@@ -1822,6 +1822,7 @@ $translations = [
     'pt242' => 'Hide my own',
     'pt243' => 'Hide completed',
     'pt244' => 'Blocked by OC Team',
+    'pt245' => 'Started GeoPaths',
 
     'gp_candidateIntroUser' => 'User',
     'gp_candidateIntro' => 'suggested to add your great geocache',
@@ -2424,7 +2425,7 @@ $translations = [
     'news_removePicSuccess' => 'Image removed',
     'news_actionInProgress' => 'Removing in progress',
     'news_removePic' => 'Remove image',
-	'news_read_more' => 'Read more...',
+    'news_read_more' => 'Read more...',
 
     'SearchByPlace_01' => 'Found places',
     'SearchByPlace_02' => 'The given search criteria was not found. Please select a location from the list',
