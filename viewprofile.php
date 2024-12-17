@@ -1002,7 +1002,7 @@ function buildPowerTrailIcons(ArrayObject $powerTrails, bool $withStats = false,
                 $result .= '<div class="ptMedal"><table style="padding-top: 7px;" align="center" height="51" width="51"><tr><td width=52 height=52 valign="center" align="center"><a title="' . $powertrail->getName() . '" href="powerTrail.php?ptAction=showSerie&ptrail=' . $powertrail->getId() . '"><img class="imgPtMedal" src="' . $powertrail->getImage() . '" alt=""></a></td></tr><tr><td align="center"><img src="' . $powertrail->getFootIcon() . '" alt=""></td></tr></table></div><div class="ptMedalSpacer"></div>';
             } else {
                 $result .= '<div class="ptMedal ptMedal2">
-                    <table style="padding-top: 7px;" align="center" height="51" width="51">
+                    <table style="padding-top: 7px;" align="center" height="51" width="100%">
                         <tr>
                             <td width=52 height=52 valign="center" align="center">
                                 <a title="' . $powertrail->getName() . '"
