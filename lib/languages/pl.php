@@ -1822,6 +1822,7 @@ $translations = [
     'pt242' => 'Ukryj moje własne',
     'pt243' => 'Ukryj zdobyte',
     'pt244' => 'Zablokowana przez COG',
+    'pt245' => 'Started GeoPaths',
 
     'gp_candidateIntroUser' => 'Użytkownik',
     'gp_candidateIntro' => 'zasugerował/-a, aby dodać Twoją świetną skrzynkę',
