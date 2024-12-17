@@ -757,11 +757,9 @@ class PowerTrail extends BaseObject
         if ($loggedUser->hasSysAdminRole()) {
             return true;
         }
-        /*
         if ($loggedUser->hasOcTeamRole() && $profileUser === $currentUserId) {
             return true;
         }
-        */
         /*
         if ($profileUser === $currentUserId) {
             return true;
