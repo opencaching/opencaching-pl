@@ -1822,6 +1822,7 @@ $translations = [
     'pt242' => 'crwdns7515:0crwdne7515:0',
     'pt243' => 'crwdns7516:0crwdne7516:0',
     'pt244' => 'crwdns7517:0crwdne7517:0',
+    'pt245' => 'crwdns33962:0crwdne33962:0',
 
     'gp_candidateIntroUser' => 'crwdns26952:0crwdne26952:0',
     'gp_candidateIntro' => 'crwdns26890:0crwdne26890:0',
