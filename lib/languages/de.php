@@ -1822,6 +1822,7 @@ $translations = [
     'pt242' => 'Eigene ausblenden',
     'pt243' => 'Abgeschlossene ausblenden',
     'pt244' => 'vom OC-Team gesperrt',
+    'pt245' => 'Started GeoPaths',
 
     'gp_candidateIntroUser' => 'Benutzer',
     'gp_candidateIntro' => 'hat vorgeschlagen, deinen tollen Geocache hinzuzufügen',
@@ -2425,7 +2426,7 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'news_removePicSuccess' => 'Bild entfernt',
     'news_actionInProgress' => 'Entfernen läuft',
     'news_removePic' => 'Bild entfernen',
-	'news_read_more' => 'Read more...',
+    'news_read_more' => 'Read more...',
 
     'SearchByPlace_01' => 'Gefundene Orte',
     'SearchByPlace_02' => 'Es wurden mehrere passende Orte gefunden. Bitte wähle einen aus der Liste',
