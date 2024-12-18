@@ -754,17 +754,9 @@ class PowerTrail extends BaseObject
         $loggedUser = ApplicationContainer::GetAuthorizedUser();
         $currentUserId = $loggedUser->getUserId();
 
-        if ($loggedUser->hasSysAdminRole()) {
+        if ($loggedUser->hasSysAdminRole() || ($profileUser === $currentUserId)) {
             return true;
         }
-        if ($loggedUser->hasOcTeamRole() && $profileUser === $currentUserId) {
-            return true;
-        }
-        /*
-        if ($profileUser === $currentUserId) {
-            return true;
-        }
-        */
 
         return false;
     }
