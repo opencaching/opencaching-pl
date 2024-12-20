@@ -215,6 +215,10 @@ class PowerTrail extends BaseObject
         return $this->name;
     }
 
+    public function getShortName($maxLength = 24) {
+        return $this->truncateWords($this->name, $maxLength);
+    }
+
     public function getImage()
     {
         return $this->image;
@@ -739,9 +743,9 @@ class PowerTrail extends BaseObject
         $perccentRequired = $powerTrail->getPerccentRequired();
         if ($powerTrail->getCacheCount() != 0) {
             $perccent = round(count($cachesFoundByUser) * 100 / $powerTrail->getCacheCount());
-            $stats2display = $perccent>=$perccentRequired ? '<span style="color: #00aa00">'.$perccent.'%</span>' : $perccent.'%';
+            $stats2display = $perccent>=$perccentRequired ? '<b class="percent"><span style="color: #00aa00">'.$perccent.'%</span></b>' : '<b class="percent">' .$perccent.'%</b>';
         } else {
-            $stats2display = 0 . '%';
+            $stats2display = '<b class="percent">' . 0 . '%</b>';
         }
         $stats2display .= '<br>(<span style="color: #00aa00"><b>' . count($cachesFoundByUser) . '</b></span> ' . tr('pt016') . ' <span style="color: #0000aa"><b>' . $powerTrail->getCacheCount() . '</b></span>)';
         $stats2display .= "<br><span title='".tr('pt054')."'>".$perccentRequired.'%</span>';
@@ -759,6 +763,28 @@ class PowerTrail extends BaseObject
         }
 
         return false;
+    }
+
+    public function truncateWords($text, $maxLength, $suffix = '...') {
+        if (mb_strlen($text) <= $maxLength) {
+            return $text;
+        }
+
+        $trimmedLength = $maxLength - mb_strlen($suffix);
+        if ($trimmedLength <= 0) {
+            return '';
+        }
+
+        $words = preg_split('/\s+/', $text);
+        $result = '';
+        foreach ($words as $word) {
+            if (mb_strlen($result . ' ' . $word) > $trimmedLength) {
+                break;
+            }
+            $result .= ($result ? ' ' : '') . $word;
+        }
+
+        return $result . $suffix;
     }
 
 }

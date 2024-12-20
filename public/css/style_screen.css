@@ -1191,17 +1191,6 @@ td.myr{
     font-weight:bold;
     line-height:1.4em;}
 
-/*power trails (geoPaths) medals (viewprofile)*/
-.ptMedal {
-    float: left;
-    display:compact;
-    width: 70px;
-    height: 70px;
-    padding: 5px;
-    border-radius: 50px 50px;
-    -moz-border-radius: 50px;
-    -webkit-border-radius: 50px;
-}
 /*(viewprofile)*/
 .user-profile {
     font-size: 115%;
@@ -1226,19 +1215,67 @@ td.myr{
     flex-grow: 4;
     max-width: 450px;
 }
-.ptMedal2{
-  height: 105px;
-}
 
-.imgPtMedal{
-    max-height: 50px;
-    max-width: 50px;
+/*power trails (geoPaths) medals (viewprofile)*/
+.ptIcons{
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  height: auto;
+  float: none;
+  width: 100%;
+  gap: 10px 6px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  padding: 0 2px;
 }
-.ptMedalSpacer {
-    width: 3px;
-    height: 60px;
-    float: left;
-    display:compact;
+.ptMedal {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  width: 71px;
+  height: fit-content;
+}
+.ptMedal-header {
+  position: relative;
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 5px;
+}
+.ptMedal-type {
+  position: absolute;
+  top: 0;
+  right: 12px;
+  padding: 6px;
+  transform: translate(50%, -50%);
+}
+.ptMedal-img{
+  max-height: 50px;
+  max-width: 50px;
+}
+.ptMedal-name {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 5px;
+  height: 3em;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  overflow: hidden;
+}
+.ptMedal-name a{
+  text-decoration: none;
+}
+.ptMedal-stats {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+.ptMedal-stats .percent{
+  color: black;
 }
 
 .contact_info h2 {
