@@ -994,36 +994,48 @@ function buildPowerTrailIcons(ArrayObject $powerTrails, bool $withStats = false,
     $allowedPtStatus = [
         PowerTrail::STATUS_OPEN, PowerTrail::STATUS_INSERVICE, PowerTrail::STATUS_CLOSED,
     ];
-    $result = '<table width="100%" class="ptIcons"><tr><td>';
+    $result = '<div class="ptIcons">';
     // @var $powertrail PowerTrail
     foreach ($powerTrails as $powertrail) {
         if (in_array($powertrail->getStatus(), $allowedPtStatus)) {
+            $ptTypes = powerTrailBase::getPowerTrailTypes();
+            $ptType = $powertrail->getType();
             if (!$withStats) {
-                $result .= '<div class="ptMedal"><table style="padding-top: 7px;" align="center" height="51" width="51"><tr><td width=52 height=52 valign="center" align="center"><a title="' . $powertrail->getName() . '" href="powerTrail.php?ptAction=showSerie&ptrail=' . $powertrail->getId() . '"><img class="imgPtMedal" src="' . $powertrail->getImage() . '" alt=""></a></td></tr><tr><td align="center"><img src="' . $powertrail->getFootIcon() . '" alt=""></td></tr></table></div><div class="ptMedalSpacer"></div>';
+                $result .= ' <div class="ptMedal">
+                    <div class="ptMedal-header">
+                        <a title="' . $powertrail->getName() . '" href="powerTrail.php?ptAction=showSerie&ptrail=' . $powertrail->getId() . '">
+                            <img class="ptMedal-img" src="' . $powertrail->getImage() . '" alt="">
+                        </a>
+                        <img src="' . $powertrail->getFootIcon() . '" alt="' . tr($ptTypes[$ptType]['translate']) . '" title="' . tr($ptTypes[$ptType]['translate']) . '" class="ptMedal-type">
+                    </div>
+                    <div class="ptMedal-name" title="' . $powertrail->getName() . '">
+                        <a title="' . $powertrail->getName() . '" href="powerTrail.php?ptAction=showSerie&ptrail=' . $powertrail->getId() . '">
+                            ' . $powertrail->getShortName() . '
+                        </a>
+                    </div>
+                </div>';
             } else {
-                $result .= '<div class="ptMedal ptMedal2">
-                    <table style="padding-top: 7px;" align="center" height="51" width="100%">
-                        <tr>
-                            <td width=52 height=52 valign="center" align="center">
-                                <a title="' . $powertrail->getName() . '"
-                                   href="powerTrail.php?ptAction=showSerie&ptrail=' . $powertrail->getId() . '">
-                                    <img class="imgPtMedal" src="' . $powertrail->getImage() . '" alt="">
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="margin-left: auto; margin-right: auto; text-align: center;">
-                                <img src="' . $powertrail->getFootIcon() . '" alt="">&nbsp;' . $powertrail->displaySimplePowerTrailserStats($powertrail, $powertrail->getFoundCachsByUser($userID)) . '
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="ptMedalSpacer"></div>';
+                $result .= ' <div class="ptMedal">
+                    <div class="ptMedal-header">
+                        <a title="' . $powertrail->getName() . '" href="powerTrail.php?ptAction=showSerie&ptrail=' . $powertrail->getId() . '">
+                            <img class="ptMedal-img" src="' . $powertrail->getImage() . '" alt="">
+                        </a>
+                        <img src="' . $powertrail->getFootIcon() . '" alt="' . tr($ptTypes[$ptType]['translate']) . '" title="' . tr($ptTypes[$ptType]['translate']) . '" class="ptMedal-type">
+                    </div>
+                    <div class="ptMedal-name" title="' . $powertrail->getName() . '">
+                        <a title="' . $powertrail->getName() . '" href="powerTrail.php?ptAction=showSerie&ptrail=' . $powertrail->getId() . '">
+                            ' . $powertrail->getShortName() . '
+                        </a>
+                    </div>
+                    <div class="ptMedal-stats">
+                        ' . $powertrail->displaySimplePowerTrailserStats($powertrail, $powertrail->getFoundCachsByUser($userID)) . '
+                    </div>
+                </div>';
             }
         }
     }
 
-    return $result . '</td></tr></table><br><br>';
+    return $result .= '</div>';
 }
 
 function buildGeocacheHtml(GeoCache $geocache, $html)
