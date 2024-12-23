@@ -135,6 +135,9 @@ div#viewcache-description>sup {
 div#viewcache-description * {
 	margin: 0px 0px 0.5em 0px;
 }
+div#viewcache-description object[type="image/svg+xml"] {
+  max-width: 100%;
+}
 
 div#viewcache-utility                   { font-size: 12px; }
 div.viewcache-pictureblock              { display: inline-block; }
