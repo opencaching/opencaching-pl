@@ -748,7 +748,7 @@ class PowerTrail extends BaseObject
             $stats2display = '<b class="percent">' . 0 . '%</b>';
         }
         $stats2display .= '<br>(<span style="color: #00aa00"><b>' . count($cachesFoundByUser) . '</b></span> ' . tr('pt016') . ' <span style="color: #0000aa"><b>' . $powerTrail->getCacheCount() . '</b></span>)';
-        $stats2display .= "<br><span title='".tr('pt054')."'>".$perccentRequired.'%</span>';
+        $stats2display .= "<br><span title='".tr('pt054')."'>".$perccentRequired.'% ('.ceil(($perccentRequired / 100) * $powerTrail->getCacheCount()).')</span>';
 
         return $stats2display;
     }

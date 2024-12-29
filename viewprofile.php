@@ -11,6 +11,7 @@ use src\Models\OcConfig\OcConfig;
 use src\Models\PowerTrail\PowerTrail;
 use src\Models\User\User;
 use src\Models\User\UserStats;
+use src\Utils\Cache\OcMemCache;
 use src\Utils\Database\OcDb;
 use src\Utils\Database\XDb;
 use src\Utils\DateTime\Year;
@@ -254,7 +255,14 @@ if (OcConfig::areGeopathsSupported()) {
 
     if ($checkGeoPaths) {
         //geoPaths medals
-        $content .= buildPowerTrailIcons(UserStats::getGeoPathsCompleted($user->getUserId()));
+        $key = 'buildPowerTrailIconsUserStats:getGeoPathsCompleted' . $user->getUserId();
+        $completedGeoPaths = OcMemCache::get($key);
+        if ($completedGeoPaths === false) {
+            $completedGeoPaths = buildPowerTrailIcons(UserStats::getGeoPathsCompleted($user->getUserId()));
+            OcMemCache::store($key, 60, $completedGeoPaths);
+        }
+        $content .= $completedGeoPaths;
+
         $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('pt140') . '</span>:&nbsp;<strong>' . powerTrailBase::getUserPoints($user_id) . '</strong> (' . tr('pt093') . ' ' . powerTrailBase::getPoweTrailCompletedCountByUser($user_id) . ')</p>';
         $pointsEarnedForPlacedCaches = powerTrailBase::getOwnerPoints($user_id);
 
@@ -262,6 +270,7 @@ if (OcConfig::areGeopathsSupported()) {
         $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('pt224') . '</span>:&nbsp;<strong>' . $pointsEarnedForPlacedCaches['totalPoints'] . '</strong></p>';
     }
 }
+StopWatch::click(__LINE__);
 
 if (OcConfig::areGeopathsSupported()) {
 
@@ -270,8 +279,14 @@ if (OcConfig::areGeopathsSupported()) {
         $content .= buildOpenCloseButton($user_id, $checkStartedGeoPaths, "powerTrailGenericLogo.png", "checkStartedGeoPaths", tr('pt245'), "geoPaths");
 
         if ($checkStartedGeoPaths) {
-            $content .= buildPowerTrailIcons(UserStats::getGeoPathsStarted($user_id), true, $user_id);
+            $key = 'buildPowerTrailIconsUserStats:getGeoPathsStarted' . $user_id;
+            $startedGeoPaths = OcMemCache::get($key);
+            if ($startedGeoPaths === false) {
+                $startedGeoPaths = buildPowerTrailIcons(UserStats::getGeoPathsStarted($user_id), true, $user_id);
+                OcMemCache::store($key, 60, $startedGeoPaths);
+            }
 
+            $content .= $startedGeoPaths;
         }
     }
 }
@@ -991,6 +1006,7 @@ $view->buildView();
  */
 function buildPowerTrailIcons(ArrayObject $powerTrails, bool $withStats = false, int $userID = 0): string
 {
+    $ptTypes = powerTrailBase::getPowerTrailTypes();
     $allowedPtStatus = [
         PowerTrail::STATUS_OPEN, PowerTrail::STATUS_INSERVICE, PowerTrail::STATUS_CLOSED,
     ];
@@ -998,7 +1014,6 @@ function buildPowerTrailIcons(ArrayObject $powerTrails, bool $withStats = false,
     // @var $powertrail PowerTrail
     foreach ($powerTrails as $powertrail) {
         if (in_array($powertrail->getStatus(), $allowedPtStatus)) {
-            $ptTypes = powerTrailBase::getPowerTrailTypes();
             $ptType = $powertrail->getType();
             if (!$withStats) {
                 $result .= ' <div class="ptMedal">
