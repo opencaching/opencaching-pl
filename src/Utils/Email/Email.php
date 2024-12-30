@@ -61,9 +61,9 @@ class Email
                 " From: %s" .
                 " To validation: %s" .
                 " From validation: %s",
-                $this->toAddr,
+                print_r($this->toAddr, true),
                 $to ?: '(empty)',
-                $this->fromAddr ?: '(empty)',
+                print_r($this->fromAddr, true),
                 self::isValidEmailAddr($this->toAddr) ? 'valid' : 'invalid',
                 self::isValidEmailAddr($this->fromAddr) ? 'valid' : 'invalid'
             );
