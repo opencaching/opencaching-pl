@@ -2519,6 +2519,7 @@ $translations = [
     'LogPassword' => 'Wachtwoord nodig om te loggen!',
     'abovesealevel' => 'meter NAP',
     'cache_alt' => 'Hoogte',
+    'waypoint_error1' => 'Insufficient search criteria',
     'waypoint_error2' => 'Waypoints kunnen in de volgende formaten gezocht worden: ' . $GLOBALS['oc_waypoint'] . 'xxxx, GCxxxxx, Nxxxxx',
     'pagetitle_print' => 'Cachebeschrijving',
     'natura2000' => 'NATURA 2000 gebied',

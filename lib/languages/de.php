@@ -2520,6 +2520,7 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'LogPassword' => 'Zum Loggen wird ein Passwort benötigt!',
     'abovesealevel' => 'm ü. NHN',
     'cache_alt' => 'Höhe',
+    'waypoint_error1' => 'Insufficient search criteria',
     'waypoint_error2' => 'Der Wegpunktcode muss eines der folgenden Formate haben: ' . $GLOBALS['oc_waypoint'] . 'xxxx, GCxxxxx, Nxxxxx',
     'pagetitle_print' => 'Druckansicht',
     'natura2000' => 'NATURA 2000 (Naturschutzgebiet)',

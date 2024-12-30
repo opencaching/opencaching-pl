@@ -2519,6 +2519,7 @@ $translations = [
     'LogPassword' => 'Potrzebne hasło do logu!',
     'abovesealevel' => 'm n.p.m.',
     'cache_alt' => 'Wysokość',
+    'waypoint_error1' => 'Insufficient search criteria',
     'waypoint_error2' => 'Waypoint musi być w jednym z podanych formatów: ' . $GLOBALS['oc_waypoint'] . 'xxxx, GCxxxxx, Nxxxxx',
     'pagetitle_print' => 'drukowanie',
     'natura2000' => 'NATURA 2000 obszar',

@@ -2519,6 +2519,7 @@ $translations = [
     'LogPassword' => 'Pro vložení záznamu je třeba zadat heslo!',
     'abovesealevel' => 'm.n.m.',
     'cache_alt' => 'Nadmořská výška',
+    'waypoint_error1' => 'Insufficient search criteria',
     'waypoint_error2' => 'Waypoint must be in one of the following formats: ' . $GLOBALS['oc_waypoint'] . 'xxxx, GCxxxxx, Nxxxxx',
     'pagetitle_print' => 'Printing',
     'natura2000' => 'NATURA 2000 (Nature Protected Area)',
