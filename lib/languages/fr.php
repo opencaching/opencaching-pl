@@ -2519,6 +2519,7 @@ $translations = [
     'LogPassword' => 'Vous devez entrer le mot de passe pour enregistrer votre visite !',
     'abovesealevel' => 'sous le niveau de la mer',
     'cache_alt' => 'Altitude',
+    'waypoint_error1' => 'Insufficient search criteria',
     'waypoint_error2' => 'Le waypoint doit etre dans l’un des formats suivants : ' . $GLOBALS['oc_waypoint'] . 'xxxx, GCxxxxx, Nxxxxx',
     'pagetitle_print' => 'Impression en cours',
     'natura2000' => 'NATURA 2000 (Zone de nature Protégée)',
