@@ -274,7 +274,11 @@ class UserAuthorizationController extends BaseController
     {
         if (UserAuthorization::isAuthCookiePresent()) {
             // cookie OK, redirect to target...
-            $this->view->redirect(urldecode($this->getRedirectTarget()));
+            $redirectTarget = $this->getRedirectTarget();
+            if (strpos($redirectTarget, 'target') === false) {
+                $redirectTarget = urldecode($redirectTarget);
+            }
+            $this->view->redirect($redirectTarget);
 
             exit();
         }
