@@ -4,6 +4,7 @@ namespace src\Models\User;
 use src\Models\BaseObject;
 use src\Models\PowerTrail\PowerTrail;
 use src\Models\GeoCache\GeoCacheLog;
+use src\Utils\Cache\OcMemCache;
 
 class UserStats extends BaseObject
 {
@@ -50,6 +51,11 @@ class UserStats extends BaseObject
      */
     public static function getGeoPathsStarted($userId)
     {
+        OcMemCache::getOrCreate('UserStats:getGeoPathsStarted'.$userId, 31 * 24 * 60 * 60, function() use ($userId) {
+            UserStats::updateProgressWithFoundCaches($userId);
+            return true;
+        });
+
         $geoPathsStarted = new \ArrayObject();
         $query = '
         SELECT 
@@ -82,6 +88,73 @@ class UserStats extends BaseObject
 
         return $geoPathsStarted;
     }
+
+    private static function getGeoPathsFoundCaches($userId)
+    {
+        $geoPathsFoundCaches = new \ArrayObject();
+
+        $query = '
+        SELECT 
+            pt.id AS powerTrailId,
+            COUNT(DISTINCT ptc.cacheId) AS foundCaches
+        FROM 
+            PowerTrail pt
+        JOIN 
+            powerTrail_caches ptc ON pt.id = ptc.PowerTrailId
+        JOIN 
+            cache_logs cl ON ptc.cacheId = cl.cache_id
+        WHERE 
+            pt.status = 1
+            AND pt.id NOT IN (
+                SELECT PowerTrailId
+                FROM PowerTrail_comments
+                WHERE commentType = 2
+                  AND userId = :1
+            )
+            AND cl.user_id = :1
+            AND cl.type = 1
+        GROUP BY 
+            pt.id
+        ORDER BY 
+            foundCaches DESC';
+
+        $stmt = self::db()->multiVariableQuery($query, array($userId));
+        $geoPathsFoundCaches = self::db()->dbResultFetchAll($stmt);
+
+        return $geoPathsFoundCaches;
+    }
+
+    public static function updateProgressWithFoundCaches($userId)
+    {
+        $geoPathsFoundCaches = self::getGeoPathsFoundCaches($userId);
+
+        foreach ($geoPathsFoundCaches as $geoPath) {
+            $powerTrailId = $geoPath['powerTrailId'];
+            $foundCaches = $geoPath['foundCaches'];
+
+            $queryCheck = '
+            SELECT 1
+            FROM powertrail_progress
+            WHERE user_id = :1 AND pt_id = :2';
+
+            $stmtCheck = self::db()->multiVariableQuery($queryCheck, array($userId, $powerTrailId));
+            $exists = self::db()->dbResultFetchOneRowOnly($stmtCheck);
+
+            if ($exists) {
+                $queryUpdate = '
+                UPDATE powertrail_progress
+                SET founds = :3
+                WHERE user_id = :1 AND pt_id = :2';
+                self::db()->multiVariableQuery($queryUpdate, array($userId, $powerTrailId, $foundCaches));
+            } else {
+                $queryInsert = '
+                INSERT INTO powertrail_progress (user_id, pt_id, founds)
+                VALUES (:1, :2, :3)';
+                self::db()->multiVariableQuery($queryInsert, array($userId, $powerTrailId, $foundCaches));
+            }
+        }
+    }
+
 
 
     /**
