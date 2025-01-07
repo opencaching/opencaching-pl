@@ -49,6 +49,7 @@ function get_okapi_settings()
         'DB_NAME' => OcConfig::instance()->getDbName(),   //$dbname,
         'DB_USERNAME' => OcConfig::instance()->getDbUser(), //$dbusername,
         'DB_PASSWORD' => OcConfig::instance()->getDbPass(), //$dbpasswd,
+        'DB_CHARSET' => OcConfig::instance()->getDbCharset(), //$dbcharset,
         'SITELANG' => OcConfig::getI18nDefaultLang(),
         'SITE_URL' => isset($OKAPI_server_URI) ? $OKAPI_server_URI : $absolute_server_URI,
         'VAR_DIR' => OcConfig::getDynFilesPath(TRUE),
