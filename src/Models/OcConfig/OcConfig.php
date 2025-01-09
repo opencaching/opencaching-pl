@@ -61,6 +61,8 @@ final class OcConfig extends ConfigReader
 
     private string $dbPass;
 
+    private string $dbCharset;
+
     private string $dbAdminUser;
 
     private string $dbAdminPass;
@@ -139,6 +141,7 @@ final class OcConfig extends ConfigReader
         $this->dbName = $dbname;
         $this->dbUser = $dbusername;
         $this->dbPass = $dbpasswd;
+        $this->dbCharset = $dbcharset ?? 'utf8';
 
         $this->dbAdminUser = $opt['db']['admin_username'] ?? $this->dbUser;
         $this->dbAdminPass = $opt['db']['admin_password'] ?? $this->dbPass;
@@ -236,6 +239,11 @@ final class OcConfig extends ConfigReader
     public function getDbName(): string
     {
         return $this->dbName;
+    }
+
+    public function getDbCharset(): string
+    {
+        return $this->dbCharset;
     }
 
     public static function getHeaderLogo(): string

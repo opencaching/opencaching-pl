@@ -32,7 +32,7 @@ class OcPdo extends PDO
         $dsnarr = array(
             'host' => $conf->getDbHost(),
             'dbname' => $this->dbName,
-            'charset' => 'utf8'
+            'charset' => $conf->getDbCharset()
         );
 
         $options = array(
