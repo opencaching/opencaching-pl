@@ -2519,6 +2519,7 @@ $translations = [
     'LogPassword' => 'Trebuie să introduci parola pentru a scrie această însemnare!',
     'abovesealevel' => 'm',
     'cache_alt' => 'Altitudine',
+    'waypoint_error1' => 'Insufficient search criteria',
     'waypoint_error2' => 'Punctul trebuie să fie dat într-unul din următoarele formate: ' . $GLOBALS['oc_waypoint'] . 'xxxx, GCxxxxx, Nxxxxx',
     'pagetitle_print' => 'Tipărire',
     'natura2000' => 'NATURA 2000 (Rezervaţie Naturală)',

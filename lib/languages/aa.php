@@ -2519,6 +2519,7 @@ $translations = [
     'LogPassword' => 'crwdns8102:0crwdne8102:0',
     'abovesealevel' => 'crwdns8103:0crwdne8103:0',
     'cache_alt' => 'crwdns8104:0crwdne8104:0',
+    'waypoint_error1' => 'crwdns33964:0crwdne33964:0',
     'waypoint_error2' => 'crwdns8106:0crwdne8106:0' . $GLOBALS['oc_waypoint'] . 'crwdns8107:0crwdne8107:0',
     'pagetitle_print' => 'crwdns8108:0crwdne8108:0',
     'natura2000' => 'crwdns8109:0crwdne8109:0',
