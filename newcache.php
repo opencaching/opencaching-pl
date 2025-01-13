@@ -497,9 +497,12 @@ if (isset($_POST['submitform'])) {
             $lat_h_not_ok = true;
         }
 
+        $latitude = 0;
+
         if (is_numeric($lat_min)) {
             if (($lat_min >= 0) && ($lat_min < 60)) {
                 $lat_min_not_ok = false;
+                $latitude = $lat_h + round($lat_min, 3) / 60;
             } else {
                 tpl_set_var('lat_message', $error_coords_not_ok);
                 $lat_min_not_ok = true;
@@ -508,8 +511,6 @@ if (isset($_POST['submitform'])) {
             tpl_set_var('lat_message', $error_coords_not_ok);
             $lat_min_not_ok = true;
         }
-
-        $latitude = $lat_h + round($lat_min, 3) / 60;
 
         if ($latNS == 'S') {
             $latitude = -$latitude;
@@ -536,9 +537,12 @@ if (isset($_POST['submitform'])) {
             $lon_h_not_ok = true;
         }
 
+        $longitude = 0;
+
         if (is_numeric($lon_min)) {
             if (($lon_min >= 0) && ($lon_min < 60)) {
                 $lon_min_not_ok = false;
+                $longitude = $lon_h + round($lon_min, 3) / 60;
             } else {
                 tpl_set_var('lon_message', $error_coords_not_ok);
                 $lon_min_not_ok = true;
@@ -547,8 +551,6 @@ if (isset($_POST['submitform'])) {
             tpl_set_var('lon_message', $error_coords_not_ok);
             $lon_min_not_ok = true;
         }
-
-        $longitude = $lon_h + round($lon_min, 3) / 60;
 
         if ($lonEW == 'W') {
             $longitude = -$longitude;
