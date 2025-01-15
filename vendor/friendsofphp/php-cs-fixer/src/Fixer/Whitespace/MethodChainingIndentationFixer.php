@@ -20,7 +20,6 @@ use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Preg;
-use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 
@@ -29,9 +28,6 @@ use PhpCsFixer\Tokenizer\Tokens;
  */
 final class MethodChainingIndentationFixer extends AbstractFixer implements WhitespacesAwareFixerInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
@@ -43,25 +39,18 @@ final class MethodChainingIndentationFixer extends AbstractFixer implements Whit
     /**
      * {@inheritdoc}
      *
-     * Must run before ArrayIndentationFixer, MethodArgumentSpaceFixer.
-     * Must run after BracesFixer.
+     * Must run after NoSpaceAroundDoubleColonFixer.
      */
     public function getPriority(): int
     {
-        return 34;
+        return 0;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
         return $tokens->isAnyTokenKindsFound(Token::getObjectOperatorKinds());
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         $lineEnding = $this->whitespacesConfig->getLineEnding();
@@ -71,24 +60,58 @@ final class MethodChainingIndentationFixer extends AbstractFixer implements Whit
                 continue;
             }
 
+            $endParenthesisIndex = $tokens->getNextTokenOfKind($index, ['(', ';', ',', [T_CLOSE_TAG]]);
+
+            if (null === $endParenthesisIndex || !$tokens[$endParenthesisIndex]->equals('(')) {
+                continue;
+            }
+
             if ($this->canBeMovedToNextLine($index, $tokens)) {
                 $newline = new Token([T_WHITESPACE, $lineEnding]);
+
                 if ($tokens[$index - 1]->isWhitespace()) {
                     $tokens[$index - 1] = $newline;
                 } else {
                     $tokens->insertAt($index, $newline);
                     ++$index;
+                    ++$endParenthesisIndex;
                 }
             }
 
             $currentIndent = $this->getIndentAt($tokens, $index - 1);
+
             if (null === $currentIndent) {
                 continue;
             }
 
             $expectedIndent = $this->getExpectedIndentAt($tokens, $index);
+
             if ($currentIndent !== $expectedIndent) {
                 $tokens[$index - 1] = new Token([T_WHITESPACE, $lineEnding.$expectedIndent]);
+            }
+
+            $endParenthesisIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $endParenthesisIndex);
+
+            for ($searchIndex = $index + 1; $searchIndex < $endParenthesisIndex; ++$searchIndex) {
+                $searchToken = $tokens[$searchIndex];
+
+                if (!$searchToken->isWhitespace()) {
+                    continue;
+                }
+
+                $content = $searchToken->getContent();
+
+                if (!Preg::match('/\R/', $content)) {
+                    continue;
+                }
+
+                $content = Preg::replace(
+                    '/(\R)'.$currentIndent.'(\h*)$/D',
+                    '$1'.$expectedIndent.'$2',
+                    $content
+                );
+
+                $tokens[$searchIndex] = new Token([$searchToken->getId(), $content]);
             }
         }
     }
@@ -136,7 +159,7 @@ final class MethodChainingIndentationFixer extends AbstractFixer implements Whit
                 continue;
             }
 
-            if ($tokens[$i]->isWhitespace() && 1 === Preg::match('/\R/', $tokens[$i]->getContent())) {
+            if ($tokens[$i]->isWhitespace() && Preg::match('/\R/', $tokens[$i]->getContent())) {
                 return $hasCommentBefore;
             }
         }
@@ -149,7 +172,7 @@ final class MethodChainingIndentationFixer extends AbstractFixer implements Whit
      */
     private function getIndentAt(Tokens $tokens, int $index): ?string
     {
-        if (1 === Preg::match('/\R{1}(\h*)$/', $this->getIndentContentAt($tokens, $index), $matches)) {
+        if (Preg::match('/\R{1}(\h*)$/', $this->getIndentContentAt($tokens, $index), $matches)) {
             return $matches[1];
         }
 
@@ -181,17 +204,18 @@ final class MethodChainingIndentationFixer extends AbstractFixer implements Whit
      */
     private function currentLineRequiresExtraIndentLevel(Tokens $tokens, int $start, int $end): bool
     {
-        if ($tokens[$start + 1]->isObjectOperator()) {
-            return false;
-        }
+        $firstMeaningful = $tokens->getNextMeaningfulToken($start);
 
-        if ($tokens[$end]->isGivenKind(CT::T_BRACE_CLASS_INSTANTIATION_CLOSE)) {
-            return true;
+        if ($tokens[$firstMeaningful]->isObjectOperator()) {
+            $thirdMeaningful = $tokens->getNextMeaningfulToken($tokens->getNextMeaningfulToken($firstMeaningful));
+
+            return
+                $tokens[$thirdMeaningful]->equals('(')
+                && $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $thirdMeaningful) > $end;
         }
 
         return
             !$tokens[$end]->equals(')')
-            || $tokens->findBlockStart(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $end) >= $start
-        ;
+            || $tokens->findBlockStart(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $end) >= $start;
     }
 }

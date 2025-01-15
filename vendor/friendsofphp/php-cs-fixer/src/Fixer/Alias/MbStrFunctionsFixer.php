@@ -28,7 +28,15 @@ use PhpCsFixer\Tokenizer\Tokens;
 final class MbStrFunctionsFixer extends AbstractFunctionReferenceFixer
 {
     /**
-     * @var array the list of the string-related function names and their mb_ equivalent
+     * list of the string-related function names and their mb_ equivalent.
+     *
+     * @var array<
+     *     string,
+     *     array{
+     *         alternativeName: string,
+     *         argumentCount: list<int>,
+     *     },
+     * >
      */
     private static array $functionsMap = [
         'str_split' => ['alternativeName' => 'mb_str_split', 'argumentCount' => [1, 2, 3]],
@@ -47,25 +55,36 @@ final class MbStrFunctionsFixer extends AbstractFunctionReferenceFixer
     ];
 
     /**
-     * @var array<string, array>
+     * @var array<
+     *     string,
+     *     array{
+     *         alternativeName: string,
+     *         argumentCount: list<int>,
+     *     },
+     * >
      */
-    private $functions;
+    private array $functions;
 
     public function __construct()
     {
         parent::__construct();
 
+        if (\PHP_VERSION_ID >= 8_03_00) {
+            self::$functionsMap['str_pad'] = ['alternativeName' => 'mb_str_pad', 'argumentCount' => [1, 2, 3, 4]];
+        }
+
+        if (\PHP_VERSION_ID >= 8_04_00) {
+            self::$functionsMap['trim'] = ['alternativeName' => 'mb_trim', 'argumentCount' => [1, 2]];
+            self::$functionsMap['ltrim'] = ['alternativeName' => 'mb_ltrim', 'argumentCount' => [1, 2]];
+            self::$functionsMap['rtrim'] = ['alternativeName' => 'mb_rtrim', 'argumentCount' => [1, 2]];
+        }
+
         $this->functions = array_filter(
             self::$functionsMap,
-            static function (array $mapping): bool {
-                return (new \ReflectionFunction($mapping['alternativeName']))->isInternal();
-            }
+            static fn (array $mapping): bool => (new \ReflectionFunction($mapping['alternativeName']))->isInternal()
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
@@ -93,9 +112,6 @@ $a = substr_count($a, $b);
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         $argumentsAnalyzer = new ArgumentsAnalyzer();

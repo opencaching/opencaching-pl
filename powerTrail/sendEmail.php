@@ -71,7 +71,7 @@ class sendEmail
             $username = 'SYSTEM';
         }
 
-        $mailbody = mb_ereg_replace('{oclogo}', OcConfig::getHeaderLogo(), $mailbody);
+        $mailbody = mb_ereg_replace('{oclogo}', OcConfig::getEmailHeaderLogo(), $mailbody);
         $mailbody = mb_ereg_replace('{mail_auto_generated}', tr('mail_auto_generated'), $mailbody);
         $mailbody = mb_ereg_replace('{commentDateTime}', date($siteDateTimeFormat, strtotime($commentDateTime)), $mailbody);
         $mailbody = mb_ereg_replace('{userId}', $userId, $mailbody);

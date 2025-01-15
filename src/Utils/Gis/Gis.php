@@ -154,7 +154,7 @@ class Gis
     public static function calcBearing($lat1, $lon1, $lat2, $lon2){
 
         if ($lat1 == $lat2 && $lon1 == $lon2) {
-            return '-';
+            return null;
         }
 
         if ($lat1 == $lat2)

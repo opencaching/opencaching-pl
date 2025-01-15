@@ -1,6 +1,11 @@
 //  !! Before generating the .css, make sure there are no changes to the .css file. !!
 //  !! Transfer changes from the css file to sass. !!
 
+.c-flex
+  @include c-flex
+.space-between
+  @include space-between
+
 html.responsive-enabled
   .discreet-advertising
     @include max-970px
@@ -85,7 +90,11 @@ html.responsive-enabled
         text-align: center
       .title,
       a
-        font-size: 2em
+        font-size: 1.5em
+      li.group a
+        padding: 3px 7px
+        border-left: unset
+
 
   .content2-container,
   .content2-container-1col,
@@ -96,10 +105,19 @@ html.responsive-enabled
     width: 100%
     max-width: 769px
 
+  .content2-container
+    p
+      img
+        @include max-970px
+          max-width: 100%
+          height: auto
+
   .templateContainer
-    width: calc(100% - 160px)
+    width: calc(100% - 200px)
     max-width: 790px
     @include mobile
+      width: 100%
+    > form
       width: 100%
 
   @include max-970px
@@ -122,20 +140,20 @@ html.responsive-enabled
       padding: 0 15px
       box-sizing: border-box
 
-    .totalStatsSlider
-      .totalStatsFrame
-        width: 79px !important
-        padding: 5px
-
-      .slick-track
-        width: 4000px !important
-
-    .slick-slide
-      height: auto
-      line-height: 1.5 !important
-
-    .slick-list.draggable
-      @include translate(0, 25%)
+    //.totalStatsSlider
+    //  margin-left: 0
+    //  margin-right: 0
+    //
+    //  .totalStatsFrame
+    //    width: calc((100vh - 30px) / 4) !important
+    //    padding: 5px
+    //
+    //  .slick-track
+    //    //width: 4000px !important
+    //
+    //.slick-slide
+    //  height: auto
+    //  line-height: 1.5 !important
 
   .nbh-half
     @include mobile
@@ -152,6 +170,11 @@ html.responsive-enabled
       .ptType
         img+span
           display: none
+
+  .ptCacheTable
+    @include mobile
+      width: 100%
+
 
   #cache-name-block
     max-width: calc(100% - 70px)
@@ -191,6 +214,10 @@ html.responsive-enabled
   #links-to-ext-maps
     @include mobile
       text-align: left
+
+  #top-links-to-ext-maps
+    @include mobile
+      display: block
 
   div#viewcache-description img
     @include mobile
@@ -261,7 +288,9 @@ html.responsive-enabled
     @include mobile
       font-size: 1.6em
 
-  #logform
+  #logform,
+  #cacheeditform,
+  form#editlog
     @include max-970px
       width: 100%
 
@@ -278,9 +307,11 @@ html.responsive-enabled
       box-sizing: border-box
 
   #geoPath
-    float: left
-    width: auto
-    max-width: 100%
+    @include max-970px
+      float: left
+      width: auto
+      min-width: 30%
+      max-width: 100%
 
 
   @include mobile
@@ -313,6 +344,11 @@ html.responsive-enabled
     table
       display: block
       overflow-x: scroll
+  .box-blue
+    width: calc(100% - 20px)
+    max-width: 750px
+    box-sizing: border-box
+
   @include mobile
     .logformTable
       [src*='date_next.png']
@@ -322,3 +358,13 @@ html.responsive-enabled
   @include max-970px
     .notice
       box-sizing: border-box
+
+  .mapFilterContainer
+    @include mobile
+      width: 100%
+      min-width: unset
+      .mapFiltersControls
+        flex-wrap: wrap
+        justify-content: flex-start
+      .col
+        width: 50%

@@ -28,47 +28,38 @@ use PhpCsFixer\Tokenizer\Tokens;
  */
 final class ConstructorPromotionTransformer extends AbstractTransformer
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getRequiredPhpVersionId(): int
     {
-        return 80000;
+        return 8_00_00;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function process(Tokens $tokens, Token $token, int $index): void
     {
         if (!$tokens[$index]->isGivenKind(T_FUNCTION)) {
             return;
         }
 
-        $index = $tokens->getNextMeaningfulToken($index);
+        $functionNameIndex = $tokens->getNextMeaningfulToken($index);
 
-        if (!$tokens[$index]->isGivenKind(T_STRING) || '__construct' !== strtolower($tokens[$index]->getContent())) {
+        if (!$tokens[$functionNameIndex]->isGivenKind(T_STRING) || '__construct' !== strtolower($tokens[$functionNameIndex]->getContent())) {
             return;
         }
 
-        /** @var int $openIndex */
-        $openIndex = $tokens->getNextMeaningfulToken($index); // we are @ '(' now
-        $closeIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openIndex);
+        /** @var int $openParenthesisIndex */
+        $openParenthesisIndex = $tokens->getNextMeaningfulToken($functionNameIndex); // we are @ '(' now
+        $closeParenthesisIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openParenthesisIndex);
 
-        for ($index = $openIndex; $index < $closeIndex; ++$index) {
-            if ($tokens[$index]->isGivenKind(T_PUBLIC)) {
-                $tokens[$index] = new Token([CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PUBLIC, $tokens[$index]->getContent()]);
-            } elseif ($tokens[$index]->isGivenKind(T_PROTECTED)) {
-                $tokens[$index] = new Token([CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PROTECTED, $tokens[$index]->getContent()]);
-            } elseif ($tokens[$index]->isGivenKind(T_PRIVATE)) {
-                $tokens[$index] = new Token([CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PRIVATE, $tokens[$index]->getContent()]);
+        for ($argsIndex = $openParenthesisIndex; $argsIndex < $closeParenthesisIndex; ++$argsIndex) {
+            if ($tokens[$argsIndex]->isGivenKind(T_PUBLIC)) {
+                $tokens[$argsIndex] = new Token([CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PUBLIC, $tokens[$argsIndex]->getContent()]);
+            } elseif ($tokens[$argsIndex]->isGivenKind(T_PROTECTED)) {
+                $tokens[$argsIndex] = new Token([CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PROTECTED, $tokens[$argsIndex]->getContent()]);
+            } elseif ($tokens[$argsIndex]->isGivenKind(T_PRIVATE)) {
+                $tokens[$argsIndex] = new Token([CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PRIVATE, $tokens[$argsIndex]->getContent()]);
             }
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getCustomTokens(): array
     {
         return [

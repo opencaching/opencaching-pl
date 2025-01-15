@@ -36,11 +36,14 @@ final class SymfonyRiskySet extends AbstractRuleSetDescription
                 'b_mode' => false,
             ],
             'function_to_constant' => true,
+            'get_class_to_class_keyword' => true,
             'implode_call' => true,
             'is_null' => true,
             'logical_operators' => true,
+            'long_to_shorthand_operator' => true,
+            'modernize_strpos' => true,
             'modernize_types_casting' => true,
-            'native_constant_invocation' => true,
+            'native_constant_invocation' => ['strict' => false],
             'native_function_invocation' => [
                 'include' => [
                     '@compiler_optimized',
@@ -52,7 +55,6 @@ final class SymfonyRiskySet extends AbstractRuleSetDescription
             'no_homoglyph_names' => true,
             'no_php4_constructor' => true,
             'no_unneeded_final_method' => true,
-            'no_unreachable_default_argument_value' => false,
             'no_useless_sprintf' => true,
             'non_printable_character' => true,
             'ordered_traits' => true,

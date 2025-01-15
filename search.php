@@ -794,6 +794,14 @@ if (!$loggedUser) {
                         $sqlstr = "SELECT `user_id` FROM `user` WHERE `username`= :1 LIMIT 1";
                         $s = $dbc->multiVariableQuery($sqlstr, $options['finder'] );
                         $finder_record = $dbc->dbResultFetchOneRowOnly($s);
+                        if($finder_record == false)
+                        {
+                            $options['error_finder'] = true;
+                            outputSearchForm($options, $loggedUser);
+                            unset($dbc);
+                            unset($dbcSearch);
+                            exit;
+                        }
                         $finder_id = $finder_record['user_id'];
                     }
 
@@ -1222,7 +1230,7 @@ if (!$loggedUser) {
 
 function outputSearchForm($options, User $loggedUser)
 {
-    global $error_plz, $error_locidnocoords, $error_ort, $error_noort, $error_nofulltext;
+    global $error_plz, $error_locidnocoords, $error_ort, $error_noort, $error_nofulltext, $error_finder;
     global $search_all_countries, $cache_attrib_jsarray_line, $cache_attrib_img_line;
     global $config;
 
@@ -1720,6 +1728,7 @@ function attr_image($tpl, $options, $id, $textlong, $iconlarge, $iconno, $iconun
         tpl_set_var('ortserror', $error_noort);
 
     tpl_set_var('fulltexterror', isset($options['error_nofulltext']) ? $error_nofulltext : '');
+    tpl_set_var('findererror', isset($options['error_finder']) ? '<tr><td colspan="3"><span class="errormsg">' . tr("message_user_not_found") . ': ' . htmlspecialchars($options['finder']) . '</span></td></tr>' : '');
 
     tpl_BuildTemplate();
     exit;

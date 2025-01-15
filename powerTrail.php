@@ -11,6 +11,7 @@ use src\Models\OcConfig\OcConfig;
 use src\Models\PowerTrail\Log;
 use src\Models\PowerTrail\PowerTrail;
 use src\Models\User\User;
+use src\Utils\Debug\Debug;
 use src\Utils\I18n\I18n;
 use src\Utils\Text\Formatter;
 use src\Utils\Uri\OcCookie;
@@ -243,13 +244,23 @@ switch ($actionPerformed) {
         tpl_set_var('fullCountryMap', '1');
         break;
     case 'showSerie':
-        if (!isset($_GET['ptrail'])) {
+        if (!isset($_GET['ptrail']) || empty($_GET['ptrail']) || (is_numeric($_GET['ptrail']) && intval($_GET['ptrail']) > intval(PowerTrail::getMaxPowerTrailId()))) {
             // just redirect to all powertrails
             header('Location: ' . '//' . $_SERVER['HTTP_HOST'] . '/powerTrail.php');
 
             exit;
         }
         $powerTrail = new PowerTrail(['id' => (int)$_GET['ptrail']]);
+
+        if (empty($powerTrail->getName()) && empty($powerTrail->getType())) {
+            Debug::errorLog(sprintf(
+                "Power Trail does not exist or is incomplete. ID: %s",
+                $_GET['ptrail'] ?? '',
+            ));
+            header('Location: ' . '//' . $_SERVER['HTTP_HOST'] . '/powerTrail.php');
+            exit;
+        }
+
         $ptOwners = $pt->getPtOwners();
         $_SESSION['ptName'] = powerTrailBase::clearPtNames($powerTrail->getName());
         tpl_set_var('powerTrailId', $powerTrail->getId());
@@ -276,8 +287,8 @@ switch ($actionPerformed) {
             }
             tpl_set_var('ptStatusSelector', generateStatusSelector($powerTrail->getStatus()));
             tpl_set_var('removeCacheButtonDisplay', $removeCacheButtonDisplay);
-            tpl_set_var('leadingUserId', $leadingUser['user_id']);
-            tpl_set_var('leadingUserName', htmlspecialchars($leadingUser['username']));
+            tpl_set_var('leadingUserId', $leadingUser['user_id'] ?? '');
+            tpl_set_var('leadingUserName', htmlspecialchars($leadingUser['username'] ?? ''));
             tpl_set_var('fullCountryMap', '0');
             tpl_set_var('ptTypeName', tr($ptTypesArr[$powerTrail->getType()]['translate']));
             tpl_set_var('displaySelectedPowerTrail', 'block');
@@ -300,7 +311,7 @@ switch ($actionPerformed) {
             tpl_set_var('ptPoints', $powerTrail->getPoints());
             tpl_set_var('cacheFound', count($foundCachsByUser));
             tpl_set_var('powerTrailLogo', displayPowerTrailLogo($powerTrail->getImage()));
-            tpl_set_var('powerTrailserStats', displayPowerTrailserStats($powerTrail, $foundCachsByUser));
+            tpl_set_var('powerTrailserStats', $powerTrail->displayPowerTrailserStats($powerTrail, $foundCachsByUser));
 
             if ($userIsOwner) {
                 tpl_set_var('ptStatus', tr($ptStatusArr[$powerTrail->getStatus()]['translate']));
@@ -459,31 +470,21 @@ function displayPTrails($pTrails, $areOwnSeries): array
     return [$dataForList, rtrim($dataForMap, ',')];
 }
 
-function displayPowerTrailserStats(PowerTrail $powerTrail, $cachesFoundByUser): string
-{
-    if ($powerTrail->getCacheCount() != 0) {
-        $stats2display = round(count($cachesFoundByUser) * 100 / $powerTrail->getCacheCount(), 2);
-    } else {
-        $stats2display = 0;
-    }
-    $stats2display .= '% (' . tr('pt017') . ' <span style="color: #00aa00"><b>' . count($cachesFoundByUser) . '</b></span> ' . tr('pt016') . ' <span style="color: #0000aa"><b>' . $powerTrail->getCacheCount() . '</b></span> ' . tr('pt014') . ')';
-
-    return $stats2display;
-}
-
 function displayPtOwnerList(PowerTrail $powerTrail)
 {
     $ptOwners = $powerTrail->getOwners();
     $ownerList = '';
     isset($_SESSION['user_id']) ? $userLogged = $_SESSION['user_id'] : $userLogged = -1;
     // @var $owner src\Models\PowerTrail\Owner
-    foreach ($ptOwners as $owner) {
-        $ownerList .= '<a href="viewprofile.php?userid=' . $owner->getUserId() . '">' . $owner->getUserName() . '</a>';
+    if($ptOwners){
+        foreach ($ptOwners as $owner) {
+            $ownerList .= '<a href="viewprofile.php?userid=' . $owner->getUserId() . '">' . $owner->getUserName() . '</a>';
 
-        if ($owner->getUserId() != $userLogged) {
-            $ownerList .= '<span style="display: none" class="removeUserIcon"><img onclick="ajaxRemoveUserFromPt(' . $owner->getUserId() . ')" src="images/free_icons/cross.png" width=10 title="' . tr('pt029') . '" alt="' . tr('pt029') . '"></span>, ';
-        } else {
-            $ownerList .= ', ';
+            if ($owner->getUserId() != $userLogged) {
+                $ownerList .= '<span style="display: none" class="removeUserIcon"><img onclick="ajaxRemoveUserFromPt(' . $owner->getUserId() . ')" src="images/free_icons/cross.png" width=10 title="' . tr('pt029') . '" alt="' . tr('pt029') . '"></span>, ';
+            } else {
+                $ownerList .= ', ';
+            }
         }
     }
     return substr($ownerList, 0, -2);

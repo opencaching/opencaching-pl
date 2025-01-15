@@ -60,7 +60,7 @@
             </tr>
             <tr>
                 <td>&nbsp;</td>
-                <td><div class="notice" style="width:350px;height:44px;">{{show_info_for_value}}</div>
+                <td><div class="notice" style="max-width:350px;height:44px;">{{show_info_for_value}}</div>
                 </td>
             </tr>
             {end_stage}
@@ -97,7 +97,7 @@
                         <input type="checkbox"  id="openchecker" name="openchecker" {openchecker_checked}/>
                         <label for="openchecker">{{openchecker_name}}</label>
                         <br/>
-                        <div class="notice" style="width:350px;">{{openchecker_enable_checkbox}} </div>
+                        <div class="notice" style="max-width:350px;">{{openchecker_enable_checkbox}} </div>
                     </div>
                 </td>
             </tr>

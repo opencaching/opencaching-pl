@@ -27,9 +27,6 @@ use PhpCsFixer\Tokenizer\Tokens;
  */
 final class IsNullFixer extends AbstractFixer
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
@@ -52,25 +49,16 @@ final class IsNullFixer extends AbstractFixer
         return 1;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
         return $tokens->isTokenKindFound(T_STRING);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isRisky(): bool
     {
         return true;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         static $sequenceNeeded = [[T_STRING, 'is_null'], '('];
@@ -135,11 +123,11 @@ final class IsNullFixer extends AbstractFixer
                 }
             }
 
-            // edge cases: is_null() followed/preceded by ==, ===, !=, !==, <>
+            // edge cases: is_null() followed/preceded by ==, ===, !=, !==, <>, (int-or-other-casting)
             $parentLeftToken = $tokens[$tokens->getPrevMeaningfulToken($isNullIndex)];
             $parentRightToken = $tokens[$tokens->getNextMeaningfulToken($referenceEnd)];
             $parentOperations = [T_IS_EQUAL, T_IS_NOT_EQUAL, T_IS_IDENTICAL, T_IS_NOT_IDENTICAL];
-            $wrapIntoParentheses = $parentLeftToken->isGivenKind($parentOperations) || $parentRightToken->isGivenKind($parentOperations);
+            $wrapIntoParentheses = $parentLeftToken->isCast() || $parentLeftToken->isGivenKind($parentOperations) || $parentRightToken->isGivenKind($parentOperations);
 
             // possible trailing comma removed
             $prevIndex = $tokens->getPrevMeaningfulToken($referenceEnd);
