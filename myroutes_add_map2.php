@@ -21,10 +21,13 @@ if (! $loggedUser) {
 
 $view = tpl_getView();
 $view->setTemplate('myroutes_add_map2')
-    ->addLocalJs(
-        'https://maps.googleapis.com/maps/api/js?libraries=geometry&amp;key=' . $googleMapKey
-        . '&amp;language=' . I18n::getCurrentLang()
-    );
+  ->addLocalCss('js/libs/leaflet/leaflet.css')
+  ->addLocalJs('js/libs/leaflet/leaflet.js')
+  ->addLocalJs('js/libs/jsts/attache.array.min.js')
+  ->addLocalJs('js/libs/jsts/javascript.util.js')
+  ->addLocalJs('js/libs/jsts/jsts.0.13.2.js')
+  ->addLocalCss('js/libs/leaflet-routing-machine/3.2.12/dist/leaflet-routing-machine.css')
+  ->addLocalJs('js/libs/leaflet-routing-machine/3.2.12/dist/leaflet-routing-machine.min.js');
 
 // set map center
 tpl_set_var('map_lat', OcConfig::getMapDefaultCenter()->getLatitude());
