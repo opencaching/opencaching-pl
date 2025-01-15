@@ -1036,6 +1036,7 @@ $translations = [
     'event_attendance_02' => 'Op',
     'event_attendance_03' => 'Georganiseerd door',
     'event_attendance_04' => 'Deelnemers',
+    'event_attendance_05' => 'Planning to attend',
     'printcache_00' => 'Verberg loggegevens',
     'printcache_01' => 'Toon zonder logs',
     'printcache_02' => 'Toon laatste logs',

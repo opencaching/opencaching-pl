@@ -1036,6 +1036,7 @@ $translations = [
     'event_attendance_02' => 'În data de',
     'event_attendance_03' => 'Organizat de',
     'event_attendance_04' => 'Participanţi',
+    'event_attendance_05' => 'Planning to attend',
     'printcache_00' => 'Nu arăta jurnal',
     'printcache_01' => 'Nu afişa însemnările',
     'printcache_02' => 'Arată ultimele însemnări',

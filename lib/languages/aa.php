@@ -1036,6 +1036,7 @@ $translations = [
     'event_attendance_02' => 'crwdns12290:0crwdne12290:0',
     'event_attendance_03' => 'crwdns12291:0crwdne12291:0',
     'event_attendance_04' => 'crwdns12292:0crwdne12292:0',
+    'event_attendance_05' => 'crwdns33966:0crwdne33966:0',
     'printcache_00' => 'crwdns6687:0crwdne6687:0',
     'printcache_01' => 'crwdns6688:0crwdne6688:0',
     'printcache_02' => 'crwdns6689:0crwdne6689:0',
