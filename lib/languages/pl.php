@@ -1036,6 +1036,7 @@ $translations = [
     'event_attendance_02' => 'Dnia',
     'event_attendance_03' => 'Organizowane przez',
     'event_attendance_04' => 'Uczestnicy wydarzenia',
+    'event_attendance_05' => 'Planning to attend',
     'printcache_00' => 'Ukryj dziennik',
     'printcache_01' => 'Nie pokazuj logów',
     'printcache_02' => 'Pokaż ostatnie logi',
