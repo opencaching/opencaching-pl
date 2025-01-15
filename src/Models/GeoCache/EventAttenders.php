@@ -19,15 +19,20 @@ class EventAttenders extends BaseObject
      * @param GeoCache $cache
      * @return array
      */
-    public static function getEventAttenders(GeoCache $cache)
+    public static function getEventAttenders(GeoCache $cache, ?int $forceLogType = null)
     {
         if (! $cache->isEvent()) {
             return [];
         }
-        if ($cache->getDatePlaced() > new \DateTime()) {
-            $logTypes = GeoCacheLog::LOGTYPE_WILLATTENDED;
+
+        if ($forceLogType === GeoCacheLog::LOGTYPE_WILLATTENDED || $forceLogType === GeoCacheLog::LOGTYPE_ATTENDED) {
+            $logTypes = $forceLogType;
         } else {
-            $logTypes = GeoCacheLog::LOGTYPE_ATTENDED;
+            if ($cache->getDatePlaced() > new \DateTime()) {
+                $logTypes = GeoCacheLog::LOGTYPE_WILLATTENDED;
+            } else {
+                $logTypes = GeoCacheLog::LOGTYPE_ATTENDED;
+            }
         }
 
         $stmt = self::db()->multiVariableQuery(

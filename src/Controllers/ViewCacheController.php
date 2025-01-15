@@ -770,7 +770,8 @@ class ViewCacheController extends BaseController
             exit();
         }
         $this->view->setVar('cache', $cache);
-        $this->view->setVar('attenders', $cache->getAttenders());
+        $this->view->setVar('willattenders', $cache->getAttenders(GeoCacheLog::LOGTYPE_WILLATTENDED));
+        $this->view->setVar('attenders', $cache->getAttenders(GeoCacheLog::LOGTYPE_ATTENDED));
         $this->view->setTemplate('viewcache/event_attenders');
         $this->view->buildInMiniTpl();
     }

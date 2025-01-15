@@ -1365,6 +1365,12 @@ sub {
   padding-left: 1.6em;
 }
 
+.columns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
 .currentuser-activity-logs-tooltip {
     display: table;
 }
