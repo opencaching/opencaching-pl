@@ -5,6 +5,9 @@ use src\Utils\Uri\Uri;
 <script src="<?=Uri::getLinkWithModificationTime('/views/myRoutes/gmap.js')?>"></script>
 <script>
 //<![CDATA[
+
+    var leafletMap = null;
+
     function checkForm()
     {
         if (document.myroute_form.name.value == "")
@@ -49,12 +52,14 @@ use src\Utils\Uri\Uri;
 
     #directions_info {
         padding: 3px;
-        font: normal 12px courier new;
         text-align: left;
-        color: navy;
+        color: black;
         overflow: auto;
         height: 435px;
         width: 210px;
+    }
+    #directions_info h2{
+        display: none;
     }
 
     #directions_info,#buttonContainer {
@@ -72,7 +77,7 @@ use src\Utils\Uri\Uri;
         background: #3F06FA;
         color: #eeeeee;
         font: bold 20px verdana;
-        z-index: 1;
+        z-index: 999;
         left: 0px;
         top: 0px;
         opacity: 0.7;
