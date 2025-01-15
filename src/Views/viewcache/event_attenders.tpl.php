@@ -21,11 +21,30 @@ body {
     <p><?=tr('event_attendance_02')?>: <strong><?=Formatter::date($view->cache->getDatePlaced())?></strong></p>
     <p><?=tr('event_attendance_03')?>: <strong><?=$view->cache->getOwner()->getUserName()?></strong></p>
     <div class="buffer"></div>
-    <p><?=tr('event_attendance_04')?> <strong>(<?=count($view->attenders)?>)</strong>:</p>
-    <div class="tab-text">
-      <?php
-      foreach ($view->attenders as $user) { ?>
-        <p><a href="<?=User::GetUserProfileUrl($user['user_id'])?>" class="links" target="_blank"><?=$user['username']?></a></p>
+    <div class="columns">
+      <?php if (count($view->willattenders) > 0) { ?>
+        <div class="column">
+          <p><?= tr('event_attendance_05') ?> <strong>(<?= count($view->willattenders) ?>)</strong>:</p>
+          <div class="tab-text">
+            <?php foreach ($view->willattenders as $user) { ?>
+              <p><a href="<?= User::GetUserProfileUrl($user['user_id']) ?>"
+                    class="links"
+                    target="_blank"><?= $user['username'] ?></a></p>
+            <?php } ?>
+          </div>
+        </div>
+      <?php } ?>
+      <?php if (count($view->attenders) > 0) { ?>
+        <div class="column">
+          <p><?= tr('event_attendance_04') ?> <strong>(<?= count($view->attenders) ?>)</strong>:</p>
+          <div class="tab-text">
+            <?php foreach ($view->attenders as $user) { ?>
+              <p><a href="<?= User::GetUserProfileUrl($user['user_id']) ?>"
+                    class="links"
+                    target="_blank"><?= $user['username'] ?></a></p>
+            <?php } ?>
+          </div>
+        </div>
       <?php } ?>
     </div>
     <div class="align-center">

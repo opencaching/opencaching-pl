@@ -1784,9 +1784,9 @@ class GeoCache extends GeoCacheCommons
      *
      * @return array
      */
-    public function getAttenders()
+    public function getAttenders(?int $logType = null)
     {
-        return EventAttenders::getEventAttenders($this);
+        return EventAttenders::getEventAttenders($this, $logType);
     }
 
     public function recalculateCacheScore()
