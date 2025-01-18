@@ -1753,7 +1753,7 @@ class GeoCache extends GeoCacheCommons
     {
         $oldAltitude = $this->getAltitude();
 
-        if ($oldAltitude != $newAltitude) {
+        if ($oldAltitude != $newAltitude || $newAltitude === null) {
             $this->cacheAddtitions->updateAltitude($newAltitude);
         }
     }
