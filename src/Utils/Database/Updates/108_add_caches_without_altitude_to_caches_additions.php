@@ -11,7 +11,7 @@ class C17372103015411 extends UpdateScript
         return [
             // see /docs/DbUpdate.md
             'uuid' => '05D20C85-ECDC-E743-7B6B-0FDB81FADE42',
-            'run' => 'manual',
+            'run' => 'auto',
         ];
     }
 
