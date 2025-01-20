@@ -1758,6 +1758,14 @@ class GeoCache extends GeoCacheCommons
         }
     }
 
+    public function deleteAddition()
+    {
+        if (! $this->cacheAddtitions) {
+            $this->loadCacheAdditions();
+        }
+        $this->cacheAddtitions->deleteAddition();
+    }
+
     public function updateStatus($newStatus)
     {
         // Status validation
