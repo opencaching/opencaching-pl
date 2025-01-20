@@ -17,8 +17,6 @@ if (! $loggedUser) {
     exit;
 }
 
-$googleMapKey = OcConfig::instance()->getGoogleMapKey();
-
 if (isset($_REQUEST['routeid'])) {
     $route_id = $_REQUEST['routeid'];
 } else {
@@ -64,10 +62,11 @@ $rname = $_POST['name'] ?? '';
 $rdesc = $_POST['desc'] ?? '';
 $rradius = $_POST['radius'] ?? '';
 
-$view->addLocalJs(
-    'https://maps.googleapis.com/maps/api/js?libraries=geometry&amp;key=' . $googleMapKey
-    . '&amp;language=' . I18n::getCurrentLang()
-);
+$view ->addLocalCss('js/libs/leaflet/leaflet.css')
+      ->addLocalJs('js/libs/leaflet/leaflet.js')
+      ->addLocalJs('js/libs/jsts/attache.array.min.js')
+      ->addLocalJs('js/libs/jsts/javascript.util.js')
+      ->addLocalJs('js/libs/jsts/jsts.0.13.2.js');
 
 if ($record['user_id'] == $loggedUser->getUserId()) {
     if ($remove == 1) {

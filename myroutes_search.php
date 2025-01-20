@@ -60,10 +60,11 @@ if (isset($_POST['distance'])) {
 $googleMapKey = OcConfig::instance()->getGoogleMapKey();
 $view = tpl_getView();
 $view->setTemplate('myroutes_search')
-    ->addLocalJs(
-        'https://maps.googleapis.com/maps/api/js?libraries=geometry&amp;key=' . $googleMapKey
-    . '&amp;language=' . I18n::getCurrentLang()
-    );
+    ->addLocalCss('js/libs/leaflet/leaflet.css')
+    ->addLocalJs('js/libs/leaflet/leaflet.js')
+    ->addLocalJs('js/libs/jsts/attache.array.min.js')
+    ->addLocalJs('js/libs/jsts/javascript.util.js')
+    ->addLocalJs('js/libs/jsts/jsts.0.13.2.js');
 
 $s = $database->paramQuery(
     'SELECT `user_id`,`name`, `description`, `radius`, `options` FROM `routes`
@@ -641,7 +642,7 @@ if (isset($_POST['submit']) || isset($_POST['submit_map'])) {
         if (isset($_POST['submit_map'])) {
             $y = $r['longitude'];
             $x = $r['latitude'];
-            $point .= sprintf("addMarker(%s,%s,'%s',%s,'%s','%s','%s',%s);\n", $x, $y, $r['icon_small'], $r['cacheid'], addslashes($r['cachename']), $r['wp_oc'], addslashes($r['username']), $r['topratings']);
+            $point .= sprintf("addMarker(%s,%s,'%s',%s,'%s','%s','%s',%s);\n", $x, $y, '/images/'.$r['icon_small'], $r['cacheid'], addslashes($r['cachename']), $r['wp_oc'], addslashes($r['username']), $r['topratings']);
             tpl_set_var('points', $point);
         } else {
             $file_content .= '<tr>';
