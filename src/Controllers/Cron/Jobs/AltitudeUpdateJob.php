@@ -32,6 +32,13 @@ class AltitudeUpdateJob extends Job
             $coords = $geocache->getCoordinates();
 
             if ($coords) {
+
+                if (!is_numeric($coords->getLatitude()) || !is_numeric($coords->getLongitude())) {
+                    Debug::errorLog("Invalid coordinates for geocache (cacheId={$cacheId}, coords={$coords->getAsText()})");
+                    $geocache->deleteAddition();
+                    continue;
+                }
+
                 $altitude = Altitude::getAltitude($coords);
 
                 if (is_null($altitude)) {

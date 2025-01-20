@@ -40,6 +40,11 @@ class CacheAdditions extends BaseObject
         $this->storeToDb();
     }
 
+    public function deleteAddition()
+    {
+        $this->deleteFromDb();
+    }
+
     /**
      * Return cacheId without altitude or NULL if there is no such reords
      */
@@ -78,6 +83,13 @@ class CacheAdditions extends BaseObject
             VALUES (:1, :2)
             ON DUPLICATE KEY UPDATE cache_id = VALUES(cache_id), altitude = VALUES(altitude)",
             $this->cacheId, $this->altitude);
+    }
+    private function deleteFromDb()
+    {
+        $this->db->multiVariableQuery(
+            "DELETE FROM caches_additions WHERE cache_id = :1",
+            $this->cacheId
+        );
     }
 
 }
