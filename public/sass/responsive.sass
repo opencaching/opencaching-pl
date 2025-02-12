@@ -6,6 +6,9 @@
 .space-between
   @include space-between
 
+.flex-stretch
+  @include align-items-stretch
+
 html.responsive-enabled
   .discreet-advertising
     @include max-970px
@@ -257,8 +260,10 @@ html.responsive-enabled
       width: 100%
 
   #powerTrailDescription img
-    width: 550px
     max-width: 100%
+    @include mobile
+      width: 100%
+      margin-bottom: 3px
   .mob-w100-important
     @include mobile
       width: 100% !important

@@ -1439,6 +1439,11 @@ html[data-darkreader-scheme="dark"] theme-switch {
 html[data-darkreader-scheme="dark"] img[src$=".svg"] {
   filter: invert(100%) brightness(80%);
 }
+
+html[data-darkreader-scheme="dark"] .img-navflag{
+  filter: unset !important;
+}
+
 html[data-darkreader-scheme="dark"] {
   --primary-stroke-color: #000;
 }
