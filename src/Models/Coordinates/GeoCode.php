@@ -40,8 +40,20 @@ class GeoCode
         }
 
         $input = urlencode($place);
-        $url = "https://api.openrouteservice.org/geocode/search?api_key={$ors_key}&text={$input}";
-        $data = @file_get_contents($url);
+        $url = "https://api.openrouteservice.org/geocode/search?text={$input}";
+
+        $options = [
+            'http' => [
+                'header' => [
+                    "Authorization: {$ors_key}",
+                ],
+                'ignore_errors' => true
+            ]
+        ];
+
+        $context = stream_context_create($options);
+
+        $data = @file_get_contents($url, false, $context);
 
         if (! $data) {
             Debug::errorLog('Problem with fetching data from ' . $url);
@@ -50,6 +62,12 @@ class GeoCode
         }
 
         $resp = json_decode($data);
+
+        if(isset($resp->error)) {
+            $error = " ".$resp->error;
+            Debug::errorLog('Problem with fetching data from ' . $url . $error);
+            throw new Exception('Problem with fetching data from OpenRouteService'.$error);
+        }
 
         // response
         $results = [];
