@@ -28,6 +28,10 @@
   justify-content: space-between;
   -webkit-justify-content: space-between; }
 
+.flex-stretch {
+  align-items: stretch;
+  -webkit-align-items: stretch; }
+
 @media screen and (max-width: 970px) {
   html.responsive-enabled .discreet-advertising {
     display: none; } }
@@ -244,8 +248,11 @@ html.responsive-enabled div#viewcache-maptypes {
   html.responsive-enabled #commentsTable {
     width: 100%; } }
 html.responsive-enabled #powerTrailDescription img {
-  width: 550px;
   max-width: 100%; }
+  @media screen and (max-width: 768px) {
+    html.responsive-enabled #powerTrailDescription img {
+      width: 100%;
+      margin-bottom: 3px; } }
 @media screen and (max-width: 768px) {
   html.responsive-enabled .mob-w100-important {
     width: 100% !important; } }
