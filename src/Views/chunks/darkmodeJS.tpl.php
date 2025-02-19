@@ -28,7 +28,6 @@ return function () {
         }
 
         const savedTheme = getCookie('theme');
-        const darkModeMask = document.getElementById("dark-mode-mask");
         if (savedTheme) {
             localStorage.setItem('theme', savedTheme);
             if (savedTheme === 'dark') {
@@ -78,6 +77,7 @@ return function () {
         }
 
         function removeMask() {
+            const darkModeMask = document.getElementById("dark-mode-mask");
             if (darkModeMask) {
                 darkModeMask.remove();
             }

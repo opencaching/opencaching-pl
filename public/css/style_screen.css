@@ -1440,8 +1440,16 @@ html[data-darkreader-scheme="dark"] img[src$=".svg"] {
   filter: invert(100%) brightness(80%);
 }
 
-html[data-darkreader-scheme="dark"] .img-navflag{
+html[data-darkreader-scheme="dark"] .img-navflag,
+html[data-darkreader-scheme="dark"] .icon16:not(.mobile-friendly),
+html[data-darkreader-scheme="dark"] .nbh-icon{
   filter: unset !important;
+}
+
+html[data-darkreader-scheme="dark"] .nbh-eye,
+html[data-darkreader-scheme="dark"] .ui-icon,
+html[data-darkreader-scheme="dark"] .ui-widget-content .ui-icon{
+  filter: invert(100%)
 }
 
 html[data-darkreader-scheme="dark"] {

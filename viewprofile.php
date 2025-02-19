@@ -255,12 +255,12 @@ if (OcConfig::areGeopathsSupported()) {
 
     if ($checkGeoPaths) {
         //geoPaths medals
-        $key = 'buildPowerTrailIconsUserStats:getGeoPathsCompleted' . $user->getUserId();
-        $completedGeoPaths = OcMemCache::get($key);
-        if ($completedGeoPaths === false) {
+//        $key = 'buildPowerTrailIconsUserStats:getGeoPathsCompleted' . $user->getUserId();
+//        $completedGeoPaths = OcMemCache::get($key);
+//        if ($completedGeoPaths === false) {
             $completedGeoPaths = buildPowerTrailIcons(UserStats::getGeoPathsCompleted($user->getUserId()));
-            OcMemCache::store($key, 60, $completedGeoPaths);
-        }
+//            OcMemCache::store($key, 60, $completedGeoPaths);
+//        }
         $content .= $completedGeoPaths;
 
         $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('pt140') . '</span>:&nbsp;<strong>' . powerTrailBase::getUserPoints($user_id) . '</strong> (' . tr('pt093') . ' ' . powerTrailBase::getPoweTrailCompletedCountByUser($user_id) . ')</p>';

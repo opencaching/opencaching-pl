@@ -5,7 +5,7 @@ use src\Utils\Uri\Uri;
 
 ?>
 
-<link rel="stylesheet" type="text/css" media="screen,projection" href="/css/Badge.css">
+<link rel="stylesheet" type="text/css" media="screen,projection" href="/css/Badge.css?v=2">
 <link rel="stylesheet" href="/js/pieProgress/dist/css/asPieProgress.css">
 <script src="/js/pieProgress/js/jquery.js"></script>
 <script src="/js/pieProgress/dist/jquery-asPieProgress.js"></script>
