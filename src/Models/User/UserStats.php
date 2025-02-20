@@ -23,31 +23,16 @@ class UserStats extends BaseObject
     public static function getGeoPathsCompleted($userId)
     {
         $geoPathsCompleted = new \ArrayObject();
-        $innerQuery = '
-                SELECT `PowerTrailId`
-                FROM `PowerTrail_comments`
-                WHERE `commentType` = 2
-                AND `deleted` = 0
-                AND `userId` = :1
-                ORDER BY `logDateTime` DESC';
-
-        $stmt = self::db()->multiVariableQuery($innerQuery, $userId);
-        $powerTrailIds = self::db()->dbResultFetchAll($stmt);
-
-        $ids = array_map(function($row) {
-            return $row['PowerTrailId'];
-        }, $powerTrailIds);
-
-        if (count($ids) === 0) {
-            return $geoPathsCompleted;
-        }
-
         $query = '
                 SELECT *
                 FROM `PowerTrail`
-                WHERE `id` IN (' . implode(',', $ids) . ') 
-                ORDER BY FIELD(`id`, ' . implode(',', $ids) . ') DESC';
-
+                WHERE `id` IN
+                    (SELECT `PowerTrailId`
+                    FROM `PowerTrail_comments`
+                    WHERE `commentType` = 2
+                    AND `deleted` = 0
+                    AND `userId` = :1
+                    ORDER BY `logDateTime` DESC)';
         $stmt = self::db()->multiVariableQuery($query, $userId);
         $list = self::db()->dbResultFetchAll($stmt);
 
