@@ -24,15 +24,13 @@ class UserStats extends BaseObject
     {
         $geoPathsCompleted = new \ArrayObject();
         $query = '
-                SELECT *
-                FROM `PowerTrail`
-                WHERE `id` IN
-                    (SELECT `PowerTrailId`
-                    FROM `PowerTrail_comments`
-                    WHERE `commentType` = 2
-                    AND `deleted` = 0
-                    AND `userId` = :1
-                    ORDER BY `logDateTime` DESC)';
+                SELECT pt.*
+                FROM `PowerTrail` pt
+                JOIN `PowerTrail_comments` ptc ON pt.id = ptc.PowerTrailId
+                WHERE ptc.commentType = 2
+                AND ptc.deleted = 0
+                AND ptc.userId = :1
+                ORDER BY ptc.logDateTime';
         $stmt = self::db()->multiVariableQuery($query, $userId);
         $list = self::db()->dbResultFetchAll($stmt);
 
