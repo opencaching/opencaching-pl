@@ -32,6 +32,17 @@
   align-items: stretch;
   -webkit-align-items: stretch; }
 
+.ac-space-betwen {
+  align-content: space-between;
+  -webkit-align-content: space-between; }
+
+.as-flex-end {
+  align-self: flex-end;
+  -webkit-align-self: flex-end; }
+
+.w100 {
+  width: 100%; }
+
 @media screen and (max-width: 970px) {
   html.responsive-enabled .discreet-advertising {
     display: none; } }

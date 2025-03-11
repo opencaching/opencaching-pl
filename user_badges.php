@@ -3,6 +3,7 @@
 use src\Models\MeritBadge\MeritBadge;
 use src\Controllers\MeritBadgeController;
 use src\Models\ApplicationContainer;
+use src\Utils\Uri\Uri;
 
 require_once (__DIR__.'/lib/common.inc.php');
 require_once (__DIR__.'/src/Views/user_badges.inc.php');
@@ -27,6 +28,7 @@ if (isset($_REQUEST['user_id'])) {
 $meritBadgeCtrl = new \src\Controllers\MeritBadgeController;
 $userCategories = $meritBadgeCtrl->buildArrayUserCategories($userid);
 
+tpl_set_var( 'badge_css', Uri::getLinkWithModificationTime('/css/Badge.css') );
 
 $content = '';
 foreach($userCategories as $oneCategory){

@@ -48,15 +48,18 @@
 }
 
 .Badge-div-element {
-    float: left;
     width: 148px;
-    height: 260px;
+    padding-bottom: 20px;
 }
 
 .Badge-category {
     font-size: 16px;
     font-weight: bold;
     text-align: left;
+}
+
+.Badge-name-desc{
+    min-height: 50px;
 }
 
 .Badge-name-user {
@@ -73,6 +76,7 @@
 .Badge-value-user {
     font-size: 11px;
     font-style: italic;
+    margin-bottom: 10px;
 }
 
 .Badge-short_desc-user {
@@ -82,7 +86,6 @@
 
 .Badge-pie-progress {
     width: 140px;
-    float: left;
     margin-right: 20px;
 }
 

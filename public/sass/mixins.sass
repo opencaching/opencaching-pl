@@ -44,9 +44,17 @@
   justify-content: space-evenly
   -webkit-justify-content: space-around
 
+@mixin align-content-space-between
+  align-content: space-between
+  -webkit-align-content: space-between
+
 @mixin align-items-stretch
   align-items: stretch
   -webkit-align-items: stretch
+
+@mixin align-self-flex-end
+  align-self: flex-end
+  -webkit-align-self: flex-end
 
 @mixin space-between-last-row
   &::after
