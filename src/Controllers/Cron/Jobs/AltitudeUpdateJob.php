@@ -47,6 +47,7 @@ class AltitudeUpdateJob extends Job
                     continue;
                 }
                 $geocache->updateAltitude($altitude);
+                sleep(1);
             }
         } // for
     }
