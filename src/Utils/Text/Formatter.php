@@ -68,6 +68,21 @@ class Formatter
         );
     }
 
+    public static function formatDateTime($datetime = null, string $format = 'Y-m-d')
+    {
+        if (!$datetime) {
+            $datetime = new DateTime();
+        } elseif (!$datetime instanceof DateTime) {
+            try {
+                $datetime = new DateTime($datetime);
+            } catch (Exception $e) {
+                return '-';
+            }
+        }
+
+        return $datetime->format($format);
+    }
+
     /**
      * Formats date and time according to config setting
      *

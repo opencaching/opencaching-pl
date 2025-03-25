@@ -1441,7 +1441,7 @@ html[data-darkreader-scheme="dark"] img[src$=".svg"] {
 }
 
 html[data-darkreader-scheme="dark"] .img-navflag,
-html[data-darkreader-scheme="dark"] .icon16:not(.mobile-friendly),
+html[data-darkreader-scheme="dark"] .templateContainer .icon16:not(.mobile-friendly),
 html[data-darkreader-scheme="dark"] .nbh-icon{
   filter: unset !important;
 }
