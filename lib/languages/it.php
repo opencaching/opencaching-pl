@@ -48,6 +48,7 @@ $translations = [
     'virtual' => 'Virtual',
     'webcam' => 'Webcam',
     'event' => 'Event',
+    'events' => 'Events',
     'quiz' => 'Puzzle',
     'moving' => 'Moving',
     'podcast' => 'Podcast',

@@ -48,6 +48,7 @@ $translations = [
     'virtual' => 'Virtuális',
     'webcam' => 'Webkamera',
     'event' => 'Esemény',
+    'events' => 'Events',
     'quiz' => 'Feladvány',
     'moving' => 'Mozgó',
     'podcast' => 'Podcast',

@@ -48,6 +48,7 @@ $translations = [
     'virtual' => 'crwdns5655:0crwdne5655:0',
     'webcam' => 'crwdns5656:0crwdne5656:0',
     'event' => 'crwdns5657:0crwdne5657:0',
+    'events' => 'crwdns33967:0crwdne33967:0',
     'quiz' => 'crwdns5658:0crwdne5658:0',
     'moving' => 'crwdns5659:0crwdne5659:0',
     'podcast' => 'crwdns5660:0crwdne5660:0',
