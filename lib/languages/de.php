@@ -48,6 +48,7 @@ $translations = [
     'virtual' => 'Virtueller Cache',
     'webcam' => 'Webcam-Cache',
     'event' => 'Event-Cache',
+    'events' => 'Events',
     'quiz' => 'Rätselcache',
     'moving' => 'Beweglicher Cache',
     'podcast' => 'Podcast',
