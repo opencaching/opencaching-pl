@@ -366,7 +366,7 @@ $desc = $view->geoCacheDesc;
             <div>
                 <?php if ($view->geoCache->isEvent()) { ?>
                     <img src="images/cache/16x16-event.png" class="icon16" alt="">
-                    <?= tr('date_event_label'); ?>: <strong> <?= $view->cacheHiddenDate; ?> </strong>
+                    <?= tr('date_event_label'); ?>: <strong> <?= $view->cacheHiddenDate; ?> </strong> <?= $view->addEventToCalendarButton; ?>
                 <?php } else { // cache-is-not-event?>
                     <img src="images/free_icons/date.png" class="icon16" alt="">
                     <?= tr('date_hidden_label'); ?>: <?= $view->cacheHiddenDate; ?>

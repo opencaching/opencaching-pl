@@ -49,6 +49,8 @@ class ComposerStaticInit2532e47646cbd0ac2fbb391e55b03321
             'Symfony\\Component\\Filesystem\\' => 29,
             'Symfony\\Component\\EventDispatcher\\' => 34,
             'Symfony\\Component\\Console\\' => 26,
+            'Spatie\\IcalendarGenerator\\' => 26,
+            'Spatie\\Enum\\' => 12,
         ),
         'R' => 
         array (
@@ -164,6 +166,14 @@ class ComposerStaticInit2532e47646cbd0ac2fbb391e55b03321
         'Symfony\\Component\\Console\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/console',
+        ),
+        'Spatie\\IcalendarGenerator\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/spatie/icalendar-generator/src',
+        ),
+        'Spatie\\Enum\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/spatie/enum/src',
         ),
         'React\\Stream\\' => 
         array (

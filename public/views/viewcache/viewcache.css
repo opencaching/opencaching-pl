@@ -103,6 +103,7 @@
 div#viewcache-baseinfo {
   width: 380px;
   text-align: left;
+  overflow: visible;
 }
 
 div#viewcache-maptypes { width: 380px; text-align: right;}
