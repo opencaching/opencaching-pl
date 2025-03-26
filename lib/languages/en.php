@@ -635,6 +635,9 @@ $translations = [
     'myn_addarea_info' => 'You can define more neighbourhoods that you watch',
     'myn_cacheitems_lbl' => 'The number of caches and logs displayed',
     'myn_style_lbl' => 'My Neighbourhood style',
+    'myn_family_lbl' => 'A style of map icons',
+    'myn_family_named_simple' => 'Simple',
+    'myn_family_named_okapi' => 'Okapi',
     'myn_log_txt' => 'Log content',
     'myn_style_full' => 'Full',
     'myn_style_min' => 'Minimalistic',
@@ -3237,4 +3240,7 @@ $translations = [
     'cache_approval_no_caches' => 'No geocaches waiting to be accepted',
     'cache_approval_changed_time' => 'status changed',
     'cache_approval_cache_invalid' => 'Cache "%s" is not valid for approval actions',
+
+    'map_popup_next' => 'Next',
+    'map_popup_previous' => 'Previous',
 ];
