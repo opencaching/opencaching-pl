@@ -227,7 +227,8 @@ class ViewCacheController extends BaseController
                 'startDate' => Formatter::formatDateTime($this->geocache->getDatePlaced(), "Y-m-d"),
                 'timeZone' => date_default_timezone_get(),
                 'location' => $this->geocache->getCoordinates()->getLatitude() . "," . $this->geocache->getCoordinates()->getLongitude(),
-                'language' => I18n::getCurrentLang()
+                'language' => I18n::getCurrentLang(),
+                'label' => tr('add_to_calendar')
             ]);
 
             $this->view->setVar('addEventToCalendarButton', $singleEventButton->render());
