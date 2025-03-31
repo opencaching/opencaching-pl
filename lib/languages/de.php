@@ -49,6 +49,7 @@ $translations = [
     'webcam' => 'Webcam-Cache',
     'event' => 'Event-Cache',
     'events' => 'Events',
+    'add_to_calendar' => 'Add to calendar',
     'quiz' => 'Rätselcache',
     'moving' => 'Beweglicher Cache',
     'podcast' => 'Podcast',

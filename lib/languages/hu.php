@@ -49,6 +49,7 @@ $translations = [
     'webcam' => 'Webkamera',
     'event' => 'Esemény',
     'events' => 'Events',
+    'add_to_calendar' => 'Add to calendar',
     'quiz' => 'Feladvány',
     'moving' => 'Mozgó',
     'podcast' => 'Podcast',
