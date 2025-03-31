@@ -49,6 +49,7 @@ $translations = [
     'webcam' => 'Webcam',
     'event' => 'Evenement',
     'events' => 'Events',
+    'add_to_calendar' => 'Add to calendar',
     'quiz' => 'Puzzel',
     'moving' => 'Reizend',
     'podcast' => 'Podcast',
