@@ -33,7 +33,7 @@ abstract class BaseCalendarButton implements CalendarButtonInterface
         string $language = 'en'
     ) {
         $this->name = $name;
-        $this->description = $description;
+        $this->description = str_replace("\n", '[br]', $description);;
         $this->options = $options;
         $this->styleLight = $styleLight;
         $this->listStyle = $listStyle;

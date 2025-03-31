@@ -16,32 +16,39 @@ class SingleEventButton extends BaseCalendarButton
         string $startDate,
         string $timeZone,
         string $location,
-        string $language
+        string $language,
+        string $label
     ) {
         parent::__construct($name, $description);
         $this->startDate = $startDate;
         $this->timeZone = $timeZone;
         $this->location = $location;
         $this->language = $language;
+        $this->label = $label;
     }
 
     public function render(): string
     {
-        return "<add-to-calendar-button 
-            name=\"{$this->name}\" 
-            description=\"{$this->description}\"
-            startDate=\"{$this->startDate}\"
-            timeZone=\"{$this->timeZone}\"
-            location=\"{$this->location}\"
-            options=\"{$this->options}\"
-            styleLight=\"{$this->styleLight}\"
-            styleDark=\"{$this->styleLight}\"
-            listStyle=\"{$this->listStyle}\"
-            trigger=\"{$this->trigger}\"
-            label=\"{$this->label}\"
-            language=\"{$this->language}\"
-            lightmode=\"bodyScheme\"
-            size=\"3\">
-        </add-to-calendar-button>";
+        return "<div id=\"add-to-calendar-button\">
+            <img src=\"images/free_icons/date_go.png\" class=\"icon16\" alt=\"\">
+            <strong style=\"text-decoration: underline; cursor: pointer\">{$this->label}</strong>
+        </div>
+        <script type=\"application/javascript\">
+            const config = {
+                name: \"{$this->name}\", 
+                description: \"{$this->description}\",
+                startDate: \"{$this->startDate}\",
+                timeZone: \"{$this->timeZone}\",
+                location: \"{$this->location}\",
+                options: [{$this->options}],
+                trigger: \"{$this->trigger}\",
+                label: \"{$this->label}\",
+                language: \"{$this->language}\"
+            };
+            const button = document.getElementById('add-to-calendar-button');
+            if (button) {
+                button.addEventListener('click', () => atcb_action(config, button));
+            }
+        </script>";
     }
 }

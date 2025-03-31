@@ -16,7 +16,8 @@ class CalendarButtonFactory
                     $params['startDate'],
                     $params['timeZone'],
                     $params['location'],
-                    $params['language'] ?? 'en'
+                    $params['language'] ?? 'en',
+                    $params['label']
                 );
             case 'subscription':
                 return new CalendarSubscriptionButton(
