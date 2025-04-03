@@ -79,6 +79,7 @@ class OpenCheckerCore {
                     $elapsed_time = round($OpenCheckerSetup->time_limit - ($elapsed_time / 60));
                     tpl_set_var("elapsed_time",$elapsed_time);
                     tpl_set_var("attempts_counter", $_SESSION["openchecker_counter"]);
+                    tpl_set_var("result_title_class", 'errormsg');
                     tpl_set_var("result_title", tr('openchecker_attempts_too_many'));
                     tpl_set_var("score", '');
                     tpl_set_var("image_yesno", '<image src="/images/blue/openchecker_stop.png" />');
@@ -215,6 +216,7 @@ class OpenCheckerCore {
                 $post_viewcache_form = '';
             }
 
+            tpl_set_var("result_title_class", 'successmsg');
             tpl_set_var("result_title", tr('openchecker_success'));
             tpl_set_var("image_yesno", '<image src="/images/blue/openchecker_yes.png" />');
             tpl_set_var("save_mod_coord", $post_viewcache_form);
@@ -244,6 +246,7 @@ class OpenCheckerCore {
                 echo "Error PDO Library: ($OpenCheckerSetup->scriptname) " . $e->getMessage();
                 exit;
             }
+            tpl_set_var("result_title_class", 'errormsg');
             tpl_set_var("result_title", tr('openchecker_fail'));
             tpl_set_var("image_yesno", '<image src="/images/blue/openchecker_no.png" />');
             tpl_set_var("save_mod_coord", '');
