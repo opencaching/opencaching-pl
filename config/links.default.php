@@ -49,6 +49,7 @@ $links['wiki']['forBeginers'] = $_wiki . '/index.php/Dla_pocz%C4%85tkuj%C4%85cyc
 $links['wiki']['geoPaths'] = $_wiki . '/index.php/Geo%C5%9Bcie%C5%BCka';
 $links['wiki']['myRoutes'] = $_wiki . '/index.php/Moje_trasy';
 $links['wiki']['placingCache'] = $_wiki . '/index.php/Zak%C5%82adanie_skrzynki';
+$links['wiki']['placingCache2'] = $_wiki . '/index.php/Umieszczanie_skrzynek_w_terenie';
 $links['wiki']['ratingDesc'] = $_wiki . '/index.php/Oceny_skrzynek';
 $links['wiki']['ratingDesc_en'] = $_wiki . '/index.php/Cache_rating';
 $links['wiki']['rules'] = $_wiki . '/index.php/Regulamin_OC_PL';
