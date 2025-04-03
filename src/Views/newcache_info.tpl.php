@@ -11,8 +11,8 @@
     <li><?=tr('nc11')?> <a class="links" href="{wiki_link_rules}"><?=tr('nc12')?></a>?</li>
     <li><?=tr('nc03')?></li>
     <li><?=tr('nc04')?></li>
-    <li><?=tr('nc05')?></li>
     <li><?=tr('nc06')?></li>
+    <li><?=tr('nc05')?></li>
     <?php if(tr('nc07') !== " "): ?>
       <li><?=tr('nc07')?></li>
     <?php endif; ?>
