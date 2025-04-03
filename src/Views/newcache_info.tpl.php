@@ -31,7 +31,7 @@
     <?php if(tr('nc21') !== " "): ?>
       <?=tr('nc21')?>
       <ul>
-        <li><?=tr('nc22')?> <a class="links" href="{wiki_main}"><?=tr('nc17')?></a>: <a class="links" href="{wiki_link_placingCache2}"><?=tr('nc23')?></a>, <a class="links" href="{wiki_link_placingCache}"><?=tr('nc14')?></a>, <a class="links" href="{wiki_link_cachingCode}"><?=tr('nc16')?></a></li>
+        <li><?=tr('nc22')?> <a class="links" href="{wiki_link_main}"><?=tr('nc17')?></a>: <a class="links" href="{wiki_link_placingCache2}"><?=tr('nc23')?></a>, <a class="links" href="{wiki_link_placingCache}"><?=tr('nc14')?></a>, <a class="links" href="{wiki_link_cachingCode}"><?=tr('nc16')?></a></li>
         <li><?=tr('nc24')?> <a class="links" href="/guide"><?=tr('nc09')?></a> <?=tr('nc25')?></li>
         <li><?=tr('nc26')?></li>
       </ul>
