@@ -474,6 +474,19 @@ $view->callChunk('tinyMCE');
     return cnt;
     }
 
+    document.addEventListener("DOMContentLoaded", function () {
+        const input = document.getElementById("myfile");
+        if (input) {
+            input.addEventListener("change", function () {
+                if (input.files && input.files.length > 0) {
+                    const uploadButton = document.getElementById("gpxUpload");
+                    if (uploadButton) {
+                        uploadButton.click();
+                    }
+                }
+            });
+        }
+    });
 
 </script>
 <script>
