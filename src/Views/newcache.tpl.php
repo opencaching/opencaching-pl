@@ -14,7 +14,8 @@ $view->callChunk('tinyMCE');
         $("#waypointsToChose").dialog({
             position: { my: "top+150", at: "top", of: window },
             autoOpen: false,
-            width: 500,
+            width: '100%',
+            maxWidth: 500,
             modal: true,
             show: {effect: 'bounce', duration: 350, /* SPECIF ARGUMENT */ times: 3},
             hide: "explode",
@@ -143,7 +144,6 @@ $view->callChunk('tinyMCE');
     var maAttributes = new Array({jsattributes_array});
 
     function startUpload(){
-      $('#f1_upload_form').hide();
       $('#ajaxLoaderLogo').show();
       return true;
     }
@@ -152,7 +152,6 @@ $view->callChunk('tinyMCE');
 
     function stopUpload(response){
         $('#ajaxLoaderLogo').hide();
-        $('#f1_upload_form').show();
         $('#wptInfo').html(response['status']['msg']);
         $('#wptInfo').removeClass('errormsg successmsg');
         if (response['status']['code'] == 0) {
@@ -583,13 +582,14 @@ $(document).ready(function(){
             <p class="content-title-noshade">{{newcache_import_wpt}}</p>
         </td>
         <td>
-            <div id="wptInfo" style="display: none;"></div>
-            <p id="f1_upload_form"><br/></p>
+            <div id="wptInfoCont">
+              <span id="wptInfo" style="display: none;"></span>
+            </div>
             <div class="form-inline">
                 <?php $view->callChunk('fileUpload', 'myfile', '.gpx'); ?>
                 <input id="gpxUpload" class="btn btn-primary btn-sm btn-upload" type="button" value="<?= tr('newcache_upload'); ?>"/>
+                <img style="display: none" id="ajaxLoaderLogo" src="images/misc/ptPreloader.gif" alt="">
             </div>
-            <img style="display: none" id="ajaxLoaderLogo" src="images/misc/ptPreloader.gif" alt="">
         </td>
     </tr>
     <tr>
