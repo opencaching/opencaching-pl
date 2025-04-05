@@ -73,11 +73,18 @@ $num_caches = $record['num_caches'];
 $cacheLimitByTypePerUser = GeoCache::getUserActiveCachesCountByType($loggedUser->getUserId());
 
 if ($num_caches < OcConfig::getNeedApproveLimit()) {
-    // user needs approvement for first 3 caches to be published
-    $needs_approvement = true;
-    tpl_set_var('hide_publish_start', '<!--');
-    tpl_set_var('hide_publish_end', '-->');
-    tpl_set_var('approvement_note', '<div class="notice errormsg">' . tr('first_cache_approvement') . '</div>');
+    if($loggedUser->getNewCachesNoLimit()){
+        $needs_approvement = false;
+        tpl_set_var('hide_publish_start', '');
+        tpl_set_var('hide_publish_end', '');
+        tpl_set_var('approvement_note', '');
+    }else{
+        // user needs approvement for first 3 caches to be published
+        $needs_approvement = true;
+        tpl_set_var('hide_publish_start', '<!--');
+        tpl_set_var('hide_publish_end', '-->');
+        tpl_set_var('approvement_note', '<div class="notice errormsg">' . tr('first_cache_approvement') . '</div>');
+    }
 } elseif ($loggedUser->getVerifyAll()) {
     $needs_approvement = true;
     tpl_set_var('hide_publish_start', '<!--');

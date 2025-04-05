@@ -86,6 +86,10 @@ $view->callChunk('tinyMCE');
         $("#" + identifier + "_day").val(dateArr[2]);
     }
 
+    function selectPublishLater(){
+        $("#publish_later").prop("checked", true);
+    }
+
     function checkRegion(){
         console.log('checkRegion');
 
@@ -931,7 +935,7 @@ $(document).ready(function(){
                     <legend>&nbsp; <strong>{{submit_new_cache}}</strong> &nbsp;</legend>
                     <input type="radio" class="radio" name="publish" id="publish_now" value="now" {publish_now_checked}/>&nbsp;<label for="publish_now">{{publish_now}}</label><br />
                     <input type="radio" class="radio" name="publish" id="publish_later" value="later" {publish_later_checked}/>&nbsp;<label for="publish_later">{{publish_date}}:</label>
-                    <input type="text" class="form-control" id="activateDatePicker" id="activateDatePicker" value="{activate_year}-{activate_month}-{activate_day}" onchange="hiddenDatePickerChange('activate');"/>
+                    <input type="text" class="form-control" id="activateDatePicker" value="{activate_year}-{activate_month}-{activate_day}" onchange="hiddenDatePickerChange('activate'); selectPublishLater();"/>
                     <input class="input40" type="hidden" name="activate_year"  id="activate_year"  value="{activate_year}"/>
                     <input class="input20" type="hidden" name="activate_month" id="activate_month" value="{activate_month}"/>
                     <input class="input20" type="hidden" name="activate_day"   id="activate_day"   value="{activate_day}"/>&nbsp;
