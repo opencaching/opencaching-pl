@@ -1453,6 +1453,10 @@ tr.geoKretLog {
     display: none;
 }
 
+#wptInfoCont{
+  min-height: 22px;
+}
+
 /* Dark Mode Styles Start */
 #theme-switcher{
   display: none;

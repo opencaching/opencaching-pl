@@ -125,20 +125,21 @@ if ($cache_record = $dbc->dbResultFetch($s)) {
         $cache_attrib_pic = '<img id="attr{attrib_id}" src="{attrib_pic}" border="0" alt="{attrib_text}" title="{attrib_text}" onmousedown="toggleAttr({attrib_id}); yes_change();" /> ';
 
         $activation_form = '
-        <tr><td colspan="2">
-        <fieldset style="border: 1px solid black; width: 80%; height: 32%; background-color: #FFFFFF;">
-            <legend>&nbsp; <strong>' . tr('submit_new_cache') . '</strong> &nbsp;</legend>
+        <tr class="form-group-sm">
+          <td colspan="2">
+             <fieldset style="border: 1px solid black; width: 80%; height: 32%; background-color: #FFFFFF;">
+                <legend>&nbsp; <strong>' . tr('submit_new_cache') . '</strong> &nbsp;</legend>
                 <input type="radio" onChange="yes_change();" class="radio" name="publish" id="publish_now" value="now" {publish_now_checked}>&nbsp;<label for="publish_now">' . tr('publish_now') . '</label><br />
                 <input type="radio" onChange="yes_change();" class="radio" name="publish" id="publish_later" value="later" {publish_later_checked}>&nbsp;<label for="publish_later">' . tr('publish_date') . ':</label>
-                <input class="input40" type="text" name="activate_year" onChange="yes_change();" maxlength="4" value="{activate_year}"/> -
-                                <input class="input20" type="text" name="activate_month" onChange="yes_change();" maxlength="2" value="{activate_month}"/> -
-                <input class="input20" type="text" name="activate_day" onChange="yes_change();" maxlength="2" value="{activate_day}"/>&nbsp;
-                                <select name="activate_hour" class="input40" onChange="yes_change();" >
-                    {activation_hours}
+                <input type="text" class="form-control" id="activateDatePicker" id="activateDatePicker" value="{activate_year}-{activate_month}-{activate_day}" onchange="hiddenDatePickerChange(\'activate\'); selectPublishLater()"/>
+                <input class="input40" type="hidden" name="activate_year" id="activate_year" onChange="yes_change();" maxlength="4" value="{activate_year}"/>
+                <input class="input20" type="hidden" name="activate_month" id="activate_month" onChange="yes_change();" maxlength="2" value="{activate_month}"/>
+                <input class="input20" type="hidden" name="activate_day" id="activate_day" onChange="yes_change();" maxlength="2" value="{activate_day}"/>&nbsp;
+                <select name="activate_hour" class="form-control input70" onChange="yes_change();" >{activation_hours}
                 </select>&nbsp;–&nbsp;{activate_on_message}<br />
                 <input type="radio" onChange="yes_change();" class="radio" name="publish" id="publish_notnow" value="notnow" {publish_notnow_checked}>&nbsp;<label for="publish_notnow">' . tr('dont_publish_yet') . '</label>
-                </fieldset>
-                </td>
+              </fieldset>
+            </td>
         </tr>
         ';
 
@@ -951,9 +952,9 @@ if ($cache_record = $dbc->dbResultFetch($s)) {
 
             for ($i = 0; $i <= 23; $i++) {
                 if ($cache_activate_hour == $i) {
-                    $activation_hours .= '<option value="' . $i . '" selected="selected">' . $i . '</options>';
+                    $activation_hours .= '<option value="' . $i . '" selected="selected">' . $i . ':00</options>';
                 } else {
-                    $activation_hours .= '<option value="' . $i . '">' . $i . '</options>';
+                    $activation_hours .= '<option value="' . $i . '">' . $i . ':00</options>';
                 }
                 $activation_hours .= "\n";
             }
@@ -962,7 +963,7 @@ if ($cache_record = $dbc->dbResultFetch($s)) {
             if ($activate_date_not_ok) {
                 $tmp = mb_ereg_replace('{activate_on_message}', $date_not_ok_message, $tmp);
             } else {
-                $tmp = mb_ereg_replace('{activate_on_message}', '', $tmp);
+                $tmp = mb_ereg_replace('{activate_on_message}', tr('newcacheDateFormat'), $tmp);
             }
 
             tpl_set_var('activation_form', $tmp);
@@ -1175,6 +1176,7 @@ unset($dbc);
 $view->loadJQuery();
 //make the template and send it out
 tpl_set_tplname('editcache');
+tpl_set_var('language4js', I18n::getCurrentLang());
 tpl_BuildTemplate();
 
 /**

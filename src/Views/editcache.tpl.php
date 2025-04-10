@@ -251,7 +251,33 @@ use src\Utils\Uri\SimpleRouter;
             window.open('<?= SimpleRouter::getLink(MainMapController::class, 'fullscreen'); ?>?circle&lat='+lat+'&lon='+lon); }
         return false;
     }
+
+    // data picker init
+    $(function() {
+        $.datepicker.setDefaults($.datepicker.regional['pl']);
+        $('#hiddenDatePicker, #activateDatePicker').datepicker (
+            $.datepicker.regional["{language4js}"]
+        ).datepicker("option", "dateFormat", "yy-mm-dd").val();
+    });
+
+    function hiddenDatePickerChange(identifier){
+        var dateTimeStr = $('#' + identifier + 'DatePicker').val();
+        var dateArr = dateTimeStr.split("-");
+        $("#" + identifier + "_year").val(dateArr[0]);
+        $("#" + identifier + "_month").val(dateArr[1]);
+        $("#" + identifier + "_day").val(dateArr[2]);
+    }
+
+    function selectPublishLater(){
+        $("#publish_later").prop("checked", true);
+    }
 </script>
+
+<style>
+  #hiddenDatePicker, #activateDatePicker{
+    width: 75px;
+  }
+</style>
 
 <form action="editcache.php" method="post" enctype="application/x-www-form-urlencoded" name="editcache_form" dir="ltr">
     <input type="hidden" name="cacheid" value="{cacheid}"/>
