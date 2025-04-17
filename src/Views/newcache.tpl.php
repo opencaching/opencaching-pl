@@ -1,6 +1,7 @@
 <?php
 
 use src\Controllers\GpxLoadApiController;
+use src\Controllers\MainMapController;
 use src\Models\GeoCache\GeoCacheCommons;
 use src\Models\OcConfig\OcConfig;
 use src\Utils\Uri\SimpleRouter;
@@ -14,8 +15,7 @@ $view->callChunk('tinyMCE');
         $("#waypointsToChose").dialog({
             position: { my: "top+150", at: "top", of: window },
             autoOpen: false,
-            width: '100%',
-            maxWidth: 500,
+            width: 800,
             modal: true,
             show: {effect: 'bounce', duration: 350, /* SPECIF ARGUMENT */ times: 3},
             hide: "explode",
@@ -254,6 +254,9 @@ $view->callChunk('tinyMCE');
         tinyMCE.activeEditor.setContent(wpt.desc);
         $("#desc").val(wpt.desc);
         $("#hiddenDatePicker").val(cacheHideDate);
+        if ("wp_gc" in wpt && wpt["wp_gc"] !== undefined) {
+            $("input[name=wp_gc]").val(wpt["wp_gc"]);
+        }
         checkRegion();
     }
 
@@ -600,7 +603,7 @@ $(document).ready(function(){
         <td>&nbsp;</td>
         <td>
             <div class="notice">{{newcache_import_wpt_help}}</div>
-            <div class="notice">Szczegóły dotyczące akceptowalnych elementów pliku GPX znajdują się <a id="showGpxFormatInfo" href="javascript:;">tutaj</a></div>
+            <div class="notice">{{newcache_import_wpt_format_details_prompt}} <a id="showGpxFormatInfo" href="javascript:;">{{newcache_import_wpt_format_details_prompt_link}}</a></div>
         </td>
     </tr>
 
@@ -1115,7 +1118,7 @@ $(document).ready(function(){
 <tr>
 <td><code>virtual</code></td><td><?= tr(GeoCacheCommons::SIZE_NONE_TR_KEY); ?></td>
 </tr>
-</table><code>Groundspeak 1.0.1</code>
+</table>
 <hr style="height: 1px; margin: 10px;"/>
 <p style="text-align: justify;">
 <?= tr('gpx_info_p8'); ?>:
