@@ -187,7 +187,7 @@ function toggle() {
                 <tr>
                     <td>{image_yesno}</td>
                     <td class="content">
-                        <h2 class="errormsg">{result_title}</h2>
+                        <h2 class="{result_title_class}">{result_title}</h2>
                         <p>&nbsp;</p>
                         {score}
                         <p>{result_text}</p>

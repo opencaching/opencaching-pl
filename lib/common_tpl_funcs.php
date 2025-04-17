@@ -152,6 +152,7 @@ function tpl_BuildTemplate($minitpl = false, $noCommonTemplate = false)
     $view->setVar('responsiveCss', Uri::getLinkWithModificationTime('/css/style_responsive.css'));
     $view->setVar('printCss', Uri::getLinkWithModificationTime('/css/style_print.css'));
     $view->setVar('backgroundSeason', $view->getSeasonCssName());
+    $view->setVar('badgeCss', Uri::getLinkWithModificationTime('/css/Badge.css'));
 
     //does template exist?
     if (! file_exists(__DIR__ . '/../src/Views/' . $tplname . '.tpl.php')) {

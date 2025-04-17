@@ -1,17 +1,6 @@
-<table width="600" class="content">
-    <colgroup>
-        <col width="100">
-    </colgroup>
-    <tr>
-        <td width="600" class="content2-pagetitle">
-            <img src="/images/blue/world.png" class="icon32" alt="World icon" align="middle">
-            <font size="4">  <b>{{links_01}}</b></font>
-        </td>
-    </tr>
-    <tr>
-        <td class="spacer"></td>
-    </tr>
-</table>
+<div class="content2-pagetitle">
+    <img src="/images/blue/world.png" class="icon32" alt="World icon"> {{links_01}}
+</div>
 
 <div class="searchdiv">
     <h2>Geocaching</h2>

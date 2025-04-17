@@ -3,6 +3,7 @@
 namespace src\Controllers;
 
 use src\Models\MeritBadge\MeritBadge; //for static functions
+use src\Utils\Uri\Uri;
 
 class ViewBadgeHeadController extends BaseController
 {
@@ -44,6 +45,7 @@ class ViewBadgeHeadController extends BaseController
 
         $this->preapareCode();
 
+        $this->setVar('badge_css', Uri::getLinkWithModificationTime('/css/Badge.css'));
         $this->setVar('picture', $userMeritBadge->getPicture());
         $this->setVar('progresbar_curr_val', MeritBadge::getProgressBarCurrValue($currUserPrevThreshold, $currUserCurrVal, $currUserThreshold));
         $this->setVar('progresbar_next_val', MeritBadge::getProgressBarValueMax($currUserPrevThreshold, $currUserThreshold));

@@ -9,6 +9,7 @@ class ComposerStaticInit2532e47646cbd0ac2fbb391e55b03321
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
+        'ad155f8f1cf0d418fe49e248db8c661b' => __DIR__ . '/..' . '/react/promise/src/functions_include.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
@@ -48,29 +49,44 @@ class ComposerStaticInit2532e47646cbd0ac2fbb391e55b03321
             'Symfony\\Component\\Filesystem\\' => 29,
             'Symfony\\Component\\EventDispatcher\\' => 34,
             'Symfony\\Component\\Console\\' => 26,
+            'Spatie\\IcalendarGenerator\\' => 26,
+            'Spatie\\Enum\\' => 12,
+        ),
+        'R' => 
+        array (
+            'React\\Stream\\' => 13,
+            'React\\Socket\\' => 13,
+            'React\\Promise\\' => 14,
+            'React\\EventLoop\\' => 16,
+            'React\\Dns\\' => 10,
+            'React\\ChildProcess\\' => 19,
+            'React\\Cache\\' => 12,
         ),
         'P' => 
         array (
             'Psr\\Log\\' => 8,
             'Psr\\EventDispatcher\\' => 20,
             'Psr\\Container\\' => 14,
-            'Psr\\Cache\\' => 10,
             'PhpCsFixer\\' => 11,
         ),
         'K' => 
         array (
             'Kint\\' => 5,
         ),
-        'D' => 
+        'F' => 
         array (
-            'Doctrine\\Common\\Lexer\\' => 22,
-            'Doctrine\\Common\\Annotations\\' => 28,
+            'Fidry\\CpuCoreCounter\\' => 21,
+        ),
+        'E' => 
+        array (
+            'Evenement\\' => 10,
         ),
         'C' => 
         array (
             'Composer\\XdebugHandler\\' => 23,
             'Composer\\Semver\\' => 16,
             'Composer\\Pcre\\' => 14,
+            'Clue\\React\\NDJson\\' => 18,
         ),
     );
 
@@ -151,6 +167,42 @@ class ComposerStaticInit2532e47646cbd0ac2fbb391e55b03321
         array (
             0 => __DIR__ . '/..' . '/symfony/console',
         ),
+        'Spatie\\IcalendarGenerator\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/spatie/icalendar-generator/src',
+        ),
+        'Spatie\\Enum\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/spatie/enum/src',
+        ),
+        'React\\Stream\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/react/stream/src',
+        ),
+        'React\\Socket\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/react/socket/src',
+        ),
+        'React\\Promise\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/react/promise/src',
+        ),
+        'React\\EventLoop\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/react/event-loop/src',
+        ),
+        'React\\Dns\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/react/dns/src',
+        ),
+        'React\\ChildProcess\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/react/child-process/src',
+        ),
+        'React\\Cache\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/react/cache/src',
+        ),
         'Psr\\Log\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
@@ -163,10 +215,6 @@ class ComposerStaticInit2532e47646cbd0ac2fbb391e55b03321
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
         ),
-        'Psr\\Cache\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/psr/cache/src',
-        ),
         'PhpCsFixer\\' => 
         array (
             0 => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src',
@@ -175,13 +223,13 @@ class ComposerStaticInit2532e47646cbd0ac2fbb391e55b03321
         array (
             0 => __DIR__ . '/..' . '/kint-php/kint/src',
         ),
-        'Doctrine\\Common\\Lexer\\' => 
+        'Fidry\\CpuCoreCounter\\' => 
         array (
-            0 => __DIR__ . '/..' . '/doctrine/lexer/lib/Doctrine/Common/Lexer',
+            0 => __DIR__ . '/..' . '/fidry/cpu-core-counter/src',
         ),
-        'Doctrine\\Common\\Annotations\\' => 
+        'Evenement\\' => 
         array (
-            0 => __DIR__ . '/..' . '/doctrine/annotations/lib/Doctrine/Common/Annotations',
+            0 => __DIR__ . '/..' . '/evenement/evenement/src',
         ),
         'Composer\\XdebugHandler\\' => 
         array (
@@ -194,6 +242,10 @@ class ComposerStaticInit2532e47646cbd0ac2fbb391e55b03321
         'Composer\\Pcre\\' => 
         array (
             0 => __DIR__ . '/..' . '/composer/pcre/src',
+        ),
+        'Clue\\React\\NDJson\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/clue/ndjson-react/src',
         ),
     );
 
@@ -216,6 +268,7 @@ class ComposerStaticInit2532e47646cbd0ac2fbb391e55b03321
 
     public static $classMap = array (
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
+        'CURLStringFile' => __DIR__ . '/..' . '/symfony/polyfill-php81/Resources/stubs/CURLStringFile.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
         'Normalizer' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/Resources/stubs/Normalizer.php',
@@ -223,24 +276,24 @@ class ComposerStaticInit2532e47646cbd0ac2fbb391e55b03321
         'OpenChecker\\OpenCheckerSetup' => __DIR__ . '/../..' . '/modules/openchecker/openchecker_classes.php',
         'OpenChecker\\Pagination' => __DIR__ . '/../..' . '/modules/openchecker/openchecker_classes.php',
         'OpenChecker\\convertLongLat' => __DIR__ . '/../..' . '/modules/openchecker/openchecker_classes.php',
-        'PhpCsFixer\\Diff\\Chunk' => __DIR__ . '/..' . '/php-cs-fixer/diff/src/Chunk.php',
-        'PhpCsFixer\\Diff\\ConfigurationException' => __DIR__ . '/..' . '/php-cs-fixer/diff/src/Exception/ConfigurationException.php',
-        'PhpCsFixer\\Diff\\Diff' => __DIR__ . '/..' . '/php-cs-fixer/diff/src/Diff.php',
-        'PhpCsFixer\\Diff\\Differ' => __DIR__ . '/..' . '/php-cs-fixer/diff/src/Differ.php',
-        'PhpCsFixer\\Diff\\Exception' => __DIR__ . '/..' . '/php-cs-fixer/diff/src/Exception/Exception.php',
-        'PhpCsFixer\\Diff\\InvalidArgumentException' => __DIR__ . '/..' . '/php-cs-fixer/diff/src/Exception/InvalidArgumentException.php',
-        'PhpCsFixer\\Diff\\Line' => __DIR__ . '/..' . '/php-cs-fixer/diff/src/Line.php',
-        'PhpCsFixer\\Diff\\LongestCommonSubsequenceCalculator' => __DIR__ . '/..' . '/php-cs-fixer/diff/src/LongestCommonSubsequenceCalculator.php',
-        'PhpCsFixer\\Diff\\MemoryEfficientLongestCommonSubsequenceCalculator' => __DIR__ . '/..' . '/php-cs-fixer/diff/src/MemoryEfficientLongestCommonSubsequenceCalculator.php',
-        'PhpCsFixer\\Diff\\Output\\AbstractChunkOutputBuilder' => __DIR__ . '/..' . '/php-cs-fixer/diff/src/Output/AbstractChunkOutputBuilder.php',
-        'PhpCsFixer\\Diff\\Output\\DiffOnlyOutputBuilder' => __DIR__ . '/..' . '/php-cs-fixer/diff/src/Output/DiffOnlyOutputBuilder.php',
-        'PhpCsFixer\\Diff\\Output\\DiffOutputBuilderInterface' => __DIR__ . '/..' . '/php-cs-fixer/diff/src/Output/DiffOutputBuilderInterface.php',
-        'PhpCsFixer\\Diff\\Output\\StrictUnifiedDiffOutputBuilder' => __DIR__ . '/..' . '/php-cs-fixer/diff/src/Output/StrictUnifiedDiffOutputBuilder.php',
-        'PhpCsFixer\\Diff\\Output\\UnifiedDiffOutputBuilder' => __DIR__ . '/..' . '/php-cs-fixer/diff/src/Output/UnifiedDiffOutputBuilder.php',
-        'PhpCsFixer\\Diff\\Parser' => __DIR__ . '/..' . '/php-cs-fixer/diff/src/Parser.php',
-        'PhpCsFixer\\Diff\\TimeEfficientLongestCommonSubsequenceCalculator' => __DIR__ . '/..' . '/php-cs-fixer/diff/src/TimeEfficientLongestCommonSubsequenceCalculator.php',
         'PhpToken' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/PhpToken.php',
         'ReturnTypeWillChange' => __DIR__ . '/..' . '/symfony/polyfill-php81/Resources/stubs/ReturnTypeWillChange.php',
+        'SebastianBergmann\\Diff\\Chunk' => __DIR__ . '/..' . '/sebastian/diff/src/Chunk.php',
+        'SebastianBergmann\\Diff\\ConfigurationException' => __DIR__ . '/..' . '/sebastian/diff/src/Exception/ConfigurationException.php',
+        'SebastianBergmann\\Diff\\Diff' => __DIR__ . '/..' . '/sebastian/diff/src/Diff.php',
+        'SebastianBergmann\\Diff\\Differ' => __DIR__ . '/..' . '/sebastian/diff/src/Differ.php',
+        'SebastianBergmann\\Diff\\Exception' => __DIR__ . '/..' . '/sebastian/diff/src/Exception/Exception.php',
+        'SebastianBergmann\\Diff\\InvalidArgumentException' => __DIR__ . '/..' . '/sebastian/diff/src/Exception/InvalidArgumentException.php',
+        'SebastianBergmann\\Diff\\Line' => __DIR__ . '/..' . '/sebastian/diff/src/Line.php',
+        'SebastianBergmann\\Diff\\LongestCommonSubsequenceCalculator' => __DIR__ . '/..' . '/sebastian/diff/src/LongestCommonSubsequenceCalculator.php',
+        'SebastianBergmann\\Diff\\MemoryEfficientLongestCommonSubsequenceCalculator' => __DIR__ . '/..' . '/sebastian/diff/src/MemoryEfficientLongestCommonSubsequenceCalculator.php',
+        'SebastianBergmann\\Diff\\Output\\AbstractChunkOutputBuilder' => __DIR__ . '/..' . '/sebastian/diff/src/Output/AbstractChunkOutputBuilder.php',
+        'SebastianBergmann\\Diff\\Output\\DiffOnlyOutputBuilder' => __DIR__ . '/..' . '/sebastian/diff/src/Output/DiffOnlyOutputBuilder.php',
+        'SebastianBergmann\\Diff\\Output\\DiffOutputBuilderInterface' => __DIR__ . '/..' . '/sebastian/diff/src/Output/DiffOutputBuilderInterface.php',
+        'SebastianBergmann\\Diff\\Output\\StrictUnifiedDiffOutputBuilder' => __DIR__ . '/..' . '/sebastian/diff/src/Output/StrictUnifiedDiffOutputBuilder.php',
+        'SebastianBergmann\\Diff\\Output\\UnifiedDiffOutputBuilder' => __DIR__ . '/..' . '/sebastian/diff/src/Output/UnifiedDiffOutputBuilder.php',
+        'SebastianBergmann\\Diff\\Parser' => __DIR__ . '/..' . '/sebastian/diff/src/Parser.php',
+        'SebastianBergmann\\Diff\\TimeEfficientLongestCommonSubsequenceCalculator' => __DIR__ . '/..' . '/sebastian/diff/src/TimeEfficientLongestCommonSubsequenceCalculator.php',
         'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
         'UnhandledMatchError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
         'ValueError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',

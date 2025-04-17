@@ -54,7 +54,20 @@ class Email
             // the return values of setFromAddr() and addToAddr() if handling
             // is needed.
             $to = implode(',', $this->toAddr);
-            throw new \RuntimeException("Invalid recipient/sender address! $to/{$this->fromAddr}");
+            $errorDetails = sprintf(
+                "Invalid recipient/sender address!" .
+                " Raw To: %s" .
+                " Imploded To: %s" .
+                " From: %s" .
+                " To validation: %s" .
+                " From validation: %s",
+                print_r($this->toAddr, true),
+                $to ?: '(empty)',
+                print_r($this->fromAddr, true),
+                self::isValidEmailAddr($this->toAddr) ? 'valid' : 'invalid',
+                self::isValidEmailAddr($this->fromAddr) ? 'valid' : 'invalid'
+            );
+            throw new \RuntimeException($errorDetails);
         }
         $headers = [];
 

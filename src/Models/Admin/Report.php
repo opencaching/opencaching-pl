@@ -466,8 +466,12 @@ class Report extends BaseObject
         if ($this->userIdLeader == $this->userIdLastChange) { // Assign report to yourself
             $this->sendWatchEmails($logId);
         } else { // Assign report to other user
-            ReportEmailSender::sendReportNewLeader($this, $this->getUserLeader());
-            $this->sendWatchEmails($logId, [ $this->userIdLeader ]);
+            if($this->getUserLeader()->getUserId() !== ReportCommons::USER_NOBODY){
+                ReportEmailSender::sendReportNewLeader($this, $this->getUserLeader());
+            }
+            if($this->userIdLeader !== ReportCommons::USER_NOBODY){
+                $this->sendWatchEmails($logId, [ $this->userIdLeader ]);
+            }
         }
         if (! $this->isReportWatched($oldLeaderId) && ! is_null($oldLeaderId)) { // If previeous leader don't watch this report - inform him anyway
             ReportEmailSender::sendReportWatch($this, new User(['userId' => $oldLeaderId]), $logId);

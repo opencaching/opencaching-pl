@@ -27,6 +27,7 @@ textarea.customReactivation {
 fieldset.reactivationRules {
     border: 1px solid black;
     width: 98%;
+    box-sizing: border-box;
 }
 
 legend, legend.content-title-noshade {

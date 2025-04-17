@@ -1,5 +1,6 @@
 <?php
 
+use src\Utils\Cache\OcMemCache;
 use src\Utils\Database\OcDb;
 use src\Utils\Generators\Uuid;
 use src\Models\User\User;
@@ -212,6 +213,13 @@ class powerTrailController
             $logQuery = 'INSERT INTO `PowerTrail_actionsLog`(`PowerTrailId`, `userId`, `actionDateTime`, `actionType`, `description`) VALUES (:1,:2,NOW(),1,:3)';
             $db->multiVariableQuery($logQuery, $newProjectId, $this->user->getUserId(),
                 $this->ptAPI->logActionTypes[1]['type']);
+
+            OcMemCache::refreshAndReturn('PowerTrail:getMaxPowerTrailId', 60*60, function() {
+                $db = OcDb::instance();
+                $query = 'SELECT MAX(id) FROM PowerTrail';
+                return $db->simpleQueryValue($query, 0);
+            });
+
             header("location: powerTrail.php?ptAction=showSerie&ptrail=$newProjectId");
 
             return true;
@@ -226,7 +234,7 @@ class powerTrailController
         if (!$this->user) {
             return [];
         }
-        $query = "SELECT cache_id, wp_oc, PowerTrailId, name FROM `caches` LEFT JOIN powerTrail_caches ON powerTrail_caches.cacheId = caches.cache_id WHERE caches.status NOT IN (3,6) AND `user_id` = :1";
+        $query = "SELECT cache_id, wp_oc, PowerTrailId, name FROM `caches` LEFT JOIN powerTrail_caches ON powerTrail_caches.cacheId = caches.cache_id WHERE caches.status NOT IN (3,6) AND `user_id` = :1 ORDER BY cache_id DESC";
         $db = OcDb::instance();
         $s = $db->multiVariableQuery($query, $this->user->getUserId());
         return $db->dbResultFetchAll($s);
@@ -238,7 +246,7 @@ class powerTrailController
             return [];
         }
 
-        $query = "SELECT * FROM `PowerTrail`, PowerTrail_owners  WHERE  PowerTrail_owners.userId = :1 AND PowerTrail_owners.PowerTrailId = PowerTrail.id";
+        $query = "SELECT * FROM `PowerTrail`, PowerTrail_owners  WHERE  PowerTrail_owners.userId = :1 AND PowerTrail_owners.PowerTrailId = PowerTrail.id ORDER BY PowerTrail.id DESC";
         $db = OcDb::instance();
         $s = $db->multiVariableQuery($query, $this->user->getUserId());
         $userPTs = $db->dbResultFetchAll($s);

@@ -34,7 +34,7 @@
                 <strong><?=$news->getAuthor()->getUserName()?></strong></a>)
               <?php } // if-$news->isAuthorHidden() ?>
             </div>
-            <?=$news->getContent()?>
+            <?=$news->getShortContent();?>
           </div>
         <?php } //foreach-newsList ?>
     </div>
@@ -103,6 +103,7 @@
          title="<?=tr('startPage_validAt')?>: <?=$view->newestCachesValidAt?>">
         <?=tr('incomming_events')?>
         <?php $view->callChunk('staticMap/staticMapMarker', $view->newestEventsLegendMarker); ?>
+        <?= $view->subscribeEventsCalendar; ?>
       </div>
 
       <ul class="latestCachesList">

@@ -47,6 +47,8 @@ final class OcConfig extends ConfigReader
 
     private string $headerLogo;
 
+    private string $emailHeaderLogo;
+
     private int $needFindLimit;
 
     private int $needApproveLimit;
@@ -58,6 +60,8 @@ final class OcConfig extends ConfigReader
     private string $dbUser;
 
     private string $dbPass;
+
+    private string $dbCharset;
 
     private string $dbAdminUser;
 
@@ -127,6 +131,7 @@ final class OcConfig extends ConfigReader
         $this->mapQuestKey = $config['maps']['mapQuestKey'];
         $this->dateFormat = $dateFormat;
         $this->headerLogo = $config['headerLogo'];
+        $this->emailHeaderLogo = !empty($config['emailHeaderLogo']) ? $config['emailHeaderLogo'] : $config['headerLogo'];
         $this->needApproveLimit = $NEED_APPROVE_LIMIT;
         $this->needFindLimit = $NEED_FIND_LIMIT;
         $this->minimumAge = $config['limits']['minimum_age'];
@@ -136,6 +141,7 @@ final class OcConfig extends ConfigReader
         $this->dbName = $dbname;
         $this->dbUser = $dbusername;
         $this->dbPass = $dbpasswd;
+        $this->dbCharset = $dbcharset ?? 'utf8';
 
         $this->dbAdminUser = $opt['db']['admin_username'] ?? $this->dbUser;
         $this->dbAdminPass = $opt['db']['admin_password'] ?? $this->dbPass;
@@ -235,9 +241,19 @@ final class OcConfig extends ConfigReader
         return $this->dbName;
     }
 
+    public function getDbCharset(): string
+    {
+        return $this->dbCharset;
+    }
+
     public static function getHeaderLogo(): string
     {
         return self::instance()->headerLogo;
+    }
+
+    public static function getEmailHeaderLogo(): string
+    {
+        return self::instance()->emailHeaderLogo;
     }
 
     public static function getNeedFindLimit(): int

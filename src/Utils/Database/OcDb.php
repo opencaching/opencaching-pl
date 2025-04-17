@@ -415,10 +415,10 @@ class OcDb extends OcPdo
 
         } catch (PDOException $e) {
 
-            $this->error("Query:\n$query\n\nParams:\n".implode(' | ', $params), $e);
+            $this->error("Query:\n$query\n\nParams:\n".json_encode($params), $e);
         }
         if ($this->debug) {
-            self::debugOut(__METHOD__.":\n\nQuery:\n$query\n\nParams:\n".implode(' | ', $params));
+            self::debugOut(__METHOD__.":\n\nQuery:\n$query\n\nParams:\n".json_encode($params));
         }
 
         return $stmt;

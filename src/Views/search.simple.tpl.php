@@ -942,6 +942,7 @@
       <tr>
         <td colspan="3"><p class="content-title-noshade-size1">{{search_by_finder}}</p></td>
       </tr>
+      {findererror}
       <tr class="form-group-sm">
         <td class="content-title-noshade" style="width: 200px;">{{finder_label}}:</td>
         <td class="content-title-noshade" style="width: 220px;"><input type="text" name="finder" value="{finder}" maxlength="40" class="form-control input200"></td>

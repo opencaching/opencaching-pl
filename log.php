@@ -579,10 +579,10 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
 
             XDb::xSql(
                 "INSERT INTO `cache_logs` (
-                    `id`, `cache_id`, `user_id`, `type`, `date`,
+                    `cache_id`, `user_id`, `type`, `date`,
                     `text`, `text_html`, `date_created`, `last_modified`, `uuid`,
                     `node`)
-                VALUES ('', ?, ?, ?, ?,
+                VALUES (?, ?, ?, ?,
                         ?, ?, NOW(), NOW(), ?,
                         ?)",
                 $geoCache->getCacheId(),

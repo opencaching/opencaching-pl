@@ -14,7 +14,8 @@ $view->callChunk('tinyMCE');
         $("#waypointsToChose").dialog({
             position: { my: "top+150", at: "top", of: window },
             autoOpen: false,
-            width: 500,
+            width: '100%',
+            maxWidth: 500,
             modal: true,
             show: {effect: 'bounce', duration: 350, /* SPECIF ARGUMENT */ times: 3},
             hide: "explode",
@@ -85,6 +86,10 @@ $view->callChunk('tinyMCE');
         $("#" + identifier + "_day").val(dateArr[2]);
     }
 
+    function selectPublishLater(){
+        $("#publish_later").prop("checked", true);
+    }
+
     function checkRegion(){
         console.log('checkRegion');
 
@@ -143,7 +148,6 @@ $view->callChunk('tinyMCE');
     var maAttributes = new Array({jsattributes_array});
 
     function startUpload(){
-      $('#f1_upload_form').hide();
       $('#ajaxLoaderLogo').show();
       return true;
     }
@@ -152,7 +156,6 @@ $view->callChunk('tinyMCE');
 
     function stopUpload(response){
         $('#ajaxLoaderLogo').hide();
-        $('#f1_upload_form').show();
         $('#wptInfo').html(response['status']['msg']);
         $('#wptInfo').removeClass('errormsg successmsg');
         if (response['status']['code'] == 0) {
@@ -474,6 +477,19 @@ $view->callChunk('tinyMCE');
     return cnt;
     }
 
+    document.addEventListener("DOMContentLoaded", function () {
+        const input = document.getElementById("myfile");
+        if (input) {
+            input.addEventListener("change", function () {
+                if (input.files && input.files.length > 0) {
+                    const uploadButton = document.getElementById("gpxUpload");
+                    if (uploadButton) {
+                        uploadButton.click();
+                    }
+                }
+            });
+        }
+    });
 
 </script>
 <script>
@@ -570,13 +586,14 @@ $(document).ready(function(){
             <p class="content-title-noshade">{{newcache_import_wpt}}</p>
         </td>
         <td>
-            <div id="wptInfo" style="display: none;"></div>
-            <p id="f1_upload_form"><br/></p>
+            <div id="wptInfoCont">
+              <span id="wptInfo" style="display: none;"></span>
+            </div>
             <div class="form-inline">
                 <?php $view->callChunk('fileUpload', 'myfile', '.gpx'); ?>
                 <input id="gpxUpload" class="btn btn-primary btn-sm btn-upload" type="button" value="<?= tr('newcache_upload'); ?>"/>
+                <img style="display: none" id="ajaxLoaderLogo" src="images/misc/ptPreloader.gif" alt="">
             </div>
-            <img style="display: none" id="ajaxLoaderLogo" src="images/misc/ptPreloader.gif" alt="">
         </td>
     </tr>
     <tr>
@@ -624,7 +641,7 @@ $(document).ready(function(){
             <td valign="top"><p class="content-title-noshade">{{coordinates}}:</p></td>
             <td class="content-title-noshade">
                 <fieldset style="border: 1px solid black; width: 90%; height: 32%; background-color: #FAFBDF;" class="form-group-sm">
-                    <legend>&nbsp; <strong>WGS-84</strong> &nbsp;</legend>&nbsp;&nbsp;&nbsp;
+                    <legend>&nbsp; <strong>WGS-84</strong> &nbsp;</legend>
                     <select name="latNS" id="latNS" class="form-control input50" onchange="checkRegion()">
                         <option value="N"{latNsel}>N</option>
                         <option value="S"{latSsel}>S</option>
@@ -635,15 +652,14 @@ $(document).ready(function(){
                       id="lat_h"
                       name="lat_h"
                       maxlength="2"
-                      class="form-control input50"
+                      class="form-control input45"
                       onchange="checkRegion()"
                       placeholder="0"
                       value="{lat_h}"
                       min="0"
                       max="90"
                       required
-                  />
-                    &deg;&nbsp;
+                  />&deg;&nbsp;
                   <input
                       type="text"
                       id="lat_min"
@@ -659,7 +675,6 @@ $(document).ready(function(){
                   />&nbsp;'&nbsp;
                     <button class="btn btn-default btn-sm" onclick="nearbycachemapOC()">{{check_nearby_caches_map}}</button>
                     {lat_message}<br />
-                    &nbsp;&nbsp;&nbsp;
                     <select name="lonEW" id="lonEW" class="form-control input50" onchange="checkRegion()">
                         <option value="W"{lonWsel}>W</option>
                         <option value="E"{lonEsel}>E</option>
@@ -670,15 +685,14 @@ $(document).ready(function(){
                       id="lon_h"
                       name="lon_h"
                       maxlength="3"
-                      class="form-control input50"
+                      class="form-control input45"
                       onchange="checkRegion()"
                       placeholder="0"
                       value="{lon_h}"
                       min="0"
                       max="180"
                       required
-                  />
-                    &deg;&nbsp;
+                  />&deg;&nbsp;
                   <input
                       type="text"
                       id="lon_min"
@@ -921,7 +935,7 @@ $(document).ready(function(){
                     <legend>&nbsp; <strong>{{submit_new_cache}}</strong> &nbsp;</legend>
                     <input type="radio" class="radio" name="publish" id="publish_now" value="now" {publish_now_checked}/>&nbsp;<label for="publish_now">{{publish_now}}</label><br />
                     <input type="radio" class="radio" name="publish" id="publish_later" value="later" {publish_later_checked}/>&nbsp;<label for="publish_later">{{publish_date}}:</label>
-                    <input type="text" class="form-control" id="activateDatePicker" id="activateDatePicker" value="{activate_year}-{activate_month}-{activate_day}" onchange="hiddenDatePickerChange('activate');"/>
+                    <input type="text" class="form-control" id="activateDatePicker" value="{activate_year}-{activate_month}-{activate_day}" onchange="hiddenDatePickerChange('activate'); selectPublishLater();"/>
                     <input class="input40" type="hidden" name="activate_year"  id="activate_year"  value="{activate_year}"/>
                     <input class="input20" type="hidden" name="activate_month" id="activate_month" value="{activate_month}"/>
                     <input class="input20" type="hidden" name="activate_day"   id="activate_day"   value="{activate_day}"/>&nbsp;

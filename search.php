@@ -660,7 +660,7 @@ if (!$loggedUser) {
                             }
 
                             // create temporary table and then remove entries that have less occurrences than words were given
-                            XDb::xSql('CREATE TEMPORARY TABLE tmpuniids (`uni_id` int(11) NOT NULL, `cnt` int(11) NOT NULL DEFAULT \'0\', `olduni` int(11) NOT NULL, `simplehash` int(11) NOT NULL) ENGINE=MEMORY SELECT `gns_search`.`uni_id` `uni_id`, 0 `cnt`, 0 `olduni`, `simplehash` FROM `gns_search` WHERE ' . $sqlhashes);
+                            XDb::xSql('CREATE TEMPORARY TABLE tmpuniids (`uni_id` int(11) NOT NULL, `cnt` int(11) NOT NULL DEFAULT \'0\', `olduni` int(11) NOT NULL, `simplehash` int(11) UNSIGNED NOT NULL) ENGINE=MEMORY SELECT `gns_search`.`uni_id` `uni_id`, 0 `cnt`, 0 `olduni`, `simplehash` FROM `gns_search` WHERE ' . $sqlhashes);
                             XDb::xSql('ALTER TABLE `tmpuniids` ADD INDEX (`uni_id`)');
 //  BUGFIX: This code should only be executed, if more than one search keyword was entered,
 //          so that all entries are fileters, which do not contain all keywords;
@@ -794,6 +794,14 @@ if (!$loggedUser) {
                         $sqlstr = "SELECT `user_id` FROM `user` WHERE `username`= :1 LIMIT 1";
                         $s = $dbc->multiVariableQuery($sqlstr, $options['finder'] );
                         $finder_record = $dbc->dbResultFetchOneRowOnly($s);
+                        if($finder_record == false)
+                        {
+                            $options['error_finder'] = true;
+                            outputSearchForm($options, $loggedUser);
+                            unset($dbc);
+                            unset($dbcSearch);
+                            exit;
+                        }
                         $finder_id = $finder_record['user_id'];
                     }
 
@@ -925,7 +933,7 @@ if (!$loggedUser) {
                     //print_r($_SESSION['geoPathCacheList']);
                     if (isset($_SESSION['geoPathCacheList']) && count($_SESSION['geoPathCacheList']) > 0){
                         $cache_bylist = implode(",", $_SESSION['geoPathCacheList']);
-                        $options['gpxPtFileName'] = $_SESSION['ptName'];
+                        $options['gpxPtFileName'] = $_SESSION['ptName'] ?? '';
                     } else {
                         $options['ptId'] = (int) $_REQUEST['ptId'];
                         $cache_bylist = implode(",",powerTrailBase::getPtCachesIds($options['ptId']));
@@ -1222,7 +1230,7 @@ if (!$loggedUser) {
 
 function outputSearchForm($options, User $loggedUser)
 {
-    global $error_plz, $error_locidnocoords, $error_ort, $error_noort, $error_nofulltext;
+    global $error_plz, $error_locidnocoords, $error_ort, $error_noort, $error_nofulltext, $error_finder;
     global $search_all_countries, $cache_attrib_jsarray_line, $cache_attrib_img_line;
     global $config;
 
@@ -1720,6 +1728,7 @@ function attr_image($tpl, $options, $id, $textlong, $iconlarge, $iconno, $iconun
         tpl_set_var('ortserror', $error_noort);
 
     tpl_set_var('fulltexterror', isset($options['error_nofulltext']) ? $error_nofulltext : '');
+    tpl_set_var('findererror', isset($options['error_finder']) ? '<tr><td colspan="3"><span class="errormsg">' . tr("message_user_not_found") . ': ' . htmlspecialchars($options['finder']) . '</span></td></tr>' : '');
 
     tpl_BuildTemplate();
     exit;

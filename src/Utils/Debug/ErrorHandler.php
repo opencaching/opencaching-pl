@@ -3,6 +3,7 @@ namespace src\Utils\Debug;
 
 use Throwable;
 use src\Utils\Email\EmailSender;
+use src\Models\ApplicationContainer;
 use src\Models\OcConfig\OcConfig;
 
 class ErrorHandler
@@ -73,18 +74,20 @@ class ErrorHandler
 
     private static function processError(string $msg, Throwable $exception = null)
     {
+        $emailMsg = self::generateExtedndedErrorInfoForEmail($msg);
+
         // Try to send an admin email
         $mailFail = false;
         try {
-            EmailSender::adminOnErrorMessage($msg);
+            EmailSender::adminOnErrorMessage($emailMsg);
         } catch (\Exception $e) {
             try {
                 foreach (OcConfig::getEmailAddrTechAdminNotification() as $techAdminAddr) {
-                    mail($techAdminAddr, "OC site error", $msg);
+                    mail($techAdminAddr, "OC site error", $emailMsg);
                 }
             } catch (\Exception $e) {
                 try {
-                    mail("root@localhost", "OC site error", $msg);
+                    mail("root@localhost", "OC site error", $emailMsg);
                 } catch (\Exception $e) {
                     $mailFail = true;
                 }
@@ -144,4 +147,82 @@ class ErrorHandler
             include __DIR__ . '/../../../src/Views/page_error.tpl.php';
         }
     }
+
+    private static function generateFullUrl() {
+        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https://' : 'http://';
+        $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+        $uri = $_SERVER['REQUEST_URI'] ?? '/';
+        $url = $protocol . $host . $uri;
+        return $url;
+    }
+
+    private static function generateExtedndedErrorInfoForEmail($msg)
+    {
+
+        $extendedMsg = "\n--- Extended Error Info ---\n";
+
+        try {
+            $extendedMsg .= "Full URL: " . (self::generateFullUrl() ?? "Error generating URL") . "\n";
+        } catch (\Exception $e) {
+            $extendedMsg .= "Full URL: Error generating URL\n";
+        }
+
+        try {
+            $extendedMsg .= "Referer: " . ($_SERVER['HTTP_REFERER'] ?? "Not available") . "\n";
+        } catch (\Exception $e) {
+            $extendedMsg .= "Referer: Error retrieving referer\n";
+        }
+
+        try {
+            $loggedUser = ApplicationContainer::GetAuthorizedUser();
+            if ($loggedUser) {
+                $extendedMsg .= "Logged User: " . ($loggedUser->getUserName() ?? "Unknown user") . "\n";
+            } else {
+                $extendedMsg .= "Logged User: Not logged in\n";
+            }
+        } catch (\Exception $e) {
+            $extendedMsg .= "Logged User: Error retrieving user information\n";
+        }
+
+        try {
+            $extendedMsg .= "Last Template Used:";
+            $extendedMsg .= isset($GLOBALS['_lastTplUsed'])
+                ? $GLOBALS['_lastTplUsed'] . "\n"
+                : "No template information available\n";
+        } catch (\Exception $e) {
+            $extendedMsg .= "Last Template Used: Error retrieving template information\n";
+        }
+
+        /*
+        try {
+            $extendedMsg .= "--- Server Info ---\n";
+            $extendedMsg .= print_r($_SERVER, true);
+        } catch (\Exception $e) {
+            $extendedMsg .= "Server Info: Error retrieving server information\n";
+        }
+        */
+
+        /*
+        // Request headers, implemented similarly to OKAPI
+        try {
+            $extendedMsg .= "--- Request Headers ---\n";
+            $headers = getallheaders();
+            if ($headers) {
+                $extendedMsg .= implode("\n", array_map(
+                        function ($k, $v) { return "$k: $v"; },
+                        array_keys($headers),
+                        array_values($headers)
+                    )) . "\n";
+            } else {
+                $extendedMsg .= "No headers available\n";
+            }
+        } catch (\Exception $e) {
+            $extendedMsg .= "Request Headers: Error retrieving headers\n";
+        }
+        */
+
+        return $msg . $extendedMsg;
+
+    }
+
 }

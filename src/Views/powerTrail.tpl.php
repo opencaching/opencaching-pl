@@ -1705,13 +1705,32 @@
                 </tr>
             </table>
 
+            <div class="linearBg1">{{pt099}} {powerTrailName}</div>
             <table style="border-collapse: collapse; width: 100%; {statsOptionsDisplay}">
-                <tr>
-                    <td class="linearBg1">{{pt099}} {powerTrailName}</td>
-                </tr>
                 <tr>
                     <td>
                         {{pt015}} <br>
+                        <canvas id="powerTrailChart" width="300" height="150" style="margin: auto"></canvas>
+                        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                        <script>
+                            var ctx = document.getElementById('powerTrailChart').getContext('2d');
+                            var powerTrailChart = new Chart(ctx, {
+                                type: 'pie',
+                                data: {
+                                    labels: ['{{pt103}}', '{{pt104}}'],
+                                    datasets: [{
+                                        data: [{cacheFound}, {powerTrailCacheLeft}],
+                                        backgroundColor: [
+                                            '#00AA00',
+                                            '#0000AA'
+                                        ]
+                                    }]
+                                },
+                                options: {
+                                    responsive: false
+                                }
+                            });
+                        </script>
                         <p style="text-align: center"><img src="https://chart.googleapis.com/chart?cht=p3&chd=t:{cacheFound},{powerTrailCacheLeft}&chco=00AA00%7C0000AA&chs=300x120&chl={{pt103}}%7C{{pt104}}" alt=""><br>
                             {powerTrailserStats}</p>
                     </td>
@@ -1729,13 +1748,7 @@
             </table>
 
             <!-- power Trail comments -->
-            <table style="border-collapse: collapse; width: 100%">
-                <tr>
-                    <td class="linearBg1">{{pt050}}</td>
-                </tr>
-            </table>
-
-
+            <div class="linearBg1">{{pt050}}</div>
             <span id="ptComments">
                 <img id="commentsLoader" src="images/misc/ptPreloader.gif" alt="">
             </span>
@@ -1744,7 +1757,7 @@
             <div id="addComment" style="display: none">
                 <input type="hidden" id="editedCommentId" value="0">
                 <input type="hidden" id="ClickinguserId" value="0">
-                <textarea id="addCommentTxtArea" class="tinymce powerTrailEditor" style="height: 350px"></textarea><br><br>
+                <textarea id="addCommentTxtArea" class="tinymce powerTrailEditor"></textarea><br><br>
                 {{pt229}} {ptCommentsSelector}
                 <br><br>
                 {{pt230}} <input type="text" id="commentDateTime" value="{date}">

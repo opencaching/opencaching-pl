@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace PhpCsFixer\RuleSet;
 
 use PhpCsFixer\ConfigurationException\InvalidFixerConfigurationException;
+use PhpCsFixer\Utils;
 
 /**
  * Set of rules to be used by fixer.
@@ -28,12 +29,12 @@ final class RuleSet implements RuleSetInterface
     /**
      * Group of rules generated from input set.
      *
-     * The key is name of rule, value is bool if the rule/set should be used.
+     * The key is name of rule, value is configuration array or true.
      * The key must not point to any set.
      *
-     * @var array
+     * @var array<string, array<string, mixed>|true>
      */
-    private $rules;
+    private array $rules;
 
     public function __construct(array $set = [])
     {
@@ -43,7 +44,7 @@ final class RuleSet implements RuleSetInterface
             }
 
             if (\is_int($name)) {
-                throw new \InvalidArgumentException(sprintf('Missing value for "%s" rule/set.', $value));
+                throw new \InvalidArgumentException(\sprintf('Missing value for "%s" rule/set.', $value));
             }
 
             if (!\is_bool($value) && !\is_array($value)) {
@@ -60,21 +61,15 @@ final class RuleSet implements RuleSetInterface
         $this->resolveSet($set);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function hasRule(string $rule): bool
     {
         return \array_key_exists($rule, $this->rules);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getRuleConfiguration(string $rule): ?array
     {
         if (!$this->hasRule($rule)) {
-            throw new \InvalidArgumentException(sprintf('Rule "%s" is not in the set.', $rule));
+            throw new \InvalidArgumentException(\sprintf('Rule "%s" is not in the set.', $rule));
         }
 
         if (true === $this->rules[$rule]) {
@@ -84,9 +79,6 @@ final class RuleSet implements RuleSetInterface
         return $this->rules[$rule];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getRules(): array
     {
         return $this->rules;
@@ -94,6 +86,8 @@ final class RuleSet implements RuleSetInterface
 
     /**
      * Resolve input set into group of rules.
+     *
+     * @param array<string, array<string, mixed>|bool> $rules
      */
     private function resolveSet(array $rules): void
     {
@@ -103,7 +97,7 @@ final class RuleSet implements RuleSetInterface
         foreach ($rules as $name => $value) {
             if (str_starts_with($name, '@')) {
                 if (!\is_bool($value)) {
-                    throw new \UnexpectedValueException(sprintf('Nested rule set "%s" configuration must be a boolean.', $name));
+                    throw new \UnexpectedValueException(\sprintf('Nested rule set "%s" configuration must be a boolean.', $name));
                 }
 
                 $set = $this->resolveSubset($name, $value);
@@ -114,7 +108,10 @@ final class RuleSet implements RuleSetInterface
         }
 
         // filter out all resolvedRules that are off
-        $resolvedRules = array_filter($resolvedRules);
+        $resolvedRules = array_filter(
+            $resolvedRules,
+            static fn ($value): bool => false !== $value
+        );
 
         $this->rules = $resolvedRules;
     }
@@ -124,10 +121,22 @@ final class RuleSet implements RuleSetInterface
      *
      * If set value is false then disable all fixers in set,
      * if not then get value from set item.
+     *
+     * @return array<string, array<string, mixed>|bool>
      */
     private function resolveSubset(string $setName, bool $setValue): array
     {
-        $rules = RuleSets::getSetDefinition($setName)->getRules();
+        $ruleSet = RuleSets::getSetDefinition($setName);
+
+        if ($ruleSet instanceof DeprecatedRuleSetDescriptionInterface) {
+            $messageEnd = [] === $ruleSet->getSuccessorsNames()
+                ? 'No replacement available'
+                : \sprintf('Use %s instead', Utils::naturalLanguageJoin($ruleSet->getSuccessorsNames()));
+
+            Utils::triggerDeprecation(new \RuntimeException("Rule set \"{$setName}\" is deprecated. {$messageEnd}."));
+        }
+
+        $rules = $ruleSet->getRules();
 
         foreach ($rules as $name => $value) {
             if (str_starts_with($name, '@')) {

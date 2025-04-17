@@ -33,7 +33,7 @@
         return false;
     }
 </script>
-<div class="content2-pagetitle"><img src="/images/blue/compas.png" class="icon32" alt="" />&nbsp;{{add_new_waypoint}} {{for_cache}}: <font color="black">{cache_name}</color></div>
+<div class="content2-pagetitle"><img src="/images/blue/compas.png" class="icon32" alt="" />&nbsp;{{add_new_waypoint}} {{for_cache}}: <span style="color: black;">{cache_name}</span></div>
 {general_message}
 <form action="newwp.php" method="post" enctype="application/x-www-form-urlencoded" name="waypoints_form" dir="ltr">
     <input type="hidden" name="cacheid" value="{cacheid}"/>
@@ -66,7 +66,7 @@
             </tr>
             <tr>
                 <td>&nbsp;</td>
-                <td><div class="notice" style="width:350px;height:44px;">{{show_info_for_value}}</div>
+                <td><div class="notice" style="max-width:350px;height:44px;">{{show_info_for_value}}</div>
                 </td>
             </tr>
             {end_stage}
@@ -79,16 +79,16 @@
                             <option value="N"{latNsel}>N</option>
                             <option value="S"{latSsel}>S</option>
                         </select>
-                        &nbsp;<input type="text" name="lat_h" maxlength="2" value="{lat_h}" class="form-control input40" />
-                        &deg;&nbsp;<input type="text" name="lat_min" maxlength="6" value="{lat_min}" class="form-control input70" onkeyup="this.value = this.value.replace(/,/g, '.'); this.selectionStart = this.selectionEnd = this.value.length;" />&nbsp;'&nbsp;
+                        &nbsp;<input type="text" name="lat_h" maxlength="2" placeholder="0" value="{lat_h}" class="form-control input40" />
+                        &deg;&nbsp;<input type="text" name="lat_min" maxlength="6" placeholder="00.000" value="{lat_min}" pattern="\d{1,2}.\d{1,3}" class="form-control input70" onkeyup="this.value = this.value.replace(/,/g, '.');" />&nbsp;'&nbsp;
                         {lat_message}<br />
                         &nbsp;&nbsp;&nbsp;
                         <select name="lonEW" class="form-control input50">
                             <option value="E"{lonEsel}>E</option>
                             <option value="W"{lonWsel}>W</option>
                         </select>
-                        &nbsp;<input type="text" name="lon_h" maxlength="3" value="{lon_h}" class="form-control input40" />
-                        &deg;&nbsp;<input type="text" name="lon_min" maxlength="6" value="{lon_min}" class="form-control input70" onkeyup="this.value = this.value.replace(/,/g, '.'); this.selectionStart = this.selectionEnd = this.value.length;" />&nbsp;'&nbsp;
+                        &nbsp;<input type="text" name="lon_h" maxlength="3" placeholder="0" value="{lon_h}" class="form-control input40" />
+                        &deg;&nbsp;<input type="text" name="lon_min" maxlength="6" placeholder="00.000" value="{lon_min}" pattern="\d{1,2}.\d{1,3}" class="form-control input70" onkeyup="this.value = this.value.replace(/,/g, '.');" />&nbsp;'&nbsp;
                         {lon_message}
                     </fieldset>
                 </td>
@@ -103,7 +103,7 @@
                         <input type="checkbox"  id="openchecker" name="openchecker" {openchecker_checked}/>
                         <label for="openchecker">{{openchecker_name}}</label>
                         <br/>
-                        <div class="notice" style="width:350px;">{{openchecker_enable_checkbox}} </div>
+                        <div class="notice" style="max-width:350px;">{{openchecker_enable_checkbox}} </div>
                     </div>
                 </td>
             </tr>
@@ -145,8 +145,8 @@
         <tr><td class="buffer" colspan="2"></td></tr>
         <tr>
             <td valign="top" align="left" colspan="2">
+                <button type="submit" name="submitform" value="submit" class="btn btn-primary">{{write_wp}}</button>&nbsp;&nbsp;
                 <button type="button" name="back" value="back" class="btn btn-default" onclick="location.href = 'editcache.php?cacheid={cacheid}'">{{cancel}}</button>&nbsp;&nbsp;
-                <button type="submit" name="submitform" value="submit" class="btn btn-primary">{{write_wp}}</button>
                 <br /><br /></td>
         </tr>
 

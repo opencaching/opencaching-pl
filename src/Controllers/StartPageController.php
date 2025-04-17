@@ -2,8 +2,14 @@
 
 namespace src\Controllers;
 
+use okapi\core\Okapi;
+use okapi\Settings;
+use src\Controllers\EventsController;
 use src\Controllers\Core\ViewBaseController;
 use src\Controllers\News\NewsListController;
+use src\Libs\CalendarButtons\CalendarButtonAssets;
+use src\Libs\CalendarButtons\CalendarButtonFactory;
+use src\Libs\CalendarButtons\CalendarSubscriptionButton;
 use src\Models\CacheSet\CacheSet;
 use src\Models\CacheSet\CacheSetOwner;
 use src\Models\ChunkModels\StaticMap\StaticMapMarker;
@@ -19,6 +25,7 @@ use src\Models\Stats\TotalStats\BasicStats;
 use src\Models\User\User;
 use src\Utils\Cache\OcMemCache;
 use src\Utils\Feed\RssFeed;
+use src\Utils\I18n\I18n;
 use src\Utils\Map\StaticMap;
 use src\Utils\Text\Formatter;
 use src\Utils\Uri\SimpleRouter;
@@ -175,6 +182,17 @@ class StartPageController extends ViewBaseController
             );
         }
 
+        $this->view->addLocalCss(CalendarButtonAssets::getCss());
+        $this->view->addLocalJs(CalendarButtonAssets::getJs());
+
+        $subscribeEventsCalendarButton = CalendarButtonFactory::createButton('subscription', [
+            'name' => tr('events') ." ". Okapi::get_oc_installation_code(),
+            'icsFile' => EventsController::getICSFileURL(),
+            'language' => I18n::getCurrentLang(),
+        ]);
+
+        $this->view->setVar('subscribeEventsCalendar', $subscribeEventsCalendarButton->render());
+
         $this->view->setVar('incomingEvents', $newestCaches->incomingEvents);
 
         //legend marker
@@ -297,9 +315,10 @@ class StartPageController extends ViewBaseController
         $totStsArr[] = ['val' => $ts->newUsers, 'desc' => tr('startPage_newUsers'), 'ldesc' => tr('startPage_newUsersDesc')];
         $totStsArr[] = ['val' => $ts->latestSearches, 'desc' => tr('startPage_newSearches'), 'ldesc' => tr('startPage_newSearchesDesc')];
         $totStsArr[] = ['val' => $ts->latestRecomendations, 'desc' => tr('startPage_newoRecom'), 'ldesc' => tr('startPage_newoRecomDesc')];
+        $totStsArr[] = ['val' => $ts->lastYearActiveUsers, 'desc' => tr('startPage_lastYearActiveUsers'), 'ldesc' => tr('startPage_LastYearActiveUsersDesc')];
 
         // rotate stats table random number of times
-        $rotator = rand(0, 9);
+        $rotator = rand(0, 11);
 
         for ($i = 0; $i < $rotator; $i++) {
             array_push($totStsArr, array_shift($totStsArr));
