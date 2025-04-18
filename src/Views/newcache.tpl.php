@@ -15,7 +15,7 @@ $view->callChunk('tinyMCE');
         $("#waypointsToChose").dialog({
             position: { my: "top+150", at: "top", of: window },
             autoOpen: false,
-            width: 800,
+            width: $(window).width() > 800 ? 800 : $(window).width() * 0.9,
             modal: true,
             show: {effect: 'bounce', duration: 350, /* SPECIF ARGUMENT */ times: 3},
             hide: "explode",
@@ -34,7 +34,7 @@ $view->callChunk('tinyMCE');
             modal: true,
             hide: "explode",
             show: "fade",
-            title: "Zasady importowania pliku GPX",
+            title: "<?= tr('gpx_info_title'); ?>",
             buttons: {
               '<?= tr('newCacheWpClose'); ?>': function() {
                 $(this).dialog("close");

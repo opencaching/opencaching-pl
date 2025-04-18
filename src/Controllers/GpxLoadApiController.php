@@ -181,7 +181,7 @@ class GpxLoadApiController extends ApiBaseController
                         );
                     } else {
                         $result['status'] = $this->getErrorStatus(
-                            'Uploaded GPX is not valid'
+                            tr('newcache_import_gpx_invalid')
                         );
                     }
                 }
