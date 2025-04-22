@@ -35,6 +35,9 @@ class GpxLoadApiController extends ApiBaseController
     /** Topografix 1.1 XML namespace */
     private const GPX_1_1_NS = 'http://www.topografix.com/GPX/1/1';
 
+    /** Groundspeak 1.0 XML namespace */
+    private const GSPK_1_0_NS = 'http://www.groundspeak.com/cache/1/0';
+
     /** Groundspeak 1.0.1 XML namespace */
     private const GSPK_1_0_1_NS = 'http://www.groundspeak.com/cache/1/0/1';
 
@@ -178,7 +181,7 @@ class GpxLoadApiController extends ApiBaseController
                         );
                     } else {
                         $result['status'] = $this->getErrorStatus(
-                            'Uploaded GPX is not valid'
+                            tr('newcache_import_gpx_invalid')
                         );
                     }
                 }
@@ -236,13 +239,21 @@ class GpxLoadApiController extends ApiBaseController
             ];
             $wpt = array_merge($wpt, $lat, $lon);
 
-            $gspk = $node->getElementsByTagNameNS(self::GSPK_1_0_1_NS, 'cache');
+            $gspk = $node->getElementsByTagNameNS(self::GSPK_1_0_NS, 'cache');
 
-            // parse Groundspeak 1.0.1 cache tag with subelements, if exists,
+            if ($gspk->length == 0) {
+                $gspk = $node->getElementsByTagNameNS(
+                    self::GSPK_1_0_1_NS,
+                    'cache'
+                );
+            }
+
+            // parse Groundspeak 1.0/1.0.1 cache tag with subelements, if exists,
             // overwriting corresponding existing $wpt fields
             if ($gspk->length > 0) {
                 $gspk = $gspk->item(0);
 
+                $wpt['wp_gc'] = $wpt['name'];
                 $wpt['name'] = $this->getElementValue(
                     $gspk,
                     'name',
