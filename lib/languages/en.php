@@ -3248,7 +3248,6 @@ $translations = [
     'newcache_import_gpx_invalid' => 'Uploaded GPX is not valid',
     'newcache_import_wpt_format_details_prompt' => 'Detailed information about supported GPX file elements are',
     'newcache_import_wpt_format_details_prompt_link' => 'here',
-    'gpx_info_title' => 'GXP import rules',
     'gpx_info_title' => 'GPX import rules',
     'gpx_info_intro' => 'This web service supports import of file containing GPX document compliant with standards Topografix GPX, version 1.0 or 1.1. The compliance is verified using XSD schema',
     'gpx_info_in_namespace' => 'in the namespace',
