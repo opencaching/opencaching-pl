@@ -41,6 +41,7 @@ $view->callChunk('tinyMCE');
               }
             }
         });
+
         $("#showGpxFormatInfo").click(function(evt) {
             $('#gpxFormatInfo').dialog("option", "height", window.innerHeight);
             $('#gpxFormatInfo').dialog('open');
@@ -256,6 +257,17 @@ $view->callChunk('tinyMCE');
         $("#hiddenDatePicker").val(cacheHideDate);
         if ("wp_gc" in wpt && wpt["wp_gc"] !== undefined) {
             $("input[name=wp_gc]").val(wpt["wp_gc"]);
+        }
+        if (wpt["attributes"].length > 0) {
+            $.each(wpt["attributes"], function(key, value) {
+                for (i = 0; i < maAttributes.length; i++) {
+                    if (maAttributes[i][0] == value) {
+                        maAttributes[i][1] = 1;
+                        break;
+                    }
+                }
+            });
+            rebuildCacheAttr();
         }
         checkRegion();
     }
@@ -1119,6 +1131,18 @@ $(document).ready(function(){
 <td><code>virtual</code></td><td><?= tr(GeoCacheCommons::SIZE_NONE_TR_KEY); ?></td>
 </tr>
 </table>
+<br/>
+<p style="text-align: justify;">
+<?= tr('gpx_info_p7a') ?>:
+<table class="bs-table" style="width: 95%;">
+<colgroup>
+<col style="width: 15%;"/>
+<col/>
+<?php foreach ($view->cacheGpxAttribs as $attrId => $attrTrKey) { ?>
+<tr><td><?= $attrId ?></td><td><?= tr($attrTrKey) ?></td></tr>
+<?php } ?>
+</table>
+<br/>
 <hr style="height: 1px; margin: 10px;"/>
 <p style="text-align: justify;">
 <?= tr('gpx_info_p8'); ?>:
