@@ -3265,7 +3265,7 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'gpx_info_p5' => 'In case of multiple occurences of <code>long_description</code> and <code>short_description</code> tags the first ones only are processed.',
     'gpx_info_p6' => 'Recognized values of <code>Groundspeak 1.0/1.0.1</code> standard <code>type</code> tag are translated to the corresponding geocache types according to the following table (in a case-insensitive manner)',
     'gpx_info_p7' => 'Recognized values of <code>Groundspeak 1.0/1.0.1</code> standard <code>container</code> tag are translated to the corresponding geocache sizes according to the following table (in a case-insensitive manner)',
-    'gpx_info_p7a' => 'According to the <code>Groundspeak 1.0/1.0.1</code> standard, the <code>attributes</code> tag is processed with its child tags <code>attribute</code> for which the following <code>id</attribute> values are recognized as geocache attribute identifiers',
+    'gpx_info_p7a' => 'According to the <code>Groundspeak 1.0/1.0.1</code> standard, the <code>attributes</code> tag is processed with its child tags <code>attribute</code> for which the following <code>id</code> values are recognized as geocache attribute identifiers',
     'gpx_info_p8' => 'According to the <code>Opencaching</code> standard, the <code>cache</code> tag is processed with its child tags',
     'gpx_info_trip_time' => 'Time required to find a geocache (in hours, decimal value)',
     'gpx_info_trip_distance' => 'Distance to travel (in kilometers, decimal value)',
