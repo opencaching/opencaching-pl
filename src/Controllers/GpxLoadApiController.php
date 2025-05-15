@@ -7,6 +7,7 @@ use DOMElement;
 use Exception;
 use src\Controllers\Core\ApiBaseController;
 use src\Models\Coordinates\Coordinates;
+use src\Models\GeoCache\CacheAttribute;
 use src\Models\GeoCache\GeoCacheCommons;
 
 /**
@@ -299,6 +300,39 @@ class GpxLoadApiController extends ApiBaseController
                     'short_description',
                     $wpt['short_desc']
                 );
+
+                $wpt['attributes'] = [];
+                $attributesNode = $gspk->getElementsByTagName('attributes');
+
+                if ($attributesNode->length > 0) {
+                    $attributes
+                        = $attributesNode->item(0)->getElementsByTagName(
+                            'attribute'
+                        );
+
+                    if ($attributes->length > 0) {
+                        $gpxAttrIds = CacheAttribute::getGpxAttrIds();
+
+                        for ($ai = 0; $ai < $attributes->length; $ai++) {
+                            $attr = $attributes->item($ai);
+
+                            if ($attr instanceof DOMElement) {
+                                $attrGpxId = $attr->getAttribute('id');
+
+                                if (strlen($attrGpxId) > 0) {
+                                    $attrId = array_search(
+                                        $attrGpxId,
+                                        $gpxAttrIds
+                                    );
+
+                                    if ($attrId !== false) {
+                                        $wpt['attributes'][] = $attrId;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
 
             $oc = $node->getElementsByTagNameNS(self::OC_NS, 'cache');
