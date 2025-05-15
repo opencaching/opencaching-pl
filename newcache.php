@@ -1,6 +1,7 @@
 <?php
 
 use src\Models\ApplicationContainer;
+use src\Models\GeoCache\CacheAttribute;
 use src\Models\GeoCache\GeoCache;
 use src\Models\GeoCache\GeoCacheCommons;
 use src\Models\OcConfig\OcConfig;
@@ -423,11 +424,13 @@ $cache_attribs = (isset($_POST['cache_attribs']) && ! empty($_POST['cache_attrib
 $cache_attrib_list = '';
 $cache_attrib_array = '';
 $cache_attribs_string = '';
+$cacheGpxAttribs = [];
 
 $rs = XDb::xSql('SELECT `id`, `text_long`, `icon_undef`, `icon_large` FROM `cache_attrib`
             WHERE `language`= ? ORDER BY `category`, `id`', I18n::getCurrentLang());
 
 while ($record = XDb::xFetchArray($rs)) {
+    $cacheGpxAttribs[$record['id']] = CacheAttribute::getTrKey($record['id']);
     $line = '<img id="attr{attrib_id}" src="{attrib_pic}" alt="{attrib_text}" title="{attrib_text}" onmousedown="toggleAttr({attrib_id})"> ';
     $line = mb_ereg_replace('{attrib_id}', $record['id'], $line);
     $line = mb_ereg_replace('{attrib_text}', $record['text_long'], $line);
@@ -465,6 +468,8 @@ while ($record = XDb::xFetchArray($rs)) {
 tpl_set_var('cache_attrib_list', $cache_attrib_list);
 tpl_set_var('jsattributes_array', $cache_attrib_array);
 tpl_set_var('cache_attribs', $cache_attribs_string);
+
+$view->setVar('cacheGpxAttribs', $cacheGpxAttribs);
 
 $reactivationRuleRadio = $_POST['reactivRules'] ?? null;
 
