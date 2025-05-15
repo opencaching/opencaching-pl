@@ -254,7 +254,7 @@ $view->callChunk('tinyMCE');
         $("input[name=short_desc]").val(wpt["short_desc"]);
         tinyMCE.activeEditor.setContent(wpt.desc);
         $("#desc").val(wpt.desc);
-        $("#hiddenDatePicker").val(cacheHideDate);
+        $("#hiddenDatePicker").val(cacheHideDate).trigger('change');
         if ("wp_gc" in wpt && wpt["wp_gc"] !== undefined) {
             $("input[name=wp_gc]").val(wpt["wp_gc"]);
         }
