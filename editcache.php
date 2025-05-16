@@ -131,7 +131,7 @@ if ($cache_record = $dbc->dbResultFetch($s)) {
                 <legend>&nbsp; <strong>' . tr('submit_new_cache') . '</strong> &nbsp;</legend>
                 <input type="radio" onChange="yes_change();" class="radio" name="publish" id="publish_now" value="now" {publish_now_checked}>&nbsp;<label for="publish_now">' . tr('publish_now') . '</label><br />
                 <input type="radio" onChange="yes_change();" class="radio" name="publish" id="publish_later" value="later" {publish_later_checked}>&nbsp;<label for="publish_later">' . tr('publish_date') . ':</label>
-                <input type="text" class="form-control" id="activateDatePicker" id="activateDatePicker" value="{activate_year}-{activate_month}-{activate_day}" onchange="hiddenDatePickerChange(\'activate\'); selectPublishLater()"/>
+                <input type="text" class="form-control" id="activateDatePicker" value="{activate_year}-{activate_month}-{activate_day}" onchange="hiddenDatePickerChange(\'activate\'); selectPublishLater()"/>
                 <input class="input40" type="hidden" name="activate_year" id="activate_year" onChange="yes_change();" maxlength="4" value="{activate_year}"/>
                 <input class="input20" type="hidden" name="activate_month" id="activate_month" onChange="yes_change();" maxlength="2" value="{activate_month}"/>
                 <input class="input20" type="hidden" name="activate_day" id="activate_day" onChange="yes_change();" maxlength="2" value="{activate_day}"/>&nbsp;

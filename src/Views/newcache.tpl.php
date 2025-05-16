@@ -73,10 +73,10 @@ $view->callChunk('tinyMCE');
     // data picker init
     $(function() {
       updateRegionsList();
-      $.datepicker.setDefaults($.datepicker.regional['pl']);
-      $('#hiddenDatePicker, #activateDatePicker').datepicker (
-        $.datepicker.regional["{language4js}"]
-      ).datepicker("option", "dateFormat", "yy-mm-dd").val();
+      const lang = "{language4js}";
+      const regional = $.datepicker.regional[lang] || {};
+      const options = $.extend({}, regional, { dateFormat: "yy-mm-dd" });
+      $('#hiddenDatePicker, #activateDatePicker').datepicker(options);
     });
 
     function hiddenDatePickerChange(identifier){
