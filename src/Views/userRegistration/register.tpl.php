@@ -17,14 +17,14 @@ use src\Utils\Uri\SimpleRouter;
   <form action="<?=SimpleRouter::getLink('UserRegistration','registerSubmit')?>" method="post">
     <div class="input-group input-group-md">
       <label for="username-input" class="input-group-addon loginLabel"><?=tr('username_label')?></label>
-      <input id="username-input" name="username" type="text" value="<?=$view->username?>" class="form-control input200" maxlength="60" autocomplete="username" required>
+      <input id="username-input" name="username" type="text" value="<?=$view->username?>" class="form-control input200 loginInput" maxlength="60" autocomplete="username" required>
     </div>
 
     <div class="buffer"></div>
 
     <div class="input-group input-group-md">
       <label for="email-input" class="input-group-addon loginLabel"><?=tr('email_address')?></label>
-      <input id="email-input" name="email" type="email"  value="<?=$view->email?>" class="form-control input200" maxlength="60" autocomplete="email" required>
+      <input id="email-input" name="email" type="email"  value="<?=$view->email?>" class="form-control input200 loginInput" maxlength="60" autocomplete="email" required>
     </div>
 
     <div class="buffer"></div>
@@ -33,7 +33,7 @@ use src\Utils\Uri\SimpleRouter;
       <label for="newpw-password" class="input-group-addon loginLabel"><?=tr('password')?></label>
       <span class="newpw-showpass newpw-eyeopen" id="newpw-showpass-switch" title="<?=tr('password_showhide')?>"></span>
       <span class="newpw-pass-meter"><meter id="newpw-meter" value="0" min="0" max="10"></meter></span>
-      <input id="newpw-password" name="password" type="password" class="form-control input200" maxlength="60" autocomplete="new-password" required>
+      <input id="newpw-password" name="password" type="password" class="form-control input200 loginInput" maxlength="60" autocomplete="new-password" required>
     </div>
 
     <div class="buffer"></div>
