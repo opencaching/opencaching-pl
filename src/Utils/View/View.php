@@ -305,6 +305,30 @@ class View
         return $this->_showVideoBannerState;
     }
 
+    public function hideTopLoginForm()
+    {
+        if (self::mobile()) {
+            return true;
+        }
+        return false;
+    }
+
+    public function hideTopNavAndMainMenu()
+    {
+        if (self::mobile()) {
+            return true;
+        }
+        return false;
+    }
+
+    public function responsiveModeEnabled()
+    {
+        if (self::mobile()) {
+            return true;
+        }
+        return false;
+    }
+
     /**
      * @return boolean - true if the view should be optimized for mobile devices
      */

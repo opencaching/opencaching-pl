@@ -90,6 +90,9 @@ class MainLayoutController extends BaseController
         $this->view->setVar('_backgroundSeason', $this->view->getSeasonCssName());
 
         $this->view->setVar('_showVideoBanner', $this->view->showVideoBanner());
+        $this->view->setVar('_hideTopLoginForm', $this->view->hideTopLoginForm());
+        $this->view->setVar('_hideTopNavAndMainMenu', $this->view->hideTopNavAndMainMenu());
+        $this->view->setVar('_responsiveModeEnabled', $this->view->responsiveModeEnabled());
 
         if ($this->view->showVideoBanner()) {
             $this->view->setVar('_topBannerTxt', $this->ocConfig->getTopBannerTxt());

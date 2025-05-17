@@ -12,13 +12,13 @@ use src\Utils\Uri\SimpleRouter;
     <div class="input-group input-group-md">
       <label for="userName" class="input-group-addon loginLabel"><?=tr('loginForm_userOrEmail')?></label>
       <input id="userName" name="email" maxlength="80" type="text" value="<?=$view->prevEmail?>"
-             class="form-control input300" autocomplete="username"  required>
+             class="form-control input300 loginInput" autocomplete="username"  required>
     </div>
     <div class="buffer"></div>
     <div class="input-group input-group-md">
       <label for="password" class="input-group-addon loginLabel"><?=tr('loginForm_password')?></label>
       <input id="password" name="password" maxlength="60" type="password"
-             class="form-control input300" autocomplete="current-password" required>
+             class="form-control input300 loginInput" autocomplete="current-password" required>
     </div>
     <div class="buffer"></div>
     <input type="hidden" name="target" value="<?=$view->target?>">
