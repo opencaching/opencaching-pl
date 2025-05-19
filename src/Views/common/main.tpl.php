@@ -7,7 +7,7 @@ $view->addHeaderChunk('darkmodeJS');
 
 ?>
 <!DOCTYPE html>
-<html lang="<?= $view->getLang(); ?>">
+<html lang="<?= $view->getLang(); ?>" <?= $view->responsiveModeEnabled() ? 'class="responsive-enabled"' : '' ?>>
 <head>
   <meta charset="utf-8">
 
@@ -160,19 +160,21 @@ $view->addHeaderChunk('darkmodeJS');
               </a>
             </div>
           <?php } else { //user-not-logged?>
-            <form action="<?= _SimpleRouter::getLink('UserAuthorization', 'login'); ?>" method="post" name="login" class="form-group-sm">
-              <label for="top-form-email" class="btn btn-sm btn-default btn-right-straight">
-                <img src="/images/misc/user.svg" class="icon16" alt="<?= tr('loginForm_userOrEmail'); ?>" title="<?= tr('loginForm_userOrEmail'); ?>">
-              </label>
-              <input name="email" id="top-form-email" type="text" class="form-control input120 btn-left-straight" value="" autocomplete="username" placeholder="<?= tr('loginForm_userOrEmail'); ?>" required>
-              <label for="top-form-password" class="btn btn-sm btn-default btn-right-straight">
-                <img src="/images/misc/key.svg" class="icon16" alt="<?= tr('loginForm_password'); ?>" title="<?= tr('loginForm_password'); ?>">
-              </label>
-              <input name="password" id="top-form-password" type="password" class="form-control input120 btn-left-straight" value="" autocomplete="current-password" placeholder="<?= tr('loginForm_password'); ?>" required>
-              <input type="hidden" name="target" value="<?= $view->_target; ?>">
-              <input type="submit" value="<?= tr('login'); ?>" class="btn btn-primary btn-sm">
-              <a href="<?= _SimpleRouter::getLink('UserRegistration'); ?>" class="btn btn-success btn-sm"><?= tr('registration'); ?></a>
-            </form>
+            <?php if (! $view->_hideTopLoginForm) { ?>
+                <form action="<?= _SimpleRouter::getLink('UserAuthorization', 'login'); ?>" method="post" name="login" class="form-group-sm">
+                  <label for="top-form-email" class="btn btn-sm btn-default btn-right-straight">
+                    <img src="/images/misc/user.svg" class="icon16" alt="<?= tr('loginForm_userOrEmail'); ?>" title="<?= tr('loginForm_userOrEmail'); ?>">
+                  </label>
+                  <input name="email" id="top-form-email" type="text" class="form-control input120 btn-left-straight" value="" autocomplete="username" placeholder="<?= tr('loginForm_userOrEmail'); ?>" required>
+                  <label for="top-form-password" class="btn btn-sm btn-default btn-right-straight">
+                    <img src="/images/misc/key.svg" class="icon16" alt="<?= tr('loginForm_password'); ?>" title="<?= tr('loginForm_password'); ?>">
+                  </label>
+                  <input name="password" id="top-form-password" type="password" class="form-control input120 btn-left-straight" value="" autocomplete="current-password" placeholder="<?= tr('loginForm_password'); ?>" required>
+                  <input type="hidden" name="target" value="<?= $view->_target; ?>">
+                  <input type="submit" value="<?= tr('login'); ?>" class="btn btn-primary btn-sm">
+                  <a href="<?= _SimpleRouter::getLink('UserRegistration'); ?>" class="btn btn-success btn-sm"><?= tr('registration'); ?></a>
+                </form>
+            <?php } ?>
           <?php } //user-not-logged?>
 
         </div>
@@ -228,90 +230,50 @@ $view->addHeaderChunk('darkmodeJS');
       <!-- HEADER -->
 
                 <!-- Navigation - horizontal menu bar -->
-                <div id="nav2">
+                <?php if (!$view->hideTopNavAndMainMenu()) { ?>
+                  <div id="nav2">
                     <ul class="rythm_nav2">
-                        <?php foreach ($view->_menuBar as $key => $url) { ?>
-                          <?php if (is_array($url)) { //array="open in new window"?>
-                            <li><a href="<?= $url[0]; ?>" target="_blank" rel="noopener"><?= $key; ?></a>
-                          <?php } else { ?>
-                            <li><a href="<?= $url; ?>" rel="noopener"><?= $key; ?></a>
-                          <?php } ?>
-                        <?php } //foreach _menuBar?>
+                      <?php foreach ($view->_menuBar as $key => $url) { ?>
+                        <?php if (is_array($url)) { //array="open in new window"?>
+                        <li><a href="<?= $url[0]; ?>" target="_blank" rel="noopener"><?= $key; ?></a></li>
+                        <?php } else { ?>
+                        <li><a href="<?= $url; ?>" rel="noopener"><?= $key; ?></a></li>
+                        <?php } ?>
+                      <?php } //foreach _menuBar?>
                     </ul>
-                </div>
+                  </div>
+                <?php } ?>
 
                 <!-- Buffer after header -->
                 <div class="buffer" style="height:20px;"></div>
 
                 <!-- NAVIGATION -->
                 <!-- Navigation Left menu -->
+                <?php if(! $view->hideTopNavAndMainMenu()){ ?>
+                  <div id="nav3">
+                    <?php if (!$view->_isUserLogged) { ?>
+                      <!-- non-authorized user menu -->
+                      <ul class="rythm_nav3MainMenu">
+                        <li class="title"><?= tr('main_menu'); ?></li>
 
-                <div id="nav3">
-                    <?php if (! $view->_isUserLogged) { ?>
-                    <!-- non-authorized user menu -->
-                    <ul class="rythm_nav3MainMenu">
-                      <li class="title"><?= tr('main_menu'); ?></li>
+                          <?php foreach ($view->_nonAuthUserMenu as $key => $url) { ?>
+                            <li class="group">
+                                <?php if (is_array($url)) { //array="open in new window"?>
+                                  <a href="<?= $url[0]; ?>" target="_blank" rel="noopener"><?= $key; ?></a>
+                                <?php } else { // !is_array($url)?>
+                                  <a href="<?= $url; ?>" rel="noopener"><?= $key; ?></a>
+                                <?php } // if-is_array($url)?>
+                            </li>
+                          <?php } //foreach?>
 
-                      <?php foreach ($view->_nonAuthUserMenu as $key => $url) { ?>
-                        <li class="group">
-                            <?php if (is_array($url)) { //array="open in new window"?>
-                              <a href="<?= $url[0]; ?>" target="_blank" rel="noopener"><?= $key; ?></a>
-                            <?php } else { // !is_array($url)?>
-                              <a href="<?= $url; ?>" rel="noopener"><?= $key; ?></a>
-                            <?php } // if-is_array($url)?>
-                        </li>
-                      <?php } //foreach?>
+                      </ul>
 
-                    </ul>
+                    <?php } else { //if-_isUserLogged?>
 
-                <?php } else { //if-_isUserLogged?>
-
-                    <!-- authorized menu -->
-                    <ul class="rythm_nav3MainMenu">
-                      <li class="title"><?= tr('main_menu'); ?></li>
-                      <?php foreach ($view->_authUserMenu as $key => $url) { ?>
-                        <li class="group">
-                            <?php if (is_array($url)) { //array="open in new window"?>
-                              <a href="<?= $url[0]; ?>" target="_blank" rel="noopener"><?= $key; ?></a>
-                            <?php } else { // !is_array($url)?>
-                              <a href="<?= $url; ?>" rel="noopener"><?= $key; ?></a>
-                            <?php } // if-is_array($url)?>
-                        </li>
-                      <?php } //foreach?>
-                    </ul>
-
-                    <!-- custom user menu -->
-                    <ul class="rythm_nav3UserMenu">
-                      <li class="title"><?= tr('user_menu'); ?></li>
-                      <?php foreach ($view->_customUserMenu as $key => $url) { ?>
-                        <li class="group">
-                            <a href="<?= $url; ?>">
-                              <?= $key; ?>
-                            </a>
-                        </li>
-                      <?php } //foreach?>
-                    </ul>
-
-
-                    <!-- additional menu -->
-                    <ul class="rythm_nav3AddsMenu">
-                      <li class="title"><?= tr('mnu_additionalMenu'); ?></li>
-                      <?php foreach ($view->_additionalMenu as $key => $url) { ?>
-                        <li class="group">
-                            <?php if (is_array($url)) { //array="open in new window"?>
-                              <a href="<?= $url[0]; ?>" target="_blank" rel="noopener"><?= $key; ?></a>
-                            <?php } else { // !is_array($url)?>
-                              <a href="<?= $url; ?>" rel="noopener"><?= $key; ?></a>
-                            <?php } // if-is_array($url)?>
-                        </li>
-                      <?php } //foreach?>
-                    </ul>
-
-                    <?php if ($view->_isAdmin) { ?>
-                      <!-- admin menu -->
-                      <ul>
-                          <li class="title"><?= tr('administration'); ?></li>
-                          <?php foreach ($view->_adminMenu as $key => $url) { ?>
+                      <!-- authorized menu -->
+                      <ul class="rythm_nav3MainMenu">
+                        <li class="title"><?= tr('main_menu'); ?></li>
+                          <?php foreach ($view->_authUserMenu as $key => $url) { ?>
                             <li class="group">
                                 <?php if (is_array($url)) { //array="open in new window"?>
                                   <a href="<?= $url[0]; ?>" target="_blank" rel="noopener"><?= $key; ?></a>
@@ -321,12 +283,55 @@ $view->addHeaderChunk('darkmodeJS');
                             </li>
                           <?php } //foreach?>
                       </ul>
-                    <?php } //admin?>
 
-                <?php } //if-_isUserLogged?>
+                      <!-- custom user menu -->
+                      <ul class="rythm_nav3UserMenu">
+                        <li class="title"><?= tr('user_menu'); ?></li>
+                          <?php foreach ($view->_customUserMenu as $key => $url) { ?>
+                            <li class="group">
+                              <a href="<?= $url; ?>">
+                                  <?= $key; ?>
+                              </a>
+                            </li>
+                          <?php } //foreach?>
+                      </ul>
+
+
+                      <!-- additional menu -->
+                      <ul class="rythm_nav3AddsMenu">
+                        <li class="title"><?= tr('mnu_additionalMenu'); ?></li>
+                          <?php foreach ($view->_additionalMenu as $key => $url) { ?>
+                            <li class="group">
+                                <?php if (is_array($url)) { //array="open in new window"?>
+                                  <a href="<?= $url[0]; ?>" target="_blank" rel="noopener"><?= $key; ?></a>
+                                <?php } else { // !is_array($url)?>
+                                  <a href="<?= $url; ?>" rel="noopener"><?= $key; ?></a>
+                                <?php } // if-is_array($url)?>
+                            </li>
+                          <?php } //foreach?>
+                      </ul>
+
+                        <?php if ($view->_isAdmin) { ?>
+                        <!-- admin menu -->
+                        <ul>
+                          <li class="title"><?= tr('administration'); ?></li>
+                            <?php foreach ($view->_adminMenu as $key => $url) { ?>
+                              <li class="group">
+                                  <?php if (is_array($url)) { //array="open in new window"?>
+                                    <a href="<?= $url[0]; ?>" target="_blank" rel="noopener"><?= $key; ?></a>
+                                  <?php } else { // !is_array($url)?>
+                                    <a href="<?= $url; ?>" rel="noopener"><?= $key; ?></a>
+                                  <?php } // if-is_array($url)?>
+                              </li>
+                            <?php } //foreach?>
+                        </ul>
+                        <?php } //admin?>
+
+                    <?php } //if-_isUserLogged?>
 
                     <!-- Main title -->
-                </div>
+                  </div>
+                <?php } ?>
 
       <!--     CONTENT -->
       <div class="templateContainer">
@@ -423,7 +428,7 @@ $view->addHeaderChunk('darkmodeJS');
       var re = new RegExp(cookie_name+'=1');
 
       if (!x.match(re)) {
-          html.classList.remove("responsive-enabled");
+          // html.classList.remove("responsive-enabled");
       } else {
           html.classList.add("responsive-enabled");
       }
