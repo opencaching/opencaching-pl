@@ -1,6 +1,7 @@
 <?php
 
 use src\Models\ApplicationContainer;
+use src\Models\GeoCache\CacheAttribute;
 use src\Models\GeoCache\GeoCache;
 use src\Models\GeoCache\GeoCacheCommons;
 use src\Models\OcConfig\OcConfig;
@@ -12,6 +13,7 @@ use src\Utils\EventHandler\EventHandler;
 use src\Utils\Generators\Uuid;
 use src\Utils\Gis\Countries;
 use src\Utils\I18n\I18n;
+use src\Utils\I18n\Languages;
 use src\Utils\Text\UserInputFilter;
 use src\Utils\Text\Validator;
 
@@ -72,11 +74,18 @@ $num_caches = $record['num_caches'];
 $cacheLimitByTypePerUser = GeoCache::getUserActiveCachesCountByType($loggedUser->getUserId());
 
 if ($num_caches < OcConfig::getNeedApproveLimit()) {
-    // user needs approvement for first 3 caches to be published
-    $needs_approvement = true;
-    tpl_set_var('hide_publish_start', '<!--');
-    tpl_set_var('hide_publish_end', '-->');
-    tpl_set_var('approvement_note', '<div class="notice errormsg">' . tr('first_cache_approvement') . '</div>');
+    if($loggedUser->getNewCachesNoLimit()){
+        $needs_approvement = false;
+        tpl_set_var('hide_publish_start', '');
+        tpl_set_var('hide_publish_end', '');
+        tpl_set_var('approvement_note', '');
+    }else{
+        // user needs approvement for first 3 caches to be published
+        $needs_approvement = true;
+        tpl_set_var('hide_publish_start', '<!--');
+        tpl_set_var('hide_publish_end', '-->');
+        tpl_set_var('approvement_note', '<div class="notice errormsg">' . tr('first_cache_approvement') . '</div>');
+    }
 } elseif ($loggedUser->getVerifyAll()) {
     $needs_approvement = true;
     tpl_set_var('hide_publish_start', '<!--');
@@ -380,13 +389,30 @@ if ($show_all_countries == 1) {
     $defaultCountryList = Countries::getCountriesList(true);
 }
 
-foreach ($defaultCountryList as $record) {
-    if ($record == $sel_country) {
-        $countriesoptions .= '<option value="' . $record . '" selected="selected">' . tr($record) . '</option>';
-    } else {
-        $countriesoptions .= '<option value="' . $record . '">' . tr($record) . '</option>';
-    }
-    $countriesoptions .= "\n";
+$sortedCountries = [];
+
+foreach ($defaultCountryList as $countryCode) {
+    $sortedCountries[] = [
+        'code' => $countryCode,
+        'name' => tr($countryCode),
+    ];
+}
+
+$currentLocale = Languages::getCurrentLocale();
+
+if (function_exists('collator_create') && function_exists('collator_compare')) {
+    $collator = collator_create($currentLocale);
+    usort($sortedCountries, fn ($a, $b) => collator_compare($collator, $a['name'], $b['name']));
+} else {
+    Debug::errorLog('Intl extension (PHP intl) is not enabled. Sorting by locale may not be accurate.');
+    usort($sortedCountries, fn ($a, $b) => strcmp($a['name'], $b['name']));
+}
+
+$countriesoptions = '';
+
+foreach ($sortedCountries as $country) {
+    $selected = $country['code'] == $sel_country ? "selected='selected'" : '';
+    $countriesoptions .= "<option value='{$country['code']}' {$selected}>{$country['name']}</option>\n";
 }
 
 tpl_set_var('countryoptions', $countriesoptions);
@@ -398,11 +424,13 @@ $cache_attribs = (isset($_POST['cache_attribs']) && ! empty($_POST['cache_attrib
 $cache_attrib_list = '';
 $cache_attrib_array = '';
 $cache_attribs_string = '';
+$cacheGpxAttribs = [];
 
 $rs = XDb::xSql('SELECT `id`, `text_long`, `icon_undef`, `icon_large` FROM `cache_attrib`
             WHERE `language`= ? ORDER BY `category`, `id`', I18n::getCurrentLang());
 
 while ($record = XDb::xFetchArray($rs)) {
+    $cacheGpxAttribs[$record['id']] = CacheAttribute::getTrKey($record['id']);
     $line = '<img id="attr{attrib_id}" src="{attrib_pic}" alt="{attrib_text}" title="{attrib_text}" onmousedown="toggleAttr({attrib_id})"> ';
     $line = mb_ereg_replace('{attrib_id}', $record['id'], $line);
     $line = mb_ereg_replace('{attrib_text}', $record['text_long'], $line);
@@ -440,6 +468,8 @@ while ($record = XDb::xFetchArray($rs)) {
 tpl_set_var('cache_attrib_list', $cache_attrib_list);
 tpl_set_var('jsattributes_array', $cache_attrib_array);
 tpl_set_var('cache_attribs', $cache_attribs_string);
+
+$view->setVar('cacheGpxAttribs', $cacheGpxAttribs);
 
 $reactivationRuleRadio = $_POST['reactivRules'] ?? null;
 
@@ -479,9 +509,12 @@ if (isset($_POST['submitform'])) {
             $lat_h_not_ok = true;
         }
 
+        $latitude = 0;
+
         if (is_numeric($lat_min)) {
             if (($lat_min >= 0) && ($lat_min < 60)) {
                 $lat_min_not_ok = false;
+                $latitude = $lat_h + round($lat_min, 3) / 60;
             } else {
                 tpl_set_var('lat_message', $error_coords_not_ok);
                 $lat_min_not_ok = true;
@@ -490,8 +523,6 @@ if (isset($_POST['submitform'])) {
             tpl_set_var('lat_message', $error_coords_not_ok);
             $lat_min_not_ok = true;
         }
-
-        $latitude = $lat_h + round($lat_min, 3) / 60;
 
         if ($latNS == 'S') {
             $latitude = -$latitude;
@@ -518,9 +549,12 @@ if (isset($_POST['submitform'])) {
             $lon_h_not_ok = true;
         }
 
+        $longitude = 0;
+
         if (is_numeric($lon_min)) {
             if (($lon_min >= 0) && ($lon_min < 60)) {
                 $lon_min_not_ok = false;
+                $longitude = $lon_h + round($lon_min, 3) / 60;
             } else {
                 tpl_set_var('lon_message', $error_coords_not_ok);
                 $lon_min_not_ok = true;
@@ -529,8 +563,6 @@ if (isset($_POST['submitform'])) {
             tpl_set_var('lon_message', $error_coords_not_ok);
             $lon_min_not_ok = true;
         }
-
-        $longitude = $lon_h + round($lon_min, 3) / 60;
 
         if ($lonEW == 'W') {
             $longitude = -$longitude;
@@ -635,6 +667,7 @@ if (isset($_POST['submitform'])) {
 
     // cache-type
     $type_not_ok = false;
+
     // block forbiden cache types
     if ($sel_type == -1 || in_array($sel_type, OcConfig::getNoNewCacheOfTypesArray())) {
         tpl_set_var('type_message', $type_not_ok_message);
@@ -806,7 +839,7 @@ if (isset($_POST['submitform'])) {
         }
 
         // add cache altitude
-        $geoCache = Geocache::fromCacheIdFactory($cache_id);
+        $geoCache = GeoCache::fromCacheIdFactory($cache_id);
         $geoCache->updateAltitude();
 
         // only if no approval is needed and cache is published NOW or activate_date is in the past

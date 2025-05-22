@@ -3,6 +3,8 @@
 namespace src\Controllers;
 
 use powerTrailBase;
+use src\Libs\CalendarButtons\CalendarButtonAssets;
+use src\Libs\CalendarButtons\CalendarButtonFactory;
 use src\Models\Coordinates\Coordinates;
 use src\Models\GeoCache\GeoCache;
 use src\Models\GeoCache\GeoCacheDesc;
@@ -21,6 +23,8 @@ use src\Utils\Text\UserInputFilter;
 use src\Utils\Uri\SimpleRouter;
 use src\Utils\Uri\Uri;
 use stdClass;
+use src\Libs\CalendarButtons\SingleEventButton;
+use okapi\Settings;
 
 class ViewCacheController extends BaseController
 {
@@ -146,6 +150,11 @@ class ViewCacheController extends BaseController
             exit(0);
         }
 
+        if ($this->geocache->getCacheType() == GeoCache::TYPE_EVENT) {
+            $this->view->addLocalCss(CalendarButtonAssets::getCss());
+            $this->view->addLocalJs(CalendarButtonAssets::getJs());
+        }
+
         //set here the template to process
         if (isset($_REQUEST['print']) && $_REQUEST['print'] == 'y') {
             $this->view->setTemplate('viewcache/viewcache_print');
@@ -199,6 +208,32 @@ class ViewCacheController extends BaseController
             'cacheHiddenDate',
             Formatter::date($this->geocache->getDatePlaced())
         );
+
+        if ($this->geocache->getCacheType() == GeoCache::TYPE_EVENT) {
+
+            $descLang = $this->getDescLang();
+
+            $descriptionObject = $this->geocache->getCacheDescription($descLang);
+
+            if (is_null($descriptionObject)) {
+                $descriptionObject = GeoCacheDesc::getEmptyDesc($this->geocache);
+            }
+
+            $description = $descriptionObject->getDescToDisplay();
+
+            $singleEventButton = CalendarButtonFactory::createButton('single_event', [
+                'name' => $this->geocache->getCacheName(),
+                'description' => htmlspecialchars(strip_tags($description)),
+                'startDate' => Formatter::formatDateTime($this->geocache->getDatePlaced(), "Y-m-d"),
+                'timeZone' => date_default_timezone_get(),
+                'location' => $this->geocache->getCoordinates()->getLatitude() . "," . $this->geocache->getCoordinates()->getLongitude(),
+                'language' => I18n::getCurrentLang(),
+                'label' => tr('add_to_calendar')
+            ]);
+
+            $this->view->setVar('addEventToCalendarButton', $singleEventButton->render());
+        }
+
         $this->view->setVar(
             'cacheCreationDate',
             Formatter::date($this->geocache->getDateCreated())
@@ -453,10 +488,14 @@ class ViewCacheController extends BaseController
         $this->view->setVar('openChecker', $openChecker);
     }
 
-    private function processDesc()
+    private function getAvailableDescLangs()
     {
-        // determine description language
-        $availableDescLangs = mb_split(',', $this->geocache->getDescLanguagesList());
+        return mb_split(',', $this->geocache->getDescLanguagesList());
+    }
+
+    private function getDescLang(){
+
+        $availableDescLangs = $this->getAvailableDescLangs();
 
         // check if user requests other lang of cache desc...
         if (isset($_REQUEST['desclang']) && (array_search($_REQUEST['desclang'], $availableDescLangs) !== false)) {
@@ -466,6 +505,14 @@ class ViewCacheController extends BaseController
         } else { // use first available otherwise
             $descLang = $availableDescLangs[0];
         }
+
+        return $descLang;
+    }
+    private function processDesc()
+    {
+        // determine description language
+        $availableDescLangs = $this->getAvailableDescLangs();
+        $descLang = $this->getDescLang();
 
         $availableDescLangsLinks = [];
 
@@ -770,7 +817,8 @@ class ViewCacheController extends BaseController
             exit();
         }
         $this->view->setVar('cache', $cache);
-        $this->view->setVar('attenders', $cache->getAttenders());
+        $this->view->setVar('willattenders', $cache->getAttenders(GeoCacheLog::LOGTYPE_WILLATTENDED));
+        $this->view->setVar('attenders', $cache->getAttenders(GeoCacheLog::LOGTYPE_ATTENDED));
         $this->view->setTemplate('viewcache/event_attenders');
         $this->view->buildInMiniTpl();
     }

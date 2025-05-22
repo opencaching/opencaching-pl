@@ -17,7 +17,7 @@
             <tr class="form-group-sm">
                 <td class="content-title-noshade">{{em02}}:</td>
                 <td>
-                    <input name="newemail" maxlength="60" type="text" value="{new_email}" class="form-control input200" /> {email_message}
+                    <input name="newemail" maxlength="60" type="email" value="{new_email}" class="form-control input200" /> {email_message}
                 </td>
             </tr>
             <tr>

@@ -32,29 +32,20 @@ use PhpCsFixer\Tokenizer\Tokens;
  */
 final class SquareBraceTransformer extends AbstractTransformer
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getPriority(): int
     {
         // must run after CurlyBraceTransformer and AttributeTransformer
         return -1;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getRequiredPhpVersionId(): int
     {
         // Short array syntax was introduced in PHP 5.4, but the fixer is smart
         // enough to handle it even before 5.4.
         // Same for array destructing syntax sugar `[` introduced in PHP 7.1.
-        return 50000;
+        return 5_00_00;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function process(Tokens $tokens, Token $token, int $index): void
     {
         if ($this->isArrayDestructing($tokens, $index)) {
@@ -68,9 +59,6 @@ final class SquareBraceTransformer extends AbstractTransformer
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getCustomTokens(): array
     {
         return [

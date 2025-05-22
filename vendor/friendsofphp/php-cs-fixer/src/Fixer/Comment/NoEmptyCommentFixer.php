@@ -40,9 +40,6 @@ final class NoEmptyCommentFixer extends AbstractFixer
         return 2;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
@@ -51,17 +48,11 @@ final class NoEmptyCommentFixer extends AbstractFixer
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
         return $tokens->isTokenKindFound(T_COMMENT);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         for ($index = 1, $count = \count($tokens); $index < $count; ++$index) {
@@ -69,7 +60,11 @@ final class NoEmptyCommentFixer extends AbstractFixer
                 continue;
             }
 
-            [$blockStart, $index, $isEmpty] = $this->getCommentBlock($tokens, $index);
+            $blockInfo = $this->getCommentBlock($tokens, $index);
+            $blockStart = $blockInfo['blockStart'];
+            $index = $blockInfo['blockEnd'];
+            $isEmpty = $blockInfo['isEmpty'];
+
             if (false === $isEmpty) {
                 continue;
             }
@@ -84,6 +79,8 @@ final class NoEmptyCommentFixer extends AbstractFixer
      * Return the start index, end index and a flag stating if the comment block is empty.
      *
      * @param int $index T_COMMENT index
+     *
+     * @return array{blockStart: int, blockEnd: int, isEmpty: bool}
      */
     private function getCommentBlock(Tokens $tokens, int $index): array
     {
@@ -91,7 +88,11 @@ final class NoEmptyCommentFixer extends AbstractFixer
         $empty = $this->isEmptyComment($tokens[$index]->getContent());
 
         if (self::TYPE_SLASH_ASTERISK === $commentType) {
-            return [$index, $index, $empty];
+            return [
+                'blockStart' => $index,
+                'blockEnd' => $index,
+                'isEmpty' => $empty,
+            ];
         }
 
         $start = $index;
@@ -116,7 +117,11 @@ final class NoEmptyCommentFixer extends AbstractFixer
             }
         }
 
-        return [$start, $index - 1, $empty];
+        return [
+            'blockStart' => $start,
+            'blockEnd' => $index - 1,
+            'isEmpty' => $empty,
+        ];
     }
 
     private function getCommentType(string $content): int
@@ -152,6 +157,6 @@ final class NoEmptyCommentFixer extends AbstractFixer
 
         $type = $this->getCommentType($content);
 
-        return 1 === Preg::match($mapper[$type], $content);
+        return Preg::match($mapper[$type], $content);
     }
 }

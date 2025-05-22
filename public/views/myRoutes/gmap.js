@@ -23,62 +23,55 @@ var map_params = {
 function load() {
     container = document.getElementById("mapDiv");
 
-    var centerPoint = new google.maps.LatLng(map_params.lat,map_params.lon);
-    map = new google.maps.Map(container, {
-        center: centerPoint, zoom: map_params.zoom,
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
-        scaleControl: true,
-        panControl: false,
-        draggableCursor: 'crosshair',
-        gestureHandling: 'greedy', //disable ctrl+ zooming
+    leafletMap = L.map(container).setView([map_params.lat, map_params.lon], map_params.zoom);
 
-    });
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(leafletMap);
 
     directionsInfoDiv = document.getElementById("directions_info");
-    dirObj = new google.maps.DirectionsService();
-    dirDisplay = new google.maps.DirectionsRenderer({ draggable: true });
 
-    google.maps.event.addListener(map, 'click', mapClick);
-    google.maps.event.addListener(dirDisplay, 'directions_changed', function() {
-        // Save new route data after dragging points
-        saveRouteData(dirDisplay.directions);
-    });
+    leafletMap.on('click', mapClick);
+    routingControl = null;
 }
 
 function mapClick(event) {
 
-    var clickPosition = event.latLng;
+    var clickPosition = event.latlng;
 
     if (!startMarker) {
         var oDriveFrom = document.getElementById('driveFrom');
-        startMarker = new google.maps.Marker({
-            position: clickPosition,
+        startMarker = L.marker(clickPosition, {
             draggable: true,
-            icon: 'https://maps.gstatic.com/mapfiles/markers2/marker_greenA.png',
-            map: map
+            icon: L.icon({
+                iconUrl: 'https://maps.gstatic.com/mapfiles/markers2/marker_greenA.png',
+                iconSize: [20, 32]
+            })
+        }).addTo(leafletMap);
+
+        startMarker.on('dragend', function(event) {
+            var position = event.target.getLatLng();
+            oDriveFrom.value = position.lat.toFixed(6) + ',' + position.lng.toFixed(6);
         });
 
-        google.maps.event.addListener(startMarker, 'dragend', function(event) {
-            oDriveFrom.value = event.latLng.lat().toFixed(6) + ',' + event.latLng.lng().toFixed(6);
-        });
-
-        oDriveFrom.value = clickPosition.lat().toFixed(6) + ',' + clickPosition.lng().toFixed(6);
+        oDriveFrom.value = clickPosition.lat.toFixed(6) + ',' + clickPosition.lng.toFixed(6);
         return;
-    }
-    else if (!endMarker) {
+    } else if (!endMarker) {
         var oDriveTo = document.getElementById('driveTo');
-        endMarker = new google.maps.Marker({
-            position: clickPosition,
+        endMarker = L.marker(clickPosition, {
             draggable: true,
-            icon: 'https://maps.gstatic.com/mapfiles/markers2/marker_greenB.png',
-            map: map
+            icon: L.icon({
+                iconUrl: 'https://maps.gstatic.com/mapfiles/markers2/marker_greenB.png',
+                iconSize: [20, 32]
+            })
+        }).addTo(leafletMap);
+
+        endMarker.on('dragend', function(event) {
+            var position = event.target.getLatLng();
+            oDriveTo.value = position.lat.toFixed(6) + ',' + position.lng.toFixed(6);
         });
 
-        google.maps.event.addListener(endMarker, 'dragend', function(event) {
-            oDriveTo.value = event.latLng.lat().toFixed(6) + ',' + event.latLng.lng().toFixed(6);
-        });
-
-        oDriveTo.value = clickPosition.lat().toFixed(6) + ',' + clickPosition.lng().toFixed(6);
+        oDriveTo.value = clickPosition.lat.toFixed(6) + ',' + clickPosition.lng.toFixed(6);
         return;
     }
 }
@@ -91,13 +84,12 @@ function indicateLoading(show) {
 function displayLoadingMsg() {
     var oLMsg = document.getElementById('loadingMessage');
 
-    if (loading){
+    if (loading) {
         oLMsg.style.display = '';
         oLMsg.style.left = container.offsetLeft + (container.clientWidth / 2) - (oLMsg.clientWidth / 2) + 'px';
         oLMsg.style.top = container.offsetTop + (container.clientHeight / 2) - (oLMsg.clientHeight / 2) + 'px';
-        oLMsg.style.filter="alpha(opacity=70)";
-    }
-    else {
+        oLMsg.style.opacity = '0.7';
+    } else {
         oLMsg.style.display = 'none';
     }
 }
@@ -105,87 +97,169 @@ function displayLoadingMsg() {
 function cleanManualMarkers() {
     // Clean manually placed markers (if present)
     if (startMarker) {
-        startMarker.setMap(null);
+        leafletMap.removeLayer(startMarker);
         startMarker = null;
     }
 
     if (endMarker) {
-        endMarker.setMap(null);
+        leafletMap.removeLayer(endMarker);
         endMarker = null;
     }
 }
 
+var viaWaypoints = [];
+
+function getCoordinatesFromAddress(address) {
+    return fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => data.length > 0 ? L.latLng(parseFloat(data[0].lat), parseFloat(data[0].lon)) : null)
+        .catch(() => null);
+}
+
 function getDirections() {
-    var oDriveFrom = document.getElementById('driveFrom');
-    var oDriveTo = document.getElementById('driveTo');
-    var oDriveVia = document.getElementById('driveVia');
-    var viaWaypoints = [];
+
+    const oDriveFrom = document.getElementById('driveFrom').value;
+    const oDriveTo = document.getElementById('driveTo').value;
+    const oDriveVia = document.getElementById('driveVia').value;
 
     directionsInfoDiv.innerHTML = '';
 
-    if (oDriveFrom.value && oDriveTo.value) {
-        if (oDriveVia.value) {
-            var viaValue = oDriveVia.value.replace(/[\n\r]+/,"");
-            var viaSteps = viaValue.split(';');
-            for (var n = 0 ; n < viaSteps.length ; n++ ) {
-                viaWaypoints.push({ location: viaSteps[n] });
+    if (oDriveFrom && oDriveTo) {
+        const promises = [];
+        const waypointsList = [];
+
+        const addWaypoint = (input, index) => {
+            const coords = input.split(',');
+            if (coords.length === 2) {
+                waypointsList[index] = L.latLng(parseFloat(coords[0]), parseFloat(coords[1]));
+            } else {
+                promises.push(getCoordinatesFromAddress(input).then(latLng => {
+                    if (latLng) {
+                        waypointsList[index] = latLng;
+                    }
+                }));
             }
+        };
+
+        let index = 0;
+        addWaypoint(oDriveFrom, index++);
+
+        if (oDriveVia) {
+            const viaSteps = oDriveVia.split(/[\n\r;,\s]+/).filter(step => step.trim() !== '');
+            viaSteps.forEach(step => addWaypoint(step.trim(), index++));
         }
 
-        indicateLoading(true);
+        addWaypoint(oDriveTo, index++);
 
-        var request = {
-            origin: oDriveFrom.value,
-            destination: oDriveTo.value,
-            waypoints: viaWaypoints,
-            travelMode: google.maps.DirectionsTravelMode.DRIVING,
-            unitSystem: google.maps.UnitSystem.METRIC, // TODO - internationalization
-            region: "PL" // TODO - internationalization
-        };
-        dirObj.route(request, function(response, status) {
-            indicateLoading(false);
-            if (status == google.maps.DirectionsStatus.OK) {
-                onDirectionsLoad(response);
-            } else {
-                onDirectionsError(status);
+        Promise.all(promises).then(() => {
+            // Sort waypoints by their original index to maintain order
+            viaWaypoints = waypointsList.filter(Boolean);
+
+            if (viaWaypoints.length < 2) {
+                directionsInfoDiv.innerHTML = 'Insufficient waypoints to calculate a route.';
+                return;
             }
+
+            calculateRoute(viaWaypoints);
+        }).catch(error => {
+            directionsInfoDiv.innerHTML = `Error processing waypoints: ${error.message}`;
         });
+    } else {
+        directionsInfoDiv.innerHTML = 'Please provide both starting and ending locations.';
     }
+}
+
+
+function calculateRoute() {
+    if (routingControl) leafletMap.removeControl(routingControl);
+
+    indicateLoading(true);
+
+    routingControl = L.Routing.control({
+        waypoints: viaWaypoints,
+        routeWhileDragging: true,
+        showAlternatives: false,
+        router: L.Routing.osrmv1({
+            serviceUrl: 'https://router.project-osrm.org/route/v1',
+            language: 'pl'
+        }),
+        createMarker: (i, waypoint, n) => L.marker(waypoint.latLng, {
+            draggable: true,
+            icon: L.icon({
+                iconUrl: i === 0
+                    ? 'https://maps.gstatic.com/mapfiles/markers2/marker_greenA.png'
+                    : (i === n - 1
+                        ? 'https://maps.gstatic.com/mapfiles/markers2/marker_greenB.png'
+                        : 'https://maps.gstatic.com/mapfiles/markers2/boost-marker-mapview.png'),
+                iconSize: [20, 32]
+            })
+        })
+    }).addTo(leafletMap);
+
+    routingControl.on('routesfound', function (e) {
+        indicateLoading(false);
+        const route = e.routes[0];
+
+        const totalTimeInMinutes = route.summary.totalTime / 60;
+        const hours = Math.floor(totalTimeInMinutes / 60);
+        const minutes = Math.round(totalTimeInMinutes % 60);
+        const formattedTime = `${hours > 0 ? hours + ' godz. ' : ''}${minutes} min`;
+
+        setTimeout(function() {
+            var instructions = document.querySelector('.leaflet-routing-alt');
+            if (instructions) directionsInfoDiv.innerHTML = instructions.innerHTML;
+        }, 500);
+
+        saveRouteData(e);
+        cleanManualMarkers();
+    });
+
+    routingControl.on('routingerror', function () {
+        indicateLoading(false);
+        directionsInfoDiv.innerHTML = 'Error calculating directions. Please try again.';
+    });
 }
 
 function saveRouteData(response) {
     var points = [];
-    var o_path = response.routes[0].overview_path;
-    for (var n = 0; n < o_path.length; n++) {
-        points.push(o_path[n].lat().toFixed(6) + ',' + o_path[n].lng().toFixed(6));
-    }
+    var total_distance = 0;
+
+    var coordinates = response.routes[0].coordinates;
+
+    coordinates.forEach(coord => {
+        var lat = coord.lat.toFixed(6);
+        var lng = coord.lng.toFixed(6);
+
+        var exists = points.some(function(existingPoint) {
+            var [existingLat, existingLng] = existingPoint.split(',');
+            return Math.abs(existingLat - lat) < 0.006 && Math.abs(existingLng - lng) < 0.006;
+        });
+
+        if (!exists) {
+            points.push(lat + ',' + lng);
+        }
+    });
+
     document.forms['myroute_form'].route_points.value = points.join(' ');
 
-    var total_distance = 0;
-    for (n = 0; n < response.routes[0].legs.length; n++) {
-        total_distance += response.routes[0].legs[n].distance.value;
-    }
-    // Keep total distance in km (rounding to 0.1)
+    total_distance = response.routes[0].summary.totalDistance;
     document.forms['myroute_form'].distance.value = (total_distance / 1000).toFixed(1);
 }
 
-function onDirectionsLoad(response) {
-    dirDisplay.setDirections(response); // This will raise 'directions_changed' event on dirDisplay
-    dirDisplay.setMap(map);
-    dirDisplay.setPanel(directionsInfoDiv);
-    cleanManualMarkers();
-}
-
-function onDirectionsError(status) {
-    directionsInfoDiv.innerHTML = 'Error: ' + status;
-}
-
 function removeResults() {
-    dirDisplay.setMap(null);
-    dirDisplay.setPanel(null);
+    if (routingControl) {
+        leafletMap.removeControl(routingControl);
+        routingControl = null;
+    }
     cleanManualMarkers();
     document.forms['myroute_form'].route_points.value = '';
     document.forms['myroute_form'].distance.value = '';
+    directionsInfoDiv.innerHTML = '';
 }
 
 function resetMap() {
@@ -193,6 +267,5 @@ function resetMap() {
     document.getElementById('driveFrom').value = '';
     document.getElementById('driveTo').value = '';
     document.getElementById('driveVia').value = '';
-    map.setCenter(centerPoint);
-    map.setZoom(zoom);
+    leafletMap.setView([map_params.lat, map_params.lon], map_params.zoom);
 }

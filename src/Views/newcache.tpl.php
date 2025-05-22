@@ -1,5 +1,8 @@
 <?php
 
+use src\Controllers\GpxLoadApiController;
+use src\Controllers\MainMapController;
+use src\Models\GeoCache\GeoCacheCommons;
 use src\Models\OcConfig\OcConfig;
 use src\Utils\Uri\SimpleRouter;
 
@@ -10,16 +13,59 @@ $view->callChunk('tinyMCE');
 
     $(function() {
         $("#waypointsToChose").dialog({
-            position: ['center', 150],
+            position: { my: "top+150", at: "top", of: window },
             autoOpen: false,
-            width: 500,
+            width: $(window).width() > 800 ? 800 : $(window).width() * 0.9,
             modal: true,
             show: {effect: 'bounce', duration: 350, /* SPECIF ARGUMENT */ times: 3},
             hide: "explode",
             buttons: {
-              {{newCacheWpClose}}: function() {
+              '<?= tr('newCacheWpClose'); ?>': function() {
                 $(this).dialog("close");
               }
+            }
+        });
+
+        $("#gpxFormatInfo").dialog({
+            position: { my: "top", at: "top", of: window },
+            autoOpen: false,
+            width: 800,
+            minHeight: 800,
+            modal: true,
+            hide: "explode",
+            show: "fade",
+            title: "<?= tr('gpx_info_title'); ?>",
+            buttons: {
+              '<?= tr('newCacheWpClose'); ?>': function() {
+                $(this).dialog("close");
+              }
+            }
+        });
+
+        $("#showGpxFormatInfo").click(function(evt) {
+            $('#gpxFormatInfo').dialog("option", "height", window.innerHeight);
+            $('#gpxFormatInfo').dialog('open');
+            $(".ui-dialog-titlebar-close").hide();
+        });
+
+        $("#gpxUpload").click(function(evt) {
+            var fd = new FormData();
+            var files = $('#myfile')[0].files;
+            // Check file selected or not
+            if (files.length > 0 ) {
+                fd.append('myfile',files[0]);
+                startUpload();
+                $.ajax({
+                    url: '<?= SimpleRouter::getLink(GpxLoadApiController::class, 'newCacheGpxLoad'); ?>',
+                    type: 'post',
+                    data: fd,
+                    dataType: 'json',
+                    contentType: false,
+                    processData: false,
+                    success: function(response) {
+                        stopUpload(response);
+                    }
+               });
             }
         });
     });
@@ -27,10 +73,10 @@ $view->callChunk('tinyMCE');
     // data picker init
     $(function() {
       updateRegionsList();
-      $.datepicker.setDefaults($.datepicker.regional['pl']);
-      $('#hiddenDatePicker, #activateDatePicker').datepicker (
-        $.datepicker.regional["{language4js}"]
-      ).datepicker("option", "dateFormat", "yy-mm-dd").val();
+      const lang = "{language4js}";
+      const regional = $.datepicker.regional[lang] || {};
+      const options = $.extend({}, regional, { dateFormat: "yy-mm-dd" });
+      $('#hiddenDatePicker, #activateDatePicker').datepicker(options);
     });
 
     function hiddenDatePickerChange(identifier){
@@ -39,6 +85,10 @@ $view->callChunk('tinyMCE');
         $("#" + identifier + "_year").val(dateArr[0]);
         $("#" + identifier + "_month").val(dateArr[1]);
         $("#" + identifier + "_day").val(dateArr[2]);
+    }
+
+    function selectPublishLater(){
+        $("#publish_later").prop("checked", true);
     }
 
     function checkRegion(){
@@ -99,49 +149,61 @@ $view->callChunk('tinyMCE');
     var maAttributes = new Array({jsattributes_array});
 
     function startUpload(){
-      $('#f1_upload_form').hide();
       $('#ajaxLoaderLogo').show();
       return true;
     }
 
-    function stopUpload(success){
+    var waypointsToChoose = [];
+
+    function stopUpload(response){
         $('#ajaxLoaderLogo').hide();
-        $('#f1_upload_form').show();
+        $('#wptInfo').html(response['status']['msg']);
+        $('#wptInfo').removeClass('errormsg successmsg');
+        if (response['status']['code'] == 0) {
+            $('#wptInfo').addClass('successmsg');
+        } else {
+            $('#wptInfo').addClass('errormsg');
+        }
         $('#wptInfo').show();
         $(function() {
-        setTimeout(function() {
-        $('#wptInfo').fadeOut(1000);
-        }, 5000);
+            setTimeout(
+                function() {
+                    $('#wptInfo').fadeOut(1000);
+                },
+                5000
+            );
         });
-        var gpx = jQuery.parseJSON(success);
-        var waypointsCount = count(gpx);
-        //console.log(waypointsCount);
-        //console.log(gpx);
+        if (
+            response['status']['code'] == 0
+            && typeof response['data'] != 'undefined'
+        ) {
+            var wpts = response['data'];
+            var waypointsCount = count(wpts);
 
-        if (waypointsCount == 1){
-          fillFormInputs(gpx[0])
-        }
-        if (waypointsCount > 1){
-            $('#gpxWaypointObject').val(success);
-            var i = 0;
-            var costam = '{{newCacheWpDesc}}<br/><br/>';
-            gpx.forEach(function(wayPoint) {
-            costam += '<a href="javascript:void(0);" onclick="updateFromWaypoint(' + i + ')"><b>'
-                    + wayPoint.name + '</b> - ' + wayPoint.coords_latNS + wayPoint.coords_lat_h + '°' + wayPoint.coords_lat_min + ' / '
-                    + wayPoint.coords_lonEW + wayPoint.coords_lon_h + '°' + wayPoint.coords_lon_min + '<br />';
+            if (waypointsCount == 1) {
+                fillFormInputs(wpts[0]);
+            } else if (waypointsCount > 1) {
+                waypointsToChoose = wpts;
+                var i = 0;
+                var ct = '<?= tr('newCacheWpDesc'); ?><br/><br/>';
+                wpts.forEach(function(wpt) {
+                    ct += '<a href="javascript:void(0);" onclick="updateFromWaypoint(' + i + ')"><b>'
+                        + wpt.name + '</b> - ' + wpt.coords_latNS + wpt.coords_lat_h + '°' + wpt.coords_lat_min + ' / '
+                        + wpt.coords_lonEW + wpt.coords_lon_h + '°' + wpt.coords_lon_min + '<br />';
                     i++;
-            });
-            $('#waypointsToChose').html(costam);
-            $('#waypointsToChose').dialog('open');
-            $(".ui-dialog-titlebar-close").hide();
+                });
+                $('#waypointsToChose').html(ct);
+                $('#waypointsToChose').dialog('open');
+                $(".ui-dialog-titlebar-close").hide();
+            }
         }
+
         return true;
     }
 
-    function updateFromWaypoint(waypointId){
-        var gpxWaypointObject = $('#gpxWaypointObject').val();
-        var gpx = jQuery.parseJSON(gpxWaypointObject);
-        fillFormInputs(gpx[waypointId]);
+    function updateFromWaypoint(index){
+        fillFormInputs(waypointsToChoose[index]);
+        waypointsToChoose = [];
         $('#waypointsToChose').dialog("close");
         $('#wptInfo').show();
         $(function() {
@@ -151,16 +213,62 @@ $view->callChunk('tinyMCE');
         });
     }
 
-    function fillFormInputs(gpx){
-        var CacheHidedate = gpx.time.substring(0, 10);
-        $("#lat_h").val(gpx.coords_lat_h);
-        $("#lon_h").val(gpx.coords_lon_h);
-        $("#lat_min").val(gpx.coords_lat_min);
-        $("#lon_min").val(gpx.coords_lon_min);
-        $("#name").val(gpx.name);
-        tinyMCE.activeEditor.setContent(gpx.desc);
-        $("#desc").val(gpx.desc);
-        $("#hiddenDatePicker").val(CacheHidedate);
+    function fillFormInputs(wpt){
+        var cacheHideDate = wpt.time.substring(0, 10);
+        $("#lat_h").val(wpt.coords_lat_h);
+        $("#lon_h").val(wpt.coords_lon_h);
+        $("#lat_min").val(wpt.coords_lat_min);
+        $("#lon_min").val(wpt.coords_lon_min);
+        $("#name").val(wpt.name);
+        if (wpt["type"] > 0) {
+            $("#cacheType option[value=" + wpt["type"] + "]").attr(
+                "selected", "selected"
+            );
+        }
+        if (wpt["size"] > 0) {
+            $("#size option[value=" + wpt["size"] + "]").attr(
+                "selected", "selected"
+            );
+        }
+        if (wpt["difficulty"] > 0) {
+            $("select[name=difficulty] option[value=" + (wpt["difficulty"] * 2) + "]").attr(
+                "selected", "selected"
+            );
+        }
+        if (wpt["terrain"] > 0) {
+            $("select[name=terrain] option[value=" + (wpt["terrain"] * 2) + "]").attr(
+                "selected", "selected"
+            );
+        }
+        if (wpt["trip_time"] > 0) {
+            trip_time =
+                Math.trunc(wpt["trip_time"]) +
+                ':' +
+                Math.round((wpt["trip_time"] - Math.trunc(wpt["trip_time"])) * 60);
+            $("input[name=search_time]").val(trip_time);
+        }
+        if (wpt["trip_distance"] > 0) {
+            $("input[name=way_length]").val(wpt["trip_distance"]);
+        }
+        $("#hints").val(wpt["hint"]);
+        $("input[name=short_desc]").val(wpt["short_desc"]);
+        tinyMCE.activeEditor.setContent(wpt.desc);
+        $("#desc").val(wpt.desc);
+        $("#hiddenDatePicker").val(cacheHideDate).trigger('change');
+        if ("wp_gc" in wpt && wpt["wp_gc"] !== undefined) {
+            $("input[name=wp_gc]").val(wpt["wp_gc"]);
+        }
+        if (wpt["attributes"].length > 0) {
+            $.each(wpt["attributes"], function(key, value) {
+                for (i = 0; i < maAttributes.length; i++) {
+                    if (maAttributes[i][0] == value) {
+                        maAttributes[i][1] = 1;
+                        break;
+                    }
+                }
+            });
+            rebuildCacheAttr();
+        }
         checkRegion();
     }
 
@@ -230,8 +338,8 @@ $view->callChunk('tinyMCE');
       if ($('#cacheType').val() == "4" || $('#cacheType').val() == "5" || $('#cacheType').val() == "6") {
         // if( document.newcacheform.size.options[ $('#size option').length - 1].value != "7" && document.newcacheform.size.options[document.newcacheform.size.options.length - 2].value != "7")
         if (!($("#size option[value='7']").length > 0)) {
-          var o = new Option("{{cacheSize_none}}", "7");
-          $(o).html("{{cacheSize_none}}");
+          var o = new Option("<?= tr('cacheSize_none'); ?>", "7");
+          $(o).html("<?= tr('cacheSize_none'); ?>");
           $("#size").append(o);
         }
 
@@ -384,6 +492,19 @@ $view->callChunk('tinyMCE');
     return cnt;
     }
 
+    document.addEventListener("DOMContentLoaded", function () {
+        const input = document.getElementById("myfile");
+        if (input) {
+            input.addEventListener("change", function () {
+                if (input.files && input.files.length > 0) {
+                    const uploadButton = document.getElementById("gpxUpload");
+                    if (uploadButton) {
+                        uploadButton.click();
+                    }
+                }
+            });
+        }
+    });
 
 </script>
 <script>
@@ -456,7 +577,6 @@ $(document).ready(function(){
     });
 });
 </script>
-
 <style>
     #hiddenDatePicker, #activateDatePicker{
         width: 75px;
@@ -477,26 +597,26 @@ $(document).ready(function(){
 <table class="table">
     <tr class="form-group-sm">
         <td style="width: 180px">
+            <p><br/></p>
             <p class="content-title-noshade">{{newcache_import_wpt}}</p>
         </td>
         <td>
-            <div id="wptInfo" style="display: none; color: #006600; font-weight: bold;">{{newcache_import_wpt_ok}}</div>
-            <form action="newcacheAjaxWaypointUploader.php" method="post" enctype="multipart/form-data" target="upload_target" onsubmit="startUpload();" >
-                <p id="f1_upload_form"><br/>
-
-                </p>
-                <div class="form-inline">
-                    <?php $view->callChunk('fileUpload', 'myfile', '.gpx'); ?>
-                    <input class="btn btn-primary btn-sm btn-upload" type="submit" value="<?= tr('newcache_upload'); ?>"/>
-                </div>
-                <iframe id="upload_target" name="upload_target" src="about:blank" style="width:0;height:0;border:0px solid #fff;"></iframe>
-            </form>
-            <img style="display: none" id="ajaxLoaderLogo" src="images/misc/ptPreloader.gif" alt="">
+            <div id="wptInfoCont">
+              <span id="wptInfo" style="display: none;"></span>
+            </div>
+            <div class="form-inline">
+                <?php $view->callChunk('fileUpload', 'myfile', '.gpx'); ?>
+                <input id="gpxUpload" class="btn btn-primary btn-sm btn-upload" type="button" value="<?= tr('newcache_upload'); ?>"/>
+                <img style="display: none" id="ajaxLoaderLogo" src="images/misc/ptPreloader.gif" alt="">
+            </div>
         </td>
     </tr>
     <tr>
-      <td>&nbsp;</td>
-      <td><div class="notice">{{newcache_import_wpt_help}}</div></td>
+        <td>&nbsp;</td>
+        <td>
+            <div class="notice">{{newcache_import_wpt_help}}</div>
+            <div class="notice">{{newcache_import_wpt_format_details_prompt}} <a id="showGpxFormatInfo" href="javascript:;">{{newcache_import_wpt_format_details_prompt_link}}</a></div>
+        </td>
     </tr>
 
     <form action="newcache.php" method="post" enctype="application/x-www-form-urlencoded" name="newcacheform" dir="ltr" onsubmit="javascript: return chkregion()">
@@ -536,7 +656,7 @@ $(document).ready(function(){
             <td valign="top"><p class="content-title-noshade">{{coordinates}}:</p></td>
             <td class="content-title-noshade">
                 <fieldset style="border: 1px solid black; width: 90%; height: 32%; background-color: #FAFBDF;" class="form-group-sm">
-                    <legend>&nbsp; <strong>WGS-84</strong> &nbsp;</legend>&nbsp;&nbsp;&nbsp;
+                    <legend>&nbsp; <strong>WGS-84</strong> &nbsp;</legend>
                     <select name="latNS" id="latNS" class="form-control input50" onchange="checkRegion()">
                         <option value="N"{latNsel}>N</option>
                         <option value="S"{latSsel}>S</option>
@@ -547,15 +667,14 @@ $(document).ready(function(){
                       id="lat_h"
                       name="lat_h"
                       maxlength="2"
-                      class="form-control input50"
+                      class="form-control input45"
                       onchange="checkRegion()"
                       placeholder="0"
                       value="{lat_h}"
                       min="0"
                       max="90"
                       required
-                  />
-                    &deg;&nbsp;
+                  />&deg;&nbsp;
                   <input
                       type="text"
                       id="lat_min"
@@ -571,7 +690,6 @@ $(document).ready(function(){
                   />&nbsp;'&nbsp;
                     <button class="btn btn-default btn-sm" onclick="nearbycachemapOC()">{{check_nearby_caches_map}}</button>
                     {lat_message}<br />
-                    &nbsp;&nbsp;&nbsp;
                     <select name="lonEW" id="lonEW" class="form-control input50" onchange="checkRegion()">
                         <option value="W"{lonWsel}>W</option>
                         <option value="E"{lonEsel}>E</option>
@@ -582,15 +700,14 @@ $(document).ready(function(){
                       id="lon_h"
                       name="lon_h"
                       maxlength="3"
-                      class="form-control input50"
+                      class="form-control input45"
                       onchange="checkRegion()"
                       placeholder="0"
                       value="{lon_h}"
                       min="0"
                       max="180"
                       required
-                  />
-                    &deg;&nbsp;
+                  />&deg;&nbsp;
                   <input
                       type="text"
                       id="lon_min"
@@ -833,7 +950,7 @@ $(document).ready(function(){
                     <legend>&nbsp; <strong>{{submit_new_cache}}</strong> &nbsp;</legend>
                     <input type="radio" class="radio" name="publish" id="publish_now" value="now" {publish_now_checked}/>&nbsp;<label for="publish_now">{{publish_now}}</label><br />
                     <input type="radio" class="radio" name="publish" id="publish_later" value="later" {publish_later_checked}/>&nbsp;<label for="publish_later">{{publish_date}}:</label>
-                    <input type="text" class="form-control" id="activateDatePicker" id="activateDatePicker" value="{activate_year}-{activate_month}-{activate_day}" onchange="hiddenDatePickerChange('activate');"/>
+                    <input type="text" class="form-control" id="activateDatePicker" value="{activate_year}-{activate_month}-{activate_day}" onchange="hiddenDatePickerChange('activate'); selectPublishLater();"/>
                     <input class="input40" type="hidden" name="activate_year"  id="activate_year"  value="{activate_year}"/>
                     <input class="input20" type="hidden" name="activate_month" id="activate_month" value="{activate_month}"/>
                     <input class="input20" type="hidden" name="activate_day"   id="activate_day"   value="{activate_day}"/>&nbsp;
@@ -864,3 +981,262 @@ $(document).ready(function(){
 <div class="buffer"></div>
 <input type="hidden" value="" id="gpxWaypointObject">
 <div id="waypointsToChose" title="{{newCacheWpTitle}}"></div>
+<div id="gpxFormatInfo" class="hidden" style="overflow: auto;">
+<p style="text-align: justify;">
+<?= tr('gpx_info_intro'); ?>:
+<ul>
+<li><a href="http://www.topografix.com/GPX/1/0/gpx.xsd" title="Topografix 1.0">Topografix 1.0</a>,
+<?= tr('gpx_info_in_namespace'); ?> <code>http://www.topografix.com/GPX/1/0</code>.</li>
+<li><a href="http://www.topografix.com/GPX/1/0/gpx.xsd" title="Topografix 1.1">Topografix 1.1</a>,
+<?= tr('gpx_info_in_namespace'); ?> <code>http://www.topografix.com/GPX/1/1</code>.</li>
+</ul>
+</p>
+<br/>
+<p style="text-align: justify;">
+<?= tr('gpx_info_p1'); ?>:
+</p>
+<table class="bs-table" style="width: 95%;">
+<colgroup>
+<col style="width: 25%;"/>
+<col/>
+</colgroup>
+<tr>
+<td><code>lat</code></td><td><?= tr('gpx_info_lat'); ?></td>
+</tr>
+<tr>
+<td><code>lon</code></td><td><?= tr('gpx_info_lon'); ?></td>
+</tr>
+</table>
+<p style="text-align: justify;">
+<?= tr('gpx_info_p2'); ?>:
+</p>
+<table class="bs-table" style="width: 95%;">
+<colgroup>
+<col style="width: 25%;"/>
+<col/>
+<tr>
+<td><code>name</code></td><td><?= tr('name_label'); ?></td>
+</tr>
+<tr>
+<td><code>time</code></td><td><?= tr('gpx_info_time_hidden_date_only'); ?></td>
+</tr>
+<tr>
+<td><code>desc</code></td><td><?= tr('full_description'); ?></td>
+</tr>
+</table>
+<p style="text-align: justify;">
+<?= tr('gpx_info_p3'); ?>
+</p>
+<hr style="height: 1px; margin: 10px;"/>
+<p style="text-align: justify;">
+<?= tr('gpx_info_p4'); ?>:
+</p>
+<table class="bs-table" style="width: 95%;">
+<colgroup>
+<col style="width: 25%;"/>
+<col/>
+<tr>
+<td><code>type</code></td><td><?= tr('cache_type'); ?></td>
+</tr>
+<tr>
+<td><code>container</code></td><td><?= tr('cache_size'); ?></td>
+</tr>
+<tr>
+<td><code>difficulty</code></td><td><?= tr('task_difficulty'); ?></td>
+</tr>
+<tr>
+<td><code>terrain</code></td><td><?= tr('terrain_difficulty'); ?></td>
+</tr>
+<tr>
+<td><code>encoded_hints</code></td><td><?= tr('hint_info'); ?></td>
+</tr>
+<tr>
+<td><code>long_description</code></td><td><?= tr('full_description'); ?></td>
+</tr>
+<tr>
+<td><code>short_description</code></td><td><?= tr('short_description'); ?></td>
+</tr>
+</table>
+<p style="text-align: justify;">
+<?= tr('gpx_info_p5'); ?>
+</p>
+<p style="text-align: justify;">
+<?= tr('gpx_info_p6'); ?>:
+</p>
+<table class="bs-table" style="width: 95%;">
+<colgroup>
+<col style="width: 25%;"/>
+<col/>
+<tr>
+<td><code>traditional cache</code></td><td><?= tr(GeoCacheCommons::TYPE_TRADITIONAL_TR_KEY); ?></td>
+</tr>
+<tr>
+<td><code>multi-cache</code></td><td><?= tr(GeoCacheCommons::TYPE_MULTICACHE_TR_KEY); ?></td>
+</tr>
+<tr>
+<td><code>unknown cache</code></td><td><?= tr(GeoCacheCommons::TYPE_QUIZ_TR_KEY); ?></td>
+</tr>
+<tr>
+<td><code>virtual cache</code></td><td><?= tr(GeoCacheCommons::TYPE_VIRTUAL_TR_KEY); ?></td>
+</tr>
+<tr>
+<td><code>webcam cache</code></td><td><?= tr(GeoCacheCommons::TYPE_WEBCAM_TR_KEY); ?></td>
+</tr>
+<tr>
+<td><code>letterbox hybrid</code></td><td><?= tr(GeoCacheCommons::TYPE_OTHERTYPE_TR_KEY); ?></td>
+</tr>
+<tr>
+<td><code>earthcache</code></td><td><?= tr(GeoCacheCommons::TYPE_OTHERTYPE_TR_KEY); ?></td>
+</tr>
+<tr>
+<td><code>wherigo cache</code></td><td><?= tr(GeoCacheCommons::TYPE_OTHERTYPE_TR_KEY); ?></td>
+</tr>
+<tr>
+<td><code>event cache</code></td><td><?= tr(GeoCacheCommons::TYPE_EVENT_TR_KEY); ?></td>
+</tr>
+<tr>
+<td><code>cache in trash out event</code></td><td><?= tr(GeoCacheCommons::TYPE_EVENT_TR_KEY); ?></td>
+</tr>
+<tr>
+<td><code>mega-event cache</code></td><td><?= tr(GeoCacheCommons::TYPE_EVENT_TR_KEY); ?></td>
+</tr>
+<tr>
+<td><code>giga-event cache</code></td><td><?= tr(GeoCacheCommons::TYPE_EVENT_TR_KEY); ?></td>
+</tr>
+</table>
+<br/>
+<p style="text-align: justify;">
+<?= tr('gpx_info_p7'); ?>:
+</p>
+<table class="bs-table" style="width: 95%;">
+<colgroup>
+<col style="width: 25%;"/>
+<col/>
+<tr>
+<td><code>micro</code></td><td><?= tr(GeoCacheCommons::SIZE_MICRO_TR_KEY); ?></td>
+</tr>
+<tr>
+<td><code>small</code></td><td><?= tr(GeoCacheCommons::SIZE_SMALL_TR_KEY); ?></td>
+</tr>
+<tr>
+<td><code>regular</code></td><td><?= tr(GeoCacheCommons::SIZE_REGULAR_TR_KEY); ?></td>
+</tr>
+<tr>
+<td><code>large</code></td><td><?= tr(GeoCacheCommons::SIZE_LARGE_TR_KEY); ?></td>
+</tr>
+<tr>
+<td><code>other</code></td><td><?= tr(GeoCacheCommons::SIZE_OTHER_TR_KEY); ?></td>
+</tr>
+<tr>
+<td><code>virtual</code></td><td><?= tr(GeoCacheCommons::SIZE_NONE_TR_KEY); ?></td>
+</tr>
+</table>
+<br/>
+<p style="text-align: justify;">
+<?= tr('gpx_info_p7a') ?>:
+<table class="bs-table" style="width: 95%;">
+<colgroup>
+<col style="width: 15%;"/>
+<col/>
+<?php foreach ($view->cacheGpxAttribs as $attrId => $attrTrKey) { ?>
+<tr><td><?= $attrId ?></td><td><?= tr($attrTrKey) ?></td></tr>
+<?php } ?>
+</table>
+<br/>
+<hr style="height: 1px; margin: 10px;"/>
+<p style="text-align: justify;">
+<?= tr('gpx_info_p8'); ?>:
+</p>
+<table class="bs-table" style="width: 95%;">
+<colgroup>
+<col style="width: 25%;"/>
+<col/>
+<tr>
+<td><code>type</code></td><td><?= tr('cache_type'); ?></td>
+</tr>
+<tr>
+<td><code>size</code></td><td><?= tr('cache_size'); ?></td>
+</tr>
+<tr>
+<td><code>trip_time</code></td><td><?= tr('gpx_info_trip_time'); ?></td>
+</tr>
+<tr>
+<td><code>trip_distance</code></td><td><?= tr('gpx_info_trip_distance'); ?></td>
+</tr>
+</table>
+<br/>
+<p style="text-align: justify;">
+<?= tr('gpx_info_p9'); ?>:
+</p>
+<table class="bs-table" style="width: 95%;">
+<colgroup>
+<col style="width: 25%;"/>
+<col/>
+<tr>
+<td><code>traditional cache</code></td><td><?= tr(GeoCacheCommons::TYPE_TRADITIONAL_TR_KEY); ?></td>
+</tr>
+<tr>
+<td><code>multi-cache</code></td><td><?= tr(GeoCacheCommons::TYPE_MULTICACHE_TR_KEY); ?></td>
+</tr>
+<tr>
+<td><code>quiz cache</code></td><td><?= tr(GeoCacheCommons::TYPE_QUIZ_TR_KEY); ?></td>
+</tr>
+<tr>
+<td><code>moving cache</code></td><td><?= tr(GeoCacheCommons::TYPE_MOVING_TR_KEY); ?></td>
+</tr>
+<tr>
+<td><code>virtual cache</code></td><td><?= tr(GeoCacheCommons::TYPE_VIRTUAL_TR_KEY); ?></td>
+</tr>
+<tr>
+<td><code>webcam cache</code></td><td><?= tr(GeoCacheCommons::TYPE_WEBCAM_TR_KEY); ?></td>
+</tr>
+<tr>
+<td><code>podcast cache</code></td><td><?= tr(GeoCacheCommons::TYPE_GEOPATHFINAL_TR_KEY); ?></td>
+</tr>
+<tr>
+<td><code>event cache</code></td><td><?= tr(GeoCacheCommons::TYPE_EVENT_TR_KEY); ?></td>
+</tr>
+<tr>
+<td><code>own cache</code></td><td><?= tr(GeoCacheCommons::TYPE_OWNCACHE_TR_KEY); ?></td>
+</tr>
+<tr>
+<td><code>other cache</code></td><td><?= tr(GeoCacheCommons::TYPE_OTHERTYPE_TR_KEY); ?></td>
+</tr>
+</table>
+<br/>
+<p style="text-align: justify;">
+<?= tr('gpx_info_p10'); ?>:
+</p>
+<table class="bs-table" style="width: 95%;">
+<colgroup>
+<col style="width: 25%;"/>
+<col/>
+<tr>
+<td><code>nano</code></td><td><?= tr(GeoCacheCommons::SIZE_NANO_TR_KEY); ?></td>
+</tr>
+<tr>
+<td><code>micro</code></td><td><?= tr(GeoCacheCommons::SIZE_MICRO_TR_KEY); ?></td>
+</tr>
+<tr>
+<td><code>small</code></td><td><?= tr(GeoCacheCommons::SIZE_SMALL_TR_KEY); ?></td>
+</tr>
+<tr>
+<td><code>regular</code></td><td><?= tr(GeoCacheCommons::SIZE_REGULAR_TR_KEY); ?></td>
+</tr>
+<tr>
+<td><code>large</code></td><td><?= tr(GeoCacheCommons::SIZE_LARGE_TR_KEY); ?></td>
+</tr>
+<tr>
+<td><code>very large</code></td><td><?= tr(GeoCacheCommons::SIZE_XLARGE_TR_KEY); ?></td>
+</tr>
+<tr>
+<td><code>other</code></td><td><?= tr(GeoCacheCommons::SIZE_OTHER_TR_KEY); ?></td>
+</tr>
+<tr>
+<td><code>no container</code></td><td><?= tr(GeoCacheCommons::SIZE_NONE_TR_KEY); ?></td>
+</tr>
+</table>
+<hr style="height: 1px; margin: 10px;"/>
+<p style="text-align: justify;">
+<?= tr('gpx_info_p11'); ?>
+</div>

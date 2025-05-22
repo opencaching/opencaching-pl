@@ -7,6 +7,9 @@
 	font-weight: bold;
 	text-align: right;
 }
+.loginInput {
+	max-width: calc(100vw - 170px - 30px)
+}
 
 label {
 	font-size: 12px;

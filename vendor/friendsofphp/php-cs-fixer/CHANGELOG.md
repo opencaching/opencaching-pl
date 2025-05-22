@@ -3,6 +3,1377 @@ CHANGELOG for PHP CS Fixer
 
 This file contains changelogs for stable releases only.
 
+Changelog for v3.64.0
+---------------------
+
+* feat: Symfony - adjust configuration for sets (#8188)
+* feat: Symfony.trailing_comma_in_multiline - adjust configuration (#8161)
+* feat: Update PSR2, PSR12 and PER-CS2 with `single_space_around_construct` config (#8171)
+* CI: Update PHPStan to 1.12.0 and fix the error that appeared (#8184)
+
+Changelog for v3.63.2
+---------------------
+
+* fix: `FullyQualifiedStrictTypesFixer` - reset cache even if there is no `use` (#8183)
+
+Changelog for v3.63.1
+---------------------
+
+* dummy release
+
+Changelog for v3.63.0
+---------------------
+
+* feat: Add `array_destructuring` as option for `trailing_comma_in_multiline` (#8172)
+* feat: remove braces even for single import (#8156)
+* feat: TrailingCommaInMultilineFixer - dynamically evaluate config against PHP version (#8167)
+* fix: Do not shorten FQN for class resolution if imported symbol is not a class (#7705)
+* fix: Ensure PHP binary path is used as a single CLI argument in parallel worker process (#8180)
+* fix: `PhpUnitAttributesFixer` - fix priorities with `PhpUnitDataProvider(.+)Fixer` (#8169)
+* chore: add  tags for data providers that will change PHPStan's baseline (#8178)
+* chore: add `@return` tags for data providers already having PHPDoc (#8176)
+* chore: add `@return` tags for data providers that do not have array in data (#8179)
+* chore: remove duplicates from data providers (#8164)
+* chore: remove duplicates from data providers that are copies in code (#8145)
+* chore: remove `beStrictAboutTodoAnnotatedTests` from PHPUnit's config (#8160)
+* CI: Update PHPStan to 1.11.10 (#8163)
+* CI: Update PHPStan to 1.11.11 and fix error that changed (#8174)
+* docs: fix indent on rule `date_time_create_from_format_call` (#8173)
+
+Changelog for v3.62.0
+---------------------
+
+* feat: set new_with_parentheses for anonymous_class to false in PER-CS2.0 (#8140)
+* chore: NewWithParenthesesFixer - create TODO to change the default configuration to match PER-CS2 (#8148)
+
+Changelog for v3.61.1
+---------------------
+
+* fix: `NoSuperfluousPhpdocTagsFixer` - fix "Undefined array key 0" error (#8150)
+
+Changelog for v3.61.0
+---------------------
+
+* feat: no_superfluous_phpdoc_tags - also cover ?type (#8125)
+* feat: support PHPUnit v9.1 naming for some asserts (#7997)
+* fix: Do not mangle non-whitespace token in `PhpdocIndentFixer` (#8147)
+* DX: add more typehints for `class-string` (#8139)
+* DX: refactor `ProjectCodeTest::provideDataProviderMethodCases` (#8138)
+
+Changelog for v3.60.0
+---------------------
+
+* feat: Add sprintf in the list of compiler optimized functions (#8092)
+* feat: `PhpUnitAttributesFixer` - add option to keep annotations (#8090)
+* chore: cleanup tests that had `@requires PHP 7.4` ages ago (#8122)
+* chore: cleanup `TokensAnalyzerTest` (#8123)
+* chore: fix example issue reported by reportPossiblyNonexistentGeneralArrayOffset from PHPStan (#8089)
+* chore: NoSuperfluousPhpdocTagsFixer - no need to call heavy toComparableNames method to add null type (#8132)
+* chore: PHPStan 11 array rules (#8011)
+* chore: PhpUnitSizeClassFixerTest - solve PHP 8.4 issues (#8105)
+* chore: reduce PHPStan errors in PhpUnitAttributesFixer (#8091)
+* chore: reuse test methods (#8119)
+* CI: check autoload (#8121)
+* CI: Update PHPStan to 1.11.8 (#8133)
+* deps: upgrade dev-tools (#8102)
+* DX: check for duplicated test data (#8131)
+* DX: check for duplicated test methods (#8124)
+* DX: check for duplicated test methods (as AutoReview test) (#8134)
+* DX: do not exclude duplicates that are clearly mistakes (#8135)
+* DX: Dump `offsetAccess.notFound` errors to baseline (#8107)
+* fix: Better way of walking types in `TypeExpression` (#8076)
+* fix: CI for PHP 8.4 (#8114)
+* fix: update `TokensTest` to shrink PHPStan's baseline (#8112)
+* fix: `no_useless_concat_operator` - do not break variable (2) (#7927)
+* fix: `NullableTypeDeclarationFixer` - don't convert standalone `null` into nullable union type (#8098)
+* fix: `NullableTypeDeclarationFixer` - don't convert standalone `NULL` into nullable union type (#8111)
+* fix: `NullableTypeDeclarationFixer` - insert correct token (#8118)
+* fix: `PhpUnitAttributesFixer` - handle multiple annotations of the same name (#8075)
+
+Changelog for v3.59.3
+---------------------
+
+* refactor: refactor to templated trait+interface (#7988)
+
+Changelog for v3.59.2
+---------------------
+
+* fix: "list" is reserved type (#8087)
+* chore: add missing type in method prototype (#8088)
+* CI: bump Ubuntu version (#8086)
+* deps: bump infection to unblock PHPUnit 11, and few more as chore (#8083)
+
+Changelog for v3.59.1
+---------------------
+
+* fix: Bump React's JSON decoder buffer size (#8068)
+* docs: options - handle enums in dicts (#8082)
+
+Changelog for v3.59.0
+---------------------
+
+* feat(Docker): Multi-arch build (support for `arm64`) (#8079)
+* feat: `@PhpCsFixer` ruleset - normalise implicit backslashes in single quoted strings (#7965)
+* feat: `SimpleToComplexStringVariableFixer` - support variable being an array (#8064)
+* fix: Look up for PHPDoc's variable name by only chars allowed in the variables (#8062)
+* fix: Update `PhpUnitTestCaseStaticMethodCallsFixer::STATIC_METHODS` (#8073)
+* fix: `native_constant_invocation` - array constants with native constant names (#8008)
+* chore: update PHPStan (#8060)
+* CI: Update PHPStan to 1.11.4 (#8074)
+* docs: don't expose list as config type for dicts (#8081)
+* docs: Make wording in `final_class` docs less dismissive (#8065)
+* docs: Update 1-bug_report.yml (#8067)
+* DX: Remove version from Docker Compose files (#8061)
+
+Changelog for v3.58.1
+---------------------
+
+* fix: `ConstantCaseFixer` - do not change class constant usages (#8055)
+* fix: `PhpUnitTestClassRequiresCoversFixer` - do not add annotation when attribute with leading slash present (#8054)
+
+Changelog for v3.58.0
+---------------------
+
+* chore(doc): Use FQCN for parallel config in documentation (#8029)
+* chore: fix typo in `PhpUnitTestClassRequiresCoversFixerTest` (#8047)
+* chore: RandomApiMigrationFixer - do not modify configuration property (#8033)
+* chore: Tokens::setCode - further improvements to cache (#8053)
+* chore: update PHPStan (#8045)
+* docs: Add missing imports in a cookbook about creating custom rules (#8031)
+* docs: fix deprecated string interpolation style (#8036)
+* docs: global_namespace_import - simplify allowed config types (#8023)
+* feat(GroupImportFixer): Ability to configure which type of imports should be grouped (#8046)
+* fix: clear `Tokens::$blockStartCache` and `Tokens::$blockEndCache` when calling `Tokens::setCode` (#8051)
+* fix: correctly handle PHP closing tag with `simplified_null_return` (#8049)
+* fix: `ConstantCaseFixer` - do not change namespace (#8004)
+* fix: `PhpUnitAttributesFixer` - do not add attribute if already present (#8043)
+* fix: `PhpUnitSizeClassFixer` - do not add annotation when there are attributes (#8044)
+* fix: `PhpUnitTestClassRequiresCoversFixer` - attribute detection when class is `readonly` (#8042)
+
+Changelog for v3.57.2
+---------------------
+
+* docs: better ConfigurableFixer allowed types (#8024)
+* docs: Improve Docker usage example (#8021)
+* feat: Report used memory to 2 decimal digits only (#8017)
+* fix: Support named args in `ParallelConfigFactory::detect()` (#8026)
+* fix: `php_unit_test_class_requires_covers` Attribute detection when class is final (#8016)
+
+Changelog for v3.57.1
+---------------------
+
+* chore: update PHPDoc in `Preg::matchAll` (#8012)
+* fix: Runner - handle no files while in parallel runner (#8015)
+
+Changelog for v3.57.0
+---------------------
+
+* feat: Ability to run Fixer with parallel runner 🎉 (#7777)
+
+Changelog for v3.56.2
+---------------------
+
+* chore: update PHPStan (#8010)
+* DX: Fix Mess Detector violations (#8007)
+* DX: Install PCov extension for local Docker (#8006)
+
+Changelog for v3.56.1
+---------------------
+
+* chore: improve PHPDoc typehints (#7994)
+* CI: Allow any integer in PHPStan error for Token's constructor (#8000)
+* fix: Better array shape in `PhpUnitDedicateAssertFixer` (#7999)
+* fix: `ConstantCaseFixer` - do not touch typed constants (#7998)
+
+Changelog for v3.56.0
+---------------------
+
+* feat: `TrailingCommaInMultilineFixer` - handle trailing comma in language constructs (#7989)
+* fix: `TrailingCommaInMultilineFixer` - language constructs should be covered by arguments, not parameters (#7990)
+* chore: remove invalid comment (#7987)
+* DX: Cache optimisation (#7985)
+
+Changelog for v3.55.0
+---------------------
+
+* feat: Introduce `OrderedAttributesFixer` (#7395)
+* chore: few SCA fixes and dev-tools update (#7969)
+* chore: fix phpdoc types (#7977)
+* chore: narrow PHPDoc types (#7979)
+* chore: Normalize implicit backslahes in single quoted strings internally (#7786)
+* chore: phpdoc - rely on strict list/tuple/assoc instead of array (#7978)
+* chore: PhpUnitDataProviderNameFixer - follow config creation pattern (#7980)
+* chore: Preg - drop half-support for array-pattern (#7976)
+* chore: re-use CodeHasher (#7984)
+* chore: RuleSetsTest - assert that Fixer is configurable (#7961)
+* chore: sugar syntax (#7986)
+* chore: Tokens should be always a list (#7698)
+* CI: Ad-hoc fix for MacOS jobs (#7970)
+* CI: Fix calculating diff between branches in PRs (#7973)
+* DX: allow to enforce cache mechanism by env var (#7983)
+* DX: do not typehint fixed-length arrays as lists (#7974)
+* DX: Prevent having deprecated fixers listed as successors of other deprecated fixers (#7967)
+* DX: Resolve/Ignore PHPStan issues on level 6 + bump to level 7 with new baseline (#7971)
+* DX: use `list` type in PHPDoc (#7975)
+* fix: `PhpUnitAttributesFixer` - fix for `#[RequiresPhp]` exceeding its constructor parameters (#7966)
+* test: don't count comment after class as another classy element (#7982)
+
+Changelog for v3.54.0
+---------------------
+
+* feat: introduce `PhpUnitAttributesFixer` (#7831)
+* chore: Properly determine self-approval trigger commit (#7936)
+* chore: Revert ref for self-approval Git checkout (#7944)
+* CI: check if proper array key is declared (#7912)
+* DX: cleanup `FullyQualifiedStrictTypesFixerTest` (#7954)
+* DX: cleanup `PhpdocNoAccessFixerTest` (#7933)
+* DX: cleanup `PhpUnitMethodCasingFixerTest` (#7948)
+* DX: cleanup `PhpUnitStrictFixerTest` (#7938)
+* DX: Improve internal dist config for Fixer (#7952)
+* DX: Improve issue templates (#7942)
+* DX: there is no namespace if there is no PHP code (#7953)
+* DX: update .gitattributes (#7931)
+* fix: Remove Infection during Docker release (#7937)
+* fix: `FullyQualifiedStrictTypesFixer` - do not add imports before PHP opening tag (#7955)
+* fix: `PhpUnitMethodCasingFixer` - do not double underscore (#7949)
+* fix: `PhpUnitTestClassRequiresCoversFixer` - do not add annotation when there are attributes (#7880)
+* test: Ignore PHP version related mutations (#7935)
+
+Changelog for v3.53.0
+---------------------
+
+* chore: Use `list` over `array` in more places (#7905)
+* CI: allow for self-approvals for maintainers (#7921)
+* CI: Improve Infection setup (#7913)
+* CI: no need to trigger enable auto-merge when self-approve (#7929)
+* DX: reduce `array_filter` function usages (#7923)
+* DX: remove duplicated character from `trim` call (#7930)
+* DX: update actions producing warnings (#7925)
+* DX: update actions producing warnings (#7928)
+* DX: update `phpstan/phpstan-strict-rules` (#7924)
+* feat: Add trailing comma in multiline to PER-CS 2.0 (#7916)
+* feat: Introduce `AttributeAnalysis` (#7909)
+* feat: `@PHP84Migration` introduction (#7774)
+* fix: Constant invocation detected in typed constants (#7892)
+* fix: `PhpdocArrayTypeFixer` - JIT stack limit exhausted (#7895)
+* test: Introduce Infection for mutation tests (#7874)
+
+Changelog for v3.52.1
+---------------------
+
+* fix: StatementIndentationFixer - do not crash on ternary operator in class property (#7899)
+* fix: `PhpCsFixer\Tokenizer\Tokens::setSize` return type (#7900)
+
+Changelog for v3.52.0
+---------------------
+
+* chore: fix PHP 8.4 deprecations (#7894)
+* chore: fix PHPStan 1.10.60 issues (#7873)
+* chore: list over array in more places (#7876)
+* chore: replace template with variable in Preg class (#7882)
+* chore: update PHPStan (#7871)
+* depr: `nullable_type_declaration_for_default_null_value` - deprecate option that is against `@PHP84Migration` (#7872)
+* docs: Fix typo (#7889)
+* feat: Add support for callable template in PHPDoc parser (#7084)
+* feat: Add `array_indentation` to `PER-CS2.0` ruleset (#7881)
+* feat: `@Symfony:risky` - add `no_unreachable_default_argument_value` (#7863)
+* feat: `PhpCsFixer` ruleset - enable `nullable_type_declaration_for_default_null_value` (#7870)
+* fix: Constant invocation detected in DNF types (#7869)
+* fix: Correctly indent multiline constants and properties (#7875)
+* fix: `no_useless_concat_operator` - do not break variable (#7827)
+* fix: `TokensAnalyzer` - handle unary operator in arrow functions (#7862)
+* fix: `TypeExpression` - fix "JIT stack limit exhausted" error (#7843)
+
+Changelog for v3.51.0
+---------------------
+
+* chore: add missing tests for non-documentation classes (#7848)
+* chore: do not perform type analysis in tests (#7852)
+* chore: list over array in more places (#7857)
+* chore: tests documentation classes (#7855)
+* feat: `@Symfony` - add nullable_type_declaration (#7856)
+* test: fix wrong type in param annotation (#7858)
+
+Changelog for v3.50.0
+---------------------
+
+* chore: add missing types (#7842)
+* chore: BlocksAnalyzer - raise exception on invalid index (#7819)
+* chore: DataProviderAnalysis - expect list over array (#7800)
+* chore: do not use `@large` on method level (#7832)
+* chore: do not use `@medium` on method level (#7833)
+* chore: Fix typos (#7835)
+* chore: rename variables (#7847)
+* chore: some improvements around array typehints (#7799)
+* CI: fix PHP 8.4 job (#7829)
+* DX: Include `symfony/var-dumper` in dev tools (#7795)
+* feat: Ability to remove unused imports from multi-use statements (#7815)
+* feat: allow PHPUnit 11 (#7824)
+* feat: Allow shortening symbols from multi-use statements (only classes for now) (#7816)
+* feat: introduce `PhpdocArrayTypeFixer` (#7812)
+* feat: PhpUnitTestCaseStaticMethodCallsFixer - cover PHPUnit v11 methods (#7822)
+* feat: Support for multi-use statements in `NamespaceUsesAnalyzer` (#7814)
+* feat: `MbStrFunctionsFixer` - add support for `mb_trim`, `mb_ltrim` and `mb_rtrim` functions (#7840)
+* feat: `NoEmptyPhpdocFixer` - do not leave empty line after removing PHPDoc (#7820)
+* feat: `no_superfluous_phpdoc_tags` - introduce `allow_future_params` option (#7743)
+* fix: do not use wrongly named arguments in data providers (#7823)
+* fix: Ensure PCNTL extension is always installed in Docker (#7782)
+* fix: PhpdocListTypeFixer - support key types containing `<…>` (#7817)
+* fix: Proper build target for local Docker Compose (#7834)
+* fix: union PHPDoc support in `fully_qualified_strict_types` fixer (#7719)
+* fix: `ExecutorWithoutErrorHandler` - remove invalid PHP 7.4 type (#7845)
+* fix: `fully_qualified_strict_types` must honor template/local type identifiers (#7724)
+* fix: `MethodArgumentSpaceFixer` - do not break heredoc/nowdoc (#7828)
+* fix: `NumericLiteralSeparatorFixer` - do not change `float` to `int` when there is nothing after the dot (#7805)
+* fix: `PhpUnitStrictFixer` - do not crash on property having the name of method to fix (#7804)
+* fix: `SingleSpaceAroundConstructFixer` - correctly recognise multiple constants (#7700)
+* fix: `TypeExpression` - handle array shape key with dash (#7841)
+
+Changelog for v3.49.0
+---------------------
+
+* chore(checkbashisms): update to 2.23.7 (#7780)
+* chore: add missing key types in PHPDoc types (#7779)
+* chore: Exclude `topic/core` issues/PRs from Stale Bot (#7788)
+* chore: `DescribeCommand` - better handling of deprecations (#7778)
+* docs: docker - use gitlab reporter in GitLab integration example (#7764)
+* docs: docker in CI - don't suggest command that overrides path from config file (#7763)
+* DX: check deprecations exactly (#7742)
+* feat: Add `ordered_types` to `@Symfony` (#7356)
+* feat: introduce `PhpdocListTypeFixer` (#7796)
+* feat: introduce `string_implicit_backslashes` as `escape_implicit_backslashes` replacement (#7669)
+* feat: update `Symfony.nullable_type_declaration_for_default_null_value` config (#7773)
+* feat: `@PhpCsFixer` ruleset - enable `php_unit_data_provider_static` (#7685)
+* fix: Allow using cache when running in Docker distribution (#7769)
+* fix: ClassDefinitionFixer for anonymous class with phpdoc/attribute on separate line (#7546)
+* fix: `ClassKeywordFixer` must run before `FullyQualifiedStrictTypesFixer` (#7767)
+* fix: `function_to_constant` `get_class()` replacement (#7770)
+* fix: `LowercaseStaticReferenceFixer` - do not change typed constants (#7775)
+* fix: `PhpdocTypesFixer` - handle more complex types (#7791)
+* fix: `TypeExpression` - do not break type using `walkTypes` method (#7785)
+
+Changelog for v3.48.0
+---------------------
+
+* chore: `FullyQualifiedStrictTypesFixer` must run before `OrderedInterfacesFixer` (#7762)
+* docs: Add PHP-CS-Fixer integration in a GitHub Action step (#7757)
+* feat: `PhpdocTypesOrderFixer` Support DNF types (#7732)
+* fix: Support shebang in fixers operating on PHP opening tag (#7687)
+* fix: work correctly for a switch/case with ternary operator (#7756)
+* fix: `NoUselessConcatOperatorFixer` - do not remove new line (#7759)
+
+Changelog for v3.47.1
+---------------------
+
+* fix: Do not override short name with relative reference (#7752)
+* fix: make `BinaryOperatorSpacesFixer` work as pre-v3.47 (#7751)
+* fix: Proper Docker image name suffix (#7739)
+* fix: `FullyQualifiedStrictTypesFixer` - do not change case of the symbol when there's name collision between imported class and imported function (#7750)
+* fix: `FullyQualifiedStrictTypesFixer` - do not modify statements with property fetch and `::` (#7749)
+
+Changelog for v3.47.0
+---------------------
+
+* chore: better identify EXPERIMENTAL rules (#7729)
+* chore: fix issue detected by unlocked PHPStan + upgrade dev-tools (#7678)
+* chore: handle extract() (#7684)
+* chore: Mention contributors in app info (#7668)
+* chore: no need to mark private methods as internal (#7715)
+* chore: ProjectCodeTests - dry for function usage extractions (#7690)
+* chore: reduce PHPStan baseline (#7644)
+* chore: use numeric literal separator for PHP version IDs (#7712)
+* chore: use numeric_literal_separator for project (#7713)
+* chore: Utils::sortElements - better typing (#7646)
+* CI: Allow running Stale Bot on demand (#7711)
+* CI: Fix PHP 8.4 (#7702)
+* CI: Give write permissions to Stale Bot (#7716)
+* CI: Use `actions/stale` v9 (#7710)
+* docs: Add information about allowing maintainers to update PRs (#7683)
+* docs: CONTRIBUTING.md - update Opening a PR (#7691)
+* docs: Display/include tool info/version by default in commands and reports (#7733)
+* DX: fix deprecation tests warnings for PHP 7.4 (#7725)
+* DX: update `host.docker.internal` in Compose override template (#7661)
+* DX: `NumericLiteralSeparatorFixer` - change default strategy to `use_separator` (#7730)
+* feat: Add support for official Docker images of Fixer (#7555)
+* feat: Add `spacing` option to `PhpdocAlignFixer` (#6505)
+* feat: Add `union_types` option to `phpdoc_to_param_type`, `phpdoc_to_property_type`, and `phpdoc_to_return_type` fixers (#7672)
+* feat: Introduce `heredoc_closing_marker` fixer (#7660)
+* feat: Introduce `multiline_string_to_heredoc` fixer (#7665)
+* feat: Introduce `NumericLiteralSeparatorFixer` (#6761)
+* feat: no_superfluous_phpdoc_tags - support for arrow function (#7666)
+* feat: Simplify closing marker when possible in `heredoc_closing_marker` fixer (#7676)
+* feat: Support typed properties and attributes in `fully_qualified_strict_types` (#7659)
+* feat: `@PhpCsFixer` ruleset - enable no_whitespace_before_comma_in_array.after_heredoc (#7670)
+* fix: Improve progress bar visual layer (#7708)
+* fix: indentation of control structure body without braces (#7663)
+* fix: make sure all PHP extensions required by PHPUnit are installed (#7727)
+* fix: PhpdocToReturnTypeFixerTest - support for arrow functions (#7645)
+* fix: Several improvements for `fully_qualified_strict_types` (respect declared symbols, relative imports, leading backslash in global namespace) (#7679)
+* fix: SimplifiedNullReturnFixer - support array return typehint (#7728)
+* fix: Support numeric values without leading zero in `numeric_literal_separator` (#7735)
+* fix: `BinaryOperatorSpacesFixer` - align correctly when multiple shifts occurs in single line (#7593)
+* fix: `ClassReferenceNameCasingFixer` capitalizes the property name after the nullsafe operator (#7696)
+* fix: `fully_qualified_strict_types` with `leading_backslash_in_global_namespace` enabled - handle reserved types in phpDoc (#7648)
+* fix: `NoSpaceAroundDoubleColonFixer` must run before `MethodChainingIndentationFixer` (#7723)
+* fix: `no_superfluous_phpdoc_tags` must honor multiline docs (#7697)
+* fix: `numeric_literal_separator` - Handle zero-leading floats properly (#7737)
+* refactor: increase performance by ~7% thanks to `Tokens::block*Cache` hit increased by ~12% (#6176)
+* refactor: Tokens - fast check for non-block in 'detectBlockType', evaluate definitions only once in 'getBlockEdgeDefinitions' (#7655)
+* refactor: `Tokens::clearEmptyTokens` - play defensive with cache clearing (#7658)
+* test: ensure we do not forget to test any short_open_tag test (#7638)
+
+Changelog for v3.46.0
+---------------------
+
+* chore: fix internal typehints in Tokens (#7656)
+* chore: reduce PHPStan baseline (#7643)
+* docs: Show class with unit tests and BC promise info (#7667)
+* feat: change default ruleset to `@PER-CS` (only behind PHP_CS_FIXER_FUTURE_MODE=1) (#7650)
+* feat: Support new/instanceof/use trait in `fully_qualified_strict_types` (#7653)
+* fix: FQCN parse phpdoc using full grammar regex (#7649)
+* fix: Handle FQCN properly with `leading_backslash_in_global_namespace` option enabled (#7654)
+* fix: PhpdocToParamTypeFixerTest - support for arrow functions (#7647)
+* fix: PHP_CS_FIXER_FUTURE_MODE - proper boolean validation (#7651)
+
+Changelog for v3.45.0
+---------------------
+
+* feat: Enable symbol importing in `@PhpCsFixer` ruleset (#7629)
+* fix: NoUnneededBracesFixer - improve handling of global namespace (#7639)
+* test: run tests with "short_open_tag" enabled (#7637)
+
+Changelog for v3.44.0
+---------------------
+
+* feat: Introduce percentage bar as new default progress output (#7603)
+
+Changelog for v3.43.1
+---------------------
+
+* fix: Import only unique symbols' short names (#7635)
+
+Changelog for v3.43.0
+---------------------
+
+* chore: change base of `@Symfony` set to `@PER-CS2.0` (#7627)
+* chore: PHPUnit - allow for v10 (#7606)
+* chore: Preg - rework catching the error (#7616)
+* chore: Revert unneeded peer-dep-pin and re-gen lock file (#7618)
+* docs: drop extra note about 8.0.0 bug in README.md (#7614)
+* feat: add cast_spaces into `@PER-CS2.0` (#7625)
+* feat: Configurable phpDoc tags for FQCN processing (#7628)
+* feat: StatementIndentationFixer - introduce stick_comment_to_next_continuous_control_statement config (#7624)
+* feat: UnaryOperatorSpacesFixer - introduce only_dec_inc config (#7626)
+* fix: FullyQualifiedStrictTypesFixer - better support annotations in inline {} (#7633)
+* fix: Improve how FQCN is handled in phpDoc (#7622)
+* fix: phpdoc_align - fix multiline tag alignment issue (#7630)
+
+Changelog for v3.42.0
+---------------------
+
+* chore: aim to not rely on internal array pointer but use array_key_first (#7613)
+* chore: deprecate Token::isKeyCaseSensitive (#7599)
+* chore: deprecate Token::isKeyCaseSensitive, 2nd part (#7601)
+* chore: do not check PHP_VERSION_ID (#7602)
+* chore: FileFilterIteratorTest - more accurate type in docs (#7542)
+* chore: minor code cleanup (#7607)
+* chore: more types (#7598)
+* chore: PHPDoc key-value spacing (#7592)
+* chore: PHPUnit - run defects first (#7570)
+* chore: ProjectCodeTest - DRY on Tokens creation (#7574)
+* chore: ProjectCodeTest - prepare for symfony/console v7 (#7605)
+* chore: ProjectCodeTest::provide*ClassCases to return iterable with key for better tests execution log (#7572)
+* chore: ProjectCodeTest::testDataProvidersDeclaredReturnType - use better DataProvider to simplify test logic (#7573)
+* chore: TokensAnalyzer - string-enum for better typehinting (#7571)
+* chore: unify tests not agnostic of PHP version (#7581)
+* chore: use ::class more (#7545)
+* CI: Introduce `composer-unused` (#7536)
+* DX: add types to anonymous functions (#7561)
+* DX: Allow running smoke tests within Docker runtime (#7608)
+* DX: check fixer's options for wording (#7543)
+* DX: cleanup deprecation message (#7576)
+* DX: do not allow overriding constructor of `PHPUnit\Framework\TestCase` (#7563)
+* DX: do not import ExpectDeprecationTrait in UtilsTest (#7562)
+* DX: Enforce consistent naming in tests (#7556)
+* DX: fix checking test class extends `PhpCsFixer\Tests\TestCase` (#7567)
+* DX: make sure that exceptions in `AbstractFixerTestCase::testProperMethodNaming` are not already fixed (#7588)
+* DX: remove recursion from AbstractIntegrationTestCase::testIntegration (#7577)
+* DX: remove `PhpUnitNamespacedFixerTest::testClassIsFixed` (#7564)
+* DX: remove `symfony/phpunit-bridge` (#7578)
+* DX: replace fixture classes with anonymous ones (#7533)
+* DX: Unify Docker mount points and paths (#7549)
+* DX: unify fixer's test method names - quick wins (#7584)
+* DX: unify tests for casing fixers (#7558)
+* DX: use anonymous function over concrete classes (#7553)
+* feat(EXPERIMENTAL): ClassKeywordFixer (#2918)
+* feat(EXPERIMENTAL): ClassKeywordFixer, part 2 (#7550)
+* feat(PhpdocToCommentFixer): Add option to handle return as valid docblock usage (#7401) (#7402)
+* feat: Ability to import FQCNs found during analysis (#7597)
+* feat: add phpDoc support for `fully_qualified_strict_types` fixer (#5620)
+* feat: Handle deprecated rule sets similarly to deprecated fixers (#7288)
+* feat: PhpUnitTestCaseStaticMethodCallsFixer - cover PHPUnit v10 methods (#7604)
+* feat: Support more FQCNs cases in `fully_qualified_strict_types` (#7459)
+* fix: AbstractFixerTestCase - fix checking for correct casing (#7540)
+* fix: Better OS detection in integration tests (#7547)
+* fix: NativeTypeDeclarationCasingFixe - handle static property without type (#7589)
+* test: AutoReview - unify data provider returns (#7544)
+* test: check to have DataProviders code agnostic of PHP version (#7575)
+
+Changelog for v3.41.1
+---------------------
+
+* DX: Change `@testWith` to `@dataProvider` (#7535)
+* DX: Introduce Markdownlint (#7534)
+* fix: NativeTypeDeclarationCasingFixer - do not crash on `var` keyword (#7538)
+
+Changelog for v3.41.0
+---------------------
+
+* chore: Move `mb_str_functions` PHP 8.3 cases to separate test (#7505)
+* chore: Symfony v7 is now stable (#7469)
+* CI: drop PHP 8.3 hacks (#7519)
+* docs: Improve docs for `no_spaces_after_function_name` (#7520)
+* DX: Ability to run Sphinx linter locally (#7481)
+* DX: AbstractFixerTest - use anonymous classes (#7527)
+* DX: Add progress output for `cs:check` script (#7514)
+* DX: align doubles naming (#7525)
+* DX: remove AbstractFixerTestCase::getTestFile() (#7495)
+* DX: remove jangregor/phpstan-prophecy (#7524)
+* DX: remove Prophecy (#7509)
+* DX: replace Prophecy with anonymous classes in CacheTest (#7503)
+* DX: replace Prophecy with anonymous classes in ProcessLintingResultTest (#7501)
+* DX: Utilise auto-discovery for PHPStan formatter (#7490)
+* feat: Support `mb_str_pad` function in `mb_str_functions` rule (#7499)
+* fix: BinaryOperatorSpacesFixer - do not add whitespace inside short function (#7523)
+* fix: Downgrade PDepend to version not supporting Symfony 7 (#7513)
+* fix: GlobalNamespaceImportFixer - key in PHPDoc's array shape matching class name (#7522)
+* fix: SpacesInsideParenthesesFixer - handle class instantiation parentheses (#7531)
+* Update PHPstan to 1.10.48 (#7532)
+
+Changelog for v3.40.2
+---------------------
+
+* docs: fix link to source classes (#7493)
+
+Changelog for v3.40.1
+---------------------
+
+* chore: Delete stray file x (#7473)
+* chore: Fix editorconfig (#7478)
+* chore: Fix typos (#7474)
+* chore: Fix YAML line length (#7476)
+* chore: Indent JSON files with 4 spaces (#7480)
+* chore: Make YAML workflow git-based (#7477)
+* chore: Use stable XDebug (#7489)
+* CI: Lint docs (#7479)
+* CI: Use PHPStan's native Github error formatter (#7487)
+* DX: fix PHPStan error (#7488)
+* DX: PsrAutoloadingFixerTest - do not build mock in data provider (#7491)
+* DX: PsrAutoloadingFixerTest - merge all data providers into one (#7492)
+* DX: Update PHPStan to 1.10.46 (#7486)
+* fix: `NoSpacesAfterFunctionNameFixer` - do not remove space if the opening parenthesis part of an expression (#7430)
+
+Changelog for v3.40.0
+---------------------
+
+* chore: officially support PHP 8.3 (#7466)
+* chore: update deps (#7471)
+* CI: add --no-update while dropping non-compat `facile-it/paraunit` (#7470)
+* CI: automate --ignore-platform-req=PHP (#7467)
+* CI: bump actions/github-script to v7 (#7468)
+* CI: move humbug/box out of dev-tools/composer.json (#7472)
+
+Changelog for v3.39.1
+---------------------
+
+* DX: introduce SwitchAnalyzer (#7456)
+* fix: NoExtraBlankLinesFixer - do not remove blank line after `? : throw` (#7457)
+* fix: OrderedInterfacesFixer - do not comment out interface (#7464)
+* test: Improve `ExplicitIndirectVariableFixerTest` (#7451)
+
+Changelog for v3.39.0
+---------------------
+
+* chore: Add support for Symfony 7 (#7453)
+* chore: IntegrationTest - move support of php< requirement to main Integration classes (#7448)
+* CI: drop Symfony ^7 incompat exceptions of php-coveralls and cli-executor (#7455)
+* CI: early compatibility checks with Symfony 7 (#7431)
+* docs: drop list.rst and code behind it (#7436)
+* docs: remove Gitter mentions (#7441)
+* DX: Ability to run Fixer on PHP8.3 for development (#7449)
+* DX: describe command - for rules, list also sets that are including them (#7419)
+* DX: Docker clean up (#7450)
+* DX: more usage of spaceship operator (#7438)
+* DX: Put `Preg`'s last error message in exception message (#7443)
+* feat: Introduce `@PHP83Migration` ruleset and PHP 8.3 integration test (#7439)
+* test: Improve `AbstractIntegrationTestCase` description (#7452)
+
+Changelog for v3.38.2
+---------------------
+
+* docs: fix 'Could not lex literal_block as "php". Highlighting skipped.' (#7433)
+* docs: small unification between FixerDocumentGenerator and ListDocumentGenerator (#7435)
+* docs: unify ../ <> ./../ (#7434)
+
+Changelog for v3.38.1
+---------------------
+
+* chore: ListSetsCommand::execute - add missing return type (#7432)
+* chore: PHPStan - add counter to dataProvider exception, so we do not increase the tech debt on it (#7425)
+* CI: Use `actions/checkout` v4 (#7423)
+* fix: ClassAttributesSeparationFixer - handle Disjunctive Normal Form types parentheses (#7428)
+* fix: Remove all variable names in `@var` callable signature (#7429)
+* fix: Satisfy `composer normalize` (#7424)
+
+Changelog for v3.38.0
+---------------------
+
+* chore: upgrade phpstan (#7421)
+* CI: add curl and mbstring to build php (#7409)
+* CI: cache dev-tools/bin (#7416)
+* CI: Composer - move prefer-stable to file config (#7406)
+* CI: conditionally install flex (#7412)
+* CI: dev-tools/build.sh - no need to repeat 'prefer-stable', but let's use '--no-scripts' (#7408)
+* CI: Do not run post-autoload-dump on Composer install (#7403)
+* CI: general restructure (#7407)
+* CI: GitHub Actions - use actions/cache for Composer in composite action (#7415)
+* CI: Improve QA process - suplement (#7411)
+* CI: prevent Infection plugins during build time, as we do not use it (#7422)
+* CI: simplify setup-php config (#7404)
+* DX: Do not mark as stale issues/PRs with milestone assigned (#7398)
+* DX: Improve QA process (#7366)
+* feat: phpDoc to property/return/param Fixer - allow fixing mixed on PHP >= 8 (#6356)
+* feat: phpDoc to property/return/param Fixer - allow fixing union types on PHP >= 8 (#6359)
+* feat: Support for array destructuring in `array_indentation` (#7405)
+* feat: `@Symfony` - keep Annotation,NamedArgumentConstructor,Target annotations as single group (#7399)
+* fix(SelfAccessorFixer): do not touch references inside lambda and/or arrow function (#7349)
+* fix: long_to_shorthand_operator - mark as risky fixer (#7418)
+* fix: OrderedImportsFixer - handle non-grouped list of const/function imports (#7397)
+
+Changelog for v3.37.1
+---------------------
+
+* docs: config file - provide better examples (#7396)
+* docs: config file - provide better link to Finder docs (#6992)
+
+Changelog for v3.37.0
+---------------------
+
+* feat: add parallel cache support (#7131)
+
+Changelog for v3.36.0
+---------------------
+
+* chore: disable `infection-installer` plugin, as we do not use `infection/*` yet (#7391)
+* chore: Run dev-tools on PHP 8.2 (#7389)
+* CI: Run Symfony 6 compat check on PHP 8.1 (#7383)
+* CI: use fast-linter when calculating code coverage (#7390)
+* docs: extend example for nullable_type_declaration (#7381)
+* DX: FixerFactoryTest - make assertion failing msg more descriptive (#7387)
+* feat: PhpdocSummaryFixer - support lists in description (#7385)
+* feat: PSR12 - configure unary_operator_spaces (#7388)
+* feat: StatementIndentationFixer - support comment for continuous control statement (#7384)
+
+Changelog for v3.35.1
+---------------------
+
+* fix: Mark `PhpdocReadonlyClassCommentToKeywordFixer` as risky (#7372)
+
+Changelog for v3.35.0
+---------------------
+
+* chore: Autoreview: test all formats are listed in `usage.rst` (#7357)
+* chore: no need for `phpunitgoodpractices/traits` anymore (#7362)
+* chore: Rename `indexes` to `indices` (#7368)
+* chore: stop using `phpunitgoodpractices/traits` (#7363)
+* chore: typo (#7367)
+* docs: Sort options in documentation (#7345)
+* feat(PhpdocReadonlyClassCommentToKeywordFixer): Introduction (#7353)
+* feat: Ability to keep/enforce leading `\` when in global namespace (#7186)
+* feat: Update `@PER-CS2.0` to match short closure space (#6970)
+* feat: use `ordered_types` in `@PhpCsFixer` (#7361)
+* fix(SingleLineThrowFixer): fixer goes out of range on close tag (#7369)
+
+Changelog for v3.34.1
+---------------------
+
+* deps: revert "prevent using PHPCSFixer along with unfinalize package (#7343)" (#7348)
+
+Changelog for v3.34.0
+---------------------
+
+* feat: Introduce `check` command (alias for `fix --dry-run`) (#7322)
+
+Changelog for v3.33.0
+---------------------
+
+* feat: Introduce `native_type_declaration_casing` fixer (#7330)
+
+Changelog for v3.32.0
+---------------------
+
+* deps: Prevent using PHPCSFixer along with `unfinalize` package (#7343)
+* feat: Deprecate `CompactNullableTypehintFixer` and proxy to `CompactNullableTypeDeclarationFixer` (#7339)
+* feat: Deprecate `CurlyBracesPositionFixer` and proxy to `BracesPositionFixer` (#7334)
+* feat: Deprecate `NewWithBracesFixer` and proxy to `NewWithParenthesesFixer` (#7331)
+* feat: Deprecate `NoUnneededCurlyBracesFixer` and proxy to `NoUnneededBracesFixer` (#7335)
+* feat: Rename `CurlyBraceTransformer` to `BraceTransformer` (#7333)
+
+Changelog for v3.31.0
+---------------------
+
+* chore: Use type declaration instead of type hint (#7338)
+* feat: Introduce `attribute_placement` option for `MethodArgumentSpaceFixer` (#7320)
+* fix: Adjust wording related to deprecations (#7332)
+* fix: Correct deprecation header in rules' docs (#7337)
+* fix: Replace mention of bracket with parenthesis (#7336)
+* fix: `FunctionToConstantFixer` should run before `NativeConstantInvocationFixer` (#7344)
+
+Changelog for v3.30.0
+---------------------
+
+* feat: Introduce `AttributeEmptyParenthesesFixer` (#7284)
+* fix(method_argument_space): inject new line after trailing space on current line (#7327)
+* fix(`YodaStyleFixer`): do not touch `require(_once)`, `include(_once)` and `yield from` statements (#7325)
+* fix: illegal offset type on file-wide return in `ReturnToYieldFromFixer` (#7318)
+
+Changelog for v3.29.0
+---------------------
+
+* chore: fix TODO tasks about T_AMPERSAND_FOLLOWED_BY_VAR_OR_VARARG support (#7316)
+* feat(`@PhpCsFixer:risky`): use newest `@PER-CS:risky` instead of locked `@PER-CS2.0:risky` (#7323)
+* feat: Introduce `@PER-CS` ruleset (#7321)
+* fix: priority issue between array_syntax and space after rules (#7324)
+
+Changelog for v3.28.0
+---------------------
+
+* chore(prlint): allow for 'deps' type (#7304)
+* CI(prlint): allow for special chars in parentheses (#7308)
+* deps(dev-tools): update dev-tools (#7309)
+* DX: Bump XDebug version in Docker services (#7300)
+* feat(`@PER-CS2.0`): Add `concat_space` to the ruleset (#7302)
+
+Changelog for v3.27.0
+---------------------
+
+* docs: cleanup old mention of `--show-progress=estimating` in docs (#7287)
+* DX: add Composer script for applying CS fixes in parallel (#7274)
+* feat: Clone PER-CS1.0 to PER-CS2.0 to prepare for adding new rules (#7249)
+* feat: Introduce `LongToShorthandOperatorFixer` (#7295)
+* feat: Mark PER-CS v1 as deprecated (#7283)
+* feat: Move `single_line_empty_body` to `@PER-CS2.0` (#7282)
+* fix: Priorities for fixers related to curly braces, empty lines and trailing whitespace (#7296)
+* fix: `OrderedTraitsFixer` - better support for multiple traits in one `use` statement (#7289)
+
+Changelog for v3.26.1
+---------------------
+
+* fix: Handle superfluous asterisk in `no_superfluous_phpdoc_tags` (#7279)
+
+Changelog for v3.26.0
+---------------------
+
+* chore(checkbashisms): update to 2.23.6 (#7276)
+* chore(phpstan): reduce baseline (#7275)
+* feat: Add `single_line_empty_body` to `@PhpCsFixer` (#7266)
+* fix(YieldFromArrayToYieldsFixer): mark as Risky (#7272)
+* fix(YieldFromArrayToYieldsFixer): skip touching empty array (#7273)
+* test: Introduce common way of creating fake Composer project in `InstallViaComposerTest` (#7265)
+
+Changelog for v3.25.1
+---------------------
+
+* fix: PhpdocTypesFixer - do not crash for type followed by braces/brackets/chevrons/parentheses (#7268)
+
+Changelog for v3.25.0
+---------------------
+
+* feat: Remove Doctrine dependencies (#7263)
+
+Changelog for v3.24.0
+---------------------
+
+* chore: apply CS (#7240)
+* chore: apply static_lambda rule (#7239)
+* chore: Improve template for creating new issue (#7255)
+* CI: Conventional Commits support in PRLint config (#7037)
+* CI: Remove Travis leftovers (#7259)
+* docs: Add information about installing Fixer as dev dependency (#7129)
+* docs: document composer script aliases (#7230)
+* DX: Add script for running Composer Require Checker (#7252)
+* DX: composer script aliases - ensure templated description (#7235)
+* DX: composer-script - count PHPMD as static-analysis (#7231)
+* DX: do not allow version specific code sample with minimum PHP version lower than the lowest supported one (#7207)
+* DX: ensure version specific code samples are suitable for at least 1 supported PHP version (#7212)
+* DX: Improve contributing guide (#7241)
+* DX: More descriptive stale messages (#7236)
+* feat(@PhpCsFixer:risky): add static_lambda rule (#7237)
+* feat: Add literal separator support for `integer_literal_case` (#7081)
+* feat: Configurable case sensitivity for more ordering fixers (#7021)
+* feat: Support for attributes in `method_argument_space` (#7242)
+* fix: import detection for attributes at `NoUnusedImportsFixer` (#7246)
+* fix: `no_superfluous_phpdoc_tags` with `null` phpdoc (#7234)
+* fix: `phpdoc_types` must not lowercase literal types (#7108)
+* test: Add static methods from PHPUnit 9.6.11 (#7243)
+
+Changelog for v3.23.0
+---------------------
+
+* bug: BlankLineBeforeStatementFixer - do not enforce/add a blank line when there is a blank line between the comment and the statement already (#7190)
+* bug: Fix detecting classy invocation in catch (#7191)
+* bug: Fix names resolving in `no_superfluous_phpdoc_tags` fixer (#7189)
+* bug: Fix various bugs in `FullyQualifiedStrictTypesFixer` fixer (#7188)
+* bug: Fixed line between general script documentation and require (#7177)
+* bug: Support annotations with arguments in `FinalInternalClassFixer` (#7160)
+* bug: YieldFromArrayToYieldsFixer - fix for `yield from` after `}` (#7169)
+* bug: YieldFromArrayToYieldsFixer - fix handling the comment before the first array element (#7193)
+* bug: `HeaderCommentFixer` must run before `BlankLinesBeforeNamespaceFixer` (#7205)
+* bug: `NoUselessReturnFixer` must run before `SingleLineEmptyBodyFixer` (#7226)
+* bug: `PhpdocInlineTagNormalizerFixer` - do not break tags (#7227)
+* docs: Add allowed values of tags in the `phpdoc_align` (#7120)
+* docs: Add extra information for GitLab reporter's integration with GitLab Code Quality (#7172)
+* docs: Change the single backticks to double in description of the rules option (#7173)
+* docs: Condensed output for rule sets' list that fixer is included in (#7182)
+* docs: Improve contributing guide (#7204)
+* docs: `MethodArgumentSpaceFixer` - mention PSR in Fixer definition (#7157)
+* DX: add first auto-review tests for composer.json file (#7210)
+* DX: add `YieldFromArrayToYieldsFixer` to `PhpCsFixer` set (#7115)
+* DX: Allow OS conditions for integration tests (#7161)
+* DX: Apply current CS rules (#7178)
+* DX: Apply suggestions from PR 7210 (#7213)
+* DX: apply `ReturnToYieldFromFixer` (#7181)
+* DX: Do not mark "long term ideas" as stale (#7206)
+* DX: enable `HeredocIndentationFixer` for the codebase (#7195)
+* DX: enable `UseArrowFunctionsFixer` for the codebase (#7194)
+* DX: few phpstan fixes (#7208)
+* DX: fix contravariant types in PHPDocs (#7167)
+* DX: Fix detecting trailing spaces (#7216)
+* DX: Fix some PHPStan issues (#7180)
+* DX: Get rid of deprecation warnings in Mess Detector (#7215)
+* DX: Improve Composer scripts (#7214)
+* DX: Improve Mess Detector Integration (#7224)
+* DX: Introduce Composer scripts as common DX (#6839)
+* DX: refactor `ErrorOutputTest` (#7183)
+* DX: remove unnecessary arrays from data providers (#7170)
+* DX: update `CurlyBracesPositionFixer` code samples (#7198)
+* DX: update `HeredocIndentationFixer` code samples (#7197)
+* DX: update `PhpdocToReturnTypeFixer` code samples (#7199)
+* feature: add at least one space around binary operators (#7175)
+* feature: BlankLineBeforeStatementFixer - take into account comment before statement (#7166)
+* feature: Introduce `ReturnToYieldFromFixer` (#7168)
+* feature: Introduce `SpacesInsideParenthesesFixer` (#5709)
+* feature: Support array destructuring in `trim_array_spaces` (#7218)
+* feature: `BlankLineBeforeStatementFixer` - skip enum cases (#7203)
+* minor: more arrow function usage (#7223)
+* minor: PhpdocAlignFixerTest - convert CUSTOM tags test to not rely on non-custom tag from TAGS_WITH_NAME (#7209)
+* minor: use JSON_THROW_ON_ERROR for trivial cases (#7221)
+* minor: use more spread operator (#7222)
+
+Changelog for v3.22.0
+---------------------
+
+* DX: add proper test for `SelfAccessorFixer` must run before `SelfAccessorFixer` (#7153)
+* DX: FixerFactoryTest - apply CS (#7154)
+* feature: Introduce `PhpUnitDataProviderReturnTypeFixer` (#7156)
+* feature: Introduce `YieldFromArrayToYieldsFixer` (#7114)
+
+Changelog for v3.21.3
+---------------------
+
+* Revert "DX: encourage to provide wider description" (#7155)
+
+Changelog for v3.21.2
+---------------------
+
+* docs: check format of FixerDefinition::getDescription() (#7127)
+* DX: add phpstan/phpstan-strict-rules (#7143)
+* DX: allow for progressive cache (#7132)
+* DX: Copy-pasteable `class::getPriority` for phpDoc diffs (#7148)
+* DX: do not allow linebreak at the beginning of code sample (#7126)
+* DX: encourage to provide wider description (#7128)
+* DX: fix function calls (#7136)
+* DX: fix PHPDoc types issues (#7135)
+* DX: improve `Tokens` checking for found tokens (#7139)
+* DX: Make `AbstractFixerTestCase::getTestFile()` final (#7116)
+* DX: make `array_search` call strict (#7145)
+* DX: remove `empty` calls (#7138)
+* DX: store cache to file only if content will get modified (#7151)
+* DX: unify Preg:match in logical conditions (#7146)
+* DX: use booleans in conditions (#7149)
+* DX: Use ParaUnit to speed up tests (#6883)
+* DX: Use relative fixture path as integration test case's name (#7147)
+* DX: use strict assertions (#7144)
+* DX: `AbstractIntegrationTestCase::provideIntegrationCases` - yield over array, better typehinting (#7150)
+
+Changelog for v3.21.1
+---------------------
+
+experimental release
+
+* Require PHP ^8.0.1
+
+Changelog for v3.21.0
+---------------------
+
+* bug: Fix and enhance Gitlab reporter (#7089)
+* bug: Import with different case must not be removed by non-risky fixer (#7095)
+* bug: ordered imports fixer top group only (#7023)
+* bug: `FinalPublicMethodForAbstractClassFixer` - fix for readonly classes (#7123)
+* DX: do not nest ".editorconfig" files (#7112)
+* DX: exclude Dockerfile from dist (#7113)
+* DX: fix checkbashisms installation (#7102)
+* DX: fix Smoke tests for various git default branch name (#7119)
+* DX: Fix `FileRemovalTest` (do not fail when running it standalone) (#7104)
+* DX: Progress output refactor (#6848)
+* DX: Rename abstract test classes to `*TestCase` convention (#7100)
+* DX: test all PHPUnit migration sets (#7107)
+* DX: [Docker] Distinguish Alpine version between PHP versions (#7105)
+* feature: Create cache path if it does not exist (#7109)
+* feature: Introduce `NullableTypeDeclarationFixer` (#7002)
+* feature: Introduce `TypeDeclarationSpacesFixer` (#7001)
+* feature: `BlankLineBetweenImportGroupsFixer` - keep indent (#7122)
+* minor: Parse callable using full phpdoc grammar (#7094)
+* minor: PHP8.3 const type tokenizing (#7055)
+
+Changelog for v3.20.0
+---------------------
+
+* DX: fix priority of `FinalClassFixer` (#7091)
+* DX: use FAST_LINT_TEST_CASES=1 for CI run on macOS (#7092)
+* feature: SingleLineEmptyBodyFixer - support interfaces, traits and enums (#7096)
+* feature: `NullableTypeDeclarationForDefaultNullValue` - support for nullability in union types (#5819)
+
+Changelog for v3.19.2
+---------------------
+
+* bug: NoMultipleStatementsPerLineFixer must run before CurlyBracesPositionFixer (#7087)
+* bug: PhpdocAddMissingParamAnnotationFixer - fix for promoted properties (#7090)
+* DX: fix priority of SingleBlankLineBeforeNamespaceFixer (#7088)
+* minor: Parse all phpdoc types using full grammar (#7010)
+
+Changelog for v3.19.1
+---------------------
+
+* bug: CurlyBracesPositionFixer must run before StatementIndentationFixer (#7085)
+
+Changelog for v3.19.0
+---------------------
+
+* bug: SelfAccessorFixer - fix for union types (#7080)
+* DX: add `php_unit_data_provider_name` to `@PhpCsFixer:risky` set (#7069)
+* DX: make data providers return type "iterable" (#7072)
+* DX: rename tests and data providers (#7070)
+* feature: Introduce `PhpUnitDataProviderNameFixer` (#7057)
+
+Changelog for v3.18.0
+---------------------
+
+* bug:  Fix tokenizing of type hints (#7054)
+* bug: CompactNullableTypehintFixer - fix for whitespace between `?` and `static` (#6993)
+* bug: consider function modifiers for `statement_indentation` (#6978)
+* bug: Exclude `$this` from `TernaryToNullCoalescingFixer` (#7052)
+* bug: False positive on used imports when docblock includes it with mismatching case (#6909)
+* bug: Fix chained calls semicolon indent in switch case (#7045)
+* bug: Fix multiline_whitespace_before_semicolons for echo tags (#7019)
+* bug: Fix phpDoc align when there is inconsistent spacing after comment star (#7012)
+* bug: Fix phpDoc parsing without PCRE JIT (#7031)
+* bug: Fix PhpdocVarWithoutNameFixer with Closure with $this (#6979)
+* bug: Fix `return_assignment` not formatting when variables are used in `catch` and `finally` (#6960)
+* bug: Fix `TypeExpression::allowsNull()` with nullable (#7000)
+* bug: Improve definition of conflicting fixers (#7066)
+* bug: LambdaNotUsedImportFixer - fix for anonymous class with a string argument (#6972)
+* bug: ListFilesCommand - fix computing of relative path (#7028)
+* bug: make `php_unit_namespaced` less greedy (#6952)
+* bug: PhpdocToCommentFixer - fix for PHPDoc before fn (#6973)
+* bug: Restructure PER-CS rule sets (#6707)
+* bug: SelfStaticAccessor - fix static access inside enums (#7024)
+* bug: SingleSpaceAroundConstructFixer - fix more cases involving `static` (#6995)
+* bug: `FullyQualifiedStrictTypesFixer` - fix shortening when namespace is not empty and import exists (#7027)
+* bug: `NoUnneededControlParenthesesFixer` PHP8.0 null-safe operator (#7056)
+* bug: `PhpdocToCommentFixer` support for enum cases (#7040)
+* DX: add more tests to CommentsAnalyzer (#7041)
+* DX: Cleanup duplicate files in finder (#7042)
+* DX: ControlCaseStructuresAnalyzerTest - cleanup (#6874)
+* DX: Fix warning when running test on PHP<8 (#7008)
+* DX: handle `@` in PR title (#6982)
+* DX: officially deprecate internal Utils anti-pattern class (#7039)
+* DX: Remove Fabbot.io conditional configuration (#7038)
+* DX: rename data providers (#7058)
+* DX: Use `actions/stale` to handle stale issues and pull requests (#5085)
+* DX: Use `Utils::naturalLanguageJoin()` in implode calls (#7032)
+* feature: Add support for custom method placement in `ordered_class_elements` (#6360)
+* feature: Allow case sensitive order for OrderedClassElementsFixer (#7020)
+* feature: PHP8.3 - Add CT and block type for `Dynamic class constant fetch` (#7004)
+* feature: Support attributes in `FinalClassFixer` (#6893)
+* minor: "Callback" must not be fixed to "callback" by default (#7011)
+* minor: Add `Util::naturalLanguageJoin()` (#7022)
+* minor: ClassDefinitionFixer - handle attributes and `readonly` in anonymous class definitions (#7014)
+* minor: FixerFactory::getFixersConflicts - better type hinting (#7044)
+* minor: PHP8.3 - Fix TokensAnalyzer::isAnonymousClass support for `readonly` (#7013)
+* minor: PHP8.3 - Typed class constants - handle nullable by transformer (#7009)
+* minor: Reduce phpDoc type parser complexity from O(n^2) to O(nlog(n)) (#6988)
+* minor: ReturnAssignmentFixer - Better handling of anonymous classes (#7015)
+* minor: Transfer `HelpCommand::toString()` to `Utils` (#7034)
+* minor: Unify "blank lines before namespace" fixers (#7053)
+* minor: `SelfStaticAccessorFixer` improvements for enums (#7026)
+* minor: `SingleSpaceAroundConstructFixer` - support space before `as` (#7029)
+* minor: `UseArrowFunctionsFixer` - run before `FunctionDeclarationFixer` (#7065)
+
+Changelog for v3.17.0
+---------------------
+
+* bug: Allow string quote to be escaped within phpdoc constant (#6798)
+* bug: ConfigurationResolver - fix running without cache (#6915)
+* bug: Fix array/object shape phpdoc type parse (#6962)
+* bug: Fix FullyQualifiedStrictTypesFixer common prefix bug (#6898)
+* bug: Fix non-parenthesized callable return type parse (#6961)
+* bug: Fix parsing of edge cases phpdoc types (#6977)
+* bug: FullyQualifiedStrictTypesFixer - fix for FQCN type with class with the same name being imported (#6923)
+* bug: GroupImportFixer - support for aliased imports (#6951)
+* bug: MultilineWhitespaceBeforeSemicolonsFixer - fix chained calls (#6926)
+* bug: MultilineWhitespaceBeforeSemicolonsFixer - fix for discovering multi line calls (#6938)
+* bug: NoBreakCommentFixer - fix for nested match (#6899)
+* bug: NoExtraBlankLinesFixer - fix for attribute in abstract function (#6920)
+* bug: PhpdocTypesFixer - handle types with no space between type and variable (#6922)
+* bug: PhpUnitMockShortWillReturnFixer - fix for trailing commas (#6900)
+* bug: StatementIndentationFixer - fix comments at the end of if/elseif/else blocks (#6918)
+* bug: StatementIndentationFixer - fix for multiline arguments starting with "new" keyword (#6913)
+* bug: StatementIndentationFixer - fix for multiline arguments starting with "new" keyword preceded by class instantiation (#6914)
+* bug: VoidReturnFixer - fix for intervening attributes (#6863)
+* docs: improve code samples for MultilineWhitespaceBeforeSemicolonsFixer (#6919)
+* docs: improve cookbook (#6880)
+* DX: add cache related tests (#6916)
+* DX: Apply `self_static_accessor` fixer to the project (again) (#6927)
+* DX: cancel running builds on subsequent pushes in CI (#6940)
+* DX: convert more `static` to `self` assert calls (#6931)
+* DX: fix GitHub Actions errors and warnings (#6917)
+* DX: fix Unsafe call to private method errors reported by PHPStan (#6879)
+* DX: Improve performance of FunctionsAnalyzer (#6939)
+* DX: improve test method names to avoid confusion (#6974)
+* DX: Include self_static_accessor fixer in PhpCsFixer set (#6882)
+* DX: make data providers static with straight-forward changes (#6907)
+* DX: Mark Tokens::getNamespaceDeclarations as @internal (#6949)
+* DX: PHPStan improvements (#6868)
+* DX: refactor PhpdocAlignFixerTest (#6925)
+* DX: Remove @inheritdoc PHPDoc (#6955)
+* DX: Run AutoReview tests only once (#6889)
+* DX: simplify EncodingFixer (#6956)
+* DX: update Symfony rule set (#6958)
+* DX: Use $tokens->getNamespaceDeclarations() to improve performance (#6942)
+* DX: use force option for php_unit_data_provider_static in PHPUnit 10.0 migration set (#6908)
+* DX: use only PHP modules that are required (#6954)
+* DX: use PHPUnit's "requires" instead of "if" condition (#6975)
+* feature: Add align_multiline_comment rule to @Symfony (#6875)
+* feature: Add no_null_property_initialization rule to @Symfony (#6876)
+* feature: Add operator_linebreak rule to @Symfony (#6877)
+* feature: add SingleLineEmptyBodyFixer (#6933)
+* feature: DescribeCommand - allow describing custom fixers (#6957)
+* feature: Introduce `OrderedTypesFixer` (#6571)
+* feature: Order of PHPDoc @param annotations (#3909)
+* feature: Parse parenthesized & conditional phpdoc type (#6796)
+* feature: PhpUnitInternalClassFixer - add empty line before PHPDoc (#6924)
+* feature: [PhpdocAlignFixer] Add support for every tag (#6564)
+* minor: align NoSuperfluousPhpdocTagsFixer with actual Symfony configuration (#6953)
+* minor: do not add empty line in PHPDoc when adding annotation in PHPUnit class (#6928)
+* minor: PhpdocAlignFixer - support cases with type and variable separated with no space (#6921)
+* minor: PhpdocSeparationFixer - add integration tests (#6929)
+* minor: update PHPStan (to fix CI on master branch) (#6901)
+* minor: Use single Dockerfile with multiple build targets (#6840)
+
+Changelog for v3.16.0
+---------------------
+
+* bug: ControlStructureBracesFixer - handle closing tag (#6873)
+* bug: CurlyBracesPositionFixer - fix for callable return type (#6855)
+* bug: CurlyBracesPositionFixer - fix for DNF types (#6859)
+* bug: Fix MultilineWhitespaceBeforeSemicolonsFixer (#5126)
+* docs: Fix rule description (#6844)
+* DX: fix checkbashisms installation (#6843)
+* DX: make data providers static for fixer's tests (#6860)
+* DX: refactor PHPUnit fixers adding class-level annotation to use shared code (#6756)
+* DX: unify option's descriptions (#6856)
+* feature: AbstractPhpUnitFixer - support attribute detection in docblock insertion (#6858)
+* feature: add "force" option to PhpUnitDataProviderStaticFixer (#6757)
+* feature: introduce single_space_around_construct, deprecate single_space_after_construct (#6857)
+* feature: PhpUnitTestClassRequiresCoversFixer - support single-line PHPDocs (#6847)
+* minor: Deprecate BracesFixer (#4885)
+* minor: Fix autocompletion for `Tokens::offsetGet()` (#6838)
+* minor: PHP8.2 Docker runtime (#6833)
+* minor: Use Composer binary-only images instead of installer script (#6834)
+
+Changelog for v3.15.1
+---------------------
+
+* bug: BinaryOperatorSpacesFixer - fix for static in type (#6835)
+* bug: BinaryOperatorSpacesFixer - fix parameters with union types passed by reference (#6826)
+* bug: NoUnusedImportsFixer - fix for splat operator (#6836)
+* DX: fix CI (#6837)
+* feature: Support for type casing in arrow functions (#6831)
+* minor: fix CI on PHP 8.3 (#6827)
+
+Changelog for v3.15.0
+---------------------
+
+* bug: VisibilityRequiredFixer - handle DNF types (#6806)
+* DX: officially enable 8.2 support (#6825)
+
+Changelog for v3.14.5
+---------------------
+
+* bug: EmptyLoopBodyFixer must keep comments inside (#6800)
+* bug: FunctionsAnalyzer - fix detecting global function (#6792)
+* bug: NativeFunctionTypeDeclarationCasingFixer - do not require T_STRING present in code (#6812)
+* bug: PhpdocTypesFixer - do not change case of array keys (#6810)
+* bug: PhpUnitTestAnnotationFixer - do not break single line @depends (#6824)
+* docs: Add supported PHP versions section to the README (#6768)
+* docs: drop Atom from readme, due to it's sunsetting (#6778)
+* DX: Add composer keywords (#6781)
+* DX: update PHPStan to 1.10.3 (#6805)
+* feature: [PHP8.2] Support for readonly classes (#6745)
+* minor: add custom tokens for Disjunctive Normal Form types parentheses (#6823)
+* minor: PHP8.2 - handle union and intersection types for DNF types (#6804)
+* minor: PHP8.2 - support property in const expressions (#6803)
+
+Changelog for v3.14.4
+---------------------
+
+* bug: CurlyBracesPositionFixer - fix for open brace not preceded by space and followed by a comment (#6776)
+* docs: drop license end year (#6767)
+* DX: use numeric_literal_separator (#6766)
+* feature: Allow installation of `sebastian/diff:^5.0.0` (#6771)
+
+Changelog for v3.14.3
+---------------------
+
+* DX: Drop doctrine/annotations 1, allow doctrine/lexer 3 (#6730)
+
+Changelog for v3.14.2
+---------------------
+
+* DX: Drop support for doctrine/lexer 1 (#6729)
+
+Changelog for v3.14.1
+---------------------
+
+* DX: Allow doctrine/annotations 2 (#6721)
+
+Changelog for v3.14.0
+---------------------
+
+* bug: Fix indentation for comment at end of function followed by a comma (#6542)
+* bug: Fix PHPDoc alignment fixer containing callbacks using `\Closure` (#6746)
+* bug: Fix type error when using paths intersection mode (#6734)
+* bug: PhpdocSeparationFixer - Make groups handling more flexible (#6668)
+* docs: make bug_report.md template more explicit (#6736)
+* docs: PhpUnitTestCaseIndicator - fix docs (#6727)
+* DX: apply CS (#6759)
+* DX: bump doctrine/annotations to prevent installing version with unintentional BC break (#6739)
+* DX: update deps (#6760)
+* DX: upgrade dev-tools/composer.json (#6737)
+* DX: upgrade PHPStan to 1.9.7 (#6741)
+* feature: Add php 7.4 types to Cookbook docs (#6763)
+* feature: add PhpUnitDataProviderStaticFixer (#6702)
+* feature: binary_operator_spaces - Revert change about => alignment and use option instead (#6724)
+* feature: make OrderedInterfacesFixer non-risky (#6722)
+* feature: OctalNotationFixer - support _ notation (#6762)
+* fix: enum case "PARENT" must not be renamed (#6732)
+* minor: Follow PSR12 ordered imports in Symfony ruleset (#6712)
+* minor: improve rule sets order (#6738)
+
+Changelog for v3.13.2
+---------------------
+
+* bug: Fix type error when using paths intersection mode (#6734)
+
+Changelog for v3.13.1
+---------------------
+
+* bug: Align all the arrows inside the same array (#6590)
+* bug: Fix priority between `modernize_types_casting` and `no_unneeded_control_parentheses` (#6687)
+* bug: TrailingCommaInMultilineFixer - do not add trailing comma when there is no break line after last element (#6677)
+* docs: Fix docs for disabled rules in rulesets (#6679)
+* docs: fix the cookbook_fixers.rst (#6672)
+* docs: Update installation recommended commands for `mkdir` argument (`-p` insteadof `--parents`). (#6689)
+* Make static data providers that are not using dynamic calls (#6696)
+* minor: displaying number of checked files (#6674)
+
+Changelog for v3.13.0
+---------------------
+
+* bug: BracesFixer - Fix unexpected extra blank line (#6667)
+* bug: fix CI on master branch (#6663)
+* bug: IsNullFixer - handle casting (#6661)
+* docs: feature or bug (#6652)
+* docs: Use case insensitive sorting for options (#6666)
+* docs: [DateTimeCreateFromFormatCallFixer] Fix typos in the code sample (#6671)
+* DX: update cli-executor (#6664)
+* DX: update dev-tools (#6665)
+* feature: Add global_namespace_import to @Symfony ruleset (#6662)
+* feature: Add separate option for closure_fn_spacing (#6658)
+* feature: general_phpdoc_annotation_remove - allow add case_sensitive option (#6660)
+* minor: AllowedValueSubset - possible values are sorted (#6651)
+* minor: Use md5 for file hashing to reduce possible collisions (#6597)
+
+Changelog for v3.12.0
+---------------------
+
+* bug: SingleLineThrowFixer - Handle throw expression inside block (#6653)
+* DX: create TODO to change default ruleset for v4 (#6601)
+* DX: Fix SCA findings (#6626)
+* DX: HelpCommand - fix docblock (#6584)
+* DX: Narrow some docblock types (#6581)
+* DX: Remove redundant check for PHP <5.2.7 (#6620)
+* DX: Restore PHPDoc to type rules workflow step (#6615)
+* DX: SCA - scope down types (#6630)
+* DX: Specify value type in iterables in tests (#6594)
+* DX: Test on PHP 8.2 (#6558)
+* DX: Update GitHub Actions (#6606)
+* DX: Update PHPStan (#6616)
+* feature: Add `@PHP82Migration` ruleset (#6621)
+* feature: ArrayPushFixer now fix short arrays (#6639)
+* feature: NoSuperfluousPhpdocTagsFixer - support untyped and empty annotations in phpdoc (#5792)
+* feature: NoUselessConcatOperatorFixer - Introduction (#6447)
+* feature: Support for constants in traits (#6607)
+* feature: [PHP8.2] Support for new standalone types (`null`, `true`, `false`) (#6623)
+* minor: GitHub Workflows security hardening (#6644)
+* minor: prevent BC break in ErrorOutput (#6633)
+* minor: prevent BC break in Runner (#6634)
+* minor: Revert "minor: prevent BC break in Runner" (#6637)
+* minor: Update dev tools (#6554)
+
+Changelog for v3.11.0
+---------------------
+
+* bug: DateTimeCreateFromFormatCallFixer - Mark as risky (#6575)
+* bug: Do not treat implements list comma as array comma (#6595)
+* bug: Fix MethodChainingIndentationFixer with arrow functions and class instantiation (#5587)
+* bug: MethodChainingIndentationFixer - Fix bug with attribute access (#6573)
+* bug: NoMultilineWhitespaceAroundDoubleArrowFixer - fix for single line comment (#6589)
+* bug: TypeAlternationTransformer - TypeIntersectionTransformer - Bug: handle attributes (#6579)
+* bug: [BinaryOperatorFixer] Fix more issues with scoped operators (#6559)
+* docs: Remove `$` from console command snippets (#6600)
+* docs: Remove `$` from console command snippets in documentation (#6599)
+* DX: AllowedValueSubset::getAllowedValues - fix method prototype (#6585)
+* DX: Narrow docblock types in FixerConfiguration (#6580)
+* DX: updagte @PhpCsFixer set config for phpdoc_order rule (#6555)
+* DX: Update PHPUnit config (#6566)
+* feature: Introduce configurability to PhpdocSeparationFixer (#6501)
+* feature: Introduce PER set (#6545)
+* feature: NoTrailingCommaInSinglelineFixer - Introduction (#6529)
+* feature: Support removing superfluous PHPDocs involving `self` (#6583)
+* minor: NoUnneededControlParenthesesFixer - Support instanceof static cases (#6587)
+* minor: PhpdocToCommentFixer - allow phpdoc comments before trait use statement. Fixes #6092 (#6565)
+
+Changelog for v3.10.0
+---------------------
+
+* bug: Fix error in `regular_callable_call` with static property (#6539)
+* bug: Fix indentation for multiline class definition (#6540)
+* bug: Fix indentation for switch ending with empty case (#6538)
+* bug: Fix indentation of comment at end of switch case (#6493)
+* bug: PhpdocAlignFixer - fix static `@method` (#6366)
+* bug: SingleSpaceAfterConstructFixer - fix handling open tag (#6549)
+* bug: VisibilityRequiredFixer must run before ClassAttributesSeparationFixer (#6548)
+* DX: Assert dataproviders of tests of project itself return "array" or "iterable". (#6524)
+* feature: Introduce configurability to PhpdocOrderFixer (#6466)
+* feature: WhitespaceAfterCommaInArrayFixer - add option "ensure_single_space" (#6527)
+* minor: Add test for indentation of trait conflict resolution (#6541)
+* minor: Split BracesFixer (#4884)
+* minor: TrailingCommaInMultilineFixer - Add comma to multiline `new static` (#6380)
+
+Changelog for v3.9.6
+--------------------
+
+* bug: BinaryOperatorSpacesFixer: Solve issues with scoped arrow and equal alignments (#6515)
+* bug: Fix 3 weird behavior about BinaryOperatorSpacesFixer (#6450)
+* docs: Add intersection type to types_spaces rule description (#6479)
+* DX: no need to use forked diff anymore (#6526)
+* DX: remove unused FixerFileProcessedEvent::STATUS_UNKNOWN (#6516)
+* Improve `statement_indentation` compatibility with `braces` (#6401)
+* minor: add test: multi-line comments before else indented correctly. (#3573)
+* minor: ReturnAssignmentFixer - Support for anonymous classes, lambda and match (#6391)
+
+Changelog for v3.9.5
+--------------------
+
+* bug: AlternativeSyntaxAnalyzer - fix for nested else (#6495)
+* bug: Fix cases related to binary strings (#6432)
+* bug: Fix trailing whitespace after moving brace (#6489)
+* bug: NoUnneededControlParenthesesFixer - Fix some curly close cases (#6502)
+* bug: TypeColonTransformer - fix for backed enum types (#6494)
+* DX: Add tests for type colon in backed enums (#6497)
+* DX: Fix CI static analysis workflow (#6506)
+* DX: Fix PHPStan errors (#6504)
+* DX: Increase PHPStan level to 6 (#6468)
+* DX: Narrow docblock types in Runner and Report (#6465)
+* DX: Narrow docblock types in Tokenizer (#6293)
+* minor: extract NoMultipleStatementsPerLineFixer from BracesFixer (#6458)
+* minor: Let PhpdocLineSpan fixer detect docblocks when separator from token with attribute (#6343)
+
+Changelog for v3.9.4
+--------------------
+
+* bug: Fix various indentation issues (#6480)
+* bug: Fix wrong brace position after static return type (#6485)
+* bug: Prevent breaking functions returning by reference (#6487)
+
+Changelog for v3.9.3
+--------------------
+
+* bug: Fix BinaryOperatorSpacesFixer adding whitespace outside PHP blocks (#6476)
+* bug: Fix brace location after multiline function signature (#6475)
+
+Changelog for v3.9.2
+--------------------
+
+* bug: Fix indentation after control structure in switch (#6473)
+
+Changelog for v3.9.1
+--------------------
+
+* bug: Add attributes support to `statement_indentation` (#6429)
+* bug: BinaryOperatorSpacesFixer - Allow to align `=` inside array definitions (#6444)
+* bug: BinaryOperatorSpacesFixer - Fix align of operator with function declaration (#6445)
+* bug: ConstantCaseFixer - Do not touch enum case (#6367)
+* bug: CurlyBracesPositionFixer - multiple elseifs (#6459)
+* bug: Fix #6439 issue in `StaticLambda` fixer (#6440)
+* bug: FullOpeningTagFixer - fix substr check for pre PHP8 (#6388)
+* bug: IncrementStyleFixer - NoSpacesInsideParenthesisFixer - prio (#6416)
+* bug: LambdaNotUsedImportFixer must run before MethodArgumentSpaceFixer (#6453)
+* bug: MethodArgumentSpaceFixer - first element in same line, space before comma and inconsistent indent (#6438)
+* bug: NoSuperfluousPhpdocTagsFixer - fix for promoted properties (#6403)
+* bug: StatementIndentationFixer - Fix indentation for multiline traits use (#6402)
+* bug: StrictComparisonFixer must rune before ModernizeStrposFixer (#6455)
+* bug: TokensAnalyzer - fix intersection types considered as binary operator (#6414)
+* DX: `ISSUE_TEMPLATE` hints to check applied rules (#6398)
+* DX: Add more type hints (#6383)
+* DX: Fix CI/CD issues (#6411)
+* DX: cleanup test (#6410)
+* DX: integrate PRLint (#6406)
+* feature: BlankLineBetweenImportGroupsFixer - Introduction (#6365)
+* feature: DateTimeCreateFromFormatCallFixer - Add DateTimeImmutable support (#6350)
+* feature: Extract StatementIndentationFixer from BracesFixer (#5960)
+* feature: ModernizeStrposFixer - fix leading backslash with yoda (#6377)
+* feature: NoExtraBlankLinesFixer - Add `attributes` option - Fix support for `enum` `case` (#6426)
+* feature: NoUnneededControlParenthesesFixer - Fix more cases (#6409)
+* feature: NoUselessNullsafeOperatorFixer - Introduction (#6425)
+* feature: OrderedTrait - Move Phpdoc with trait import (#6361)
+* feature: PhpdocOrderByValueFixer - Allow sorting of mixin annotations by value (#6446)
+* feature: TrailingCommaInMultiline - Add `match` support (#6381)
+* minor: Allow Composer Normalize plugin (#6454)
+* minor: ExplicitStringVariableFixer - Fix to PHP8.2 compat code (#6424)
+* minor: Extract ControlStructureBracesFixer from BracesFixer (#6399)
+* minor: NoBinaryStringFixer - Fix more cases (#6442)
+* minor: NoSuperfluousPhpdocTagsFixer - Attribute handling (#6382)
+* minor: PhpCsFixerSet - Update blank_line_before_statement config (#6389)
+* minor: Remove unnecessary PHP version constraints (#6461)
+* minor: SingleImportPerStatementFixer - fix PSR12 set (#6415)
+* minor: SingleSpaceAfterConstructFixer - add option `type_colon` (#6434)
+* minor: SymfonySet - Add SimpleToComplexStringVariableFixer (#6423)
+* minor: Update PHPStan (#6467)
+* minor: extract CurlyBracesPositionFixer from BracesFixer (#6452)
+
 Changelog for v3.8.0
 --------------------
 
@@ -20,7 +1391,7 @@ Changelog for v3.7.0
 
 * bug #6112 [BinaryOperatorSpacesFixer] Fix align of `=` inside calls of methods (VincentLanglet)
 * bug #6279 ClassReferenceNameCasingFixer - Fix for double arrow (SpacePossum)
-* bug #6280 Fix bunch of enum issus (SpacePossum)
+* bug #6280 Fix bunch of enum issues (SpacePossum)
 * bug #6283 ClassReferenceNameCasingFixer - detect imports (SpacePossum)
 * feature #5892 NewWithBracesFixer - option to remove braces (jrmajor)
 * feature #6081 Allow multiline constructor arguments in an anonymous classes (jrmajor, SpacePossum)
@@ -50,7 +1421,7 @@ Changelog for v3.6.0
 * bug #6241 NoSuperfluousPhpdocTagsFixer - fix for reference and splat operator (kubawerlos)
 * bug #6243 PhpdocTypesOrderFixer - fix for intersection types (kubawerlos)
 * bug #6254 PhpUnitDedicateAssertFixer - remove `is_resource`. (drupol)
-* bug #6264 TokensAnalyzer - fix isConstantInvocation detection for mulitple exce… (SpacePossum)
+* bug #6264 TokensAnalyzer - fix isConstantInvocation detection for multiple exce… (SpacePossum)
 * bug #6265 NullableTypeDeclarationForDefaultNullValueFixer - handle "readonly" a… (SpacePossum)
 * bug #6266 SimplifiedIfReturnFixer - handle statement in loop without braces (SpacePossum)
 * feature #6262 ClassReferenceNameCasingFixer - introduction (SpacePossum)
@@ -72,7 +1443,7 @@ Changelog for v3.5.0
 * bug #6165 DeclareEqualNormalizeFixer - fix for declare having multiple directives (kubawerlos)
 * bug #6170 NonPrintableCharacterFixer - fix for string in single quotes, having non-breaking space, linebreak, and single quote inside (kubawerlos)
 * bug #6181 UseTransformer - Trait import in enum fix (PHP8.1) (SpacePossum)
-* bug #6188 PhpdocTo(Param|Property|Return)TypeFixer - fix for type intersections (kubawerlos)
+* bug #6188 `PhpdocTo(Param|Property|Return)TypeFixer` - fix for type intersections (kubawerlos)
 * bug #6202 SquareBraceTransformer - fix for destructing square brace after double arrow (kubawerlos)
 * bug #6209 OrderedClassElementsFixer - PHP8.0 support abstract private methods in traits (SpacePossum)
 * bug #6224 ArgumentsAnalyzer - support PHP8.1 readonly (SpacePossum)
@@ -128,7 +1499,7 @@ Changelog for v3.4.0
 * minor #6109 Add return type to `DummyTestSplFileInfo::getRealPath()` (derrabus)
 * minor #6115 Remove PHP 7.2 polyfill (derrabus)
 * minor #6116 CI: remove installation of mbstring polyfill in build script, it's required dependency now (keradus)
-* minor #6119 OrderedClassElementsFixer - PHPUnit assert(Pre|Post)Conditions methods support (meyerbaptiste)
+* minor #6119 OrderedClassElementsFixer - PHPUnit `assert(Pre|Post)Conditions` methods support (meyerbaptiste)
 * minor #6121 Use Tokens::ensureWhitespaceAtIndex to simplify code (kubawerlos)
 * minor #6127 Remove 2nd parameter to XdebugHandler constructor (phil-davis)
 * minor #6129 clean ups (SpacePossum)
@@ -251,7 +1622,7 @@ Changelog for v3.2.0
 * minor #6029 PhpUnitDedicateAssertFixer - add "assertStringContainsString" and "as… (SpacePossum)
 * minor #6030 SingleSpaceAfterConstructFixer - Add `switch` support (SpacePossum)
 * minor #6033 ArgumentsAnalyzerTest - add more tests (SpacePossum)
-* minor #6034 7.0|7.1 - cleanup tests (SpacePossum)
+* minor #6034 Cleanup tests for PHP 7.0 and 7.1 (SpacePossum)
 * minor #6035 Documentation generation split up and add list. (SpacePossum)
 * minor #6048 Fix "can not" spelling (mvorisek)
 
@@ -710,7 +2081,7 @@ Changelog for v2.17.3
 Changelog for v2.17.2
 ---------------------
 
-* bug #5345 CleanNamespaceFixer - preserve traling comments (SpacePossum)
+* bug #5345 CleanNamespaceFixer - preserve trailing comments (SpacePossum)
 * bug #5348 PsrAutoloadingFixer - fix for class without namespace (kubawerlos)
 * bug #5362 SingleSpaceAfterConstructFixer: Do not adjust whitespace before multiple multi-line extends (localheinz, SpacePossum)
 * minor #5314 Enable testing with PHPUnit 9.x (sanmai)
@@ -807,7 +2178,6 @@ Changelog for v2.17.0
 * minor #5284 PHP8 - Attribute support (SpacePossum)
 * minor #5323 NoUselessSprintfFixer - Fix test on PHP5.6 (SpacePossum)
 * minor #5326 DX: relax composer requirements to not block installation under PHP v8, support for PHP v8 is not yet ready (keradus)
-
 
 Changelog for v2.16.10
 ----------------------
@@ -1432,7 +2802,7 @@ Changelog for v2.15.4
 * minor #4564 Move readme-update command to Section 3 (iwasherefirst2)
 * minor #4566 Update symfony ruleset (gharlan)
 * minor #4570 Command::execute() should always return an integer (derrabus)
-* minor #4580 Add suport for true/false return type hints. (SpacePossum)
+* minor #4580 Add support for true/false return type hints. (SpacePossum)
 * minor #4584 Increase PHPStan level to 1 (julienfalque)
 * minor #4585 Fix deprecation notices (julienfalque)
 * minor #4587 Output details - Explain why a file was skipped (SpacePossum)
@@ -1593,8 +2963,8 @@ Changelog for v2.14.3
 * minor #4340 Travis: build against 7.4snapshot instead of nightly (Slamdunk)
 * minor #4351 code grooming (SpacePossum)
 * minor #4353 Add more priority tests (SpacePossum)
-* minor #4364 DX: MethodChainingIndentationFixer - remove unneccesary loop (Sijun Zhu)
-* minor #4366 Unset the auxillary variable $a (GrahamCampbell)
+* minor #4364 DX: MethodChainingIndentationFixer - remove unnecessary loop (Sijun Zhu)
+* minor #4366 Unset the auxiliary variable $a (GrahamCampbell)
 * minor #4368 Fixed TypeShortNameResolverTest::testResolver (GrahamCampbell)
 * minor #4380 PHP7.4 - Add "str_split" => "mb_str_split" mapping. (SpacePossum)
 * minor #4381 PHP7.4 - Add support for magic methods (un)serialize. (SpacePossum)
@@ -1768,7 +3138,7 @@ Changelog for v2.13.0
 * feature #3812 Add FopenFlagOrderFixer & FopenFlagsFixer (SpacePossum)
 * feature #3826 Add CombineNestedDirnameFixer (gharlan)
 * feature #3833 BinaryOperatorSpacesFixer - Add "no space" fix strategy (SpacePossum)
-* feature #3841 NoAliasFunctionsFixer - add opt in option for ext-mbstring aliasses (SpacePossum)
+* feature #3841 NoAliasFunctionsFixer - add opt in option for ext-mbstring aliases (SpacePossum)
 * feature #3876 NativeConstantInvocationFixer - add the scope option (stof, keradus)
 * feature #3886 Add PhpUnitMethodCasingFixer (Slamdunk)
 * feature #3907 Add ImplodeCallFixer (kubawerlos)
@@ -1849,8 +3219,8 @@ Changelog for v2.12.9
 * minor #4340 Travis: build against 7.4snapshot instead of nightly (Slamdunk)
 * minor #4351 code grooming (SpacePossum)
 * minor #4353 Add more priority tests (SpacePossum)
-* minor #4364 DX: MethodChainingIndentationFixer - remove unneccesary loop (Sijun Zhu)
-* minor #4366 Unset the auxillary variable $a (GrahamCampbell)
+* minor #4364 DX: MethodChainingIndentationFixer - remove unnecessary loop (Sijun Zhu)
+* minor #4366 Unset the auxiliary variable $a (GrahamCampbell)
 * minor #4368 Fixed TypeShortNameResolverTest::testResolver (GrahamCampbell)
 * minor #4380 PHP7.4 - Add "str_split" => "mb_str_split" mapping. (SpacePossum)
 * minor #4393 DX: add missing explicit return types (kubawerlos)
@@ -2105,7 +3475,7 @@ Changelog for v2.11.2
 * bug #3673 PhpdocScalarFixer - Add "types" option (julienfalque, keradus)
 * bug #3674 YodaStyleFixer - Fix variable detection for multidimensional arrays (julienfalque, SpacePossum)
 * bug #3684 PhpUnitStrictFixer - Do not fix if not correct # of arguments are used (SpacePossum)
-* bug #3708 EspaceImplicitBackslashesFixer - Fix escaping multiple backslashes (julienfalque)
+* bug #3708 EscapeImplicitBackslashesFixer - Fix escaping multiple backslashes (julienfalque)
 * bug #3715 SingleImportPerStatementFixer - Fix handling whitespace before opening brace (julienfalque)
 * bug #3731 PhpdocIndentFixer -  crash fix (SpacePossum)
 * bug #3755 YodaStyleFixer - handle space between var name and index (SpacePossum)
@@ -2239,7 +3609,7 @@ Changelog for v2.10.3
 * minor #3484 Create Tokens::findBlockStart (ntzm)
 * minor #3512 Add missing array typehints (ntzm)
 * minor #3513 Making AppVeyor happy (kubawerlos)
-* minor #3516 Use null|type instead of ?type in PHPDocs (ntzm)
+* minor #3516 Use `null|type` instead of `?type` in PHPDocs (ntzm)
 * minor #3518 FixerFactoryTest - Test each priority test file is listed as test (SpacePossum)
 * minor #3519 Fix typo (SpacePossum)
 * minor #3520 Fix typos: ran vs. run (SpacePossum)
@@ -2424,7 +3794,7 @@ Changelog for v2.8.1
 
 * bug #3199 TokensAnalyzer - getClassyElements (SpacePossum)
 * bug #3208 BracesFixer - Fix for instantiation in control structures (julienfalque, SpacePossum)
-* bug #3215 BinaryOperatorSpacesFixer - Fix spaces around multiple exception catching (|) (ntzm)
+* bug #3215 BinaryOperatorSpacesFixer - Fix spaces around multiple exception catching (ntzm)
 * bug #3216 AbstractLinesBeforeNamespaceFixer - add min. and max. option, not only single target count (SpacePossum)
 * bug #3217 TokenizerLinter - fix lack of linting when code is cached (SpacePossum, keradus)
 * minor #3200 Skip slow test when Xdebug is loaded (julienfalque)
@@ -2471,7 +3841,7 @@ Changelog for v2.7.4
 
 * bug #3199 TokensAnalyzer - getClassyElements (SpacePossum)
 * bug #3208 BracesFixer - Fix for instantiation in control structures (julienfalque, SpacePossum)
-* bug #3215 BinaryOperatorSpacesFixer - Fix spaces around multiple exception catching (|) (ntzm)
+* bug #3215 BinaryOperatorSpacesFixer - Fix spaces around multiple exception catching (ntzm)
 * bug #3216 AbstractLinesBeforeNamespaceFixer - add min. and max. option, not only single target count (SpacePossum)
 * bug #3217 TokenizerLinter - fix lack of linting when code is cached (SpacePossum, keradus)
 * minor #3200 Skip slow test when Xdebug is loaded (julienfalque)
@@ -2493,7 +3863,7 @@ Changelog for v2.7.2
 * bug #3062 BraceClassInstantiationTransformer - Fix instantiation inside method call braces case (julienfalque, keradus)
 * bug #3083 SingleBlankLineBeforeNamespaceFixer - Fix handling namespace right after opening tag (mlocati)
 * bug #3109 SwitchCaseSemicolonToColonFixer - Fix bug with nested constructs (SpacePossum)
-* bug #3117 Multibyte character in array key makes alignment incorect (kubawerlos)
+* bug #3117 Multibyte character in array key makes alignment incorrect (kubawerlos)
 * bug #3123 Cache - File permissions (SpacePossum)
 * bug #3138 NoHomoglyphNamesFixer - fix crash on non-ascii but not mapped either (SpacePossum)
 * bug #3172 IndentationTypeFixer - do not touch whitespace that is not indentation (SpacePossum)
@@ -2693,7 +4063,7 @@ Changelog for v2.3.3
 * bug #2807 NoUselessElseFixer - Fix detection of conditional block (SpacePossum)
 * bug #2809 Phar release - fix readme generation (SpacePossum, keradus)
 * bug #2827 MethodArgumentSpaceFixer - Always remove trailing spaces (julienfalque)
-* bug #2835 SelfAcessorFixer - class property fix (mnabialek)
+* bug #2835 SelfAccessorFixer - class property fix (mnabialek)
 * bug #2848 PhpdocIndentFixer - fix edge case with inline phpdoc (keradus)
 * bug #2849 BracesFixer - Fix indentation issues with comments (julienfalque)
 * bug #2851 Tokens - ensureWhitespaceAtIndex (GrahamCampbell, SpacePossum)
@@ -2882,7 +4252,7 @@ Changelog for v2.2.17
 * minor #3435 Add tests for general_phpdoc_annotation_remove (BackEndTea)
 * minor #3484 Create Tokens::findBlockStart (ntzm)
 * minor #3512 Add missing array typehints (ntzm)
-* minor #3516 Use null|type instead of ?type in PHPDocs (ntzm)
+* minor #3516 Use `null|type` instead of `?type` in PHPDocs (ntzm)
 * minor #3518 FixerFactoryTest - Test each priority test file is listed as test (SpacePossum)
 * minor #3520 Fix typos: ran vs. run (SpacePossum)
 * minor #3521 Use HTTPS (carusogabriel)
@@ -2975,7 +4345,7 @@ Changelog for v2.2.10
 
 * bug #3199 TokensAnalyzer - getClassyElements (SpacePossum)
 * bug #3208 BracesFixer - Fix for instantiation in control structures (julienfalque, SpacePossum)
-* bug #3215 BinaryOperatorSpacesFixer - Fix spaces around multiple exception catching (|) (ntzm)
+* bug #3215 BinaryOperatorSpacesFixer - Fix spaces around multiple exception catching (ntzm)
 * bug #3216 AbstractLinesBeforeNamespaceFixer - add min. and max. option, not only single target count (SpacePossum)
 * bug #3217 TokenizerLinter - fix lack of linting when code is cached (SpacePossum, keradus)
 * minor #3200 Skip slow test when Xdebug is loaded (julienfalque)
@@ -3081,7 +4451,7 @@ Changelog for v2.2.5
 * bug #2807 NoUselessElseFixer - Fix detection of conditional block (SpacePossum)
 * bug #2809 Phar release - fix readme generation (SpacePossum, keradus)
 * bug #2827 MethodArgumentSpaceFixer - Always remove trailing spaces (julienfalque)
-* bug #2835 SelfAcessorFixer - class property fix (mnabialek)
+* bug #2835 SelfAccessorFixer - class property fix (mnabialek)
 * bug #2848 PhpdocIndentFixer - fix edge case with inline phpdoc (keradus)
 * bug #2849 BracesFixer - Fix indentation issues with comments (julienfalque)
 * bug #2851 Tokens - ensureWhitespaceAtIndex (GrahamCampbell, SpacePossum)
@@ -3170,7 +4540,9 @@ Changelog for v2.2.2
 --------------------
 
 Warning, this release breaks BC due to introduction of:
+
 * minor #2554 Add short diff. output format (SpacePossum, keradus)
+
 That PR was reverted in v2.2.3, which should be used instead of v2.2.2.
 
 * bug #2545 RuleSet - change resolvement (SpacePossum)
@@ -3369,7 +4741,7 @@ Changelog for v2.0.1
 * minor #2499 FileSpecificCodeSample - Specify class name relative to root namespace (localheinz, keradus)
 * minor #2506 SCA (SpacePossum)
 * minor #2515 Fix code indentation (keradus)
-* minor #2521 SCA trailing spces check - ouput lines with trailing white space (SpacePossum)
+* minor #2521 SCA trailing spces check - output lines with trailing white space (SpacePossum)
 * minor #2522 Fix docs and small code issues (keradus)
 
 Changelog for v2.0.0
@@ -3420,7 +4792,7 @@ Changelog for v2.0.0
 * feature #1628 Added OrderedClassElementsFixer (gharlan)
 * feature #1742 path argument is used to create an intersection with existing finder (keradus, gharlan)
 * feature #1779 Added GeneralPhpdocAnnotationRemoveFixer, GeneralPhpdocAnnotationRenameFixer (keradus)
-* feature #1811 Added NoSpacesInsideOfssetFixer (phansys)
+* feature #1811 Added NoSpacesInsideOffsetFixer (phansys)
 * feature #1819 Added DirConstantFixer, ModernizeTypesCastingFixer, RandomApiMigrationFixer (kalessil, SpacePossum, keradus)
 * feature #1825 Added junit format (ekho)
 * feature #1862 FixerFactory - Do not allow conflicting fixers (SpacePossum)
@@ -3537,7 +4909,7 @@ Changelog for v2.0.0
 * minor #1846 FileFilterIterator - Corrected an iterator typehint (GrahamCampbell)
 * minor #1848 DocBlock - Remove some old unused phpdoc tags (GrahamCampbell)
 * minor #1856 NoDuplicateSemicolonsFixer - Remove overcomplete fixer (SpacePossum)
-* minor #1861 Fix: Ofsset should be Offset (localheinz)
+* minor #1861 Fix: Offset should be Offset (localheinz)
 * minor #1867 Print non-report output to stdErr (SpacePossum, keradus)
 * minor #1873 Enhancement: Show path to cache file if it exists (localheinz)
 * minor #1875 renamed Composer package (fabpot)
@@ -3600,7 +4972,7 @@ Changelog for v2.0.0
 * minor #2318 *TestCase - Reduce visibility of setUp() (localheinz)
 * minor #2319 Code grooming (keradus)
 * minor #2322 DX: use whitemessy aware assertion (keradus)
-* minor #2324 Echo|Print*Fixer - unify printing fixers (SpacePossum, keradus)
+* minor #2324 `Echo|Print*Fixer` - unify printing fixers (SpacePossum, keradus)
 * minor #2337 Normalize rule naming (keradus)
 * minor #2338 Drop hacks for unsupported HHVM (keradus)
 * minor #2339 Add some Fixer descriptions (SpacePossum, keradus)
@@ -3678,7 +5050,7 @@ Changelog for v1.12.3
 * bug #2209 LinefeedFixer - Fix in a safe way (SpacePossum)
 * bug #2228 NoEmptyLinesAfterPhpdocs, SingleBlankLineBeforeNamespace - Fix priority (SpacePossum)
 * bug #2230 FunctionDeclarationFixer - Fix T_USE case (SpacePossum)
-* bug #2232 Add a test for style of varaible decalration : var (daiglej)
+* bug #2232 Add a test for style of variable declaration : var (daiglej)
 * bug #2246 Fix itest requirements (keradus)
 * minor #2238 .gitattributes - specified line endings (keradus)
 * minor #2239 IntegrationCase - no longer internal (keradus)
@@ -3967,7 +5339,7 @@ Changelog for v1.10.1
 * bug #1444 OrderedUseFixer - fix next case (keradus)
 * bug #1441 BracesFixer - fix next case (keradus)
 * bug #1422 AlignDoubleArrowFixer - fix handling of nested array (SpacePossum)
-* bug #1425 PhpdocInlineTagFixerTest - fix case when met inalid PHPDoc (keradus)
+* bug #1425 PhpdocInlineTagFixerTest - fix case when met invalid PHPDoc (keradus)
 * bug #1419 AlignDoubleArrowFixer, AlignEqualsFixer - fix priorities (keradus)
 * bug #1415 BlanklineAfterOpenTagFixer - Do not add a line break if there is one already. (SpacePossum)
 * bug #1410 PhpdocIndentFixer - Fix for open tag (SpacePossum)
@@ -4115,7 +5487,7 @@ Changelog for v1.5.1
 --------------------
 
 * bug #1054 VisibilityFixer - fix var with array value assigned (localheinz, keradus)
-* bug #1048 MultilineArrayTrailingCommaFixer, SingleArrayNoTrailingCommaFixer - using heredoc inside array not cousing to treat it as multiline array (keradus)
+* bug #1048 MultilineArrayTrailingCommaFixer, SingleArrayNoTrailingCommaFixer - using heredoc inside array not causing to treat it as multiline array (keradus)
 * bug #1043 PhpdocToCommentFixer - also check other control structures, besides foreach (ceeram)
 * bug #1045 OrderedUseFixer - fix namespace order for trailing digits (rusitschka)
 * bug #1035 PhpdocToCommentFixer - Add static as valid keyword for structural element (ceeram)
@@ -4149,7 +5521,7 @@ Changelog for v1.5
 * minor #957 Fix Fixers methods order (GrahamCampbell)
 * minor #944 Enable caching of composer downloads on Travis (stof)
 * minor #941 EncodingFixer - enhance tests (keradus)
-* minor #938 Psr0Fixer - remove unneded assignment (keradus)
+* minor #938 Psr0Fixer - remove unneeded assignment (keradus)
 * minor #936 FixerTest - test description consistency (keradus)
 * minor #933 NoEmptyLinesAfterPhpdocsFixer - remove unneeded code, clarify description (ceeram)
 * minor #934 StdinFileInfo::getFilename - Replace phpdoc with normal comment and add back empty line before return (ceeram)
@@ -4192,7 +5564,7 @@ Changelog for v1.4
 * bug #945 Skip files containing __halt_compiler() on PHP 5.3 (stof)
 * bug #946 BracesFixer - fix typo in exception name (keradus)
 * bug #940 Tokens::setCode - apply missing transformation (keradus)
-* bug #908 BracesFixer - fix invalide inserting brace for control structure without brace and lambda inside of it (keradus)
+* bug #908 BracesFixer - fix invalid inserting brace for control structure without brace and lambda inside of it (keradus)
 * bug #903 NoEmptyLinesAfterPhpdocsFixer - fix bug with Windows style lines (GrahamCampbell)
 * bug #895 [PSR-2] Preserve blank line after control structure opening brace (marcaube)
 * bug #892 Fixed the double arrow multiline whitespace fixer (GrahamCampbell)
@@ -4256,7 +5628,7 @@ Changelog for v1.2
 * minor #779 Fixed a docblock type (GrahamCampbell)
 * minor #765 Typehinting in FileCacheManager, remove unused variable in Tokens (keradus)
 * minor #764 SelfUpdateCommand - get local version only if remote version was successfully obtained (keradus)
-* minor #761 aling => (keradus)
+* minor #761 align => (keradus)
 * minor #757 Some minor code simplify and extra test (keradus)
 * minor #713 Download php-cs-fixer.phar without sudo (michaelsauter)
 * minor #742 Various Minor Improvements (GrahamCampbell)

@@ -1,5 +1,6 @@
 <?php
 use src\Utils\View\View;
+use src\Utils\Uri\SimpleRouter;
 ?>
 <script>
     $(function () {
@@ -214,8 +215,69 @@ use src\Utils\View\View;
         }
     }
 
+    function nearbycache()
+    {
+        var latNS = document.forms['editcache_form'].latNS.value;
+        var lat_h = document.forms['editcache_form'].lat_h.value;
+        var lat_min = document.forms['editcache_form'].lat_min.value;
+        var lonEW = document.forms['editcache_form'].lonEW.value;
+        var lon_h = document.forms['editcache_form'].lon_h.value;
+        var lon_min = document.forms['editcache_form'].lon_min.value;
+        if (document.editcache_form.lat_h.value == "0" && document.editcache_form.lon_h.value == "0") {
+            alert("{{input_coord}}");
+        } else {
+            window.open('/search.php?searchto=searchbydistance&showresult=1&expert=0&output=HTML&sort=bydistance&f_userowner=0&f_userfound=0&f_inactive=0&distance=0.3&unit=km&latNS=' + latNS + '&lat_h=' + lat_h + '&lat_min=' + lat_min + '&lonEW=' + lonEW + '&lon_h=' + lon_h + '&lon_min=' + lon_min);
+        }
+        return false;
+    }
 
+    function nearbycachemapOC()
+    {
+        var lat_h = document.forms['editcache_form'].lat_h.value;
+        var latNS = document.forms['editcache_form'].latNS.value;
+        var lat_min = document.forms['editcache_form'].lat_min.value;
+        var lat;
+        lat = (lat_h * 1) + (lat_min / 60);
+        if (latNS == "S") lat = - lat;
+        var lon_h = document.forms['editcache_form'].lon_h.value;
+        var lonEW = document.forms['editcache_form'].lonEW.value;
+        var lon_min = document.forms['editcache_form'].lon_min.value;
+        var lon;
+        lon = (lon_h * 1) + (lon_min / 60);
+        if (lonEW == "W") lon = - lon;
+        if (document.editcache_form.lat_h.value == "0" && document.editcache_form.lon_h.value == "0") {
+            alert("{{input_coord}}");
+        } else {
+            window.open('<?= SimpleRouter::getLink(MainMapController::class, 'fullscreen'); ?>?circle&lat='+lat+'&lon='+lon); }
+        return false;
+    }
+
+    // data picker init
+    $(function() {
+        const lang = "{language4js}";
+        const regional = $.datepicker.regional[lang] || {};
+        const options = $.extend({}, regional, { dateFormat: "yy-mm-dd" });
+        $('#hiddenDatePicker, #activateDatePicker').datepicker(options);
+    });
+
+    function hiddenDatePickerChange(identifier){
+        var dateTimeStr = $('#' + identifier + 'DatePicker').val();
+        var dateArr = dateTimeStr.split("-");
+        $("#" + identifier + "_year").val(dateArr[0]);
+        $("#" + identifier + "_month").val(dateArr[1]);
+        $("#" + identifier + "_day").val(dateArr[2]);
+    }
+
+    function selectPublishLater(){
+        $("#publish_later").prop("checked", true);
+    }
 </script>
+
+<style>
+  #hiddenDatePicker, #activateDatePicker{
+    width: 75px;
+  }
+</style>
 
 <form action="editcache.php" method="post" enctype="application/x-www-form-urlencoded" name="editcache_form" dir="ltr">
     <input type="hidden" name="cacheid" value="{cacheid}"/>
@@ -259,6 +321,9 @@ use src\Utils\View\View;
                 </select>
             </td>
         </tr>
+        <tr><td>&nbsp;</td>
+            <td><div class="notice">{{read_info_about_cache_types}}</div>
+            </td></tr>
         <tr class="form-group-sm">
             <td class="content-title-noshade">{{cache_size}}:</td>
             <td class="content-title-noshade">
@@ -268,30 +333,83 @@ use src\Utils\View\View;
                 </select>{size_message}
             </td>
         </tr>
-        <tr><td class="buffer" colspan="2"></td></tr>
+        <tr><td colspan="2"><div class="buffer"></div></td></tr>
         <tr>
-            <td valign="top" class="content-title-noshade">{{coordinates}}:</td>
+            <td valign="top"><p class="content-title-noshade">{{coordinates}}:</p></td>
             <td class="content-title-noshade">
-                <fieldset style="border: 1px solid black; width: 65%; height: 32%; background-color: #FAFBDF;" class="form-group-sm">
-                    <legend>&nbsp; <strong>WGS-84</strong> &nbsp;</legend>&nbsp;&nbsp;&nbsp;
+                <fieldset style="border: 1px solid black; width: 90%; height: 32%; background-color: #FAFBDF;" class="form-group-sm">
+                    <legend>&nbsp; <strong>WGS-84</strong> &nbsp;</legend>
                     <select name="latNS" class="form-control input50" onChange="yes_change();">
                         <option value="N"{selLatN}>N</option>
                         <option value="S"{selLatS}>S</option>
                     </select>
-                    &nbsp;<input type="text" name="lat_h" maxlength="2" value="{lat_h}" class="form-control input40" onChange="yes_change();" />
-                    &deg;&nbsp;<input type="text" name="lat_min" maxlength="6" value="{lat_min}" class="form-control input70" onkeyup="this.value = this.value.replace(/,/g, '.');" onChange="yes_change();"  />&nbsp;'&nbsp;
+                    &nbsp;
+                  <input
+                      type="number"
+                      id="lat_h"
+                      name="lat_h"
+                      maxlength="2"
+                      class="form-control input45"
+                      onChange="yes_change();"
+                      placeholder="0"
+                      value="{lat_h}"
+                      min="0"
+                      max="90"
+                      required
+                  />&deg;&nbsp;
+                  <input
+                      type="text"
+                      id="lat_min"
+                      name="lat_min"
+                      maxlength="6"
+                      class="form-control input50"
+                      onkeyup="this.value = this.value.replace(/,/g, '.');"
+                      onChange="yes_change();"
+                      placeholder="00.000"
+                      value="{lat_min}"
+                      pattern="\d{1,2}.\d{1,3}"
+                      required
+                  />&nbsp;'&nbsp;
+                    <button class="btn btn-default btn-sm" onclick="nearbycachemapOC()">{{check_nearby_caches_map}}</button>
                     {lat_message}<br />
-                    &nbsp;&nbsp;&nbsp;
-                    <select name="lonEW" class="form-control input50" onChange="yes_change();" >
-                        <option value="E"{selLonE}>E</option>
-                        <option value="W"{selLonW}>W</option>
+                    <select name="lonEW" class="form-control input50" onChange="yes_change();">
+                        <option value="E" {selLonE}>E</option>
+                        <option value="W" {selLonW}>W</option>
                     </select>
-                    &nbsp;<input type="text" name="lon_h" maxlength="3" value="{lon_h}" class="form-control input40" onChange="yes_change();"  />
-                    &deg;&nbsp;<input type="text" name="lon_min" maxlength="6" value="{lon_min}" class="form-control input70" onkeyup="this.value = this.value.replace(/,/g, '.');" onChange="yes_change();"  />&nbsp;'&nbsp;
-                    {lon_message}
-                </fieldset>
+                    &nbsp;
+                  <input
+                      type="number"
+                      id="lon_h"
+                      name="lon_h"
+                      maxlength="3"
+                      class="form-control input45"
+                      onChange="yes_change();"
+                      placeholder="0"
+                      value="{lon_h}"
+                      min="0"
+                      max="180"
+                      required
+                  />&deg;&nbsp;
+                  <input
+                      type="text"
+                      id="lon_min"
+                      name="lon_min"
+                      maxlength="6"
+                      class="form-control input50"
+                      onkeyup="this.value = this.value.replace(/,/g, '.');"
+                      onChange="yes_change();"
+                      placeholder="00.000"
+                      value="{lon_min}"
+                      pattern="\d{1,2}.\d{1,3}"
+                      required
+                  />&nbsp;'&nbsp;
+                    <button class="btn btn-default btn-sm" onclick="nearbycache()">{{check_nearby_caches}}</button><br />
+                    {lon_message}</fieldset>
             </td>
         </tr>
+        <tr><td>&nbsp;</td>
+            <td><div class="notice">{{check_nearby_caches_info}}</div>
+            </td></tr>
         <tr><td colspan="2"><div class="buffer"></div></td></tr>
         <tr class="form-group-sm">
             <td><p class="content-title-noshade">{{country_label}}:</p></td>
@@ -344,7 +462,7 @@ use src\Utils\View\View;
         <tr>
             <td>&nbsp;</td>
             <td>
-              <div class="notice" style="width:500px;height:44px;">
+              <div class="notice" style="max-width:500px;height:44px;">
                 {{difficulty_problem}}
                 <a href="/Cache/difficultyForm" target="_BLANK">{{rating_system}}</a>.
               </div>
@@ -361,7 +479,7 @@ use src\Utils\View\View;
         </tr>
         <tr>
             <td>&nbsp;</td>
-            <td><div class="notice" style="width:500px;height:44px">{{time_distance_hint}}</div><div class="buffer"></div></td>
+            <td><div class="notice" style="height:44px">{{time_distance_hint}}</div><div class="buffer"></div></td>
         </tr>
         <tr class="form-group-sm">
             <td><p class="content-title-noshade">{{foreign_waypoint}} ({{optional}}):</p></td>
@@ -392,7 +510,7 @@ use src\Utils\View\View;
         </tr>
         <tr>
             <td>&nbsp;</td>
-            <td><div class="notice" style="width:500px;height:44px;">{{foreign_waypoint_info}}</div><div class="buffer"></div></td>
+            <td><div class="notice" style="max-width:500px;height:44px;">{{foreign_waypoint_info}}</div><div class="buffer"></div></td>
         </tr>
         <tr>
             <td colspan="2">
@@ -405,7 +523,7 @@ use src\Utils\View\View;
         </tr>
         <tr><td class="buffer" colspan="2"></td></tr>
         <tr>
-            <td colspan="2"><div class="notice" style="width:500px;min-height:24px;height:auto;white-space: nowrap;">{{attributes_desc_hint}}</div>
+            <td colspan="2"><div class="notice" style="max-width:500px;min-height:24px;height:auto;white-space: nowrap;">{{attributes_desc_hint}}</div>
             </td></tr>
         <tr>
             <td colspan="2">
@@ -435,7 +553,7 @@ use src\Utils\View\View;
             <td colspan="2">{cache_wp_list}</td>
         </tr>
         <tr>
-            <td colspan="2"><br /><div class="notice" style="width:500px;min-height:24px;height:auto;">{{waypoints_about_info}}</div></td>
+            <td colspan="2"><br /><div class="notice" style="max-width:500px;min-height:24px;height:auto;">{{waypoints_about_info}}</div></td>
         </tr>
         {waypoints_end}
 
@@ -488,7 +606,7 @@ use src\Utils\View\View;
                 </fieldset>
             </td>
         </tr>
-        <tr><td colspan="2"><div class="notice buffer" style="width:500px;">{{event_hidden_hint}}</div></td></tr>
+        <tr><td colspan="2"><div class="notice buffer" style="max-width:500px;">{{event_hidden_hint}}</div></td></tr>
         {activation_form}
         {logpw_start}
         <tr class="form-group-sm">
@@ -499,7 +617,7 @@ use src\Utils\View\View;
 
             </td>
         </tr>
-        <tr><td colspan="2"><div class="notice buffer" style="width:500px;">{{please_read}}</div></td></tr>
+        <tr><td colspan="2"><div class="notice buffer" style="max-width:500px;">{{please_read}}</div></td></tr>
         {logpw_end}
         <tr><td colspan="2"><div class="errormsg"><br />{{creating_cache}}<br /></div></td></tr>
 

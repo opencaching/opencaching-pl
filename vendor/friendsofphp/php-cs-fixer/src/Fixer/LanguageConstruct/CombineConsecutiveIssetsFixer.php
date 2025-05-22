@@ -23,9 +23,6 @@ use PhpCsFixer\Tokenizer\Tokens;
 
 final class CombineConsecutiveIssetsFixer extends AbstractFixer
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
@@ -37,24 +34,18 @@ final class CombineConsecutiveIssetsFixer extends AbstractFixer
     /**
      * {@inheritdoc}
      *
-     * Must run before MultilineWhitespaceBeforeSemicolonsFixer, NoSinglelineWhitespaceBeforeSemicolonsFixer, NoSpacesInsideParenthesisFixer, NoTrailingWhitespaceFixer, NoWhitespaceInBlankLineFixer.
+     * Must run before MultilineWhitespaceBeforeSemicolonsFixer, NoSinglelineWhitespaceBeforeSemicolonsFixer, NoSpacesInsideParenthesisFixer, NoTrailingWhitespaceFixer, NoWhitespaceInBlankLineFixer, SpacesInsideParenthesesFixer.
      */
     public function getPriority(): int
     {
-        return 3;
+        return 4;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
         return $tokens->isAllTokenKindsFound([T_ISSET, T_BOOLEAN_AND]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         $tokenCount = $tokens->count();
@@ -113,7 +104,7 @@ final class CombineConsecutiveIssetsFixer extends AbstractFixer
     }
 
     /**
-     * @param int[] $indices
+     * @param list<int> $indices
      */
     private function clearTokens(Tokens $tokens, array $indices): void
     {
@@ -125,7 +116,7 @@ final class CombineConsecutiveIssetsFixer extends AbstractFixer
     /**
      * @param int $index of T_ISSET
      *
-     * @return int[] indices of meaningful tokens belonging to the isset statement
+     * @return list<int> indices of meaningful tokens belonging to the isset statement
      */
     private function getIssetInfo(Tokens $tokens, int $index): array
     {
@@ -155,9 +146,9 @@ final class CombineConsecutiveIssetsFixer extends AbstractFixer
     }
 
     /**
-     * @param int[] $indices
+     * @param list<int> $indices
      *
-     * @return Token[]
+     * @return list<Token>
      */
     private function getTokenClones(Tokens $tokens, array $indices): array
     {

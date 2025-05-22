@@ -110,6 +110,7 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child {
     height: 25px;
     color: #E7E5DC;
     font-size: 12px;
+    line-height: 25px;
     font-weight: bold;
     padding-left: 8px;
     background-color: #1a82f7;

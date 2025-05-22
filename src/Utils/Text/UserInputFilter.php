@@ -43,6 +43,7 @@ class UserInputFilter
         $config->set('HTML.SafeObject', true);
         $config->set('HTML.SafeEmbed', true);
         $config->set('HTML.MaxImgLength', null);
+	    $config->set('HTML.AllowedComments', ['more']);
         $config->set('CSS.MaxImgLength', null);
         $config->set('CSS.Proprietary', true);
         $config->set('CSS.Trusted', true); // ???

@@ -12,7 +12,8 @@ to understand the implications.
 
 It thus makes it easier to work with static analysis tools like PHPStan or Psalm as it
 simplifies and reduces the possible return values from all the `preg_*` functions which
-are quite packed with edge cases.
+are quite packed with edge cases. As of v2.2.0 / v3.2.0 the library also comes with a
+[PHPStan extension](#phpstan-extension) for parsing regular expressions and giving you even better output types.
 
 This library is a thin wrapper around `preg_*` functions with [some limitations](#restrictions--limitations).
 If you are looking for a richer API to handle regular expressions have a look at
@@ -83,6 +84,23 @@ use Composer\Pcre\Preg;
 if (Preg::isMatch('{fo+}', $string, $matches)) // bool
 if (Preg::isMatchAll('{fo+}', $string, $matches)) // bool
 ```
+
+Finally the `Preg` class provides a few `*StrictGroups` method variants that ensure match groups
+are always present and thus non-nullable, making it easier to write type-safe code:
+
+```php
+use Composer\Pcre\Preg;
+
+// $matches is guaranteed to be an array of strings, if a subpattern does not match and produces a null it will throw
+if (Preg::matchStrictGroups('{fo+}', $string, $matches))
+if (Preg::matchAllStrictGroups('{fo+}', $string, $matches))
+```
+
+**Note:** This is generally safe to use as long as you do not have optional subpatterns (i.e. `(something)?`
+or `(something)*` or branches with a `|` that result in some groups not being matched at all).
+A subpattern that can match an empty string like `(.*)` is **not** optional, it will be present as an
+empty string in the matches. A non-matching subpattern, even if optional like `(?:foo)?` will anyway not be present in
+matches so it is also not a problem to use these with `*StrictGroups` methods.
 
 If you would prefer a slightly more verbose usage, replacing by-ref arguments by result objects, you can use the `Regex` class:
 
@@ -157,6 +175,13 @@ preg_match('/(a)(b)*(c)(d)*/', 'ac', $matches, $flags);
 |                             |   4 => null |
 | group 2 (any unmatched group preceding one that matched) is set to `''`. You cannot tell if it matched an empty string or did not match at all | group 2 is `null` when unmatched and a string if it matched, easy to check for |
 | group 4 (any optional group without a matching one following) is missing altogether. So you have to check with `isset()`, but really you want `isset($m[4]) && $m[4] !== ''` for safety unless you are very careful to check that a non-optional group follows it | group 4 is always set, and null in this case as there was no match, easy to check for with `$m[4] !== null` |
+
+PHPStan Extension
+-----------------
+
+To use the PHPStan extension if you do not use `phpstan/extension-installer` you can include `vendor/composer/pcre/extension.neon` in your PHPStan config.
+
+The extension provides much better type information for $matches as well as regex validation where possible.
 
 License
 -------

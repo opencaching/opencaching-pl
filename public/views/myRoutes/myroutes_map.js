@@ -1,5 +1,3 @@
-// Simple implementation of spherical Mercator projection based on Google Maps example
-// https://google-developers.appspot.com/maps/documentation/javascript/examples/map-coordinates
 
 var TILE_SIZE = 256;
 
@@ -18,22 +16,22 @@ function radiansToDegrees(rad) {
 }
 
 function MercatorProjection() {
-    this.pixelOrigin_ = new google.maps.Point(TILE_SIZE / 2, TILE_SIZE / 2);
+    this.pixelOrigin_ = { x: TILE_SIZE / 2, y: TILE_SIZE / 2 };
     this.pixelsPerLonDegree_ = TILE_SIZE / 360;
     this.pixelsPerLonRadian_ = TILE_SIZE / (2 * Math.PI);
 }
 
-MercatorProjection.prototype.fromLatLngToPoint = function(latLng, opt_point) {
+MercatorProjection.prototype.fromLatLngToPoint = function(latLng) {
     var me = this;
-    var point = opt_point || new google.maps.Point(0, 0);
+    var point = {};
     var origin = me.pixelOrigin_;
 
-    point.x = origin.x + latLng.lng() * me.pixelsPerLonDegree_;
+    point.x = origin.x + latLng.lng * me.pixelsPerLonDegree_;
 
     // NOTE(appleton): Truncating to 0.9999 effectively limits latitude to
     // 89.189.  This is about a third of a tile past the edge of the world
     // tile.
-    var siny = bound(Math.sin(degreesToRadians(latLng.lat())), -0.9999, 0.9999);
+    var siny = bound(Math.sin(degreesToRadians(latLng.lat)), -0.9999, 0.9999);
     point.y = origin.y + 0.5 * Math.log((1 + siny) / (1 - siny)) * -me.pixelsPerLonRadian_;
     return point;
 };
@@ -44,136 +42,98 @@ MercatorProjection.prototype.fromPointToLatLng = function(point) {
     var lng = (point.x - origin.x) / me.pixelsPerLonDegree_;
     var latRadians = (point.y - origin.y) / -me.pixelsPerLonRadian_;
     var lat = radiansToDegrees(2 * Math.atan(Math.exp(latRadians)) - Math.PI / 2);
-    return new google.maps.LatLng(lat, lng);
+    return { lat: lat, lng: lng };
 };
 
+function decodePath(encoded) {
+    var poly = [];
+    var index = 0, len = encoded.length;
+    var lat = 0, lng = 0;
 
-// Douglas-Pecker line simplification algorithm
-// Ported from JTS Topology Suite (Java class DouglasPeuckerLineSimplifier)
-// http://www.vividsolutions.com/jts/JTSHome.htm
-// http://www.vividsolutions.com/jts/javadoc/com/vividsolutions/jts/simplify/DouglasPeuckerLineSimplifier.html
+    while (index < len) {
+        var b, shift = 0, result = 0;
+        do {
+            b = encoded.charCodeAt(index++) - 63;
+            result |= (b & 0x1f) << shift;
+            shift += 5;
+        } while (b >= 0x20);
+        var dlat = ((result & 1) ? ~(result >> 1) : (result >> 1));
+        lat += dlat;
 
-function DouglasPeuckerLineSimplifier (inputLine) {
-    this.pts = inputLine;
-    this.seg = new jsts.geom.LineSegment();
+        shift = 0;
+        result = 0;
+        do {
+            b = encoded.charCodeAt(index++) - 63;
+            result |= (b & 0x1f) << shift;
+            shift += 5;
+        } while (b >= 0x20);
+        var dlng = ((result & 1) ? ~(result >> 1) : (result >> 1));
+        lng += dlng;
+
+        poly.push({ lat: lat / 1e5, lng: lng / 1e5 });
+    }
+    return poly;
 }
 
-DouglasPeuckerLineSimplifier.simplify = function(inputLine, distanceTol) {
-    var simp = new DouglasPeuckerLineSimplifier(inputLine);
-    return simp.simplify(distanceTol);
-};
+function computeOffset(from, distance, heading) {
+    var R = 6371e3; // Earth's radius in meters
+    var bearing = degreesToRadians(heading);
+    var lat1 = degreesToRadians(from.lat);
+    var lon1 = degreesToRadians(from.lng);
 
-DouglasPeuckerLineSimplifier.prototype.simplify = function(distanceTol) {
-    var i;
+    var lat2 = Math.asin(Math.sin(lat1) * Math.cos(distance / R) +
+        Math.cos(lat1) * Math.sin(distance / R) * Math.cos(bearing));
+    var lon2 = lon1 + Math.atan2(Math.sin(bearing) * Math.sin(distance / R) * Math.cos(lat1),
+        Math.cos(distance / R) - Math.sin(lat1) * Math.sin(lat2));
 
-    this.usePt = [];
-    for (i = 0; i < this.pts.length; i++) {
-        this.usePt.push(true);
-    }
-    this.distanceTolerance = distanceTol;
+    return { lat: radiansToDegrees(lat2), lng: radiansToDegrees(lon2) };
+}
 
-    this.simplifySection(0, this.pts.length - 1);
-
-    coordList = [];
-    for (i = 0; i < this.pts.length; i++) {
-        if (this.usePt[i]) {
-            coordList.push(this.pts[i]);
-        }
-    }
-
-    return coordList;
-};
-
-DouglasPeuckerLineSimplifier.prototype.simplifySection = function (i, j) {
-
-    if ((i+1) == j) {
-        return;
-    }
-
-    this.seg.p0 = this.pts[i];
-    this.seg.p1 = this.pts[j];
-
-    var maxDistance = -1.0;
-    var maxIndex = i;
-    for (var k = i + 1; k < j; k++) {
-        var distance = this.seg.distance(this.pts[k]);
-        if (distance > maxDistance) {
-            maxDistance = distance;
-            maxIndex = k;
-        }
-    }
-
-    if (maxDistance <= this.distanceTolerance) {
-        for(k = i + 1; k < j; k++) {
-            this.usePt[k] = false;
-        }
-    }
-    else {
-        this.simplifySection(i, maxIndex);
-        this.simplifySection(maxIndex, j);
-    }
-};
-
-
-var map = null;
+var leafletMap = null;
 
 function load(searchRadius, encodedPath) {
+    leafletMap = L.map('map').setView([0, 0], 13);
 
-    map = new google.maps.Map(document.getElementById("map"), {
-      mapTypeId: google.maps.MapTypeId.ROADMAP,
-      scaleControl: true,
-      gestureHandling: 'greedy', //disable ctrl+ zooming
-    });
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(leafletMap);
 
-    var decodedPath = google.maps.geometry.encoding.decodePath(encodedPath);
-
+    var decodedPath = decodePath(encodedPath);
     var mercProj = new MercatorProjection();
 
     // Calculate buffer size in Mercator projection for specified search radius
     var p1 = decodedPath[0];
-    var p2 = google.maps.geometry.spherical.computeOffset(p1, searchRadius * 1000, 0);
+    var p2 = computeOffset(p1, searchRadius * 1000, 0);
+
     var bufSize = mercProj.fromLatLngToPoint(p1).y - mercProj.fromLatLngToPoint(p2).y;
 
-    // Convert path coordinates to Mercator
-    var coords = [];
-    for (var i = 0; i < decodedPath.length; i++) {
-        var wc = mercProj.fromLatLngToPoint(decodedPath[i]);
-        coords.push(new jsts.geom.Coordinate(wc.x, wc.y));
-    }
-
-    // Simplify path before calculating the buffer, keep 5% (1/20) tolerance of the buffer size.
-    // This will make buffer calculation much faster.
-    var pathSimplified = DouglasPeuckerLineSimplifier.simplify(coords, bufSize / 20.0);
+    var geometryFactory = new jsts.geom.GeometryFactory();
+    var coords = decodedPath.map(point => {
+        var wc = mercProj.fromLatLngToPoint(point);
+        return new jsts.geom.Coordinate(wc.x, wc.y);
+    });
+    var lineString = geometryFactory.createLineString(coords);
 
     // Calculate buffer
-    var buffer = new jsts.geom.GeometryFactory().createLineString(pathSimplified).buffer(bufSize);
+    var buffer = lineString.buffer(bufSize);
 
     // Convert back from Mercator to lat/lon
-    var bufferLatLng = [];
-    var bounds = new google.maps.LatLngBounds();
-    var bufpoints = buffer.shell.points;
-    for (i = 0; i < bufpoints.length; i++) {
-        var bpLatLng = mercProj.fromPointToLatLng(bufpoints[i]);
-        bufferLatLng.push(bpLatLng);
-        bounds.extend(bpLatLng);
-    }
-
-    var route = new google.maps.Polyline({
-        path: decodedPath,
-        strokeColor: "#00C",
-        strokeOpacity: 0.5,
-        strokeWeight: 5,
-        map: map
+    var bufferLatLngs = buffer.shell.points.map(point => {
+        var latLng = mercProj.fromPointToLatLng({ x: point.x, y: point.y });
+        return [latLng.lat, latLng.lng];
     });
 
-    var routeBuffer = new google.maps.Polygon({
-        path: bufferLatLng,
-        fillColor: "#ccc",
-        fillOpacity: 0.5,
-        strokeWeight: 0,
-        map: map
-    });
+    var latLngs = decodedPath.map(point => [point.lat, point.lng]);
+    L.polyline(latLngs, { color: 'blue', weight: 5 }).addTo(leafletMap);
 
-    map.fitBounds(bounds);
+    L.polygon(bufferLatLngs, {
+        color: '#ccc',
+        fillColor: '#ccc',
+        fillOpacity: 0.5
+    }).addTo(leafletMap);
 
+    var bounds = L.latLngBounds(latLngs);
+    leafletMap.fitBounds(bounds);
 }
+

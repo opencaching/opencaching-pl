@@ -51,7 +51,7 @@ class VersionParser
      */
     public static function parseStability($version)
     {
-        $version = (string) preg_replace('{#.+$}', '', $version);
+        $version = (string) preg_replace('{#.+$}', '', (string) $version);
 
         if (strpos($version, 'dev-') === 0 || '-dev' === substr($version, -4)) {
             return 'dev';
@@ -82,10 +82,15 @@ class VersionParser
      * @param string $stability
      *
      * @return string
+     * @phpstan-return 'stable'|'RC'|'beta'|'alpha'|'dev'
      */
     public static function normalizeStability($stability)
     {
-        $stability = strtolower($stability);
+        $stability = strtolower((string) $stability);
+
+        if (!in_array($stability, array('stable', 'rc', 'beta', 'alpha', 'dev'), true)) {
+            throw new \InvalidArgumentException('Invalid stability string "'.$stability.'", expected one of stable, RC, beta, alpha or dev');
+        }
 
         return $stability === 'rc' ? 'RC' : $stability;
     }
@@ -94,7 +99,7 @@ class VersionParser
      * Normalizes a version string to be able to perform comparisons on it.
      *
      * @param string $version
-     * @param string $fullVersion optional complete version string to give more context
+     * @param ?string $fullVersion optional complete version string to give more context
      *
      * @throws \UnexpectedValueException
      *
@@ -102,7 +107,7 @@ class VersionParser
      */
     public function normalize($version, $fullVersion = null)
     {
-        $version = trim($version);
+        $version = trim((string) $version);
         $origVersion = $version;
         if (null === $fullVersion) {
             $fullVersion = $version;
@@ -134,15 +139,15 @@ class VersionParser
         }
 
         // match classical versioning
-        if (preg_match('{^v?(\d{1,5})(\.\d++)?(\.\d++)?(\.\d++)?' . self::$modifierRegex . '$}i', $version, $matches)) {
+        if (preg_match('{^v?(\d{1,5}+)(\.\d++)?(\.\d++)?(\.\d++)?' . self::$modifierRegex . '$}i', $version, $matches)) {
             $version = $matches[1]
                 . (!empty($matches[2]) ? $matches[2] : '.0')
                 . (!empty($matches[3]) ? $matches[3] : '.0')
                 . (!empty($matches[4]) ? $matches[4] : '.0');
             $index = 5;
         // match date(time) based versioning
-        } elseif (preg_match('{^v?(\d{4}(?:[.:-]?\d{2}){1,6}(?:[.:-]?\d{1,3})?)' . self::$modifierRegex . '$}i', $version, $matches)) {
-            $version = preg_replace('{\D}', '.', $matches[1]);
+        } elseif (preg_match('{^v?(\d{4}(?:[.:-]?\d{2}){1,6}(?:[.:-]?\d{1,3}){0,2})' . self::$modifierRegex . '$}i', $version, $matches)) {
+            $version = (string) preg_replace('{\D}', '.', $matches[1]);
             $index = 2;
         }
 
@@ -195,7 +200,7 @@ class VersionParser
      */
     public function parseNumericAliasPrefix($branch)
     {
-        if (preg_match('{^(?P<version>(\d++\\.)*\d++)(?:\.x)?-dev$}i', $branch, $matches)) {
+        if (preg_match('{^(?P<version>(\d++\\.)*\d++)(?:\.x)?-dev$}i', (string) $branch, $matches)) {
             return $matches['version'] . '.';
         }
 
@@ -211,7 +216,7 @@ class VersionParser
      */
     public function normalizeBranch($name)
     {
-        $name = trim($name);
+        $name = trim((string) $name);
 
         if (preg_match('{^v?(\d++)(\.(?:\d++|[xX*]))?(\.(?:\d++|[xX*]))?(\.(?:\d++|[xX*]))?$}i', $name, $matches)) {
             $version = '';
@@ -231,6 +236,8 @@ class VersionParser
      * @param string $name
      *
      * @return string
+     *
+     * @deprecated No need to use this anymore in theory, Composer 2 does not normalize any branch names to 9999999-dev anymore
      */
     public function normalizeDefaultBranch($name)
     {
@@ -238,7 +245,7 @@ class VersionParser
             return '9999999-dev';
         }
 
-        return $name;
+        return (string) $name;
     }
 
     /**
@@ -250,24 +257,24 @@ class VersionParser
      */
     public function parseConstraints($constraints)
     {
-        $prettyConstraint = $constraints;
+        $prettyConstraint = (string) $constraints;
 
-        $orConstraints = preg_split('{\s*\|\|?\s*}', trim($constraints));
+        $orConstraints = preg_split('{\s*\|\|?\s*}', trim((string) $constraints));
         if (false === $orConstraints) {
             throw new \RuntimeException('Failed to preg_split string: '.$constraints);
         }
         $orGroups = array();
 
-        foreach ($orConstraints as $constraints) {
-            $andConstraints = preg_split('{(?<!^|as|[=>< ,]) *(?<!-)[, ](?!-) *(?!,|as|$)}', $constraints);
+        foreach ($orConstraints as $orConstraint) {
+            $andConstraints = preg_split('{(?<!^|as|[=>< ,]) *(?<!-)[, ](?!-) *(?!,|as|$)}', $orConstraint);
             if (false === $andConstraints) {
-                throw new \RuntimeException('Failed to preg_split string: '.$constraints);
+                throw new \RuntimeException('Failed to preg_split string: '.$orConstraint);
             }
             if (\count($andConstraints) > 1) {
                 $constraintObjects = array();
-                foreach ($andConstraints as $constraint) {
-                    foreach ($this->parseConstraint($constraint) as $parsedConstraint) {
-                        $constraintObjects[] = $parsedConstraint;
+                foreach ($andConstraints as $andConstraint) {
+                    foreach ($this->parseConstraint($andConstraint) as $parsedAndConstraint) {
+                        $constraintObjects[] = $parsedAndConstraint;
                     }
                 }
             } else {
@@ -283,11 +290,11 @@ class VersionParser
             $orGroups[] = $constraint;
         }
 
-        $constraint = MultiConstraint::create($orGroups, false);
+        $parsedConstraint = MultiConstraint::create($orGroups, false);
 
-        $constraint->setPrettyString($prettyConstraint);
+        $parsedConstraint->setPrettyString($prettyConstraint);
 
-        return $constraint;
+        return $parsedConstraint;
     }
 
     /**

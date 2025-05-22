@@ -1791,9 +1791,17 @@ class GeoCache extends GeoCacheCommons
     {
         $oldAltitude = $this->getAltitude();
 
-        if ($oldAltitude != $newAltitude) {
+        if ($oldAltitude != $newAltitude || $newAltitude === null) {
             $this->cacheAddtitions->updateAltitude($newAltitude);
         }
+    }
+
+    public function deleteAddition()
+    {
+        if (! $this->cacheAddtitions) {
+            $this->loadCacheAdditions();
+        }
+        $this->cacheAddtitions->deleteAddition();
     }
 
     public function updateStatus($newStatus)
@@ -1822,9 +1830,9 @@ class GeoCache extends GeoCacheCommons
      *
      * @return array
      */
-    public function getAttenders()
+    public function getAttenders(?int $logType = null)
     {
-        return EventAttenders::getEventAttenders($this);
+        return EventAttenders::getEventAttenders($this, $logType);
     }
 
     public function recalculateCacheScore()

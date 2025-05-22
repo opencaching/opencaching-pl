@@ -23,39 +23,45 @@ for ($i = 0; false != ($record = XDb::xFetchArray($rscp)); $i++) {
 $encoder = new PolylineEncoder();
 $polyline = $encoder->encode($points);
 ?>
-<script src="/js/libs/jsts/attache.array.min.js"></script>
-<script src="/js/libs/jsts/javascript.util.js"></script>
-<script src="/js/libs/jsts/jsts.0.13.2.js"></script>
+
 <script src="<?=Uri::getLinkWithModificationTime('/views/myRoutes/myroutes_map.js')?>"></script>
 <script>
 //<![CDATA[
 
     var currentinfowindow = null;
 
-    var icon3 = {url: "/images/google_maps/gmgreen.gif"};
+    var icon3 = {url: "/images/google_maps/gmgreen.png"};
 
-    function addMarker(lat, lon, icon, cacheid, cachename, wp, username, ratings) {
-        var marker = new google.maps.Marker({position: new google.maps.LatLng(lat, lon), icon: icon3, map: map});
-        var topratings = "";
-
-        if (ratings > 0) {
-            topratings = '<br/><img width="10" height="10" src="images/rating-star.png" alt="{{recommendation}}" />&nbsp;<b>{{search_recommendations}}: </b>';
-            topratings += '<span style="font-weight: bold; color: green;">' + ratings + '</span>';
-        }
-
-        var infowindow = new google.maps.InfoWindow({
-            content:
-                    '<table border="0"><tr><td>' +
-                    '<img src="/images/' + icon + '" border="0" alt=""/>&nbsp;<a href="viewcache.php?cacheid=' + cacheid + '" target="_blank">' + cachename + '</a>' +
-                    ' - <b>' + wp + '</b></td></tr><tr><td width="70%" valign="top">' + '<b>{{created_by}}:</b> ' + username + topratings + '</td></tr></td></tr></table>'
+    function addMarker(lat, lon, iconUrl, cacheid, cachename, wp, username, ratings) {
+        var icon = L.icon({
+            iconUrl: iconUrl,
+            iconSize: [16, 16],
+            iconAnchor: [8, 8],
+            popupAnchor: [0, -16]
         });
 
-        google.maps.event.addListener(marker, "click", function () {
-            if (currentinfowindow !== null) {
-                currentinfowindow.close();
-            }
-            infowindow.open(map, marker);
-            currentinfowindow = infowindow;
+        var marker = L.marker([lat, lon], { icon: icon });
+
+        var topratings = "";
+        if (ratings > 0) {
+            topratings = `
+                <br/>
+                <img width="10" height="10" src="images/rating-star.png" alt="{{recommendation}}" />
+                <b>{{search_recommendations}}: </b>
+                <span style="font-weight: bold; color: green;">${ratings}</span>
+            `;
+        }
+
+        var popupContent = '<table border="0"><tr><td>' +
+            '<img src="' + iconUrl + '" border="0" alt=""/>&nbsp;<a href="viewcache.php?cacheid=' + cacheid + '" target="_blank">' + cachename + '</a>' +
+            ' - <b>' + wp + '</b></td></tr><tr><td width="70%" valign="top">' + '<b>{{created_by}}:</b> ' + username + topratings + '</td></tr></td></tr></table>';
+
+        marker.bindPopup(popupContent);
+
+        marker.addTo(leafletMap);
+
+        marker.on('click', function () {
+            console.log(`Marker clicked: ${cachename} (${cacheid})`);
         });
     }
 

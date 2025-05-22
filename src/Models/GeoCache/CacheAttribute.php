@@ -1,7 +1,10 @@
 <?php
+
 namespace src\Models\GeoCache;
 
+use Exception;
 use src\Models\OcConfig\OcConfig;
+use src\Utils\I18n\I18n;
 
 /**
  * Simple class to store attributes of the geocaches.
@@ -17,166 +20,258 @@ class CacheAttribute
     // attribute name = attribute ID
     /** Access or parking fee */
     public const FEE = 2;
+
     /** Climbing gear requried */
     public const RAPELLING = 3;
+
     /** Boat required */
     public const BOAT = 4;
+
     /** Diving equipment required */
     public const DIVING = 5;
+
     /** Suitable for children */
     public const CHILDREN = 6;
+
     /** Long walk or hike */
     public const HIKING = 9;
+
     /** Some climbing (no gear needed) */
     public const CLIMBING = 10;
+
     /** Swamp or marsh. May require wading */
     public const WADING = 11;
+
     /** Swimming required */
     public const SWIMMING = 12;
+
     /** Available 24/7 */
     public const AVAILABLE247 = 13;
+
     /** Recommended at night */
     public const NIGHT = 14;
+
     /** Available during winter */
     public const WINTER = 15;
+
     /** Poisonous plants */
     public const POISON = 17;
+
     /** Dangerous animals */
     public const ANIMALS = 18;
+
     /** Ticks */
     public const TICKS = 19;
+
     /** Abandoned mines */
     public const MINE = 20;
+
     /** Cliffs / falling rocks hazard */
     public const CLIFF = 21;
+
     /** Hunting grounds */
     public const HUNTING = 22;
+
     /** Dangerous area */
     public const DANGER = 23;
+
     /** Wheelchair accessible */
     public const WHEELCHAIR = 24;
+
     /** Parking area nearby */
     public const PARKING = 25;
+
     /** Public transportation */
     public const TRANSPORT = 26;
+
     /** Drinking water nearby */
     public const WATER = 27;
+
     /** Public restrooms nearby */
     public const RESTROOMS = 28;
+
     /** Public phone nerby */
     public const PHONE = 29;
+
     /** Bycicles allowed */
     public const BIKE = 32;
+
     /** Thorns */
     public const THORNS = 39;
+
     /** Stealth required */
     public const STEALTH = 40;
+
     /** Flashlight required */
     public const FLASHLIGHT = 44;
+
     /** Truck / RV allowed */
     public const TRUCK = 46;
+
     /** Puzzle / Mystery */
     public const RIDDLE = 47;
+
     /** UV light required */
     public const UV = 48;
+
     /** Special tool / equipment required */
     public const TOOLS = 51;
+
     /** Night cache - can only be found at night */
     public const NIGHTONLY = 52;
+
     /** Park and grab */
     public const DRIVEIN = 53;
+
     /** Abandoned structure / ruin */
     public const RUIN = 54;
+
     /** Wireless beacon / Garmin Chirp™ */
     public const BEACON = 60;
+
     /** Tree climbing required */
     public const TREE_CLIMBING = 64;
+
     /** Only loggable at Opencaching */
     public const OCONLY = 106;
+
     /** Letterbox */
     public const LETTERBOX = 108;
+
     /** Active railway nearby */
     public const TRAIN = 110;
+
     /** First aid available */
     public const FIRSTAID = 123;
+
     /** Hilly area */
     public const STEEP = 127;
+
     /** Point of interest */
     public const POI = 130;
+
     /** Moving target */
     public const MOVING = 131;
+
     /** Webcam */
     public const WEBCAM = 132;
+
     /** Wihin enclosed rooms (caves, buildings etc.) */
     public const INDOOR = 133;
+
     /** Under water */
     public const UNDERWATER = 134;
+
     /** No GPS required */
     public const NOGPS = 135;
+
     /** Overnight stay necessary */
     public const OVERNIGHT = 137;
+
     /** Not available during high tide */
     public const TIDE = 142;
+
     /** Nature preserve / Breeding season */
     public const PRESERVE = 143;
+
     /** Compass required */
     public const COMPASS = 147;
+
     /** Cave equipment required */
     public const CAVE = 150;
+
+    /** Aircraft required */
+    public const AIRCRAFT = 153;
+
     /** Internet research required */
     public const WIKI = 154;
+
     /** Mathematical or logical problem */
     public const MATH = 156;
+
+    /** Other cache type */
+    public const OTHER_CACHE = 157;
+
+    /** Ask owner for start conditions */
+    public const ASK = 158;
+
     /** Quick and easy cache */
     public const QUICK = 201;
+
     /** GeoHotel for trackables */
     public const GEOHOTEL = 202;
+
     /** Bring your own pen */
     public const PEN = 203;
+
     /** Attached using magnet(s) */
     public const MAGNETIC = 204;
+
     /** Information in MP3 file */
     public const MP3 = 205;
+
     /** Container placed at an offset from given coordinates */
     public const OFFSET = 206;
+
     /** Dead Drop USB container */
     public const USB = 207;
+
     /** Benchmark - geodetic point */
     public const BENCHMARK = 208;
+
     /** Wherigo cartridge to play */
     public const WHERIGO = 209;
+
     /** Hidden in natural surroundings */
     public const NATURE = 210;
+
     /** Monument or historic site */
     public const MONUMENT = 211;
+
     /** Shovel required */
     public const SHOVEL = 212;
+
     /** Access only by walk */
     public const WALK = 213;
+
     /** Rated on Handicaching.com */
     public const HANDICACHING = 214;
+
     /** Contains a Munzee */
     public const MUNZEE = 215;
+
     /** Contains advertising */
     public const ADS = 216;
+
     /** Military training area, some access restrictions - check before visit */
     public const MILITARY = 217;
+
     /** Caution, area under video surveillance */
     public const MONITORING = 218;
+
     /** Suitable to hold trackables */
     public const TRACKABLES = 219;
+
     /** Officially designated historical monument */
     public const HISTORIC = 220;
+
     /** Dogs not allowed */
     public const NODOGS = 9001;
+
     /** Only available at specified time */
     public const NOTAVAILABLE247 = 9013;
+
     /** NOT recommended at night */
     public const DAY = 9014;
+
     /** NOT available during winter */
     public const NOTINWINTER = 9015;
+
     /** Available at all seasons */
     public const ALLSEASONS = 9062;
+
+    /** Log password */
+    public const PASSWORD = 999;
 
     // Configuration data for each attribute: translation key + icon name
     private const CONFIG = [
@@ -206,7 +301,7 @@ class CacheAttribute
         self::RESTROOMS => ['trKey' => 'at_restrooms', 'icon' => 'at_restrooms.png'],
         self::PHONE => ['trKey' => 'at_phone', 'icon' => 'at_phone.png'],
         self::BIKE => ['trKey' => 'at_bike', 'icon' => 'at_bike.png'],
-        self::THORNS => ['trKey' => 'at_thorns', 'icon' => 'at_thorns.png'],
+        self::THORNS => ['trKey' => 'at_thorn', 'icon' => 'at_thorns.png'],
         self::STEALTH => ['trKey' => 'at_stealth', 'icon' => 'at_stealth.png'],
         self::FLASHLIGHT => ['trKey' => 'at_flashlight', 'icon' => 'at_flashlight.png'],
         self::TRUCK => ['trKey' => 'at_truck', 'icon' => 'at_truck.png'],
@@ -234,8 +329,11 @@ class CacheAttribute
         self::PRESERVE => ['trKey' => 'at_preserve', 'icon' => 'at_preserve.png'],
         self::COMPASS => ['trKey' => 'at_compass', 'icon' => 'at_compass.png'],
         self::CAVE => ['trKey' => 'at_cave', 'icon' => 'at_cave.png'],
+        self::AIRCRAFT => ['trKey' => 'at_aircraft', 'icon' => 'additional/at_aircraft.png'],
         self::WIKI => ['trKey' => 'at_wiki', 'icon' => 'at_wiki.png'],
         self::MATH => ['trKey' => 'at_math', 'icon' => 'at_math.png'],
+        self::OTHER_CACHE => ['trKey' => 'at_othercache', 'icon' => 'additional/at_othercache.png'],
+        self::ASK => ['trKey' => 'at_ask', 'icon' => 'additional/at_ask.png'],
         self::QUICK => ['trKey' => 'at_quick', 'icon' => 'at_quick.png'],
         self::GEOHOTEL => ['trKey' => 'at_geohotel', 'icon' => 'at_geohotel.png'],
         self::PEN => ['trKey' => 'at_pen', 'icon' => 'at_pen.png'],
@@ -257,23 +355,29 @@ class CacheAttribute
         self::TRACKABLES => ['trKey' => 'at_trackables', 'icon' => 'at_trackables.png'],
         self::HISTORIC => ['trKey' => 'at_historic', 'icon' => 'at_historic.png'],
         self::NODOGS => ['trKey' => 'at_nodogs', 'icon' => 'at_nodogs.png'],
-        self::NOTAVAILABLE247 => ['trKey' => 'at_notavailable247', 'icon' => 'at_notavailable247.png'],
+        self::NOTAVAILABLE247 => ['trKey' => 'at_notAvailable247', 'icon' => 'at_notavailable247.png'],
         self::DAY => ['trKey' => 'at_day', 'icon' => 'at_day.png'],
         self::NOTINWINTER => ['trKey' => 'at_notinwinter', 'icon' => 'at_notinwinter.png'],
         self::ALLSEASONS => ['trKey' => 'at_allseasons', 'icon' => 'at_allseasons.png'],
+        self::PASSWORD => ['trKey' => 'LogPassword', 'icon' => 'at_password.png'],
     ];
+
+    /** Identifiers of attributes as strings for GPX usability */
+    private static $gpxAttrIds = [];
+
+    /** Names of attributes for GPX usability */
+    private static $gpxAttrNames = [];
 
     /**
      * Return translation key for given attribute
      *
-     * @param integer $attr - * param or ID of attribute
-     * @return string
+     * @param int $attr - * param or ID of attribute
      */
     public static function getTrKey(int $attr): string
     {
-        if (!isset(self::CONFIG[$attr])) {
+        if (! isset(self::CONFIG[$attr])) {
             // CONFIG is not defined for given attribute
-            throw new \Exception("Attribute is not defined: ".$attr);
+            throw new Exception("Attribute is not defined: {$attr}");
         }
 
         return self::CONFIG[$attr]['trKey'];
@@ -282,23 +386,58 @@ class CacheAttribute
     /**
      * Return icon name for given attribute
      *
-     * @param integer $attr - * param or ID of attribute
+     * @param int $attr - * param or ID of attribute
      * @param string subfolder - optional subfolder name in /images/cacheAttributes/
-     * @return string
      */
-    public static function getIcon(int $attr, string $subfolder=null): string
+    public static function getIcon(int $attr, string $subfolder = null): string
     {
-        if (!isset(self::CONFIG[$attr])) {
+        if (! isset(self::CONFIG[$attr])) {
             // CONFIG is not defined for given attribute
-            throw new \Exception("Attribute is not defined: ".$attr);
+            throw new Exception("Attribute is not defined: {$attr}");
         }
 
         // usually each node has it's own set of attributes icons
-        if (!$subfolder) {
+        if (! $subfolder) {
             $subfolder = OcConfig::getOcNode();
         }
 
-        return "/images/cacheAttributes/$subfolder/".self::CONFIG[$attr]['icon'];
+        return "/images/cacheAttributes/{$subfolder}/" . self::CONFIG[$attr]['icon'];
+    }
+
+    /**
+     * Creates (on first run only) and returns the list of identifiers of
+     * attributes as strings, used f.ex in GPX creation
+     * @return array list of attributes' identifiers as strings
+     */
+    public static function getGpxAttrIds(): array
+    {
+        if (sizeof(self::$gpxAttrIds) == 0) {
+            foreach (self::CONFIG as $id => $val) {
+                self::$gpxAttrIds[$id] = strval($id);
+            }
+        }
+
+        return self::$gpxAttrIds;
+    }
+
+    /**
+     * Creates (on first run only) and returns the list of English names of
+     * attributes, used f.ex in GPX creation
+     * @return array list of attributes' names, retrieved from en translations
+     */
+    public static function getGpxAttrNames(): array
+    {
+        if (sizeof(self::$gpxAttrNames) == 0) {
+            $i18n = I18n::instance();
+
+            foreach (self::CONFIG as $id => $val) {
+                self::$gpxAttrNames[$id] = $i18n->translatePhrase(
+                    $val['trKey'],
+                    'en'
+                );
+            }
+        }
+
+        return self::$gpxAttrNames;
     }
 }
-

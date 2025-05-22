@@ -12,32 +12,37 @@ use src\Utils\Debug\Debug;
  */
 class Languages
 {
-
     public static function isLanguageSupported($lang): bool
     {
         return 0 != XDb::xMultiVariableQueryValue(
-            "SELECT COUNT(*) FROM languages
-             WHERE short = :1 LIMIT 1", 0, $lang);
+            'SELECT COUNT(*) FROM languages
+             WHERE short = :1 LIMIT 1',
+            0,
+            $lang
+        );
     }
 
-    public static function getLanguages($onlyDefaultList=null)
+    public static function getLanguages($onlyDefaultList = null)
     {
         $currLang = I18n::getCurrentLang();
 
-        $query = "SELECT `$currLang` AS localizedName,
+        $query = "SELECT `{$currLang}` AS localizedName,
                           short AS langCode,
-                          `list_default_$currLang` AS defaultLang
+                          `list_default_{$currLang}` AS defaultLang
                   FROM languages ";
-        if ($onlyDefaultList){
-            $query .= "WHERE `list_default_$currLang` = 1 ";
-        }
-        $query .= "ORDER BY `$currLang` ASC";
 
-        $rs = XDb::xSql ($query);
+        if ($onlyDefaultList) {
+            $query .= "WHERE `list_default_{$currLang}` = 1 ";
+        }
+        $query .= "ORDER BY `{$currLang}` ASC";
+
+        $rs = XDb::xSql($query);
         $result = [];
-        while ($row = XDb::xFetchArray($rs)){
+
+        while ($row = XDb::xFetchArray($rs)) {
             $result[] = $row;
         }
+
         return $result;
     }
 
@@ -103,5 +108,48 @@ class Languages
                 setlocale(LC_TIME, 'en_EN');
                 break;
         }
+    }
+
+    public static function getCurrentLocale()
+    {
+        $currentLocale = '';
+
+        switch (I18n::getCurrentLang()) {
+            case 'pl':
+                $currentLocale = 'pl_PL.UTF-8';
+                break;
+            case 'nl':
+                $currentLocale = 'nl_NL.UTF-8';
+                break;
+            case 'fr':
+                $currentLocale = 'fr_FR.UTF-8';
+                break;
+            case 'de':
+                $currentLocale = 'de_DE.UTF-8';
+                break;
+            case 'sv':
+                $currentLocale = 'sv_SV.UTF-8';
+                break;
+            case 'es':
+                $currentLocale = 'es_ES.UTF-8';
+                break;
+            case 'cs':
+                $currentLocale = 'cs_CS.UTF-8';
+                break;
+            case 'ro':
+                $currentLocale = 'ro_RO.UTF-8';
+                break;
+            case 'hu':
+                $currentLocale = 'hu_HU.UTF-8';
+                break;
+            case 'en':
+                $currentLocale = 'en_EN';
+                break;
+            default:
+                $currentLocale = 'en_EN';
+                break;
+        }
+
+        return $currentLocale;
     }
 }

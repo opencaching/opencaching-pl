@@ -32,13 +32,10 @@ use src\Utils\I18n\I18n;
 
 <br>
 <div>
-<table class="Badge-div-table Tables">
-    <tr style="vertical-align: top;">
-    <td class="Badge-div-oneTable"><div id='idGCTLevel' align = "left"></div></td>
-    <td class="Badge-div-spaceBetweenTables"></td>
-    <td class="Badge-div-oneTable"><div id='idGCTUser' align = "left"> </div></td>
-    </tr>
-</table>
+<div class="Badge-div-table Tables c-flex space-between flex-stretch">
+    <div class="Badge-div-oneTable"><div id='idGCTLevel' align = "left"></div></div>
+    <div class="Badge-div-oneTable"><div id='idGCTUser' align = "left"> </div></div>
+</div>
 </div>
 
 <br>
