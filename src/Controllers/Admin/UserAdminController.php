@@ -54,6 +54,7 @@ class UserAdminController extends ViewBaseController
         $this->view->setVar('userNotes', AdminNoteSet::getNotesForUser($this->viewedUser, 10000));
         $this->view->addLocalCss(Uri::getLinkWithModificationTime('/views/admin/admin.css'));
         $this->view->loadJQuery();
+        $this->view->loadJQueryUI();
         $this->view->setTemplate('admin/user_admin');
         $this->view->buildView();
     }
@@ -73,7 +74,7 @@ class UserAdminController extends ViewBaseController
             if (
                 strpos($userName, '@')
                 && ! is_null($user = User::fromEmailFactory($userName))
-                ) {
+            ) {
                 $this->view->redirect(
                     SimpleRouter::getLink(
                         'Admin.UserAdmin',
@@ -98,6 +99,7 @@ class UserAdminController extends ViewBaseController
             // so display list of users
             if (mb_strlen($userName) >= 3) {
                 $usersTable = MultiUserQueries::searchUser($userName);
+
                 // If there is exact one result - redirect for user admin
                 if (sizeof($usersTable) == 1) {
                     $this->view->redirect(
@@ -108,6 +110,7 @@ class UserAdminController extends ViewBaseController
                         )
                     );
                 }
+
                 // If there is no results - show message
                 if (sizeof($usersTable) == 0) {
                     $this->errorMsg = tr('message_user_not_found');
