@@ -516,6 +516,12 @@ $translations = [
     'admin_user_rmUserConfirmed' => 'Weet je zeker dat je dit account wilt verwijderen?',
     'admin_user_confirmationTxt' => 'Weet je zeker dat je dit gebruikersaccount onherroepelijk wilt verwijderen?',
     'admin_user_confirmationEmail' => 'Zorg ervoor dat het gebruikersverzoek is verzonden vanaf het adres: %s',
+    'admin_user_rmResult_wrongRequest' => 'Wrong request',
+    'admin_user_rmResult_noUser' => 'No such user',
+    'admin_user_rmResult_alreadyRemoved' => 'Already removed',
+    'admin_user_rmResult_success' => 'Account and all its data removed',
+    'admin_user_rmDialog_title' => 'User removal status',
+    'admin_user_rmDialog_close' => 'Close',
 
     'titles' => 'Onderwerp',
     'content' => 'Bericht',
