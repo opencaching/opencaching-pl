@@ -516,6 +516,12 @@ $translations = [
     'admin_user_rmUserConfirmed' => 'crwdns27352:0crwdne27352:0',
     'admin_user_confirmationTxt' => 'crwdns27354:0crwdne27354:0',
     'admin_user_confirmationEmail' => 'crwdns27356:0%scrwdne27356:0',
+    'admin_user_rmResult_wrongRequest' => 'crwdns34048:0crwdne34048:0',
+    'admin_user_rmResult_noUser' => 'crwdns34050:0crwdne34050:0',
+    'admin_user_rmResult_alreadyRemoved' => 'crwdns34052:0crwdne34052:0',
+    'admin_user_rmResult_success' => 'crwdns34054:0crwdne34054:0',
+    'admin_user_rmDialog_title' => 'crwdns34056:0crwdne34056:0',
+    'admin_user_rmDialog_close' => 'crwdns34058:0crwdne34058:0',
 
     'titles' => 'crwdns6111:0crwdne6111:0',
     'content' => 'crwdns6112:0crwdne6112:0',

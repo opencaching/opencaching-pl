@@ -516,6 +516,12 @@ $translations = [
     'admin_user_rmUserConfirmed' => 'Potwierdzam usunięcie tego konta',
     'admin_user_confirmationTxt' => 'Czy jesteś pewien, że chcesz bezpowrotnie usunąć to konto',
     'admin_user_confirmationEmail' => 'Upewnij się, że prośba użytkownika nadeszła z adresu: %s',
+    'admin_user_rmResult_wrongRequest' => 'Wrong request',
+    'admin_user_rmResult_noUser' => 'No such user',
+    'admin_user_rmResult_alreadyRemoved' => 'Already removed',
+    'admin_user_rmResult_success' => 'Account and all its data removed',
+    'admin_user_rmDialog_title' => 'User removal status',
+    'admin_user_rmDialog_close' => 'Close',
 
     'titles' => 'Tytuł',
     'content' => 'Treść',
