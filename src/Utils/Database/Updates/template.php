@@ -4,8 +4,7 @@
 
 namespace src\Utils\Database\Updates;
 
-class {class_name} extends UpdateScript
-{
+return new class () extends UpdateScript {
     public function getProperties()
     {
         return [
@@ -37,5 +36,3 @@ class {class_name} extends UpdateScript
         // with set_time_limit(0), so don't create any endless loops!
     }
 };
-
-return new {class_name};
