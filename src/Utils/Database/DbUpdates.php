@@ -5,6 +5,7 @@ namespace src\Utils\Database;
 use Exception;
 use okapi\Facade;
 use src\Utils\Generators\Uuid;
+use Throwable;
 
 /**
  * Static container of DbUpdate objects, each representing one of the scripts
@@ -15,15 +16,16 @@ class DbUpdates
 {
     /**
      * @param array|null dict $uuid => DbUpdate object;
-     *                 ordered ascending by filename; read access only via get() / getAll()
+     *                 ordered ascending by filename; read access only via
+     *                 get() / getAll()
      */
     private static ?array $updates = null;
 
     /**
      * @return string
-     *                next unused version number (first part of filename) for a new
-     *                update script to be created; number 900+ is reserved for
-     *                updates that are run always and last
+     *                next unused version number (first part of filename) for a
+     *                new update script to be created; number 900+ is reserved
+     *                for updates that are run always and last
      * @throws Exception
      */
     private static function getNextVersionNumberString(): string
@@ -49,18 +51,35 @@ class DbUpdates
         $developerName = str_replace(['"', "'", '\\'], '', $developerName);
         $creationDate = date('Y-m-d');
         $uuid = Uuid::create();
-        $className = 'C' . str_replace('.', '', microtime(true));
 
         $updatesDir = self::getUpdatesDir();
-        $template = file_get_contents($updatesDir . '/template.php');
+        $templatePath = $updatesDir . '/template.php';
+        $template = file_get_contents($templatePath);
         $template = str_replace('{creation_date}', $creationDate, $template);
         $template = str_replace('{developer_name}', $developerName, $template);
         $template = str_replace('{update_uuid}', $uuid, $template);
-        $template = str_replace('{class_name}', $className, $template);
 
         $name = self::getNextVersionNumberString() . '_new';
         $path = $updatesDir . '/' . $name . '.php';
         file_put_contents($path, $template);
+        $perms = fileperms($templatePath);
+
+        if ($perms) {
+            $perms = $perms & 0xfff;
+
+            // Ensure the created file has the same permissions as template.
+            // In particular, when the template has 'rw' for group, and current
+            // code developer belongs to the same group as www server, it makes
+            // easier to modify the created file both by the code developer and
+            // www server.
+            try {
+                chmod($path, $perms);
+            } catch (Throwable $ignored) {
+                // Some execution environments (f.ex. Windows-based) may throw
+                // an exception on chmod, will ignore it because this operation
+                // is for developement convenience only
+            }
+        }
 
         if (self::$updates !== null) {
             // This also tests if template.php is healthy.
@@ -75,7 +94,7 @@ class DbUpdates
      * @return bool success or failure
      * @throws Exception
      */
-    public function delete($uuid): bool
+    public static function delete($uuid): bool
     {
         $update = self::get($uuid);
 
@@ -123,7 +142,8 @@ class DbUpdates
     }
 
     /**
-     * @returns array dictionary $uuid => DbUpdate object of all available updates
+     * @return array dictionary $uuid => DbUpdate object of all available
+     *               updates
      * @throws Exception
      */
     public static function getAll(): ?array
@@ -158,7 +178,8 @@ class DbUpdates
                 // copy & paste protection
                 if (isset(self::$updates[$uuid])) {
                     throw new Exception(
-                        'Duplicate UUID in ' . self::$updates[$uuid]->getFileName()
+                        'Duplicate UUID in '
+                        . self::$updates[$uuid]->getFileName()
                         . ' and ' . $name . '.php'
                     );
                 }
@@ -174,11 +195,14 @@ class DbUpdates
                 $scriptPath,
                 $matches
             )) {
-                throw new Exception("Invalid db-update filename: '" . $matches[1] . "'");
+                throw new Exception(
+                    "Invalid db-update filename: '" . $matches[1] . "'"
+                );
             }
         }
 
-        // glob() did already sort alphanumerically, but we want it case-insensitive:
+        // glob() did already sort alphanumerically, but we want it
+        // case-insensitive:
         self::sort();
     }
 
@@ -230,22 +254,28 @@ class DbUpdates
         $queries = self::getRoutineContents($fileName);
 
         if (substr($queries, 0, 10) != 'DELIMITER ') {
-            throw new Exception('DELIMITER statement is missing in ' . $fileName);
+            throw new Exception(
+                'DELIMITER statement is missing in ' . $fileName
+            );
         }
         OcDb::instance(OcDb::ADMIN_ACCESS)->simpleQueries($queries);
 
         Facade::cache_set(
             'run ' . $fileName,
-            ['fileTime' => self::routineFileModified($fileName), 'runTime' => time()],
+            [
+                'fileTime' => self::routineFileModified($fileName),
+                'runTime' => time(),
+            ],
             365 * 24 * 3600
-              // At least once a year, all routines are re-installed.
+            // At least once a year, all routines are re-installed.
         );
 
         return 'run ' . $fileName . "\n";
     }
 
     /**
-     * @return array dictionary: .sql file path or name => file time and last run time
+     * @return array dictionary: .sql file path or name => file time and last
+     *               run time
      */
     public static function getRoutineFileNames(): array
     {
