@@ -5,6 +5,7 @@ namespace src\Utils\Database;
 use Exception;
 use okapi\Facade;
 use src\Utils\Generators\Uuid;
+use Throwable;
 
 /**
  * Static container of DbUpdate objects, each representing one of the scripts
@@ -65,12 +66,19 @@ class DbUpdates
 
         if ($perms) {
             $perms = $perms & 0xfff;
+
             // Ensure the created file has the same permissions as template.
             // In particular, when the template has 'rw' for group, and current
             // code developer belongs to the same group as www server, it makes
             // easier to modify the created file both by the code developer and
             // www server.
-            chmod($path, $perms);
+            try {
+                chmod($path, $perms);
+            } catch (Throwable $ignored) {
+                // Some execution environments (f.ex. Windows-based) may throw
+                // an exception on chmod, will ignore it because this operation
+                // is for developement convenience only
+            }
         }
 
         if (self::$updates !== null) {
