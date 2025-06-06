@@ -1457,6 +1457,10 @@ tr.geoKretLog {
   min-height: 22px;
 }
 
+.pointer {
+    cursor: pointer;
+}
+
 /* Dark Mode Styles Start */
 #theme-switcher{
   display: none;

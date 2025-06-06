@@ -3087,6 +3087,9 @@ $translations = [
     'editCache_removePic' => 'Click to remove this picture',
     'editCache_removePicError' => 'Picture removing problem occured',
     'editCache_removePicSuccess' => 'Picture has been removed',
+    'editCache_removePicDialogTitle' => 'Picture removal',
+    'editCache_removePicDialogYes' => 'Yes',
+    'editCache_removePicDialogNo' => 'No',
 
     'editCache_spoilerChangeErr' => 'Problem with update spoiler attr. occured',
     'editCache_spoilerChangeSuccess' => 'Spoiler attr. has been changed',
@@ -3097,7 +3100,7 @@ $translations = [
     'editCache_editPicTitle' => 'Click to edit title of this picture',
     'editCache_editPicTitleSave' => 'Click to save title value',
     'editCache_editPicTitleErr' => 'Problem with update title of the picture occured',
-    'editCache_editPicTitleSuccess' => 'Hidden attr. has been changed',
+    'editCache_editPicTitleSuccess' => 'Title of the picture has been changed',
 
     'editCache_changePicsOrder' => 'Move to change pics order',
     'editCache_orderPicsSaveErr' => 'Problem with update pics order occured',
