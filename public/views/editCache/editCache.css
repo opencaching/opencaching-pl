@@ -1,5 +1,5 @@
 /*
- * There css are used in editCache/pictures.tpl 
+ * These css are used in editCache/pictures.tpl
  */
 .picSortHdlr {
   cursor: move;
@@ -14,8 +14,41 @@
   box-shadow: 0 0 3px red;
 }
 
+.picTable {
+    margin: 0% 2%;
+}
+
 .picTableEmpty {
   display: none;
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+.elementFadeOut {
+  opacity: 1;
+  animation: fadeOut 2s ease-out;
+}
+
+.picRowDeleted {
+    background-color: #7F7F7F;
+}
+
+.rpDialogYesButton, .rpDialogNoButton {
+    font-weight: bold !important;
+    font-size: 1.2em !important;
+}
+
+.rpDialogYesButton {
+    position: absolute !important;
+    left: 12px;
+    color: #007F00 !important;
+}
+
+.rpDialogNoButton {
+    color: #7F0000 !important;
 }
 
 textarea.customReactivation {

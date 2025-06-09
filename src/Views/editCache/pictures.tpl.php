@@ -1,25 +1,25 @@
 
-<button type="button" class="btn btn-primary btn-sm" id="addNewPic"><?=tr('add_new_pict')?></button>
+<button type="button" class="btn btn-primary btn-sm" id="addNewPic"><?= tr('add_new_pict'); ?></button>
 
-<table id="picTable" class="picTableEmpty">
+<table id="picTable" class="picTable picTableEmpty">
   <thead>
   <tr>
-    <th title="<?=tr('editCache_picsTableOrderThTitle')?>"><?=tr('editCache_picsTableOrderTh')?></th>
-    <th title="<?=tr('editCache_picsTableImgThTitle')?>"><?=tr('editCache_picsTableImgTh')?></th>
-    <th title="<?=tr('editCache_picsTableTitleThTitle')?>"><?=tr('editCache_picsTableTitleTh')?></th>
-    <th title="<?=tr('editCache_picsTableSpoilerThTitle')?>"><?=tr('editCache_picsTableSpoilerTh')?></th>
-    <th title="<?=tr('editCache_picsTableHiddenThTitle')?>"><?=tr('editCache_picsTableHiddenTh')?></th>
-    <th title="<?=tr('editCache_picsTableRemoveThTitle')?>"><?=tr('editCache_picsTableRemoveTh')?></th>
+    <th title="<?= tr('editCache_picsTableOrderThTitle'); ?>"><?= tr('editCache_picsTableOrderTh'); ?></th>
+    <th title="<?= tr('editCache_picsTableImgThTitle'); ?>"><?= tr('editCache_picsTableImgTh'); ?></th>
+    <th style="width: 50%" title="<?= tr('editCache_picsTableTitleThTitle'); ?>"><?= tr('editCache_picsTableTitleTh'); ?></th>
+    <th title="<?= tr('editCache_picsTableSpoilerThTitle'); ?>"><?= tr('editCache_picsTableSpoilerTh'); ?></th>
+    <th title="<?= tr('editCache_picsTableHiddenThTitle'); ?>"><?= tr('editCache_picsTableHiddenTh'); ?></th>
+    <th title="<?= tr('editCache_picsTableRemoveThTitle'); ?>"><?= tr('editCache_picsTableRemoveTh'); ?></th>
   </tr>
   </thead>
   <tbody id="picsTbody"><!-- data is loaded dynamically here --></tbody>
 </table>
 
 <script id="pictureRowTpl" type="text/x-handlebars-template">
-  <?php
+<?php
   // template for each row of pictures table
-  require(__DIR__.'/pictureRow.tpl.php');
-  ?>
+  require __DIR__ . '/pictureRow.tpl.php';
+?>
 </script>
 
 <script type="text/javascript">
@@ -28,9 +28,9 @@ $( function() {
 
   // load pictures attached to this geocache
   <?php foreach ($view->picList as $pic) { ?>
-    console.log(<?=$pic->getDataJson()?>)
-    loadPicturesToTable(<?=$pic->getDataJson()?>);
-  <?php } //foreach-pic ?>
+    console.log(<?= $pic->getDataJson(); ?>)
+    loadPicturesToTable(<?= $pic->getDataJson(); ?>);
+  <?php } //foreach-pic?>
 
   // init sortable list of pictures
   $("#picsTbody").sortable({
@@ -55,7 +55,7 @@ $( function() {
             newfiles: ['fileA','fileB','fileC'] // list of urls to new files saved on server (only on success)
           }
       */
-      ocUpload(<?=$view->picsUploadModelJson?>, function(uploadResult) {
+      ocUpload(<?= $view->picsUploadModelJson; ?>, function(uploadResult) {
         if(uploadResult.success){
           // upload successed
           console.log(uploadResult);
@@ -70,6 +70,20 @@ $( function() {
       });
     });
 });
+
+function fadeOutAction(element, action) {
+    if (
+        element != null
+        && element.length > 0
+        && typeof action === 'function'
+    ) {
+        element.on("animationend", action)
+        element.attr("onclick", "");
+        element.off("click");
+        element.removeClass("pointer");
+        element.addClass('elementFadeOut');
+    }
+}
 
 // Template global var
 var picRowContentTpl = null;
@@ -106,25 +120,25 @@ function updateOrderOfPics (item){
   iconContainer.empty(); // remove all current elements
 
   var jQueryIcon = $('<img src="/images/loader/spinning-circles.svg" />');
-  jQueryIcon.attr("title", "<?=tr('editCache_actionInProgress')?>");
+  jQueryIcon.attr("title", "<?= tr('editCache_actionInProgress'); ?>");
   jQueryIcon.addClass("icon16");
   iconContainer.prepend(jQueryIcon);
 
   $.ajax({
     type:  "POST",
     cache: false,
-    url: "/picture/updatePicsOrderAjax/<?=$view->picParentType?>/<?=$view->picParentId?>",
+    url: "/picture/updatePicsOrderAjax/<?= $view->picParentType; ?>/<?= $view->picParentId; ?>",
     data: { uuidsOrder: uuidsOrder },
     error: function (xhr) {
 
         console.debug("savePicTitleAction: " + xhr.responseText);
 
         jQueryIcon.attr("src", "/images/redcross.gif");
-        jQueryIcon.attr("title", "<?=tr('editCache_orderPicsSaveErr')?>");
+        jQueryIcon.attr("title", "<?= tr('editCache_orderPicsSaveErr'); ?>");
     },
     success: function (data, status) {
       jQueryIcon.attr("src", "/images/ok.gif");
-      jQueryIcon.attr("title", "<?=tr('editCache_orderPicsSaveSuccess')?>");
+      jQueryIcon.attr("title", "<?= tr('editCache_orderPicsSaveSuccess'); ?>");
     }
   });
 }
@@ -132,22 +146,23 @@ function updateOrderOfPics (item){
 // enable edit of the picture title
 function editPicTitleAction(icon, uuid){
 
-  // update icon
-  var jQueryIcon = $(icon);
-  jQueryIcon.attr("src", "/images/action/16x16-save.png");
-  jQueryIcon.attr("title", "<?=tr('editCache_editPicTitleSave')?>");
-  jQueryIcon.attr("onclick","savePicTitleAction(this, '"+uuid+"')");
+    // update icon
+    var jQueryIcon = $(icon);
+    jQueryIcon.attr("src", "/images/action/16x16-save.png");
+    jQueryIcon.attr("title", "<?= tr('editCache_editPicTitleSave'); ?>");
+    jQueryIcon.attr("onclick","savePicTitleAction(this, '"+uuid+"')");
+    jQueryIcon.attr("uuid", uuid);
 
-  // enable text input
-  var textInput = jQueryIcon.prev();
-  textInput.prop("disabled", false);
+    // enable text input
+    var textInput = jQueryIcon.prev();
+    textInput.prop("disabled", false);
 }
 
 function savePicTitleAction (icon, uuid) {
   var jQueryIcon = $(icon);
 
   jQueryIcon.attr("src", "/images/loader/spinning-circles.svg");
-  jQueryIcon.attr("title", "<?=tr('editCache_actionInProgress')?>");
+  jQueryIcon.attr("title", "<?= tr('editCache_actionInProgress'); ?>");
 
   var titleVal = jQueryIcon.prev().val();
 
@@ -161,40 +176,93 @@ function savePicTitleAction (icon, uuid) {
         console.debug("savePicTitleAction: " + xhr.responseText);
 
         jQueryIcon.attr("src", "/images/redcross.gif");
-        jQueryIcon.attr("title", "<?=tr('editCache_editPicTitleErr')?>");
+        jQueryIcon.attr("title", "<?= tr('editCache_editPicTitleErr'); ?>");
+        jQueryIcon.attr("onclick", "editPicTitleAction(this, '" + jQueryIcon.attr("uuid") + "')");
     },
     success: function (data, status) {
-      jQueryIcon.attr("src", "/images/ok.gif");
-      jQueryIcon.attr("title", "<?=tr('editCache_editPicTitleSuccess')?>");
+        jQueryIcon.attr("src", "/images/ok.gif");
+        jQueryIcon.attr("title", "<?= tr('editCache_editPicTitleSuccess'); ?>");
+        fadeOutAction(jQueryIcon, function(event) {
+            jQueryIcon.attr("src", "/images/actions/edit-16.png");
+            jQueryIcon.attr("title", "<?= tr('editCache_editPicTitle'); ?>");
+            jQueryIcon.attr("onclick", "editPicTitleAction(this, '" + jQueryIcon.attr("uuid") + "')");
+            jQueryIcon.addClass("pointer");
+        });
     }
   });
 }
 
 // removing picture from the cache
 function removePicAction(icon, uuid){
+    var jQueryIcon = $(icon);
 
-  var jQueryIcon = $(icon);
+    var rpDialog = $(
+        '<div style="font-size: 1.5em; text-align: center; margin: 5%">'
+        + 'Do you really want to remove this picture?'
+        + '</div>'
+    ).dialog({
+        position: { my: "center", at: "middle", of: $('#picTable') },
+        autoOpen: false,
+        modal: true,
+        hide: "explode",
+        show: "fade",
+        title: "<?= tr('editCache_removePicDialogTitle'); ?>",
+        buttons: {
+            YesButton: {
+                class: 'rpDialogYesButton',
+                text: '<?= tr('editCache_removePicDialogYes'); ?>',
+                'click': function() {
+                    $(this).dialog("close");
+                    jQueryIcon.attr("src", "/images/loader/spinning-circles.svg");
+                    jQueryIcon.attr("title", "<?= tr('editCache_actionInProgress'); ?>");
 
-  jQueryIcon.attr("src", "/images/loader/spinning-circles.svg");
-  jQueryIcon.attr("title", "<?=tr('editCache_actionInProgress')?>");
+                    $.ajax({
+                        type:  "get",
+                        cache: false,
+                        url:   "/picture/removePicAjax/"+uuid,
+                        error: function (xhr) {
+                            console.debug("removePicAction: " + xhr.responseText);
 
-  $.ajax({
-    type:  "get",
-    cache: false,
-    url:   "/picture/removePicAjax/"+uuid,
-    error: function (xhr) {
+                            jQueryIcon.attr("src", "/images/redcross.gif");
+                            jQueryIcon.attr("title", "<?= tr('editCache_removePicError'); ?>");
+                            // Deleting attempt can be repeated, so it is still enabled
+                        },
+                        success: function (data, status) {
+                            jQueryIcon.attr("src", "/images/ok.gif");
+                            jQueryIcon.attr("title", "<?= tr('editCache_removePicSuccess'); ?>");
+                            jQueryIcon.removeClass("pointer");
+                            jQueryIcon.attr("onclick", "");
+                            var row = jQueryIcon.closest('tr');
+                            if (row.length > 0) {
+                                row.children("input").attr("disabled","disabled");
+                                row.children("img").removeClass("pointer");
+                                row.children("img").attr("onclick","");
+                                row.addClass("picRowDeleted");
+                                fadeOutAction(row, function(event) {
+                                    row.addClass("hidden");
+                                    row.remove();
+                                    if ($("#picsTbody > tr").length == 0) {
+                                        $("#picTable").addClass("picTableEmpty");
+                                    }
+                                });
+                            }
+                        }
+                    });
+                }
+            },
+            NoButton: {
+                class: 'rpDialogNoButton',
+                text: '<?= tr('editCache_removePicDialogNo'); ?>',
+                autofocus: true,
+                'click': function() {
+                    $(this).dialog("close");
+                }
+            }
+        }
+    });
 
-        console.debug("removePicAction: " + xhr.responseText);
-
-        jQueryIcon.attr("src", "/images/redcross.gif");
-        jQueryIcon.attr("title", "<?=tr('editCache_removePicError')?>");
-    },
-    success: function (data, status) {
-
-      jQueryIcon.attr("src", "/images/ok.gif");
-      jQueryIcon.attr("title", "<?=tr('editCache_removePicSuccess')?>");
-    }
-  });
+    rpDialog.dialog('open');
+    $(".ui-dialog-titlebar-close").hide();
 }
 
 function picSpolerAction (chkbox, uuid) {
@@ -211,7 +279,7 @@ function picSpolerAction (chkbox, uuid) {
   var iconContainer = checkbox.next(); // find span after the checkbox
   iconContainer.empty(); // remove all current elements
   var jQueryIcon = $('<img src="/images/loader/spinning-circles.svg" />');
-  jQueryIcon.attr("title", "<?=tr('editCache_actionInProgress')?>");
+  jQueryIcon.attr("title", "<?= tr('editCache_actionInProgress'); ?>");
   jQueryIcon.addClass("icon16");
 
   iconContainer.prepend(jQueryIcon);
@@ -225,13 +293,13 @@ function picSpolerAction (chkbox, uuid) {
         console.debug("picSpolerAction: " + xhr.responseText);
 
         jQueryIcon.attr("src", "/images/redcross.gif");
-        jQueryIcon.attr("title", "<?=tr('editCache_spoilerChangeErr')?>");
+        jQueryIcon.attr("title", "<?= tr('editCache_spoilerChangeErr'); ?>");
     },
     success: function (data, status) {
       console.debug(data);
 
       jQueryIcon.attr("src", "/images/ok.gif");
-      jQueryIcon.attr("title", "<?=tr('editCache_spoilerChangeSuccess')?>");
+      jQueryIcon.attr("title", "<?= tr('editCache_spoilerChangeSuccess'); ?>");
     }
   });
 }
@@ -251,7 +319,7 @@ function picHideAction (chkbox, uuid) {
   iconContainer.empty(); // remove all current elements
 
   var jQueryIcon = $('<img src="/images/loader/spinning-circles.svg" />');
-  jQueryIcon.attr("title", "<?=tr('editCache_actionInProgress')?>");
+  jQueryIcon.attr("title", "<?= tr('editCache_actionInProgress'); ?>");
   jQueryIcon.addClass("icon16");
 
   iconContainer.prepend(jQueryIcon);
@@ -265,13 +333,13 @@ function picHideAction (chkbox, uuid) {
         console.debug("picHideAction: " + xhr.responseText);
 
         jQueryIcon.attr("src", "/images/redcross.gif");
-        jQueryIcon.attr("title", "<?=tr('editCache_hiddenChangeErr')?>");
+        jQueryIcon.attr("title", "<?= tr('editCache_hiddenChangeErr'); ?>");
     },
     success: function (data, status) {
       console.debug(data);
 
       jQueryIcon.attr("src", "/images/ok.gif");
-      jQueryIcon.attr("title", "<?=tr('editCache_hiddenChangeSuccess')?>");
+      jQueryIcon.attr("title", "<?= tr('editCache_hiddenChangeSuccess'); ?>");
     }
   });
 }
