@@ -3087,6 +3087,9 @@ $translations = [
     'editCache_removePic' => 'crwdns27238:0crwdne27238:0',
     'editCache_removePicError' => 'crwdns27240:0crwdne27240:0',
     'editCache_removePicSuccess' => 'crwdns27242:0crwdne27242:0',
+    'editCache_removePicDialogTitle' => 'crwdns34060:0crwdne34060:0',
+    'editCache_removePicDialogYes' => 'crwdns34062:0crwdne34062:0',
+    'editCache_removePicDialogNo' => 'crwdns34064:0crwdne34064:0',
 
     'editCache_spoilerChangeErr' => 'crwdns27244:0crwdne27244:0',
     'editCache_spoilerChangeSuccess' => 'crwdns27246:0crwdne27246:0',
@@ -3097,7 +3100,7 @@ $translations = [
     'editCache_editPicTitle' => 'crwdns27252:0crwdne27252:0',
     'editCache_editPicTitleSave' => 'crwdns27254:0crwdne27254:0',
     'editCache_editPicTitleErr' => 'crwdns27280:0crwdne27280:0',
-    'editCache_editPicTitleSuccess' => 'crwdns27258:0crwdne27258:0',
+    'editCache_editPicTitleSuccess' => 'crwdns34066:0crwdne34066:0',
 
     'editCache_changePicsOrder' => 'crwdns27260:0crwdne27260:0',
     'editCache_orderPicsSaveErr' => 'crwdns27262:0crwdne27262:0',

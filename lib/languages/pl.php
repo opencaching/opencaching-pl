@@ -3087,6 +3087,9 @@ $translations = [
     'editCache_removePic' => 'Kliknij aby usunąć obrazek',
     'editCache_removePicError' => 'Wystąpił problem z usunięciem tego obrazka',
     'editCache_removePicSuccess' => 'Obrazek został usunięty',
+    'editCache_removePicDialogTitle' => 'Picture removal',
+    'editCache_removePicDialogYes' => 'Yes',
+    'editCache_removePicDialogNo' => 'No',
 
     'editCache_spoilerChangeErr' => 'Wystąpił problem ze zmianą parametru: spoiler',
     'editCache_spoilerChangeSuccess' => 'Parametr _spoiler_ został zmieniony',
@@ -3097,7 +3100,7 @@ $translations = [
     'editCache_editPicTitle' => 'Kliknij by edytować tytuł obrazka',
     'editCache_editPicTitleSave' => 'Kliknij by zapisać tytuł obrazka',
     'editCache_editPicTitleErr' => 'Wystąpił problem ze zmianą tytułu obrazka',
-    'editCache_editPicTitleSuccess' => 'Atrybut _ukryty_ został zmieniony',
+    'editCache_editPicTitleSuccess' => 'Title of the picture has been changed',
 
     'editCache_changePicsOrder' => 'Przesuń by zmienić kolejność obrazków',
     'editCache_orderPicsSaveErr' => 'Wystąpił problem ze zmianą kolejności obrazków',

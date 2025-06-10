@@ -3087,6 +3087,9 @@ $translations = [
     'editCache_removePic' => 'Klik om deze afbeelding te verwijderen',
     'editCache_removePicError' => 'Fout bij het verwijderen van afbeelding',
     'editCache_removePicSuccess' => 'Afbeelding is verwijderd',
+    'editCache_removePicDialogTitle' => 'Picture removal',
+    'editCache_removePicDialogYes' => 'Yes',
+    'editCache_removePicDialogNo' => 'No',
 
     'editCache_spoilerChangeErr' => 'Probleem met update spoiler attr. opgetreden',
     'editCache_spoilerChangeSuccess' => 'Spoiler attr. is veranderd',
@@ -3097,7 +3100,7 @@ $translations = [
     'editCache_editPicTitle' => 'Klik om de titel van de foto te bewerken',
     'editCache_editPicTitleSave' => 'Klik om titel op te slaan',
     'editCache_editPicTitleErr' => 'Probleem met de titel van de afbeelding',
-    'editCache_editPicTitleSuccess' => 'Verborgen attr. is veranderd',
+    'editCache_editPicTitleSuccess' => 'Title of the picture has been changed',
 
     'editCache_changePicsOrder' => 'Verplaats om de volgorde wijzigen',
     'editCache_orderPicsSaveErr' => 'Probleem met de weergavevolgorde opgetreden',

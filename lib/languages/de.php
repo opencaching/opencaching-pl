@@ -3088,6 +3088,9 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'editCache_removePic' => 'Klicken, um dieses Bild zu entfernen',
     'editCache_removePicError' => 'Es ist ein Fehler beim Löschen des Bildes aufgetreten',
     'editCache_removePicSuccess' => 'Das Bild wurde entfernt',
+    'editCache_removePicDialogTitle' => 'Picture removal',
+    'editCache_removePicDialogYes' => 'Yes',
+    'editCache_removePicDialogNo' => 'No',
 
     'editCache_spoilerChangeErr' => 'Problem with update spoiler attr. occured',
     'editCache_spoilerChangeSuccess' => 'Spoiler attr. has been changed',
@@ -3098,7 +3101,7 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'editCache_editPicTitle' => 'Klicke hier, um den Titel dieses Bildes zu bearbeiten',
     'editCache_editPicTitleSave' => 'Klicke hier, um den Titelwert zu speichern',
     'editCache_editPicTitleErr' => 'Ein Problem ist bei der Titel-Aktualisierung des Bildes aufgetreten',
-    'editCache_editPicTitleSuccess' => 'Hidden attr. has been changed',
+    'editCache_editPicTitleSuccess' => 'Title of the picture has been changed',
 
     'editCache_changePicsOrder' => 'Move to change pics order',
     'editCache_orderPicsSaveErr' => 'Problem with update pics order occured',
