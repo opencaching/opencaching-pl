@@ -251,7 +251,7 @@ var CoordinatesUtil = {
                   lonParts.min.toFixed(3) + "'";
 
       case this.FORMAT.DECIMAL:
-        return latHemisfere + " " + lonParts.deg.toFixed(5) + "° " +
+        return latHemisfere + " " + latParts.deg.toFixed(5) + "° " +
                lonHemisfere + " " + lonParts.deg.toFixed(5) + "°";
 
       case this.FORMAT.DEG_MIN_SEC:
@@ -653,4 +653,3 @@ var OcLayerServices = {
     }
 
 };
-
