@@ -516,6 +516,12 @@ $translations = [
     'admin_user_rmUserConfirmed' => 'crwdns27352:0crwdne27352:0',
     'admin_user_confirmationTxt' => 'crwdns27354:0crwdne27354:0',
     'admin_user_confirmationEmail' => 'crwdns27356:0%scrwdne27356:0',
+    'admin_user_rmResult_wrongRequest' => 'crwdns34048:0crwdne34048:0',
+    'admin_user_rmResult_noUser' => 'crwdns34050:0crwdne34050:0',
+    'admin_user_rmResult_alreadyRemoved' => 'crwdns34052:0crwdne34052:0',
+    'admin_user_rmResult_success' => 'crwdns34054:0crwdne34054:0',
+    'admin_user_rmDialog_title' => 'crwdns34056:0crwdne34056:0',
+    'admin_user_rmDialog_close' => 'crwdns34058:0crwdne34058:0',
 
     'titles' => 'crwdns6111:0crwdne6111:0',
     'content' => 'crwdns6112:0crwdne6112:0',
@@ -3081,6 +3087,9 @@ $translations = [
     'editCache_removePic' => 'crwdns27238:0crwdne27238:0',
     'editCache_removePicError' => 'crwdns27240:0crwdne27240:0',
     'editCache_removePicSuccess' => 'crwdns27242:0crwdne27242:0',
+    'editCache_removePicDialogTitle' => 'crwdns34060:0crwdne34060:0',
+    'editCache_removePicDialogYes' => 'crwdns34062:0crwdne34062:0',
+    'editCache_removePicDialogNo' => 'crwdns34064:0crwdne34064:0',
 
     'editCache_spoilerChangeErr' => 'crwdns27244:0crwdne27244:0',
     'editCache_spoilerChangeSuccess' => 'crwdns27246:0crwdne27246:0',
@@ -3091,7 +3100,7 @@ $translations = [
     'editCache_editPicTitle' => 'crwdns27252:0crwdne27252:0',
     'editCache_editPicTitleSave' => 'crwdns27254:0crwdne27254:0',
     'editCache_editPicTitleErr' => 'crwdns27280:0crwdne27280:0',
-    'editCache_editPicTitleSuccess' => 'crwdns27258:0crwdne27258:0',
+    'editCache_editPicTitleSuccess' => 'crwdns34066:0crwdne34066:0',
 
     'editCache_changePicsOrder' => 'crwdns27260:0crwdne27260:0',
     'editCache_orderPicsSaveErr' => 'crwdns27262:0crwdne27262:0',

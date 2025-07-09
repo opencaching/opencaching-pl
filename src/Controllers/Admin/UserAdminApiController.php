@@ -14,7 +14,10 @@ class UserAdminApiController extends ApiBaseController
 
         if (! $this->isUserLogged() || ! $this->loggedUser->hasOcTeamRole()) {
             // this controller is accessible only for OCTeam
-            $this->ajaxErrorResponse('Not authorized for this operation', HttpCode::STATUS_UNAUTHORIZED);
+            $this->ajaxErrorResponse(
+                'Not authorized for this operation',
+                HttpCode::STATUS_UNAUTHORIZED
+            );
         }
     }
 
@@ -24,22 +27,31 @@ class UserAdminApiController extends ApiBaseController
     public function removeUserAccount(int $userId = null): void
     {
         if (! $userId) {
-            $this->ajaxErrorResponse('Wrong request', HttpCode::STATUS_BAD_REQUEST);
+            $this->ajaxErrorResponse(
+                tr('admin_user_rmResult_wrongRequest'),
+                HttpCode::STATUS_BAD_REQUEST
+            );
         }
 
         /** @var User $accountToRemove */
         $accountToRemove = User::fromUserIdFactory($userId);
 
         if (! $accountToRemove) {
-            $this->ajaxErrorResponse('No such user', HttpCode::STATUS_NOT_FOUND);
+            $this->ajaxErrorResponse(
+                tr('admin_user_rmResult_noUser'),
+                HttpCode::STATUS_NOT_FOUND
+            );
         }
 
         // check if account is already locked
         if ($accountToRemove->isAlreadyRemoved()) {
-            $this->ajaxErrorResponse('Already removed', HttpCode::STATUS_BAD_REQUEST);
+            $this->ajaxErrorResponse(
+                tr('admin_user_rmResult_alreadyRemoved'),
+                HttpCode::STATUS_BAD_REQUEST
+            );
         }
 
         $accountToRemove->removeAccount($this->loggedUser);
-        $this->ajaxSuccessResponse('Account and all its data removed');
+        $this->ajaxSuccessResponse(tr('admin_user_rmResult_success'));
     }
 }

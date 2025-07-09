@@ -516,6 +516,12 @@ $translations = [
     'admin_user_rmUserConfirmed' => 'I confirm I want to remove this account',
     'admin_user_confirmationTxt' => 'Are you sure you want to irrevocably remove this user account.',
     'admin_user_confirmationEmail' => 'Be sure user request was send from address: %s',
+    'admin_user_rmResult_wrongRequest' => 'Wrong request',
+    'admin_user_rmResult_noUser' => 'No such user',
+    'admin_user_rmResult_alreadyRemoved' => 'Already removed',
+    'admin_user_rmResult_success' => 'Account and all its data removed',
+    'admin_user_rmDialog_title' => 'User removal status',
+    'admin_user_rmDialog_close' => 'Close',
 
     'titles' => 'Subject',
     'content' => 'Message',
@@ -3081,6 +3087,9 @@ $translations = [
     'editCache_removePic' => 'Click to remove this picture',
     'editCache_removePicError' => 'Picture removing problem occured',
     'editCache_removePicSuccess' => 'Picture has been removed',
+    'editCache_removePicDialogTitle' => 'Picture removal',
+    'editCache_removePicDialogYes' => 'Yes',
+    'editCache_removePicDialogNo' => 'No',
 
     'editCache_spoilerChangeErr' => 'Problem with update spoiler attr. occured',
     'editCache_spoilerChangeSuccess' => 'Spoiler attr. has been changed',
@@ -3091,7 +3100,7 @@ $translations = [
     'editCache_editPicTitle' => 'Click to edit title of this picture',
     'editCache_editPicTitleSave' => 'Click to save title value',
     'editCache_editPicTitleErr' => 'Problem with update title of the picture occured',
-    'editCache_editPicTitleSuccess' => 'Hidden attr. has been changed',
+    'editCache_editPicTitleSuccess' => 'Title of the picture has been changed',
 
     'editCache_changePicsOrder' => 'Move to change pics order',
     'editCache_orderPicsSaveErr' => 'Problem with update pics order occured',
