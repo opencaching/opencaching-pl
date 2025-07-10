@@ -111,51 +111,18 @@ class Validator
      * @param string $code
      * @return string|boolean - optimized cache code, or false if invalid
      */
-     public static function tcWaypoint($code)
-     {
-        // try to fix it
-        $code = preg_replace('/\s/', '', $code);
-        $code = strtoupper($code);
-
-        // verify
-        if (preg_match('/^[TLC]C[0-9A-Z]{1,4}$/', $code)) {
-            return $code;
-        } else {
-            return false;
-        }
-     }
-
-    /**
-     * Verifies the syntax of a gpsgames.org cache code.
-     * (4-digit hex numbers)
-     *
-     * @param string $code
-     * @return string|boolean - optimized cache code, or false if invalid
-     */
-     public static function geWaypoint($code)
-     {
-        // try to fix it
-        $code = preg_replace('/\s/', '', $code);
-        $code = strtoupper($code);
-
-        // verify
-        if (preg_match('/^GE[0-9A-F]{4}$/', $code)) {
-            return $code;
-        } else {
-            return false;
-        }
-     }
-
-    /**
-     * Pro-forma validator for obsolete NC waypoints
-     * Must not return false, because we did not define an NC error message.
-     *
-     * @param $code
-     * @return string
-     */
-    public static function ncWaypoint($code)
+    public static function tcWaypoint($code)
     {
-        return strtoupper(trim($code));
+       // try to fix it
+       $code = preg_replace('/\s/', '', $code);
+       $code = strtoupper($code);
+
+       // verify
+       if (preg_match('/^[TLC]C[0-9A-Z]{1,4}$/', $code)) {
+           return $code;
+       } else {
+           return false;
+       }
     }
 
     /**
@@ -171,9 +138,6 @@ class Validator
         switch (strtoupper($wpType)) {
             case 'GC': return self::gcWaypoint($code);
             case 'TC': return self::tcWaypoint($code);
-            case 'GE': return self::geWaypoint($code);
-            case 'NC': return self::ncWaypoint($code);
-            case 'QC': return $code;  // obsolete
             default:   throw new Exception('Invalid waypoint code type: '.$code);
         }
     }

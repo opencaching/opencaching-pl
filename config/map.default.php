@@ -95,9 +95,6 @@ $map['startPageMapDimensions'] = [250, 260];
 $map['external']['Opencaching']['url'] = '/MainMap/fullscreen?lat=%1$f&lon=%2$f&openPopup';
 $map['external']['OSM']['url'] = 'https://www.openstreetmap.org/index.html?mlat=%1$f&mlon=%2$f&zoom=16&layers=M';
 
-$map['external']['OSMapa']['enabled'] = false;  // PL specific
-$map['external']['OSMapa']['url'] = 'http://osmapa.pl?zoom=16&lat=%1$f&lon=%2$f&z=14&o=TFFT&map=1';
-
 $map['external']['UMP']['enabled'] = false;     // PL specific
 $map['external']['UMP']['url'] = 'https://mapa.ump.waw.pl/?zoom=14&lat=%1$f&lon=%2$f&layers=B00000T&mlat=%1$f&mlon=%2$f';
 
