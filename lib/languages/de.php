@@ -251,7 +251,6 @@ $translations = [
     'foreign_waypoint_info' => 'Externe Wegpunkte sind Codes für diesen Cache auf anderen Geocaching-Websites.',
     'invalid_wp_gc' => 'Ungültiger GC-Wegpunkt',
     'invalid_wp_tc' => 'Ungültiger TC-Wegpunkt',
-    'invalid_wp_ge' => 'Ungültiger GE-Wegpunkt',
     'cache_attributes_label' => 'Cacheattribute',
     'attributes_edit_hint' => 'Die Attribute können später noch geändert werden.',
     'additional_attributes_hint' => 'Mit diesem Tool kannst du weitere Attribute zur Cachebeschreibung hinzufügen:',

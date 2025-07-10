@@ -251,7 +251,6 @@ $translations = [
     'foreign_waypoint_info' => 'Foreign waypoints are waypoint codes used for this cache on other geocaching websites.',
     'invalid_wp_gc' => 'Invalid GC waypoint',
     'invalid_wp_tc' => 'Invalid TC waypoint',
-    'invalid_wp_ge' => 'Invalid GE waypoint',
     'cache_attributes_label' => 'Atributos de caja',
     'attributes_edit_hint' => 'Los atributos se pueden cambiar durante la edición posterior.',
     'additional_attributes_hint' => 'Usted puede agregar atributos adicionales para el nombre del buzón de correo utilizando el formulario',
