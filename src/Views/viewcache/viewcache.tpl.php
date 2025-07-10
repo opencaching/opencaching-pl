@@ -997,8 +997,6 @@ $desc = $view->geoCacheDesc;
                 <div>
                     <img src="/images/action/16x16-search.png" class="icon16" alt="">
                         {{find_geocaches_on}}:
-                        <a target="_blank" href="http://geocaching.gpsgames.org/cgi-bin/ge.pl?basic=yes&amp;download=Google+Maps&amp;zoom=8&amp;lat_1={latitude}&amp;lon_1={longitude}" rel="noopener">gpsgames.org</a> |
-                        <a href="http://www.opencaching.cz/search.php?searchto=searchbydistance&amp;showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bydistance&amp;f_userowner=0&amp;f_userfound=0&amp;f_inactive=1&amp;country=&amp;cachetype=&amp;cache_attribs=&amp;cache_attribs_not=7&amp;latNS={latNS}&amp;lat_h={lat_h}&amp;lat_min={lat_min}&amp;lonEW={lonEW}&amp;lon_h={lon_h}&amp;lon_min={lon_min}&amp;distance=100&amp;unit=km" rel="noopener">oc.cz</a> |
                         <a href="http://www.opencaching.de/search.php?searchto=searchbydistance&amp;showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bydistance&amp;f_userowner=0&amp;f_userfound=0&amp;f_inactive=1&amp;country=&amp;cachetype=&amp;cache_attribs=&amp;cache_attribs_not=7&amp;latNS={latNS}&amp;lat_h={lat_h}&amp;lat_min={lat_min}&amp;lonEW={lonEW}&amp;lon_h={lon_h}&amp;lon_min={lon_min}&amp;distance=100&amp;unit=km" rel="noopener">oc.de</a>
                 </div>
             <?php } //if-searchAtOtherSites?>

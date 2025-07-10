@@ -114,8 +114,6 @@ tpl_set_var('diff_message', '');
 tpl_set_var('region_message', '');
 tpl_set_var('wp_gc_message', '');
 tpl_set_var('wp_tc_message', '');
-tpl_set_var('wp_nc_message', '');
-tpl_set_var('wp_ge_message', '');
 // configuration variables needed in translation strings
 tpl_set_var('limits_promixity', $config['oc']['limits']['proximity']);
 tpl_set_var('short_sitename', OcConfig::getSiteShortName());
@@ -289,18 +287,12 @@ tpl_set_var('activation_hours', $activation_hours);
 $log_pw = (isset($_POST['log_pw']) && $sel_type != 2) ? mb_substr($_POST['log_pw'], 0, 20) : '';
 tpl_set_var('log_pw', htmlspecialchars($log_pw, ENT_COMPAT));
 
-// gc- and nc-waypoints
+// gc- and tc-waypoints
 $wp_gc = $_POST['wp_gc'] ?? '';
 tpl_set_var('wp_gc', htmlspecialchars($wp_gc, ENT_COMPAT));
 
-$wp_ge = $_POST['wp_ge'] ?? '';
-tpl_set_var('wp_ge', htmlspecialchars($wp_ge, ENT_COMPAT));
-
 $wp_tc = $_POST['wp_tc'] ?? '';
 tpl_set_var('wp_tc', htmlspecialchars($wp_tc, ENT_COMPAT));
-
-$wp_nc = $_POST['wp_nc'] ?? '';
-tpl_set_var('wp_nc', htmlspecialchars($wp_nc, ENT_COMPAT));
 
 // difficulty
 $difficulty = $_POST['difficulty'] ?? 1;
@@ -697,7 +689,7 @@ if (isset($_POST['submitform'])) {
     // foreign waypoints
     $all_wp_ok = true;
 
-    foreach (['gc', 'nc', 'tc', 'ge'] as $wpType) {
+    foreach (['gc', 'tc'] as $wpType) {
         $wpVar = 'wp_' . $wpType;
 
         if (${$wpVar} != '') {
@@ -752,7 +744,7 @@ if (isset($_POST['submitform'])) {
                         `date_created` = NOW(), `type` = ?, `status` = ?, `country` = ?, `date_hidden` = ?, `date_activate` = ?,
                         `founds` = 0, `notfounds` = 0, `watcher` = 0, `notes` = 0, `last_found` = NULL, `size` = ?, `difficulty` = ?,
                         `terrain` = ?, `uuid` = ?, `logpw` = ?, `search_time` = ?, `way_length` = ?, `wp_gc` = ?,
-                        `wp_nc` = ?, `wp_ge` = ?, `wp_tc` = ?, `node` = ? ',
+                        `wp_tc` = ?, `node` = ? ',
             $loggedUser->getUserId(),
             $name,
             $longitude,
@@ -770,8 +762,6 @@ if (isset($_POST['submitform'])) {
             $search_time,
             $way_length,
             $wp_gc,
-            $wp_nc,
-            $wp_ge,
             $wp_tc,
             OcConfig::getSiteNodeId()
         );

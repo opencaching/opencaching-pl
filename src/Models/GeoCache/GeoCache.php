@@ -263,10 +263,7 @@ class GeoCache extends GeoCacheCommons
     {
         switch (mb_strtoupper(mb_substr($wp, 0, 2))) {
             case 'GC': return 'wp_gc';
-            case 'NC': return 'wp_nc';
             case 'TC': return 'wp_tc';
-            case 'GE': return 'wp_ge';
-            case 'QC': return 'wp_qc';  // obsolete
             default: return 'wp_oc';
         }
     }
@@ -394,10 +391,7 @@ class GeoCache extends GeoCacheCommons
         $this->geocacheWaypointId = $geocacheDbRow['wp_oc'];
         $this->otherWaypointIds = [
             'gc' => $geocacheDbRow['wp_gc'],
-            'nc' => $geocacheDbRow['wp_nc'],
             'tc' => $geocacheDbRow['wp_tc'],
-            'ge' => $geocacheDbRow['wp_ge'],
-            'qc' => $geocacheDbRow['wp_qc'],
         ];
         $this->datePlaced = new DateTime($geocacheDbRow['date_hidden']);
         $this->dateCreated = new DateTime($geocacheDbRow['date_created']);
@@ -1013,46 +1007,18 @@ class GeoCache extends GeoCacheCommons
         global $config;
 
         $result = [];
-
-        if (! empty($this->otherWaypointIds['ge']) && $config['otherSites_gpsgames_org'] == 1) {
-            $otherSite = new stdClass();
-            $otherSite->link = 'http://geocaching.gpsgames.org/cgi-bin/ge.pl?wp=' . $this->otherWaypointIds['ge'];
-            $otherSite->sitename = 'GPSgames.org';
-            $otherSite->wp = $this->otherWaypointIds['ge'];
-            $result[] = $otherSite;
-        }
-
         if (! empty($this->otherWaypointIds['tc']) && $config['otherSites_terracaching_com'] == 1) {
             $otherSite = new stdClass();
-            $otherSite->link = 'http://play.terracaching.com/Cache/' . $this->otherWaypointIds['tc'];
+            $otherSite->link = 'https://play.terracaching.com/Cache/' . $this->otherWaypointIds['tc'];
             $otherSite->sitename = 'Terracaching.com';
             $otherSite->wp = $this->otherWaypointIds['tc'];
             $result[] = $otherSite;
         }
-
-        if (! empty($this->otherWaypointIds['nc']) && $config['otherSites_navicache_com'] == 1) {
-            $otherSite = new stdClass();
-            $wpnc = hexdec(mb_substr($this->otherWaypointIds['nc'], 1));
-
-            $otherSite->link = 'http://www.navicache.com/cgi-bin/db/displaycache2.pl?CacheID=' . $wpnc;
-            $otherSite->sitename = 'Navicache.com';
-            $otherSite->wp = $wpnc;
-            $result[] = $otherSite;
-        }
-
         if (! empty($this->otherWaypointIds['gc']) && $config['otherSites_geocaching_com'] == 1) {
             $otherSite = new stdClass();
             $otherSite->link = 'http://coord.info/' . $this->otherWaypointIds['gc'];
             $otherSite->sitename = 'Geocaching.com';
             $otherSite->wp = $this->otherWaypointIds['gc'];
-            $result[] = $otherSite;
-        }
-
-        if (! empty($this->otherWaypointIds['qc']) && $config['otherSites_qualitycaching_com'] == 1) {
-            $otherSite = new stdClass();
-            $otherSite->link = 'http://www.qualitycaching.com/QCView.aspx?cid=' . $this->otherWaypointIds['qc'];
-            $otherSite->sitename = 'Qualitycaching.com';
-            $otherSite->wp = $this->otherWaypointIds['qc'];
             $result[] = $otherSite;
         }
 

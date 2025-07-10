@@ -180,7 +180,7 @@ $stmt = XDb::xSql(
             `cache_desc`.`desc` `desc`, `cache_desc`.`short_desc` `short_desc`, `cache_desc`.`hint` `hint`,
             `cache_desc`.`rr_comment`, `caches`.`logpw`, `caches`.`votes` `votes`, `caches`.`score` `score`,
             `caches`.`topratings` `topratings`, `caches`.`search_time`, `caches`.`way_length`,
-            `caches`.`wp_gc`, `caches`.`wp_nc`, `caches`.`wp_ge`, `caches`.`wp_tc`
+            `caches`.`wp_gc`, `caches`.`wp_tc`
     FROM `gpxcontent`, `caches`, `user`, `cache_desc`
     WHERE `gpxcontent`.`cache_id`=`caches`.`cache_id`
         AND `caches`.`cache_id`=`cache_desc`.`cache_id`
