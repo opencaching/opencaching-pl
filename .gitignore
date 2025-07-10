@@ -14,6 +14,7 @@ ocpl-dynamic-files
 .idea
 .project
 .settings
+.vscode
 
 # Ignore local FTP configuration
 .ftpaccess
