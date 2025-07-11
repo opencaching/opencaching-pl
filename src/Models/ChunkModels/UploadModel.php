@@ -64,7 +64,7 @@ class UploadModel {
       $obj->allowedTypesRegex = self::MIME_TEXT;
       $obj->setMaxFileSize(1);
       $obj->setMaxFileNumber(2);
-      $obj->submitUrl = '/test/uploadAjax';
+      $obj->submitUrl = '/testApi/uploadAjax';
       $obj->setDirs('/tmp/test/upload');
       return $obj;
   }

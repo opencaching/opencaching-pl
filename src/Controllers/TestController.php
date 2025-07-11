@@ -2,7 +2,7 @@
 
 namespace src\Controllers;
 
-use RuntimeException;
+use src\Controllers\Core\ViewBaseController;
 use src\Models\CacheSet\CacheSet;
 use src\Models\ChunkModels\DynamicMap\CacheMarkerModel;
 use src\Models\ChunkModels\DynamicMap\CacheSetMarkerModel;
@@ -26,7 +26,6 @@ use src\Models\Voting\ChoiceOption;
 use src\Models\Voting\Election;
 use src\Utils\Database\OcDb;
 use src\Utils\DateTime\OcDateTime;
-use src\Utils\FileSystem\FileUploadMgr;
 use src\Utils\Text\Formatter;
 use src\Utils\Text\UserInputFilter;
 use src\Utils\Uri\HttpCode;
@@ -34,7 +33,7 @@ use src\Utils\Uri\OcCookie;
 use src\Utils\Uri\SimpleRouter;
 use src\Utils\Uri\Uri;
 
-class TestController extends BaseController
+class TestController extends ViewBaseController
 {
     public function __construct()
     {
@@ -404,35 +403,6 @@ class TestController extends BaseController
     }
 
     /**
-     * This is test of server-side actions for file upload with UploadChunk
-     */
-    public function uploadAjax()
-    {
-        // only logged users can test
-        $this->checkUserLoggedAjax();
-
-        // use the same upload model
-        $uploadModel = UploadModel::TestTxtUploadFactory();
-
-        try {
-            // save uploaded files
-            $newFiles = FileUploadMgr::processFileUpload($uploadModel);
-        } catch (RuntimeException $e) {
-            // some error occured on upload processing
-            $this->ajaxErrorResponse($e->getMessage(), 500);
-        }
-
-        // FileUploadMgr returns array of new files saved in given directory on server
-        // any specific actions can be done in this moment - for example DB update
-
-        // add correct url to uploaded files before return to browser
-        $uploadModel->addUrlBaseToNewFilesArray($newFiles);
-
-        // return to browser the list of files saved on server
-        $this->ajaxJsonResponse($newFiles);
-    }
-
-    /**
      * This method test the cookie work
      */
     public function cookieTest()
@@ -558,6 +528,7 @@ class TestController extends BaseController
         do {
             $step++;
             $userId = rand(0, 10000);
+
             // check if this is the same again
             if (array_key_exists($userId, $users)) {
                 continue;

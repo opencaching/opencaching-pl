@@ -516,6 +516,12 @@ $translations = [
     'admin_user_rmUserConfirmed' => 'Potwierdzam usunięcie tego konta',
     'admin_user_confirmationTxt' => 'Czy jesteś pewien, że chcesz bezpowrotnie usunąć to konto',
     'admin_user_confirmationEmail' => 'Upewnij się, że prośba użytkownika nadeszła z adresu: %s',
+    'admin_user_rmResult_wrongRequest' => 'Nieprawidłowe żądanie',
+    'admin_user_rmResult_noUser' => 'Nie ma takiego użytkownika',
+    'admin_user_rmResult_alreadyRemoved' => 'Użytkownik już został usunięty',
+    'admin_user_rmResult_success' => 'Konto i wszystkie jego dane zostały usunięte',
+    'admin_user_rmDialog_title' => 'Status usuwania użytkownika',
+    'admin_user_rmDialog_close' => 'Zamknij',
 
     'titles' => 'Tytuł',
     'content' => 'Treść',
@@ -3081,6 +3087,9 @@ $translations = [
     'editCache_removePic' => 'Kliknij aby usunąć obrazek',
     'editCache_removePicError' => 'Wystąpił problem z usunięciem tego obrazka',
     'editCache_removePicSuccess' => 'Obrazek został usunięty',
+    'editCache_removePicDialogTitle' => 'Picture removal',
+    'editCache_removePicDialogYes' => 'Yes',
+    'editCache_removePicDialogNo' => 'No',
 
     'editCache_spoilerChangeErr' => 'Wystąpił problem ze zmianą parametru: spoiler',
     'editCache_spoilerChangeSuccess' => 'Parametr _spoiler_ został zmieniony',
@@ -3091,7 +3100,7 @@ $translations = [
     'editCache_editPicTitle' => 'Kliknij by edytować tytuł obrazka',
     'editCache_editPicTitleSave' => 'Kliknij by zapisać tytuł obrazka',
     'editCache_editPicTitleErr' => 'Wystąpił problem ze zmianą tytułu obrazka',
-    'editCache_editPicTitleSuccess' => 'Atrybut _ukryty_ został zmieniony',
+    'editCache_editPicTitleSuccess' => 'Title of the picture has been changed',
 
     'editCache_changePicsOrder' => 'Przesuń by zmienić kolejność obrazków',
     'editCache_orderPicsSaveErr' => 'Wystąpił problem ze zmianą kolejności obrazków',
