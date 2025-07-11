@@ -3286,4 +3286,6 @@ $translations = [
 
     'map_popup_next' => 'Next',
     'map_popup_previous' => 'Previous',
+    'mynbh_interactive' => 'Switch to Interactive version',
+    'mynbh_original' => 'Switch to original version',
 ];

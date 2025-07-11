@@ -1,4 +1,5 @@
 <?php
+use src\Controllers\MyNbhInteractiveController;
 use src\Controllers\MyNbhInteractiveApiController;
 use src\Models\Coordinates\Coordinates;
 use src\Models\GeoCache\CacheTitled;
@@ -24,7 +25,10 @@ foreach ($view->neighbourhoodsList as $nbh) {
 <?php
 } // end of foreach-neighbourhoodsList?>
     <a class="btn btn-md btn-success" href="<?= SimpleRouter::getLink($view->controller, 'config', $view->selectedNbh); ?>"><img src="/images/free_icons/cog.png" class="icon16" alt="<?= tr('config'); ?>">&nbsp;<?= tr('config'); ?></a>
-
+<?php if (MyNbhInteractiveController::VALIDATION_MODE) { ?>
+  <a class="btn btn-md btn-info" style="float: right" href="<?=SimpleRouter::getLink('MyNeighbourhoodController')?>"><?=tr('mynbh_original')?></a>
+<?php
+} ?>
     <div class="nbh-sort-list">
 <?php
 $order = [];

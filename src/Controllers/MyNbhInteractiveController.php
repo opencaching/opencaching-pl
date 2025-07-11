@@ -10,6 +10,7 @@ use src\Models\ChunkModels\PaginationModel;
 use src\Models\Coordinates\Coordinates;
 use src\Models\Neighbourhood\MyNbhSets;
 use src\Models\Neighbourhood\Neighbourhood;
+use src\Models\User\User;
 use src\Models\User\UserPreferences\NeighbourhoodPref;
 use src\Models\User\UserPreferences\UserPreferences;
 use src\Utils\Text\UserInputFilter;
@@ -56,16 +57,20 @@ class MyNbhInteractiveController extends ViewBaseController
         parent::__construct();
     }
 
+    public static function hasAccess(User $user): bool
+    {
+        return $user !== null
+            && (
+                ! self::VALIDATION_MODE
+                || $user->hasOcTeamRole()
+                || $user->hasAdvUserRole()
+                || $user->hasSysAdminRole()
+            );
+    }
+
     private function accessControl()
     {
-        if (
-            ! $this->isUserLogged()
-            || self::VALIDATION_MODE && ! (
-                $this->loggedUser->hasOcTeamRole()
-                || $this->loggedUser->hasAdvUserRole()
-                || $this->loggedUser->hasSysAdminRole()
-            )
-        ) {
+        if (! self::hasAccess($this->loggedUser)) {
             $this->view->redirect(
                 Uri::setOrReplaceParamValue('target', Uri::getCurrentUri(), '/')
             );
@@ -339,6 +344,7 @@ class MyNbhInteractiveController extends ViewBaseController
         $definedNbh = count(
             Neighbourhood::getAdditionalNeighbourhoodsList($this->loggedUser)
         );
+
         // Store MyNeighbourhood data
         if (isset($_POST['lon'], $_POST['lat'], $_POST['radius'])) {
             $coords = Coordinates::FromCoordsFactory(
@@ -405,6 +411,7 @@ class MyNbhInteractiveController extends ViewBaseController
         } else { // User not choose coords | radius
             $error = tr('myn_coords_error');
         }
+
         // Store user preferences
         if (
             $nbhSeq == 0
