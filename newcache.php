@@ -228,9 +228,30 @@ if (isset($_POST['submit']) && ! isset($_POST['version2'])) {
 }
 
 // hidden_since
-$hidden_day = $_POST['hidden_day'] ?? date('d');
-$hidden_month = $_POST['hidden_month'] ?? date('m');
-$hidden_year = $_POST['hidden_year'] ?? date('Y');
+$hidden_day = $_POST['hidden_day'] ?? null;
+$hidden_month = $_POST['hidden_month'] ?? null;
+$hidden_year = $_POST['hidden_year'] ?? null;
+
+// if not in POST, check session
+if (!$hidden_day || !$hidden_month || !$hidden_year) {
+    if (
+        isset($_SESSION['lastHiddenDate'], $_SESSION['lastHiddenDateSetTime']) &&
+        (time() - strtotime($_SESSION['lastHiddenDateSetTime']) < 3600)
+    ) {
+        $hidden_date = $_SESSION['lastHiddenDate'];
+        $hidden_day = $hidden_date['day'];
+        $hidden_month = $hidden_date['month'];
+        $hidden_year = $hidden_date['year'];
+    }
+}
+
+// if still not, set today's date
+if (!$hidden_day || !$hidden_month || !$hidden_year) {
+    $hidden_day = date('d');
+    $hidden_month = date('m');
+    $hidden_year = date('Y');
+}
+
 tpl_set_var('hidden_day', htmlspecialchars($hidden_day, ENT_COMPAT));
 tpl_set_var('hidden_month', htmlspecialchars($hidden_month, ENT_COMPAT));
 tpl_set_var('hidden_year', htmlspecialchars($hidden_year, ENT_COMPAT));
@@ -851,6 +872,14 @@ if (isset($_POST['submitform'])) {
         if ($needs_approvement) { // notify OC-Team that new cache has to be verified
             EmailSender::sendNotifyAboutNewCacheToOcTeam(__DIR__ . '/resources/email/oc_team_notify_new_cache.email.html', ApplicationContainer::GetAuthorizedUser(), $name, $cache_id, $adm3, $adm1);
         }
+
+        // save hidden_since date to session
+        $_SESSION['lastHiddenDate'] = [
+            'day' => $hidden_day,
+            'month' => $hidden_month,
+            'year' => $hidden_year
+        ];
+        $_SESSION['lastHiddenDateSetTime'] = (new DateTime('now'))->format('c');
 
         // redirection
         tpl_redirect('mycaches.php?status=' . urlencode($sel_status));
