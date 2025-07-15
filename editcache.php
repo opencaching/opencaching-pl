@@ -1124,9 +1124,15 @@ if ($cache_record = $dbc->dbResultFetch($s)) {
         tpl_set_var('cacheid', htmlspecialchars($cache_id, ENT_COMPAT, 'UTF-8'));
         tpl_set_var('name', htmlspecialchars($cache_name, ENT_COMPAT, 'UTF-8'));
 
-        tpl_set_var('date_day', htmlspecialchars($cache_hidden_day, ENT_COMPAT, 'UTF-8'));
-        tpl_set_var('date_month', htmlspecialchars($cache_hidden_month, ENT_COMPAT, 'UTF-8'));
-        tpl_set_var('date_year', htmlspecialchars($cache_hidden_year, ENT_COMPAT, 'UTF-8'));
+        if ($hidden_date_not_ok == true) {
+            tpl_set_var('hidden_since_message', $date_not_ok_message);
+        } else {
+            tpl_set_var('hidden_since_message', tr('newcacheDateFormat'));
+        }
+        
+        tpl_set_var('hidden_day', htmlspecialchars($cache_hidden_day, ENT_COMPAT, 'UTF-8'));
+        tpl_set_var('hidden_month', htmlspecialchars($cache_hidden_month, ENT_COMPAT, 'UTF-8'));
+        tpl_set_var('hidden_year', htmlspecialchars($cache_hidden_year, ENT_COMPAT, 'UTF-8'));
 
         tpl_set_var('selLatN', ($coords_latNS == 'N') ? ' selected="selected"' : '');
         tpl_set_var('selLatS', ($coords_latNS == 'S') ? ' selected="selected"' : '');
@@ -1140,7 +1146,6 @@ if ($cache_record = $dbc->dbResultFetch($s)) {
         tpl_set_var('name_message', ($name_not_ok == true) ? $name_not_ok_message : '');
         tpl_set_var('lon_message', ($lon_not_ok == true) ? $error_coords_not_ok : '');
         tpl_set_var('lat_message', ($lat_not_ok == true) ? $error_coords_not_ok : '');
-        tpl_set_var('date_message', ($hidden_date_not_ok == true) ? $date_not_ok_message : '');
         tpl_set_var('size_message', ($size_not_ok == true) ? $size_not_ok_message : '');
         tpl_set_var('limits_promixity', $config['oc']['limits']['proximity']);
         tpl_set_var('short_sitename', OcConfig::getSiteShortName());

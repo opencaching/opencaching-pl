@@ -257,7 +257,7 @@ use src\Utils\Uri\SimpleRouter;
         const lang = "{language4js}";
         const regional = $.datepicker.regional[lang] || {};
         const options = $.extend({}, regional, { dateFormat: "yy-mm-dd" });
-        $('#hiddenDatePicker, #activateDatePicker').datepicker(options);
+        $('#hiddenDatePicker').datepicker(options);
     });
 
     function hiddenDatePickerChange(identifier){
@@ -274,7 +274,7 @@ use src\Utils\Uri\SimpleRouter;
 </script>
 
 <style>
-  #hiddenDatePicker, #activateDatePicker{
+  #hiddenDatePicker{
     width: 75px;
   }
 </style>
@@ -599,10 +599,11 @@ use src\Utils\Uri\SimpleRouter;
             <td colspan="2">
                 <fieldset style="border: 1px solid black; width: 80%; height: 32%; background-color: #FFFFFF;" class="form-group-sm">
                     <legend>&nbsp; <strong>{{date_hidden_label}}</strong> &nbsp;</legend>
-                    <input class="form-control input30" type="text" name="hidden_day" maxlength="2" value="{date_day}" onChange="yes_change();" />-
-                    <input class="form-control input30" type="text" name="hidden_month" maxlength="2" value="{date_month}" onChange="yes_change();" />-
-                    <input class="form-control input50" type="text" name="hidden_year" maxlength="4" value="{date_year}" onChange="yes_change();" />&nbsp;
-                    {date_message}
+                    <input type="text" class="form-control" id="hiddenDatePicker" value="{hidden_year}-{hidden_month}-{hidden_day}" onchange="hiddenDatePickerChange('hidden'); yes_change();" />
+                    <input type="hidden" name="hidden_year"  id="hidden_year" value="{hidden_year}"/>
+                    <input type="hidden" name="hidden_month" id="hidden_month" value="{hidden_month}"/>
+                    <input type="hidden" name="hidden_day"   id="hidden_day" value="{hidden_day}"/>
+                    {hidden_since_message}
                 </fieldset>
             </td>
         </tr>
