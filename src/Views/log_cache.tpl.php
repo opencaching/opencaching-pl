@@ -8,29 +8,28 @@ $view->callChunk('tinyMCE', false);
 ?>
 <script>
     function subs_days(days_number) {
-        //alert('ok');
-        var d_day = document.getElementById('logday').value;
-        var d_mn = document.getElementById('logmonth').value - 1;
-        var d_yr = document.getElementById('logyear').value;
+        var dateStr = document.getElementById('logDatePicker').value;
+        var dateArr = dateStr.split('-');
+        if (dateArr.length !== 3) return;
+        var d_yr = parseInt(dateArr[0], 10);
+        var d_mn = parseInt(dateArr[1], 10) - 1;
+        var d_day = parseInt(dateArr[2], 10);
         var d = new Date(d_yr, d_mn, d_day - days_number, 0, 0, 0);
-
-
-        //alert(d);
-        if (isNaN(d) == false)
-        {
-
-            var d_now = +new Date;
-            if (d <= d_now)
-            {
-                document.getElementById('logday').value = d.getDate();
-                document.getElementById('logmonth').value = d.getMonth() + 1;
-                document.getElementById('logyear').value = d.getFullYear();
+        if (!isNaN(d.getTime())) {
+            var d_now = new Date();
+            if (d <= d_now) {
+                var mm = (d.getMonth() + 1).toString().padStart(2, '0');
+                var dd = d.getDate().toString().padStart(2, '0');
+                var yyyy = d.getFullYear();
+                var newDateStr = yyyy + '-' + mm + '-' + dd;
+                document.getElementById('logDatePicker').value = newDateStr;
+                if ($('#logDatePicker').data('datepicker')) {
+                    $('#logDatePicker').datepicker('setDate', newDateStr);
+                }
+                logDatePickerChange();
             }
-            ;
         }
-        ;
     }
-    ;
 
     function do_reset() {
         if (!confirm("{Do_reset_logform}"))
@@ -48,10 +47,8 @@ $view->callChunk('tinyMCE', false);
             GKBox.style.display = "none";
             return true;
         }
-        ;
 
     }
-    ;
 
     function onSubmitHandler()
     {
@@ -79,10 +76,7 @@ $view->callChunk('tinyMCE', false);
             if (rates[i].checked) {
                 rate_value = rates[i].value;
             }
-            ;
         }
-        ;
-        //alert(rate_value);
 
         if ((document.getElementById('logtype').value == 1) && ((rate_value == -10) || (rate_value == -15)))
         {
@@ -272,13 +266,15 @@ $founds = XDb::xMultiVariableQueryValue(
             </td>
             <td class="options">
                 <img src="/images/free_icons/date_previous.png" alt ="{{lc_Day_before}}" title="{{lc_Day_before}}" onclick="subs_days(1);"/>
-                <input class="form-control input30" type="text" id="logday" name="logday" maxlength="2" value="{logday}"/>.
-                <input class="form-control input30" type="text" id="logmonth" name="logmonth" maxlength="2" value="{logmonth}"/>.
-                <input class="form-control input50" type="text" id="logyear" name="logyear" maxlength="4" value="{logyear}"/>
+                <input type="text" class="form-control input100" id="logDatePicker" value="{logyear}-{logmonth}-{logday}" onchange="logDatePickerChange();" />
+                <input type="hidden" name="logyear"  id="logyear" value="{logyear}"/>
+                <input type="hidden" name="logmonth" id="logmonth" value="{logmonth}"/>
+                <input type="hidden" name="logday"   id="logday" value="{logday}"/>
                 <img src="/images/free_icons/date_next.png" alt ="{{lc_Day_after}}" title="{{lc_Day_after}}" onclick="subs_days(-1);"/>
                 &nbsp;&nbsp;<img src="/images/free_icons/clock.png" class="icon16" alt="">&nbsp;{{time}}:
-                <input class="form-control input30" type="text" name="loghour" maxlength="2" value="{loghour}"/> HH (0-23)
-                <input class="form-control input30" type="text" name="logmin" maxlength="2" value="{logmin}"/> MM (0-59)
+                <input type="text" class="form-control input70" id="logTimePicker" value="{loghour}:{logmin}" onchange="logTimePickerChange();" />
+                <input type="hidden" name="loghour" id="loghour" value="{loghour}"/>
+                <input type="hidden" name="logmin"  id="logmin" value="{logmin}"/>
                 <br>{date_message}
             </td>
         </tr>
@@ -356,10 +352,8 @@ $founds = XDb::xMultiVariableQueryValue(
                 if (score_rates[i].checked) {
                     score_txt = '<u>' + score_txt + '</u>';
                 }
-                ;
                 thisLabel.innerHTML = score_txt;
             }
-            ;
         }
     }
 
@@ -394,5 +388,47 @@ $founds = XDb::xMultiVariableQueryValue(
         }
         document.getElementById('no_score').innerHTML = "{score_note_innitial}";
         highlight_score_labels();
+    }
+
+    $(function() {
+        $.datepicker.setDefaults($.datepicker.regional['{language4js}']);
+        $('#logDatePicker').datepicker({
+            dateFormat: 'yy-mm-dd',
+            regional: '{language4js}',
+            maxDate: 0
+        });
+        $('#logTimePicker').timepicker({
+            hourText: '{{timePicker_hourText}}',
+            minuteText: '{{timePicker_minuteText}}',
+            timeSeparator: ':',
+            nowButtonText: '{{timePicker_nowButtonText}}',
+            showNowButton: true,
+            closeButtonText: '{{timePicker_closeButtonText}}',
+            showCloseButton: true,
+            deselectButtonText: '{{timePicker_deselectButtonText}}',
+            showDeselectButton: true,
+            showPeriodLabels: false
+        });
+    });
+
+    function logDatePickerChange(){
+        var dateTimeStr = $('#logDatePicker').val();
+        var dateArr = dateTimeStr.split("-");
+        if(dateArr.length === 3) {
+            $("#logyear").val(dateArr[0]);
+            $("#logmonth").val(dateArr[1]);
+            $("#logday").val(dateArr[2]);
+        }
+    }
+
+    function logTimePickerChange(){
+        var timeStr = $('#logTimePicker').val();
+        if (timeStr) {
+            var timeArr = timeStr.split(":");
+            if(timeArr.length === 2) {
+                $("#loghour").val(timeArr[0]);
+                $("#logmin").val(timeArr[1]);
+            }
+        }
     }
 </script>
