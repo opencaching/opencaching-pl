@@ -79,10 +79,6 @@ $founds = XDb::xMultiVariableQueryValue(
         }
         else
             vis.display = val;
-
-        //if( vis.display==''&&elem.offsetWidth!=undefined&&elem.offsetHeight!=undefined)
-        //  vis.display=(elem.offsetWidth!=0&&elem.offsetHeight!=0)?'block':'none';
-        //vis.display = (vis.display==''||vis.display=='block')?'none':'block';
     }
     function chkMoved()
     {
@@ -102,14 +98,8 @@ $founds = XDb::xMultiVariableQueryValue(
         iconarray['12'] = '16x16-octeam.png';
         var image_log = "/images/log/" + iconarray[mode];
         document.getElementById('actionicon').src = image_log;
-//         var el;
-//  el='coord_table';
-//  if (document.editlog.logtype.value == "4")
-//  {document.getElementById(el).style.display='block';
-//    } else {document.getElementById(el).style.display='none';}
     }
 
-    
     $(function() {
         $.datepicker.setDefaults($.datepicker.regional['{language4js}']);
         $('#logDatePicker').datepicker({

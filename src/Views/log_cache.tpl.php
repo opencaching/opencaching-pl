@@ -39,7 +39,6 @@ $view->callChunk('tinyMCE', false);
             var frm = document.getElementById("logform");
 
             frm.reset();
-            //window.location.reload();
             document.getElementById('logtype').onchange();
 
             handle_score_note();
@@ -83,10 +82,6 @@ $view->callChunk('tinyMCE', false);
             if (!confirm("{{empty_mark}}"))
                 return false;
         }
-
-
-        //document.getElementById(obj).disabled = true;
-        //document.logform.submitform.disabled = true;
         setTimeout('document.logform.submitform.disabled=true', 1);
 
         return true;
@@ -111,12 +106,10 @@ $founds = XDb::xMultiVariableQueryValue(
 
         if (document.logform.logtype.value == "1" || (<?php echo $founds; ?> > 0 && document.logform.logtype.value == "3") || document.logform.logtype.value == "7") {
             document.logform.r.disabled = false;
-            //document.logform.rating.disabled = false;
         }
         else
         {
             document.logform.r.disabled = false;
-            //document.logform.rating.disabled = true;
         }
         return false;
     }
@@ -144,10 +137,6 @@ $founds = XDb::xMultiVariableQueryValue(
         }
         else
             vis.display = val;
-
-        //if( vis.display==''&&elem.offsetWidth!=undefined&&elem.offsetHeight!=undefined)
-        //      vis.display=(elem.offsetWidth!=0&&elem.offsetHeight!=0)?'block':'none';
-        //vis.display = (vis.display==''||vis.display=='block')?'none':'block';
     }
     function chkMoved()
     {
@@ -212,7 +201,6 @@ $founds = XDb::xMultiVariableQueryValue(
         gk = "GKtxt" + kret;
         sel = "GeoKretSelector" + kret;
 
-        // if (document.logform.GeoKretSelector1.value != -1)
         if (document.getElementById(sel).value == -1)
         {
             document.getElementById(gk).style.display = 'none';
@@ -235,6 +223,102 @@ $founds = XDb::xMultiVariableQueryValue(
             GKBox.style.display = "block";
         }
     }
+
+    // Obsługa notatek do ocen
+    function highlight_score_labels() {
+        var score_rates = document.getElementsByName('r');
+        for (var i = 0; i < score_rates.length; i++)
+        {
+            if (score_rates[i].value != -15) //do not do for hidden default value
+            {
+                var thisLabel = document.getElementById('score_lbl_' + i);
+                var score_txt = thisLabel.innerHTML;
+                score_txt = score_txt.replace('<u>', '');
+                score_txt = score_txt.replace('</u>', '');
+                if (score_rates[i].checked) {
+                    score_txt = '<u>' + score_txt + '</u>';
+                }
+                thisLabel.innerHTML = score_txt;
+            }
+        }
+    }
+
+    function clear_no_score() {
+        document.getElementById('no_score').innerHTML = "{score_note_thanks}";
+        highlight_score_labels();
+
+    }
+
+    function encor_no_score() {
+        highlight_score_labels();
+        document.getElementById('no_score').innerHTML = "{score_note_encorage}";
+    }
+
+    function handle_score_note() {
+        var score_rates = document.getElementsByName('r');
+        for (var i = 0; i < score_rates.length; i++)
+        {
+            if (score_rates[i].checked)
+            {
+                if (score_rates[i].value == -10)
+                {
+                    encor_no_score();
+                    return;
+                } else {
+                    clear_no_score();
+                    return;
+                }
+            }
+
+        }
+        document.getElementById('no_score').innerHTML = "{score_note_innitial}";
+        highlight_score_labels();
+    }
+
+    function logDatePickerChange(){
+        var dateTimeStr = $('#logDatePicker').val();
+        var dateArr = dateTimeStr.split("-");
+        if(dateArr.length === 3) {
+            $("#logyear").val(dateArr[0]);
+            $("#logmonth").val(dateArr[1]);
+            $("#logday").val(dateArr[2]);
+        }
+    }
+
+    function logTimePickerChange(){
+        var timeStr = $('#logTimePicker').val();
+        if (timeStr) {
+            var timeArr = timeStr.split(":");
+            if(timeArr.length === 2) {
+                $("#loghour").val(timeArr[0]);
+                $("#logmin").val(timeArr[1]);
+            }
+        }
+    }
+
+    $(function() {
+        $.datepicker.setDefaults($.datepicker.regional['{language4js}']);
+        $('#logDatePicker').datepicker({
+            dateFormat: 'yy-mm-dd',
+            regional: '{language4js}',
+            maxDate: 0
+        });
+        
+        $('#logTimePicker').timepicker({
+            hourText: '{{timePicker_hourText}}',
+            minuteText: '{{timePicker_minuteText}}',
+            timeSeparator: ':',
+            nowButtonText: '{{timePicker_nowButtonText}}',
+            showNowButton: true,
+            closeButtonText: '{{timePicker_closeButtonText}}',
+            showCloseButton: true,
+            deselectButtonText: '{{timePicker_deselectButtonText}}',
+            showDeselectButton: true,
+            showPeriodLabels: false
+        });
+
+        handle_score_note();
+    });
 </script>
 
 <form action="log.php" method="post" enctype="application/x-www-form-urlencoded" name="logform" id="logform" dir="ltr" onsubmit="return onSubmitHandler()" >
@@ -337,98 +421,3 @@ $founds = XDb::xMultiVariableQueryValue(
         <input type="hidden" name="submitform" value="{{submit}}">
     </div>
 </form>
-<script>
-    handle_score_note();
-    function highlight_score_labels() {
-        var score_rates = document.getElementsByName('r');
-        for (var i = 0; i < score_rates.length; i++)
-        {
-            if (score_rates[i].value != -15) //do not do for hidden default value
-            {
-                var thisLabel = document.getElementById('score_lbl_' + i);
-                var score_txt = thisLabel.innerHTML;
-                score_txt = score_txt.replace('<u>', '');
-                score_txt = score_txt.replace('</u>', '');
-                if (score_rates[i].checked) {
-                    score_txt = '<u>' + score_txt + '</u>';
-                }
-                thisLabel.innerHTML = score_txt;
-            }
-        }
-    }
-
-    function clear_no_score() {
-        document.getElementById('no_score').innerHTML = "{score_note_thanks}";
-        highlight_score_labels();
-
-    }
-
-    function encor_no_score() {
-        highlight_score_labels();
-        document.getElementById('no_score').innerHTML = "{score_note_encorage}";
-    }
-
-    function handle_score_note() {
-        var score_rates = document.getElementsByName('r');
-        for (var i = 0; i < score_rates.length; i++)
-        {
-            if (score_rates[i].checked)
-            {
-                //alert(i);
-                if (score_rates[i].value == -10)
-                {
-                    encor_no_score();
-                    return;
-                } else {
-                    clear_no_score();
-                    return;
-                }
-            }
-
-        }
-        document.getElementById('no_score').innerHTML = "{score_note_innitial}";
-        highlight_score_labels();
-    }
-
-    $(function() {
-        $.datepicker.setDefaults($.datepicker.regional['{language4js}']);
-        $('#logDatePicker').datepicker({
-            dateFormat: 'yy-mm-dd',
-            regional: '{language4js}',
-            maxDate: 0
-        });
-        $('#logTimePicker').timepicker({
-            hourText: '{{timePicker_hourText}}',
-            minuteText: '{{timePicker_minuteText}}',
-            timeSeparator: ':',
-            nowButtonText: '{{timePicker_nowButtonText}}',
-            showNowButton: true,
-            closeButtonText: '{{timePicker_closeButtonText}}',
-            showCloseButton: true,
-            deselectButtonText: '{{timePicker_deselectButtonText}}',
-            showDeselectButton: true,
-            showPeriodLabels: false
-        });
-    });
-
-    function logDatePickerChange(){
-        var dateTimeStr = $('#logDatePicker').val();
-        var dateArr = dateTimeStr.split("-");
-        if(dateArr.length === 3) {
-            $("#logyear").val(dateArr[0]);
-            $("#logmonth").val(dateArr[1]);
-            $("#logday").val(dateArr[2]);
-        }
-    }
-
-    function logTimePickerChange(){
-        var timeStr = $('#logTimePicker').val();
-        if (timeStr) {
-            var timeArr = timeStr.split(":");
-            if(timeArr.length === 2) {
-                $("#loghour").val(timeArr[0]);
-                $("#logmin").val(timeArr[1]);
-            }
-        }
-    }
-</script>
