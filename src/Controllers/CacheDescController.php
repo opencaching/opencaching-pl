@@ -64,9 +64,17 @@ class CacheDescController extends ViewBaseController
         $this->view->loadJQuery();
 
         $this->view->setVar('languages', $this->getLanguagesObj($desc));
-
         $this->view->setVar('cache', $geocache);
         $this->view->setVar('desc', $desc);
+
+        // returnUrl is used to redirect to the page where the user was before editing the cache description
+        $returnUrl = $_GET['returnUrl'] ?? $_SERVER['HTTP_REFERER'] ?? null;
+        if ($returnUrl) {
+            $parsed = parse_url($returnUrl);
+            $returnUrl = ($parsed['path'] ?? '')
+                . (isset($parsed['query']) ? '?' . $parsed['query'] : '');
+        }
+        $this->view->setVar('returnUrl', $returnUrl);
 
         $this->view->setTemplate('cacheDescEdit/cacheDescEdit');
         $this->view->buildView();
@@ -156,6 +164,6 @@ class CacheDescController extends ViewBaseController
 
         $desc->saveToDb();
 
-        $this->view->redirect($geocache->getCacheUrl());
+        $this->view->redirect($_POST['returnUrl'] ?? $geocache->getCacheUrl());
     }
 }
