@@ -251,7 +251,6 @@ $translations = [
     'foreign_waypoint_info' => 'crwdns5851:0crwdne5851:0',
     'invalid_wp_gc' => 'crwdns25758:0crwdne25758:0',
     'invalid_wp_tc' => 'crwdns25760:0crwdne25760:0',
-    'invalid_wp_ge' => 'crwdns25762:0crwdne25762:0',
     'cache_attributes_label' => 'crwdns5852:0crwdne5852:0',
     'attributes_edit_hint' => 'crwdns5853:0crwdne5853:0',
     'additional_attributes_hint' => 'crwdns5854:0crwdne5854:0',
