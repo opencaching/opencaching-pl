@@ -22,6 +22,8 @@ $view->callChunk('tinyMCE');
 <form action="/CacheDesc/save/<?=$cache->getWaypointId()?>/<?=$desc->getLang()?>"
       method="post" enctype="application/x-www-form-urlencoded" id="cacheeditform">
 
+    <input type="hidden" name="returnUrl" value="<?=htmlspecialchars($view->returnUrl ?? '')?>" />
+
     <?=$view->callSubTpl("/cacheDescEdit/cacheDescEditForm")?>
 
     <div class="content2-container">
