@@ -251,7 +251,6 @@ $translations = [
     'foreign_waypoint_info' => 'Waypoint z innych baz danych dla tej skrzynki. Żadne dane nie są pobierane automatycznie.',
     'invalid_wp_gc' => 'Niepoprawny waypoint GC',
     'invalid_wp_tc' => 'Niepoprawny waypoint TC',
-    'invalid_wp_ge' => 'Niepoprawny waypoint GE',
     'cache_attributes_label' => 'Atrybuty skrzynki',
     'attributes_edit_hint' => 'Atrybuty można zmieniać także podczas późniejszej edycji.',
     'additional_attributes_hint' => 'Możesz dołożyć dodatkowe atrybuty do opisu skrzynki korzystając z formularza',
