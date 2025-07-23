@@ -251,7 +251,6 @@ $translations = [
     'foreign_waypoint_info' => 'Foreign waypoints are waypoint codes used for this cache on other geocaching websites.',
     'invalid_wp_gc' => 'Neplatný GC waypoint',
     'invalid_wp_tc' => 'Neplatný TC waypoint',
-    'invalid_wp_ge' => 'Neplatný GE waypoint',
     'cache_attributes_label' => 'Atributy políčko',
     'attributes_edit_hint' => 'Atributy lze měnit v průběhu následných úpravách.',
     'additional_attributes_hint' => 'Můžete přidat další atributy na název schránky pomocí formuláře',
