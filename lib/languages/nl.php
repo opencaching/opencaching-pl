@@ -251,7 +251,6 @@ $translations = [
     'foreign_waypoint_info' => 'Andere waypoints voor deze cache zijn geregistreerd op andere geocaching sites.',
     'invalid_wp_gc' => 'Ongeldige GC waypoint',
     'invalid_wp_tc' => 'Ongeldige TC waypoint',
-    'invalid_wp_ge' => 'Ongeldige GE waypoint',
     'cache_attributes_label' => 'Cache attributen',
     'attributes_edit_hint' => 'Attributen kunnen later ook verandert worden.',
     'additional_attributes_hint' => 'Je kunt meer attributen toevoegen aan de beschrijving van je cache met deze tool:',
