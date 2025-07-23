@@ -356,9 +356,6 @@ html.responsive-enabled .box-blue {
   width: calc(100% - 20px);
   max-width: 750px;
   box-sizing: border-box; }
-@media screen and (max-width: 768px) {
-  html.responsive-enabled .logformTable [src*='date_next.png'] {
-    margin-right: calc(100% - 186px); } }
 @media screen and (max-width: 970px) {
   html.responsive-enabled .notice {
     box-sizing: border-box; } }
