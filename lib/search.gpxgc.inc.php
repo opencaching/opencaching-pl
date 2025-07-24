@@ -446,7 +446,7 @@ while ($r = XDb::xFetchArray($stmt)) {
 
     $other_codes = [];
 
-    foreach (['gc', 'tc', 'nc', 'ge'] as $platform) {
+    foreach (['gc', 'tc'] as $platform) {
         $code = Validator::xxWaypoint($platform, $r['wp_' . $platform]);
 
         if ($code) {
