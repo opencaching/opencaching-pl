@@ -30,8 +30,6 @@ class GeoCache extends GeoCacheCommons
 
     private $otherWaypointIds = [
         'gc' => null,
-        'ge' => null,
-        'nc' => null,
         'tc' => null,
     ];
 
