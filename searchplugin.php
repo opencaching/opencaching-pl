@@ -79,15 +79,12 @@ if (($sourceid == 'mozilla-search') && ($userinput != '')) {
                 $targeturl = 'index.php';
                 $searchfor = TextConverter::mb_trim($searchfor);
                 $target = mb_strtolower(mb_substr($searchfor, 0, 2));
-                if (mb_substr($target, 0, 1) == 'n') {
-                    $target = 'nc';
-                }
                 if (mb_ereg_match('([a-f0-9]){4,4}$', mb_strtolower($searchfor))) {
                     $target = $ocWP;
                     $searchfor = $target . '' . $searchfor;
                 }
-                if ((($target == 'oc') || ($target == $ocWP) || ($target == 'nc') || ($target == 'gc')) &&
-                        mb_ereg_match('((' . $ocWP . '|oc)([a-z0-9]){4,4}|gc([a-z0-9]){4,5}|n([a-f0-9]){5,5})$', mb_strtolower($searchfor))) {
+                if ((($target == 'oc') || ($target == $ocWP) || ($target == 'gc')) &&
+                        mb_ereg_match('((' . $ocWP . '|oc)([a-z0-9]){4,4}|gc([a-z0-9]){4,5})$', mb_strtolower($searchfor))) {
                     // get cache_id from DB
                     if ($target == $ocWP) {
                         $target = 'oc';
