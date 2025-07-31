@@ -35,6 +35,8 @@ if (! $user) {
 $view = tpl_getView();
 $view->setTemplate('log_cache');
 $view->loadJquery();
+$view->loadJQueryUI();
+$view->loadTimepicker();
 
 require __DIR__ . '/src/Views/rating.inc.php';
 
