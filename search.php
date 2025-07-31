@@ -380,10 +380,6 @@ if (!$loggedUser) {
                 {
                     $options['waypointtype'] = 'oc';
                 }
-                elseif ( mb_ereg_match('(n[a-f0-9]{5})$', mb_strtolower($options['waypoint'])) ) //Navicache.com
-                {
-                    $options['waypointtype'] = 'nc';
-                }
                 elseif ( mb_ereg_match('([a-zA-Z0-9]{4})$', $options['waypoint']) ) //xxxxx -> O?xxxxx
                 {
                     $options['waypointtype'] = 'oc';

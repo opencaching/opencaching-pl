@@ -1192,7 +1192,7 @@ function processGeoKrety(DateTime $logDateTime, $user, $geoCache)
 function isGeokretInCache($cacheid)
 {
     $res = XDb::xSql(
-        'SELECT wp_oc, wp_gc, wp_nc, wp_ge, wp_tc
+        'SELECT wp_oc, wp_gc, wp_tc
         FROM caches WHERE cache_id = ? LIMIT 1',
         $cacheid
     );
@@ -1206,10 +1206,6 @@ function isGeokretInCache($cacheid)
         $cache_wp = $cache_record['wp_oc'];
     } elseif ($cache_record['wp_gc'] != '') {
         $cache_wp = $cache_record['wp_gc'];
-    } elseif ($cache_record['wp_nc'] != '') {
-        $cache_wp = $cache_record['wp_nc'];
-    } elseif ($cache_record['wp_ge'] != '') {
-        $cache_wp = $cache_record['wp_ge'];
     } elseif ($cache_record['wp_tc'] != '') {
         $cache_wp = $cache_record['wp_tc'];
     }

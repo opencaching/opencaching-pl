@@ -10,6 +10,25 @@ $user = $view->user;
 
 ?>
 <script>
+    $(function() {
+        $("#userRemoveResultInfo").dialog({
+            position: { my: "top", at: "center top+25%", of: window },
+            autoOpen: false,
+            modal: true,
+            hide: "explode",
+            show: "fade",
+            title: "<?= tr('admin_user_rmDialog_title'); ?>",
+            buttons: {
+                "<?= tr('admin_user_rmDialog_close'); ?>": function() {
+                     $(this).dialog("close");
+                }
+            },
+            close: function(event, ui) {
+                location.reload();
+            }
+        });
+    });
+
     function rmUserShowConfirmation() {
       $("#removeAccountBtn").hide();
       $("#removeAccountConfirmation").show();
@@ -20,17 +39,31 @@ $user = $view->user;
       $("#removeAccountConfirmation").hide();
     }
 
-    function rmUserConfirmed(){
+    function rmUserConfirmed() {
       $.ajax({
         type: 'GET',
         dataType: 'json',
-        url: '/Admin.UserAdminApi/removeUserAccount/<?=$user->getUserId()?>'
-      }).done(function(){
-        console.log("account removed");
-      }).fail(function(){
-        console.log("fail");
+        url: '/Admin.UserAdminApi/removeUserAccount/<?= $user->getUserId(); ?>'
+      }).done(function(data){
+        result =
+            Object.hasOwn(data, 'message') ? data['message']: 'Account removed';
+        console.log(result);
+        $('#userRemoveResultText').addClass('successmsg');
+        $('#userRemoveResultText').html(result);
+        $('#userRemoveResultInfo').dialog('open');
+        $(".ui-dialog-titlebar-close").hide();
+      }).fail(function(jqHXR, textStatus, errorThrown){
+        result =
+            Object.hasOwn(jqHXR, 'responseJSON')
+            && Object.hasOwn(jqHXR['responseJSON'], 'message')
+            ? jqHXR['responseJSON']['message']
+            : 'Account removal failed';
+        console.log(result);
+        $('#userRemoveResultText').addClass('errormsg');
+        $('#userRemoveResultText').html(result);
+        $('#userRemoveResultInfo').dialog('open');
+        $(".ui-dialog-titlebar-close").hide();
       })
-      location.reload();
     }
 </script>
 
@@ -204,4 +237,8 @@ $user = $view->user;
   </div>
 
 <?php } // end if $user->isUserActivated() ?>
+</div>
+
+<div id="userRemoveResultInfo" class="hidden" style="overflow: auto;">
+<p id="userRemoveResultText" style="text-align: center; margin: 5px; font-weight: bold;"></p>
 </div>

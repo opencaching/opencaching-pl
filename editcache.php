@@ -84,7 +84,7 @@ if (! $loggedUser) {
 $dbc = OcDb::instance();
 $thatquery
     = "SELECT user_id, name, picturescount, mp3count, type, size, date_hidden, date_activate, date_created, longitude, latitude,
-                    country, terrain, difficulty, status, search_time, way_length, logpw, wp_gc, wp_nc, wp_ge, wp_tc, node,
+                    country, terrain, difficulty, status, search_time, way_length, logpw, wp_gc, wp_tc, node,
                     IFNULL(`cache_location`.`code3`,'') region
             FROM `caches`
                 LEFT JOIN `cache_location` ON `caches`.`cache_id`= `cache_location`.`cache_id`
@@ -131,7 +131,7 @@ if ($cache_record = $dbc->dbResultFetch($s)) {
                 <legend>&nbsp; <strong>' . tr('submit_new_cache') . '</strong> &nbsp;</legend>
                 <input type="radio" onChange="yes_change();" class="radio" name="publish" id="publish_now" value="now" {publish_now_checked}>&nbsp;<label for="publish_now">' . tr('publish_now') . '</label><br />
                 <input type="radio" onChange="yes_change();" class="radio" name="publish" id="publish_later" value="later" {publish_later_checked}>&nbsp;<label for="publish_later">' . tr('publish_date') . ':</label>
-                <input type="text" class="form-control" id="activateDatePicker" id="activateDatePicker" value="{activate_year}-{activate_month}-{activate_day}" onchange="hiddenDatePickerChange(\'activate\'); selectPublishLater()"/>
+                <input type="text" class="form-control" id="activateDatePicker" value="{activate_year}-{activate_month}-{activate_day}" onchange="hiddenDatePickerChange(\'activate\'); selectPublishLater()"/>
                 <input class="input40" type="hidden" name="activate_year" id="activate_year" onChange="yes_change();" maxlength="4" value="{activate_year}"/>
                 <input class="input20" type="hidden" name="activate_month" id="activate_month" onChange="yes_change();" maxlength="2" value="{activate_month}"/>
                 <input class="input20" type="hidden" name="activate_day" id="activate_day" onChange="yes_change();" maxlength="2" value="{activate_day}"/>&nbsp;
@@ -455,7 +455,7 @@ if ($cache_record = $dbc->dbResultFetch($s)) {
         // foreign waypoints
         $all_wp_ok = true;
 
-        foreach (['gc', 'nc', 'tc', 'ge'] as $wpType) {
+        foreach (['gc', 'tc'] as $wpType) {
             $wpVar = 'wp_' . $wpType;
             $wpMessageVar = 'wp_' . $wpType . '_message';
 
@@ -562,8 +562,7 @@ if ($cache_record = $dbc->dbResultFetch($s)) {
                                  `latitude`=?, `type`=?, `date_hidden`=?,
                                  `country`=?, `size`=?, `difficulty`=?, `terrain`=?,
                                  `status`=?, `search_time`=?, `way_length`=?,
-                                 `logpw`=?, `wp_gc`=?, `wp_nc`=?, `wp_ge`=?,
-                                 `wp_tc`=?,`date_activate` = {$activation_date}
+                                 `logpw`=?, `wp_gc`=?, `wp_tc`=?, `date_activate` = {$activation_date}
                              WHERE `cache_id`=?",
                     $cache_name,
                     $cache_lon,
@@ -579,8 +578,6 @@ if ($cache_record = $dbc->dbResultFetch($s)) {
                     $way_length,
                     $log_pw,
                     $wp_gc,
-                    $wp_nc,
-                    $wp_ge,
                     $wp_tc,
                     $cache_id
                 );
@@ -1159,9 +1156,7 @@ if ($cache_record = $dbc->dbResultFetch($s)) {
         tpl_set_var('way_length', $way_length);
         tpl_set_var('log_pw', htmlspecialchars($log_pw, ENT_COMPAT, 'UTF-8'));
         tpl_set_var('wp_gc', htmlspecialchars($wp_gc, ENT_COMPAT, 'UTF-8'));
-        tpl_set_var('wp_nc', htmlspecialchars($wp_nc, ENT_COMPAT, 'UTF-8'));
         tpl_set_var('wp_tc', htmlspecialchars($wp_tc, ENT_COMPAT, 'UTF-8'));
-        tpl_set_var('wp_ge', htmlspecialchars($wp_ge, ENT_COMPAT, 'UTF-8'));
         tpl_set_var('reset', tr('reset'));
         tpl_set_var('submit', $submit);
     }else{

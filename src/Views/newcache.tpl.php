@@ -73,10 +73,10 @@ $view->callChunk('tinyMCE');
     // data picker init
     $(function() {
       updateRegionsList();
-      $.datepicker.setDefaults($.datepicker.regional['pl']);
-      $('#hiddenDatePicker, #activateDatePicker').datepicker (
-        $.datepicker.regional["{language4js}"]
-      ).datepicker("option", "dateFormat", "yy-mm-dd").val();
+      const lang = "{language4js}";
+      const regional = $.datepicker.regional[lang] || {};
+      const options = $.extend({}, regional, { dateFormat: "yy-mm-dd" });
+      $('#hiddenDatePicker, #activateDatePicker').datepicker(options);
     });
 
     function hiddenDatePickerChange(identifier){
@@ -254,7 +254,7 @@ $view->callChunk('tinyMCE');
         $("input[name=short_desc]").val(wpt["short_desc"]);
         tinyMCE.activeEditor.setContent(wpt.desc);
         $("#desc").val(wpt.desc);
-        $("#hiddenDatePicker").val(cacheHideDate);
+        $("#hiddenDatePicker").val(cacheHideDate).trigger('change');
         if ("wp_gc" in wpt && wpt["wp_gc"] !== undefined) {
             $("input[name=wp_gc]").val(wpt["wp_gc"]);
         }
@@ -786,22 +786,12 @@ $(document).ready(function(){
                     <tr>
                         <td>Geocaching.com:</td>
                         <td><input type="text" name="wp_gc" value="{wp_gc}" maxlength="7" size="7" class="form-control input70 uppercase" onChange="yes_change();"/>&nbsp; &nbsp;</td>
-                        <td>Navicache.com:&nbsp;</td>
-                        <td><input type="text" name="wp_nc" value="{wp_nc}" maxlength="6" size="6" class="form-control input70 uppercase" onChange="yes_change();"/></td>
+                        <td>Terracaching.com:&nbsp;</td>
+                        <td><input type="text" name="wp_tc" value="{wp_tc}" maxlength="7" size="7" class="form-control input70 uppercase" onChange="yes_change();"/>&nbsp; &nbsp;</td>
                     </tr>
                     <tr>
                         <td colspan="2">{wp_gc_message}</td>
-                        <td colspan="2">{wp_nc_message}</td>
-                    </tr>
-                    <tr>
-                        <td>Terracaching.com:&nbsp;</td>
-                        <td><input type="text" name="wp_tc" value="{wp_tc}" maxlength="7" size="7" class="form-control input70 uppercase" onChange="yes_change();"/>&nbsp; &nbsp;</td>
-                        <td>GPSGames.org:</td>
-                        <td><input type="text" name="wp_ge" value="{wp_ge}" maxlength="6" size="6" class="form-control input70 uppercase" onChange="yes_change();"/></td>
-                    </tr>
-                    <tr>
                         <td colspan="2">{wp_tc_message}</td>
-                        <td colspan="2">{wp_ge_message}</td>
                     </tr>
                 </table>
             </td>
