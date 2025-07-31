@@ -132,6 +132,15 @@ class CacheAttribute
     /** Tree climbing required */
     public const TREE_CLIMBING = 64;
 
+    /** Bonus cache */
+    public const BONUS = 69;
+
+    /** Must meet challenge requirements to log */
+    public const CHALLENGE = 71;
+
+    /** Solution checker [SPECIAL ATTRIBUTE] */
+    public const OPENCHECKER = 72;
+
     /** Only loggable at Opencaching */
     public const OCONLY = 106;
 
@@ -195,6 +204,12 @@ class CacheAttribute
     /** Ask owner for start conditions */
     public const ASK = 158;
 
+    /** Safari cache */
+    public const SAFARI = 161;
+
+    /** Handicaped: Blind people */
+    public const BLIND = 162;
+
     /** Quick and easy cache */
     public const QUICK = 201;
 
@@ -255,6 +270,18 @@ class CacheAttribute
     /** Officially designated historical monument */
     public const HISTORIC = 220;
 
+    /** BITcache */
+    public const BITCACHE = 221;
+
+    /** Log is part of a guestbook */
+    public const GUESTBOOK = 222;
+
+    /** Cache is part of a GeoPath [SPECIAL ATTRIBUTE] */
+    public const GEOPATH = 998;
+
+    /** Log password [SPECIAL ATTRIBUTE] */
+    public const PASSWORD = 999;
+
     /** Dogs not allowed */
     public const NODOGS = 9001;
 
@@ -270,10 +297,7 @@ class CacheAttribute
     /** Available at all seasons */
     public const ALLSEASONS = 9062;
 
-    /** Log password */
-    public const PASSWORD = 999;
-
-    // Configuration data for each attribute: translation key + icon name
+    // Configuration data for each attribute: translation key + icon name or path
     private const CONFIG = [
         self::FEE => ['trKey' => 'at_fee', 'icon' => 'at_fee.png'],
         self::RAPELLING => ['trKey' => 'at_rapelling', 'icon' => 'at_rapelling.png'],
@@ -313,6 +337,12 @@ class CacheAttribute
         self::RUIN => ['trKey' => 'at_ruin', 'icon' => 'at_ruin.png'],
         self::BEACON => ['trKey' => 'at_beacon', 'icon' => 'at_beacon.png'],
         self::TREE_CLIMBING => ['trKey' => 'at_tree_climbing', 'icon' => 'at_tree_climbing.png'],
+        self::BONUS => ['trKey' => 'at_bonus', 'icon' => 'at_bonus.png'],
+        self::CHALLENGE => ['trKey' => 'at_challenge', 'icon' => 'at_challenge.png'],
+        self::OPENCHECKER => [
+            'trKey' => 'at_openchecker',
+            'icon' => '/images/cacheAttributes/at_openchecker.png',
+        ],
         self::OCONLY => ['trKey' => 'at_oconly', 'icon' => 'at_oconly.png'],
         self::LETTERBOX => ['trKey' => 'at_letterbox', 'icon' => 'at_letterbox.png'],
         self::TRAIN => ['trKey' => 'at_train', 'icon' => 'at_train.png'],
@@ -334,6 +364,8 @@ class CacheAttribute
         self::MATH => ['trKey' => 'at_math', 'icon' => 'at_math.png'],
         self::OTHER_CACHE => ['trKey' => 'at_othercache', 'icon' => 'additional/at_othercache.png'],
         self::ASK => ['trKey' => 'at_ask', 'icon' => 'additional/at_ask.png'],
+        self::SAFARI => ['trKey' => 'at_safari', 'icon' => 'at_safari.png'],
+        self::BLIND => ['trKey' => 'at_blind', 'icon' => 'at_blind.png'],
         self::QUICK => ['trKey' => 'at_quick', 'icon' => 'at_quick.png'],
         self::GEOHOTEL => ['trKey' => 'at_geohotel', 'icon' => 'at_geohotel.png'],
         self::PEN => ['trKey' => 'at_pen', 'icon' => 'at_pen.png'],
@@ -354,6 +386,9 @@ class CacheAttribute
         self::MONITORING => ['trKey' => 'at_monitoring', 'icon' => 'at_monitoring.png'],
         self::TRACKABLES => ['trKey' => 'at_trackables', 'icon' => 'at_trackables.png'],
         self::HISTORIC => ['trKey' => 'at_historic', 'icon' => 'at_historic.png'],
+        self::BITCACHE => ['trKey' => 'at_bitcache', 'icon' => 'at_bitcache.png'],
+        self::GUESTBOOK => ['trKey' => 'at_guestbook', 'icon' => 'at_guestbook.png'],
+        self::GEOPATH => ['trKey' => 'at_geopath', 'icon' => 'at_geopath.png'],
         self::NODOGS => ['trKey' => 'at_nodogs', 'icon' => 'at_nodogs.png'],
         self::NOTAVAILABLE247 => ['trKey' => 'at_notAvailable247', 'icon' => 'at_notavailable247.png'],
         self::DAY => ['trKey' => 'at_day', 'icon' => 'at_day.png'],
@@ -384,24 +419,30 @@ class CacheAttribute
     }
 
     /**
-     * Return icon name for given attribute
+     * Return icon path for given attribute
      *
-     * @param int $attr - * param or ID of attribute
-     * @param string subfolder - optional subfolder name in /images/cacheAttributes/
+     * @param int $attr param or ID of attribute
+     * @param string $subfolder optional subfolder name in /images/cacheAttributes/
      */
-    public static function getIcon(int $attr, string $subfolder = null): string
+    public static function getIcon(int $attr, string $subfolder): string
     {
         if (! isset(self::CONFIG[$attr])) {
             // CONFIG is not defined for given attribute
             throw new Exception("Attribute is not defined: {$attr}");
         }
 
-        // usually each node has it's own set of attributes icons
-        if (! $subfolder) {
-            $subfolder = OcConfig::getOcNode();
+        if ((self::CONFIG[$attr]['icon'][0] ?? null) !== '/') {
+            // usually each node has it's own set of attributes icons
+            if (! $subfolder) {
+                $subfolder = OcConfig::getOcNode();
+            }
+
+            return
+                "/images/cacheAttributes/{$subfolder}/"
+                . self::CONFIG[$attr]['icon'];
         }
 
-        return "/images/cacheAttributes/{$subfolder}/" . self::CONFIG[$attr]['icon'];
+        return self::CONFIG[$attr]['icon'];
     }
 
     /**
