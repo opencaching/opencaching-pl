@@ -226,9 +226,13 @@ $view->callChunk('tinyMCE');
             );
         }
         if (wpt["size"] > 0) {
-            $("#size option[value=" + wpt["size"] + "]").attr(
-                "selected", "selected"
-            );
+            if (wpt["size"] == 7 ) {
+                _chkVirtual();
+            } else {
+                $("#size option[value=" + wpt["size"] + "]").attr(
+                    "selected", "selected"
+                );
+            }
         }
         if (wpt["difficulty"] > 0) {
             $("select[name=difficulty] option[value=" + (wpt["difficulty"] * 2) + "]").attr(

@@ -265,11 +265,18 @@ class GpxLoadApiController extends ApiBaseController
                 $wpt['type']
                     = self::GSPK_CACHE_TYPE_MAPPING[$cacheType] ?? $wpt['type'];
 
-                $cacheSize = strtolower(
-                    $this->getElementValue($gspk, 'container')
-                );
-                $wpt['size']
-                    = self::GSPK_CACHE_SIZE_MAPPING[$cacheSize] ?? $wpt['size'];
+                switch ($wpt['type']) {
+                    case GeoCacheCommons::TYPE_EVENT:
+                        $wpt['size'] = GeoCacheCommons::SIZE_NONE;
+                        break;
+                    default:
+                        $cacheSize = strtolower(
+                            $this->getElementValue($gspk, 'container')
+                        );
+                        $wpt['size']
+                            = self::GSPK_CACHE_SIZE_MAPPING[$cacheSize]
+                            ?? $wpt['size'];
+                }
 
                 $wpt['difficulty'] = (float) $this->getElementValue(
                     $gspk,
