@@ -115,6 +115,7 @@ class TestController extends ViewBaseController
 
         $this->view->setVar('link', $link);
         $this->view->setVar('attrList', $attrList);
+        $this->view->loadJQuery();
         $this->view->buildView();
     }
 
