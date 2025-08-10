@@ -58,9 +58,6 @@ $config = array(
     /* Enable referencing waypoints from other sites */
     'otherSites_geocaching_com' => 1,
     'otherSites_terracaching_com' => 1,
-    'otherSites_navicache_com' => 1,
-    'otherSites_gpsgames_org' => 1,
-    'otherSites_qualitycaching_com' => 0, // BeNeLux only
 
     /**
      * Minimum number of finds a user must have to see a cache's waypoint on

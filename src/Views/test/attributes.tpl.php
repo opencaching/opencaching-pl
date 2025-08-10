@@ -65,8 +65,7 @@ use src\Models\GeoCache\CacheAttribute;
       <p>Screenshot from the search view:</p>
       <img src="/images/cacheAttributes/test/oc<?=$node?>.png">
     </div>
-    <!-- iframe src="<?=$view->link[$node]?>" title="buu" width="900" height="300">
-    </iframe-->
+    <p></p>
     <p>3-states icons generated from new code:</p>
     <div class="atContainer">
     <?php foreach ($view->attrList[$node] as $key=>$at) { ?>
@@ -75,6 +74,17 @@ use src\Models\GeoCache\CacheAttribute;
                title="<?=tr(CacheAttribute::getTrKey($at))?>"
                alt="<?=tr(CacheAttribute::getTrKey($at))?>">
           <div class="atCross"></div>
+        </div>
+    <?php } ?>
+    </div>
+    <p><br/></p>
+    <p>All attributes from CacheAttribute list (displays <img src="/images/blue/atten-red.png"> if icon not found):</p>
+    <div class="atContainer">
+    <?php foreach (CacheAttribute::getGpxAttrIds() as $at) { ?>
+        <div class="atDiv">
+            <img class="atImg atImgList" src="<?=CacheAttribute::getIcon($at, $node)?>"
+               title="<?= $at; ?>; <?= CacheAttribute::getTrKey($at); ?>; <?= tr(CacheAttribute::getTrKey($at)); ?>"
+               alt="<?= $at; ?>; <?= CacheAttribute::getTrKey($at); ?>; <?= tr(CacheAttribute::getTrKey($at)); ?>">
         </div>
     <?php } ?>
     </div>
@@ -103,5 +113,8 @@ function changeAtIcon(obj) {
     iconDiv.attr('state','notselected');
   }
 }
-</script>
 
+$('.atImgList').on("error", function() {
+    $(this).attr('src', '/images/blue/atten-red.png');
+});
+</script>

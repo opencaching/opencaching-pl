@@ -226,9 +226,13 @@ $view->callChunk('tinyMCE');
             );
         }
         if (wpt["size"] > 0) {
-            $("#size option[value=" + wpt["size"] + "]").attr(
-                "selected", "selected"
-            );
+            if (wpt["size"] == 7 ) {
+                _chkVirtual();
+            } else {
+                $("#size option[value=" + wpt["size"] + "]").attr(
+                    "selected", "selected"
+                );
+            }
         }
         if (wpt["difficulty"] > 0) {
             $("select[name=difficulty] option[value=" + (wpt["difficulty"] * 2) + "]").attr(
@@ -753,22 +757,12 @@ $(document).ready(function(){
                     <tr>
                         <td>Geocaching.com:</td>
                         <td><input type="text" name="wp_gc" value="{wp_gc}" maxlength="7" size="7" class="form-control input70 uppercase" onChange="yes_change();"/>&nbsp; &nbsp;</td>
-                        <td>Navicache.com:&nbsp;</td>
-                        <td><input type="text" name="wp_nc" value="{wp_nc}" maxlength="6" size="6" class="form-control input70 uppercase" onChange="yes_change();"/></td>
+                        <td>Terracaching.com:&nbsp;</td>
+                        <td><input type="text" name="wp_tc" value="{wp_tc}" maxlength="7" size="7" class="form-control input70 uppercase" onChange="yes_change();"/>&nbsp; &nbsp;</td>
                     </tr>
                     <tr>
                         <td colspan="2">{wp_gc_message}</td>
-                        <td colspan="2">{wp_nc_message}</td>
-                    </tr>
-                    <tr>
-                        <td>Terracaching.com:&nbsp;</td>
-                        <td><input type="text" name="wp_tc" value="{wp_tc}" maxlength="7" size="7" class="form-control input70 uppercase" onChange="yes_change();"/>&nbsp; &nbsp;</td>
-                        <td>GPSGames.org:</td>
-                        <td><input type="text" name="wp_ge" value="{wp_ge}" maxlength="6" size="6" class="form-control input70 uppercase" onChange="yes_change();"/></td>
-                    </tr>
-                    <tr>
                         <td colspan="2">{wp_tc_message}</td>
-                        <td colspan="2">{wp_ge_message}</td>
                     </tr>
                 </table>
             </td>
