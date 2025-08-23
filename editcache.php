@@ -21,6 +21,7 @@ require_once __DIR__ . '/lib/common.inc.php';
 
 $view->loadJQuery();
 $view->loadJQueryUI();
+$view->loadTimepicker();
 $view->addLocalCss('/views/editCache/editCache.css');
 $view->addHeaderChunk('handlebarsJs');
 $view->addHeaderChunk('upload/upload');
@@ -135,8 +136,10 @@ if ($cache_record = $dbc->dbResultFetch($s)) {
                 <input class="input40" type="hidden" name="activate_year" id="activate_year" onChange="yes_change();" maxlength="4" value="{activate_year}"/>
                 <input class="input20" type="hidden" name="activate_month" id="activate_month" onChange="yes_change();" maxlength="2" value="{activate_month}"/>
                 <input class="input20" type="hidden" name="activate_day" id="activate_day" onChange="yes_change();" maxlength="2" value="{activate_day}"/>&nbsp;
-                <select name="activate_hour" class="form-control input70" onChange="yes_change();" >{activation_hours}
-                </select>&nbsp;–&nbsp;{activate_on_message}<br />
+                <input type="text" class="form-control input70" id="activateTimePicker" value="{activate_hour}:{activate_min}" onchange="activateTimePickerChange();" />
+                <input type="hidden" name="activate_hour" id="activate_hour" value="{activate_hour}"/>
+                <input type="hidden" name="activate_min"  id="activate_min" value="{activate_min}"/>
+                &nbsp;–&nbsp;{activate_on_message}<br />
                 <input type="radio" onChange="yes_change();" class="radio" name="publish" id="publish_notnow" value="notnow" {publish_notnow_checked}>&nbsp;<label for="publish_notnow">' . tr('dont_publish_yet') . '</label>
               </fieldset>
             </td>
@@ -227,11 +230,13 @@ if ($cache_record = $dbc->dbResultFetch($s)) {
             $cache_activate_month = $_POST['activate_month'] ?? date('m');
             $cache_activate_year = $_POST['activate_year'] ?? date('Y');
             $cache_activate_hour = $_POST['activate_hour'] ?? date('H');
+            $cache_activate_min = $_POST['activate_min'] ?? date('i');
         } else {
             $cache_activate_day = $_POST['activate_day'] ?? date('d', strtotime($cache_record['date_activate']));
             $cache_activate_month = $_POST['activate_month'] ?? date('m', strtotime($cache_record['date_activate']));
             $cache_activate_year = $_POST['activate_year'] ?? date('Y', strtotime($cache_record['date_activate']));
             $cache_activate_hour = $_POST['activate_hour'] ?? date('H', strtotime($cache_record['date_activate']));
+            $cache_activate_min = $_POST['activate_min'] ?? date('i', strtotime($cache_record['date_activate']));
         }
 
         $cache_difficulty = $_POST['difficulty'] ?? $cache_record['difficulty'];
@@ -547,7 +552,7 @@ if ($cache_record = $dbc->dbResultFetch($s)) {
                     $activation_date = 'NULL';
                 } elseif ($publish == 'later') {
                     $status = 5;
-                    $activation_date = "'" . XDb::xEscape(date('Y-m-d H:i:s', mktime($cache_activate_hour, 0, 0, $cache_activate_month, $cache_activate_day, $cache_activate_year))) . "'";
+                    $activation_date = "'" . XDb::xEscape(date('Y-m-d H:i:s', mktime($cache_activate_hour, $cache_activate_min, 0, $cache_activate_month, $cache_activate_day, $cache_activate_year))) . "'";
                 } elseif ($publish == 'notnow') {
                     $status = 5;
                     $activation_date = 'NULL';
@@ -942,20 +947,11 @@ if ($cache_record = $dbc->dbResultFetch($s)) {
             $tmp = mb_ereg_replace('{activate_day}', htmlspecialchars($cache_activate_day, ENT_COMPAT, 'UTF-8'), $tmp);
             $tmp = mb_ereg_replace('{activate_month}', htmlspecialchars($cache_activate_month, ENT_COMPAT, 'UTF-8'), $tmp);
             $tmp = mb_ereg_replace('{activate_year}', htmlspecialchars($cache_activate_year, ENT_COMPAT, 'UTF-8'), $tmp);
+            $tmp = mb_ereg_replace('{activate_hour}', sprintf('%02d', $cache_activate_hour), $tmp);
+            $tmp = mb_ereg_replace('{activate_min}', sprintf('%02d', $cache_activate_min), $tmp);
             $tmp = mb_ereg_replace('{publish_now_checked}', ($publish == 'now') ? 'checked' : '', $tmp);
             $tmp = mb_ereg_replace('{publish_later_checked}', ($publish == 'later') ? 'checked' : '', $tmp);
             $tmp = mb_ereg_replace('{publish_notnow_checked}', ($publish == 'notnow') ? 'checked' : '', $tmp);
-            $activation_hours = '';
-
-            for ($i = 0; $i <= 23; $i++) {
-                if ($cache_activate_hour == $i) {
-                    $activation_hours .= '<option value="' . $i . '" selected="selected">' . $i . ':00</options>';
-                } else {
-                    $activation_hours .= '<option value="' . $i . '">' . $i . ':00</options>';
-                }
-                $activation_hours .= "\n";
-            }
-            $tmp = mb_ereg_replace('{activation_hours}', $activation_hours, $tmp);
 
             if ($activate_date_not_ok) {
                 $tmp = mb_ereg_replace('{activate_on_message}', $date_not_ok_message, $tmp);

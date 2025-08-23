@@ -7,6 +7,7 @@ use src\Models\OcConfig\OcConfig;
 use src\Utils\Uri\SimpleRouter;
 
 $view->callChunk('tinyMCE');
+$view->callChunk('timepicker');
 ?>
 
 <script>
@@ -77,6 +78,19 @@ $view->callChunk('tinyMCE');
       const regional = $.datepicker.regional[lang] || {};
       const options = $.extend({}, regional, { dateFormat: "yy-mm-dd" });
       $('#hiddenDatePicker, #activateDatePicker').datepicker(options);
+      
+      $('#activateTimePicker').timepicker({
+          hourText: '{{timePicker_hourText}}',
+          minuteText: '{{timePicker_minuteText}}',
+          timeSeparator: ':',
+          nowButtonText: '{{timePicker_nowButtonText}}',
+          showNowButton: true,
+          closeButtonText: '{{timePicker_closeButtonText}}',
+          showCloseButton: true,
+          deselectButtonText: '{{timePicker_deselectButtonText}}',
+          showDeselectButton: true,
+          showPeriodLabels: false
+      });
     });
 
     function hiddenDatePickerChange(identifier){
@@ -85,6 +99,17 @@ $view->callChunk('tinyMCE');
         $("#" + identifier + "_year").val(dateArr[0]);
         $("#" + identifier + "_month").val(dateArr[1]);
         $("#" + identifier + "_day").val(dateArr[2]);
+    }
+
+    function activateTimePickerChange(){
+        var timeStr = $('#activateTimePicker').val();
+        if (timeStr) {
+            var timeArr = timeStr.split(":");
+            if(timeArr.length === 2) {
+                $("#activate_hour").val(timeArr[0]);
+                $("#activate_min").val(timeArr[1]);
+            }
+        }
     }
 
     function selectPublishLater(){
@@ -915,8 +940,10 @@ $(document).ready(function(){
                     <input class="input40" type="hidden" name="activate_year"  id="activate_year"  value="{activate_year}"/>
                     <input class="input20" type="hidden" name="activate_month" id="activate_month" value="{activate_month}"/>
                     <input class="input20" type="hidden" name="activate_day"   id="activate_day"   value="{activate_day}"/>&nbsp;
-                    <select name="activate_hour" class="form-control input70">{activation_hours}
-                    </select>&nbsp;–&nbsp;{activate_on_message}<br />
+                    <input type="text" class="form-control input70" id="activateTimePicker" value="{activate_hour}:{activate_min}" onchange="activateTimePickerChange();" />
+                    <input type="hidden" name="activate_hour" id="activate_hour" value="{activate_hour}"/>
+                    <input type="hidden" name="activate_min"  id="activate_min" value="{activate_min}"/>
+                    &nbsp;–&nbsp;{activate_on_message}<br />
                     <input type="radio" class="radio" name="publish" id="publish_notnow" value="notnow" {publish_notnow_checked}/>&nbsp;<label for="publish_notnow">{{dont_publish_yet}}</label>
                 </fieldset>
             </td>

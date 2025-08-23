@@ -118,6 +118,7 @@ tpl_set_var('wp_tc_message', '');
 tpl_set_var('limits_promixity', $config['oc']['limits']['proximity']);
 tpl_set_var('short_sitename', OcConfig::getSiteShortName());
 $view->loadJQueryUI();
+$view->loadTimepicker();
 
 $sel_type = $_POST['type'] ?? -1;
 
@@ -290,19 +291,13 @@ if (isset($_POST['publish'])) {
     $publish = '';
 }
 
-// fill activate hours
+// fill activate hours and minutes
 $activate_hour = isset($_POST['activate_hour']) ? $_POST['activate_hour'] + 0 : date('H') + 0;
-$activation_hours = '';
+$activate_min = isset($_POST['activate_min']) ? $_POST['activate_min'] + 0 : 0;
 
-for ($i = 0; $i <= 23; $i++) {
-    if ($activate_hour == $i) {
-        $activation_hours .= '<option value="' . $i . '" selected="selected">' . $i . ':00</option>';
-    } else {
-        $activation_hours .= '<option value="' . $i . '">' . $i . ':00</option>';
-    }
-    $activation_hours .= "\n";
-}
-tpl_set_var('activation_hours', $activation_hours);
+// Set template variables for timepicker
+tpl_set_var('activate_hour', sprintf('%02d', $activate_hour));
+tpl_set_var('activate_min', sprintf('%02d', $activate_min));
 
 // log-password (no password for traditional caches)
 $log_pw = (isset($_POST['log_pw']) && $sel_type != 2) ? mb_substr($_POST['log_pw'], 0, 20) : '';
@@ -747,7 +742,7 @@ if (isset($_POST['submitform'])) {
                 $activation_date = null;
             } elseif ($publish == 'later') {
                 $sel_status = 5;
-                $activation_date = date('Y-m-d H:i:s', mktime($activate_hour, 0, 0, $activate_month, $activate_day, $activate_year));
+                $activation_date = date('Y-m-d H:i:s', mktime($activate_hour, $activate_min, 0, $activate_month, $activate_day, $activate_year));
             } elseif ($publish == 'notnow') {
                 $sel_status = 5;
                 $activation_date = null;
@@ -854,7 +849,7 @@ if (isset($_POST['submitform'])) {
         $geoCache->updateAltitude();
 
         // only if no approval is needed and cache is published NOW or activate_date is in the past
-        if (! $needs_approvement && ($publish == 'now' || ($publish == 'later' && mktime($activate_hour, 0, 0, $activate_month, $activate_day, $activate_year) <= $today))) {
+        if (! $needs_approvement && ($publish == 'now' || ($publish == 'later' && mktime($activate_hour, $activate_min, 0, $activate_month, $activate_day, $activate_year) <= $today))) {
             // do event handling
             EventHandler::cacheNew($geoCache);
         }

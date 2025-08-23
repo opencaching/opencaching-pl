@@ -1,11 +1,27 @@
 <?php
 use src\Utils\View\View;
 use src\Utils\Uri\SimpleRouter;
+
+$view->callChunk('timepicker');
 ?>
 <script>
     $(function () {
         // load country based on coords
         chkcountry2();
+        
+        // Initialize timepicker
+        $('#activateTimePicker').timepicker({
+            hourText: '{{timePicker_hourText}}',
+            minuteText: '{{timePicker_minuteText}}',
+            timeSeparator: ':',
+            nowButtonText: '{{timePicker_nowButtonText}}',
+            showNowButton: true,
+            closeButtonText: '{{timePicker_closeButtonText}}',
+            showCloseButton: true,
+            deselectButtonText: '{{timePicker_deselectButtonText}}',
+            showDeselectButton: true,
+            showPeriodLabels: false
+        });
     });
 
     var maAttributes = new Array({jsattributes_array});
@@ -90,6 +106,17 @@ use src\Utils\Uri\SimpleRouter;
         document.editcache_form.size.disabled = false;
         }
         return false;
+    }
+
+    function activateTimePickerChange(){
+        var timeStr = $('#activateTimePicker').val();
+        if (timeStr) {
+            var timeArr = timeStr.split(":");
+            if(timeArr.length === 2) {
+                $("#activate_hour").val(timeArr[0]);
+                $("#activate_min").val(timeArr[1]);
+            }
+        }
     }
 
     function extractregion()
@@ -194,7 +221,7 @@ use src\Utils\Uri\SimpleRouter;
         const lang = "{language4js}";
         const regional = $.datepicker.regional[lang] || {};
         const options = $.extend({}, regional, { dateFormat: "yy-mm-dd" });
-        $('#hiddenDatePicker').datepicker(options);
+        $('#hiddenDatePicker, #activateDatePicker').datepicker(options);
     });
 
     function hiddenDatePickerChange(identifier){
@@ -211,7 +238,7 @@ use src\Utils\Uri\SimpleRouter;
 </script>
 
 <style>
-  #hiddenDatePicker{
+  #hiddenDatePicker, #activateDatePicker{
     width: 75px;
   }
 </style>
