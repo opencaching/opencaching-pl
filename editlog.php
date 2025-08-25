@@ -68,6 +68,8 @@ if ($log_record) {
         && ($loggedUser->hasOcTeamRole() || ($log_record['cachestatus'] != 4 && $log_record['cachestatus'] != 6)))) {
         $tplname = 'editlog';
         $view->loadJquery();
+        $view->loadJQueryUI();
+        $view->loadTimepicker();
 
         //load settings
         $cache_name = $log_record['cachename'];

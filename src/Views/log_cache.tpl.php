@@ -8,29 +8,28 @@ $view->callChunk('tinyMCE', false);
 ?>
 <script>
     function subs_days(days_number) {
-        //alert('ok');
-        var d_day = document.getElementById('logday').value;
-        var d_mn = document.getElementById('logmonth').value - 1;
-        var d_yr = document.getElementById('logyear').value;
+        var dateStr = document.getElementById('logDatePicker').value;
+        var dateArr = dateStr.split('-');
+        if (dateArr.length !== 3) return;
+        var d_yr = parseInt(dateArr[0], 10);
+        var d_mn = parseInt(dateArr[1], 10) - 1;
+        var d_day = parseInt(dateArr[2], 10);
         var d = new Date(d_yr, d_mn, d_day - days_number, 0, 0, 0);
-
-
-        //alert(d);
-        if (isNaN(d) == false)
-        {
-
-            var d_now = +new Date;
-            if (d <= d_now)
-            {
-                document.getElementById('logday').value = d.getDate();
-                document.getElementById('logmonth').value = d.getMonth() + 1;
-                document.getElementById('logyear').value = d.getFullYear();
+        if (!isNaN(d.getTime())) {
+            var d_now = new Date();
+            if (d <= d_now) {
+                var mm = (d.getMonth() + 1).toString().padStart(2, '0');
+                var dd = d.getDate().toString().padStart(2, '0');
+                var yyyy = d.getFullYear();
+                var newDateStr = yyyy + '-' + mm + '-' + dd;
+                document.getElementById('logDatePicker').value = newDateStr;
+                if ($('#logDatePicker').data('datepicker')) {
+                    $('#logDatePicker').datepicker('setDate', newDateStr);
+                }
+                logDatePickerChange();
             }
-            ;
         }
-        ;
     }
-    ;
 
     function do_reset() {
         if (!confirm("{Do_reset_logform}"))
@@ -40,7 +39,6 @@ $view->callChunk('tinyMCE', false);
             var frm = document.getElementById("logform");
 
             frm.reset();
-            //window.location.reload();
             document.getElementById('logtype').onchange();
 
             handle_score_note();
@@ -48,10 +46,8 @@ $view->callChunk('tinyMCE', false);
             GKBox.style.display = "none";
             return true;
         }
-        ;
 
     }
-    ;
 
     function onSubmitHandler()
     {
@@ -79,20 +75,13 @@ $view->callChunk('tinyMCE', false);
             if (rates[i].checked) {
                 rate_value = rates[i].value;
             }
-            ;
         }
-        ;
-        //alert(rate_value);
 
         if ((document.getElementById('logtype').value == 1) && ((rate_value == -10) || (rate_value == -15)))
         {
             if (!confirm("{{empty_mark}}"))
                 return false;
         }
-
-
-        //document.getElementById(obj).disabled = true;
-        //document.logform.submitform.disabled = true;
         setTimeout('document.logform.submitform.disabled=true', 1);
 
         return true;
@@ -117,12 +106,10 @@ $founds = XDb::xMultiVariableQueryValue(
 
         if (document.logform.logtype.value == "1" || (<?php echo $founds; ?> > 0 && document.logform.logtype.value == "3") || document.logform.logtype.value == "7") {
             document.logform.r.disabled = false;
-            //document.logform.rating.disabled = false;
         }
         else
         {
             document.logform.r.disabled = false;
-            //document.logform.rating.disabled = true;
         }
         return false;
     }
@@ -150,10 +137,6 @@ $founds = XDb::xMultiVariableQueryValue(
         }
         else
             vis.display = val;
-
-        //if( vis.display==''&&elem.offsetWidth!=undefined&&elem.offsetHeight!=undefined)
-        //      vis.display=(elem.offsetWidth!=0&&elem.offsetHeight!=0)?'block':'none';
-        //vis.display = (vis.display==''||vis.display=='block')?'none':'block';
     }
     function chkMoved()
     {
@@ -218,7 +201,6 @@ $founds = XDb::xMultiVariableQueryValue(
         gk = "GKtxt" + kret;
         sel = "GeoKretSelector" + kret;
 
-        // if (document.logform.GeoKretSelector1.value != -1)
         if (document.getElementById(sel).value == -1)
         {
             document.getElementById(gk).style.display = 'none';
@@ -241,6 +223,102 @@ $founds = XDb::xMultiVariableQueryValue(
             GKBox.style.display = "block";
         }
     }
+
+    // Obsługa notatek do ocen
+    function highlight_score_labels() {
+        var score_rates = document.getElementsByName('r');
+        for (var i = 0; i < score_rates.length; i++)
+        {
+            if (score_rates[i].value != -15) //do not do for hidden default value
+            {
+                var thisLabel = document.getElementById('score_lbl_' + i);
+                var score_txt = thisLabel.innerHTML;
+                score_txt = score_txt.replace('<u>', '');
+                score_txt = score_txt.replace('</u>', '');
+                if (score_rates[i].checked) {
+                    score_txt = '<u>' + score_txt + '</u>';
+                }
+                thisLabel.innerHTML = score_txt;
+            }
+        }
+    }
+
+    function clear_no_score() {
+        document.getElementById('no_score').innerHTML = "{score_note_thanks}";
+        highlight_score_labels();
+
+    }
+
+    function encor_no_score() {
+        highlight_score_labels();
+        document.getElementById('no_score').innerHTML = "{score_note_encorage}";
+    }
+
+    function handle_score_note() {
+        var score_rates = document.getElementsByName('r');
+        for (var i = 0; i < score_rates.length; i++)
+        {
+            if (score_rates[i].checked)
+            {
+                if (score_rates[i].value == -10)
+                {
+                    encor_no_score();
+                    return;
+                } else {
+                    clear_no_score();
+                    return;
+                }
+            }
+
+        }
+        document.getElementById('no_score').innerHTML = "{score_note_innitial}";
+        highlight_score_labels();
+    }
+
+    function logDatePickerChange(){
+        var dateTimeStr = $('#logDatePicker').val();
+        var dateArr = dateTimeStr.split("-");
+        if(dateArr.length === 3) {
+            $("#logyear").val(dateArr[0]);
+            $("#logmonth").val(dateArr[1]);
+            $("#logday").val(dateArr[2]);
+        }
+    }
+
+    function logTimePickerChange(){
+        var timeStr = $('#logTimePicker').val();
+        if (timeStr) {
+            var timeArr = timeStr.split(":");
+            if(timeArr.length === 2) {
+                $("#loghour").val(timeArr[0]);
+                $("#logmin").val(timeArr[1]);
+            }
+        }
+    }
+
+    $(function() {
+        $.datepicker.setDefaults($.datepicker.regional['{language4js}']);
+        $('#logDatePicker').datepicker({
+            dateFormat: 'yy-mm-dd',
+            regional: '{language4js}',
+            maxDate: 0
+        });
+        
+        $('#logTimePicker').timepicker({
+            hourText: '{{timePicker_hourText}}',
+            minuteText: '{{timePicker_minuteText}}',
+            timeSeparator: ':',
+            nowButtonText: '{{timePicker_nowButtonText}}',
+            showNowButton: true,
+            closeButtonText: '{{timePicker_closeButtonText}}',
+            showCloseButton: true,
+            deselectButtonText: '{{timePicker_deselectButtonText}}',
+            showDeselectButton: true,
+            showPeriodLabels: false
+        });
+
+        handle_score_note();
+    });
 </script>
 
 <form action="log.php" method="post" enctype="application/x-www-form-urlencoded" name="logform" id="logform" dir="ltr" onsubmit="return onSubmitHandler()" >
@@ -272,13 +350,15 @@ $founds = XDb::xMultiVariableQueryValue(
             </td>
             <td class="options">
                 <img src="/images/free_icons/date_previous.png" alt ="{{lc_Day_before}}" title="{{lc_Day_before}}" onclick="subs_days(1);"/>
-                <input class="form-control input30" type="text" id="logday" name="logday" maxlength="2" value="{logday}"/>.
-                <input class="form-control input30" type="text" id="logmonth" name="logmonth" maxlength="2" value="{logmonth}"/>.
-                <input class="form-control input50" type="text" id="logyear" name="logyear" maxlength="4" value="{logyear}"/>
+                <input type="text" class="form-control input100" id="logDatePicker" value="{logyear}-{logmonth}-{logday}" onchange="logDatePickerChange();" />
+                <input type="hidden" name="logyear"  id="logyear" value="{logyear}"/>
+                <input type="hidden" name="logmonth" id="logmonth" value="{logmonth}"/>
+                <input type="hidden" name="logday"   id="logday" value="{logday}"/>
                 <img src="/images/free_icons/date_next.png" alt ="{{lc_Day_after}}" title="{{lc_Day_after}}" onclick="subs_days(-1);"/>
                 &nbsp;&nbsp;<img src="/images/free_icons/clock.png" class="icon16" alt="">&nbsp;{{time}}:
-                <input class="form-control input30" type="text" name="loghour" maxlength="2" value="{loghour}"/> HH (0-23)
-                <input class="form-control input30" type="text" name="logmin" maxlength="2" value="{logmin}"/> MM (0-59)
+                <input type="text" class="form-control input70" id="logTimePicker" value="{loghour}:{logmin}" onchange="logTimePickerChange();" />
+                <input type="hidden" name="loghour" id="loghour" value="{loghour}"/>
+                <input type="hidden" name="logmin"  id="logmin" value="{logmin}"/>
                 <br>{date_message}
             </td>
         </tr>
@@ -341,58 +421,3 @@ $founds = XDb::xMultiVariableQueryValue(
         <input type="hidden" name="submitform" value="{{submit}}">
     </div>
 </form>
-<script>
-    handle_score_note();
-    function highlight_score_labels() {
-        var score_rates = document.getElementsByName('r');
-        for (var i = 0; i < score_rates.length; i++)
-        {
-            if (score_rates[i].value != -15) //do not do for hidden default value
-            {
-                var thisLabel = document.getElementById('score_lbl_' + i);
-                var score_txt = thisLabel.innerHTML;
-                score_txt = score_txt.replace('<u>', '');
-                score_txt = score_txt.replace('</u>', '');
-                if (score_rates[i].checked) {
-                    score_txt = '<u>' + score_txt + '</u>';
-                }
-                ;
-                thisLabel.innerHTML = score_txt;
-            }
-            ;
-        }
-    }
-
-    function clear_no_score() {
-        document.getElementById('no_score').innerHTML = "{score_note_thanks}";
-        highlight_score_labels();
-
-    }
-
-    function encor_no_score() {
-        highlight_score_labels();
-        document.getElementById('no_score').innerHTML = "{score_note_encorage}";
-    }
-
-    function handle_score_note() {
-        var score_rates = document.getElementsByName('r');
-        for (var i = 0; i < score_rates.length; i++)
-        {
-            if (score_rates[i].checked)
-            {
-                //alert(i);
-                if (score_rates[i].value == -10)
-                {
-                    encor_no_score();
-                    return;
-                } else {
-                    clear_no_score();
-                    return;
-                }
-            }
-
-        }
-        document.getElementById('no_score').innerHTML = "{score_note_innitial}";
-        highlight_score_labels();
-    }
-</script>

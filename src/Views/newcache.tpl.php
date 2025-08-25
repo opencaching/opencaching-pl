@@ -7,6 +7,7 @@ use src\Models\OcConfig\OcConfig;
 use src\Utils\Uri\SimpleRouter;
 
 $view->callChunk('tinyMCE');
+$view->callChunk('timepicker');
 ?>
 
 <script>
@@ -77,6 +78,19 @@ $view->callChunk('tinyMCE');
       const regional = $.datepicker.regional[lang] || {};
       const options = $.extend({}, regional, { dateFormat: "yy-mm-dd" });
       $('#hiddenDatePicker, #activateDatePicker').datepicker(options);
+      
+      $('#activateTimePicker').timepicker({
+          hourText: '{{timePicker_hourText}}',
+          minuteText: '{{timePicker_minuteText}}',
+          timeSeparator: ':',
+          nowButtonText: '{{timePicker_nowButtonText}}',
+          showNowButton: true,
+          closeButtonText: '{{timePicker_closeButtonText}}',
+          showCloseButton: true,
+          deselectButtonText: '{{timePicker_deselectButtonText}}',
+          showDeselectButton: true,
+          showPeriodLabels: false
+      });
     });
 
     function hiddenDatePickerChange(identifier){
@@ -85,6 +99,17 @@ $view->callChunk('tinyMCE');
         $("#" + identifier + "_year").val(dateArr[0]);
         $("#" + identifier + "_month").val(dateArr[1]);
         $("#" + identifier + "_day").val(dateArr[2]);
+    }
+
+    function activateTimePickerChange(){
+        var timeStr = $('#activateTimePicker').val();
+        if (timeStr) {
+            var timeArr = timeStr.split(":");
+            if(timeArr.length === 2) {
+                $("#activate_hour").val(timeArr[0]);
+                $("#activate_min").val(timeArr[1]);
+            }
+        }
     }
 
     function selectPublishLater(){
@@ -340,7 +365,6 @@ $view->callChunk('tinyMCE');
       }
 
       if ($('#cacheType').val() == "4" || $('#cacheType').val() == "5" || $('#cacheType').val() == "6") {
-        // if( document.newcacheform.size.options[ $('#size option').length - 1].value != "7" && document.newcacheform.size.options[document.newcacheform.size.options.length - 2].value != "7")
         if (!($("#size option[value='7']").length > 0)) {
           var o = new Option("<?= tr('cacheSize_none'); ?>", "7");
           $(o).html("<?= tr('cacheSize_none'); ?>");
@@ -411,41 +435,9 @@ $view->callChunk('tinyMCE');
         $('#actionicons').attr('src', image_cache);
     }
 
-    function toggleAttr(id) { // same func in newcache.tpl.php and editcache.tpl.php
+    function toggleAttr(id) { 
+      // same func in newcache.tpl.php and editcache.tpl.php
       var i = 0;
-        //            var answ = ''; var bike_id = ''; var walk_id = ''; var boat_id = '';
-        //            if (id == 85 || id == 84 || id == 86)
-        //    { //toggle contradictory attribs
-        //    for (i = 0; i < maAttributes.length; i++) //finding id of bike and walk_only attributes
-        //    {
-        //    if (maAttributes[i][0] == 84)  {walk_id = i; };
-        //            if (maAttributes[i][0] == 85)  {bike_id = i; };
-        //            if (maAttributes[i][0] == 86)  {boat_id = i; };
-        //            if ((bike_id != '') && (walk_id != '') && (boat_id != '')) {break; };
-        //    };
-        //            if ((id == 84) && (maAttributes[walk_id][1] == 0) && ((maAttributes[bike_id][1] == 1) || (maAttributes[boat_id][1] == 1))) {
-        //    //request confirmation if bike or boat is set and attemting to set Walk_only
-        //    answ = confirm('{{ec_bike_set_msg}}');
-        //            if (answ == false) { return false; };
-        //            maAttributes[bike_id][1] = 0;
-        //            maAttributes[boat_id][1] = 0;
-        //    };
-        //            if ((id == 85) && (maAttributes[bike_id][1] == 0) && ((maAttributes[walk_id][1] == 1) || (maAttributes[boat_id][1] == 1))) {
-        //    //request confirmation if Walk or boat_only is set and attemting to set Bike
-        //    answ = confirm('{{ec_walk_set_msg}}');
-        //            if (answ == false) { return false; };
-        //            maAttributes[walk_id][1] = 0;
-        //            maAttributes[boat_id][1] = 0;
-        //    };
-        //            if ((id == 86) && (maAttributes[boat_id][1] == 0) && ((maAttributes[walk_id][1] == 1) || (maAttributes[bike_id][1] == 1))) {
-        //    //request confirmation if bike or boat_only is set and attemting to set Boat
-        //    answ = confirm('{{ec_boat_set_msg}}');
-        //            if (answ == false) { return false; };
-        //            maAttributes[bike_id][1] = 0;
-        //            maAttributes[walk_id][1] = 0;
-        //    };
-        //            //alert(id);
-        //    };
         for (i = 0; i < maAttributes.length; i++) {
           if (maAttributes[i][0] == id) {
             if (maAttributes[i][1] == 0) {
@@ -948,8 +940,10 @@ $(document).ready(function(){
                     <input class="input40" type="hidden" name="activate_year"  id="activate_year"  value="{activate_year}"/>
                     <input class="input20" type="hidden" name="activate_month" id="activate_month" value="{activate_month}"/>
                     <input class="input20" type="hidden" name="activate_day"   id="activate_day"   value="{activate_day}"/>&nbsp;
-                    <select name="activate_hour" class="form-control input70">{activation_hours}
-                    </select>&nbsp;–&nbsp;{activate_on_message}<br />
+                    <input type="text" class="form-control input70" id="activateTimePicker" value="{activate_hour}:{activate_min}" onchange="activateTimePickerChange();" />
+                    <input type="hidden" name="activate_hour" id="activate_hour" value="{activate_hour}"/>
+                    <input type="hidden" name="activate_min"  id="activate_min" value="{activate_min}"/>
+                    &nbsp;–&nbsp;{activate_on_message}<br />
                     <input type="radio" class="radio" name="publish" id="publish_notnow" value="notnow" {publish_notnow_checked}/>&nbsp;<label for="publish_notnow">{{dont_publish_yet}}</label>
                 </fieldset>
             </td>
