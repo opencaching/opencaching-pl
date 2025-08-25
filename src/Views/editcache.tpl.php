@@ -1,11 +1,27 @@
 <?php
 use src\Utils\View\View;
 use src\Utils\Uri\SimpleRouter;
+
+$view->callChunk('timepicker');
 ?>
 <script>
     $(function () {
         // load country based on coords
         chkcountry2();
+        
+        // Initialize timepicker
+        $('#activateTimePicker').timepicker({
+            hourText: '{{timePicker_hourText}}',
+            minuteText: '{{timePicker_minuteText}}',
+            timeSeparator: ':',
+            nowButtonText: '{{timePicker_nowButtonText}}',
+            showNowButton: true,
+            closeButtonText: '{{timePicker_closeButtonText}}',
+            showCloseButton: true,
+            deselectButtonText: '{{timePicker_deselectButtonText}}',
+            showDeselectButton: true,
+            showPeriodLabels: false
+        });
     });
 
     var maAttributes = new Array({jsattributes_array});
@@ -31,7 +47,6 @@ use src\Utils\Uri\SimpleRouter;
         //purpose: set any_changes flag to "yes" - in order to trigger warning in check_if_proceed func
         var hidden_a_c = document.getElementById('any_changes');
         hidden_a_c.value = "yes";
-        //alert ('Change!');
     }
 
     function chkcountry2() {
@@ -93,6 +108,17 @@ use src\Utils\Uri\SimpleRouter;
         return false;
     }
 
+    function activateTimePickerChange(){
+        var timeStr = $('#activateTimePicker').val();
+        if (timeStr) {
+            var timeArr = timeStr.split(":");
+            if(timeArr.length === 2) {
+                $("#activate_hour").val(timeArr[0]);
+                $("#activate_min").val(timeArr[1]);
+            }
+        }
+    }
+
     function extractregion()
     {
         var latNS = document.forms['editcache_form'].latNS.value;
@@ -138,68 +164,6 @@ use src\Utils\Uri\SimpleRouter;
     function toggleAttr(id)
     { // same func in newcache.tpl.php and editcache.tpl.php
         var i = 0;
-//        var answ = '';
-//        var bike_id = '';
-//        var walk_id = '';
-//        var boat_id = '';
-//        if (id == 85 || id == 84 || id == 86)
-//        { //toggle contradictory attribs
-//            for (i = 0; i < maAttributes.length; i++) //finding id of bike and walk_only attributes
-//            {
-//                if (maAttributes[i][0] == 84) {
-//                    walk_id = i;
-//                }
-//                ;
-//                if (maAttributes[i][0] == 85) {
-//                    bike_id = i;
-//                }
-//                ;
-//                if (maAttributes[i][0] == 86) {
-//                    boat_id = i;
-//                }
-//                ;
-//                if ((bike_id != '') && (walk_id != '') && (boat_id != '')) {
-//                    break;
-//                }
-//                ;
-//            }
-//            ;
-//            if ((id == 84) && (maAttributes[walk_id][1] == 0) && ((maAttributes[bike_id][1] == 1) || (maAttributes[boat_id][1] == 1))) {
-//                //request confirmation if bike or boat is set and attemting to set Walk_only
-//                answ = confirm('{{ec_bike_set_msg}}');
-//                if (answ == false) {
-//                    return false;
-//                }
-//                ;
-//                maAttributes[bike_id][1] = 0;
-//                maAttributes[boat_id][1] = 0;
-//            }
-//            ;
-//            if ((id == 85) && (maAttributes[bike_id][1] == 0) && ((maAttributes[walk_id][1] == 1) || (maAttributes[boat_id][1] == 1))) {
-//                //request confirmation if Walk or boat_only is set and attemting to set Bike
-//                answ = confirm('{{ec_walk_set_msg}}');
-//                if (answ == false) {
-//                    return false;
-//                }
-//                ;
-//                maAttributes[walk_id][1] = 0;
-//                maAttributes[boat_id][1] = 0;
-//            }
-//            ;
-//            if ((id == 86) && (maAttributes[boat_id][1] == 0) && ((maAttributes[walk_id][1] == 1) || (maAttributes[bike_id][1] == 1))) {
-//                //request confirmation if bike or boat_only is set and attemting to set Boat
-//                answ = confirm('{{ec_boat_set_msg}}');
-//                if (answ == false) {
-//                    return false;
-//                }
-//                ;
-//                maAttributes[bike_id][1] = 0;
-//                maAttributes[walk_id][1] = 0;
-//            }
-//            ;
-//            //alert(id);
-//        }
-//        ;
         for (i = 0; i < maAttributes.length; i++)
         {
             if (maAttributes[i][0] == id)
@@ -589,10 +553,11 @@ use src\Utils\Uri\SimpleRouter;
             <td colspan="2">
                 <fieldset style="border: 1px solid black; width: 80%; height: 32%; background-color: #FFFFFF;" class="form-group-sm">
                     <legend>&nbsp; <strong>{{date_hidden_label}}</strong> &nbsp;</legend>
-                    <input class="form-control input30" type="text" name="hidden_day" maxlength="2" value="{date_day}" onChange="yes_change();" />-
-                    <input class="form-control input30" type="text" name="hidden_month" maxlength="2" value="{date_month}" onChange="yes_change();" />-
-                    <input class="form-control input50" type="text" name="hidden_year" maxlength="4" value="{date_year}" onChange="yes_change();" />&nbsp;
-                    {date_message}
+                    <input type="text" class="form-control" id="hiddenDatePicker" value="{hidden_year}-{hidden_month}-{hidden_day}" onchange="hiddenDatePickerChange('hidden'); yes_change();" />
+                    <input type="hidden" name="hidden_year"  id="hidden_year" value="{hidden_year}"/>
+                    <input type="hidden" name="hidden_month" id="hidden_month" value="{hidden_month}"/>
+                    <input type="hidden" name="hidden_day"   id="hidden_day" value="{hidden_day}"/>
+                    {hidden_since_message}
                 </fieldset>
             </td>
         </tr>
