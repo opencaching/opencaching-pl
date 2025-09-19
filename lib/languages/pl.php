@@ -75,7 +75,7 @@ $translations = [
     'map_quizType' => 'Quiz',
     'map_movingType' => 'Mobilna',
     'map_owncacheType' => 'Owncache',
-    'map_incorectMapParams' => 'Niepoprawne dane wejsciowe!',
+    'map_incorectMapParams' => 'Niepoprawne dane wejściowe!',
     'map_circle150mMode' => 'Okrąg o promieniu 150m dla danej lokalizacji',
     'map_searchResultsMode' => 'Mapa przedstawia wyniki wyszukiwania',
 
@@ -2467,7 +2467,7 @@ $translations = [
     'Stats_s10_02' => 'Ranking',
     'Stats_s10_03' => 'Liczba poszukiwań',
     'Stats_s10_04' => 'Nazwa użytkownika',
-    'Stats_t3_01' => 'Ranking użytkowników według liczby zalezień skrzynek danego użytkownika',
+    'Stats_t3_01' => 'Ranking użytkowników według liczby znalezień skrzynek danego użytkownika',
     'Stats_t3_02' => 'Ranking',
     'Stats_t3_03' => 'Liczba znalezień',
     'Stats_t3_04' => 'Username',
