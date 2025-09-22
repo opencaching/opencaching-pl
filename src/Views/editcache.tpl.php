@@ -24,6 +24,61 @@ $view->callChunk('timepicker');
         });
     });
 
+    function checkRegion(){
+        console.log('checkRegion');
+
+        if ($('#lat_h').val().length == 0 ||
+            $('#lon_h').val().length == 0 ) {
+            return;
+        }
+
+        var latmin = parseFloat($('#lat_min').val());
+        if(isNaN(latmin)) {
+            latmin = 0;
+        }
+
+        var lonmin = parseFloat($('#lon_min').val());
+        if(isNaN(lonmin)) {
+            lonmin = 0;
+        }
+
+        var lat = parseFloat($('#lat_h').val()) + latmin / 60;
+        if ($('#latNS').val() == 'S') {
+            lat = - lat;
+        }
+
+        var lon = parseFloat($('#lon_h').val()) + lonmin / 60;
+        if ($('#lonEW').val() == 'W') {
+            lon = - lon;
+        }
+
+        request = $.ajax({
+            url: "/location/getRegionsByLocation/"+lat+'/'+lon,
+            type: "get",
+        });
+
+        // callback handler that will be called on success
+        request.done(function (response, textStatus, jqXHR){
+
+            locationData = response.locationTable;
+            if ( !locationData['code1'] ) {
+                // unknown country
+                return;
+            }
+
+            if ($('#country').val() == locationData['code1']) {
+                // same country, update region
+                $('#region1').val( locationData['code3'] );
+            } else {
+                // country changed
+                $('#country').val( locationData['code1'] );
+                updateRegionsList(locationData['code3']);
+            }
+        });
+
+        request.always(function () { });
+    }
+
     var maAttributes = new Array({jsattributes_array});
     function check_if_proceed() {
         //purpose: to warn user on changes lost - warning appears in case any change has been done
@@ -303,7 +358,7 @@ $view->callChunk('timepicker');
             <td class="content-title-noshade">
                 <fieldset style="border: 1px solid black; width: 90%; height: 32%; background-color: #FAFBDF;" class="form-group-sm">
                     <legend>&nbsp; <strong>WGS-84</strong> &nbsp;</legend>
-                    <select name="latNS" class="form-control input50" onChange="yes_change();">
+                    <select name="latNS" class="form-control input50" onChange="yes_change();checkRegion();">
                         <option value="N"{selLatN}>N</option>
                         <option value="S"{selLatS}>S</option>
                     </select>
@@ -314,7 +369,7 @@ $view->callChunk('timepicker');
                       name="lat_h"
                       maxlength="2"
                       class="form-control input45"
-                      onChange="yes_change();"
+                      onChange="yes_change();checkRegion();"
                       placeholder="0"
                       value="{lat_h}"
                       min="0"
@@ -328,7 +383,7 @@ $view->callChunk('timepicker');
                       maxlength="6"
                       class="form-control input50"
                       onkeyup="this.value = this.value.replace(/,/g, '.');"
-                      onChange="yes_change();"
+                      onChange="yes_change();checkRegion();"
                       placeholder="00.000"
                       value="{lat_min}"
                       pattern="\d{1,2}.\d{1,3}"
@@ -336,7 +391,7 @@ $view->callChunk('timepicker');
                   />&nbsp;'&nbsp;
                     <button class="btn btn-default btn-sm" onclick="nearbycachemapOC()">{{check_nearby_caches_map}}</button>
                     {lat_message}<br />
-                    <select name="lonEW" class="form-control input50" onChange="yes_change();">
+                    <select name="lonEW" class="form-control input50" onChange="yes_change();checkRegion();">
                         <option value="E" {selLonE}>E</option>
                         <option value="W" {selLonW}>W</option>
                     </select>
@@ -347,7 +402,7 @@ $view->callChunk('timepicker');
                       name="lon_h"
                       maxlength="3"
                       class="form-control input45"
-                      onChange="yes_change();"
+                      onChange="yes_change();checkRegion();"
                       placeholder="0"
                       value="{lon_h}"
                       min="0"
@@ -361,7 +416,7 @@ $view->callChunk('timepicker');
                       maxlength="6"
                       class="form-control input50"
                       onkeyup="this.value = this.value.replace(/,/g, '.');"
-                      onChange="yes_change();"
+                      onChange="yes_change();checkRegion();"
                       placeholder="00.000"
                       value="{lon_min}"
                       pattern="\d{1,2}.\d{1,3}"
