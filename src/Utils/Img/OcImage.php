@@ -133,6 +133,11 @@ class OcImage
             throw new \Exception("Can't create new image");
         }
 
+        if ($this->gdImageType == IMAGETYPE_PNG) {
+            imagealphablending($newImage, false);
+            imagesavealpha($newImage, true);
+        }
+
         if (!@imagecopyresampled($newImage, $this->gdImage, 0, 0, 0, 0,
                 $width, $height, $this->getWidth(), $this->getHeight())) {
 
@@ -199,6 +204,8 @@ class OcImage
         switch ($this->gdImageType) {
             case IMAGETYPE_PNG:
                 $outputPath .= ".png";
+                imagealphablending($this->gdImage, false);
+                imagesavealpha($this->gdImage, true);
                 $result = imagepng($this->gdImage, $outputPath);
                 break;
             case IMAGETYPE_GIF:

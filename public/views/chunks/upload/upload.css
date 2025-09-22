@@ -126,6 +126,7 @@
 .upload_previewImg img {
   width: 24px;
   height: 24px;
+  object-fit: contain;
 }
 
 .upload_previewEntry .upload_previewProps {
