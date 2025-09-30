@@ -264,6 +264,7 @@ $translations = [
     'distance_incorrect' => 'Formát vzdálenosti v nesprávném formátu. Platný formát: aa.aaa',
     'date_incorrect' => 'Incorrect date. Legal format: YYYY-MM-DD',
     'no_cache_name' => 'No pole Název',
+    'type_virtual_webcam_restricted' => 'Virtual and Webcam caches can only be changed by the OC Team. Your cache type has been restored to its previous value.',
     'descwp_incorrect' => 'Bez popisu.',
     'type_incorrect' => 'No typu krabice!',
     'typewp_incorrect' => 'Nebyl vybrán žádný waypoint!',
