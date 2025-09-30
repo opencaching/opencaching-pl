@@ -264,6 +264,7 @@ $translations = [
     'distance_incorrect' => 'Avståndet är felaktigt. Rätt format: aa.aaa',
     'date_incorrect' => 'Incorrect date. Legal format: YYYY-MM-DD',
     'no_cache_name' => 'Inget cachenamn angivet',
+    'type_virtual_webcam_restricted' => 'Virtual and Webcam caches can only be changed by the OC Team. Your cache type has been restored to its previous value.',
     'descwp_incorrect' => 'Ingen beskrivning.',
     'type_incorrect' => 'Ingen cachetyp angiven!',
     'typewp_incorrect' => 'No waypoint selected!',
