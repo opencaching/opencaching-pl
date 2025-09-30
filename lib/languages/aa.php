@@ -264,6 +264,7 @@ $translations = [
     'distance_incorrect' => 'crwdns5862:0crwdne5862:0',
     'date_incorrect' => 'crwdns34084:0crwdne34084:0',
     'no_cache_name' => 'crwdns5864:0crwdne5864:0',
+    'type_virtual_webcam_restricted' => 'crwdns34090:0crwdne34090:0',
     'descwp_incorrect' => 'crwdns5867:0crwdne5867:0',
     'type_incorrect' => 'crwdns5868:0crwdne5868:0',
     'typewp_incorrect' => 'crwdns5869:0crwdne5869:0',
