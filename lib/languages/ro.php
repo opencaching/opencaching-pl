@@ -264,6 +264,7 @@ $translations = [
     'distance_incorrect' => 'Distanţă greşită. Formatul corect este: aa.aaa',
     'date_incorrect' => 'Dată greşită. Format curect: AAAA-LL-ZZ (A=an, L=lună, Z=zi)',
     'no_cache_name' => 'Nume lipsă',
+    'type_virtual_webcam_restricted' => 'Virtual and Webcam caches can only be changed by the OC Team. Your cache type has been restored to its previous value.',
     'descwp_incorrect' => 'No description.',
     'type_incorrect' => 'Tipul geocutiei este greşit!',
     'typewp_incorrect' => 'No waypoint selected!',
