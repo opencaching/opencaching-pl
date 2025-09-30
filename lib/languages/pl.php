@@ -264,6 +264,7 @@ $translations = [
     'distance_incorrect' => 'Podano odległość w niepoprawnym formacie. Prawidłowy format: aa.aaa',
     'date_incorrect' => 'Data ma niepoprawny format. Prawidłowy format: RRRR-MM-DD',
     'no_cache_name' => 'Brak nazwy skrzynki',
+    'type_virtual_webcam_restricted' => 'Virtual and Webcam caches can only be changed by the OC Team. Your cache type has been restored to its previous value.',
     'descwp_incorrect' => 'Brak opisu.',
     'type_incorrect' => 'Brak typu skrzynki!',
     'typewp_incorrect' => 'Wybierz typ waypointa.',
