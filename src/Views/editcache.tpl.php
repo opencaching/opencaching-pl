@@ -283,6 +283,7 @@ $view->callChunk('timepicker');
                         return _chkVirtual()">
                     {typeoptions}
                 </select>
+                {type_message}
             </td>
         </tr>
         <tr><td>&nbsp;</td>
