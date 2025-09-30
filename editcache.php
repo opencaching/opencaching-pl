@@ -104,6 +104,7 @@ if ($cache_record = $dbc->dbResultFetch($s)) {
         $remove = tr('delete');
         $edit = tr('edit');
         $error_general = '<div class="warning">' . tr('error_new_cache') . '</div>';
+        $error_type_not_ok = '<br/><img src="images/misc/32x32-impressum.png" class="icon32" alt=""  />&nbsp;<span class="errormsg">' . tr('type_virtual_webcam_restricted') . '</span>';
         $error_coords_not_ok = '<br/><img src="images/misc/32x32-impressum.png" class="icon32" alt=""  />&nbsp;<span class="errormsg">' . tr('bad_coordinates') . '</span>';
         $time_not_ok_message = '<br/><img src="images/misc/32x32-impressum.png" class="icon32" alt=""  />&nbsp;<span class="errormsg">' . tr('time_incorrect') . '</span>';
         $way_length_not_ok_message = '<br/><img src="images/misc/32x32-impressum.png" class="icon32" alt=""  />&nbsp;<span class="errormsg">' . tr('distance_incorrect') . '</span>';
@@ -146,13 +147,30 @@ if ($cache_record = $dbc->dbResultFetch($s)) {
         </tr>
         ';
 
-        //here we read all used information from the form if submitted, otherwise from DB
-        // wihout virtuals and webcams
+        $type_not_ok = false;
+
+        // here we read all used information from the form if submitted, otherwise from DB
+        // restrict changing cache type to virtual/webcam unless:
+        // - the user has OC Team role, OR
+        // - the cache is unpublished (NOTYETAVAILABLE) AND the user does NOT need cache verification.
+        // restrict changing cache type to $geocache['noNewCachesOfTypes'] unless:
+        // - the user has OC Team role
         if (isset($_POST['type'])) {
-            if ((($_POST['type'] == GeoCache::TYPE_VIRTUAL && $cache_record['type'] != GeoCache::TYPE_VIRTUAL)
-                    || ($_POST['type'] == GeoCache::TYPE_WEBCAM && $cache_record['type'] != GeoCache::TYPE_WEBCAM))
-                    && ! $loggedUser->hasOcTeamRole()) {
+            $is_change_to_virtual_or_webcam =
+                ($_POST['type'] == GeoCache::TYPE_VIRTUAL && $cache_record['type'] != GeoCache::TYPE_VIRTUAL) ||
+                ($_POST['type'] == GeoCache::TYPE_WEBCAM && $cache_record['type'] != GeoCache::TYPE_WEBCAM);
+
+            $user_needs_cache_verification = $loggedUser->isUnderCacheVerification();
+
+            $is_unpublished_without_verification =
+                $cache_record['status'] == GeoCache::STATUS_NOTYETAVAILABLE && !$user_needs_cache_verification;
+
+            $is_disallowed_new_cache_type = in_array($_POST['type'], OcConfig::getNoNewCacheOfTypesArray());
+
+            if ( ($is_change_to_virtual_or_webcam && !$loggedUser->hasOcTeamRole() && !$is_unpublished_without_verification)
+                || ( $_POST['type'] != $cache_record['type'] && $is_disallowed_new_cache_type && !$loggedUser->hasOcTeamRole()) ) {
                 $_POST['type'] = $cache_record['type'];
+                $type_not_ok = true;
             }
         }
 
@@ -523,7 +541,7 @@ if ($cache_record = $dbc->dbResultFetch($s)) {
         $errors_occured
             = $hidden_date_not_ok || $lat_not_ok || $lon_not_ok || $name_not_ok
             || $time_not_ok || $way_length_not_ok || $size_not_ok || $activate_date_not_ok
-            || $status_not_ok || ! $all_wp_ok;
+            || $status_not_ok || ! $all_wp_ok || $type_not_ok;
 
         //try to save to DB?
         if (isset($_POST['submit'])) {
@@ -1116,6 +1134,8 @@ if ($cache_record = $dbc->dbResultFetch($s)) {
 
         tpl_set_var('cacheid', htmlspecialchars($cache_id, ENT_COMPAT, 'UTF-8'));
         tpl_set_var('name', htmlspecialchars($cache_name, ENT_COMPAT, 'UTF-8'));
+
+        tpl_set_var('type_message', ($type_not_ok == true) ? $error_type_not_ok : '');
 
         if ($hidden_date_not_ok == true) {
             tpl_set_var('hidden_since_message', $date_not_ok_message);
