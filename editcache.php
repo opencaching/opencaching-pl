@@ -104,14 +104,15 @@ if ($cache_record = $dbc->dbResultFetch($s)) {
         $remove = tr('delete');
         $edit = tr('edit');
         $error_general = '<div class="warning">' . tr('error_new_cache') . '</div>';
-        $error_type_not_ok = '<br/><img src="images/misc/32x32-impressum.png" class="icon32" alt=""  />&nbsp;<span class="errormsg">' . tr('type_virtual_webcam_restricted') . '</span>';
-        $error_coords_not_ok = '<br/><img src="images/misc/32x32-impressum.png" class="icon32" alt=""  />&nbsp;<span class="errormsg">' . tr('bad_coordinates') . '</span>';
-        $time_not_ok_message = '<br/><img src="images/misc/32x32-impressum.png" class="icon32" alt=""  />&nbsp;<span class="errormsg">' . tr('time_incorrect') . '</span>';
-        $way_length_not_ok_message = '<br/><img src="images/misc/32x32-impressum.png" class="icon32" alt=""  />&nbsp;<span class="errormsg">' . tr('distance_incorrect') . '</span>';
-        $date_not_ok_message = '<br/><img src="images/misc/32x32-impressum.png" class="icon32" alt=""  />&nbsp;<span class="errormsg">' . tr('date_incorrect') . '</span>';
-        $name_not_ok_message = '<br/><img src="images/misc/32x32-impressum.png" class="icon32" alt=""  />&nbsp;<span class="errormsg">' . tr('no_cache_name') . '</span>';
 
-        $size_not_ok_message = '<br/><img src="images/misc/32x32-impressum.png" class="icon32" alt=""  />&nbsp;&nbsp;<span class="errormsg">' . tr('size_incorrect') . '</span>';
+        $error_type_not_ok = $view->fieldError(tr('type_virtual_webcam_restricted'));
+        $error_coords_not_ok = $view->fieldError(tr('bad_coordinates'));
+        $time_not_ok_message = $view->fieldError(tr('time_incorrect'));
+        $way_length_not_ok_message = $view->fieldError(tr('distance_incorrect'));
+        $date_not_ok_message = $view->fieldError(tr('date_incorrect'));
+        $name_not_ok_message = $view->fieldError(tr('no_cache_name'));
+        $size_not_ok_message = $view->fieldError(tr('size_incorrect'));
+
         $all_countries_submit = '<input class="btn btn-default btn-sm" type="submit" name="show_all_countries_submit" value="' . tr('show_all_countries') . '"/>';
 
         $status_message = '&nbsp;<span class="errormsg">' . tr('status_incorrect') . '</span>';
@@ -498,13 +499,7 @@ if ($cache_record = $dbc->dbResultFetch($s)) {
             if ($wpOk) {
                 tpl_set_var($wpMessageVar, '');
             } else {
-                tpl_set_var(
-                    $wpMessageVar,
-                    '<img src="tpl/stdstyle/images/misc/32x32-impressum.png" class="icon32" alt=""  />'
-                    . '&nbsp;&nbsp;<span class="errormsg">'
-                    . tr("invalid_wp_{$wpType}")
-                    . '</span>'
-                );
+                tpl_set_var($wpMessageVar, $view->fieldError(tr("invalid_wp_{$wpType}")));
                 $all_wp_ok = false;
             }
         }

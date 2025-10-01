@@ -533,4 +533,8 @@ class View
     {
         return $this->_subtitle;
     }
+
+    public function fieldError(string $text): string {
+        return '<br><img src="images/misc/32x32-impressum.png" class="icon22" alt="">&nbsp;<span class="errormsg">' . $text . '</span>';
+    }
 }

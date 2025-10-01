@@ -57,13 +57,13 @@ $default_region = '0';
 $show_all = tr('show_all');
 $default_NS = 'N';
 $default_EW = 'E';
-$error_coords_not_ok = '<br><img src="images/misc/32x32-impressum.png" class="icon32" alt="">&nbsp;<span class="errormsg">' . tr('bad_coordinates') . '</span>';
-$time_not_ok_message = '<br><img src="images/misc/32x32-impressum.png" class="icon32" alt="">&nbsp;<span class="errormsg">' . tr('time_incorrect') . '</span>';
-$way_length_not_ok_message = '<br><img src="images/misc/32x32-impressum.png" class="icon32" alt="">&nbsp;<span class="errormsg">' . tr('distance_incorrect') . '</span>';
-$date_not_ok_message = '<br><img src="images/misc/32x32-impressum.png" class="icon32" alt="">&nbsp;<span class="errormsg">' . tr('date_incorrect') . '</span>';
-$name_not_ok_message = '<br><img src="images/misc/32x32-impressum.png" class="icon32" alt="">&nbsp;<span class="errormsg">' . tr('no_cache_name') . '</span>';
-$type_not_ok_message = '<br><img src="images/misc/32x32-impressum.png" class="icon32" alt="">&nbsp;&nbsp;<span class="errormsg">' . tr('type_incorrect') . '</span>';
-$size_not_ok_message = '<br><img src="images/misc/32x32-impressum.png" class="icon32" alt="">&nbsp;&nbsp;<span class="errormsg">' . tr('size_incorrect') . '</span>';
+$error_coords_not_ok = $view->fieldError(tr('bad_coordinates'));
+$time_not_ok_message = $view->fieldError(tr('time_incorrect'));
+$way_length_not_ok_message = $view->fieldError(tr('distance_incorrect'));
+$date_not_ok_message = $view->fieldError(tr('date_incorrect'));
+$name_not_ok_message = $view->fieldError(tr('no_cache_name'));
+$type_not_ok_message = $view->fieldError(tr('type_incorrect'));
+$size_not_ok_message = $view->fieldError(tr('size_incorrect'));
 // former /src/Views/newcache.inc.php' contents ends
 
 $rsnc = XDb::xSql('SELECT COUNT(`caches`.`cache_id`) as num_caches FROM `caches`
@@ -651,10 +651,7 @@ if (isset($_POST['submitform'])) {
 
     // validate region
     if ($sel_region == '0') {
-        tpl_set_var(
-            'region_message',
-            '<br><img src="images/misc/32x32-impressum.png" class="icon32" alt="">&nbsp;&nbsp;<span class="errormsg">' . tr('region_not_ok') . '</span>'
-        );
+        tpl_set_var('region_message', $view->fieldError(tr('region_not_ok')));
         $region_not_ok = true;
     } else {
         $region_not_ok = false;
@@ -715,7 +712,7 @@ if (isset($_POST['submitform'])) {
                 ${$wpVar} = $validatedCode;
             } else {
                 $all_wp_ok = false;
-                tpl_set_var('wp_' . $wpType . '_message', tr('invalid_' . $wpVar));
+                tpl_set_var('wp_' . $wpType . '_message', $view->fieldError(tr('invalid_' . $wpVar)));
             }
         }
     }
