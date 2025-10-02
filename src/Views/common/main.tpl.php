@@ -491,7 +491,6 @@ $view->addHeaderChunk('darkmodeJS');
       }
 
   </script>
-  <script src="/js/public.js"></script>
   <?php
       // fancyBox js should be loaded at the end of page
       if ($view->isFancyBoxEnabled()) {
