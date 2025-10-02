@@ -8,6 +8,7 @@ use src\Controllers\BaseController;
 use src\Models\Notify\Notify;
 use src\Models\Notify\NotifyEmailSender;
 use src\Models\User\User;
+use src\Utils\Debug\Debug;
 use src\Utils\Lock\Lock;
 
 class NotifyController extends BaseController
@@ -89,6 +90,10 @@ class NotifyController extends BaseController
 
     private function sendNotifiesAndClean(User $user)
     {
+        $email = $user->getEmail();
+        if (empty($email)) {
+            Debug::errorLog('NotifyController: User ' . $user->getUserId() . ' has no email set' . PHP_EOL);
+        }
         $notifiesList = Notify::getAllNotifiesForUserId($user->getUserId());
         NotifyEmailSender::sendNewCacheNotify($notifiesList, $user);
         Notify::deleteNotifiesForUserId($user->getUserId());
