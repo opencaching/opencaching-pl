@@ -1,0 +1,289 @@
+@charset "UTF-8";
+
+.interactiveMap_cursor {
+    cursor: crosshair
+}
+
+.interactiveMap_layerSwitcher {
+  top: 5px;
+  right: 5px;
+}
+
+.interactiveMap_layerSwitcher select {
+  padding: 7px;
+  margin: 5px;
+  border: none;
+  background-color: rgba(255,255,255,0.5);
+  color: #555;
+}
+
+/* all 3 classes to be sure that it overrride OL defaults */
+div.interactiveMap_attribution .ol-attribution.ol-control.ol-attribution {
+  bottom: 5px;
+  right: 5px;
+  background-color: rgba(238,238,238, .4);
+}
+
+/* for OL scale overriding default classes
+   is a best way to customize look of scale */
+.ol-scale-line {
+  bottom: 5px;
+  background-color: transparent;
+}
+
+@media screen and (max-width: 800px) {
+  .ol-scale-line {
+    left: 5px;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .ol-scale-line {
+    left: 50%;;
+    transform: translateX(-50%);
+  }
+}
+
+.ol-scale-line-inner {
+  /* this is a real scale line */
+  color: #000;
+  font-size: 0.7rem;
+  background-color: rgb(238,238,238);
+  opacity: 0.4;
+  border-width: 2px;
+  border-color: #000;
+  border-style: none solid none solid;
+}
+
+.interactiveMap_gpsLocator {
+  bottom: 130px;
+  right: 5px;
+}
+
+.interactiveMap_compassDiv {
+  top: 70px;
+  right: 5px;
+}
+
+.interactiveMap_mapZoom {
+  bottom: 30px;
+  right: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.interactiveMap_mapZoom img,
+.interactiveMap_gpsLocator img,
+.interactiveMap_compassDiv img {
+  width: 25px;
+  height: 25px;
+  margin: 5px;
+}
+
+.interactiveMap_mousePosition {
+  bottom: 5px;
+  left: 5px;
+  background-color: rgb(238,238,238,0.4);
+  color: #555;
+  padding: 2px 10px;
+  font-size: 0.8rem;
+}
+
+.interactiveMap_infoMsg {
+  top: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  display: flex;
+  flex-direction: row;
+
+  padding: 2px 10px;
+  font-size: 0.8rem;
+}
+
+.interactiveMap_infoMsgClose {
+  margin-left: 10px;
+  cursor: pointer;
+  color: #888;
+}
+
+.interactiveMap_popup {
+  position: absolute;
+  background-color: white;
+  -webkit-filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+  filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+  padding: 8px 15px 8px 8px;
+  border-radius: 5px;
+  border: 1px solid #cccccc;
+  bottom: 12px;
+  left: -48px;
+  min-width: 300px;
+  font-size: 1.0em;
+}
+
+.interactiveMap_popup:after, .interactiveMap_popup:before {
+  top: 100%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.interactiveMap_popup:after {
+  border-top-color: white;
+  border-width: 10px;
+  left: 48px;
+  margin-left: -10px;
+}
+.interactiveMap_popup:before {
+  border-top-color: #cccccc;
+  border-width: 11px;
+  left: 48px;
+  margin-left: -11px;
+}
+.interactiveMap_popup .imp-closer {
+  text-decoration: none;
+  position: absolute;
+  top: 0px;
+  right: 2px;
+}
+.interactiveMap_popup .imp-closer:after {
+  content: "✖";
+  font-size: 15px;
+  cursor: pointer;
+  color: #000;
+}
+
+.interactiveMap_popup .imp-navi .imp-backward {
+    float: left;
+}
+
+.interactiveMap_popup .imp-navi .imp-forward {
+    float: right;
+}
+
+.interactiveMap_popup .imp-navi .imp-backward,
+.interactiveMap_popup .imp-navi .imp-forward {
+    padding: 0 3px;
+    font-weight: bold;
+}
+
+.interactiveMap_popup .imp-navi .imp-backward img,
+.interactiveMap_popup .imp-navi .imp-forward img {
+    width: 20px;
+    height: auto;
+    cursor: pointer;
+}
+
+.interactiveMap_popup .imp-navi .imp-backward img {
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: FlipH;
+    -ms-filter: "FlipH";
+}
+
+/* a lot of log entries starts with a paragraph*/
+.interactiveMap_popup  p {
+    font-size: inherit !important;
+}
+
+.interactiveMap_popup .imp-cache .imp-icon, .interactiveMap_popup .imp-cache .imp-icon img,
+.interactiveMap_popup .imp-cache-log .imp-cache-icon, .interactiveMap_popup .imp-cache-log .imp-cache-icon img,
+.interactiveMap_popup .imp-cache-log .imp-log-icon, .interactiveMap_popup .imp-cache-log .imp-log-icon img {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+.interactiveMap_popup .imp-cache .imp-icon, .interactiveMap_popup .imp-cache .imp-icon img,
+.interactiveMap_popup .imp-cache-log .imp-cache-icon, .interactiveMap_popup .imp-cache-log .imp-cache-icon img {
+    width: 19px;
+    height: 19px;
+}
+
+.interactiveMap_popup .imp-cache .imp-wp {
+    float: right;
+    font-weight: normal;
+    font-size: 90% !important;
+}
+
+.interactiveMap_popup .imp-cache .imp-details {
+    font-size: 85%;
+}
+
+.interactiveMap_popup .imp-cache .imp-details img {
+    width: 10px;
+    height: 10px;
+}
+
+.interactiveMap_popup .imp-cache .imp-counter {
+    text-align: right;
+}
+
+.interactiveMap_popup .imp-cache .imp-label {
+    font-weight: bold;
+}
+
+.interactiveMap_popup .imp-cache-log .imp-block {
+    margin-top: 10px;
+}
+
+.interactiveMap_popup .imp-cache-log .imp-content {
+    font-weight: normal;
+}
+
+.interactiveMap_popup .imp-cache-log .imp-user {
+   font-weight: bold;
+}
+
+.interactiveMap_popup .imp-guide {
+    font-size: 13px;
+    font-weight: bold;
+    text-align: left;
+}
+
+.interactiveMap_popup .imp-guide .imp-desc {
+    max-height: 5em;
+    overflow: hidden;
+}
+
+.interactiveMap_popup .imp-table {
+    display: table;
+    width: 100%;
+}
+
+.interactiveMap_popup .imp-table .imp-row {
+    display: table-row;
+}
+
+.interactiveMap_popup .imp-table .imp-cell,
+.interactiveMap_popup .imp-table .imp-narrow-cell {
+    display: table-cell;
+    padding: 1px 5px;
+}
+
+.interactiveMap_popup .imp-table .imp-narrow-cell {
+    width: 1%;
+    white-space: nowrap;
+}
+
+.interactiveMap_popup .imp-cache .imp-icon,
+.interactiveMap_popup .imp-cache-log .imp-cache-icon,
+.interactiveMap_popup .imp-cache-log .imp-log-icon {
+    padding-bottom: 2px;
+}
+
+.interactiveMap_popup .ipm-section {
+    margin-bottom: 5px;
+}
+
+.interactiveMap_popup .imp-table .ipm-section {
+    padding: 0px 0px 1px 0px;
+    font-size: 0.8em;
+    font-weight: bold;
+    border-bottom: 1px solid #c0c0c0;
+    text-align: center;
+}

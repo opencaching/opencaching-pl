@@ -4,6 +4,8 @@ namespace src\Models\GeoCache;
 use src\Models\BaseObject;
 use src\Utils\Debug\Debug;
 
+use \ReflectionClass;
+
 /**
  * Common consts etc. for geocaches
  *
@@ -466,5 +468,27 @@ class GeoCacheCommons extends BaseObject {
     public static function GetCacheUrlByWp($ocWaypoint)
     {
         return '/viewcache.php?wp=' . $ocWaypoint;
+    }
+
+    /**
+     * Returns a JSON structure containing a (constant_name, constant_value)
+     * pairs for all defined geocache statuses
+     *
+     * @return string JSON structure, ready for use in javascript f.ex.
+     */
+    public static function getCacheStatusListJson(): string
+    {
+        $result = '{';
+        $gccClass = new ReflectionClass(__CLASS__);
+        foreach ($gccClass->getConstants() as $name => $value) {
+            if (preg_match('/^STATUS\_/', $name) === 1 && is_numeric($value)) {
+                if (strlen($result) > 1) {
+                    $result .= ',';
+                }
+                $result .= '"' . $name . '":"' . $value . '"';
+            }
+        }
+        $result .= '}';
+        return $result;
     }
 }

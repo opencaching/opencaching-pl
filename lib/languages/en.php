@@ -642,6 +642,9 @@ $translations = [
     'myn_addarea_info' => 'You can define more neighbourhoods that you watch',
     'myn_cacheitems_lbl' => 'The number of caches and logs displayed',
     'myn_style_lbl' => 'My Neighbourhood style',
+    'myn_family_lbl' => 'A style of map icons',
+    'myn_family_named_simple' => 'Simple',
+    'myn_family_named_okapi' => 'Okapi',
     'myn_log_txt' => 'Log content',
     'myn_style_full' => 'Full',
     'myn_style_min' => 'Minimalistic',
@@ -3288,4 +3291,9 @@ $translations = [
     'gpx_info_p9' => 'Recognized values of <code>Opencaching</code> standard <code>type</code> tag are translated to the corresponding geocache types according to the following table (in a case-insensitive manner)',
     'gpx_info_p10' => 'Recognized values of <code>Opencaching</code> standard <code>size</code> tag are translated to the corresponding geocache sizes according to the following table (in a case-insensitive manner)',
     'gpx_info_p11' => 'In case of tags translated to the same elements, <code>Opencaching</code> standard tags have the highiest priority, then <code>Groundspeak 1.0/1.0.1</code> and the last are <code>Topografix</code> tags. For example: the <code>desc</code> tag value is replaced by the <code>long_description</code> tag value, if exists in document, and the <code>type</code> tag value from the <code>Groundspeak 1.0/1.0.1</code> standard is replaced by the <code>type</code> tag value from the <code>Opencaching</code> standard.',
+
+    'map_popup_next' => 'Next',
+    'map_popup_previous' => 'Previous',
+    'mynbh_interactive' => 'Switch to Interactive version',
+    'mynbh_original' => 'Switch to original version',
 ];

@@ -1,7 +1,10 @@
 <?php
-use src\Utils\Uri\SimpleRouter;
+
+use src\Controllers\MyNbhInteractiveController;
+use src\Models\ApplicationContainer;
 use src\Models\Neighbourhood\Neighbourhood;
 use src\Models\Coordinates\Coordinates;
+use src\Utils\Uri\SimpleRouter;
 
 ?>
 <div class="content2-container">
@@ -15,7 +18,15 @@ use src\Models\Coordinates\Coordinates;
     <a class="btn btn-md <?=$btnClassMod?>" href="<?=SimpleRouter::getLink('MyNeighbourhood', 'index', $nbh->getSeq())?>"><?=$nbh->getName()?></a>
   <?php } // end foreach neighbourhoodsList ?>
   <a class="btn btn-md btn-success" href="<?=SimpleRouter::getLink('MyNeighbourhood', 'config', $view->selectedNbh)?>"><img src="/images/free_icons/cog.png" class="icon16" alt="<?=tr('config')?>">&nbsp;<?=tr('config')?></a>
-
+<?php
+if (MyNbhInteractiveController::VALIDATION_MODE
+    && MyNbhInteractiveController::hasAccess(
+        ApplicationContainer::GetAuthorizedUser()
+    )
+) { ?>
+  <a class="btn btn-md btn-info" style="float: right" href="<?=SimpleRouter::getLink('MyNbhInteractiveController')?>"><?=tr('mynbh_interactive')?></a>
+<?php
+} ?>
   <div class="nbh-sort-list">
   <?php
     $order = [];
