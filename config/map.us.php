@@ -15,23 +15,7 @@ $map['jsConfig'] = "
     OSM: new ol.layer.Tile ({
         source: new ol.source.OSM(),
     }),
-
-    BingMap: new ol.layer.Tile ({
-        source: new ol.source.BingMaps({
-            key: '{Key-BingMap}',
-            imagerySet: 'Road',
-            maxZoom: 19
-        })
-    }),
-
-    BingSatelite: new ol.layer.Tile ({
-        source: new ol.source.BingMaps({
-            key: '{Key-BingMap}',
-            imagerySet: 'Aerial',
-            maxZoom: 19
-        })
-    }),
-
+    
     ESRITopo: new ol.layer.Tile({
         source: new ol.source.XYZ({
             attributions: 'Tiles © <a href=\"https://services.arcgisonline.com/ArcGIS/' +
@@ -109,4 +93,5 @@ $map['startPageMapDimensions'] = [275, 275];
  *
  * The level 3 key is also used as link_text.
  */
+$map['external']["Bing Maps"]['enabled'] = true;
 $map['external']["Flopp's Map"]['enabled'] = true;

@@ -124,6 +124,8 @@ $map['startPageMapDimensions'] = [250, 260];
  *
  * The level 3 key is also used as link_text.
  */
-$map['external']['OSMapa']['enabled'] = true;     // PL specific
-$map['external']['UMP']['enabled'] = true;     // PL specific
-$map['external']['Szukacz']['enabled'] = true;     // PL specific
+$map['external']['OSMapa']['enabled'] = true;       // PL specific
+$map['external']['UMP']['enabled'] = true;          // PL specific
+$map['external']['Szukacz']['enabled'] = true;      // PL specific
+$map['external']['Mapy.com']['enabled'] = true;     // PL specific
+$map['external']['Geoportal']['enabled'] = true;    // PL specific
