@@ -16,20 +16,23 @@ $map['jsConfig'] = "
     source: new ol.source.OSM(),
   }),
 
-  BingMap: new ol.layer.Tile ({
-    source: new ol.source.BingMaps({
-      key: '{Key-BingMap}',
-      imagerySet: 'Road'
-    })
+  ESRITopo: new ol.layer.Tile({
+      source: new ol.source.XYZ({
+          attributions: 'Tiles © <a href=\"https://services.arcgisonline.com/ArcGIS/' +
+              'rest/services/World_Topo_Map/MapServer\">ArcGIS</a>',
+          url: 'https://server.arcgisonline.com/ArcGIS/rest/services/' +
+              'World_Topo_Map/MapServer/tile/{z}/{y}/{x}'
+      })
   }),
-
-  BingSatelite: new ol.layer.Tile ({
-    source: new ol.source.BingMaps({
-      key: '{Key-BingMap}',
-      imagerySet: 'Aerial'
-    })
-  }),
-
+    
+  ESRIStreet: new ol.layer.Tile({
+      source: new ol.source.XYZ({
+          attributions: 'Tiles © <a href=\"https://services.arcgisonline.com/ArcGIS/' +
+                'rest/services/World_Street_Map/MapServer\">ArcGIS</a>',
+            url: 'https://server.arcgisonline.com/ArcGIS/rest/services/' +
+                'World_Street_Map/MapServer/tile/{z}/{y}/{x}'
+        })
+    }),
 }
 ";
 
@@ -92,3 +95,4 @@ $map['startPageMapDimensions'] = [200, 240];
  * The level 3 key is also used as link_text.
  */
 $map['external']["Flopp's Map"]['enabled'] = true;
+$map['external']['Bing Maps']['enabled'] = true;

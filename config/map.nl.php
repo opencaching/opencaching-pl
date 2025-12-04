@@ -16,22 +16,6 @@ $map['jsConfig'] = "
         source: new ol.source.OSM(),
     }),
 
-    BingMap: new ol.layer.Tile ({
-        source: new ol.source.BingMaps({
-            key: '{Key-BingMap}',
-            imagerySet: 'Road',
-            maxZoom: 19
-        })
-    }),
-
-    BingSatelite: new ol.layer.Tile ({
-        source: new ol.source.BingMaps({
-            key: '{Key-BingMap}',
-            imagerySet: 'Aerial',
-            maxZoom: 19
-        })
-    }),
-
     ESRITopo: new ol.layer.Tile({
         source: new ol.source.XYZ({
             attributions: 'Tiles © <a href=\"https://services.arcgisonline.com/ArcGIS/' +
@@ -110,4 +94,4 @@ $map['startPageMapDimensions'] = [250, 300];
  * The level 3 key is also used as link_text.
  */
 $map['external']["Flopp's Map"]['enabled'] = true;
-$map['external']['Topo BE'] = 'http://wms.ngi.be/cartoweb/service/?lat=%1$f&lon=%2$f&zoom=16';
+$map['external']['Bing Maps']['enabled'] = true;

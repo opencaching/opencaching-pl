@@ -105,3 +105,12 @@ $map['external']['Szukacz']['url'] = 'https://mapa.szukacz.pl/?n=%1$f&e=%2$f&z=4
 
 $map['external']["Flopp's Map"]['enabled'] = false;
 $map['external']["Flopp's Map"]['url'] = 'https://flopp.net/?c=%1$f:%2$f&z=16&t=OSM&f=g&m=&d=&g=%4$s';
+
+$map['external']['Mapy.com']['enabled'] = false; // PL specific
+$map['external']['Mapy.com']['url'] = 'https://mapy.com/zakladni?x=%2$f&y=%1$f&z=16&source=coor&id=%2$f,%1$f';
+
+$map['external']['Geoportal']['enabled'] = false; // PL specific
+$map['external']['Geoportal']['url'] = 'https://mapy.geoportal.gov.pl/imapnext/imap/?mapview=%1$f,%2$f,5000s';
+
+$map['external']['Bing Maps']['enabled'] = false;
+$map['external']['Bing Maps']['url'] = 'https://www.bing.com/maps?cp=%1$f~%2$f&lvl=16&style=h';
