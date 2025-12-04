@@ -65,6 +65,69 @@ $user = $view->user;
         $(".ui-dialog-titlebar-close").hide();
       })
     }
+
+    const ClipboardHelper = (() => {
+
+        const flashButton = (el) => {
+            const originalColor = el.style.backgroundColor || "";
+            el.style.transition = "background-color 0.3s";
+            el.style.backgroundColor = "lightgreen";
+
+            if (el._flashTimeout) clearTimeout(el._flashTimeout);
+
+            el._flashTimeout = setTimeout(() => {
+                el.style.backgroundColor = originalColor;
+                el._flashTimeout = null;
+            }, 2000);
+        };
+
+        const fallbackCopy = (text, button) => {
+            const textarea = document.createElement("textarea");
+            textarea.value = text;
+            textarea.style.position = "fixed";
+            textarea.style.top = "-9999px";
+            document.body.appendChild(textarea);
+            textarea.focus();
+            textarea.select();
+
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    console.log("Text copied (fallback).");
+                    flashButton(button);
+                } else {
+                    console.error("Fallback: Unable to copy text.");
+                }
+            } catch (err) {
+                console.error("Fallback error:", err);
+            }
+
+            document.body.removeChild(textarea);
+        };
+
+        const copy = (text, button) => {
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text)
+                    .then(() => {
+                        console.log("Text copied.");
+                        flashButton(button);
+                    })
+                    .catch(err => {
+                        console.error("Clipboard API error, using fallback:", err);
+                        fallbackCopy(text, button);
+                    });
+            } else {
+                fallbackCopy(text, button);
+            }
+        };
+
+        return {
+            copy
+        };
+    })();
+
+
+
 </script>
 
 <div class="content2-pagetitle">
@@ -114,13 +177,13 @@ $user = $view->user;
     <br>
     <?=tr('registered_since_label')?>: <strong><?=Formatter::dateTime($user->getDateCreated())?></strong><br>
     <?=tr('email_address')?>:
-      <a href="<?=SimpleRouter::getLink('UserProfile', 'mailTo', $user->getUserId())?>" class="links">
-          <?=$user->getEmail()?>
-          <img src="/images/free_icons/email.png" alt="<?=tr('email_user')?>" title="<?=tr('email_user')?>">
-      </a>
-      <a href="#" class="js-oc-copy-to-clipboard" data-copy-to-clipboard="<?=$user->getEmail()?>">
-          <img src="/images/misc/copy-coords.svg" alt="user profile" width="16px" height="16px">
-      </a>
+    <a href="<?=SimpleRouter::getLink('UserProfile', 'mailTo', $user->getUserId())?>" class="links">
+      <?=$user->getEmail()?>
+      <img src="/images/free_icons/email.png" alt="<?=tr('email_user')?>" title="<?=tr('email_user')?>">
+    </a>
+    <button class="btn btn-xs btn-default" type="button" title="<?=tr('email_user')?>" onclick="ClipboardHelper.copy('<?=$user->getEmail()?>', this)">
+        <img src="/images/free_icons/page_copy.png" alt="<?=tr('email_user')?>" style="width: 13px; height: 13px;">
+    </button>
   </p>
   <div class="buffer"></div>
 
