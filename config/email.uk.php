@@ -9,12 +9,12 @@
 /**
  * Address used to send technical notifications from the OC server/code etc.
  */
-$config['technicalNotificationEmail'] = 'techNotifyUK@o#pencaching.pl';
+$config['technicalNotificationEmail'] = 'notif#ications@o#pencache.uk';
 
 /**
  * Technical contact address for users of this OC node
  */
-$config['nodeTechContactEmail'] = 'de#g@be#st.pl';
+$config['nodeTechContactEmail'] = 'notif#ications@o#pencache.uk';
 
 /**
  * Contact address to OCTEAM for this node (reviewers and regional service for cachers)
@@ -24,7 +24,7 @@ $config['ocTeamContactEmail'] = 'in#fo@op#enca#che.uk';
 /**
  * Signature for OCTeam emails for this node
  */
-$config['ocTeamEmailSignature'] = 'Regards, OC UK Team';
+$config['ocTeamEmailSignature'] = 'Regards, OpenCaching UK Team';
 
 /**
  * No-reply email address for this node
