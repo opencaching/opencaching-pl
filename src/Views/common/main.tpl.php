@@ -93,8 +93,8 @@ $view->addHeaderChunk('darkmodeJS');
   }?>
   <div id="overall">
     <div class="page-container-1">
-      <div class="seasonalBackground left <?= $view->backgroundSeason; ?>">&nbsp;</div>
-      <div class="seasonalBackground right <?= $view->backgroundSeason; ?>">&nbsp;</div>
+      <div class="seasonalBackground left">&nbsp;</div>
+      <div class="seasonalBackground right">&nbsp;</div>
       <div class="topline-container">
         <div class="topline-logo">
           <a href="/" class="transparent"><img src="<?= $view->_mainLogo; ?>" alt="OC logo"></a>

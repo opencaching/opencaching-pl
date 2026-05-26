@@ -24,7 +24,7 @@ body                { font-size: 62.5%; line-height: 1.42857143; margin: 0 auto;
 body.summer { background-color: #feec98; }
 body.autumn { background-color: #e0ed9d; }
 body.winter { background-color: #ddebf5; }
-body.spring { background-color: #feec98; }
+body.spring { background-color: #e0ed9d; }
 
 div.seasonalBackground {
   display: block;
@@ -38,10 +38,10 @@ div.seasonalBackground {
 div.seasonalBackground.left{ left: -331px; }
 div.seasonalBackground.right{ right: -331px; transform: scaleX(-1); }
 
-div.seasonalBackground.summer{ background-image: url(/images/css/summer.jpg);}
-div.seasonalBackground.autumn{ background-image: url(/images/css/autumn.jpg);}
-div.seasonalBackground.winter{ background-image: url(/images/css/winter.jpg);}
-div.seasonalBackground.spring{ background-image: url(/images/css/spring.jpg);}
+body.summer div.seasonalBackground{ background-image: url(/images/css/summer.jpg);}
+body.autumn div.seasonalBackground{ background-image: url(/images/css/autumn.jpg);}
+body.winter div.seasonalBackground{ background-image: url(/images/css/winter.jpg);}
+body.spring div.seasonalBackground{ background-image: url(/images/css/spring.jpg);}
 
 /*************************************/
 /* SECTION 2 - HEADER AND NAVIGATION */
