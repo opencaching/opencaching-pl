@@ -220,6 +220,7 @@ $translations = [
     'not_yet_published' => 'Su buzón de correo aún no ha sido publicada',
     'user_profile' => 'Perfil del usuario',
     'email_user' => 'e-mail al usuario',
+    'copy_email' => 'Copy email address',
     'show_user_map' => 'Mostrar mapa del usuario',
     'found_caches' => 'Buscando',
     'not_found_caches' => 'No caches found yet',
