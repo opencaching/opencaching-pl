@@ -220,6 +220,7 @@ $translations = [
     'not_yet_published' => 'Din cacher som ännu inte har publicerats',
     'user_profile' => 'Användarprofil',
     'email_user' => 'e-posta användaren',
+    'copy_email' => 'Copy email address',
     'show_user_map' => 'Visa användarens karta',
     'found_caches' => 'Hittade cacher',
     'not_found_caches' => 'No caches found yet',
