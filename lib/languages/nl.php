@@ -220,6 +220,7 @@ $translations = [
     'not_yet_published' => 'Nog niet gepubliceerde caches',
     'user_profile' => 'Gebruikers profiel',
     'email_user' => 'Mail deze gebruiker',
+    'copy_email' => 'Copy email address',
     'show_user_map' => 'Toon kaart van deze gebruiker',
     'found_caches' => 'Gevonden caches',
     'not_found_caches' => 'Nog geen caches gevonden',

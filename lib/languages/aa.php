@@ -220,6 +220,7 @@ $translations = [
     'not_yet_published' => 'crwdns5822:0crwdne5822:0',
     'user_profile' => 'crwdns5824:0crwdne5824:0',
     'email_user' => 'crwdns5827:0crwdne5827:0',
+    'copy_email' => 'crwdns34093:0crwdne34093:0',
     'show_user_map' => 'crwdns5828:0crwdne5828:0',
     'found_caches' => 'crwdns5831:0crwdne5831:0',
     'not_found_caches' => 'crwdns26320:0crwdne26320:0',

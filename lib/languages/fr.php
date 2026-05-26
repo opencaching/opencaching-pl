@@ -220,6 +220,7 @@ $translations = [
     'not_yet_published' => 'Mes caches pas encore publiées',
     'user_profile' => 'Profil de l’utilisateur',
     'email_user' => 'Écrire à l’utilisateur',
+    'copy_email' => 'Copy email address',
     'show_user_map' => 'Voir la carte de l’utilisateur',
     'found_caches' => 'Caches trouvées',
     'not_found_caches' => 'No caches found yet',
