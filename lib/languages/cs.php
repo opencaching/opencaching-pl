@@ -220,6 +220,7 @@ $translations = [
     'not_yet_published' => 'Vaše schránka dosud nepublikovaných',
     'user_profile' => 'Uživatelský profil',
     'email_user' => 'e-mail pro uživatele',
+    'copy_email' => 'Copy email address',
     'show_user_map' => 'Zobrazit mapu uživatele',
     'found_caches' => 'Vyhledávání',
     'not_found_caches' => 'Zatím nenalezeny žádné keše',
