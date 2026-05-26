@@ -220,6 +220,7 @@ $translations = [
     'not_yet_published' => 'Moje jeszcze nieopublikowane skrzynki',
     'user_profile' => 'Profil użytkownika',
     'email_user' => 'Wiadomość do użytkownika',
+    'copy_email' => 'Copy email address',
     'show_user_map' => 'Pokaż mapę użytkownika',
     'found_caches' => 'Znalezienia',
     'not_found_caches' => 'Nie znaleziono skrzynki',
