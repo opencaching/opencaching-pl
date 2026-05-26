@@ -47,8 +47,8 @@
 <body class="<?=$view->_backgroundSeason?>">
 
       <div class="page-wrapper">
-        <div class="d-none d-lg-block left seasonalBackground <?=$view->_backgroundSeason?>"></div>
-        <div class="d-none d-lg-block right seasonalBackground <?=$view->_backgroundSeason?>"></div>
+        <div class="d-none d-lg-block left seasonalBackground"></div>
+        <div class="d-none d-lg-block right seasonalBackground"></div>
 
         <div class="container-fluid">
 
