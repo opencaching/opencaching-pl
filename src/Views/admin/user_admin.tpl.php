@@ -172,7 +172,7 @@ $user = $view->user;
   <p>
     <?=tr('lastlogins')?>:
     <span class="<?=$user->getLastLoginPeriodClass()?>">
-      <?=Formatter::dateTime($user->getLastLoginDate())?>
+      <?=$user->getLastLoginDate() !== null ? Formatter::dateTime($user->getLastLoginDate()) : tr('unknown')?>
     </span>
     <br>
     <?=tr('registered_since_label')?>: <strong><?=Formatter::dateTime($user->getDateCreated())?></strong><br>
@@ -181,8 +181,8 @@ $user = $view->user;
       <?=$user->getEmail()?>
       <img src="/images/free_icons/email.png" alt="<?=tr('email_user')?>" title="<?=tr('email_user')?>">
     </a>
-    <button class="btn btn-xs btn-default" type="button" title="<?=tr('email_user')?>" onclick="ClipboardHelper.copy('<?=$user->getEmail()?>', this)">
-        <img src="/images/free_icons/page_copy.png" alt="<?=tr('email_user')?>" style="width: 13px; height: 13px;">
+    <button class="btn btn-xs btn-default" type="button" title="<?=tr('copy_email')?>" onclick="ClipboardHelper.copy('<?=$user->getEmail()?>', this)">
+        <img src="/images/free_icons/page_copy.png" alt="<?=tr('copy_email')?>" style="width: 13px; height: 13px;">
     </button>
   </p>
   <div class="buffer"></div>
