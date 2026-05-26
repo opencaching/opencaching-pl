@@ -220,6 +220,7 @@ $translations = [
     'not_yet_published' => 'Geocutii proprii care nu au fost publicate încă',
     'user_profile' => 'Profilul utilizatorului',
     'email_user' => 'Trimite e-mail utilizatorului',
+    'copy_email' => 'Copy email address',
     'show_user_map' => 'Arată harta utilizatorului',
     'found_caches' => 'Geocutii găsite',
     'not_found_caches' => 'No caches found yet',
