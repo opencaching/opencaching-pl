@@ -14,4 +14,4 @@ $config = [];
  * USUALLY THERE IS NO NEED TO BLACKLIST ANY OKAPI CRON JOB!
  * This is only for debug purpose4 in production env.
  */
-$config['cronJobsBlackList'] = ['FulldumpGeneratorJob'];
+$config['cronJobsBlackList'] = ['FulldumpGeneratorJob', 'ChangeLogWriterJob' , 'ChangeLogCheckerJob'];
