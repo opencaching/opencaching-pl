@@ -18,6 +18,9 @@ use src\Utils\I18n\I18n;
 class CacheAttribute
 {
     // attribute name = attribute ID
+    
+    /* *** Common attributes between OC and GC **************************** */
+    
     /** Access or parking fee */
     public const FEE = 2;
 
@@ -33,6 +36,9 @@ class CacheAttribute
     /** Suitable for children */
     public const CHILDREN = 6;
 
+    /** Scenic view */
+    public const SCENIC = 8;
+    
     /** Long walk or hike */
     public const HIKING = 9;
 
@@ -141,6 +147,9 @@ class CacheAttribute
     /** Solution checker [SPECIAL ATTRIBUTE] */
     public const OPENCHECKER = 72;
 
+    /* *** OC only attributes ********************************************* 
+           Common attributes between OCPL and OCDE projects */
+    
     /** Only loggable at Opencaching */
     public const OCONLY = 106;
 
@@ -210,6 +219,9 @@ class CacheAttribute
     /** Handicaped: Blind people */
     public const BLIND = 162;
 
+    /* *** OC only attributes ********************************************* 
+           OCPL only attributes */
+
     /** Quick and easy cache */
     public const QUICK = 201;
 
@@ -276,12 +288,28 @@ class CacheAttribute
     /** Log is part of a guestbook */
     public const GUESTBOOK = 222;
 
+    /** Near architectural detail given in description */
+    public const DETAIL = 223;
+
+    /** The cache is located near a protected nature feature. */
+    public const NATURAL = 224;
+
+    /** The cache is located near a street art work, mural or other form of urban art. */
+    public const STREETART = 225;
+
+    /** Urban exploration, abandoned building. */
+    public const URBEX = 226;
+
+    /* *** Special purpose attributes ************************************* */
+
     /** Cache is part of a GeoPath [SPECIAL ATTRIBUTE] */
     public const GEOPATH = 998;
 
     /** Log password [SPECIAL ATTRIBUTE] */
     public const PASSWORD = 999;
 
+    /* *** NEGATED common attributes between OC and GC ******************** */
+    
     /** Dogs not allowed */
     public const NODOGS = 9001;
 
@@ -299,11 +327,13 @@ class CacheAttribute
 
     // Configuration data for each attribute: translation key + icon name or path
     private const CONFIG = [
+    /* *** Common attributes between OC and GC **************************** */
         self::FEE => ['trKey' => 'at_fee', 'icon' => 'at_fee.png'],
         self::RAPELLING => ['trKey' => 'at_rapelling', 'icon' => 'at_rapelling.png'],
         self::BOAT => ['trKey' => 'at_boat', 'icon' => 'at_boat.png'],
         self::DIVING => ['trKey' => 'at_diving', 'icon' => 'at_diving.png'],
         self::CHILDREN => ['trKey' => 'at_children', 'icon' => 'at_children.png'],
+        self::SCENIC => ['trKey' => 'at_scenic', 'icon' => 'at_scenic.png'],
         self::HIKING => ['trKey' => 'at_hiking', 'icon' => 'at_hiking.png'],
         self::CLIMBING => ['trKey' => 'at_climbing', 'icon' => 'at_climbing.png'],
         self::WADING => ['trKey' => 'at_wading', 'icon' => 'at_wading.png'],
@@ -343,6 +373,8 @@ class CacheAttribute
             'trKey' => 'at_openchecker',
             'icon' => '/images/cacheAttributes/at_openchecker.png',
         ],
+    /* *** OC only attributes ********************************************* 
+           Common attributes between OCPL and OCDE projects */
         self::OCONLY => ['trKey' => 'at_oconly', 'icon' => 'at_oconly.png'],
         self::LETTERBOX => ['trKey' => 'at_letterbox', 'icon' => 'at_letterbox.png'],
         self::TRAIN => ['trKey' => 'at_train', 'icon' => 'at_train.png'],
@@ -366,6 +398,8 @@ class CacheAttribute
         self::ASK => ['trKey' => 'at_ask', 'icon' => 'additional/at_ask.png'],
         self::SAFARI => ['trKey' => 'at_safari', 'icon' => 'at_safari.png'],
         self::BLIND => ['trKey' => 'at_blind', 'icon' => 'at_blind.png'],
+    /* *** OC only attributes ********************************************* 
+           OCPL only attributes */
         self::QUICK => ['trKey' => 'at_quick', 'icon' => 'at_quick.png'],
         self::GEOHOTEL => ['trKey' => 'at_geohotel', 'icon' => 'at_geohotel.png'],
         self::PEN => ['trKey' => 'at_pen', 'icon' => 'at_pen.png'],
@@ -388,7 +422,13 @@ class CacheAttribute
         self::HISTORIC => ['trKey' => 'at_historic', 'icon' => 'at_historic.png'],
         self::BITCACHE => ['trKey' => 'at_bitcache', 'icon' => 'at_bitcache.png'],
         self::GUESTBOOK => ['trKey' => 'at_guestbook', 'icon' => 'at_guestbook.png'],
+    /* *** Special purpose attributes ************************************* */
         self::GEOPATH => ['trKey' => 'at_geopath', 'icon' => 'at_geopath.png'],
+        self::DETAIL => ['trKey' => 'at_detail', 'icon' => 'at_detail.png'],
+        self::NATURAL => ['trKey' => 'at_natural', 'icon' => 'at_natural.png'],
+        self::STREETART => ['trKey' => 'at_street_art', 'icon' => 'at_street_art.png'],
+        self::URBEX => ['trKey' => 'at_urbex_art', 'icon' => 'at_urbex_art.png'],
+    /* *** NEGATED common attributes between OC and GC ******************** */
         self::NODOGS => ['trKey' => 'at_nodogs', 'icon' => 'at_nodogs.png'],
         self::NOTAVAILABLE247 => ['trKey' => 'at_notAvailable247', 'icon' => 'at_notavailable247.png'],
         self::DAY => ['trKey' => 'at_day', 'icon' => 'at_day.png'],
