@@ -67,11 +67,12 @@ if ($tit == "csm") {
     XDb::xFreeResults($rsCachesFindMonth);
 }
 
+if (empty($y)) exit;
+$maxY = max($y);
+$maxY = max(1, $maxY + ($maxY * 0.2));
 
 // Create the graph. These two calls are always required
 $graph = new Graph(400, 200, 'auto');
-$maxY = !empty($y) ? max($y) : 1;
-$maxY = max(1, $maxY + ($maxY * 0.2));
 $graph->SetScale('textint', 0, $maxY, 0, 0);
 // Add a drop shadow
 $graph->SetShadow();
