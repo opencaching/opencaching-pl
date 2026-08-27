@@ -115,6 +115,18 @@ class TestController extends ViewBaseController
 
         $this->view->setVar('link', $link);
         $this->view->setVar('attrList', $attrList);
+
+        $database = OcDb::instance();
+        $query = "SELECT * FROM `cache_attrib`";
+        $s = $database->query($query);
+        $rs = $database->dbResultFetchAll($s);
+
+        $csv = implode(';', array_keys($rs[0])) . "\n";
+        foreach ($rs as $row) {
+            $csv .= implode(';', $row) . "\n";
+        }
+        $this->view->setVar('csv', $csv);
+
         $this->view->loadJQuery();
         $this->view->buildView();
     }

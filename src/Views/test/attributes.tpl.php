@@ -89,6 +89,12 @@ use src\Models\GeoCache\CacheAttribute;
     <?php } ?>
     </div>
 <?php } ?>
+<br><hr><br>
+<h5>Current attributes in the database</h5>
+<div style="overflow: auto; max-width: 100%">
+  <pre><?=$view->csv?></pre>
+</div>
+
 
 <script>
 
