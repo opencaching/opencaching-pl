@@ -70,7 +70,9 @@ if ($tit == "csm") {
 
 // Create the graph. These two calls are always required
 $graph = new Graph(400, 200, 'auto');
-$graph->SetScale('textint', 0, max($y) + (max($y) * 0.2), 0, 0);
+$maxY = !empty($y) ? max($y) : 1;
+$maxY = max(1, $maxY + ($maxY * 0.2));
+$graph->SetScale('textint', 0, $maxY, 0, 0);
 // Add a drop shadow
 $graph->SetShadow();
 
