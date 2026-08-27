@@ -67,7 +67,10 @@ if ($tit == "csm") {
     XDb::xFreeResults($rsCachesFindMonth);
 }
 
-if (empty($y)) exit;
+if (empty($y)) {
+    $y[] = 0;
+    $x[] = '';
+}
 $maxY = max($y);
 $maxY = max(1, $maxY + ($maxY * 0.2));
 
