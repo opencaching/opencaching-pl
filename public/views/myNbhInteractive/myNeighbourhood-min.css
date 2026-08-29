@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+.nbh-icon {
+	height: 16px;
+}
+
+.nbh-line-container:nth-child(odd), tr:nth-child(odd) {
+	background-color: #f5f5f5;
+}
+
+.nbh-full-only {
+	display: none;
+}

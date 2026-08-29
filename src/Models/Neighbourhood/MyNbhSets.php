@@ -1,15 +1,15 @@
 <?php
+
 namespace src\Models\Neighbourhood;
 
 use src\Models\BaseObject;
 use src\Models\Coordinates\Coordinates;
 use src\Models\GeoCache\GeoCache;
-use src\Models\GeoCache\GeoCacheLog;
 use src\Models\GeoCache\GeoCacheCommons;
+use src\Models\GeoCache\GeoCacheLog;
 
 class MyNbhSets extends BaseObject
 {
-
     /** @var Coordinates */
     private $coords;
 
@@ -29,13 +29,103 @@ class MyNbhSets extends BaseObject
         $this->dropLocalCachesTable();
     }
 
+    public function createSet(int $section): MyNbhSetInterface
+    {
+        return new class ($this, $section) implements MyNbhSetInterface {
+            private $parent;
+
+            private $section;
+
+            public function __construct(MyNbhSets $parent, int $section)
+            {
+                $this->parent = $parent;
+                $this->section = $section;
+            }
+
+            public function getCount(): int
+            {
+                $result = 0;
+
+                switch ($this->section) {
+                    case Neighbourhood::ITEM_LATESTCACHES:
+                        $result = $this->parent->getLatestCachesCount();
+                        break;
+                    case Neighbourhood::ITEM_FTFCACHES:
+                        $result = $this->parent->getLatestCachesCount(true);
+                        break;
+                    case Neighbourhood::ITEM_RECOMMENDEDCACHES:
+                        $result = $this->parent->getTopRatedCachesCount();
+                        break;
+                    case Neighbourhood::ITEM_TITLEDCACHES:
+                        $result = $this->parent->getLatestTitledCachesCount();
+                        break;
+                    case Neighbourhood::ITEM_UPCOMINGEVENTS:
+                        $result = $this->parent->getUpcomingEventsCount();
+                        break;
+                    case Neighbourhood::ITEM_LATESTLOGS:
+                        $result = $this->parent->getLatestLogsCount();
+                        break;
+                }
+
+                return $result;
+            }
+
+            public function getResults($limit = 10, $offset = 0): array
+            {
+                $result = [];
+
+                switch ($this->section) {
+                    case Neighbourhood::ITEM_LATESTCACHES:
+                        $result = $this->parent->getLatestCaches(
+                            $limit,
+                            $offset
+                        );
+                        break;
+                    case Neighbourhood::ITEM_FTFCACHES:
+                        $result = $this->parent->getLatestCaches(
+                            $limit,
+                            $offset,
+                            true
+                        );
+                        break;
+                    case Neighbourhood::ITEM_RECOMMENDEDCACHES:
+                        $result = $this->parent->getTopRatedCaches(
+                            $limit,
+                            $offset
+                        );
+                        break;
+                    case Neighbourhood::ITEM_TITLEDCACHES:
+                        $result = $this->parent->getLatestTitledCaches(
+                            $limit,
+                            $offset
+                        );
+                        break;
+                    case Neighbourhood::ITEM_UPCOMINGEVENTS:
+                        $result = $this->parent->getUpcomingEvents(
+                            $limit,
+                            $offset
+                        );
+                        break;
+                    case Neighbourhood::ITEM_LATESTLOGS:
+                        $result = $this->parent->getLatestLogs(
+                            $limit,
+                            $offset
+                        );
+                        break;
+                }
+
+                return $result;
+            }
+        };
+    }
+
     /**
      * Returns array with latest caches in the nbh - as GeoCache objects
      *
      * @param number $limit
      * @param number $offset
-     * @param boolean $onlyFTF
-     *            - list only FTF caches if true
+     * @param bool $onlyFTF
+     *                      - list only FTF caches if true
      * @return GeoCache[]
      */
     public function getLatestCaches($limit = 10, $offset = 0, $onlyFTF = false)
@@ -54,6 +144,7 @@ class MyNbhSets extends BaseObject
                   FROM `local_caches`
                   WHERE `type` NOT IN (:excludedtypes)
                     AND `status` = :status';
+
         if ($onlyFTF) {
             $query .= ' AND `founds` = 0 ';
         }
@@ -63,6 +154,7 @@ class MyNbhSets extends BaseObject
                     `cache_id` DESC
                   LIMIT :offset, :limit';
         $stmt = $this->db->paramQuery($query, $params);
+
         return $this->db->dbFetchAllAsObjects($stmt, function ($row) {
             return GeoCache::fromCacheIdFactory($row['cache_id']);
         });
@@ -71,8 +163,8 @@ class MyNbhSets extends BaseObject
     /**
      * Returns count of all rows can be returned by getLatestCaches() method
      *
-     * @param boolean $onlyFTF
-     *            - count only FTF caches if true
+     * @param bool $onlyFTF
+     *                      - count only FTF caches if true
      * @return int
      */
     public function getLatestCachesCount($onlyFTF = false)
@@ -82,11 +174,18 @@ class MyNbhSets extends BaseObject
                   FROM `local_caches`
                   WHERE `type` NOT IN (:1)
                     AND `status` = :2';
+
         if ($onlyFTF) {
             $query .= ' AND `founds` = 0 ';
         }
         $query .= ' LIMIT 1';
-        return $this->db->multiVariableQueryValue($query, 0, GeoCache::TYPE_EVENT, GeoCache::STATUS_READY);
+
+        return $this->db->multiVariableQueryValue(
+            $query,
+            0,
+            GeoCache::TYPE_EVENT,
+            GeoCache::STATUS_READY
+        );
     }
 
     /**
@@ -117,6 +216,7 @@ class MyNbhSets extends BaseObject
                     `cache_id` DESC
                   LIMIT :offset, :limit';
         $stmt = $this->db->paramQuery($query, $params);
+
         return $this->db->dbFetchAllAsObjects($stmt, function ($row) {
             return GeoCache::fromCacheIdFactory($row['cache_id']);
         });
@@ -136,7 +236,13 @@ class MyNbhSets extends BaseObject
                     AND `status` = :2
                     AND `topratings` > 0
                   LIMIT 1';
-        return $this->db->multiVariableQueryValue($query, 0, GeoCache::TYPE_EVENT, GeoCache::STATUS_READY);
+
+        return $this->db->multiVariableQueryValue(
+            $query,
+            0,
+            GeoCache::TYPE_EVENT,
+            GeoCache::STATUS_READY
+        );
     }
 
     /**
@@ -162,6 +268,7 @@ class MyNbhSets extends BaseObject
                 `local_caches`.`cache_id` DESC
               LIMIT :offset, :limit';
         $stmt = $this->db->paramQuery($query, $params);
+
         return $this->db->dbFetchAllAsObjects($stmt, function ($row) {
             return GeoCache::fromCacheIdFactory($row['cache_id']);
         });
@@ -209,6 +316,7 @@ class MyNbhSets extends BaseObject
                       ORDER BY `date_hidden` ASC
                     LIMIT :offset, :limit';
         $stmt = $this->db->paramQuery($query, $params);
+
         return $this->db->dbFetchAllAsObjects($stmt, function ($row) {
             return GeoCache::fromCacheIdFactory($row['cache_id']);
         });
@@ -228,7 +336,13 @@ class MyNbhSets extends BaseObject
                       AND `status` = :2
                       AND `date_hidden` >= DATE(NOW())
                   LIMIT 1';
-        return $this->db->multiVariableQueryValue($query, 0, GeoCache::TYPE_EVENT, GeoCache::STATUS_READY);
+
+        return $this->db->multiVariableQueryValue(
+            $query,
+            0,
+            GeoCache::TYPE_EVENT,
+            GeoCache::STATUS_READY
+        );
     }
 
     /**
@@ -250,9 +364,10 @@ class MyNbhSets extends BaseObject
               FROM `cache_logs`
               WHERE `cache_logs`.`deleted` = 0
                 AND `cache_logs`.`cache_id` IN (SELECT `cache_id` FROM `local_caches`)
-              ORDER BY `cache_logs`.`date_created` DESC
+              ORDER BY `cache_logs`.`date_created` DESC, `cache_logs`.`id` DESC
               LIMIT :offset, :limit'; // TODO: AND cache_logs.date_created >= DATE_SUB(NOW(), INTERVAL 31 DAY)
         $stmt = $this->db->paramQuery($query, $params);
+
         return $this->db->dbFetchAllAsObjects($stmt, function ($row) {
             return GeoCacheLog::fromLogIdFactory($row['id']);
         });
@@ -271,6 +386,7 @@ class MyNbhSets extends BaseObject
               WHERE `cache_logs`.`deleted` = 0
                 AND `cache_logs`.`cache_id` IN (SELECT `cache_id` FROM `local_caches`)
               LIMIT 1';
+
         return $this->db->simpleQueryValue($query, 0);
     }
 
@@ -292,14 +408,17 @@ class MyNbhSets extends BaseObject
         $params['lat']['data_type'] = 'large';
         $params['radius']['value'] = $this->radius;
         $params['radius']['data_type'] = 'integer';
-        $excludedstatus = GeoCache::STATUS_WAITAPPROVERS . ' , ' . GeoCache::STATUS_NOTYETAVAILABLE . ' , ' . GeoCache::STATUS_BLOCKED;
+        $excludedstatus
+            = GeoCache::STATUS_WAITAPPROVERS
+            . ' , ' . GeoCache::STATUS_NOTYETAVAILABLE
+            . ' , ' . GeoCache::STATUS_BLOCKED;
         self::db()->paramQuery("
             CREATE TEMPORARY TABLE `local_caches` ENGINE=MEMORY
                 SELECT `cache_id`, `status`, `type`,
                     `founds`, `date_hidden`, `date_published`, `topratings`
                 FROM `caches`
                 WHERE `cache_id` NOT IN (SELECT `cache_ignore`.`cache_id` FROM `cache_ignore` WHERE `cache_ignore`.`user_id`= :userid)
-                AND caches.status NOT IN ($excludedstatus)
+                AND caches.status NOT IN ({$excludedstatus})
                 AND (acos(cos((90 - `latitude` ) * PI() / 180) * cos((90- :lat) * PI() / 180) +
                     sin((90-`latitude`) * PI() / 180) * sin((90-:lat) * PI() / 180) * cos(( `longitude` - :lon) *
                     PI() / 180)) * 6370) <= :radius
@@ -324,7 +443,7 @@ class MyNbhSets extends BaseObject
     private function dropLocalCachesTable()
     {
         self::db()->simpleQuery('
-                DROP TEMPORARY TABLE IF EXISTS `local_caches`
-            ');
+            DROP TEMPORARY TABLE IF EXISTS `local_caches`
+        ');
     }
 }
