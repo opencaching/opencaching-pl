@@ -28,7 +28,8 @@ $cronjobs['schedule'] = [
     'GeoPathJob' => 'daily at 0:10',
     'ClearCacheAccessLogsJob' => 'daily at 1:00',
     'AutoArchiveCachesJob' => 'daily at 4:30',
-    'GeoKretyNewJob' => 'daily at 4:45',
+    # stefopl: temp disable GeoKretyNewJob because geokrety.org returns 503 (see https://status.geokrety.org/)
+    // 'GeoKretyNewJob' => 'daily at 4:45',
     'TitledCacheAddJob' => 'monthly on day 1 at 0:20',
 
     // Reentrant jobs; these will always run *after* non-reentrant jobs.
