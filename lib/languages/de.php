@@ -3259,6 +3259,10 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'at_day' => 'Nachts nicht empfohlen',
     'at_notinwinter' => 'im Winter nicht zugänglich',
     'at_allseasons' => 'Ganztägig verfügbar',
+    'at_detail' => 'Detail',
+    'at_scenic' => 'Scenic view',
+    'at_natural' => 'Natural monument',
+    'at_street_art' => 'Street art',
 
     'cache_approval_refresh' => 'Refresh list',
     'cache_approval_refresh_time' => 'Last update',
