@@ -3258,6 +3258,10 @@ $translations = [
     'at_day' => 'crwdns27595:0crwdne27595:0',
     'at_notinwinter' => 'crwdns27597:0crwdne27597:0',
     'at_allseasons' => 'crwdns27599:0crwdne27599:0',
+    'at_detail' => 'crwdns34095:0crwdne34095:0',
+    'at_scenic' => 'crwdns34097:0crwdne34097:0',
+    'at_natural' => 'crwdns34099:0crwdne34099:0',
+    'at_street_art' => 'crwdns34101:0crwdne34101:0',
 
     'cache_approval_refresh' => 'crwdns33930:0crwdne33930:0',
     'cache_approval_refresh_time' => 'crwdns33932:0crwdne33932:0',
