@@ -3258,6 +3258,10 @@ $translations = [
     'at_day' => 'Niet aanbevolen in het donker',
     'at_notinwinter' => 'Niet beschikbaar in de winter',
     'at_allseasons' => 'Alle seizoenen beschikbaar',
+    'at_detail' => 'Detail',
+    'at_scenic' => 'Scenic view',
+    'at_natural' => 'Natural monument',
+    'at_street_art' => 'Street art',
 
     'cache_approval_refresh' => 'Lijst vernieuwen',
     'cache_approval_refresh_time' => 'Laatst bijgewerkt',
