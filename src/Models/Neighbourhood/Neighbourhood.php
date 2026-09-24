@@ -23,6 +23,17 @@ class Neighbourhood extends BaseObject
 
     public const ITEM_RECOMMENDEDCACHES = 7;
 
+    // An array of Neighbourhood sections with corresponding translation keys
+    public const SECTIONS = [
+        self::ITEM_MAP => 'map',
+        self::ITEM_LATESTCACHES => 'newest_caches',
+        self::ITEM_UPCOMINGEVENTS => 'incomming_events',
+        self::ITEM_FTFCACHES => 'ftf_awaiting',
+        self::ITEM_LATESTLOGS => 'latest_logs',
+        self::ITEM_TITLEDCACHES => 'startPage_latestTitledCaches',
+        self::ITEM_RECOMMENDEDCACHES => 'top_recommended',
+    ];
+
     /** Id in DB */
     private int $id;
 
@@ -144,7 +155,8 @@ class Neighbourhood extends BaseObject
     }
 
     /**
-     * Returns simple array with Coords obj and radius - for given $user and nbhSeq
+     * Returns simple array with Coords obj and radius - for given $user and
+     * nbhSeq
      */
     public static function getCoordsAndRadius(User $user, int $seq): array
     {
@@ -164,7 +176,12 @@ class Neighbourhood extends BaseObject
                 WHERE `user_id` = :1
                     AND `seq` = :2
                 LIMIT 1';
-            $nbhId = self::db()->multiVariableQueryValue($query, null, $user->getUserId(), $seq);
+            $nbhId = self::db()->multiVariableQueryValue(
+                $query,
+                null,
+                $user->getUserId(),
+                $seq
+            );
             $nbh = self::fromIdFactory($nbhId);
 
             if (empty($nbh)) {
@@ -188,7 +205,10 @@ class Neighbourhood extends BaseObject
     {
         $result = [];
         // Stage 1 - get default neighbourhood stored in user table
-        if ($user->getNotifyRadius() != 0 && $user->getHomeCoordinates()->areCordsReasonable()) {
+        if (
+            $user->getNotifyRadius() != 0
+            && $user->getHomeCoordinates()->areCordsReasonable()
+        ) {
             $myNgh = new Neighbourhood();
             $myNgh->setId(0);
             $myNgh->setSeq(0);
@@ -201,7 +221,8 @@ class Neighbourhood extends BaseObject
             $myNgh->prepareForSerialization();
             $result[0] = $myNgh;
         }
-        // Stage 2 - get additional neighbourhoods stored in user_neighbourhoods table
+        // Stage 2 - get additional neighbourhoods stored in user_neighbourhoods
+        // table
         $myNghAdd = self::getAdditionalNeighbourhoodsList($user);
 
         foreach ($myNghAdd as $row) {
@@ -241,8 +262,14 @@ class Neighbourhood extends BaseObject
      *
      * @param int|null $seq - if null - get first available number
      */
-    public static function storeUserNeighbourhood(User $user, Coordinates $coords, int $radius, string $name, int $seq = null, bool $notify = false): bool
-    {
+    public static function storeUserNeighbourhood(
+        User $user,
+        Coordinates $coords,
+        int $radius,
+        string $name,
+        int $seq = null,
+        bool $notify = false
+    ): bool {
         if (is_null($seq)) {
             $seq = self::getMaxUserSeq($user) + 1;
         }
@@ -281,7 +308,11 @@ class Neighbourhood extends BaseObject
             WHERE `user_id` = :1 AND `seq` = :2
             LIMIT 1
         ';
-        $stmt = self::db()->multiVariableQuery($query, $user->getUserId(), $seq);
+        $stmt = self::db()->multiVariableQuery(
+            $query,
+            $user->getUserId(),
+            $seq
+        );
 
         if ($stmt == null) {
             return false;
@@ -304,8 +335,11 @@ class Neighbourhood extends BaseObject
     /**
      * Changes "Notify" state for $seq Neighbourhood for $user
      */
-    public static function setNeighbourhoodNotify(User $user, int $seq, bool $state): bool
-    {
+    public static function setNeighbourhoodNotify(
+        User $user,
+        int $seq,
+        bool $state
+    ): bool {
         return null !== self::db()->multiVariableQuery('
             UPDATE `user_neighbourhoods`
             SET `notify` = :1
@@ -326,7 +360,11 @@ class Neighbourhood extends BaseObject
             WHERE `user_id` = :1
         ';
 
-        return self::db()->multiVariableQueryValue($query, 0, $user->getUserId());
+        return self::db()->multiVariableQueryValue(
+            $query,
+            0,
+            $user->getUserId()
+        );
     }
 
     private function loadById($id)
@@ -356,7 +394,10 @@ class Neighbourhood extends BaseObject
         $this->user = null;
         $this->seq = $neighbourhoodDbRow['seq'];
         $this->name = $neighbourhoodDbRow['name'];
-        $this->coords = Coordinates::FromCoordsFactory($neighbourhoodDbRow['latitude'], $neighbourhoodDbRow['longitude']);
+        $this->coords = Coordinates::FromCoordsFactory(
+            $neighbourhoodDbRow['latitude'],
+            $neighbourhoodDbRow['longitude']
+        );
         $this->radius = $neighbourhoodDbRow['radius'];
         $this->notify = $neighbourhoodDbRow['notify'];
         $this->dataLoaded = true;
