@@ -4,6 +4,7 @@
 ocpl-dynamic-files
 
 # Ignore local configuration
+/.env
 /config/**/*.local.php
 /lib/settings.inc.php
 /mobile/lib/settings.inc.php

@@ -1,0 +1,52 @@
+services:
+  app:
+    build: .
+    ports:
+      - "${APP_PORT:-8080}:80"
+    environment:
+      DB_HOST: db
+      DB_NAME: ${DB_NAME:?Set DB_NAME in .env}
+      DB_USER: ${DB_USER:?Set DB_USER in .env}
+      DB_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in .env}
+    volumes:
+      - ./:/var/www/html
+      - ./docker/settings.inc.php:/var/www/html/lib/settings.inc.php:ro
+      - dynamic_files:/srv/ocpl-dynamic-files
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: mariadb:11.8.9
+    environment:
+      MARIADB_DATABASE: ${DB_NAME:?Set DB_NAME in .env}
+      MARIADB_USER: ${DB_USER:?Set DB_USER in .env}
+      MARIADB_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in .env}
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:?Set DB_ROOT_PASSWORD in .env}
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+  phpmyadmin:
+    image: phpmyadmin:5.2.3-apache
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      UPLOAD_LIMIT: 128M
+    ports:
+      - "127.0.0.1:${PMA_PORT:-8081}:80"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  mariadb_data:
+  dynamic_files:
