@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+.nbh-icon {
+	height: 32px;
+}
+
+.nbh-line-container:hover, tr:hover {
+	background-color: #f5f5f5;
+}
+
+.nbh-min-only {
+	display: none;
+}
