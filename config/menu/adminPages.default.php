@@ -29,6 +29,7 @@ $menu = [
     'mnu_searchUser' => SimpleRouter::getLink('Admin.UserAdmin', 'search'),
     'mnu_ocTeamNews' => SimpleRouter::getLink('News.NewsAdmin'),
     'mnu_geoPathAdmin' => '/powerTrailCOG.php',
+    'menu_octeam_power_trail' => SimpleRouter::getLink('Admin.PowerTrailAdmin'),
     'mnu_abandonCacheSets' => SimpleRouter::getLink(
         CacheSetAdminController::class,
         'cacheSetsToArchive'

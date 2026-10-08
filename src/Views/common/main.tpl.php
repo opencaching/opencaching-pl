@@ -27,6 +27,7 @@ $view->addHeaderChunk('darkmodeJS');
   <meta name="msapplication-config" content="/images/icons/browserconfig.xml">
   <meta name="theme-color" content="#ffffff">
 
+    <link rel="stylesheet" type="text/css" media="screen" href="<?= $view->basicStyle ?>">
   <link rel="stylesheet" type="text/css" media="screen" href="<?= $view->screenCss; ?>">
   <link rel="stylesheet" type="text/css" media="screen" href="<?= $view->responsiveCss; ?>">
   <link rel="stylesheet" type="text/css" media="print" href="<?= $view->printCss; ?>">

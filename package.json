@@ -1,0 +1,13 @@
+{
+  "name": "opencaching-pl-browser-assets",
+  "private": true,
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build:ts": "npm run typecheck && esbuild resources/ts/index.ts --bundle --platform=browser --format=iife --target=es2018 --outfile=public/js/public.js",
+    "watch:ts": "esbuild resources/ts/index.ts --bundle --platform=browser --format=iife --target=es2018 --outfile=public/js/public.js --watch"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.0",
+    "typescript": "^5.9.3"
+  }
+}
