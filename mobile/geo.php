@@ -97,6 +97,7 @@ if (isset($_GET['wp']) && !empty($_GET['wp']) && isset($_GET['output']) && !empt
                     $geokrets[] = $rekord2;
                 }
 
+                $rekord = [];
                 $rekord['owner'] = gpxhelper($wiersz2['username']);
                 $rekord['user_id'] = gpxhelper($wiersz2['user_id']);
                 $rekord['name'] = gpxhelper($wiersz['name']);
