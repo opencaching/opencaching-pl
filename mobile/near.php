@@ -84,7 +84,7 @@ if (isset($_GET['ns']) && isset($_GET['ew']) && isset($_GET['radius']) && isset(
         if ($_GET['ew'] == 'W')
             $kord2 = "-" . $kord2;
 
-        $jsonurl = "$absolute_server_URI/okapi/services/caches/search/nearest?&center=" . $kord1 . "|" . $kord2 . "&status=Available&radius=" . $_GET['radius'] . "&consumer_key=HpLvDvvjmG3HkeX8RsgU&limit=500 ";
+        $jsonurl = rtrim($absolute_server_URI, '/') . "/okapi/services/caches/search/nearest?&center=" . $kord1 . "|" . $kord2 . "&status=Available&radius=" . $_GET['radius'] . "&consumer_key=HpLvDvvjmG3HkeX8RsgU&limit=500";
 
         $input = file_get_contents($jsonurl);
         $output = json_decode($input, true);
@@ -94,7 +94,7 @@ if (isset($_GET['ns']) && isset($_GET['ew']) && isset($_GET['radius']) && isset(
 
         $i = 0;
 
-        while (list($klucz, $wartosc) = each($output['results'])) {
+        foreach ($output['results'] as $wartosc) {
 
             $query = "select status,cache_id,name, score, latitude, longitude, user_id, type from caches where wp_oc = '" . $wartosc . "'";
             $wynik = XDb::xSql($query);
