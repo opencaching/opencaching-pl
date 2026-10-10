@@ -1,0 +1,23 @@
+name: ocpl
+type: php
+docroot: ''
+php_version: '8.1'
+webserver_type: apache-fpm
+xdebug_enabled: false
+additional_hostnames: [m.ocpl]
+additional_fqdns: []
+database:
+  type: mariadb
+  version: '10.11'
+upload_dirs:
+  - ocpl-dynamic-files
+webimage_extra_packages: [gpsbabel]
+use_dns_when_possible: true
+timezone: Europe/Warsaw
+composer_version: '2'
+web_environment: []
+nodejs_version: '24'
+corepack_enable: false
+hooks:
+  post-start:
+    - exec: .ddev/ocpl/post-start.sh

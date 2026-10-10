@@ -1,0 +1,3 @@
+[mysqld]
+# legacy queries break under strict modes and ONLY_FULL_GROUP_BY
+sql-mode=""

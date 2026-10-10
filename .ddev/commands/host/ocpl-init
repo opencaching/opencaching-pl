@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+## Description: Import the OCPL devel database dump and run OC and OKAPI database updates
+## Usage: ocpl-init [dump.sql.gz]
+## Example: "ddev ocpl-init" or "ddev ocpl-init ~/Downloads/ocpl_devel_dump.sql.gz"
+
+set -euo pipefail
+
+dump_url=https://s3api.zylowski.net/public/ocpl_devel_dump-2018.sql.gz
+dump=${1:-${XDG_CACHE_HOME:-$HOME/.cache}/ocpl/$(basename "$dump_url")}
+
+if [ ! -f "$dump" ]; then
+    echo "Downloading $dump_url"
+    mkdir -p "$(dirname "$dump")"
+    curl -fL --progress-bar -o "$dump.part" "$dump_url"
+    mv "$dump.part" "$dump"
+fi
+
+# triggers in the dump are defined by root@localhost, let them belong to the importing user
+echo "Importing $dump"
+gunzip -c "$dump" \
+    | LC_ALL=C sed -E 's#/\*!50017 DEFINER=`[^`]+`@`[^`]+`\*/ ##' \
+    | ddev import-db
+
+echo "Running database updates"
+ddev exec curl -fsS --max-time 900 http://127.0.0.1/Update
+
+# the mobile site uses a hardcoded consumer key in near.php
+ddev mysql -e "INSERT IGNORE INTO okapi_consumers (\`key\`, name, secret, url, email, date_created, bflags)
+    VALUES ('HpLvDvvjmG3HkeX8RsgU', 'OCPL mobile site', 'not-used', 'https://m.ocpl.ddev.site/', 'admin@ocpl.ddev.site', NOW(), 0)"
