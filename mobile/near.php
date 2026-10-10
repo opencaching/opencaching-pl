@@ -29,6 +29,8 @@ function stronicowanie($page, $address, $znalezione, $ile, $url)
     global $tpl;
 
     $na_stronie = 10;
+    $next_page = null;
+    $prev_page = null;
 
     if ($ile <= $na_stronie)
         $znalezione = wytnij($znalezione, 0, $na_stronie);
@@ -53,7 +55,6 @@ function stronicowanie($page, $address, $znalezione, $ile, $url)
         }
     }
 
-    $tpl->assign('action', $action);
     $tpl->assign('url', $url);
     $tpl->assign('next_page', $next_page);
     $tpl->assign('prev_page', $prev_page);
@@ -233,7 +234,7 @@ if (isset($_GET['ns']) && isset($_GET['ew']) && isset($_GET['radius']) && isset(
         $url = $_SERVER['REQUEST_URI'];
 
         $tpl->assign('lista', $lista);
-        stronicowanie($_GET['page'], 'viewcache', $znalezione, $i, $url);
+        stronicowanie($_GET['page'] ?? null, 'viewcache', $znalezione, $i, $url);
 
         exit;
     } else

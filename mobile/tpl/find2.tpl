@@ -22,29 +22,29 @@
             <div class='button'>
                 <a href='./{$address}.php?wp={$znalezione[i].wp_oc}'>
                     <span class='blue'>
-                        {if $znalezione[i].date_hidden}<u><b>{$znalezione[i].date_hidden}</b></u><br/><br/>{/if}
+                        {if !empty($znalezione[i].date_hidden)}<u><b>{$znalezione[i].date_hidden}</b></u><br/><br/>{/if}
 
-                        {if $znalezione[i].if_found == '1'}
+                        {if isset($znalezione[i].if_found) && $znalezione[i].if_found == '1'}
                             <img src="../images/16x16-found.png" alt="{$found}"/>
-                        {elseif $znalezione[i].if_found == '2'}
+                        {elseif isset($znalezione[i].if_found) && $znalezione[i].if_found == '2'}
                             <img src="../images/16x16-dnf.png" alt="{$notfound}"/>
                         {/if}
 
-                        {if $znalezione[i].status == '2'}
+                        {if isset($znalezione[i].status) && $znalezione[i].status == '2'}
                             <img src="../images/flag.png" alt=""/>
                         {/if}
-                        {if $znalezione[i].status == '3'}
+                        {if isset($znalezione[i].status) && $znalezione[i].status == '3'}
                             <img src="../images/bin.png" alt=""/>
                         {/if}
 
 
                         <b>{$znalezione[i].name} ({$znalezione[i].wp_oc})</b><br/>
                         <i>{$znalezione[i].typetext}</i><br/>
-                        {if $znalezione[i].distance}
+                        {if !empty($znalezione[i].distance)}
                             {$znalezione[i].kier} {$znalezione[i].distance} km<br/>
                         {/if}
 
-                        {if $znalezione[i].score!=''}
+                        {if isset($znalezione[i].score) && $znalezione[i].score!=''}
                             {$score} <b>
 
                             {if $znalezione[i].score=='0'}{$rate0}{/if}
