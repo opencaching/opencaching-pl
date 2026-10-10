@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 ## Description: Import the OCPL devel database dump and run OC and OKAPI database updates
-## Usage: ocpl-init [dump.sql.gz]
-## Example: "ddev ocpl-init" or "ddev ocpl-init ~/Downloads/ocpl_devel_dump.sql.gz"
+## Usage: init [dump.sql.gz]
+## Example: "ddev init" or "ddev init ~/Downloads/ocpl_devel_dump.sql.gz"
 
 set -euo pipefail
 

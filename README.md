@@ -10,10 +10,10 @@ You can run OCPL locally with DDEV, see its [installation guide](https://docs.dd
 
 ```sh
 ddev start
-ddev ocpl-init
+ddev init
 ```
 
-`ddev ocpl-init` downloads a development database dump, imports it and runs OC and OKAPI database updates. Run it again whenever you want to reset the database.
+`ddev init` downloads a development database dump, imports it and runs OC and OKAPI database updates. Run it again whenever you want to reset the database.
 
 - The site runs at https://ocpl.ddev.site, the mobile site at https://m.ocpl.ddev.site and OKAPI at https://ocpl.ddev.site/okapi/.
 - You can log in as any user with the password `haslo`.
