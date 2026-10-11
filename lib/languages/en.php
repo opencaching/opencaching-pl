@@ -3262,6 +3262,7 @@ $translations = [
     'at_scenic' => 'Scenic view',
     'at_natural' => 'Natural monument',
     'at_street_art' => 'Street art',
+    'at_partnership' => 'Partnership cache',
 
     'cache_approval_refresh' => 'Refresh list',
     'cache_approval_refresh_time' => 'Last update',
