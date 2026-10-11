@@ -14,7 +14,7 @@ function call_okapi(User $loggedUser, $waypoints, $lang, $file_base_name, $zip_p
     $okapi_response = Facade::service_call('services/caches/formatters/garmin',
         $loggedUser->getUserId(), $okapi_params);
     // Modifying OKAPI's default HTTP Response headers.
-    $okapi_response->content_disposition = 'attachment; filename=' . $file_base_name . (($zip_part != 0) ? '-' . $zip_part : '') . '.zip';
+    $okapi_response->content_disposition = 'attachment; filename="' . $file_base_name . (($zip_part != 0) ? '-' . $zip_part : '') . '.zip"';
     return $okapi_response;
 }
 

@@ -164,7 +164,7 @@ $gpxHead = str_replace('{wpchildren}', $children, $gpxHead);
 
 // start display
 header('Content-type: application/gpx');
-header('Content-Disposition: attachment; filename=' . $sFilebasename . '.gpx');
+header('Content-Disposition: attachment; filename="' . $sFilebasename . '.gpx"');
 
 echo $gpxHead;
 

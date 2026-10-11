@@ -157,7 +157,7 @@ if( $loggedUser || !OcConfig::coordsHiddenForNonLogged()) {
 
     // compress using phpzip
     header("Content-type: application/ovl");
-    header("Content-Disposition: attachment; filename=" . $sFilebasename . ".ovl");
+    header('Content-Disposition: attachment; filename="' . $sFilebasename . '.ovl"');
     ob_end_flush();
 }
 

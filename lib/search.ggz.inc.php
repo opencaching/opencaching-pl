@@ -20,7 +20,7 @@ function call_okapi(User $user, $waypoints, $language, $file_base_name, $zip_par
                 'location_source' => 'alt_wpt:user-coords',
                 'location_change_prefix' => '(F)'));
     // Modifying OKAPI's default HTTP Response headers.
-    $okapi_response->content_disposition = 'attachment; filename=' . $file_base_name . (($zip_part != 0) ? '-' . $zip_part : '') . '.ggz';
+    $okapi_response->content_disposition = 'attachment; filename="' . $file_base_name . (($zip_part != 0) ? '-' . $zip_part : '') . '.ggz"';
     return $okapi_response;
 }
 

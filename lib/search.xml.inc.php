@@ -152,7 +152,7 @@ if ($rCount['count'] == 1) {
 }
 
 header('Content-type: application/xml; charset=' . $encoding);
-header('Content-Disposition: attachment; filename=' . $sFilebasename . '.xml');
+header('Content-Disposition: attachment; filename="' . $sFilebasename . '.xml"');
 
 echo '<?xml version="1.0" encoding="' . $encoding . "\"?>\n";
 echo "<result>\n";
