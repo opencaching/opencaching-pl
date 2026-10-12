@@ -1,16 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace src\Services;
 
-use RuntimeException;
 use src\Controllers\PowerTrailController;
 use src\Enums\PowerTrailStatusesEnum;
-use src\Models\ApplicationContainer;
 use src\Models\PowerTrail\Log as PowerTrailLog;
 use src\Models\PowerTrail\PowerTrail;
-use src\Models\User\User;
-use src\Utils\Database\OcDb;
-use src\Utils\Generators\Uuid;
+use src\Models\PowerTrail\PowerTrailAdminRepository;
 
 /**
  * Admin operations for GeoPaths. All public methods require an Octeam user
@@ -18,12 +16,17 @@ use src\Utils\Generators\Uuid;
  */
 class PowerTrailAdminService
 {
-    /** @var OcDb */
-    private $db;
+    use RequiresOcteamPostTrait;
 
-    public function __construct(?OcDb $db = null)
+    private const ACTION_TYPE_CHANGE_STATUS = 6;
+    private const ACTION_TYPE_ADD_OWNER = 4;
+    private const ACTION_TYPE_REMOVE_OWNER = 5;
+
+    private readonly PowerTrailAdminRepository $repository;
+
+    public function __construct(?PowerTrailAdminRepository $repository = null)
     {
-        $this->db = $db ?: OcDb::instance();
+        $this->repository = $repository ?? new PowerTrailAdminRepository();
     }
 
     /** Return the complete PowerTrail row. */
@@ -31,41 +34,25 @@ class PowerTrailAdminService
     {
         $this->requireOcteamPost();
 
-        $statement = $this->db->multiVariableQuery(
-            'SELECT * FROM `PowerTrail` WHERE `id` = :1 LIMIT 1',
-            $powerTrailId
-        );
-        $row = $this->db->dbResultFetchOneRowOnly($statement);
-
-        return is_array($row) ? $row : null;
+        return $this->repository->findRowById($powerTrailId);
     }
 
     public function getDescription(int $powerTrailId): ?string
     {
         $this->requireOcteamPost();
 
-        $statement = $this->db->multiVariableQuery(
-            'SELECT `description` FROM `PowerTrail` WHERE `id` = :1 LIMIT 1',
-            $powerTrailId
-        );
-        $row = $this->db->dbResultFetchOneRowOnly($statement);
-
-        return is_array($row) ? $row['description'] : null;
+        return $this->repository->findDescription($powerTrailId);
     }
 
     public function updateDescription(int $powerTrailId, string $description): bool
     {
         $this->requireOcteamPost();
 
-        if (! $this->geoPathExists($powerTrailId)) {
+        if (! $this->repository->exists($powerTrailId)) {
             return false;
         }
 
-        $this->db->multiVariableQuery(
-            'UPDATE `PowerTrail` SET `description` = :1 WHERE `id` = :2',
-            htmlspecialchars($description, ENT_COMPAT | ENT_SUBSTITUTE, 'UTF-8'),
-            $powerTrailId
-        );
+        $this->repository->updateDescription($powerTrailId, $this->escape($description));
 
         return true;
     }
@@ -80,13 +67,7 @@ class PowerTrailAdminService
     {
         $this->requireOcteamPost();
 
-        $statement = $this->db->multiVariableQuery(
-            'SELECT `status` FROM `PowerTrail` WHERE `id` = :1 LIMIT 1',
-            $powerTrailId
-        );
-        $row = $this->db->dbResultFetchOneRowOnly($statement);
-
-        return is_array($row) ? (int) $row['status'] : null;
+        return $this->repository->findStatus($powerTrailId);
     }
 
     /**
@@ -112,41 +93,32 @@ class PowerTrailAdminService
             return $result;
         }
 
-        $commentTypes = [
+        $commentType = match ($status) {
             PowerTrailStatusesEnum::STATUS_OPEN => PowerTrailLog::TYPE_OPENING,
             PowerTrailStatusesEnum::STATUS_INSERVICE => PowerTrailLog::TYPE_DISABLING,
             PowerTrailStatusesEnum::STATUS_CLOSED => PowerTrailLog::TYPE_CLOSING,
-        ];
-        $commentType = $commentTypes[$status] ?? PowerTrailLog::TYPE_COMMENT;
+            default => PowerTrailLog::TYPE_COMMENT,
+        };
 
         if (trim($comment) === '') {
-            $commentKeys = [
+            $comment = tr(match ($status) {
                 PowerTrailStatusesEnum::STATUS_OPEN => 'pt215',
                 PowerTrailStatusesEnum::STATUS_INSERVICE => 'pt217',
                 PowerTrailStatusesEnum::STATUS_CLOSED => 'pt218',
-            ];
-            $comment = isset($commentKeys[$status])
-                ? tr($commentKeys[$status]) . '!'
-                : tr('pt056') . '!';
+                default => 'pt056',
+            }) . '!';
         }
 
-        $this->db->multiVariableQuery(
-            'INSERT INTO `PowerTrail_comments`
-                (`userId`, `PowerTrailId`, `commentType`, `commentText`,
-                 `logDateTime`, `dbInsertDateTime`, `deleted`, `uuid`)
-             VALUES (:1, :2, :3, :4, NOW(), NOW(), 0, ' . Uuid::getSqlForUpperCaseUuid() . ')',
-            $user->getUserId(),
+        $this->repository->insertComment(
             $powerTrailId,
+            $user->getUserId(),
             $commentType,
-            htmlspecialchars($comment, ENT_COMPAT | ENT_SUBSTITUTE, 'UTF-8')
+            $this->escape($comment)
         );
-
-        $this->db->multiVariableQuery(
-            'INSERT INTO `PowerTrail_actionsLog`
-                (`PowerTrailId`, `userId`, `actionDateTime`, `actionType`, `description`, `cacheId`)
-             VALUES (:1, :2, NOW(), 6, :3, 0)',
+        $this->repository->insertActionLog(
             $powerTrailId,
             $user->getUserId(),
+            self::ACTION_TYPE_CHANGE_STATUS,
             'change PowerTrail status'
         );
 
@@ -158,13 +130,7 @@ class PowerTrailAdminService
     {
         $this->requireOcteamPost();
 
-        $statement = $this->db->multiVariableQuery(
-            'SELECT `perccentRequired` FROM `PowerTrail` WHERE `id` = :1 LIMIT 1',
-            $powerTrailId
-        );
-        $row = $this->db->dbResultFetchOneRowOnly($statement);
-
-        return is_array($row) ? (int) $row['perccentRequired'] : null;
+        return $this->repository->findWis($powerTrailId);
     }
 
     public function updateWis(int $powerTrailId, int $wis): bool
@@ -175,13 +141,7 @@ class PowerTrailAdminService
             return false;
         }
 
-        $statement = $this->db->multiVariableQuery(
-            'UPDATE `PowerTrail` SET `perccentRequired` = :1 WHERE `id` = :2',
-            $wis,
-            $powerTrailId
-        );
-
-        return $this->db->rowCount($statement) > 0;
+        return $this->repository->updateWis($powerTrailId, $wis);
     }
 
     /** Return all users assigned as GeoPath founders/owners (not the mentor). */
@@ -189,37 +149,22 @@ class PowerTrailAdminService
     {
         $this->requireOcteamPost();
 
-        $statement = $this->db->multiVariableQuery(
-            'SELECT u.`user_id`, u.`username`, u.`email`, pto.`privileages`
-             FROM `PowerTrail_owners` AS pto
-             JOIN `user` AS u ON u.`user_id` = pto.`userId`
-             WHERE pto.`PowerTrailId` = :1
-             ORDER BY u.`username`, u.`user_id`',
-            $powerTrailId
-        );
-
-        return $this->db->dbResultFetchAll($statement);
+        return $this->repository->findFounders($powerTrailId);
     }
 
     public function addFounder(int $powerTrailId, int $userId): bool
     {
         $actor = $this->requireOcteamPost();
 
-        if (! $this->geoPathExists($powerTrailId) || ! $this->userExists($userId)) {
+        if (! $this->repository->exists($powerTrailId) || ! $this->repository->userExists($userId)) {
             return false;
         }
 
-        $statement = $this->db->multiVariableQuery(
-            'INSERT IGNORE INTO `PowerTrail_owners` (`PowerTrailId`, `userId`, `privileages`)
-             VALUES (:1, :2, 1)',
-            $powerTrailId,
-            $userId
-        );
-        if ($this->db->rowCount($statement) === 0) {
+        if (! $this->repository->addFounder($powerTrailId, $userId)) {
             return false;
         }
 
-        $this->writeOwnerActionLog($powerTrailId, $actor->getUserId(), 4, $userId);
+        $this->writeOwnerActionLog($powerTrailId, $actor->getUserId(), self::ACTION_TYPE_ADD_OWNER, $userId);
 
         return true;
     }
@@ -228,77 +173,37 @@ class PowerTrailAdminService
     {
         $actor = $this->requireOcteamPost();
 
-        $ownerCount = $this->db->multiVariableQueryValue(
-            'SELECT COUNT(*) FROM `PowerTrail_owners` WHERE `PowerTrailId` = :1',
-            0,
-            $powerTrailId
-        );
-        if ($ownerCount <= 1 || ! $this->geoPathExists($powerTrailId)) {
+        if ($this->repository->countFounders($powerTrailId) <= 1 || ! $this->repository->exists($powerTrailId)) {
             return false;
         }
 
-        $statement = $this->db->multiVariableQuery(
-            'DELETE FROM `PowerTrail_owners` WHERE `PowerTrailId` = :1 AND `userId` = :2',
-            $powerTrailId,
-            $userId
-        );
-        if ($this->db->rowCount($statement) === 0) {
+        if (! $this->repository->removeFounder($powerTrailId, $userId)) {
             return false;
         }
 
-        $this->writeOwnerActionLog($powerTrailId, $actor->getUserId(), 5, $userId);
+        $this->writeOwnerActionLog($powerTrailId, $actor->getUserId(), self::ACTION_TYPE_REMOVE_OWNER, $userId);
 
         return true;
     }
 
-    private function userExists(int $userId): bool
-    {
-        return $this->db->multiVariableQueryValue(
-            'SELECT COUNT(*) FROM `user` WHERE `user_id` = :1',
-            0,
-            $userId
-        ) > 0;
-    }
-
-    private function geoPathExists(int $powerTrailId): bool
-    {
-        return $this->db->multiVariableQueryValue(
-            'SELECT COUNT(*) FROM `PowerTrail` WHERE `id` = :1',
-            0,
-            $powerTrailId
-        ) > 0;
-    }
-
     private function writeOwnerActionLog(int $powerTrailId, int $actorUserId, int $actionType, int $affectedUserId): void
     {
-        $descriptions = [
-            4 => 'add another owner to PowerTrail',
-            5 => 'remove owner from PowerTrail',
-        ];
+        $description = match ($actionType) {
+            self::ACTION_TYPE_ADD_OWNER => 'add another owner to PowerTrail',
+            self::ACTION_TYPE_REMOVE_OWNER => 'remove owner from PowerTrail',
+        };
 
-        $this->db->multiVariableQuery(
-            'INSERT INTO `PowerTrail_actionsLog`
-                (`PowerTrailId`, `userId`, `actionDateTime`, `actionType`, `description`, `cacheId`)
-             VALUES (:1, :2, NOW(), :3, :4, :5)',
+        $this->repository->insertActionLog(
             $powerTrailId,
             $actorUserId,
             $actionType,
-            $descriptions[$actionType] . '; affected user: ' . $affectedUserId,
+            $description . '; affected user: ' . $affectedUserId,
             $affectedUserId
         );
     }
 
-    private function requireOcteamPost(): User
+    private function escape(string $text): string
     {
-        if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
-            throw new RuntimeException('POST required', 405);
-        }
-
-        $user = ApplicationContainer::GetAuthorizedUser();
-        if (! $user || ! $user->hasOcTeamRole()) {
-            throw new RuntimeException('Octeam access required', 403);
-        }
-
-        return $user;
+        return htmlspecialchars($text, ENT_COMPAT | ENT_SUBSTITUTE, 'UTF-8');
     }
 }

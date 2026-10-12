@@ -4,18 +4,15 @@ namespace src\Models\PowerTrail;
 
 use src\Enums\PowerTrailAdminEnum;
 use src\Utils\Database\OcDb;
+use src\Utils\Generators\Uuid;
 
 class PowerTrailAdminRepository
 {
-    /** @var OcDb */
-    private $db;
+    private readonly OcDb $db;
 
-    /**
-     * @param OcDb|null $db
-     */
     public function __construct(?OcDb $db = null)
     {
-        $this->db = $db ?: OcDb::instance();
+        $this->db = $db ?? OcDb::instance();
     }
 
     /**
@@ -155,6 +152,170 @@ class PowerTrailAdminRepository
             'UPDATE `PowerTrail` SET `status` = :1 WHERE `id` = :2',
             $status,
             $powerTrailId
+        );
+    }
+
+    public function exists(int $powerTrailId): bool
+    {
+        return $this->db->multiVariableQueryValue(
+            'SELECT COUNT(*) FROM `PowerTrail` WHERE `id` = :1',
+            0,
+            $powerTrailId
+        ) > 0;
+    }
+
+    /** Return the complete PowerTrail row. */
+    public function findRowById(int $powerTrailId): ?array
+    {
+        $statement = $this->db->multiVariableQuery(
+            'SELECT * FROM `PowerTrail` WHERE `id` = :1 LIMIT 1',
+            $powerTrailId
+        );
+        $row = $this->db->dbResultFetchOneRowOnly($statement);
+
+        return is_array($row) ? $row : null;
+    }
+
+    public function findDescription(int $powerTrailId): ?string
+    {
+        $statement = $this->db->multiVariableQuery(
+            'SELECT `description` FROM `PowerTrail` WHERE `id` = :1 LIMIT 1',
+            $powerTrailId
+        );
+        $row = $this->db->dbResultFetchOneRowOnly($statement);
+
+        return is_array($row) ? $row['description'] : null;
+    }
+
+    public function updateDescription(int $powerTrailId, string $description): void
+    {
+        $this->db->multiVariableQuery(
+            'UPDATE `PowerTrail` SET `description` = :1 WHERE `id` = :2',
+            $description,
+            $powerTrailId
+        );
+    }
+
+    public function findStatus(int $powerTrailId): ?int
+    {
+        $statement = $this->db->multiVariableQuery(
+            'SELECT `status` FROM `PowerTrail` WHERE `id` = :1 LIMIT 1',
+            $powerTrailId
+        );
+        $row = $this->db->dbResultFetchOneRowOnly($statement);
+
+        return is_array($row) ? (int) $row['status'] : null;
+    }
+
+    /** WIS is stored in PowerTrail.perccentRequired. */
+    public function findWis(int $powerTrailId): ?int
+    {
+        $statement = $this->db->multiVariableQuery(
+            'SELECT `perccentRequired` FROM `PowerTrail` WHERE `id` = :1 LIMIT 1',
+            $powerTrailId
+        );
+        $row = $this->db->dbResultFetchOneRowOnly($statement);
+
+        return is_array($row) ? (int) $row['perccentRequired'] : null;
+    }
+
+    public function updateWis(int $powerTrailId, int $wis): bool
+    {
+        $statement = $this->db->multiVariableQuery(
+            'UPDATE `PowerTrail` SET `perccentRequired` = :1 WHERE `id` = :2',
+            $wis,
+            $powerTrailId
+        );
+
+        return $this->db->rowCount($statement) > 0;
+    }
+
+    /** Return all users assigned as GeoPath founders/owners (not the mentor). */
+    public function findFounders(int $powerTrailId): array
+    {
+        $statement = $this->db->multiVariableQuery(
+            'SELECT u.`user_id`, u.`username`, u.`email`, pto.`privileages`
+             FROM `PowerTrail_owners` AS pto
+             JOIN `user` AS u ON u.`user_id` = pto.`userId`
+             WHERE pto.`PowerTrailId` = :1
+             ORDER BY u.`username`, u.`user_id`',
+            $powerTrailId
+        );
+
+        return $this->db->dbResultFetchAll($statement);
+    }
+
+    public function countFounders(int $powerTrailId): int
+    {
+        return (int) $this->db->multiVariableQueryValue(
+            'SELECT COUNT(*) FROM `PowerTrail_owners` WHERE `PowerTrailId` = :1',
+            0,
+            $powerTrailId
+        );
+    }
+
+    public function userExists(int $userId): bool
+    {
+        return $this->db->multiVariableQueryValue(
+            'SELECT COUNT(*) FROM `user` WHERE `user_id` = :1',
+            0,
+            $userId
+        ) > 0;
+    }
+
+    public function addFounder(int $powerTrailId, int $userId): bool
+    {
+        $statement = $this->db->multiVariableQuery(
+            'INSERT IGNORE INTO `PowerTrail_owners` (`PowerTrailId`, `userId`, `privileages`)
+             VALUES (:1, :2, 1)',
+            $powerTrailId,
+            $userId
+        );
+
+        return $this->db->rowCount($statement) > 0;
+    }
+
+    public function removeFounder(int $powerTrailId, int $userId): bool
+    {
+        $statement = $this->db->multiVariableQuery(
+            'DELETE FROM `PowerTrail_owners` WHERE `PowerTrailId` = :1 AND `userId` = :2',
+            $powerTrailId,
+            $userId
+        );
+
+        return $this->db->rowCount($statement) > 0;
+    }
+
+    public function insertComment(int $powerTrailId, int $userId, int $commentType, string $commentText): void
+    {
+        $this->db->multiVariableQuery(
+            'INSERT INTO `PowerTrail_comments`
+                (`userId`, `PowerTrailId`, `commentType`, `commentText`,
+                 `logDateTime`, `dbInsertDateTime`, `deleted`, `uuid`)
+             VALUES (:1, :2, :3, :4, NOW(), NOW(), 0, ' . Uuid::getSqlForUpperCaseUuid() . ')',
+            $userId,
+            $powerTrailId,
+            $commentType,
+            $commentText
+        );
+    }
+
+    public function insertActionLog(
+        int $powerTrailId,
+        int $userId,
+        int $actionType,
+        string $description,
+        int $cacheId = 0
+    ): void {
+        $this->db->multiVariableQuery(
+            'INSERT INTO `PowerTrail_actionsLog`
+                (`PowerTrailId`, `userId`, `actionDateTime`, `actionType`, `description`, `cacheId`)
+             VALUES (:1, :2, NOW(), :3, :4, :5)',
+            $powerTrailId,
+            $userId,
+            $actionType,
+            $description,
+            $cacheId
         );
     }
 }
