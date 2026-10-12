@@ -183,12 +183,12 @@ if ($loggedUser || ! OcConfig::coordsHiddenForNonLogged()) {
         $out = $phpzip->save($sFilebasename . '.zip', 'b');
 
         header('content-type: application/zip');
-        header('Content-Disposition: attachment; filename=' . $sFilebasename . '.zip');
+        header('Content-Disposition: attachment; filename="' . $sFilebasename . '.zip"');
         echo $out;
         ob_end_flush();
     } else {
         header('Content-type: application/uam');
-        header('Content-Disposition: attachment; filename=' . $sFilebasename . '.uam');
+        header('Content-Disposition: attachment; filename="' . $sFilebasename . '.uam"');
         ob_end_flush();
     }
 

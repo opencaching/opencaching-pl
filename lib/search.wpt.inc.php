@@ -226,12 +226,12 @@ if( $loggedUser || !OcConfig::coordsHiddenForNonLogged()) {
         $out = $phpzip->save($sFilebasename . '.zip', 'b');
 
         header('content-type: application/zip');
-        header('Content-Disposition: attachment; filename=' . $sFilebasename . '.zip');
+        header('Content-Disposition: attachment; filename="' . $sFilebasename . '.zip"');
         echo $out;
         ob_end_flush();
     } else {
         header('Content-type: application/wpt');
-        header('Content-Disposition: attachment; filename=' . $sFilebasename . '.wpt');
+        header('Content-Disposition: attachment; filename="' . $sFilebasename . '.wpt"');
         ob_end_flush();
     }
 

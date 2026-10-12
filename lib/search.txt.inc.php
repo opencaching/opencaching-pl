@@ -316,12 +316,12 @@ if ($loggedUser || ! OcConfig::coordsHiddenForNonLogged()) {
     // compress using phpzip
     if ($bUseZip == true) {
         header('content-type: application/zip');
-        header('Content-Disposition: attachment; filename=' . $sFilebasename . '.zip');
+        header('Content-Disposition: attachment; filename="' . $sFilebasename . '.zip"');
         $out = $phpzip->save($sFilebasename . '.zip', 'b');
         echo $out;
     } else {
         header('Content-type: text/plain');
-        header('Content-Disposition: attachment; filename=' . $sFilebasename . '.txt');
+        header('Content-Disposition: attachment; filename="' . $sFilebasename . '.txt"');
     }
     ob_end_flush();
 }
