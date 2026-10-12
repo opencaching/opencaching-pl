@@ -122,7 +122,25 @@ class Altitude
         $url = 'https://api.opentopodata.org/v1/test-dataset?locations='
             . $coords->getLatitude() . ',' . $coords->getLongitude();
 
-        $resp = @file_get_contents($url);
+        try {
+            $resp = file_get_contents($url, false);
+        } catch (\ErrorException $e) {
+            $message = 'External service: opentopodata request failed: ' . $e->getMessage();
+
+            if (isset($http_response_header)) {
+                $message .= '; HTTP response: ' . implode(' | ', $http_response_header);
+            }
+
+            Debug::errorLog($message, false);
+
+            return null;
+        }
+
+        if ($resp === false) {
+            Debug::errorLog( "External service: opentopodata returned no response for coords: {$coords->getAsText()}", false);
+            return null;
+        }
+
         $data = json_decode($resp, true);
         /*
             {
