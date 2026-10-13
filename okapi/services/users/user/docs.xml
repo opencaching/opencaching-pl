@@ -26,11 +26,21 @@
             <li><b>uuid</b> - ID of the user,</li>
             <li><b>username</b> - username (login) of the user,</li>
             <li><b>profile_url</b> - URL of the user's Opencaching profile page,</li>
+            <li>
+                <p><b>description</b> - <a href='%OKAPI:docurl:html%'>HTML string</a>,
+                the user's self-description as shown on the Opencaching profile page
+                (empty string if the user has not provided one),</p>
+            </li>
             <li class='deprecated'>
                 <p><b>is_admin</b> - deprecated
                 (<a href='https://github.com/opencaching/okapi/issues/410'>why?</a>);
                 <b>false</b> when called with <b>Level 3</b> authentication for the
                 user of your access token, else <b>null</b>.</p>
+            </li>
+            <li>
+                <p>%OKAPI:infotag:ocpl-specific% <b>is_oc_team</b> - <b>true</b> if the user
+                is a member of the COG (team which moderates geocaches, logs, etc.),
+                <b>false</b> otherwise. Other installations always return <b>false</b>.</p>
             </li>
             <li>
                 <b>internal_id</b> - internal ID of the user (<b>DO NOT</b> use this!
