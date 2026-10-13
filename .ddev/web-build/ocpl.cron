@@ -1,0 +1,4 @@
+# same entry points as on production (see docs/crontabs/cron-job-list), run_cron.php fails from the cli
+# there is no mta for cron, so output goes to a log (`ddev exec tail /tmp/ocpl-cron.log`)
+*/5 * * * * curl -fsS http://127.0.0.1/util.sec/cron/run_cron.php >> /tmp/ocpl-cron.log 2>&1
+*/5 * * * * curl -fsS -o /dev/null http://127.0.0.1/okapi/cron5 >> /tmp/ocpl-cron.log 2>&1
