@@ -297,6 +297,9 @@ class CacheAttribute
     /** The cache is located near a street art work, mural or other form of urban art. */
     public const STREETART = 225;
 
+    /** The cache was created in cooperation with a partner organization. */
+    public const PARTNERSHIP = 226;
+
     /* *** Special purpose attributes ************************************* */
 
     /** Cache is part of a GeoPath [SPECIAL ATTRIBUTE] */
@@ -424,6 +427,7 @@ class CacheAttribute
         self::DETAIL => ['trKey' => 'at_detail', 'icon' => 'at_detail.png'],
         self::NATURAL => ['trKey' => 'at_natural', 'icon' => 'at_natural.png'],
         self::STREETART => ['trKey' => 'at_street_art', 'icon' => 'at_street_art.png'],
+        self::PARTNERSHIP => ['trKey' => 'at_partnership', 'icon' => 'at_parentschip.png'],
     /* *** NEGATED common attributes between OC and GC ******************** */
         self::NODOGS => ['trKey' => 'at_nodogs', 'icon' => 'at_nodogs.png'],
         self::NOTAVAILABLE247 => ['trKey' => 'at_notAvailable247', 'icon' => 'at_notavailable247.png'],
