@@ -29,6 +29,8 @@ function stronicowanie($page, $address, $znalezione, $ile, $url)
     global $tpl;
 
     $na_stronie = 10;
+    $next_page = null;
+    $prev_page = null;
 
     if ($ile <= $na_stronie)
         $znalezione = wytnij($znalezione, 0, $na_stronie);
@@ -53,7 +55,6 @@ function stronicowanie($page, $address, $znalezione, $ile, $url)
         }
     }
 
-    $tpl->assign('action', $action);
     $tpl->assign('url', $url);
     $tpl->assign('next_page', $next_page);
     $tpl->assign('prev_page', $prev_page);
@@ -84,7 +85,7 @@ if (isset($_GET['ns']) && isset($_GET['ew']) && isset($_GET['radius']) && isset(
         if ($_GET['ew'] == 'W')
             $kord2 = "-" . $kord2;
 
-        $jsonurl = "$absolute_server_URI/okapi/services/caches/search/nearest?&center=" . $kord1 . "|" . $kord2 . "&status=Available&radius=" . $_GET['radius'] . "&consumer_key=HpLvDvvjmG3HkeX8RsgU&limit=500 ";
+        $jsonurl = rtrim($absolute_server_URI, '/') . "/okapi/services/caches/search/nearest?&center=" . $kord1 . "|" . $kord2 . "&status=Available&radius=" . $_GET['radius'] . "&consumer_key=HpLvDvvjmG3HkeX8RsgU&limit=500";
 
         $input = file_get_contents($jsonurl);
         $output = json_decode($input, true);
@@ -94,7 +95,7 @@ if (isset($_GET['ns']) && isset($_GET['ew']) && isset($_GET['radius']) && isset(
 
         $i = 0;
 
-        while (list($klucz, $wartosc) = each($output['results'])) {
+        foreach ($output['results'] as $wartosc) {
 
             $query = "select status,cache_id,name, score, latitude, longitude, user_id, type from caches where wp_oc = '" . $wartosc . "'";
             $wynik = XDb::xSql($query);
@@ -233,7 +234,7 @@ if (isset($_GET['ns']) && isset($_GET['ew']) && isset($_GET['radius']) && isset(
         $url = $_SERVER['REQUEST_URI'];
 
         $tpl->assign('lista', $lista);
-        stronicowanie($_GET['page'], 'viewcache', $znalezione, $i, $url);
+        stronicowanie($_GET['page'] ?? null, 'viewcache', $znalezione, $i, $url);
 
         exit;
     } else

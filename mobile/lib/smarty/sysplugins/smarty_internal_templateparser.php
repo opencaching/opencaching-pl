@@ -35,17 +35,18 @@ class TP_yyToken implements ArrayAccess
         return $this->_string;
     }
 
-    function offsetExists($offset)
+    function offsetExists($offset): bool
     {
         return isset($this->metadata[$offset]);
     }
 
+    #[\ReturnTypeWillChange]
     function offsetGet($offset)
     {
         return $this->metadata[$offset];
     }
 
-    function offsetSet($offset, $value)
+    function offsetSet($offset, $value): void
     {
         if ($offset === null) {
             if (isset($value[0])) {
@@ -68,7 +69,7 @@ class TP_yyToken implements ArrayAccess
         }
     }
 
-    function offsetUnset($offset)
+    function offsetUnset($offset): void
     {
         unset($this->metadata[$offset]);
     }

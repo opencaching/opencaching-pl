@@ -735,7 +735,7 @@ class Smarty extends Smarty_Internal_Data
     {
         static $camel_func;
         if (!isset($camel_func))
-            $camel_func = create_function('$c', 'return "_" . strtolower($c[1]);');
+            $camel_func = fn ($c) => '_' . strtolower($c[1]);
         // see if this is a set/get for a property
         $first3 = strtolower(substr($name, 0, 3));
         if (in_array($first3, array('set', 'get')) && substr($name, 3, 1) !== '_') {
