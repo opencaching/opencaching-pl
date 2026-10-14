@@ -41,7 +41,7 @@ class DbUpdateHistory
     public static function addOrReplace($uuid, $name)
     {
         self::init();
-        self::$history[$uuid] = ['name' => $name, 'wasRunAt' => date('Y-m-d H:m:s')];
+        self::$history[$uuid] = ['name' => $name, 'wasRunAt' => date('Y-m-d H:i:s')];
 
         // Write to database first, as we should be inside a transaction.
         // If the DB operation fails, the script is aborted and everything
