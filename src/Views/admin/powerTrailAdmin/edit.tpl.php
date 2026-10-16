@@ -61,7 +61,7 @@ $statusKey = $view->statuses[(int) $powerTrail['status']] ?? null;
             </tr>
             <tr>
                 <td class="content-title-noshade"><?= tr('pt020'); ?></td>
-                <td><?= (int) $powerTrail['cacheCount']; ?></td>
+                <td class="powerTrail-cache-count"><?= (int) $powerTrail['cacheCount']; ?></td>
             </tr>
             <tr>
                 <td class="content-title-noshade"><?= tr('pt033'); ?></td>
@@ -75,6 +75,7 @@ $statusKey = $view->statuses[(int) $powerTrail['status']] ?? null;
                         <button type="submit" class="blue-button-small"><?= tr('pt033'); ?></button>
                     </form>
                 </td>
+            </tr>
         </tbody>
     </table>
 
@@ -127,11 +128,6 @@ $statusKey = $view->statuses[(int) $powerTrail['status']] ?? null;
                         </td>
                         <td>
                             <form class="powerTrail-remove-cache-form" method="post"
-                                  data-refresh-url="<?= SimpleRouter::getLink(
-                                      'Admin.PowerTrailAdmin',
-                                      'refreshPowerTrail',
-                                      (int) $powerTrail['id']
-                                  ); ?>"
                                   data-ln-confirm-message="<?= htmlspecialchars(tr('powertrail_admin_confirm_remove_cache'), ENT_QUOTES, 'UTF-8'); ?>"
                                   data-ln-error-message="<?= htmlspecialchars(tr('powertrail_admin_remove_cache_error'), ENT_QUOTES, 'UTF-8'); ?>"
                                   action="<?= SimpleRouter::getLink(

@@ -1,9 +1,10 @@
 interface AdminAjaxResponse {
     status?: string
     message?: string
+    newCachesCount?: number
 }
 
-async function postForm(form: HTMLFormElement): Promise<void> {
+async function postForm(form: HTMLFormElement): Promise<AdminAjaxResponse> {
     const response = await fetch(form.action, {
         method: 'POST',
         body: new FormData(form),
@@ -13,6 +14,8 @@ async function postForm(form: HTMLFormElement): Promise<void> {
     if (!response.ok || result.status !== 'OK') {
         throw new Error(result.message || form.dataset.lnErrorMessage || 'Error')
     }
+
+    return result
 }
 
 function showError(error: unknown, form: HTMLFormElement): void {
@@ -48,13 +51,16 @@ export class PowerTrailEditComponent {
             }
 
             postForm(form)
+                .then((result) => {
+                    form.closest('tr')?.remove()
+                    this.updateCacheCount(result.newCachesCount)
+                })
                 .catch((error: unknown) => {
                     showError(error, form)
                     if (submitButton) {
                         submitButton.disabled = false
                     }
                 })
-                .finally(() => this.refreshAndReload(form.dataset.refreshUrl))
         }
     }
 
@@ -96,16 +102,15 @@ export class PowerTrailEditComponent {
         }
     }
 
-    private refreshAndReload(refreshUrl?: string): void {
-        const reload = () => window.location.reload()
-
-        if (!refreshUrl) {
-            reload()
+    private updateCacheCount(count?: number): void {
+        if (count === undefined) {
             return
         }
 
-        fetch(refreshUrl, { method: 'POST' })
-            .catch(() => undefined)
-            .then(reload)
+        this.root
+            .querySelectorAll<HTMLElement>('.powerTrail-cache-count')
+            .forEach((element) => {
+                element.textContent = String(count)
+            })
     }
 }

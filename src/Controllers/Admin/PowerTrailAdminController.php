@@ -3,6 +3,7 @@
 namespace src\Controllers\Admin;
 
 use src\Controllers\Core\ViewBaseController;
+use src\Enums\PowerTrailActionLogEnum;
 use src\Enums\PowerTrailAdminEnum;
 use src\Enums\PowerTrailStatusesEnum;
 use src\Enums\PowerTrailTypesEnum;
@@ -10,6 +11,7 @@ use src\Models\ChunkModels\PaginationModel;
 use src\Models\CacheSet\CacheSet;
 use src\Models\GeoCache\GeoCacheStatusRepository;
 use src\Models\PowerTrail\PowerTrailAdminRepository;
+use src\Services\PowerTrailActionLogService;
 use src\Utils\I18n\I18n;
 use src\Utils\Uri\HttpCode;
 use src\Utils\Uri\SimpleRouter;
@@ -18,6 +20,8 @@ use src\Utils\Uri\Uri;
 class PowerTrailAdminController extends ViewBaseController
 {
     private PowerTrailAdminRepository $repository;
+
+    private PowerTrailActionLogService $actionLogService;
 
     public function __construct()
     {
@@ -33,6 +37,7 @@ class PowerTrailAdminController extends ViewBaseController
         }
 
         $this->repository = new PowerTrailAdminRepository();
+        $this->actionLogService = new PowerTrailActionLogService();
     }
 
     public function isCallableFromRouter(string $actionName): bool
@@ -120,21 +125,35 @@ class PowerTrailAdminController extends ViewBaseController
             );
         }
 
-        $geoPath = CacheSet::fromCacheSetIdFactory($powerTrailId);
-        if (! $geoPath) {
+        if (! $this->recalculateGeoPath($powerTrailId)) {
             $this->displayCommonErrorPageAndExit(
                 'GeoPath not found',
                 HttpCode::STATUS_NOT_FOUND
             );
         }
 
+        SimpleRouter::redirect(
+            SimpleRouter::getLink(self::class, 'editPowerTrail', $powerTrailId)
+        );
+    }
+
+    /**
+     * Recalculates center point, points and caches count of the GeoPath.
+     *
+     * @return bool false when the GeoPath does not exist
+     */
+    private function recalculateGeoPath(int $powerTrailId): bool
+    {
+        $geoPath = CacheSet::fromCacheSetIdFactory($powerTrailId);
+        if (! $geoPath) {
+            return false;
+        }
+
         $geoPath->recalculateCenterPoint();
         $geoPath->updatePoints();
         $geoPath->updateCachesCount();
 
-        SimpleRouter::redirect(
-            SimpleRouter::getLink(self::class, 'editPowerTrail', $powerTrailId)
-        );
+        return true;
     }
 
     /**
@@ -161,6 +180,12 @@ class PowerTrailAdminController extends ViewBaseController
         }
 
         $this->repository->updateStatus($powerTrailId, $status);
+
+        $this->actionLogService->log(
+            PowerTrailActionLogEnum::CHANGE_STATUS,
+            $powerTrailId,
+            (int) $this->loggedUser->getUserId()
+        );
 
         $this->sendAjaxSuccessResponse('GeoPath status changed.', [
             'status_id' => $status,
@@ -190,9 +215,21 @@ class PowerTrailAdminController extends ViewBaseController
             $this->sendAjaxErrorResponse('Cache is not assigned to this GeoPath', HttpCode::STATUS_CONFLICT);
         }
 
+        $this->actionLogService->log(
+            PowerTrailActionLogEnum::REMOVE_CACHE,
+            $powerTrailId,
+            (int) $this->loggedUser->getUserId(),
+            $cacheId
+        );
+
+        $this->recalculateGeoPath($powerTrailId);
+
         $this->sendAjaxSuccessResponse(
             'Cache removed from GeoPath.',
-            ['localizedMessage' => tr('gp_cacheRemovedFromGeopath')]
+            [
+                'localizedMessage' => tr('gp_cacheRemovedFromGeopath'),
+                'newCachesCount' => (int) ($this->repository->findById($powerTrailId)['cacheCount'] ?? 0),
+            ]
         );
     }
 

@@ -11,6 +11,7 @@
     if (!response.ok || result.status !== "OK") {
       throw new Error(result.message || form.dataset.lnErrorMessage || "Error");
     }
+    return result;
   }
   function showError(error, form) {
     window.alert(form.dataset.lnErrorMessage || (error instanceof Error ? error.message : "Error"));
@@ -34,12 +35,16 @@
         if (submitButton) {
           submitButton.disabled = true;
         }
-        postForm(form).catch((error) => {
+        postForm(form).then((result) => {
+          var _a;
+          (_a = form.closest("tr")) == null ? void 0 : _a.remove();
+          this.updateCacheCount(result.newCachesCount);
+        }).catch((error) => {
           showError(error, form);
           if (submitButton) {
             submitButton.disabled = false;
           }
-        }).finally(() => this.refreshAndReload(form.dataset.refreshUrl));
+        });
       };
     }
     bindStatus(container) {
@@ -72,13 +77,13 @@
         });
       };
     }
-    refreshAndReload(refreshUrl) {
-      const reload = () => window.location.reload();
-      if (!refreshUrl) {
-        reload();
+    updateCacheCount(count) {
+      if (count === void 0) {
         return;
       }
-      fetch(refreshUrl, { method: "POST" }).catch(() => void 0).then(reload);
+      this.root.querySelectorAll(".powerTrail-cache-count").forEach((element) => {
+        element.textContent = String(count);
+      });
     }
   };
 
