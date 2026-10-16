@@ -2,16 +2,15 @@
 
 namespace src\Controllers\Admin;
 
+use RuntimeException;
 use src\Controllers\Core\ViewBaseController;
-use src\Enums\PowerTrailActionLogEnum;
 use src\Enums\PowerTrailAdminEnum;
 use src\Enums\PowerTrailStatusesEnum;
 use src\Enums\PowerTrailTypesEnum;
 use src\Models\ChunkModels\PaginationModel;
-use src\Models\CacheSet\CacheSet;
 use src\Models\GeoCache\GeoCacheStatusRepository;
 use src\Models\PowerTrail\PowerTrailAdminRepository;
-use src\Services\PowerTrailActionLogService;
+use src\Services\PowerTrailAdminService;
 use src\Utils\I18n\I18n;
 use src\Utils\Uri\HttpCode;
 use src\Utils\Uri\SimpleRouter;
@@ -21,7 +20,7 @@ class PowerTrailAdminController extends ViewBaseController
 {
     private PowerTrailAdminRepository $repository;
 
-    private PowerTrailActionLogService $actionLogService;
+    private PowerTrailAdminService $adminService;
 
     public function __construct()
     {
@@ -37,7 +36,7 @@ class PowerTrailAdminController extends ViewBaseController
         }
 
         $this->repository = new PowerTrailAdminRepository();
-        $this->actionLogService = new PowerTrailActionLogService();
+        $this->adminService = new PowerTrailAdminService($this->repository);
     }
 
     public function isCallableFromRouter(string $actionName): bool
@@ -45,6 +44,9 @@ class PowerTrailAdminController extends ViewBaseController
         return in_array($actionName, ['index', 'editPowerTrail', 'refreshPowerTrail', 'removeCache', 'changeStatus'], true);
     }
 
+    /**
+     * Route: Admin.PowerTrailAdmin
+     */
     public function index()
     {
         $id = $this->getIntegerQueryParameter('id', 0);
@@ -84,6 +86,9 @@ class PowerTrailAdminController extends ViewBaseController
         $this->view->buildView();
     }
 
+    /**
+     * Route: Admin.PowerTrailAdmin/editPowerTrail/{powerTrailId}
+     */
     public function editPowerTrail(int $powerTrailId)
     {
         $powerTrail = $this->repository->findById($powerTrailId);
@@ -118,14 +123,13 @@ class PowerTrailAdminController extends ViewBaseController
      */
     public function refreshPowerTrail(int $powerTrailId): void
     {
-        if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
-            $this->displayCommonErrorPageAndExit(
-                'POST required',
-                405
-            );
+        try {
+            $exists = $this->adminService->refreshGeoPath($powerTrailId);
+        } catch (RuntimeException $exception) {
+            $this->displayCommonErrorPageAndExit($exception->getMessage(), $exception->getCode());
         }
 
-        if (! $this->recalculateGeoPath($powerTrailId)) {
+        if (! $exists) {
             $this->displayCommonErrorPageAndExit(
                 'GeoPath not found',
                 HttpCode::STATUS_NOT_FOUND
@@ -138,99 +142,48 @@ class PowerTrailAdminController extends ViewBaseController
     }
 
     /**
-     * Recalculates center point, points and caches count of the GeoPath.
-     *
-     * @return bool false when the GeoPath does not exist
-     */
-    private function recalculateGeoPath(int $powerTrailId): bool
-    {
-        $geoPath = CacheSet::fromCacheSetIdFactory($powerTrailId);
-        if (! $geoPath) {
-            return false;
-        }
-
-        $geoPath->recalculateCenterPoint();
-        $geoPath->updatePoints();
-        $geoPath->updateCachesCount();
-
-        return true;
-    }
-
-    /**
      * Route: Admin.PowerTrailAdmin/changeStatus/{powerTrailId}
      */
     public function changeStatus(int $powerTrailId): void
     {
-        if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
-            $this->sendAjaxErrorResponse('POST required', 405);
-        }
-
         $status = filter_var($_POST['status'] ?? null, FILTER_VALIDATE_INT);
-        $allowedStatuses = [
-            PowerTrailStatusesEnum::STATUS_OPEN,
-            PowerTrailStatusesEnum::STATUS_INSERVICE,
-            PowerTrailStatusesEnum::STATUS_CLOSED,
-        ];
-        if ($powerTrailId <= 0 || $status === false || ! in_array($status, $allowedStatuses, true)) {
+        if ($powerTrailId <= 0 || $status === false) {
             $this->sendAjaxErrorResponse('Invalid GeoPath ID or status', HttpCode::STATUS_BAD_REQUEST);
         }
 
-        if ($this->repository->findById($powerTrailId) === null) {
-            $this->sendAjaxErrorResponse('GeoPath not found', HttpCode::STATUS_NOT_FOUND);
+        try {
+            $result = $this->adminService->updateStatus($powerTrailId, $status);
+        } catch (RuntimeException $exception) {
+            $this->sendAjaxErrorResponse($exception->getMessage(), $exception->getCode());
         }
 
-        $this->repository->updateStatus($powerTrailId, $status);
+        if (! $result['updateStatusResult']) {
+            $this->sendAjaxErrorResponse($result['message'], HttpCode::STATUS_CONFLICT);
+        }
 
-        $this->actionLogService->log(
-            PowerTrailActionLogEnum::CHANGE_STATUS,
-            $powerTrailId,
-            (int) $this->loggedUser->getUserId()
-        );
-
-        $this->sendAjaxSuccessResponse('GeoPath status changed.', [
-            'status_id' => $status,
-        ]);
+        $this->sendAjaxSuccessResponse($result['message'], ['status_id' => $status]);
     }
 
     /**
      * Route: Admin.PowerTrailAdmin/removeCache/{powerTrailId}
-     * This endpoint is intentionally a stub until cache removal is implemented.
      */
     public function removeCache(int $powerTrailId): void
     {
-        if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
-            $this->sendAjaxErrorResponse('POST required', 405);
-        }
-
         $cacheId = filter_var($_POST['cacheId'] ?? null, FILTER_VALIDATE_INT);
-        if ($powerTrailId <= 0 || $cacheId === false || $cacheId <= 0) {
+        if ($cacheId === false) {
             $this->sendAjaxErrorResponse('Invalid GeoPath or cache ID', HttpCode::STATUS_BAD_REQUEST);
         }
 
-        if ($this->repository->findById($powerTrailId) === null) {
-            $this->sendAjaxErrorResponse('GeoPath not found', HttpCode::STATUS_NOT_FOUND);
+        try {
+            $newCachesCount = $this->adminService->removeCache($powerTrailId, $cacheId);
+        } catch (RuntimeException $exception) {
+            $this->sendAjaxErrorResponse($exception->getMessage(), $exception->getCode());
         }
 
-        if (! $this->repository->removeCacheFromPowerTrail($powerTrailId, $cacheId)) {
-            $this->sendAjaxErrorResponse('Cache is not assigned to this GeoPath', HttpCode::STATUS_CONFLICT);
-        }
-
-        $this->actionLogService->log(
-            PowerTrailActionLogEnum::REMOVE_CACHE,
-            $powerTrailId,
-            (int) $this->loggedUser->getUserId(),
-            $cacheId
-        );
-
-        $this->recalculateGeoPath($powerTrailId);
-
-        $this->sendAjaxSuccessResponse(
-            'Cache removed from GeoPath.',
-            [
-                'localizedMessage' => tr('gp_cacheRemovedFromGeopath'),
-                'newCachesCount' => (int) ($this->repository->findById($powerTrailId)['cacheCount'] ?? 0),
-            ]
-        );
+        $this->sendAjaxSuccessResponse('Cache removed from GeoPath.', [
+            'localizedMessage' => tr('gp_cacheRemovedFromGeopath'),
+            'newCachesCount' => $newCachesCount,
+        ]);
     }
 
     private function sendAjaxErrorResponse(string $message, int $statusCode): void

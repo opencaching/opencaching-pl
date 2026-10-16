@@ -4,7 +4,6 @@ namespace src\Models\PowerTrail;
 
 use src\Enums\PowerTrailAdminEnum;
 use src\Utils\Database\OcDb;
-use src\Utils\Generators\Uuid;
 
 class PowerTrailAdminRepository
 {
@@ -146,15 +145,6 @@ class PowerTrailAdminRepository
         return $this->db->rowCount($statement) > 0;
     }
 
-    public function updateStatus(int $powerTrailId, int $status): void
-    {
-        $this->db->multiVariableQuery(
-            'UPDATE `PowerTrail` SET `status` = :1 WHERE `id` = :2',
-            $status,
-            $powerTrailId
-        );
-    }
-
     public function exists(int $powerTrailId): bool
     {
         return $this->db->multiVariableQueryValue(
@@ -284,38 +274,5 @@ class PowerTrailAdminRepository
         );
 
         return $this->db->rowCount($statement) > 0;
-    }
-
-    public function insertComment(int $powerTrailId, int $userId, int $commentType, string $commentText): void
-    {
-        $this->db->multiVariableQuery(
-            'INSERT INTO `PowerTrail_comments`
-                (`userId`, `PowerTrailId`, `commentType`, `commentText`,
-                 `logDateTime`, `dbInsertDateTime`, `deleted`, `uuid`)
-             VALUES (:1, :2, :3, :4, NOW(), NOW(), 0, ' . Uuid::getSqlForUpperCaseUuid() . ')',
-            $userId,
-            $powerTrailId,
-            $commentType,
-            $commentText
-        );
-    }
-
-    public function insertActionLog(
-        int $powerTrailId,
-        int $userId,
-        int $actionType,
-        string $description,
-        int $cacheId = 0
-    ): void {
-        $this->db->multiVariableQuery(
-            'INSERT INTO `PowerTrail_actionsLog`
-                (`PowerTrailId`, `userId`, `actionDateTime`, `actionType`, `description`, `cacheId`)
-             VALUES (:1, :2, NOW(), :3, :4, :5)',
-            $powerTrailId,
-            $userId,
-            $actionType,
-            $description,
-            $cacheId
-        );
     }
 }
