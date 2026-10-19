@@ -3203,6 +3203,7 @@ $translations = [
     'at_drivein' => 'Szybka skrzynki (drive-in)',
     'at_ruin' => 'Opuszczona budowla/ruiny',
     'at_beacon' => 'Beacon',
+    'at_seasonal' => 'Seasonal access',
     'at_tree_climbing' => 'Wspinaczka na drzewo',
     'at_bonus' => 'BONUS cache',
     'at_challenge' => 'Must meet challenge requirements to log',
