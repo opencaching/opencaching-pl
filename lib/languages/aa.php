@@ -3203,6 +3203,7 @@ $translations = [
     'at_drivein' => 'crwdns27507:0crwdne27507:0',
     'at_ruin' => 'crwdns27509:0crwdne27509:0',
     'at_beacon' => 'crwdns27511:0crwdne27511:0',
+    'at_seasonal' => 'crwdns34105:0crwdne34105:0',
     'at_tree_climbing' => 'crwdns33903:0crwdne33903:0',
     'at_bonus' => 'crwdns34068:0crwdne34068:0',
     'at_challenge' => 'crwdns34070:0crwdne34070:0',
