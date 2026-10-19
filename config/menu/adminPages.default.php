@@ -21,7 +21,7 @@ use src\Utils\Uri\SimpleRouter;
 
 /** @var array $links OcConfig::$links is accessible in within this scope */
 
-$menu = [
+$menuPartOne = [
     'mnu_reports' => '/admin_reports.php', // counters added in MainLayoutCtrl
     'mnu_pendings' => SimpleRouter::getLink('Admin.GeoCacheApprovalAdmin'), // counters added in MainLayoutCtrl
     'mnu_octeamStats' => '/articles.php?page=cog',
@@ -29,9 +29,22 @@ $menu = [
     'mnu_searchUser' => SimpleRouter::getLink('Admin.UserAdmin', 'search'),
     'mnu_ocTeamNews' => SimpleRouter::getLink('News.NewsAdmin'),
     'mnu_geoPathAdmin' => '/powerTrailCOG.php',
-    'menu_octeam_power_trail' => SimpleRouter::getLink('Admin.PowerTrailAdmin'),
+];
+
+// PowerTrailAdminController uses PHP 8.1+ features (enums, readonly), so it is available only on PHP >= 8.1
+$menuNewPartPhp81 = PHP_VERSION_ID >= 80100
+    ? ['menu_octeam_power_trail' => SimpleRouter::getLink('Admin.PowerTrailAdmin')]
+    : [];
+
+$menuPartTwo = [
     'mnu_abandonCacheSets' => SimpleRouter::getLink(
         CacheSetAdminController::class,
         'cacheSetsToArchive'
     ),
 ];
+
+$menu = array_merge(
+    $menuPartOne,
+    $menuNewPartPhp81,
+    $menuPartTwo
+);

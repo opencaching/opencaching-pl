@@ -3,6 +3,7 @@
 namespace src\Controllers\Admin;
 
 use RuntimeException;
+use src\Controllers\Core\RequiresMinPhpVersionTrait;
 use src\Controllers\Core\ViewBaseController;
 use src\Enums\PowerTrailAdminEnum;
 use src\Enums\PowerTrailStatusesEnum;
@@ -16,8 +17,18 @@ use src\Utils\Uri\HttpCode;
 use src\Utils\Uri\SimpleRouter;
 use src\Utils\Uri\Uri;
 
+/**
+ * WARNING: This controller (and the classes it uses: PowerTrailAdminService,
+ * PowerTrailActionLogService, repositories, PowerTrailActionLogEnum) requires PHP >= 8.1
+ * (enums, readonly properties, match, nullsafe operator).
+ * On older PHP versions the code must NOT be executed - loading those classes causes a
+ * fatal error. The constructor stops the request (requireMinPhpVersion) before any of them is
+ * loaded, so keep that call first and do not instantiate those classes before it.
+ */
 class PowerTrailAdminController extends ViewBaseController
 {
+    use RequiresMinPhpVersionTrait;
+
     private PowerTrailAdminRepository $repository;
 
     private PowerTrailAdminService $adminService;
@@ -25,6 +36,8 @@ class PowerTrailAdminController extends ViewBaseController
     public function __construct()
     {
         parent::__construct();
+
+        $this->requireMinPhpVersion(80100);
 
         $this->redirectNotLoggedUsers();
 
