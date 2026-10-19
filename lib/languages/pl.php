@@ -3262,7 +3262,7 @@ $translations = [
     'at_scenic' => 'Punkt widokowy',
     'at_natural' => 'Pomnik przyrody',
     'at_street_art' => 'Street Art',
-    'at_partnership' => 'Partnership cache',
+    'at_partnership' => 'Skrytka partnerska',
 
     'cache_approval_refresh' => 'Odśwież listę',
     'cache_approval_refresh_time' => 'Ostatnia aktualizacja',
