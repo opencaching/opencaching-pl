@@ -135,6 +135,12 @@ class CacheAttribute
     /** Wireless beacon / Garmin Chirp™ */
     public const BEACON = 60;
 
+    /** The cache was created in cooperation with a partner organization. */
+    public const PARTNERSHIP = 61;
+
+    /** Seasonal access */
+    public const SEASONAL = 62;
+
     /** Tree climbing required */
     public const TREE_CLIMBING = 64;
 
@@ -297,9 +303,6 @@ class CacheAttribute
     /** The cache is located near a street art work, mural or other form of urban art. */
     public const STREETART = 225;
 
-    /** The cache was created in cooperation with a partner organization. */
-    public const PARTNERSHIP = 226;
-
     /* *** Special purpose attributes ************************************* */
 
     /** Cache is part of a GeoPath [SPECIAL ATTRIBUTE] */
@@ -366,6 +369,8 @@ class CacheAttribute
         self::DRIVEIN => ['trKey' => 'at_drivein', 'icon' => 'at_drivein.png'],
         self::RUIN => ['trKey' => 'at_ruin', 'icon' => 'at_ruin.png'],
         self::BEACON => ['trKey' => 'at_beacon', 'icon' => 'at_beacon.png'],
+        self::PARTNERSHIP => ['trKey' => 'at_partnership', 'icon' => 'at_partnership.png'],
+        self::SEASONAL => ['trKey' => 'at_seasonal', 'icon' => 'at_seasonal.png'],
         self::TREE_CLIMBING => ['trKey' => 'at_tree_climbing', 'icon' => 'at_tree_climbing.png'],
         self::BONUS => ['trKey' => 'at_bonus', 'icon' => 'at_bonus.png'],
         self::CHALLENGE => ['trKey' => 'at_challenge', 'icon' => 'at_challenge.png'],
@@ -427,7 +432,6 @@ class CacheAttribute
         self::DETAIL => ['trKey' => 'at_detail', 'icon' => 'at_detail.png'],
         self::NATURAL => ['trKey' => 'at_natural', 'icon' => 'at_natural.png'],
         self::STREETART => ['trKey' => 'at_street_art', 'icon' => 'at_street_art.png'],
-        self::PARTNERSHIP => ['trKey' => 'at_partnership', 'icon' => 'at_parentschip.png'],
     /* *** NEGATED common attributes between OC and GC ******************** */
         self::NODOGS => ['trKey' => 'at_nodogs', 'icon' => 'at_nodogs.png'],
         self::NOTAVAILABLE247 => ['trKey' => 'at_notAvailable247', 'icon' => 'at_notavailable247.png'],
