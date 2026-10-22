@@ -3203,6 +3203,7 @@ $translations = [
     'at_drivein' => 'Parkeer en log',
     'at_ruin' => 'Verlaten structuur / ruïne',
     'at_beacon' => 'Draadloze baken / Garmin Chirp™',
+    'at_seasonal' => 'Seasonal access',
     'at_tree_climbing' => 'Boomklimmen vereist',
     'at_bonus' => 'BONUS cache',
     'at_challenge' => 'Must meet challenge requirements to log',

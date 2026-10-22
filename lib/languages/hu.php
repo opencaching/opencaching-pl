@@ -3203,6 +3203,7 @@ $translations = [
     'at_drivein' => 'Park and grab',
     'at_ruin' => 'Abandoned structure / ruin',
     'at_beacon' => 'Wireless beacon / Garmin Chirp™',
+    'at_seasonal' => 'Seasonal access',
     'at_tree_climbing' => 'Tree climbing required',
     'at_bonus' => 'BONUS cache',
     'at_challenge' => 'Must meet challenge requirements to log',
