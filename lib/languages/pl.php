@@ -3031,7 +3031,7 @@ $translations = [
 
     'gp_logoUpdateTitle' => 'Nowe logo geościeżki',
     'gp_logoUpdateInfo' => 'Prześlij nowe logo geościeżki. '
-                           . 'Pamiętaj! Nie przesyłaj do serwisu plików do których nie posiadasz praw autorskich lub zgody właściciela na ich użycie.',
+        . 'Pamiętaj! Nie przesyłaj do serwisu plików do których nie posiadasz praw autorskich lub zgody właściciela na ich użycie.',
 
     'SmartPhone_Apps' => 'Aplikacje na smartfony',
     'SmartPhone_Support' => 'Te aplikacje Geocaching na smartfony oferują pełną obsługę Opencaching w czasie rzeczywistym:',
