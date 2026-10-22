@@ -33,6 +33,7 @@ RewriteRule ^statpics/([0-9]+)\.jpg$  /stats/statPic/$1 [R,L]
 RewriteRule ^(O[A-Z][0-9A-Z][0-9A-Z][0-9A-Z][0-9A-Z])$  /viewcache.php?wp=$1 [R=301,L,NC]
 
 # redirect from old tinyMCE emoticons to the new location of emoticons
+RewriteRule ^lib/tinymce/plugins/emotions/img/smiley-([a-z-]+)\.gif$ /public/images/emoticons/fromTinyMce/smiley-$1.gif [NC,L]
 RewriteRule ^lib/tinymce4/plugins/emoticons/img/smiley-([a-z-]+)\.gif$  /public/images/emoticons/fromTinyMce/smiley-$1.gif [NC,L]
 
 # Remap old /rss directory into new RSS controller

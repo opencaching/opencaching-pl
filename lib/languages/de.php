@@ -3204,6 +3204,7 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'at_drivein' => 'Drive-In-Cache',
     'at_ruin' => 'verlassenes Bauwerk / Ruine',
     'at_beacon' => 'ANT+/ Garmin Chirp™',
+    'at_seasonal' => 'Seasonal access',
     'at_tree_climbing' => 'Baumklettern notwendig',
     'at_bonus' => 'BONUS cache',
     'at_challenge' => 'Must meet challenge requirements to log',
@@ -3263,6 +3264,7 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'at_scenic' => 'Scenic view',
     'at_natural' => 'Natural monument',
     'at_street_art' => 'Street art',
+    'at_partnership' => 'Partnership cache',
 
     'cache_approval_refresh' => 'Refresh list',
     'cache_approval_refresh_time' => 'Last update',

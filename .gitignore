@@ -24,3 +24,6 @@ ocpl-dynamic-files
 .php-cs-fixer.php
 .php-cs-fixer.cache
 ocpldb.sql
+
+# Node / TypeScript tooling
+/node_modules/

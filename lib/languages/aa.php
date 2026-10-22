@@ -3203,6 +3203,7 @@ $translations = [
     'at_drivein' => 'crwdns27507:0crwdne27507:0',
     'at_ruin' => 'crwdns27509:0crwdne27509:0',
     'at_beacon' => 'crwdns27511:0crwdne27511:0',
+    'at_seasonal' => 'crwdns34105:0crwdne34105:0',
     'at_tree_climbing' => 'crwdns33903:0crwdne33903:0',
     'at_bonus' => 'crwdns34068:0crwdne34068:0',
     'at_challenge' => 'crwdns34070:0crwdne34070:0',
@@ -3262,6 +3263,7 @@ $translations = [
     'at_scenic' => 'crwdns34097:0crwdne34097:0',
     'at_natural' => 'crwdns34099:0crwdne34099:0',
     'at_street_art' => 'crwdns34101:0crwdne34101:0',
+    'at_partnership' => 'crwdns34103:0crwdne34103:0',
 
     'cache_approval_refresh' => 'crwdns33930:0crwdne33930:0',
     'cache_approval_refresh_time' => 'crwdns33932:0crwdne33932:0',

@@ -117,7 +117,7 @@
 
 {if $cache['founds']>0 || $cache['notfounds']>0 || $cache['notes']>0 }
     <hr/><br/><div class='button'><a href=./logs.php?wp={$cache['wp_oc']}>{$show_entries}</a></div><br/>
-    {elseif $smarty.session.user_id}
+    {elseif isset($smarty.session.user_id)}
     <hr/><br/>
 {/if}
 

@@ -1,0 +1,33 @@
+/* My goal is to migrate and consolidate all CSS files on OC.
+And this file is the first step towards that. */
+.w-100 {
+  width: 100%; }
+
+/* Compact blue button. */
+.blue-button-small {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  height: 20px;
+  padding: 0 16px;
+  border: 1px solid #337fed;
+  border-radius: 6px;
+  background: linear-gradient(#3d94f6 5%, #1e62d0 100%);
+  box-shadow: inset 0 1px 0 #97c4fe;
+  color: #fff !important;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: normal;
+  line-height: 1;
+  text-align: center;
+  text-decoration: none !important;
+  text-shadow: 1px 1px 0 #1570cd;
+  white-space: nowrap; }
+  .blue-button-small:hover {
+    background: linear-gradient(#1e62d0 5%, #3d94f6 100%); }
+  .blue-button-small:active {
+    position: relative;
+    top: 1px; }
+
+/*# sourceMappingURL=style.css.map */

@@ -144,7 +144,7 @@ ID  YES NO  IMAGE               NAME
 69  YES     bonuscache          Bonus cache
 70  YES     powertrail          Power trail
 71  YES     challengecache      Challenge cache
-72  YES     hqsolutionchecker   Geocaching.com solution checker
+72  YES     hqsolutionchecker   Geocaching.com solution checker     
 
 References:
 ***********
@@ -161,7 +161,7 @@ https://forums.geocaching.com/GC/index.php?/topic/282652-groundspeak-gpx/&tab=co
 
 For Opencaching attributes which have no Groundspeak equivalents, additional
 Pseudo-Groundspeak IDs ("ocgs" IDs) have been defined, which are used to
-store these attributes in GPX <groundspeak:attribute> elements.
+store these attributes in GPX <groundspeak:attribute> elements. 
 "ocgs" IDs are unique and do not overlap with Groundspeak attribute IDs.
 - See OCDE htdocs/lib2/search/search.gpx.inc.php for OCDE equivalence usage
   OCDE stores both internal ID (referenced here as <opencaching schema="OCDE" id="xxx" />)
@@ -183,6 +183,7 @@ store these attributes in GPX <groundspeak:attribute> elements.
         <opencaching schema="OCRO" id="106" />
         <opencaching schema="OCUK" id="106" />
         <opencaching schema="OCUS" id="106" />
+        <opencaching schema="OCPL" id="106" />
         <lang id="en">
             <name>Listed at Opencaching only</name>
             <desc>
@@ -2373,6 +2374,7 @@ store these attributes in GPX <groundspeak:attribute> elements.
     <attr acode="A45" categories="de-time-and-seasons">
         <groundspeak id="62" inc="true" name="Seasonal access" />
         <opencaching schema="OCDE" id="60" />
+        <opencaching schema="OCPL" id="62" />
         <lang id="en">
             <name>Only available during specified seasons</name>
             <desc>
@@ -2402,10 +2404,10 @@ store these attributes in GPX <groundspeak:attribute> elements.
             </desc>
         </lang>
         <lang id="pl">
-            <name>Dostępna tylko w określonych porach roku</name>
+            <name>Sezonowy dostęp</name>
             <desc>
-                Skrzynka może być podjęta jedynie w pewnych okresach - więcej
-                szczegółów w opisie.
+                Skrzynka dostępna tylko w określonych porach roku. Przed wyprawą sprawdź,
+                czy miejsce jest dostępne.
             </desc>
         </lang>
     </attr>
@@ -3340,6 +3342,7 @@ store these attributes in GPX <groundspeak:attribute> elements.
     <attr acode="A63" categories="de-dangers">
         <groundspeak id="39" inc="true" name="Thorns" />
         <opencaching schema="OCDE" id="13" />
+        <opencaching schema="OCPL" id="39" />
         <opencaching schema="OCNL" id="39" />
         <opencaching schema="OCRO" id="39" />
         <opencaching schema="OCUK" id="39" />
@@ -3382,10 +3385,12 @@ store these attributes in GPX <groundspeak:attribute> elements.
             </desc>
         </lang>
         <lang id="pl">
-            <name>Uwaga na kolce</name>
+            <name>Kolce i ciernie</name>
             <desc>
-                W okolicy skrzynki występują kolczaste rośliny. Wskazany odpowiedni
-                strój.
+                Skrzynka może znajdować się w pobliżu kolczastych lub ciernistych roślin,
+                takich jak jeżyny, róże, głogi lub inna roślinność wyposażona w kolce czy
+                ciernie. Podczas poszukiwań zachowaj ostrożność, aby uniknąć zadrapań lub
+                ukłuć.
             </desc>
         </lang>
     </attr>
@@ -4103,7 +4108,7 @@ store these attributes in GPX <groundspeak:attribute> elements.
         <lang id="pl">
             <name>Urbex / Ruiny</name>
             <desc>
-                Skrzynka znajduje się na terenie lub w okolicy opuszczonego obiektu albo ruin.
+                Skrzynka znajduje się na terenie lub w okolicy opuszczonego obiektu albo ruin. 
                 Zachowaj szczególną ostrożność podczas poszukiwań.
             </desc>
         </lang>
@@ -4116,7 +4121,7 @@ store these attributes in GPX <groundspeak:attribute> elements.
             </desc>
         </lang>
     </attr>
-
+    
     <attr acode="A83" categories="de-cache-types">
         <groundspeak id="48" inc="true" name="UV Light Required" />
         <opencaching schema="OCRO" id="48" />
@@ -4235,13 +4240,13 @@ store these attributes in GPX <groundspeak:attribute> elements.
             <name>Natural monument</name>
             <desc>
                 The cache is located near a natural monument, such as a protected tree or other natural feature.
-                Please respect nature and the site.
+                Please respect nature and the site.                
             </desc>
         </lang>
         <lang id="pl">
             <name>Pomnik przyrody</name>
             <desc>
-                Skrzynka znajduje się w pobliżu pomnika przyrody ożywionej lub nieożywionej.
+                Skrzynka znajduje się w pobliżu pomnika przyrody ożywionej lub nieożywionej. 
                 Prosimy o poszanowanie przyrody i miejsca.
             </desc>
         </lang>
@@ -4262,7 +4267,7 @@ store these attributes in GPX <groundspeak:attribute> elements.
         <lang id="en">
             <name>Scenic view</name>
             <desc>
-                The geocache is placed near a scenic viewpoint.
+                The geocache is placed near a scenic viewpoint. 
                 Take a moment to enjoy the view, snap a picture.
             </desc>
         </lang>
@@ -4288,14 +4293,14 @@ store these attributes in GPX <groundspeak:attribute> elements.
         <lang id="en">
             <name>Street Art</name>
             <desc>
-                The cache is located near a street painting,graffiti, mural or other form of urban art.
+                The cache is located near a street painting,graffiti, mural or other form of urban art. 
                 Finding the cache does not require interfering with or damaging the artwork or its surroundings.
             </desc>
         </lang>
         <lang id="pl">
             <name>Street Art</name>
             <desc>
-                Skrzynka znajduje się w pobliżu dzieła street artu, muralu lub innej formy sztuki ulicznej.
+                Skrzynka znajduje się w pobliżu dzieła street artu, muralu lub innej formy sztuki ulicznej. 
                 Poszukiwania skrzynki nie wymagają ingerowania w dzieło ani jego otoczenie.
             </desc>
         </lang>
@@ -4303,8 +4308,27 @@ store these attributes in GPX <groundspeak:attribute> elements.
             <name>Artă stradală</name>
             <desc>
                 Geocutia se află în apropierea unei picturi murale, graffiti sau altă formă de artă stradală.
-                Pentru a găsi geocutia nu trebuie să interacţionaţi sau să afectaţi în nici un fel
+                Pentru a găsi geocutia nu trebuie să interacţionaţi sau să afectaţi în nici un fel 
                 opera de artă sau împrejurimile acesteia.
+            </desc>
+        </lang>
+    </attr>
+
+    <attr acode="A102" categories="de-location">
+        <groundspeak id="61" inc="true" name="Partnership cache" />
+        <opencaching schema="OCPL" id="61" />
+        <lang id="en">
+            <name>Partnership cache</name>
+            <desc>
+                The cache was created in cooperation with an institution or organization.
+                Its final location may be at or near the partner's site.
+            </desc>
+        </lang>
+        <lang id="pl">
+            <name>Skrzynka partnerska</name>
+            <desc>
+                Skrzynka powstała we współpracy z instytucją lub organizacją.
+                Jej finał może znajdować się na terenie lub przy obiekcie partnera.
             </desc>
         </lang>
     </attr>

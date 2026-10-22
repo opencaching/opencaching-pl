@@ -3031,7 +3031,7 @@ $translations = [
 
     'gp_logoUpdateTitle' => 'Nowe logo geościeżki',
     'gp_logoUpdateInfo' => 'Prześlij nowe logo geościeżki. '
-                           . 'Pamiętaj! Nie przesyłaj do serwisu plików do których nie posiadasz praw autorskich lub zgody właściciela na ich użycie.',
+        . 'Pamiętaj! Nie przesyłaj do serwisu plików do których nie posiadasz praw autorskich lub zgody właściciela na ich użycie.',
 
     'SmartPhone_Apps' => 'Aplikacje na smartfony',
     'SmartPhone_Support' => 'Te aplikacje Geocaching na smartfony oferują pełną obsługę Opencaching w czasie rzeczywistym:',
@@ -3203,6 +3203,7 @@ $translations = [
     'at_drivein' => 'Szybka skrzynki (drive-in)',
     'at_ruin' => 'Opuszczona budowla/ruiny',
     'at_beacon' => 'Beacon',
+    'at_seasonal' => 'Seasonal access',
     'at_tree_climbing' => 'Wspinaczka na drzewo',
     'at_bonus' => 'BONUS cache',
     'at_challenge' => 'Must meet challenge requirements to log',
@@ -3262,6 +3263,7 @@ $translations = [
     'at_scenic' => 'Punkt widokowy',
     'at_natural' => 'Pomnik przyrody',
     'at_street_art' => 'Street Art',
+    'at_partnership' => 'Skrytka partnerska',
 
     'cache_approval_refresh' => 'Odśwież listę',
     'cache_approval_refresh_time' => 'Ostatnia aktualizacja',
