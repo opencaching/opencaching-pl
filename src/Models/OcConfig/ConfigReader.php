@@ -29,6 +29,7 @@ abstract class ConfigReader
     const MENU_DIR = self::CONFIG_DIR . 'menu/';
     const MENU_FOOTER_PREFIX = 'footerMenu';
     const MENU_ADMIN_PREFIX = 'adminPages';
+    const MENU_SYSADMIN_PREFIX = 'sysAdminPages';
     const MENU_AUTH_USER = 'authUserMainMenu';
     const MENU_CUSTOM_USER = 'customUserMenu';
     const MENU_NON_AUTH_USER = 'noUserMainMenu';

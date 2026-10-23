@@ -87,6 +87,37 @@
     }
   };
 
+  // resources/ts/components/RoleManagerFormComponent.ts
+  var RoleManagerFormComponent = class {
+    constructor(root = document) {
+      this.root = root;
+    }
+    init() {
+      this.root.querySelectorAll(".role-manager-form").forEach((form) => this.bindForm(form));
+    }
+    bindForm(form) {
+      form.onsubmit = (event) => {
+        event.preventDefault();
+        const submitter = event.submitter instanceof HTMLButtonElement ? event.submitter : null;
+        const isRemoveAll = (submitter == null ? void 0 : submitter.dataset.lnAction) === "remove_all";
+        if (isRemoveAll) {
+          const confirmMessage = form.dataset.lnConfirmRemoveAll || "";
+          if (confirmMessage && !window.confirm(confirmMessage)) {
+            return;
+          }
+        }
+        void fetch(form.action, {
+          method: "POST",
+          body: new FormData(form),
+          headers: {
+            Accept: "application/json"
+          }
+        }).catch(() => void 0).finally(() => window.location.reload());
+      };
+    }
+  };
+
   // resources/ts/index.ts
   new PowerTrailEditComponent().init();
+  new RoleManagerFormComponent().init();
 })();

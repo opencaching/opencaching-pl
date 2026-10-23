@@ -328,6 +328,22 @@ $view->addHeaderChunk('darkmodeJS');
                         </ul>
                         <?php } //admin?>
 
+                        <?php if ($view->_isSysAdmin) { ?>
+                            <!-- admin menu -->
+                            <ul>
+                                <li class="title"><?= tr('menu_sys_administration'); ?></li>
+                                <?php foreach ($view->_sysAdminMenu as $key => $url) { ?>
+                                    <li class="group">
+                                        <?php if (is_array($url)) { //array="open in new window"?>
+                                            <a href="<?= $url[0]; ?>" target="_blank" rel="noopener"><?= $key; ?></a>
+                                        <?php } else { // !is_array($url)?>
+                                            <a href="<?= $url; ?>" rel="noopener"><?= $key; ?></a>
+                                        <?php } // if-is_array($url)?>
+                                    </li>
+                                <?php } //foreach?>
+                            </ul>
+                        <?php } //admin?>
+
                     <?php } //if-_isUserLogged?>
 
                     <!-- Main title -->
