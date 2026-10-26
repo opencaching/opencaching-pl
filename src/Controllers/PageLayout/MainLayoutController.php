@@ -220,7 +220,7 @@ class MainLayoutController extends BaseController
                     $this->getMenu(OcConfig::MENU_SYSADMIN_PREFIX)
                 );
             } else {
-                $this->view->setVar('_isSysAdin', false);
+                $this->view->setVar('_isSysAdmin', false);
                 $this->view->setVar('_sysAdminMenu', null);
             }
         }
