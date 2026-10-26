@@ -212,6 +212,17 @@ class MainLayoutController extends BaseController
                 $this->view->setVar('_isAdmin', false);
                 $this->view->setVar('_adminMenu', null);
             }
+
+            if ($this->loggedUser->hasSysAdminRole()) {
+                $this->view->setVar('_isSysAdmin', true);
+                $this->view->setVar(
+                    '_sysAdminMenu',
+                    $this->getMenu(OcConfig::MENU_SYSADMIN_PREFIX)
+                );
+            } else {
+                $this->view->setVar('_isSysAdmin', false);
+                $this->view->setVar('_sysAdminMenu', null);
+            }
         }
 
         $this->view->setVar(
