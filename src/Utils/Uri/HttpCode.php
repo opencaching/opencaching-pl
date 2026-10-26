@@ -14,6 +14,8 @@ class HttpCode
 
     public const STATUS_NOT_FOUND = 404;
 
+    public const STATUS_METHOD_NOT_ALLOWED = 405;
+
     public const STATUS_CONFLICT = 409;
 
     public const STATUS_INTERNAL_ERROR = 500;
