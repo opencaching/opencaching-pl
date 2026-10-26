@@ -19,8 +19,6 @@ use src\Utils\Uri\Uri;
  */
 class RoleManagerController extends ViewBaseController
 {
-    private const HTTP_METHOD_NOT_ALLOWED = 405;
-
     private const RESULT_MESSAGES = [
         'roles_updated' => 'role_manager_roles_updated',
         'roles_removed' => 'role_manager_roles_removed',
@@ -122,7 +120,7 @@ class RoleManagerController extends ViewBaseController
             $this->sendAjaxErrorResponse(
                 'invalid_action',
                 'POST required',
-                self::HTTP_METHOD_NOT_ALLOWED
+                HttpCode::STATUS_METHOD_NOT_ALLOWED
             );
         }
 
@@ -175,7 +173,7 @@ class RoleManagerController extends ViewBaseController
             $this->sendAjaxErrorResponse(
                 'invalid_action',
                 'POST required',
-                self::HTTP_METHOD_NOT_ALLOWED
+                HttpCode::STATUS_METHOD_NOT_ALLOWED
             );
         }
 
