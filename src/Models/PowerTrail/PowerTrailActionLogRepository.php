@@ -11,11 +11,26 @@ class PowerTrailActionLogRepository
 {
     private readonly OcDb $db;
 
+    /**
+     * Create the repository with an optional database connection.
+     *
+     * @param OcDb|null $db Database connection; defaults to the shared application connection.
+     */
     public function __construct(?OcDb $db = null)
     {
         $this->db = $db ?? OcDb::instance();
     }
 
+    /**
+     * Insert a GeoPath history entry.
+     *
+     * @param int $powerTrailId GeoPath ID.
+     * @param int $userId ID of the user performing the action.
+     * @param PowerTrailActionLogEnum $actionType Type of the logged action.
+     * @param string $description Human-readable history description.
+     * @param int $cacheId Related cache ID, or 0 when not applicable.
+     * @return void
+     */
     public function insert(
         int $powerTrailId,
         int $userId,

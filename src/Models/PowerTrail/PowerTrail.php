@@ -3,6 +3,7 @@
 namespace src\Models\PowerTrail;
 
 use DateTime;
+use src\Enums\PowerTrailPercentRequiredEnum;
 use src\Models\ApplicationContainer;
 use src\Models\BaseObject;
 use src\Models\Coordinates\Coordinates;
@@ -13,6 +14,9 @@ use src\Models\User\User;
 use src\Utils\Cache\OcMemCache;
 use src\Utils\Debug\Debug;
 
+/**
+ * This class is scheduled to be rewritten from scratch and disabled soon.
+ */
 class PowerTrail extends BaseObject
 {
     public const TYPE_GEODRAW = 1;
@@ -530,8 +534,8 @@ class PowerTrail extends BaseObject
         $this->getGeocaches();
         $requiredGeocacheCount = $this->caclulateRequiredGeocacheCount();
 
-        if ($this->perccentRequired < \src\Controllers\PowerTrailController::MINIMUM_PERCENT_REQUIRED) { // disable power trail witch too low percent required
-            echo '<span style="color: orange"> geoPath #<a href="' . $serverUrl . 'powerTrail.php?ptAction=showSerie&ptrail=' . $this->id . '">' . $this->id . ' ' . $this->name . '</a> will be put in service because too low perccentRequired. (Current Percent:' . $this->perccentRequired . ' Required: ' . \src\Controllers\PowerTrailController::MINIMUM_PERCENT_REQUIRED . ') [<a href="' . $serverUrl . '/powerTrailCOG.php?ptSelector=' . $this->id . '">cog link</a>]</span><br/>';
+        if ($this->perccentRequired < PowerTrailPercentRequiredEnum::MINIMUM) { // disable power trail witch too low percent required
+            echo '<span style="color: orange"> geoPath #<a href="' . $serverUrl . 'powerTrail.php?ptAction=showSerie&ptrail=' . $this->id . '">' . $this->id . ' ' . $this->name . '</a> will be put in service because too low perccentRequired. (Current Percent:' . $this->perccentRequired . ' Required: ' . PowerTrailPercentRequiredEnum::MINIMUM . ') [<a href="' . $serverUrl . '/powerTrailCOG.php?ptSelector=' . $this->id . '">cog link</a>]</span><br/>';
         }
 
         if ($this->activeGeocacheCount < $requiredGeocacheCount) {
@@ -689,7 +693,7 @@ class PowerTrail extends BaseObject
 
         if (
             $this->perccentRequired
-            < \src\Controllers\PowerTrailController::MINIMUM_PERCENT_REQUIRED
+            < PowerTrailPercentRequiredEnum::MINIMUM
         ) {
             return false;
         }

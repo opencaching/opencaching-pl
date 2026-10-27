@@ -1,6 +1,7 @@
 <?php
 
 use src\Controllers\MainMapController;
+use src\Enums\PowerTrailPercentRequiredEnum;
 use src\Models\ApplicationContainer;
 use src\Models\CacheSet\CacheSetCommon;
 use src\Models\CacheSet\GeopathLogoUploadModel;
@@ -124,8 +125,9 @@ tpl_set_var('keszynki', '');
 tpl_set_var('cacheFound', '');
 tpl_set_var('powerTrailCacheLeft', '');
 tpl_set_var('PowerTrails', '');
-tpl_set_var('demandPercentMinimum', src\Controllers\PowerTrailController::MINIMUM_PERCENT_REQUIRED);
-tpl_set_var('powerTrailDemandPercent', '100');
+tpl_set_var('demandPercentMinimum', (string) PowerTrailPercentRequiredEnum::MINIMUM);
+tpl_set_var('demandPercentMaximum', (string) PowerTrailPercentRequiredEnum::MAXIMUM);
+tpl_set_var('powerTrailDemandPercent', (string) PowerTrailPercentRequiredEnum::MAXIMUM);
 tpl_set_var('leadingUserId', '');
 
 if (!$loggedUser) {

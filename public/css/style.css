@@ -1333,10 +1333,58 @@ And this file is the first step towards that. */
 /*
  * Pixel spacing utilities.
  *
- * Values run from 10px to 100px in 5px steps. Classes for 0-5 are intentionally
- * not redefined here because Bootstrap 4 already uses those names for its own
- * spacing scale; overriding them would break existing layouts.
+ * Values run from 5px to 100px in 5px steps.
+ *
+ * Pages which load the full Bootstrap CSS load it after style.css, so
+ * Bootstrap's own .m-5/.p-5 definitions take precedence there. On pages
+ * without Bootstrap (for example the GeoPath admin) these 5px utilities apply.
  */
+.m-5 {
+  margin: 5px !important; }
+
+.mt-5 {
+  margin-top: 5px !important; }
+
+.mr-5 {
+  margin-right: 5px !important; }
+
+.mb-5 {
+  margin-bottom: 5px !important; }
+
+.ml-5 {
+  margin-left: 5px !important; }
+
+.mx-5 {
+  margin-right: 5px !important;
+  margin-left: 5px !important; }
+
+.my-5 {
+  margin-top: 5px !important;
+  margin-bottom: 5px !important; }
+
+.p-5 {
+  padding: 5px !important; }
+
+.pt-5 {
+  padding-top: 5px !important; }
+
+.pr-5 {
+  padding-right: 5px !important; }
+
+.pb-5 {
+  padding-bottom: 5px !important; }
+
+.pl-5 {
+  padding-left: 5px !important; }
+
+.px-5 {
+  padding-right: 5px !important;
+  padding-left: 5px !important; }
+
+.py-5 {
+  padding-top: 5px !important;
+  padding-bottom: 5px !important; }
+
 .m-10 {
   margin: 10px !important; }
 
@@ -2210,5 +2258,20 @@ And this file is the first step towards that. */
 .py-100 {
   padding-top: 100px !important;
   padding-bottom: 100px !important; }
+
+/* GeoPath description editor */
+.powerTrail-description-panel {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.35s ease, opacity 0.35s ease; }
+  .powerTrail-description-panel.is-open {
+    opacity: 1; }
+  .powerTrail-description-panel .tox-tinymce {
+    width: 100% !important; }
+
+.powerTrail-description-edit-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6; }
 
 /*# sourceMappingURL=style.css.map */
