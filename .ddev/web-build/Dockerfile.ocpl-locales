@@ -1,0 +1,5 @@
+# locales passed to setlocale() by OCPL and OKAPI
+RUN for locale in de_DE es_ES fr_FR hu_HU it_IT nl_NL pl_PL ro_RO; do \
+        echo "$locale.UTF-8 UTF-8" >> /etc/locale.gen; \
+    done \
+    && locale-gen
