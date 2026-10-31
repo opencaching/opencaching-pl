@@ -61,7 +61,10 @@ class User extends UserCommons
 
     /** @var DateTime */
     private $lastLogin = null;
+
     private $isActive = null;
+
+    private $isActiveStatus = null;
 
     private $verifyAll = null;
 
@@ -359,6 +362,7 @@ class User extends UserCommons
                     break;
                 case 'is_active_flag':
                     $this->isActive = $value == User::STATUS_ACTIVE;
+                    $this->isActiveStatus = $value;
                     break;
                 case 'watchmail_mode':
                     $this->watchmailMode = (int) $value;
@@ -795,6 +799,11 @@ class User extends UserCommons
     public function getIsActive()
     {
         return $this->isActive;
+    }
+
+    public function getIsActiveStatus(): ?int
+    {
+        return $this->isActiveStatus === null ? null : (int) $this->isActiveStatus;
     }
 
     public function usePermanentLogin()

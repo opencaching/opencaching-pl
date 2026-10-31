@@ -1,4 +1,5 @@
 <?php
+use src\Enums\UserStatusEnum;
 use src\Utils\Uri\SimpleRouter;
 use src\Utils\Text\Formatter;
 use src\Models\GeoCache\GeoCacheLog;
@@ -29,6 +30,7 @@ use src\Models\GeoCache\GeoCacheLog;
             /
             <img src="<?=GeoCacheLog::GetIconForType(GeoCacheLog::LOGTYPE_DIDNOTFIND)?>" alt="<?=tr(GeoCacheLog::typeTranslationKey(GeoCacheLog::LOGTYPE_DIDNOTFIND))?>" class="icon16" title="<?=tr(GeoCacheLog::typeTranslationKey(GeoCacheLog::LOGTYPE_DIDNOTFIND))?>">
           </th>
+          <th><?=tr('status_label')?></th>
           <th><?=tr('registered_since_label')?></th>
           <th><?=tr('lastlogins')?></th>
         </tr>
@@ -46,11 +48,24 @@ use src\Models\GeoCache\GeoCacheLog;
             /
             <?=$user->getNotFoundGeocachesCount()?>
           </td>
-          <td><?=Formatter::date($user->getDateCreated())?>
+          <td>
+            <?php $statusValue = $user->getIsActiveStatus(); ?>
+            <?php $status = $statusValue === null ? null : UserStatusEnum::tryFrom($statusValue); ?>
+            <?php $statusClass = match ($status) {
+                UserStatusEnum::ACTIVE => 'txt-green10',
+                UserStatusEnum::BANNED => 'txt-red10',
+                default => '',
+            }; ?>
+            <span class="<?=$statusClass?>">
+              <?=$status ? tr($status->translationKey()) : tr('user_status_unknown')?>
+            </span>
+          </td>
+          <td><?=Formatter::date($user->getDateCreated())?></td>
           <td>
             <span class="<?=$user->getLastLoginPeriodClass()?>">
               <?=Formatter::date($user->getLastLoginDate())?>
             </span>
+          </td>
         </tr>
       <?php } ?>
       </tbody>
