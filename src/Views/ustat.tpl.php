@@ -1,4 +1,5 @@
 
+<?php use src\Utils\Uri\SimpleRouter; ?>
 <!--    CONTENT -->
 <div class="content2-container">
     <div class="content2-pagetitle">
@@ -33,6 +34,15 @@
             </a>
           </li>
           <?php } //if-displayFindStats ?>
+
+          <?php if (isset($view->showMatrixLink) && $view->showMatrixLink) { ?>
+          <li class="group">
+            <a style="background-image: url(images/actions/stat-18.png);background-repeat:no-repeat;"
+               href="<?=SimpleRouter::getLink('User.Matrix', 'index', $view->userId)?>">
+              <?=tr('matrix_title')?>
+            </a>
+          </li>
+          <?php } ?>
 
         </ul>
 

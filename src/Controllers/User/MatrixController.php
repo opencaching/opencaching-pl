@@ -6,7 +6,7 @@ namespace src\Controllers\User;
 
 use src\Controllers\Core\ViewBaseController;
 use src\Models\User\User;
-use src\Services\UserServiceMatrix;
+use src\Services\UserMatrixService;
 use src\Utils\Uri\HttpCode;
 
 /**
@@ -14,8 +14,11 @@ use src\Utils\Uri\HttpCode;
  */
 class MatrixController extends ViewBaseController
 {
-    private readonly UserServiceMatrix $matrixService;
+    private readonly UserMatrixService $matrixService;
 
+    /**
+     * Create the controller and restrict access to OC Team or advanced users.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -29,14 +32,22 @@ class MatrixController extends ViewBaseController
             );
         }
 
-        $this->matrixService = new UserServiceMatrix();
+        $this->matrixService = new UserMatrixService();
     }
 
+    /**
+     * Allow only the index action to be called from the router.
+     */
     public function isCallableFromRouter(string $actionName): bool
     {
         return $actionName === 'index';
     }
 
+    /**
+     * Display the cache matrix for the requested or logged in user.
+     *
+     * @param int|string|null $userId Optional user ID from the route.
+     */
     public function index($userId = null): void
     {
         $userId = $userId === null
@@ -54,6 +65,10 @@ class MatrixController extends ViewBaseController
         $this->view->setVar(
             'matrix',
             $this->matrixService->getDifficultyTerrainMatrix($userId)
+        );
+        $this->view->setVar(
+            'monthDayMatrix',
+            $this->matrixService->getMonthDayMatrix($userId)
         );
         $this->view->setTemplate('user/matrix');
         $this->view->buildView();

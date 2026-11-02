@@ -11,13 +11,12 @@ use src\Utils\Database\OcDb;
  */
 class MatrixRepository
 {
-    /**
-     * @var OcDb
-     */
     private readonly OcDb $db;
 
     /**
-     * @param OcDb|null $db
+     * Create the repository with an optional database connection.
+     *
+     * @param OcDb|null $db Database connection; defaults to the shared application connection.
      */
     public function __construct(?OcDb $db = null)
     {
@@ -35,16 +34,9 @@ class MatrixRepository
     public function findDifficultyTerrainCounts(int $userId): array
     {
         $statement = $this->db->multiVariableQuery(
-            'SELECT c.difficulty,
-                    COUNT(DISTINCT CASE WHEN c.terrain = 2 THEN cl.cache_id END) AS terrain_2,
-                    COUNT(DISTINCT CASE WHEN c.terrain = 3 THEN cl.cache_id END) AS terrain_3,
-                    COUNT(DISTINCT CASE WHEN c.terrain = 4 THEN cl.cache_id END) AS terrain_4,
-                    COUNT(DISTINCT CASE WHEN c.terrain = 5 THEN cl.cache_id END) AS terrain_5,
-                    COUNT(DISTINCT CASE WHEN c.terrain = 6 THEN cl.cache_id END) AS terrain_6,
-                    COUNT(DISTINCT CASE WHEN c.terrain = 7 THEN cl.cache_id END) AS terrain_7,
-                    COUNT(DISTINCT CASE WHEN c.terrain = 8 THEN cl.cache_id END) AS terrain_8,
-                    COUNT(DISTINCT CASE WHEN c.terrain = 9 THEN cl.cache_id END) AS terrain_9,
-                    COUNT(DISTINCT CASE WHEN c.terrain = 10 THEN cl.cache_id END) AS terrain_10
+            'SELECT c.terrain,
+                    c.difficulty,
+                    COUNT(DISTINCT cl.cache_id) AS cache_count
              FROM cache_logs cl
              JOIN caches c ON c.cache_id = cl.cache_id
              WHERE cl.user_id = :1
@@ -52,8 +44,51 @@ class MatrixRepository
                AND cl.deleted = 0
                AND c.difficulty BETWEEN 2 AND 10
                AND c.terrain BETWEEN 2 AND 10
-             GROUP BY c.difficulty
-             ORDER BY c.difficulty',
+             GROUP BY c.terrain, c.difficulty
+             ORDER BY c.terrain, c.difficulty',
+            $userId
+        );
+
+        return $this->db->dbResultFetchAll($statement);
+    }
+
+    /**
+     * Return found-cache counts for every day of a leap year.
+     *
+     * The recursive query supplies all 366 days, so days without finds are
+     * returned with a count of zero. Invalid calendar days for a month are
+     * not returned and are represented as "X" by the service.
+     *
+     * The year 2024 is used as the base because it is a leap year, which
+     * makes it easier to calculate findings for February 29.
+     *
+     * @return array<int, array<string, mixed>>
+     */
+    public function findMonthDayCounts(int $userId): array
+    {
+        $statement = $this->db->multiVariableQuery(
+            'WITH RECURSIVE days AS (
+                SELECT DATE \'2024-01-01\' AS d
+                UNION ALL
+                SELECT d + INTERVAL 1 DAY FROM days WHERE d < DATE \'2024-12-31\'
+            )
+            SELECT MONTH(days.d) AS month,
+                   DAY(days.d)   AS day,
+                   COALESCE(f.cache_count, 0) AS cache_count
+            FROM days
+            LEFT JOIN (
+                SELECT MONTH(cl.date) AS month,
+                       DAY(cl.date)   AS day,
+                       COUNT(DISTINCT cl.cache_id) AS cache_count
+                FROM cache_logs cl
+                WHERE cl.user_id = :1
+                  AND cl.type = 1
+                  AND cl.deleted = 0
+                  AND cl.date IS NOT NULL
+                GROUP BY MONTH(cl.date), DAY(cl.date)
+            ) f ON f.month = MONTH(days.d)
+               AND f.day   = DAY(days.d)
+            ORDER BY days.d',
             $userId
         );
 
