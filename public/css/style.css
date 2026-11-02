@@ -870,6 +870,24 @@ And this file is the first step towards that. */
   .align-self-xl-stretch {
     -ms-flex-item-align: stretch !important;
     align-self: stretch !important; } }
+.matrix-table-wrapper {
+  overflow-x: auto; }
+
+.matrix-table {
+  border-collapse: collapse;
+  width: 100%; }
+  .matrix-table th,
+  .matrix-table td {
+    border: 1px solid #d0d0d0;
+    padding: 6px 8px;
+    text-align: center; }
+  .matrix-table thead th,
+  .matrix-table tbody th {
+    background-color: #f2f2f2;
+    font-weight: 600; }
+  .matrix-table tbody tr:nth-child(even) {
+    background-color: #fafafa; }
+
 .w-100 {
   width: 100%; }
 

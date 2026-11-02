@@ -95,6 +95,14 @@ jQuery(function($) {
               <?=tr('graph_created')?>
             </a>
           </li>
+          <?php if ($view->showMatrixLink) { ?>
+            <li class="group">
+              <a style="background-image: url(images/actions/stat-18.png);background-repeat:no-repeat;"
+                 href="<?=SimpleRouter::getLink('User.Matrix', 'index', $view->userid)?>">
+                <?=tr('matrix_title')?>
+              </a>
+            </li>
+          <?php } ?>
         </ul>
     </div>
 
