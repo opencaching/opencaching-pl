@@ -6,6 +6,7 @@ use RuntimeException;
 use src\Controllers\Core\RequiresMinPhpVersionTrait;
 use src\Controllers\Core\ViewBaseController;
 use src\Enums\PowerTrailAdminEnum;
+use src\Enums\PowerTrailPercentRequiredEnum;
 use src\Enums\PowerTrailStatusesEnum;
 use src\Enums\PowerTrailTypesEnum;
 use src\Models\ChunkModels\PaginationModel;
@@ -54,7 +55,22 @@ class PowerTrailAdminController extends ViewBaseController
 
     public function isCallableFromRouter(string $actionName): bool
     {
-        return in_array($actionName, ['index', 'editPowerTrail', 'refreshPowerTrail', 'removeCache', 'changeStatus'], true);
+        return in_array(
+            $actionName,
+            [
+                'index',
+                'editPowerTrail',
+                'refreshPowerTrail',
+                'removeCache',
+                'changeStatus',
+                'changePerccentRequired',
+                'changeDateCreated',
+                'updateDescription',
+                'addFounder',
+                'removeFounder',
+            ],
+            true
+        );
     }
 
     /**
@@ -113,6 +129,7 @@ class PowerTrailAdminController extends ViewBaseController
         }
 
         $this->view->setVar('powerTrail', $powerTrail);
+        $this->view->setVar('founders', $this->repository->findFounders($powerTrailId));
         $this->view->setVar('caches', $this->repository->findCaches($powerTrailId));
         $cacheStatuses = [];
         foreach ((new GeoCacheStatusRepository())->findAll(I18n::getCurrentLang()) as $status) {
@@ -121,6 +138,8 @@ class PowerTrailAdminController extends ViewBaseController
         $this->view->setVar('cacheStatuses', $cacheStatuses);
         $this->view->setVar('types', PowerTrailTypesEnum::types());
         $this->view->setVar('statuses', PowerTrailStatusesEnum::statuses());
+        $this->view->setVar('wisMin', PowerTrailPercentRequiredEnum::MINIMUM);
+        $this->view->setVar('wisMax', PowerTrailPercentRequiredEnum::MAXIMUM);
         $this->view->addLocalJs(
             Uri::getLinkWithModificationTime('/js/public.js'),
             false,
@@ -175,6 +194,139 @@ class PowerTrailAdminController extends ViewBaseController
         }
 
         $this->sendAjaxSuccessResponse($result['message'], ['status_id' => $status]);
+    }
+
+    /**
+     * Route: Admin.PowerTrailAdmin/changePerccentRequired/{powerTrailId}
+     */
+    public function changePerccentRequired(int $powerTrailId): void
+    {
+        $wis = filter_var($_POST['wis'] ?? null, FILTER_VALIDATE_INT);
+        if ($powerTrailId <= 0 || $wis === false) {
+            $this->sendAjaxErrorResponse('Invalid GeoPath ID or WIS', HttpCode::STATUS_BAD_REQUEST);
+        }
+
+        try {
+            $result = $this->adminService->updateWis($powerTrailId, $wis);
+        } catch (RuntimeException $exception) {
+            $this->sendAjaxErrorResponse($exception->getMessage(), $exception->getCode());
+        }
+
+        if (! $result['success']) {
+            $this->sendAjaxErrorResponse($result['message'], HttpCode::STATUS_BAD_REQUEST);
+        }
+
+        $this->sendAjaxSuccessResponse($result['message'], ['wis' => $result['wis']]);
+    }
+
+    /**
+     * Route: Admin.PowerTrailAdmin/changeDateCreated/{powerTrailId}
+     */
+    public function changeDateCreated(int $powerTrailId): void
+    {
+        $dateCreated = isset($_POST['dateCreated']) && is_string($_POST['dateCreated'])
+            ? trim($_POST['dateCreated'])
+            : '';
+
+        if ($powerTrailId <= 0 || $dateCreated === '') {
+            $this->sendAjaxErrorResponse(
+                'Invalid GeoPath ID or date',
+                HttpCode::STATUS_BAD_REQUEST
+            );
+        }
+
+        try {
+            $result = $this->adminService->updateDateCreated($powerTrailId, $dateCreated);
+        } catch (RuntimeException $exception) {
+            $this->sendAjaxErrorResponse($exception->getMessage(), $exception->getCode());
+        }
+
+        if (! $result['success']) {
+            $this->sendAjaxErrorResponse($result['message'], HttpCode::STATUS_BAD_REQUEST);
+        }
+
+        $this->sendAjaxSuccessResponse(
+            $result['message'],
+            ['dateCreated' => $result['dateCreated']]
+        );
+    }
+
+    /**
+     * Route: Admin.PowerTrailAdmin/updateDescription/{powerTrailId}
+     */
+    public function updateDescription(int $powerTrailId): void
+    {
+        if ($powerTrailId <= 0 || ! isset($_POST['description']) || ! is_string($_POST['description'])) {
+            $this->sendAjaxErrorResponse(
+                'Invalid GeoPath ID or description',
+                HttpCode::STATUS_BAD_REQUEST
+            );
+        }
+
+        try {
+            $result = $this->adminService->updateDescription(
+                $powerTrailId,
+                (string) $_POST['description']
+            );
+        } catch (RuntimeException $exception) {
+            $this->sendAjaxErrorResponse($exception->getMessage(), $exception->getCode());
+        }
+
+        if (! $result['success']) {
+            $this->sendAjaxErrorResponse($result['message'], HttpCode::STATUS_BAD_REQUEST);
+        }
+
+        $this->sendAjaxSuccessResponse($result['message']);
+    }
+
+    /**
+     * Route: Admin.PowerTrailAdmin/addFounder/{powerTrailId}
+     */
+    public function addFounder(int $powerTrailId): void
+    {
+        $username = isset($_POST['username']) && is_string($_POST['username'])
+            ? trim($_POST['username'])
+            : '';
+
+        if ($powerTrailId <= 0 || $username === '') {
+            $this->sendAjaxErrorResponse(
+                tr('powertrail_admin_founder_name_required'),
+                HttpCode::STATUS_BAD_REQUEST
+            );
+        }
+
+        try {
+            $founder = $this->adminService->addFounder($powerTrailId, $username);
+        } catch (RuntimeException $exception) {
+            $this->sendAjaxErrorResponse($exception->getMessage(), $exception->getCode());
+        }
+
+        $this->sendAjaxSuccessResponse(
+            tr('powertrail_admin_founder_added'),
+            ['founder' => $founder]
+        );
+    }
+
+    /**
+     * Route: Admin.PowerTrailAdmin/removeFounder/{powerTrailId}
+     */
+    public function removeFounder(int $powerTrailId): void
+    {
+        $userId = filter_var($_POST['userId'] ?? null, FILTER_VALIDATE_INT);
+        if ($powerTrailId <= 0 || $userId === false || $userId <= 0) {
+            $this->sendAjaxErrorResponse(
+                'Invalid GeoPath or user ID',
+                HttpCode::STATUS_BAD_REQUEST
+            );
+        }
+
+        try {
+            $message = $this->adminService->removeFounder($powerTrailId, $userId);
+        } catch (RuntimeException $exception) {
+            $this->sendAjaxErrorResponse($exception->getMessage(), $exception->getCode());
+        }
+
+        $this->sendAjaxSuccessResponse($message);
     }
 
     /**

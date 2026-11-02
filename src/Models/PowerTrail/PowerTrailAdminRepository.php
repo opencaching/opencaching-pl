@@ -9,6 +9,11 @@ class PowerTrailAdminRepository
 {
     private readonly OcDb $db;
 
+    /**
+     * Create the repository with an optional database connection.
+     *
+     * @param OcDb|null $db Database connection; defaults to the shared application connection.
+     */
     public function __construct(?OcDb $db = null)
     {
         $this->db = $db ?? OcDb::instance();
@@ -16,6 +21,13 @@ class PowerTrailAdminRepository
 
     /**
      * Return all GeoPaths for the admin list, including unavailable ones.
+     *
+     * @param int $limit Maximum number of rows.
+     * @param int $offset Number of rows to skip.
+     * @param int $orderBy Sort option from {@see PowerTrailAdminEnum}.
+     * @param int|null $id Optional GeoPath ID filter.
+     * @param string|null $name Optional GeoPath name filter.
+     * @return array<int, array<string, mixed>>
      */
     public function findAll(
         int $limit = PowerTrailAdminEnum::LIMIT,
@@ -47,6 +59,10 @@ class PowerTrailAdminRepository
 
     /**
      * Count GeoPaths matching the same optional filters used by findAll().
+     *
+     * @param int|null $id Optional GeoPath ID filter.
+     * @param string|null $name Optional GeoPath name filter.
+     * @return int
      */
     public function countAll(?int $id = null, ?string $name = null): int
     {
@@ -66,6 +82,9 @@ class PowerTrailAdminRepository
 
     /**
      * Return a GeoPath row, or null when it does not exist.
+     *
+     * @param int $id GeoPath ID.
+     * @return array<string, mixed>|null
      */
     public function findById(int $id): ?array
     {
@@ -85,6 +104,9 @@ class PowerTrailAdminRepository
 
     /**
      * Return the caches currently assigned to a GeoPath.
+     *
+     * @param int $powerTrailId GeoPath ID.
+     * @return array<int, array<string, mixed>>
      */
     public function findCaches(int $powerTrailId): array
     {
@@ -103,9 +125,135 @@ class PowerTrailAdminRepository
     }
 
     /**
-     * @param int|null $id
-     * @param string|null $name
-     * @return array
+     * Return the founders (owners) of a GeoPath with their user names.
+     *
+     * @param int $powerTrailId GeoPath ID.
+     * @return array<int, array<string, mixed>>
+     */
+    public function findFounders(int $powerTrailId): array
+    {
+        $statement = $this->db->multiVariableQuery(
+            'SELECT u.`user_id`, u.`username`, po.`privileages`
+             FROM `PowerTrail_owners` AS po
+             JOIN `user` AS u ON u.`user_id` = po.`userId`
+             WHERE po.`PowerTrailId` = :1
+             ORDER BY u.`username`, u.`user_id`',
+            $powerTrailId
+        );
+
+        return $this->db->dbResultFetchAll($statement);
+    }
+
+    /**
+     * Return a single founder of a GeoPath.
+     *
+     * @param int $powerTrailId GeoPath ID.
+     * @param int $userId User ID.
+     * @return array<string, mixed>|null
+     */
+    public function findFounder(int $powerTrailId, int $userId): ?array
+    {
+        $statement = $this->db->multiVariableQuery(
+            'SELECT u.`user_id`, u.`username`, po.`privileages`
+             FROM `PowerTrail_owners` AS po
+             JOIN `user` AS u ON u.`user_id` = po.`userId`
+             WHERE po.`PowerTrailId` = :1 AND po.`userId` = :2
+             LIMIT 1',
+            $powerTrailId,
+            $userId
+        );
+        $row = $this->db->dbResultFetchOneRowOnly($statement);
+
+        return is_array($row) ? $row : null;
+    }
+
+    /**
+     * Find a user by the exact user name.
+     *
+     * The comparison is binary, so it does not use LIKE wildcards and is
+     * case-sensitive.
+     *
+     * @param string $username Exact user name.
+     * @return array<string, mixed>|null
+     */
+    public function findUserByUsername(string $username): ?array
+    {
+        $statement = $this->db->multiVariableQuery(
+            'SELECT `user_id`, `username`
+             FROM `user`
+             WHERE BINARY `username` = :1
+             LIMIT 1',
+            $username
+        );
+        $row = $this->db->dbResultFetchOneRowOnly($statement);
+
+        return is_array($row) ? $row : null;
+    }
+
+    /**
+     * Check whether a user is already a founder of a GeoPath.
+     *
+     * @param int $powerTrailId GeoPath ID.
+     * @param int $userId User ID.
+     * @return bool
+     */
+    public function isFounder(int $powerTrailId, int $userId): bool
+    {
+        return $this->db->multiVariableQueryValue(
+            'SELECT COUNT(*) FROM `PowerTrail_owners`
+             WHERE `PowerTrailId` = :1 AND `userId` = :2',
+            0,
+            $powerTrailId,
+            $userId
+        ) > 0;
+    }
+
+    /**
+     * Add a user as a founder of a GeoPath.
+     *
+     * @param int $powerTrailId GeoPath ID.
+     * @param int $userId User ID.
+     * @return bool True when the founder was added.
+     */
+    public function addFounder(int $powerTrailId, int $userId): bool
+    {
+        $statement = $this->db->multiVariableQuery(
+            'INSERT IGNORE INTO `PowerTrail_owners`
+                (`PowerTrailId`, `userId`, `privileages`)
+             VALUES (:1, :2, 1)',
+            $powerTrailId,
+            $userId
+        );
+
+        return $this->db->rowCount($statement) > 0;
+    }
+
+    /**
+     * Remove a founder from a GeoPath.
+     *
+     * @param int $powerTrailId GeoPath ID.
+     * @param int $userId User ID.
+     * @return bool True when the founder was removed.
+     */
+    public function removeFounder(int $powerTrailId, int $userId): bool
+    {
+        $statement = $this->db->multiVariableQuery(
+            'DELETE FROM `PowerTrail_owners`
+             WHERE `PowerTrailId` = :1 AND `userId` = :2
+             LIMIT 1',
+            $powerTrailId,
+            $userId
+        );
+
+        return $this->db->rowCount($statement) > 0;
+    }
+
+    /**
+     * Build the WHERE clause and bound parameters for the optional GeoPath filters.
+     *
+     * @param int|null $id Optional GeoPath ID filter.
+     * @param string|null $name Optional GeoPath name filter.
+     * @return array{0: string, 1: array<int, int|string>}
      */
     private function buildFilters(?int $id, ?string $name): array
     {
@@ -128,9 +276,11 @@ class PowerTrailAdminRepository
     }
 
     /**
-     * @param int $powerTrailId
-     * @param int $cacheId
-     * @return bool
+     * Remove a cache assignment from a GeoPath.
+     *
+     * @param int $powerTrailId GeoPath ID.
+     * @param int $cacheId Cache ID.
+     * @return bool True when an assignment was removed.
      */
     public function removeCacheFromPowerTrail(int $powerTrailId, int $cacheId): bool
     {
@@ -145,6 +295,12 @@ class PowerTrailAdminRepository
         return $this->db->rowCount($statement) > 0;
     }
 
+    /**
+     * Check whether a GeoPath exists.
+     *
+     * @param int $powerTrailId GeoPath ID.
+     * @return bool
+     */
     public function exists(int $powerTrailId): bool
     {
         return $this->db->multiVariableQueryValue(
@@ -154,50 +310,12 @@ class PowerTrailAdminRepository
         ) > 0;
     }
 
-    /** Return the complete PowerTrail row. */
-    public function findRowById(int $powerTrailId): ?array
-    {
-        $statement = $this->db->multiVariableQuery(
-            'SELECT * FROM `PowerTrail` WHERE `id` = :1 LIMIT 1',
-            $powerTrailId
-        );
-        $row = $this->db->dbResultFetchOneRowOnly($statement);
-
-        return is_array($row) ? $row : null;
-    }
-
-    public function findDescription(int $powerTrailId): ?string
-    {
-        $statement = $this->db->multiVariableQuery(
-            'SELECT `description` FROM `PowerTrail` WHERE `id` = :1 LIMIT 1',
-            $powerTrailId
-        );
-        $row = $this->db->dbResultFetchOneRowOnly($statement);
-
-        return is_array($row) ? $row['description'] : null;
-    }
-
-    public function updateDescription(int $powerTrailId, string $description): void
-    {
-        $this->db->multiVariableQuery(
-            'UPDATE `PowerTrail` SET `description` = :1 WHERE `id` = :2',
-            $description,
-            $powerTrailId
-        );
-    }
-
-    public function findStatus(int $powerTrailId): ?int
-    {
-        $statement = $this->db->multiVariableQuery(
-            'SELECT `status` FROM `PowerTrail` WHERE `id` = :1 LIMIT 1',
-            $powerTrailId
-        );
-        $row = $this->db->dbResultFetchOneRowOnly($statement);
-
-        return is_array($row) ? (int) $row['status'] : null;
-    }
-
-    /** WIS is stored in PowerTrail.perccentRequired. */
+    /**
+     * Return WIS stored in PowerTrail.perccentRequired.
+     *
+     * @param int $powerTrailId GeoPath ID.
+     * @return int|null Null when the GeoPath does not exist.
+     */
     public function findWis(int $powerTrailId): ?int
     {
         $statement = $this->db->multiVariableQuery(
@@ -209,6 +327,13 @@ class PowerTrailAdminRepository
         return is_array($row) ? (int) $row['perccentRequired'] : null;
     }
 
+    /**
+     * Update WIS stored in PowerTrail.perccentRequired.
+     *
+     * @param int $powerTrailId GeoPath ID.
+     * @param int $wis New WIS value.
+     * @return bool True when the value was changed.
+     */
     public function updateWis(int $powerTrailId, int $wis): bool
     {
         $statement = $this->db->multiVariableQuery(
@@ -220,57 +345,37 @@ class PowerTrailAdminRepository
         return $this->db->rowCount($statement) > 0;
     }
 
-    /** Return all users assigned as GeoPath founders/owners (not the mentor). */
-    public function findFounders(int $powerTrailId): array
+    /**
+     * Update the GeoPath creation date stored in PowerTrail.dateCreated.
+     *
+     * @param int $powerTrailId GeoPath ID.
+     * @param string $dateCreated New date and time in Y-m-d H:i:s format.
+     * @return bool True when the value was changed.
+     */
+    public function updateDateCreated(int $powerTrailId, string $dateCreated): bool
     {
         $statement = $this->db->multiVariableQuery(
-            'SELECT u.`user_id`, u.`username`, u.`email`, pto.`privileages`
-             FROM `PowerTrail_owners` AS pto
-             JOIN `user` AS u ON u.`user_id` = pto.`userId`
-             WHERE pto.`PowerTrailId` = :1
-             ORDER BY u.`username`, u.`user_id`',
+            'UPDATE `PowerTrail` SET `dateCreated` = :1 WHERE `id` = :2',
+            $dateCreated,
             $powerTrailId
-        );
-
-        return $this->db->dbResultFetchAll($statement);
-    }
-
-    public function countFounders(int $powerTrailId): int
-    {
-        return (int) $this->db->multiVariableQueryValue(
-            'SELECT COUNT(*) FROM `PowerTrail_owners` WHERE `PowerTrailId` = :1',
-            0,
-            $powerTrailId
-        );
-    }
-
-    public function userExists(int $userId): bool
-    {
-        return $this->db->multiVariableQueryValue(
-            'SELECT COUNT(*) FROM `user` WHERE `user_id` = :1',
-            0,
-            $userId
-        ) > 0;
-    }
-
-    public function addFounder(int $powerTrailId, int $userId): bool
-    {
-        $statement = $this->db->multiVariableQuery(
-            'INSERT IGNORE INTO `PowerTrail_owners` (`PowerTrailId`, `userId`, `privileages`)
-             VALUES (:1, :2, 1)',
-            $powerTrailId,
-            $userId
         );
 
         return $this->db->rowCount($statement) > 0;
     }
 
-    public function removeFounder(int $powerTrailId, int $userId): bool
+    /**
+     * Update the GeoPath description stored in PowerTrail.description.
+     *
+     * @param int $powerTrailId GeoPath ID.
+     * @param string $description Description already escaped for database storage.
+     * @return bool True when the value was changed.
+     */
+    public function updateDescription(int $powerTrailId, string $description): bool
     {
         $statement = $this->db->multiVariableQuery(
-            'DELETE FROM `PowerTrail_owners` WHERE `PowerTrailId` = :1 AND `userId` = :2',
-            $powerTrailId,
-            $userId
+            'UPDATE `PowerTrail` SET `description` = :1 WHERE `id` = :2',
+            $description,
+            $powerTrailId
         );
 
         return $this->db->rowCount($statement) > 0;

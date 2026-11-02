@@ -1293,7 +1293,7 @@
                             <br><a class="tooltip" href="javascript:void(0);">{{pt087}}?<span class="custom help"><img src="images/toltipsImages/Help.png" alt="Help" height="48" width="48" /><em>{{pt088}}</em>{{pt086}}</span></a>
                         </td>
                         <td>
-                            <input name="dPercent" onkeypress="return isNumberKey(event)" type="number" min="67" max="100" value="90">
+                            <input name="dPercent" onkeypress="return isNumberKey(event)" type="number" min="{demandPercentMinimum}" max="{demandPercentMaximum}" value="90">
                         </td>
                     </tr>
                     <tr>
@@ -1526,7 +1526,7 @@
                     <td>
                         <span id="powerTrailpercent">{powerTrailDemandPercent}</span>% <img id="percentCountOKimg" style="display: none" src="images/free_icons/accept.png" alt="">
                         <span id="powerTrailpercentEdit" style="display: none">
-                            <input id="demandPercent" onkeypress="return isNumberKey(event);" onkeyup="updateCc();" onchange="updateCc();" type="number" min="{demandPercentMinimum}" max="100" value="{powerTrailDemandPercent}">
+                            <input id="demandPercent" onkeypress="return isNumberKey(event);" onkeyup="updateCc();" onchange="updateCc();" type="number" min="{demandPercentMinimum}" max="{demandPercentMaximum}" value="{powerTrailDemandPercent}">
                             <a href="javascript:void(0)" onclick="togglePercentSection(); $('#ptPercentCc').html(calculatepercentCc($('#powerTrailpercent').html(), $('#powerTrailCacheCount').html()));" class="editPtDataButton">{{pt031}}</a>
                             <a href="javascript:void(0)" onclick="ajaxUpdateDemandPercent()" class="editPtDataButton">{{pt044}}</a>
                         </span>

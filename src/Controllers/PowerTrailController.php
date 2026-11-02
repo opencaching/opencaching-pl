@@ -9,8 +9,6 @@ use src\Utils\Database\OcDb;
 
 class PowerTrailController
 {
-    const MINIMUM_PERCENT_REQUIRED = 67;
-
     private $serverUrl;
 
     public function __construct()

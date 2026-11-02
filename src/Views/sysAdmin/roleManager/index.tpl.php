@@ -53,7 +53,7 @@ $roleManagerUrl = SimpleRouter::getLink('SysAdmin.RoleManager');
             <button type="submit" class="blue-button-small mr-10"><?= tr('search') ?></button>
 
             <a class="orange-button-small mr-10" href="<?= $roleManagerUrl ?>">
-                <?= tr('role_manager_clear_search') ?>
+                <?= tr('clear_search') ?>
             </a>
 
             <span class="text-muted">
