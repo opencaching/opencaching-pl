@@ -22,6 +22,7 @@ if (isset($_REQUEST['userid'])) {
 $view->setTemplate('ustat');
 $view->setVar('userId', $user_id);
 $view->setVar('displayFindStats', true);
+$view->setVar('showMatrixLink', ApplicationContainer::GetAuthorizedUser() && (ApplicationContainer::GetAuthorizedUser()->hasOcTeamRole() || ApplicationContainer::GetAuthorizedUser()->hasAdvUserRole()));
 
 
 
