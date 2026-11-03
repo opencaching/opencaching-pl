@@ -49,8 +49,7 @@ use src\Models\GeoCache\GeoCacheLog;
             <?=$user->getNotFoundGeocachesCount()?>
           </td>
           <td>
-            <?php $statusValue = $user->getIsActiveStatus(); ?>
-            <?php $status = $statusValue === null ? null : UserStatusEnum::tryFrom($statusValue); ?>
+            <?php $status = $user->getUserStatus(); ?>
             <?php $statusClass = match ($status) {
                 UserStatusEnum::ACTIVE => 'txt-green10',
                 UserStatusEnum::BANNED => 'txt-red10',
