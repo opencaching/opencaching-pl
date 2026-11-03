@@ -29,10 +29,20 @@ class OAuthRequest {
         $scheme = (!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] != "on")
             ? 'http'
             : 'https';
+        // Behind a reverse proxy (e.g. ddev-router), SERVER_PORT is the internal
+        // port (80); use HTTP_X_FORWARDED_PORT when it holds a plain port number.
+        // Default ports are left out of the URL (RFC 5849 §3.4.1.2).
+        $forwarded_port = isset($_SERVER['HTTP_X_FORWARDED_PORT'])
+            ? trim($_SERVER['HTTP_X_FORWARDED_PORT'])
+            : '';
+        $port = ctype_digit($forwarded_port)
+            ? (int)$forwarded_port
+            : (int)$_SERVER['SERVER_PORT'];
+        $default_port = ($scheme === 'https') ? 443 : 80;
+        $port_str = ($port === $default_port) ? '' : ':' . $port;
         $http_url = ($http_url) ? $http_url : $scheme .
             '://' . $_SERVER['SERVER_NAME'] .
-            ':' .
-            $_SERVER['SERVER_PORT'] .
+            $port_str .
             $_SERVER['REQUEST_URI'];
         $http_method = ($http_method) ? $http_method : $_SERVER['REQUEST_METHOD'];
 
@@ -257,9 +267,6 @@ class OAuthRequest {
      * util function: current nonce
      */
     private static function generate_nonce() {
-        $mt = microtime();
-        $rand = mt_rand();
-
-        return md5($mt . $rand); // md5s look nicer than numbers
+        return bin2hex(random_bytes(16));
     }
 }
