@@ -874,6 +874,26 @@ And this file is the first step towards that. */
   overflow-x: auto;
   clear: both; }
 
+.matrix-level-0 {
+  background-color: #ff3333;
+  color: #000000; }
+
+.matrix-level-1 {
+  background-color: #dbe6f1;
+  color: #000000; }
+
+.matrix-level-2 {
+  background-color: #afc9d9;
+  color: #ffffff; }
+
+.matrix-level-3 {
+  background-color: #83acc1;
+  color: #ffffff; }
+
+.matrix-level-4 {
+  background-color: #5890a8;
+  color: #ffffff; }
+
 .matrix-table {
   border-collapse: collapse;
   width: 100%; }
@@ -1352,12 +1372,59 @@ And this file is the first step towards that. */
 /*
  * Pixel spacing utilities.
  *
- * Values run from 5px to 100px in 5px steps.
+ * Values run from 0px to 100px in 5px steps.
  *
  * Pages which load the full Bootstrap CSS load it after style.css, so
- * Bootstrap's own .m-5/.p-5 definitions take precedence there. On pages
- * without Bootstrap (for example the GeoPath admin) these 5px utilities apply.
+ * Bootstrap's own .m-0/.m-5/.p-0/.p-5 definitions take precedence there.
+ * On pages without Bootstrap (for example the GeoPath admin) these utilities
+ * apply.
  */
+.m-0 {
+  margin: 0px !important; }
+
+.mt-0 {
+  margin-top: 0px !important; }
+
+.mr-0 {
+  margin-right: 0px !important; }
+
+.mb-0 {
+  margin-bottom: 0px !important; }
+
+.ml-0 {
+  margin-left: 0px !important; }
+
+.mx-0 {
+  margin-right: 0px !important;
+  margin-left: 0px !important; }
+
+.my-0 {
+  margin-top: 0px !important;
+  margin-bottom: 0px !important; }
+
+.p-0 {
+  padding: 0px !important; }
+
+.pt-0 {
+  padding-top: 0px !important; }
+
+.pr-0 {
+  padding-right: 0px !important; }
+
+.pb-0 {
+  padding-bottom: 0px !important; }
+
+.pl-0 {
+  padding-left: 0px !important; }
+
+.px-0 {
+  padding-right: 0px !important;
+  padding-left: 0px !important; }
+
+.py-0 {
+  padding-top: 0px !important;
+  padding-bottom: 0px !important; }
+
 .m-5 {
   margin: 5px !important; }
 

@@ -70,6 +70,10 @@ class MatrixController extends ViewBaseController
             'monthDayMatrix',
             $this->matrixService->getMonthDayMatrix($userId)
         );
+        $this->view->setVar(
+            'yearMonthMatrix',
+            $this->matrixService->getYearMonthMatrix($userId)
+        );
         $this->view->setTemplate('user/matrix');
         $this->view->buildView();
     }
