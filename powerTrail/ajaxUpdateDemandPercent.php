@@ -1,4 +1,5 @@
 <?php
+use src\Enums\PowerTrailPercentRequiredEnum;
 use src\Utils\Database\OcDb;
 // ajaxUpdateDemandPercent.php
 session_start();
@@ -11,7 +12,7 @@ $ptAPI = new powerTrailBase;
 
 $powerTrailId = (int) $_REQUEST['projectId'];
 $newPercent = (int) $_REQUEST['newPercent'];
-if($newPercent < \src\Controllers\PowerTrailController::MINIMUM_PERCENT_REQUIRED || $newPercent > 100) {
+if($newPercent < PowerTrailPercentRequiredEnum::MINIMUM || $newPercent > PowerTrailPercentRequiredEnum::MAXIMUM) {
     echo 'error';
     exit;
 }
