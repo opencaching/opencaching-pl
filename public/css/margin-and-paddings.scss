@@ -1,14 +1,15 @@
 /*
  * Pixel spacing utilities.
  *
- * Values run from 5px to 100px in 5px steps.
+ * Values run from 0px to 100px in 5px steps.
  *
  * Pages which load the full Bootstrap CSS load it after style.css, so
- * Bootstrap's own .m-5/.p-5 definitions take precedence there. On pages
- * without Bootstrap (for example the GeoPath admin) these 5px utilities apply.
+ * Bootstrap's own .m-0/.m-5/.p-0/.p-5 definitions take precedence there.
+ * On pages without Bootstrap (for example the GeoPath admin) these utilities
+ * apply.
  */
 
-@for $step from 1 through 20 {
+@for $step from 0 through 20 {
   $size: $step * 5;
 
   .m-#{$size} {

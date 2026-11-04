@@ -112,6 +112,80 @@ class UserMatrixService
     }
 
     /**
+     * Build a complete year/month matrix.
+     *
+     * Years without finds are still shown when they fall between the first and
+     * last year with finds. Months without finds are filled with zero.
+     *
+     * @return array{
+     *     columnLabels: array<int, string>,
+     *     rows: array<int, array{label: string, values: array<int, int>, total: int}>,
+     *     columnTotals: array<int, int>,
+     *     grandTotal: int
+     * }
+     */
+    public function getYearMonthMatrix(int $userId): array
+    {
+        $counts = [];
+        $years = [];
+
+        foreach ($this->repository->findYearMonthCounts($userId) as $row) {
+            $year = (int) $row['year'];
+            $month = (int) $row['month'];
+
+            if ($year <= 0 || $month < 1 || $month > 12) {
+                continue;
+            }
+
+            if (! isset($counts[$year])) {
+                $counts[$year] = array_fill(1, 12, 0);
+                $years[] = $year;
+            }
+
+            $counts[$year][$month] = (int) $row['cache_count'];
+        }
+
+        if ($years === []) {
+            $years = [(int) date('Y')];
+            $counts[$years[0]] = array_fill(1, 12, 0);
+        }
+
+        sort($years);
+
+        $allYears = range($years[0], $years[count($years) - 1]);
+        $rows = [];
+        $columnTotals = array_fill(1, 12, 0);
+
+        foreach ($allYears as $year) {
+            if (! isset($counts[$year])) {
+                $counts[$year] = array_fill(1, 12, 0);
+            }
+
+            $rowTotal = array_sum($counts[$year]);
+
+            foreach (range(1, 12) as $month) {
+                $columnTotals[$month] += $counts[$year][$month];
+            }
+
+            $rows[] = [
+                'label' => (string) $year,
+                'values' => array_values($counts[$year]),
+                'total' => $rowTotal,
+            ];
+        }
+
+        return [
+            'columnLabels' => array_map(
+                static fn (int $month): string => date('F', mktime(0, 0, 0, $month, 1)),
+                range(1, 12)
+            ),
+            'rows' => $rows,
+            'columnTotals' => array_values($columnTotals),
+            'grandTotal' => array_sum($columnTotals),
+        ];
+    }
+
+    /**
      * Build a complete month/day matrix.
      *
      * Days that do not exist in a given month are represented by "X".
