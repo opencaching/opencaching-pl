@@ -3248,7 +3248,7 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'at_stealth' => 'Unauffällig vorgehen',
     'at_flashlight' => 'Taschenlampe erforderlich',
     'at_truck' => 'LKW / Reisebus erlaubt',
-    'at_riddle' => 'Rätsel',
+    'at_riddle' => 'Field puzzle / Mystery',
     'at_uv' => 'UV-Lampe erforderlich',
     'at_tools' => 'Spezialausrüstung benötigt',
     'at_nightonly' => 'Nachtcache - kann nur nachts gefunden werden',
@@ -3316,6 +3316,7 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'at_natural' => 'Natural monument',
     'at_street_art' => 'Street art',
     'at_partnership' => 'Partnership cache',
+    'at_online_puzzle' => 'Cache to be solved online',
 
     'cache_approval_refresh' => 'Refresh list',
     'cache_approval_refresh_time' => 'Last update',
