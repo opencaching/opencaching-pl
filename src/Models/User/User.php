@@ -12,6 +12,7 @@ use src\Utils\Debug\Debug;
 use src\Utils\Text\Formatter;
 use src\Utils\DateTime\OcDateTime;
 use src\Models\Admin\AdminNote;
+use src\Enums\UserStatusEnum;
 
 /**
  * Description of user
@@ -61,7 +62,10 @@ class User extends UserCommons
 
     /** @var DateTime */
     private $lastLogin = null;
+
     private $isActive = null;
+
+    private ?UserStatusEnum $userStatus = null;
 
     private $verifyAll = null;
 
@@ -359,6 +363,7 @@ class User extends UserCommons
                     break;
                 case 'is_active_flag':
                     $this->isActive = $value == User::STATUS_ACTIVE;
+                    $this->userStatus = $value === null ? null : UserStatusEnum::tryFrom((int) $value);
                     break;
                 case 'watchmail_mode':
                     $this->watchmailMode = (int) $value;
@@ -795,6 +800,11 @@ class User extends UserCommons
     public function getIsActive()
     {
         return $this->isActive;
+    }
+
+    public function getUserStatus(): ?UserStatusEnum
+    {
+        return $this->userStatus;
     }
 
     public function usePermanentLogin()
