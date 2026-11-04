@@ -90,7 +90,7 @@
                     <th><?= tr('pt085'); ?></th>
                 </tr>
             </thead>
-        `    <tbody>
+            <tbody>
                 <?php foreach ($view->monthDayMatrix['rows'] as $row) { ?>
                     <tr>
                         <th><?= htmlspecialchars($row['label'], ENT_QUOTES, 'UTF-8'); ?></th>
