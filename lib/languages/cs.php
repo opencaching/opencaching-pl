@@ -3247,7 +3247,7 @@ $translations = [
     'at_stealth' => 'Stealth required',
     'at_flashlight' => 'Flashlight required',
     'at_truck' => 'Truck / RV allowed',
-    'at_riddle' => 'Puzzle / Mystery',
+    'at_riddle' => 'Field puzzle / Mystery',
     'at_uv' => 'UV light required',
     'at_tools' => 'Special tool / equipment required',
     'at_nightonly' => 'Night cache - can only be found at night',
@@ -3315,6 +3315,7 @@ $translations = [
     'at_natural' => 'Natural monument',
     'at_street_art' => 'Street art',
     'at_partnership' => 'Partnership cache',
+    'at_online_puzzle' => 'Cache to be solved online',
 
     'cache_approval_refresh' => 'Refresh list',
     'cache_approval_refresh_time' => 'Last update',
