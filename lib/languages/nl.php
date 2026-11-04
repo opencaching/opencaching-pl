@@ -3247,7 +3247,7 @@ $translations = [
     'at_stealth' => 'Onzichtbaarheid vereist',
     'at_flashlight' => 'Zaklamp benodigd',
     'at_truck' => 'Camper toegestaan',
-    'at_riddle' => 'Puzzel / Mysterie',
+    'at_riddle' => 'Field puzzle / Mystery',
     'at_uv' => 'UV licht vereist',
     'at_tools' => 'Speciaal hulpmiddel / uitrusting vereist',
     'at_nightonly' => 'Nachtcache - kan alleen worden gevonden tijdens de nacht',
@@ -3315,6 +3315,7 @@ $translations = [
     'at_natural' => 'Natural monument',
     'at_street_art' => 'Street art',
     'at_partnership' => 'Partnership cache',
+    'at_online_puzzle' => 'Cache to be solved online',
 
     'cache_approval_refresh' => 'Lijst vernieuwen',
     'cache_approval_refresh_time' => 'Laatst bijgewerkt',
