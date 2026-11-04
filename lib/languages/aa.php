@@ -3247,7 +3247,7 @@ $translations = [
     'at_stealth' => 'crwdns27493:0crwdne27493:0',
     'at_flashlight' => 'crwdns27495:0crwdne27495:0',
     'at_truck' => 'crwdns27497:0crwdne27497:0',
-    'at_riddle' => 'crwdns27499:0crwdne27499:0',
+    'at_riddle' => 'crwdns34307:0crwdne34307:0',
     'at_uv' => 'crwdns27501:0crwdne27501:0',
     'at_tools' => 'crwdns27503:0crwdne27503:0',
     'at_nightonly' => 'crwdns27505:0crwdne27505:0',
@@ -3315,6 +3315,7 @@ $translations = [
     'at_natural' => 'crwdns34099:0crwdne34099:0',
     'at_street_art' => 'crwdns34101:0crwdne34101:0',
     'at_partnership' => 'crwdns34103:0crwdne34103:0',
+    'at_online_puzzle' => 'crwdns34309:0crwdne34309:0',
 
     'cache_approval_refresh' => 'crwdns33930:0crwdne33930:0',
     'cache_approval_refresh_time' => 'crwdns33932:0crwdne33932:0',
