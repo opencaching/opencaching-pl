@@ -72,7 +72,7 @@
         </table>
     </div>
 
-    <p class="mb-5"><span class="content-title-noshade txt-blue08"><?= tr('matrix_completion_level'); ?></span> <strong><?= (int) $view->matrix['minimum']; ?></strong></p>
+    <p class="mb-5"><span class="content-title-noshade txt-blue08"><?= tr('matrix_completion_level'); ?>:</span> <strong><?= (int) $view->matrix['minimum']; ?></strong></p>
     <p><?= tr('matrix_completion_level_description'); ?></p>
 
     <div class="content2-container bg-blue02">
@@ -90,7 +90,7 @@
                     <th><?= tr('pt085'); ?></th>
                 </tr>
             </thead>
-            <tbody>
+        `    <tbody>
                 <?php foreach ($view->monthDayMatrix['rows'] as $row) { ?>
                     <tr>
                         <th><?= htmlspecialchars($row['label'], ENT_QUOTES, 'UTF-8'); ?></th>
@@ -122,7 +122,7 @@
                 <tr>
                     <th><?= tr('matrix_year_month_header'); ?></th>
                     <?php foreach ($view->yearMonthMatrix['columnLabels'] as $label) { ?>
-                        <th><?= htmlspecialchars($label, ENT_QUOTES, 'UTF-8'); ?></th>
+                        <th><?= htmlspecialchars(tr($label), ENT_QUOTES, 'UTF-8'); ?></th>
                     <?php } ?>
                     <th><?= tr('pt085'); ?></th>
                 </tr>
