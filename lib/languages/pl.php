@@ -3247,7 +3247,7 @@ $translations = [
     'at_stealth' => 'Zabierz "czapkę niewidkę"',
     'at_flashlight' => 'Potrzebna latarka',
     'at_truck' => 'Dostępność większymi pojazdami',
-    'at_riddle' => 'Zagadka',
+    'at_riddle' => 'Field puzzle / Mystery',
     'at_uv' => 'Potrzebna latarka UV',
     'at_tools' => 'Wymagany dodatkowy sprzęt',
     'at_nightonly' => 'Nocna skrzynka - można znaleźć tylko w nocy',
@@ -3315,6 +3315,7 @@ $translations = [
     'at_natural' => 'Pomnik przyrody',
     'at_street_art' => 'Street Art',
     'at_partnership' => 'Skrytka partnerska',
+    'at_online_puzzle' => 'Cache to be solved online',
 
     'cache_approval_refresh' => 'Odśwież listę',
     'cache_approval_refresh_time' => 'Ostatnia aktualizacja',
