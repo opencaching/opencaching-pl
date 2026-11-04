@@ -303,6 +303,9 @@ class CacheAttribute
     /** The cache is located near a street art work, mural or other form of urban art. */
     public const STREETART = 225;
 
+    /** Cache can be solved online without visiting a specific location. */
+    public const ONLINE_PUZZLE = 226;
+
     /* *** Special purpose attributes ************************************* */
 
     /** Cache is part of a GeoPath [SPECIAL ATTRIBUTE] */
@@ -432,6 +435,7 @@ class CacheAttribute
         self::DETAIL => ['trKey' => 'at_detail', 'icon' => 'at_detail.png'],
         self::NATURAL => ['trKey' => 'at_natural', 'icon' => 'at_natural.png'],
         self::STREETART => ['trKey' => 'at_street_art', 'icon' => 'at_street_art.png'],
+        self::ONLINE_PUZZLE => ['trKey' => 'at_online_puzzle', 'icon' => 'at_online_puzzle.png'],
     /* *** NEGATED common attributes between OC and GC ******************** */
         self::NODOGS => ['trKey' => 'at_nodogs', 'icon' => 'at_nodogs.png'],
         self::NOTAVAILABLE247 => ['trKey' => 'at_notAvailable247', 'icon' => 'at_notavailable247.png'],
