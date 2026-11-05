@@ -1,0 +1,3 @@
+<?php
+
+$site['debugModeEnabled'] = true;
