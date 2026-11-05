@@ -72,6 +72,10 @@
         </table>
     </div>
 
+    <p class="mb-5"><em><?= tr('matrix_rows_difficulty_columns_terrain'); ?></em></p>
+
+    <p class="mb-5"><span class="content-title-noshade txt-blue08"><?= tr('matrix_fill_level'); ?></span> <strong><?= (int) $view->matrix['filledCells']; ?> / <?= (int) $view->matrix['totalCells']; ?> = <?= (int) $view->matrix['fillLevel']; ?>%</strong></p>
+
     <p class="mb-5"><span class="content-title-noshade txt-blue08"><?= tr('matrix_completion_level'); ?>:</span> <strong><?= (int) $view->matrix['minimum']; ?></strong></p>
     <p><?= tr('matrix_completion_level_description'); ?></p>
 
@@ -95,7 +99,18 @@
                     <tr>
                         <th><?= htmlspecialchars($row['label'], ENT_QUOTES, 'UTF-8'); ?></th>
                         <?php foreach ($row['values'] as $value) { ?>
-                            <?php $monthDayCellClass = $value === 0 ? 'matrix-level-0' : ''; ?>
+                            <?php
+                            $monthDayCellClass = '';
+                            if ($value !== 'X') {
+                                $monthDayCellClass = match (true) {
+                                    $value === 0 => 'matrix-level-0',
+                                    $value < 10 => 'matrix-level-1',
+                                    $value < 50 => 'matrix-level-2',
+                                    $value < 100 => 'matrix-level-3',
+                                    default => 'matrix-level-4',
+                                };
+                            }
+                            ?>
                             <td class="<?= $monthDayCellClass; ?>"><?= $value === 'X' ? 'X' : (int) $value; ?></td>
                         <?php } ?>
                         <td><?= (int) $row['total']; ?></td>
