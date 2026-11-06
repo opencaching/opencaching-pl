@@ -14,7 +14,7 @@ work on the oldest supported environment, not only on the one you happen to test
 |------|-------------------|----------------------------|--------------------------------------------------------------------|
 | OCPL | Poland            | 8.3.36                     | 11.8.9-MariaDB-ubu2604 (mariadb.org binary distribution)           |
 | OCNL | Netherlands       | php-8.2                    | MariaDB 10.0                                                       |
-| OCUK | United Kingdom    | (not specified)            | (not specified)                                                    |
+| OCUK | United Kingdom    | 8.3.36                     | 11.8.9 (MariaDB)                                                   |
 | OCRO | Romania           | patched 8.2.35             | MariaDB 10.0                                                       |
 | OCUS | United States     | patched 8.2.35             | MariaDB 10.0                                                       |
 
