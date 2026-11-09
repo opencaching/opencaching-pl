@@ -1,0 +1,59 @@
+/* ring_v2: animated progress ring (SVG, CSS-driven). */
+.ring_v2 {
+  display: block;
+  width: 140px;
+  height: 140px;
+
+  /* domyślne parametry */
+  --duration: 2s;
+  --delay: 0s;
+  --color: #3b82f6; /* nadpisują klasy kolorów */
+  --stroke: 5px;     /* nadpisują klasy grubości */
+}
+
+.ring_v2__progress {
+  --percent: 70; /* wartość awaryjna */
+
+  /* promień liczony z grubości, żeby obręcz zawsze mieściła się w 150px */
+  --r: calc(70px - var(--stroke) / 2);
+  --circumference: calc(2 * 3.14159265 * var(--r));
+
+  r: var(--r);
+  fill: none;
+  stroke: var(--color);
+  stroke-width: var(--stroke);
+  stroke-linecap: butt;
+
+  stroke-dasharray: var(--circumference);
+  stroke-dashoffset: var(--circumference); /* na starcie niewidoczna */
+
+  /* start na północy, kierunek zgodny z zegarem */
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+
+  animation: ring_v2_draw var(--duration) ease-out var(--delay) forwards;
+}
+
+/* --percent is set via inline style (--percent: N) in the markup. */
+@keyframes ring_v2_draw {
+  to {
+    stroke-dashoffset: calc(var(--circumference) * (1 - var(--percent) / 100));
+  }
+}
+
+/* ---------- kolory (10) ---------- */
+.ring_v2--blue   { --color: #3b82f6; }
+.ring_v2--red    { --color: #ef4444; }
+.ring_v2--green  { --color: #22c55e; }
+.ring_v2--orange { --color: #f97316; }
+.ring_v2--yellow { --color: #eab308; }
+.ring_v2--purple { --color: #8b5cf6; }
+.ring_v2--pink   { --color: #ec4899; }
+.ring_v2--teal   { --color: #14b8a6; }
+.ring_v2--gray   { --color: #6b7280; }
+.ring_v2--black  { --color: #111827; }
+
+/* ---------- grubości (3) ---------- */
+.ring_v2--thin   { --stroke: 3px; }
+.ring_v2--medium { --stroke: 5px; }
+.ring_v2--thick  { --stroke: 10px; }
