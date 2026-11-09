@@ -53,7 +53,7 @@ class C111BadgesOwners extends UpdateScript
 
         // Initial owner types.
         $this->db->simpleQuery(
-            "INSERT INTO `badges_owners_types` (`id`, `name`) VALUES
+            "INSERT IGNORE INTO `badges_owners_types` (`id`, `name`) VALUES
              (1, 'Badge keeper'),
              (2, 'Description author'),
              (3, 'Graphic author')"
@@ -66,6 +66,9 @@ class C111BadgesOwners extends UpdateScript
 
         // Long display name of the badge (e.g. for UI / map).
         $this->db->addColumnIfNotExists('badges', 'long_name', 'VARCHAR(255) NOT NULL DEFAULT \'\'', 'Long name of the badge');
+
+        // Badge is displayed only to its owners and to OC Team members.
+        $this->db->addColumnIfNotExists('badges', 'display_restricted', 'TINYINT(1) NOT NULL DEFAULT 0', 'Display the badge only to its owners and OC Team members');
 
         // Sort order for badges within a category: 0 = ascending, 1 = descending.
         // This distinction is introduced for periodic (annual) proficiencies: every year
@@ -86,6 +89,7 @@ class C111BadgesOwners extends UpdateScript
         // with set_time_limit(0), so don't create any endless loops!
 
         $this->db->dropColumnIfExists('badge_categories', 'sort_desc');
+        $this->db->dropColumnIfExists('badges', 'display_restricted');
         $this->db->dropColumnIfExists('badges', 'long_name');
         $this->db->dropColumnIfExists('badges', 'visible_in_map');
         $this->db->dropColumnIfExists('badges', 'active');

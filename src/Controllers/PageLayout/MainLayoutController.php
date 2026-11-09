@@ -315,6 +315,13 @@ class MainLayoutController extends BaseController
                     break;
                 }
                 // no break
+            case 'mnu_badges':
+                // disable badges link if disabled in config
+                if (! $this->ocConfig->isMeritBadgesEnabled()) {
+                    $url = '';
+                    break;
+                }
+                // no break
             default:
                 $key = tr($key); // by default menu key is just a translation
         }
