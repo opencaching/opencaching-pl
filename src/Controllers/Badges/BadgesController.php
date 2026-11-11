@@ -56,14 +56,14 @@ class BadgesController extends ViewBaseController
         $userId = $this->loggedUser !== null ? $this->loggedUser->getUserId() : 0;
         $stats = $this->badgeService->getBadgeStats((int) $badge['id'], $userId);
 
+        $requestedLang = isset($_GET['desclang']) ? (string) $_GET['desclang'] : null;
+        $badgeDescription = $this->badgeService->getDescription((int) $badge['id'], $requestedLang);
+
         $this->view->setVar('title', 'Badges - show');
         $this->view->setVar('badge', $badge);
         $this->view->setVar('badgeId', $badgeId);
         $this->view->setVar('activeCount', $stats['activeCount']);
-        $this->view->setVar(
-            'badgeDescription',
-            $badge['description'] ?? ''
-        );
+        $this->view->setVar('badgeDescription', $badgeDescription);
         $this->view->setTemplate('badges/show');
         $this->view->buildView();
     }

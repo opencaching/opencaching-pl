@@ -26,12 +26,52 @@ class BadgesRepository
     public function findAllCategories(): array
     {
         $statement = $this->db->simpleQuery(
-            'SELECT `id`, `name`, `sort_desc`
+            'SELECT `id`, `name`
              FROM `badge_categories`
              ORDER BY `sequence` ASC'
         );
 
         return $this->db->dbResultFetchAll($statement);
+    }
+
+    /**
+     * Read available description languages for a badge.
+     *
+     * @return array<int, string>
+     */
+    public function findAvailableDescriptionLanguages(int $badgeId): array
+    {
+        $statement = $this->db->multiVariableQuery(
+            'SELECT `language` FROM `badges_description` WHERE `id_badge` = :1',
+            $badgeId
+        );
+
+        $rows = $this->db->dbResultFetchAll($statement);
+        $langs = [];
+
+        foreach ($rows as $row) {
+            $langs[] = (string) $row['language'];
+        }
+
+        return $langs;
+    }
+
+    /**
+     * Read a badge description for a specific language.
+     *
+     * @return array<string, mixed>|null
+     */
+    public function findDescription(int $badgeId, string $language): ?array
+    {
+        $statement = $this->db->multiVariableQuery(
+            'SELECT * FROM `badges_description` WHERE `id_badge` = :1 AND `language` = :2 LIMIT 1',
+            $badgeId,
+            $language
+        );
+
+        $row = $this->db->dbResultFetchOneRowOnly($statement);
+
+        return is_array($row) ? $row : null;
     }
 
     /**
@@ -180,10 +220,8 @@ class BadgesRepository
      *
      * @return array<int, array<string, mixed>>
      */
-    public function findBadgesByCategory(int $categoryId, bool $sortDesc = false): array
+    public function findBadgesByCategory(int $categoryId): array
     {
-        $direction = $sortDesc ? 'DESC' : 'ASC';
-
         $statement = $this->db->multiVariableQuery(
             'SELECT `id`, `name`, `long_name`, `category_id`, `sequence`,
                     `picture`, `trigger_type`, `short_description`,
@@ -192,7 +230,7 @@ class BadgesRepository
              FROM `badges`
              WHERE `category_id` = :1
                AND `active` = 1
-             ORDER BY `sequence` ' . $direction,
+             ORDER BY `sequence` ASC',
             $categoryId
         );
 

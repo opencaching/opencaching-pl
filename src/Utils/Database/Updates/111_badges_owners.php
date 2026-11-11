@@ -26,17 +26,22 @@ class C111BadgesOwners extends UpdateScript
         // The update will be run inside a transaction. It will also run
         // with set_time_limit(0), so don't create any endless loops!
 
-        // Currently badge owners are stored as HTML text (e.g. '<a href="...">Bartek111</a>').
-        // This migration introduces proper DB relations (badges_owners + badges_owners_types).
-        // Old text columns will be removed later, once all badges have been re-linked in the database.
+        // Owner types. translation_key is only a key from lib/languages/en.php.
         $this->db->createTableIfNotExists(
             'badges_owners_types',
             [
                 '`id` int(11) NOT NULL AUTO_INCREMENT',
-                '`name` varchar(50) NOT NULL',
+                '`translation_key` varchar(255) NOT NULL',
                 'PRIMARY KEY (`id`)',
             ],
             ['ENGINE' => 'InnoDB', 'DEFAULT CHARSET' => 'utf8mb3']
+        );
+
+        $this->db->simpleQuery(
+            "INSERT IGNORE INTO `badges_owners_types` (`id`, `translation_key`) VALUES
+             (1, 'badges_owner_type_keeper'),
+             (2, 'badges_owner_type_description_author'),
+             (3, 'badges_owner_type_graphic_author')"
         );
 
         $this->db->createTableIfNotExists(
@@ -51,32 +56,51 @@ class C111BadgesOwners extends UpdateScript
             ['ENGINE' => 'InnoDB', 'DEFAULT CHARSET' => 'utf8mb3']
         );
 
-        // Initial owner types.
-        $this->db->simpleQuery(
-            "INSERT IGNORE INTO `badges_owners_types` (`id`, `name`) VALUES
-             (1, 'Badge keeper'),
-             (2, 'Description author'),
-             (3, 'Graphic author')"
-        );
-
         // Quick on/off switch for a badge - there is currently no such toggle.
         $this->db->addColumnIfNotExists('badges', 'active', 'TINYINT(1) NOT NULL DEFAULT 0', 'Whether the badge is active');
         // Controls whether the badge is shown on the map in the new user interface component.
         $this->db->addColumnIfNotExists('badges', 'visible_in_map', 'TINYINT(1) NOT NULL DEFAULT 0', 'Whether the badge is visible on the map');
-
         // Long display name of the badge (e.g. for UI / map).
         $this->db->addColumnIfNotExists('badges', 'long_name', 'VARCHAR(255) NOT NULL DEFAULT \'\'', 'Long name of the badge');
-
         // Badge is displayed only to its owners and to OC Team members.
         $this->db->addColumnIfNotExists('badges', 'display_restricted', 'TINYINT(1) NOT NULL DEFAULT 0', 'Display the badge only to its owners and OC Team members');
+        // Type of the short description (FK to badges_short_description_types.id).
+        $this->db->addColumnIfNotExists('badges', 'short_description_type', 'INT(11) NOT NULL DEFAULT 0', 'Type of the short description');
 
-        // Sort order for badges within a category: 0 = ascending, 1 = descending.
-        // This distinction is introduced for periodic (annual) proficiencies: every year
-        // there will be the same badge types, but shifted by one year. This field makes
-        // it easier to control their ordering - the order is adjusted only on new badges,
-        // not on all existing ones.
-        // Inspiration for this column comes from Strava and Garmin Connect.
-        $this->db->addColumnIfNotExists('badge_categories', 'sort_desc', 'TINYINT(1) NOT NULL DEFAULT 0', 'Sort badges in this category descending (1) instead of ascending (0)');
+        // Short description types. translation_key is only a key from lib/languages/en.php.
+        $this->db->createTableIfNotExists(
+            'badges_short_description_types',
+            [
+                '`id` int(11) NOT NULL AUTO_INCREMENT',
+                '`translation_key` varchar(255) NOT NULL',
+                'PRIMARY KEY (`id`)',
+            ],
+            ['ENGINE' => 'InnoDB', 'DEFAULT CHARSET' => 'utf8mb3']
+        );
+
+        $this->db->simpleQuery(
+            "INSERT IGNORE INTO `badges_short_description_types` (`id`, `translation_key`) VALUES
+             (1, 'badge_short_desc_find_caches'),
+             (2, 'badge_short_desc_log_geopaths'),
+             (3, 'badge_short_desc_log_service'),
+             (4, 'badge_short_desc_log_service_others'),
+             (5, 'badge_short_desc_move_mobile_caches'),
+             (6, 'badge_short_desc_move_mobile_caches_others'),
+             (7, 'badge_short_desc_complete_matrix')"
+        );
+
+        // Translated badge descriptions (one row per badge and language).
+        $this->db->createTableIfNotExists(
+            'badges_description',
+            [
+                '`id_badge` int(11) NOT NULL',
+                '`language` char(2) NOT NULL',
+                '`description` text NOT NULL',
+                'PRIMARY KEY (`id_badge`, `language`)',
+                'UNIQUE KEY `badge_language` (`id_badge`, `language`)',
+            ],
+            ['ENGINE' => 'InnoDB', 'DEFAULT CHARSET' => 'utf8mb3']
+        );
     }
 
     public function rollback()
@@ -88,6 +112,10 @@ class C111BadgesOwners extends UpdateScript
         // The rollback will be run inside a transaction. It will also run
         // with set_time_limit(0), so don't create any endless loops!
 
+        $this->db->simpleQuery('DROP TABLE IF EXISTS `badges_description`');
+        $this->db->simpleQuery('DROP TABLE IF EXISTS `badges_short_description_types`');
+
+        $this->db->dropColumnIfExists('badges', 'short_description_type');
         $this->db->dropColumnIfExists('badge_categories', 'sort_desc');
         $this->db->dropColumnIfExists('badges', 'display_restricted');
         $this->db->dropColumnIfExists('badges', 'long_name');
@@ -100,4 +128,3 @@ class C111BadgesOwners extends UpdateScript
 };
 
 return new C111BadgesOwners;
-
