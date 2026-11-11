@@ -97,7 +97,7 @@ assume it is not, or verify it explicitly.
 
 ## Indentation
 
-- Use **4 spaces** for indentation in code. Never use tab characters.
+- Use **tabs** for indentation in code, with a tab width of **4 spaces**.
 
 ## Nature of the code
 
