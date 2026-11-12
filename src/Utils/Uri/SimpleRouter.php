@@ -243,7 +243,10 @@ class SimpleRouter
         }
 
         // and params...
-        $params = array_slice($routeParts, 2);
+        $params = array_values(array_filter(
+            array_slice($routeParts, 2),
+            static fn ($part) => $part !== ''
+        ));
 
         return [$ctrl, $action, $params];
     }
