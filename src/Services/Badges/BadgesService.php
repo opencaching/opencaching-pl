@@ -118,6 +118,71 @@ class BadgesService
     }
 
     /**
+     * Read all images for a badge.
+     *
+     * Order: badge picture first, then level pictures (ascending level).
+     * Duplicates are removed. Ordering/dedup is business logic, hence here.
+     *
+     * @return array<int, string>
+     */
+    public function findLevels(int $badgeId): array
+    {
+        return $this->repository->findLevels($badgeId);
+    }
+
+    public function findRecommendedCaches(int $badgeId): array
+    {
+        return $this->repository->findRecommendedCaches($badgeId);
+    }
+
+    public function findTitledCaches(int $badgeId): array
+    {
+        return $this->repository->findTitledCaches($badgeId);
+    }
+
+    public static function toRoman(int $number): string
+    {
+        $map = [
+            'M' => 1000, 'CM' => 900, 'D' => 500, 'CD' => 400,
+            'C' => 100, 'XC' => 90, 'L' => 50, 'XL' => 40,
+            'X' => 10, 'IX' => 9, 'V' => 5, 'IV' => 4, 'I' => 1,
+        ];
+
+        $result = '';
+        foreach ($map as $roman => $value) {
+            while ($number >= $value) {
+                $result .= $roman;
+                $number -= $value;
+            }
+        }
+
+        return $result;
+    }
+
+    public function findBadgeImages(int $badgeId): array
+    {
+        $images = [];
+
+        $badgePicture = $this->repository->findBadgePicture($badgeId);
+        if ($badgePicture !== null) {
+            $images[] = $badgePicture;
+        }
+
+        foreach ($this->repository->findBadgeLevelPictures($badgeId) as $picture) {
+            $images[] = $picture;
+        }
+
+        $unique = [];
+        foreach ($images as $image) {
+            if (!in_array($image, $unique, true)) {
+                $unique[] = $image;
+            }
+        }
+
+        return $unique;
+    }
+
+    /**
      * Read a single badge by its id.
      *
      * @return array<string, mixed>|null

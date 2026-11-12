@@ -63,6 +63,10 @@ class BadgesController extends ViewBaseController
         $this->view->setVar('badge', $badge);
         $this->view->setVar('badgeId', $badgeId);
         $this->view->setVar('activeCount', $stats['activeCount']);
+        $this->view->setVar('badgeImages', $this->badgeService->findBadgeImages((int) $badgeId));
+        $this->view->setVar('levels', $this->badgeService->findLevels((int) $badgeId));
+        $this->view->setVar('recommendedCaches', $this->badgeService->findRecommendedCaches((int) $badgeId));
+        $this->view->setVar('titledCaches', $this->badgeService->findTitledCaches((int) $badgeId));
         $this->view->setVar('badgeDescription', $badgeDescription);
         $this->view->setTemplate('badges/show');
         $this->view->buildView();

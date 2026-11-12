@@ -1,4 +1,3 @@
-@charset "UTF-8";
 /* My goal is to migrate and consolidate all CSS files on OC.
 And this file is the first step towards that. */
 /* Bootstrap 4.1.1 flex utilities (copied from bootstrap.css). */
@@ -1165,6 +1164,26 @@ And this file is the first step towards that. */
 .text-left {
   text-align: left; }
 
+/* Roman numeral level counter for badge levels table only. */
+.badge-v2-table--counter {
+  counter-reset: badge-level; }
+
+.badge-v2-table--counter tbody tr {
+  counter-increment: badge-level; }
+
+.badge-v2-table--counter tbody tr td:nth-child(2)::before {
+  content: counter(badge-level,upper-roman);
+  font-weight: bold; }
+
+.badge-v2-levels-gainers {
+  display: flex;
+  gap: 10px; }
+
+.badge-v2-levels,
+.badge-v2-gainers {
+  width: 50%;
+  box-sizing: border-box; }
+
 /* Utility: centered text. */
 .text-center {
   text-align: center; }
@@ -1189,70 +1208,90 @@ And this file is the first step towards that. */
 /* Level colours: a user's level in a merit badge is drawn with one of these
    classes (.badge-level-1 ... .badge-level-10) instead of an inline colour. */
 .badge-level-1 {
-  --ring-color: #89af2b; }
+  --ring-color: #89af2b;
+  color: #89af2b;
+  font-weight: bold; }
   .badge-level-1 .pie_progress__svg path {
     stroke: #89af2b; }
   .badge-level-1 b {
     color: #89af2b; }
 
 .badge-level-2 {
-  --ring-color: #af992b; }
+  --ring-color: #af992b;
+  color: #af992b;
+  font-weight: bold; }
   .badge-level-2 .pie_progress__svg path {
     stroke: #af992b; }
   .badge-level-2 b {
     color: #af992b; }
 
 .badge-level-3 {
-  --ring-color: #af5e2b; }
+  --ring-color: #af5e2b;
+  color: #af5e2b;
+  font-weight: bold; }
   .badge-level-3 .pie_progress__svg path {
     stroke: #af5e2b; }
   .badge-level-3 b {
     color: #af5e2b; }
 
 .badge-level-4 {
-  --ring-color: #af2b2b; }
+  --ring-color: #af2b2b;
+  color: #af2b2b;
+  font-weight: bold; }
   .badge-level-4 .pie_progress__svg path {
     stroke: #af2b2b; }
   .badge-level-4 b {
     color: #af2b2b; }
 
 .badge-level-5 {
-  --ring-color: #af2b7e; }
+  --ring-color: #af2b7e;
+  color: #af2b7e;
+  font-weight: bold; }
   .badge-level-5 .pie_progress__svg path {
     stroke: #af2b7e; }
   .badge-level-5 b {
     color: #af2b7e; }
 
 .badge-level-6 {
-  --ring-color: #962baf; }
+  --ring-color: #962baf;
+  color: #962baf;
+  font-weight: bold; }
   .badge-level-6 .pie_progress__svg path {
     stroke: #962baf; }
   .badge-level-6 b {
     color: #962baf; }
 
 .badge-level-7 {
-  --ring-color: #2b5caf; }
+  --ring-color: #2b5caf;
+  color: #2b5caf;
+  font-weight: bold; }
   .badge-level-7 .pie_progress__svg path {
     stroke: #2b5caf; }
   .badge-level-7 b {
     color: #2b5caf; }
 
 .badge-level-8 {
-  --ring-color: #8E6343; }
+  --ring-color: #8E6343;
+  color: #8E6343;
+  font-weight: bold; }
   .badge-level-8 .pie_progress__svg path {
     stroke: #8E6343; }
   .badge-level-8 b {
     color: #8E6343; }
 
 .badge-level-9 {
-  --ring-color: #A5A5A5; }
+  --ring-color: #A5A5A5;
+  color: #A5A5A5;
+  font-weight: bold; }
   .badge-level-9 .pie_progress__svg path {
     stroke: #A5A5A5; }
   .badge-level-9 b {
     color: #A5A5A5; }
 
 .badge-level-10 {
-  --ring-color: #FFCC00; }
+  --ring-color: #FFCC00;
+  color: #FFCC00;
+  font-weight: bold; }
   .badge-level-10 .pie_progress__svg path {
     stroke: #FFCC00; }
   .badge-level-10 b {
@@ -1311,18 +1350,18 @@ And this file is the first step towards that. */
   display: block;
   width: 140px;
   height: 140px;
-  /* domyślne parametry */
+  /* default parameters */
   --duration: 2s;
   --delay: 0s;
   --color: #3b82f6;
-  /* nadpisują klasy kolorów */
+  /* overridden by colour classes */
   --stroke: 5px;
-  /* nadpisują klasy grubości */ }
+  /* overridden by thickness classes */ }
 
 .ring_v2__progress {
   --percent: 70;
-  /* wartość awaryjna */
-  /* promień liczony z grubości, żeby obręcz zawsze mieściła się w 150px */
+  /* fallback value */
+  /* radius derived from stroke width so the ring always fits in 140px */
   --r: calc(70px - var(--stroke) / 2);
   --circumference: calc(2 * 3.14159265 * var(--r));
   r: var(--r);
@@ -1332,8 +1371,8 @@ And this file is the first step towards that. */
   stroke-linecap: butt;
   stroke-dasharray: var(--circumference);
   stroke-dashoffset: var(--circumference);
-  /* na starcie niewidoczna */
-  /* start na północy, kierunek zgodny z zegarem */
+  /* hidden at start */
+  /* start at the top, clockwise direction */
   transform: rotate(-90deg);
   transform-origin: 50% 50%;
   animation: ring_v2_draw var(--duration) ease-out var(--delay) forwards; }
@@ -1342,7 +1381,7 @@ And this file is the first step towards that. */
 @keyframes ring_v2_draw {
   to {
     stroke-dashoffset: calc(var(--circumference) * (1 - var(--percent) / 100)); } }
-/* ---------- kolory (10) ---------- */
+/* ---------- colours (10) ---------- */
 .ring_v2--blue {
   --color: #3b82f6; }
 
@@ -1373,7 +1412,7 @@ And this file is the first step towards that. */
 .ring_v2--black {
   --color: #111827; }
 
-/* ---------- grubości (3) ---------- */
+/* ---------- thickness (3) ---------- */
 .ring_v2--thin {
   --stroke: 3px; }
 
@@ -1382,6 +1421,411 @@ And this file is the first step towards that. */
 
 .ring_v2--thick {
   --stroke: 10px; }
+
+/* gallery overlay for multiple images */
+.badge-v2-ring-gallery {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; }
+
+.badge-v2-ring-gallery .badge-v2-ring-image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 120px;
+  max-height: 120px;
+  opacity: 0; }
+
+/* CSS-only crossfade gallery for N images (N from 2 to 10).
+   Each image is visible ~3s, fades in/out over 1s. Keyframes and delays
+   are generated per N so the last image crossfades back to the first. */
+@keyframes badge-v2-gallery-2 {
+  0% {
+    opacity: 0; }
+  16.6666666667% {
+    opacity: 1; }
+  66.6666666667% {
+    opacity: 1; }
+  83.3333333333% {
+    opacity: 0; }
+  100% {
+    opacity: 0; } }
+.badge-v2-ring-gallery.n-2 .badge-v2-ring-image {
+  animation: badge-v2-gallery-2 6s ease-in-out 0s infinite; }
+
+.badge-v2-ring-gallery.n-2 .badge-v2-ring-image:nth-child(1) {
+  animation-delay: 0s; }
+
+.badge-v2-ring-gallery.n-2 .badge-v2-ring-image:nth-child(2) {
+  animation-delay: 3s; }
+
+@keyframes badge-v2-gallery-3 {
+  0% {
+    opacity: 0; }
+  11.1111111111% {
+    opacity: 1; }
+  44.4444444444% {
+    opacity: 1; }
+  55.5555555556% {
+    opacity: 0; }
+  100% {
+    opacity: 0; } }
+.badge-v2-ring-gallery.n-3 .badge-v2-ring-image {
+  animation: badge-v2-gallery-3 9s ease-in-out 0s infinite; }
+
+.badge-v2-ring-gallery.n-3 .badge-v2-ring-image:nth-child(1) {
+  animation-delay: 0s; }
+
+.badge-v2-ring-gallery.n-3 .badge-v2-ring-image:nth-child(2) {
+  animation-delay: 3s; }
+
+.badge-v2-ring-gallery.n-3 .badge-v2-ring-image:nth-child(3) {
+  animation-delay: 6s; }
+
+@keyframes badge-v2-gallery-4 {
+  0% {
+    opacity: 0; }
+  8.3333333333% {
+    opacity: 1; }
+  33.3333333333% {
+    opacity: 1; }
+  41.6666666667% {
+    opacity: 0; }
+  100% {
+    opacity: 0; } }
+.badge-v2-ring-gallery.n-4 .badge-v2-ring-image {
+  animation: badge-v2-gallery-4 12s ease-in-out 0s infinite; }
+
+.badge-v2-ring-gallery.n-4 .badge-v2-ring-image:nth-child(1) {
+  animation-delay: 0s; }
+
+.badge-v2-ring-gallery.n-4 .badge-v2-ring-image:nth-child(2) {
+  animation-delay: 3s; }
+
+.badge-v2-ring-gallery.n-4 .badge-v2-ring-image:nth-child(3) {
+  animation-delay: 6s; }
+
+.badge-v2-ring-gallery.n-4 .badge-v2-ring-image:nth-child(4) {
+  animation-delay: 9s; }
+
+@keyframes badge-v2-gallery-5 {
+  0% {
+    opacity: 0; }
+  6.6666666667% {
+    opacity: 1; }
+  26.6666666667% {
+    opacity: 1; }
+  33.3333333333% {
+    opacity: 0; }
+  100% {
+    opacity: 0; } }
+.badge-v2-ring-gallery.n-5 .badge-v2-ring-image {
+  animation: badge-v2-gallery-5 15s ease-in-out 0s infinite; }
+
+.badge-v2-ring-gallery.n-5 .badge-v2-ring-image:nth-child(1) {
+  animation-delay: 0s; }
+
+.badge-v2-ring-gallery.n-5 .badge-v2-ring-image:nth-child(2) {
+  animation-delay: 3s; }
+
+.badge-v2-ring-gallery.n-5 .badge-v2-ring-image:nth-child(3) {
+  animation-delay: 6s; }
+
+.badge-v2-ring-gallery.n-5 .badge-v2-ring-image:nth-child(4) {
+  animation-delay: 9s; }
+
+.badge-v2-ring-gallery.n-5 .badge-v2-ring-image:nth-child(5) {
+  animation-delay: 12s; }
+
+@keyframes badge-v2-gallery-6 {
+  0% {
+    opacity: 0; }
+  5.5555555556% {
+    opacity: 1; }
+  22.2222222222% {
+    opacity: 1; }
+  27.7777777778% {
+    opacity: 0; }
+  100% {
+    opacity: 0; } }
+.badge-v2-ring-gallery.n-6 .badge-v2-ring-image {
+  animation: badge-v2-gallery-6 18s ease-in-out 0s infinite; }
+
+.badge-v2-ring-gallery.n-6 .badge-v2-ring-image:nth-child(1) {
+  animation-delay: 0s; }
+
+.badge-v2-ring-gallery.n-6 .badge-v2-ring-image:nth-child(2) {
+  animation-delay: 3s; }
+
+.badge-v2-ring-gallery.n-6 .badge-v2-ring-image:nth-child(3) {
+  animation-delay: 6s; }
+
+.badge-v2-ring-gallery.n-6 .badge-v2-ring-image:nth-child(4) {
+  animation-delay: 9s; }
+
+.badge-v2-ring-gallery.n-6 .badge-v2-ring-image:nth-child(5) {
+  animation-delay: 12s; }
+
+.badge-v2-ring-gallery.n-6 .badge-v2-ring-image:nth-child(6) {
+  animation-delay: 15s; }
+
+@keyframes badge-v2-gallery-7 {
+  0% {
+    opacity: 0; }
+  4.7619047619% {
+    opacity: 1; }
+  19.0476190476% {
+    opacity: 1; }
+  23.8095238095% {
+    opacity: 0; }
+  100% {
+    opacity: 0; } }
+.badge-v2-ring-gallery.n-7 .badge-v2-ring-image {
+  animation: badge-v2-gallery-7 21s ease-in-out 0s infinite; }
+
+.badge-v2-ring-gallery.n-7 .badge-v2-ring-image:nth-child(1) {
+  animation-delay: 0s; }
+
+.badge-v2-ring-gallery.n-7 .badge-v2-ring-image:nth-child(2) {
+  animation-delay: 3s; }
+
+.badge-v2-ring-gallery.n-7 .badge-v2-ring-image:nth-child(3) {
+  animation-delay: 6s; }
+
+.badge-v2-ring-gallery.n-7 .badge-v2-ring-image:nth-child(4) {
+  animation-delay: 9s; }
+
+.badge-v2-ring-gallery.n-7 .badge-v2-ring-image:nth-child(5) {
+  animation-delay: 12s; }
+
+.badge-v2-ring-gallery.n-7 .badge-v2-ring-image:nth-child(6) {
+  animation-delay: 15s; }
+
+.badge-v2-ring-gallery.n-7 .badge-v2-ring-image:nth-child(7) {
+  animation-delay: 18s; }
+
+@keyframes badge-v2-gallery-8 {
+  0% {
+    opacity: 0; }
+  4.1666666667% {
+    opacity: 1; }
+  16.6666666667% {
+    opacity: 1; }
+  20.8333333333% {
+    opacity: 0; }
+  100% {
+    opacity: 0; } }
+.badge-v2-ring-gallery.n-8 .badge-v2-ring-image {
+  animation: badge-v2-gallery-8 24s ease-in-out 0s infinite; }
+
+.badge-v2-ring-gallery.n-8 .badge-v2-ring-image:nth-child(1) {
+  animation-delay: 0s; }
+
+.badge-v2-ring-gallery.n-8 .badge-v2-ring-image:nth-child(2) {
+  animation-delay: 3s; }
+
+.badge-v2-ring-gallery.n-8 .badge-v2-ring-image:nth-child(3) {
+  animation-delay: 6s; }
+
+.badge-v2-ring-gallery.n-8 .badge-v2-ring-image:nth-child(4) {
+  animation-delay: 9s; }
+
+.badge-v2-ring-gallery.n-8 .badge-v2-ring-image:nth-child(5) {
+  animation-delay: 12s; }
+
+.badge-v2-ring-gallery.n-8 .badge-v2-ring-image:nth-child(6) {
+  animation-delay: 15s; }
+
+.badge-v2-ring-gallery.n-8 .badge-v2-ring-image:nth-child(7) {
+  animation-delay: 18s; }
+
+.badge-v2-ring-gallery.n-8 .badge-v2-ring-image:nth-child(8) {
+  animation-delay: 21s; }
+
+@keyframes badge-v2-gallery-9 {
+  0% {
+    opacity: 0; }
+  3.7037037037% {
+    opacity: 1; }
+  14.8148148148% {
+    opacity: 1; }
+  18.5185185185% {
+    opacity: 0; }
+  100% {
+    opacity: 0; } }
+.badge-v2-ring-gallery.n-9 .badge-v2-ring-image {
+  animation: badge-v2-gallery-9 27s ease-in-out 0s infinite; }
+
+.badge-v2-ring-gallery.n-9 .badge-v2-ring-image:nth-child(1) {
+  animation-delay: 0s; }
+
+.badge-v2-ring-gallery.n-9 .badge-v2-ring-image:nth-child(2) {
+  animation-delay: 3s; }
+
+.badge-v2-ring-gallery.n-9 .badge-v2-ring-image:nth-child(3) {
+  animation-delay: 6s; }
+
+.badge-v2-ring-gallery.n-9 .badge-v2-ring-image:nth-child(4) {
+  animation-delay: 9s; }
+
+.badge-v2-ring-gallery.n-9 .badge-v2-ring-image:nth-child(5) {
+  animation-delay: 12s; }
+
+.badge-v2-ring-gallery.n-9 .badge-v2-ring-image:nth-child(6) {
+  animation-delay: 15s; }
+
+.badge-v2-ring-gallery.n-9 .badge-v2-ring-image:nth-child(7) {
+  animation-delay: 18s; }
+
+.badge-v2-ring-gallery.n-9 .badge-v2-ring-image:nth-child(8) {
+  animation-delay: 21s; }
+
+.badge-v2-ring-gallery.n-9 .badge-v2-ring-image:nth-child(9) {
+  animation-delay: 24s; }
+
+@keyframes badge-v2-gallery-10 {
+  0% {
+    opacity: 0; }
+  3.3333333333% {
+    opacity: 1; }
+  13.3333333333% {
+    opacity: 1; }
+  16.6666666667% {
+    opacity: 0; }
+  100% {
+    opacity: 0; } }
+.badge-v2-ring-gallery.n-10 .badge-v2-ring-image {
+  animation: badge-v2-gallery-10 30s ease-in-out 0s infinite; }
+
+.badge-v2-ring-gallery.n-10 .badge-v2-ring-image:nth-child(1) {
+  animation-delay: 0s; }
+
+.badge-v2-ring-gallery.n-10 .badge-v2-ring-image:nth-child(2) {
+  animation-delay: 3s; }
+
+.badge-v2-ring-gallery.n-10 .badge-v2-ring-image:nth-child(3) {
+  animation-delay: 6s; }
+
+.badge-v2-ring-gallery.n-10 .badge-v2-ring-image:nth-child(4) {
+  animation-delay: 9s; }
+
+.badge-v2-ring-gallery.n-10 .badge-v2-ring-image:nth-child(5) {
+  animation-delay: 12s; }
+
+.badge-v2-ring-gallery.n-10 .badge-v2-ring-image:nth-child(6) {
+  animation-delay: 15s; }
+
+.badge-v2-ring-gallery.n-10 .badge-v2-ring-image:nth-child(7) {
+  animation-delay: 18s; }
+
+.badge-v2-ring-gallery.n-10 .badge-v2-ring-image:nth-child(8) {
+  animation-delay: 21s; }
+
+.badge-v2-ring-gallery.n-10 .badge-v2-ring-image:nth-child(9) {
+  animation-delay: 24s; }
+
+.badge-v2-ring-gallery.n-10 .badge-v2-ring-image:nth-child(10) {
+  animation-delay: 27s; }
+
+@keyframes badge-v2-gallery-11 {
+  0% {
+    opacity: 0; }
+  3.0303030303% {
+    opacity: 1; }
+  12.1212121212% {
+    opacity: 1; }
+  15.1515151515% {
+    opacity: 0; }
+  100% {
+    opacity: 0; } }
+.badge-v2-ring-gallery.n-11 .badge-v2-ring-image {
+  animation: badge-v2-gallery-11 33s ease-in-out 0s infinite; }
+
+.badge-v2-ring-gallery.n-11 .badge-v2-ring-image:nth-child(1) {
+  animation-delay: 0s; }
+
+.badge-v2-ring-gallery.n-11 .badge-v2-ring-image:nth-child(2) {
+  animation-delay: 3s; }
+
+.badge-v2-ring-gallery.n-11 .badge-v2-ring-image:nth-child(3) {
+  animation-delay: 6s; }
+
+.badge-v2-ring-gallery.n-11 .badge-v2-ring-image:nth-child(4) {
+  animation-delay: 9s; }
+
+.badge-v2-ring-gallery.n-11 .badge-v2-ring-image:nth-child(5) {
+  animation-delay: 12s; }
+
+.badge-v2-ring-gallery.n-11 .badge-v2-ring-image:nth-child(6) {
+  animation-delay: 15s; }
+
+.badge-v2-ring-gallery.n-11 .badge-v2-ring-image:nth-child(7) {
+  animation-delay: 18s; }
+
+.badge-v2-ring-gallery.n-11 .badge-v2-ring-image:nth-child(8) {
+  animation-delay: 21s; }
+
+.badge-v2-ring-gallery.n-11 .badge-v2-ring-image:nth-child(9) {
+  animation-delay: 24s; }
+
+.badge-v2-ring-gallery.n-11 .badge-v2-ring-image:nth-child(10) {
+  animation-delay: 27s; }
+
+.badge-v2-ring-gallery.n-11 .badge-v2-ring-image:nth-child(11) {
+  animation-delay: 30s; }
+
+@keyframes badge-v2-gallery-12 {
+  0% {
+    opacity: 0; }
+  2.7777777778% {
+    opacity: 1; }
+  11.1111111111% {
+    opacity: 1; }
+  13.8888888889% {
+    opacity: 0; }
+  100% {
+    opacity: 0; } }
+.badge-v2-ring-gallery.n-12 .badge-v2-ring-image {
+  animation: badge-v2-gallery-12 36s ease-in-out 0s infinite; }
+
+.badge-v2-ring-gallery.n-12 .badge-v2-ring-image:nth-child(1) {
+  animation-delay: 0s; }
+
+.badge-v2-ring-gallery.n-12 .badge-v2-ring-image:nth-child(2) {
+  animation-delay: 3s; }
+
+.badge-v2-ring-gallery.n-12 .badge-v2-ring-image:nth-child(3) {
+  animation-delay: 6s; }
+
+.badge-v2-ring-gallery.n-12 .badge-v2-ring-image:nth-child(4) {
+  animation-delay: 9s; }
+
+.badge-v2-ring-gallery.n-12 .badge-v2-ring-image:nth-child(5) {
+  animation-delay: 12s; }
+
+.badge-v2-ring-gallery.n-12 .badge-v2-ring-image:nth-child(6) {
+  animation-delay: 15s; }
+
+.badge-v2-ring-gallery.n-12 .badge-v2-ring-image:nth-child(7) {
+  animation-delay: 18s; }
+
+.badge-v2-ring-gallery.n-12 .badge-v2-ring-image:nth-child(8) {
+  animation-delay: 21s; }
+
+.badge-v2-ring-gallery.n-12 .badge-v2-ring-image:nth-child(9) {
+  animation-delay: 24s; }
+
+.badge-v2-ring-gallery.n-12 .badge-v2-ring-image:nth-child(10) {
+  animation-delay: 27s; }
+
+.badge-v2-ring-gallery.n-12 .badge-v2-ring-image:nth-child(11) {
+  animation-delay: 30s; }
+
+.badge-v2-ring-gallery.n-12 .badge-v2-ring-image:nth-child(12) {
+  animation-delay: 33s; }
 
 .w-100 {
   width: 100%; }

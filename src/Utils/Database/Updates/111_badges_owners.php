@@ -64,8 +64,18 @@ class C111BadgesOwners extends UpdateScript
         $this->db->addColumnIfNotExists('badges', 'long_name', 'VARCHAR(255) NOT NULL DEFAULT \'\'', 'Long name of the badge');
         // Badge is displayed only to its owners and to OC Team members.
         $this->db->addColumnIfNotExists('badges', 'display_restricted', 'TINYINT(1) NOT NULL DEFAULT 0', 'Display the badge only to its owners and OC Team members');
+        // NOTE: `badges`.`description` is DEPRECATED and will be removed in a future
+        // update. Descriptions are now stored in `badges_description` (per language).
+
         // Type of the short description (FK to badges_short_description_types.id).
         $this->db->addColumnIfNotExists('badges', 'short_description_type', 'INT(11) NOT NULL DEFAULT 0', 'Type of the short description');
+
+        // SQL counting active caches for this badge. Must return a single row with column `cnt`.
+        $this->db->addColumnIfNotExists('badges', 'count_query', 'TEXT NOT NULL', 'SQL counting active caches for this badge (returns cnt)');
+        // SQL returning recommended caches for this badge. Must return `cache_id` and `cache_name` (from caches).
+        $this->db->addColumnIfNotExists('badges', 'recommended_query', 'TEXT NOT NULL', 'SQL returning recommended caches (cache_id, cache_name)');
+        // SQL returning caches of the week for this badge. Must return `cache_id` and `cache_name` (from caches).
+        $this->db->addColumnIfNotExists('badges', 'titled_query', 'TEXT NOT NULL', 'SQL returning caches of the week (cache_id, cache_name)');
 
         // Short description types. translation_key is only a key from lib/languages/en.php.
         $this->db->createTableIfNotExists(
@@ -115,6 +125,9 @@ class C111BadgesOwners extends UpdateScript
         $this->db->simpleQuery('DROP TABLE IF EXISTS `badges_description`');
         $this->db->simpleQuery('DROP TABLE IF EXISTS `badges_short_description_types`');
 
+        $this->db->dropColumnIfExists('badges', 'titled_query');
+        $this->db->dropColumnIfExists('badges', 'recommended_query');
+        $this->db->dropColumnIfExists('badges', 'count_query');
         $this->db->dropColumnIfExists('badges', 'short_description_type');
         $this->db->dropColumnIfExists('badge_categories', 'sort_desc');
         $this->db->dropColumnIfExists('badges', 'display_restricted');

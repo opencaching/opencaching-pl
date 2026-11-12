@@ -1,3 +1,5 @@
+<?php /** @var \src\Utils\View\View $view */ ?>
+
 <div class="content2-pagetitle">
     <img src="/images/blue/merit_badge.png" class="icon32" alt="" title="" align="middle" />&nbsp;
     <?= tr('merit_badges'); ?>

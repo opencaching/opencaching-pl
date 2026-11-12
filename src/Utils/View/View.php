@@ -141,6 +141,31 @@ class View
         return ob_get_clean();
     }
 
+    /**
+     * Render a view component (partial template) and return its HTML.
+     *
+     * @param string $path Path relative to src/Views/, without .tpl.php extension.
+     * @param array $vars Associative array of variables available inside the component.
+     * @return string
+     */
+    public function component(string $path, array $vars = []): string
+    {
+        $file = self::TPL_DIR . '/' . $path . '.tpl.php';
+
+        if (!is_file($file)) {
+            $this->errorLog("Trying to call unknown component: $file");
+            return '';
+        }
+
+        ob_start();
+        $view = $this;
+        if ($vars) {
+            extract($vars, EXTR_SKIP);
+        }
+        include $file;
+        return ob_get_clean();
+    }
+
     public function handleCrowdinInContextMode()
     {
         if (!CrowdinInContextMode::enabled()) {

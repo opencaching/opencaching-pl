@@ -245,6 +245,31 @@
     text-align: left;
 }
 
+/* Roman numeral level counter for badge levels table only. */
+.badge-v2-table--counter {
+    counter-reset: badge-level;
+}
+
+.badge-v2-table--counter tbody tr {
+    counter-increment: badge-level;
+}
+
+.badge-v2-table--counter tbody tr td:nth-child(2)::before {
+    content: counter(badge-level, upper-roman);
+    font-weight: bold;
+}
+
+.badge-v2-levels-gainers {
+    display: flex;
+    gap: 10px;
+}
+
+.badge-v2-levels,
+.badge-v2-gainers {
+    width: 50%;
+    box-sizing: border-box;
+}
+
 /* Utility: centered text. */
 .text-center {
     text-align: center;
@@ -288,6 +313,8 @@ $badge-level-colors: (
 @each $level, $color in $badge-level-colors {
   .badge-level-#{$level} {
     --ring-color: #{$color};
+    color: $color;
+    font-weight: bold;
 
     .pie_progress__svg path {
       stroke: $color;
