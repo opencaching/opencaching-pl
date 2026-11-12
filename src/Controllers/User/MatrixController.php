@@ -50,9 +50,17 @@ class MatrixController extends ViewBaseController
      */
     public function index($userId = null): void
     {
-        $userId = $userId === null
-            ? $this->loggedUser->getUserId()
-            : (int) $userId;
+        // A trailing slash or an empty segment must not be treated as a user id.
+        if ($userId === null || $userId === '' || !ctype_digit((string) $userId)) {
+            $userId = $this->loggedUser !== null ? $this->loggedUser->getUserId() : null;
+        } else {
+            $userId = (int) $userId;
+        }
+
+        if ($userId === null) {
+            $this->redirectToLoginPage();
+            return;
+        }
 
         $matrixUser = $userId > 0 ? User::fromUserIdFactory($userId, 'user_id, username') : null;
 
