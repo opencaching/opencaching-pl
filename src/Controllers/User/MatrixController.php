@@ -17,20 +17,13 @@ class MatrixController extends ViewBaseController
     private readonly UserMatrixService $matrixService;
 
     /**
-     * Create the controller and restrict access to OC Team or advanced users.
+     * Create the controller. Matrix is visible to every logged-in user.
      */
     public function __construct()
     {
         parent::__construct();
 
         $this->redirectNotLoggedUsers();
-
-        if (! $this->loggedUser->hasOcTeamRole() && ! $this->loggedUser->hasAdvUserRole()) {
-            $this->displayCommonErrorPageAndExit(
-                'Not authorized for this operation',
-                HttpCode::STATUS_FORBIDDEN
-            );
-        }
 
         $this->matrixService = new UserMatrixService();
     }
