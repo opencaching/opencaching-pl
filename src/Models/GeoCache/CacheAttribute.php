@@ -288,7 +288,7 @@ class CacheAttribute
     /** Officially designated historical monument */
     public const HISTORIC = 220;
 
-    /** BITcache */
+    /** BIT cache */
     public const BITCACHE = 221;
 
     /** Log is part of a guestbook */
@@ -305,6 +305,9 @@ class CacheAttribute
 
     /** Cache can be solved online without visiting a specific location. */
     public const ONLINE_PUZZLE = 226;
+
+    /** Cache is located near or inside cave or adit. */
+    public const CAVE_ADIT = 227;
 
     /* *** Special purpose attributes ************************************* */
 
@@ -377,10 +380,7 @@ class CacheAttribute
         self::TREE_CLIMBING => ['trKey' => 'at_tree_climbing', 'icon' => 'at_tree_climbing.png'],
         self::BONUS => ['trKey' => 'at_bonus', 'icon' => 'at_bonus.png'],
         self::CHALLENGE => ['trKey' => 'at_challenge', 'icon' => 'at_challenge.png'],
-        self::OPENCHECKER => [
-            'trKey' => 'at_openchecker',
-            'icon' => '/images/cacheAttributes/at_openchecker.png',
-        ],
+        self::OPENCHECKER => [ 'trKey' => 'at_openchecker', 'icon' => '/images/cacheAttributes/at_openchecker.png'],
     /* *** OC only attributes ********************************************* 
            Common attributes between OCPL and OCDE projects */
         self::OCONLY => ['trKey' => 'at_oconly', 'icon' => 'at_oconly.png'],
@@ -430,8 +430,7 @@ class CacheAttribute
         self::HISTORIC => ['trKey' => 'at_historic', 'icon' => 'at_historic.png'],
         self::BITCACHE => ['trKey' => 'at_bitcache', 'icon' => 'at_bitcache.png'],
         self::GUESTBOOK => ['trKey' => 'at_guestbook', 'icon' => 'at_guestbook.png'],
-    /* *** Special purpose attributes ************************************* */
-        self::GEOPATH => ['trKey' => 'at_geopath', 'icon' => 'at_geopath.png'],
+        self::CAVE_ADIT => ['trKey' => 'at_cave_adit', 'icon' => 'at_cave_adit.png'],
         self::DETAIL => ['trKey' => 'at_detail', 'icon' => 'at_detail.png'],
         self::NATURAL => ['trKey' => 'at_natural', 'icon' => 'at_natural.png'],
         self::STREETART => ['trKey' => 'at_street_art', 'icon' => 'at_street_art.png'],
@@ -442,6 +441,8 @@ class CacheAttribute
         self::DAY => ['trKey' => 'at_day', 'icon' => 'at_day.png'],
         self::NOTINWINTER => ['trKey' => 'at_notinwinter', 'icon' => 'at_notinwinter.png'],
         self::ALLSEASONS => ['trKey' => 'at_allseasons', 'icon' => 'at_allseasons.png'],
+    /* *** Special purpose attributes ************************************* */
+        self::GEOPATH => ['trKey' => 'at_geopath', 'icon' => 'at_geopath.png'],
         self::PASSWORD => ['trKey' => 'LogPassword', 'icon' => 'at_password.png'],
     ];
 
