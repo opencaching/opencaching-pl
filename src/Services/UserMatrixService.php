@@ -40,7 +40,10 @@ class UserMatrixService
      *     rows: array<int, array{label: string, counts: array<int, int>, total: int}>,
      *     columnTotals: array<int, int>,
      *     grandTotal: int,
-     *     minimum: int
+     *     minimum: int,
+     *     filledCells: int,
+     *     totalCells: int,
+     *     fillLevel: int
      * }
      */
     public function getDifficultyTerrainMatrix(int $userId): array
@@ -84,12 +87,19 @@ class UserMatrixService
         }
 
         $allCounts = [];
+        $filledCells = 0;
 
         foreach ($rows as $row) {
             foreach ($row['counts'] as $count) {
                 $allCounts[] = $count;
+
+                if ($count > 0) {
+                    $filledCells++;
+                }
             }
         }
+
+        $totalCells = count(self::LEVELS) * count(self::LEVELS);
 
         return [
             'columnLabels' => array_map(
@@ -100,6 +110,11 @@ class UserMatrixService
             'columnTotals' => array_values($columnTotals),
             'grandTotal' => array_sum($columnTotals),
             'minimum' => $allCounts === [] ? 0 : min($allCounts),
+            'filledCells' => $filledCells,
+            'totalCells' => $totalCells,
+            'fillLevel' => $totalCells > 0
+                ? (int) round($filledCells / $totalCells * 100)
+                : 0,
         ];
     }
 
@@ -152,7 +167,8 @@ class UserMatrixService
 
         sort($years);
 
-        $allYears = range($years[0], $years[count($years) - 1]);
+        $lastYear = max($years[count($years) - 1], (int) date('Y'));
+        $allYears = range($years[0], $lastYear);
         $rows = [];
         $columnTotals = array_fill(1, 12, 0);
 
