@@ -31,6 +31,22 @@
         <p class="content-title-noshade-size1">&nbsp;<img src="/images/blue/cache.png" class="icon32" alt="Caches created" title="Caches created">&nbsp;&nbsp;&nbsp;<?= tr('matrix_difficulty_terrain_title'); ?></p>
     </div>
 
+    <?php
+    $renderMatrixSearchCell = static function (int $value, array $searchLinks): void {
+        $listUrl = htmlspecialchars($searchLinks['list'], ENT_QUOTES, 'UTF-8');
+        $mapUrl = htmlspecialchars($searchLinks['map'], ENT_QUOTES, 'UTF-8');
+        ?>
+        <span class="matrix-cell-search" tabindex="0">
+            <?= $value; ?>
+            <span class="matrix-cell-search-tooltip">
+                <a href="<?= $listUrl; ?>"><img src="/images/blue/search3.png" alt="<?= tr('matrix_search_list'); ?>" title="<?= tr('matrix_search_list'); ?>"></a>
+                <a href="<?= $mapUrl; ?>"><img src="/images/blue/world.png" alt="<?= tr('matrix_search_map'); ?>" title="<?= tr('matrix_search_map'); ?>"></a>
+            </span>
+        </span>
+        <?php
+    };
+    ?>
+
     <div class="matrix-table-wrapper mb-10">
         <table class="matrix-table">
             <thead>
@@ -46,7 +62,7 @@
                 <?php foreach ($view->matrix['rows'] as $row) { ?>
                     <tr>
                         <th><?= htmlspecialchars($row['label'], ENT_QUOTES, 'UTF-8'); ?></th>
-                        <?php foreach ($row['counts'] as $count) { ?>
+                        <?php foreach ($row['counts'] as $columnIndex => $count) { ?>
                             <?php
                             $cellClass = match (true) {
                                 $count === 0 => 'matrix-level-0',
@@ -56,17 +72,25 @@
                                 default => 'matrix-level-4',
                             };
                             ?>
-                            <td class="<?= $cellClass; ?>"><?= (int) $count; ?></td>
+                            <td class="<?= $cellClass; ?>"><?php
+                                $renderMatrixSearchCell((int)$count, $row['searchLinks'][$columnIndex]);
+                            ?></td>
                         <?php } ?>
-                        <td><?= (int) $row['total']; ?></td>
+                        <td><?php
+                            $renderMatrixSearchCell((int)$row['total'], $row['totalSearchLinks']);
+                        ?></td>
                     </tr>
                 <?php } ?>
                 <tr>
                     <th><?= tr('pt085'); ?></th>
-                    <?php foreach ($view->matrix['columnTotals'] as $total) { ?>
-                        <td><?= (int) $total; ?></td>
+                    <?php foreach ($view->matrix['columnTotals'] as $columnIndex => $total) { ?>
+                        <td><?php
+                            $renderMatrixSearchCell((int)$total, $view->matrix['columnTotalSearchLinks'][$columnIndex]);
+                        ?></td>
                     <?php } ?>
-                    <td><?= (int) $view->matrix['grandTotal']; ?></td>
+                    <td><?php
+                        $renderMatrixSearchCell((int)$view->matrix['grandTotal'], $view->matrix['grandTotalSearchLinks']);
+                    ?></td>
                 </tr>
             </tbody>
         </table>
@@ -76,7 +100,7 @@
 
     <p class="mb-5"><span class="content-title-noshade txt-blue08"><?= tr('matrix_fill_level'); ?></span> <strong><?= (int) $view->matrix['filledCells']; ?> / <?= (int) $view->matrix['totalCells']; ?> = <?= (int) $view->matrix['fillLevel']; ?>%</strong></p>
 
-    <p class="mb-5"><span class="content-title-noshade txt-blue08"><?= tr('matrix_completion_level'); ?>:</span> <strong><?= (int) $view->matrix['minimum']; ?></strong></p>
+    <p class="mb-5"><span class="content-title-noshade txt-blue08"><?= tr('matrix_completion_level'); ?></span> <strong><?= (int) $view->matrix['minimum']; ?></strong></p>
     <p><?= tr('matrix_completion_level_description'); ?></p>
 
     <div class="content2-container bg-blue02">

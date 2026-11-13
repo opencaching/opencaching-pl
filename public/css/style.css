@@ -896,7 +896,8 @@ And this file is the first step towards that. */
 
 .matrix-table {
   border-collapse: collapse;
-  width: 100%; }
+  width: 100%;
+  overflow: hidden; }
   .matrix-table th,
   .matrix-table td {
     border: 1px solid #d0d0d0;
@@ -906,6 +907,35 @@ And this file is the first step towards that. */
   .matrix-table tbody th {
     background-color: #f2f2f2;
     font-weight: 600; }
+  .matrix-table .matrix-cell-search {
+    cursor: help;
+    display: inline-block;
+    position: relative; }
+  .matrix-table .matrix-cell-search-tooltip {
+    background-color: #ffffff;
+    border: 1px solid #5890a8;
+    border-radius: 3px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+    display: none;
+    left: 100%;
+    padding: 5px 5px;
+    position: absolute;
+    transform: translateY(-50%);
+    top: 50%;
+    white-space: nowrap;
+    z-index: 20; }
+    .matrix-table .matrix-cell-search-tooltip a {
+      display: inline-block;
+      margin: 0 2px; }
+      .matrix-table .matrix-cell-search-tooltip a img {
+        height: 20px;
+        width: 20px; }
+  .matrix-table tbody td:last-child .matrix-cell-search-tooltip {
+    left: auto;
+    right: 100%; }
+  .matrix-table .matrix-cell-search:hover .matrix-cell-search-tooltip,
+  .matrix-table .matrix-cell-search:focus-within .matrix-cell-search-tooltip {
+    display: block; }
   .matrix-table tbody tr:nth-child(even) {
     background-color: #fafafa; }
 
