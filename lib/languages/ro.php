@@ -3361,6 +3361,8 @@ $translations = [
     'matrix_difficulty_terrain' => 'Dificultate / Teren',
     'matrix_rows_difficulty_columns_terrain' => 'Rânduri = dificultate, coloane = teren',
     'matrix_difficulty_terrain_title' => 'Matrice Dificultate / Teren',
+    'matrix_search_list' => 'Search results',
+    'matrix_search_map' => 'Show on map',
     'matrix_day_month' => 'Matrice Zile / Luni',
     'matrix_year_month' => 'Matrice Ani / Luni',
     'matrix_year_month_header' => 'Ani / Luni',

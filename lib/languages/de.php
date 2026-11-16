@@ -3362,6 +3362,8 @@ Verwaltet die Opencaching-Website, kümmert sich um das Wiki, prüft neue Caches
     'matrix_difficulty_terrain' => 'Difficulty / Terrain',
     'matrix_rows_difficulty_columns_terrain' => 'Rows = difficulty, columns = terrain.',
     'matrix_difficulty_terrain_title' => 'Difficulty / Terrain matrix',
+    'matrix_search_list' => 'Search results',
+    'matrix_search_map' => 'Show on map',
     'matrix_day_month' => 'Day / Month matrix',
     'matrix_year_month' => 'Year / Month matrix',
     'matrix_year_month_header' => 'Year / Month',

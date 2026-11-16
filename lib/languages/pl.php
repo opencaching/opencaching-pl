@@ -3361,6 +3361,8 @@ $translations = [
     'matrix_difficulty_terrain' => 'Trudność / Teren',
     'matrix_rows_difficulty_columns_terrain' => 'Wiersze = poziom trudności, kolumny = poziom terenu.',
     'matrix_difficulty_terrain_title' => 'Matrix Trudność / Teren',
+    'matrix_search_list' => 'Search results',
+    'matrix_search_map' => 'Show on map',
     'matrix_day_month' => 'Matrix dzień / miesiąc',
     'matrix_year_month' => 'Matrix Rok / Miesiąc',
     'matrix_year_month_header' => 'Rok / Miesiąc',
