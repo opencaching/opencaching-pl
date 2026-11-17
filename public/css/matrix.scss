@@ -31,6 +31,7 @@
 .matrix-table {
   border-collapse: collapse;
   width: 100%;
+  overflow: hidden;
 
   th,
   td {
@@ -43,6 +44,47 @@
   tbody th {
     background-color: #f2f2f2;
     font-weight: 600;
+  }
+
+  .matrix-cell-search {
+    cursor: help;
+    display: inline-block;
+    position: relative;
+  }
+
+  .matrix-cell-search-tooltip {
+    background-color: #ffffff;
+    border: 1px solid #5890a8;
+    border-radius: 3px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+    display: none;
+    left: 100%;
+    padding: 5px 5px;
+    position: absolute;
+    transform: translateY(-50%);
+    top: 50%;
+    white-space: nowrap;
+    z-index: 20;
+
+    a {
+      display: inline-block;
+      margin: 0 2px;
+
+      img {
+        height: 20px;
+        width: 20px;
+      }
+    }
+  }
+
+  tbody td:last-child .matrix-cell-search-tooltip {
+    left: auto;
+    right: 100%;
+  }
+
+  .matrix-cell-search:hover .matrix-cell-search-tooltip,
+  .matrix-cell-search:focus-within .matrix-cell-search-tooltip {
+    display: block;
   }
 
   tbody tr:nth-child(even) {

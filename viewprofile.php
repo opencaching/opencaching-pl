@@ -80,7 +80,7 @@ $tplname = 'viewprofile';
 
 $view = tpl_getView();
 $view->setVar('userid', $user_id);
-$view->setVar('showMatrixLink', $loggedUser->hasOcTeamRole() || $loggedUser->hasAdvUserRole());
+
 $view->loadJQuery();
 
 $content = '';

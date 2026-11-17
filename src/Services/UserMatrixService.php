@@ -11,6 +11,13 @@ use src\Models\User\MatrixRepository;
  */
 class UserMatrixService
 {
+    private const MATRIX_SEARCH_BASE_QUERY = 'searchto=searchbyname&showresult=1&expert=0&output=HTML&sort=bydistance'
+        . '&f_inactive=1&f_ignored=1&f_userfound=1&f_userowner=1&f_watched=0&f_geokret=0'
+        . '&country=&region=&cachetype=1111111111&cache_attribs=&cache_attribs_not='
+        . '&cachesize_1=1&cachesize_2=1&cachesize_3=1&cachesize_4=1'
+        . '&cachesize_5=1&cachesize_6=1&cachesize_7=1&cachesize_8=1'
+        . '&cachevote_1=-3&cachevote_2=3.000&cachenovote=1';
+
     /**
      * Difficulty and terrain levels as stored in the database.
      * Each value represents half a star, from 1.0 to 5.0.
@@ -37,9 +44,17 @@ class UserMatrixService
      *
      * @return array{
      *     columnLabels: array<int, string>,
-     *     rows: array<int, array{label: string, counts: array<int, int>, total: int}>,
+     *     rows: array<int, array{
+     *         label: string,
+     *         counts: array<int, int>,
+     *         searchLinks: array<int, array{list: string, map: string}>,
+     *         total: int,
+     *         totalSearchLinks: array{list: string, map: string}
+     *     }>,
      *     columnTotals: array<int, int>,
+     *     columnTotalSearchLinks: array<int, array{list: string, map: string}>,
      *     grandTotal: int,
+     *     grandTotalSearchLinks: array{list: string, map: string},
      *     minimum: int,
      *     filledCells: int,
      *     totalCells: int,
@@ -73,16 +88,30 @@ class UserMatrixService
 
         foreach ($counts as $difficulty => $terrainCounts) {
             $rowTotal = 0;
+            $searchLinks = [];
 
             foreach (self::LEVELS as $terrain) {
                 $rowTotal += $terrainCounts[$terrain];
                 $columnTotals[$terrain] += $terrainCounts[$terrain];
+                $searchLinks[] = self::buildSearchLinks(
+                    self::levelLabel($difficulty),
+                    self::levelLabel($difficulty),
+                    self::levelLabel($terrain),
+                    self::levelLabel($terrain)
+                );
             }
 
             $rows[] = [
                 'label' => self::levelLabel($difficulty),
                 'counts' => array_values($terrainCounts),
+                'searchLinks' => $searchLinks,
                 'total' => $rowTotal,
+                'totalSearchLinks' => self::buildSearchLinks(
+                    self::levelLabel($difficulty),
+                    self::levelLabel($difficulty),
+                    '1.0',
+                    '5.0'
+                ),
             ];
         }
 
@@ -100,6 +129,16 @@ class UserMatrixService
         }
 
         $totalCells = count(self::LEVELS) * count(self::LEVELS);
+        $columnTotalSearchLinks = [];
+
+        foreach (self::LEVELS as $terrain) {
+            $columnTotalSearchLinks[] = self::buildSearchLinks(
+                '1.0',
+                '5.0',
+                self::levelLabel($terrain),
+                self::levelLabel($terrain)
+            );
+        }
 
         return [
             'columnLabels' => array_map(
@@ -108,13 +147,34 @@ class UserMatrixService
             ),
             'rows' => $rows,
             'columnTotals' => array_values($columnTotals),
+            'columnTotalSearchLinks' => $columnTotalSearchLinks,
             'grandTotal' => array_sum($columnTotals),
+            'grandTotalSearchLinks' => self::buildSearchLinks('1.0', '5.0', '1.0', '5.0'),
             'minimum' => $allCounts === [] ? 0 : min($allCounts),
             'filledCells' => $filledCells,
             'totalCells' => $totalCells,
             'fillLevel' => $totalCells > 0
                 ? (int) round($filledCells / $totalCells * 100)
                 : 0,
+        ];
+    }
+
+    /**
+     * Build search results and map links for a difficulty/terrain.
+     *
+     * @return array{list: string, map: string}
+     */
+    private static function buildSearchLinks( string $difficultyMin, string $difficultyMax, string $terrainMin, string $terrainMax): array {
+        $url = '/search.php?' . self::MATRIX_SEARCH_BASE_QUERY
+            . '&cachedifficulty_1=' . rawurlencode($difficultyMin)
+            . '&cachedifficulty_2=' . rawurlencode($difficultyMax)
+            . '&cacheterrain_1=' . rawurlencode($terrainMin)
+            . '&cacheterrain_2=' . rawurlencode($terrainMax)
+            . '&cacherating=0&cachename=%25&gpxLogLimit=5&cachename=';
+
+        return [
+            'list' => $url,
+            'map' => $url . '&showonmap=on',
         ];
     }
 

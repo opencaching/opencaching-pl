@@ -2,6 +2,7 @@
 
 use src\Utils\Database\XDb;
 use src\Utils\View\View;
+use src\Models\OcConfig\OcConfig;
 use src\Models\ApplicationContainer;
 
 require_once (__DIR__.'/lib/common.inc.php');
@@ -22,7 +23,7 @@ if (isset($_REQUEST['userid'])) {
 $view->setTemplate('ustat');
 $view->setVar('userId', $user_id);
 $view->setVar('displayFindStats', true);
-$view->setVar('showMatrixLink', ApplicationContainer::GetAuthorizedUser() && (ApplicationContainer::GetAuthorizedUser()->hasOcTeamRole() || ApplicationContainer::GetAuthorizedUser()->hasAdvUserRole()));
+
 
 
 
@@ -80,6 +81,11 @@ if ($user_record['hidden_count'] == 0) {
     $content .= '<p><img src="graphs/BarGraphustat.php?userid=' . $user_id . '&amp;t=ccy" border="0" alt="" width="500" height="200" /></p>';
 
 }
+
+if (OcConfig::getOcNode() === 'pl') {
+    $content .= '<p style="margin-left: 125px;"><img src="graphs/UserCacheMap.php?userid=' . intval($user_id) . '&amp;type=created&amp;rand=' . rand() . '" border="0" alt="" width="250" height="235" /></p>';
+}
+
 tpl_set_var('content', $content);
 
 
