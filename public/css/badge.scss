@@ -1,0 +1,388 @@
+/*
+        Badge               -    JG (triPPer)
+                                 tripper1971@wp.pl
+        2016.09
+*/
+
+.Badge-div-table {
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    border: solid 1px grey;
+    -webkit-box-shadow: 4px 4px 6px rgba(50, 50, 50, 0.65);
+    -moz-box-shadow: 4px 4px 6px rgba(50, 50, 50, 0.65);
+    box-shadow: 4px 4px 6px rgba(50, 50, 50, 0.65);
+    background: #EFEFEF;
+    padding: 10px 10px 10px 10px;
+    text-align: center;
+}
+
+/* v2 copy of Badge-div-table, with 10px inner padding. */
+.badge-v2-table {
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    border: solid 1px grey;
+    -webkit-box-shadow: 4px 4px 6px rgba(50, 50, 50, 0.65);
+    -moz-box-shadow: 4px 4px 6px rgba(50, 50, 50, 0.65);
+    box-shadow: 4px 4px 6px rgba(50, 50, 50, 0.65);
+    background: #EFEFEF;
+    padding: 10px;
+    text-align: center;
+}
+
+.Badge-div-table.Info {
+    width: 100%;
+    font-size: 13px;
+    text-align: left;
+    box-sizing: border-box;
+}
+
+.Badge-div-table-InfoInside {
+    font-size: 13px;
+    text-align: left;
+    width: 100%;
+    display: inline-table;
+    background: #fafafa;
+    border: solid 1px grey;
+    padding: 10px 10px 10px 10px;
+}
+
+.Badge-div-table.Tables {
+    vertical-align: bottom;
+}
+
+.Badge-div-oneTable {
+    border: solid grey 1px;
+    max-width: 100%;
+}
+
+.Badge-div-spaceBetweenTables {
+    width: 20px;
+}
+
+.Badge-div-element {
+    width: 148px;
+    padding-bottom: 20px;
+}
+
+.Badge-category {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: left;
+}
+
+.Badge-name-desc{
+    min-height: 50px;
+}
+
+.Badge-name-user {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.Badge-level-user {
+    font-size: 12px;
+    font-weight: normal;
+    font-style: italic;
+}
+
+.Badge-value-user {
+    font-size: 11px;
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+.Badge-short_desc-user {
+    font-size: 9px;
+    font-style: normal;
+}
+
+.Badge-pie-progress {
+    width: 140px;
+    margin-right: 20px;
+}
+
+.Badge-name {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.badge-v2-name {
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+}
+
+.badge-v2-desc {
+    font-size: 9px;
+    font-style: normal;
+    text-align: center;
+    width: 100%;
+}
+
+.Badge-short_desc {
+    font-size: 15px;
+    font-style: italic;
+}
+
+.Badge-other {
+    font-size: 13px;
+    font-weight: normal;
+}
+
+.Badge-div-element-small {
+    float: left;
+    width: 75px;
+    height: 75px;
+}
+
+.Badge-pie-progress-small {
+    width: 60px;
+    float: left;
+}
+
+.Badge-pic-small {
+    height: 50px;
+    width: 50px;
+}
+
+.Badge-category-small {
+    font-size: 12px;
+    font-weight: bold;
+    font-style: normal;
+}
+
+.Badge-table-view {
+    line-height: 30px;
+}
+
+.Badges-table {
+    width: 770px;
+    max-width: 100%;
+}
+
+/* v2 badge detail layout. */
+.badge-v2-top {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.badge-v2-ring {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    flex-shrink: 0;
+}
+
+.badge-v2-ring .badge-v2-ring-image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 120px;
+    max-height: 120px;
+}
+
+.badge-v2-title {
+    font-size: 24px;
+    font-weight: bold;
+    flex: 1;
+    text-align: center;
+}
+
+.badge-v2-frame {
+    border: 1px solid #c0c0c0;
+    border-radius: 5px;
+    background: #EFEFEF;
+    padding: 10px;
+    margin-bottom: 10px;
+    -webkit-box-shadow: 4px 4px 6px rgba(50, 50, 50, 0.65);
+    -moz-box-shadow: 4px 4px 6px rgba(50, 50, 50, 0.65);
+    box-shadow: 4px 4px 6px rgba(50, 50, 50, 0.65);
+}
+
+.badge-v2-frame-light {
+    background: #fafafa;
+    border: 1px solid #d0d0d0;
+    border-radius: 4px;
+    padding: 10px;
+    margin-top: 8px;
+}
+
+.badge-v2-frame-full {
+    width: 100%;
+}
+
+#badgeGpxOptions {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+}
+
+#badgeGpxOptions.is-open {
+    max-height: 500px;
+}
+
+/* v2 badge element: ring with centered image. */
+.badge-v2-item {
+    display: inline-block;
+    vertical-align: top;
+    margin: 10px;
+    text-align: center;
+    width: 150px;
+}
+
+.badge-v2-item .badge-v2-ring-wrap {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    margin: 0 auto 8px;
+}
+
+.badge-v2-item .badge-v2-ring-image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 120px;
+    max-height: 120px;
+}
+
+/* Utility: left-aligned text. */
+.text-left {
+    text-align: left;
+}
+
+/* Roman numeral level counter for badge levels table only. */
+.badge-v2-table--counter {
+    counter-reset: badge-level;
+}
+
+.badge-v2-table--counter tbody tr {
+    counter-increment: badge-level;
+}
+
+.badge-v2-table--counter tbody tr td:nth-child(2)::before {
+    content: counter(badge-level, upper-roman);
+    font-weight: bold;
+}
+
+.badge-v2-levels-gainers {
+    display: flex;
+    gap: 10px;
+}
+
+.badge-v2-levels,
+.badge-v2-gainers {
+    width: 50%;
+    box-sizing: border-box;
+}
+
+/* Utility: centered text. */
+.text-center {
+    text-align: center;
+}
+
+.badge-v2-category-header h3 {
+    font-size: 20px;
+}
+
+/* v2 badge layout: 5 badges per row, no margins. */
+.badge-v2-list.flex {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.badge-v2-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 20%;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* Level colours: a user's level in a merit badge is drawn with one of these
+   classes (.badge-level-1 ... .badge-level-10) instead of an inline colour. */
+$badge-level-colors: (
+  1: #89af2b,
+  2: #af992b,
+  3: #af5e2b,
+  4: #af2b2b,
+  5: #af2b7e,
+  6: #962baf,
+  7: #2b5caf,
+  8: #8E6343,
+  9: #A5A5A5,
+  10: #FFCC00
+);
+
+@each $level, $color in $badge-level-colors {
+  .badge-level-#{$level} {
+    --ring-color: #{$color};
+    color: $color;
+    font-weight: bold;
+
+    .pie_progress__svg path {
+      stroke: $color;
+    }
+
+    b {
+      color: $color;
+    }
+  }
+}
+
+/* TODO: CSS progress ring (replaces the jQuery asPieProgress plugin).
+   Final progress is shown via conic-gradient; the ring grows in over 3 seconds.
+   Disabled for now: the grow animation (scale 0 -> 1) is not desired. Keep the
+   palette above. Re-enable when the ring is reworked (no grow, steady state). */
+/*
+.Badge-pie-progress,
+.Badge-pie-progress-small {
+  position: relative;
+  width: var(--ring-size, 140px);
+  height: var(--ring-size, 140px);
+  border-radius: 50%;
+  display: inline-block;
+  vertical-align: middle;
+  background: conic-gradient(var(--ring-color, #ef1e25) calc(var(--progress, 0) * 1%), #d9d9d9 0);
+  animation: badge-ring-grow 3s ease-out;
+}
+
+.Badge-pie-progress::before,
+.Badge-pie-progress-small::before {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.Badge-pie-progress .pie_progress__content,
+.Badge-pie-progress-small .pie_progress__content {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  transform: translateY(-50%);
+  z-index: 1;
+  text-align: center;
+}
+
+@keyframes badge-ring-grow {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+*/

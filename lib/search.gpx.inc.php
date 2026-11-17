@@ -291,8 +291,8 @@ if ($loggedUser || ! OcConfig::coordsHiddenForNonLogged()) {
             $sFilebasename = 'watched_caches';
         } elseif ($options['searchtype'] == 'bylist') {
             $sFilebasename = 'cache_list';
-        } elseif ($options['searchtype'] == 'bypt') {
-            $sFilebasename = $options['gpxPtFileName'];
+        } elseif ($options['searchtype'] == 'bypt' || $options['searchtype'] == 'bybadge') {
+            $sFilebasename = $options['gpxCustomFileName'] ?? 'search';
         } else {
             $rsName = XDb::xSql('SELECT `queries`.`name` `name` FROM `queries` WHERE `queries`.`id`= ? LIMIT 1', $options['queryid']);
             $rName = XDb::xFetchArray($rsName);
@@ -354,7 +354,7 @@ if ($loggedUser || ! OcConfig::coordsHiddenForNonLogged()) {
     WHERE `gpxcontent`.`cache_id`=`caches`.`cache_id`
         AND `caches`.`cache_id`=`cache_desc`.`cache_id`
         AND `caches`.`default_desclang`=`cache_desc`.`language`
-        AND `gpxcontent`.`user_id`=`user`.`user_id`'
+        AND `caches`.`user_id`=`user`.`user_id`'
     );
 
     $user_id = $loggedUser ? $loggedUser->getUserId() : null;

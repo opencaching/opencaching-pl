@@ -124,7 +124,7 @@ if ($countGPX == 1) {
             $sFilebasename = 'cache_list';
             break;
         case 'bypt':
-            $sFilebasename = $options['gpxPtFileName'];
+            $sFilebasename = $options['gpxCustomFileName'] ?? 'search';
             break;
         default:
             $queryName = $dbcSearch->multiVariableQueryValue(

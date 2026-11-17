@@ -245,6 +245,12 @@ class SimpleRouter
         // and params...
         $params = array_slice($routeParts, 2);
 
+        // Drop trailing empty segments produced by a trailing slash in the URL.
+        while (count($params) > 0 && end($params) === '') {
+            array_pop($params);
+        }
+        $params = array_values($params);
+
         return [$ctrl, $action, $params];
     }
 

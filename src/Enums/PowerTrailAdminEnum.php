@@ -36,14 +36,14 @@ class PowerTrailAdminEnum
     public static function sortOptions(): array
     {
         return [
-            self::SORT_ID_DESC => tr('powertrail_admin_sort_id_desc'),
-            self::SORT_ID_ASC => tr('powertrail_admin_sort_id_asc'),
-            self::SORT_NAME_DESC => tr('powertrail_admin_sort_name_desc'),
-            self::SORT_NAME_ASC => tr('powertrail_admin_sort_name_asc'),
-            self::SORT_CACHE_COUNT_DESC => tr('powertrail_admin_sort_cache_count_desc'),
-            self::SORT_CACHE_COUNT_ASC => tr('powertrail_admin_sort_cache_count_asc'),
-            self::SORT_DATE_CREATED_DESC => tr('powertrail_admin_sort_date_created_desc'),
-            self::SORT_DATE_CREATED_ASC => tr('powertrail_admin_sort_date_created_asc'),
+            self::SORT_ID_DESC => tr('sort_id_desc'),
+            self::SORT_ID_ASC => tr('sort_id_asc'),
+            self::SORT_NAME_DESC => tr('sort_name_desc'),
+            self::SORT_NAME_ASC => tr('sort_name_asc'),
+            self::SORT_CACHE_COUNT_DESC => tr('sort_cache_count_desc'),
+            self::SORT_CACHE_COUNT_ASC => tr('sort_cache_count_asc'),
+            self::SORT_DATE_CREATED_DESC => tr('sort_date_desc'),
+            self::SORT_DATE_CREATED_ASC => tr('sort_date_asc'),
         ];
     }
 }
