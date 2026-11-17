@@ -403,7 +403,26 @@
     }
   };
 
+  // resources/ts/components/BadgeGpxComponent.ts
+  var BadgeGpxComponent = class {
+    constructor(root = document) {
+      this.root = root;
+    }
+    init() {
+      const btn = this.root.querySelector("[data-toggle-gpx]");
+      const panel = this.root.querySelector("#badgeGpxOptions");
+      if (!btn || !panel) {
+        return;
+      }
+      btn.addEventListener("click", (event) => {
+        event.preventDefault();
+        panel.classList.toggle("is-open");
+      });
+    }
+  };
+
   // resources/ts/index.ts
   new PowerTrailEditComponent().init();
   new RoleManagerFormComponent().init();
+  new BadgeGpxComponent().init();
 })();

@@ -40,6 +40,47 @@ class BadgesService
     }
 
     /**
+     * Read and group badge owners by owner type.
+     *
+     * Returns an array of groups, each with:
+     *  - typeId: int
+     *  - translationKey: string
+     *  - owners: array of ['id' => int, 'username' => string]
+     *
+     * Groups are ordered by type id ascending; owners within a group by position.
+     * Returns [] when the badge has no owners.
+     *
+     * @return array<int, array{typeId:int, translationKey:string, owners:array<int,array{id:int,username:string}>}>
+     */
+    public function getBadgeOwners(int $badgeId): array
+    {
+        $rows = $this->repository->findBadgeOwners($badgeId);
+
+        $groups = [];
+        $groupIndex = [];
+
+        foreach ($rows as $row) {
+            $typeId = (int) $row['id_owner_type'];
+
+            if (!isset($groupIndex[$typeId])) {
+                $groupIndex[$typeId] = count($groups);
+                $groups[] = [
+                    'typeId' => $typeId,
+                    'translationKey' => (string) ($row['translation_key'] ?? ''),
+                    'owners' => [],
+                ];
+            }
+
+            $groups[$groupIndex[$typeId]]['owners'][] = [
+                'id' => (int) $row['id_owner'],
+                'username' => (string) ($row['username'] ?? ''),
+            ];
+        }
+
+        return $groups;
+    }
+
+    /**
      * Read badge statistics: all positions, active count, gained count.
      *
      * @return array{positions: array<int,int>, activeCount: int, gained: array<int,array<string,mixed>>, gainedCount: int}
@@ -130,35 +171,34 @@ class BadgesService
         return $this->repository->findLevels($badgeId);
     }
 
+    /**
+     * Read recommended caches for a badge.
+     *
+     * @return array<int, array<string, mixed>>
+     */
     public function findRecommendedCaches(int $badgeId): array
     {
         return $this->repository->findRecommendedCaches($badgeId);
     }
 
+    /**
+     * Read caches of the week for a badge.
+     *
+     * @return array<int, array<string, mixed>>
+     */
     public function findTitledCaches(int $badgeId): array
     {
         return $this->repository->findTitledCaches($badgeId);
     }
 
-    public static function toRoman(int $number): string
-    {
-        $map = [
-            'M' => 1000, 'CM' => 900, 'D' => 500, 'CD' => 400,
-            'C' => 100, 'XC' => 90, 'L' => 50, 'XL' => 40,
-            'X' => 10, 'IX' => 9, 'V' => 5, 'IV' => 4, 'I' => 1,
-        ];
-
-        $result = '';
-        foreach ($map as $roman => $value) {
-            while ($number >= $value) {
-                $result .= $roman;
-                $number -= $value;
-            }
-        }
-
-        return $result;
-    }
-
+    /**
+     * Read all images for a badge.
+     *
+     * Order: badge picture first, then level pictures (ascending level).
+     * Duplicates are removed.
+     *
+     * @return array<int, string>
+     */
     public function findBadgeImages(int $badgeId): array
     {
         $images = [];

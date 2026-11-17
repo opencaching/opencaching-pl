@@ -7,6 +7,7 @@ namespace src\Controllers\Badges;
 use src\Controllers\Core\ViewBaseController;
 use src\Services\Badges\BadgesService;
 use src\Utils\Uri\SimpleRouter;
+use src\Utils\Uri\Uri;
 
 /**
  * Badges (without a user context): list and description.
@@ -37,14 +38,20 @@ class BadgesController extends ViewBaseController
         $badge = $this->badgeService->findBadgeById((int) $badgeId);
 
         if ($badge === null) {
-            $this->displayCommonErrorPageAndExit('Badge not found', 404);
+            SimpleRouter::redirect(SimpleRouter::getLink('Badges.Badges'));
+            return;
+        }
+
+        $user = $this->loggedUser;
+        $isOcteam = $user !== null && $user->hasOcTeamRole();
+
+        if (empty($badge['active']) && ! $isOcteam) {
+            SimpleRouter::redirect(SimpleRouter::getLink('Badges.Badges'));
             return;
         }
 
         // Restricted badge: visible only to its owners and OC Team members.
         if (! empty($badge['display_restricted'])) {
-            $user = $this->loggedUser;
-            $isOcteam = $user !== null && $user->hasOcTeamRole();
             $isOwner = $user !== null && $this->badgeService->isOwner((int) $badge['id'], $user->getUserId());
 
             if (! $isOcteam && ! $isOwner) {
@@ -53,7 +60,7 @@ class BadgesController extends ViewBaseController
             }
         }
 
-        $userId = $this->loggedUser !== null ? $this->loggedUser->getUserId() : 0;
+        $userId = $user !== null ? $user->getUserId() : 0;
         $stats = $this->badgeService->getBadgeStats((int) $badge['id'], $userId);
 
         $requestedLang = isset($_GET['desclang']) ? (string) $_GET['desclang'] : null;
@@ -68,6 +75,12 @@ class BadgesController extends ViewBaseController
         $this->view->setVar('recommendedCaches', $this->badgeService->findRecommendedCaches((int) $badgeId));
         $this->view->setVar('titledCaches', $this->badgeService->findTitledCaches((int) $badgeId));
         $this->view->setVar('badgeDescription', $badgeDescription);
+        $this->view->setVar('badgeOwners', $this->badgeService->getBadgeOwners((int) $badgeId));
+        $this->view->addLocalJs(
+            Uri::getLinkWithModificationTime('/js/public.js'),
+            false,
+            true
+        );
         $this->view->setTemplate('badges/show');
         $this->view->buildView();
     }

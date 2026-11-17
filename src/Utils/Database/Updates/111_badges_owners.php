@@ -67,6 +67,13 @@ class C111BadgesOwners extends UpdateScript
         // NOTE: `badges`.`description` is DEPRECATED and will be removed in a future
         // update. Descriptions are now stored in `badges_description` (per language).
 
+        // DEPRECATED: `badges`.`graphic_author` will be removed in a future update.
+        // Graphic author is now stored in `badges_owners` (id_owner_type = 3).
+        // DEPRECATED: `badges`.`description_author` will be removed in a future update.
+        // Description author is now stored in `badges_owners` (id_owner_type = 2).
+        // DEPRECATED: `badges`.`attendant` will be removed in a future update.
+        // Attendant is now stored in `badges_owners` (id_owner_type = 1).
+
         // Type of the short description (FK to badges_short_description_types.id).
         $this->db->addColumnIfNotExists('badges', 'short_description_type', 'INT(11) NOT NULL DEFAULT 0', 'Type of the short description');
 
@@ -76,6 +83,23 @@ class C111BadgesOwners extends UpdateScript
         $this->db->addColumnIfNotExists('badges', 'recommended_query', 'TEXT NOT NULL', 'SQL returning recommended caches (cache_id, cache_name)');
         // SQL returning caches of the week for this badge. Must return `cache_id` and `cache_name` (from caches).
         $this->db->addColumnIfNotExists('badges', 'titled_query', 'TEXT NOT NULL', 'SQL returning caches of the week (cache_id, cache_name)');
+
+        // DEPRECATED: `cfg_period_threshold` will be removed in a future update.
+        // Replaced by the boolean flag below (level_presentation_mode).
+
+        // 0 = PERIOD (levels presented by period, e.g. years), 1 = THRESHOLD (levels presented by threshold).
+        $this->db->addColumnIfNotExists('badges', 'level_presentation_mode', 'TINYINT(1) NOT NULL DEFAULT 0', 'How levels are presented: 0 = period, 1 = threshold');
+
+        // Whether the badge owner is allowed to edit the badge.
+        $this->db->addColumnIfNotExists('badges', 'owner_can_edit', 'TINYINT(1) NOT NULL DEFAULT 0', 'Whether the badge owner is allowed to edit the badge');
+
+        // DEPRECATED: `cfg_show_positions` will be removed in a future update.
+        // Replaced by the two boolean flags below (show_positions_list / show_positions_map).
+
+        // Show the "positions list" button for this badge.
+        $this->db->addColumnIfNotExists('badges', 'show_positions_list', 'TINYINT(1) NOT NULL DEFAULT 0', 'Whether to show the positions list button');
+        // Show the "positions map" button for this badge.
+        $this->db->addColumnIfNotExists('badges', 'show_positions_map', 'TINYINT(1) NOT NULL DEFAULT 0', 'Whether to show the positions map button');
 
         // Short description types. translation_key is only a key from lib/languages/en.php.
         $this->db->createTableIfNotExists(
@@ -126,10 +150,16 @@ class C111BadgesOwners extends UpdateScript
         $this->db->simpleQuery('DROP TABLE IF EXISTS `badges_short_description_types`');
 
         $this->db->dropColumnIfExists('badges', 'titled_query');
+        $this->db->dropColumnIfExists('badges', 'show_positions_map');
+        $this->db->dropColumnIfExists('badges', 'show_positions_list');
+        $this->db->dropColumnIfExists('badges', 'level_presentation_mode');
+        $this->db->dropColumnIfExists('badges', 'owner_can_edit');
         $this->db->dropColumnIfExists('badges', 'recommended_query');
         $this->db->dropColumnIfExists('badges', 'count_query');
         $this->db->dropColumnIfExists('badges', 'short_description_type');
-        $this->db->dropColumnIfExists('badge_categories', 'sort_desc');
+
+        $this->db->dropColumnIfExists('badge_categories', 'active');
+        $this->db->addColumnIfNotExists('badge_categories', 'active', 'TINYINT(1) NOT NULL DEFAULT 0', 'Whether the badge category is active');
         $this->db->dropColumnIfExists('badges', 'display_restricted');
         $this->db->dropColumnIfExists('badges', 'long_name');
         $this->db->dropColumnIfExists('badges', 'visible_in_map');

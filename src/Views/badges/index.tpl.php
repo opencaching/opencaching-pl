@@ -1,7 +1,9 @@
 <?php /** @var \src\Utils\View\View $view */ ?>
 
+<?php use src\Utils\Uri\SimpleRouter; ?>
+
 <div class="content2-pagetitle">
-    <img src="/images/blue/merit_badge.png" class="icon32" alt="" title="" align="middle" />&nbsp;
+    <img src="/images/blue/merit_badge.png" class="icon32 align-middle" alt="" title="" />&nbsp;
     <?= tr('merit_badges'); ?>
 </div>
 <div class="content2-container">
@@ -18,11 +20,13 @@
                             <circle class="ring_v2__progress" style="--percent: 100" cx="70" cy="70" r="67.5" />
                         </svg>
                         <?php if (!empty($badge['picture'])) { ?>
-                            <img class="badge-v2-ring-image" src="<?= htmlspecialchars($badge['picture'], ENT_QUOTES, 'UTF-8'); ?>" alt="" />
+                            <a href="<?= htmlspecialchars(SimpleRouter::getLink('Badges.Badges', 'show', (int) ($badge['id'] ?? 0)), ENT_QUOTES, 'UTF-8'); ?>">
+                                <img class="badge-v2-ring-image" src="<?= htmlspecialchars($badge['picture'], ENT_QUOTES, 'UTF-8'); ?>" alt="" />
+                            </a>
                         <?php } ?>
                     </div>
                     <div class="badge-v2-name">
-                    <a href="<?= htmlspecialchars(\src\Utils\Uri\SimpleRouter::getLink('Badges.Badges', 'show', (int) ($badge['id'] ?? 0)), ENT_QUOTES, 'UTF-8'); ?>">
+                    <a href="<?= htmlspecialchars(SimpleRouter::getLink('Badges.Badges', 'show', (int) ($badge['id'] ?? 0)), ENT_QUOTES, 'UTF-8'); ?>">
                         <?= htmlspecialchars($badge['name'] ?? '', ENT_QUOTES, 'UTF-8'); ?>
                     </a>
                 </div>

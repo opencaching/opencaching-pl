@@ -29,6 +29,7 @@ class BadgesRepository
         $statement = $this->db->simpleQuery(
             'SELECT `id`, `name`
              FROM `badge_categories`
+             WHERE `active` = 1
              ORDER BY `sequence` ASC'
         );
 
@@ -78,6 +79,7 @@ class BadgesRepository
     /**
      * Read the main picture of a badge.
      *
+     * @param int $badgeId
      * @return string|null
      */
     public function findBadgePicture(int $badgeId): ?string
@@ -132,7 +134,8 @@ class BadgesRepository
                     `active`, `visible_in_map`, `display_restricted`,
                     `graphic_author`, `description_author`, `attendant`,
                     `belonging_query`, `gained_query`,
-                    `count_query`, `recommended_query`, `titled_query`
+                    `count_query`, `recommended_query`, `titled_query`,
+                    `show_positions_list`, `show_positions_map`, `level_presentation_mode`
              FROM `badges`
              WHERE `id` = :1
              LIMIT 1',
@@ -180,6 +183,33 @@ class BadgesRepository
     }
 
     /**
+     * Read badge owners (raw rows joined with user and owner type).
+     *
+     * Returns one row per (badge, owner, type) assignment, ordered by
+     * owner type and position. Repository only reads data.
+     *
+     * @return array<int, array<string, mixed>>
+     */
+    public function findBadgeOwners(int $badgeId): array
+    {
+        $statement = $this->db->multiVariableQuery(
+            'SELECT `bo`.`id_owner` AS `id_owner`,
+                    `bo`.`id_owner_type` AS `id_owner_type`,
+                    `bo`.`position` AS `position`,
+                    `u`.`username` AS `username`,
+                    `bot`.`translation_key` AS `translation_key`
+             FROM `badges_owners` AS `bo`
+             LEFT JOIN `user` AS `u` ON `u`.`user_id` = `bo`.`id_owner`
+             LEFT JOIN `badges_owners_types` AS `bot` ON `bot`.`id` = `bo`.`id_owner_type`
+             WHERE `bo`.`id_badge` = :1
+             ORDER BY `bo`.`id_owner_type` ASC, `bo`.`position` ASC',
+            $badgeId
+        );
+
+        return $this->db->dbResultFetchAll($statement);
+    }
+
+    /**
      * Read all cache positions that belong to a badge.
      *
      * `belonging_query` always returns cache ids (as `badge_position_id`).
@@ -218,6 +248,7 @@ class BadgesRepository
     /**
      * Count active caches among the badge's positions.
      *
+     * @param int $badgeId
      * @return int
      */
     public function countActiveBadgePositions(int $badgeId): int

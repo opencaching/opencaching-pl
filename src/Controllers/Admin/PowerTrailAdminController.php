@@ -375,14 +375,4 @@ class PowerTrailAdminController extends ViewBaseController
         exit;
     }
 
-    private function getIntegerQueryParameter(string $name, int $default): int
-    {
-        if (! isset($_GET[$name]) || ! is_scalar($_GET[$name])) {
-            return $default;
-        }
-
-        $value = filter_var((string) $_GET[$name], FILTER_VALIDATE_INT);
-
-        return $value === false ? $default : max(0, $value);
-    }
 }

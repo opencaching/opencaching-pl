@@ -116,7 +116,7 @@ if ($loggedUser || !OcConfig::coordsHiddenForNonLogged()) {
         } elseif ($options['searchtype'] == 'bylist') {
             $sFilebasename = 'cache_list';
         } elseif ($options['searchtype'] == 'bypt') {
-            $sFilebasename = $options['gpxPtFileName'];
+            $sFilebasename = $options['gpxCustomFileName'] ?? 'search';
         } else {
             $rsName = XDb::xSql(
                 'SELECT `queries`.`name` `name` FROM `queries` WHERE `queries`.`id`= ? LIMIT 1',
