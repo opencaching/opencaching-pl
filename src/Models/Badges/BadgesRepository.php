@@ -20,14 +20,109 @@ class BadgesRepository
     }
 
     /**
-     * Read all badge categories in their configured order.
+     * Read a single badge category by its id.
+     *
+     * @return array<string, mixed>|null
+     */
+    public function findCategoryById(int $id): ?array
+    {
+        $statement = $this->db->multiVariableQuery(
+            'SELECT `id`, `name`, `sequence`, `active`, `sort_desc`
+             FROM `badge_categories`
+             WHERE `id` = :1
+             LIMIT 1',
+            $id
+        );
+        $row = $this->db->dbResultFetchOneRowOnly($statement);
+        return is_array($row) ? $row : null;
+    }
+
+    /**
+     * Insert or update a badge category.
+     *
+     * @return int The category id.
+     */
+    public function saveCategory(int $id, string $name, int $sequence, int $active, int $sortDesc): int
+    {
+        if ($id <= 0) {
+            return 0;
+        }
+
+        $this->db->multiVariableQuery(
+            'UPDATE `badge_categories`
+             SET `name` = :1, `sequence` = :2, `active` = :3, `sort_desc` = :4
+             WHERE `id` = :5',
+            $name,
+            $sequence,
+            $active,
+            $sortDesc,
+            $id
+        );
+
+        return $id;
+    }
+
+    /**
+     * Read badge categories for the admin panel (with search, sort and pagination).
      *
      * @return array<int, array<string, mixed>>
      */
+    public function findAllCategoriesAdmin(?string $name, ?int $id, string $sortSqlOrder, int $page, int $perPage): array
+    {
+        $conditions = [];
+        $params = [];
+        $paramIndex = 1;
+        if ($id !== null && $id > 0) {
+            $conditions[] = '`id` = :' . $paramIndex;
+            $params[] = $id;
+            $paramIndex++;
+        }
+        if ($name !== null && $name !== '') {
+            $conditions[] = '`name` LIKE :' . $paramIndex;
+            $params[] = '%' . $name . '%';
+            $paramIndex++;
+        }
+        $where = $conditions ? 'WHERE ' . implode(' AND ', $conditions) : '';
+        $orderBy = $sortSqlOrder;
+        $offset = ($page - 1) * $perPage;
+        $query = 'SELECT `id`, `name`, `sequence`, `active`, `sort_desc`
+                  FROM `badge_categories`
+                  ' . $where . '
+                  ORDER BY ' . $orderBy . '
+                  LIMIT ' . $offset . ', ' . $perPage;
+        $statement = $this->db->multiVariableQuery($query, ...$params);
+        return $this->db->dbResultFetchAll($statement);
+    }
+
+    /**
+     * Count badge categories matching the search filter.
+     */
+    public function countCategoriesAdmin(?string $name, ?int $id): int
+    {
+        $conditions = [];
+        $params = [];
+        $paramIndex = 1;
+        if ($id !== null && $id > 0) {
+            $conditions[] = '`id` = :' . $paramIndex;
+            $params[] = $id;
+            $paramIndex++;
+        }
+        if ($name !== null && $name !== '') {
+            $conditions[] = '`name` LIKE :' . $paramIndex;
+            $params[] = '%' . $name . '%';
+            $paramIndex++;
+        }
+        $where = $conditions ? 'WHERE ' . implode(' AND ', $conditions) : '';
+        $query = 'SELECT COUNT(*) AS `cnt` FROM `badge_categories` ' . $where;
+        $statement = $this->db->multiVariableQuery($query, ...$params);
+        $row = $this->db->dbResultFetchOneRowOnly($statement);
+        return is_array($row) ? (int) ($row['cnt'] ?? 0) : 0;
+    }
+
     public function findAllCategories(): array
     {
         $statement = $this->db->simpleQuery(
-            'SELECT `id`, `name`
+            'SELECT `id`, `name`, `sort_desc`
              FROM `badge_categories`
              WHERE `active` = 1
              ORDER BY `sequence` ASC'
@@ -125,6 +220,47 @@ class BadgesRepository
      *
      * @return array<string, mixed>|null
      */
+    public function updateBadgePicture(int $badgeId, string $picture): void
+    {
+        $this->db->multiVariableQuery(
+            'UPDATE `badges` SET `picture` = :1 WHERE `id` = :2',
+            $picture,
+            $badgeId
+        );
+    }
+
+    /**
+     * Clear the picture of a badge and return the previous path.
+     *
+     * @return string|null Previous picture path, or null if none.
+     */
+    public function deleteBadgeImage(int $badgeId): ?string
+    {
+        $statement = $this->db->multiVariableQuery(
+            'SELECT `picture` FROM `badges` WHERE `id` = :1 LIMIT 1',
+            $badgeId
+        );
+        $row = $this->db->dbResultFetchOneRowOnly($statement);
+        $picture = is_array($row) ? (string) ($row['picture'] ?? '') : '';
+
+        $this->db->multiVariableQuery(
+            'UPDATE `badges` SET `picture` = NULL WHERE `id` = :1',
+            $badgeId
+        );
+
+        return $picture !== '' ? $picture : null;
+    }
+
+    public function updateLevelPicture(int $badgeId, int $level, string $picture): void
+    {
+        $this->db->multiVariableQuery(
+            'UPDATE `badge_levels` SET `picture` = :1 WHERE `badge_id` = :2 AND `level` = :3',
+            $picture,
+            $badgeId,
+            $level
+        );
+    }
+
     public function findBadgeById(int $badgeId): ?array
     {
         $statement = $this->db->multiVariableQuery(
@@ -135,7 +271,8 @@ class BadgesRepository
                     `graphic_author`, `description_author`, `attendant`,
                     `belonging_query`, `gained_query`,
                     `count_query`, `recommended_query`, `titled_query`,
-                    `show_positions_list`, `show_positions_map`, `level_presentation_mode`
+                    `show_positions_list`, `show_positions_map`, `level_presentation_mode`,
+                    `can_edit`
              FROM `badges`
              WHERE `id` = :1
              LIMIT 1',
@@ -400,6 +537,241 @@ class BadgesRepository
     }
 
     /**
+     * Read users who gained a given level of a badge, paginated.
+     *
+     * @return array{badgeId:int,level:int,page:int,perPage:int,total:int,users:array<int,array<string,mixed>>}
+     */
+    /**
+     * Read a user's progress row for a badge (from badge_user).
+     *
+     * @return array<string, mixed>|null
+     */
+    public function findUserBadgeProgress(int $badgeId, int $userId): ?array
+    {
+        $statement = $this->db->multiVariableQuery(
+            'SELECT `level_id`, `curr_val`, `level_date`
+             FROM `badge_user`
+             WHERE `badge_id` = :1
+               AND `user_id` = :2
+             LIMIT 1',
+            $badgeId,
+            $userId
+        );
+        $row = $this->db->dbResultFetchOneRowOnly($statement);
+        return is_array($row) ? $row : null;
+    }
+
+    /**
+     * Read progress rows for all badges of a user.
+     *
+     * @return array<int, array<string, mixed>> keyed by badge_id
+     */
+    public function findUserBadgesProgress(int $userId): array
+    {
+        $statement = $this->db->multiVariableQuery(
+            'SELECT `badge_id`, `level_id`, `curr_val`, `level_date`
+             FROM `badge_user`
+             WHERE `user_id` = :1',
+            $userId
+        );
+        $rows = $this->db->dbResultFetchAll($statement);
+
+        $result = [];
+        foreach ($rows as $row) {
+            $result[(int) ($row['badge_id'] ?? 0)] = $row;
+        }
+        return $result;
+    }
+
+    public function findBadgeLevelGainers(int $badgeId, int $level, int $page = 1, int $perPage = 20): array
+    {
+        if ($page < 1) {
+            $page = 1;
+        }
+        if ($perPage < 1) {
+            $perPage = 20;
+        }
+        $offset = ($page - 1) * $perPage;
+
+        $countStatement = $this->db->multiVariableQuery(
+            'SELECT COUNT(*) AS `cnt`
+             FROM `badge_user`
+             WHERE `badge_id` = :1
+               AND `level_id` = :2',
+            $badgeId,
+            $level
+        );
+        $countRow = $this->db->dbResultFetchOneRowOnly($countStatement);
+        $total = is_array($countRow) ? (int) ($countRow['cnt'] ?? 0) : 0;
+
+        $statement = $this->db->multiVariableQuery(
+            'SELECT `bu`.`user_id` AS `user_id`,
+                    `u`.`username` AS `username`,
+                    `bu`.`curr_val` AS `curr_val`,
+                    `bu`.`level_date` AS `level_date`
+             FROM `badge_user` AS `bu`
+             JOIN `user` AS `u` ON `u`.`user_id` = `bu`.`user_id`
+             WHERE `bu`.`badge_id` = :1
+               AND `bu`.`level_id` = :2
+             ORDER BY `bu`.`curr_val` DESC, `bu`.`level_date` DESC
+             LIMIT ' . $offset . ', ' . $perPage,
+            $badgeId,
+            $level
+        );
+        $rows = $this->db->dbResultFetchAll($statement);
+
+        $users = [];
+        foreach ($rows as $row) {
+            $users[] = [
+                'userId' => (int) ($row['user_id'] ?? 0),
+                'username' => (string) ($row['username'] ?? ''),
+                'currVal' => (int) ($row['curr_val'] ?? 0),
+                'levelDate' => !empty($row['level_date'])
+                    ? date('d-m-Y', strtotime((string) $row['level_date']))
+                    : '',
+            ];
+        }
+
+        return [
+            'badgeId' => $badgeId,
+            'level' => $level,
+            'page' => $page,
+            'perPage' => $perPage,
+            'total' => $total,
+            'users' => $users,
+        ];
+    }
+
+    /**
+     * Clear the picture of a badge level and return the previous path.
+     *
+     * @return string|null Previous picture path, or null if none.
+     */
+    public function deleteLevelImage(int $badgeId, int $level): ?string
+    {
+        $statement = $this->db->multiVariableQuery(
+            'SELECT `picture` FROM `badge_levels` WHERE `badge_id` = :1 AND `level` = :2 LIMIT 1',
+            $badgeId,
+            $level
+        );
+        $row = $this->db->dbResultFetchOneRowOnly($statement);
+        $picture = is_array($row) ? (string) ($row['picture'] ?? '') : '';
+
+        $this->db->multiVariableQuery(
+            'UPDATE `badge_levels` SET `picture` = NULL WHERE `badge_id` = :1 AND `level` = :2',
+            $badgeId,
+            $level
+        );
+
+        return $picture !== '' ? $picture : null;
+    }
+
+    /**
+     * Update the name of a badge level.
+     */
+    public function saveLevelName(int $badgeId, int $level, string $name): void
+    {
+        $this->db->multiVariableQuery(
+            'UPDATE `badge_levels` SET `name` = :1 WHERE `badge_id` = :2 AND `level` = :3',
+            $name,
+            $badgeId,
+            $level
+        );
+    }
+
+    /**
+     * Read raw levels of a badge (without gain aggregates).
+     *
+     * @return array<int, array<string, mixed>>
+     */
+    public function findLevelsRaw(int $badgeId): array
+    {
+        $statement = $this->db->multiVariableQuery(
+            'SELECT `level`, `name`, `threshold`, `picture`
+             FROM `badge_levels`
+             WHERE `badge_id` = :1
+             ORDER BY `level` ASC',
+            $badgeId
+        );
+        return $this->db->dbResultFetchAll($statement);
+    }
+
+    /**
+     * Update basic fields of a badge.
+     */
+    public function saveBadgeBasic(int $id, string $name, int $categoryId, int $sequence, int $active): void
+    {
+        if ($id > 0) {
+            $this->db->multiVariableQuery(
+                'UPDATE `badges` SET `name` = :1, `category_id` = :2, `sequence` = :3, `active` = :4 WHERE `id` = :5',
+                $name,
+                $categoryId,
+                $sequence,
+                $active,
+                $id
+            );
+        }
+    }
+
+    /**
+     * Read badges for the admin panel (with search, sort and pagination).
+     *
+     * @return array<int, array<string, mixed>>
+     */
+    public function findAllBadgesAdmin(string $search, string $sortSqlOrder, int $page, int $perPage): array
+    {
+        $where = '';
+        $params = [];
+        if ($search !== '') {
+            if (ctype_digit($search)) {
+                $where = 'WHERE `b`.`id` = :1';
+                $params[] = (int) $search;
+            } else {
+                $where = 'WHERE `b`.`name` LIKE :1';
+                $params[] = '%' . $search . '%';
+            }
+        }
+        $orderBy = $sortSqlOrder;
+        $offset = ($page - 1) * $perPage;
+        $query = 'SELECT `b`.`id` AS `id`,
+                         `b`.`name` AS `name`,
+                         `b`.`category_id` AS `category_id`,
+                         `bc`.`name` AS `category_name`,
+                         `b`.`sequence` AS `sequence`,
+                         `b`.`active` AS `active`,
+                         `b`.`can_edit` AS `can_edit`
+                  FROM `badges` AS `b`
+                  LEFT JOIN `badge_categories` AS `bc` ON `bc`.`id` = `b`.`category_id`
+                  ' . $where . '
+                  ORDER BY ' . $orderBy . '
+                  LIMIT ' . $offset . ', ' . $perPage;
+        $statement = $this->db->multiVariableQuery($query, ...$params);
+        return $this->db->dbResultFetchAll($statement);
+    }
+
+    /**
+     * Count badges matching the search filter.
+     */
+    public function countBadgesAdmin(string $search): int
+    {
+        $where = '';
+        $params = [];
+        if ($search !== '') {
+            if (ctype_digit($search)) {
+                $where = 'WHERE `id` = :1';
+                $params[] = (int) $search;
+            } else {
+                $where = 'WHERE `name` LIKE :1';
+                $params[] = '%' . $search . '%';
+            }
+        }
+        $query = 'SELECT COUNT(*) AS `cnt` FROM `badges` ' . $where;
+        $statement = $this->db->multiVariableQuery($query, ...$params);
+        $row = $this->db->dbResultFetchOneRowOnly($statement);
+        return is_array($row) ? (int) ($row['cnt'] ?? 0) : 0;
+    }
+
+    /**
      * Read active badges for a given category.
      *
      * Only badges with `active = 1` are returned. The sort direction is taken
@@ -407,8 +779,10 @@ class BadgesRepository
      *
      * @return array<int, array<string, mixed>>
      */
-    public function findBadgesByCategory(int $categoryId): array
+    public function findBadgesByCategory(int $categoryId, bool $sortDescending = false): array
     {
+        $orderBy = $sortDescending ? 'DESC' : 'ASC';
+
         $statement = $this->db->multiVariableQuery(
             'SELECT `id`, `name`, `long_name`, `category_id`, `sequence`,
                     `picture`, `trigger_type`, `short_description`,
@@ -417,7 +791,7 @@ class BadgesRepository
              FROM `badges`
              WHERE `category_id` = :1
                AND `active` = 1
-             ORDER BY `sequence` ASC',
+             ORDER BY `sequence` ' . $orderBy,
             $categoryId
         );
 

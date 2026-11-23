@@ -2,15 +2,23 @@ export class BadgeGpxComponent {
     constructor(private readonly root: ParentNode = document) {}
 
     init(): void {
-        const btn = this.root.querySelector<HTMLButtonElement>('[data-toggle-gpx]')
         const panel = this.root.querySelector<HTMLElement>('#badgeGpxOptions')
-        if (!btn || !panel) {
+        if (!panel) {
             return
         }
 
-        btn.addEventListener('click', (event) => {
+        document.addEventListener('click', (event) => {
+            const target = event.target as HTMLElement | null
+            if (!target) {
+                return
+            }
+            const btn = target.closest('[data-toggle-gpx]')
+            if (!btn) {
+                return
+            }
             event.preventDefault()
-            panel.classList.toggle('is-open')
+            console.log('test')
+            panel.classList.toggle('collapsed')
         })
     }
 }

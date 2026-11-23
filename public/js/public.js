@@ -409,14 +409,414 @@
       this.root = root;
     }
     init() {
-      const btn = this.root.querySelector("[data-toggle-gpx]");
       const panel = this.root.querySelector("#badgeGpxOptions");
-      if (!btn || !panel) {
+      if (!panel) {
         return;
       }
-      btn.addEventListener("click", (event) => {
+      document.addEventListener("click", (event) => {
+        const target = event.target;
+        if (!target) {
+          return;
+        }
+        const btn = target.closest("[data-toggle-gpx]");
+        if (!btn) {
+          return;
+        }
         event.preventDefault();
-        panel.classList.toggle("is-open");
+        console.log("test");
+        panel.classList.toggle("collapsed");
+      });
+    }
+  };
+
+  // resources/ts/components/BadgeGainersComponent.ts
+  var BadgeGainersComponent = class {
+    constructor(root = document) {
+      this.badgeId = null;
+      this.perPage = 20;
+      this.root = root;
+    }
+    init() {
+      const rootEl = this.root.querySelector("#badge-gainers-root");
+      if (!rootEl) {
+        return;
+      }
+      const badgeIdAttr = rootEl.getAttribute("data-badge-id");
+      if (!badgeIdAttr) {
+        return;
+      }
+      this.badgeId = parseInt(badgeIdAttr, 10);
+      if (Number.isNaN(this.badgeId)) {
+        return;
+      }
+      const rows = this.root.querySelectorAll(".badge-level-row");
+      rows.forEach((row) => {
+        row.addEventListener("click", () => {
+          const levelAttr = row.getAttribute("data-level");
+          if (levelAttr === null) {
+            return;
+          }
+          const level = parseInt(levelAttr, 10);
+          if (Number.isNaN(level)) {
+            return;
+          }
+          void this.loadGainers(level, 1);
+        });
+      });
+    }
+    cacheId(level, page) {
+      return "gainers-cache-" + this.badgeId + "-" + level + "-" + page;
+    }
+    escapeHtml(value) {
+      return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+    renderUsers(users) {
+      let html = "";
+      for (const u of users) {
+        html += "<tr>";
+        html += '<td><a href="/viewprofile.php?userid=' + u.userId + '">' + this.escapeHtml(u.username) + "</a></td>";
+        html += '<td class="align-right">' + u.currVal + "</td>";
+        html += "<td>" + this.escapeHtml(u.levelDate) + "</td>";
+        html += "</tr>";
+      }
+      if (users.length === 0) {
+        html = '<tr><td colspan="3">No results</td></tr>';
+      }
+      return html;
+    }
+    renderPagination(total, page, level) {
+      const pages = Math.ceil(total / this.perPage);
+      if (pages < 2) {
+        return "";
+      }
+      const listSize = 5;
+      let leftPage = page - Math.floor(listSize / 2);
+      let rightPage = page + Math.floor(listSize / 2);
+      if (listSize % 2 === 0) {
+        leftPage++;
+      }
+      if (leftPage <= 0) {
+        rightPage += 1 - leftPage;
+        leftPage = 1;
+      }
+      let html = '<ul class="pagination">';
+      if (leftPage > 1) {
+        const destPrev = page - 1 <= 0 ? 1 : page - 1;
+        html += '<li><a href="#" data-level="' + level + '" data-page="1" title="first">&lt;&lt;</a></li>';
+        html += '<li><a href="#" data-level="' + level + '" data-page="' + destPrev + '" title="prev">&lt;</a></li>';
+      }
+      for (let i = leftPage; i <= rightPage; i++) {
+        if (i > pages) {
+          break;
+        }
+        if (i === page) {
+          html += '<li><a class="active" href="#" data-level="' + level + '" data-page="' + i + '">' + i + "</a></li>";
+        } else {
+          html += '<li><a href="#" data-level="' + level + '" data-page="' + i + '">' + i + "</a></li>";
+        }
+      }
+      if (pages > rightPage) {
+        const destNext = page + 1 > pages ? pages : page + 1;
+        html += '<li><a href="#" data-level="' + level + '" data-page="' + destNext + '" title="next">&gt;</a></li>';
+        html += '<li><a href="#" data-level="' + level + '" data-page="' + pages + '" title="last">&gt;&gt;</a></li>';
+      }
+      html += "</ul>";
+      return html;
+    }
+    showCached(key) {
+      const cached = document.getElementById(key);
+      if (!cached) {
+        return false;
+      }
+      const json = cached.getAttribute("data-json");
+      if (!json) {
+        return false;
+      }
+      const data = JSON.parse(json);
+      const tbody = document.getElementById("gainers-tbody");
+      const pag = document.getElementById("gainers-pagination");
+      if (tbody) {
+        tbody.innerHTML = this.renderUsers(data.users);
+      }
+      if (pag) {
+        pag.innerHTML = this.renderPagination(data.total, data.page, data.level);
+      }
+      this.bindPagination(data.level);
+      return true;
+    }
+    storeCache(key, data) {
+      const div = document.createElement("div");
+      div.id = key;
+      div.classList.add("hidden");
+      div.setAttribute("data-json", JSON.stringify(data));
+      const store = document.getElementById("gainers-cache-store");
+      if (store) {
+        store.appendChild(div);
+      }
+    }
+    async loadGainers(level, page) {
+      const frame = document.getElementById("badge-gainers-frame");
+      if (frame) {
+        frame.classList.remove("hidden");
+      }
+      const key = this.cacheId(level, page);
+      if (this.showCached(key)) {
+        return;
+      }
+      const tbody = document.getElementById("gainers-tbody");
+      const pag = document.getElementById("gainers-pagination");
+      if (tbody) {
+        tbody.innerHTML = '<tr><td colspan="3">Loading...</td></tr>';
+      }
+      if (pag) {
+        pag.innerHTML = "";
+      }
+      if (this.badgeId === null) {
+        return;
+      }
+      try {
+        const formData = new FormData();
+        formData.append("badge_id", String(this.badgeId));
+        formData.append("level", String(level));
+        formData.append("page", String(page));
+        const resp = await fetch("/Badges.Badges/gainers", {
+          method: "POST",
+          body: formData,
+          credentials: "same-origin"
+        });
+        const data = await resp.json();
+        if (data.status !== "OK") {
+          if (tbody) {
+            tbody.innerHTML = '<tr><td colspan="3">' + this.escapeHtml(data.message || "Error") + "</td></tr>";
+          }
+          return;
+        }
+        const fullData = data;
+        this.storeCache(key, fullData);
+        if (tbody) {
+          tbody.innerHTML = this.renderUsers(fullData.users);
+        }
+        if (pag) {
+          pag.innerHTML = this.renderPagination(fullData.total, fullData.page, fullData.level);
+        }
+        this.bindPagination(fullData.level);
+      } catch (e) {
+        if (tbody) {
+          tbody.innerHTML = '<tr><td colspan="3">Error</td></tr>';
+        }
+      }
+    }
+    bindPagination(level) {
+      const links = document.querySelectorAll("#gainers-pagination a[data-page]");
+      links.forEach((link) => {
+        const anchor = link;
+        anchor.onclick = (ev) => {
+          ev.preventDefault();
+          const target = ev.currentTarget;
+          const pAttr = target.getAttribute("data-page");
+          const lAttr = target.getAttribute("data-level");
+          const p = pAttr ? parseInt(pAttr, 10) : 1;
+          const lvl = lAttr ? parseInt(lAttr, 10) : level;
+          if (Number.isNaN(p) || Number.isNaN(lvl)) {
+            return;
+          }
+          void this.loadGainers(lvl, p);
+        };
+      });
+    }
+  };
+
+  // resources/ts/components/BadgeLevelImageUploadComponent.ts
+  var BadgeLevelImageUploadComponent = class {
+    constructor(root = document) {
+      this.root = root;
+    }
+    init() {
+      const container = this.root.querySelector("[data-badge-level-upload]");
+      if (!container) {
+        return;
+      }
+      const badgeIdAttr = container.getAttribute("data-badge-id");
+      if (!badgeIdAttr) {
+        return;
+      }
+      const badgeId = parseInt(badgeIdAttr, 10);
+      if (Number.isNaN(badgeId)) {
+        return;
+      }
+      const modelJson = container.getAttribute("data-upload-model");
+      if (!modelJson) {
+        return;
+      }
+      let baseModel;
+      try {
+        baseModel = JSON.parse(modelJson);
+      } catch (e) {
+        return;
+      }
+      const previewLabel = container.getAttribute("data-ln-preview") || "Preview";
+      const deleteLabel = container.getAttribute("data-ln-delete") || "Delete";
+      const noneLabel = container.getAttribute("data-ln-none") || "";
+      const buttons = this.root.querySelectorAll(".badge-level-upload-btn");
+      buttons.forEach((btn) => {
+        btn.addEventListener("click", (event) => {
+          event.preventDefault();
+          const levelAttr = btn.getAttribute("data-level");
+          if (levelAttr === null) {
+            return;
+          }
+          const level = parseInt(levelAttr, 10);
+          if (Number.isNaN(level)) {
+            return;
+          }
+          const ocUploadFn = window.ocUpload;
+          if (typeof ocUploadFn !== "function") {
+            window.alert("Upload not available");
+            return;
+          }
+          const model = JSON.parse(JSON.stringify(baseModel));
+          model.submitUrl = "/Badges.Badges/uploadLevelImageAjax/" + badgeId + "/" + level;
+          ocUploadFn(model, (uploadResult) => {
+            if (!uploadResult || !uploadResult.success) {
+              console.log("upload fail", uploadResult && uploadResult.message);
+              return;
+            }
+            const newImage = Array.isArray(uploadResult.newFiles) ? uploadResult.newFiles[0] : uploadResult.newFiles;
+            if (!newImage) {
+              return;
+            }
+            const cell = this.root.querySelector('[data-level-image="' + level + '"]');
+            if (cell) {
+              const url = newImage.charAt(0) === "/" ? newImage : "/" + newImage;
+              cell.innerHTML = '<a href="' + url + '" target="_blank">' + this.escapeHtml(previewLabel) + "</a>";
+              const delBtn = document.createElement("button");
+              delBtn.type = "button";
+              delBtn.className = "blue-button-small mt-5";
+              delBtn.textContent = deleteLabel;
+              delBtn.addEventListener("click", () => {
+                void fetch("/Badges.Badges/deleteLevelImageAjax/" + badgeId + "/" + level, {
+                  method: "POST",
+                  credentials: "same-origin"
+                }).then((resp) => resp.json()).then((data) => {
+                  if (data.status !== "OK") {
+                    return;
+                  }
+                  if (noneLabel !== "") {
+                    cell.innerHTML = this.escapeHtml(noneLabel);
+                  } else {
+                    cell.innerHTML = "";
+                  }
+                });
+              });
+              cell.appendChild(delBtn);
+            }
+          });
+        });
+      });
+    }
+    escapeHtml(value) {
+      return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+  };
+
+  // resources/ts/components/BadgeImageUploadComponent.ts
+  var BadgeImageUploadComponent = class {
+    constructor(root = document) {
+      this.root = root;
+    }
+    init() {
+      const container = this.root.querySelector("[data-badge-image-upload]");
+      if (!container) {
+        return;
+      }
+      const badgeIdAttr = container.getAttribute("data-badge-id");
+      if (!badgeIdAttr) {
+        return;
+      }
+      const badgeId = parseInt(badgeIdAttr, 10);
+      if (Number.isNaN(badgeId)) {
+        return;
+      }
+      const modelJson = container.getAttribute("data-upload-model");
+      if (!modelJson) {
+        return;
+      }
+      let baseModel;
+      try {
+        baseModel = JSON.parse(modelJson);
+      } catch (e) {
+        return;
+      }
+      const previewLabel = container.getAttribute("data-ln-preview") || "Preview";
+      const deleteLabel = container.getAttribute("data-ln-delete") || "Delete";
+      const noneLabel = container.getAttribute("data-ln-none") || "";
+      const img = this.root.querySelector("[data-badge-image]");
+      const buttons = this.root.querySelectorAll(".badge-image-upload-btn");
+      const ensureDeleteButton = () => {
+        let delBtn = this.root.querySelector(".badge-image-delete-btn");
+        if (delBtn) {
+          return delBtn;
+        }
+        delBtn = document.createElement("button");
+        delBtn.type = "button";
+        delBtn.className = "blue-button-small badge-image-delete-btn mt-10";
+        delBtn.textContent = deleteLabel;
+        const uploadBtn = this.root.querySelector(".badge-image-upload-btn");
+        if (uploadBtn && uploadBtn.parentNode) {
+          uploadBtn.parentNode.insertBefore(delBtn, uploadBtn.nextSibling);
+        } else if (container.parentNode) {
+          container.parentNode.appendChild(delBtn);
+        }
+        return delBtn;
+      };
+      const bindDelete = (delBtn) => {
+        delBtn.onclick = () => {
+          const ocUploadFn = window.fetch;
+          void fetch("/Badges.Badges/deleteImageAjax/" + badgeId, {
+            method: "POST",
+            credentials: "same-origin"
+          }).then((resp) => resp.json()).then((data) => {
+            if (data.status !== "OK") {
+              return;
+            }
+            if (img) {
+              img.src = "";
+              img.classList.add("hidden");
+            }
+            delBtn.remove();
+          });
+        };
+      };
+      if (img && img.getAttribute("src") && img.getAttribute("src") !== "") {
+        bindDelete(ensureDeleteButton());
+      }
+      buttons.forEach((btn) => {
+        btn.addEventListener("click", (event) => {
+          event.preventDefault();
+          const ocUploadFn = window.ocUpload;
+          if (typeof ocUploadFn !== "function") {
+            window.alert("Upload not available");
+            return;
+          }
+          const model = JSON.parse(JSON.stringify(baseModel));
+          model.submitUrl = "/Badges.Badges/uploadImageAjax/" + badgeId;
+          ocUploadFn(model, (uploadResult) => {
+            if (!uploadResult || !uploadResult.success) {
+              console.log("upload fail", uploadResult && uploadResult.message);
+              return;
+            }
+            const newImage = Array.isArray(uploadResult.newFiles) ? uploadResult.newFiles[0] : uploadResult.newFiles;
+            if (!newImage) {
+              return;
+            }
+            const url = newImage.charAt(0) === "/" ? newImage : "/" + newImage;
+            if (img) {
+              img.src = url;
+              img.classList.remove("hidden");
+            }
+            bindDelete(ensureDeleteButton());
+          });
+        });
       });
     }
   };
@@ -425,4 +825,7 @@
   new PowerTrailEditComponent().init();
   new RoleManagerFormComponent().init();
   new BadgeGpxComponent().init();
+  new BadgeGainersComponent().init();
+  new BadgeLevelImageUploadComponent().init();
+  new BadgeImageUploadComponent().init();
 })();

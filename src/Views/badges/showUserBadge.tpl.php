@@ -5,29 +5,29 @@ use src\Enums\GpxExportFilterEnum;
 
 /** @var \src\Utils\View\View $view */
 
+$ringColorClass = (string) ($view->ringColorClass ?? 'badge-level-1');
+$thickness = (string) ($view->ringThickness ?? 'ring_v2--thick');
+
 ?>
 
 <div class="content2-pagetitle">
 	<img src="/images/blue/merit_badge.png" class="icon32 align-middle" alt="" title="" />&nbsp;
-	<a href="<?= htmlspecialchars(SimpleRouter::getLink('Badges.Badges'), ENT_QUOTES, 'UTF-8'); ?>"><?= tr('merit_badges'); ?></a>
+	<a href="<?= htmlspecialchars(SimpleRouter::getLink('Badges.MyBadges'), ENT_QUOTES, 'UTF-8'); ?>"><?= tr('my_badges'); ?></a>
 	/
 	<?= htmlspecialchars($view->badge['name'] ?? 'show', ENT_QUOTES, 'UTF-8'); ?>
+	<?php if (!empty($view->username)) { ?>
+		&nbsp;(<?= htmlspecialchars($view->username, ENT_QUOTES, 'UTF-8'); ?>)
+	<?php } ?>
 </div>
 
 <div class="badge-v2-top">
 	<div class="badge-v2-ring">
-		<svg class="ring_v2 ring_v2--yellow ring_v2--thick" viewBox="0 0 140 140">
+		<svg class="ring_v2 <?= htmlspecialchars($thickness, ENT_QUOTES, 'UTF-8'); ?> <?= htmlspecialchars($ringColorClass, ENT_QUOTES, 'UTF-8'); ?>" viewBox="0 0 140 140">
 			<circle class="ring_v2__progress" style="--percent: 100" cx="70" cy="70" r="67.5" />
 		</svg>
-		<?php
-		$badgeImages = $view->badgeImages ?? [];
-		$view->badgeImages = $badgeImages;
-		if (count($badgeImages) <= 1) {
-			echo $view->component('badges/badge_single_img', ['badgeImages' => $badgeImages]);
-		} else {
-			echo $view->component('badges/badge_gallery_img', ['badgeImages' => $badgeImages]);
-		}
-		?>
+		<?php if (!empty($view->badgePicture)) { ?>
+			<img class="badge-v2-ring-image" src="<?= htmlspecialchars($view->badgePicture[0] === '/' ? $view->badgePicture : '/' . $view->badgePicture, ENT_QUOTES, 'UTF-8'); ?>" alt="" />
+		<?php } ?>
 	</div>
 	<div class="badge-v2-title">
 		<?= htmlspecialchars($view->badge['name'] ?? '', ENT_QUOTES, 'UTF-8'); ?>
@@ -103,10 +103,11 @@ use src\Enums\GpxExportFilterEnum;
 </div>
 <?php } ?>
 
+<?php if (true) { ?>
 <div class="badge-v2-frame mb-20">
 	<div class="badge-v2-levels-gainers">
 		<div class="badge-v2-levels">
-			<table class="badge-v2-table badge-v2-table--counter w-100">
+			<table class="badge-v2-table badge-v2-table--counter w-100 badge-v2-table--flat">
 				<thead>
 					<tr>
 						<th></th>
@@ -130,7 +131,7 @@ use src\Enums\GpxExportFilterEnum;
 						$gain = $level['gain_counter'] ?? 0;
 						$lastDate = !empty($level['gain_last_date']) ? date('d-m-Y', strtotime((string) $level['gain_last_date'])) : '';
 					?>
-					<tr>
+					<tr class="badge-level-row" data-level="<?= $lvl; ?>">
 						<td></td>
 						<td class="<?= $colorClass; ?>"></td>
 						<td class="<?= $colorClass; ?>"><?= htmlspecialchars($level['name'] ?? '', ENT_QUOTES, 'UTF-8'); ?></td>
@@ -142,11 +143,22 @@ use src\Enums\GpxExportFilterEnum;
 				</tbody>
 			</table>
 		</div>
-		<div class="badge-v2-gainers">
-			<?= tr('badge_threshold_gainers'); ?>
+		<div id="badge-gainers-frame" class="badge-v2-gainers hidden">
+				<table class="badge-v2-table w-100 badge-v2-table--flat" id="gainers-table">
+					<thead>
+						<tr>
+							<th><?= tr('user'); ?></th>
+							<th><?= tr('merit_badge_number'); ?></th>
+							<th><?= tr('merit_badge_gain_date'); ?></th>
+						</tr>
+					</thead>
+					<tbody id="gainers-tbody"></tbody>
+				</table>
+				<div id="gainers-pagination" class="mt-5"></div>
+			</div>
 		</div>
 	</div>
-</div>
+<?php } ?>
 
 <div class="badge-v2-frame mb-20 text-center">
 	<div>
@@ -160,7 +172,7 @@ use src\Enums\GpxExportFilterEnum;
 		<a class="green-button-small" href="<?= SimpleRouter::getLink('Badges.BadgePositionsMap', null, (int) ($view->badge['id'] ?? 0)); ?>/"><?= tr('merit_badge_map'); ?></a>
 		<?php } ?>
 	</div>
-	<form id="badgeGpxOptions" action="/search.php" method="get" class="mb-15 mt-10 text-left">
+	<form id="badgeGpxOptions" action="/search.php" method="get" class="mb-15 mt-10 text-left collapsed">
 		<input type="hidden" name="searchto" value="searchbybadge">
 		<input type="hidden" name="showresult" value="1">
 
@@ -203,3 +215,6 @@ use src\Enums\GpxExportFilterEnum;
 	<?php } ?>
 </div>
 <?php } ?>
+
+<div id="gainers-cache-store" class="hidden"></div>
+<div id="badge-gainers-root" class="hidden" data-badge-id="<?= (int) ($view->badge['id'] ?? 0); ?>"></div>

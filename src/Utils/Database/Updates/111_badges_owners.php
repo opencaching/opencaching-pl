@@ -58,6 +58,10 @@ class C111BadgesOwners extends UpdateScript
 
         // Quick on/off switch for a badge - there is currently no such toggle.
         $this->db->addColumnIfNotExists('badges', 'active', 'TINYINT(1) NOT NULL DEFAULT 0', 'Whether the badge is active');
+        // Quick on/off switch for a badge category.
+        $this->db->addColumnIfNotExists('badge_categories', 'active', 'TINYINT(1) NOT NULL DEFAULT 0', 'Whether the badge category is active');
+        // Sort order of badges within the category: 0 = ascending, 1 = descending.
+        $this->db->addColumnIfNotExists('badge_categories', 'sort_desc', 'TINYINT(1) NOT NULL DEFAULT 0', 'Whether badges in the category are sorted descending');
         // Controls whether the badge is shown on the map in the new user interface component.
         $this->db->addColumnIfNotExists('badges', 'visible_in_map', 'TINYINT(1) NOT NULL DEFAULT 0', 'Whether the badge is visible on the map');
         // Long display name of the badge (e.g. for UI / map).
@@ -90,8 +94,8 @@ class C111BadgesOwners extends UpdateScript
         // 0 = PERIOD (levels presented by period, e.g. years), 1 = THRESHOLD (levels presented by threshold).
         $this->db->addColumnIfNotExists('badges', 'level_presentation_mode', 'TINYINT(1) NOT NULL DEFAULT 0', 'How levels are presented: 0 = period, 1 = threshold');
 
-        // Whether the badge owner is allowed to edit the badge.
-        $this->db->addColumnIfNotExists('badges', 'owner_can_edit', 'TINYINT(1) NOT NULL DEFAULT 0', 'Whether the badge owner is allowed to edit the badge');
+        // Whether the badge can be edited by its owner and OC Team members.
+        $this->db->addColumnIfNotExists('badges', 'can_edit', 'TINYINT(1) NOT NULL DEFAULT 0', 'Whether the badge can be edited by its owner and OC Team members');
 
         // DEPRECATED: `cfg_show_positions` will be removed in a future update.
         // Replaced by the two boolean flags below (show_positions_list / show_positions_map).
@@ -153,13 +157,13 @@ class C111BadgesOwners extends UpdateScript
         $this->db->dropColumnIfExists('badges', 'show_positions_map');
         $this->db->dropColumnIfExists('badges', 'show_positions_list');
         $this->db->dropColumnIfExists('badges', 'level_presentation_mode');
-        $this->db->dropColumnIfExists('badges', 'owner_can_edit');
+        $this->db->dropColumnIfExists('badges', 'can_edit');
         $this->db->dropColumnIfExists('badges', 'recommended_query');
         $this->db->dropColumnIfExists('badges', 'count_query');
         $this->db->dropColumnIfExists('badges', 'short_description_type');
 
+        $this->db->dropColumnIfExists('badge_categories', 'sort_desc');
         $this->db->dropColumnIfExists('badge_categories', 'active');
-        $this->db->addColumnIfNotExists('badge_categories', 'active', 'TINYINT(1) NOT NULL DEFAULT 0', 'Whether the badge category is active');
         $this->db->dropColumnIfExists('badges', 'display_restricted');
         $this->db->dropColumnIfExists('badges', 'long_name');
         $this->db->dropColumnIfExists('badges', 'visible_in_map');

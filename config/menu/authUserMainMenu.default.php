@@ -31,7 +31,8 @@ $menu['mnu_geoPaths'] = '/powerTrail.php';
 
 global $config;
 if (! empty($config['meritBadges'])) {
-    $menu['mnu_badges'] = SimpleRouter::getLink('Badges.Badges');
+    $menu['mnu_badges_old'] = '/user_badges.php?user_id=999999';
+    $menu['mnu_badges_new'] = SimpleRouter::getLink('Badges.Badges');
 }
 
 $menu['mnu_rules'] = $links['wiki']['rules'];

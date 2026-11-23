@@ -227,6 +227,63 @@ class BadgesService
      *
      * @return array<string, mixed>|null
      */
+    public function getUserBadgeProgress(int $badgeId, int $userId): ?array
+    {
+        return $this->repository->findUserBadgeProgress($badgeId, $userId);
+    }
+
+    public function getUserBadgesProgress(int $userId): array
+    {
+        return $this->repository->findUserBadgesProgress($userId);
+    }
+
+    /**
+     * Compute ring CSS classes for a user's badge level.
+     * Colour comes from the badge-level-* SCSS classes.
+     *
+     * @return array{colorClass: string, thickness: string}
+     */
+    public function getBadgeRingStyle(int $levelId, int $levelsCount): array
+    {
+        $idx = 1;
+        if ($levelId > 0) {
+            $idx = (int) round(($levelId + 1) * 10 / max(1, $levelsCount));
+            if ($idx > 10) {
+                $idx = 10;
+            }
+            if ($idx <= 0) {
+                $idx = 1;
+            }
+        }
+
+        $thickness = 'ring_v2--thick';
+        if ($levelId > 0 && $levelId < 4) {
+            $thickness = 'ring_v2--thin';
+        } elseif ($levelId >= 4 && $levelId < 7) {
+            $thickness = 'ring_v2--medium';
+        }
+
+        return [
+            'colorClass' => 'badge-level-' . $idx,
+            'thickness' => $thickness,
+        ];
+    }
+
+    public function findBadgeLevelGainers(int $badgeId, int $level, int $page = 1, int $perPage = 20): array
+    {
+        return $this->repository->findBadgeLevelGainers($badgeId, $level, $page, $perPage);
+    }
+
+    public function updateBadgePicture(int $badgeId, string $picture): void
+    {
+        $this->repository->updateBadgePicture($badgeId, $picture);
+    }
+
+    public function updateLevelPicture(int $badgeId, int $level, string $picture): void
+    {
+        $this->repository->updateLevelPicture($badgeId, $level, $picture);
+    }
+
     public function findBadgeById(int $badgeId): ?array
     {
         return $this->repository->findBadgeById($badgeId);
@@ -245,7 +302,8 @@ class BadgesService
 
         foreach ($categories as $index => $category) {
             $badges = $this->repository->findBadgesByCategory(
-                (int) $category['id']
+                (int) $category['id'],
+                !empty($category['sort_desc'])
             );
 
             $result[$index] = [

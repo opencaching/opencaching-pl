@@ -140,11 +140,7 @@ class PowerTrailAdminController extends ViewBaseController
         $this->view->setVar('statuses', PowerTrailStatusesEnum::statuses());
         $this->view->setVar('wisMin', PowerTrailPercentRequiredEnum::MINIMUM);
         $this->view->setVar('wisMax', PowerTrailPercentRequiredEnum::MAXIMUM);
-        $this->view->addLocalJs(
-            Uri::getLinkWithModificationTime('/js/public.js'),
-            false,
-            true
-        );
+
         $this->view->setTemplate('admin/powerTrailAdmin/edit');
         $this->view->buildView();
     }

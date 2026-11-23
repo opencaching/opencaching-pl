@@ -7,7 +7,7 @@
   /* default parameters */
   --duration: 2s;
   --delay: 0s;
-  --color: #3b82f6; /* overridden by colour classes */
+  --color: var(--ring-color, #3b82f6); /* overridden by colour classes / badge levels */
   --stroke: 5px;     /* overridden by thickness classes */
 }
 

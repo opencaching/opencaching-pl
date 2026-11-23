@@ -217,14 +217,14 @@
     width: 100%;
 }
 
+// #badgeGpxOptions visibility is handled by the .hidden utility class.
 #badgeGpxOptions {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease;
+    max-width: 420px;
+    margin: 0 auto;
 }
 
-#badgeGpxOptions.is-open {
-    max-height: 500px;
+#badgeGpxOptions.collapsed {
+    display: none;
 }
 
 /* v2 badge element: ring with centered image. */
@@ -280,6 +280,22 @@
 .badge-v2-gainers {
     width: 50%;
     box-sizing: border-box;
+    padding: 10px;
+}
+
+.badge-level-row {
+    cursor: pointer;
+}
+
+.badge-v2-table--flat {
+    box-shadow: none;
+}
+
+.blue-button-small:disabled {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+    opacity: 0.6;
 }
 
 /* Utility: centered text. */

@@ -2114,12 +2114,11 @@ And this file is the first step towards that. */
   width: 100%; }
 
 #badgeGpxOptions {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.4s ease; }
+  max-width: 420px;
+  margin: 0 auto; }
 
-#badgeGpxOptions.is-open {
-  max-height: 500px; }
+#badgeGpxOptions.collapsed {
+  display: none; }
 
 /* v2 badge element: ring with centered image. */
 .badge-v2-item {
@@ -2165,7 +2164,20 @@ And this file is the first step towards that. */
 .badge-v2-levels,
 .badge-v2-gainers {
   width: 50%;
-  box-sizing: border-box; }
+  box-sizing: border-box;
+  padding: 10px; }
+
+.badge-level-row {
+  cursor: pointer; }
+
+.badge-v2-table--flat {
+  box-shadow: none; }
+
+.blue-button-small:disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+  opacity: 0.6; }
 
 /* Utility: centered text. */
 .text-center {
@@ -2328,6 +2340,53 @@ And this file is the first step towards that. */
   }
 }
 */
+.pagination {
+  margin: 10px 0;
+  padding: 0px;
+  display: flex;
+  font-size: 12px;
+  text-align: center;
+  justify-content: center; }
+
+.pagination li {
+  display: inline;
+  box-sizing: border-box; }
+
+.pagination a {
+  box-sizing: border-box;
+  padding: 6px;
+  margin-left: -1px;
+  border: 1px solid #ccc;
+  display: block;
+  min-width: 30px; }
+
+.pagination li:first-child > a {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px; }
+
+.pagination li:last-child > a {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px; }
+
+.pagination a,
+.pagination a:visited {
+  color: #337ab7; }
+
+.pagination a:hover {
+  color: #23527c;
+  background-color: #ddd; }
+
+.pagination a,
+.pagination a:hover,
+.pagination a:visited {
+  text-decoration: none; }
+
+.pagination a.active,
+.pagination a.active:hover,
+.pagination a.active:visited {
+  background-color: #337ab7;
+  color: #fff; }
+
 /* ring_v2: animated progress ring (SVG, CSS-driven). */
 .ring_v2 {
   display: block;
@@ -2336,8 +2395,8 @@ And this file is the first step towards that. */
   /* default parameters */
   --duration: 2s;
   --delay: 0s;
-  --color: #3b82f6;
-  /* overridden by colour classes */
+  --color: var(--ring-color, #3b82f6);
+  /* overridden by colour classes / badge levels */
   --stroke: 5px;
   /* overridden by thickness classes */ }
 

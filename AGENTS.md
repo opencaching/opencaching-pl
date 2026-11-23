@@ -12,7 +12,7 @@ work on the oldest supported environment, not only on the one you happen to test
 
 | Copy | Region            | PHP                        | Database                                                           |
 |------|-------------------|----------------------------|--------------------------------------------------------------------|
-| OCPL | Poland            | 8.3.36                     | 11.8.9-MariaDB-ubu2604 (mariadb.org binary distribution)           |
+| OCPL | Poland            | 8.3.37                     | 11.8.9-MariaDB-ubu2604 (mariadb.org binary distribution)           |
 | OCNL | Netherlands       | php-8.2                    | MariaDB 10.0                                                       |
 | OCUK | United Kingdom    | 8.3.36                     | 11.8.9 (MariaDB)                                                   |
 | OCRO | Romania           | patched 8.2.35             | MariaDB 10.0                                                       |
@@ -134,3 +134,35 @@ allows it. `src/` also contains helper directories `Enums`, `Libs`, `Utils`.
 - Do not add dependencies (composer/npm) without consent.
 - Do not change regional environment configuration.
 - If a task requires a decision that breaks the above rules — ask, don't guess.
+
+## Architecture (MVC layering)
+
+- **Controllers** should only handle routing and HTTP request/response orchestration.
+  They must not contain business logic or direct DB access.
+- **Services** contain business logic: validation, data transformation, orchestration.
+  Services read and write data (via repositories/models) and may throw on validation errors.
+- **Repositories / Models** should expose the simplest possible data-access methods
+  (read queries, inserts, updates). No business rules, no validation, no HTTP concerns.
+- New code follows this layering strictly; legacy code is migrated when touched.
+
+## HTTP form handling
+
+- For new modules, use the **PRG (Post/Redirect/Get)** pattern for inserts and updates:
+  - `edit()` handles only GET and renders the form.
+  - `save()` handles only POST, validates (via trait), calls the service, then redirects
+    back to `edit()` with a status parameter (e.g. `?msg=saved` / `?msg=error&err=...`).
+  - This avoids duplicate submissions and keeps the controller thin.
+
+## CSS / JS conventions
+
+- No local CSS files and no inline styles. All styles live in SCSS sources
+  (`public/css/*.scss`) and are compiled to `public/css/style.css`.
+- No local/inline JavaScript. All JS lives in TypeScript sources
+  (`resources/ts/`) and is bundled into `public/js/public.js`.
+- Use data attributes (`data-*`) to pass server-side values to the frontend,
+  not inline scripts.
+
+## Documentation
+
+- Every new method in new code must have a PHPDoc/docblock describing its purpose,
+  parameters and return value.
