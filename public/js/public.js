@@ -474,8 +474,8 @@
       let html = "";
       for (const u of users) {
         html += "<tr>";
-        html += '<td><a href="/viewprofile.php?userid=' + u.userId + '">' + this.escapeHtml(u.username) + "</a></td>";
-        html += '<td class="align-right">' + u.currVal + "</td>";
+        html += '<td><a href="/viewprofile.php?userid=' + u.userId + '" target="_blank">' + this.escapeHtml(u.username) + "</a></td>";
+        html += '<td class="text-center">' + u.currVal + "</td>";
         html += "<td>" + this.escapeHtml(u.levelDate) + "</td>";
         html += "</tr>";
       }
@@ -675,7 +675,7 @@
             return;
           }
           const model = JSON.parse(JSON.stringify(baseModel));
-          model.submitUrl = "/Badges.Badges/uploadLevelImageAjax/" + badgeId + "/" + level;
+          model.submitUrl = "/Admin.BadgesAdmin/uploadLevelImageAjax/" + badgeId + "/" + level;
           ocUploadFn(model, (uploadResult) => {
             if (!uploadResult || !uploadResult.success) {
               console.log("upload fail", uploadResult && uploadResult.message);
@@ -694,7 +694,7 @@
               delBtn.className = "blue-button-small mt-5";
               delBtn.textContent = deleteLabel;
               delBtn.addEventListener("click", () => {
-                void fetch("/Badges.Badges/deleteLevelImageAjax/" + badgeId + "/" + level, {
+                void fetch("/Admin.BadgesAdmin/deleteLevelImageAjax/" + badgeId + "/" + level, {
                   method: "POST",
                   credentials: "same-origin"
                 }).then((resp) => resp.json()).then((data) => {
@@ -772,7 +772,7 @@
       const bindDelete = (delBtn) => {
         delBtn.onclick = () => {
           const ocUploadFn = window.fetch;
-          void fetch("/Badges.Badges/deleteImageAjax/" + badgeId, {
+          void fetch("/Admin.BadgesAdmin/deleteImageAjax/" + badgeId, {
             method: "POST",
             credentials: "same-origin"
           }).then((resp) => resp.json()).then((data) => {
@@ -799,7 +799,7 @@
             return;
           }
           const model = JSON.parse(JSON.stringify(baseModel));
-          model.submitUrl = "/Badges.Badges/uploadImageAjax/" + badgeId;
+          model.submitUrl = "/Admin.BadgesAdmin/uploadImageAjax/" + badgeId;
           ocUploadFn(model, (uploadResult) => {
             if (!uploadResult || !uploadResult.success) {
               console.log("upload fail", uploadResult && uploadResult.message);
@@ -821,6 +821,81 @@
     }
   };
 
+  // resources/ts/components/BadgeRecalculateComponent.ts
+  var BadgeRecalculateComponent = class {
+    constructor(root = document) {
+      this.root = root;
+    }
+    init() {
+      const buttons = this.root.querySelectorAll(".badge-recalculate-btn");
+      buttons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const badgeId = btn.getAttribute("data-badge-id");
+          const userId = btn.getAttribute("data-user-id");
+          if (!badgeId || !userId) {
+            return;
+          }
+          btn.disabled = true;
+          void fetch("/Badges.Badges/recalculateAjax/" + badgeId + "/" + userId, {
+            method: "POST",
+            credentials: "same-origin"
+          }).then((resp) => {
+            if (!resp.ok) {
+              throw new Error("HTTP " + resp.status);
+            }
+            return resp.json();
+          }).then((data) => {
+            var _a, _b;
+            if (data.status !== "OK") {
+              btn.disabled = false;
+              return;
+            }
+            const targetBadgeId = (_a = data.badgeId) != null ? _a : parseInt(badgeId, 10);
+            const targetUserId = (_b = data.userId) != null ? _b : parseInt(userId, 10);
+            const form = document.createElement("form");
+            form.method = "POST";
+            form.action = "/Badges.MyBadges/badge/" + targetBadgeId + "/" + targetUserId;
+            const input = document.createElement("input");
+            input.type = "hidden";
+            input.name = "badgesPopupFor";
+            input.value = String(targetBadgeId);
+            form.appendChild(input);
+            document.body.appendChild(form);
+            form.submit();
+          }).catch(() => {
+            btn.disabled = false;
+          });
+        });
+      });
+    }
+  };
+
+  // resources/ts/components/BadgePopupComponent.ts
+  var BadgePopupComponent = class {
+    constructor(root = document) {
+      this.root = root;
+    }
+    init() {
+      const el = this.root.querySelector("#badge-popup");
+      if (!el) {
+        return;
+      }
+      const $ = window.$;
+      if (typeof $ !== "function" || !$.fn || !$.fn.dialog) {
+        return;
+      }
+      const title = el.getAttribute("data-title") || "Badge";
+      $(el).dialog({
+        title,
+        modal: true,
+        width: 550,
+        close: () => {
+          el.remove();
+        }
+      });
+    }
+  };
+
   // resources/ts/index.ts
   new PowerTrailEditComponent().init();
   new RoleManagerFormComponent().init();
@@ -828,4 +903,6 @@
   new BadgeGainersComponent().init();
   new BadgeLevelImageUploadComponent().init();
   new BadgeImageUploadComponent().init();
+  new BadgeRecalculateComponent().init();
+  new BadgePopupComponent().init();
 })();

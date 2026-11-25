@@ -13,11 +13,23 @@ class BadgesAdminService
 {
     private BadgesRepository $repository;
 
+    /**
+     * __construct.
+     * @param BadgesRepository|null $repository
+     */
     public function __construct(?BadgesRepository $repository = null)
     {
         $this->repository = $repository ?? new BadgesRepository();
     }
 
+    /**
+     * getBadges.
+     * @param string $search
+     * @param BadgeSortEnum $sort
+     * @param int $page
+     * @param int $perPage
+     * @return array
+     */
     public function getBadges(string $search, BadgeSortEnum $sort, int $page, int $perPage): array
     {
         $total = $this->repository->countBadgesAdmin($search);
@@ -29,6 +41,11 @@ class BadgesAdminService
         ];
     }
 
+    /**
+     * getBadge.
+     * @param int $id
+     * @return array|null
+     */
     public function getBadge(int $id): ?array
     {
         if ($id <= 0) {
@@ -38,6 +55,11 @@ class BadgesAdminService
         return $this->repository->findBadgeById($id);
     }
 
+    /**
+     * getBadgeLevels.
+     * @param int $id
+     * @return array
+     */
     public function getBadgeLevels(int $id): array
     {
         if ($id <= 0) {
@@ -47,11 +69,43 @@ class BadgesAdminService
         return $this->repository->findLevelsRaw($id);
     }
 
+    /**
+     * getCategories.
+     * @return array
+     */
     public function getCategories(): array
     {
         return $this->repository->findAllCategories();
     }
 
+    /**
+     * updateBadgePicture.
+     * @param int $badgeId
+     * @param string $picture
+     * @return void
+     */
+    public function updateBadgePicture(int $badgeId, string $picture): void
+    {
+        $this->repository->updateBadgePicture($badgeId, $picture);
+    }
+
+    /**
+     * updateLevelPicture.
+     * @param int $badgeId
+     * @param int $level
+     * @param string $picture
+     * @return void
+     */
+    public function updateLevelPicture(int $badgeId, int $level, string $picture): void
+    {
+        $this->repository->updateLevelPicture($badgeId, $level, $picture);
+    }
+
+    /**
+     * deleteBadgeImage.
+     * @param int $badgeId
+     * @return void
+     */
     public function deleteBadgeImage(int $badgeId): void
     {
         $picture = $this->repository->deleteBadgeImage($badgeId);
@@ -75,6 +129,12 @@ class BadgesAdminService
         }
     }
 
+    /**
+     * deleteLevelImage.
+     * @param int $badgeId
+     * @param int $level
+     * @return void
+     */
     public function deleteLevelImage(int $badgeId, int $level): void
     {
         $picture = $this->repository->deleteLevelImage($badgeId, $level);
@@ -100,6 +160,12 @@ class BadgesAdminService
         }
     }
 
+    /**
+     * saveLevelNames.
+     * @param int $badgeId
+     * @param array $names
+     * @return void
+     */
     public function saveLevelNames(int $badgeId, array $names): void
     {
         foreach ($names as $level => $name) {

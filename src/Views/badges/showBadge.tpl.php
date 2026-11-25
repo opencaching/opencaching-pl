@@ -56,8 +56,8 @@ use src\Enums\GpxExportFilterEnum;
 		<table class="badge-v2-table">
 			<thead>
 				<tr>
-					<th>LP</th>
-					<th>Nazwa</th>
+					<th><?= tr('No.'); ?></th>
+					<th><?= tr('name_label'); ?></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -81,8 +81,8 @@ use src\Enums\GpxExportFilterEnum;
 		<table class="badge-v2-table">
 			<thead>
 				<tr>
-					<th>LP</th>
-					<th>Nazwa</th>
+					<th><?= tr('No.'); ?></th>
+					<th><?= tr('name_label'); ?></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -168,9 +168,12 @@ use src\Enums\GpxExportFilterEnum;
 		<?php if (!empty($view->badge['show_positions_list'])) { ?>
 		<a class="blue-button-small" href="<?= SimpleRouter::getLink('Badges.BadgePositions', null, (int) ($view->badge['id'] ?? 0)); ?>/"><?= tr('merit_badge_list'); ?></a>
 		<?php } ?>
+		<?php if (!empty($view->userId)) { ?>
 		<button type="button" data-toggle-gpx class="blue-button-small"><?= tr('merit_badge_export_gpx'); ?></button>
-	
-		<button type="button"><?= tr('merit_badge_check_my_level'); ?></button>
+		<?php if (!empty($view->badge['is_obtainable'])) { ?>
+		<button type="button" class="blue-button-small badge-recalculate-btn" data-badge-id="<?= (int) ($view->badge['id'] ?? 0); ?>" data-user-id="<?= (int) $view->userId; ?>"><?= tr('merit_badge_check_my_level'); ?></button>
+		<?php } ?>
+		<?php } ?>
 		<?php if (!empty($view->badge['show_positions_map'])) { ?>
 		<a class="green-button-small" href="<?= SimpleRouter::getLink('Badges.BadgePositionsMap', null, (int) ($view->badge['id'] ?? 0)); ?>/"><?= tr('merit_badge_map'); ?></a>
 		<?php } ?>

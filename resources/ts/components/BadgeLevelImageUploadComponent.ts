@@ -50,7 +50,7 @@ export class BadgeLevelImageUploadComponent {
                 }
 
                 const model = JSON.parse(JSON.stringify(baseModel))
-                model.submitUrl = '/Badges.Badges/uploadLevelImageAjax/' + badgeId + '/' + level
+                model.submitUrl = '/Admin.BadgesAdmin/uploadLevelImageAjax/' + badgeId + '/' + level
 
                 ocUploadFn(model, (uploadResult: UploadResult) => {
                     if (!uploadResult || !uploadResult.success) {
@@ -73,7 +73,7 @@ export class BadgeLevelImageUploadComponent {
                         delBtn.className = 'blue-button-small mt-5'
                         delBtn.textContent = deleteLabel
                         delBtn.addEventListener('click', () => {
-                            void fetch('/Badges.Badges/deleteLevelImageAjax/' + badgeId + '/' + level, {
+                            void fetch('/Admin.BadgesAdmin/deleteLevelImageAjax/' + badgeId + '/' + level, {
                                 method: 'POST',
                                 credentials: 'same-origin',
                             })

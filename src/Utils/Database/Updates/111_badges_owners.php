@@ -96,6 +96,8 @@ class C111BadgesOwners extends UpdateScript
 
         // Whether the badge can be edited by its owner and OC Team members.
         $this->db->addColumnIfNotExists('badges', 'can_edit', 'TINYINT(1) NOT NULL DEFAULT 0', 'Whether the badge can be edited by its owner and OC Team members');
+        // Whether the badge can currently be obtained/gained (visible but not obtainable when 0).
+        $this->db->addColumnIfNotExists('badges', 'is_obtainable', 'TINYINT(1) NOT NULL DEFAULT 0', 'Whether the badge can currently be obtained');
 
         // DEPRECATED: `cfg_show_positions` will be removed in a future update.
         // Replaced by the two boolean flags below (show_positions_list / show_positions_map).
@@ -157,6 +159,7 @@ class C111BadgesOwners extends UpdateScript
         $this->db->dropColumnIfExists('badges', 'show_positions_map');
         $this->db->dropColumnIfExists('badges', 'show_positions_list');
         $this->db->dropColumnIfExists('badges', 'level_presentation_mode');
+        $this->db->dropColumnIfExists('badges', 'is_obtainable');
         $this->db->dropColumnIfExists('badges', 'can_edit');
         $this->db->dropColumnIfExists('badges', 'recommended_query');
         $this->db->dropColumnIfExists('badges', 'count_query');

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace src\Controllers\Badges;
 
 use src\Controllers\Core\ViewBaseController;
-use src\Models\Badges\BadgesRepository;
 use src\Models\User\User;
 use src\Services\Badges\BadgesService;
 use src\Utils\Uri\SimpleRouter;
@@ -59,6 +58,31 @@ class MyBadgesController extends ViewBaseController
 
                 $ringStyle = $this->badgeService->getBadgeRingStyle($levelId, $levelsCount);
 
+                $currVal = $progress !== null ? (int) ($progress['curr_val'] ?? 0) : 0;
+                $prevVal = $progress !== null ? (int) ($progress['prev_val'] ?? 0) : 0;
+                $shortDesc = $this->badgeService->getShortDescription($badgeId, $currVal, $levelId);
+
+                $levelName = '';
+                $nextVal = 0;
+                $foundCurrent = false;
+                foreach ($levels as $level) {
+                    if ((int) ($level['level'] ?? 0) === $levelId) {
+                        $levelName = (string) ($level['name'] ?? '');
+                    }
+                    if ($foundCurrent) {
+                        $nextVal = (int) ($level['threshold'] ?? 0);
+                        break;
+                    }
+                    if ((int) ($level['level'] ?? 0) === $levelId) {
+                        $foundCurrent = true;
+                    }
+                }
+                if ($nextVal === 0) {
+                    $nextVal = 999999;
+                }
+
+                $levelRoman = $levelId >= 0 ? $this->badgeService->toRoman($levelId + 1) : '';
+
                 $badges[] = [
                     'id' => $badgeId,
                     'name' => (string) ($badge['name'] ?? ''),
@@ -67,8 +91,13 @@ class MyBadgesController extends ViewBaseController
                     'levelsCount' => $levelsCount,
                     'ringColorClass' => $ringStyle['colorClass'],
                     'ringThickness' => $ringStyle['thickness'],
-                    'currVal' => $progress !== null ? (int) ($progress['curr_val'] ?? 0) : 0,
+                    'currVal' => $currVal,
+                    'nextVal' => $nextVal,
+                    'ringPercent' => $this->badgeService->getBadgeProgressPercent($currVal, $prevVal, $nextVal),
+                    'levelName' => $levelName,
+                    'levelRoman' => $levelRoman,
                     'levelDate' => $progress !== null ? (string) ($progress['level_date'] ?? '') : '',
+                    'shortDesc' => $shortDesc ?? '',
                 ];
             }
 
@@ -112,10 +141,28 @@ class MyBadgesController extends ViewBaseController
 
         $progress = $this->badgeService->getUserBadgeProgress($badgeId, $userId);
         $levelId = $progress !== null ? (int) ($progress['level_id'] ?? 0) : 0;
+        $prevVal = $progress !== null ? (int) ($progress['prev_val'] ?? 0) : 0;
 
         $levels = $this->badgeService->findLevels($badgeId);
         $levelsCount = count($levels);
         $colorClass = 'badge-level-1';
+
+        $nextVal = 0;
+        $foundCurrent = false;
+        foreach ($levels as $level) {
+            if ($foundCurrent) {
+                $nextVal = (int) ($level['threshold'] ?? 0);
+                break;
+            }
+            if ((int) ($level['level'] ?? 0) === $levelId) {
+                $foundCurrent = true;
+            }
+        }
+        if ($nextVal === 0) {
+            $nextVal = 999999;
+        }
+        $currVal = $progress !== null ? (int) ($progress['curr_val'] ?? 0) : 0;
+        $ringPercent = $this->badgeService->getBadgeProgressPercent($currVal, $prevVal, $nextVal);
         if ($levelId > 0) {
             $idx = $levelsCount > 0 ? (int) round(($levelId + 1) * 10 / $levelsCount) : 1;
             if ($idx > 10) { $idx = 10; }
@@ -139,6 +186,9 @@ class MyBadgesController extends ViewBaseController
         $requestedLang = isset($_GET['desclang']) ? (string) $_GET['desclang'] : null;
         $badgeDescription = $this->badgeService->getDescription($badgeId, $requestedLang);
 
+        $this->view->loadJQuery();
+        $this->view->loadJQueryUI();
+
         $this->view->setVar('title', 'My Badges - badge');
         $this->view->setVar('badge', $badge);
         $this->view->setVar('badgeId', $badgeId);
@@ -148,7 +198,12 @@ class MyBadgesController extends ViewBaseController
         $this->view->setVar('colorClass', $colorClass);
         $this->view->setVar('ringColorClass', $ringStyle['colorClass']);
         $this->view->setVar('ringThickness', $ringStyle['thickness']);
+        $this->view->setVar('ringPercent', $ringPercent);
         $this->view->setVar('progress', $progress);
+        $this->view->setVar('shortDesc', $this->badgeService->getShortDescription($badgeId, $progress !== null ? (int) ($progress['curr_val'] ?? 0) : 0, $levelId));
+
+        $popupBadgeId = isset($_POST['badgesPopupFor']) ? (int) $_POST['badgesPopupFor'] : 0;
+        $this->view->setVar('showBadgePopup', $popupBadgeId === $badgeId);
         $this->view->setVar('activeCount', $this->badgeService->getBadgeStats($badgeId, $userId)['activeCount']);
         $this->view->setVar('badgeImages', $this->badgeService->findBadgeImages($badgeId));
         $this->view->setVar('levels', $levels);

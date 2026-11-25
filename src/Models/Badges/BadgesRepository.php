@@ -14,6 +14,11 @@ class BadgesRepository
 {
     private readonly OcDb $db;
 
+    /**
+     * Constructor.
+     *
+     * @param OcDb|null $db Database connection (defaults to a new OcDb instance).
+     */
     public function __construct(?OcDb $db = null)
     {
         $this->db = $db ?? OcDb::instance();
@@ -23,6 +28,7 @@ class BadgesRepository
      * Read a single badge category by its id.
      *
      * @return array<string, mixed>|null
+     * @param int $id
      */
     public function findCategoryById(int $id): ?array
     {
@@ -41,6 +47,11 @@ class BadgesRepository
      * Insert or update a badge category.
      *
      * @return int The category id.
+     * @param int $id
+     * @param string $name
+     * @param int $sequence
+     * @param int $active
+     * @param int $sortDesc
      */
     public function saveCategory(int $id, string $name, int $sequence, int $active, int $sortDesc): int
     {
@@ -66,6 +77,11 @@ class BadgesRepository
      * Read badge categories for the admin panel (with search, sort and pagination).
      *
      * @return array<int, array<string, mixed>>
+     * @param string|null $name
+     * @param int|null $id
+     * @param string $sortSqlOrder
+     * @param int $page
+     * @param int $perPage
      */
     public function findAllCategoriesAdmin(?string $name, ?int $id, string $sortSqlOrder, int $page, int $perPage): array
     {
@@ -96,6 +112,9 @@ class BadgesRepository
 
     /**
      * Count badge categories matching the search filter.
+     * @param string|null $name
+     * @param int|null $id
+     * @return int
      */
     public function countCategoriesAdmin(?string $name, ?int $id): int
     {
@@ -119,6 +138,11 @@ class BadgesRepository
         return is_array($row) ? (int) ($row['cnt'] ?? 0) : 0;
     }
 
+    /**
+     * Read all active badge categories in their configured order.
+     *
+     * @return array<int, array<string, mixed>>
+     */
     public function findAllCategories(): array
     {
         $statement = $this->db->simpleQuery(
@@ -135,6 +159,7 @@ class BadgesRepository
      * Read available description languages for a badge.
      *
      * @return array<int, string>
+     * @param int $badgeId
      */
     public function findAvailableDescriptionLanguages(int $badgeId): array
     {
@@ -157,6 +182,8 @@ class BadgesRepository
      * Read a badge description for a specific language.
      *
      * @return array<string, mixed>|null
+     * @param int $badgeId
+     * @param string $language
      */
     public function findDescription(int $badgeId, string $language): ?array
     {
@@ -192,6 +219,7 @@ class BadgesRepository
      * Read pictures from badge levels (raw, ordered by level ascending).
      *
      * @return array<int, string>
+     * @param int $badgeId
      */
     public function findBadgeLevelPictures(int $badgeId): array
     {
@@ -219,6 +247,8 @@ class BadgesRepository
      * Read a single badge by its id.
      *
      * @return array<string, mixed>|null
+     * @param int $badgeId
+     * @param string $picture
      */
     public function updateBadgePicture(int $badgeId, string $picture): void
     {
@@ -233,6 +263,7 @@ class BadgesRepository
      * Clear the picture of a badge and return the previous path.
      *
      * @return string|null Previous picture path, or null if none.
+     * @param int $badgeId
      */
     public function deleteBadgeImage(int $badgeId): ?string
     {
@@ -251,6 +282,14 @@ class BadgesRepository
         return $picture !== '' ? $picture : null;
     }
 
+    /**
+     * Update the picture of a badge level.
+     *
+     * @param int    $badgeId Badge id.
+     * @param int    $level   Level number.
+     * @param string $picture Relative picture path.
+     * @return void
+     */
     public function updateLevelPicture(int $badgeId, int $level, string $picture): void
     {
         $this->db->multiVariableQuery(
@@ -261,18 +300,43 @@ class BadgesRepository
         );
     }
 
+    /**
+     * Read a short description type by its id.
+     *
+     * @param int $typeId Type id.
+     * @return array<string, mixed>|null
+     */
+    public function findShortDescriptionType(int $typeId): ?array
+    {
+        $statement = $this->db->multiVariableQuery(
+            'SELECT `translation_key`
+             FROM `badges_short_description_types`
+             WHERE `id` = :1
+             LIMIT 1',
+            $typeId
+        );
+        $row = $this->db->dbResultFetchOneRowOnly($statement);
+        return is_array($row) ? $row : null;
+    }
+
+    /**
+     * Read a badge by its id.
+     *
+     * @param int $badgeId Badge id.
+     * @return array<string, mixed>|null
+     */
     public function findBadgeById(int $badgeId): ?array
     {
         $statement = $this->db->multiVariableQuery(
             'SELECT `id`, `name`, `long_name`, `category_id`, `sequence`,
-                    `picture`, `trigger_type`, `short_description`, `description`,
+                    `picture`, `trigger_type`, `short_description`, `short_description_type`, `description`,
                     `cfg_period_threshold`, `cfg_show_positions`,
                     `active`, `visible_in_map`, `display_restricted`,
                     `graphic_author`, `description_author`, `attendant`,
                     `belonging_query`, `gained_query`,
                     `count_query`, `recommended_query`, `titled_query`,
                     `show_positions_list`, `show_positions_map`, `level_presentation_mode`,
-                    `can_edit`
+                    `can_edit`, `is_obtainable`
              FROM `badges`
              WHERE `id` = :1
              LIMIT 1',
@@ -291,6 +355,7 @@ class BadgesRepository
      * graphic author), so DISTINCT is used to avoid duplicates.
      *
      * @return array<int, int>
+     * @param int $badgeId
      */
     public function findDistinctOwnerIds(int $badgeId): array
     {
@@ -313,6 +378,9 @@ class BadgesRepository
 
     /**
      * Check whether the given user is an owner of the badge.
+     * @param int $badgeId
+     * @param int $userId
+     * @return bool
      */
     public function isOwner(int $badgeId, int $userId): bool
     {
@@ -326,6 +394,7 @@ class BadgesRepository
      * owner type and position. Repository only reads data.
      *
      * @return array<int, array<string, mixed>>
+     * @param int $badgeId
      */
     public function findBadgeOwners(int $badgeId): array
     {
@@ -352,6 +421,7 @@ class BadgesRepository
      * `belonging_query` always returns cache ids (as `badge_position_id`).
      *
      * @return array<int, int>
+     * @param int $badgeId
      */
     public function findBadgePositions(int $badgeId): array
     {
@@ -429,6 +499,8 @@ class BadgesRepository
      * `gained_query` always filters by `:1` (user id) and returns position rows.
      *
      * @return array<int, array<string, mixed>>
+     * @param int $badgeId
+     * @param int $userId
      */
     public function findGainedPositions(int $badgeId, int $userId): array
     {
@@ -457,6 +529,7 @@ class BadgesRepository
      * Read levels of a badge, sorted by level ascending.
      *
      * @return array<int, array<string, mixed>>
+     * @param int $badgeId
      */
     public function findLevels(int $badgeId): array
     {
@@ -489,6 +562,7 @@ class BadgesRepository
      * Returns [] if the query is empty or fails (error is logged).
      *
      * @return array<int, array<string, mixed>>
+     * @param int $badgeId
      */
     public function findRecommendedCaches(int $badgeId): array
     {
@@ -502,6 +576,7 @@ class BadgesRepository
      * Returns [] if the query is empty or fails (error is logged).
      *
      * @return array<int, array<string, mixed>>
+     * @param int $badgeId
      */
     public function findTitledCaches(int $badgeId): array
     {
@@ -512,6 +587,9 @@ class BadgesRepository
      * Execute a badge SQL query stored in a column. Returns [] on empty/error.
      *
      * @return array<int, array<string, mixed>>
+     * @param int $badgeId
+     * @param string $column
+     * @param string $context
      */
     private function runBadgeQuery(int $badgeId, string $column, string $context): array
     {
@@ -537,13 +615,63 @@ class BadgesRepository
     }
 
     /**
-     * Read users who gained a given level of a badge, paginated.
-     *
-     * @return array{badgeId:int,level:int,page:int,perPage:int,total:int,users:array<int,array<string,mixed>>}
+     * Insert a new badge_user progress row.
+     * @param int $badgeId
+     * @param int $userId
+     * @param int $currVal
+     * @param int $levelId
+     * @param string $levelDate
+     * @param int $nextVal
+     * @return void
      */
+    public function insertUserBadgeProgress(int $badgeId, int $userId, int $currVal, int $levelId, string $levelDate, int $nextVal): void
+    {
+        $this->db->multiVariableQuery(
+            'INSERT INTO `badge_user`
+             (`user_id`, `badge_id`, `level_id`, `level_date`, `curr_val`, `next_val`, `prev_val`, `description`)
+             VALUES (:1, :2, :3, :4, :5, :6, 0, "")',
+            $userId,
+            $badgeId,
+            $levelId,
+            $levelDate,
+            $currVal,
+            $nextVal
+        );
+    }
+
     /**
-     * Read a user's progress row for a badge (from badge_user).
+     * Update an existing badge_user progress row.
+     * @param int $badgeId
+     * @param int $userId
+     * @param int $currVal
+     * @param int $levelId
+     * @param string|null $levelDate
+     * @param int $nextVal
+     * @return void
+     */
+    public function updateUserBadgeProgress(int $badgeId, int $userId, int $currVal, int $levelId, ?string $levelDate, int $nextVal): void
+    {
+        $this->db->multiVariableQuery(
+            'UPDATE `badge_user`
+             SET `curr_val` = :1,
+                 `level_id` = :2,
+                 `level_date` = COALESCE(:3, `level_date`),
+                 `next_val` = :4
+             WHERE `badge_id` = :5 AND `user_id` = :6',
+            $currVal,
+            $levelId,
+            $levelDate,
+            $nextVal,
+            $badgeId,
+            $userId
+        );
+    }
+
+    /**
+     * Read a user's progress row for a badge.
      *
+     * @param int $badgeId Badge id.
+     * @param int $userId  User id.
      * @return array<string, mixed>|null
      */
     public function findUserBadgeProgress(int $badgeId, int $userId): ?array
@@ -565,6 +693,7 @@ class BadgesRepository
      * Read progress rows for all badges of a user.
      *
      * @return array<int, array<string, mixed>> keyed by badge_id
+     * @param int $userId
      */
     public function findUserBadgesProgress(int $userId): array
     {
@@ -583,6 +712,15 @@ class BadgesRepository
         return $result;
     }
 
+    /**
+     * Read users who gained a given level of a badge, paginated.
+     *
+     * @param int $badgeId Badge id.
+     * @param int $level   Level number.
+     * @param int $page    Page number.
+     * @param int $perPage Items per page.
+     * @return array{badgeId:int,level:int,page:int,perPage:int,total:int,users:array<int,array<string,mixed>>}
+     */
     public function findBadgeLevelGainers(int $badgeId, int $level, int $page = 1, int $perPage = 20): array
     {
         if ($page < 1) {
@@ -646,6 +784,8 @@ class BadgesRepository
      * Clear the picture of a badge level and return the previous path.
      *
      * @return string|null Previous picture path, or null if none.
+     * @param int $badgeId
+     * @param int $level
      */
     public function deleteLevelImage(int $badgeId, int $level): ?string
     {
@@ -668,6 +808,10 @@ class BadgesRepository
 
     /**
      * Update the name of a badge level.
+     * @param int $badgeId
+     * @param int $level
+     * @param string $name
+     * @return void
      */
     public function saveLevelName(int $badgeId, int $level, string $name): void
     {
@@ -683,6 +827,7 @@ class BadgesRepository
      * Read raw levels of a badge (without gain aggregates).
      *
      * @return array<int, array<string, mixed>>
+     * @param int $badgeId
      */
     public function findLevelsRaw(int $badgeId): array
     {
@@ -698,6 +843,12 @@ class BadgesRepository
 
     /**
      * Update basic fields of a badge.
+     * @param int $id
+     * @param string $name
+     * @param int $categoryId
+     * @param int $sequence
+     * @param int $active
+     * @return void
      */
     public function saveBadgeBasic(int $id, string $name, int $categoryId, int $sequence, int $active): void
     {
@@ -717,6 +868,10 @@ class BadgesRepository
      * Read badges for the admin panel (with search, sort and pagination).
      *
      * @return array<int, array<string, mixed>>
+     * @param string $search
+     * @param string $sortSqlOrder
+     * @param int $page
+     * @param int $perPage
      */
     public function findAllBadgesAdmin(string $search, string $sortSqlOrder, int $page, int $perPage): array
     {
@@ -751,6 +906,8 @@ class BadgesRepository
 
     /**
      * Count badges matching the search filter.
+     * @param string $search
+     * @return int
      */
     public function countBadgesAdmin(string $search): int
     {
@@ -778,6 +935,8 @@ class BadgesRepository
      * from the category (`sort_desc`: 0 = ascending, 1 = descending).
      *
      * @return array<int, array<string, mixed>>
+     * @param int $categoryId
+     * @param bool $sortDescending
      */
     public function findBadgesByCategory(int $categoryId, bool $sortDescending = false): array
     {

@@ -68,8 +68,8 @@ export class BadgeGainersComponent {
         let html = ''
         for (const u of users) {
             html += '<tr>'
-            html += '<td><a href="/viewprofile.php?userid=' + u.userId + '">' + this.escapeHtml(u.username) + '</a></td>'
-            html += '<td class="align-right">' + u.currVal + '</td>'
+            html += '<td><a href="/viewprofile.php?userid=' + u.userId + '" target="_blank">' + this.escapeHtml(u.username) + '</a></td>'
+            html += '<td class="text-center">' + u.currVal + '</td>'
             html += '<td>' + this.escapeHtml(u.levelDate) + '</td>'
             html += '</tr>'
         }

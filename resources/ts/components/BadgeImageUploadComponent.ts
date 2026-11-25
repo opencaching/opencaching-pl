@@ -54,7 +54,7 @@ export class BadgeImageUploadComponent {
         const bindDelete = (delBtn: HTMLButtonElement): void => {
             delBtn.onclick = () => {
                 const ocUploadFn = (window as any).fetch
-                void fetch('/Badges.Badges/deleteImageAjax/' + badgeId, {
+                void fetch('/Admin.BadgesAdmin/deleteImageAjax/' + badgeId, {
                     method: 'POST',
                     credentials: 'same-origin',
                 })
@@ -87,7 +87,7 @@ export class BadgeImageUploadComponent {
                 }
 
                 const model = JSON.parse(JSON.stringify(baseModel))
-                model.submitUrl = '/Badges.Badges/uploadImageAjax/' + badgeId
+                model.submitUrl = '/Admin.BadgesAdmin/uploadImageAjax/' + badgeId
 
                 ocUploadFn(model, (uploadResult: UploadResult) => {
                     if (!uploadResult || !uploadResult.success) {

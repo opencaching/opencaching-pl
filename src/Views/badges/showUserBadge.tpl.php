@@ -22,8 +22,8 @@ $thickness = (string) ($view->ringThickness ?? 'ring_v2--thick');
 
 <div class="badge-v2-top">
 	<div class="badge-v2-ring">
-		<svg class="ring_v2 <?= htmlspecialchars($thickness, ENT_QUOTES, 'UTF-8'); ?> <?= htmlspecialchars($ringColorClass, ENT_QUOTES, 'UTF-8'); ?>" viewBox="0 0 140 140">
-			<circle class="ring_v2__progress" style="--percent: 100" cx="70" cy="70" r="67.5" />
+		<svg class="ring_v2 <?= htmlspecialchars($thickness, ENT_QUOTES, 'UTF-8'); ?> <?= htmlspecialchars($ringColorClass, ENT_QUOTES, 'UTF-8'); ?>" style="--percent: <?= (int) ($view->ringPercent ?? 0); ?>" viewBox="0 0 140 140">
+			<circle class="ring_v2__progress" style="--percent: <?= (int) ($view->ringPercent ?? 0); ?>" cx="70" cy="70" r="67.5" />
 		</svg>
 		<?php if (!empty($view->badgePicture)) { ?>
 			<img class="badge-v2-ring-image" src="<?= htmlspecialchars($view->badgePicture[0] === '/' ? $view->badgePicture : '/' . $view->badgePicture, ENT_QUOTES, 'UTF-8'); ?>" alt="" />
@@ -56,8 +56,8 @@ $thickness = (string) ($view->ringThickness ?? 'ring_v2--thick');
 		<table class="badge-v2-table">
 			<thead>
 				<tr>
-					<th>LP</th>
-					<th>Nazwa</th>
+					<th><?= tr('No.'); ?></th>
+					<th><?= tr('name_label'); ?></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -81,8 +81,8 @@ $thickness = (string) ($view->ringThickness ?? 'ring_v2--thick');
 		<table class="badge-v2-table">
 			<thead>
 				<tr>
-					<th>LP</th>
-					<th>Nazwa</th>
+					<th><?= tr('No.'); ?></th>
+					<th><?= tr('name_label'); ?></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -107,7 +107,7 @@ $thickness = (string) ($view->ringThickness ?? 'ring_v2--thick');
 <div class="badge-v2-frame mb-20">
 	<div class="badge-v2-levels-gainers">
 		<div class="badge-v2-levels">
-			<table class="badge-v2-table badge-v2-table--counter w-100 badge-v2-table--flat">
+			<table class="badge-v2-table badge-v2-table--counter w-100 badge-v2-table--flat fs-12">
 				<thead>
 					<tr>
 						<th></th>
@@ -144,11 +144,11 @@ $thickness = (string) ($view->ringThickness ?? 'ring_v2--thick');
 			</table>
 		</div>
 		<div id="badge-gainers-frame" class="badge-v2-gainers hidden">
-				<table class="badge-v2-table w-100 badge-v2-table--flat" id="gainers-table">
+				<table class="badge-v2-table w-100 badge-v2-table--flat fs-12" id="gainers-table">
 					<thead>
 						<tr>
 							<th><?= tr('user'); ?></th>
-							<th><?= tr('merit_badge_number'); ?></th>
+							<th class="text-center"><?= tr('merit_badge_number'); ?></th>
 							<th><?= tr('merit_badge_gain_date'); ?></th>
 						</tr>
 					</thead>
@@ -165,9 +165,12 @@ $thickness = (string) ($view->ringThickness ?? 'ring_v2--thick');
 		<?php if (!empty($view->badge['show_positions_list'])) { ?>
 		<a class="blue-button-small" href="<?= SimpleRouter::getLink('Badges.BadgePositions', null, (int) ($view->badge['id'] ?? 0)); ?>/"><?= tr('merit_badge_list'); ?></a>
 		<?php } ?>
+		<?php if (!empty($view->userId)) { ?>
 		<button type="button" data-toggle-gpx class="blue-button-small"><?= tr('merit_badge_export_gpx'); ?></button>
-	
-		<button type="button"><?= tr('merit_badge_check_my_level'); ?></button>
+		<?php if (!empty($view->badge['is_obtainable'])) { ?>
+		<button type="button" class="blue-button-small badge-recalculate-btn" data-badge-id="<?= (int) ($view->badge['id'] ?? 0); ?>" data-user-id="<?= (int) $view->userId; ?>"><?= tr('merit_badge_check_my_level'); ?></button>
+		<?php } ?>
+		<?php } ?>
 		<?php if (!empty($view->badge['show_positions_map'])) { ?>
 		<a class="green-button-small" href="<?= SimpleRouter::getLink('Badges.BadgePositionsMap', null, (int) ($view->badge['id'] ?? 0)); ?>/"><?= tr('merit_badge_map'); ?></a>
 		<?php } ?>
@@ -218,3 +221,54 @@ $thickness = (string) ($view->ringThickness ?? 'ring_v2--thick');
 
 <div id="gainers-cache-store" class="hidden"></div>
 <div id="badge-gainers-root" class="hidden" data-badge-id="<?= (int) ($view->badge['id'] ?? 0); ?>"></div>
+
+<?php if (!empty($view->showBadgePopup)) {
+    $progress = $view->progress ?? null;
+    $levelId = $progress !== null ? (int) ($progress['level_id'] ?? 0) : 0;
+    $levels = $view->levels ?? [];
+    $levelName = '';
+    $levelPicture = (string) ($view->badgePicture ?? '');
+    $nextVal = 0;
+    foreach ($levels as $level) {
+        if ((int) ($level['level'] ?? 0) === $levelId) {
+            $levelName = (string) ($level['name'] ?? '');
+            if (!empty($level['picture'])) {
+                $levelPicture = (string) $level['picture'];
+            }
+            break;
+        }
+    }
+    $foundCurrent = false;
+    foreach ($levels as $level) {
+        if ($foundCurrent) {
+            $nextVal = (int) ($level['threshold'] ?? 0);
+            break;
+        }
+        if ((int) ($level['level'] ?? 0) === $levelId) {
+            $foundCurrent = true;
+        }
+    }
+    if ($nextVal === 0) {
+        $nextVal = 999999;
+    }
+    $currVal = $progress !== null ? (int) ($progress['curr_val'] ?? 0) : 0;
+    $shortDesc = (string) ($view->shortDesc ?? '');
+    $badgeName = (string) ($view->badge['name'] ?? '');
+    $pictureUrl = $levelPicture[0] === '/' ? $levelPicture : '/' . $levelPicture;
+?>
+<div id="badge-popup" class="hidden" data-title="<?= htmlspecialchars(tr('my_current_badge_level'), ENT_QUOTES, 'UTF-8'); ?>">
+    <div style="width:500px;">
+        <img src="<?= htmlspecialchars($pictureUrl, ENT_QUOTES, 'UTF-8'); ?>" style="float: left;margin-right:20px;" alt="" />
+        <p style="font-size:20px; font-weight:bold;"><?= htmlspecialchars($badgeName, ENT_QUOTES, 'UTF-8'); ?><br>
+        <?php if (trim($shortDesc) !== '') { ?>
+        <span style="font-size:13px; font-weight:normal; font-style:italic;"><?= htmlspecialchars($shortDesc, ENT_QUOTES, 'UTF-8'); ?></span>
+        <?php } ?>
+        </p>
+        <p style="font-size:13px;font-weight:normal;"><?= tr('merit_badge_level_name'); ?>: <b><?= htmlspecialchars($levelName, ENT_QUOTES, 'UTF-8'); ?></b><br>
+        <?= tr('merit_badge_number'); ?>: <b><?= (int) $currVal; ?></b><br>
+        <?= tr('merit_badge_next_level_threshold'); ?>: <b><?= (int) $nextVal; ?></b><br>
+        </p>
+    </div>
+    <br>
+</div>
+<?php } ?>

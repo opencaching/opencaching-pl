@@ -22,6 +22,11 @@ class BadgeCategoriesAdminService
      * Read paginated badge categories for the admin panel.
      *
      * @return array{items: array<int, array<string, mixed>>, total: int}
+     * @param string|null $name
+     * @param int|null $id
+     * @param BadgeCategorySortEnum $sort
+     * @param int $page
+     * @param int $perPage
      */
     public function getCategories(?string $name, ?int $id, BadgeCategorySortEnum $sort, int $page, int $perPage): array
     {
@@ -38,6 +43,7 @@ class BadgeCategoriesAdminService
      * Read a single badge category by id.
      *
      * @return array<string, mixed>|null
+     * @param int $id
      */
     public function getCategory(int $id): ?array
     {

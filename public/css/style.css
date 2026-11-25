@@ -1858,6 +1858,12 @@ And this file is the first step towards that. */
 .fs-14 {
   font-size: 14px; }
 
+.italic {
+  font-style: italic; }
+
+.bold {
+  font-weight: bold; }
+
 .align-baseline {
   vertical-align: baseline; }
 

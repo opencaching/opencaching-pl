@@ -4,8 +4,12 @@ namespace src\Controllers\Admin;
 
 use src\Controllers\Core\ViewBaseController;
 use src\Enums\BadgeSortEnum;
+use src\Models\Badges\BadgeImageUploadModel;
+use src\Models\Badges\BadgeLevelImageUploadModel;
 use src\Models\ChunkModels\PaginationModel;
 use src\Services\Badges\BadgesAdminService;
+use src\Utils\FileSystem\FileUploadMgr;
+use src\Utils\Img\OcImage;
 use src\Utils\Uri\HttpCode;
 use src\Utils\Uri\SimpleRouter;
 
@@ -59,9 +63,159 @@ class BadgesAdminController extends ViewBaseController
         $this->view->redirect(SimpleRouter::getLink('Admin.BadgesAdmin', 'edit', $badgeId) . '?msg=saved');
     }
 
+    public function uploadImageAjax($badgeId): void
+    {
+        $badgeId = (int) $badgeId;
+
+        if (! $this->isUserLogged()) {
+            http_response_code(HttpCode::STATUS_UNAUTHORIZED);
+            header('Content-Type: application/json; charset=UTF-8');
+            echo json_encode(['status' => 'ERROR', 'message' => 'User not logged']);
+            exit;
+        }
+
+        $badge = $this->service->getBadge($badgeId);
+        if (! is_array($badge) || empty($badge['can_edit'])) {
+            http_response_code(HttpCode::STATUS_FORBIDDEN);
+            header('Content-Type: application/json; charset=UTF-8');
+            echo json_encode(['status' => 'ERROR', 'message' => 'Badge not editable']);
+            exit;
+        }
+
+        $uploadModel = BadgeImageUploadModel::forBadge($badgeId);
+
+        try {
+            $tmpFiles = FileUploadMgr::processFileUpload($uploadModel);
+            $tmpFile = array_shift($tmpFiles);
+        } catch (\RuntimeException $e) {
+            http_response_code(HttpCode::STATUS_BAD_REQUEST);
+            header('Content-Type: application/json; charset=UTF-8');
+            echo json_encode(['status' => 'ERROR', 'message' => $e->getMessage()]);
+            exit;
+        }
+
+        $newPath = \src\Models\OcConfig\OcConfig::getDynFilesPath(true) . '/images/uploads/badges/main/' . \src\Utils\Generators\Uuid::create();
+        $dir = dirname($newPath);
+        if (! is_dir($dir)) {
+            @mkdir($dir, 0755, true);
+        }
+
+        $fullTmpPath = $uploadModel->getDirAtServer() . '/' . $tmpFile;
+        $savedPath = \src\Utils\Img\OcImage::createThumbnail($fullTmpPath, $newPath, [120, 120]);
+
+        $relativeUrl = 'images/uploads/badges/main/' . basename($savedPath);
+        $this->service->updateBadgePicture($badgeId, $relativeUrl);
+
+        header('Content-Type: application/json; charset=UTF-8');
+        echo json_encode(['status' => 'OK', 'url' => $relativeUrl], JSON_UNESCAPED_UNICODE);
+        exit;
+    }
+
+    public function uploadLevelImageAjax($badgeId, $level): void
+    {
+        $badgeId = (int) $badgeId;
+        $level = (int) $level;
+
+        if (! $this->isUserLogged()) {
+            http_response_code(HttpCode::STATUS_UNAUTHORIZED);
+            header('Content-Type: application/json; charset=UTF-8');
+            echo json_encode(['status' => 'ERROR', 'message' => 'User not logged']);
+            exit;
+        }
+
+        $badge = $this->service->getBadge($badgeId);
+        if (! is_array($badge) || empty($badge['can_edit'])) {
+            http_response_code(HttpCode::STATUS_FORBIDDEN);
+            header('Content-Type: application/json; charset=UTF-8');
+            echo json_encode(['status' => 'ERROR', 'message' => 'Badge not editable']);
+            exit;
+        }
+
+        $uploadModel = BadgeLevelImageUploadModel::forLevel($badgeId, $level);
+
+        try {
+            $tmpFiles = FileUploadMgr::processFileUpload($uploadModel);
+            $tmpFile = array_shift($tmpFiles);
+        } catch (\RuntimeException $e) {
+            http_response_code(HttpCode::STATUS_BAD_REQUEST);
+            header('Content-Type: application/json; charset=UTF-8');
+            echo json_encode(['status' => 'ERROR', 'message' => $e->getMessage()]);
+            exit;
+        }
+
+        $dir = \src\Models\OcConfig\OcConfig::getDynFilesPath(true) . '/images/uploads/badges/levels';
+        if (! is_dir($dir)) {
+            @mkdir($dir, 0755, true);
+        }
+
+        $newPath = \src\Models\OcConfig\OcConfig::getDynFilesPath(true) . '/images/uploads/badges/levels/' . \src\Utils\Generators\Uuid::create();
+        $fullTmpPath = $uploadModel->getDirAtServer() . '/' . $tmpFile;
+        $savedPath = \src\Utils\Img\OcImage::createThumbnail($fullTmpPath, $newPath, [120, 120]);
+
+        $relativeUrl = 'images/uploads/badges/levels/' . basename($savedPath);
+        $this->service->updateLevelPicture($badgeId, $level, $relativeUrl);
+
+        header('Content-Type: application/json; charset=UTF-8');
+        echo json_encode(['status' => 'OK', 'url' => $relativeUrl], JSON_UNESCAPED_UNICODE);
+        exit;
+    }
+
+    public function deleteImageAjax($badgeId): void
+    {
+        $badgeId = (int) $badgeId;
+
+        if (! $this->isUserLogged()) {
+            http_response_code(HttpCode::STATUS_UNAUTHORIZED);
+            header('Content-Type: application/json; charset=UTF-8');
+            echo json_encode(['status' => 'ERROR', 'message' => 'User not logged']);
+            exit;
+        }
+
+        $badge = $this->service->getBadge($badgeId);
+        if (! is_array($badge) || empty($badge['can_edit'])) {
+            http_response_code(HttpCode::STATUS_FORBIDDEN);
+            header('Content-Type: application/json; charset=UTF-8');
+            echo json_encode(['status' => 'ERROR', 'message' => 'Badge not editable']);
+            exit;
+        }
+
+        $this->service->deleteBadgeImage($badgeId);
+
+        header('Content-Type: application/json; charset=UTF-8');
+        echo json_encode(['status' => 'OK'], JSON_UNESCAPED_UNICODE);
+        exit;
+    }
+
+    public function deleteLevelImageAjax($badgeId, $level): void
+    {
+        $badgeId = (int) $badgeId;
+        $level = (int) $level;
+
+        if (! $this->isUserLogged()) {
+            http_response_code(HttpCode::STATUS_UNAUTHORIZED);
+            header('Content-Type: application/json; charset=UTF-8');
+            echo json_encode(['status' => 'ERROR', 'message' => 'User not logged']);
+            exit;
+        }
+
+        $badge = $this->service->getBadge($badgeId);
+        if (! is_array($badge) || empty($badge['can_edit'])) {
+            http_response_code(HttpCode::STATUS_FORBIDDEN);
+            header('Content-Type: application/json; charset=UTF-8');
+            echo json_encode(['status' => 'ERROR', 'message' => 'Badge not editable']);
+            exit;
+        }
+
+        $this->service->deleteLevelImage($badgeId, $level);
+
+        header('Content-Type: application/json; charset=UTF-8');
+        echo json_encode(['status' => 'OK'], JSON_UNESCAPED_UNICODE);
+        exit;
+    }
+
     public function isCallableFromRouter(string $actionName): bool
     {
-        return in_array($actionName, ['index', 'edit', 'save', 'deleteLevelImage'], true);
+        return in_array($actionName, ['index', 'edit', 'save', 'deleteLevelImage', 'uploadImageAjax', 'uploadLevelImageAjax', 'deleteImageAjax', 'deleteLevelImageAjax'], true);
     }
 
     public function index()

@@ -18,7 +18,7 @@ class BadgeImageUploadModel extends UploadModel
         $obj->allowedTypesRegex = 'image/png|image/webp';
         $obj->maxFileSize = 120 * 1024;
         $obj->setMaxFileNumber(1);
-        $obj->submitUrl = '/Badges.Badges/uploadImageAjax/' . $badgeId;
+        $obj->submitUrl = '/Admin.BadgesAdmin/uploadImageAjax/' . $badgeId;
         $obj->setDirs(self::DEFAULT_TMP_DIR);
         return $obj;
     }

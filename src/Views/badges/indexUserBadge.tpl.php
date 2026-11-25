@@ -16,8 +16,8 @@
             <?php foreach (($category['badges'] ?? []) as $badge) { ?>
                     <div class="badge-v2-item mb-10">
                     <div class="badge-v2-ring-wrap">
-                        <svg class="ring_v2 <?= htmlspecialchars($badge['ringThickness'] ?? 'ring_v2--thick', ENT_QUOTES, 'UTF-8'); ?> <?= htmlspecialchars($badge['ringColorClass'] ?? 'badge-level-1', ENT_QUOTES, 'UTF-8'); ?>" viewBox="0 0 140 140">
-                            <circle class="ring_v2__progress" style="--percent: 100" cx="70" cy="70" r="67.5" />
+                        <svg class="ring_v2 <?= htmlspecialchars($badge['ringThickness'] ?? 'ring_v2--thick', ENT_QUOTES, 'UTF-8'); ?> <?= htmlspecialchars($badge['ringColorClass'] ?? 'badge-level-1', ENT_QUOTES, 'UTF-8'); ?>" style="--percent: <?= (int) ($badge['ringPercent'] ?? 0); ?>" viewBox="0 0 140 140">
+                            <circle class="ring_v2__progress" style="--percent: <?= (int) ($badge['ringPercent'] ?? 0); ?>" cx="70" cy="70" r="67.5" />
                         </svg>
                         <?php if (!empty($badge['picture'])) { ?>
                             <a href="<?= htmlspecialchars(SimpleRouter::getLink('Badges.MyBadges', 'badge', [(int) ($badge['id'] ?? 0), (int) ($view->userId ?? 0)]), ENT_QUOTES, 'UTF-8'); ?>">
@@ -26,9 +26,18 @@
                         <?php } ?>
                     </div>
                     <div class="badge-v2-name">
-                    <a href="<?= htmlspecialchars(SimpleRouter::getLink('Badges.MyBadges', 'badge', [(int) ($badge['id'] ?? 0), (int) ($view->userId ?? 0)]), ENT_QUOTES, 'UTF-8'); ?>">
+                    <a href="<?= htmlspecialchars(SimpleRouter::getLink('Badges.MyBadges', 'badge', [(int) ($badge['id'] ?? 0), (int) ($view->userId ?? 0)]), ENT_QUOTES, 'UTF-8'); ?>" class="fs-14">
                         <?= htmlspecialchars($badge['name'] ?? '', ENT_QUOTES, 'UTF-8'); ?>
                     </a>
+                    <?php if ((int) ($badge['levelId'] ?? 0) > 0) { ?>
+                    <div class="fs-12"><?= tr('merit_badge_level'); ?>: <?= htmlspecialchars(($badge['levelRoman'] ?? '') . '. ' . ($badge['levelName'] ?? ''), ENT_QUOTES, 'UTF-8'); ?></div>
+                    <?php } ?>
+                    <?php if (trim((string) ($badge['shortDesc'] ?? '')) !== '') { ?>
+                    <div class="fs-12 italic"><?= htmlspecialchars((string) $badge['shortDesc'], ENT_QUOTES, 'UTF-8'); ?></div>
+                    <?php } ?>
+                    <?php if ((int) ($badge['nextVal'] ?? 0) > 0 && (int) ($badge['nextVal'] ?? 0) < 999999) { ?>
+                    <div class="fs-12"><?= tr('merit_badge_number'); ?>: <?= (int) ($badge['currVal'] ?? 0); ?> / <?= (int) ($badge['nextVal'] ?? 0); ?></div>
+                    <?php } ?>
                 </div>
 
                 </div>
