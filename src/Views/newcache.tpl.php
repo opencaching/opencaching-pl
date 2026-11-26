@@ -12,14 +12,15 @@ $view->callChunk('timepicker');
 
 <script>
 
+    var defaultCountry = null;
+    var defaultRegion = null;
+
     $(function() {
         $("#waypointsToChose").dialog({
             position: { my: "top+150", at: "top", of: window },
             autoOpen: false,
             width: $(window).width() > 800 ? 800 : $(window).width() * 0.9,
             modal: true,
-            show: {effect: 'bounce', duration: 350, /* SPECIF ARGUMENT */ times: 3},
-            hide: "explode",
             buttons: {
               '<?= tr('newCacheWpClose'); ?>': function() {
                 $(this).dialog("close");
@@ -33,7 +34,7 @@ $view->callChunk('timepicker');
             width: 800,
             minHeight: 800,
             modal: true,
-            hide: "explode",
+            hide: "fade",
             show: "fade",
             title: "<?= tr('gpx_info_title'); ?>",
             buttons: {
@@ -69,6 +70,15 @@ $view->callChunk('timepicker');
                });
             }
         });
+
+        countrySel = $("select[name='country']");
+        if (countrySel.length > 0) {
+            defaultCountry = countrySel[0].value;
+        }
+        regionSel = $("select[name='region']");
+        if (regionSel.length > 0) {
+            defaultRegion = regionSel[0].value;
+        }
     });
 
     // data picker init
@@ -78,7 +88,7 @@ $view->callChunk('timepicker');
       const regional = $.datepicker.regional[lang] || {};
       const options = $.extend({}, regional, { dateFormat: "yy-mm-dd" });
       $('#hiddenDatePicker, #activateDatePicker').datepicker(options);
-      
+
       $('#activateTimePicker').timepicker({
           hourText: '{{timePicker_hourText}}',
           minuteText: '{{timePicker_minuteText}}',
@@ -155,6 +165,12 @@ $view->callChunk('timepicker');
           locationData = response.locationTable;
           if ( !locationData['code1'] ) {
             // unknown country
+            $(
+                'select[name="country"] option:eq("' + defaultCountry + '")'
+            ).prop('selected', true);
+            $(
+                'select[name="region"] option:eq("' + defaultRegion + '")'
+            ).prop('selected', true);
             return;
           }
 
@@ -190,14 +206,6 @@ $view->callChunk('timepicker');
             $('#wptInfo').addClass('errormsg');
         }
         $('#wptInfo').show();
-        $(function() {
-            setTimeout(
-                function() {
-                    $('#wptInfo').fadeOut(1000);
-                },
-                5000
-            );
-        });
         if (
             response['status']['code'] == 0
             && typeof response['data'] != 'undefined'
@@ -231,11 +239,6 @@ $view->callChunk('timepicker');
         waypointsToChoose = [];
         $('#waypointsToChose').dialog("close");
         $('#wptInfo').show();
-        $(function() {
-            setTimeout(function() {
-            $('#wptInfo').fadeOut(1000);
-            }, 5000);
-        });
     }
 
     function fillFormInputs(wpt){
@@ -251,13 +254,10 @@ $view->callChunk('timepicker');
             );
         }
         if (wpt["size"] > 0) {
-            if (wpt["size"] == 7 ) {
-                _chkVirtual();
-            } else {
-                $("#size option[value=" + wpt["size"] + "]").attr(
-                    "selected", "selected"
-                );
-            }
+            _chkVirtual();
+            $("#size option[value=" + wpt["size"] + "]").attr(
+                "selected", "selected"
+            );
         }
         if (wpt["difficulty"] > 0) {
             $("select[name=difficulty] option[value=" + (wpt["difficulty"] * 2) + "]").attr(
@@ -287,7 +287,7 @@ $view->callChunk('timepicker');
         if ("wp_gc" in wpt && wpt["wp_gc"] !== undefined) {
             $("input[name=wp_gc]").val(wpt["wp_gc"]);
         }
-        if (wpt["attributes"].length > 0) {
+        if (Object.hasOwn(wpt, "attributes") && wpt["attributes"].length > 0) {
             $.each(wpt["attributes"], function(key, value) {
                 for (i = 0; i < maAttributes.length; i++) {
                     if (maAttributes[i][0] == value) {
@@ -435,7 +435,7 @@ $view->callChunk('timepicker');
         $('#actionicons').attr('src', image_cache);
     }
 
-    function toggleAttr(id) { 
+    function toggleAttr(id) {
       // same func in newcache.tpl.php and editcache.tpl.php
       var i = 0;
         for (i = 0; i < maAttributes.length; i++) {
@@ -1121,13 +1121,13 @@ $(document).ready(function(){
 </table>
 <br/>
 <p style="text-align: justify;">
-<?= tr('gpx_info_p7a') ?>:
+<?= tr('gpx_info_p7a'); ?>:
 <table class="bs-table" style="width: 95%;">
 <colgroup>
 <col style="width: 15%;"/>
 <col/>
 <?php foreach ($view->cacheGpxAttribs as $attrId => $attrTrKey) { ?>
-<tr><td><?= $attrId ?></td><td><?= tr($attrTrKey) ?></td></tr>
+<tr><td><?= $attrId; ?></td><td><?= tr($attrTrKey); ?></td></tr>
 <?php } ?>
 </table>
 <br/>
