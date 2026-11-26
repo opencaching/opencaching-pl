@@ -1,0 +1,19 @@
+.comma-after:not(:last-child)::after {
+    content: ", ";
+}
+
+.fs-12 {
+    font-size: 12px;
+}
+
+.fs-14 {
+    font-size: 14px;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.bold {
+    font-weight: bold;
+}

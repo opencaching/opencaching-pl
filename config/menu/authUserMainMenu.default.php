@@ -20,14 +20,20 @@ use src\Utils\Uri\SimpleRouter;
 
 /** @var array $links OcConfig::$links is accessible in within this scope */
 
-$menu = [
-    'mnu_news' => SimpleRouter::getLink('News.NewsList'),
-    'mnu_cacheMap' => SimpleRouter::getLink('MainMap', 'embeded'),
+$menu = [];
 
-    'mnu_myNeighborhood' => SimpleRouter::getLink('MyNeighbourhood','index'),
-    'mnu_searchCache' => '/search.php',
-    'mnu_geoPaths' => '/powerTrail.php',
+$menu['mnu_news'] = SimpleRouter::getLink('News.NewsList');
+$menu['mnu_cacheMap'] = SimpleRouter::getLink('MainMap', 'embeded');
 
-    'mnu_rules' => $links['wiki']['rules'],
-    'mnu_statistics' => '/articles.php?page=stat',
-];
+$menu['mnu_myNeighborhood'] = SimpleRouter::getLink('MyNeighbourhood','index');
+$menu['mnu_searchCache'] = '/search.php';
+$menu['mnu_geoPaths'] = '/powerTrail.php';
+
+global $config;
+if (! empty($config['meritBadges'])) {
+    $menu['mnu_badges_old'] = '/user_badges.php?user_id=999999';
+    $menu['mnu_badges_new'] = SimpleRouter::getLink('Badges.Badges');
+}
+
+$menu['mnu_rules'] = $links['wiki']['rules'];
+$menu['mnu_statistics'] = '/articles.php?page=stat';

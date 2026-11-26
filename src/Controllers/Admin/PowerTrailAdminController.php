@@ -140,11 +140,7 @@ class PowerTrailAdminController extends ViewBaseController
         $this->view->setVar('statuses', PowerTrailStatusesEnum::statuses());
         $this->view->setVar('wisMin', PowerTrailPercentRequiredEnum::MINIMUM);
         $this->view->setVar('wisMax', PowerTrailPercentRequiredEnum::MAXIMUM);
-        $this->view->addLocalJs(
-            Uri::getLinkWithModificationTime('/js/public.js'),
-            false,
-            true
-        );
+
         $this->view->setTemplate('admin/powerTrailAdmin/edit');
         $this->view->buildView();
     }
@@ -375,14 +371,4 @@ class PowerTrailAdminController extends ViewBaseController
         exit;
     }
 
-    private function getIntegerQueryParameter(string $name, int $default): int
-    {
-        if (! isset($_GET[$name]) || ! is_scalar($_GET[$name])) {
-            return $default;
-        }
-
-        $value = filter_var((string) $_GET[$name], FILTER_VALIDATE_INT);
-
-        return $value === false ? $default : max(0, $value);
-    }
 }

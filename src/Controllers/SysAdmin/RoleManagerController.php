@@ -99,11 +99,6 @@ class RoleManagerController extends ViewBaseController
         $this->view->setVar('currentUserId', $this->loggedUser->getUserId());
         $this->view->setVar('paginationModel', $paginationModel);
 
-        $this->view->addLocalJs(
-            Uri::getLinkWithModificationTime('/js/public.js'),
-            false,
-            true
-        );
 
         $this->view->setTemplate('sysAdmin/roleManager/index');
         $this->view->buildView();

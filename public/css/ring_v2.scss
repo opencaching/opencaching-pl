@@ -1,0 +1,109 @@
+/* ring_v2: animated progress ring (SVG, CSS-driven). */
+.ring_v2 {
+  display: block;
+  width: 140px;
+  height: 140px;
+
+  /* default parameters */
+  --duration: 2s;
+  --delay: 0s;
+  --color: var(--ring-color, #3b82f6); /* overridden by colour classes / badge levels */
+  --stroke: 5px;     /* overridden by thickness classes */
+}
+
+.ring_v2__progress {
+  --percent: 70; /* fallback value */
+
+  /* radius derived from stroke width so the ring always fits in 140px */
+  --r: calc(70px - var(--stroke) / 2);
+  --circumference: calc(2 * 3.14159265 * var(--r));
+
+  r: var(--r);
+  fill: none;
+  stroke: var(--color);
+  stroke-width: var(--stroke);
+  stroke-linecap: butt;
+
+  stroke-dasharray: var(--circumference);
+  stroke-dashoffset: var(--circumference); /* hidden at start */
+
+  /* start at the top, clockwise direction */
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+
+  animation: ring_v2_draw var(--duration) ease-out var(--delay) forwards;
+}
+
+/* --percent is set via inline style (--percent: N) in the markup. */
+@keyframes ring_v2_draw {
+  to {
+    stroke-dashoffset: calc(var(--circumference) * (1 - var(--percent) / 100));
+  }
+}
+
+/* ---------- colours (10) ---------- */
+.ring_v2--blue   { --color: #3b82f6; }
+.ring_v2--red    { --color: #ef4444; }
+.ring_v2--green  { --color: #22c55e; }
+.ring_v2--orange { --color: #f97316; }
+.ring_v2--yellow { --color: #eab308; }
+.ring_v2--purple { --color: #8b5cf6; }
+.ring_v2--pink   { --color: #ec4899; }
+.ring_v2--teal   { --color: #14b8a6; }
+.ring_v2--gray   { --color: #6b7280; }
+.ring_v2--black  { --color: #111827; }
+
+/* ---------- thickness (3) ---------- */
+.ring_v2--thin   { --stroke: 3px; }
+.ring_v2--medium { --stroke: 5px; }
+.ring_v2--thick  { --stroke: 10px; }
+
+/* gallery overlay for multiple images */
+.badge-v2-ring-gallery {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.badge-v2-ring-gallery .badge-v2-ring-image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 120px;
+  max-height: 120px;
+  opacity: 0;
+}
+
+/* CSS-only crossfade gallery for N images (N from 2 to 10).
+   Each image is visible ~3s, fades in/out over 1s. Keyframes and delays
+   are generated per N so the last image crossfades back to the first. */
+@for $n from 2 through 12 {
+  $total: $n * 3;
+  $p1: 100 / (3 * $n);
+  $p2: 400 / (3 * $n);
+  $p3: 500 / (3 * $n);
+  @if $p3 > 100 {
+    $p3: 100;
+  }
+
+  @keyframes badge-v2-gallery-#{$n} {
+    0% { opacity: 0; }
+    #{$p1}% { opacity: 1; }
+    #{$p2}% { opacity: 1; }
+    #{$p3}% { opacity: 0; }
+    100% { opacity: 0; }
+  }
+
+  .badge-v2-ring-gallery.n-#{$n} .badge-v2-ring-image {
+    animation: badge-v2-gallery-#{$n} #{$total}s ease-in-out 0s infinite;
+  }
+
+  @for $i from 0 to $n {
+    .badge-v2-ring-gallery.n-#{$n} .badge-v2-ring-image:nth-child(#{$i + 1}) {
+      animation-delay: #{$i * 3}s;
+    }
+  }
+}

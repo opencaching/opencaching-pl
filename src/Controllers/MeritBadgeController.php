@@ -256,7 +256,7 @@ class MeritBadgeController{
 
 
     private function buildArrayMeritBadgesTriggerBy( $trigger ){
-        $condition = " WHERE trigger_type=".$trigger;
+        $condition = " WHERE trigger_type = ".$trigger." AND is_obtainable=1";
         $stm = $this->db->simpleQuery( $this->getMeritBadgeQuery( $condition ) );
         return $this->buildArray( '\src\Models\MeritBadge\MeritBadge', $stm );
     }

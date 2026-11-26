@@ -23,11 +23,6 @@ abstract class CoreController
         // there is no DB access init - DB operations should be performed in models/objects
     }
 
-    protected function isUserLogged(): bool
-    {
-        return ! is_null($this->loggedUser);
-    }
-
     /**
      * Every ctrl should have index method
      * which is called by router as a default action
@@ -44,4 +39,32 @@ abstract class CoreController
      * @return bool - TRUE if given method can be call from router
      */
     abstract public function isCallableFromRouter(string $actionName): bool;
+
+    /**
+     * Check whether a user is logged in.
+     *
+     * @return bool
+     */
+    protected function isUserLogged(): bool
+    {
+        return ! is_null($this->loggedUser);
+    }
+
+    /**
+     * Read an integer query parameter from $_GET, with a default fallback.
+     *
+     * @param string $name
+     * @param int $default
+     * @return int
+     */
+    protected function getIntegerQueryParameter(string $name, int $default): int
+    {
+        if (! isset($_GET[$name]) || ! is_scalar($_GET[$name])) {
+            return $default;
+        }
+
+        $value = filter_var((string) $_GET[$name], FILTER_VALIDATE_INT);
+
+        return $value === false ? $default : max(0, $value);
+    }
 }

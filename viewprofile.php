@@ -238,7 +238,7 @@ $content .= '<br><p>&nbsp;</p><div class="content2-container bg-blue02"><p class
 //////////////////////////////////////////////////////////////////////////////
 
 //Merit badges
-if ($config['meritBadges']) {
+if ($config['meritBadges'] && $loggedUser && ($loggedUser->hasOcTeamRole() || $loggedUser->hasAdvUserRole())) {
     $content .= buildOpenCloseButton($user_id, $checkBadges, 'merit_badge.png', 'checkBadges', tr('merit_badges'), tr('merit_badges'));
 
     if ($checkBadges) {

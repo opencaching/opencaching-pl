@@ -28,7 +28,7 @@ if (isset($_REQUEST['user_id'])) {
 $meritBadgeCtrl = new \src\Controllers\MeritBadgeController;
 $userCategories = $meritBadgeCtrl->buildArrayUserCategories($userid);
 
-tpl_set_var( 'badge_css', Uri::getLinkWithModificationTime('/css/Badge.css') );
+
 
 $content = '';
 foreach($userCategories as $oneCategory){
@@ -67,5 +67,7 @@ foreach($userCategories as $oneCategory){
 $content.="<a class='links'  href='user_badges.php?user_id=999999'>[".tr('merit_badge_show_list')."]</a><br><br>";
 
 tpl_set_var( 'content', $content );
+
+tpl_getView()->loadJQuery();
 
 tpl_BuildTemplate();

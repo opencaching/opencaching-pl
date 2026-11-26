@@ -1,10 +1,10 @@
 /**
-
-  This css is loaded and used by pagination chunk only. 
-  There is no need to load it manually!
-
-*/
-
+ *
+ * DEPRECATED: This file is deprecated and will be removed.
+ * Styles have been migrated to public/css/pagination.scss (imported via style.scss).
+ * Do not load this file manually.
+ *
+ */
 
 .pagination {
     margin: 10px 0;
@@ -61,4 +61,3 @@
     background-color: #337ab7;
     color: #fff;
 }
-

@@ -518,6 +518,7 @@ $view->addHeaderChunk('darkmodeJS');
             <script src="<?= $js['url']; ?>"<?= $js['async'] ? ' async' : ''; ?> defer></script>
   <?php } //if
       } //foreach-js?>
+  <script src="<?= \src\Utils\Uri\Uri::getLinkWithModificationTime('/js/public.js'); ?>" defer></script>
   <!-- (C) The Opencaching Project 2020 -->
 </body>
 </html>

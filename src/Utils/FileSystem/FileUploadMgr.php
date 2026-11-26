@@ -90,11 +90,39 @@ class FileUploadMgr
      */
     private static function checkFileMimeType(UploadModel $model)
     {
-        foreach($_FILES[$model->formVarName]['type'] as $type){
-            if(!self::compareMimeType($type, $model->allowedTypesRegex)){
-                throw new RuntimeException("Not allowed mime type: $type != {$model->allowedTypesRegex}");
+        $formVarName = $model->formVarName;
+
+        if (! function_exists('finfo_open')) {
+            // Fallback to the client-provided MIME type.
+            foreach ($_FILES[$formVarName]['type'] as $type) {
+                if (! self::compareMimeType($type, $model->allowedTypesRegex)) {
+                    throw new RuntimeException("Not allowed mime type: $type != {$model->allowedTypesRegex}");
+                }
+            }
+            return;
+        }
+
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        if ($finfo === false) {
+            foreach ($_FILES[$formVarName]['type'] as $type) {
+                if (! self::compareMimeType($type, $model->allowedTypesRegex)) {
+                    throw new RuntimeException("Not allowed mime type: $type != {$model->allowedTypesRegex}");
+                }
+            }
+            return;
+        }
+
+        foreach ($_FILES[$formVarName]['tmp_name'] as $i => $tmpName) {
+            $realType = finfo_file($finfo, $tmpName);
+            if ($realType === false) {
+                $realType = (string) ($_FILES[$formVarName]['type'][$i] ?? '');
+            }
+            if (! self::compareMimeType($realType, $model->allowedTypesRegex)) {
+                finfo_close($finfo);
+                throw new RuntimeException("Not allowed mime type: $realType != {$model->allowedTypesRegex}");
             }
         }
+        finfo_close($finfo);
     }
 
     /**

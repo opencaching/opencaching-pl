@@ -402,6 +402,10 @@ if (!$loggedUser) {
             {
                 $options['searchtype'] = 'bypt';
             }
+            elseif (isset($_REQUEST['searchbybadge']))
+            {
+                $options['searchtype'] = 'bybadge';
+            }
             else
             {
                 if (isset($_REQUEST['showresult'])){
@@ -929,17 +933,47 @@ if (!$loggedUser) {
                     //print_r($_SESSION['geoPathCacheList']);
                     if (isset($_SESSION['geoPathCacheList']) && count($_SESSION['geoPathCacheList']) > 0){
                         $cache_bylist = implode(",", $_SESSION['geoPathCacheList']);
-                        $options['gpxPtFileName'] = $_SESSION['ptName'] ?? '';
+                        $options['gpxCustomFileName'] = $_SESSION['ptName'] ?? '';
                     } else {
                         $options['ptId'] = (int) $_REQUEST['ptId'];
                         $cache_bylist = implode(",",powerTrailBase::getPtCachesIds($options['ptId']));
                         $ptDetails = powerTrailBase::getPtDbRow($options['ptId']);
-                        $options['gpxPtFileName'] = powerTrailBase::clearPtNames($ptDetails['name']);
+                        $options['gpxCustomFileName'] = powerTrailBase::clearPtNames($ptDetails['name']);
                     }
                     $sql_select[] = '`caches`.`cache_id` `cache_id`';
                     $sql_from[] = '`caches`';
                     $sql_where[] = '`caches`.`cache_id` IN ('. $cache_bylist .')';
                     // unset ($_SESSION['geoPathCacheList']);
+                }
+                elseif ($options['searchtype'] == 'bybadge') {
+                    $badgeId = (int) ($_REQUEST['badgeId'] ?? $_REQUEST['idBadge'] ?? 0);
+                    $cache_bylist = '';
+                    if ($badgeId > 0) {
+                        $stmt = XDb::xSql(
+                            'SELECT `name`, `belonging_query` FROM `badges` WHERE `id` = ? LIMIT 1',
+                            $badgeId
+                        );
+                        $row = XDb::xFetchArray($stmt);
+                        $options['gpxCustomFileName'] = isset($row['name']) ? str_replace(' ', '', (string) $row['name']) : '';
+                        $belongingQuery = is_array($row) ? trim((string) ($row['belonging_query'] ?? '')) : '';
+                        if ($belongingQuery !== '' && strtolower($belongingQuery) !== 'all') {
+                            $q = XDb::xSql(
+                                'SELECT `c`.`cache_id` FROM (' . $belongingQuery . ') AS `bp` JOIN `caches` AS `c` ON `c`.`cache_id` = `bp`.`badge_position_id` WHERE `c`.`status` <> 6'
+                            );
+                            $ids = [];
+                            while ($r = XDb::xFetchArray($q)) {
+                                $ids[] = (int) $r['cache_id'];
+                            }
+                            $cache_bylist = implode(',', $ids);
+                        }
+                    }
+                    if ($cache_bylist === '') {
+                        $cache_bylist = '0';
+                    }
+
+                    $sql_select[] = '`caches`.`cache_id` `cache_id`';
+                    $sql_from[] = '`caches`';
+                    $sql_where[] = '`caches`.`cache_id` IN ('. $cache_bylist .')';
                 }
                 elseif ($options['searchtype'] == 'bywaypoint' && $options['waypoint']!='')
                 {

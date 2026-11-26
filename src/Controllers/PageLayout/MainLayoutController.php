@@ -314,7 +314,52 @@ class MainLayoutController extends BaseController
                     $url = '';
                     break;
                 }
-                // no break
+                $key = tr($key);
+                break;
+            case 'mnu_badges_old':
+            case 'mnu_badges_new':
+                // disable badges link if disabled in config
+                if (! $this->ocConfig->isMeritBadgesEnabled()) {
+                    $url = '';
+                    break;
+                }
+                // visible only to OC Team or advanced users
+                if (! $this->loggedUser || (! $this->loggedUser->hasOcTeamRole() && ! $this->loggedUser->hasAdvUserRole())) {
+                    $url = '';
+                    break;
+                }
+                $key = tr($key);
+                break;
+            default:
+                $key = tr($key); // by default menu key is just a translation
+        }
+    }
+
+    /**
+     * Prepare the custom user menu.
+     *
+     * @return array - $key->$url style of menu
+     */
+    private function customUserMenuHandler(&$key, &$url)
+    {
+        switch ($key) {
+            case 'mnu_myBadgesNew':
+            case 'mnu_myBadgesOld':
+                // disable badges link if disabled in config
+                if (! $this->ocConfig->isMeritBadgesEnabled()) {
+                    $url = '';
+                    break;
+                }
+                // visible only to OC Team or advanced users
+                if (! $this->loggedUser || (! $this->loggedUser->hasOcTeamRole() && ! $this->loggedUser->hasAdvUserRole())) {
+                    $url = '';
+                    break;
+                }
+                if ($key === 'mnu_myBadgesOld') {
+                    $url = '/user_badges.php?user_id=' . (int) $this->loggedUser->getUserId();
+                }
+                $key = tr($key);
+                break;
             default:
                 $key = tr($key); // by default menu key is just a translation
         }
@@ -334,6 +379,9 @@ class MainLayoutController extends BaseController
                     break;
                 case OcConfig::MENU_AUTH_USER:
                     $this->authUserMenuHandler($key, $url);
+                    break;
+                case OcConfig::MENU_CUSTOM_USER:
+                    $this->customUserMenuHandler($key, $url);
                     break;
                 default:
                     $key = tr($key);
